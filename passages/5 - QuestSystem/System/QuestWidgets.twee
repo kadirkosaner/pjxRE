@@ -1,0 +1,41 @@
+/* ==========================================
+   UTILITY WIDGETS
+   Game log and certificates
+   
+   NOTE: Quest macros moved to story_javascript.js
+   Use: <<startQuest>>, <<advanceQuestStage>>, 
+        <<completeObjective>>, <<completeQuest>>
+========================================== */
+
+/* 
+   <<addLog "Title" "Description" "Icon">>
+   Adds an entry to the game log.
+   Icon defaults to "bookmark" if not provided.
+*/
+<<widget "addLog">>
+    <<set _title = $args[0]>>
+    <<set _desc = $args[1]>>
+    <<set _icon = $args[2] || "bookmark">>
+    
+    <<run $gameLog.unshift({
+        title: _title,
+        desc: _desc,
+        icon: _icon,
+        date: $timeSys ? (months[$timeSys.month-1] + " " + $timeSys.day) : "Day 1"
+    })>>
+<</widget>>
+
+/* 
+   <<addCertificate "Name" "Date">>
+   Adds a certificate.
+*/
+<<widget "addCertificate">>
+    <<set _name = $args[0]>>
+    <<set _date = $args[1] || "Unknown Date">>
+    
+    <<run $certificates.push({
+        name: _name,
+        date: _date
+    })>>
+    <<notify "success" ("Certificate Earned: " + _name)>>
+<</widget>>

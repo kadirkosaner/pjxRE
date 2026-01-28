@@ -1,0 +1,60 @@
+<<silently>>
+<<set $location = "fhBackyard">>
+<<logDailyActivity "brother" "talk">>
+<<set _char = $characters.brother>>
+<<set _friendship = _char.stats.friendship>>
+
+/* Determine phase */
+<<if $flags.summerBreak>>
+    <<set _phase = "vacation">>
+<<else>>
+    <<set _phase = "school">>
+<</if>>
+
+/* Determine tier */
+<<if _friendship < 40>>
+    <<set _tier = "tier1">>
+<<elseif _friendship < 70>>
+    <<set _tier = "tier2">>
+<<else>>
+    <<set _tier = "tier3">>
+<</if>>
+
+/* Topics available in backyard: being_home, dating */
+<<set _backyardTopics = ["being_home", "dating"]>>
+<<set _randomIndex = random(0, _backyardTopics.length - 1)>>
+<<set _topicKey = _backyardTopics[_randomIndex]>>
+<<set _topic = setup.brotherTalkTopics[_phase][_topicKey][_tier]>>
+
+/* Time and stats */
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+<<gainStat "mood" 3>>
+
+/* Apply stat gains */
+<<if _topic.friendship>>
+    <<gainStat "friendship" _topic.friendship "brother">>
+<</if>>
+<<if _topic.trust>>
+    <<gainStat "trust" _topic.trust "brother">>
+<</if>>
+<<if _topic.love>>
+    <<gainStat "love" _topic.love "brother">>
+<</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Backyard - Talk with Brother">>
+<<if _phase === "school">>
+Your brother is sitting on the back porch, taking a rare break from screens. The fresh air seems to be doing him good.
+<<else>>
+Your brother is outside, enjoying the vacation weather. He seems more relaxed out here, away from the chaos of the house.
+<</if>>
+<</narrative>>
+
+<<print _topic.text>>
+
+<div class="location-actions">
+<<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+</div>

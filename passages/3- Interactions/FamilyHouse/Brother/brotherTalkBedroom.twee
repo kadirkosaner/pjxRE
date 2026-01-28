@@ -1,0 +1,59 @@
+<<silently>>
+<<set $location = "fhBrotherRoom">>  /* Guest Room where brother stays */
+<<logDailyActivity "brother" "talk">>
+<<set _char = $characters.brother>>
+<<set _friendship = _char.stats.friendship>>
+
+/* Determine phase - school term or vacation */
+<<if $flags.summerBreak>>
+    <<set _phase = "vacation">>
+<<else>>
+    <<set _phase = "school">>
+<</if>>
+
+/* Determine tier based on friendship */
+<<if _friendship < 40>>
+    <<set _tier = "tier1">>
+<<elseif _friendship < 70>>
+    <<set _tier = "tier2">>
+<<else>>
+    <<set _tier = "tier3">>
+<</if>>
+
+/* Topics available in bedroom: gaming, school_life, sleep, hobbies */
+<<set _bedroomTopics = ["gaming", "school_life", "sleep", "hobbies"]>>
+<<set _randomIndex = random(0, _bedroomTopics.length - 1)>>
+<<set _topicKey = _bedroomTopics[_randomIndex]>>
+<<set _topic = setup.brotherTalkTopics[_phase][_topicKey][_tier]>>
+
+/* Time and stats */
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+
+/* Apply stat gains from topic */
+<<if _topic.friendship>>
+    <<gainStat "friendship" _topic.friendship "brother">>
+<</if>>
+<<if _topic.trust>>
+    <<gainStat "trust" _topic.trust "brother">>
+<</if>>
+<<if _topic.love>>
+    <<gainStat "love" _topic.love "brother">>
+<</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Guest Room - Talk with brother">>
+<<if _phase === "school">>
+brother is at the desk in the guest room, surrounded by textbooks and energy drink cans. His RGB-lit gaming setup glows in the background, tempting him away from homework.
+<<else>>
+brother is in his element—headset on, fingers flying across his mechanical keyboard. The room is dimly lit, screen glow illuminating his focused expression.
+<</if>>
+<</narrative>>
+
+<<print _topic.text>>
+
+<div class="location-actions">
+<<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+</div>

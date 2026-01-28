@@ -1,0 +1,59 @@
+<<silently>>
+<<set $location = "fhLivingroom">>
+<<logDailyActivity "brother" "talk">>
+<<set _char = $characters.brother>>
+<<set _friendship = _char.stats.friendship>>
+
+/* Determine phase */
+<<if $flags.summerBreak>>
+    <<set _phase = "vacation">>
+<<else>>
+    <<set _phase = "school">>
+<</if>>
+
+/* Determine tier */
+<<if _friendship < 40>>
+    <<set _tier = "tier1">>
+<<elseif _friendship < 70>>
+    <<set _tier = "tier2">>
+<<else>>
+    <<set _tier = "tier3">>
+<</if>>
+
+/* Topics available in living room: movies_shows, outside_friends */
+<<set _livingroomTopics = ["movies_shows", "outside_friends"]>>
+<<set _randomIndex = random(0, _livingroomTopics.length - 1)>>
+<<set _topicKey = _livingroomTopics[_randomIndex]>>
+<<set _topic = setup.brotherTalkTopics[_phase][_topicKey][_tier]>>
+
+/* Time and stats */
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+
+/* Apply stat gains */
+<<if _topic.friendship>>
+    <<gainStat "friendship" _topic.friendship "brother">>
+<</if>>
+<<if _topic.trust>>
+    <<gainStat "trust" _topic.trust "brother">>
+<</if>>
+<<if _topic.love>>
+    <<gainStat "love" _topic.love "brother">>
+<</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Living Room - Talk with brother">>
+<<if _phase === "school">>
+brother is sprawled on the couch, phone in hand. He looks up when you enter and shifts to make room for you.
+<<else>>
+brother has claimed the entire couch, controller in hand. When he sees you, he pauses his game and pats the cushion next to him.
+<</if>>
+<</narrative>>
+
+<<print _topic.text>>
+
+<div class="location-actions">
+<<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+</div>

@@ -1,0 +1,31 @@
+/* ==========================================
+   QUEST SYSTEM VARIABLES
+   Stores active and completed quests.
+   
+   Structure based on assets/system/js/modal/journal.js expectation:
+   $quests = {
+       active: [],
+       completed: []
+   }
+   
+   Quest Object Structure:
+   {
+       id: "questId",
+       title: "Quest Title",
+       desc: "Quest Description",
+       objectives: [
+           { text: "Objective 1", completed: false }
+       ]
+   }
+========================================== */
+
+<<set $quests = {
+    active: [],
+    completed: []
+}>>
+
+/* Event Log / Discovery Log */
+<<set $gameLog = []>>
+
+/* Certificates / Achievements */
+<<set $certificates = []>>

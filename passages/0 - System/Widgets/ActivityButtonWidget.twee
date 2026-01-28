@@ -1,0 +1,136 @@
+/* ==========================================
+   ACTIVITY BUTTON WIDGET
+   Unified system for activity buttons with requirement checks
+   Supports: outfit, inventory, character presence, stat checks
+========================================== */
+
+<<widget "activityButton">><<nobr>>
+<<silently>>
+    /* Parse arguments - now using string format for requirements */
+    <<set _btnText = _args[0]>>           /* Button display text */
+    <<set _targetPassage = _args[1]>>     /* Where to go when clicked */  
+    <<set _requirementsStr = _args[2]>>   /* String format: "outfit:sporty 3" or "outfit:sporty 3|item:yoga_mat" */
+    <<set _dailyCheck = _args[3]>>        /* Optional: true/false */
+
+    /* Skip if already done today */
+    <<if _dailyCheck === true>>
+        <<set _skipButton = true>>
+    <<else>>
+        <<set _skipButton = false>>
+        
+        /* Initialize check result */
+        <<set _canDoActivity = true>>
+        <<set _errorMessages = []>>
+        
+        /* Parse requirements string */
+        <<if _requirementsStr && _requirementsStr !== "">>
+            <<set _reqParts = _requirementsStr.split("|")>>
+            <<for _i = 0; _i < _reqParts.length; _i++>>
+                <<set _req = _reqParts[_i].trim()>>
+                <<set _reqType = _req.split(":")[0]>>
+                <<set _reqValue = _req.split(":")[1]>>
+                
+                /* Outfit requirement */
+                <<if _reqType === "outfit">>
+                    <<set _outfitParts = _reqValue.split(" ")>>
+                    <<set _outfitStyle = _outfitParts[0]>>
+                    <<set _outfitCount = parseInt(_outfitParts[1] || 2)>>
+                    <<checkOutfitStyle _outfitStyle _outfitCount 0>>
+                    <<if !State.temporary.outfitCheckResult.allowed>>
+                        <<set _canDoActivity = false>>
+                        <<run _errorMessages.push(State.temporary.outfitCheckResult.reason)>>
+                    <</if>>
+                <</if>>
+                
+                /* Item requirement */
+                <<if _reqType === "item">>
+                    <<checkInventoryItem _reqValue>>
+                    <<if !State.temporary.inventoryCheckResult.allowed>>
+                        <<set _canDoActivity = false>>
+                        <<run _errorMessages.push(State.temporary.inventoryCheckResult.reason)>>
+                    <</if>>
+                <</if>>
+                
+                /* Character requirement */
+                <<if _reqType === "character">>
+                    <<if $characters && $characters[_reqValue]>>
+                        <<set _charPresent = ($characters[_reqValue].currentLocation === $location)>>
+                        <<if !_charPresent>>
+                            <<set _canDoActivity = false>>
+                            <<set _charName = $characters[_reqValue].name || _reqValue>>
+                            <<run _errorMessages.push(_charName + " is not here")>>
+                        <</if>>
+                    <</if>>
+                <</if>>
+                
+                /* Min stat requirement */
+                <<if _reqType === "minStat">>
+                    <<set _statParts = _reqValue.split(" ")>>
+                    <<set _statName = _statParts[0]>>
+                    <<set _minValue = parseInt(_statParts[1])>>
+                    <<set _currentValue = State.variables[_statName] || 0>>
+                    <<if _currentValue < _minValue>>
+                        <<set _canDoActivity = false>>
+                        <<run _errorMessages.push("Need " + _statName + " >= " + _minValue + " (current: " + _currentValue + ")")>>
+                    <</if>>
+                <</if>>
+                
+                /* Max stat requirement */
+                <<if _reqType === "maxStat">>
+                    <<set _statParts = _reqValue.split(" ")>>
+                    <<set _statName = _statParts[0]>>
+                    <<set _maxValue = parseInt(_statParts[1])>>
+                    <<set _currentValue = State.variables[_statName] || 0>>
+                    <<if _currentValue > _maxValue>>
+                        <<set _canDoActivity = false>>
+                        <<run _errorMessages.push("Need " + _statName + " <= " + _maxValue + " (current: " + _currentValue + ")")>>
+                    <</if>>
+                <</if>>
+            <</for>>
+        <</if>>
+        
+        /* Combine error messages for tooltip */
+        <<if _errorMessages.length > 0>>
+            <<set _tooltipText = _errorMessages.join(" ")>>
+        <<else>>
+            <<set _tooltipText = "">>
+        <</if>>
+    <</if>>
+<</silently>>
+
+<<if !_skipButton>>
+    <<if _canDoActivity>>
+        /* Standard active button - CSS height ensures alignment */
+        <<btn _btnText _targetPassage "btn-default action-btn">><</btn>>
+    <<else>>
+        /* Locked button with icon - CSS height ensures alignment */
+        <<set _lockedSpan = '<span class="btn-style btn-default action-btn locked" data-tooltip="' + _tooltipText + '"><i class="icon icon-lock icon-12"></i> ' + _btnText + '</span>'>>
+        <<print _lockedSpan>>
+    <</if>>
+<</if>>
+
+<</nobr>><</widget>>
+
+/* ==========================================
+   EXAMPLE USAGE:
+   
+   Requirements Format: "type:value|type2:value2"
+   
+   Park Yoga (outfit + item):
+   <<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat" $daily.yogaDone>>
+   
+   Park Jog (outfit only):
+   <<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3" $daily.jogDone>>
+   
+   Nap (with max energy check):
+   <<activityButton "Take a Nap" "runNap" "maxStat:energy 50" false>>
+   
+   Yoga with Mom (outfit + item, no character check in widget):
+   <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat" $daily.yogaDone>>
+   
+   Character presence check (optional):
+   <<activityButton "Study with Sarah" "studyWithSarah" "character:sarah|minStat:intelligence 20" false>>
+   
+   Dance (no requirements):
+   <<activityButton "Dance" "runDance" "" $daily.danceDone>>
+========================================== */

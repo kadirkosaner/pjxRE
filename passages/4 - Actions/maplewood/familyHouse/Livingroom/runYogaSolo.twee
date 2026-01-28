@@ -1,0 +1,48 @@
+<<silently>>
+    /* Set location from activity origin */
+    <<set $location = $activityOrigin>>
+    
+    <<set $daily.yogaDone = true>>
+    <<advanceTime 30>>
+    <<loseStat "energy" 15>>
+    <<loseStat "stress" 10>>
+    <<gainSkill "physical" "yoga" 5>>
+    <<recalculateStats>>
+    
+    /* Location-based content */
+    <<if $location === "fhBackyard">>
+        /* BACKYARD YOGA */
+        <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/backyard/yogaBackyard.webp">>
+        <<set _variation = random(1, 3)>>
+        <<switch _variation>>
+            <<case 1>>
+                <<set _sceneText = "You roll out your mat on the soft grass and begin your routine. The fresh air fills your lungs as you move through each pose. Birds chirp in the trees above, providing a natural soundtrack to your practice.">>
+            <<case 2>>
+                <<set _sceneText = "The morning sun warms your skin as you stretch in the backyard. There's something grounding about practicing yoga outside - feeling the earth beneath you, the breeze on your face. You hold each pose a little longer, savoring the moment.">>
+            <<case 3>>
+                <<set _sceneText = "You find a shady spot under the tree and lay out your mat. The backyard is peaceful at this hour. You flow through your poses slowly, feeling more connected to your body with each breath of fresh air.">>
+        <</switch>>
+    <<else>>
+        /* LIVING ROOM YOGA */
+        <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/yogaSetup.webp">>
+        <<set _variation = random(1, 3)>>
+        <<switch _variation>>
+            <<case 1>>
+                <<set _sceneText = "You spend the next 30 minutes moving through various poses. Downward dog, warrior, tree pose... your breathing steadies and your muscles stretch pleasantly. It's a good workout, leaving you feeling centered and refreshed.">>
+            <<case 2>>
+                <<set _sceneText = "Today you decide to challenge yourself with some harder poses. A few wobbles and one near-fall later, you're sweating but satisfied. Progress is progress, even when it's messy.">>
+            <<case 3>>
+                <<set _sceneText = "You focus on gentle stretches today, holding each pose a little longer than usual. Your mind wanders peacefully as your body loosens up. Sometimes the slow sessions are exactly what you need.">>
+        <</switch>>
+    <</if>>
+<</silently>>
+
+<<narrative "Yoga Session">>
+_sceneText
+<</narrative>>
+
+<<image _sceneImage "80%">>
+
+<div class="location-actions">
+    <<btn "Finish" $location>><</btn>>
+</div>

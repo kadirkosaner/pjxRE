@@ -1,0 +1,69 @@
+<<silently>>
+<<set $location = "fhGarage">>
+<<logDailyActivity "father" "talk">>
+<<set _char = $characters.father>>
+<<set _friendship = _char.stats.friendship>>
+
+/* Determine phase based on work status */
+<<if $flags.fatherStartedWork>>
+    <<set _phase = "postWork">>
+<<else>>
+    <<set _phase = "preWork">>
+<</if>>
+
+/* Determine tier based on friendship */
+<<if _friendship < 40>>
+    <<set _tier = "tier1">>
+<<elseif _friendship < 70>>
+    <<set _tier = "tier2">>
+<<else>>
+    <<set _tier = "tier3">>
+<</if>>
+
+/* Get common keys AND phase-specific keys */
+<<set _commonKeys = Object.keys(setup.fatherTalkTopics.common)>>
+<<set _phaseKeys = Object.keys(setup.fatherTalkTopics[_phase])>>
+<<set _allKeys = _commonKeys.concat(_phaseKeys)>>
+
+/* Select random topic */
+<<set _randomKey = _allKeys.random()>>
+
+/* Retrieve topic from correct pool */
+<<if setup.fatherTalkTopics.common[_randomKey]>>
+    <<set _topic = setup.fatherTalkTopics.common[_randomKey][_tier]>>
+<<else>>
+    <<set _topic = setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
+<</if>>
+
+/* Time and stats */
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+<<gainStat "mood" 3>> /* Garage bonding bonus */
+
+/* Apply stat gains from topic */
+<<if _topic.friendship>>
+    <<gainStat "friendship" _topic.friendship "father">>
+<</if>>
+<<if _topic.trust>>
+    <<gainStat "trust" _topic.trust "father">>
+<</if>>
+<<if _topic.love>>
+    <<gainStat "love" _topic.love "father">>
+<</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Garage - Talk with Father">>
+<<if _phase === "preWork">>
+The garage smells of motor oil and sawdust. Your father is in his element here, tools spread out around him, a project waiting for his attention.
+<<else>>
+Your father escapes to the garage after work, the one place he can clear his head. He looks up as you enter, a genuine smile crossing his tired face.
+<</if>>
+<</narrative>>
+
+<<print _topic.text>>
+
+<div class="location-actions">
+<<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+</div>

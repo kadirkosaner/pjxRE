@@ -1,0 +1,17 @@
+/* Player Wardrobe State
+ * This initializes the player's wardrobe state at game start
+ * 
+ * $wardrobe.equipped - Currently worn items { slot: itemId }
+ * $wardrobe.outfits  - Saved outfit combinations
+ * $wardrobe.owned    - Array of owned item IDs
+ */
+
+/* Initialize wardrobe state */
+<<set $wardrobe = {
+    equipped: {},
+    outfits: [null, null, null, null, null],
+    owned: []
+}>>
+
+/* Note: initialization logic is now handled lazily by the macro 
+   to ensure all clothing data passages are loaded first. */

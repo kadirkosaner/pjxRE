@@ -1,0 +1,228 @@
+<<silently>>
+<<set $location = "fhGarage">>
+<<logDailyActivity "father" "carWork">>
+<<set _char = $characters.father>>
+<<set _friendship = _char.stats.friendship>>
+
+/* Determine phase */
+<<if $flags.fatherStartedWork>>
+    <<set _phase = "postWork">>
+<<else>>
+    <<set _phase = "preWork">>
+<</if>>
+
+<<advanceTime 45>>
+<<loseStat "energy" 20>>
+<<gainStat "mood" 15>>
+<<loseStat "stress" 10>>
+<<gainSkill "practical" "mechanics" 5>>
+<<trackSkillUsage "practical" "mechanics">>
+<<gainStat "friendship" 4 "father">>
+<<gainStat "trust" 3 "father">>
+<<gainStat "love" 2 "father">>
+<<recalculateStats>>
+
+/* Select variant based on friendship */
+<<if _friendship < 50>>
+    <<set _variant = 1>>
+<<elseif _friendship < 75>>
+    <<set _variant = 2>>
+<<else>>
+    <<set _variant = 3>>
+<</if>>
+<</silently>>
+
+<<narrative "Garage - Working on Car with Father">>
+<<if _phase === "preWork">>
+The garage is your father's sanctuary—tools organized with military precision, the car hood propped open like an invitation.
+<<else>>
+Even after a long day, your father finds peace in the garage. The familiar ritual of working with his hands helps him decompress.
+<</if>>
+<</narrative>>
+
+<<if _phase === "preWork">>
+/* ========== PRE-WORK VARIANTS ========== */
+<<switch _variant>>
+<<case 1>>
+/* Variant 1: Teaching the Basics */
+<<dialog "father">>
+(Looking up from under the hood)
+Want to learn something useful? Come here.
+<</dialog>>
+
+<<narrative>>
+He shows you the basics—how to check the oil, where the battery is, what each component does. His explanations are patient and thorough.
+<</narrative>>
+
+<<dialog "father">>
+(Wiping his hands)
+Every person should know their way around an engine. Never know when it might save you.
+<</dialog>>
+
+<<dialog "player">>
+Thanks for teaching me.
+<</dialog>>
+
+<<dialog "father">>
+(Slight smile)
+Anytime.
+<</dialog>>
+
+<<case 2>>
+/* Variant 2: Working Together */
+<<dialog "father">>
+(Grinning)
+You're just in time. I need an extra pair of hands.
+<</dialog>>
+
+<<narrative>>
+He guides you through the repair, your hands working alongside his. He's a good teacher—patient when you make mistakes, encouraging when you get it right.
+<</narrative>>
+
+<<dialog "father">>
+(Standing back to admire your work)
+Not bad. Natural talent.
+<</dialog>>
+
+<<dialog "player">>
+I learned from the best.
+<</dialog>>
+
+<<dialog "father">>
+(Ruffling your hair affectionately)
+Flattery will get you everywhere.
+<</dialog>>
+
+<<case 3>>
+/* Variant 3: Intimate Teaching Moment */
+<<dialog "father">>
+(Pulling you close to the engine)
+Come here. I want to show you something.
+<</dialog>>
+
+<<narrative>>
+He positions you in front of him, your back nearly against his chest as he guides your hands into the engine compartment.
+<</narrative>>
+
+<<dialog "father">>
+(Voice low near your ear)
+Feel that? That's the heart of the machine. You've got to be gentle.
+<</dialog>>
+
+<<narrative>>
+His hands cover yours, guiding your movements. You're acutely aware of his presence behind you—the warmth, the smell of his cologne mixed with motor oil.
+<</narrative>>
+
+<<dialog "father">>
+(Rough voice)
+Good. Just like that. You've got good instincts.
+<</dialog>>
+
+<<narrative>>
+His breath is warm on your neck. Neither of you seems to be in a hurry to step apart.
+<</narrative>>
+
+<<dialog "father">>
+(Finally stepping back, clearing his throat)
+You're a quick learner. We should do this more often.
+<</dialog>>
+
+<</switch>>
+
+<<else>>
+/* ========== POST-WORK VARIANTS ========== */
+<<switch _variant>>
+<<case 1>>
+/* Variant 1: Quiet Company */
+<<dialog "father">>
+(Surprised to see you)
+Hey. Didn't expect company out here.
+<</dialog>>
+
+<<dialog "player">>
+Can I help?
+<</dialog>>
+
+<<dialog "father">>
+(Nodding toward the toolbox)
+Hand me the wrench?
+<</dialog>>
+
+<<narrative>>
+You work in comfortable silence, handing him tools when he asks. The quiet is peaceful, not awkward.
+<</narrative>>
+
+<<dialog "father">>
+(As you finish up)
+Thanks for this. It's nice having company.
+<</dialog>>
+
+<<case 2>>
+/* Variant 2: Escape Together */
+<<dialog "father">>
+(Relieved)
+I was hoping you'd come out here.
+<</dialog>>
+
+<<dialog "player">>
+Bad day?
+<</dialog>>
+
+<<dialog "father">>
+(Sighing)
+Better now.
+<</dialog>>
+
+<<narrative>>
+He teaches you while he works, sharing stories about his first car, his dad's garage. The work becomes secondary to the conversation.
+<</narrative>>
+
+<<dialog "father">>
+(Looking at you over the engine)
+This is my favorite place. But only when you're here.
+<</dialog>>
+
+<<case 3>>
+/* Variant 3: Close in the Garage */
+<<dialog "father">>
+(Face lighting up)
+There she is. My favorite assistant.
+<</dialog>>
+
+<<narrative>>
+He pulls you over, positioning you between himself and the car. His chest presses against your back as he reaches around you to point things out.
+<</narrative>>
+
+<<dialog "father">>
+(Murmuring near your ear)
+Forget work. Forget everything. Right now it's just us.
+<</dialog>>
+
+<<narrative>>
+His hands guide yours, but it feels like more than a lesson. His grip lingers, his body stays close even when it doesn't need to.
+<</narrative>>
+
+<<dialog "father">>
+(Turning you to face him)
+You know what the best part of my day is? 
+<</dialog>>
+
+<<dialog "player">>
+What?
+<</dialog>>
+
+<<dialog "father">>
+(Tucking hair behind your ear)
+This. Any moment I get with you.
+<</dialog>>
+
+<<narrative>>
+His hand lingers on your face. The garage feels very small, very warm.
+<</narrative>>
+
+<</switch>>
+<</if>>
+
+<div class="location-actions">
+<<btn "Finish Up" "CharacterInteraction" "secondary">><</btn>>
+</div>

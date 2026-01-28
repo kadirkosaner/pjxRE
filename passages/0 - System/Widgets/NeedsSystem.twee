@@ -1,0 +1,155 @@
+/* ==========================================
+   BIOLOGICAL NEEDS SYSTEM
+   Hunger, Thirst, Bladder, Hygiene, Calories
+========================================== */
+
+/* EAT FOOD */
+/* Usage: <<eatFood 500 30>> (500 calories, -30 hunger) */
+<<widget "eatFood">>
+    <<set _calories = $args[0] || 300>>
+    <<set _hungerReduction = $args[1] || 25>>
+    
+    /* Add to daily calorie intake */
+    <<set $dailyCalorieIntake += _calories>>
+    
+    /* Reduce hunger (if tracking enabled) */
+    <<if $gameSettings.trackHunger>>
+        <<set _negHunger = -1 * _hungerReduction>>
+        <<set $hunger = Math.max(0, $hunger - _hungerReduction)>>
+        <<queueStatChange "hunger" _negHunger>>
+    <</if>>
+<</widget>>
+
+
+/* BURN CALORIES */
+/* Usage: <<burnCalories 300 10>> (300 calories burned, +10 hunger) */
+<<widget "burnCalories">>
+    <<set _calories = $args[0] || 200>>
+    <<set _hungerIncrease = $args[1] || 8>>
+    
+    /* Subtract from daily calorie intake */
+    <<set $dailyCalorieIntake -= _calories>>
+    
+    /* Increase hunger (if tracking enabled) */
+    <<if $gameSettings.trackHunger>>
+        <<set $hunger = Math.min(100, $hunger + _hungerIncrease)>>
+    <</if>>
+<</widget>>
+
+
+
+/* INCREASE HUNGER (Time-based) */
+/* Usage: <<increaseHunger 5>> */
+<<widget "increaseHunger">>
+    <<if typeof $hunger !== "number">><<set $hunger = 0>><</if>>
+    <<if !$gameSettings.trackHunger>>
+        <<return>>
+    <</if>>
+    
+    <<set _amount = $args[0] || 5>>
+    <<set $hunger = Math.min(100, $hunger + _amount)>>
+    <<queueStatChange "hunger" _amount>>
+    
+    /* Check for critical hunger levels and apply penalties */
+    <<if $hunger >= 90>>
+        <<set $energy = Math.max(0, $energy - 20)>>
+        <<queueStatChange "energy" -20>>
+        <<set $mood = Math.max(0, $mood - 15)>>
+        <<queueStatChange "mood" -15>>
+        <<set $health = Math.max(0, $health - 10)>>
+        <<queueStatChange "health" -10>>
+    <<elseif $hunger >= 60>>
+        <<set $energy = Math.max(0, $energy - 10)>>
+        <<queueStatChange "energy" -10>>
+        <<set $mood = Math.max(0, $mood - 5)>>
+        <<queueStatChange "mood" -5>>
+    <</if>>
+<</widget>>
+
+
+/* INCREASE THIRST (Time-based) */
+/* Usage: <<increaseThirst 5>> */
+<<widget "increaseThirst">>
+    <<if typeof $thirst !== "number">><<set $thirst = 0>><</if>>
+    
+    /* Thirst is critical, always track or check settings if preferred */
+    <<set _amount = $args[0] || 5>>
+    <<set $thirst = Math.min(100, $thirst + _amount)>>
+    <<queueStatChange "thirst" _amount>>
+    
+    /* Penalties for Dehydration */
+    <<if $thirst >= 90>>
+        <<set $energy = Math.max(0, $energy - 15)>>
+        <<queueStatChange "energy" -15>>
+        <<set $focus = Math.max(0, $focus - 20)>>
+        <<queueStatChange "focus" -20>>
+        <<set $health = Math.max(0, $health - 5)>>
+        <<queueStatChange "health" -5>>
+    <<elseif $thirst >= 60>>
+        <<set $energy = Math.max(0, $energy - 5)>>
+        <<queueStatChange "energy" -5>>
+        <<set $focus = Math.max(0, $focus - 10)>>
+        <<queueStatChange "focus" -10>>
+    <</if>>
+<</widget>>
+
+
+/* INCREASE BLADDER (Time-based) */
+/* Usage: <<increaseBladder 5>> */
+<<widget "increaseBladder">>
+    <<if typeof $bladder !== "number">><<set $bladder = 0>><</if>>
+
+    <<set _amount = $args[0] || 5>>
+    <<set $bladder = Math.min(100, $bladder + _amount)>>
+    <<queueStatChange "bladder" _amount>>
+    
+    /* Penalties for Holding it */
+    <<if $bladder >= 100>>
+        <<set $stress = Math.min(100, $stress + 10)>>
+        <<queueStatChange "stress" 10>>
+        <<set $mood = Math.max(0, $mood - 10)>>
+        <<queueStatChange "mood" -10>>
+    <<elseif $bladder >= 80>>
+        <<set $stress = Math.min(100, $stress + 5)>>
+        <<queueStatChange "stress" 5>>
+    <</if>>
+<</widget>>
+
+
+/* DECREASE HYGIENE (Time-based) */
+/* Usage: <<decreaseHygiene 5>> */
+<<widget "decreaseHygiene">>
+    <<if typeof $hygiene !== "number">><<set $hygiene = 100>><</if>>
+
+    <<set _amount = $args[0] || 5>>
+    <<set _negAmount = -1 * _amount>>
+    <<set $hygiene = Math.max(0, $hygiene - _amount)>>
+    <<queueStatChange "hygiene" _negAmount>>
+    
+    /* Penalties for Poor Hygiene */
+    <<if $hygiene <= 10>>
+        <<set $mood = Math.max(0, $mood - 10)>>
+        <<queueStatChange "mood" -10>>
+        <<set $charisma = Math.max(0, $charisma - 10)>>
+        <<queueStatChange "charisma" -10>>
+    <<elseif $hygiene <= 30>>
+        <<set $charisma = Math.max(0, $charisma - 5)>>
+        <<queueStatChange "charisma" -5>>
+    <</if>>
+<</widget>>
+
+
+/* DECREASE AROUSAL (Time-based) */
+/* Usage: <<decreaseArousal 5>> */
+<<widget "decreaseArousal">>
+    <<if typeof $arousal !== "number">><<set $arousal = 0>><</if>>
+    
+    <<set _amount = $args[0] || 10>>
+    <<set _negAmount = -1 * _amount>>
+    <<set $arousal = Math.max(0, $arousal - _amount)>>
+    /* We generally don't notify for arousal drops unless significant, but consistent with system: */
+    /* <<queueStatChange "arousal" _negAmount>> */
+<</widget>>
+
+
+

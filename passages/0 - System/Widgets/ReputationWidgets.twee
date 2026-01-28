@@ -1,0 +1,189 @@
+/* ==========================================
+   REPUTATION SYSTEM - Widgets
+   ========================================== */
+
+/* ----------------------------------------
+   <<gainReputation regionId category amount>>
+   Gains reputation in a specific region/category
+   Handles global categories and rumor spreading
+   ---------------------------------------- */
+<<widget "gainReputation">>
+<<set _region = _args[0]>>
+<<set _category = _args[1]>>
+<<set _amount = _args[2] || 1>>
+
+<<if !$reputation[_region]>>
+    <<run console.warn("gainReputation: Unknown region: " + _region)>>
+<<else>>
+    /* Check if this is a global category */
+    <<set _catInfo = setup.reputationCategories[_category]>>
+    <<if _catInfo && _catInfo.isGlobal>>
+        /* Global category - update everywhere */
+        <<set $globalReputation[_category] = Math.min(100, ($globalReputation[_category] || 0) + _amount)>>
+        /* Sync to all regions */
+        <<for _r range Object.keys($reputation)>>
+            <<set $reputation[_r][_category] = $globalReputation[_category]>>
+        <</for>>
+    <<else>>
+        /* Local category - update specific region */
+        <<set $reputation[_region][_category] = Math.min(100, ($reputation[_region][_category] || 0) + _amount)>>
+        
+        /* Spread rumors to connected regions (50% decay) */
+        <<set _connections = setup.regionConnections[_region] || []>>
+        <<for _connectedRegion range _connections>>
+            <<if $reputation[_connectedRegion]>>
+                <<set _spreadAmount = Math.floor(_amount * 0.5)>>
+                <<if _spreadAmount > 0>>
+                    <<set $reputation[_connectedRegion][_category] = Math.min(100, ($reputation[_connectedRegion][_category] || 0) + _spreadAmount)>>
+                <</if>>
+            <</if>>
+        <</for>>
+    <</if>>
+<</if>>
+<</widget>>
+
+/* ----------------------------------------
+   <<loseReputation regionId category amount>>
+   Loses reputation in a specific region/category
+   ---------------------------------------- */
+<<widget "loseReputation">>
+<<set _region = _args[0]>>
+<<set _category = _args[1]>>
+<<set _amount = _args[2] || 1>>
+
+<<if $reputation[_region]>>
+    <<set _catInfo = setup.reputationCategories[_category]>>
+    <<if _catInfo && _catInfo.isGlobal>>
+        /* Global - decrease everywhere */
+        <<set $globalReputation[_category] = Math.max(0, ($globalReputation[_category] || 0) - _amount)>>
+        <<for _r range Object.keys($reputation)>>
+            <<set $reputation[_r][_category] = $globalReputation[_category]>>
+        <</for>>
+    <<else>>
+        /* Local only */
+        <<set $reputation[_region][_category] = Math.max(0, ($reputation[_region][_category] || 0) - _amount)>>
+    <</if>>
+<</if>>
+<</widget>>
+
+/* ----------------------------------------
+   <<getRegionOverall regionId>>
+   Returns overall reputation score for a region
+   Sets _return with the score (0-100)
+   ---------------------------------------- */
+<<widget "getRegionOverall">>
+<<set _region = _args[0]>>
+<<set _return = 0>>
+
+<<if $reputation[_region]>>
+    <<set _total = 0>>
+    <<set _count = 0>>
+    <<for _cat range Object.keys($reputation[_region])>>
+        <<set _total += $reputation[_region][_cat] || 0>>
+        <<set _count++>>
+    <</for>>
+    <<set _return = _count > 0 ? Math.round(_total / _count) : 0>>
+<</if>>
+<</widget>>
+
+/* ----------------------------------------
+   <<getReputationTier score>>
+   Returns tier info based on score
+   Sets _return with tier object {id, name, color}
+   ---------------------------------------- */
+<<widget "getReputationTier">>
+<<set _score = _args[0] || 0>>
+<<set _return = { id: "pure", name: "Pure", color: "#4ade80" }>>
+
+<<for _tier range setup.reputationTiers>>
+    <<if _score >= _tier.min && _score <= _tier.max>>
+        <<set _return = _tier>>
+        <<break>>
+    <</if>>
+<</for>>
+<</widget>>
+
+/* ----------------------------------------
+   <<syncGlobalReputation>>
+   Syncs global reputation values to all regions
+   Call this after loading a save or on game start
+   ---------------------------------------- */
+<<widget "syncGlobalReputation">>
+<<for _cat range Object.keys($globalReputation)>>
+    <<for _region range Object.keys($reputation)>>
+        <<set $reputation[_region][_cat] = $globalReputation[_cat]>>
+    <</for>>
+<</for>>
+<</widget>>
+
+/* ==========================================
+   CHARACTER OPINION WIDGETS
+   ========================================== */
+
+/* <<gainOpinion "characterId" amount>>
+   Increases a character's awareness/opinion about player */
+<<widget "gainOpinion">>
+<<set _charId = _args[0]>>
+<<set _amount = _args[1] || 5>>
+
+<<if $characters[_charId]>>
+    <<if !$characters[_charId].opinion>>
+        <<set $characters[_charId].opinion = { awareness: 0, flags: [] }>>
+    <</if>>
+    <<set $characters[_charId].opinion.awareness = Math.min(100, $characters[_charId].opinion.awareness + _amount)>>
+<</if>>
+<</widget>>
+
+/* <<loseOpinion "characterId" amount>>
+   Decreases character's awareness */
+<<widget "loseOpinion">>
+<<set _charId = _args[0]>>
+<<set _amount = _args[1] || 5>>
+
+<<if $characters[_charId] && $characters[_charId].opinion>>
+    <<set $characters[_charId].opinion.awareness = Math.max(0, $characters[_charId].opinion.awareness - _amount)>>
+<</if>>
+<</widget>>
+
+/* <<setOpinionFlag "characterId" "flagName">>
+   Sets a specific awareness flag (e.g., "sawProof", "caughtSneaking") */
+<<widget "setOpinionFlag">>
+<<set _charId = _args[0]>>
+<<set _flag = _args[1]>>
+
+<<if $characters[_charId]>>
+    <<if !$characters[_charId].opinion>>
+        <<set $characters[_charId].opinion = { awareness: 0, flags: [] }>>
+    <</if>>
+    <<if !$characters[_charId].opinion.flags.includes(_flag)>>
+        <<run $characters[_charId].opinion.flags.push(_flag)>>
+    <</if>>
+<</if>>
+<</widget>>
+
+/* <<hasOpinionFlag "characterId" "flagName">>
+   Returns true if flag is set, stores in _return */
+<<widget "hasOpinionFlag">>
+<<set _charId = _args[0]>>
+<<set _flag = _args[1]>>
+<<set _return = false>>
+
+<<if $characters[_charId]?.opinion?.flags>>
+    <<set _return = $characters[_charId].opinion.flags.includes(_flag)>>
+<</if>>
+<</widget>>
+
+/* <<getOpinionTier "characterId">>
+   Returns tier info, stores in _return */
+<<widget "getOpinionTier">>
+<<set _charId = _args[0]>>
+<<set _awareness = $characters[_charId]?.opinion?.awareness || 0>>
+<<set _return = { id: "innocent", name: "Innocent", color: "#4ade80", desc: "Thinks you're a good girl" }>>
+
+<<for _tier range setup.opinionTiers>>
+    <<if _awareness >= _tier.min && _awareness <= _tier.max>>
+        <<set _return = _tier>>
+        <<break>>
+    <</if>>
+<</for>>
+<</widget>>

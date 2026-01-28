@@ -1,0 +1,17 @@
+<<nobr>>
+<<set $location = "fhBedroom">>
+<<updateCharacterLocations>>
+<</nobr>>
+
+<<narrative "My Bed">>
+You approach your bed. It looks inviting and comfortable, perfect for sleeping or taking a quick nap.
+<</narrative>>
+
+<<nobr>>
+<<showLocationChars "fhBedroom">>
+<<bedActions>>
+<div class="location-actions">
+<<btn "Back" "fhBedroom">><</btn>>
+</div>
+<</nobr>>
+

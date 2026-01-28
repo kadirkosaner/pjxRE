@@ -1,0 +1,23 @@
+<<set _destination = $tempTaxiDestination>>
+<<set _cost = $tempTaxiCost>>
+
+<<if $money >= _cost>>
+    <<set $money -= _cost>>
+    
+    <div class="taxi-screen">
+        <h2>🚕 Taxi Called</h2>
+        <p>Fare: $<<= _cost>></p>
+        <p>Remaining: $<<= $money>></p>
+        
+        <<link "Arrive at Destination" _destination>><</link>>
+    </div>
+    
+<<else>>
+    <div class="taxi-screen">
+        <h2>❌ Not Enough Money</h2>
+        <p>Need: $<<= _cost>></p>
+        <p>Have: $<<= $money>></p>
+        
+        <<link "Go Back" previous()>><</link>>
+    </div>
+<</if>>

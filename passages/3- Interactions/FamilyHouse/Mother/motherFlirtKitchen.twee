@@ -1,0 +1,93 @@
+<<silently>>
+<<set $location = "fhKitchen">>
+<<logDailyActivity "mother" "flirt">>
+<<set _char = $characters.mother>>
+<<set _friendship = _char.stats.friendship>>
+
+<<advanceTime 10>>
+<<loseStat "energy" 5>>
+<<gainStat "love" 3 "mother">>
+<<gainStat "lust" 2 "mother">>
+<<if _char.opinion>>
+    <<set _char.opinion.awareness = Math.min(100, (_char.opinion.awareness || 0) + 1)>>
+<</if>>
+<<recalculateStats>>
+
+/* Select variant based on friendship */
+<<if _friendship < 60>>
+    <<set _variant = 1>>
+<<elseif _friendship < 80>>
+    <<set _variant = 2>>
+<<else>>
+    <<set _variant = 3>>
+<</if>>
+<</silently>>
+
+<<narrative "Kitchen - Compliment Mother">>
+Your mother is at the counter, focused on her task. You take a moment to appreciate her presence.
+<</narrative>>
+
+<<switch _variant>>
+<<case 1>>
+/* Variant 1: Sweet but Cautious */
+<<dialog "player">>
+You look really nice today, Mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Pausing, surprised)
+Oh! Thank you, sweetie. That's... that's very sweet of you to say.
+(Slight blush, returning to her work)
+You're a good kid.
+<</dialog>>
+
+<<case 2>>
+/* Variant 2: More Personal */
+<<dialog "player">>
+You know, you really light up this whole room. Dad's a lucky guy.
+<</dialog>>
+
+<<dialog "mother">>
+(Cheeks flushing, pleased but flustered)
+Oh, honey, stop. You're going to make me blush.
+(Touching her neck self-consciously)
+But thank you. That... that really means a lot.
+<</dialog>>
+
+<<narrative>>
+She holds your gaze a beat longer than usual, something soft and unreadable in her eyes.
+<</narrative>>
+
+<<case 3>>
+/* Variant 3: Bold and Intimate */
+<<dialog "player">>
+Has anyone ever told you how beautiful you are? Because you are. Stunning, actually.
+<</dialog>>
+
+<<dialog "mother">>
+(Breath catching, hand flying to her chest)
+<<print $player.firstName>>... I—
+(Voice softer, vulnerable)
+You really think so?
+<</dialog>>
+
+<<dialog "player">>
+I know so.
+<</dialog>>
+
+<<narrative>>
+For a moment, the air between you feels charged. She looks at you with an expression you can't quite name—surprise, warmth, and something deeper, almost dangerous.
+<</narrative>>
+
+<<dialog "mother">>
+(Voice barely above a whisper)
+You shouldn't say things like that to your mother.
+(But she's smiling, and her eyes linger on you)
+...But thank you. It's been a long time since anyone made me feel that way.
+<</dialog>>
+
+<</switch>>
+
+<div class="location-actions">
+<<btn "Continue" "CharacterInteraction" "secondary">><</btn>>
+</div>

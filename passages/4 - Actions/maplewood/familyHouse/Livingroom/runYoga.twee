@@ -1,0 +1,59 @@
+<<silently>>
+    /* Set location from activity origin */
+    <<set $location = $activityOrigin>>
+    <<set _momName = "Mom">>
+    <<set _friendship = $characters.mother.stats.friendship || 0>>
+
+    /* Check requirements for yoga */
+    <<checkOutfitStyle "sporty" 1 0>>      /* Requires: sporty outfit (1+ items) */
+    <<checkInventoryItem "yoga_mat">>      /* Requires: yoga mat */
+
+    /* Combine check results */
+    <<set _canDoYoga = (State.temporary.outfitCheckResult.allowed && State.temporary.inventoryCheckResult.allowed)>>
+    <<set _errorReason = "">>
+    <<if !State.temporary.outfitCheckResult.allowed>>
+        <<set _errorReason = State.temporary.outfitCheckResult.reason>>
+    <</if>>
+    <<if !State.temporary.inventoryCheckResult.allowed>>
+        <<if _errorReason !== "">>
+            <<set _errorReason += " " + State.temporary.inventoryCheckResult.reason>>
+        <<else>>
+            <<set _errorReason = State.temporary.inventoryCheckResult.reason>>
+        <</if>>
+    <</if>>
+<</silently>>
+
+/* If checks fail, show error and return */
+<<if !_canDoYoga>>
+    <<narrative "Can't Do Yoga">>
+        <<print _errorReason>>
+    <</narrative>>
+
+    <div class="location-actions">
+        <<btn "Change Clothes" "Wardrobe">><</btn>>
+        <<btn "Back" $location>><</btn>>
+    </div>
+<<else>>
+    /* Outfit check passed, show yoga options */
+    <<narrative "Living Room">>
+    You clear some space in the living room and roll out your yoga mat. The soft carpet underneath makes for a comfortable surface.
+
+    As you stretch your arms, you look over at Mom, who is relaxing nearby. She notices your preparations and watches with interest.
+
+    <<if _friendship >= 30>>
+        <<link "Invite Mom to join you">>
+            <<goto "runYogaMom">>
+        <</link>>
+    <<else>>
+        <span class="locked-action" title="Friendship too low (< 30)">Invite Mom (She looks busy)</span>
+    <</if>>
+
+    <<link "Do Yoga Alone">>
+        <<goto "runYogaSolo">>
+    <</link>>
+    <</narrative>>
+
+    <div class="location-actions">
+        <<btn "Back" $location>><</btn>>
+    </div>
+<</if>>

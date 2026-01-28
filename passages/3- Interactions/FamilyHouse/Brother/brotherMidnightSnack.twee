@@ -1,0 +1,235 @@
+<<silently>>
+<<set $location = "fhKitchen">>
+<<logDailyActivity "brother" "snack">>
+<<set _char = $characters.brother>>
+<<set _friendship = _char.stats.friendship>>
+
+/* Determine phase */
+<<if $flags.summerBreak>>
+    <<set _phase = "vacation">>
+<<else>>
+    <<set _phase = "school">>
+<</if>>
+
+/* Time and stats */
+<<advanceTime 20>>
+<<loseStat "energy" 10>>
+<<gainStat "mood" 15>>
+<<gainStat "friendship" 4 "brother">>
+<<gainStat "trust" 3 "brother">>
+<<gainStat "love" 2 "brother">>
+<<recalculateStats>>
+
+/* Select variant based on friendship */
+<<if _friendship < 50>>
+    <<set _variant = 1>>
+<<elseif _friendship < 75>>
+    <<set _variant = 2>>
+<<else>>
+    <<set _variant = 3>>
+<</if>>
+<</silently>>
+
+<<narrative "Kitchen - Midnight Snack with Brother">>
+The house is quiet, everyone else asleep. You find your brother raiding the fridge in the dark, illuminated only by the fridge light.
+<</narrative>>
+
+<<if _phase === "school">>
+/* ========== SCHOOL VARIANTS ========== */
+<<switch _variant>>
+<<case 1>>
+/* Variant 1: Quick Encounter */
+<<dialog "brother">>
+(Startled, then grinning)
+Oh shit, you scared me. Couldn't sleep either?
+<</dialog>>
+
+<<dialog "player">>
+Hungry.
+<</dialog>>
+
+<<dialog "brother">>
+(Holding up leftover pizza)
+Same. Mom's cooking is dangerous. I keep eating even when I'm full.
+<</dialog>>
+
+<<narrative>>
+You both grab snacks and lean against the counter, eating in comfortable silence. It's nice, this quiet moment between you.
+<</narrative>>
+
+<<dialog "brother">>
+(Yawning)
+Should probably head back. Got homework due tomorrow.
+(Hesitating)
+This was nice though.
+<</dialog>>
+
+<<case 2>>
+/* Variant 2: Late Night Talk */
+<<dialog "brother">>
+(Smiling when he sees you)
+Perfect timing. Help me decide—leftover Chinese or make sandwiches?
+<</dialog>>
+
+<<dialog "player">>
+Sandwiches. I'll help.
+<</dialog>>
+
+<<narrative>>
+You work together in the dim kitchen, assembling ridiculous sandwiches with way too many toppings. He keeps stealing ingredients from your pile, laughing when you swat his hand away.
+<</narrative>>
+
+<<dialog "brother">>
+(Mouth full)
+This is like... top five best parts of living here. Late night kitchen raids with you.
+<</dialog>>
+
+<<dialog "player">>
+What are the other four?
+<</dialog>>
+
+<<dialog "brother">>
+(Thinking, then grinning)
+All involve you too, actually.
+<</dialog>>
+
+<<case 3>>
+/* Variant 3: Intimate Moment */
+<<dialog "brother">>
+(Voice soft)
+Couldn't sleep. Kept thinking about...
+(Trailing off when he sees you)
+Never mind. You're here now.
+<</dialog>>
+
+<<narrative>>
+He pulls out ingredients without asking, already knowing what you like. You move around each other in the small kitchen, bodies occasionally brushing in the darkness.
+<</narrative>>
+
+<<dialog "brother">>
+(Leaning against the counter next to you, closer than necessary)
+I love this. Just us. No one else awake.
+<</dialog>>
+
+<<dialog "player">>
+It is nice.
+<</dialog>>
+
+<<dialog "brother">>
+(Turning to face you)
+You know what I was thinking about? Before you came down?
+<</dialog>>
+
+<<narrative>>
+His face is close in the dim light, eyes searching yours. The moment stretches, heavy with unspoken things.
+<</narrative>>
+
+<<dialog "brother">>
+(Voice barely a whisper)
+You.
+<</dialog>>
+
+<</switch>>
+
+<<else>>
+/* ========== VACATION VARIANTS ========== */
+<<switch _variant>>
+<<case 1>>
+/* Variant 1: Casual Night Snack */
+<<dialog "brother">>
+(Not even surprised)
+Knew you'd show up eventually. You always do around this time.
+<</dialog>>
+
+<<dialog "player">>
+Am I that predictable?
+<</dialog>>
+
+<<dialog "brother">>
+(Grinning)
+Nah, I just pay attention.
+(Tossing you a bag of chips)
+Saved these for you.
+<</dialog>>
+
+<<narrative>>
+You sit at the kitchen table together, sharing snacks and talking about nothing important. It's become a vacation ritual—these quiet 2 AM meetings.
+<</narrative>>
+
+<<dialog "brother">>
+Gonna miss this when vacation ends.
+<</dialog>>
+
+<<case 2>>
+/* Variant 2: Cooking Together */
+<<dialog "brother">>
+(Excited)
+Oh good, you're up. Want to make pancakes? I found a mix.
+<</dialog>>
+
+<<dialog "player">>
+At 2 AM?
+<</dialog>>
+
+<<dialog "brother">>
+(Already pulling out ingredients)
+Best time for pancakes. Come on, be my sous chef.
+<</dialog>>
+
+<<narrative>>
+What starts as making a few pancakes turns into a full breakfast spread. He keeps "accidentally" getting flour on you, which leads to you retaliating. Before long, you're both laughing, trying to stay quiet so you don't wake anyone.
+<</narrative>>
+
+<<dialog "brother">>
+(Wiping batter off your cheek)
+You're a mess.
+(His thumb lingers on your face)
+A cute mess, though.
+<</dialog>>
+
+<<case 3>>
+/* Variant 3: Deep Night Intimacy */
+<<dialog "brother">>
+(Sitting in the dark at the table)
+I was hoping you'd come down.
+<</dialog>>
+
+<<dialog "player">>
+How did you know I would?
+<</dialog>>
+
+<<dialog "brother">>
+(Pulling out the chair next to him)
+Because I always hope, and you always do.
+<</dialog>>
+
+<<narrative>>
+He's made hot chocolate for both of you. You sit close, shoulders touching, hands wrapped around warm mugs. The house creaks and settles around you, but in this moment, the world has shrunk to just the two of you.
+<</narrative>>
+
+<<dialog "brother">>
+(Quietly)
+I count down the hours until everyone goes to sleep. Just so I can have this. You, alone.
+<</dialog>>
+
+<<dialog "player">>
+Brother...
+<</dialog>>
+
+<<dialog "brother">>
+(Setting down his mug, turning to face you)
+Don't tell me you don't feel it. This... whatever this is between us.
+(Voice rough)
+Tell me I'm not imagining it.
+<</dialog>>
+
+<<narrative>>
+His hand finds yours under the table, fingers intertwining. In the darkness, boundaries blur.
+<</narrative>>
+
+<</switch>>
+<</if>>
+
+<div class="location-actions">
+<<btn "Head to Bed" "CharacterInteraction" "secondary">><</btn>>
+</div>

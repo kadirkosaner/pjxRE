@@ -1,0 +1,98 @@
+/* ==========================================
+   ACTIVITY WIDGETS
+   Logic for Living Room Activities (Yoga, Dance)
+   + Daily Activity Tracking for Character Interactions
+========================================== */
+
+/* ==========================================
+   DAILY ACTIVITY TRACKING
+   For character interaction limits
+========================================== */
+
+<<widget "logDailyActivity">>
+<<nobr>>
+<<silently>>
+    <<set _charId = _args[0]>>
+    <<set _actionId = _args[1]>>
+
+    <<if !_charId || !_actionId>>
+        <<run console.error("logDailyActivity requires charId and actionId")>>
+    <<else>>
+        /* Initialize dailyActivityLog if not exists */
+        <<if !$dailyActivityLog>>
+            <<set $dailyActivityLog = {}>>
+        <</if>>
+
+        /* Create activity key with current day */
+        <<set _currentDay = $timeSysDay || 0>>
+        <<set _activityKey = `${_charId}_${_actionId}_${_currentDay}`>>
+
+        /* Log the activity */
+        <<set $dailyActivityLog[_activityKey] = true>>
+    <</if>>
+<</silently>>
+<</nobr>>
+<</widget>>
+
+<<widget "checkDailyActivity">>
+<<nobr>>
+<<silently>>
+    <<set _charId = _args[0]>>
+    <<set _actionId = _args[1]>>
+
+    <<if !_charId || !_actionId>>
+        <<set _hasActivity = false>>
+    <<else>>
+        <<if !$dailyActivityLog>>
+            <<set $dailyActivityLog = {}>>
+        <</if>>
+
+        <<set _currentDay = $timeSysDay || 0>>
+        <<set _activityKey = `${_charId}_${_actionId}_${_currentDay}`>>
+
+        <<set _hasActivity = !!$dailyActivityLog[_activityKey]>>
+    <</if>>
+<</silently>>
+<</nobr>>
+<</widget>>
+
+/* ==========================================
+   LOCATION ACTIVITY BUTTONS
+========================================== */
+
+<<widget "yogaActions">><<nobr>>
+    <<if $location === "fhBackyard">>
+        <<set $activityOrigin = "fhBackyard">>
+        <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat" $daily.yogaDone>>
+    <<else>>
+        <<set $activityOrigin = "fhLivingroom">>
+        <<set _momPresent = ($characters.mother.currentLocation === "fhLivingroom")>>
+        <<if _momPresent>>
+            <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat" $daily.yogaDone>>
+        <<else>>
+            <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat" $daily.yogaDone>>
+        <</if>>
+    <</if>>
+<</nobr>><</widget>>
+
+<<widget "danceActions">><<nobr>>
+    <<set $activityOrigin = "fhLivingroom">>
+    <<activityButton "Dance" "runDance" "" $daily.danceDone>>
+<</nobr>><</widget>>
+
+/* ==========================================
+   PARK ACTIVITY BUTTONS
+========================================== */
+
+<<widget "parkActions">><<nobr>>
+    <<set $activityOrigin = "sunsetPark">>
+    
+    /* Bench - Always available */
+    <<btn "Sit on Bench" "parkBench">><</btn>>
+    
+    /* Jogging - Requires sporty outfit (top, bottom, shoes) */
+    <<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3" $daily.jogDone>>
+    
+    /* Yoga - Requires yoga mat + sporty outfit */
+    <<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat" $daily.yogaDone>>
+<</nobr>><</widget>>
