@@ -1,0 +1,17 @@
+<<silently>>
+    <<set $location = "fhLivingroom">>
+    <<advanceTime $selectedDuration>>
+    <<loseStat "stress" 10>>
+    <<gainStat "energy" 15>>
+    <<run window.notifySuccess("Rested and Refreshed")>>
+<</silently>>
+
+<<narrative "Taking a Nap">>
+You stretch out across the couch, finding a comfortable position. The quiet hum of the house and the soft cushions quickly pull you into a light slumber.
+
+An hour later, you blink your eyes open, feeling much more refreshed than before.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Wake Up" "fhCouch">><</btn>>
+</div>

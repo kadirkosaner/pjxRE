@@ -1,4 +1,3 @@
-:: WatchingTV [nobr]
 <<silently>>
     <<set $location = "fhLivingroom">>
     <<advanceTime $selectedDuration>>
@@ -92,7 +91,7 @@
                     <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/dad2.webp">>
             <</switch>>
         <<else>>
-            <<set _maxVariation = 3>>
+            <<set _maxVariation = 2>>
             <<set _variation = random(1, _maxVariation)>>
             <<switch _variation>>
                 <<case 1>>
@@ -101,9 +100,6 @@
                 <<case 2>>
                     <<set _sceneText = "A psychological thriller is on, and Dad's in his element. Two men face off in what looks like an interrogation room. 'This is the good part,' he whispers as you settle in beside him, eyes never leaving the screen.">>
                     <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/dad2.webp">>
-                <<case 3>>
-                    <<set _sceneText = "The big game is on. Dad pats the seat next to him, eager to explain the teams and the history of the rivalry. 'Your grandfather used to watch games with me like this,' he says, sharing a rare moment of nostalgia between plays.">>
-                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/dad1.webp">>
             <</switch>>
         <</if>>
     
