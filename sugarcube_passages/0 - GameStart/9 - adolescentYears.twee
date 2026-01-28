@@ -1,0 +1,311 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    
+    <!-- Sidebar -->
+    <div class="prologue-sidebar">
+      <div class="prologue-sidebar-title">My Selections</div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Early Years (0-5)</div>
+        <<if $prologueSelections.early>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.early.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.early.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Childhood (6-9)</div>
+        <<if $prologueSelections.childhood>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.childhood.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.childhood.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Formative (10-12)</div>
+        <<if $prologueSelections.formative>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.formative.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.formative.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title current">Adolescent (13-15)</div>
+        <<if $prologueSelections.adolescent>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.adolescent.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.adolescent.effect</div>
+          </div></div>
+        <<else>>
+          <div class="prologue-sidebar-empty">No selection yet</div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section"><div class="prologue-sidebar-section-title pending">Coming of Age (16-17)</div></div>
+    </div>
+    
+    <div class="prologue-content-area">
+      
+      <div class="prologue-progress-container">
+        <div class="prologue-progress-bar">
+          <div class="prologue-progress-fill" style="width: 66.6%;"></div>
+        </div>
+        <div class="prologue-progress-steps">
+          <span class="prologue-progress-step completed">0-5</span>
+          <span class="prologue-progress-step completed">6-9</span>
+          <span class="prologue-progress-step completed">10-12</span>
+          <span class="prologue-progress-step active">13-15</span>
+          <span class="prologue-progress-step">16-17</span>
+        </div>
+      </div>
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Ages 13-15</div>
+        <h1 class="prologue-title">Changes</h1>
+        <div class="prologue-header-line"></div>
+        <p class="prologue-subtitle">Everything was different now...</p>
+      </div>
+      
+      <<image "assets/content/scenes/prologue/adolescentYears.webp" "100%">>
+      
+      <<narrative>>
+        Adolescence. That strange, confusing time when everything changes at once.
+      <</narrative>>
+      
+      <<narrative>>
+        Your body was different now. You spent more time in front of mirrors. What you wore, how you looked, how others saw you—it all suddenly mattered in ways it never had before.
+      <</narrative>>
+      
+      <<narrative>>
+        At home, the tension was building.
+      <</narrative>>
+      
+      <<narrative>>
+        Mom didn't see you as her little girl anymore, but she didn't treat you like an adult either. The questions were constant: "Where are you going?" "With who?" "When will you be back?" "What are you wearing?"
+      <</narrative>>
+      
+      <<narrative>>
+        One Friday night, you wanted to go to a party. Just a normal party—friends, music, nothing crazy.
+      <</narrative>>
+      
+      <<narrative>>
+        "No," mom said flatly.
+      <</narrative>>
+      
+      <<narrative>>
+        "Why not?" you shot back. "Everyone's going!"
+      <</narrative>>
+      
+      <<narrative>>
+        "I said no. You're too young."
+      <</narrative>>
+      
+      <<narrative>>
+        "I'm fourteen! When will I be old enough?"
+      <</narrative>>
+      
+      <<narrative>>
+        The fight escalated. Voices raised. Your brother watched from the stairs, wide-eyed. Finally, dad intervened. "That's enough." He looked at mom. "Let her go. I'll pick her up at ten."
+      <</narrative>>
+      
+      <<narrative>>
+        Mom's face went tight. "Fine. But if anything happens—"
+      <</narrative>>
+      
+      <<narrative>>
+        "Nothing will happen," you snapped, already heading for your room.
+      <</narrative>>
+      
+      <<narrative>>
+        Later, dad drove you. The car was quiet for a while.
+      <</narrative>>
+      
+      <<narrative>>
+        "Your mom worries," he said finally. "She just wants to protect you."
+      <</narrative>>
+      
+      <<narrative>>
+        "She treats me like a kid."
+      <</narrative>>
+      
+      <<narrative>>
+        "You're growing up fast. That scares her." He glanced at you. "Scares me too, if I'm honest."
+      <</narrative>>
+      
+      <<narrative>>
+        That vulnerability—you'd never heard it from him before.
+      <</narrative>>
+      
+      <<narrative>>
+        Dad was distant in other ways though. He'd stopped asking about your life, stopped really engaging. Work consumed him. When he was home, he was tired, checked out. The conversation in the car felt like an exception, not the rule.
+      <</narrative>>
+      
+      <<narrative>>
+        Your brother was going through his own changes. At eleven, twelve, thirteen, he became moody, locked himself in his room, wore headphones everywhere. Sometimes he'd seek you out: "How do you deal with mom?" Other times, he'd snap at you over nothing.
+      <</narrative>>
+      
+      <<narrative>>
+        One night, after mom grounded him for bad grades, he knocked on your door.
+      <</narrative>>
+      
+      <<narrative>>
+        "She hates me," he said, sitting on your bed.
+      <</narrative>>
+      
+      <<narrative>>
+        "She doesn't hate you. She's just... mom."
+      <</narrative>>
+      
+      <<narrative>>
+        "Does she do this to you?"
+      <</narrative>>
+      
+      <<narrative>>
+        "All the time."
+      <</narrative>>
+      
+      <<narrative>>
+        He looked at you, surprised. "Really?"
+      <</narrative>>
+      
+      <<narrative>>
+        "Really. We're in this together, remember?"
+      <</narrative>>
+      
+      <<narrative>>
+        He smiled, just a little. "Yeah. Together."
+      <</narrative>>
+      
+      <<narrative>>
+        Friendships became more complex. Not just hanging out anymore—secrets were shared, drama erupted, who liked who, who said what about who. Social media made everything worse and better at the same time. One comment could ruin your day. One like could make it.
+      <</narrative>>
+      
+      <<narrative>>
+        The social hierarchy at school became more defined. Popular kids, outcasts, everyone in between. Where did you fit? Some days you felt confident, visible. Other days, completely invisible.
+      <</narrative>>
+      
+      <<narrative>>
+        And then there were other changes. New feelings. Attraction. Curiosity. That first crush hit you like a wave—sudden, overwhelming, confusing. You didn't tell anyone at first, afraid of what it meant, what they'd think.
+      <</narrative>>
+      
+      <<narrative>>
+        But your body knew. Your mind knew. Something was shifting, something bigger than school drama or fights with mom.
+      <</narrative>>
+      
+      <<narrative>>
+        You were becoming someone new.
+      <</narrative>>
+      
+      <div class="prologue-memory-section">
+        <div class="prologue-memory-section-title">Character-Shaping Memories</div>
+        <div class="prologue-memory-cards" id="adolescent-cards">
+          
+          <div class="prologue-memory-card" data-section="adolescent" data-title="Mom's Tension" data-effect="+15% Beauty" data-stat="beauty" data-value="1.15">
+            <div class="prologue-memory-title">Mom's Tension</div>
+            <div class="prologue-memory-text">
+              "Appearance started to matter. You'd spend an hour getting ready for school, trying different outfits, makeup experiments. Mom noticed. 'You don't need all that,' she'd say, wiping lipstick off your face. But then she'd catch herself in the mirror, touch her own hair. 'You're beautiful,' she'd add quietly. 'Don't grow up too fast.' The tension was always there—she wanted you to be confident but not too confident, pretty but not too pretty. That awareness of how you looked, how you presented yourself—it became both armor and identity."
+            </div>
+            <div class="prologue-memory-effect">+15% Beauty</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="adolescent" data-title="Dad's Quiet Support" data-effect="+15% Social Skills" data-stat="social" data-value="1.15">
+            <div class="prologue-memory-title">Dad's Quiet Support</div>
+            <div class="prologue-memory-text">
+              "Your social life exploded during those years. Parties, sleepovers, hanging out at the mall. Dad would drive you everywhere, often in silence. He didn't understand your world anymore—the drama, the friendships, who was dating who. But he showed up. 'Call me when you're ready,' he'd say, handing you twenty bucks. Mom would worry, asking a million questions. Dad would just nod: 'She'll be fine.' That social confidence, that ability to navigate complex relationships—you built it knowing he was always just a phone call away, even if you never called."
+            </div>
+            <div class="prologue-memory-effect">+15% Social Skills</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="adolescent" data-title="Your Space" data-effect="+15% Technical Skills" data-stat="technical" data-value="1.15">
+            <div class="prologue-memory-title">Your Space</div>
+            <div class="prologue-memory-text">
+              "The internet, social media, your phone—they became extensions of you. A world your parents didn't fully understand. 'You're always on that thing,' mom would complain. Dad would just shake his head, confused by what you found so fascinating. But online, you could be anyone. Express yourself. Find communities that got you. Your brother would ask: 'What are you doing?' 'You wouldn't understand,' you'd reply. That digital literacy, that comfort in virtual spaces—it gave you connection when home felt suffocating, and skills your parents never imagined you'd need."
+            </div>
+            <div class="prologue-memory-effect">+15% Technical Skills</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="adolescent" data-title="Beyond Family" data-effect="+15% Willpower" data-stat="willpower" data-value="1.15">
+            <div class="prologue-memory-title">Beyond Family</div>
+            <div class="prologue-memory-text">
+              "That ability to form deep bonds, to be vulnerable with others— you learned it by stepping away from family, by finding connection elsewhere. It took courage to create your own emotional world, separate from your parents. That independence, that strength to define yourself—it became your foundation."
+            </div>
+            <div class="prologue-memory-effect">+15% Willpower</div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-secondary">Back</span>' "formativeYears">><</link>>
+        <span id="adolescent-continue" class="prologue-btn prologue-btn-primary disabled">Continue</span>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>
+
+<<script>>
+$(document).ready(function() {
+  $('#adolescent-cards .prologue-memory-card').on('click', function() {
+    var $card = $(this);
+    var title = $card.data('title');
+    var effect = $card.data('effect');
+    var stat = $card.data('stat');
+    var value = $card.data('value');
+    
+    $card.siblings().removeClass('selected');
+    $card.addClass('selected');
+    
+    State.variables.prologueSelections.adolescent = {
+      title: title,
+      effect: effect,
+      stat: stat,
+      value: value
+    };
+    
+    // Update sidebar - find the current section
+    var $currentSection = $('.prologue-sidebar-section-title.current').parent();
+    $currentSection.find('.prologue-sidebar-empty').remove();
+    $currentSection.find('.prologue-sidebar-item').remove();
+    $currentSection.append(
+      '<div class="prologue-sidebar-item"><div>' +
+      '<div class="prologue-sidebar-item-text">' + title + '</div>' +
+      '<div class="prologue-sidebar-item-effect">' + effect + '</div>' +
+      '</div></div>'
+    );
+    
+    $('#adolescent-continue')
+      .removeClass('disabled')
+      .css('cursor', 'pointer')
+      .off('click')
+      .on('click', function() {
+        Engine.play('comingofAge');
+      });
+  });
+  
+  var existing = State.variables.prologueSelections.adolescent;
+  if (existing) {
+    $('#adolescent-cards .prologue-memory-card').each(function() {
+      if ($(this).data('title') === existing.title) {
+        $(this).addClass('selected');
+        $('#adolescent-continue')
+          .removeClass('disabled')
+          .css('cursor', 'pointer')
+          .off('click')
+          .on('click', function() {
+            Engine.play('comingofAge');
+          });
+      }
+    });
+  }
+});
+<</script>>
+

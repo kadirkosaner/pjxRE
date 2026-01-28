@@ -1,0 +1,324 @@
+<<nobr>>
+<<widget "getPeriod">>
+    <<set _hour = $timeSys.hour>>
+    <<if _hour >= 6 and _hour < 12>>
+        <<set _period = "morning">>
+    <<elseif _hour >= 12 and _hour < 18>>
+        <<set _period = "afternoon">>
+    <<elseif _hour >= 18 and _hour < 22>>
+        <<set _period = "evening">>
+    <<else>>
+        <<set _period = "night">>
+    <</if>>
+    <<set _return = _period>>
+<</widget>>
+
+<<widget "formatTime">>
+    <<set _h = $timeSys.hour.toString().padStart(2, '0')>>
+    <<set _m = $timeSys.minute.toString().padStart(2, '0')>>
+    <<set _return = _h + ":" + _m>>
+<</widget>>
+
+<<widget "formatDate">>
+    <<set _monthName = $timeConfig.monthNames[$timeSys.month - 1]>>
+    <<set _return = $timeSys.day + " " + _monthName + " " + $timeSys.year>>
+<</widget>>
+
+<<widget "getWeekdayName">>
+    <<set _return = $timeConfig.weekdayNames[$timeSys.weekday]>>
+<</widget>>
+
+<<widget "advanceTime">>
+    <<set _minutes = $args[0] || 30>>
+    <<set $timeSys.minute += _minutes>>
+    
+    <<if $timeSys.minute >= 60>>
+        <<set _hours = Math.floor($timeSys.minute / 60)>>
+        <<set $timeSys.minute = $timeSys.minute % 60>>
+        <<set $timeSys.hour += _hours>>
+        
+        /* Initialize notification queue */
+        <<initNotificationQueue>>
+        
+        /* Increase hunger, thirst, bladder and decrease energy, hygiene for each hour passed */
+        <<for _i = 0; _i < _hours; _i++>>
+            <<increaseHunger 5>>
+            <<increaseThirst 10>>
+            <<increaseBladder 8>>
+            <<decreaseHygiene 5>>
+            <<loseStat "energy" 5>>
+        <</for>>
+        
+        /* Show all accumulated notifications as combined toasts */
+        <<flushNotifications>>
+    <</if>>
+    
+    <<if $timeSys.hour >= 24>>
+        <<set _days = Math.floor($timeSys.hour / 24)>>
+        <<set $timeSys.hour = $timeSys.hour % 24>>
+        <<advanceDay _days>>
+    <</if>>
+    
+    /* Update Time Event Icon (Alarm Notification) */
+    <<updateTimedEvents>>
+    
+    /* Update character locations based on new time */
+    <<updateCharacterLocations>>
+    
+    /* Check if current location is now closed */
+    <<if $location && setup.locationHours[$location]>>
+        <<set _hours = setup.locationHours[$location]>>
+        <<if !_hours.open24h && !window.isLocationOpen($location)>>
+            <<set _region = _hours.region || "downTown">>
+            <<set _navCards = setup.navCards || {}>>
+            <<set _locName = _navCards[$location]?.name || $location>>
+            <<run window.showNotification({ type: "warning", message: _locName + " is now closed. You've been moved outside." })>>
+            <<goto _region>>
+        <</if>>
+    <</if>>
+    
+    /* Recalculate and clamp stats */
+    <<recalculateStats>>
+<</widget>>
+
+<<widget "advanceDay">>
+    <<set _days = $args[0] || 1>>
+    <<set $timeSys.day += _days>>
+    <<set $timeSys.weekday = ($timeSys.weekday + _days) % 7>>
+    
+    <<set _maxDays = $timeConfig.monthDays[$timeSys.month - 1]>>
+    
+    <<if $timeSys.month == 2>>
+        <<if ($timeSys.year % 4 == 0 and $timeSys.year % 100 != 0) or ($timeSys.year % 400 == 0)>>
+            <<set _maxDays = 29>>
+        <</if>>
+    <</if>>
+    
+    <<if $timeSys.day > _maxDays>>
+        <<set $timeSys.day = $timeSys.day - _maxDays>>
+        <<set $timeSys.month += 1>>
+        
+        <<if $timeSys.month > 12>>
+            <<set $timeSys.month = 1>>
+            <<set $timeSys.year += 1>>
+            <<set $timeSysYear = $timeSys.year>>
+        <</if>>
+    <</if>>
+    
+    /* ==================== NEW SYSTEMS ==================== */
+    
+    /* Hunger - Increase for each day that passed (sleeping overnight) */
+    <<if $gameSettings.trackHunger>>
+        <<for _d = 0; _d < _days; _d++>>
+            <<increaseHunger 30>>  /* ~6 hours sleep = 30 hunger */
+        <</for>>
+    <</if>>
+    
+    /* Skill Decay - Apply daily skill degradation */
+    <<if $gameSettings.skillDecay>>
+        <<applySkillDecay>>
+    <</if>>
+    
+    /* Calorie & Weight - Update weight based on daily balance */
+    <<if $gameSettings.trackCalories>>
+        <<updateWeight>>
+        <<set $dailyCalorieIntake = 0>>  /* Reset for new day */
+    <</if>>
+    
+    /* Daily Exercise Reset */
+    <<set $dailyExercise = 0>>
+    
+    /* Family Meals Reset - new day, new meals */
+    <<resetFamilyMeals>>
+    
+    /* Reset Daily Activities */
+    <<set $daily.yogaDone = false>>
+    <<set $daily.danceDone = false>>
+<</widget>>
+
+<<widget "setTime">>
+    <<set _hour = $args[0]>>
+    <<set _minute = $args[1] || 0>>
+    
+    <<if _hour < $timeSys.hour or (_hour == $timeSys.hour and _minute < $timeSys.minute)>>
+        <<advanceDay 1>>
+    <</if>>
+    
+    <<set $timeSys.hour = _hour>>
+    <<set $timeSys.minute = _minute>>
+<</widget>>
+
+<<widget "nextPeriod">>
+    <<getPeriod>>
+    <<switch _period>>
+        <<case "morning">>
+            <<setTime 12 0>>
+        <<case "afternoon">>
+            <<setTime 18 0>>
+        <<case "evening">>
+            <<setTime 22 0>>
+        <<case "night">>
+            <<setTime 6 0>>
+    <</switch>>
+<</widget>>
+
+<<widget "showTime">>
+    <<getPeriod>>
+    <<formatTime>>
+    <<formatDate>>
+    <<getWeekdayName>>
+    <<print _return3>> - <<print _return2>>, <<print _return>>
+<</widget>>
+
+/* ==========================================
+   TIMED EVENT ICON LOGIC
+   Updates the Alarm Notification icon in topbar
+   Called by: advanceTime
+========================================== */
+<<widget "updateTimedEvents">><<silently>>
+    <<set _shouldShowIcon = false>>
+    <<set _iconText = "Time Event">>
+
+    /* 1. Manual/Quest Override */
+    /* controlled via <<setTimedEvent "Description">> */
+    <<if $manualTimedEvent is true>>
+        <<set _shouldShowIcon = true>>
+        <<set _iconText = $manualTimedEventText || "Special Event">>
+    <</if>>
+
+    /* 2. Quest Events (Immediate) */
+    /* If any active quest has a specific mealType/time, show icon immediately */
+    <<if !_shouldShowIcon and $questState and $questState.active>>
+        <<for _qid, _state range $questState.active>>
+            <<set _quest = setup.quests[_qid]>>
+            /* Check if quest has a mealType defined */
+            <<if _quest and _quest.mealType>>
+                <<set _shouldShowIcon = true>>
+                
+                /* Try to use current stage description */
+                <<set _stageIndex = _state.stage>>
+                <<if _quest.stages and _quest.stages[_stageIndex]>>
+                    <<set _iconText = _quest.stages[_stageIndex].desc>>
+                <</if>>
+                
+                /* Fallback to title if no desc found */
+                <<if !_iconText or _iconText == "Time Event">>
+                    <<set _iconText = _quest.title || "Quest Event">>
+                <</if>>
+                
+                <<break>>
+            <</if>>
+        <</for>>
+    <</if>>
+
+    /* 3. Update Topbar Variables */
+    <<if _shouldShowIcon>>
+        <<set $notificationAlarm = 1>>
+        <<set $notificationAlarmText = _iconText>>
+    <<else>>
+        <<set $notificationAlarm = 0>>
+        <<set $notificationAlarmText = "">>
+    <</if>>
+<</silently>><</widget>>
+
+/* Manual controls for quests */
+/* Usage: <<setTimedEvent "Meeting with Sarah">> */
+<<widget "setTimedEvent">>
+    <<set $manualTimedEvent = true>>
+    <<set $manualTimedEventText = $args[0] || "Event">>
+    <<updateTimedEvents>>
+<</widget>>
+
+<<widget "clearTimedEvent">>
+    <<set $manualTimedEvent = false>>
+    <<set $manualTimedEventText = "">>
+    <<updateTimedEvents>>
+<</widget>>
+
+/* ==========================================
+   UPDATE CHARACTER LOCATIONS
+   Updates all character locations based on
+   current time and their schedules
+========================================== */
+<<widget "updateCharacterLocations">>
+<<nobr>>
+    <<set _isWeekend = ($timeSys.weekday === 0 || $timeSys.weekday === 6)>>
+    <<set _scheduleType = _isWeekend ? "weekend" : "weekday">>
+    <<set _currentHour = $timeSys.hour>>
+    
+    /* Calculate current date as number for comparison (YYYYMMDD) */
+    <<set _currentDate = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+    
+    <<for _charId, _charData range setup.schedules>>
+        /* Determine which schedule phase to use */
+        <<set _schedulePhase = null>>
+        
+        /* Father: Check work start date */
+        <<if _charId === "father" && $importantDates && $importantDates.fatherWorkStart>>
+            <<set _workDate = $importantDates.fatherWorkStart.year * 10000 + 
+                              $importantDates.fatherWorkStart.month * 100 + 
+                              $importantDates.fatherWorkStart.day>>
+            <<set _schedulePhase = (_currentDate >= _workDate) ? "postWork" : "preWork">>
+        <</if>>
+        
+        /* Brother: Check cyclical school calendar (vacation periods) */
+        <<if _charId === "brother" && setup.schoolCalendar && setup.schoolCalendar.vacations>>
+            <<set _isVacation = false>>
+            <<set _monthDay = $timeSys.month * 100 + $timeSys.day>>
+            
+            <<for _vac range setup.schoolCalendar.vacations>>
+                <<set _startMD = _vac.startMonth * 100 + _vac.startDay>>
+                <<set _endMD = _vac.endMonth * 100 + _vac.endDay>>
+                
+                /* Handle periods that cross year boundary (e.g., Dec-Jan) */
+                <<if _startMD <= _endMD>>
+                    /* Normal period (same year) */
+                    <<if _monthDay >= _startMD && _monthDay <= _endMD>>
+                        <<set _isVacation = true>>
+                    <</if>>
+                <<else>>
+                    /* Cross-year period (e.g., Dec 20 - Jan 10) */
+                    <<if _monthDay >= _startMD || _monthDay <= _endMD>>
+                        <<set _isVacation = true>>
+                    <</if>>
+                <</if>>
+            <</for>>
+            
+            <<set _schedulePhase = _isVacation ? "vacation" : "school">>
+        <</if>>
+        
+        /* Get schedule: nested (with phase) or flat (legacy) */
+        <<if _schedulePhase && _charData[_schedulePhase]>>
+            <<set _schedule = _charData[_schedulePhase][_scheduleType]>>
+        <<else>>
+            <<set _schedule = _charData[_scheduleType]>>
+        <</if>>
+        
+        <<if _schedule>>
+            /* Find the most recent time slot (look backwards) */
+            <<set _currentSlot = null>>
+            <<set _currentMinute = $timeSys.minute>>
+            <<for _slot range _schedule>>
+                <<set _slotMinute = _slot.minute || 0>>
+                /* Check if this slot's time has passed (hour + minute comparison) */
+                <<if _slot.hour < _currentHour || (_slot.hour === _currentHour && _slotMinute <= _currentMinute)>>
+                    <<set _currentSlot = _slot>>
+                <</if>>
+            <</for>>
+            
+            /* If no slot found (before first entry), use last slot from previous day */
+            <<if _currentSlot === null>>
+                <<set _currentSlot = _schedule[_schedule.length - 1]>>
+            <</if>>
+            
+            /* Update character location and status */
+            <<if $characters[_charId]>>
+                <<set $characters[_charId].currentLocation = _currentSlot.location>>
+                <<set $characters[_charId].currentStatus = _currentSlot.status>>
+            <</if>>
+        <</if>>
+    <</for>>
+<</nobr>>
+<</widget>>
+
+<</nobr>>

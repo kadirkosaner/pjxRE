@@ -1,0 +1,181 @@
+/* ============================================
+   LAYOUT/RIGHTBAR.CSS
+   Right sidebar, game info, stats
+============================================ */
+
+/*#region RIGHT BAR */
+.right-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--rightbar-width);
+  height: 100vh;
+  background: var(--color-bg-primary);
+  border-left: 1px solid var(--color-border-primary);
+  display: grid;
+  grid-template-rows: auto 1fr 300px;
+  z-index: 90;
+  overflow: visible;
+}
+
+.rightbar-section {
+  padding: var(--spacing-lg);
+}
+
+.rightbar-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rightbar-middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  overflow-y: auto;
+}
+
+.rightbar-bottom {
+  padding: 0;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  overflow: visible;
+  gap: 0;
+}
+
+.game-info {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.game-title {
+  color: var(--color-accent);
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1;
+}
+
+.game-version {
+  color: #aaa;
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1;
+}
+
+.profile-image {
+  width: 50%;
+  height: auto;
+  display: block;
+}
+
+.stats-section {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.stat-float {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.stat-float:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  color: var(--color-text-tertiary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.stat-value {
+  color: var(--color-text-primary);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Stat Tooltip (Money breakdown) */
+.stat-float.has-tooltip .stat-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 50%;
+  font-size: 0.6rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--color-text-tertiary);
+  cursor: help;
+}
+
+.stat-info-icon:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+}
+
+.stat-tooltip {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 8px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  min-width: 120px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5px);
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.stat-info-icon:hover + .stat-tooltip,
+.stat-tooltip:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.stat-tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 0.75rem;
+  padding: 3px 0;
+  color: var(--color-text-secondary);
+}
+
+.stat-tooltip-row span:last-child {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/*#endregion */

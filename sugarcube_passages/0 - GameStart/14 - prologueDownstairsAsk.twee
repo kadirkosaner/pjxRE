@@ -1,0 +1,136 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    <div class="prologue-content-area">
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Present Day</div>
+        <h1 class="prologue-title">Downstairs</h1>
+        <div class="prologue-header-line"></div>
+      </div>
+
+      <<image "assets/content/locations/maplewood/familyHouse/fhUpperstairs.webp" "100%">>
+
+      <<narrative>>
+        You step out of your room.
+      <</narrative>>
+
+      <<narrative>>
+        The hallway is quiet. Music still drifts from your brother's room—muffled, bass-heavy.
+      <</narrative>>
+
+      <<narrative>>
+        You walk to the stairs.
+      <</narrative>>
+
+      <<narrative>>
+        Each step creaks slightly under your feet. As you descend, the sounds of home life rise to meet you—cabinet doors, running water, your parents' voices.
+      <</narrative>>
+
+      <<image "assets/content/scenes/prologue/fhLivingroomEvening.webp" "100%">>
+
+      <<narrative>>
+        You reach the bottom.
+      <</narrative>>
+
+      <<narrative>>
+        Mom and dad are in the living room, both on the couch. Coffee cups in hand, talking quietly. They look relaxed for the first time today.
+      <</narrative>>
+
+      <<narrative>>
+        Mom notices you first.
+      <</narrative>>
+
+      <<dialog "mother">>
+        So, how's the room, sweetie? Do you like it?
+      <</dialog>>
+      
+      <<narrative>>
+        You hesitate, then decide to just ask.
+      <</narrative>>
+
+      <<dialog "player">>
+        Mom, dad... Where's my big suitcase?
+      <</dialog>>
+
+      <<narrative>>
+        Mom's expression shifts—confusion, then realization.
+      <</narrative>>
+
+      <<dialog "mother">>
+        Your suitcase? Isn't it in the car?
+      <</dialog>>
+
+      <<dialog "player">>
+        No, I checked.
+      <</dialog>>
+
+      <<dialog "father">>
+        (setting down his coffee cup) That one was with the moving company.
+      <</dialog>>
+
+      <<narrative>>
+        Your stomach drops.
+      <</narrative>>
+
+      <<dialog "player">>
+        What do you mean with the moving company?
+      <</dialog>>
+
+      <<dialog "father">>
+        We had too much stuff. Couldn't fit everything in the car and the first truck. The last batch is coming tomorrow.
+      <</dialog>>
+
+      <<dialog "player">>
+        Tomorrow?
+      <</dialog>>
+
+      <<dialog "father">>
+        Yeah, tomorrow afternoon. Probably around 4 or 5.
+      <</dialog>>
+
+      <<narrative>>
+        The disappointment must show on your face.
+      <</narrative>>
+
+      <<dialog "mother">>
+        (reaching out) Don't worry, honey. You have enough clothes for today, right?
+      <</dialog>>
+
+      <<dialog "player">>
+        Yeah... I guess.
+      <</dialog>>
+
+      <<dialog "mother">>
+        It'll be here tomorrow. Just be patient.
+      <</dialog>>
+
+      <<dialog "father">>
+        (leaning forward) Maybe tomorrow you can go out, explore the neighborhood a bit. Get familiar with the area.
+      <</dialog>>
+
+      <<dialog "mother">>
+        That's a good idea. You can see your new surroundings.
+      <</dialog>>
+
+      <<narrative>>
+        You nod, not really feeling it.
+      <</narrative>>
+
+      <<narrative>>
+        The room feels suddenly smaller. Tomorrow. Your stuff arrives tomorrow. One more day of feeling... incomplete.
+      <</narrative>>
+
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-primary">Continue</span>' "prologueEvening">><</link>>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>

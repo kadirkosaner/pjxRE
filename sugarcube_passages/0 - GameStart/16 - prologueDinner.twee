@@ -1,0 +1,178 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    <div class="prologue-content-area">
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Present Day</div>
+        <h1 class="prologue-title">Dinner</h1>
+        <div class="prologue-header-line"></div>
+      </div>
+
+      <<narrative>>
+        Dad's voice carries from the living room.
+      <</narrative>>
+
+      <<dialog "father">>
+        By the way, I'm going to the office tomorrow afternoon.
+      <</dialog>>
+      
+      <<dialog "mother">>
+        (looking over) Interview?
+      <</dialog>>
+
+      <<dialog "father">>
+        Yeah, at 1. We'll discuss when I start, I'll take a look at the workplace.
+      <</dialog>>
+
+      <<narrative>>
+        Dad's new job. The reason you're all here.
+      <</narrative>>
+      
+      <<dialog "mother">>
+        Good. You must be excited.
+      <</dialog>>
+
+      <<dialog "father">>
+        I'll take $characters.brother.firstName with me. After the office, we'll stop by the high school and handle his registration.
+      <</dialog>>
+      
+      <<narrative>>
+        Your brother groans from somewhere upstairs. He must've heard.
+      <</narrative>>
+
+      <<dialog "father">>
+        We'll leave at 1. Should be back by 3 or 4.
+      <</dialog>>
+      
+      <<dialog "mother">>
+        (turning to you) Okay. I'll do some more organizing around here then. Will you help me?
+      <</dialog>>
+
+      <<dialog "player">>
+        Sure.
+      <</dialog>>
+      
+      <<narrative>>
+        Mom's expression shifts—something more serious now.
+      <</narrative>>
+
+      <<dialog "mother">>
+        By the way, $player.firstName... Have you looked at universities here? What are you thinking?
+      <</dialog>>
+      
+      <<narrative>>
+        The question hangs in the air.
+      <</narrative>>
+
+      <<narrative>>
+        You're quiet for a moment. You haven't decided. Haven't really thought about it, if you're honest. Too much happening.
+      <</narrative>>
+
+      <<dialog "player">>
+        I don't know... I haven't decided yet.
+      <</dialog>>
+      
+      <<dialog "mother">>
+        Are you thinking about a gap year, or starting right away?
+      <</dialog>>
+
+      <<dialog "player">>
+        I still... don't know.
+      <</dialog>>
+      
+      <<narrative>>
+        Mom reaches out, touches your arm.
+      <</narrative>>
+
+      <<dialog "mother">>
+        Don't rush. Think about it, decide when you're ready. We'll talk about it.
+      <</dialog>>
+      
+      <<narrative>>
+        You nod, grateful she's not pushing.
+      <</narrative>>
+
+      <<narrative>>
+        The doorbell rings.
+      <</narrative>>
+      
+      <<narrative>>
+        Dad stands.
+      <</narrative>>
+
+      <<dialog "father">>
+        It's here.
+      <</dialog>>
+      
+      <<narrative>>
+        He walks to the door. A few seconds later, he returns with two large pizza boxes, the smell filling the room immediately.
+      <</narrative>>
+
+      <<dialog "father">>
+        Dinner's ready!
+      <</dialog>>
+
+      <<narrative>>
+        Your brother appears at the top of the stairs, taking them two at a time.
+      <</narrative>>
+
+      <<dialog "brother">>
+        Finally. I'm starving.
+      <</dialog>>
+      
+      <<narrative>>
+        Everyone gathers at the table.
+      <</narrative>>
+      
+      <<narrative>>
+        Dad opens the boxes. Five-cheese for you, meat lovers for your brother. Steam rises, cheese bubbles, the scent of oregano and tomato sauce thick in the air.
+      <</narrative>>
+      
+      <<image "assets/content/scenes/prologue/kitchenNightPizza.webp" "100%">>
+
+      <<narrative>>
+        Mom sits down, looking at all of you.
+      <</narrative>>
+
+      <<dialog "mother">>
+        Our first meal together here.
+      <</dialog>>
+      
+      <<dialog "father">>
+        (raising his water glass) To new beginnings.
+      <</dialog>>
+      
+      <<dialog "mother">>
+        To new beginnings.
+      <</dialog>>
+      
+      <<narrative>>
+        Your brother grabs a slice immediately. You follow suit.
+      <</narrative>>
+
+      <<narrative>>
+        Your first dinner in the new house.
+      <</narrative>>
+      
+      <<narrative>>
+        It feels... almost normal.
+      <</narrative>>
+      
+      <<narrative>>
+        Almost.
+      <</narrative>>
+
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-primary">Continue</span>' "prologueNightEnd">><</link>>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>

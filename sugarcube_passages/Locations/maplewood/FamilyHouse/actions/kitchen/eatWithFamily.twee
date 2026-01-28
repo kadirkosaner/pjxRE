@@ -1,0 +1,58 @@
+:: eatWithFamily
+<<silently>>
+<<set $location = "fhKitchen">>
+<<advanceTime 30>>
+<<loseStat "hunger" 50>>
+<<loseStat "thirst" 80>>
+<<gainStat "energy" 10>>
+<<loseStat "stress" 10>>
+
+/* Detect family members in kitchen */
+<<set _presentFamily = []>>
+<<if $characters.mother.currentLocation is "fhKitchen">>
+    <<run _presentFamily.push("mother")>>
+<</if>>
+<<if $characters.father.currentLocation is "fhKitchen">>
+    <<run _presentFamily.push("father")>>
+<</if>>
+<<if $characters.brother.currentLocation is "fhKitchen">>
+    <<run _presentFamily.push("brother")>>
+<</if>>
+
+/* Determine meal type based on time */
+<<if $timeSys.hour >= 7 and $timeSys.hour < 9>>
+    <<set _mealType = "breakfast">>
+    <<set _mealTitle = "Family Breakfast">>
+    <<set $familyMeals.breakfast = true>>
+<<elseif $timeSys.hour >= 12 and $timeSys.hour < 14>>
+    <<set _mealType = "lunch">>
+    <<set _mealTitle = "Lunch">>
+    <<set $familyMeals.lunch = true>>
+<<else>>
+    <<set _mealType = "dinner">>
+    <<set _mealTitle = "Family Dinner">>
+    <<set $familyMeals.dinner = true>>
+<</if>>
+
+/* Relationship bonus - for each present family member */
+<<for _member range _presentFamily>>
+    <<set $characters[_member].stats.friendship += 2>>
+    <<set $characters[_member].stats.love += 1>>
+<</for>>
+
+<<run window.notifySuccess("Enjoyed a meal with family!")>>
+<</silently>>
+
+<<narrative _mealTitle>><<if _mealType is "breakfast">>The morning sun streams through the kitchen window as you sit down for breakfast with your family.<<elseif _mealType is "lunch">>You gather around the table for a midday meal.<<else>>The kitchen fills with warmth as the family comes together for dinner.<</if>><</narrative>>
+
+<<if _presentFamily.includes("mother")>><<dialog "mother">><<if _mealType is "breakfast">>Good morning, sweetie! Did you sleep well?<<elseif _mealType is "lunch">>I made your favorite today. Sit down and eat while it's hot.<<else>>How was your day? Tell me everything while we eat.<</if>><</dialog>><</if>>
+
+<<if _presentFamily.includes("father")>><<dialog "father">><<if _mealType is "breakfast">>(sipping coffee) So, any plans for today?<<elseif _mealType is "lunch">>(taking a bite) Your mother's cooking is the best.<<else>>It's nice when we can all eat together like this.<</if>><</dialog>><</if>>
+
+<<if _presentFamily.includes("brother")>><<dialog "brother">><<if _mealType is "breakfast">>(yawning) Morning... Is there any coffee left?<<elseif _mealType is "lunch">>Can you pass the salt?<<else>>(eating quickly) This is good!<</if>><</dialog>><</if>>
+
+<<narrative>>You enjoy the meal together, the conversation flowing easily between bites. <<if _presentFamily.length >= 2>>It feels good to share this moment with your family.<<else>>Even a simple meal feels better when shared with someone.<</if>><</narrative>>
+
+<div class="location-actions">
+    <<btn "Finish" "fhKitchen">><</btn>>
+</div>

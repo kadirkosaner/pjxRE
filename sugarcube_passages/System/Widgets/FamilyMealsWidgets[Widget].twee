@@ -1,0 +1,90 @@
+/* ==========================================
+   FAMILY MEALS WIDGETS
+   Widgets for eating with family system
+   
+   Tracking: $familyMeals.breakfast/lunch/dinner
+   Reset daily via advanceDay widget
+   
+   Meal Times (1 hour windows):
+   - Breakfast: 7:00 - 8:00
+   - Lunch: 12:00 - 13:00
+   - Dinner: 18:00 - 19:00
+   
+   Quest Integration:
+   If a quest has mealType matching current meal, redirects to quest passage
+========================================== */
+
+/* Initialize family meals tracking if not exists */
+<<widget "initFamilyMeals">><<silently>>
+<<if ndef $familyMeals>>
+<<set $familyMeals = { breakfast: false, lunch: false, dinner: false }>>
+<</if>>
+<</silently>><</widget>>
+
+/* Reset family meals - call this at start of new day */
+<<widget "resetFamilyMeals">><<silently>>
+<<set $familyMeals = { breakfast: false, lunch: false, dinner: false }>>
+<</silently>><</widget>>
+
+/* Show Family Meal Button
+   Usage: <<showFamilyMealBtn>>
+   Shows button during meal times if family is present and meal not eaten yet
+   If a quest with matching mealType is active, redirects to quest passage
+*/
+<<widget "showFamilyMealBtn">><<silently>>
+<<initFamilyMeals>>
+
+/* Check if family member is at current location */
+<<set _familyHere = $characters.mother.currentLocation is $location or $characters.father.currentLocation is $location or $characters.brother.currentLocation is $location>>
+
+/* Determine current meal type (1 hour windows) */
+<<set _isBreakfast = $timeSys.hour >= 7 and $timeSys.hour < 8>>
+<<set _isLunch = $timeSys.hour >= 12 and $timeSys.hour < 13>>
+<<set _isDinner = $timeSys.hour >= 18 and $timeSys.hour < 19>>
+
+/* Set current meal type */
+<<set _mealType = null>>
+<<set _mealAvailable = false>>
+<<if _isBreakfast and !$familyMeals.breakfast>>
+    <<set _mealType = "breakfast">>
+    <<set _mealAvailable = true>>
+<<elseif _isLunch and !$familyMeals.lunch>>
+    <<set _mealType = "lunch">>
+    <<set _mealAvailable = true>>
+<<elseif _isDinner and !$familyMeals.dinner>>
+    <<set _mealType = "dinner">>
+    <<set _mealAvailable = true>>
+<</if>>
+
+/* Check for active meal quest */
+<<set _mealQuestPassage = null>>
+<<if _mealType and $questState and $questState.active>>
+    <<for _qid, _state range $questState.active>>
+        <<set _quest = setup.quests[_qid]>>
+        <<if _quest and _quest.mealType is _mealType>>
+            <<set _stage = _quest.stages[_state.stage]>>
+            <<if _stage and _stage.passage>>
+                <<set _mealQuestPassage = _stage.passage>>
+            <</if>>
+        <</if>>
+    <</for>>
+<</if>>
+<</silently>><<if _familyHere and _mealAvailable and !_mealQuestPassage>><<btn "Eat with Family" "eatWithFamily">><</btn>><</if>><</widget>>
+
+/* Check Family Meal Availability
+   Usage: <<canEatWithFamily>>
+   Sets _canEatWithFamily variable to true/false
+*/
+<<widget "canEatWithFamily">><<silently>>
+<<initFamilyMeals>>
+<<set _familyHere = $characters.mother.currentLocation is $location or $characters.father.currentLocation is $location or $characters.brother.currentLocation is $location>>
+<<set _isBreakfast = $timeSys.hour >= 7 and $timeSys.hour < 8>>
+<<set _isLunch = $timeSys.hour >= 12 and $timeSys.hour < 13>>
+<<set _isDinner = $timeSys.hour >= 18 and $timeSys.hour < 19>>
+<<set _mealAvailable = false>>
+<<if _isBreakfast and !$familyMeals.breakfast>><<set _mealAvailable = true>>
+<<elseif _isLunch and !$familyMeals.lunch>><<set _mealAvailable = true>>
+<<elseif _isDinner and !$familyMeals.dinner>><<set _mealAvailable = true>>
+<</if>>
+<<set _canEatWithFamily = _familyHere and _mealAvailable>>
+<</silently>><</widget>>

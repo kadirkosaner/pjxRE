@@ -1,0 +1,624 @@
+<<nobr>>
+<<set $hideTopbarNav = true>>
+<<set $hideTopbarTimebox = true>>
+<<set $hideTopbarNotifications = true>>
+<<set $hideRightbar = true>>
+<<set $hideTopbar = true>>
+<<set $hideTopbarHamburger = false>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="game-setup-container">
+    <h1 class="page-title">Game Setup</h1>
+    <div class="setup-header-line"></div>
+    <p class="page-subtitle">
+        Configure your character and world. These choices define your starting experience.
+    </p>
+
+    <!-- 1. CHARACTER CREATION -->
+    <div class="settings-section setup-accordion-item">
+        <div class="settings-section-header setup-accordion-header">
+            <div style="display: flex; align-items: center; gap: 0.5rem;"><span class="icon icon-user"></span> Character Identity</div>
+            <span class="setup-accordion-toggle icon icon-chevron-down"></span>
+        </div>
+        <div class="settings-section-body setup-accordion-content">
+            <div class="form-grid-2">
+                <div class="form-input-group">
+                    <label>First Name</label>
+                    <input type="text" id="characterFirstName" @value="$player.firstName">
+                </div>
+                <div class="form-input-group">
+                    <label>Last Name</label>
+                    <input type="text" id="characterLastName" @value="$player.lastName">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. BODY CUSTOMIZATION -->
+    <div class="settings-section setup-accordion-item">
+        <div class="settings-section-header setup-accordion-header">
+            <div style="display: flex; align-items: center; gap: 0.5rem;"><span class="icon icon-body"></span> Body Customization</div>
+            <span class="setup-accordion-toggle icon icon-chevron-down"></span>
+        </div>
+        <div class="settings-section-body setup-accordion-content">
+            
+            <!-- Hidden Inputs for JS to update -->
+            <input type="hidden" id="valEyeColor" value="Black">
+            <input type="hidden" id="valHairColor" value="Black">
+            <input type="hidden" id="valHairLength" value="Short">
+            <input type="hidden" id="valHairStyle" value="Straight">
+            <input type="hidden" id="valBustSize" value="A">
+            <input type="hidden" id="valHipSize" value="Slim">
+            <input type="hidden" id="valHeight" value="170">
+
+            <!-- Height -->
+            <div class="visual-label">Height</div>
+            <div class="height-control-wrapper">
+                <div class="height-value-display"><span id="heightValue">170</span> cm</div>
+                <div class="custom-slider-container" data-slider="height">
+                    <div class="custom-slider-track">
+                        <div class="custom-slider-fill" style="width: 50%;"></div>
+                        <div class="custom-slider-thumb" style="left: 50%;">
+                            <div class="custom-slider-tooltip">170 cm</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eye Color -->
+            <div class="visual-label">Eye Color</div>
+            <div class="color-grid" id="gridEyeColor">
+                <div class="color-option selected" data-value="Black"><div class="color-swatch" style="background: #1a1a1a;"></div><div class="color-name">Black</div></div>
+                <div class="color-option" data-value="Brown"><div class="color-swatch" style="background: #5D4037;"></div><div class="color-name">Brown</div></div>
+                <div class="color-option" data-value="Hazel"><div class="color-swatch" style="background: #8B6914;"></div><div class="color-name">Hazel</div></div>
+                <div class="color-option" data-value="Green"><div class="color-swatch" style="background: #4A7C59;"></div><div class="color-name">Green</div></div>
+                <div class="color-option" data-value="Blue"><div class="color-swatch" style="background: #5B8FA8;"></div><div class="color-name">Blue</div></div>
+                <div class="color-option" data-value="Gray"><div class="color-swatch" style="background: #7A8B8B;"></div><div class="color-name">Gray</div></div>
+            </div>
+
+            <!-- Hair Color -->
+            <div class="visual-label">Hair Color</div>
+            <div class="color-grid" id="gridHairColor">
+                <div class="color-option selected" data-value="Black"><div class="color-swatch" style="background: #1a1a1a;"></div><div class="color-name">Black</div></div>
+                <div class="color-option" data-value="Dark Brown"><div class="color-swatch" style="background: #2C1810;"></div><div class="color-name">D.Brown</div></div>
+                <div class="color-option" data-value="Brown"><div class="color-swatch" style="background: #6B4423;"></div><div class="color-name">Brown</div></div>
+                <div class="color-option" data-value="Auburn"><div class="color-swatch" style="background: #A0522D;"></div><div class="color-name">Auburn</div></div>
+                <div class="color-option" data-value="Light Brown"><div class="color-swatch" style="background: #CD853F;"></div><div class="color-name">L.Brown</div></div>
+                <div class="color-option" data-value="Blonde"><div class="color-swatch" style="background: #DAA520;"></div><div class="color-name">Blonde</div></div>
+                <div class="color-option" data-value="Red"><div class="color-swatch" style="background: #8B0000;"></div><div class="color-name">Red</div></div>
+                <div class="color-option" data-value="Gray"><div class="color-swatch" style="background: #C0C0C0;"></div><div class="color-name">Gray</div></div>
+            </div>
+
+            <!-- Hair Length -->
+            <div class="visual-label">Hair Length</div>
+            <div class="visual-grid" id="gridHairLength">
+                <div class="visual-option selected" data-value="Short"><div class="visual-img"><img @src="setup.playerAppearanceImages.hairShort" alt="Short Hair"></div><div class="visual-name">Short</div></div>
+                <div class="visual-option" data-value="Medium"><div class="visual-img"><img @src="setup.playerAppearanceImages.hairMedium" alt="Medium Hair"></div><div class="visual-name">Medium</div></div>
+                <div class="visual-option" data-value="Long"><div class="visual-img"><img @src="setup.playerAppearanceImages.hairLong" alt="Long Hair"></div><div class="visual-name">Long</div></div>
+                <div class="visual-option" data-value="Very Long"><div class="visual-img"><img @src="setup.playerAppearanceImages.hairVeryLong" alt="Very Long Hair"></div><div class="visual-name">Very Long</div></div>
+            </div>
+
+            <!-- Hair Style (Dynamic - appears after length selection) -->
+            <div class="hair-style-section" id="hairStyleSection">
+                <div class="visual-label">Hair Style</div>
+                <div class="visual-grid" id="gridHairStyle">
+                    <div class="visual-option selected" data-value="Straight" data-length="Short"><div class="visual-img"><img id="imgStraight" @src="setup.playerAppearanceImages.hairShortStraight" alt="Straight Hair"></div><div class="visual-name">Straight</div></div>
+                    <div class="visual-option" data-value="Wavy" data-length="Short"><div class="visual-img"><img id="imgWavy" @src="setup.playerAppearanceImages.hairShortWavy" alt="Wavy Hair"></div><div class="visual-name">Wavy</div></div>
+                    <div class="visual-option" data-value="Curly" data-length="Short"><div class="visual-img"><img id="imgCurly" @src="setup.playerAppearanceImages.hairShortCurly" alt="Curly Hair"></div><div class="visual-name">Curly</div></div>
+                </div>
+            </div>
+
+            <!-- Bust Size -->
+            <div class="visual-label">Bust Size</div>
+            <div class="visual-grid" id="gridBustSize">
+                <div class="visual-option selected" data-value="A"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustA" alt="A Cup"></div><div class="visual-name">A-Cup</div></div>
+                <div class="visual-option" data-value="B"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustB" alt="B Cup"></div><div class="visual-name">B-Cup</div></div>
+                <div class="visual-option" data-value="C"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustC" alt="C Cup"></div><div class="visual-name">C-Cup</div></div>
+                <div class="visual-option" data-value="D"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustD" alt="D Cup"></div><div class="visual-name">D-Cup</div></div>
+                <div class="visual-option" data-value="DD"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustDD" alt="DD+ Cup"></div><div class="visual-name">DD+</div></div>
+            </div>
+
+            <!-- Hip Size -->
+            <div class="visual-label">Hip Size</div>
+            <div class="visual-grid" id="gridHipSize">
+                <div class="visual-option selected" data-value="Slim"><div class="visual-img"><img @src="setup.playerAppearanceImages.hipSlim" alt="Slim Hips"></div><div class="visual-name">Slim</div></div>
+                <div class="visual-option" data-value="Medium"><div class="visual-img"><img @src="setup.playerAppearanceImages.hipMedium" alt="Medium Hips"></div><div class="visual-name">Medium</div></div>
+                <div class="visual-option" data-value="Wide"><div class="visual-img"><img @src="setup.playerAppearanceImages.hipWide" alt="Wide Hips"></div><div class="visual-name">Wide</div></div>
+                <div class="visual-option" data-value="Curvy"><div class="visual-img"><img @src="setup.playerAppearanceImages.hipCurvy" alt="Curvy Hips"></div><div class="visual-name">Curvy</div></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 3. SIMULATION SETTINGS -->
+    <div class="settings-section setup-accordion-item">
+        <div class="settings-section-header setup-accordion-header">
+            <div style="display: flex; align-items: center; gap: 0.5rem;"><span class="icon icon-settings"></span> Simulation Settings</div>
+            <span class="setup-accordion-toggle icon icon-chevron-down"></span>
+        </div>
+        <div class="settings-section-body setup-accordion-content">
+            <div class="note-box warning">
+                ⚠️ These settings cannot be changed after starting the game.
+            </div>
+
+            <div class="sim-grid">
+                <div class="sim-group-title">Basic Needs</div>
+                
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Hunger</div>
+                        <div class="sim-desc">Need to eat regularly</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="trackHunger">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Thirst</div>
+                        <div class="sim-desc">Need to drink water</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="trackThirst">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Bladder</div>
+                        <div class="sim-desc">Need to use bathroom</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="trackBladder">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Calories</div>
+                        <div class="sim-desc">Track intake vs burn</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="trackCalories">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Hygiene Impact</div>
+                        <div class="sim-desc">Bad smell repels people</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="hygieneRequirement">ON</button>
+                </div>
+
+                <div class="sim-group-title">Appearance & Decay</div>
+                
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Hair Growth</div>
+                        <div class="sim-desc">Hair gets longer daily</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="hairGrowth">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Hair Messiness</div>
+                        <div class="sim-desc">Wake up with messy hair</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="hairMessiness">ON</button>
+                </div>
+                 <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Body Hair</div>
+                        <div class="sim-desc">Body hair grows over time</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="bodyHairGrowth">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Makeup Fade</div>
+                        <div class="sim-desc">Makeup wears off daily</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="makeupWearOff">ON</button>
+                </div>
+                 <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Body Changes</div>
+                        <div class="sim-desc">Muscle/Fat gain/loss</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="bodyDegradation">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Skill Decay</div>
+                        <div class="sim-desc">Unused skills degrade</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="skillDecay">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Relation Decay</div>
+                        <div class="sim-desc">Unseen friends drift apart</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="relationshipDecay">ON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. CONTENT PREFERENCES -->
+    <div class="settings-section setup-accordion-item">
+        <div class="settings-section-header setup-accordion-header">
+             <div style="display: flex; align-items: center; gap: 0.5rem;"><span class="icon icon-eye"></span> Content Preferences</div>
+             <span class="setup-accordion-toggle icon icon-chevron-down"></span>
+        </div>
+        <div class="settings-section-body setup-accordion-content">
+            <div class="note-box warning">
+                Select content you are comfortable with. Can be changed anytime.
+            </div>
+
+            <div class="sim-grid">
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Male Sexual</div>
+                        <div class="sim-desc">Scenes with men</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="maleSexual" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Female Sexual</div>
+                        <div class="sim-desc">Scenes with women</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="femaleSexual" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Trans/Futa</div>
+                        <div class="sim-desc">Penis-having women</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="futaTrans" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Pregnancy</div>
+                        <div class="sim-desc">Risk of getting pregnant</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="pregnancy" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Incest</div>
+                        <div class="sim-desc">Family relations</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="incest" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">NTR / Cheating</div>
+                        <div class="sim-desc">Betrayal content</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="ntr" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">BDSM</div>
+                        <div class="sim-desc">Bondage and dominance</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="bdsm" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Non-Consensual</div>
+                        <div class="sim-desc">Forced interactions</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="nonConsensual" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Public / Exhibition</div>
+                        <div class="sim-desc">Being seen in public</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="publicExhibition" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Lactation</div>
+                        <div class="sim-desc">Breast milk production</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="lactation" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Foot Fetish</div>
+                        <div class="sim-desc">Focus on feet</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="feet" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Watersports</div>
+                        <div class="sim-desc">Urine related content</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="watersports" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Scat</div>
+                        <div class="sim-desc">Feces related content</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="scat" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Gore / Violence</div>
+                        <div class="sim-desc">Blood and injury</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="goreViolence" data-category="content">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Ageplay</div>
+                        <div class="sim-desc">Age difference dynamics</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="ageplay" data-category="content">ON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- START GAME BUTTON -->
+    <div class="flex-center mt-4 mb-4" id="start-game-container">
+        <<btn "Continue" "" "accent">><</btn>>
+    </div>
+
+</div>
+</div>
+<</nobr>>
+
+<<script>>
+$(document).on(':passagedisplay', function(ev) {
+    if (ev.passage.title !== 'settingsPage') return;
+    
+    const State = SugarCube.State;
+    const vars = State.variables;
+    const $ = jQuery;
+
+    // --- INITIALIZATION ---
+
+    // 1. Restore Toggles (Using .active instead of .on/.off to match accordion.js)
+    function restoreToggle(setting, obj) {
+        if (!obj || obj[setting] === undefined) return;
+        const val = obj[setting];
+        const $btn = $('.setting-toggle-btn[data-setting="' + setting + '"]');
+        if (val) {
+            $btn.addClass('active').text('ON');
+        } else {
+            $btn.removeClass('active').text('OFF');
+        }
+    }
+
+    // Restore Game Settings
+    if (vars.gameSettings) {
+        Object.keys(vars.gameSettings).forEach(key => restoreToggle(key, vars.gameSettings));
+    }
+    // Restore Content Preferences
+    if (vars.contentPreferences) {
+        Object.keys(vars.contentPreferences).forEach(key => restoreToggle(key, vars.contentPreferences));
+    }
+
+    // 2. Restore Visual Selections
+    function restoreSelection(group, value) {
+        if (!value) return;
+        const $container = $('#grid' + group);
+        $container.find('.selected').removeClass('selected');
+        $container.find('[data-value="' + value + '"]').addClass('selected');
+        $('#val' + group).val(value);
+    }
+
+    if (vars.player) {
+        restoreSelection('EyeColor', vars.player.eyeColor);
+        restoreSelection('HairColor', vars.player.hairColor);
+        restoreSelection('HairLength', vars.player.hairLength);
+        restoreSelection('HairStyle', vars.player.hairStyle || 'Straight');
+        restoreSelection('BustSize', vars.player.bustSize);
+        restoreSelection('HipSize', vars.player.hipSize);
+        if (vars.player.firstName) $('#characterFirstName').val(vars.player.firstName);
+        if (vars.player.lastName) $('#characterLastName').val(vars.player.lastName);
+        
+        // Restore height
+        if (vars.body && vars.body.height) {
+            const height = vars.body.height;
+            const percentage = ((height - 150) / 40) * 100;
+            const container = $('.custom-slider-container[data-slider="height"]');
+            container.find('.custom-slider-fill').css('width', percentage + '%');
+            container.find('.custom-slider-thumb').css('left', percentage + '%');
+            container.find('.custom-slider-tooltip').text(height + ' cm');
+            $('#heightValue').text(height);
+            $('#valHeight').val(height);
+        }
+        
+        // Update hair style images based on current length
+        if (vars.player.hairLength) {
+            updateHairStyleImages(vars.player.hairLength);
+        }
+    }
+    
+    // Height Custom Slider Events
+    (function() {
+        const container = $('.custom-slider-container[data-slider="height"]');
+        const track = container.find('.custom-slider-track');
+        const fill = container.find('.custom-slider-fill');
+        const thumb = container.find('.custom-slider-thumb');
+        const tooltip = container.find('.custom-slider-tooltip');
+        
+        let isDragging = false;
+        
+        const updateSlider = (clientX) => {
+            const trackRect = track[0].getBoundingClientRect();
+            const trackWidth = trackRect.width;
+            let position = clientX - trackRect.left;
+            position = Math.max(0, Math.min(position, trackWidth));
+            const percentage = (position / trackWidth) * 100;
+            
+            // Height range: 150-190 cm
+            const height = Math.round(150 + (percentage / 100) * 40);
+            
+            fill.css('width', percentage + '%');
+            thumb.css('left', percentage + '%');
+            tooltip.text(height + ' cm');
+            $('#heightValue').text(height);
+            $('#valHeight').val(height);
+        };
+        
+        track.on('mousedown', function(e) {
+            if (e.target === thumb[0] || thumb.has(e.target).length) return;
+            updateSlider(e.clientX);
+            isDragging = true;
+            thumb.addClass('dragging');
+        });
+        
+        thumb.on('mousedown', function(e) {
+            e.preventDefault();
+            isDragging = true;
+            thumb.addClass('dragging');
+        });
+        
+        $(document).on('mousemove.height-slider', function(e) {
+            if (!isDragging) return;
+            updateSlider(e.clientX);
+        });
+        
+        $(document).on('mouseup.height-slider', function() {
+            if (isDragging) {
+                isDragging = false;
+                thumb.removeClass('dragging');
+            }
+        });
+    })();
+    
+    // Helper: Update hair style images based on selected length
+    function updateHairStyleImages(length) {
+        const lengthKey = length.replace(' ', ''); // "Very Long" -> "VeryLong"
+        const images = SugarCube.setup.playerAppearanceImages;
+        
+        if (images) {
+            $('#imgStraight').attr('src', images['hair' + lengthKey + 'Straight'] || '');
+            $('#imgWavy').attr('src', images['hair' + lengthKey + 'Wavy'] || '');
+            $('#imgCurly').attr('src', images['hair' + lengthKey + 'Curly'] || '');
+        }
+        
+        // Update data-length on style options
+        $('#gridHairStyle .visual-option').attr('data-length', length);
+    }
+
+    // --- EVENT LISTENERS ---
+
+    // 1. Color & Visual Options Click (except hair length which has special handling)
+    $('.color-option, .visual-option').not('#gridHairLength .visual-option').on('click', function() {
+        const $this = $(this);
+        const $container = $this.parent();
+        const value = $this.data('value');
+        
+        $container.find('.selected').removeClass('selected');
+        $this.addClass('selected');
+
+        const gridId = $container.attr('id');
+        const inputId = gridId.replace('grid', 'val');
+        $('#' + inputId).val(value);
+    });
+    
+    // 1b. Hair Length Click - Special handling to update Hair Style images
+    $('#gridHairLength .visual-option').on('click', function() {
+        const $this = $(this);
+        const $container = $this.parent();
+        const length = $this.data('value');
+        
+        $container.find('.selected').removeClass('selected');
+        $this.addClass('selected');
+        $('#valHairLength').val(length);
+        
+        // Update Hair Style images dynamically
+        updateHairStyleImages(length);
+    });
+
+    // 2. Toggle Buttons Click -> HANDLED BY accordion.js
+
+    // 3. Start Game Click (Updated to target widget output)
+    $('#start-game-container .btn-style').on('click', function(e) {
+        e.preventDefault();
+
+        // Ensure player object exists
+        if (!vars.player) {
+            vars.player = {};
+        }
+
+        // Save Character Info
+        vars.player.firstName = $('#characterFirstName').val() || "Alex";
+        vars.player.lastName = $('#characterLastName').val() || "Taylor";
+        
+        // Update Family Last Names to match Player
+        if (vars.characters) {
+            const lastName = vars.player.lastName;
+            
+            if (vars.characters.father) {
+                vars.characters.father.lastName = lastName;
+            }
+            if (vars.characters.mother) {
+                vars.characters.mother.lastName = lastName;
+            }
+            if (vars.characters.brother) {
+                vars.characters.brother.lastName = lastName;
+            }
+        }
+        
+        // Save Body Customization
+        vars.player.eyeColor = $('#valEyeColor').val();
+        vars.player.hairColor = $('#valHairColor').val();
+        vars.player.hairLength = $('#valHairLength').val();
+        vars.player.hairStyle = $('#valHairStyle').val();
+        vars.player.bustSize = $('#valBustSize').val();
+        vars.player.hipSize = $('#valHipSize').val();
+        
+        // Save Height to $body
+        const height = parseInt($('#valHeight').val()) || 170;
+        vars.body.height = height;
+        
+        // Auto-calculate weight for Normal body type (BMI ~21.5)
+        const heightM = height / 100;
+        vars.body.weight = Math.round(21.5 * heightM * heightM);
+        
+        // Set bus measurement based on bustSize
+        // Updated to match SystemWidgets mapping
+        const bustSizes = { 'A': 80, 'B': 85, 'C': 90, 'D': 95, 'DD': 100, 'DD+': 105 };
+        vars.body.bust = bustSizes[vars.player.bustSize] || 90;
+        
+        // Set hip measurement based on hipSize
+        // Updated to match SystemWidgets mapping (Wider hips for Curvy)
+        const hipSizes = { 'Slim': 85, 'Medium': 95, 'Wide': 105, 'Curvy': 115 };
+        vars.body.hips = hipSizes[vars.player.hipSize] || 95;
+        
+        // Calculate Waist (Missing in original code, causing init issues)
+        // Estimate waist based on hips (approx 0.72 ratio)
+        vars.body.waist = Math.round(vars.body.hips * 0.72);
+
+        // Determine starting body type based on bust/hip selection
+        // Curvy if: bust DD OR hip Wide/Curvy
+        if (vars.player.bustSize === 'DD' || vars.player.hipSize === 'Wide' || vars.player.hipSize === 'Curvy') {
+            vars.body.bodyType = "Curvy";
+        } else {
+            vars.body.bodyType = "Normal";
+        }
+        vars.body.bmi = Math.round((vars.body.weight / (heightM * heightM)) * 10) / 10;
+        
+        // Trigger initial stats calculation
+        if (window.Wikifier) window.Wikifier.wikifyEval("<<recalculateStats>>");
+
+        // Save Simulation Settings
+        $('.setting-toggle-btn[data-category!="content"]').each(function() {
+            const key = $(this).data('setting');
+            vars.gameSettings[key] = $(this).hasClass('active');
+        });
+
+        // Save Content Preferences
+        $('.setting-toggle-btn[data-category="content"]').each(function() {
+            const key = $(this).data('setting');
+            vars.contentPreferences[key] = $(this).hasClass('active');
+        });
+
+        // Navigate
+        SugarCube.Engine.play('confirmationPage');
+    });
+
+});
+<</script>>

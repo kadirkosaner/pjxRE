@@ -1,0 +1,40 @@
+/* Tops - Crop tops, t-shirts, blouses, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * 
+ * Tags: casual, formal, revealing, sexy, sporty, elegant
+ * Quality: Common, Rare, Premium
+ * FUTURE: size, durability, effects, unlockCondition
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.tops = [
+    {
+        id: "tshirt_white_owned",
+        name: "White T-Shirt",
+        brand: "Northline Apparel",
+        desc: "A simple white cotton tee, perfect for everyday wear.",
+        image: "assets/content/clothing/tops/tshirtWhiteOwned.webp",
+        looks: 3,
+        quality: "Common",
+        tags: ["casual"],
+        price: 25,
+        shopAvailable: false,
+        startOwned: true
+    },
+    {
+        id: "tshirt_blue_owned",
+        name: "Blue T-Shirt",
+        brand: "Northline Apparel",
+        desc: "A comfortable light blue cotton tee.",
+        image: "assets/content/clothing/tops/tshirtBlueOwned.webp",
+        looks: 3,
+        quality: "Common",
+        tags: ["casual"],
+        price: 25,
+        shopAvailable: false,
+        startOwned: true
+    }
+]>>
+

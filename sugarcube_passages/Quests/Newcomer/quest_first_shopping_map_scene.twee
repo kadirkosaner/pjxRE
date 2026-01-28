@@ -1,0 +1,73 @@
+/* ==========================================
+   NEWCOMER QUEST - FIRST SHOPPING
+   Scene: Map discovery at Quick Mart
+========================================== */
+<<nobr>>
+<<set $location = "storeCorner">>
+<<updateCharacterLocations>>
+<<discover "StoreCorner" "Quick Mart">>
+<<completeQuest "first_shopping">>
+<<set $showMapTutorial = true>>
+<<set $showRelationTutorial = true>>
+<<set $hideRightbarMap = false>>
+<</nobr>>
+<<narrative "Quick Mart - Counter">>
+A small convenience store. You grab what your mom asked for and head to the counter. After paying, you notice a stack of brochures on the side of the counter. "City Map" is written on top.
+<</narrative>>
+<<dialog "player">>
+(Points at the brochures)
+What are these?
+<</dialog>>
+<<dialog "shopClerkMarcus">>
+City map.
+(Picks one up and hands it to you)
+<</dialog>>
+<<image "assets/content/scenes/maplewood/cornerShop/cityMap.webp" "100%">>
+<<narrative>>
+You take it and start looking it over without unfolding it.
+<</narrative>>
+<<dialog "player">>
+Thanks, how much?
+<</dialog>>
+<<dialog "shopClerkMarcus">>
+Free, take it. If you haven't seen this map until now, I'm guessing you just moved here?
+(Smiles slightly)
+<</dialog>>
+<<dialog "player">>
+Yeah, we just moved. The street with the big tree.
+<</dialog>>
+<<dialog "shopClerkMarcus">>
+(Nods)
+I know that place.
+(Points through the window, opposite direction)
+I live on the other side, over there.
+<</dialog>>
+<<dialog "player">>
+(Looks where he's pointing)
+<</dialog>>
+<<dialog "shopClerkMarcus">>
+I'm Marcus, I work here. I know pretty much everyone in the neighborhood. Welcome to the neighborhood.
+<</dialog>>
+<<dialog "player">>
+(Smiles)
+I'm $playername.
+<</dialog>>
+<<dialog "shopClerkMarcus">>
+(Smiles)
+Nice to meet you.
+<</dialog>>
+<<dialog "player">>
+Nice to meet you too.
+<</dialog>>
+<<narrative>>
+You walk out with a smile, brochure in hand.
+<</narrative>>
+<<silently>>
+/* Mark character as met and known */
+<<set $characters.shopClerkMarcus.known = true>>
+<<set $characters.shopClerkMarcus.firstMet = `${$timeSys.day}/${$timeSys.month}/${$timeSys.year}`>>
+<<gainCharacterStat "shopClerkMarcus" "friendship" 5>>
+<</silently>>
+<div class="btn-center">
+<<btn "Leave the Store" "maplewood">><</btn>>
+</div>

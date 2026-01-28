@@ -1,0 +1,24 @@
+<<nobr>>
+<<set $location = "storeCorner">>
+<<updateCharacterLocations>>
+<</nobr>>
+
+<<narrative "Quick Mart - Counter">>
+Marcus is behind the counter, keeping an eye on the store. He looks up and gives you a welcoming nod as you approach.
+<</narrative>>
+
+<<dialog "shopClerk">>
+Hey there! Good to see you again. Finding your way around the neighborhood okay?
+<</dialog>>
+
+<<dialog "player">>
+Yeah, I'm getting the hang of it. That map you gave me really helped.
+<</dialog>>
+
+<<dialog "shopClerk">>
+Glad to hear it! Like I said, don't be a stranger. It's always nice to have a friendly face stop by.
+<</dialog>>
+
+<div class="btn-center">
+<<btn "Continue" "storeCorner">><</btn>>
+</div>

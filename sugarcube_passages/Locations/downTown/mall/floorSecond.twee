@@ -1,0 +1,23 @@
+<<nobr>>
+<<set $location = "floorSecond">>
+<</nobr>>
+
+<<updateCharacterLocations>>
+
+<<narrative "Second Floor">>
+The second floor offers fashion boutiques, jewelry stores, and intimate apparel shops. High-end brands line the corridors.
+<</narrative>>
+
+<<showLocationChars "floorSecond">>
+
+<<navMenu>>
+	<<navCard "storeBags">>
+	<<navCard "storeClothingB">>
+	<<navCard "storeClothingC">>
+	<<navCard "storeJewelry">>
+	<<navCard "storeLingerieA">>
+	<<navCard "storeLingerieB">>
+	<<navCard "storeShoeB">>
+	<<navCard "floorGround">>
+	<<navCard "floorThird">>
+<</navMenu>>

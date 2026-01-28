@@ -1,0 +1,41 @@
+
+/* Bracelets - Bangles, chains, cuffs, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * 
+ * Tags: casual, formal, elegant, cute, statement
+ * Quality: Common, Rare, Premium
+ * FUTURE: durability, effects, unlockCondition
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.bracelets = [
+    {
+        id: "bracelet_simple",
+        name: "Simple Bracelet",
+        brand: "Silver Touch",
+        desc: "A thin silver bracelet for everyday wear.",
+        image: "assets/content/clothing/bracalet/bracalet1.jpg",
+        looks: 2,
+        quality: "Common",
+        tags: ["casual"],
+        price: 20,
+        shopAvailable: true,
+        startOwned: false
+    },
+    {
+        id: "bracelet_gold",
+        name: "Gold Bracelet",
+        brand: "Luxe",
+        desc: "Shimmering gold bracelet that catches the light.",
+        image: "assets/content/clothing/bracalet/bracalet2.jpg",
+        looks: 5,
+        quality: "Rare",
+        tags: ["formal", "elegant"],
+        price: 100,
+        shopAvailable: true,
+        startOwned: false
+    }
+]>>
+

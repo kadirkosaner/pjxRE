@@ -1,0 +1,100 @@
+/* ==========================================
+   BASE GAME VARIABLES
+========================================== */
+
+// Game Information
+<<set setup.gameName = "Deneme">>
+<<set setup.gameVersion = "Beta">>
+
+/* ==========================================
+   UI VISIBILITY SETTINGS
+========================================== */
+
+// Topbar
+<<set $hideTopbar to false>>
+<<set $hideTopbarHamburger to false>>
+<<set $hideTopbarNavLeft to false>>
+<<set $hideTopbarNavRight to false>>
+<<set $hideTopbarTimebox to false>>
+<<set $hideTopbarNotifications to false>>
+
+// Rightbar
+<<set $hideRightbar to false>>
+<<set $hideRightbarGameInfo to false>>
+<<set $hideRightbarProfile to false>>
+<<set $hideRightbarStats to false>>
+<<set $hideRightbarPhone to false>>
+<<set $hideRightbarMap to true>>
+
+/* ==========================================
+   TOPBAR NOTIFICATIONS
+========================================== */
+
+<<set $notificationEnergy = 0>>
+<<set $notificationHealth = 0>>
+<<set $notificationMood = 0>>
+<<set $notificationArousal = 0>>
+<<set $notificationBladder = 0>>
+<<set $notificationThirst = 0>>
+<<set $notificationHunger = 0>>
+<<set $notificationCum = 1>>
+<<set $notificationHeart = 1>>
+<<set $notificationBed = 1>>
+<<set $notificationAlarm = 1>>
+<<set $notificationSchool = 1>>
+<<set $notificationWork = 1>>
+<<set $notificationClothes = 0>>
+
+/* ==========================================
+   PHONE NOTIFICATIONS
+========================================== */
+
+<<set $notificationPush = 0>>
+<<set $notificationPhoneCount = 0>>
+<<set $notificationPhoneMessages = 1>>
+<<set $notificationPhoneFotogram = 2>>
+<<set $notificationPhoneFinder = 3>>
+
+/* ==========================================
+   DAILY TRACKING
+========================================== */
+<<if def $daily>>
+<<else>>
+    <<set $daily = { 
+        yogaDone: false, 
+        danceDone: false 
+    }>>
+<</if>>
+
+/* ==========================================
+   SYSTEM VARIABLES
+========================================== */
+
+/* Alarm System */
+<<if def $alarm>>
+<<else>>
+    <<set $alarm = {
+        weekdayEnabled: false,
+        weekdayHour: 7,
+        weekdayMinute: 0,
+        weekendEnabled: false,
+        weekendHour: 10,
+        weekendMinute: 0
+    }>>
+<</if>>
+
+/* Flags System - For story events/states */
+<<if def $flags>>
+<<else>>
+    <<set $flags = {
+        fatherStartedWork: false
+    }>>
+<</if>>
+
+/* Important Dates */
+<<if def $importantDates>>
+<<else>>
+    <<set $importantDates = {
+        fatherWorkStart: { year: 2025, month: 8, day: 25 }
+    }>>
+<</if>>

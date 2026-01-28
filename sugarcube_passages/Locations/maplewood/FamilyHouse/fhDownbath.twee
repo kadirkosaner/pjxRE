@@ -1,0 +1,21 @@
+<<nobr>>
+<<set $location = "fhDownbath">>
+<<updateCharacterLocations>>
+<</nobr>>
+
+<<narrative "Downstairs Bathroom">>
+A small guest bathroom near the main entrance. Clean and functional, with fresh towels neatly folded.
+<</narrative>>
+
+<<nobr>>
+<<showLocationChars "fhDownbath">>
+
+<div class="location-actions">
+        <<btn "Use Toilet" "useToilet">><</btn>>
+    	<<btn "Wash Face" "washFace">><</btn>>
+</div>
+
+<<navMenu>>
+	<<navCard "fhDownstairs">>
+<</navMenu>>
+<</nobr>>

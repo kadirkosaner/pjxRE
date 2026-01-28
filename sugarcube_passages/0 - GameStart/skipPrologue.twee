@@ -1,0 +1,287 @@
+:: skipPrologue
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<<if ndef $prologueSelections>>
+  <<set $prologueSelections = {
+    early: null,
+    childhood: null,
+    formative: null,
+    adolescent: null,
+    coming: null
+  }>>
+  <<set $prologueBonuses = {}>>
+<</if>>
+
+<div class="page-wrapper">
+<div class="prologue-page skip-prologue">
+  <div class="prologue-content-area" style="max-width: 1000px;">
+    
+    <div class="prologue-header">
+      <h1 class="prologue-title">Quick Start</h1>
+      <div class="prologue-header-line"></div>
+      <p class="prologue-subtitle">Choose one trait from each life stage to shape your character.</p>
+    </div>
+    
+    <!-- Early Years (0-5) -->
+    <div class="skip-section" data-section="early">
+      <div class="skip-section-header">
+        <span class="skip-section-title">Early Years (0-5)</span>
+        <span class="skip-section-status" id="early-status">Select one</span>
+      </div>
+      <div class="skip-cards">
+        <div class="skip-card" data-section="early" data-title="Your Own Space" data-effect="+15% Focus" data-stat="focus" data-value="1.15">
+          <div class="skip-card-title">Your Own Space</div>
+          <div class="skip-card-effect">+15% Focus</div>
+        </div>
+        <div class="skip-card" data-section="early" data-title="Dad's Kingdom" data-effect="+15% Fitness" data-stat="fitness" data-value="1.15">
+          <div class="skip-card-title">Dad's Kingdom</div>
+          <div class="skip-card-effect">+15% Fitness</div>
+        </div>
+        <div class="skip-card" data-section="early" data-title="Mom's Special Time" data-effect="+15% Intelligence" data-stat="intelligence" data-value="1.15">
+          <div class="skip-card-title">Mom's Special Time</div>
+          <div class="skip-card-effect">+15% Intelligence</div>
+        </div>
+        <div class="skip-card" data-section="early" data-title="Family Pride" data-effect="+15% Charisma" data-stat="charisma" data-value="1.15">
+          <div class="skip-card-title">Family Pride</div>
+          <div class="skip-card-effect">+15% Charisma</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Childhood (6-9) -->
+    <div class="skip-section" data-section="childhood">
+      <div class="skip-section-header">
+        <span class="skip-section-title">Childhood (6-9)</span>
+        <span class="skip-section-status" id="childhood-status">Select one</span>
+      </div>
+      <div class="skip-cards">
+        <div class="skip-card" data-section="childhood" data-title="Dad's Lessons" data-effect="+15% Willpower" data-stat="willpower" data-value="1.15">
+          <div class="skip-card-title">Dad's Lessons</div>
+          <div class="skip-card-effect">+15% Willpower</div>
+        </div>
+        <div class="skip-card" data-section="childhood" data-title="Mom's Encouragement" data-effect="+15% Creativity" data-stat="creativity" data-value="1.15">
+          <div class="skip-card-title">Mom's Encouragement</div>
+          <div class="skip-card-effect">+15% Creativity</div>
+        </div>
+        <div class="skip-card" data-section="childhood" data-title="Family Dinner Talks" data-effect="+15% Intelligence" data-stat="mental" data-value="1.15">
+          <div class="skip-card-title">Family Dinner Talks</div>
+          <div class="skip-card-effect">+15% Intelligence</div>
+        </div>
+        <div class="skip-card" data-section="childhood" data-title="Mom's Social Butterfly" data-effect="+15% Charisma" data-stat="social" data-value="1.15">
+          <div class="skip-card-title">Mom's Social Butterfly</div>
+          <div class="skip-card-effect">+15% Charisma</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Formative (10-12) -->
+    <div class="skip-section" data-section="formative">
+      <div class="skip-section-header">
+        <span class="skip-section-title">Formative Years (10-12)</span>
+        <span class="skip-section-status" id="formative-status">Select one</span>
+      </div>
+      <div class="skip-cards">
+        <div class="skip-card" data-section="formative" data-title="Dad's Coaching" data-effect="+15% Fitness" data-stat="fitness" data-value="1.15">
+          <div class="skip-card-title">Dad's Coaching</div>
+          <div class="skip-card-effect">+15% Fitness</div>
+        </div>
+        <div class="skip-card" data-section="formative" data-title="Mom's Pride" data-effect="+15% Intelligence" data-stat="intelligence" data-value="1.15">
+          <div class="skip-card-title">Mom's Pride</div>
+          <div class="skip-card-effect">+15% Intelligence</div>
+        </div>
+        <div class="skip-card" data-section="formative" data-title="Finding Your Thing" data-effect="+15% Physical Skills" data-stat="physical" data-value="1.15">
+          <div class="skip-card-title">Finding Your Thing</div>
+          <div class="skip-card-effect">+15% Physical Skills</div>
+        </div>
+        <div class="skip-card" data-section="formative" data-title="Your Own Path" data-effect="+15% Creative Skills" data-stat="creativity" data-value="1.15">
+          <div class="skip-card-title">Your Own Path</div>
+          <div class="skip-card-effect">+15% Creative Skills</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Adolescent (13-15) -->
+    <div class="skip-section" data-section="adolescent">
+      <div class="skip-section-header">
+        <span class="skip-section-title">Adolescent Years (13-15)</span>
+        <span class="skip-section-status" id="adolescent-status">Select one</span>
+      </div>
+      <div class="skip-cards">
+        <div class="skip-card" data-section="adolescent" data-title="Mom's Tension" data-effect="+15% Beauty" data-stat="beauty" data-value="1.15">
+          <div class="skip-card-title">Mom's Tension</div>
+          <div class="skip-card-effect">+15% Beauty</div>
+        </div>
+        <div class="skip-card" data-section="adolescent" data-title="Dad's Quiet Support" data-effect="+15% Social Skills" data-stat="social" data-value="1.15">
+          <div class="skip-card-title">Dad's Quiet Support</div>
+          <div class="skip-card-effect">+15% Social Skills</div>
+        </div>
+        <div class="skip-card" data-section="adolescent" data-title="Your Space" data-effect="+15% Technical Skills" data-stat="technical" data-value="1.15">
+          <div class="skip-card-title">Your Space</div>
+          <div class="skip-card-effect">+15% Technical Skills</div>
+        </div>
+        <div class="skip-card" data-section="adolescent" data-title="Beyond Family" data-effect="+15% Willpower" data-stat="willpower" data-value="1.15">
+          <div class="skip-card-title">Beyond Family</div>
+          <div class="skip-card-effect">+15% Willpower</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Coming of Age (16-17) -->
+    <div class="skip-section" data-section="coming">
+      <div class="skip-section-header">
+        <span class="skip-section-title">Coming of Age (16-17)</span>
+        <span class="skip-section-status" id="coming-status">Select one</span>
+      </div>
+      <div class="skip-cards">
+        <div class="skip-card" data-section="coming" data-title="Coming Into Your Own" data-effect="+15% Beauty" data-stat="beauty" data-value="1.15">
+          <div class="skip-card-title">Coming Into Your Own</div>
+          <div class="skip-card-effect">+15% Beauty</div>
+        </div>
+        <div class="skip-card" data-section="coming" data-title="Understanding Desire" data-effect="+15% Charisma" data-stat="charisma" data-value="1.15">
+          <div class="skip-card-title">Understanding Desire</div>
+          <div class="skip-card-effect">+15% Charisma</div>
+        </div>
+        <div class="skip-card" data-section="coming" data-title="Breaking Away" data-effect="+15% Practical Skills" data-stat="practical" data-value="1.15">
+          <div class="skip-card-title">Breaking Away</div>
+          <div class="skip-card-effect">+15% Practical Skills</div>
+        </div>
+        <div class="skip-card" data-section="coming" data-title="Physical Awakening" data-effect="+15% Physical Skills" data-stat="physical" data-value="1.15">
+          <div class="skip-card-title">Physical Awakening</div>
+          <div class="skip-card-effect">+15% Physical Skills</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Buttons -->
+    <div class="prologue-btn-row" style="margin-top: 2rem;">
+      <<link '<span class="prologue-btn prologue-btn-secondary">Back</span>' "confirmationPage">><</link>>
+      <span id="skip-start" class="prologue-btn prologue-btn-primary disabled">Start Game</span>
+    </div>
+    
+  </div>
+</div>
+</div>
+
+<</nobr>>
+
+<<script>>
+$(document).ready(function() {
+  var selections = State.variables.prologueSelections;
+  var sections = ['early', 'childhood', 'formative', 'adolescent', 'coming'];
+  
+  function updateStartButton() {
+    var allSelected = sections.every(function(s) {
+      return selections[s] !== null;
+    });
+    
+    if (allSelected) {
+      $('#skip-start')
+        .removeClass('disabled')
+        .css('cursor', 'pointer')
+        .off('click')
+        .on('click', function() {
+          // Set game start time
+          State.variables.timeSys.year = 2025;
+          State.variables.timeSys.month = 8;
+          State.variables.timeSys.day = 15;
+          State.variables.timeSys.weekday = 4;
+          State.variables.timeSys.hour = 15;
+          State.variables.timeSys.minute = 22;
+          
+          // Initialize wardrobe if needed
+          if (!State.variables.wardrobe || !State.variables.wardrobe.owned || State.variables.wardrobe.owned.length === 0) {
+            State.variables.wardrobe = {
+              owned: ["tshirt_white_owned", "jeans_blue_owned", "sneakers_flat_owned", "socks_white_owned", "panties_white_owned", "bra_sport_white_owned", "leggings_black_owned", "bra_black_owned", "dress_summer_owned", "panties_pink_owned", "sandals_owned", "sneakers_girly_owned", "pajama_color_owned", "socks_black_owned", "tshirt_blue_owned"],
+              outfits: [null, null, null, null],
+              equipped: {
+                top: "tshirt_white_owned",
+                bottom: "jeans_blue_owned",
+                shoes: "sneakers_flat_owned",
+                socks: "socks_white_owned",
+                panty: "panties_white_owned",
+                bra: "bra_sport_white_owned"
+              }
+            };
+          }
+          
+          // Re-enable UI
+          State.variables.hideTopbarNav = false;
+          State.variables.hideTopbarTimebox = false;
+          State.variables.hideTopbarNotifications = false;
+          State.variables.hideRightbar = false;
+          State.variables.hideTopbar = false;
+          State.variables.discoveredStoreCorner = true;
+          
+          $('body').removeClass('fullscreen-centered');
+          
+          // Mark prologue as complete
+          State.variables.prologue_complete = true;
+          
+          // Ensure map is hidden until Marcus gives it
+          State.variables.hideRightbarMap = true;
+          
+          // Mother gives money for groceries
+          $.wiki('<<earnMoney 20>>');
+          
+          // Start first quest
+          if (typeof Macro !== 'undefined' && Macro.get('startQuest')) {
+            $.wiki('<<startQuest "first_shopping">>');
+          }
+          
+          // Update character locations
+          if (typeof Macro !== 'undefined' && Macro.get('updateCharacterLocations')) {
+            $.wiki('<<updateCharacterLocations>>');
+          }
+          
+          Engine.play('fhBedroom');
+        });
+    } else {
+      $('#skip-start').addClass('disabled').css('cursor', 'not-allowed');
+    }
+  }
+  
+  // Handle card clicks
+  $('.skip-card').on('click', function() {
+    var $card = $(this);
+    var section = $card.data('section');
+    var title = $card.data('title');
+    var effect = $card.data('effect');
+    var stat = $card.data('stat');
+    var value = $card.data('value');
+    
+    // Update selection in same section
+    $card.closest('.skip-section').find('.skip-card').removeClass('selected');
+    $card.addClass('selected');
+    
+    // Store selection
+    selections[section] = {
+      title: title,
+      effect: effect,
+      stat: stat,
+      value: value
+    };
+    
+    // Update status
+    $('#' + section + '-status').text('✓ ' + title).addClass('selected');
+    
+    // Check if all selected
+    updateStartButton();
+  });
+  
+  // Restore existing selections
+  sections.forEach(function(section) {
+    if (selections[section]) {
+      var title = selections[section].title;
+      $('.skip-card[data-section="' + section + '"]').each(function() {
+        if ($(this).data('title') === title) {
+          $(this).addClass('selected');
+          $('#' + section + '-status').text('✓ ' + title).addClass('selected');
+        }
+      });
+    }
+  });
+  
+  updateStartButton();
+});
+<</script>>

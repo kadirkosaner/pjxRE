@@ -1,0 +1,88 @@
+<<nobr>>
+<<set $hideTopbarNav = true>>
+<<set $hideTopbarTimebox = true>>
+<<set $hideTopbarNotifications = true>>
+<<set $hideRightbar = true>>
+<<set $hideTopbar = true>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    <div class="prologue-content-area">
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Present Day</div>
+        <h1 class="prologue-title">A New Beginning</h1>
+        <div class="prologue-header-line"></div>
+      </div>
+      
+      <<image "assets/content/scenes/prologue/road.webp" "100%">>
+
+      <<narrative>>
+        The highway stretches endlessly ahead. Fields on both sides, wire fences, the occasional tractor... Miles of the same view.
+      <</narrative>>
+      
+      <<narrative>>
+        I'm in the back seat, staring out the window. My brother's asleep next to me, headphones still in. Mom and dad sit quietly up front. An old song plays on the radio—something familiar but I can't place it.
+      <</narrative>>
+      
+      <<narrative>>
+        That street keeps running through my mind. Our house. The backyard. The neighbors. My friends... All of it's behind us now. My earliest memories are there—my brother being born, mom reading to me at night, those endless afternoons in the yard... Feels like a lifetime ago.
+      <</narrative>>
+      
+      <<narrative>>
+        Then a sign appears: "City Center - 30km"
+      <</narrative>>
+      
+      <<narrative>>
+        My stomach drops. Thirty kilometers. That's it? My new life is that close... I don't know if I'm excited or scared. Maybe both.
+      <</narrative>>
+      
+      <<dialog "mother">>
+        So, $player.firstName, what are you thinking for this week? You gonna start working on those college applications?
+      <</dialog>>
+      
+      <<dialog "player">>
+        I don't know... Let's just get there first.
+      <</dialog>>
+      
+      <<dialog "mother">>
+        Fair enough. You packed everything though, right? It's pretty far, you can't just run back if you forgot something.
+      <</dialog>>
+      
+      <<dialog "father">>
+        Twenty minutes out, by the way.
+      <</dialog>>
+      
+      <<narrative>>
+        I look out the window. No more fields—buildings are starting to appear. Small businesses. Roadside shops. Traffic lights.
+      <</narrative>>
+      
+      <<narrative>>
+        The city's getting closer.
+      <</narrative>>
+      
+      <<narrative>>
+        Something stirs inside me—fear, excitement, curiosity... All at once. My heart beats faster.
+      <</narrative>>
+      
+      <<narrative>>
+        I close my eyes. The memories come...
+      <</narrative>>
+      
+      <div class="prologue-flashback">
+        <div class="prologue-flashback-line"></div>
+        <span class="prologue-flashback-text">Memories</span>
+        <div class="prologue-flashback-line"></div>
+      </div>
+      
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-primary">Return to the Past</span>' "earlyYears">><</link>>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+<</nobr>>

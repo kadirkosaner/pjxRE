@@ -1,0 +1,261 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    
+    <!-- Sidebar - All Completed -->
+    <div class="prologue-sidebar">
+      <div class="prologue-sidebar-title">Your Journey</div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Early Years (0-5)</div>
+        <<if $prologueSelections.early>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.early.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.early.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Childhood (6-9)</div>
+        <<if $prologueSelections.childhood>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.childhood.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.childhood.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Formative (10-12)</div>
+        <<if $prologueSelections.formative>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.formative.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.formative.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Adolescent (13-15)</div>
+        <<if $prologueSelections.adolescent>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.adolescent.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.adolescent.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Coming of Age (16-17)</div>
+        <<if $prologueSelections.coming>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.coming.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.coming.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+    </div>
+    
+    <div class="prologue-content-area">
+      
+      <div class="prologue-progress-container">
+        <div class="prologue-progress-bar">
+          <div class="prologue-progress-fill" style="width: 100%;"></div>
+        </div>
+        <div class="prologue-progress-steps">
+          <span class="prologue-progress-step completed">0-5</span>
+          <span class="prologue-progress-step completed">6-9</span>
+          <span class="prologue-progress-step completed">10-12</span>
+          <span class="prologue-progress-step completed">13-15</span>
+          <span class="prologue-progress-step completed">16-17</span>
+        </div>
+      </div>
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Present Day</div>
+        <h1 class="prologue-title">Arrival</h1>
+        <div class="prologue-header-line"></div>
+      </div>
+      
+      <<narrative>>
+        The car slows down. You open your eyes.
+      <</narrative>>
+      
+      <<narrative>>
+        The memories fade back into the past where they belong. You're here now. In the present. In the city.
+      <</narrative>>
+      
+      <<image "assets/content/scenes/prologue/arrivalCarPOV.webp" "100%">>
+
+      <<narrative>>
+        Buildings rise higher than anything back home. Glass and steel catching the afternoon sun. Traffic flows in three lanes—constant, humming, alive.
+      <</narrative>>
+
+      <<narrative>>
+        A siren wails somewhere in the distance. A truck horn blares. The sounds blend into a rhythm you don't recognize yet.
+      <</narrative>>
+
+      <<narrative>>
+        People walk past—so many people, more than you'd see in a week back home. A woman in a business suit talks on her phone, heels clicking against the pavement. Two teenagers laugh, bumping shoulders as they walk. An old man sits on a bench, feeding pigeons.
+      <</narrative>>
+      
+      <<image "assets/content/scenes/prologue/citySidewalks.webp" "100%">>
+
+      <<narrative>>
+        Dad navigates through the streets, checking his phone for directions. Mom looks out the window, taking it all in.
+      <</narrative>>
+      
+      <<dialog "mother">>
+        It's bigger than I thought. (says quietly)
+      <</dialog>>
+      
+      <<narrative>>
+        Your brother presses his face against the window.
+      <</narrative>>
+      
+      <<dialog "brother">>
+        Look at that building! It must be like, fifty floors!
+      <</dialog>>
+      
+      <<narrative>>
+        You watch it all unfold. The energy here is different—faster, louder, more anonymous. Back home, you knew every face. Here, everyone's a stranger.
+      <</narrative>>
+      
+      <<narrative>>
+        But there's something else too. Something electric. Possibility. The feeling that anything could happen here.
+      <</narrative>>
+
+      <<narrative>>
+        Dad turns onto a quieter street. Trees line the sidewalk. The buildings are smaller here, older, more residential. The city noise fades to a distant hum.
+      <</narrative>>
+      
+      <<dialog "father">>
+        This is it. (pulling up to a house)
+      <</dialog>>
+
+      <<image "assets/content/locations/maplewood/familyHouse.webp" "100%">>
+      
+      <<dialog "mother">>
+        New beginnings. (squeezes your hand)
+      <</dialog>>
+      
+      <<narrative>>
+        Your brother leans forward.
+      <</narrative>>
+      
+      <<dialog "brother">>
+        We're here?
+      <</dialog>>
+      
+      <<narrative>>
+        You take a deep breath and open the car door. The air smells different—exhaust mixed with something you can't quite place. Urban. Foreign. But also... exciting.
+      <</narrative>>
+      
+      <<narrative>>
+        Everything that shaped you—every choice, every moment, every person—brought you here.
+      <</narrative>>
+      
+      <<narrative>>
+        And now, your real life begins.
+      <</narrative>>
+      
+      <div class="prologue-summary-grid">
+        <div class="prologue-summary-card">
+          <div class="prologue-summary-card-header">Early Development</div>
+          <div class="prologue-summary-card-body">
+            <<if $prologueSelections.early>>
+              <div class="prologue-summary-item">
+                <span class="prologue-summary-label">$prologueSelections.early.title</span>
+                <span class="prologue-summary-value">$prologueSelections.early.effect</span>
+              </div>
+            <</if>>
+            <<if $prologueSelections.childhood>>
+              <div class="prologue-summary-item">
+                <span class="prologue-summary-label">$prologueSelections.childhood.title</span>
+                <span class="prologue-summary-value">$prologueSelections.childhood.effect</span>
+              </div>
+            <</if>>
+            <<if $prologueSelections.formative>>
+              <div class="prologue-summary-item">
+                <span class="prologue-summary-label">$prologueSelections.formative.title</span>
+                <span class="prologue-summary-value">$prologueSelections.formative.effect</span>
+              </div>
+            <</if>>
+          </div>
+        </div>
+        <div class="prologue-summary-card">
+          <div class="prologue-summary-card-header">Who You Became</div>
+          <div class="prologue-summary-card-body">
+            <<if $prologueSelections.adolescent>>
+              <div class="prologue-summary-item">
+                <span class="prologue-summary-label">$prologueSelections.adolescent.title</span>
+                <span class="prologue-summary-value">$prologueSelections.adolescent.effect</span>
+              </div>
+            <</if>>
+            <<if $prologueSelections.coming>>
+              <div class="prologue-summary-item">
+                <span class="prologue-summary-label">$prologueSelections.coming.title</span>
+                <span class="prologue-summary-value">$prologueSelections.coming.effect</span>
+              </div>
+            <</if>>
+          </div>
+        </div>
+      </div>
+      
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-secondary">Back</span>' "comingofAge">><</link>>
+        <<link '<span class="prologue-btn prologue-btn-primary">Step Inside</span>' "newHome">>
+          /* Apply prologue bonuses to multipliers */
+          <<if $prologueSelections.early && $prologueSelections.early.stat>>
+            <<set _stat = $prologueSelections.early.stat>>
+            <<set _val = $prologueSelections.early.value>>
+            <<if $statMultipliers[_stat] !== undefined>>
+              <<set $statMultipliers[_stat] *= _val>>
+            <<elseif $skillMultipliers[_stat] !== undefined>>
+              <<set $skillMultipliers[_stat] *= _val>>
+            <</if>>
+          <</if>>
+          <<if $prologueSelections.childhood && $prologueSelections.childhood.stat>>
+            <<set _stat = $prologueSelections.childhood.stat>>
+            <<set _val = $prologueSelections.childhood.value>>
+            <<if $statMultipliers[_stat] !== undefined>>
+              <<set $statMultipliers[_stat] *= _val>>
+            <<elseif $skillMultipliers[_stat] !== undefined>>
+              <<set $skillMultipliers[_stat] *= _val>>
+            <</if>>
+          <</if>>
+          <<if $prologueSelections.formative && $prologueSelections.formative.stat>>
+            <<set _stat = $prologueSelections.formative.stat>>
+            <<set _val = $prologueSelections.formative.value>>
+            <<if $statMultipliers[_stat] !== undefined>>
+              <<set $statMultipliers[_stat] *= _val>>
+            <<elseif $skillMultipliers[_stat] !== undefined>>
+              <<set $skillMultipliers[_stat] *= _val>>
+            <</if>>
+          <</if>>
+          <<if $prologueSelections.adolescent && $prologueSelections.adolescent.stat>>
+            <<set _stat = $prologueSelections.adolescent.stat>>
+            <<set _val = $prologueSelections.adolescent.value>>
+            <<if $statMultipliers[_stat] !== undefined>>
+              <<set $statMultipliers[_stat] *= _val>>
+            <<elseif $skillMultipliers[_stat] !== undefined>>
+              <<set $skillMultipliers[_stat] *= _val>>
+            <</if>>
+          <</if>>
+          <<if $prologueSelections.coming && $prologueSelections.coming.stat>>
+            <<set _stat = $prologueSelections.coming.stat>>
+            <<set _val = $prologueSelections.coming.value>>
+            <<if $statMultipliers[_stat] !== undefined>>
+              <<set $statMultipliers[_stat] *= _val>>
+            <<elseif $skillMultipliers[_stat] !== undefined>>
+              <<set $skillMultipliers[_stat] *= _val>>
+            <</if>>
+          <</if>>
+        <</link>>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>

@@ -1,0 +1,41 @@
+
+/* Earrings - Studs, hoops, dangles, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * 
+ * Tags: casual, formal, elegant, cute, statement
+ * Quality: Common, Rare, Premium
+ * FUTURE: durability, effects, unlockCondition
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.earrings = [
+    {
+        id: "earrings_simple",
+        name: "Simple Earrings",
+        brand: "Silver Touch",
+        desc: "Minimalist silver earrings for everyday elegance.",
+        image: "assets/content/clothing/earrings/earrings1.jpg",
+        looks: 3,
+        quality: "Common",
+        tags: ["casual"],
+        price: 25,
+        shopAvailable: true,
+        startOwned: false
+    },
+    {
+        id: "earrings_gold",
+        name: "Gold Earrings",
+        brand: "Luxe",
+        desc: "Beautiful gold earrings that make a statement.",
+        image: "assets/content/clothing/earrings/earrings2.jpg",
+        looks: 6,
+        quality: "Rare",
+        tags: ["formal", "elegant", "statement"],
+        price: 120,
+        shopAvailable: true,
+        startOwned: false
+    }
+]>>
+

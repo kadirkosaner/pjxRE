@@ -1,0 +1,33 @@
+<<silently>>
+    /* Set location from activity origin */
+    <<set $location = $activityOrigin>>
+    
+    /* Run the yoga activity */
+    <<set $daily.yogaDone = true>>
+    <<advanceTime 45>>
+    <<loseStat "energy" 15>>
+    <<loseStat "stress" 20>>
+    <<gainSkill "physical" "yoga" 7>>
+    <<recalculateStats>>
+    
+    /* Text variations */
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "You find a quiet spot on the grass and roll out your yoga mat. The outdoor setting makes the practice feel more grounding. Birds chirp overhead as you move through your poses. The fresh air and nature around you enhance every stretch.">>
+        <<case 2>>
+            <<set _sceneText = "The park is peaceful this time of day. You set up your mat under a large tree and begin your routine. A few curious onlookers pass by, but you stay focused. By the end, you feel centered and refreshed.">>
+        <<case 3>>
+            <<set _sceneText = "Practicing yoga outdoors hits different. The uneven ground challenges your balance in new ways. The breeze on your skin, the sounds of nature - it all adds to the experience. You hold each pose longer, really feeling the connection between your body and the earth.">>
+    <</switch>>
+<</silently>>
+
+<<narrative "Park Yoga">>
+<<print _sceneText>>
+<</narrative>>
+
+<<image "assets/content/scenes/maplewood/park/yoga.webp" "80%">>
+
+<div class="location-actions">
+    <<btn "Finish" $location>><</btn>>
+</div>

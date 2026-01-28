@@ -1,0 +1,51 @@
+
+/* Wardrobe System Configuration
+ * Categories and slot mappings for the wardrobe system
+ */
+
+/* Initialize clothingData object if not exists */
+<<set setup.clothingData = setup.clothingData || {}>>
+
+/* Category definitions */
+<<set setup.wardrobeCategories = [
+    { group: "Outerwear", items: [
+        { id: "tops", name: "Tops", slot: "top" },
+        { id: "bottoms", name: "Bottoms", slot: "bottom" },
+        { id: "dresses", name: "Dresses", slot: "dress" },
+        { id: "shoes", name: "Shoes", slot: "shoes" },
+        { id: "socks", name: "Socks", slot: "socks" }
+    ]},
+    { group: "Accessories", items: [
+        { id: "earrings", name: "Earrings", slot: "earrings" },
+        { id: "necklaces", name: "Necklaces", slot: "necklace" },
+        { id: "bracelets", name: "Bracelets", slot: "bracelet" }
+    ]},
+    { group: "Underwear", items: [
+        { id: "bras", name: "Bras", slot: "bra" },
+        { id: "panties", name: "Panties", slot: "panty" },
+        { id: "sleepwear", name: "Sleepwear", slot: "sleepwear" }
+    ]}
+]>>
+
+/* Slot labels for display */
+<<set setup.slotLabels = {
+    top: "Top",
+    bottom: "Bottom",
+    dress: "Dress",
+    shoes: "Shoes",
+    socks: "Socks",
+    earrings: "Earrings",
+    necklace: "Necklace",
+    bracelet: "Bracelet",
+    bra: "Bra",
+    panty: "Panties",
+    sleepwear: "Sleepwear"
+}>>
+
+/* Quality colors for UI */
+<<set setup.qualityColors = {
+    Common: "#666",
+    Rare: "#3b82f6",
+    Premium: "#a855f7"
+}>>
+

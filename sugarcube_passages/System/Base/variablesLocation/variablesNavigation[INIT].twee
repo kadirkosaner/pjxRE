@@ -1,0 +1,531 @@
+<<script>>
+/* =====================================================================
+   NAVIGATION SYSTEM - Location & Travel Time Configuration
+   =====================================================================
+   
+   This file consists of 2 main sections:
+   
+   1. setup.navCards        - Location names and passage definitions
+   2. setup.locations       - Location configuration (parent, type)
+   
+   =====================================================================
+   GUIDE TO ADDING NEW LOCATIONS
+   =====================================================================
+   
+   Example: Adding a new place called "lockerRoom" (inside gym)
+   
+   STEP 1: Add to navCards
+   -----------------------
+   "lockerRoom": { name: "Locker Room" },
+   
+   STEP 2: Add to locations
+   ------------------------
+   "lockerRoom": { parent: "gym", type: "subroom" },
+   
+   =====================================================================
+   TRAVEL TIME RULES (Type-based)
+   =====================================================================
+   
+   | Transition Type               | Time   |
+   |-------------------------------|--------|
+   | Room ↔ Room (same building)   | 1 min  |
+   | Room/Subroom ↔ Parent         | 1 min  |
+   | Building ↔ Building           | 5 min  |
+   | District ↔ District           | 15 min |
+   
+   ===================================================================== */
+
+setup.navCards = {
+    /* ==========================================
+       MAPLEWOOD - FAMILY HOUSE
+       ========================================== */
+    "FamilyHouse": { name: "Family House", passage: "fhDownstairs" },
+    "fhBedroom": { name: "My Bedroom" },
+    "fhWardrobe": { name: "Wardrobe" },
+    "fhBrotherRoom": { name: "Brother's Room" },
+    "fhKitchen": { name: "Kitchen" },
+    "fhLivingroom": { name: "Living Room" },
+    "fhUpperBath": { name: "Upstairs Bathroom" },
+    "fhDownbath": { name: "Downstairs Bathroom" },
+    "fhUpperstairs": { name: "Upstairs" },
+    "fhDownstairs": { name: "Downstairs" },
+    "fhParentsRoom": { name: "Parents Room" },
+    "fhParentsBath": { name: "Parents Bathroom" },
+    "fhBackyard": { name: "Backyard" },
+    "fhGarage": { name: "Garage" },
+
+    /* ==========================================
+       MAPLEWOOD - NEIGHBORHOOD
+       ========================================== */
+    "maplewood": { name: "Maplewood" },
+    "mapleChurch": { name: "St. Mary's Chapel" },
+    "storeCorner": { name: "Quick Mart" },
+    "sunsetPark": { name: "Sunset Park" },
+
+    /* ==========================================
+       DOWNTOWN
+       ========================================== */
+    "downTown": { name: "Downtown" },
+    "bank": { name: "First National Bank" },
+    "cityHall": { name: "City Hall" },
+    "hospital": { name: "St. Luke's Hospital" },
+    "hotel": { name: "The Grand Hotel" },
+    "nightClub": { name: "Pulse Nightclub" },
+    "restaurantDowntown": { name: "The Brass Rail" },
+
+    /* -- Mall -- */
+    "mall": { name: "Metro Shopping Center" },
+    "floorGround": { name: "Ground Floor" },
+    "floorSecond": { name: "Second Floor" },
+    "floorThird": { name: "Third Floor" },
+    
+    /* -- Mall Stores Ground -- */
+    "storeClothingA": { name: "Northline Apparel" },
+    "storeCosmetics": { name: "Lumière Beauty" },
+    "storeElectronics": { name: "TechPoint Express" },
+    "storeShoeA": { name: "StepUp Footwear" },
+    "storeSports": { name: "FastBreak Athletics" },
+
+    /* -- Mall Stores Second -- */
+    "storeBags": { name: "Luxe Leather" },
+    "storeClothingB": { name: "VERA Mode" },
+    "storeClothingC": { name: "Fifth Avenue Wear" },
+    "storeJewelry": { name: "Diamond Dreams" },
+    "storeLingerieA": { name: "Silk & Lace" },
+    "storeLingerieB": { name: "Intimate Secrets" },
+    "storeShoeB": { name: "Stiletto Studio" },
+
+    /* -- Mall Third Floor -- */
+    "foodCourtMall": { name: "Food Court" },
+    "salonBeautyMall": { name: "Headlines Salon" },
+    "theatreMovie": { name: "CineLux Cinemas" },
+
+    /* -- Skyline (Tower District) -- */
+    "skyline": { name: "Skyline District" },
+    "towerA": { name: "Apex Tower" },
+    "recreationCenter": { name: "Metro Recreation Center" },
+    "courtBasketball": { name: "Basketball Courts" },
+    "courtVolleyball": { name: "Volleyball Courts" },
+    "gym": { name: "Iron Works Gym" },
+
+    /* -- Tower B (Sterling Tower) -- */
+    "towerB": { name: "Sterling Tower" },
+
+    /* -- Tower C (Crown Plaza) -- */
+    "towerC": { name: "Crown Plaza" },
+    "jazzClub": { name: "The Blue Note" },
+    "pethouseSuite": { name: "The Pinnacle" },
+    "restaurantRoof": { name: "Altitude 47" },
+    "roofTopLounge": { name: "Cloud Nine Lounge" },
+
+
+    /* ==========================================
+       HILLCREST
+       ========================================== */
+    "hillcrest": { name: "Hillcrest" },
+    "galleryArt": { name: "The Gallery" },
+    "golfClub": { name: "Hillcrest Country Club" },
+    "golfCourse": { name: "Hillcrest Golf Course" },
+    "golfRestaurant": { name: "The Clubhouse" },
+    "golfSpa": { name: "The Spa at Hillcrest" },
+
+    /* -- Fifth Street -- */
+    "streetFifth": { name: "Fifth Avenue" },
+    "barWine": { name: "The Wine Cellar" },
+    "boutiqueA": { name: "Maison Élise" },
+    "boutiqueB": { name: "Aurum Couture" },
+    "boutiqueC": { name: "Bellucci Milano" },
+    "restaurantLuxury": { name: "Château Noir" },
+    "salonBeautyFifth": { name: "Salon Privé" },
+
+    /* ==========================================
+       MARINA BAY
+       ========================================== */
+    "marinaBay": { name: "Marina Bay" },
+    "marina": { name: "Harbor Marina" },
+    "beach": { name: "Marina Beach" },
+    "beachBar": { name: "The Sandbar" },
+    "beachClub": { name: "The Yacht Club" },
+    "beachVolleyball": { name: "Beach Volleyball Courts" },
+    "pier": { name: "The Pier" },
+    "pierIcecream": { name: "Scoops & Swirls" },
+    "restaurantBeach": { name: "Captain Jack's" },
+
+    /* ==========================================
+       OLD TOWN
+       ========================================== */
+    "oldTown": { name: "Old Town" },
+    "civicCenter": { name: "Civic Center" },
+    "townHall": { name: "Town Hall" },
+    "highSchool": { name: "Lincoln High School" },
+    "libraryOldtown": { name: "Carnegie Public Library" },
+    "pharmacy": { name: "Green Cross Pharmacy" },
+    "policeStation": { name: "5th Precinct" },
+    "postOffice": { name: "Old Town Post Office" },
+    "dinerRubys": { name: "Ruby's Diner" },
+    "shopBarber": { name: "The Clipper Shop" },
+    "shopCoffeeOldtown": { name: "The Daily Grind" },
+    "storeBook": { name: "Bookworm's Corner" },
+    "storeHardware": { name: "Dan's Hardware" },
+
+    /* ==========================================
+       UNIVERSITY DISTRICT
+       ========================================== */
+    "universityDistrict": { name: "University District" },
+    "campus": { name: "University Campus" },
+    "cafeteriaUni": { name: "Student Union" },
+    "dormsUni": { name: "Wellington Hall" },
+    "fratHouse": { name: "Delta Tau House" },
+    "lectureHall": { name: "Science Building" },
+    "libraryUni": { name: "Morrison Library" },
+    "sororityHouse": { name: "Alpha Omega House" },
+    "studentBar": { name: "The Tap Room" },
+
+    /* ==========================================
+       SOUTHSIDE
+       ========================================== */
+    "southside": { name: "Southside" },
+    "apartmentComplex": { name: "Brookside Apartments" },
+    "cornerBlock": { name: "Junction Street" },
+    "laundromat": { name: "Suds Laundromat" },
+    "oldFactory": { name: "Abandoned Textile Mill" },
+    "shopPawn": { name: "Lucky's Pawn & Loan" },
+    "storeLiquor": { name: "Quick Liquor" },
+
+    /* ==========================================
+       SUBURBS
+       ========================================== */
+    "suburbs": { name: "Suburbs" },
+    "apartmentsSuburbs": { name: "Sunset Heights" },
+    "houseCrack": { name: "Condemned House" },
+    "motelSuburbs": { name: "Route 9 Motor Lodge" },
+    "thePit": { name: "The Pit" },
+    "gangTerritory": { name: "West Side" },
+    "dealerCorner": { name: "The Drop" },
+    "wallGraffiti": { name: "The Wall" },
+
+    /* ==========================================
+       RED LIGHT CENTER
+       ========================================== */
+    "redLightCenter": { name: "Red Light Center" },
+    "alleyBack": { name: "Back Alley" },
+    "barGloryHole": { name: "Anonymous" },
+    "barNeon": { name: "Neon Nights" },
+    "basementEntrance": { name: "The Underground" },
+    "clubPrivate": { name: "The Dungeon" },
+    "clubStrip": { name: "The Velvet Rose" },
+    "motelRedLight": { name: "The Stardust" },
+    "parlorMassage": { name: "Lotus Spa" },
+    "roomsPrivate": { name: "VIP Rooms" },
+    "storeAdult": { name: "Eros Boutique" },
+};
+
+/* =====================================================================
+   LOCATION HIERARCHY & TYPES
+   =====================================================================
+   
+   Types:
+   - district : City region (downTown, maplewood) - 15 min between
+   - area     : Open area/street (streetFifth, beach) - 5 min between
+   - building : Large Building (mall, hotel) - 5 min between floors/areas
+   - house    : Small Building (FamilyHouse) - 1 min between rooms
+   - room     : Room/place (fhBedroom, storeClothingA) - 1 min inside same building
+   - subroom  : Inner area (fhWardrobe, backroom) - 1 min
+   
+   ===================================================================== */
+
+setup.locations = {
+    /* ==========================================
+       DISTRICTS (Root level zones)
+    ========================================== */
+    "downTown": { parent: null, type: "district" },
+    "maplewood": { parent: null, type: "district" },
+    "hillcrest": { parent: null, type: "district" },
+    "marinaBay": { parent: null, type: "district" },
+    "oldTown": { parent: null, type: "district" },
+    "universityDistrict": { parent: null, type: "district" },
+    "southside": { parent: null, type: "district" },
+    "suburbs": { parent: null, type: "district" },
+    "redLightCenter": { parent: null, type: "district" },
+    
+    /* ==========================================
+       MAPLEWOOD
+    ========================================== */
+    // Areas
+    "mapleChurch": { parent: "maplewood", type: "room" },
+    "storeCorner": { parent: "maplewood", type: "room" },
+    "sunsetPark": { parent: "maplewood", type: "area" },
+    
+    // Family House
+    "FamilyHouse": { parent: "maplewood", type: "house" },
+    "fhUpperstairs": { parent: "FamilyHouse", type: "room" },
+    "fhDownstairs": { parent: "FamilyHouse", type: "room" },
+    "fhBedroom": { parent: "FamilyHouse", type: "room" },
+    "Upstairs": { parent: "fhBedroom", type: "subroom" },
+    "fhWardrobe": { parent: "fhBedroom", type: "subroom" },
+    "fhBrotherRoom": { parent: "FamilyHouse", type: "room" },
+    "fhParentsRoom": { parent: "FamilyHouse", type: "room" },
+    "fhParentsBath": { parent: "fhParentsRoom", type: "subroom" },
+    "fhUpperBath": { parent: "FamilyHouse", type: "room" },
+    "fhKitchen": { parent: "FamilyHouse", type: "room" },
+    "fhLivingroom": { parent: "FamilyHouse", type: "room" },
+    "fhDownbath": { parent: "FamilyHouse", type: "room" },
+    "fhBackyard": { parent: "FamilyHouse", type: "room" },
+    "fhGarage": { parent: "FamilyHouse", type: "room" },
+    
+    /* ==========================================
+       DOWNTOWN
+    ========================================== */
+    // Direct children
+    "cityHall": { parent: "downTown", type: "building" },
+    "nightClub": { parent: "downTown", type: "building" },
+    "restaurantDowntown": { parent: "downTown", type: "room" },
+    
+    // Mall
+    "mall": { parent: "downTown", type: "building" },
+    "floorGround": { parent: "mall", type: "area" },
+    "floorSecond": { parent: "mall", type: "area" },
+    "floorThird": { parent: "mall", type: "area" },
+    
+    // Mall Ground Floor Stores
+    "storeClothingA": { parent: "floorGround", type: "room" },
+    "storeCosmetics": { parent: "floorGround", type: "room" },
+    "storeElectronics": { parent: "floorGround", type: "room" },
+    "storeShoeA": { parent: "floorGround", type: "room" },
+    "storeSports": { parent: "floorGround", type: "room" },
+    
+    // Mall Second Floor Stores
+    "storeBags": { parent: "floorSecond", type: "room" },
+    "storeClothingB": { parent: "floorSecond", type: "room" },
+    "storeClothingC": { parent: "floorSecond", type: "room" },
+    "storeJewelry": { parent: "floorSecond", type: "room" },
+    "storeLingerieA": { parent: "floorSecond", type: "room" },
+    "storeLingerieB": { parent: "floorSecond", type: "room" },
+    "storeShoeB": { parent: "floorSecond", type: "room" },
+    
+    // Mall Third Floor
+    "foodCourtMall": { parent: "floorThird", type: "room" },
+    "salonBeautyMall": { parent: "floorThird", type: "room" },
+    "theatreMovie": { parent: "floorThird", type: "room" },
+    
+    // Skyline
+    "skyline": { parent: "downTown", type: "building" },
+    "towerA": { parent: "skyline", type: "area" },
+    "towerB": { parent: "skyline", type: "area" },
+    "towerC": { parent: "skyline", type: "area" },
+    
+    // Tower A
+    "recreationCenter": { parent: "towerA", type: "building" },
+    "courtBasketball": { parent: "recreationCenter", type: "room" },
+    "courtVolleyball": { parent: "recreationCenter", type: "room" },
+    "gym": { parent: "recreationCenter", type: "room" },
+    
+    // Tower B
+    "bank": { parent: "towerB", type: "room" },
+    
+    // Tower C
+    "hotel": { parent: "towerC", type: "building" },
+    "jazzClub": { parent: "towerC", type: "room" },
+    "pethouseSuite": { parent: "towerC", type: "room" },
+    "restaurantRoof": { parent: "towerC", type: "room" },
+    "roofTopLounge": { parent: "towerC", type: "room" },
+    
+    /* ==========================================
+       HILLCREST
+    ========================================== */
+    "galleryArt": { parent: "hillcrest", type: "building" },
+    "golfClub": { parent: "hillcrest", type: "building" },
+    "golfCourse": { parent: "golfClub", type: "area" },
+    "golfRestaurant": { parent: "golfClub", type: "room" },
+    "golfSpa": { parent: "golfClub", type: "room" },
+    "streetFifth": { parent: "hillcrest", type: "area" },
+    "barWine": { parent: "streetFifth", type: "room" },
+    "boutiqueA": { parent: "streetFifth", type: "room" },
+    "boutiqueB": { parent: "streetFifth", type: "room" },
+    "boutiqueC": { parent: "streetFifth", type: "room" },
+    "restaurantLuxury": { parent: "streetFifth", type: "room" },
+    "salonBeautyFifth": { parent: "streetFifth", type: "room" },
+    
+    /* ==========================================
+       MARINA BAY
+    ========================================== */
+    "marina": { parent: "marinaBay", type: "area" },
+    "beach": { parent: "marinaBay", type: "area" },
+    "beachBar": { parent: "beach", type: "room" },
+    "beachVolleyball": { parent: "beach", type: "area" },
+    "beachClub": { parent: "marinaBay", type: "building" },
+    "pier": { parent: "marinaBay", type: "area" },
+    "pierIcecream": { parent: "pier", type: "room" },
+    "restaurantBeach": { parent: "marinaBay", type: "room" },
+    
+    /* ==========================================
+       OLD TOWN
+    ========================================== */
+    "civicCenter": { parent: "oldTown", type: "area" },
+    "townHall": { parent: "civicCenter", type: "building" },
+    "highSchool": { parent: "civicCenter", type: "building" },
+    "libraryOldtown": { parent: "civicCenter", type: "building" },
+    "pharmacy": { parent: "oldTown", type: "room" },
+    "policeStation": { parent: "civicCenter", type: "building" },
+    "postOffice": { parent: "civicCenter", type: "room" },
+    "dinerRubys": { parent: "oldTown", type: "room" },
+    "shopBarber": { parent: "oldTown", type: "room" },
+    "shopCoffeeOldtown": { parent: "oldTown", type: "room" },
+    "storeBook": { parent: "oldTown", type: "room" },
+    "storeHardware": { parent: "oldTown", type: "room" },
+    "hospital": { parent: "civicCenter", type: "building" },
+    
+    /* ==========================================
+       UNIVERSITY DISTRICT
+    ========================================== */
+    "campus": { parent: "universityDistrict", type: "area" },
+    "cafeteriaUni": { parent: "campus", type: "room" },
+    "lectureHall": { parent: "campus", type: "building" },
+    "libraryUni": { parent: "campus", type: "building" },
+    "dormsUni": { parent: "universityDistrict", type: "building" },
+    "fratHouse": { parent: "universityDistrict", type: "building" },
+    "sororityHouse": { parent: "universityDistrict", type: "building" },
+    "studentBar": { parent: "universityDistrict", type: "room" },
+    
+    /* ==========================================
+       SOUTHSIDE
+    ========================================== */
+    "apartmentComplex": { parent: "southside", type: "building" },
+    "cornerBlock": { parent: "southside", type: "area" },
+    "laundromat": { parent: "southside", type: "room" },
+    "oldFactory": { parent: "southside", type: "building" },
+    "shopPawn": { parent: "southside", type: "room" },
+    "storeLiquor": { parent: "southside", type: "room" },
+    
+    /* ==========================================
+       SUBURBS
+    ========================================== */
+    "apartmentsSuburbs": { parent: "suburbs", type: "building" },
+    "houseCrack": { parent: "suburbs", type: "building" },
+    "motelSuburbs": { parent: "suburbs", type: "building" },
+    "thePit": { parent: "suburbs", type: "area" },
+    "gangTerritory": { parent: "suburbs", type: "area" },
+    "dealerCorner": { parent: "gangTerritory", type: "room" },
+    "wallGraffiti": { parent: "gangTerritory", type: "area" },
+    
+    /* ==========================================
+       RED LIGHT CENTER
+    ========================================== */
+    "alleyBack": { parent: "redLightCenter", type: "area" },
+    "basementEntrance": { parent: "redLightCenter", type: "area" },
+    "barGloryHole": { parent: "basementEntrance", type: "room" },
+    "barNeon": { parent: "basementEntrance", type: "room" },
+    "clubStrip": { parent: "basementEntrance", type: "building" },
+    "clubPrivate": { parent: "redLightCenter", type: "room" },
+    "roomsPrivate": { parent: "redLightCenter", type: "subroom" },
+    "motelRedLight": { parent: "redLightCenter", type: "building" },
+    "parlorMassage": { parent: "redLightCenter", type: "room" },
+    "storeAdult": { parent: "redLightCenter", type: "room" }
+};
+
+/* =====================================================================
+   TRAVEL TIME CALCULATION
+   =====================================================================
+   
+   Type-based travel time:
+   - room/subroom ↔ same parent : 1 min
+   - room → parent              : 1 min  
+   - subroom ↔ parent           : 1 min
+   - area/building ↔ same parent: 5 min
+   - district ↔ district        : 15 min
+   
+   ===================================================================== */
+
+// Get the root district for a location
+setup.getDistrict = function(locationId) {
+    let current = locationId;
+    let data = setup.locations[current];
+    
+    while (data && data.parent) {
+        current = data.parent;
+        data = setup.locations[current];
+    }
+    
+    return current;
+};
+
+// Get the building containing a location (if any)
+setup.getBuilding = function(locationId) {
+    let current = locationId;
+    let data = setup.locations[current];
+    
+    while (data) {
+        if (data.type === "building" || data.type === "house") {
+            return current;
+        }
+        if (!data.parent) break;
+        current = data.parent;
+        data = setup.locations[current];
+    }
+    
+    return null;
+};
+
+// Calculate travel time between locations
+setup.getTravelTime = function(fromLocation, toLocation) {
+    const fromData = setup.locations[fromLocation] || {};
+    const toData = setup.locations[toLocation] || {};
+    
+    const fromType = fromData.type || "area";
+    const toType = toData.type || "area";
+    const fromParent = fromData.parent;
+    const toParent = toData.parent;
+    
+    // Same location = 0
+    if (fromLocation === toLocation) return 0;
+    
+    // Special Case: "Upstairs" navCard in fhBedroom is a logic gate.
+    // Cost is 0 initially. Time is added manually upon success.
+    if (toLocation === "Upstairs") return 0;
+    
+    // Direct parent-child: room/subroom ↔ parent = 1 min
+    if (fromParent === toLocation || toParent === fromLocation) {
+        if (fromType === "room" || fromType === "subroom" || 
+            toType === "room" || toType === "subroom") {
+            return 1;
+        }
+    }
+    
+    // Same parent: rooms in same building = 1 min
+    if (fromParent && fromParent === toParent) {
+        if ((fromType === "room" || fromType === "subroom") && 
+            (toType === "room" || toType === "subroom")) {
+            return 1;
+        }
+    }
+    
+    // Same building: rooms within = 1 min
+    const fromBuilding = setup.getBuilding(fromLocation);
+    const toBuilding = setup.getBuilding(toLocation);
+    if (fromBuilding && fromBuilding === toBuilding) {
+        const buildingData = setup.locations[fromBuilding];
+        
+        // Special Case: House is small, always 1 min
+        if (buildingData && buildingData.type === "house") {
+            return 1;
+        }
+        
+        if ((fromType === "room" || fromType === "subroom") && 
+            (toType === "room" || toType === "subroom")) {
+            return 1;
+        }
+        return 5; // Building internal but area-level
+    }
+    
+    // Same district = 5 min
+    const fromDistrict = setup.getDistrict(fromLocation);
+    const toDistrict = setup.getDistrict(toLocation);
+    if (fromDistrict === toDistrict) {
+        return 5;
+    }
+    
+    // Different district = 15 min
+    return 15;
+};
+
+<</script>>

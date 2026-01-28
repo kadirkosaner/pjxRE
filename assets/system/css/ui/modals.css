@@ -1,0 +1,383 @@
+/* ============================================
+   UI/MODALS.CSS
+   Modals, overlays, buttons
+   ============================================ */
+/*#region COMMON COMPONENTS */
+/* Close Button */
+.close-btn {
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border: 1px solid var(--color-border-secondary);
+  color: var(--color-text-tertiary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.close-btn:hover {
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
+  background: var(--white-alpha-03);
+}
+
+/* Back Button */
+.back-btn {
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border: 1px solid var(--color-border-secondary);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.back-btn:hover {
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
+  background: var(--white-alpha-03);
+}
+
+.back-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: var(--color-border-secondary);
+  color: var(--color-border-secondary);
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+}
+
+.overlay.active {
+  display: flex;
+}
+
+.map-overlay {
+  display: none !important;
+  z-index: 200;
+}
+
+.map-overlay.active {
+  display: flex !important;
+}
+
+[style*="visibility: hidden"] {
+  pointer-events: none !important;
+}
+
+.overlay-dark {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.overlay-medium {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Modal Container */
+.modal {
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: inherit;
+}
+
+/* Modal Header */
+.modal-header {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-bg-primary);
+  flex-shrink: 0;
+}
+
+.modal-title {
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Modal Content */
+.modal-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacing-lg);
+  min-height: 0;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Preview Container */
+.preview-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  overflow: visible;
+  padding: 0;
+  margin: 0;
+}
+
+.preview-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preview-container:hover .preview-content {
+  transform: scale(1.2);
+}
+
+/*#endregion */
+
+/* ==========================================
+   MODAL OVERLAY (High z-index for modals)
+========================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-medium);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-overlay .modal {
+  max-width: 500px;
+  width: 90%;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-top: 1px solid var(--color-border-primary);
+  background: var(--color-bg-primary);
+  justify-content: flex-end;
+}
+
+/* ==========================================
+   CONFIRMATION & PROMPT OVERLAYS
+   Higher z-index than saveload
+========================================== */
+#confirmation-overlay,
+#prompt-overlay,
+#save-title-overlay {
+  z-index: var(--z-modal-prompt);
+}
+
+/* ==========================================
+   CONSOLIDATED MODAL OVERLAY POSITIONING
+   Ensures modals are centered relative to content area
+========================================== */
+#save-title-overlay,
+#confirmation-overlay,
+#saveload-overlay,
+#prompt-overlay,
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10vh var(--rightbar-width) 10vh 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Override padding for mobile or fullscreen */
+body.topbar-hidden .modal-overlay, 
+body.fullscreen-layout .modal-overlay,
+body.fullscreen-centered .modal-overlay {
+  padding-right: 0;
+}
+
+.modal-overlay .modal {
+  max-height: 80vh;
+}
+
+/* FORCE Z-INDEX HIERARCHY */
+#saveload-overlay { z-index: var(--z-modal-saveload); }
+#confirmation-overlay { z-index: var(--z-modal-prompt); }
+#save-title-overlay { z-index: var(--z-modal-prompt); }
+#prompt-overlay { z-index: var(--z-modal-prompt); }
+
+/* ================== JOURNAL MODAL OVERRIDE =================== */
+#journal-modal {
+  max-width: 1000px;
+  width: 90%;
+}
+
+/* ==========================================
+   FORCE SPECIFIC MODAL WIDTHS (FINAL)
+   Targeting via data-modal attribute (from modal.js)
+========================================== */
+.modal-overlay[data-modal="character-modal"] .modal {
+  max-width: 1200px;
+  width: 95%;
+  overflow: visible;
+}
+.modal-overlay[data-modal="stats-modal"] .modal,
+.modal-overlay[data-modal="journal-modal"] .modal,
+.modal-overlay[data-modal="settings-modal"] .modal {
+  max-width: 1000px;
+  width: 90%;
+}
+
+
+
+.modal-overlay[data-modal="relations-modal"] .modal {
+  max-width: 1200px;
+  width: 95%;
+}
+
+/* ==========================================
+   INVENTORY TAB STYLES
+========================================== */
+.inventory-container {
+  padding: var(--spacing-md);
+  overflow: visible;
+}
+
+.inventory-empty {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-lg);
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.inventory-item {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  overflow: visible;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.inventory-item:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.inventory-item-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--color-bg-primary), var(--color-bg-secondary));
+  overflow: hidden;
+}
+
+.inventory-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.inventory-item-qty {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: var(--color-accent);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.inventory-item-info {
+  padding: var(--spacing-sm);
+}
+
+.inventory-item-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.inventory-item-desc {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==========================================
+   MODAL OPEN - Prevent background interaction
+========================================== */
+body.modal-open {
+  overflow: hidden;
+}
+
+body.modal-open #passages,
+body.modal-open .right-bar,
+body.modal-open #topbar {
+  pointer-events: none;
+  user-select: none;
+}

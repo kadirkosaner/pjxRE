@@ -1,0 +1,607 @@
+/* ==========================================
+   MAP REGIONS - Main Districts (Map-Specific Data Only)
+   Other data pulled from: setup.navCards, setup.locationImages
+   ========================================== */
+
+<<set setup.mapRegions = [
+  {
+    id: "maplewood",
+    mapImage: "assets/content/locations/map/maplewood.webp",
+    desc: "Quiet residential neighborhood - Your home",
+    color: "#22c55e",
+    x: 55,
+    y: 15
+  },
+  {
+    id: "downTown",
+    mapImage: "assets/content/locations/map/downtown.webp",
+    desc: "City center - Business and entertainment",
+    color: "#3b82f6",
+    x: 55,
+    y: 45
+  },
+  {
+    id: "hillcrest",
+    mapImage: "assets/content/locations/map/hillcrest.webp",
+    desc: "Upscale district - Luxury and exclusivity",
+    color: "#a855f7",
+    x: 93,
+    y: 60
+  },
+  {
+    id: "marinaBay",
+    mapImage: "assets/content/locations/map/marinaBay.webp",
+    desc: "Waterfront district - Beach and pier",
+    color: "#06b6d4",
+    x: 38,
+    y: 80
+  },
+  {
+    id: "oldTown",
+    mapImage: "assets/content/locations/map/oldTown.webp",
+    desc: "Historic district - Traditional shops and school",
+    color: "#f59e0b",
+    x: 70,
+    y: 60
+  },
+  {
+    id: "universityDistrict",
+    mapImage: "assets/content/locations/map/universityDistrict.webp",
+    desc: "College area - Students and academia",
+    color: "#ef4444",
+    x: 83,
+    y: 90
+  },
+  {
+    id: "southside",
+    mapImage: "assets/content/locations/map/southside.webp",
+    desc: "Working class area - Industrial and tough",
+    color: "#71717a",
+    x: 15,
+    y: 50
+  },
+  {
+    id: "suburbs",
+    mapImage: "assets/content/locations/map/suburbs.webp",
+    desc: "Outskirts - Cheaper but rougher",
+    color: "#a3a3a3",
+    x: 5,
+    y: 15
+  },
+  {
+    id: "redLightCenter",
+    mapImage: "assets/content/locations/map/redLightCenter.webp",
+    desc: "Adult entertainment district",
+    color: "#ec4899",
+    x: 25,
+    y: 20
+  }
+] >>
+
+/* ==========================================
+   MAP LOCATIONS - Map-Specific Data Only
+   structureType: area (show children as cards), floor (mall floors), residence (show residents), location (default)
+   category: business, store, food, entertainment, public
+   ========================================== */
+
+<<set setup.mapLocations = {
+  /* ==========================================
+     MAPLEWOOD
+     ========================================== */
+  FamilyHouse: {
+    structureType: "residence",
+    category: "residential",
+    x: 8,
+    y: 45,
+    residents: ["mother", "father", "brother"],
+    taxiCost: 0
+  },
+  storeCorner: {
+    structureType: "location",
+    category: "store",
+    residents: ["shopClerkMarcus"],
+    x: 25,
+    y: 15,
+    taxiCost: 5
+  },
+  mapleChurch: {
+    structureType: "location",
+    category: "public",
+    x: 50,
+    y: 50,
+    taxiCost: 5
+  },
+  sunsetPark: {
+    structureType: "location",
+    category: "public",
+    x: 40,
+    y: 30,
+    taxiCost: 5
+  },
+
+  /* ==========================================
+     DOWNTOWN
+     ========================================== */
+  skyline: {
+    structureType: "area",
+    category: "business",
+    x: 15,
+    y: 20,
+    taxiCost: 15
+  },
+  
+  /* -- Mall & Floors -- */
+  mall: {
+    structureType: "area",
+    category: "store",
+    x: 75,
+    y: 45,
+    taxiCost: 15
+  },
+  floorGround: {
+    structureType: "floor",
+    category: "store",
+    x: 46,
+    y: 55,
+    taxiCost: 15
+  },
+  floorSecond: {
+    structureType: "floor",
+    category: "store",
+    x: 46,
+    y: 40,
+    taxiCost: 15
+  },
+  floorThird: {
+    structureType: "floor",
+    category: "store",
+    x: 46,
+    y: 25,
+    taxiCost: 15
+  },
+
+  /* -- Downtown Direct -- */
+  cityHall: {
+    structureType: "location",
+    category: "public",
+    x: 70,
+    y: 10,
+    taxiCost: 15
+  },
+  nightClub: {
+    structureType: "location",
+    category: "entertainment",
+    x: 30,
+    y: 60,
+    taxiCost: 15
+  },
+  restaurantDowntown: {
+    structureType: "location",
+    category: "food",
+    x: 70,
+    y: 80,
+    taxiCost: 15
+  },
+  
+  /* -- Skyline Towers -- */
+  towerA: {
+    structureType: "area",
+    category: "business",
+    x: 45,
+    y: 35,
+    taxiCost: 15
+  },
+  recreationCenter: {
+    structureType: "area",
+    category: "entertainment",
+    x: 40,
+    y: 80,
+    taxiCost: 15
+  },
+  towerB: {
+    structureType: "area",
+    category: "business",
+    x: 32,
+    y: 30,
+    taxiCost: 15
+  },
+  towerC: {
+    structureType: "area",
+    category: "business",
+    x: 70,
+    y: 30,
+    taxiCost: 20
+  },
+
+  /* ==========================================
+     HILLCREST
+     ========================================== */
+  galleryArt: {
+    structureType: "location",
+    category: "entertainment",
+    x: 30,
+    y: 10,
+    taxiCost: 20
+  },
+  golfClub: {
+    structureType: "area",
+    category: "entertainment",
+    x: 65,
+    y: 15,
+    taxiCost: 25
+  },
+  streetFifth: {
+    structureType: "area",
+    category: "store",
+    x: 45,
+    y: 50,
+    taxiCost: 20
+  },
+
+  /* ==========================================
+     MARINA BAY
+     ========================================== */
+  marina: {
+    structureType: "location",
+    category: "business",
+    x: 55,
+    y: 65,
+    taxiCost: 18
+  },
+  beachClub: {
+    structureType: "location",
+    category: "entertainment",
+    x: 40,
+    y: 80,
+    taxiCost: 22
+  },
+  restaurantBeach: {
+    structureType: "location",
+    category: "food",
+    x: 25,
+    y: 25,
+    taxiCost: 18
+  },
+  beach: {
+    structureType: "area",
+    category: "public",
+    x: 30,
+    y: 40,
+    taxiCost: 18
+  },
+  pier: {
+    structureType: "area",
+    category: "public",
+    x: 35,
+    y: 60,
+    taxiCost: 18
+  },
+
+  /* ==========================================
+     OLD TOWN
+     ========================================== */
+  civicCenter: {
+    structureType: "location",
+    category: "public",
+    x: 80,
+    y: 25,
+    taxiCost: 12
+  },
+  pharmacy: {
+    structureType: "location",
+    category: "store",
+    x: 55,
+    y: 65,
+    taxiCost: 12
+  },
+  dinerRubys: {
+    structureType: "location",
+    category: "food",
+    x: 55,
+    y: 15,
+    taxiCost: 12
+  },
+  shopBarber: {
+    structureType: "location",
+    category: "store",
+    x: 50,
+    y: 40,
+    taxiCost: 12
+  },
+  shopCoffeeOldtown: {
+    structureType: "location",
+    category: "food",
+    x: 15,
+    y: 55,
+    taxiCost: 12
+  },
+  storeBook: {
+    structureType: "location",
+    category: "store",
+    x: 25,
+    y: 35,
+    taxiCost: 12
+  },
+  storeHardware: {
+    structureType: "location",
+    category: "store",
+    x: 85,
+    y: 60,
+    taxiCost: 12
+  },
+
+  /* ==========================================
+     UNIVERSITY DISTRICT
+     ========================================== */
+  campus: {
+    structureType: "location",
+    category: "public",
+    x: 55,
+    y: 55,
+    taxiCost: 14
+  },
+  dormsUni: {
+    structureType: "residence",
+    category: "residential",
+    x: 55,
+    y: 30,
+    taxiCost: 14
+  },
+  studentBar: {
+    structureType: "location",
+    category: "food",
+    x: 75,
+    y: 55,
+    taxiCost: 14
+  },
+  fratHouse: {
+    structureType: "residence",
+    category: "residential",
+    x: 40,
+    y: 65,
+    taxiCost: 14
+  },
+  sororityHouse: {
+    structureType: "residence",
+    category: "residential",
+    x: 60,
+    y: 80,
+    taxiCost: 14
+  },
+
+  /* ==========================================
+     SOUTHSIDE
+     ========================================== */
+  apartmentComplex: {
+    structureType: "residence",
+    category: "residential",
+    x: 40,
+    y: 65,
+    taxiCost: 10
+  },
+  cornerBlock: {
+    structureType: "area",
+    category: "public",
+    x: 15,
+    y: 25,
+    taxiCost: 10
+  },
+  laundromat: {
+    structureType: "location",
+    category: "store",
+    x: 65,
+    y: 40,
+    taxiCost: 10
+  },
+  oldFactory: {
+    structureType: "location",
+    category: "public",
+    x: 50,
+    y: 10,
+    taxiCost: 10
+  },
+  shopPawn: {
+    structureType: "location",
+    category: "store",
+    x: 55,
+    y: 85,
+    taxiCost: 10
+  },
+  storeLiquor: {
+    structureType: "location",
+    category: "store",
+    x: 40,
+    y: 35,
+    taxiCost: 10
+  },
+
+  /* ==========================================
+     SUBURBS
+     ========================================== */
+  apartmentsSuburbs: {
+    structureType: "residence",
+    category: "residential",
+    x: 85,
+    y: 40,
+    taxiCost: 8
+  },
+  houseCrack: {
+    structureType: "residence",
+    category: "residential",
+    x: 50,
+    y: 40,
+    taxiCost: 8
+  },
+  motelSuburbs: {
+    structureType: "location",
+    category: "business",
+    x: 70,
+    y: 10,
+    taxiCost: 8
+  },
+  thePit: {
+    structureType: "location",
+    category: "entertainment",
+    x: 35,
+    y: 65,
+    taxiCost: 8
+  },
+  gangTerritory: {
+    structureType: "location",
+    category: "public",
+    x: 20,
+    y: 20,
+    taxiCost: 8
+  },
+
+  /* ==========================================
+     RED LIGHT CENTER
+     ========================================== */
+  alleyBack: {
+    structureType: "area",
+    category: "public",
+    x: 10,
+    y: 20,
+    taxiCost: 15
+  },
+  basementEntrance: {
+    structureType: "location",
+    category: "entertainment",
+    x: 35,
+    y: 45,
+    taxiCost: 15
+  },
+  roomsPrivate: {
+    structureType: "location",
+    category: "entertainment",
+    x: 35,
+    y: 20,
+    taxiCost: 15
+  },
+  clubPrivate: {
+    structureType: "location",
+    category: "entertainment",
+    x: 60,
+    y: 40,
+    taxiCost: 15
+  },
+  motelRedLight: {
+    structureType: "location",
+    category: "business",
+    x: 55,
+    y: 80,
+    taxiCost: 15
+  },
+  parlorMassage: {
+    structureType: "location",
+    category: "business",
+    x: 15,
+    y: 70,
+    taxiCost: 15
+  },
+  storeAdult: {
+    structureType: "location",
+    category: "store",
+    x: 68,
+    y: 13,
+    taxiCost: 15,
+  }
+} >>
+
+/* ==========================================
+   LOCATION HOURS
+   Simple format: { open: X, close: Y, region: "regionId" }
+   ========================================== */
+
+<<set setup.locationHours = {
+  /* === DOWNTOWN === */
+  /* Mall Start*/
+  mall: { open: 10, close: 22, region: "downTown" },
+    floorGround: { open: 10, close: 22, region: "downTown" },
+    floorSecond: { open: 10, close: 22, region: "downTown" },
+    floorThird: { open: 10, close: 22, region: "downTown" },
+      storeClothingA: { open: 10, close: 22, region: "downTown" },
+      storeClothingB: { open: 10, close: 22, region: "downTown" },
+      storeClothingC: { open: 10, close: 22, region: "downTown" },
+      storeShoeA: { open: 10, close: 22, region: "downTown" },
+      storeShoeB: { open: 10, close: 22, region: "downTown" },
+      storeLingerieA: { open: 10, close: 22, region: "downTown" },
+      storeLingerieB: { open: 10, close: 22, region: "downTown" },
+      storeCosmetics: { open: 10, close: 22, region: "downTown" },
+      storeJewelry: { open: 10, close: 22, region: "downTown" },
+      storeBags: { open: 10, close: 22, region: "downTown" },
+      storeElectronics: { open: 10, close: 22, region: "downTown" },
+      storeSports: { open: 10, close: 22, region: "downTown" },
+      storeCosmetics: { open: 10, close: 22, region: "downTown" },
+      storeBags: { open: 10, close: 22, region: "downTown" },
+      foodCourtMall: { open: 10, close: 22, region: "downTown" },
+      theatreMovie: { open: 10, close: 22, region: "downTown" },
+      salonBeautyMall: { open: 10, close: 22, region: "downTown" },
+  /* Mall End*/
+
+  /* Downtown Start*/
+  cityHall: { open: 8, close: 17, region: "downTown" },
+  restaurantDowntown: { open: 12, close: 2, region: "downTown" },
+  nightClub: { open: 22, close: 5, region: "downTown" },
+  /* Downtown End*/
+
+  /*Skyline Start*/
+  towerA: { open: 8, close: 22, region: "downTown" },
+  recreationCenter: { open: 8, close: 22, region: "downTown" },
+    gym: { open: 8, close: 22, region: "downTown" },
+    courtBasketball: { open: 8, close: 22, region: "downTown" },
+    courtVolleyball: { open: 8, close: 22, region: "downTown" },
+  towerB: { open: 8, close: 17, region: "downTown" },
+    bank: { open: 8, close: 17, region: "downTown" },
+  towerC: { open24h: true },
+    hotel: { open24h: true },
+    jazzClub: { open: 14, close: 2, region: "downTown" },
+    restaurantRoofTop: { open: 12, close: 2, region: "downTown" },
+    roofTopLounge: { open: 12, close: 2, region: "downTown" },
+  /*Skyline End*/
+  
+  /* === OLD TOWN === */
+  /* civicCenter Start */
+    townHall: { open: 8, close: 17, region: "oldTown" },
+    postOffice: { open: 8, close: 17, region: "oldTown" },
+    highSchool: { open: 8, close: 17, region: "oldTown" },
+    libraryOldtown: { open: 8, close: 17, region: "oldTown" },
+    hospital: { open24h: true },
+    policeStation: { open24h: true },
+  /* civicCenter End */
+  
+  pharmacy: { open: 9, close: 21, region: "oldTown" },
+  dinerRubys: { open: 6, close: 22, region: "oldTown" },
+  shopCoffeeOldtown: { open: 6, close: 20, region: "oldTown" },
+  storeBook: { open: 9, close: 21, region: "oldTown" },
+  storeHardware: { open: 9, close: 21, region: "oldTown" },
+  shopBarber: { open: 9, close: 21, region: "oldTown" },
+
+
+  /* === MARINA BAY === */
+  beach: { open: 6, close: 22, region: "marinaBay" },
+  pier: { open: 6, close: 23, region: "marinaBay" },
+  beachClub: { open: 10, close: 2, region: "marinaBay" },
+  
+  /* === UNIVERSITY === */
+  studentBar: { open: 16, close: 2, region: "universityDistrict" },
+  cafeteriaUni: { open: 7, close: 21, region: "universityDistrict" },
+  
+  /* === RED LIGHT === */
+  clubStrip: { open: 21, close: 4, region: "redLightCenter" },
+  barNeon: { open: 20, close: 4, region: "redLightCenter" },
+  barGloryHole: { open: 22, close: 5, region: "redLightCenter" },
+  storeAdult: { open: 10, close: 2, region: "redLightCenter" },
+  
+  /* === MAPLEWOOD === */
+  sunsetPark: { open: 6, close: 22, region: "maplewood" },
+  mapleChurch: { open: 8, close: 20, region: "maplewood" },
+  storeCorner: { open: 9, close: 22, region: "maplewood" }
+} >>
+
+/* ==========================================
+   MAP SETTINGS
+   ========================================== */
+
+<<set $taxiBaseFare = 10>>
+<<set setup.imageMap = "assets/content/locations/map/map.webp">>

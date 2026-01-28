@@ -1,0 +1,212 @@
+<<silently>>
+<<set $location = "fhBrotherRoom">>  /* Brother's Room */
+<<logDailyActivity "brother" "playGames">>
+<<set _char = $characters.brother>>
+<<set _friendship = _char.stats.friendship>>
+
+/* Determine phase */
+<<if $flags.summerBreak>>
+    <<set _phase = "vacation">>
+<<else>>
+    <<set _phase = "school">>
+<</if>>
+
+/* Time and stats */
+<<advanceTime 60>>
+<<loseStat "energy" 15>>
+<<gainStat "mood" 15>>
+<<loseStat "stress" 20>>
+<<gainSkill "gaming" 5>>
+<<gainStat "friendship" 4 "brother">>
+<<gainStat "trust" 3 "brother">>
+<<gainStat "love" 2 "brother">>
+<<recalculateStats>>
+
+/* Select variant based on friendship */
+<<if _friendship < 50>>
+    <<set _variant = 1>>
+<<elseif _friendship < 75>>
+    <<set _variant = 2>>
+<<else>>
+    <<set _variant = 3>>
+<</if>>
+<</silently>>
+
+<<narrative "Brother's Room - Play Video Games with Brother">>
+<<if _phase === "school">>
+His gaming setup glows in the dim room. Despite homework piling up, he grins when you offer to play together.
+<<else>>
+It's prime gaming time and he's already deep into his session. He immediately makes space for you when you walk in.
+<</if>>
+<</narrative>>
+
+<<if _phase === "school">>
+/* ========== SCHOOL VARIANTS ========== */
+<<switch _variant>>
+<<case 1>>
+/* Variant 1: Casual Co-op */
+<<dialog "brother">>
+(Handing you a controller)
+Alright, but I can only play for like an hour. Got homework due tomorrow.
+<</dialog>>
+
+<<dialog "player">>
+One hour is fine.
+<</dialog>>
+
+<<narrative>>
+You play through a few co-op levels. He's good—really good—but he slows down to help you when you struggle. When you finally beat a tough section together, he high-fives you with genuine excitement.
+<</narrative>>
+
+<<dialog "brother">>
+(Checking the time reluctantly)
+That was fun. We should do this more often.
+<</dialog>>
+
+<<case 2>>
+/* Variant 2: Competitive Banter */
+<<dialog "brother">>
+(Competitive grin)
+Okay, but fair warning—I'm about to destroy you. Don't take it personally.
+<</dialog>>
+
+<<dialog "player">>
+We'll see about that.
+<</dialog>>
+
+<<narrative>>
+The match is close. He talks trash the entire time, but when you pull off a good move, he can't help but compliment you. The playful rivalry makes everything more fun.
+<</narrative>>
+
+<<dialog "brother">>
+(After you win a round)
+Okay, that was actually sick. Teach me that combo?
+(Leaning closer to watch your hands)
+Like this?
+<</dialog>>
+
+<<narrative>>
+His shoulder brushes yours as he leans in. The proximity feels natural, comfortable.
+<</narrative>>
+
+<<case 3>>
+/* Variant 3: Flirty Bonding */
+<<dialog "brother">>
+(Pulling his chair right next to yours)
+Come here. We're doing a two-player run and I need my favorite teammate.
+<</dialog>>
+
+<<narrative>>
+You sit so close your legs touch. He doesn't move away. As you play, he keeps glancing at you instead of the screen, which gets him killed twice.
+<</narrative>>
+
+<<dialog "player">>
+You're distracted.
+<</dialog>>
+
+<<dialog "brother">>
+(Soft laugh)
+Yeah. You're distracting.
+(Meeting your eyes)
+Can't focus when you're this close. Not complaining though... even if I know I should.
+<</dialog>>
+
+<<narrative>>
+When you finally finish the mission, his hand lingers on yours as you both reach for the controller at the same time.
+<</narrative>>
+
+<<dialog "brother">>
+(Not letting go)
+Best gaming session ever.
+<</dialog>>
+
+<</switch>>
+
+<<else>>
+/* ========== VACATION VARIANTS ========== */
+<<switch _variant>>
+<<case 1>>
+/* Variant 1: Marathon Session */
+<<dialog "brother">>
+(Excited)
+Perfect timing! I just started a new playthrough. Join me?
+<</dialog>>
+
+<<narrative>>
+You settle in for a long session. Snacks appear, drinks get refilled, and hours blur together. It's comfortable, easy—just you and him against the game.
+<</narrative>>
+
+<<dialog "brother">>
+(Stretching)
+This is what vacation's about. No stress, no deadlines. Just gaming with my favorite person.
+<</dialog>>
+
+<<case 2>>
+/* Variant 2: Teaching You */
+<<dialog "brother">>
+(Patient)
+Okay, let me show you the controls. It's easier than it looks.
+<</dialog>>
+
+<<narrative>>
+He guides your hands, showing you button combinations. His hands over yours, warm and steady. He's genuinely good at teaching—breaking things down, encouraging your progress.
+<</narrative>>
+
+<<dialog "brother">>
+(Proud when you succeed)
+See? You're a natural.
+(Grinning)
+Give it a few months and you'll be better than me.
+<</dialog>>
+
+<<dialog "player">>
+Doubt that.
+<</dialog>>
+
+<<dialog "brother">>
+(Earnest)
+I don't. You're good at everything you try.
+<</dialog>>
+
+<<case 3>>
+/* Variant 3: Late Night Intimacy */
+<<dialog "brother">>
+(Dimming the RGB lights)
+Better for gaming. Less eye strain.
+<</dialog>>
+
+<<narrative>>
+The room is dark except for the screen glow. You're pressed together on his gaming chair, sharing the space. Every shift, every breath feels amplified in the quiet.
+<</narrative>>
+
+<<dialog "brother">>
+(After a long silence)
+You know what's crazy? This—gaming with you—is better than any ranked match, any tournament win.
+<</dialog>>
+
+<<dialog "player">>
+Really?
+<</dialog>>
+
+<<dialog "brother">>
+(Turning to look at you, faces inches apart)
+Really. Because it's with you.
+(Voice dropping)
+Everything's better with you... even though we're siblings and I shouldn't feel this way.
+<</dialog>>
+
+<<narrative>>
+The game is forgotten. You're just staring at each other in the dark, hearts racing for reasons that have nothing to do with gaming.
+<</narrative>>
+
+<<dialog "brother">>
+(Clearing throat, looking away)
+Should we... should we keep playing?
+<</dialog>>
+
+<</switch>>
+<</if>>
+
+<div class="location-actions">
+<<btn "Finish" "CharacterInteraction" "secondary">><</btn>>
+</div>

@@ -1,0 +1,41 @@
+
+/* Socks - Regular socks, stockings, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * 
+ * Tags: casual, formal, revealing, cute
+ * Quality: Common, Rare, Premium
+ * FUTURE: size, durability, effects, unlockCondition
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.socks = [
+    {
+        id: "socks_white_owned",
+        name: "White Socks",
+        brand: "StepUp Footwear",
+        desc: "Simple white ankle socks.",
+        image: "assets/content/clothing/socks/socksWhiteOwned.webp",
+        looks: 1,
+        quality: "Common",
+        tags: ["casual"],
+        price: 10,
+        shopAvailable: false,
+        startOwned: true
+    },
+    {
+        id: "socks_black_owned",
+        name: "Black Socks",
+        brand: "StepUp Footwear",
+        desc: "Simple black ankle socks.",
+        image: "assets/content/clothing/socks/sockBlackOwned.webp",
+        looks: 1,
+        quality: "Common",
+        tags: ["casual"],
+        price: 10,
+        shopAvailable: false,
+        startOwned: true
+    }
+]>>
+

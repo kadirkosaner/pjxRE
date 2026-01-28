@@ -1,0 +1,56 @@
+/* ==========================================
+   GAME SETTINGS
+   Simulation toggles for optional features
+========================================== */
+<<set $gameSettings = {
+    /* Basic Needs */
+    trackHunger: true,
+    trackThirst: true,
+    trackBladder: true,
+    trackCalories: true,
+    hygieneRequirement: true,
+    /* Appearance Changes */
+    hairGrowth: true,
+    hairMessiness: true,
+    bodyHairGrowth: true,
+    makeupWearOff: true,
+    bodyDegradation: true,
+    /* Decay Systems */
+    skillDecay: true,
+    relationshipDecay: true
+}>>
+
+/* ==========================================
+   VIDEO SETTINGS
+   Initialize video settings in State.variables
+========================================== */
+<<script>>
+State.variables.videoSettings = State.variables.videoSettings || {
+    autoplaySet: true,
+    loopSet: true,
+    masterVolume: 100,
+    videoVolume: 100
+};
+<</script>>
+
+/* ==========================================
+   CONTENT PREFERENCES
+   Controls which content types are visible (14 categories)
+========================================== */
+<<set $contentPreferences = {
+    maleSexual: true,
+    femaleSexual: true,
+    futaTrans: true,
+    ntr: true,
+    pregnancy: true,
+    incest: true,
+    bdsm: true,
+    nonConsensual: true,
+    publicExhibition: true,
+    lactation: true,
+    feet: true,
+    watersports: true,
+    scat: true,
+    goreViolence: true,
+    ageplay: true
+}>>

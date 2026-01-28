@@ -1,0 +1,21 @@
+<<nobr>>
+<<set $location = "fhDownstairs">>
+<</nobr>>
+
+<<updateCharacterLocations>>
+
+<<narrative "Downstairs">>
+The main floor of the house connects all the common areas. The stairs lead up to the bedrooms, while doors open to the living spaces.
+<</narrative>>
+
+<<showLocationChars "fhDownstairs">>
+
+<<navMenu>>
+	<<navCard "maplewood">>
+	<<navCard "fhKitchen">>
+	<<navCard "fhLivingroom">>
+	<<navCard "fhDownbath">>
+	<<navCard "fhParentsRoom">>
+	<<navCard "fhBackyard">>
+	<<navCard "fhUpperstairs">>
+<</navMenu>>

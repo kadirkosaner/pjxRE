@@ -1,0 +1,250 @@
+/* ============================================
+   SYSTEMS/STATS.CSS
+   Stats modal styling with accordions
+   ============================================ */
+
+/*#region STATS LAYOUT */
+.stats-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-right: 8px; /* Scrollbar spacing */
+}
+
+.stats-section-title {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+/*#endregion */
+
+/*#region ACCORDIONS */
+.stats-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-group {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.stat-group:hover {
+  border-color: var(--color-border-secondary);
+}
+
+.stat-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px; /* Slightly larger */
+  cursor: pointer;
+  background: var(--color-bg-tertiary);
+  user-select: none;
+}
+
+.stat-group-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.stat-group-icon {
+  font-size: 20px; /* Larger */
+  color: var(--color-accent);
+  width: 24px;
+  text-align: center;
+}
+
+.stat-group-title {
+  flex: 1;
+  font-size: 16px; /* Larger */
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.stat-group-toggle {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+}
+
+.stat-group.expanded .stat-group-toggle {
+  transform: rotate(180deg);
+}
+
+.stat-group-content {
+  max-height: 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.stat-group.expanded .stat-group-content {
+  max-height: fit-content;
+  padding: 20px; /* Larger */
+  border-top: 1px solid var(--color-border-primary);
+}
+/*#endregion */
+
+/*#region STAT ROWS & BARS */
+.stat-row {
+  display: grid;
+  grid-template-columns: 220px 1fr 60px; /* Increased to 220px for long labels */
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.stat-row:last-child {
+  margin-bottom: 0;
+}
+
+.stat-label-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0; /* Enable flex shrinking if needed */
+}
+
+.stat-label {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.stat-info-icon {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  cursor: help;
+  opacity: 0.6;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.stat-info-icon:hover {
+  opacity: 1;
+  color: var(--color-accent);
+}
+
+.stat-bar-wrapper {
+  height: 10px; /* Thicker */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.stat-value-text {
+  font-size: 14px; /* Larger */
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Measurement grid overrides */
+.measurements-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.measurement-card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.measurement-label {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.measurement-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+/*#endregion */
+
+/*#region LEVEL DISPLAY */
+.stat-level-display {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  flex: 1;
+}
+/*#endregion */
+
+/*#region BIDIRECTIONAL BAR */
+.stat-row.bidirectional {
+  grid-template-columns: 150px 1fr;
+}
+
+.stat-bar-bidirectional {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bidir-label {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  min-width: 55px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bidir-label.left {
+  text-align: right;
+}
+
+.bidir-label.right {
+  text-align: left;
+}
+
+.bidir-bar-wrapper {
+  flex: 1;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.bidir-bar-left {
+  position: absolute;
+  right: 50%;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+}
+
+.bidir-bar-right {
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  border-radius: 0 5px 5px 0;
+}
+
+.bidir-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: var(--color-text-tertiary);
+  z-index: 1;
+}
+/*#endregion */

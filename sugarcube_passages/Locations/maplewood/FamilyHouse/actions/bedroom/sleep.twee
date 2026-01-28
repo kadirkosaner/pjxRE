@@ -1,0 +1,117 @@
+<<if $energy > 30>>
+    <<run window.notifyWarning("You are not tired enough to sleep yet.")>>
+    <<goto "fhBed">>
+<<else>>
+<<silently>>
+    <<set $location = "fhBedroom">>
+
+    <<set $isSleeping = true>>
+
+    /* 2. ALARM CALCULATION CHECK */
+    /* Check for alarm based on TOMORROW */
+    <<set _currentDay = $timeSys.weekday>>
+    <<set _nextDay = (_currentDay + 1) % 7>>
+    <<set _isNextDayWeekend = (_nextDay == 0 || _nextDay == 6)>>
+    
+    <<set _alarmActive = false>>
+    
+    <<if _isNextDayWeekend && $alarm.weekendEnabled>>
+        <<set _alarmActive = true>>
+        <<set _alarmHour = $alarm.weekendHour>>
+        <<set _alarmMinute = $alarm.weekendMinute>>
+    <<elseif !_isNextDayWeekend && $alarm.weekdayEnabled>>
+        <<set _alarmActive = true>>
+        <<set _alarmHour = $alarm.weekdayHour>>
+        <<set _alarmMinute = $alarm.weekdayMinute>>
+    <</if>>
+
+    /* 3. DURATION CALCULATION */
+    <<set _sleepDuration = 480>> /* Default Ideal Sleep: 8 hours */
+    <<set _alarmWakeup = false>>
+
+    <<if _alarmActive>>
+        /* Calculate current time in minutes since midnight */
+        <<set _currentMinutes = ($timeSys.hour * 60) + $timeSys.minute>>
+
+        /* Calculate alarm time in minutes since midnight */
+        <<set _alarmMinutes = (_alarmHour * 60) + _alarmMinute>>
+
+        /* Alarm is for tomorrow logic */
+        /* Distance to next instance of that time */
+        <<if _alarmMinutes <= _currentMinutes>>
+             <<set _alarmMinutes += 1440>> 
+        <</if>>
+        
+        <<set _timeUntilAlarm = _alarmMinutes - _currentMinutes>>
+
+        /* If alarm rings BEFORE our natural 8 hours are up, we wake up early */
+        /* But only if it's a reasonable future alarm (e.g. within 24 hours, practically < 16h) */
+        <<if _timeUntilAlarm > 0 && _timeUntilAlarm < 480>>
+            <<set _sleepDuration = _timeUntilAlarm>>
+            <<set _alarmWakeup = true>>
+        <</if>>
+    <</if>>
+
+    /* 4. RECOVERY CALCULATION */
+    /* Base recovery is proportional to sleep duration against ideal 8 hours (480 mins) */
+    /* Ratio 0.0 to 1.0 */
+    <<set _recoveryRatio = _sleepDuration / 480>>
+    
+    /* Energy Gain: Full sleep = 100, Partial = Ratio * 100 */
+    /* We ensure it adds to current, capped at max via gainStat widget logic usually, or manually here */
+    <<set _energyGain = Math.round(100 * _recoveryRatio)>>
+    
+    /* Stress Reduction: Full sleep = -50, Partial = Ratio * -50 */
+    <<set _stressLoss = Math.round(50 * _recoveryRatio)>>
+
+    /* Apply changes */
+    <<advanceTime _sleepDuration>>
+    <<set $isSleeping = false>>
+    
+    <<gainStat "energy" _energyGain>>
+    <<loseStat "stress" _stressLoss>>
+
+    /* Notifications */
+    <<if _alarmWakeup>>
+        <<run window.notifySuccess("Woken by Alarm (" + Math.floor(_sleepDuration/60) + "h " + (_sleepDuration%60) + "m)")>>
+    <<else>>
+        <<run window.notifySuccess("Rested Well (8h)")>>
+    <</if>>
+
+    <<set _sceneIndex = random(1, 3)>>
+<</silently>>
+<<nobr>>
+<<narrative "Sleep">>
+You curl up under the covers, the softness of the bed inviting you to let go of the day's worries. You close your eyes, letting your breathing slow.
+<</narrative>>
+
+<<if _sceneIndex == 1>>
+    <<narrative>>
+    You drift off quickly, sinking into a dreamless, peaceful slumber...
+    <</narrative>>
+    <<vid "assets/content/scenes/maplewood/familyHouse/bedroom/sleep/sleep1.mp4" "60%">>
+<<elseif _sceneIndex == 2>>
+    <<narrative>>
+    The comfort of the bed wraps around you as you slowly fade into sleep...
+    <</narrative>>
+    <<vid "assets/content/scenes/maplewood/familyHouse/bedroom/sleep/sleep2.mp4" "60%">>
+<<elseif _sceneIndex == 3>>
+    <<narrative>>
+    Exhaustion takes over, and you find yourself asleep almost as soon as your head hits the pillow...
+    <</narrative>>
+    <<vid "assets/content/scenes/maplewood/familyHouse/bedroom/sleep/sleep3.mp4" "60%">>
+<</if>>
+
+<<narrative>>
+<<if _alarmWakeup>>
+    The shrill sound of your alarm cuts through your sleep! You jolt awake, feeling groggy but ready to start the day.
+<<else>>
+    You wake up naturally, feeling completely refreshed and re-energized.
+<</if>>
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Wake Up" "fhBedroom">><</btn>>
+</div>
+<</if>>
+<</nobr>>

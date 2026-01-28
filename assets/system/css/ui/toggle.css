@@ -1,0 +1,73 @@
+/* Custom UI Toggle Switch */
+.ui-toggle-wrapper {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    font-family: var(--font-main);
+}
+
+.ui-toggle-input {
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.ui-toggle-track {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.ui-toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background-color: #bbb;
+    border-radius: 50%;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Hover state */
+.ui-toggle-wrapper:hover .ui-toggle-track {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+.ui-toggle-wrapper:hover .ui-toggle-thumb {
+    background-color: #fff;
+}
+
+/* Checked state */
+.ui-toggle-input:checked + .ui-toggle-track {
+    background-color: rgba(79, 70, 229, 0.2); /* Accent color background */
+    border-color: var(--color-accent, #4f46e5);
+}
+
+.ui-toggle-input:checked + .ui-toggle-track .ui-toggle-thumb {
+    transform: translateX(20px);
+    background-color: var(--color-accent, #4f46e5);
+    box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
+}
+
+/* Label styling */
+.ui-toggle-label {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+.ui-toggle-input:checked ~ .ui-toggle-label {
+    color: #fff;
+    font-weight: 500;
+}

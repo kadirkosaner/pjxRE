@@ -1,0 +1,35 @@
+/* Helper functions to get player appearance images dynamically */
+window.PlayerAppearance = {
+    
+    getHairImage: function() {
+        const hairLength = State.variables.player.hairLength || "Long";
+        const key = "hair" + hairLength.replace(/\s+/g, ''); // "Very Long" → "hairVeryLong"
+        return setup.playerAppearanceImages[key] || setup.playerAppearanceImages.hairMedium;
+    },
+    
+    getHairStyleImage: function() {
+        const hairLength = State.variables.player.hairLength || "Long";
+        const hairStyle = State.variables.player.hairStyle || "Straight";
+        const lengthKey = hairLength.replace(/\s+/g, ''); // "Very Long" → "VeryLong"
+        const key = "hair" + lengthKey + hairStyle; // "hairLongStraight"
+        return setup.playerAppearanceImages[key] || setup.playerAppearanceImages.hairLong;
+    },
+    
+    getBustImage: function() {
+        const bustSize = State.variables.player.bustSize || "C";
+        const key = "bust" + bustSize.replace(/\+/g, ''); // "DD+" → "bustDD"
+        return setup.playerAppearanceImages[key] || setup.playerAppearanceImages.bustC;
+    },
+    
+    getHipImage: function() {
+        const hipSize = State.variables.player.hipSize || "Medium";
+        const key = "hip" + hipSize; // "Slim" → "hipSlim"
+        return setup.playerAppearanceImages[key] || setup.playerAppearanceImages.hipMedium;
+    },
+    
+    getBodyTypeImage: function() {
+        const bodyType = State.variables.body.bodyType || "Normal";
+        const key = "body" + bodyType; // "Slim" → "bodySlim", "Normal" → "bodyNormal"
+        return setup.playerAppearanceImages[key] || setup.playerAppearanceImages.bodyNormal;
+    }
+};

@@ -1,0 +1,54 @@
+
+/* Shoes - Sneakers, heels, boots, sandals, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * 
+ * Tags: casual, formal, revealing, sporty, elegant, comfortable
+ * Quality: Common, Rare, Premium
+ * FUTURE: size, durability, effects, unlockCondition
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.shoes = [
+    {
+        id: "sandals_owned",
+        name: "Brown Sandals",
+        brand: "StepUp Footwear",
+        desc: "Comfortable brown leather sandals.",
+        image: "assets/content/clothing/shoes/sandals/sandalsOwned.webp",
+        looks: 3,
+        quality: "Common",
+        tags: ["casual"],
+        price: 45,
+        shopAvailable: false,
+        startOwned: true
+    },
+    {
+        id: "sneakers_flat_owned",
+        name: "Black Canvas Sneakers",
+        brand: "StepUp Footwear",
+        desc: "Classic black low-top canvas sneakers.",
+        image: "assets/content/clothing/shoes/sneakers/sneakersFlatOwned.webp",
+        looks: 4,
+        quality: "Common",
+        tags: ["casual"],
+        price: 55,
+        shopAvailable: false,
+        startOwned: true
+    },
+    {
+        id: "sneakers_girly_owned",
+        name: "Pastel Athletic Sneakers",
+        brand: "FastBreak Athletics",
+        desc: "Cute white sneakers with pink and blue accents.",
+        image: "assets/content/clothing/shoes/sneakers/sneakersGirlyOwned.webp",
+        looks: 5,
+        quality: "Common",
+        tags: ["sporty"],
+        price: 65,
+        shopAvailable: false,
+        startOwned: true
+    }
+]>>
+

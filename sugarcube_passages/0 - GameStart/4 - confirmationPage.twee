@@ -1,0 +1,115 @@
+<<nobr>>
+<<set $hideTopbarNav = true>>
+<<set $hideTopbarTimebox = true>>
+<<set $hideTopbarNotifications = true>>
+<<set $hideRightbar = true>>
+<<set $hideTopbar = true>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="game-setup-container">
+    <h1 class="page-title">Confirm Your Choices</h1>
+    <div class="setup-header-line"></div>
+    <p class="page-subtitle">
+        Review your character settings before beginning your new life.
+    </p>
+
+    <div class="info-grid">
+        <!-- 1. IDENTITY (Full Width) -->
+        <div class="info-card" style="grid-column: 1 / -1;">
+            <div class="info-card-header">
+                <span class="icon icon-user"></span> CHARACTER IDENTITY
+            </div>
+            <div class="info-card-body">
+                <div style="text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Full Name</div>
+                    <div style="font-size: 1.25rem; color: var(--color-accent); font-weight: 600;">$player.firstName $player.lastName</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. BODY (Full Width) -->
+        <div class="info-card" style="grid-column: 1 / -1;">
+            <div class="info-card-header">
+                <span class="icon icon-body"></span> BODY DETAILS
+            </div>
+            <div class="info-card-body">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <div class="info-line"><span class="label">Eye Color</span> <span class="value">$player.eyeColor</span></div>
+                        <div class="info-line"><span class="label">Hair Color</span> <span class="value">$player.hairColor</span></div>
+                        <div class="info-line"><span class="label">Hair Length</span> <span class="value">$player.hairLength</span></div>
+                        <div class="info-line"><span class="label">Hair Style</span> <span class="value">$player.hairStyle</span></div>
+                    </div>
+                    <div>
+                        <div class="info-line"><span class="label">Height</span> <span class="value">$body.height cm</span></div>
+                        <div class="info-line"><span class="label">Weight</span> <span class="value">$body.weight kg</span></div>
+                        <div class="info-line"><span class="label">BMI</span> <span class="value">$body.bmi</span></div>
+                        <div class="info-line"><span class="label">Body Type</span> <span class="value">$body.bodyType</span></div>
+                    </div>
+                    <div>
+                        <div class="info-line"><span class="label">Bust Size</span> <span class="value">$player.bustSize ($body.bust cm)</span></div>
+                        <div class="info-line"><span class="label">Hip Size</span> <span class="value">$player.hipSize ($body.hips cm)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. SIMULATION (Left Col) -->
+        <div class="info-card">
+            <div class="info-card-header">
+                <span class="icon icon-settings"></span> SIMULATION SETTINGS
+            </div>
+            <div class="info-card-body">
+                <div class="info-line"><span class="label">Hunger Tracking</span> <span class="value"><<if $gameSettings.trackHunger>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Thirst Tracking</span> <span class="value"><<if $gameSettings.trackThirst>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Bladder Tracking</span> <span class="value"><<if $gameSettings.trackBladder>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Calorie Tracking</span> <span class="value"><<if $gameSettings.trackCalories>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Hygiene Requirement</span> <span class="value"><<if $gameSettings.hygieneRequirement>>ON<<else>>OFF<</if>></span></div>
+                <div class="separator-line"></div>
+                <div class="info-line"><span class="label">Hair Growth</span> <span class="value"><<if $gameSettings.hairGrowth>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Hair Messiness</span> <span class="value"><<if $gameSettings.hairMessiness>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Body Hair Growth</span> <span class="value"><<if $gameSettings.bodyHairGrowth>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Makeup Fade</span> <span class="value"><<if $gameSettings.makeupWearOff>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Body Weight Changes</span> <span class="value"><<if $gameSettings.bodyDegradation>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Skill Decay</span> <span class="value"><<if $gameSettings.skillDecay>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Relationship Decay</span> <span class="value"><<if $gameSettings.relationshipDecay>>ON<<else>>OFF<</if>></span></div>
+            </div>
+        </div>
+
+        <!-- 4. CONTENT (Right Col) -->
+        <div class="info-card">
+            <div class="info-card-header">
+                <span class="icon icon-eye"></span> CONTENT PREFERENCES
+            </div>
+            <div class="info-card-body">
+                <div class="info-line"><span class="label">Male Sexual Content</span> <span class="value"><<if $contentPreferences.maleSexual>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Female Sexual Content</span> <span class="value"><<if $contentPreferences.femaleSexual>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Trans / Futa Content</span> <span class="value"><<if $contentPreferences.futaTrans>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Pregnancy Content</span> <span class="value"><<if $contentPreferences.pregnancy>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Incest Content</span> <span class="value"><<if $contentPreferences.incest>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">NTR / Cheating</span> <span class="value"><<if $contentPreferences.ntr>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">BDSM Content</span> <span class="value"><<if $contentPreferences.bdsm>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Non-Consensual</span> <span class="value"><<if $contentPreferences.nonConsensual>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Public Exhibition</span> <span class="value"><<if $contentPreferences.publicExhibition>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Lactation</span> <span class="value"><<if $contentPreferences.lactation>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Foot Fetish</span> <span class="value"><<if $contentPreferences.feet>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Watersports</span> <span class="value"><<if $contentPreferences.watersports>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Scat Content</span> <span class="value"><<if $contentPreferences.scat>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Gore / Violence</span> <span class="value"><<if $contentPreferences.goreViolence>>ON<<else>>OFF<</if>></span></div>
+                <div class="info-line"><span class="label">Ageplay</span> <span class="value"><<if $contentPreferences.ageplay>>ON<<else>>OFF<</if>></span></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NAVIGATION BUTTONS -->
+    <div class="form-actions mt-4">
+        <<btn "Go Back" "settingsPage" "default">><</btn>>
+        <<btn "Start Life" "prologuePage" "accent">><</btn>>
+        <<btn "Skip Prologue" "skipPrologue" "accent">><</btn>>
+    </div>
+
+</div>
+</div>
+<</nobr>>

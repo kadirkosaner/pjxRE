@@ -1,0 +1,41 @@
+
+/* Bras - Regular bras, sports bras, lingerie, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * 
+ * Tags: casual, revealing, sexy, comfortable, sporty
+ * Quality: Common, Rare, Premium
+ * FUTURE: size, durability, effects, unlockCondition
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.bras = [
+    {
+        id: "bra_sport_white_owned",
+        name: "White Sports Bra",
+        brand: "FastBreak Athletics",
+        desc: "Comfortable white sports bra for everyday wear.",
+        image: "assets/content/clothing/bra/sport/braSportWhiteOwned.webp",
+        looks: 2,
+        quality: "Common",
+        tags: ["casual", "sporty"],
+        price: 30,
+        shopAvailable: false,
+        startOwned: true
+    },
+    {
+        id: "bra_black_owned",
+        name: "Black Bra",
+        brand: "Intimate Secrets",
+        desc: "Classic black everyday bra.",
+        image: "assets/content/clothing/bra/braBlackOwned.webp",
+        looks: 3,
+        quality: "Common",
+        tags: ["casual"],
+        price: 35,
+        shopAvailable: false,
+        startOwned: true
+    }
+]>>
+

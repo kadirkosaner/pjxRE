@@ -1,0 +1,141 @@
+/* ==========================================
+   FATHER - Robert Taylor
+   Complete Character Definition
+========================================== */
+
+/* CHARACTER DATA */
+<<set $characters.father = {
+    firstName: "Robert",
+    lastName: "Taylor",
+    birthYear: 1979,
+    occupation: "Software Engineer",
+    location: "Home, Study Room",
+    avatar: "assets/content/people/family/father/father.jpg",
+    type: "npc",
+    color: "#3b82f6",
+    stats: {
+        love: 25,
+        friendship: 50,
+        lust: 0,
+        trust: 40
+    },
+    status: "Father",
+    firstMet: "Birth",
+    info: "<p>Your father is a software engineer who works long hours. He enjoys working on cars in the garage (his escape from screens) and watching sports.</p>",
+    known: true,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+/* SCHEDULE - Where is he at different times */
+/* Location IDs match Navigation[INIT].twee */
+/* preWork: Before work starts (settling into new home) */
+/* postWork: After work starts (normal work routine) */
+<<set setup.schedules.father = {
+    preWork: {
+        weekday: [
+            { hour: 0, location: "fhParentsRoom", status: "sleeping" },
+            { hour: 6, location: "fhParentsBath", status: "showering" },  /* Shower 6:00-6:20 (20 min) */
+            { hour: 6, minute: 20, location: "fhParentsRoom", status: "available" },  /* Getting ready */
+            { hour: 7, location: "fhKitchen", status: "available" },      /* Family Breakfast 7:00-7:30 */
+            { hour: 7, minute: 30, location: "fhLivingroom", status: "available" },
+            { hour: 10, location: "fhGarage", status: "available" },      /* Garage Project */
+            { hour: 12, minute: 30, location: "fhKitchen", status: "available" },     /* Lunch 12:30-13:00 */
+            { hour: 13, location: "fhBackyard", status: "available" },
+            { hour: 14, location: "fhGarage", status: "available" },      /* Garage Afternoon */
+            { hour: 17, location: "fhLivingroom", status: "available" },
+            { hour: 18, minute: 30, location: "fhKitchen", status: "available" },     /* Family Dinner 18:30-19:30 */
+            { hour: 19, minute: 30, location: "fhLivingroom", status: "available" },
+            { hour: 23, location: "fhParentsRoom", status: "available" }
+        ],
+        weekend: [
+            { hour: 0, location: "fhParentsRoom", status: "sleeping" },
+            { hour: 7, location: "fhParentsBath", status: "showering" },  /* Shower 7:00-7:20 (20 min) */
+            { hour: 7, minute: 20, location: "fhParentsRoom", status: "available" },  /* Getting ready */
+            { hour: 8, minute: 30, location: "fhKitchen", status: "available" },      /* Family Breakfast 8:30-9:30 */
+            { hour: 9, minute: 30, location: "fhLivingroom", status: "available" },
+            { hour: 11, location: "fhGarage", status: "available" },      /* Weekend Garage */
+            { hour: 12, minute: 30, location: "fhKitchen", status: "available" },     /* Family Lunch 12:30-13:30 */
+            { hour: 13, minute: 30, location: "fhBackyard", status: "available" },
+            { hour: 14, location: "fhGarage", status: "available" },      /* Weekend Garage */
+            { hour: 17, location: "fhLivingroom", status: "available" },
+            { hour: 18, minute: 30, location: "fhKitchen", status: "available" },     /* Family Dinner 18:30-19:30 */
+            { hour: 19, minute: 30, location: "fhLivingroom", status: "available" },
+            { hour: 23, location: "fhParentsRoom", status: "available" }
+        ]
+    },
+    postWork: {
+        weekday: [
+            { hour: 0, location: "fhParentsRoom", status: "sleeping" },
+            { hour: 6, location: "fhParentsBath", status: "showering" },  /* Shower 6:00-6:20 (20 min) */
+            { hour: 6, minute: 20, location: "fhParentsRoom", status: "available" },  /* Getting ready */
+            { hour: 7, location: "fhKitchen", status: "available" },      /* Family Breakfast 7:00-7:30 */
+            { hour: 8, location: "work", status: "busy" },                /* At work 8:00-18:00 */
+            { hour: 18, minute: 30, location: "fhKitchen", status: "available" },     /* Family Dinner 18:30-19:30 */
+            { hour: 19, minute: 30, location: "fhGarage", status: "available" },      /* Decompress after work */
+            { hour: 20, location: "fhLivingroom", status: "available" },
+            { hour: 23, location: "fhParentsRoom", status: "available" }
+        ],
+        weekend: [
+            { hour: 0, location: "fhParentsRoom", status: "sleeping" },
+            { hour: 7, location: "fhParentsBath", status: "showering" },  /* Shower 7:00-7:20 (20 min) */
+            { hour: 7, minute: 20, location: "fhParentsRoom", status: "available" },  /* Getting ready */
+            { hour: 8, minute: 30, location: "fhKitchen", status: "available" },      /* Family Breakfast 8:30-9:30 */
+            { hour: 9, minute: 30, location: "fhLivingroom", status: "available" },
+            { hour: 11, location: "fhGarage", status: "available" },      /* Weekend Project */
+            { hour: 12, minute: 30, location: "fhKitchen", status: "available" },     /* Family Lunch 12:30-13:30 */
+            { hour: 16, location: "fhLivingroom", status: "available" },
+            { hour: 18, minute: 30, location: "fhKitchen", status: "available" },     /* Family Dinner 18:30-19:30 */
+            { hour: 19, minute: 30, location: "fhLivingroom", status: "available" },
+            { hour: 23, location: "fhParentsRoom", status: "available" }
+        ]
+    }
+}>>
+
+/* ACTIONS - What can you do with him at each location */
+/* Uses setup.* to avoid save file bloat */
+<<set setup.characterActions.father = {
+    fhKitchen: [
+        {
+            id: "talk", label: "Talk", passage: "fatherTalkKitchen",
+            tags: [], requirements: {}, dailyLimit: true
+        },
+        {
+            id: "coffee", label: "Coffee Together", passage: "fatherCoffeeTogether",
+            tags: [], requirements: {}, dailyLimit: true,
+            timeWindow: [
+                { startHour: 6, startMinute: 0, endHour: 9, endMinute: 0 }
+            ]
+        },
+        {
+            id: "hug", label: "Hug", passage: "fatherHug",
+            tags: [], requirements: { friendship: 40 }, dailyLimit: true
+        }
+    ],
+    fhLivingroom: [
+        {
+            id: "talk", label: "Talk", passage: "fatherTalkLivingRoom",
+            tags: [], requirements: {}, dailyLimit: true
+        },
+
+    ],
+    fhGarage: [
+        {
+            id: "talk", label: "Talk", passage: "fatherTalkGarage",
+            tags: [], requirements: {}, dailyLimit: true
+        },
+        {
+            id: "carWork", label: "Help with Car", passage: "fatherCarWork",
+            tags: [], requirements: { friendship: 35 }, dailyLimit: true
+        }
+    ],
+    fhParentsRoom: [
+        {
+            id: "eveningVisit", label: "Say Goodnight", passage: "parentsRoomEvening",
+            tags: [], requirements: {}, dailyLimit: true,
+            timeWindow: [
+                { startHour: 23, startMinute: 0, endHour: 24, endMinute: 0 }
+            ]
+        }
+    ]
+}>>

@@ -1,0 +1,299 @@
+/* 
+    WIDGET: checkClothingRequirements
+    Input: _wardrobeItemToCheck (The clothing item object)
+    Output: Sets _wardrobeCheckResult to { allowed: boolean, reason: string }
+*/
+<<widget "checkClothingRequirements">>
+    <<set _item to _wardrobeItemToCheck>>
+    <<set _checkResult to { allowed: true, reason: "" }>>
+    
+    <<if _item>>
+        /* 1. Calculate Baseline Requirements from Tags */
+        <<set _reqConf to 0>>
+        <<set _reqExh to 0>>
+        <<set _reqCorr to 0>>
+        
+        <<if _item.tags>>
+            <<if _item.tags.includes("revealing")>>
+                <<set _reqConf to Math.max(_reqConf, 20)>>
+            <</if>>
+            
+            <<if _item.tags.includes("daring")>>
+                <<set _reqConf to Math.max(_reqConf, 40)>>
+            <</if>>
+            
+            <<if _item.tags.includes("erotic")>>
+                <<set _reqConf to Math.max(_reqConf, 60)>>
+                <<set _reqExh to Math.max(_reqExh, 10)>>
+            <</if>>
+            
+            <<if _item.tags.includes("lewd")>>
+                <<set _reqConf to Math.max(_reqConf, 80)>>
+                <<set _reqExh to Math.max(_reqExh, 30)>>
+            <</if>>
+        <</if>>
+        
+        /* 2. Apply Item-Specific Overrides (The Hybrid Part) */
+        <<if def _item.reqConfidence>>
+            <<set _reqConf to _item.reqConfidence>>
+        <</if>>
+        
+        <<if def _item.reqExhibitionism>>
+            <<set _reqExh to _item.reqExhibitionism>>
+        <</if>>
+        
+        <<if def _item.reqCorruption>>
+            <<set _reqCorr to _item.reqCorruption>>
+        <</if>>
+        
+        /* 3. Perform Checks Against Player Stats */
+        /* Initialize stats if missing to prevent errors */
+        <<if ndef $confidence>><<set $confidence to 0>><</if>>
+        <<if ndef $exhibitionism>><<set $exhibitionism to 0>><</if>>
+        <<if ndef $corruption>><<set $corruption to 0>><</if>>
+        
+        <<if $confidence < _reqConf>>
+            <<set _checkResult = { allowed: false, reason: "Requires " + _reqConf + " Confidence" }>>
+        <<elseif $exhibitionism < _reqExh>>
+            <<set _checkResult = { allowed: false, reason: "Requires " + _reqExh + " Exhibitionism" }>>
+        <<elseif $corruption < _reqCorr>>
+            <<set _checkResult = { allowed: false, reason: "Requires " + _reqCorr + " Corruption" }>>
+        <</if>>
+        
+    <</if>>
+    
+    <<set _wardrobeCheckResult to _checkResult>>
+<</widget>>
+
+/* 
+    WIDGET: checkCommandoRequirement
+    Input: _wardrobeSlotToCheck ('panty' or 'bra')
+    Output: Sets _wardrobeCheckResult to { allowed: boolean, reason: string }
+*/
+<<widget "checkCommandoRequirement">>
+    <<set _slot to _wardrobeSlotToCheck>>
+    <<set _checkResult to { allowed: true, reason: "" }>>
+    
+    <<if _slot is "panty">>
+        <<set _coverLevel to "nude">>
+        
+        /* Check what covers the bottom */
+        <<if $wardrobe.equipped.dress>>
+            /* Dresses are risky (Level 2) */
+            <<set _coverLevel to "risky">>
+            /* Unless sheer (Level 3) - Logic can be expanded here */
+        <<elseif $wardrobe.equipped.bottom>>
+            <<set _bottomItem to setup.getClothingById($wardrobe.equipped.bottom)>>
+            <<if _bottomItem>>
+                <<if _bottomItem.tags.includes("skirt")>>
+                    <<set _coverLevel to "risky">>
+                <<elseif _bottomItem.tags.includes("sheer") or _bottomItem.tags.includes("cutout")>>
+                    <<set _coverLevel to "exposed">>
+                <<else>>
+                    <<set _coverLevel to "safe">>
+                <</if>>
+            <</if>>
+        <</if>>
+        
+        /* Define Thresholds */
+        <<if _coverLevel is "safe" and $exhibitionism < 20>>
+            <<set _checkResult = { allowed: false, reason: "Requires 20 Exhibitionism for commando (hidden)." }>>
+        <<elseif _coverLevel is "risky" and $exhibitionism < 40>>
+            <<set _checkResult = { allowed: false, reason: "Requires 40 Exhibitionism for commando (skirt/dress)." }>>
+        <<elseif _coverLevel is "exposed" and $exhibitionism < 60>>
+            <<set _checkResult = { allowed: false, reason: "Requires 60 Exhibitionism for commando (visible)." }>>
+        <<elseif _coverLevel is "nude" and $exhibitionism < 80>>
+            <<set _checkResult = { allowed: false, reason: "Requires 80 Exhibitionism for full exposure." }>>
+        <</if>>
+        
+    <<elseif _slot is "bra">>
+        /* BRA LOGIC */
+        <<set _coverLevel to "nude">>
+        
+        /* Check what covers the top */
+        <<if $wardrobe.equipped.dress>>
+            <<set _dressItem to setup.getClothingById($wardrobe.equipped.dress)>>
+            <<if _dressItem>>
+                <<if _dressItem.tags.includes("sheer") or _dressItem.tags.includes("cutout")>>
+                    <<set _coverLevel to "exposed">>
+                <<else>>
+                    <<set _coverLevel to "risky">>
+                <</if>>
+            <</if>>
+        <<elseif $wardrobe.equipped.top>>
+            <<set _topItem to setup.getClothingById($wardrobe.equipped.top)>>
+            <<if _topItem>>
+                <<if _topItem.tags.includes("sheer") or _topItem.tags.includes("cutout")>>
+                    <<set _coverLevel to "exposed">>
+                <<elseif _topItem.tags.includes("crop") or _topItem.tags.includes("tank")>>
+                    <<set _coverLevel to "risky">>
+                <<else>>
+                    <<set _coverLevel to "safe">>
+                <</if>>
+            <</if>>
+        <</if>>
+        
+        /* Define Thresholds */
+        <<if _coverLevel is "safe" and $exhibitionism < 15>>
+            <<set _checkResult = { allowed: false, reason: "Requires 15 Exhibitionism to go braless (hidden)." }>>
+        <<elseif _coverLevel is "risky" and $exhibitionism < 35>>
+            <<set _checkResult = { allowed: false, reason: "Requires 35 Exhibitionism to go braless (risky)." }>>
+        <<elseif _coverLevel is "exposed" and $exhibitionism < 55>>
+            <<set _checkResult = { allowed: false, reason: "Requires 55 Exhibitionism to go braless (visible)." }>>
+        <<elseif _coverLevel is "nude" and $exhibitionism < 75>>
+            <<set _checkResult = { allowed: false, reason: "Requires 75 Exhibitionism for full exposure." }>>
+        <</if>>
+        
+    <</if>>
+    
+    <<set _wardrobeCheckResult to _checkResult>>
+<</widget>>
+
+/* Helper to expose JS function to Twee if needed */
+<<script>>
+setup.getClothingById = function(id) {
+    if (window.getSetup && window.getSetup().clothingData) {
+        let items = [];
+        Object.values(window.getSetup().clothingData).forEach(arr => items = items.concat(arr));
+        return items.find(i => i.id === id);
+    }
+    return null;
+}
+<</script>>
+
+/* 
+    WIDGET: checkBedroomExit
+    Logic:
+    - Default: Must be fully dressed (Top + Bottom OR Dress)
+    - Corruption >= 2: Can leave in Underwear (Bra + Panty)
+    - Corruption >= 5: Can leave Nude
+*/
+<<widget "checkBedroomExit">>
+    <<set _canExit to false>>
+    <<set _reason to "">>
+    
+    /* Variable Safeguards */
+    <<if !$wardrobe>><<set $wardrobe = { equipped: {} }>><</if>>
+    <<if !$wardrobe.equipped>><<set $wardrobe.equipped = {} >><</if>>
+    <<if !$corruption>><<set $corruption = 0>><</if>>
+    
+    /* Calculate Coverage */
+    <<set _hasTop to ($wardrobe.equipped.top and $wardrobe.equipped.top !== "")>>
+    <<set _hasBottom to ($wardrobe.equipped.bottom and $wardrobe.equipped.bottom !== "")>>
+    <<set _hasDress to ($wardrobe.equipped.dress and $wardrobe.equipped.dress !== "")>>
+    
+    <<set _hasBra to ($wardrobe.equipped.bra and $wardrobe.equipped.bra !== "")>>
+    <<set _hasPanty to ($wardrobe.equipped.panty and $wardrobe.equipped.panty !== "")>>
+    
+    /* Logic: Fully Dressed means covering Top AND Bottom (or Dress) */
+    /* Note: Shoes are not required for this specific 'Decency' check */
+    
+    <<set _isFullyDressed to (_hasDress or (_hasTop and _hasBottom))>>
+    <<set _isUnderwearOnly to (!_isFullyDressed and (_hasBra or _hasPanty))>>
+    <<set _isNude to (!_isFullyDressed and !_isUnderwearOnly)>>
+    
+    /* Check Logic Loop */
+    <<if _isFullyDressed>>
+        <<set _canExit to true>>
+        
+    <<elseif _isUnderwearOnly>>
+        /* If wearing ANY underwear but not fully dressed */
+        /* Must have corruption >= 2 */
+        /* Note: If topless (Panty only), it's still 'Underwear' category for simplified exit logic or should it be stricter? */
+        /* User request: "Level 2: Bra and panties". Implicitly, partial underwear might require higher? */
+        /* Let's stick to: If not fully dressed, but has underwear -> Cor 2. */
+        
+        <<if $corruption >= 2>>
+            <<set _canExit to true>>
+        <<else>>
+            <<set _reason to "You can't go out in just your underwear! (Requires Corruption 2)">>
+        <</if>>
+        
+    <<else>> 
+        /* Nude (No Top, No Bottom, No Dress, No Bra, No Panty) */
+        <<if $corruption >= 5>>
+            <<set _canExit to true>>
+        <<else>>
+            <<set _reason to "You can't go out naked! (Requires Corruption 5)">>
+        <</if>>
+    <</if>>
+    
+    /* Execute Navigation or Notify */
+    <<if _canExit>>
+        <<run $gameDate.addMinutes(1)>>
+        <<goto "fhUpperstairs">>
+    <<else>>
+        <<notify "warning" _reason>>
+        <<goto "fhBedroom">>
+    <</if>>
+<</widget>>
+
+/* 
+    WIDGET: updateClothesNotification
+    Sets $notificationClothes based on current wardrobe state
+    Values:
+        0 = Normal (no notification)
+        1 = Naked
+        2 = Underwear Only
+        3 = No Underwear (Commando)
+        4 = Revealing Outfit
+*/
+<<widget "updateClothesNotification">>
+    /* Variable Safeguards */
+    <<if !$wardrobe>><<set $wardrobe = { equipped: {} }>><</if>>
+    <<if !$wardrobe.equipped>><<set $wardrobe.equipped = {} >><</if>>
+    
+    /* Calculate Coverage */
+    <<set _hasTop to ($wardrobe.equipped.top and $wardrobe.equipped.top !== "")>>
+    <<set _hasBottom to ($wardrobe.equipped.bottom and $wardrobe.equipped.bottom !== "")>>
+    <<set _hasDress to ($wardrobe.equipped.dress and $wardrobe.equipped.dress !== "")>>
+    <<set _hasBra to ($wardrobe.equipped.bra and $wardrobe.equipped.bra !== "")>>
+    <<set _hasPanty to ($wardrobe.equipped.panty and $wardrobe.equipped.panty !== "")>>
+    
+    /* Determine Outfit State */
+    <<set _isFullyDressed to (_hasDress or (_hasTop and _hasBottom))>>
+    <<set _hasAnyUnderwear to (_hasBra or _hasPanty)>>
+    <<set _hasFullUnderwear to (_hasBra and _hasPanty)>>
+    <<set _isUnderwearOnly to (!_isFullyDressed and _hasAnyUnderwear)>>
+    <<set _isNude to (!_isFullyDressed and !_hasAnyUnderwear)>>
+    <<set _isCommando to (_isFullyDressed and !_hasAnyUnderwear)>>
+    
+    /* Check for Revealing Tags */
+    <<set _isRevealing to false>>
+    <<if _isFullyDressed>>
+        <<if _hasDress>>
+            <<set _dressItem to setup.getClothingById($wardrobe.equipped.dress)>>
+            <<if _dressItem and _dressItem.tags>>
+                <<if _dressItem.tags.includes("revealing") or _dressItem.tags.includes("daring") or _dressItem.tags.includes("erotic") or _dressItem.tags.includes("lewd")>>
+                    <<set _isRevealing to true>>
+                <</if>>
+            <</if>>
+        <<else>>
+            <<set _topItem to setup.getClothingById($wardrobe.equipped.top)>>
+            <<set _bottomItem to setup.getClothingById($wardrobe.equipped.bottom)>>
+            <<if _topItem and _topItem.tags>>
+                <<if _topItem.tags.includes("revealing") or _topItem.tags.includes("daring") or _topItem.tags.includes("erotic") or _topItem.tags.includes("lewd")>>
+                    <<set _isRevealing to true>>
+                <</if>>
+            <</if>>
+            <<if _bottomItem and _bottomItem.tags>>
+                <<if _bottomItem.tags.includes("revealing") or _bottomItem.tags.includes("daring") or _bottomItem.tags.includes("erotic") or _bottomItem.tags.includes("lewd")>>
+                    <<set _isRevealing to true>>
+                <</if>>
+            <</if>>
+        <</if>>
+    <</if>>
+    
+    /* Set Notification Value - Priority Order */
+    <<if _isNude>>
+        <<set $notificationClothes to 1>>
+    <<elseif _isUnderwearOnly>>
+        <<set $notificationClothes to 2>>
+    <<elseif _isCommando>>
+        <<set $notificationClothes to 3>>
+    <<elseif _isRevealing>>
+        <<set $notificationClothes to 4>>
+    <<else>>
+        <<set $notificationClothes to 0>>
+    <</if>>
+<</widget>>

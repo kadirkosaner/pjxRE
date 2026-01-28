@@ -1,0 +1,42 @@
+/* ========================================
+   SCENE 1: WALKING HOME - STRANGE SOUNDS
+   ======================================== */
+<<nobr>>
+<<set $location = "maplewood">>
+<<updateCharacterLocations>>
+<<discover "SunsetPark" "Sunset Park">>
+<</nobr>>
+<<narrative "Walking Through the Neighborhood">>
+You pause. Something's coming from nearby - music, laughter, children's voices.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+Where's that coming from?
+<</dialog>>
+<<narrative>>
+You decide to take the back streets instead of the main road. Might as well see the neighborhood a bit.
+
+Narrow streets, houses with gardens, parked cars... Typical neighborhood stuff.
+
+A few minutes later, you spot the source of the sounds. On your left, there's a wide park - trees, benches, people sitting on the grass, kids running around the playground.
+<</narrative>>
+<<image "assets/content/locations/maplewood/sunsetPark.webp" "100%">>
+<<dialog "player">>
+(Inner voice)
+Nice place.
+<</dialog>>
+<<narrative>>
+You check the brochure. "Sunset Park" it says.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+I'll come back sometime.
+<</dialog>>
+<<narrative>>
+You walk past the park and continue home. Mom's waiting for the groceries.
+<</narrative>>
+<div class="btn-center">
+<<btn "Head Home" "fhKitchen">>
+    <<advanceQuestStage "moving_troubles">>
+<</btn>>
+</div>

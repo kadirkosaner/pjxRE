@@ -1,0 +1,21 @@
+<<nobr>>
+<<set $location = "fhBedroom">>
+<<updateCharacterLocations>>
+<</nobr>>
+
+<<narrative "My Bedroom">>
+Your personal sanctuary. The room reflects your personality with posters on the walls and personal items scattered about.
+<</narrative>>
+
+<<questPrompts>>
+
+<<showLocationChars "fhBedroom">>
+
+<div class="location-actions">
+	<<btn "Go to Bed" "fhBed">><</btn>>
+</div>
+
+<<navMenu>>
+	<<navCard "fhWardrobe">>
+	<<navCard "Upstairs" "BedroomExitGuard" "assets/content/locations/maplewood/FamilyHouse/fhUpperstairs.webp">>
+<</navMenu>>

@@ -1,0 +1,30 @@
+<<silently>>
+    <<set $location = "fhUpperBath">>
+    <<advanceTime 5>>
+    <<loseStat "bladder" 100>>
+    <<run window.notifySuccess("Bladder Emptied")>>
+    <<loseStat "hygiene" 5>>
+<</silently>>
+
+<<if $contentPreferences.watersports>>
+    /* EXPLICIT MODE (Watersports ON) */
+    <<narrative "Toilet">>
+    You sit down on the toilet and relax your muscles...
+    <</narrative>>
+    <<vid "assets/content/scenes/maplewood/FamilyHouse/bathroom/pee/pee2.mp4" "60%">>
+<<else>>
+    /* CENSORED MODE (Watersports OFF) - Safe Video */
+    <<narrative "Toilet">>
+    You use the toilet and feel much relieved. You wash your hands afterwards.
+    <</narrative>>
+    <<vid "assets/content/scenes/maplewood/FamilyHouse/bathroom/pee/pee1.mp4" "100%">>
+<</if>>
+
+<<narrative>>
+You step over to the sink and wash your hands thoroughly with soap and water.
+<</narrative>>
+<<vid "assets/content/scenes/maplewood/FamilyHouse/bathroom/washinghands.mp4" "60%">>
+
+<div class="location-actions">
+    <<btn "Finish" "fhUpperBath">><</btn>>
+</div>

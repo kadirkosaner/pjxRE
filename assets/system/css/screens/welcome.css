@@ -1,0 +1,321 @@
+/* ============================================
+   SCREENS/WELCOME.CSS
+   Seductive landing, age verification modal
+   ============================================ */
+/* --- WELCOME PAGE: SEDUCTIVE MYSTERY --- */
+
+.seductive-landing {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Silhouette Layer */
+.silhouette-layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+.silhouette {
+    position: absolute;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(20,20,20,0.4) 100%);
+    filter: blur(2px);
+}
+
+.silhouette-1 {
+    bottom: 0; left: 5%;
+    width: 300px; height: 60%;
+    clip-path: polygon(
+        30% 100%, 35% 60%, 32% 40%, 28% 30%, 
+        25% 20%, 30% 10%, 35% 5%, 40% 0%, 
+        60% 0%, 65% 5%, 70% 10%, 75% 20%, 
+        72% 30%, 68% 40%, 65% 60%, 70% 100%
+    );
+}
+
+.silhouette-2 {
+    bottom: 0; right: 10%;
+    width: 250px; height: 55%;
+    clip-path: polygon(
+        35% 100%, 38% 65%, 35% 45%, 32% 35%, 
+        30% 25%, 33% 15%, 38% 8%, 43% 3%, 
+        57% 3%, 62% 8%, 67% 15%, 70% 25%, 
+        68% 35%, 65% 45%, 62% 65%, 65% 100%
+    );
+}
+
+/* Glow Effects */
+.mystery-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    z-index: 0;
+}
+
+.glow-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+    top: 20%; left: 15%;
+    animation: pulse 8s infinite ease-in-out;
+}
+
+.glow-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #db2777 0%, transparent 70%);
+    bottom: 25%; right: 20%;
+    animation: pulse 10s infinite ease-in-out 2s;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.1; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(1.1); }
+}
+
+/* Content */
+.mystery-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 2rem;
+}
+
+.mystery-tagline {
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    opacity: 0.8;
+}
+
+.mystery-question {
+    font-size: 4rem;
+    font-weight: 300;
+    line-height: 1.2;
+    margin: 0;
+    color: #fff;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+}
+
+.mystery-hint {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    max-width: 500px;
+}
+
+.mystery-warning {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 1rem;
+}
+
+/* Enter Button */
+.btn-style.btn-mystery-enter {
+    background: transparent;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1.25rem 4rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-style.btn-mystery-enter::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: var(--color-accent);
+    transition: left 0.4s ease;
+    z-index: -1;
+}
+
+.btn-style.btn-mystery-enter:hover {
+    border-color: var(--color-accent);
+    color: #000;
+}
+
+.btn-style.btn-mystery-enter:hover::before {
+    left: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mystery-question {
+        font-size: 2.5rem;
+    }
+    
+    .mystery-hint {
+        font-size: 1rem;
+    }
+    
+    .silhouette-1,
+    .silhouette-2 {
+        display: none;
+    }
+}
+
+/* --- AGE VERIFICATION MODAL --- */
+
+.age-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 4000;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.age-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.age-modal-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.age-modal-content {
+    position: relative;
+    z-index: 4001;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    padding: 3rem;
+    max-width: 60vh;
+    width: 90%;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    text-align: center;
+    background: #0a0a0a;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.age-modal-content > * {
+    margin-bottom: 1.5rem;
+}
+
+.age-modal-content > *:last-child {
+    margin-bottom: 0;
+}
+
+.age-modal.active .age-modal-content {
+    transform: scale(1);
+}
+
+.age-modal-icon {
+    font-size: 3rem;
+    opacity: 0.8;
+}
+
+.age-modal-title {
+    font-size: 1.75rem;
+    font-weight: 300;
+    margin: 0;
+    color: #fff;
+    letter-spacing: 0.05em;
+}
+
+.age-modal-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+.age-modal-confirm {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 2px solid var(--color-accent);
+}
+
+.age-modal-confirm strong {
+    color: var(--color-accent);
+}
+
+.age-modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-style.btn-age-accept {
+    flex: 1;
+    background: var(--color-accent);
+    color: #000;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 0;
+    transition: all 0.25s ease;
+}
+
+.btn-style.btn-age-accept:hover {
+    background: transparent;
+    color: var(--color-accent);
+}
+
+.btn-style.btn-age-decline {
+    flex: 1;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-style.btn-age-decline:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+

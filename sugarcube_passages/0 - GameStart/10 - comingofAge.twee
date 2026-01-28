@@ -1,0 +1,369 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    
+    <!-- Sidebar -->
+    <div class="prologue-sidebar">
+      <div class="prologue-sidebar-title">My Selections</div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Early Years (0-5)</div>
+        <<if $prologueSelections.early>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.early.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.early.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Childhood (6-9)</div>
+        <<if $prologueSelections.childhood>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.childhood.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.childhood.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Formative (10-12)</div>
+        <<if $prologueSelections.formative>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.formative.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.formative.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Adolescent (13-15)</div>
+        <<if $prologueSelections.adolescent>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.adolescent.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.adolescent.effect</div>
+          </div></div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title current">Coming of Age (16-17)</div>
+        <<if $prologueSelections.coming>>
+          <div class="prologue-sidebar-item"><div>
+            <div class="prologue-sidebar-item-text">$prologueSelections.coming.title</div>
+            <div class="prologue-sidebar-item-effect">$prologueSelections.coming.effect</div>
+          </div></div>
+        <<else>>
+          <div class="prologue-sidebar-empty">No selection yet</div>
+        <</if>>
+      </div>
+    </div>
+    
+    <div class="prologue-content-area">
+      
+      <div class="prologue-progress-container">
+        <div class="prologue-progress-bar">
+          <div class="prologue-progress-fill" style="width: 83.3%;"></div>
+        </div>
+        <div class="prologue-progress-steps">
+          <span class="prologue-progress-step completed">0-5</span>
+          <span class="prologue-progress-step completed">6-9</span>
+          <span class="prologue-progress-step completed">10-12</span>
+          <span class="prologue-progress-step completed">13-15</span>
+          <span class="prologue-progress-step active">16-17</span>
+        </div>
+      </div>
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Ages 16-17</div>
+        <h1 class="prologue-title">On the Edge</h1>
+        <div class="prologue-header-line"></div>
+        <p class="prologue-subtitle">Ready for everything—even if you didn't know what...</p>
+      </div>
+      
+      <<image "assets/content/scenes/prologue/comingOfAge.webp" "100%">>
+
+      <<narrative>>
+        Final high school years. Childhood was completely behind you now.
+      <</narrative>>
+      
+      <<narrative>>
+        The reflection in the mirror was familiar—an adult looked back at you. Or at least someone trying to be one.
+      <</narrative>>
+      
+      <<narrative>>
+        At home, everything was changing again. But this time, it wasn't just you—it was all of you.
+      <</narrative>>
+      
+      <<narrative>>
+        One evening, dad came home early. Unusual. Mom was already in the kitchen. He looked at both of you—you and your brother at the table doing homework.
+      <</narrative>>
+      
+      <<narrative>>
+        "Family meeting," he said. "Living room. Now."
+      <</narrative>>
+      
+      <<narrative>>
+        Your stomach dropped.
+      <</narrative>>
+      
+      <<narrative>>
+        Mom and dad sat on the couch. You and your brother took the chairs across from them.
+      <</narrative>>
+      
+      <<narrative>>
+        "I got a job offer," dad said. "In the city. It's... a big opportunity."
+      <</narrative>>
+      
+      <<narrative>>
+        Silence.
+      <</narrative>>
+      
+      <<narrative>>
+        "How far?" you asked.
+      <</narrative>>
+      
+      <<narrative>>
+        "Three hours. We'd have to move."
+      <</narrative>>
+      
+      <<narrative>>
+        Your brother's face went pale. "Move? When?"
+      <</narrative>>
+      
+      <<narrative>>
+        "This summer. After you finish the school year."
+      <</narrative>>
+      
+      <<narrative>>
+        Mom reached for dad's hand. "It's a good opportunity," she said softly. "Better pay, better position. And the schools there are excellent."
+      <</narrative>>
+      
+      <<narrative>>
+        You sat there, processing. The small town. Your whole life. Everything you knew—about to be left behind.
+      <</narrative>>
+      
+      <<narrative>>
+        "What if I don't want to go?" you said quietly.
+      <</narrative>>
+      
+      <<narrative>>
+        Dad looked at you. "I know this is hard. But we're a family. We do this together."
+      <</narrative>>
+      
+      <<narrative>>
+        That conversation changed everything. The house that had felt suffocating suddenly felt precious. The town you'd wanted to escape felt like home.
+      <</narrative>>
+      
+      <<narrative>>
+        Your relationship with your parents shifted. They started treating you differently—not as a child anymore, but as someone whose opinion mattered.
+      <</narrative>>
+      
+      <<narrative>>
+        Mom would ask: "What do you think about the new place? Should we get an apartment or a house?" Dad would show you job listings in the city: "What kind of area would you want to live in?"
+      <</narrative>>
+      
+      <<narrative>>
+        Your brother took it harder. He'd lock himself in his room for hours. You'd knock, sit with him, say nothing. Just be there.
+      <</narrative>>
+      
+      <<narrative>>
+        "I don't want to leave my friends," he said one night.
+      <</narrative>>
+      
+      <<narrative>>
+        "I know," you replied. "Me neither."
+      <</narrative>>
+      
+      <<narrative>>
+        "But you're older. You're leaving for college anyway."
+      <</narrative>>
+      
+      <<narrative>>
+        "Doesn't make it easier."
+      <</narrative>>
+      
+      <<narrative>>
+        He looked at you, really looked at you. "You're scared too?"
+      <</narrative>>
+      
+      <<narrative>>
+        "Terrified."
+      <</narrative>>
+      
+      <<narrative>>
+        That honesty brought you closer. You weren't just siblings anymore—you were allies facing the unknown together.
+      <</narrative>>
+      
+      <<narrative>>
+        School felt different too. Every moment mattered now because it was ending. Friends. Teachers. That one person you'd been crushing on—the feelings were more intense, more real, because time was running out.
+      <</narrative>>
+      
+      <<narrative>>
+        One night, at a party, something happened.
+      <</narrative>>
+      
+      <<narrative>>
+        Not your first kiss—that had been clumsy, awkward, forgettable. This was different. Connection. Chemistry. Bodies close, hearts racing. When you got home, face flushed, mom was still up.
+      <</narrative>>
+      
+      <<narrative>>
+        "Good time?" she asked, looking at you carefully.
+      <</narrative>>
+      
+      <<narrative>>
+        "Yeah."
+      <</narrative>>
+      
+      <<narrative>>
+        She smiled, knowing. "Be careful. And... you can talk to me. About anything."
+      <</narrative>>
+      
+      <<narrative>>
+        That moment—her seeing you as a young woman, not a child—it meant more than any lecture.
+      <</narrative>>
+      
+      <<narrative>>
+        Dad was more awkward about it. He'd clear his throat when boys called the house, hover nearby when you were getting ready for dates. Once, he sat you down.
+      <</narrative>>
+      
+      <<narrative>>
+        "I trust you," he said stiffly. "But... people aren't always... just be smart, okay?"
+      <</narrative>>
+      
+      <<narrative>>
+        You almost laughed at how uncomfortable he looked. But underneath, you felt it—his fear of losing you, of you growing up too fast.
+      <</narrative>>
+      
+      <<narrative>>
+        Your body had changed. Not just how it looked, but how it felt. Awareness. Power. Desire. Things you couldn't talk about with your parents, barely talked about with friends. But they were there, undeniable, part of who you were becoming.
+      <</narrative>>
+      
+      <<narrative>>
+        Those final months at home were a strange mix—freedom and restraint, adulthood and childhood, excitement and grief.
+      <</narrative>>
+      
+      <<narrative>>
+        You were ready to leave. But also not ready at all.
+      <</narrative>>
+      
+      <div class="prologue-memory-section">
+        <div class="prologue-memory-section-title">Character-Shaping Memories</div>
+        <div class="prologue-memory-cards" id="coming-cards">
+          
+          <div class="prologue-memory-card" data-section="coming" data-title="Coming Into Your Own" data-effect="+15% Beauty" data-stat="beauty" data-value="1.15">
+            <div class="prologue-memory-title">Coming Into Your Own</div>
+            <div class="prologue-memory-text">
+              "When you looked in the mirror now, you saw something different. Not a girl anymore—a woman. The way you moved, dressed, carried yourself—it all changed. Mom noticed, of course. Sometimes she'd look at you with pride, other times with something like sadness. 'You look just like I did at your age,' she said once, touching your cheek. Dad noticed too, though he pretended not to. He'd look away when guys stared at you, clear his throat when you wore certain outfits. That transformation, that ownership of your body and presence—it gave you power you didn't fully understand yet, but felt deeply."
+            </div>
+            <div class="prologue-memory-effect">+15% Beauty</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="coming" data-title="Understanding Desire" data-effect="+15% Charisma" data-stat="charisma" data-value="1.15">
+            <div class="prologue-memory-title">Understanding Desire</div>
+            <div class="prologue-memory-text">
+              "It happened at a party. Or maybe just an evening hanging out. You'd been circling each other for weeks—glances, accidental touches, tension building. When it finally happened, it wasn't like the movies. It was awkward, then electric. Your heart pounded. Your body responded in ways you didn't expect. You came home different somehow. Mom saw it on your face but didn't push. Dad asked if you had fun, his voice carefully casual. Your brother rolled his eyes: 'You're acting weird.' But you weren't weird—you were awake. That awareness of desire, of connection beyond friendship—it changed how you saw everything, everyone, yourself."
+            </div>
+            <div class="prologue-memory-effect">+15% Charisma</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="coming" data-title="Breaking Away" data-effect="+15% Practical Skills" data-stat="practical" data-value="1.15">
+            <div class="prologue-memory-title">Breaking Away</div>
+            <div class="prologue-memory-text">
+              "Independence was calling. You got a part-time job, earned your own money, made your own plans. Mom struggled with it. 'Where are you going?' 'When will you be back?' But the questions felt different now—less controlling, more worried. Dad tried to help in his own way. Showed you how to budget, opened a bank account for you, taught you to change a tire. 'You need to know these things,' he said. Your brother watched it all happen, jealous and confused. 'Why does she get to do whatever she wants?' The truth was, you didn't get to do whatever you wanted. You were just learning to navigate the space between what you wanted and what they'd allow. That negotiation, that push and pull—it taught you how to stand on your own while still being part of something."
+            </div>
+            <div class="prologue-memory-effect">+15% Practical Skills</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="coming" data-title="Physical Awakening" data-effect="+15% Physical Skills" data-stat="physical" data-value="1.15">
+            <div class="prologue-memory-title">Physical Awakening</div>
+            <div class="prologue-memory-text">
+              "Dancing, moving, using your body as a means of expression—it all took on new meaning. The way you walked, the way you touched someone's arm in conversation, the awareness of eyes on you. It wasn't just about appearance anymore—it was about presence, energy, the space you occupied. Mom noticed when you started carrying yourself differently. 'Confidence looks good on you,' she said, but there was something else in her tone—concern, maybe. Dad was more obvious. He'd tense up when you hugged him goodbye, like he wasn't sure how to hold you anymore—daughter but also not daughter. Your brother was oblivious to most of it, but once he said: 'Why do you walk like that now?' You didn't even realize you walked differently. But you did. That embodiment, that comfort in your own skin—it was power and vulnerability all at once."
+            </div>
+            <div class="prologue-memory-effect">+15% Physical Skills</div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="prologue-flashback">
+        <div class="prologue-flashback-line"></div>
+        <span class="prologue-flashback-text">Return to Present</span>
+        <div class="prologue-flashback-line"></div>
+      </div>
+      
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-secondary">Back</span>' "adolescentYears">><</link>>
+        <span id="coming-continue" class="prologue-btn prologue-btn-primary disabled">Arrive at New Home</span>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>
+
+<<script>>
+$(document).ready(function() {
+  $('#coming-cards .prologue-memory-card').on('click', function() {
+    var $card = $(this);
+    var title = $card.data('title');
+    var effect = $card.data('effect');
+    var stat = $card.data('stat');
+    var value = $card.data('value');
+    var special = $card.data('special');
+    
+    $card.siblings().removeClass('selected');
+    $card.addClass('selected');
+    
+    State.variables.prologueSelections.coming = {
+      title: title,
+      effect: effect,
+      stat: stat,
+      value: value
+    };
+    
+    // Special handling for First Kiss - set journal firsts record with random name
+    if (special === 'firstKiss') {
+      var boyNames = ['Jake', 'Tyler', 'Ryan', 'Matt', 'Chris', 'Alex', 'Josh', 'Mike', 'Kevin', 'Eric', 'Daniel', 'Nick', 'Sam', 'Ben', 'Luke'];
+      var randomName = boyNames[Math.floor(Math.random() * boyNames.length)];
+      State.variables.firsts.firstKiss = randomName;
+    }
+    
+    // Update sidebar - find the current section
+    var $currentSection = $('.prologue-sidebar-section-title.current').parent();
+    $currentSection.find('.prologue-sidebar-empty').remove();
+    $currentSection.find('.prologue-sidebar-item').remove();
+    $currentSection.append(
+      '<div class="prologue-sidebar-item"><div>' +
+      '<div class="prologue-sidebar-item-text">' + title + '</div>' +
+      '<div class="prologue-sidebar-item-effect">' + effect + '</div>' +
+      '</div></div>'
+    );
+    
+    $('#coming-continue')
+      .removeClass('disabled')
+      .css('cursor', 'pointer')
+      .off('click')
+      .on('click', function() {
+        Engine.play('newhomeEnter');
+      });
+  });
+  
+  var existing = State.variables.prologueSelections.coming;
+  if (existing) {
+    $('#coming-cards .prologue-memory-card').each(function() {
+      if ($(this).data('title') === existing.title) {
+        $(this).addClass('selected');
+        $('#coming-continue')
+          .removeClass('disabled')
+          .css('cursor', 'pointer')
+          .off('click')
+          .on('click', function() {
+            Engine.play('newhomeEnter');
+          });
+      }
+    });
+  }
+});
+<</script>>
+

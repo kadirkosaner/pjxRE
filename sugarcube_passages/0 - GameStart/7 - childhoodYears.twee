@@ -1,0 +1,211 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    
+    <!-- Sidebar -->
+    <div class="prologue-sidebar">
+      <div class="prologue-sidebar-title">My Selections</div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title completed">Early Years (0-5)</div>
+        <<if $prologueSelections.early>>
+          <div class="prologue-sidebar-item">
+            <div>
+              <div class="prologue-sidebar-item-text">$prologueSelections.early.title</div>
+              <div class="prologue-sidebar-item-effect">$prologueSelections.early.effect</div>
+            </div>
+          </div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title current">Childhood (6-9)</div>
+        <<if $prologueSelections.childhood>>
+          <div class="prologue-sidebar-item">
+            <div>
+              <div class="prologue-sidebar-item-text">$prologueSelections.childhood.title</div>
+              <div class="prologue-sidebar-item-effect">$prologueSelections.childhood.effect</div>
+            </div>
+          </div>
+        <<else>>
+          <div class="prologue-sidebar-empty">No selection yet</div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section"><div class="prologue-sidebar-section-title pending">Formative (10-12)</div></div>
+      <div class="prologue-sidebar-section"><div class="prologue-sidebar-section-title pending">Adolescent (13-15)</div></div>
+      <div class="prologue-sidebar-section"><div class="prologue-sidebar-section-title pending">Coming of Age (16-17)</div></div>
+    </div>
+    
+    <div class="prologue-content-area">
+      
+      <div class="prologue-progress-container">
+        <div class="prologue-progress-bar">
+          <div class="prologue-progress-fill" style="width: 33.3%;"></div>
+        </div>
+        <div class="prologue-progress-steps">
+          <span class="prologue-progress-step completed">0-5</span>
+          <span class="prologue-progress-step active">6-9</span>
+          <span class="prologue-progress-step">10-12</span>
+          <span class="prologue-progress-step">13-15</span>
+          <span class="prologue-progress-step">16-17</span>
+        </div>
+      </div>
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Ages 6-9</div>
+        <h1 class="prologue-title">School Days</h1>
+        <div class="prologue-header-line"></div>
+        <p class="prologue-subtitle">A whole new world opened up...</p>
+      </div>
+      
+      <<image "assets/content/scenes/prologue/childhoodYears.webp" "100%">>
+      
+      <<narrative>>
+        Elementary school. Everything changed that day.
+      <</narrative>>
+      
+      <<narrative>>
+        No longer just at home, in the backyard, on the street—there was a real world out there. Classrooms, teachers, rules, homework... And new people. So many people.
+      <</narrative>>
+      
+      <<narrative>>
+        That first day at the school gate, stomach in knots. Mom held your hand tightly. She'd been quiet all morning, more emotional than you expected. When the bell rang, she knelt down, fixed your collar. "You'll be great," she whispered, her eyes a bit watery. "I'm so proud of you."
+      <</narrative>>
+      
+      <<narrative>>
+        Dad had left for work early but came back just for this. He stood behind mom, hands in his pockets, trying to look casual. But when you looked back before entering, he gave you a thumbs up and that smile—the one that meant everything would be okay.
+      <</narrative>>
+      
+      <<narrative>>
+        Inside was chaos. Kids crying, parents lingering, teachers trying to organize everyone. But slowly, you adapted. Classmates, recess, waiting in line at the cafeteria, the teacher writing your name on the board... Routines formed.
+      <</narrative>>
+      
+      <<narrative>>
+        Three years later, it was your brother's turn.
+      <</narrative>>
+      
+      <<narrative>>
+        He was terrified. Clung to mom at the gate, wouldn't let go. "I don't want to!" he cried. Mom looked helpless.
+      <</narrative>>
+      
+      <<narrative>>
+        That's when you stepped in. Took his hand. "Come on, I'll show you my old classroom. And I'll be right here at recess, okay?" He looked up at you, tears still there, but nodded.
+      <</narrative>>
+      
+      <<narrative>>
+        Dad watched the whole thing. Later that night at dinner, he brought it up. "You were great with him today," he said. Mom smiled. "She's growing up fast."
+      <</narrative>>
+      
+      <<narrative>>
+        Those years really started shaping you. Who you were, what you loved, what you were good at, what you avoided... It all began there.
+      <</narrative>>
+      
+      <div class="prologue-memory-section">
+        <div class="prologue-memory-section-title">Character-Shaping Memories</div>
+        <div class="prologue-memory-cards" id="childhood-cards">
+          
+          <div class="prologue-memory-card" data-section="childhood" data-title="Dad's Lessons" data-effect="+15% Willpower" data-stat="willpower" data-value="1.15">
+            <div class="prologue-memory-title">Dad's Lessons</div>
+            <div class="prologue-memory-text">
+              "Some things were hard. Math problems, tying shoelaces, riding that bike without training wheels... Dad would sit with you at the kitchen table every evening. 'One more time,' he'd say patiently. When you finally got it, his face would light up. 'See? You just needed to stick with it.' Mom would watch from the doorway, smiling. That persistence, that refusal to give up—you learned it from those evenings with him."
+            </div>
+            <div class="prologue-memory-effect">+15% Willpower</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="childhood" data-title="Mom's Encouragement" data-effect="+15% Creativity" data-stat="creativity" data-value="1.15">
+            <div class="prologue-memory-title">Mom's Encouragement</div>
+            <div class="prologue-memory-text">
+              "Art class was your world. You'd come home with drawings, paintings, clay projects. Mom would pin everything on the fridge, no matter how messy. 'You're so creative,' she'd say, examining each one carefully. Dad would joke: 'We're running out of fridge space!' but he never took anything down. When your brother started school, he'd watch you draw for hours. 'Teach me,' he'd beg. And you would, just like mom taught you—with patience and praise."
+            </div>
+            <div class="prologue-memory-effect">+15% Creativity</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="childhood" data-title="Family Dinner Talks" data-effect="+15% Intelligence" data-stat="mental" data-value="1.15">
+            <div class="prologue-memory-title">Family Dinner Talks</div>
+            <div class="prologue-memory-text">
+              "Dinner table conversations fascinated you. Every night, dad would talk about his day at work, mom about the neighbors, and you'd ask endless questions. 'Why does that work that way?' 'What happens if...?' Your brother would get bored, playing with his food, but you were locked in. 'She's got your brain,' dad would tell mom. 'No, yours,' she'd reply. Those dinner talks, that constant questioning—it shaped how you saw the world."
+            </div>
+            <div class="prologue-memory-effect">+15% Intelligence</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="childhood" data-title="Mom's Social Butterfly" data-effect="+15% Charisma" data-stat="social" data-value="1.15">
+            <div class="prologue-memory-title">Mom's Social Butterfly</div>
+            <div class="prologue-memory-text">
+              "Making friends was never hard for you. By the second week, you knew everyone's name. Mom would walk you to school and watch you run off to join the group. 'Just like me at that age,' she'd say proudly. When your brother started, you introduced him to everyone. 'This is my brother,' you'd announce. Kids accepted him because of you. Mom saw it all from the gate. 'You're taking care of him,' she'd say later. 'Just like a big sister should.' That gift of connection, of making others feel welcome—you got it from her."
+            </div>
+            <div class="prologue-memory-effect">+15% Charisma</div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-secondary">Back</span>' "earlyYears">><</link>>
+        <span id="childhood-continue" class="prologue-btn prologue-btn-primary disabled">Continue</span>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>
+
+<<script>>
+$(document).ready(function() {
+  $('#childhood-cards .prologue-memory-card').on('click', function() {
+    var $card = $(this);
+    var title = $card.data('title');
+    var effect = $card.data('effect');
+    var stat = $card.data('stat');
+    var value = $card.data('value');
+    
+    $card.siblings().removeClass('selected');
+    $card.addClass('selected');
+    
+    State.variables.prologueSelections.childhood = {
+      title: title,
+      effect: effect,
+      stat: stat,
+      value: value
+    };
+    
+    // Update sidebar - find the current section
+    var $currentSection = $('.prologue-sidebar-section-title.current').parent();
+    $currentSection.find('.prologue-sidebar-empty').remove();
+    $currentSection.find('.prologue-sidebar-item').remove();
+    $currentSection.append(
+      '<div class="prologue-sidebar-item"><div>' +
+      '<div class="prologue-sidebar-item-text">' + title + '</div>' +
+      '<div class="prologue-sidebar-item-effect">' + effect + '</div>' +
+      '</div></div>'
+    );
+    
+    $('#childhood-continue')
+      .removeClass('disabled')
+      .css('cursor', 'pointer')
+      .off('click')
+      .on('click', function() {
+        Engine.play('formativeYears');
+      });
+  });
+  
+  var existing = State.variables.prologueSelections.childhood;
+  if (existing) {
+    $('#childhood-cards .prologue-memory-card').each(function() {
+      if ($(this).data('title') === existing.title) {
+        $(this).addClass('selected');
+        $('#childhood-continue')
+          .removeClass('disabled')
+          .css('cursor', 'pointer')
+          .off('click')
+          .on('click', function() {
+            Engine.play('formativeYears');
+          });
+      }
+    });
+  }
+});
+<</script>>
+

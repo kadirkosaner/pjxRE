@@ -1,0 +1,24 @@
+
+/* Sleepwear - Pyjamas, nightgowns, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.sleepwear = [
+   {
+        id: "pajama_color_owned",
+        name: "Floral Pajama Set",
+        brand: "VERA Mode",
+        desc: "Comfortable colorful floral pajama set.",
+        image: "assets/content/clothing/sleepwear/pyjamaColorOwned.webp",
+        looks: 4,
+        quality: "Common",
+        tags: ["sleepwear"],
+        price: 55,
+        shopAvailable: false,
+        startOwned: true
+    }
+]>>
+

@@ -1,0 +1,42 @@
+:: showerEncounter_Brother
+<<silently>>
+<<set $location = "fhUpperBath">>
+<<set _char = $characters.brother>>
+<</silently>>
+
+<<if $corruption < 2>>
+    <<narrative "Upstairs Bathroom - Door">>
+    You reach for the bathroom door handle and hear the shower running inside.
+
+    You pause, realizing your brother is in there.
+    <</narrative>>
+
+    <<dialog "player">>
+    (Thinking to myself)
+    Jake's taking a shower... I should probably just wait my turn like a normal person.
+    <</dialog>>
+
+    <<narrative>>
+    You shake your head at yourself and decide to come back later.
+    <</narrative>>
+
+    <div class="location-actions">
+    <<btn "Leave" "fhUpperstairs" "secondary">><</btn>>
+    </div>
+
+<<else>>
+    <<narrative "Upstairs Bathroom - Shower">>
+    Steam fills the small bathroom. The shower curtain is partially drawn, and you can hear your brother humming to himself.
+
+    <strong class="placeholder-warning">[ PLACEHOLDER - Shower scene with Brother ]</strong>
+    <strong class="placeholder-warning">Corruption Level: <<print $corruption>> - Content unlocked</strong>
+    <</narrative>>
+
+    <<dialog "player">>
+    (This encounter needs content written based on corruption progression)
+    <</dialog>>
+
+    <div class="location-actions">
+    <<btn "Leave quietly" "fhUpperstairs" "secondary">><</btn>>
+    </div>
+<</if>>

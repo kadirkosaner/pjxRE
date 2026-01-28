@@ -1,0 +1,20 @@
+/* ========================================
+   SCENE: FIND JOB - PLACEHOLDER
+   ======================================== */
+:: quest_find_job_scene
+<<nobr>>
+<<set $location = "fhBedroom">>
+<<updateCharacterLocations>>
+<</nobr>>
+
+<<narrative "Your Bedroom">>
+Placeholder scene - Job search content will be added here.
+<</narrative>>
+
+<<nobr>>
+<<completeQuest "find_job">>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Finish" "fhBedroom">><</btn>>
+</div>

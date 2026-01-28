@@ -1,0 +1,621 @@
+/* ============================================
+   SCREENS/PROLOGUE.CSS
+   Prologue backstory system - centered layout
+   ============================================ */
+
+/* ==========================================
+   LAYOUT WRAPPER - Centers everything
+========================================== */
+
+.prologue-page {
+  padding: 80px 20px 40px;
+  min-height: 100vh;
+}
+
+/* OVERRIDE structure.css fullscreen-centered constraints */
+body.fullscreen-centered .page-wrapper > .prologue-page {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 40px !important;
+}
+
+.prologue-layout-wrapper {
+  position: relative;
+  display: flex;
+  gap: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* ==========================================
+   MAIN CONTENT AREA
+========================================== */
+
+.prologue-content-area {
+  width: 1000px;
+  min-width: 1000px;
+  max-width: 1000px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  order: 1;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   SELECTION SIDEBAR - Fixed right position
+========================================== */
+
+.prologue-sidebar {
+  position: sticky;
+  top: 100px;
+  flex: 1;
+  min-width: 240px;
+  max-width: 400px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  align-self: flex-start;
+  order: 2;
+}
+
+.prologue-sidebar-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.prologue-sidebar-section {
+  margin-bottom: 0.75rem;
+}
+
+.prologue-sidebar-section:last-child {
+  margin-bottom: 0;
+}
+
+.prologue-sidebar-section-title {
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.prologue-sidebar-section-title.completed::before {
+  content: "✓";
+  color: #10b981;
+  font-size: 0.65rem;
+}
+
+.prologue-sidebar-section-title.current::before {
+  content: "→";
+  color: var(--color-accent);
+}
+
+.prologue-sidebar-section-title.pending {
+  opacity: 0.4;
+}
+
+.prologue-sidebar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  border-left: 2px solid var(--color-accent);
+}
+
+.prologue-sidebar-item-text {
+  color: var(--color-text-secondary);
+}
+
+.prologue-sidebar-item-effect {
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  margin-top: 0.2rem;
+}
+
+.prologue-sidebar-empty {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  padding: 0.4rem;
+}
+
+/* ==========================================
+   PROGRESS BAR
+========================================== */
+
+.prologue-progress-container {
+  margin-bottom: 2rem;
+}
+
+.prologue-progress-bar {
+  height: 4px;
+  background: var(--color-bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.prologue-progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-accent-hover)
+  );
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.prologue-progress-steps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prologue-progress-step {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+}
+
+.prologue-progress-step.active {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.prologue-progress-step.completed {
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================
+   PAGE HEADER
+========================================== */
+
+.prologue-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.prologue-age-badge {
+  display: inline-block;
+  background: var(--color-accent-alpha-10);
+  border: 1px solid var(--color-accent);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.prologue-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.prologue-header-line {
+  width: 60px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: 1rem auto;
+}
+
+.prologue-subtitle {
+  color: var(--color-text-tertiary);
+  font-size: 1rem;
+}
+
+/* ==========================================
+   NARRATIVE TEXT
+========================================== */
+
+.prologue-narrative {
+  margin: 1.5rem auto;
+  max-width: 700px;
+  text-align: center;
+}
+
+.prologue-location {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #afafaf;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #a0a0a0;
+  margin-bottom: 0.75rem;
+}
+
+.prologue-narrative-text {
+  color: #999;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  font-style: italic;
+}
+
+.prologue-narrative-text em {
+  color: var(--color-text-secondary);
+}
+
+.prologue-narrative-text strong {
+  color: var(--color-text-primary);
+  font-style: normal;
+}
+
+/* ==========================================
+   FLASHBACK INDICATOR
+========================================== */
+
+.prologue-flashback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.prologue-flashback-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border-secondary),
+    transparent
+  );
+}
+
+.prologue-flashback-text {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--color-text-tertiary);
+}
+
+/* ==========================================
+   MEMORY CARDS
+========================================== */
+
+.prologue-memory-section {
+  margin-bottom: 2rem;
+}
+
+.prologue-memory-section-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.prologue-memory-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.prologue-memory-card {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.prologue-memory-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--color-border-secondary);
+  transition: all var(--transition-fast);
+}
+
+.prologue-memory-card:hover {
+  border-color: var(--color-border-secondary);
+  transform: translateX(5px);
+}
+
+.prologue-memory-card:hover::before {
+  background: var(--color-accent);
+}
+
+.prologue-memory-card.selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-alpha-10);
+}
+
+.prologue-memory-card.selected::before {
+  background: var(--color-accent);
+}
+
+.prologue-memory-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+}
+
+.prologue-memory-text {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.prologue-memory-effect {
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--color-border-secondary);
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.prologue-btn-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border-primary);
+}
+
+.prologue-btn {
+  padding: 0.8rem 2rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid;
+  text-decoration: none;
+}
+
+.prologue-btn-primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.prologue-btn-primary:hover {
+  background: var(--color-accent-darken);
+  border-color: var(--color-accent-darken);
+}
+
+.prologue-btn-primary:disabled,
+.prologue-btn-primary.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.prologue-btn-secondary {
+  background: transparent;
+  border-color: var(--color-border-secondary);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.prologue-btn-secondary:hover {
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+/* Ensure both buttons have same dimensions */
+.prologue-btn-primary,
+.prologue-btn-secondary {
+  min-width: 140px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================
+   SUMMARY CARDS (Final Page)
+========================================== */
+
+.prologue-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.prologue-summary-card {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.prologue-summary-card-header {
+  background: var(--white-alpha-02);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--color-border-primary);
+  color: var(--color-text-primary);
+}
+
+.prologue-summary-card-body {
+  padding: 0.75rem 1rem;
+}
+
+.prologue-summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.prologue-summary-item:last-child {
+  border-bottom: none;
+}
+
+.prologue-summary-label {
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+}
+
+.prologue-summary-value {
+  color: var(--color-accent);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+/* ==========================================
+   RESPONSIVE - Hide sidebar on smaller screens
+========================================== */
+
+@media (max-width: 1200px) {
+  .prologue-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .prologue-memory-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .prologue-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prologue-content-area {
+    padding: 1.5rem;
+  }
+}
+
+/* ==========================================
+   SKIP PROLOGUE - Compact Selection Page
+========================================== */
+
+.skip-prologue .prologue-content-area {
+  width: 100%;
+  min-width: auto;
+  max-width: 1000px;
+}
+
+.skip-section {
+  margin-bottom: 1.5rem;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.skip-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.skip-section-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-primary);
+}
+
+.skip-section-status {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+.skip-section-status.selected {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.skip-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.skip-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.skip-card:hover {
+  border-color: var(--color-border-secondary);
+  transform: translateY(-2px);
+}
+
+.skip-card.selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-alpha-10);
+}
+
+.skip-card-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.skip-card-effect {
+  font-size: 0.75rem;
+  color: var(--color-accent);
+}
+
+@media (max-width: 900px) {
+  .skip-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .skip-cards {
+    grid-template-columns: 1fr;
+  }
+}

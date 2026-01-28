@@ -1,0 +1,26 @@
+/* ==========================================
+   PEOPLE SYSTEM - Base Containers
+   This file creates empty containers that are 
+   populated by CharacterInit_[Name][INIT] files
+========================================== */
+
+/* Character definitions - populated by CharacterInit files */
+<<set $characters = {}>>
+
+/* Relationship groups */
+<<set setup.relationGroups = [
+    {
+        id: "family",
+        name: "Family",
+        members: ["father", "mother", "brother"]
+    },
+    {
+        id: "maplewood",
+        name: "Maplewood",
+        members: ["shopClerkMarcus"]
+    }
+    ]>>
+
+/* Schedule and action containers */
+<<set setup.schedules = {}>>
+<<set setup.characterActions = {}>>

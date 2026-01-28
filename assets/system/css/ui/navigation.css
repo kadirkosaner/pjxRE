@@ -1,0 +1,207 @@
+/* ==========================================
+   NAVIGATION CARD SYSTEM
+   Hover-expand accordion navigation cards
+========================================== */
+
+/* ================== ACCORDION CONTAINER =================== */
+.accordion-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Center cards horizontally */
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 8px;
+
+  border: 1px solid var(--color-border-primary);
+}
+
+/* ================== SUPPRESSION =================== */
+body.hide-nav .accordion-container {
+    display: none !important;
+}
+
+/* ================== NAV CARD =================== */
+.nav-card {
+  position: relative;
+  /* Fixed width for compact look */
+  width: 100px;
+  flex-shrink: 0; /* Don't shrink below 100px */
+
+  background-color: var(--color-bg-secondary);
+  overflow: hidden;
+  cursor: pointer;
+  transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  border-right: 1px solid rgba(0, 0, 0, 0.5);
+
+  /* Flex Center for Text */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+.nav-card:last-child {
+  border-right: none;
+}
+
+.nav-card:hover {
+  width: 400px; /* Expand on hover */
+
+  /* Re-align for active state */
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-left: 30px;
+  padding-bottom: 30px;
+}
+
+/* ================== CARD BACKGROUND IMAGE =================== */
+.card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  transition: all 0.5s ease;
+  filter: grayscale(100%) brightness(0.5);
+  z-index: 0;
+}
+
+.nav-card:hover .card-bg {
+  opacity: 1;
+  filter: grayscale(0%) brightness(1);
+  transform: scale(1.05);
+}
+
+/* ================== GRADIENT OVERLAY =================== */
+.gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 1;
+}
+
+.nav-card:hover .gradient-overlay {
+  opacity: 1;
+}
+
+/* ================== NAV CARD TEXT =================== */
+.nav-card-name {
+  z-index: 2;
+  position: relative;
+
+  /* Vertical Text Mode */
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+
+  transition: all 0.4s ease;
+}
+
+.nav-card:hover .nav-card-name {
+  writing-mode: horizontal-tb;
+  transform: rotate(0deg);
+
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+  letter-spacing: 1px;
+}
+
+/* ================== NAVMENU BREAKOUT =================== */
+/* When body has 'has-navmenu' class, allow horizontal overflow for full-width navigation */
+
+body.has-navmenu #passages {
+  overflow-x: clip !important; /* Allow visual overflow but prevent scroll */
+}
+
+body.has-navmenu #story {
+  max-width: none !important; /* Remove width constraint for breakout */
+}
+
+body.has-navmenu .passage {
+  overflow: visible !important;
+  max-width: none !important; /* Remove width constraint for breakout */
+}
+
+/* Breakout wrapper - escape parent constraints */
+.navmenu-wrapper {
+  position: relative;
+  left: 0;
+  /* Width and margins are set by JS */
+}
+
+/* Breakout positioning for accordion-container */
+.accordion-container.nav-breakout {
+  position: relative;
+  /* Width is set by JS for proper breakout effect */
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+/* ================== OPEN/CLOSED STATUS BADGE =================== */
+.nav-card-status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nav-card:hover .nav-card-status {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-card-status.status-open {
+  background: rgba(34, 197, 94, 0.9);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
+}
+
+.nav-card-status.status-closed {
+  background: rgba(239, 68, 68, 0.9);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+}
+
+/* Closed location visual effect */
+.nav-card.location-closed .card-bg {
+  filter: grayscale(100%) brightness(0.4);
+}
+
+.nav-card.location-closed:hover .card-bg {
+  filter: grayscale(60%) brightness(0.5);
+  transform: scale(1);
+}
+
+.nav-card.location-closed {
+  cursor: not-allowed;
+}
+
+.nav-card.location-closed .nav-card-name {
+  opacity: 0.6;
+}

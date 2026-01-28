@@ -1,0 +1,364 @@
+/* ==========================================
+   PLAYER - You
+   Player Character Definition & Initialization
+   V1 Final Stat System
+========================================== */
+
+/* ==========================================
+   1. BASIC INFO & APPEARANCE
+========================================== */
+<<set $player = {
+    firstName: "Alex",
+    lastName: "Taylor",
+    eyeColor: "Black",
+    hairColor: "Black",
+    hairLength: "Short",
+    hairStyle: "Straight",
+    bustSize: "A",
+    hipSize: "Slim"
+}>>
+
+/* DYNAMIC APPEARANCE */
+<<set $appearance = {
+    hairLengthCm: 45,
+    tanLevel: 0,
+    makeupLevel: 0,
+    hairMessiness: 0,
+    nailPolish: "none",
+    hairStyle: "loose",
+    bodyHair: {
+        legs: 0,
+        pubic: 0,
+        armpits: 0
+    }
+}>>
+
+/* PLASTIC SURGERY */
+<<set $plasticSurgery = {
+    lipsSize: 50,
+    eyeSize: 50,
+    eyelashes: 50
+}>>
+
+/* BODY CHANGES */
+<<set $bodyChanges = {
+    bustGrowth: 0,
+    hipGrowth: 0,
+    pregnancyWeek: 0,
+    lactationActive: false
+}>>
+
+/* BODY MEASUREMENTS */
+<<set $body = {
+    height: 170,
+    weight: 65,
+    bust: 90,
+    waist: 70,
+    hips: 95,
+    muscleMass: 40,
+    bodyFat: 22,
+    appeal: 50,
+    bmi: 22.5,
+    bodyType: "Normal"
+}>>
+
+/* WEIGHT TRACKING (for weekly weigh-in) */
+<<set $body.previousWeight = $body.weight>>
+<<set $body.previousBMI = $body.bmi>>
+
+
+/* ==========================================
+   2. DAILY STATS
+========================================== */
+<<set $energy = 100>>
+<<set $energyMax = 100>>
+<<set $mood = 100>>
+<<set $hygiene = 100>>
+<<set $health = 100>>
+<<set $stress = 0>>
+<<set $arousal = 0>>
+
+/* MONEY SYSTEM */
+<<set $moneyEarn = 0>>       /* Total cash earned */
+<<set $moneySpend = 0>>        /* Total cash spent */
+<<set $cashBalance = 0>>     /* Current cash: moneyEarn - moneySpend */
+
+<<set $bankDeposit = 0>>       /* Total deposited to bank */
+<<set $bankSpend = 0>>         /* Total spent via card */
+<<set $bankWithdraw = 0>>      /* Total withdrawn from bank */
+<<set $bankBalance = 0>>       /* Current bank: bankDeposit - bankSpend - bankWithdraw */
+
+/* BASIC NEEDS (Optional - Enabled from Settings) */
+<<set $hunger = 0>>
+<<set $thirst = 0>>
+<<set $bladder = 0>>
+
+
+/* ==========================================
+   3. MENTAL STATS
+========================================== */
+<<set $intelligence = 0>>
+<<set $focus = 0>>
+<<set $creativity = 0>>
+<<set $willpower = 0>>
+
+
+/* ==========================================
+   4. SOCIAL STATS
+========================================== */
+<<set $charisma = 0>>
+<<set $confidence = 0>>
+
+
+/* ==========================================
+   5. PHYSICAL STATS (FITNESS)
+========================================== */
+<<set $upperBody = 0>>
+<<set $core = 0>>
+<<set $lowerBody = 0>>
+<<set $cardio = 0>>
+<<set $fitness = 0>>
+
+
+/* ==========================================
+   6. LOOKS STATS
+========================================== */
+<<set $beauty = 0>>
+<<set $clothingScore = 0>>
+<<set $looks = 0>>
+
+
+/* ==========================================
+   7. SPECIAL STATS
+========================================== */
+<<set $corruption = 0>>
+<<set $painTolerance = 0>>
+<<set $exhibitionism = 0>>
+<<set $obedience = 0>>
+
+
+/* ==========================================
+   8. SEXUAL STATS & SKILLS
+========================================== */
+<<set $sexual = {
+    sensitivity: 0,
+    experience: 0,
+    virginity: {
+        vaginal: { intact: true, takenBy: null, takenByName: null, date: null },
+        anal: { intact: true, takenBy: null, takenByName: null, date: null },
+        oral: { intact: true, takenBy: null, takenByName: null, date: null }
+    },
+    stretch: {
+        vaginal: 0,
+        anal: 0
+    },
+    counts: {
+        vaginal: 0,
+        anal: 0,
+        oral: 0,
+        handjob: 0,
+        gangbang: 0,
+        public: 0
+    },
+    skills: {
+        oral: 0,
+        deepthroat: 0,
+        handjob: 0,
+        riding: 0,
+        anal: 0,
+        foreplay: 0,
+        seduction: 0,
+        teasing: 0
+    },
+    totalPartners: 0,
+    photosTaken: 0,
+    videosTaken: 0
+}>>
+
+
+/* ==========================================
+   9. SKILLS (Categorized)
+========================================== */
+<<set $skills = {
+    mental: {
+        research: 0,
+        problemSolving: 0,
+        analysis: 0
+    },
+    social: {
+        conversation: 0,
+        persuasion: 0,
+        networking: 0
+    },
+    physical: {
+        dance: 0,
+        yoga: 0,
+        basketball: 0,
+        volleyball: 0,
+        football: 0,
+        swimming: 0
+    },
+    creative: {
+        art: 0,
+        music: 0,
+        writing: 0
+    },
+    technical: {
+        programming: 0,
+        hacking: 0,
+        electronics: 0,
+        gaming: 0
+    },
+    practical: {
+        cooking: 0,
+        cleaning: 0,
+        driving: 0,
+        finance: 0,
+        mechanics: 0,
+        gardening: 0
+    }
+}>>
+
+
+/* ==========================================
+   10. MULTIPLIERS (Comes from Prologue)
+========================================== */
+<<set $statMultipliers = {
+    intelligence: 1.0,
+    focus: 1.0,
+    creativity: 1.0,
+    willpower: 1.0,
+    charisma: 1.0,
+    fitness: 1.0,
+    upperBody: 1.0,
+    core: 1.0,
+    lowerBody: 1.0,
+    cardio: 1.0,
+    beauty: 1.0,
+    /* Adult/Special Stats */
+    corruption: 1.0,
+    obedience: 1.0,
+    sensitivity: 1.0,
+    painTolerance: 1.0,
+    exhibitionism: 1.0
+}>>
+
+<<set $skillMultipliers = {
+    mental: 1.0,
+    social: 1.0,
+    physical: 1.0,
+    creative: 1.0,
+    technical: 1.0,
+    practical: 1.0
+}>>
+
+
+/* ==========================================
+   11. REPUTATION (Zone Based)
+========================================== */
+<<set $reputation = {
+    home: 50,
+    campus: 0,
+    downtown: 0,
+    workplace: 0,
+    socialMedia: 0
+}>>
+
+
+/* ==========================================
+   12. JOURNAL & FIRSTS
+========================================== */
+<<set $firsts = {
+    firstKiss: null,
+    firstVaginal: null,
+    firstAnal: null,
+    firstOralGiven: null,
+    firstOralReceived: null,
+    firstThreesome: null,
+    firstPublic: null,
+    firstPregnancy: null,
+    firstPhoto: null
+}>>
+
+
+/* ==========================================
+   13. CHARACTER DATA OBJECT
+========================================== */
+<<set $characters.player = {
+    name: "Alex",
+    lastname: "Taylor",
+    birthYear: 2007,
+    occupation: "Student",
+    location: "Home",
+    avatar: "assets/content/people/player/player.jpg",
+    type: "player",
+    color: "#ec4899",
+    stats: {
+        love: 0,
+        friendship: 0,
+        lust: 0,
+        trust: 0
+    },
+    status: "Player",
+    firstMet: "Birth",
+    info: "<p>This is you.</p>",
+    known: true,
+    traits: []
+}>>
+
+
+/* ==========================================
+   14. DAILY TRACKING
+========================================== */
+<<set $dailyCalorieIntake = 0>>
+<<set $dailyExercise = 0>>
+<<set $basalMetabolicRate = 2000>>
+
+
+/* ==========================================
+   15. SKILL USAGE TRACKING (for Decay System)
+========================================== */
+<<set $skillUsageTracking = {
+    mental: {},
+    social: {},
+    physical: {},
+    creative: {},
+    technical: {},
+    practical: {}
+}>>
+
+
+/* ==========================================
+   15. PROLOGUE SELECTIONS
+========================================== */
+<<set $prologueSelections = {
+    earlyYears: null,
+    childhood: null,
+    formative: null,
+    adolescent: null,
+    comingOfAge: null
+}>>
+/* ==========================================
+   16. INVENTORY & SHOPPING
+========================================== */
+<<set $inventory = []>>       /* Player's inventory: [{id, quantity}, ...] */
+<<set $shoppingCart = []>>    /* Temporary cart: [{id, quantity, price}, ...] */
+
+
+/* ==========================================
+   17. WARDROBE INITIALIZATION
+========================================== */
+<<set $wardrobe = {
+    owned: ["tshirt_white_owned", "jeans_blue_owned", "sneakers_flat_owned", "socks_white_owned", "panties_white_owned", "bra_sport_white_owned"],
+    outfits: [null, null, null, null],
+    equipped: {
+        top: "tshirt_white_owned",
+        bottom: "jeans_blue_owned",
+        shoes: "sneakers_flat_owned",
+        socks: "socks_white_owned",
+        panty: "panties_white_owned",
+        bra: "bra_sport_white_owned"
+    }
+}>>
+
+<<recalculateStats>>

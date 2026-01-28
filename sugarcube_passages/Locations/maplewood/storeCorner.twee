@@ -1,0 +1,10 @@
+<<nobr>>
+<<set $location = "storeCorner">>
+<<set _shopItems = ["energy_drink", "coffee", "sandwich", "water_bottle", "chocolate_bar", "apple"]>>
+<<set _shopBack = "maplewood">>
+<<updateCharacterLocations>>
+<<questPrompts>>
+<</nobr>>
+<<narrative "Quick Mart">><</narrative>>
+<<showLocationChars "storeCorner">>
+<<shop "Quick Mart" "Convenience Store" _shopItems _shopBack>>

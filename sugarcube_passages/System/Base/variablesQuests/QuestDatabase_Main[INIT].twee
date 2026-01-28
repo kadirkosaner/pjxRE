@@ -1,0 +1,202 @@
+/* ==========================================
+   QUEST SYSTEM V2 - MAIN STORY QUESTS
+   Main storyline quests (character arcs)
+   
+   Note: All quest scenes use manual button navigation.
+   Triggers are only used for showing quest prompts
+   at specific locations (not auto-navigation).
+========================================== */
+
+<<run Object.assign(setup.quests, {
+
+    /* ========== FIRST SHOPPING - MAP DISCOVERY ========== */
+    first_shopping: {
+        id: "first_shopping",
+        title: "First Shopping",
+        category: "tutorial",
+        character: "mother",
+        
+        requirements: {
+            flags: ["prologue_complete"]
+        },
+        
+        stages: [
+            {
+                id: "go_to_shop",
+                title: "Go to the Shop",
+                desc: "Head to the Corner Shop to buy groceries for mom",
+                triggers: { location: "storeCorner" },
+                items: [
+                    { objectiveId: "milk", itemId: "quest_milk", location: "storeCorner" },
+                    { objectiveId: "bread", itemId: "quest_bread", location: "storeCorner" }
+                ],
+                objectives: [
+                    { id: "milk", text: "Buy milk" },
+                    { id: "bread", text: "Buy bread" }
+                ],
+                completeWhen: "allObjectives"
+            },
+            {
+                id: "map_discovery",
+                title: "Discover the City Map",
+                desc: "You notice something interesting on the counter...",
+                buttonText: "City Map... What's this?",
+                triggers: { location: "storeCorner" },
+                forceScene: true,
+                passage: "quest_first_shopping_map_scene"
+            }
+        ],
+        
+        onComplete: {
+            
+            flags: ["first_shopping_done", "met_marcus"],
+            notification: "You got a free city map!",
+            nextQuest: "moving_troubles"
+        }
+    },
+
+    /* ========== MOVING TROUBLES - BAD NEWS CHAIN ========== */
+    moving_troubles: {
+        id: "moving_troubles",
+        title: "Moving Troubles",
+        category: "tutorial",
+        character: null,
+        
+        requirements: {
+            quests: ["first_shopping"]
+        },
+        
+        stages: [
+            {
+                id: "walking_home",
+                title: "Walking Home",
+                desc: "Head back home with the groceries",
+                buttonText: "You hear sounds in the distance...",
+                triggers: { location: "maplewood" },
+                forceScene: true,
+                passage: "quest_moving_troubles_sounds"
+            },
+            {
+                id: "talk_to_mother",
+                title: "Talk to Mother",
+                desc: "Give mom the groceries",
+                /* Manual: Button in sounds scene goes to fhKitchen, 
+                   then quest button appears */
+                buttonText: "Talk to your mother",
+                triggers: { location: "fhKitchen", character: { id: "mother" } },
+                forceScene: true,
+                passage: "quest_moving_troubles_mother_talk"
+            },
+            {
+                id: "fathers_news",
+                title: "Father's News",
+                desc: "Listen to what father has to say",
+                /* Manual: Button in mother_talk scene goes directly to this passage */
+                passage: "quest_moving_troubles_father_news"
+            },
+            {
+                id: "go_to_room",
+                title: "Go to Your Room",
+                desc: "You need some time alone",
+                /* Manual: Button in father_news scene goes directly to this passage */
+                passage: "quest_moving_troubles_room_scene"
+            }
+        ],
+        
+        onComplete: {
+            flags: ["moving_troubles_done", "belongings_lost"],
+            notification: "Quest Complete: Moving Troubles",
+            nextQuest: "new_beginnings"
+        }
+    },
+
+    /* ========== NEW BEGINNINGS - FAMILY SUPPORT ========== */
+    new_beginnings: {
+        id: "new_beginnings",
+        title: "New Beginnings",
+        category: "family",
+        character: "player",
+        mealType: "dinner",  // Integrates with family meal widget
+        
+        requirements: {
+            quests: ["moving_troubles"]
+        },
+        
+        stages: [
+            {
+                id: "family_dinner",
+                title: "Family Dinner",
+                desc: "Join your family for dinner at 18:00",
+                buttonText: "Eat with Family",
+                triggers: { location: "fhKitchen" },
+                forceScene: true,
+                passage: "quest_new_beginnings_dinner"
+            }
+        ],
+        
+        onComplete: {
+            flags: ["new_beginnings_done", "got_allowance"],
+            rewards: { money: 100 },
+            notification: "Quest Complete: New Beginnings",
+            nextQuest: ["use_computer", "find_job"]
+        }
+    },
+
+    /* ========== USE COMPUTER - EXPLORE ONLINE ========== */
+    use_computer: {
+        id: "use_computer",
+        title: "Use Brother's Computer",
+        category: "tutorial",
+        character: "player",
+        
+        requirements: {
+            quests: ["new_beginnings"]
+        },
+        
+        stages: [
+            {
+                id: "go_to_computer",
+                title: "Use the Computer",
+                desc: "Use your brother's computer to explore online",
+                buttonText: "Use Computer",
+                triggers: { location: "fhBrothersRoom" },
+                forceScene: true,
+                passage: "quest_use_computer_scene"
+            }
+        ],
+        
+        onComplete: {
+            flags: ["used_computer"],
+            notification: "Quest Complete: Use Brother's Computer"
+        }
+    },
+
+    /* ========== FIND JOB - EMPLOYMENT SEARCH ========== */
+    find_job: {
+        id: "find_job",
+        title: "Find a Job",
+        category: "main",
+        character: "player",
+        
+        requirements: {
+            quests: ["new_beginnings"]
+        },
+        
+        stages: [
+            {
+                id: "start_job_search",
+                title: "Start Job Search",
+                desc: "Look for employment opportunities in the city",
+                buttonText: "Look for Jobs",
+                triggers: { location: "fhBedroom" },
+                forceScene: true,
+                passage: "quest_find_job_scene"
+            }
+        ],
+        
+        onComplete: {
+            flags: ["job_search_started"],
+            notification: "Quest Complete: Find a Job"
+        }
+    }
+})>>

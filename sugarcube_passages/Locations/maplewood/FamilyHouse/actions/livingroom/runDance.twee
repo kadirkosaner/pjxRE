@@ -1,0 +1,32 @@
+<<silently>>
+    <<set $location = $activityOrigin>>
+    <<updateCharacterLocations>>
+
+    <<set $daily.danceDone = true>>
+    <<advanceTime 30>>
+    <<loseStat "energy" 20>>
+    <<loseStat "stress" 15>>
+    <<gainSkill "physical" "dance" 5>>
+    <<recalculateStats>>
+
+    /* Text variations */
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "You put on a dance workout video and clear some space. For the next 30 minutes, you follow along with the energetic instructors on screen, trying to keep up with their moves. By the end, you're sweating and breathless, but your mood has definitely improved.">>
+        <<case 2>>
+            <<set _sceneText = "You queue up your favorite playlist and let the music take over. No choreography, no rules - just you moving however feels right. It's messy and probably looks ridiculous, but who cares? The endorphins are worth it.">>
+        <<case 3>>
+            <<set _sceneText = "Today you try learning a new dance routine from a tutorial. It takes a few attempts to get the steps right, and you keep rewinding the tricky parts. By the end of 30 minutes, you've almost nailed the chorus. Almost.">>
+    <</switch>>
+<</silently>>
+
+<<narrative "Dance Session">>
+_sceneText
+<</narrative>>
+
+<<image "assets/content/scenes/maplewood/FamilyHouse/livingroom/danceSetup.webp" "80%">>
+
+<div class="location-actions">
+    <<btn "Finish" $location>><</btn>>
+</div>

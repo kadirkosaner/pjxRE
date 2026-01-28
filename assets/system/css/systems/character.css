@@ -1,0 +1,1143 @@
+/* ============================================
+   SYSTEMS/CHARACTER.CSS
+   Character interaction, location cards
+   ============================================ */
+
+/*#region CHARACTER INTERACTION SYSTEM */
+
+/* ================== ACTION BUTTONS =================== */
+.actions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.action-btn {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.action-btn.available:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+  background: rgba(236, 72, 153, 0.1);
+  transform: translateY(-2px);
+}
+
+.action-btn.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: var(--color-text-tertiary);
+}
+
+.action-btn.locked:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.no-actions {
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+/* ================== STAT CHANGE INDICATOR =================== */
+.stat-change {
+  display: inline-flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-md);
+  color: #10b981;
+  font-size: 0.85rem;
+  margin: 1rem 0;
+}
+
+.stat-change .icon {
+  margin-right: 0.25rem;
+}
+
+/* ================== LOCATION CHARACTER CARDS =================== */
+.location-characters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  justify-content: center;
+}
+
+/* Link wrapper for clickable cards */
+.location-characters a,
+.character-card-link {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.character-card-inner {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.character-card-inner:hover:not(.busy) {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.character-card-inner.busy {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.character-card-inner:hover:not(.busy) .character-avatar {
+  border-color: var(--color-accent);
+}
+
+.character-card-inner .character-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.character-card-inner .character-status {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+}
+
+.character-card-inner .character-status.busy {
+  color: #f59e0b;
+}
+
+.no-characters {
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  width: 100%;
+  text-align: center;
+}
+
+/* ================== LOCATION ACTIONS =================== */
+.location-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border-primary);
+}
+
+/* Hide any stray <br> tags inside action containers */
+.location-actions br {
+  display: none;
+}
+
+/* Delete badge (EXACTLY like AUTO SAVE) */
+.save-delete-btn {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  z-index: 10;
+  background: var(--color-accent);
+  color: var(--color-text-primary);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.save-delete-btn:hover {
+  background: #db2777;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Save title input modal */
+.save-title-input-container {
+  padding: 0.75rem 0;
+}
+
+.save-title-input-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.save-title-input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.save-title-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  background: var(--color-bg-secondary);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  justify-content: flex-end;
+}
+
+/* Modal overlays - Consolidate to top-aligned with rightbar offset */
+#save-title-overlay,
+#confirmation-overlay,
+#saveload-overlay,
+#prompt-overlay,
+.modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 10000 !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  padding-top: 10vh !important;
+  padding-right: var(--rightbar-width) !important;
+  padding-bottom: 10vh !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.modal-overlay .modal {
+  max-height: 80vh !important;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-secondary);
+}
+
+.btn-secondary:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-text-secondary);
+  transform: translateY(-1px);
+}
+
+/* ================== SAVE/LOAD DISK BUTTONS =================== */
+.disk-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border-primary);
+}
+
+.disk-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.disk-btn:hover {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.disk-btn:active {
+  transform: translateY(0);
+}
+
+/* ================== INTERACTION FOOTER =================== */
+.interaction-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-primary);
+}
+
+/* ================== CHARACTER INFO ACCORDION =================== */
+.char-info-accordion {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  margin: 1.5rem auto;
+  max-width: 500px;
+  overflow: hidden;
+}
+
+.char-info-accordion .char-info-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.char-info-accordion .char-info-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.char-info-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--color-border-secondary);
+  flex-shrink: 0;
+}
+
+.char-info-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.char-info-text {
+  flex: 1;
+  font-size: 0.85rem;
+  color: var(--color-text-primary);
+}
+
+.char-relation {
+  color: #ec4899;
+  font-style: italic;
+}
+
+.char-info-toggle {
+  color: var(--color-text-tertiary);
+  font-size: 10px;
+  transition: transform 0.2s ease;
+}
+
+.char-info-accordion.expanded .char-info-toggle {
+  transform: rotate(180deg);
+}
+
+/* Content - hidden by default */
+.char-info-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 16px;
+  transition: all 0.3s ease;
+  border-top: 1px solid transparent;
+}
+
+.char-info-accordion.expanded .char-info-content {
+  max-height: 200px;
+  padding: 12px 16px;
+  border-top-color: var(--color-border-primary);
+}
+
+/* Stats row */
+.char-info-stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.char-stat-box {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+/* Stat value colors */
+.stat-val-love { color: #ec4899; }
+.stat-val-friend { color: #3b82f6; }
+.stat-val-lust { color: #ef4444; }
+.stat-val-trust { color: #10b981; }
+
+/* Awareness row */
+.char-info-awareness {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border-primary);
+  text-align: center;
+}
+
+/*#endregion */
+
+/* LOCATION NAV - from base.css */
+/* ================== LOCATION NAVIGATION WIDGET =================== */
+
+.accordion-container {
+  display: flex;
+  width: fit-content; /* Only as wide as the cards */
+  height: 350px;
+  background: #000;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+  /* Center the widget on the page */
+  margin: 2rem auto;
+
+  border: 1px solid var(--color-border-primary);
+}
+
+.nav-card {
+  position: relative;
+  /* Fixed width for compact look */
+  width: 100px;
+  flex-shrink: 0; /* Don't shrink below 100px */
+
+  background-color: var(--color-bg-secondary);
+  overflow: hidden;
+  cursor: pointer;
+  transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  border-right: 1px solid rgba(0, 0, 0, 0.5);
+
+  /* Flex Center for Text */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+.nav-card:last-child {
+  border-right: none;
+}
+
+.nav-card:hover {
+  width: 400px; /* Expand on hover */
+
+  /* Re-align for active state */
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-left: 30px;
+  padding-bottom: 30px;
+}
+
+.card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  transition: all 0.5s ease;
+  filter: grayscale(100%) brightness(0.5);
+  z-index: 0;
+}
+
+.nav-card:hover .card-bg {
+  opacity: 1;
+  filter: grayscale(0%) brightness(1);
+  transform: scale(1.05);
+}
+
+.gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 1;
+}
+
+.nav-card:hover .gradient-overlay {
+  opacity: 1;
+}
+
+/* TEXT ELEMENT */
+.nav-card-name {
+  z-index: 2;
+  position: relative;
+
+  /* Vertical Text Mode */
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+
+  transition: all 0.4s ease;
+}
+
+.nav-card:hover .nav-card-name {
+  writing-mode: horizontal-tb;
+  transform: rotate(0deg);
+
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+  letter-spacing: 1px;
+}
+
+/*#endregion */
+
+
+/* ================== CHARACTER MODAL OVERRIDE =================== */
+/* Note: Modal width is handled in ui/modals.css via data-modal attribute */
+
+
+/* =========================================
+   #APPEARANCE TAB
+   ========================================= */
+.appearance-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 70%);
+}
+
+.appearance-wrapper {
+    position: relative;
+    width: 600px;
+    height: 550px;
+}
+
+/* Body Diagram */
+.body-diagram-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; /* Reduced width for slender silhouette */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-diagram-img {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.2));
+    opacity: 0.9;
+}
+
+/* POINTERS */
+.body-pointer {
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    height: 20px; /* Hitbox height */
+}
+
+/* Common Dot */
+.pointer-dot {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Common Line */
+.pointer-line {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    width: 40px; /* Default length */
+    transition: all 0.3s ease;
+    margin: 0 2px;
+}
+
+/* Label */
+.pointer-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+/* Hover Effects */
+.body-pointer:hover .pointer-dot, .body-pointer.active .pointer-dot {
+    background: var(--color-accent);
+    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.3);
+    transform: scale(1.2);
+}
+
+.body-pointer:hover .pointer-line, .body-pointer.active .pointer-line {
+    background: var(--color-accent);
+    width: 60px; /* Expand line */
+    opacity: 1;
+    box-shadow: 0 0 5px var(--color-accent);
+}
+
+.body-pointer:hover .pointer-label, .body-pointer.active .pointer-label {
+    color: var(--color-accent);
+    opacity: 1;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(236, 72, 153, 0.6);
+}
+
+/* ALTERNATING SIDES (ZIG-ZAG) */
+
+/* LEFT SIDE POINTERS (Label <-- Line -- Dot) */
+/* Face, Bust, Hips, Anus */
+.pointer-face, .pointer-bust, .pointer-hips, .pointer-anus {
+    flex-direction: row;
+    right: 50%; /* Anchor from center extending Left */
+    /* Offsets to point to body part */
+    justify-content: flex-end; /* Label on far left */
+    transform-origin: right center;
+}
+
+/* Adjust Dots horizontally for specific parts */
+.pointer-face { top: 5%; right: 50%; transform: translateX(3px); width: 160px; }
+.pointer-bust { top: 24%; right: 65%; transform: translateX(0); width: 140px; } /* User set to 65% previously */
+.pointer-hips { top: 45%; right: 65%; transform: translateX(0); width: 150px; }
+.pointer-anus { top: 50%; right: 50%; transform: translateX(3px); width: 150px; }
+
+
+/* RIGHT SIDE POINTERS (Dot -- Line --> Label) */
+/* Hair, Waist, Vagina */
+.pointer-hair, .pointer-waist, .pointer-vagina {
+    flex-direction: row;
+    left: 50%; /* Anchor from center extending Right */
+    justify-content: flex-start; /* Label on far right */
+    transform-origin: left center;
+}
+
+.pointer-hair   { top: 0%; left: 50%; transform: translateX(-3px); width: 150px; }
+.pointer-waist  { top: 35%; left: 52%; transform: translateX(0); width: 140px; }
+.pointer-vagina { top: 50%; left: 50%; transform: translateX(-3px); width: 160px; }
+
+
+/* Tooltip Positions matching the Zig-Zag */
+/* Left Tooltips */
+#info-face { top: 12%; left: 5%; }
+#info-bust { top: 22%; left: 5%; }
+#info-hips { top: 40%; left: 5%; }
+#info-anus { top: 56%; left: 5%; }
+
+/* Right Tooltips */
+#info-hair   { top: 5%; right: 5%; left: auto; }
+#info-waist  { top: 32%; right: 5%; left: auto; }
+#info-vagina { top: 48%; right: 5%; left: auto; }
+
+
+/* Update Info Panel Positions to match these "Outside" labels */
+/* Left side panels (Label is far left) */
+#info-hair { top: 5%; left: 5%; }
+#info-face { top: 12%; left: 5%; }
+#info-bust { top: 22%; left: 5%; }
+#info-waist { top: 32%; left: 5%; }
+
+/* Right side panels */
+#info-hips { top: 40%; right: 5%; left: auto; }
+#info-vagina { top: 48%; right: 5%; left: auto; }
+#info-anus { top: 56%; right: 5%; left: auto; }
+
+/* Ensure panels don't get covered by outfit column */
+/* Outfit column is on far right, modal is 1200px wide. 
+   Right 5% might be close to outfit column.
+   Let's check layout. Body col is middle.
+   We can use pixels or calc.
+*/
+
+
+/* INFO PANELS (TOOLTIPS) - New Card Style */
+.app-info-panel {
+    position: absolute;
+    width: 260px;
+    background: #050505; /* User requested dark/black bg */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 0;
+    color: var(--color-text-primary);
+    z-index: 100; /* Higher Z-index */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    pointer-events: none; /* Prevent self-hover issues */
+}
+
+.app-info-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* Image Placeholder in Tooltip */
+.app-info-img {
+    width: 100%;
+    height: auto;        /* Allow height to grow with image */
+    min-height: 120px;   /* Minimum height for consistency */
+    max-height: 300px;   /* Cap max height to prevent huge tooltips */
+    background: #0d0d10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-tertiary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border-primary);
+    position: relative;
+    overflow: hidden;
+}
+.app-info-img img {
+    width: 100%;
+    height: auto;        /* Natural height */
+    display: block;      /* Remove bottom gap */
+    /* Removed object-fit: cover to prevent cropping */
+}
+
+/* Info Content */
+.app-info-content {
+    padding: 12px 16px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.02), transparent);
+}
+
+.app-info-panel h4 {
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #fff; /* White header */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--color-accent); /* Accent underline */
+    padding-bottom: 6px;
+    display: inline-block;
+}
+
+.app-stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 4px;
+}
+.app-stat-row:last-child { 
+    margin-bottom: 0; 
+    border-bottom: none; 
+}
+
+.app-stat-row span:first-child {
+    color: var(--color-text-secondary);
+}
+
+.app-stat-row .val {
+    color: var(--color-text-primary);
+    font-weight: 500;
+}
+
+.app-stat-row .text-highlight {
+    color: var(--color-accent);
+}
+
+/* Specific Panel Positions */
+/* Left Side Panels (Hair, Face, Chest, Waist) */
+#info-hair { top: 0%; left: 65%; }
+#info-face { top: 10%; left: 65%; }
+#info-bust { top: 20%; left: 65%; }
+#info-waist { top: 30%; left: 65%; }
+
+/* Right Side Panels (Hips, Vagina, Anus) */
+/* Or alternating? Let's put some on left, some on right to avoid stacking if hovering quickly */
+/* Diagram is centered. Let's put them based on pointer */
+
+#info-hips { top: 40%; left: 65%; }
+#info-vagina { top: 45%; right: 65%; } /* Put to left side of body */
+#info-anus { top: 55%; right: 65%; }
+
+
+
+/* =========================================
+   #APPEARANCE OUTFIT DISPLAY (TRANSPARENT)
+   ========================================= */
+
+/* Layout Wrapper */
+.appearance-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+    /* Re-add padding since we removed it from modal-content */
+    padding: var(--spacing-lg); 
+    padding-top: 10px; /* Less top padding for this specific layout */
+}
+
+.appearance-body-column {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: flex-start; /* Move to left */
+    align-items: flex-start; /* Move to top */
+    padding-top: 0; /* Max top */
+    padding-left: 20px; /* Slight offset from edge */
+    margin-top: -70px; /* Pull it up aggressively */
+}
+
+/* Center the body diagram container itself */
+.body-diagram-container {
+    position: relative; /* No sticky needed */
+    /* top: 20px; removed */
+}
+
+.appearance-layout .appearance-wrapper {
+   margin: 0;
+}
+
+/* Outfit Column */
+.outfit-column {
+    width: 320px;
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0;
+    margin-right: 20px;
+}
+
+/* Outfit List */
+.outfit-list {
+    flex: 0 0 auto;
+    overflow: visible;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.outfit-list::-webkit-scrollbar {
+    display: none; 
+}
+
+/* Section Header */
+.outfit-section-header {
+    font-size: 0.75rem;
+    color: var(--color-text-tertiary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 2px;
+}
+.outfit-section-header:first-child { margin-top: 5px; }
+
+/* Outfit Card */
+.outfit-card {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(10, 10, 14, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    gap: 12px;
+    position: relative;
+    transition: all 0.2s ease;
+    min-height: 50px;
+}
+
+.outfit-card:hover {
+    background: rgba(30, 30, 40, 0.9);
+    border-color: var(--color-accent);
+    transform: translateX(-4px);
+}
+
+.outfit-card.empty {
+    opacity: 0.3;
+    background: transparent;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* Icon */
+.outfit-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.outfit-card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Info Text */
+.outfit-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-width: 0;
+}
+
+.outfit-card-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.outfit-card-name {
+    font-size: 0.85rem;
+    color: var(--color-text-primary);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.outfit-status-icon { display: none; }
+
+/* CRITICAL: HIDE INTERNAL TOOLTIPS */
+.outfit-card .outfit-tooltip {
+    display: none !important;
+}
+
+/* STYLE THE GLOBAL TOOLTIP (Created by JS) */
+#global-outfit-tooltip {
+    position: fixed; /* Fixed to viewport as calculated by JS */
+    width: 200px;
+    background: #050505; /* Updated to match info-panel black */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Changed from pink to gray */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border-radius: 6px;
+    padding: 10px;
+    z-index: 10000;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+#global-outfit-tooltip.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Tooltip Content Styles */
+.tooltip-header {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tooltip-desc {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    line-height: 1.3;
+    font-style: italic;
+    margin-bottom: 6px;
+}
+
+/* Quality Colors */
+.tooltip-stat-val.quality-common { color: #aaaaaa; }
+.tooltip-stat-val.quality-rare { color: #3b82f6; } /* Blue */
+.tooltip-stat-val.quality-premium { color: #a855f7; } /* Purple */
+.tooltip-stat-val.quality-legendary { color: #eab308; } /* Gold (just in case) */
+
+/* Looks Value (Pink Accent) */
+.tooltip-stat-val.looks-value,
+.tooltip-stat-val[style*="color: #ec4899"] { 
+    color: #ec4899 !important; 
+}
+
+/* Tags Container */
+.tooltip-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Tag Pills */
+.tooltip-tag-pill {
+    font-size: 0.7rem;
+    color: var(--color-text-tertiary);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Specific Tag Colors (Matched to Wardrobe/Shop) */
+.tooltip-tag-pill.normal,
+.tooltip-tag-pill.casual,
+.tooltip-tag-pill.comfortable {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e; /* Green */
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.tooltip-tag-pill.revealing,
+.tooltip-tag-pill.sexy {
+    background: rgba(249, 115, 22, 0.15);
+    color: #f97316; /* Orange */
+    border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+.tooltip-tag-pill.provocative,
+.tooltip-tag-pill.naughty {
+    background: rgba(236, 72, 153, 0.15);
+    color: #ec4899; /* Pink/Accent */
+    border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+.tooltip-tag-pill.formal,
+.tooltip-tag-pill.elegant,
+.tooltip-tag-pill.party {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6; /* Blue */
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Top Stats Cards (New Separate Header) */
+.outfit-top-stats {
+    display: flex;
+    flex-direction: column; /* Stack vertically as requested */
+    gap: 8px; /* Reduced gap for tighter vertical spacing */
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+
+.top-stat-card {
+    flex: 1;
+    background: rgba(10, 10, 14, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 10px 14px; /* Slightly more side padding */
+    display: flex;
+    flex-direction: row; /* Side-by-side: Style Value */
+    align-items: center;
+    justify-content: space-between; /* Push label left, value right */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.top-stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-tertiary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0; /* No bottom margin needed for row */
+}
+
+.top-stat-value {
+    font-size: 0.95rem; /* Balanced size */
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+/* Body Type Pointer (Text Only) */
+.pointer-bodytype {
+    top: -50px; /* Moved further up as requested */
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    justify-content: center;
+    cursor: help;
+}
+
+/* Inherits standard .pointer-label style, overrides removed to match others */
+.pointer-bodytype .pointer-label {
+    /* Optional: Ensure specific tweaks if standard style needs adjustment for center alignment, 
+       but user asked for "same style", so standard class should suffice. 
+       Adding only non-style positioning/behavior if needed. */
+}
+
+.pointer-bodytype:hover .pointer-label {
+    color: var(--color-accent);
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+}
+
+/* Body Type Tooltip Position */
+#info-bodytype { top: 0%; left: 50%; transform: translateX(-50%) translateY(10px) scale(0.95); }
+#info-bodytype.active { transform: translateX(-50%) translateY(0) scale(1); }

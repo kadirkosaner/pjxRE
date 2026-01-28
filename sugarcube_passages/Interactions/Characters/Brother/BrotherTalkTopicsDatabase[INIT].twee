@@ -1,0 +1,1018 @@
+:: BrotherTalkTopicsDatabase [nobr startup]
+/* ==========================================
+   BROTHER - TALK TOPICS DATABASE (Younger Brother)
+   10 Random Topics x 3 Friendship Tiers x 2 Phases
+
+   Tiers:
+   - Tier 1: 0-39 (Distant siblings)
+   - Tier 2: 40-69 (Close siblings)
+   - Tier 3: 70-100 (Very close / Forbidden romantic tension)
+========================================== */
+
+<<set setup.brotherTalkTopics = {
+
+    /* ==========================================
+       SCHOOL PHASE (During high school term)
+       Stressed, busy with classes, lives at home but often in his room
+    ========================================== */
+    school: {
+        
+        /* Topic 1: Gaming */
+        gaming: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Not looking up from screen)
+Busy. Ranked match.
+<</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Pausing his game)
+I'm so close to Diamond. Just a few more wins.
+<</dialog>>
+
+<<dialog "player">>
+You've been saying that since last month.
+<</dialog>>
+
+<<dialog "brother">>
+(Grinning)
+Yeah well… school sucks. Wanna duo sometime?
+<</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Leaning back, quieter)
+Screw the rank honestly… I'd rather just play with you.
+<</dialog>>
+
+<<dialog "player">>
+Since when are you not super competitive?
+<</dialog>>
+
+<<dialog "brother">>
+(Looking at you longer than normal)
+It's… different with you. Everything feels different.
+(Pause, voice dropping)
+Sometimes I hate that it feels *this* different.
+<</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        },
+
+        /* Topic 2: School Life */
+        school_life: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Terse)
+School is hell. Too much homework.
+<</dialog>>`,
+                friendship: 1
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Rubbing eyes)
+Got three projects due next week. Haven't started shit.
+<</dialog>>
+
+<<dialog "player">>
+Want help?
+<</dialog>>
+
+<<dialog "brother">>
+(Surprised, small smile)
+You'd actually sit with me? That'd be… kinda nice.
+<</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Voice low)
+I feel like I'm drowning. Everyone seems to have their life together except me.
+<</dialog>>
+
+<<dialog "player">>
+(Moving closer)
+Brother…
+<</dialog>>
+
+<<dialog "brother">>
+(Looking at you, raw)
+Talking to you is the only thing that feels right anymore.
+(After a long pause)
+Even though… I know some of the things I think about when I'm alone are wrong.
+<</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            }
+        },
+
+        /* Topic 3: Sleep */
+        sleep: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Yawning)
+Can't sleep. Whatever.
+<</dialog>>`,
+                friendship: 1
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Dark circles)
+Been up till 3 a.m. every night. Brain won't shut up.
+<</dialog>>
+
+<<dialog "player">>
+That's not good for you.
+<</dialog>>
+
+<<dialog "brother">>
+I know. But when I try to sleep… I just think about everything.
+(Pause)
+About you. Too much.
+<</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Quiet, almost whispering)
+I've been having dreams… bad ones. Good ones. Both.
+<</dialog>>
+
+<<dialog "player">>
+About what?
+<</dialog>>
+
+<<dialog "brother">>
+(You find him in his room, sitting at his desk in the dark, bathed in the blue glow of his monitors)
+Can't sleep... again?
+(He spins his chair around, startled, then relaxes seeing it's you)
+Yeah. Just... bad thoughts. Seeing you helps, though.
+<</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 4
+            }
+        },
+
+        /* Topic 4: Hobbies */
+        hobbies: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Shrugging)
+Gaming. That's it mostly.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Showing setup)
+Check the new fans. Took forever to make the cables clean.
+<</dialog>>
+
+<<dialog "player">>
+Looks sick.
+<</dialog>>
+
+<<dialog "brother">>
+(Soft grin)
+Thanks… maybe I'll start streaming. You'd watch, right?
+<</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Hesitant)
+I wanna study game design after high school… make something real.
+<</dialog>>
+
+<<dialog "player">>
+That's awesome.
+<</dialog>>
+
+<<dialog "brother">>
+(Looking at you intensely)
+Would you… playtest for me? Be brutally honest?
+(Softer)
+Your opinion is the only one that actually matters to me.
+<</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 3
+            }
+        },
+
+        /* Topic 5: Sibling Relationship / Growing Up Together */
+        sibling: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Casual)
+Thanks for letting me live here all these years. Beats the alternative.
+<</dialog>>`,
+                friendship: 1
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Nostalgic)
+Remember when we built that huge blanket fort in the living room? Mom was pissed.
+<</dialog>>
+
+<<dialog "player">>
+We stayed in there for hours.
+<</dialog>>
+
+<<dialog "brother">>
+(Soft smile)
+Best memories I have… just you and me against the world.
+<</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Serious)
+You're still my favorite person. Even after all these years.
+<</dialog>>
+
+<<dialog "player">>
+Brother…
+<</dialog>>
+
+<<dialog "brother">>
+(Stepping closer, tense)
+I know we're siblings… but sometimes it feels like my heart didn't get the memo.
+(Voice cracks a little)
+I'm scared how strong the feeling is getting.
+<</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 4
+            }
+        },
+
+        /* Topic 6: Future */
+        future: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Defensive)
+I don't know what I'm doing after high school, okay? Stop asking.
+<</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+                    (Worried)
+                    School applications are coming… what if I mess everything up?
+                    <</dialog>>
+
+                    <<dialog "player">>
+                    You'll be fine. You always figure it out.
+                    <</dialog>>
+
+                    <<dialog "brother">>
+                    (Grateful)
+                    Thanks… you always know what to say.
+                    <</dialog>>`,
+                friendship: 3,
+                trust: 3
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Voice breaking)
+What if I get into a school far away? I don't… I don't think I can handle not living here anymore.
+<</dialog>>
+
+<<dialog "player">>
+We'll still see each other.
+<</dialog>>
+
+<<dialog "brother">>
+(Grabbing your hand)
+Promise me we won't lose this. Promise me you'll still be *mine*—I mean… around.
+(Eyes wet)
+I can't lose you.
+<</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 4
+            }
+        },
+
+        /* Topic 7: Movies/Shows */
+        movies_shows: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Distracted)
+Haven't watched anything lately. Too much homework.
+<</dialog>>`,
+                friendship: 1
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Excited)
+Yo, you seen the new season yet? That twist in episode 4 was wild.
+<</dialog>>
+
+<<dialog "player">>
+No spoilers!
+<</dialog>>
+
+<<dialog "brother">>
+(Laughing)
+Fine, fine. We should watch it together this weekend. Like old times.
+<</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Quiet, during a late-night binge)
+That romance movie we watched earlier… the one where they weren't supposed to be together?
+<</dialog>>
+
+<<dialog "player">>
+Yeah?
+<</dialog>>
+
+<<dialog "brother">>
+(Avoiding your eyes at first, then looking straight at you)
+I couldn't stop thinking it was us. That we're the ones who aren't supposed to…
+(Deep breath)
+I know it's messed up. I know. But I still imagined it was you and me.
+<</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        },
+
+        /* Topic 8: Outside Friends */
+        outside_friends: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Shrugging)
+Some people from class are okay. Whatever.
+<</dialog>>`,
+                friendship: 1
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Rolling eyes)
+My group project partners are useless. I basically did everything myself.
+<</dialog>>
+
+<<dialog "player">>
+That sucks.
+<</dialog>>
+
+<<dialog "brother">>
+(Soft smile)
+It's fine. Coming home to you makes up for it.
+<</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Quiet, almost guilty)
+People at school keep asking if I have a girlfriend. I just… shut down.
+<</dialog>>
+
+<<dialog "player">>
+Why?
+<</dialog>>
+
+<<dialog "brother">>
+(Bitter laugh)
+Because how am I supposed to explain that the only person I want is someone I'm never supposed to want?
+(Looking at you, pained)
+That every time someone flirts with me, I just compare them to you… and they lose.
+<</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        },
+
+        /* Topic 9: Being Home / Family Life */
+        being_home: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Casual)
+It's nice living here. Feels normal.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Reminiscing)
+Remember when we used to sneak downstairs at midnight for snacks? Mom would catch us every time.
+<</dialog>>
+
+<<dialog "player">>
+You were terrible at being quiet.
+<</dialog>>
+
+<<dialog "brother">>
+(Playful grin)
+Still am. Some things never change.
+(Softer)
+Some things… I wish would change.
+<</dialog>>`,
+                friendship: 3,
+                trust: 3,
+                love: 1
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Vulnerable, sitting on the edge of his bed)
+Living in the same house with you every day… it's a blessing and a curse.
+<</dialog>>
+
+<<dialog "player">>
+What do you mean?
+<</dialog>>
+
+<<dialog "brother">>
+(Hands clenched)
+Blessing because I get to see you, hear your voice, watch you exist.
+Curse because… I want more. So much more.
+(Looks up, eyes dark)
+And every time I think about it, I hate myself a little more.
+But I still can't stop.
+<</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 4
+            }
+        },
+
+        /* Topic 10: Dating (very dangerous topic for siblings) */
+        dating: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Flat)
+Not interested. Whatever.
+<</dialog>>`,
+                friendship: 1
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Awkward)
+Some girl in my class keeps trying to talk to me. I keep dodging her.
+<</dialog>>
+
+<<dialog "player">>
+Not your type?
+<</dialog>>
+
+<<dialog "brother">>
+(Looking at you meaningfully)
+I don't think anyone's my type… except maybe someone I can never have.
+<</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Raw, almost angry)
+I can't even think about dating anyone else. Every time I try, all I see is your face.
+<</dialog>>
+
+<<dialog "player">>
+Brother…
+<</dialog>>
+
+<<dialog "brother">>
+(Desperate, stepping very close)
+I know it's wrong. I know we're brother and sister. But I don't care anymore.
+(Voice shaking)
+I want you. In every way I'm not supposed to want you.
+Please… tell me I'm not alone in this hell.
+<</dialog>>`,
+                friendship: 5,
+                trust: 5,
+                love: 5
+            }
+        }
+    },
+
+    /* ==========================================
+       VACATION PHASE (Summer / school breaks)
+       Relaxed, always home, maximum proximity
+    ========================================== */
+    vacation: {
+        
+        /* Topic 1: Gaming */
+        gaming: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Eyes glued to screen)
+Finally got time to grind. Check out my rank.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Excited)
+Yes! Summer break means I can finally finish this campaign. Want to co-op?
+<</dialog>>
+
+<<dialog "player">>
+Sure, why not.
+<</dialog>>
+
+<<dialog "brother">>
+(Handing you a controller)
+Awesome. Fair warning, I'm super competitive even in co-op.
+(Grinning)
+But I'll go easy on you.
+<</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Patting the space next to him)
+Come here. I want to show you something I've been working on.
+<</dialog>>
+
+<<narrative>>
+You sit close, shoulders touching as he navigates through his game. His hand occasionally brushes yours on the armrest.
+<</narrative>>
+
+<<dialog "brother">>
+(Voice soft)
+This is nice. Just us, no distractions. Wish it could always be like this.
+(Glancing at you)
+You make everything better, you know that?
+<</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        },
+
+        /* Topic 2: School Life */
+        school_life: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Relieved)
+Thank god for summer. No classes, no stress.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Stretching)
+Three months of freedom. No professors, no deadlines. Just gaming and hanging with you.
+<</dialog>>
+
+<<dialog "player">>
+Sounds like a good plan.
+<</dialog>>
+
+<<dialog "brother">>
+(Smiling)
+Best part of summer is getting to see you every day. School means I'm busy all the time.
+<</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Thoughtful)
+You know what I realized? School keeps me busy most of the year. I hate it.
+<</dialog>>
+
+<<dialog "player">>
+It's only a few months.
+<</dialog>>
+
+<<dialog "brother">>
+(Intense)
+Every day feels like forever when I can't be around you as much. I count down until vacation.
+(Touching your arm)
+Until I can come back to this.
+<</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            }
+        },
+
+        /* Topic 3: Sleep */
+        sleep: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Casual)
+Been staying up till 4 AM. Summer schedule is great.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Yawning)
+I don't even know what a normal sleep schedule is anymore. Yesterday I woke up at 2 PM.
+<</dialog>>
+
+<<dialog "player">>
+That's terrible for you.
+<</dialog>>
+
+<<dialog "brother">>
+(Grinning)
+Maybe. But night time is peaceful. Just me, my games, and... thoughts of you.
+<</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(2 a.m., standing in your doorway)
+Can't sleep… again.
+<</dialog>>
+
+<<dialog "player">>
+Brother, it's late…
+<</dialog>>
+
+<<dialog "brother">>
+(Voice hoarse)
+I keep thinking about how your room is so close. How easy it would be to just…
+(Swallows hard)
+Would you hate me… if I asked to stay here tonight?
+(Not looking at you)
+Just… to be near you.
+<</dialog>>`,
+                friendship: 5,
+                trust: 5,
+                love: 5
+            }
+        },
+
+        /* Topic 4: Hobbies */
+        hobbies: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Showing off)
+Added more RGB. Looks sick, right?
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Enthusiastic)
+I'm thinking of building a second PC. Maybe we could do it together? I'll teach you everything.
+<</dialog>>
+
+<<dialog "player">>
+That sounds fun actually.
+<</dialog>>
+
+<<dialog "brother">>
+(Excited)
+Yeah? Awesome. It'll be our project. Just you and me.
+<</dialog>>`,
+                friendship: 3,
+                trust: 3
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Showing you something on his computer)
+I've been learning to code. Want to know why?
+<</dialog>>
+
+<<dialog "player">>
+Why?
+<</dialog>>
+
+<<dialog "brother">>
+(Earnest)
+I want to make a game. For you. About us.
+(Blushing)
+Something that shows how I feel. How special you are to me.
+<</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 3
+            }
+        },
+
+        /* Topic 5: Sibling Relationship / Growing Up Together */
+        sibling: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Relaxed)
+Our family is great. I love spending summer here.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Nostalgic)
+Remember our family road trips when we were kids? Dad would get lost, mom would stress, and we'd just laugh in the back seat.
+<</dialog>>
+
+<<dialog "player">>
+We always had each other.
+<</dialog>>
+
+<<dialog "brother">>
+(Soft smile)
+Still do. Always will.
+<</dialog>>`,
+                friendship: 3,
+                trust: 3,
+                love: 1
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Quiet, serious)
+What would you say if I told you I don't think of you as just a sibling anymore?
+<</dialog>>
+
+<<dialog "player">>
+What do you mean?
+<</dialog>>
+
+<<dialog "brother">>
+(Taking your hand)
+I mean... being siblings is supposed to be simple. Safe. But what I feel for you is anything but simple.
+(Squeezing your hand)
+It's terrifying. And I can't stop it.
+<</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 4
+            }
+        },
+
+        /* Topic 6: Future */
+        future: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Shrugging)
+Future's whatever. Not thinking about it during summer.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Thoughtful)
+I've been thinking... maybe go to a school closer to home. Stay local.
+<</dialog>>
+
+<<dialog "player">>
+Really? I thought you wanted to go away.
+<</dialog>>
+
+<<dialog "brother">>
+(Looking at you)
+It's fine. But being far from home... from you... it's harder than I thought.
+<</dialog>>`,
+                friendship: 3,
+                trust: 3,
+                love: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Desperate)
+I'm choosing a local school. I don't care about the rankings or the programs. I need to stay close.
+<</dialog>>
+
+<<dialog "player">>
+Brother, you can't make life decisions based on—
+<</dialog>>
+
+<<dialog "brother">>
+(Interrupting)
+Based on what? The person who matters most to me? Yes, I can.
+(Voice cracking)
+I'd give up everything to stay near you. Everything.
+<</dialog>>`,
+                friendship: 5,
+                trust: 5,
+                love: 4
+            }
+        },
+
+        /* Topic 7: Movies/Shows */
+        movies_shows: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Casual)
+Been binging shows all week. Summer is great.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Excited)
+I started this new series. It's about—wait, you have to watch it with me. No spoilers.
+<</dialog>>
+
+<<dialog "player">>
+When?
+<</dialog>>
+
+<<dialog "brother">>
+(Hopeful)
+Tonight? We could make popcorn, turn off the lights... make it a thing?
+<</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Pulling you onto the couch, closer than necessary)
+Horror marathon. You can use me as a shield if it gets scary.
+<</dialog>>
+
+<<narrative>>
+He drapes his arm around your shoulders, pulling you close. It feels like more than sibling comfort.
+<</narrative>>
+
+<<dialog "brother">>
+(Whispering near your ear)
+You know, the scary parts aren't the reason I want you this close.
+<</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        },
+
+        /* Topic 8: Outside Friends */
+        outside_friends: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Shrugging)
+Friends texted about hanging out. Might meet up.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Checking his phone)
+My school friends want to hit up the mall tomorrow. You want to come?
+<</dialog>>
+
+<<dialog "player">>
+With your school friends?
+<</dialog>>
+
+<<dialog "brother">>
+(Grinning)
+Yeah. I want them to meet you. Show you off a bit.
+<</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Declining a call)
+That's the third time they've called today.
+<</dialog>>
+
+<<dialog "player">>
+You should go hang out with them.
+<</dialog>>
+
+<<dialog "brother">>
+(Turning to you)
+Why would I do that when you're right here? They're just... noise. You're the only person I actually want to be around.
+(Intense)
+The only person I need.
+<</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 3
+            }
+        },
+
+        /* Topic 9: Being Home / Family Life */
+        being_home: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Casual)
+Summer here is way better than being bored. Our parents are okay.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Reminiscing)
+Remember when we used to have pillow fights? You'd always cheat and hit me when I wasn't looking.
+<</dialog>>
+
+<<dialog "player">>
+You were bigger! I had to even the odds.
+<</dialog>>
+
+<<dialog "brother">>
+(Playful)
+Want to go again? For old times' sake?
+(Softer)
+I miss those days sometimes.
+<</dialog>>`,
+                friendship: 3,
+                trust: 3,
+                love: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Out of nowhere, quiet)
+If we weren't… you know… *siblings*…
+Would you ever…?
+<</dialog>>
+
+<<dialog "player">>
+Would I ever what?
+<</dialog>>
+
+<<dialog "brother">>
+(Frustrated, hands in hair)
+God. You know what.
+(Almost pleading)
+Living in the same house, seeing you every single day, wanting things I shouldn't want…
+It's fucking torture.
+<</dialog>>`,
+                friendship: 5,
+                trust: 5,
+                love: 5
+            }
+        },
+
+        /* Topic 10: Dating (peak forbidden confession) */
+        dating: {
+            tier1: {
+                text: `<<dialog "brother">>
+(Dismissive)
+Still not dating. Whatever.
+<</dialog>>`,
+                friendship: 2
+            },
+            tier2: {
+                text: `<<dialog "brother">>
+(Thoughtful)
+My friends keep saying I should get a girlfriend. I keep telling them I'm not interested.
+<</dialog>>
+
+<<dialog "player">>
+Why aren't you?
+<</dialog>>
+
+<<dialog "brother">>
+(Looking directly at you)
+Because I already found the person I want. It's just... complicated.
+<</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            tier3: {
+                text: `<<dialog "brother">>
+(Breaking)
+I can't pretend anymore.
+<</dialog>>
+
+<<dialog "player">>
+Pretend what?
+<</dialog>>
+
+<<dialog "brother">>
+(Grabbing both your hands, shaking)
+That I only love you like a brother.
+That I don't want to kiss you until we can't breathe.
+That I don't dream about touching you in ways that would destroy our family if anyone knew.
+(Desperate whisper)
+I love you. I'm *in love* with you.
+And I hate myself for it… but I can't stop.
+<</dialog>>`,
+                friendship: 5,
+                trust: 5,
+                love: 6   // can go beyond normal cap if you want ultimate confession point
+            }
+        }
+    }
+}>>

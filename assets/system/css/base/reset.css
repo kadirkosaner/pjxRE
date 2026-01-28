@@ -1,0 +1,128 @@
+/* ============================================
+   BASE/RESET.CSS
+   Body, Base Styles & Global Avatar
+   ============================================ */
+
+/* ================== BODY & BASE =================== */
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* ================== LOCATION BACKGROUNDS =================== */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30vh;
+  background-image: var(--location-bg-image, none);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30vh;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 30%,
+    rgba(0, 0, 0, 0.6) 60%,
+    rgba(0, 0, 0, 0.85) 85%,
+    var(--color-bg-primary) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+
+body[data-location]::before,
+body[data-location]::after {
+  opacity: 1;
+}
+
+/* ================== GLOBAL AVATAR STYLES =================== */
+.character-avatar,
+.character-card-inner .character-avatar,
+.relations-avatar,
+.relations-profile-avatar,
+.map-resident-card .resident-avatar,
+.message-avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-bg-tertiary);
+  position: relative;
+}
+
+.character-avatar img,
+.character-card-inner .character-avatar img,
+.relations-avatar img,
+.relations-profile-avatar img,
+.map-resident-card .resident-avatar img,
+.message-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.character-avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 0.75rem;
+  border: 2px solid var(--color-border-secondary);
+}
+
+.character-card-inner .character-avatar {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 0.5rem;
+  border: 2px solid var(--color-border-secondary);
+  transition: border-color var(--transition-fast);
+}
+
+.relations-avatar {
+  width: 80px;
+  height: 80px;
+}
+
+.relations-profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.map-resident-card .resident-avatar {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.message-avatar {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, var(--color-border-primary), #2a2a2a);
+  flex-shrink: 0;
+}

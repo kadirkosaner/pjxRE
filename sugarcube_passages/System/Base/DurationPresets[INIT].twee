@@ -1,0 +1,107 @@
+<<script>>
+/* =====================================================================
+   DURATION PRESETS - Time options for btnPicker macro
+   =====================================================================
+   
+   Usage in passages:
+   <<btnPicker "Watch TV" "watchTV" "tvDuration">>
+   
+   Then in the target passage:
+   <<advanceTime $selectedDuration>>
+   
+   ===================================================================== */
+
+setup.durationPresets = {
+    /* ==========================================
+       ENTERTAINMENT
+       ========================================== */
+    "tvDuration": [
+        { label: "15 min", value: 15 },
+        { label: "30 min", value: 30 },
+        { label: "45 min", value: 45 },
+        { label: "1 hour", value: 60 }
+    ],
+    
+    "gamingDuration": [
+        { label: "30 min", value: 30 },
+        { label: "1 hour", value: 60 },
+        { label: "2 hours", value: 120 },
+        { label: "3 hours", value: 180 }
+    ],
+    
+    "readingDuration": [
+        { label: "15 min", value: 15 },
+        { label: "30 min", value: 30 },
+        { label: "1 hour", value: 60 }
+    ],
+    
+    /* ==========================================
+       SLEEP & REST
+       ========================================== */
+    "sleepDuration": [
+        { label: "6 hours", value: 360 },
+        { label: "7 hours", value: 420 },
+        { label: "8 hours", value: 480 },
+        { label: "9 hours", value: 540 }
+    ],
+    
+    "napDuration": [
+        { label: "15 min", value: 15 },
+        { label: "30 min", value: 30 },
+        { label: "45 min", value: 45 },
+        { label: "1 hour", value: 60 }
+    ],
+    
+    /* ==========================================
+       SHORT ACTIVITIES
+       ========================================== */
+    "shortActivity": [
+        { label: "5 min", value: 5 },
+        { label: "10 min", value: 10 },
+        { label: "15 min", value: 15 },
+        { label: "20 min", value: 20 }
+    ],
+    
+    "mediumActivity": [
+        { label: "15 min", value: 15 },
+        { label: "30 min", value: 30 },
+        { label: "45 min", value: 45 },
+        { label: "1 hour", value: 60 }
+    ],
+    
+    /* ==========================================
+       EXERCISE & FITNESS
+       ========================================== */
+    "workoutDuration": [
+        { label: "30 min", value: 30 },
+        { label: "45 min", value: 45 },
+        { label: "1 hour", value: 60 },
+        { label: "1.5 hours", value: 90 }
+    ],
+    
+    "yogaDuration": [
+        { label: "15 min", value: 15 },
+        { label: "30 min", value: 30 },
+        { label: "45 min", value: 45 },
+        { label: "1 hour", value: 60 }
+    ],
+    
+    /* ==========================================
+       HYGIENE
+       ========================================== */
+    "showerDuration": [
+        { label: "5 min", value: 5 },
+        { label: "10 min", value: 10 },
+        { label: "15 min", value: 15 },
+        { label: "20 min", value: 20 }
+    ],
+    
+    "bathDuration": [
+        { label: "15 min", value: 15 },
+        { label: "30 min", value: 30 },
+        { label: "45 min", value: 45 },
+        { label: "1 hour", value: 60 }
+    ]
+};
+
+<</script>>

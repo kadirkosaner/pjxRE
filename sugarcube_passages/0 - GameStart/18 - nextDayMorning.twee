@@ -1,0 +1,268 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    <div class="prologue-content-area">
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Next Day</div>
+        <h1 class="prologue-title">Morning</h1>
+        <div class="prologue-header-line"></div>
+      </div>
+
+      <<narrative "Morning">>
+        Sunlight hits your face. You open your eyes.
+      <</narrative>>
+
+      <<narrative>>
+        For a moment, you forget where you are. Then you remember.
+      <</narrative>>
+
+      <<narrative>>
+        New house.
+      <</narrative>>
+      
+      <<narrative>>
+        You sit up, look around. The room looks different in daylight—less intimidating, almost welcoming.
+      <</narrative>>
+
+      <<narrative>>
+        You get out of bed, stretch. Through the window, you can see the street coming to life. People leaving for work, a jogger passing by, a dog walker.
+      <</narrative>>
+      
+      <<narrative>>
+        Life. Movement. The city waking up.
+      <</narrative>>
+
+      <<narrative>>
+        You take a quick shower, get dressed, head downstairs.
+      <</narrative>>
+
+      <<image "assets/content/locations/maplewood/familyHouse/fhKitchen.webp" "100%">>
+
+      <<narrative>>
+       The smell of coffee greets you. Mom's already up, moving around the kitchen. Dad sits at the table, reading something on his phone. Your brother's there too, still half-asleep, picking at a piece of toast.
+      <</narrative>>
+
+      <<dialog "mother">>
+        (brightly) Morning. How'd you sleep?
+      <</dialog>>
+      
+      <<dialog "player">>
+        Okay.
+      <</dialog>>
+
+      <<narrative>>
+        She pours you coffee without asking. Remembers how you like it.
+      <</narrative>>
+      
+      <<narrative>>
+        You sit down. The table feels strange—same furniture, different kitchen.
+      <</narrative>>
+
+      <<dialog "father">>
+        (looking up from his phone) Morning. Ready for today?
+      <</dialog>>
+      
+      <<dialog "player">>
+        (shrugging) I guess.
+      <</dialog>>
+
+      <<narrative>>
+        Breakfast is quiet. Comfortable quiet, not awkward.
+      <</narrative>>
+      
+      <<dialog "father">>
+        (checking his watch) Alright, we need to head out soon.
+      <</dialog>>
+
+      <<dialog "brother">>
+        (groaning) Do I have to?
+      <</dialog>>
+      
+      <<dialog "father">>
+        (firmly) Yes. Registration can't wait.
+      <</dialog>>
+
+      <<narrative>>
+        They finish eating, stand up. Dad grabs his keys from the counter.
+      <</narrative>>
+      
+      <<dialog "father">>
+        We'll be back by 3 or 4. Depends on traffic.
+      <</dialog>>
+
+      <<dialog "mother">>
+        Drive safe.
+      <</dialog>>
+      
+      <<narrative>>
+        Dad pauses by your chair.
+      <</narrative>>
+
+      <<dialog "father">>
+        You okay here?
+      <</dialog>>
+      
+      <<dialog "player">>
+        Yeah.
+      <</dialog>>
+
+      <<dialog "father">>
+        Good.
+      <</dialog>>
+      
+      <<narrative>>
+        He ruffles your hair like he used to when you were little.
+      <</narrative>>
+      
+      <<dialog "father">>
+        We'll be back soon.
+      <</dialog>>
+
+      <<narrative>>
+        Your brother waves vaguely, already halfway out the door.
+      <</narrative>>
+      
+      <<narrative>>
+        Then they're gone.
+      <</narrative>>
+
+      <<narrative>>
+        The house feels emptier suddenly. Just you and mom.
+      <</narrative>>
+      
+      <<dialog "mother">>
+        (clearing breakfast dishes) Want to help me organize a bit?
+      <</dialog>>
+
+      <<dialog "player">>
+        Sure.
+      <</dialog>>
+
+      <<narrative "Time Passes">>
+        You spend the next few hours moving boxes, arranging things, making the house feel more like home. It's mundane work but somehow comforting. Normal.
+      <</narrative>>
+      
+      <<narrative>>
+        Mom talks while she works—about the neighborhood, the grocery store she found online, plans for the week. You half-listen, half-focus on the task at hand.
+      <</narrative>>
+
+      <<narrative "15:22">>
+        Then she checks her phone.
+      <</narrative>>
+
+      <<dialog "mother">>
+        Oh, it's already past 3. Time flies. (She looks at you) Actually, honey, can you do me a favor?
+      <</dialog>>
+      
+      <<dialog "player">>
+        What?
+      <</dialog>>
+
+      <<dialog "mother">>
+        Run to the corner shop? We need milk and bread.
+      <</dialog>>
+
+      <<narrative>>
+        She pulls out her wallet, hands you a twenty.
+      <</narrative>>
+      
+      <<dialog "mother">>
+        This should be enough. Keep the change.
+      <</dialog>>
+
+      <<dialog "player">>
+        (taking the money) Okay.
+      <</dialog>>
+      
+      <<narrative>>
+        She glances at your clothes.
+      <</narrative>>
+
+      <<dialog "mother">>
+        And... maybe change first? You're going out.
+      <</dialog>>
+      
+      <<narrative>>
+        Right. You're still in the comfortable clothes you threw on this morning.
+      <</narrative>>
+
+      <<dialog "player">>
+        Okay.
+      <</dialog>>
+      
+      <<narrative>>
+        You head upstairs to your room.
+      <</narrative>>
+      
+      <<narrative>>
+        Time to get dressed properly.
+      <</narrative>>
+
+      <<narrative>>
+        Time to step outside for the first time.
+      <</narrative>>
+      
+      <<narrative>>
+        Time to see what this new city really looks like.
+      <</narrative>>
+
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-primary">Go to your room</span>' "fhBedroom">>
+          <<set $timeSys.year = 2025>>
+          <<set $timeSys.month = 8>>      /* August */
+          <<set $timeSys.day = 15>>       /* Mid-August */
+          <<set $timeSys.weekday = 4>>    /* Friday */
+          <<set $timeSys.hour = 15>>      /* 3 PM */
+          <<set $timeSys.minute = 22>>    /* 3:22 PM */
+
+          /* Ensure wardrobe is properly initialized */
+          <<if !$wardrobe or !$wardrobe.owned or $wardrobe.owned.length === 0>>
+            <<set $wardrobe = {
+              owned: ["tshirt_white_owned", "jeans_blue_owned", "sneakers_flat_owned", "socks_white_owned", "panties_white_owned", "bra_sport_white_owned", "leggings_black_owned", "bra_black_owned", "dress_summer_owned", "panties_pink_owned", "sandals_owned", "sneakers_girly_owned", "pajama_color_owned", "socks_black_owned", "tshirt_blue_owned"],
+              outfits: [null, null, null, null],
+              equipped: {
+                top: "tshirt_white_owned",
+                bottom: "jeans_blue_owned",
+                shoes: "sneakers_flat_owned",
+                socks: "socks_white_owned",
+                panty: "panties_white_owned",
+                bra: "bra_sport_white_owned"
+              }
+            }>>
+          <</if>>
+          
+          /* Re-enable UI */
+          <<set $hideTopbarNav = false>>
+          <<set $hideTopbarTimebox = false>>
+          <<set $hideTopbarNotifications = false>>
+          <<set $hideRightbar = false>>
+          <<set $hideTopbar = false>>
+          <<set $discoveredStoreCorner = true>>
+          <<run $('body').removeClass('fullscreen-centered')>>
+          
+          /* Update character locations */
+          <<updateCharacterLocations>>
+          
+          /* Mark prologue as complete (for quest requirements) */
+          <<set $prologue_complete = true>>
+          
+          /* Ensure map is hidden until Marcus gives it */
+          <<set $hideRightbarMap = true>>
+          
+          /* Mother gives money for groceries */
+          <<earnMoney 20>>
+          
+          /* Start the first quest (Quest System V2) */
+          <<startQuest "first_shopping">>
+        <</link>>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>

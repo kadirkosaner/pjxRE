@@ -1,0 +1,17 @@
+<<silently>>
+    <<set $location = "fhKitchen">>
+    <<advanceTime 5>>
+    <<loseStat "thirst" 100>>
+    <<run window.notifySuccess("Thirst Quenched")>>
+<</silently>>
+
+<<narrative "Drink Water">>
+You grab a glass from the cupboard and fill it with cool, refreshing water. You drink it down, feeling satisfied.
+<</narrative>>
+
+<<vid "assets/content/scenes/maplewood/FamilyHouse/kitchen/drinkWater.mp4" "100%">>
+
+
+<div class="location-actions">
+    <<btn "Finish" "fhKitchen">><</btn>>
+</div>

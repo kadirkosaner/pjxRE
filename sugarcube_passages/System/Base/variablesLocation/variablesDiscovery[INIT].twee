@@ -1,0 +1,179 @@
+/* ==========================================
+   LOCATION DISCOVERY FLAGS
+   Controls which locations are visible in navigation
+   Set to false to hide, true or undefined to show
+   ========================================== */
+
+<<nobr>>
+/* Default: Only FamilyHouse is discovered at start */
+
+/* ==========================================
+   MAPLEWOOD - Start Area (Discovered)
+   ========================================== */
+<<set $discoveredMaplewood = true>>
+<<set $discoveredFamilyHouse = true>>
+<<set $discoveredFhDownstairs = true>>
+<<set $discoveredFhUpperstairs = true>>
+<<set $discoveredFhBedroom = true>>
+<<set $discoveredFhWardrobe = true>>
+<<set $discoveredFhKitchen = true>>
+<<set $discoveredFhLivingroom = true>>
+<<set $discoveredFhBrotherRoom = true>>
+<<set $discoveredFhUpperBath = true>>
+<<set $discoveredFhDownbath = true>>
+<<set $discoveredFhParentsRoom = true>>
+<<set $discoveredFhParentsBath = true>>
+<<set $discoveredFhBackyard = true>>
+
+/* Maplewood neighborhood - needs discovery */
+<<set $discoveredMapleChurch = false>>
+<<set $discoveredStoreCorner = false>>
+<<set $discoveredSunsetPark = false>>
+
+/* ==========================================
+   DOWNTOWN - Needs Discovery
+   ========================================== */
+<<set $discoveredDownTown = false>>
+<<set $discoveredSkyline = false>>
+<<set $discoveredBank = false>>
+<<set $discoveredCityHall = false>>
+<<set $discoveredHospital = false>>
+<<set $discoveredHotel = false>>
+<<set $discoveredNightClub = false>>
+<<set $discoveredRestaurantDowntown = false>>
+
+/* Mall */
+<<set $discoveredMall = false>>
+<<set $discoveredFloorGround = false>>
+<<set $discoveredFloorSecond = false>>
+<<set $discoveredFloorThird = false>>
+<<set $discoveredStoreClothingA = false>>
+<<set $discoveredStoreCosmetics = false>>
+<<set $discoveredStoreElectronics = false>>
+<<set $discoveredStoreShoeA = false>>
+<<set $discoveredStoreSports = false>>
+<<set $discoveredStoreBags = false>>
+<<set $discoveredStoreClothingB = false>>
+<<set $discoveredStoreClothingC = false>>
+<<set $discoveredStoreJewelry = false>>
+<<set $discoveredStoreLingerieA = false>>
+<<set $discoveredStoreLingerieB = false>>
+<<set $discoveredStoreShoeB = false>>
+<<set $discoveredFoodCourtMall = false>>
+<<set $discoveredSalonBeautyMall = false>>
+<<set $discoveredTheatreMovie = false>>
+
+/* Tower A */
+<<set $discoveredTowerA = false>>
+<<set $discoveredRecreationCenter = false>>
+<<set $discoveredCourtBasketball = false>>
+<<set $discoveredCourtVolleyball = false>>
+<<set $discoveredGym = false>>
+
+/* Tower B & C */
+<<set $discoveredTowerB = false>>
+<<set $discoveredTowerC = false>>
+<<set $discoveredJazzClub = false>>
+<<set $discoveredPethouseSuite = false>>
+<<set $discoveredRestaurantRoof = false>>
+<<set $discoveredRoofTopLounge = false>>
+
+/* ==========================================
+   HILLCREST - Needs Discovery
+   ========================================== */
+<<set $discoveredHillcrest = false>>
+<<set $discoveredGalleryArt = false>>
+<<set $discoveredGolfClub = false>>
+<<set $discoveredGolfCourse = false>>
+<<set $discoveredGolfRestaurant = false>>
+<<set $discoveredGolfSpa = false>>
+<<set $discoveredStreetFifth = false>>
+<<set $discoveredBarWine = false>>
+<<set $discoveredBoutiqueA = false>>
+<<set $discoveredBoutiqueB = false>>
+<<set $discoveredBoutiqueC = false>>
+<<set $discoveredRestaurantLuxury = false>>
+<<set $discoveredSalonBeautyFifth = false>>
+
+/* ==========================================
+   MARINA BAY - Needs Discovery
+   ========================================== */
+<<set $discoveredMarinaBay = false>>
+<<set $discoveredMarina = false>>
+<<set $discoveredBeach = false>>
+<<set $discoveredBeachBar = false>>
+<<set $discoveredBeachClub = false>>
+<<set $discoveredBeachVolleyball = false>>
+<<set $discoveredPier = false>>
+<<set $discoveredPierIcecream = false>>
+<<set $discoveredRestaurantBeach = false>>
+
+/* ==========================================
+   OLD TOWN - Needs Discovery
+   ========================================== */
+<<set $discoveredOldTown = false>>
+<<set $discoveredCivicCenter = false>>
+<<set $discoveredTownHall = false>>
+<<set $discoveredHighSchool = false>>
+<<set $discoveredLibraryOldtown = false>>
+<<set $discoveredPharmacy = false>>
+<<set $discoveredPoliceStation = false>>
+<<set $discoveredPostOffice = false>>
+<<set $discoveredDinerRubys = false>>
+<<set $discoveredShopBarber = false>>
+<<set $discoveredShopCoffeeOldtown = false>>
+<<set $discoveredStoreBook = false>>
+<<set $discoveredStoreHardware = false>>
+
+/* ==========================================
+   UNIVERSITY DISTRICT - Needs Discovery
+   ========================================== */
+<<set $discoveredUniversityDistrict = false>>
+<<set $discoveredCampus = false>>
+<<set $discoveredCafeteriaUni = false>>
+<<set $discoveredDormsUni = false>>
+<<set $discoveredFratHouse = false>>
+<<set $discoveredLectureHall = false>>
+<<set $discoveredLibraryUni = false>>
+<<set $discoveredSororityHouse = false>>
+<<set $discoveredStudentBar = false>>
+
+/* ==========================================
+   SOUTHSIDE - Needs Discovery
+   ========================================== */
+<<set $discoveredSouthside = false>>
+<<set $discoveredApartmentComplex = false>>
+<<set $discoveredCornerBlock = false>>
+<<set $discoveredLaundromat = false>>
+<<set $discoveredOldFactory = false>>
+<<set $discoveredShopPawn = false>>
+<<set $discoveredStoreLiquor = false>>
+
+/* ==========================================
+   SUBURBS - Needs Discovery
+   ========================================== */
+<<set $discoveredSuburbs = false>>
+<<set $discoveredApartmentsSuburbs = false>>
+<<set $discoveredHouseCrack = false>>
+<<set $discoveredMotelSuburbs = false>>
+<<set $discoveredThePit = false>>
+<<set $discoveredGangTerritory = false>>
+<<set $discoveredDealerCorner = false>>
+<<set $discoveredWallGraffiti = false>>
+
+/* ==========================================
+   RED LIGHT CENTER - Needs Discovery
+   ========================================== */
+<<set $discoveredRedLightCenter = false>>
+<<set $discoveredAlleyBack = false>>
+<<set $discoveredBarGloryHole = false>>
+<<set $discoveredBarNeon = false>>
+<<set $discoveredBasementEntrance = false>>
+<<set $discoveredClubPrivate = false>>
+<<set $discoveredClubStrip = false>>
+<<set $discoveredMotelRedLight = false>>
+<<set $discoveredParlorMassage = false>>
+<<set $discoveredRoomsPrivate = false>>
+<<set $discoveredStoreAdult = false>>
+
+<</nobr>>

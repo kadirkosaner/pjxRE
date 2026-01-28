@@ -1,0 +1,217 @@
+/* ============================================
+   LAYOUT/TOPBAR.CSS
+   Top bar, navbar, timebox
+   ============================================ */
+/*#region TOP BAR */
+.top-bar-wrapper {
+  position: fixed;
+  top: var(--spacing-xl);
+  left: 0;
+  right: var(--rightbar-width);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  z-index: 100;
+  padding: 0 var(--spacing-xl);
+}
+
+.left-section {
+  justify-self: start;
+}
+
+.center-section {
+  justify-self: center;
+}
+
+.right-section {
+  display: none;
+}
+
+.mainmenu-btn {
+  width: 45px;
+  height: 45px;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+.mainmenu-btn:hover {
+  border-color: var(--color-text-tertiary);
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  overflow: visible;
+}
+
+.navbar-left,
+.navbar-right {
+  height: 60px;
+  display: flex;
+  border: 1px solid var(--color-border-secondary);
+  overflow: visible;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+.navbar-left {
+  border-right: none;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+.navbar-right {
+  border-left: none;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.nav-item {
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--color-border-secondary);
+  color: var(--color-text-tertiary);
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.nav-item:last-child {
+  border-right: none;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #aaa;
+}
+
+.relations-notification-dot {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  margin-left: -4px;
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+  pointer-events: none;
+  animation: top-dot-pulse 2s infinite;
+}
+
+@keyframes top-dot-pulse {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 5px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.navbar-bottom-left,
+.navbar-bottom-right {
+  position: absolute;
+  top: 100px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 0;
+  background: transparent;
+  overflow: visible !important;
+}
+
+.navbar-bottom-left {
+  left: -0.5rem;
+  width: 200px;
+  justify-content: flex-end;
+}
+
+.navbar-bottom-right {
+  right: -0.5rem;
+  width: 200px;
+  justify-content: flex-start;
+}
+
+.navbar-bottom-left .icon,
+.navbar-bottom-right .icon {
+  color: var(--color-text-primary);
+}
+
+.timebox {
+  height: 90px;
+  min-width: 280px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-xl);
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+.time-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.time-line {
+  color: #888;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+
+.time-arrow {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 6px;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+.time-arrow:hover:not(:disabled) {
+  border-color: var(--color-border-secondary);
+  color: #aaa;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.time-arrow:disabled,
+.time-arrow.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: var(--color-border-secondary);
+  color: var(--color-border-secondary);
+}
+
+.time-arrow:disabled .icon,
+.time-arrow.disabled .icon {
+  background-color: var(--color-text-tertiary);
+}
+
+/*#endregion */

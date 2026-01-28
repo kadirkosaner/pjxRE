@@ -1,0 +1,262 @@
+<<nobr>>
+/* ==========================================
+   SHOPPING SYSTEM WIDGETS
+   Handles shop display, cart, and checkout
+========================================== */
+
+
+/* ==========================================
+   GET ITEM BY ID
+   Helper to find item from database
+   Usage: <<getItem "energy_drink">>
+   Returns: Sets _item to the item object or null
+========================================== */
+<<widget "getItem">>
+    <<set _itemId = $args[0]>>
+    <<set _item = null>>
+    <<for _category range Object.keys(setup.items)>>
+        <<for _i range setup.items[_category]>>
+            <<if _i.id === _itemId>>
+                <<set _item = _i>>
+                <<break>>
+            <</if>>
+        <</for>>
+        <<if _item !== null>><<break>><</if>>
+    <</for>>
+<</widget>>
+
+
+/* ==========================================
+   GET ITEMS BY IDS
+   Returns items from database by their IDs
+   Usage: <<getItemsByIds ["energy_drink", "coffee", "sandwich"]>>
+   Returns: Sets _shopItems to array of full item objects
+   
+   Use in shop passages like:
+   <<set _itemList = ["energy_drink", "coffee"]>>
+   <<getItemsByIds _itemList>>
+========================================== */
+<<widget "getItemsByIds">>
+    <<set _itemIds = $args[0]>>
+    <<set _shopItems = []>>
+    <<for _itemId range _itemIds>>
+        <<getItem _itemId>>
+        <<if _item !== null>>
+            <<set _shopItems.push(_item)>>
+        <</if>>
+    <</for>>
+<</widget>>
+
+
+/* ==========================================
+   ADD TO CART
+   Adds item to shopping cart
+   Usage: <<addToCart "energy_drink" 1>>
+========================================== */
+<<widget "addToCart">>
+    <<set _itemId = $args[0]>>
+    <<set _qty = $args[1] || 1>>
+    <<getItem _itemId>>
+    <<if _item !== null>>
+        /* Check if already in cart */
+        <<set _found = false>>
+        <<for _idx, _cartItem range $shoppingCart>>
+            <<if _cartItem.id === _itemId>>
+                <<set $shoppingCart[_idx].quantity += _qty>>
+                <<set _found = true>>
+                <<break>>
+            <</if>>
+        <</for>>
+        /* If not found, add new entry */
+        <<if !_found>>
+            <<set $shoppingCart.push({
+                id: _itemId,
+                quantity: _qty,
+                price: _item.price
+            })>>
+        <</if>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   REMOVE FROM CART
+   Removes item from shopping cart
+   Usage: <<removeFromCart "energy_drink">>
+========================================== */
+<<widget "removeFromCart">>
+    <<set _itemId = $args[0]>>
+    <<set $shoppingCart = $shoppingCart.filter(function(item) {
+        return item.id !== _itemId;
+    })>>
+<</widget>>
+
+
+/* ==========================================
+   UPDATE CART QUANTITY
+   Changes quantity of item in cart
+   Usage: <<updateCartQty "energy_drink" 3>>
+========================================== */
+<<widget "updateCartQty">>
+    <<set _itemId = $args[0]>>
+    <<set _newQty = $args[1]>>
+    <<if _newQty <= 0>>
+        <<removeFromCart _itemId>>
+    <<else>>
+        <<for _idx, _cartItem range $shoppingCart>>
+            <<if _cartItem.id === _itemId>>
+                <<set $shoppingCart[_idx].quantity = _newQty>>
+                <<break>>
+            <</if>>
+        <</for>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   GET CART TOTAL
+   Calculates total price of cart
+   Returns: Sets _cartTotal to total price
+========================================== */
+<<widget "getCartTotal">>
+    <<set _cartTotal = 0>>
+    <<for _cartItem range $shoppingCart>>
+        <<set _cartTotal += _cartItem.price * _cartItem.quantity>>
+    <</for>>
+<</widget>>
+
+
+/* ==========================================
+   CLEAR CART
+   Empties the shopping cart
+========================================== */
+<<widget "clearCart">>
+    <<set $shoppingCart = []>>
+<</widget>>
+
+
+/* ==========================================
+   CHECKOUT WITH CASH
+   Processes purchase using cash
+   Returns: Sets _checkoutSuccess to true/false
+========================================== */
+<<widget "checkoutCash">>
+    <<getCartTotal>>
+    <<set _checkoutSuccess = false>>
+    <<if _cartTotal > 0 && $cashBalance >= _cartTotal>>
+        <<spendCash _cartTotal>>
+        <<if _transactionSuccess>>
+            /* Add items to inventory */
+            <<for _cartItem range $shoppingCart>>
+                <<addToInventory _cartItem.id _cartItem.quantity>>
+            <</for>>
+            <<clearCart>>
+            <<set _checkoutSuccess = true>>
+        <</if>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   CHECKOUT WITH CARD
+   Processes purchase using bank card
+   Returns: Sets _checkoutSuccess to true/false
+========================================== */
+<<widget "checkoutCard">>
+    <<getCartTotal>>
+    <<set _checkoutSuccess = false>>
+    <<if _cartTotal > 0 && $bankBalance >= _cartTotal>>
+        <<spendCard _cartTotal>>
+        <<if _transactionSuccess>>
+            /* Add items to inventory */
+            <<for _cartItem range $shoppingCart>>
+                <<addToInventory _cartItem.id _cartItem.quantity>>
+            <</for>>
+            <<clearCart>>
+            <<set _checkoutSuccess = true>>
+        <</if>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   ADD TO INVENTORY
+   Adds item to player's inventory
+   Usage: <<addToInventory "energy_drink" 2>>
+========================================== */
+<<widget "addToInventory">>
+    <<set _itemId = $args[0]>>
+    <<set _qty = $args[1] || 1>>
+    /* Check if already in inventory */
+    <<set _found = false>>
+    <<for _idx, _invItem range $inventory>>
+        <<if _invItem.id === _itemId>>
+            <<set $inventory[_idx].quantity += _qty>>
+            <<set _found = true>>
+            <<break>>
+        <</if>>
+    <</for>>
+    /* If not found, add new entry */
+    <<if !_found>>
+        <<set $inventory.push({
+            id: _itemId,
+            quantity: _qty
+        })>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   REMOVE FROM INVENTORY
+   Removes item from player's inventory
+   Usage: <<removeFromInventory "energy_drink" 1>>
+========================================== */
+<<widget "removeFromInventory">>
+    <<set _itemId = $args[0]>>
+    <<set _qty = $args[1] || 1>>
+    <<for _idx, _invItem range $inventory>>
+        <<if _invItem.id === _itemId>>
+            <<set $inventory[_idx].quantity -= _qty>>
+            <<if $inventory[_idx].quantity <= 0>>
+                <<set $inventory.deleteAt(_idx)>>
+            <</if>>
+            <<break>>
+        <</if>>
+    <</for>>
+<</widget>>
+
+
+/* ==========================================
+   USE ITEM
+   Uses a consumable item and applies effects
+   Usage: <<useItem "energy_drink">>
+   Returns: Sets _useSuccess to true/false
+========================================== */
+<<widget "useItem">>
+    <<set _itemId = $args[0]>>
+    <<set _useSuccess = false>>
+    /* Check if in inventory */
+    <<set _hasItem = false>>
+    <<for _invItem range $inventory>>
+        <<if _invItem.id === _itemId && _invItem.quantity > 0>>
+            <<set _hasItem = true>>
+            <<break>>
+        <</if>>
+    <</for>>
+    <<if _hasItem>>
+        <<getItem _itemId>>
+        <<if _item !== null && _item.category === "consumable">>
+            /* Apply effects */
+            <<for _effect range _item.effects>>
+                <<if _effect.type === "instant">>
+                    <<set State.variables[_effect.stat] += _effect.value>>
+                <</if>>
+            <</for>>
+            /* Remove from inventory */
+            <<removeFromInventory _itemId 1>>
+            <<set _useSuccess = true>>
+        <</if>>
+    <</if>>
+<</widget>>
+
+<</nobr>>

@@ -1,0 +1,409 @@
+/* ============================================
+   SYSTEMS/RELATIONS.CSS
+   Relations modal, cards, profiles
+   ============================================ */
+
+/*#region RELATIONS SYSTEM */
+.relations-view {
+  min-height: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.relations-view::-webkit-scrollbar {
+  width: 8px;
+}
+
+.relations-view::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+.relations-view::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+.relations-view::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+.relations-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.relations-group {
+  background: #0f0f0f;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.relations-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  cursor: pointer;
+
+  user-select: none;
+}
+
+.relations-group-header:hover {
+  background: #1a1a1a;
+}
+
+.relations-group-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.relations-group-name {
+  flex: 1;
+  font-size: 15px;
+  color: #e0e0e0;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.relations-group-count {
+  font-size: 11px;
+  color: #666;
+  background: #1a1a1a;
+  padding: 4px 10px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.relations-collapse-icon {
+  font-size: 12px;
+  color: #666;
+
+  flex-shrink: 0;
+}
+
+.relations-group.expanded .relations-collapse-icon {
+  transform: rotate(180deg);
+}
+
+.relations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.relations-group.expanded .relations-grid {
+  max-height: 1000px;
+  padding: 16px;
+}
+
+.relations-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.relations-card:hover {
+  background: #1a1a1a;
+  border-color: #333;
+  transform: translateY(-2px);
+}
+
+.relations-avatar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.relations-card:hover .relations-avatar::after {
+  border-color: #ec4899;
+}
+
+.relations-card-name {
+  font-size: 14px;
+  color: #e0e0e0;
+  font-weight: 500;
+  text-align: center;
+}
+
+.relations-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.relations-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.relations-detail-title {
+  color: #e0e0e0;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.relations-profile {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  background: #0f0f0f;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+}
+
+.relations-profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.relations-profile-name {
+  font-size: 24px;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.relations-profile-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #999;
+}
+
+.relations-profile-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.relations-profile-status-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #1a1a1a;
+}
+
+.relations-profile-status,
+.relations-profile-firstmet {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.relations-profile-status-label,
+.relations-profile-firstmet-label {
+  color: #666;
+  font-weight: 400;
+}
+
+.relations-profile-status-value,
+.relations-profile-firstmet-value {
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.relations-stats-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: #0f0f0f;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+}
+
+.relations-stats-header {
+  font-size: 14px;
+  color: #e0e0e0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.relations-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.relations-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.relations-stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.relations-stat-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #e0e0e0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.relations-stat-value {
+  font-size: 13px;
+  color: #999;
+  font-weight: 500;
+}
+
+.relations-stat-bar {
+  height: 8px;
+  background: #0a0a0a;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #1a1a1a;
+}
+
+.relations-stat-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 4px;
+}
+
+.relations-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: #0f0f0f;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+}
+
+.relations-info-header {
+  font-size: 14px;
+  color: #e0e0e0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.relations-info-content {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.6;
+}
+
+.relations-info-content p {
+  margin: 0 0 12px 0;
+}
+
+.relations-info-content p:last-child {
+  margin-bottom: 0;
+}
+
+/*#endregion */
+
+/* ================== PERCEPTION SECTION =================== */
+.relations-perception-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: #0f0f0f;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+}
+
+.relations-perception-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.relations-perception-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.relations-perception-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.relations-perception-tier {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.relations-perception-desc {
+  font-size: 13px;
+  color: #999;
+  font-style: italic;
+  padding-left: 22px;
+}
+
+/* ================== RELATIONS MODAL OVERRIDE =================== */
+#relations-modal {
+  max-width: 1200px;
+  width: 95%;
+}
+
+/* Make tutorial banner look like the map one (full bleed) */
+[data-modal="relations-modal"] .modal-content {
+  padding: 0;
+}
+
+[data-modal="relations-modal"] .tab-content-inner {
+  height: 100%;
+}
+
+[data-modal="relations-modal"] #relations-tutorial-banner {
+  margin-bottom: 0;
+  border-radius: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Re-add padding to the actual views since we removed it from modal-content */
+.relations-view {
+  min-height: 400px;
+  max-height: 600px; /* Increased height */
+  overflow-y: auto;
+  padding: var(--spacing-lg); /* Padding moved here */
+  padding-right: 8px;
+}

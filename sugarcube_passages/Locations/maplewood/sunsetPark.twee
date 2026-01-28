@@ -1,0 +1,18 @@
+<<nobr>>
+<<set $location = "sunsetPark">>
+<<updateCharacterLocations>>
+<</nobr>>
+
+<<narrative "Sunset Park">>
+A beautiful park with walking paths, benches, and a small pond. Perfect for an afternoon stroll or watching the sunset.
+<</narrative>>
+
+<<showLocationChars "sunsetPark">>
+<<questPrompts>>
+<div class="location-actions">
+	<<parkActions>>
+</div>
+
+<<navMenu>>
+	<<navCard "maplewood">>
+<</navMenu>>

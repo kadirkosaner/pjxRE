@@ -1,0 +1,47 @@
+/* ============================================
+   UTILS/ANIMATIONS.CSS
+   Animations, keyframes, responsive
+   ============================================ */
+
+/*#region RESPONSIVE MEDIA QUERIES */
+@media (min-width: 2400px) {
+  :root {
+    --topbar-offset: 210px;
+    --rightbar-width: 420px;
+    --font-scale: 1.15;
+    --spacing-scale: 1.15;
+  }
+}
+
+@media (max-width: 1920px) and (min-width: 1600px) {
+  :root {
+    --topbar-offset: 165px;
+    --rightbar-width: 320px;
+    --font-scale: 0.95;
+    --spacing-scale: 0.92;
+  }
+}
+
+@media (max-width: 1599px) and (min-width: 1200px) {
+  :root {
+    --topbar-offset: 145px;
+    --rightbar-width: 280px;
+    --font-scale: 0.88;
+    --spacing-scale: 0.85;
+  }
+
+  .saveload-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1199px) {
+  :root {
+    --topbar-offset: 125px;
+    --rightbar-width: 240px;
+    --font-scale: 0.8;
+    --spacing-scale: 0.75;
+  }
+}
+
+/*#endregion */

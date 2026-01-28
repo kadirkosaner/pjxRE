@@ -1,0 +1,93 @@
+:: SkillDecay [widget nobr]
+/* ==========================================
+   SKILL DECAY WIDGETS
+   Hybrid decay system with usage tracking
+========================================== */
+
+/* TRACK SKILL USAGE */
+/* Usage: <<trackSkillUsage "mental" "research">> */
+<<widget "trackSkillUsage">>
+    <<set _category = $args[0]>>
+    <<set _skillName = $args[1]>>
+    
+    /* Initialize skillUsageTracking if undefined (backward compatibility) */
+    <<if !$skillUsageTracking>>
+        <<set $skillUsageTracking = {
+            mental: {}, social: {}, physical: {},
+            creative: {}, technical: {}, practical: {}
+        }>>
+    <</if>>
+    
+    /* Record current day as last usage */
+    <<if $skillUsageTracking[_category]>>
+        <<set $skillUsageTracking[_category][_skillName] = $timeSys.day>>
+    <</if>>
+<</widget>>
+
+
+/* APPLY SKILL DECAY */
+/* Called daily from <<advanceDay>> */
+/* Hybrid algorithm: category-based + level-based + usage tracking */
+<<widget "applySkillDecay">>
+    /* Only if setting is enabled */
+    <<if !$gameSettings.skillDecay>>
+        <<return>>
+    <</if>>
+    
+    /* Define category-based decay rates (days until -1) */
+    <<set _decayRates = {
+        mental: 10,
+        technical: 10,
+        social: 7,
+        creative: 7,
+        physical: 5,
+        practical: 5
+    }>>
+    
+    /* Current day for usage check */
+    <<set _currentDay = $timeSys.day>>
+    
+    /* Loop through all skill categories */
+    <<for _category, _skillsObj range $skills>>
+        <<set _baseDecayDays = _decayRates[_category] || 7>>
+        
+        /* Loop through skills in this category */
+        <<for _skillName, _skillValue range _skillsObj>>
+            /* Skip if skill is 0 (can't decay below 0) */
+            <<if _skillValue <= 0>>
+                <<continue>>
+            <</if>>
+            
+            /* Check last usage */
+            <<set _lastUsedDay = $skillUsageTracking[_category][_skillName] || 0>>
+            <<set _daysSinceUse = _currentDay - _lastUsedDay>>
+            
+            /* If used in last 7 days, skip decay */
+            <<if _daysSinceUse < 7>>
+                <<continue>>
+            <</if>>
+            
+            /* Calculate level-based multiplier */
+            <<set _levelMultiplier = 1.0>>
+            <<if _skillValue <= 30>>
+                <<set _levelMultiplier = 0.7>>  /* Beginners: 10×0.7=7 days (faster decay) */
+            <<elseif _skillValue >= 71>>
+                <<set _levelMultiplier = 1.5>>  /* Experts: 10×1.5=15 days (slower decay) */
+            <</if>>
+            
+            /* Calculate actual decay threshold */
+            <<set _decayThreshold = Math.round(_baseDecayDays * _levelMultiplier)>>
+            
+            /* Apply decay if threshold reached */
+            <<if _daysSinceUse >= _decayThreshold>>
+                /* Calculate how many points to decay */
+                <<set _decayAmount = Math.floor(_daysSinceUse / _decayThreshold)>>
+                
+                /* Apply decay (minimum 0) */
+                <<set $skills[_category][_skillName] = Math.max(0, _skillValue - _decayAmount)>>
+                <<set _displayName = _skillName.charAt(0).toUpperCase() + _skillName.slice(1)>>
+                <<run window.notifyWarning(_displayName + " -" + _decayAmount + " (Decay)")>>
+            <</if>>
+        <</for>>
+    <</for>>
+<</widget>>

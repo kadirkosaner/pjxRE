@@ -1,0 +1,16 @@
+/* ==========================================
+   QUEST SYSTEM V2 - STATE INITIALIZATION
+   Initializes $questState for quest tracking
+========================================== */
+
+:: QuestState [init]
+/* Initialize quest state tracking */
+<<set $questState = {
+    active: {},      // { questId: { stage: 0, objectives: {}, triggeredStage: -1, startDate: "1/1/2025" } }
+    completed: [],   // ["questId1", "questId2", ...]
+    failed: [],      // ["questId3", ...]
+    daily: {}        // { questId: { lastCompleted: "2025-01-15", completionCount: 3 } }
+}>>
+
+/* Current quest context (used during forced scenes) */
+<<set $currentQuest = null>>

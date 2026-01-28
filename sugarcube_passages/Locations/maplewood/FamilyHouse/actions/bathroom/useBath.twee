@@ -1,0 +1,36 @@
+<<silently>>
+    <<set $location = "fhUpperBath">>
+    <<advanceTime 20>>
+    <<gainStat "hygiene" 100>>
+    <<run window.notifySuccess("Hygiene Restored")>>
+    <<gainStat "energy" 5>>
+    <<loseStat "stress" 10>>
+    <<set _sceneIndex = random(1, 3)>>
+<</silently>>
+
+<<narrative "Shower">>
+You step into the bathroom and lock the door behind you. Turning the faucet, you wait a moment for the water to warm up before stripping off your clothes.
+
+Stepping under the spray, you let the hot water run over your body, relaxing your muscles. You lather up the soap and scrub away the grime, feeling completely refreshed.
+<</narrative>>
+
+<<if _sceneIndex == 1>>
+    <<narrative "Shower">>
+    The steam rises as the heat sinks into your body...
+    <</narrative>>
+    <<vid "assets/content/scenes/maplewood/FamilyHouse/bathroom/shower/shower1.mp4" "60%">>
+<<elseif _sceneIndex == 2>>
+    <<narrative>>
+    The hot water relaxes your muscles...
+    <</narrative>>
+    <<vid "assets/content/scenes/maplewood/FamilyHouse/bathroom/shower/shower2.mp4" "60%">>
+<<elseif _sceneIndex == 3>>
+    <<narrative>>
+    The heat clings to your skin, slow and comforting...
+    <</narrative>>
+    <<vid "assets/content/scenes/maplewood/FamilyHouse/bathroom/shower/shower3.mp4" "100%">>
+<</if>>
+
+<div class="location-actions">
+    <<btn "Finish & Dry Off" "fhUpperBath">><</btn>>
+</div>

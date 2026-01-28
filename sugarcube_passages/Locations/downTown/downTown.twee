@@ -1,0 +1,23 @@
+<<nobr>>
+<<set $location = "downTown">>
+<</nobr>>
+
+<<updateCharacterLocations>>
+
+<<narrative "Downtown">>
+The bustling heart of the city. Towering skyscrapers, busy streets, and endless opportunities await. The sound of traffic and city life fills the air.
+<</narrative>>
+
+<<showLocationChars "downtown">>
+
+<<navMenu>>
+	<<navCard "cityHall">>
+	<<navCard "nightClub">>
+	<<navCard "restaurantDowntown">>
+    <<navCard "mall">>
+	<<navCard "skyline">>
+	<<navCard "maplewood">>
+	<<navCard "oldTown">>
+	<<navCard "marinaBay">>
+	<<navCard "redLightCenter">>
+<</navMenu>>

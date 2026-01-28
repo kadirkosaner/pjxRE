@@ -1,0 +1,26 @@
+<<nobr>>
+<<set $location = "fhUpperBath">>
+<<updateCharacterLocations>>
+<</nobr>>
+
+<<bathroomEntry "fhUpperBath" "Upstairs Bathroom" "fhUpperstairs">>
+
+<<if !State.temporary.bathroomCheck.someoneShowering>>
+    /* No one showering - normal bathroom */
+    <<narrative "Upstairs Bathroom">>
+    A clean, shared bathroom with a shower and basic amenities. The mirror reflects the morning light.
+    <</narrative>>
+
+    <<nobr>>
+    <<showLocationChars "fhUpperBath">>
+    <div class="location-actions">
+        <<btn "Take a Shower" "useBath">><</btn>>
+        <<btn "Use Toilet" "useToilet">><</btn>>
+        <<btn "Wash Face" "washFace">><</btn>>
+    </div>
+
+    <<navMenu>>
+        <<navCard "fhUpperstairs">>
+    <</navMenu>>
+    <</nobr>>
+<</if>>

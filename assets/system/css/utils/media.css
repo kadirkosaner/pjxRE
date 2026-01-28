@@ -1,0 +1,92 @@
+/* ============================================
+   UTILS/MEDIA.CSS
+   Media container styles for Video and Image macros
+   ============================================ */
+
+.video-container {
+  display: block;
+  margin: 2rem auto; /* Increased spacing */
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md, 12px); /* Increased radius */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15); /* Stronger premium shadow */
+  background-color: var(--color-bg-secondary, #000);
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+}
+
+/* Ensure content fills container */
+.video-container video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md, 12px); /* Match container */
+  object-fit: cover; /* Ensure fill */
+}
+
+/* Play overlay for video (from vid macro logic) */
+.play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* Let clicks pass through to container */
+}
+
+.play-overlay.hidden {
+  opacity: 0;
+}
+
+.video-play-btn {
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.video-container:hover .video-play-btn {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.video-play-btn .icon {
+  font-size: 32px;
+  color: #fff;
+  margin-left: 4px; /* Optical center */
+}
+
+/* ============================================
+   SCENE IMAGE - <<image>> macro
+   ============================================ */
+.scene-image-wrapper {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin: 2rem 0 !important;
+}
+
+.scene-image {
+  display: inline-block !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15) !important;
+}
+
+.scene-image-inner {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 12px !important;
+}

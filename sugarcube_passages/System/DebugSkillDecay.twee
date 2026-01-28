@@ -1,0 +1,67 @@
+:: DebugSkillDecay
+<h1>🔍 Skill Decay Debug</h1>
+
+<<set _currentDay = $timeSys.day>>
+
+<h2>Current Day: <<print _currentDay>></h2>
+
+<h3>Skill Usage Tracking Status</h3>
+<p><strong>$skillUsageTracking exists:</strong> <<print !!$skillUsageTracking>></p>
+
+<<if $skillUsageTracking>>
+    <h4>Mental Skills:</h4>
+    <ul>
+        <<for _skillName, _lastDay range $skillUsageTracking.mental>>
+            <li><<print _skillName>>: Last used Day <<print _lastDay>> (<<print _currentDay - _lastDay>> days ago)</li>
+        <</for>>
+    </ul>
+    
+    <h4>Physical Skills:</h4>
+    <ul>
+        <<for _skillName, _lastDay range $skillUsageTracking.physical>>
+            <li><<print _skillName>>: Last used Day <<print _lastDay>> (<<print _currentDay - _lastDay>> days ago)</li>
+        <</for>>
+    </ul>
+<</if>>
+
+<h3>Current Skill Values</h3>
+<h4>Mental:</h4>
+<ul>
+    <li>Research: <<print $skills.mental.research>></li>
+    <li>Problem Solving: <<print $skills.mental.problemSolving>></li>
+    <li>Analysis: <<print $skills.mental.analysis>></li>
+</ul>
+
+<h4>Physical:</h4>
+<ul>
+    <li>Sports: <<print $skills.physical.sports>></li>
+    <li>Dance: <<print $skills.physical.dance>></li>
+    <li>Yoga: <<print $skills.physical.yoga>></li>
+</ul>
+
+<h3>Decay Calculation Test</h3>
+<<set _mentalBase = 10>>
+<<set _physicalBase = 5>>
+<<set _researchValue = $skills.mental.research>>
+<<set _sportsValue = $skills.physical.sports>>
+
+<p><strong>Mental (Research: <<print _researchValue>>):</strong></p>
+<<if _researchValue <= 30>>
+    <p>Multiplier: 0.7, Threshold: <<print Math.round(_mentalBase * 0.7)>> days</p>
+<<elseif _researchValue >= 71>>
+    <p>Multiplier: 1.5, Threshold: <<print Math.round(_mentalBase * 1.5)>> days</p>
+<<else>>
+    <p>Multiplier: 1.0, Threshold: <<print _mentalBase>> days</p>
+<</if>>
+
+<p><strong>Physical (Sports: <<print _sportsValue>>):</strong></p>
+<<if _sportsValue <= 30>>
+    <p>Multiplier: 0.7, Threshold: <<print Math.round(_physicalBase * 0.7)>> days</p>
+<<elseif _sportsValue >= 71>>
+    <p>Multiplier: 1.5, Threshold: <<print Math.round(_physicalBase * 1.5)>> days</p>
+<<else>>
+    <p>Multiplier: 1.0, Threshold: <<print _physicalBase>> days</p>
+<</if>>
+
+<hr>
+<p>[[Back to SystemTest|SystemTest]]</p>

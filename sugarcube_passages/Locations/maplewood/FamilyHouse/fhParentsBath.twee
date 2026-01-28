@@ -1,0 +1,25 @@
+<<nobr>>
+<<set $location = "fhParentsBath">>
+<<updateCharacterLocations>>
+<</nobr>>
+
+<<bathroomEntry "fhParentsBath" "Parents Bathroom" "fhParentsRoom">>
+
+<<if !State.temporary.bathroomCheck.someoneShowering>>
+    /* No one showering - normal bathroom */
+    <<narrative "Parents Bathroom">>
+    A luxurious en-suite bathroom connected to the master bedroom. A large bathtub and marble counters speak of comfort.
+    <</narrative>>
+
+    <<nobr>>
+    <<showLocationChars "fhParentsBath">>
+
+    <div class="location-actions">
+        <<btn "Take a Shower" "useParentsBath">><</btn>>
+    </div>
+
+    <<navMenu>>
+        <<navCard "fhParentsRoom">>
+    <</navMenu>>
+    <</nobr>>
+<</if>>

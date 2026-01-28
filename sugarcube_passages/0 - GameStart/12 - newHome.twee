@@ -1,0 +1,122 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    <div class="prologue-content-area">
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Present Day</div>
+        <h1 class="prologue-title">Home</h1>
+        <div class="prologue-header-line"></div>
+      </div>
+
+      <<image "assets/content/locations/maplewood/familyHouse/fhLivingroom.webp" "100%">>
+      
+      <<narrative "Inside">>
+        You step through the front door. Everyone does.
+      <</narrative>>
+      
+      <<narrative>>
+        Dad turns the key, the door swings open. Mom enters first, then dad, you, your brother trailing behind.
+      <</narrative>>
+      
+      <<dialog "mother">>
+        (stopping in the entryway, taking it in) Wow... It's really done.
+      <</dialog>>
+      
+      <<dialog "father">>
+        (setting down his bag) Not bad. Better than I thought it'd look.
+      <</dialog>>
+      
+      <<narrative>>
+        The living room is larger than the old one. Familiar furniture—the couch, coffee table, TV—arranged in this new space. Everything's here but it feels different. Whiter walls, higher ceilings, more light.
+      <</narrative>>
+      
+      <<narrative>>
+        Through the window, you can see the street. Different trees. Different cars. Different sounds.
+      <</narrative>>
+      
+      <<dialog "mother">>
+        (heading for the kitchen) I need to check the fridge. Put away what we bought on the road.
+      <</dialog>>
+      
+      <<dialog "brother">>
+        (looking around, antsy) Where are the rooms?
+      <</dialog>>
+      
+      <<dialog "father">>
+        Upstairs. Left side is yours, right side is your sister's.
+      <</dialog>>
+      
+      <<narrative>>
+        Your brother nods and heads for the stairs immediately. Dad turns back toward the door to get the remaining bags.
+      <</narrative>>
+      
+      <<narrative>>
+        You pause in the living room, alone for a moment.
+      <</narrative>>
+      
+      <<narrative>>
+        This is it. This is home now.
+      <</narrative>>
+      
+      <<narrative>>
+        The house smells new—paint, wood polish, cleaning products. Not the familiar smell of the old house, the one that meant safety, comfort, everything you knew.
+      <</narrative>>
+
+      <<image "assets/content/locations/maplewood/familyHouse/fhDownstairs.webp" "100%">>
+      
+      <<narrative>>
+        You walk to the stairs. Wooden steps, shiny railing. Everything looks barely lived in.
+      <</narrative>>
+      
+      <<narrative>>
+        From below, you hear your parents—bags rustling, cabinet doors opening, mom's voice: "Did you pack the coffee?"
+      <</narrative>>
+      
+      <<narrative>>
+        You start climbing.
+      <</narrative>>
+      
+      <<narrative>>
+        Each step feels significant. Like crossing a threshold. Leaving something behind. Moving toward something unknown.
+      <</narrative>>
+      
+      <<narrative>>
+        At the top, the hallway stretches out. Cream walls, still empty. No pictures yet, no memories marked on these walls.
+      <</narrative>>
+      
+      <<narrative>>
+        Your brother's already in his room—door half-open, music playing faintly.
+      <</narrative>>
+      
+      <<narrative>>
+        Your room is at the end of the hall. On the right.
+      <</narrative>>
+      
+      <<narrative>>
+        The door is slightly ajar.
+      <</narrative>>
+
+      <<image "assets/content/locations/maplewood/familyHouse/fhBedroom.webp" "100%">>
+      
+      <<narrative>>
+        You can see inside—bed made, desk positioned by the window, your closet already installed. Dad must have arranged everything before you arrived.
+      <</narrative>>
+      
+      <<narrative>>
+        You push the door open wider and step inside.
+      <</narrative>>
+      
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-primary">Enter Your Room</span>' "prologueBedroom">><</link>>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>

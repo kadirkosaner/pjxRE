@@ -1,0 +1,21 @@
+<<silently>>
+    <<set $location = "fhKitchen">>
+    <<advanceTime 20>>
+    <<loseStat "hunger" 50>>
+    <<loseStat "thirst" 100>>
+    <<run window.notifySuccess("Hunger & Thirst Restored")>>
+    <<gainStat "energy" 5>>
+    <<loseStat "stress" 5>>
+<</silently>>
+
+<<narrative "Eat Food">>
+You prepare a quick meal and sit down to eat. The food is warm and filling, satisfying your hunger. 
+
+Taking your time, you enjoy the meal, feeling your energy return as your body processes the nutrients.
+<</narrative>>
+
+<<vid "assets/content/scenes/maplewood/familyHouse/kitchen/eatFood.mp4" "60%">>
+
+<div class="location-actions">
+    <<btn "Finish" "fhKitchen">><</btn>>
+</div>

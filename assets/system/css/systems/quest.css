@@ -1,0 +1,45 @@
+/* ========================================
+   QUEST PROMPTS - Centered glowing buttons
+   Shows quest triggers as prominent buttons
+   ======================================== */
+
+/* Container for quest prompts */
+.quest-prompts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+}
+
+/* Quest button style - yellow text with outer glow */
+.btn-quest {
+  color: var(--color-quest) !important;
+  border-color: var(--color-quest) !important;
+  background: transparent !important;
+  box-shadow: 0 0 20px rgba(var(--color-quest-rgb), 0.4);
+  animation: quest-glow-pulse 2s ease-in-out infinite;
+  padding: 0.6rem 1.2rem !important;
+  font-size: 0.8rem !important;
+  max-width: 280px;
+  letter-spacing: 0.5px;
+}
+
+.btn-quest:hover {
+  background: var(--color-quest) !important;
+  color: #000 !important;
+  border-color: var(--color-quest) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px rgba(var(--color-quest-rgb), 0.6);
+}
+
+/* Glow pulse animation */
+@keyframes quest-glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(var(--color-quest-rgb), 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(var(--color-quest-rgb), 0.5);
+  }
+}

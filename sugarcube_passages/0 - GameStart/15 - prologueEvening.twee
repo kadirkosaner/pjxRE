@@ -1,0 +1,194 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    <div class="prologue-content-area">
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Present Day</div>
+        <h1 class="prologue-title">Evening</h1>
+        <div class="prologue-header-line"></div>
+      </div>
+
+      <<narrative>>
+        Mom stands up from the couch, stretching.
+      <</narrative>>
+
+      <<dialog "mother">>
+        (heading toward the kitchen) Let's order pizza. First night, no need to cook.
+      <</dialog>>
+      
+      <<dialog "father">>
+        (looking up) Good idea. What should we get?
+      <</dialog>>
+
+      <<dialog "mother">>
+        (calling back) Two large. One five-cheese, $player.firstName likes that.
+      <</dialog>>
+      
+      <<narrative>>
+        A small smile touches your face. She remembered.
+      <</narrative>>
+
+      <<dialog "father">>
+        And the other?
+      <</dialog>>
+      
+      <<dialog "mother">>
+        Meat lovers. Pepperoni, sausage, whatever they have. For $characters.brother.firstName.
+      <</dialog>>
+
+      <<dialog "father">>
+        (pulling out his phone) Alright, calling now.
+      <</dialog>>
+      
+      <<narrative>>
+        Mom comes back from the kitchen, looking at you.
+      <</narrative>>
+
+      <<dialog "mother">>
+        $player.firstName, go get your brother. Tell him we ordered pizza.
+      <</dialog>>
+      
+      <<narrative>>
+        You nod and head back toward the stairs.
+      <</narrative>>
+      
+      <<narrative>>
+        The climb up feels different now. Lighter, maybe. Pizza. A family tradition—first night in a new place, always pizza.
+      <</narrative>>
+
+      <<image "assets/content/scenes/prologue/stairsNight.webp" "100%">>
+
+      <<narrative>>
+        In the hallway, your brother's door is still half-open.
+      <</narrative>>
+      
+      <<narrative>>
+        You knock lightly.
+      <</narrative>>
+
+      <<dialog "player">>
+        Hey.
+      <</dialog>>
+      
+      <<narrative>>
+        You peek inside.
+      <</narrative>>
+
+      <<image "assets/content/scenes/prologue/brotherRoomNight.webp" "100%">>
+
+      <<narrative>>
+        His room mirrors yours but distinctly his—blue-grey walls, sports posters already hung up, computer setup by the window. A few boxes sit unpacked by the bed.
+      <</narrative>>
+      
+      <<narrative>>
+        He's at his desk, headphones on, focused on his screen. He notices you and pulls them off.
+      <</narrative>>
+
+      <<dialog "brother">>
+        What's up?
+      <</dialog>>
+      
+      <<dialog "player">>
+        Come downstairs. We ordered pizza.
+      <</dialog>>
+
+      <<dialog "brother">>
+        (glancing back at his screen) When's it coming?
+      <</dialog>>
+      
+      <<dialog "player">>
+        30-40 minutes. Come get ready.
+      <</dialog>>
+
+      <<dialog "brother">>
+        Okay, let me finish this.
+      <</dialog>>
+      
+      <<narrative>>
+        You look around his room.
+      <</narrative>>
+
+      <<dialog "player">>
+        At least you've settled in.
+      <</dialog>>
+      
+      <<dialog "brother">>
+        (shrugging) Enough. I'll do the rest later.
+      <</dialog>>
+
+      <<dialog "player">>
+        (smiling) Sure.
+      <</dialog>>
+      
+      <<narrative>>
+        You head back downstairs.
+      <</narrative>>
+
+      <<image "assets/content/scenes/prologue/kitchenNight.webp" "100%">>
+
+      <<narrative>>
+        Mom is in the kitchen now, moving around the cabinets, pulling out plates.
+      <</narrative>>
+
+      <<dialog "mother">>
+        Did you tell him?
+      <</dialog>>
+      
+      <<dialog "player">>
+        Yeah, he's coming.
+      <</dialog>>
+
+      <<dialog "mother">>
+        Good. (handing you the plates) Let's set the table. We can eat as soon as it arrives.
+      <</dialog>>
+
+      <<narrative>>
+        You carry the plates to the dining table, start arranging them. Forks, napkins, glasses.
+      <</narrative>>
+      
+      <<narrative>>
+        Everything in its place.
+      <</narrative>>
+
+      <<narrative>>
+        Mom watches from the kitchen doorway.
+      <</narrative>>
+
+      <<dialog "mother">>
+        (softly) Our first dinner here.
+      <</dialog>>
+
+      <<narrative>>
+        There's something in her voice—nostalgia, hope, maybe a little sadness.
+      <</narrative>>
+      
+      <<dialog "player">>
+        Yeah...
+      <</dialog>>
+
+      <<dialog "mother">>
+        We'll get used to it. (more to herself) Every new beginning is like this.
+      <</dialog>>
+
+      <<narrative>>
+        You finish setting the table. Everything's ready.
+      <</narrative>>
+      
+      <<narrative>>
+        Now you wait.
+      <</narrative>>
+
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-primary">Continue</span>' "prologueDinner">><</link>>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>

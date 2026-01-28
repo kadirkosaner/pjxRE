@@ -1,0 +1,12 @@
+:: fhGarage
+<<set $location = "fhGarage">>
+<<updateCharacterLocations>>
+<<narrative "Garage">>
+The family garage is cluttered but organized. Tools line the workbench along the back wall, and boxes of holiday decorations are stacked in the corner. The smell of oil, sawdust, and old cardboard hangs in the air.
+<</narrative>>
+
+<<showLocationChars "fhGarage">>
+
+<<navMenu>>
+    <<navCard "FamilyHouse">>
+<</navMenu>>

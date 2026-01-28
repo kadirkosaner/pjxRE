@@ -1,0 +1,31 @@
+<<silently>>
+    <<logDailyActivity "mother" "yoga">>
+    /* Set location from activity origin */
+    <<set $location = $activityOrigin>>
+    
+    <<set $daily.yogaDone = true>>
+    <<advanceTime 30>>
+    <<loseStat "energy" 15>>
+    <<loseStat "stress" 15>>
+    <<gainSkill "physical" "yoga" 5>>
+    <<gainStat "friendship" 2 "mother">>
+    
+    /* Text variations */
+    <<set _variation = random(1, 2)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "\"Mind if I join you?\" Mom asks with a smile when you invite her. You spend 30 minutes going through a routine together. She's surprisingly flexible, though she laughs when she loses balance during tree pose. \"That was lovely,\" she says afterwards. \"We should do this more often.\"">>
+        <<case 2>>
+            <<set _sceneText = "Mom lights up at your invitation. \"I used to do yoga every morning before you kids came along,\" she admits. She guides you through some poses you've never tried, gently correcting your form. It's nice learning something new from her.">>
+    <</switch>>
+<</silently>>
+
+<<narrative "Yoga with Mom">>
+_sceneText
+<</narrative>>
+
+<<image "assets/content/scenes/maplewood/FamilyHouse/livingroom/yogaSetup.webp" "80%">>
+
+<div class="location-actions">
+    <<btn "Finish" $location>><</btn>>
+</div>

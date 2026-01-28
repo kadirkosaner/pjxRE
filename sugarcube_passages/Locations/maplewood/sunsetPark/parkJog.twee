@@ -1,0 +1,39 @@
+<<silently>>
+    /* Set location from activity origin */
+    <<set $location = $activityOrigin>>
+    
+    /* Run the jogging activity */
+    <<set $daily.jogDone = true>>
+    <<advanceTime 45>>
+    <<loseStat "energy" 20>>
+    <<loseStat "stress" 15>>
+    <<gainStat "cardio" 6>>
+    <<gainStat "lowerBody" 4>>
+    <<recalculateStats>>
+    
+    /* Calorie burn if tracking */
+    <<if $gameSettings.trackCalories>>
+        <<set $dailyCalorieIntake -= 300>>
+    <</if>>
+    
+    /* Text variations */
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "You start jogging along the park's running path. The fresh air fills your lungs as you find your rhythm. Other joggers pass by with a nod. By the time you finish, you're sweating but energized.">>
+        <<case 2>>
+            <<set _sceneText = "The path is perfect for running - smooth and shaded. You push yourself harder today, trying to beat your usual pace. Your legs burn but you keep going. When you finally slow to a walk, you feel accomplished.">>
+        <<case 3>>
+            <<set _sceneText = "You put in your earbuds and start your jog. The music helps you maintain a steady pace as you loop around the park. People watching, breathing fresh air, moving your body - this is exactly what you needed.">>
+    <</switch>>
+<</silently>>
+
+<<narrative "Park Jogging">>
+<<print _sceneText>>
+<</narrative>>
+
+<<image "assets/content/scenes/maplewood/park/jogging.webp" "80%">>
+
+<div class="location-actions">
+    <<btn "Finish" $location>><</btn>>
+</div>

@@ -1,0 +1,798 @@
+/* ============================================
+   SCREENS/GAMESETUP.CSS
+   Game setup, settings UI, accordions, toggles
+   ============================================ */
+/* ==========================================
+   SETTINGS UI GLOBAL STYLES
+========================================== */
+
+.settings-list {
+  display: grid;
+  gap: 20px;
+  padding: 10px;
+}
+
+.settings-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.settings-control:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.setting-toggle-btn {
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.setting-toggle-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.setting-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.setting-toggle-btn.active:hover {
+  background: #f472b6;
+}
+
+/* ==========================================
+   SETTINGS & TABS COMMON STYLES
+========================================== */
+
+.tab-content-inner {
+  padding: var(--spacing-lg);
+}
+
+.tab-content-inner h3 {
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* ==========================================
+   GAME SETUP & ACCORDION STYLES
+========================================== */
+
+.game-setup-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 12px;
+  /* Flex layout from restored settings page */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.page-subtitle {
+  text-align: center;
+  color: var(--color-text-tertiary);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.setup-header-line {
+  width: 60px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: 0 auto 1rem auto;
+}
+
+/* ==========================================
+   GAME SETUP PAGE ACCORDION
+   (Welcome page styles moved to gamestart.css)
+========================================== */
+
+.setup-accordion-item {
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-bg-secondary);
+}
+
+.setup-accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.setup-accordion-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.setup-accordion-header h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.setup-accordion-toggle {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s;
+  background-color: var(--color-accent);
+}
+
+.setup-accordion-item.active .setup-accordion-toggle {
+  transform: rotate(180deg);
+}
+
+.setup-accordion-content {
+  max-height: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  /* No transition - instant open/close */
+}
+
+.setup-accordion-item.active .setup-accordion-content {
+  max-height: none !important;
+  padding: 1.5rem !important;
+}
+
+.setup-accordion-body {
+  padding: 0;
+  border-top: none;
+}
+
+.form-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-input-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.form-input-group input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 6px;
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+  box-sizing: border-box; /* Ensure padding doesn't overflow */
+}
+
+.form-input-group input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.settings-info-note {
+  background: rgba(236, 72, 153, 0.1);
+  border-left: 3px solid var(--color-accent);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.settings-select {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 6px;
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.settings-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* ==========================================
+   SETTINGS PAGE STYLES (New)
+   For character creation & system toggles
+========================================== */
+
+/* NOTE: visual-label, visual-grid defined below in Settings Page Visual Components section */
+
+/* Visual & Color Grid Styles - Main definitions in Settings Page Visual Components section below */
+
+.visual-option:hover .visual-img {
+  border-color: var(--color-text-secondary);
+}
+
+.visual-option.selected .visual-img {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.3);
+}
+
+.color-option.selected .color-swatch {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.3);
+}
+
+/* Toggle Grid */
+.toggle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0.5rem;
+}
+
+.toggle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: var(--color-bg-tertiary); /* Lighter than secondary */
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-primary);
+}
+
+.toggle-label {
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+}
+
+.toggle-btn {
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  width: 50px;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.toggle-btn.on {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+.toggle-btn.off {
+  background: transparent;
+  color: var(--color-text-tertiary);
+  border-color: var(--color-border-secondary);
+}
+
+/* Simulation Grid (Detailed items) */
+.sim-group-title {
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 1rem 0 0.5rem 0;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--color-border-secondary);
+  grid-column: 1 / -1; /* Span full width in grid */
+}
+
+.sim-group-title:first-child {
+  margin-top: 0;
+}
+
+.sim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0.75rem;
+}
+
+.sim-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-primary);
+}
+
+.sim-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.sim-desc {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  margin-top: 0.2rem;
+}
+
+/* NOTE: .sim-group-title defined above in Simulation Grid section */
+
+/* Note Box */
+.note-box {
+  background: rgba(236, 72, 153, 0.1);
+  border-left: 3px solid var(--color-accent);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.note-box.warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-left-color: #f59e0b;
+  color: #e0e0e0;
+}
+
+/* ==========================================
+   CONFIRMATION PAGE STYLES
+   NOTE: info-grid, info-card, info-card-header, info-card-body, info-line 
+   are defined above in INFO CARD COMPONENT section
+========================================== */
+
+.info-line .label {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.info-line .value {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.separator-line {
+  height: 1px;
+  background: var(--color-border-primary);
+  margin: 1rem 0;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* --- SETTINGS PAGE LAYOUT (Restored) --- */
+/* NOTE: game-setup-container flex styles moved to main definition in GAME SETUP & ACCORDION STYLES */
+
+.settings-section {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.settings-section:hover {
+  border-color: var(--color-border-secondary);
+}
+
+.settings-section-header {
+  padding: 1rem 1.25rem;
+  background: var(--color-bg-tertiary);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s;
+}
+.settings-section-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.settings-section-body {
+  padding: 1.25rem;
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-primary);
+}
+/* NOTE: form-grid-2, form-input-group defined above in GAME SETUP section */
+
+/* NOTE: setup-accordion-toggle defined above in GAME SETUP section */
+
+/* Warning Section */
+.warning-section {
+  margin-bottom: 1.5rem;
+}
+.warning-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.warning-header h2 {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 1.25rem;
+}
+.warning-text {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.warning-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(236, 72, 153, 0.1);
+  border: 1px solid var(--color-accent);
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+/* Features Grid */
+.features-section h3 {
+  font-size: 1rem;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.feature-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-bg-tertiary);
+  border-radius: 8px;
+  text-align: left;
+}
+.feature-icon-box {
+  font-size: 1.25rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(236, 72, 153, 0.1);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.feature-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-text-primary);
+}
+.feature-desc {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+}
+
+/* Verification */
+.verification-prompt {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  text-align: center;
+}
+.verification-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.welcome-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  margin-top: 2rem;
+}
+.footer-dot {
+  opacity: 0.5;
+}
+
+/* Settings Page Visual Components */
+.visual-label {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+.color-grid {
+  display: flex;
+  gap: 0.4rem; /* Reduced from 0.75rem */
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.visual-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(100px, 1fr)
+  ); /* Slightly wider items */
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.visual-option {
+  cursor: pointer;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: all 0.2s;
+  background: var(--color-bg-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.visual-option:hover {
+  border-color: var(--color-text-tertiary);
+  transform: translateY(-2px);
+}
+
+.visual-option.selected {
+  border-color: var(--color-accent);
+  background: rgba(236, 72, 153, 0.1);
+}
+
+.visual-img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #000;
+}
+
+.visual-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: smooth;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.visual-name {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* Hair Style Section - matches other visual grids */
+.hair-style-section {
+  margin-bottom: 1.5rem;
+}
+
+.hair-style-section .visual-grid {
+  margin-bottom: 0;
+}
+
+.color-option {
+  width: auto; /* Changed from fixed 50px to allow text expansion */
+  min-width: 60px; /* Ensure minimum click target */
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem; /* Add spacing to prevent vertical overlap */
+}
+
+.color-option:hover .color-swatch {
+  border-color: var(--color-text-tertiary);
+  transform: translateY(-2px);
+}
+
+.color-option.selected {
+  background: transparent;
+  border: none;
+}
+
+.color-option.selected .color-swatch {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.3);
+}
+
+.color-swatch {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--color-border-secondary);
+  border-radius: 50%;
+  margin-bottom: 0.4rem;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.color-name {
+  text-align: center;
+  font-size: 0.75rem; /* Increased readability */
+  color: var(--color-text-tertiary);
+  width: auto; /* Allow natural width */
+  min-width: 50px;
+  max-width: 80px; /* Cap width to prevent breaking grid */
+  white-space: normal; /* Allow wrapping if needed */
+  overflow: visible;
+  line-height: 1.2;
+}
+
+/* ==========================================
+   INFO CARD COMPONENT
+   For confirmation page and info displays
+========================================== */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.info-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.info-card-header {
+  background: var(--color-bg-tertiary);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.info-card-header .icon {
+  width: 18px;
+  height: 18px;
+  background-color: var(--color-accent);
+}
+
+.info-card-body {
+  padding: 0.5rem 0;
+}
+
+.info-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.info-line:not(:last-child) {
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.info-key {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.info-val {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/* ==========================================
+   UTILITY CLASSES
+========================================== */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Spacing Utilities */
+.mt-1 {
+  margin-top: 0.5rem;
+}
+.mt-2 {
+  margin-top: 1rem;
+}
+.mt-3 {
+  margin-top: 1.5rem;
+}
+.mt-4 {
+  margin-top: 2rem;
+}
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+.mb-2 {
+  margin-bottom: 1rem;
+}
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+.mb-4 {
+  margin-bottom: 2rem;
+}
+.gap-1 {
+  gap: 0.5rem;
+}
+.gap-2 {
+  gap: 1rem;
+}
+.gap-3 {
+  gap: 1.5rem;
+}
+
+/* ==========================================
+   HEIGHT CONTROL WRAPPER
+========================================== */
+.height-control-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+}
+
+.height-control-wrapper .custom-slider-container {
+  flex: 1;
+}
+
+.height-value-display {
+  min-width: 80px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-primary);
+}

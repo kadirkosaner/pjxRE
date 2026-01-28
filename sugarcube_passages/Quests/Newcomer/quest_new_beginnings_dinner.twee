@@ -1,0 +1,139 @@
+/* ========================================
+   SCENE: FAMILY DINNER
+   ======================================== */
+<<silently>>
+<<set $location = "fhKitchen">>
+<<updateCharacterLocations>>
+
+/* Stats ve time - normal yemekle aynı */
+<<advanceTime 30>>
+<<loseStat "hunger" 50>>
+<<loseStat "thirst" 80>>
+<<gainStat "energy" 10>>
+<<loseStat "stress" 10>>
+<<earnMoney 100>>
+
+/* Mark dinner as eaten */
+<<set $familyMeals.dinner = true>>
+
+/* Relationship bonuses using gainCharacterStat widget */
+<<gainCharacterStat "mother" "friendship" 2>>
+<<gainCharacterStat "mother" "love" 1>>
+<<gainCharacterStat "father" "friendship" 2>>
+<<gainCharacterStat "father" "love" 1>>
+<<gainCharacterStat "brother" "friendship" 2>>
+<<gainCharacterStat "brother" "love" 1>>
+<</silently>>
+
+<<narrative "Kitchen - Evening">>
+You sit down at the table quietly.
+<</narrative>>
+<<narrative>>
+Mom puts food on your plate.
+<</narrative>>
+<<dialog "father">>
+(Looks at you)
+I'm sorry sweetie. I didn't want it to be like this.
+<</dialog>>
+<<dialog "player">>
+(Shrugs)
+Nothing we can do about it now.
+<</dialog>>
+<<dialog "mother">>
+(Reaches out and holds your hand)
+Don't worry, we'll figure it out.
+<</dialog>>
+<<narrative>>
+Mom gets up and goes to another room. A minute later she comes back with some cash in her hand. She puts the money in front of you.
+<</narrative>>
+<<dialog "player">>
+Mom, you don't have to...
+<</dialog>>
+<<dialog "mother">>
+(Smiles)
+Shh, it's fine. I'm your mom, don't argue. Get yourself something.
+<</dialog>>
+<<dialog "player">>
+(Takes the money)
+Okay. But where would I even go? I don't know the city yet.
+<</dialog>>
+<<dialog "mother">>
+(Smiling)
+I'm sure you'll find some places. Go out a bit, walk around, explore the city.
+<</dialog>>
+<<dialog "player">>
+I don't even know what stores are out there...
+<</dialog>>
+<<dialog "father">>
+Look it up online first.
+<</dialog>>
+<<dialog "player">>
+I don't have a computer, dad.
+<</dialog>>
+<<dialog "mother">>
+(Looks at your brother)
+Use your brother's.
+<</dialog>>
+<<narrative>>
+You look at your brother.
+<</narrative>>
+<<dialog "brother">>
+(Without looking up from his food)
+Sure, no problem.
+<</dialog>>
+<<narrative>>
+You pause for a moment.
+<</narrative>>
+<<dialog "player">>
+I want to say something by the way.
+<</dialog>>
+<<dialog "father">>
+Hm?
+<</dialog>>
+<<dialog "player">>
+I want to get a job.
+<</dialog>>
+<<dialog "brother">>
+(Looks up)
+Huh?
+<</dialog>>
+<<dialog "player">>
+It's obvious we're tight on money. I don't want to be a burden.
+<</dialog>>
+<<dialog "father">>
+You're not a burden, what are you talking about?
+<</dialog>>
+<<dialog "player">>
+I know but... still. Better than sitting around doing nothing.
+<</dialog>>
+<<dialog "mother">>
+(Smiles)
+It's up to you sweetie. Whatever you want.
+<</dialog>>
+<<dialog "father">>
+(Nods)
+Actually I think it's a good idea. You'll get to know the city, meet people.
+<</dialog>>
+<<dialog "brother">>
+(Grinning)
+What are you gonna buy me with your first paycheck?
+<</dialog>>
+<<dialog "player">>
+For you?
+<</dialog>>
+<<dialog "brother">>
+Of course for me. I'll write you a list.
+<</dialog>>
+<<dialog "player">>
+(Chuckles)
+Alright, deal.
+<</dialog>>
+<<narrative>>
+A light laugh around the table. For the first time today, the mood softens a little.
+<</narrative>>
+<<nobr>>
+<<completeQuest "new_beginnings">>
+<</nobr>>
+<div class="btn-center">
+<<btn "Get up from the table" "fhLivingroom">><</btn>>
+</div>

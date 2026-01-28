@@ -1,0 +1,143 @@
+/* ============================================
+   UI/SETTINGS.CSS
+   Settings modal controls and layout
+   ============================================ */
+
+/*#region SETTINGS LAYOUT */
+.tab-content-inner {
+  padding: 0;
+}
+
+.tab-content-inner h3 {
+  margin: 0 0 var(--spacing-lg) 0;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.settings-list {
+  display: grid;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-sm);
+}
+
+/*#endregion */
+
+/*#region SETTINGS CONTROL */
+.settings-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--white-alpha-03);
+  border: 1px solid var(--white-alpha-05);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.settings-control:hover {
+  background: var(--white-alpha-05);
+  border-color: var(--color-border-secondary);
+}
+
+.settings-control-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settings-control-label {
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--color-text-primary);
+}
+
+.settings-control-desc {
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+}
+
+/*#endregion */
+
+/*#region TOGGLE BUTTON */
+.setting-toggle-btn {
+  min-width: 60px;
+  padding: 6px 16px;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-secondary);
+  color: var(--color-text-tertiary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.setting-toggle-btn:hover {
+  border-color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
+}
+
+.setting-toggle-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.setting-toggle-btn.active:hover {
+  background: var(--color-accent-darken);
+  border-color: var(--color-accent-darken);
+}
+
+/*#endregion */
+
+/*#region VOLUME CONTROLS */
+.volume-control-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--white-alpha-03);
+  border: 1px solid var(--white-alpha-05);
+  border-radius: var(--radius-md);
+  align-items: stretch;
+}
+
+.volume-control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.volume-control-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.volume-control-label {
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--color-text-primary);
+}
+
+.volume-control-desc {
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+}
+
+.volume-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  min-width: 50px;
+  text-align: right;
+}
+
+/*#endregion */

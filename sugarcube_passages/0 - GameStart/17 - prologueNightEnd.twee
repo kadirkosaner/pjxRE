@@ -1,0 +1,202 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    <div class="prologue-content-area">
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Present Day</div>
+        <h1 class="prologue-title">First Night</h1>
+        <div class="prologue-header-line"></div>
+      </div>
+
+      <<narrative>>
+        The pizza boxes are empty. Everyone's full, tired.
+      <</narrative>>
+
+      <<dialog "father">>
+        (leaning back, patting his stomach) That was good. I can't eat another bite.
+      <</dialog>>
+
+      <<dialog "mother">>
+        (smiling) First night pizza tradition.
+      <</dialog>>
+
+      <<dialog "brother">>
+        (standing, stretching) I'm exhausted. I'm heading up.
+      <</dialog>>
+
+      <<narrative>>
+        He walks toward the stairs without waiting for a response.
+      <</narrative>>
+
+      <<dialog "mother">>
+        Good night, honey.
+      <</dialog>>
+      
+      <<dialog "brother">>
+        Night.
+      <</dialog>>
+
+      <<narrative>>
+        Dad stands too, gathering empty plates.
+      <</narrative>>
+
+      <<dialog "father">>
+        I'm going up as well. Early day tomorrow.
+      <</dialog>>
+
+      <<dialog "mother">>
+        Okay. I'll clean up a bit.
+      <</dialog>>
+
+      <<narrative>>
+        Dad pauses by your chair, rests a hand on your shoulder for a moment.
+      <</narrative>>
+
+      <<dialog "father">>
+        Good night, $player.firstName. Your first night in the new house.
+      <</dialog>>
+      
+      <<narrative>>
+        There's weight in his voice. Pride, maybe. Or sadness. Or both.
+      <</narrative>>
+
+      <<dialog "player">>
+        Good night, dad.
+      <</dialog>>
+
+      <<narrative>>
+        He heads upstairs. You and mom are alone now.
+      <</narrative>>
+
+      <<narrative>>
+        She starts clearing the table, moving quietly. You help, carrying glasses to the kitchen.
+      <</narrative>>
+
+      <<dialog "mother">>
+        (softly) You go rest too. It's been a long day.
+      <</dialog>>
+
+      <<dialog "player">>
+        (nodding) Good night, mom.
+      <</dialog>>
+
+      <<narrative>>
+        She turns, pulls you into a hug. Brief but tight.
+      <</narrative>>
+
+      <<dialog "mother">>
+        (whispering) It's going to be okay. I promise.
+      <</dialog>>
+      
+      <<narrative>>
+        You're not sure if she's trying to convince you or herself.
+      <</narrative>>
+
+      <<narrative>>
+        You pull away, head for the stairs.
+      <</narrative>>
+
+      <<narrative>>
+        The house is quieter now. Your brother's music has stopped. Dad's probably already in bed. Only mom remains downstairs, finishing up.
+      <</narrative>>
+
+      <<image "assets/content/scenes/prologue/bedroomNight.webp" "100%">>
+
+      <<narrative>>
+        You climb the stairs slowly.
+      <</narrative>>
+
+      <<narrative>>
+        At the top, you pause in the hallway. Your brother's door is closed. A thin line of light shows underneath—he's still awake, probably on his phone.
+      <</narrative>>
+
+      <<narrative>>
+        Your door is slightly open, the way you left it.
+      <</narrative>>
+
+      <<narrative>>
+        You step inside and close it behind you.
+      <</narrative>>
+
+      <<narrative>>
+        The room is dark except for the streetlight filtering through the window. You don't turn on the lamp. Instead, you walk to the bed and sit on the edge.
+      <</narrative>>
+
+      <<narrative>>
+        For a moment, you just sit there.
+      <</narrative>>
+
+      <<thought>>
+        First night. New house. New city.
+      <</thought>>
+
+      <<narrative>>
+        You change into your pajamas, climb under the covers.
+      <</narrative>>
+
+      <<narrative>>
+        The bed feels different. Firmer than your old one. The pillows smell like detergent, not like home.
+      <</narrative>>
+
+      <<narrative>>
+        You stare at the ceiling.
+      <</narrative>>
+
+      <<narrative>>
+        Back home, you could hear the old house settling, the familiar creaks and groans. Here, everything's silent. Too silent.
+      <</narrative>>
+
+      <<narrative>>
+        Your mind wanders. The old town. Your friends. That street you knew by heart. All of it's gone now—not gone, but... behind you.
+      <</narrative>>
+
+      <<thought>>
+        And ahead? Unknown.
+      <</thought>>
+
+      <<thought>>
+        But maybe that's okay.
+      <</thought>>
+
+      <<thought>>
+        Maybe.
+      <</thought>>
+
+      <<narrative>>
+        Your eyes grow heavy.
+      <</narrative>>
+
+      <<narrative>>
+        You let them close.
+      <</narrative>>
+
+      <<narrative>>
+        Tomorrow is another day. Tomorrow, you'll wake up in this new room, in this new house, in this new city.
+      <</narrative>>
+
+      <<narrative>>
+        Tomorrow, something new begins.
+      <</narrative>>
+
+      <<narrative>>
+        But for now, you sleep.
+      <</narrative>>
+
+      <div style="text-align: center; margin-top: 60px; font-size: 1.2em; color: #666; font-style: italic;">
+        First night ends...
+      </div>
+
+      <div class="prologue-btn-row" style="margin-top: 40px;">
+        <<link '<span class="prologue-btn prologue-btn-primary">Next Day</span>' "nextDayMorning">><</link>>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>

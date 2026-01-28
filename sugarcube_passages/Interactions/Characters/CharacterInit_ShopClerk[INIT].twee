@@ -1,0 +1,57 @@
+/* ==========================================
+   SHOP CLERK - Marcus
+   Friendly corner shop employee
+========================================== */
+
+/* CHARACTER DATA */
+<<set $characters.shopClerk = {
+    name: "Marcus",
+    firstName: "Marcus",
+    lastName: "Johnson",
+    birthYear: 1998,
+    occupation: "Shop Clerk",
+    location: "Quick Mart",
+    avatar: "assets/content/people/npc/shopClerk/shopClerk.jpg",
+    type: "npc",
+    color: "#f59e0b",
+    stats: {
+        love: 0,
+        friendship: 0,
+        lust: 0,
+        trust: 0
+    },
+    status: "Acquaintance",
+    firstMet: null,
+    info: "<p>A friendly young man who works at the Quick Mart convenience store. He's always helpful and welcoming to newcomers in the neighborhood.</p>",
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+/* SCHEDULE - Where is he at different times */
+<<set setup.schedules.shopClerk = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 9, location: "storeCorner", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 10, location: "storeCorner", status: "available" },
+        { hour: 20, location: null, status: "unavailable" }
+    ]
+}>>
+
+/* ACTIONS - What can you do with him at the shop */
+<<set setup.characterActions.shopClerk = {
+    storeCorner: [
+        {
+            id: "talk", label: "Talk", passage: "shopClerkTalk",
+            tags: [], requirements: {}
+        },
+        {
+            id: "askAboutCity", label: "Ask About the City", passage: "shopClerkAskCity",
+            tags: [], requirements: { friendship: 10 }
+        }
+    ]
+}>>

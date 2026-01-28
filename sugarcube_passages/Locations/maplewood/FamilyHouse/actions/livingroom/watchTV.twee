@@ -1,0 +1,220 @@
+:: WatchingTV [nobr]
+<<silently>>
+    <<set $location = "fhLivingroom">>
+    <<advanceTime $selectedDuration>>
+    <<loseStat "stress" 20>>
+    <<run window.notifySuccess("Stress Relieved")>>
+    <<loseStat "energy" 5>>
+    
+    <<set _watchingWith = $watchingWith || "alone">>
+    
+    /* Get current time period */
+    <<getPeriod>>
+    <<set _timePeriod = _period>>
+    
+    /* For image paths: morning/afternoon use "morning", evening/night use "evening" */
+    <<if _timePeriod === "morning" || _timePeriod === "afternoon">>
+        <<set _imgFolder = "morning">>
+    <<else>>
+        <<set _imgFolder = "evening">>
+    <</if>>
+    
+    /* ============================================
+       TEXT & IMAGE VARIATIONS BY CHARACTER
+       Each variation has matching text + image
+    ============================================ */
+    
+    /* ----- ALONE ----- */
+    <<if _watchingWith === "alone">>
+        <<if _imgFolder === "morning">>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "You settle onto the couch and flip through channels until you land on some sitcom rerun. A party scene plays out on screen, people laughing and mingling. It's mindless entertainment, perfect for a lazy morning.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/alone/aloneMorning1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "You curl up on the couch with nothing but the TV for company. Some feel-good movie is on - friends chatting at a cafe, sharing coffee and stories. The warm atmosphere on screen makes the empty room feel a little less quiet.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/alone/aloneMorning2.webp">>
+            <</switch>>
+        <<else>>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "The living room is dark except for the soft glow of the TV. You've stumbled upon a nature documentary - deer grazing peacefully in golden grasslands. It's oddly calming, watching wildlife while the rest of the house sleeps.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/alone/aloneNight1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "Late night TV hits different when you're alone. Some romantic drama is playing - two people sharing an intense look that promises complications. You sink deeper into the couch, letting the story wash over you.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/alone/aloneNight2.webp">>
+            <</switch>>
+        <</if>>
+    
+    /* ----- MOM ----- */
+    <<elseif _watchingWith === "mom">>
+        <<gainStat "friendship" 2 "mother">>
+        <<if _imgFolder === "morning">>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Mom's already deep into her morning drama when you join her. On screen, a couple shares an intense moment. She sighs dreamily and pats the seat next to her, eager to have someone to discuss the plot twists with.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/mom1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "You find Mom watching her favorite hospital drama. Doctors rush through corridors on screen while she leans forward, completely absorbed. 'Sit, sit!' she whispers urgently. 'You won't believe what just happened.'">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/mom2.webp">>
+            <</switch>>
+        <<else>>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Mom pats the seat beside her as you enter the room. Her favorite romantic drama is on - a couple locked in one of those will-they-won't-they moments. She's been following this show for weeks and gives you a whispered recap.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/mom1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "You find Mom watching some period drama - elaborate costumes, forbidden glances across ballrooms. She's completely enchanted by it. 'The cinematography is gorgeous,' she murmurs, making room for you on the couch.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/mom2.webp">>
+            <</switch>>
+        <</if>>
+    
+    /* ----- DAD ----- */
+    <<elseif _watchingWith === "dad">>
+        <<gainStat "friendship" 2 "father">>
+        <<if _imgFolder === "morning">>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Dad's watching some drama where people are having a heated argument. He's leaning forward, coffee forgotten in his hand. 'Politics,' he mutters as you sit down. 'Always makes for good TV.'">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/dad1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "You join your father on the couch. He's watching some action thriller - men in suits looking tense. He immediately starts explaining who's who and what's at stake. You're not sure you follow, but his enthusiasm is entertaining.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/dad2.webp">>
+            <</switch>>
+        <<else>>
+            <<set _maxVariation = 3>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Dad's claimed the couch for his evening crime drama. On screen, a tense office confrontation plays out. He watches with the focus of a detective himself, occasionally nodding as if he's figured out the plot.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/dad1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "A psychological thriller is on, and Dad's in his element. Two men face off in what looks like an interrogation room. 'This is the good part,' he whispers as you settle in beside him, eyes never leaving the screen.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/dad2.webp">>
+                <<case 3>>
+                    <<set _sceneText = "The big game is on. Dad pats the seat next to him, eager to explain the teams and the history of the rivalry. 'Your grandfather used to watch games with me like this,' he says, sharing a rare moment of nostalgia between plays.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/dad1.webp">>
+            <</switch>>
+        <</if>>
+    
+    /* ----- BROTHER ----- */
+    <<elseif _watchingWith === "brother">>
+        <<gainStat "friendship" 2 "brother">>
+        <<if _imgFolder === "morning">>
+            <<set _maxVariation = 4>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Your brother has put on some romantic movie. A couple is sharing a kiss on screen. He catches your look and shrugs defensively. 'What? It was already on.' You both pretend to be very interested in the plot.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/brother1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "You plop down next to your brother. Some sitcom rerun is on - a group of friends hanging out in their usual spot. He's seen this episode a hundred times but still laughs at all the jokes.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/brother2.webp">>
+                <<case 3>>
+                    <<set _sceneText = "Another romantic film is playing. Your brother is pretending not to pay attention, scrolling through his phone, but you notice he looks up at all the important moments. Neither of you comments on it.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/brother3.webp">>
+                <<case 4>>
+                    <<set _sceneText = "You sit down next to your brother just as things on screen start heating up. Neither of you reaches for the remote. You both stare straight ahead, pretending to be very mature about the whole situation. The silence is deafening.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/brother4.webp">>
+            <</switch>>
+        <<else>>
+            <<set _maxVariation = 3>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "You and your brother sprawl across the couch. Some sitcom is on - a group of friends getting into ridiculous situations. You both quote the punchlines before they happen, cracking up every time.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/brother1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "A romantic drama is playing, and your brother keeps making sarcastic comments about the characters' life choices. You join in, and soon you're both providing your own commentary track for the entire film.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/brother2.webp">>
+                <<case 3>>
+                    <<set _sceneText = "Some intense drama is on screen - serious conversations, meaningful looks. Your brother watches quietly for once, actually invested in the story. You settle in beside him, drawn into the plot despite yourself.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/brother3.webp">>
+            <</switch>>
+        <</if>>
+    
+    /* ----- MOM & DAD ----- */
+    <<elseif _watchingWith === "momdad">>
+        <<gainStat "friendship" 1 "mother">>
+        <<gainStat "friendship" 1 "father">>
+        <<if _imgFolder === "morning">>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Your parents are watching some home improvement show together. On screen, a family gathers in a newly renovated kitchen. Mom keeps pointing out design ideas while Dad calculates costs in his head. You squeeze in beside them.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/momdad1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "Mom and Dad are absorbed in a crime drama - someone's being interrogated on screen. They keep whispering theories to each other about who the real culprit is. You join them, adding your own wild guesses to the mix.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/momdad2.webp">>
+            <</switch>>
+        <<else>>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Both your parents are on the couch, Mom leaning against Dad. They're watching some romantic drama they've probably seen before. You curl up beside them, enjoying the familiar comfort of the moment.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/momdad1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "A cooking competition is on, and your parents are fully invested. Mom critiques the plating while Dad questions the time management. You settle in to watch the culinary chaos unfold together.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/momdad2.webp">>
+            <</switch>>
+        <</if>>
+    
+    /* ----- WHOLE FAMILY ----- */
+    <<elseif _watchingWith === "family">>
+        <<gainStat "friendship" 1 "mother">>
+        <<gainStat "friendship" 1 "father">>
+        <<gainStat "friendship" 1 "brother">>
+        <<if _imgFolder === "morning">>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "A rare lazy morning with everyone home. The whole family is gathered around the TV watching some drama. Mom's already emotional about the couple on screen, while your brother rolls his eyes and Dad pretends not to be interested.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/family1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "Weekend TV with the whole family. Some workplace drama is on - people arguing in a conference room. Dad keeps comparing it to his office, Mom says it's unrealistic, and your brother is just here for the snacks.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/family2.webp">>
+            <</switch>>
+        <<else>>
+            <<set _maxVariation = 3>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Family night in front of a reality show. Everyone has opinions about the contestants - Mom picks favorites, Dad critiques strategy, your brother mocks the drama. It's chaos, but it's your kind of chaos.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/family1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "Someone put on a cartoon movie and no one's complaining. Dad's arm is around Mom, your brother has claimed the good corner, and colorful characters bounce across the screen. Simple, wholesome family time.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/family2.webp">>
+                <<case 3>>
+                    <<set _sceneText = "A talent show is on, and the whole family is playing judge. Mom's too kind with her scores, Dad's too harsh, and you and your brother argue over who should have won. The actual winners are secondary to your family debate.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/family3.webp">>
+            <</switch>>
+        <</if>>
+    <</if>>
+    
+<</silently>>
+
+/* ============================================
+   SCENE DISPLAY
+============================================ */
+<<narrative "Watching TV">>
+_sceneText
+<</narrative>>
+
+<<image _sceneImage "100%">>
+
+<div class="location-actions">
+    <<btn "Turn Off TV" "fhCouch">><</btn>>
+</div>

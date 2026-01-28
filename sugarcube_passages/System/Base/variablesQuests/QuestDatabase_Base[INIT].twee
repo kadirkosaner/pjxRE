@@ -1,0 +1,64 @@
+/* ==========================================
+   QUEST SYSTEM V2 - DATABASE BASE
+   Initializes setup.quests object
+========================================== */
+
+:: QuestDatabase_Base [init]
+/* Initialize empty quest database */
+<<run setup.quests = {}>>
+
+/* 
+   Quest Structure Reference:
+   
+   setup.quests.questId = {
+       id: "questId",
+       title: "Quest Title",
+       category: "main" | "side" | "daily" | "event",
+       character: "charId" | null,
+       
+       requirements: {
+           flags: ["flag1", "flag2"],
+           quests: ["prevQuestId"],
+           relationships: { mother: { love: 30 } },
+           stats: { confidence: 50 }
+       },
+       
+       stages: [
+           {
+               id: "stage1",
+               title: "Stage Title",
+               desc: "Stage description",
+               
+               triggers: {
+                   location: "locationId",
+                   time: { period: "morning" | "afternoon" | "evening" | "night", hour: [8, 12] },
+                   character: { id: "charId", status: "available" },
+                   flag: "someFlag"
+               },
+               
+               requirements: { ... },  // Stage-specific requirements
+               
+               forceScene: true | false,  // Auto-redirect to passage
+               passage: "passageName",     // Target passage for forceScene
+               
+               objectives: [
+                   { id: "obj1", text: "Do something", trigger: { flag: "didIt" } }
+               ],
+               completeWhen: "allObjectives" | "anyObjective",
+               
+               onTrigger: {
+                   advanceStage: true  // Auto-advance without scene
+               }
+           }
+       ],
+       
+       onComplete: {
+           relationships: { mother: { love: 10, friendship: 5 } },
+           stats: { charisma: 5 },
+           money: 100,
+           flags: ["questComplete"],
+           notification: "Custom completion message",
+           nextQuest: "nextQuestId"
+       }
+   }
+*/

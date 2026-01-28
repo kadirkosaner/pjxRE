@@ -1,0 +1,137 @@
+/* ==========================================
+   SUGARCUBE WIDGETS - Stats Calculations
+========================================== */
+
+<<widget "updateBodyMeasurements">>
+    /* BUST SIZE MAPPING (Text -> CM) */
+    <<set _bustMap = {
+        "A": 80, "B": 85, "C": 90, "D": 95, 
+        "DD": 100, "DD+": 105, "E": 110, "F": 115, "G": 120, "H": 130,
+        "Small": 80, "Average": 90, "Large": 100, "Huge": 120, "Massive": 140
+    }>>
+    
+    <<if $player.bustSize && _bustMap[$player.bustSize]>>
+        <<set $body.bust = _bustMap[$player.bustSize]>>
+    <</if>>
+
+    /* HIP SIZE MAPPING (Text -> CM) */
+    <<set _hipMap = {
+        "Narrow": 85, "Average": 95, "Wide": 105, "Curvy": 115, "Huge": 130, "Massive": 150,
+        "Slim": 85, "Medium": 95, "Wide": 105, "Curvy": 115
+    }>>
+    
+    <<if $player.hipSize && _hipMap[$player.hipSize]>>
+        <<set $body.hips = _hipMap[$player.hipSize]>>
+    <</if>>
+
+    /* Ensure other stats exist */
+    <<if !$body.height>><<set $body.height = 170>><</if>>
+    <<if !$body.weight>><<set $body.weight = 60>><</if>>
+    <<if !$body.muscleMass>><<set $body.muscleMass = 35>><</if>>
+    <<if !$body.bodyFat>><<set $body.bodyFat = 24>><</if>>
+
+    /* WAIST CALCULATION (Since not set in settings) */
+    /* Estimate waist based on hips (approx 0.72 ratio for fem) */
+    <<if !$body.waist || $player.hipSize>>
+        <<set $body.waist = Math.round($body.hips * 0.72)>>
+    <</if>>
+
+    /* Update Body Type String (Sync with Settings logic) */
+    /* If Bust is DD(100)+ or Hips Wide(105)+ -> Curvy */
+    <<if $body.bust >= 100 || $body.hips >= 105>>
+        <<set $body.bodyType = "Curvy">>
+    <<else>>
+        <<set $body.bodyType = "Normal">>
+    <</if>>
+<</widget>>
+
+<<widget "calculateBodyAppeal">>
+    <<set _bmi = $body.weight / Math.pow($body.height / 100, 2)>>
+    <<set _whr = $body.waist / $body.hips>>
+    
+    <<set _idealBMI = 21.5>>
+    <<set _bmiDiff = Math.abs(_bmi - _idealBMI)>>
+    <<set _bmiScore = Math.max(0, 100 - (_bmiDiff * 10))>>
+    
+    <<set _idealWHR = 0.7>>
+    <<set _whrDiff = Math.abs(_whr - _idealWHR)>>
+    <<set _whrScore = Math.max(0, 100 - (_whrDiff * 200))>>
+    
+    <<set _bustHipAvg = ($body.bust + $body.hips) / 2>>
+    <<set _symmetryRatio = _bustHipAvg / $body.waist>>
+    <<set _idealSymmetry = 1.35>>
+    <<set _symDiff = Math.abs(_symmetryRatio - _idealSymmetry)>>
+    <<set _symmetryScore = Math.max(0, 100 - (_symDiff * 50))>>
+    
+    <<set _idealMuscle = 40>>
+    <<set _idealFat = 20>>
+    <<set _muscleDiff = Math.abs($body.muscleMass - _idealMuscle)>>
+    <<set _fatDiff = Math.abs($body.bodyFat - _idealFat)>>
+    <<set _compScore = (Math.max(0, 100 - (_muscleDiff * 2)) * 0.5) + (Math.max(0, 100 - (_fatDiff * 2)) * 0.5)>>
+    
+    <<set $body.appeal = Math.round((_bmiScore * 0.3) + (_whrScore * 0.3) + (_symmetryScore * 0.2) + (_compScore * 0.2))>>
+<</widget>>
+
+<<widget "calculateFitness">>
+    <<set $fitness = Math.round(($upperBody + $core + $lowerBody + $cardio) / 4)>>
+<</widget>>
+
+<<widget "calculateLooks">>
+    /* Redirect to central stat calculation (StatCalculator) */
+    <<if def "recalculateStats">>
+        <<recalculateStats>>
+    <<else>>
+        /* Fallback if StatCalculator not loaded */
+        <<calculateFitness>>
+        <<calculateBodyAppeal>>
+        <<set $looks = Math.round(($beauty * 0.3) + ($body.appeal * 0.3) + ($hygiene * 0.2) + ($clothingScore * 0.2))>>
+    <</if>>
+<</widget>>
+
+
+<<widget "dailyAppearanceUpdate">>
+    /* Hair Growth (approx 0.04cm/day = 1.2cm/month) */
+    <<if $gameSettings.hairGrowth>>
+        <<set $appearance.hairLengthCm += 0.04>>
+    <</if>>
+    
+    /* Hair Messiness */
+    <<if $gameSettings.hairMessiness>>
+        <<set $appearance.hairMessiness = Math.min(100, $appearance.hairMessiness + 15)>>
+    <</if>>
+
+    /* Body Hair Growth */
+    <<if $gameSettings.bodyHairGrowth>>
+        <<set $appearance.bodyHair.legs = Math.min(100, $appearance.bodyHair.legs + 5)>>
+        <<set $appearance.bodyHair.pubic = Math.min(100, $appearance.bodyHair.pubic + 5)>>
+        <<set $appearance.bodyHair.armpits = Math.min(100, $appearance.bodyHair.armpits + 5)>>
+    <</if>>
+
+    /* Makeup Wear Off */
+    <<if $gameSettings.makeupWearOff>>
+        <<set $appearance.makeupLevel = Math.max(0, $appearance.makeupLevel - 20)>>
+    <</if>>
+<</widget>>
+
+<<widget "weeklyBodyUpdate">>
+    /* Body Degradation (Muscle atrophy if unused) */
+    <<if $gameSettings.bodyDegradation>>
+        <<set $body.muscleMass = Math.max(20, $body.muscleMass - 0.5)>>
+    <</if>>
+<</widget>>
+
+<<widget "calculateEnergyMax">>
+    <<calculateFitness>>
+    <<set $energyMax = 100 + Math.floor($fitness / 4)>>
+<</widget>>
+
+
+<<widget "discover">><<nobr>>
+    <<set _flag = "discovered" + $args[0]>>
+    <<set _name = $args[1]>>
+    
+    <<if !State.variables[_flag]>>
+        <<set State.variables[_flag] = true>>
+        <<run notifySuccess("New Location Discovered: " + _name)>>
+    <</if>>
+<</nobr>><</widget>>

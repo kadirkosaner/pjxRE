@@ -1,0 +1,30 @@
+/* ==========================================
+   QUEST ITEMS DATABASE
+   Items that appear only during quests
+========================================== */
+
+:: QuestItems[INIT]
+<<run Object.assign(setup.items, {
+    questItems: [
+        {
+            id: "quest_milk",
+            name: "Fresh Milk",
+            category: "grocery",
+            usageType: "quest",
+            desc: "A carton of fresh milk. Mom asked you to buy this.",
+            price: 3,
+            image: "assets/content/inventory/groceries/milk.webp",
+            hasTooltip: true
+        },
+        {
+            id: "quest_bread",
+            name: "Bread",
+            category: "grocery",
+            usageType: "quest",
+            desc: "A loaf of fresh bread. Mom needs this for the family.",
+            price: 2,
+            image: "assets/content/inventory/groceries/bread.webp",
+            hasTooltip: true
+        },
+    ]
+})>>

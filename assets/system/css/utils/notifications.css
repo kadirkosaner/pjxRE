@@ -1,0 +1,111 @@
+/* ============================================
+   UTILS/NOTIFICATIONS.CSS
+   Toast notification system
+   ============================================ */
+
+/*#region NOTIFICATION */
+.notification {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  font-size: 14px;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  z-index: 9999;
+  opacity: 0;
+  transition: transform 250ms ease, opacity 250ms ease !important;
+  will-change: transform, opacity;
+}
+
+.notification .icon-16 {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.notification-success {
+  background: #166534;
+  border-color: #15803d;
+}
+
+.notification-error {
+  background: #dc2626;
+  border-color: #b91c1c;
+}
+
+.notification-warning {
+  background: #d97706;
+  border-color: #b45309;
+}
+
+.notification-info {
+  background: #1e40af;
+  border-color: #1e3a8a;
+}
+
+.notification-phone {
+  background: #dc2626;
+  border-color: #b91c1c;
+  z-index: 5;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.notification-quest {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border-color: #6d28d9;
+}
+
+.notification[data-position="top-right"],
+.notification[data-position="bottom-right"],
+.notification[data-position="phone-area"],
+.notification[data-position="rightbar-left"] {
+  transform: translateX(120%);
+}
+
+.notification[data-position="top-left"],
+.notification[data-position="bottom-left"] {
+  transform: translateX(-120%);
+}
+
+.notification[data-position="custom"],
+.notification[data-position="timebox-bottom"] {
+  transform: translateY(24px) !important;
+  opacity: 0 !important;
+}
+
+.notification.active {
+  opacity: 1;
+}
+
+.notification[data-position="top-right"].active,
+.notification[data-position="bottom-right"].active,
+.notification[data-position="top-left"].active,
+.notification[data-position="bottom-left"].active,
+.notification[data-position="phone-area"].active,
+.notification[data-position="rightbar-left"].active {
+  transform: translateX(0);
+}
+
+.notification[data-position="custom"].active,
+.notification[data-position="timebox-bottom"].active {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+.notification[data-position="timebox-bottom"].closing {
+  transform: translateY(-24px) !important;
+  opacity: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notification {
+    transition: none !important;
+  }
+}
+
+/*#endregion */

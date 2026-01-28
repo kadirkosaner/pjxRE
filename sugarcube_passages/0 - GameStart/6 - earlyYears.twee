@@ -1,0 +1,226 @@
+<<nobr>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<<if ndef $prologueSelections>>
+  <<set $prologueSelections = {
+    early: null,
+    childhood: null,
+    formative: null,
+    adolescent: null,
+    coming: null
+  }>>
+  <<set $prologueBonuses = {}>>
+<</if>>
+
+<div class="page-wrapper">
+<div class="prologue-page">
+  <div class="prologue-layout-wrapper">
+    
+    <!-- Sidebar -->
+    <div class="prologue-sidebar" id="prologue-sidebar">
+      <div class="prologue-sidebar-title">My Selections</div>
+      <div class="prologue-sidebar-section">
+        <div class="prologue-sidebar-section-title current">Early Years (0-5)</div>
+        <<if $prologueSelections.early>>
+          <div class="prologue-sidebar-item">
+            <div>
+              <div class="prologue-sidebar-item-text">$prologueSelections.early.title</div>
+              <div class="prologue-sidebar-item-effect">$prologueSelections.early.effect</div>
+            </div>
+          </div>
+        <<else>>
+          <div class="prologue-sidebar-empty">No selection yet</div>
+        <</if>>
+      </div>
+      <div class="prologue-sidebar-section"><div class="prologue-sidebar-section-title pending">Childhood (6-9)</div></div>
+      <div class="prologue-sidebar-section"><div class="prologue-sidebar-section-title pending">Formative (10-12)</div></div>
+      <div class="prologue-sidebar-section"><div class="prologue-sidebar-section-title pending">Adolescent (13-15)</div></div>
+      <div class="prologue-sidebar-section"><div class="prologue-sidebar-section-title pending">Coming of Age (16-17)</div></div>
+    </div>
+    
+    <div class="prologue-content-area">
+      
+      <!-- Progress Bar -->
+      <div class="prologue-progress-container">
+        <div class="prologue-progress-bar">
+          <div class="prologue-progress-fill" style="width: 16.6%;"></div>
+        </div>
+        <div class="prologue-progress-steps">
+          <span class="prologue-progress-step active">0-5</span>
+          <span class="prologue-progress-step">6-9</span>
+          <span class="prologue-progress-step">10-12</span>
+          <span class="prologue-progress-step">13-15</span>
+          <span class="prologue-progress-step">16-17</span>
+        </div>
+      </div>
+      
+      <div class="prologue-header">
+        <div class="prologue-age-badge">Ages 0-5</div>
+        <h1 class="prologue-title">First Memories</h1>
+        <div class="prologue-header-line"></div>
+        <p class="prologue-subtitle">The world was small, but it was yours...</p>
+      </div>
+      
+      <<image "assets/content/scenes/prologue/earlyYears.webp" "100%">>
+
+      <<narrative>>
+        The small town where you were born felt endless back then. Every street, every neighbor, every corner of the backyard—that was your entire world. Days were simple. Mom at home, dad at work, the warm smell of dinner filling the house each evening.
+      <</narrative>>
+      
+      <<narrative>>
+        You were two when your brother was born.
+      <</narrative>>
+      
+      <<narrative>>
+        When they came back from the hospital, everything changed. Mom didn't have as much time for you anymore. She was constantly busy with the baby—feeding, putting him to sleep, calming him when he cried. "Wait a bit, sweetie, I need to take care of your brother first," she'd said one day. You never forgot that sentence.
+      <</narrative>>
+      
+      <<narrative>>
+        When dad came home from work, he didn't throw you in the air anymore. He'd hold the baby, smile at him, talk to him. You stood to the side, watching.
+      <</narrative>>
+      
+      <<narrative>>
+        But one evening was different. Dad came home from work and went straight to you. "Come on, big girl, I want to show you something." He took you to the backyard, showed you the small bicycle he'd just bought—your size. "This is just for you," he said. "Not for your brother. Yours."
+      <</narrative>>
+      
+      <<narrative>>
+        That bicycle changed everything.
+      <</narrative>>
+      
+      <<narrative>>
+        As your brother grew, you started finding your place. You weren't just "mom and dad's daughter" anymore—you were "his big sister" too. When he fell, you ran. When he cried, you comforted him. "Don't cry, I'm here," you'd said one day in the backyard. He looked up at you, tears still on his cheeks, and smiled.
+      <</narrative>>
+      
+      <<narrative>>
+        Mom saw from the kitchen. "Look at her," she said softly to dad. "She's growing up."
+      <</narrative>>
+      
+      <<narrative>>
+        There was pride in dad's eyes.
+      <</narrative>>
+      
+      <<narrative>>
+        In that moment, something clicked. This was your place—between them. Mom and dad's big girl. Your brother's big sister. Part of the family, but now you had your own place.
+      <</narrative>>
+      
+      <<narrative>>
+        Those early years shaped you more than you knew.
+      <</narrative>>
+      
+      <div class="prologue-memory-section">
+        <div class="prologue-memory-section-title">Character-Shaping Memories</div>
+        <div class="prologue-memory-cards" id="early-cards">
+          
+          <div class="prologue-memory-card" data-section="early" data-title="Your Own Space" data-effect="+15% Focus" data-stat="focus" data-value="1.15">
+            <div class="prologue-memory-title">Your Own Space</div>
+            <div class="prologue-memory-text">
+              "While everyone fussed over your brother, you found your own space. Building blocks, puzzles, drawing—hours would pass in your quiet corner. Mom would check on you: 'You okay, sweetie?' Dad would ruffle your hair on his way past. They were busy, but they noticed. When your brother turned three, he started sitting next to you, watching silently. 'Good job teaching him,' dad said one day. That patience, that ability to be alone without feeling lonely—it became your strength."
+            </div>
+            <div class="prologue-memory-effect">+15% Focus</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="early" data-title="Dad's Kingdom" data-effect="+15% Fitness" data-stat="fitness" data-value="1.15">
+            <div class="prologue-memory-title">Dad's Kingdom</div>
+            <div class="prologue-memory-text">
+              "The backyard was dad's kingdom, and he made it yours too. Every weekend: 'Come on, let's go outside.' Climbing trees, digging holes, kicking the ball until sunset. When your brother started walking, you'd take his hand: 'Come on, I'll show you.' Dad watched from the porch, coffee in hand, smiling. 'She's got your energy,' mom would say. That restlessness, that need to move—you got it from him."
+            </div>
+            <div class="prologue-memory-effect">+15% Fitness</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="early" data-title="Mom's Special Time" data-effect="+15% Intelligence" data-stat="intelligence" data-value="1.15">
+            <div class="prologue-memory-title">Mom's Special Time</div>
+            <div class="prologue-memory-text">
+              "Every night, mom would read to both of you. But after your brother fell asleep, she'd stay. 'This is our time,' she'd whisper, and keep reading—just for you. Those extra chapters, those whispered conversations in the dark. 'You're my first,' she'd say sometimes, tucking you in. 'That means something.' The magic of words, the worlds in those stories, and the feeling of being chosen, even if just for twenty minutes—that never left you."
+            </div>
+            <div class="prologue-memory-effect">+15% Intelligence</div>
+          </div>
+          
+          <div class="prologue-memory-card" data-section="early" data-title="Family Pride" data-effect="+15% Charisma" data-stat="charisma" data-value="1.15">
+            <div class="prologue-memory-title">Family Pride</div>
+            <div class="prologue-memory-text">
+              "There was always a game happening on the street. Hide and seek, tag, ball games... You gathered the group, explained the rules. When your brother turned three, you'd bring him along. 'This is my brother,' you'd announce proudly. He was the youngest on the block. Mom watched from the window: 'Look at her, taking care of him.' Dad would come out sometimes, join the game, see you leading. 'That's my girl,' he'd say. Bringing people together, taking charge—it came naturally, and they saw it."
+            </div>
+            <div class="prologue-memory-effect">+15% Charisma</div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="prologue-btn-row">
+        <<link '<span class="prologue-btn prologue-btn-secondary">Back</span>' "prologuePage">><</link>>
+        <span id="early-continue" class="prologue-btn prologue-btn-primary disabled">Continue</span>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<</nobr>>
+
+<<script>>
+$(document).ready(function() {
+  // Handle card selection
+  $('#early-cards .prologue-memory-card').on('click', function() {
+    var $card = $(this);
+    var section = $card.data('section');
+    var title = $card.data('title');
+    var effect = $card.data('effect');
+    var stat = $card.data('stat');
+    var value = $card.data('value');
+    
+    // Remove selected from siblings
+    $card.siblings().removeClass('selected');
+    $card.addClass('selected');
+    
+    // Store selection with stat data for multiplier application
+    State.variables.prologueSelections[section] = {
+      title: title,
+      effect: effect,
+      stat: stat,
+      value: value
+    };
+    
+    // Enable continue button
+    $('#early-continue')
+      .removeClass('disabled')
+      .css('cursor', 'pointer')
+      .off('click')
+      .on('click', function() {
+        Engine.play('childhoodYears');
+      });
+      
+    // Update sidebar - find the current section
+    var $currentSection = $('.prologue-sidebar-section-title.current').parent();
+    // Remove empty placeholder if exists
+    $currentSection.find('.prologue-sidebar-empty').remove();
+    // Remove existing item if re-selecting
+    $currentSection.find('.prologue-sidebar-item').remove();
+    // Add new selection
+    $currentSection.append(
+      '<div class="prologue-sidebar-item"><div>' +
+      '<div class="prologue-sidebar-item-text">' + title + '</div>' +
+      '<div class="prologue-sidebar-item-effect">' + effect + '</div>' +
+      '</div></div>'
+    );
+  });
+  
+  // Re-select if already chosen
+  var existing = State.variables.prologueSelections.early;
+  if (existing) {
+    $('#early-cards .prologue-memory-card').each(function() {
+      if ($(this).data('title') === existing.title) {
+        $(this).addClass('selected');
+        $('#early-continue')
+          .removeClass('disabled')
+          .css('cursor', 'pointer')
+          .off('click')
+          .on('click', function() {
+            Engine.play('childhoodYears');
+          });
+      }
+    });
+  }
+});
+<</script>>
+

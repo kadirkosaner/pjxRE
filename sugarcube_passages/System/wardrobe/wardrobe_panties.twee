@@ -1,0 +1,41 @@
+
+/* Panties - Regular panties, thongs, lingerie, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * 
+ * Tags: casual, revealing, sexy, comfortable
+ * Quality: Common, Rare, Premium
+ * FUTURE: size, durability, effects, unlockCondition
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.panties = [
+    {
+        id: "panties_white_owned",
+        name: "White Panties",
+        brand: "Silk & Lace",
+        desc: "Basic white cotton panties.",
+        image: "assets/content/clothing/panties/pantiesWhiteOwned.webp",
+        looks: 1,
+        quality: "Common",
+        tags: ["casual"],
+        price: 15,
+        shopAvailable: false,
+        startOwned: true
+    },
+    {
+        id: "panties_pink_owned",
+        name: "Pink Panties",
+        brand: "Silk & Lace",
+        desc: "Basic pink cotton panties.",
+        image: "assets/content/clothing/panties/pantiesPinkOwned.webp",
+        looks: 2,
+        quality: "Common",
+        tags: ["casual"],
+        price: 15,
+        shopAvailable: false,
+        startOwned: true
+    }
+]>>
+

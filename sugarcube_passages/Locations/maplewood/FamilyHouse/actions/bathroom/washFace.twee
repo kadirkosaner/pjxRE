@@ -1,0 +1,17 @@
+<<silently>>
+    <<set $location = "fhUpperBath">>
+    <<advanceTime 5>>
+    <<gainStat "hygiene" 10>>
+    <<increaseThirst 1>>
+    <<gainStat "energy" 2>>
+<</silently>>
+
+<<narrative "Wash Face">>
+You splash cold water on your face, scrubbing gently. It wakes you up a little and makes you feel cleaner.
+<</narrative>>
+
+<<vid "assets/content/scenes/maplewood/FamilyHouse/bathroom/washface.mp4" "60%">>
+
+<div class="location-actions">
+    <<btn "Done" "fhUpperBath">><</btn>>
+</div>

@@ -1,0 +1,23 @@
+<<widget "bedActions">>
+<<nobr>>
+    <<set _currentHour = 0>>
+    <<set _energyLevel = 100>>
+
+    <<if $timeSys && $timeSys.hour !== undefined>>
+        <<set _currentHour = $timeSys.hour>>
+    <</if>>
+
+    <<if $energy !== undefined>>
+        <<set _energyLevel = $energy>>
+    <</if>>
+
+    <div class="location-actions">
+        <<btnPicker "Sleep" "sleep" "sleepDuration">>
+
+        <<set $activityOrigin = "fhBedroom">>
+        <<btnPicker "Nap" "runNap" "napDuration">>
+
+        <<btn "Set Alarm" "setAlarm">><</btn>>
+    </div>
+<</nobr>>
+<</widget>>

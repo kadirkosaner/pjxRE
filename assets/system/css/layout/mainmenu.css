@@ -1,0 +1,87 @@
+/* ============================================
+   LAYOUT/MAINMENU.CSS
+   Main menu sliding panel
+   ============================================ */
+
+/*#region MAIN MENU */
+.main-menu-overlay {
+  z-index: 2000; /* Fix: High z-index to cover button (1500) */
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-medium);
+}
+
+.main-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.main-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  background: var(--color-bg-primary);
+  border-right: 1px solid var(--color-border-primary);
+  z-index: 2001; /* Fix: High z-index to cover button (1500) */
+  transform: translateX(-100%);
+  transition: transform var(--transition-medium);
+  display: flex;
+  flex-direction: column;
+}
+
+.main-menu.open {
+  transform: translateX(0);
+}
+
+.main-menu-header {
+  padding: var(--spacing-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-menu-title {
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-md);
+  padding: 1.2rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--color-border-secondary);
+}
+
+.menu-icon {
+  font-size: 1.5rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.menu-text {
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/*#endregion */

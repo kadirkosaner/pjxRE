@@ -1,0 +1,72 @@
+/* ============================================
+   UTILS/TOOLTIPS.CSS
+   Tooltip popup system
+   ============================================ */
+
+/*#region TOOLTIP */
+[data-tooltip] {
+  cursor: help;
+}
+
+.tooltip-popup {
+  position: fixed;
+  background: var(--color-border-primary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 6px;
+  padding: var(--spacing-sm) 0.75rem;
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  max-width: 300px;
+  white-space: normal;
+  z-index: 20000;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), transform var(--transition-fast),
+    visibility var(--transition-fast);
+}
+
+.tooltip-popup::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--color-border-primary);
+}
+
+.tooltip-popup.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.clothing-item.locked[data-tooltip],
+.outfit-slot.locked[data-outfit-tooltip],
+.wear-return-btn.disabled[data-outfit-tooltip] {
+  pointer-events: auto !important;
+}
+
+.clothing-item.locked[data-tooltip] .tooltip-popup,
+.outfit-slot.locked[data-outfit-tooltip] .tooltip-popup,
+.wear-return-btn.disabled[data-outfit-tooltip] .tooltip-popup {
+  display: none !important;
+}
+
+/*#endregion */
+
+/* Locked/Error Tooltip Variant */
+.tooltip-popup.locked-tooltip {
+  background: #ef4444; /* Red warning color */
+  border-color: #dc2626;
+  color: #ffffff;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+}
+
+.tooltip-popup.locked-tooltip::after {
+  border-bottom-color: #ef4444;
+}

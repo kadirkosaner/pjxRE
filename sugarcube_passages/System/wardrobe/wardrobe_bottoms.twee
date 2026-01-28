@@ -1,0 +1,40 @@
+/* Bottoms - Pants, jeans, shorts, skirts, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * 
+ * Tags: casual, formal, revealing, sexy, sporty, elegant
+ * Quality: Common, Rare, Premium
+ * FUTURE: size, durability, effects, unlockCondition
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.bottoms = [
+    {
+        id: "jeans_blue_owned",
+        name: "Blue Jeans",
+        brand: "VERA Mode",
+        desc: "Classic blue denim jeans with a comfortable fit.",
+        image: "assets/content/clothing/bottoms/pants/jeanBlueOwned.webp",
+        looks: 4,
+        quality: "Common",
+        tags: ["casual"],
+        price: 60,
+        shopAvailable: false,
+        startOwned: true
+    },
+    {
+        id: "leggings_black_owned",
+        name: "Black Leggings",
+        brand: "FastBreak Athletics",
+        desc: "Comfortable black athletic leggings for any activity.",
+        image: "assets/content/clothing/bottoms/leggings/legginsBlackOwned.webp",
+        looks: 3,
+        quality: "Common",
+        tags: ["casual", "sporty"],
+        price: 40,
+        shopAvailable: false,
+        startOwned: true
+    }
+]>>
+

@@ -1,0 +1,118 @@
+:: MoneyWidgets [widget]
+<<nobr>>
+/* ==========================================
+   MONEY SYSTEM WIDGETS
+   Handles cash and bank transactions
+========================================== */
+
+/* ==========================================
+   EARN CASH
+   Adds money to cash balance with optional notification
+   Usage: <<earnMoney 100>> or <<earnMoney 100 "optional message">>
+========================================== */
+<<widget "earnMoney">>
+    <<set _amount = $args[0]>>
+    <<set _message = $args[1] || null>>
+    <<if _amount > 0>>
+        <<set $moneyEarn += _amount>>
+        <<set $cashBalance = $moneyEarn - $moneySpend>>
+        <<if _message>>
+            <<run window.notifySuccess(_message)>>
+        <<elseif window.notifySuccess>>
+            <<run window.notifySuccess(`Money : +$${_amount}`)>>
+        <</if>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   SPEND CASH
+   Deducts from cash balance if sufficient funds
+   Usage: <<spendCash 50>>
+   Returns: Sets _transactionSuccess to true/false
+========================================== */
+<<widget "spendCash">>
+    <<set _amount = $args[0]>>
+    <<set _transactionSuccess = false>>
+    <<if _amount > 0 && $cashBalance >= _amount>>
+        <<set $moneySpend += _amount>>
+        <<set $cashBalance = $moneyEarn - $moneySpend>>
+        <<set _transactionSuccess = true>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   SPEND CARD
+   Deducts from bank balance if sufficient funds
+   Usage: <<spendCard 50>>
+   Returns: Sets _transactionSuccess to true/false
+========================================== */
+<<widget "spendCard">>
+    <<set _amount = $args[0]>>
+    <<set _transactionSuccess = false>>
+    <<if _amount > 0 && $bankBalance >= _amount>>
+        <<set $bankSpend += _amount>>
+        <<set $bankBalance = $bankDeposit - $bankSpend - $bankWithdraw>>
+        <<set _transactionSuccess = true>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   DEPOSIT TO BANK
+   Transfers cash to bank account
+   Usage: <<depositBank 200>>
+   Returns: Sets _transactionSuccess to true/false
+========================================== */
+<<widget "depositBank">>
+    <<set _amount = $args[0]>>
+    <<set _transactionSuccess = false>>
+    <<if _amount > 0 && $cashBalance >= _amount>>
+        /* Deduct from cash */
+        <<set $moneySpend += _amount>>
+        <<set $cashBalance = $moneyEarn - $moneySpend>>
+        /* Add to bank */
+        <<set $bankDeposit += _amount>>
+        <<set $bankBalance = $bankDeposit - $bankSpend - $bankWithdraw>>
+        <<set _transactionSuccess = true>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   WITHDRAW FROM BANK
+   Transfers bank funds to cash
+   Usage: <<withdrawBank 100>>
+   Returns: Sets _transactionSuccess to true/false
+========================================== */
+<<widget "withdrawBank">>
+    <<set _amount = $args[0]>>
+    <<set _transactionSuccess = false>>
+    <<if _amount > 0 && $bankBalance >= _amount>>
+        /* Deduct from bank */
+        <<set $bankWithdraw += _amount>>
+        <<set $bankBalance = $bankDeposit - $bankSpend - $bankWithdraw>>
+        /* Add to cash */
+        <<set $moneyEarn += _amount>>
+        <<set $cashBalance = $moneyEarn - $moneySpend>>
+        <<set _transactionSuccess = true>>
+    <</if>>
+<</widget>>
+
+
+/* ==========================================
+   CHECK BALANCE
+   Checks if player can afford amount
+   Usage: <<canAffordCash 50>> / <<canAffordCard 50>>
+   Returns: Sets _canAfford to true/false
+========================================== */
+<<widget "canAffordCash">>
+    <<set _canAfford = ($cashBalance >= $args[0])>>
+<</widget>>
+
+<<widget "canAffordCard">>
+    <<set _canAfford = ($bankBalance >= $args[0])>>
+<</widget>>
+
+<</nobr>>

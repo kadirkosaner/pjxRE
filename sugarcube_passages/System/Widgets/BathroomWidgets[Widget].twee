@@ -1,0 +1,70 @@
+/* ==================================================
+   BATHROOM WIDGETS
+   Widgets for bathroom interactions and shower checking
+================================================== */
+
+/* Bathroom Entry Check Widget
+   Usage: <<bathroomEntry "fhUpperBath" "Upstairs Bathroom" "fhUpperstairs">>
+
+   Args:
+   - _args[0]: bathroom location ID
+   - _args[1]: bathroom display name
+   - _args[2]: return location if turned back
+
+   Checks if someone is showering and displays appropriate content:
+   - If showering + corruption < 2: Show message and "Go Back" button
+   - If showering + corruption >= 2: Show message and "Enter Bathroom" button
+   - If no one showering: Continue with passage content (caller handles this)
+*/
+<<widget "bathroomEntry">>
+<<nobr>>
+<<set _bathroomLoc = _args[0]>>
+<<set _bathroomName = _args[1]>>
+<<set _returnLoc = _args[2]>>
+<<set _someoneShowering = false>>
+<<set _showeringChar = null>>
+
+/* Check all characters to see if anyone is showering at this location */
+<<for _charId, _char range $characters>>
+    <<if _charId !== "player" && _char.currentLocation === _bathroomLoc && _char.currentStatus === "showering">>
+        <<set _someoneShowering = true>>
+        <<set _showeringChar = _charId>>
+        <<break>>
+    <</if>>
+<</for>>
+
+/* Store result in State.temporary for passage to use */
+<<set State.temporary.bathroomCheck = {
+    someoneShowering: _someoneShowering,
+    character: _showeringChar
+}>>
+
+<<if _someoneShowering>>
+    /* Someone is showering - check corruption level */
+    <<if $corruption < 2>>
+        /* Low corruption - turn back */
+        <<narrative _bathroomName>>
+        You approach the bathroom door and hear the shower running. <<print $characters[_showeringChar].firstName>> is inside.
+
+        You hesitate at the door, your hand on the handle. //Why would I even think about going in there?// you think to yourself, feeling awkward about the intrusion.
+        <</narrative>>
+
+        <div class="location-actions">
+            <<btn "Go Back" _returnLoc "secondary">><</btn>>
+        </div>
+    <<else>>
+        /* High corruption - option to enter */
+        <<narrative _bathroomName>>
+        You approach the bathroom door and hear the shower running. <<print $characters[_showeringChar].firstName>> is inside.
+
+        Your heart beats a little faster as you stand at the door. The sound of water cascading draws your attention...
+        <</narrative>>
+
+        <div class="location-actions">
+            <<btn "Enter Bathroom" "showerEncounter_<<print _showeringChar.charAt(0).toUpperCase() + _showeringChar.slice(1)>>">><</btn>>
+            <<btn "Leave" _returnLoc "secondary">><</btn>>
+        </div>
+    <</if>>
+<</if>>
+<</nobr>>
+<</widget>>

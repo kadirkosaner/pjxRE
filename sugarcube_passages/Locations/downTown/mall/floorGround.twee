@@ -1,0 +1,22 @@
+<<nobr>>
+<<set $location = "floorGround">>
+<</nobr>>
+
+<<updateCharacterLocations>>
+
+<<narrative "Ground Floor">>
+The main floor of the mall features clothing stores, electronics, and sports equipment. Escalators lead to the upper floors.
+<</narrative>>
+
+<<showLocationChars "floorGround">>
+
+<<navMenu>>
+	<<navCard "storeClothingA">>
+	<<navCard "storeCosmetics">>
+	<<navCard "storeElectronics">>
+	<<navCard "storeShoeA">>
+	<<navCard "storeSports">>
+	<<navCard "floorSecond">>
+	<<navCard "floorThird">>
+    <<navCard "Downtown">>
+<</navMenu>>

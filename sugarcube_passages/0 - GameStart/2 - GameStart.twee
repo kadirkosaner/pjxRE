@@ -1,0 +1,90 @@
+:: welcomePage [nobr]
+<<set $hideTopbarNav = true>>
+<<set $hideTopbarTimebox = true>>
+<<set $hideTopbarNotifications = true>>
+<<set $hideRightbar = true>>
+<<set $hideTopbar = true>>
+<<set $hideTopbarHamburger = true>>
+<<run $('body').addClass('fullscreen-centered')>>
+
+<div class="seductive-landing">
+    
+    <!-- Silhouette Background -->
+    <div class="silhouette-layer">
+        <div class="silhouette silhouette-1"></div>
+        <div class="silhouette silhouette-2"></div>
+    </div>
+    
+    <!-- Pink Glow Effects -->
+    <div class="mystery-glow glow-1"></div>
+    <div class="mystery-glow glow-2"></div>
+    
+    <!-- Content -->
+    <div class="mystery-content">
+        
+        <div class="mystery-tagline">
+            Where desire meets consequence
+        </div>
+        
+        <h1 class="mystery-question">
+            What kind of person<br>
+            will you become?
+        </h1>
+        
+        <div class="mystery-hint">
+            Every choice matters. Every relationship changes you.
+        </div>
+        
+        <button class="btn-style btn-mystery-enter" id="welcomeEnterBtn">Enter</button>
+        
+        <div class="mystery-warning">18+ · Adult Content</div>
+        
+    </div>
+    
+    <!-- Age Verification Modal -->
+    <div class="age-modal" id="ageModal">
+        <div class="age-modal-overlay" id="ageModalOverlay"></div>
+        <div class="age-modal-content">
+            <div class="age-modal-icon">🔞</div>
+            <h2 class="age-modal-title">Adult Content</h2>
+            <p class="age-modal-text">
+                This experience contains explicit adult content including sexual themes, 
+                mature situations, and strong language.
+            </p>
+            <p class="age-modal-confirm">
+                By continuing, you confirm that you are <strong>18 years or older</strong> 
+                and consent to view adult material.
+            </p>
+            <div class="age-modal-actions">
+                <<btn "I Accept" "settingsPage" "age-accept">><</btn>>
+                <a href="https://www.google.com" class="btn-style btn-age-decline">Exit</a>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<<script>>
+$(document).ready(function() {
+    $('#welcomeEnterBtn').on('click', function() {
+        $('#ageModal').addClass('active');
+        $('body').css('overflow', 'hidden');
+    });
+    
+    $('#ageModalOverlay').on('click', function() {
+        $('#ageModal').removeClass('active');
+        $('body').css('overflow', 'auto');
+    });
+});
+
+// Cleanup when leaving this passage
+$(document).one(':passagestart', function(ev) {
+    // Only run cleanup if we're leaving welcomePage
+    if (ev.passage && ev.passage.title !== 'welcomePage') {
+        // Remove any inline styles added by modal
+        $('body').css('overflow', '');
+        // Remove fullscreen-centered class
+        $('body').removeClass('fullscreen-centered');
+    }
+});
+<</script>>

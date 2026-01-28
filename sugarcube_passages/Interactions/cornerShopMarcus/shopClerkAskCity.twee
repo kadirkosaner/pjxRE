@@ -1,0 +1,22 @@
+<<nobr>>
+<<set $location = "storeCorner">>
+<<updateCharacterLocations>>
+<</nobr>>
+
+<<narrative "Quick Mart - Counter">>
+You ask Marcus about the city and what there is to do around here.
+<</narrative>>
+
+<<dialog "shopClerk">>
+Oh, there's plenty! If you're looking for shopping, the Mall is usually the best bet. For a bit more culture, Old Town has some great little shops and a library. 
+(He leans in)
+And if you're looking for... well, more 'adult' entertainment, the Red Light District always has something going on. Just be careful down there.
+<</dialog>>
+
+<<dialog "player">>
+Thanks for the info, Marcus. I'll keep that in mind.
+<</dialog>>
+
+<div class="btn-center">
+<<btn "Continue" "storeCorner">><</btn>>
+</div>

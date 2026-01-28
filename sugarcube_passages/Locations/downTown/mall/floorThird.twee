@@ -1,0 +1,19 @@
+<<nobr>>
+<<set $location = "floorThird">>
+<</nobr>>
+
+<<updateCharacterLocations>>
+
+<<narrative "Third Floor">>
+The top floor houses the food court, movie theatre, and beauty services. The aroma of various cuisines fills the air.
+<</narrative>>
+
+<<showLocationChars "floorThird">>
+
+<<navMenu>>
+	<<navCard "foodCourtMall">>
+	<<navCard "salonBeautyMall">>
+	<<navCard "theatreMovie">>
+	<<navCard "floorGround">>
+	<<navCard "floorSecond">>
+<</navMenu>>

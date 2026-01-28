@@ -1,0 +1,497 @@
+/* ==========================================
+   MOTHER - TALK TOPICS DATABASE
+   10 Random Topics x 3 Friendship Tiers
+   Tier 1: 0-39 (Distant)
+   Tier 2: 40-69 (Friendly)
+   Tier 3: 70-100 (Close)
+========================================== */
+
+<<set setup.motherTalkTopics = {
+    /* Topic 1: Daily Routine / Housework */
+    daily_routine: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Polite but formal)
+The housework never ends. Cleaning, cooking, laundry... Same cycle every day.
+<</dialog>>`,
+            friendship: 2,
+            trust: 1
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Relaxed, smiling)
+You know, when you were little, you'd always follow me around while I did chores. "Mommy, let me help!" you'd say, and then make twice the mess.
+<</dialog>>
+
+<<dialog "player">>
+At least I was trying to help!
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing warmly)
+I know, sweetie. You were always such a thoughtful child. Still are.
+<</dialog>>`,
+            friendship: 3,
+            trust: 2
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Sighing, leaning back)
+Sometimes I wonder... Is just being a housewife enough? I mean, raising you all has been wonderful, but... sometimes I feel like I've lost myself.
+<</dialog>>
+
+<<dialog "player">>
+You're not just a housewife, Mom. You're the one holding this family together.
+<</dialog>>
+
+<<dialog "mother">>
+(Eyes glistening, voice trembling)
+Hearing that from you... you can't imagine how much it means.
+<</dialog>>`,
+            friendship: 4,
+            trust: 3,
+            love: 1
+        }
+    },
+
+    /* Topic 2: Family Memories */
+    memories: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Glancing at old photos on the wall)
+We used to take so many family trips when you were little. Time flies, doesn't it?
+<</dialog>>`,
+            friendship: 2
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Eyes lighting up)
+Remember that camping trip where your brother fell into the lake? You dove right in after him even though you were terrified of deep water.
+<</dialog>>
+
+<<dialog "player">>
+I was more scared of what you'd do if I didn't help him.
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing, touching your arm)
+You've always been braver than you think.
+<</dialog>>`,
+            friendship: 3,
+            trust: 2,
+            love: 1
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Voice soft, nostalgic)
+You know what I miss most? Those nights when you couldn't sleep and you'd come to my room. We'd talk about everything and nothing until you drifted off.
+<</dialog>>
+
+<<dialog "player">>
+I still remember how safe I felt.
+<</dialog>>
+
+<<dialog "mother">>
+(Reaching out, squeezing your hand)
+You'll always have that safety with me, sweetheart. Always.
+<</dialog>>`,
+            friendship: 4,
+            trust: 3,
+            love: 2
+        }
+    },
+
+    /* Topic 3: Her Hobbies */
+    hobbies: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Casual tone)
+I've been trying to get back into jogging. My knees aren't what they used to be, though.
+<</dialog>>`,
+            friendship: 2
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Excited, pulling out her phone)
+Look at this romance novel I just finished! The twist ending was absolutely wild. You wouldn't believe what happened—
+<</dialog>>
+
+<<dialog "player">>
+(Grinning)
+Let me guess, the mysterious stranger was actually—
+<</dialog>>
+
+<<dialog "mother">>
+(Covering your mouth playfully)
+No spoilers! I want to lend it to you first.
+<</dialog>>`,
+            friendship: 3,
+            trust: 2
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Vulnerable, looking away)
+Sometimes I wonder if I gave up too much of myself, you know? I used to paint, write poetry... Now it's just home and family.
+<</dialog>>
+
+<<dialog "player">>
+You could start again. I'd love to see your art.
+<</dialog>>
+
+<<dialog "mother">>
+(Touching your cheek gently)
+Maybe I will. Having your support means everything.
+<</dialog>>`,
+            friendship: 4,
+            trust: 3,
+            love: 1
+        }
+    },
+
+    /* Topic 4: Dad & Marriage */
+    marriage: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Matter-of-fact)
+Your father's been working late again. That's just how his job is, unfortunately.
+<</dialog>>`,
+            friendship: 1,
+            trust: 1
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Wistful)
+Your dad and I used to go on date nights every week. Now we're lucky if we get one a month. Life gets busy, I guess.
+<</dialog>>
+
+<<dialog "player">>
+You two still seem happy, though.
+<</dialog>>
+
+<<dialog "mother">>
+(Small smile)
+We are. It's just... different than I imagined.
+<</dialog>>`,
+            friendship: 3,
+            trust: 2
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Voice quiet, vulnerable)
+Sometimes I feel more like his roommate than his wife. We're partners in running this house, but the passion... the connection...
+(Catching herself)
+I'm sorry, I shouldn't burden you with this.
+<</dialog>>
+
+<<dialog "player">>
+Mom, you can talk to me. I want to be here for you.
+<</dialog>>
+
+<<dialog "mother">>
+(Eyes watering, pulling you into a hug)
+When did you grow up so much?
+<</dialog>>`,
+            friendship: 4,
+            trust: 4,
+            love: 2
+        }
+    },
+
+    /* Topic 5: Her Youth & Dreams */
+    youth: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Brief, nostalgic)
+I wanted to be a writer when I was your age. Life had other plans.
+<</dialog>>`,
+            friendship: 2
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Animated, reminiscing)
+In college, I was quite the rebel, believe it or not. My parents were horrified when I dyed my hair purple and joined a band.
+<</dialog>>
+
+<<dialog "player">>
+You? In a band?
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing)
+I was the worst backup singer you've ever heard, but it was the most alive I'd ever felt.
+<</dialog>>`,
+            friendship: 3,
+            trust: 2,
+            love: 1
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Distant, melancholic)
+Sometimes I dream about who I could have been. If I'd moved to New York like I planned, or traveled Europe instead of settling down...
+(Looking at you with soft eyes)
+But then I wouldn't have you. And that makes every sacrifice worth it.
+<</dialog>>
+
+<<dialog "player">>
+You still have time to chase those dreams, Mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Cupping your face)
+Maybe. But right now, all I want is right here.
+<</dialog>>`,
+            friendship: 5,
+            trust: 3,
+            love: 2
+        }
+    },
+
+    /* Topic 6: Current Events */
+    news: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Casual)
+Did you see the news this morning? The weather's supposed to be nice this weekend.
+<</dialog>>`,
+            friendship: 1
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Engaged, curious)
+I read this fascinating article about technology and parenting. Made me wonder if I'm too strict with screen time rules.
+<</dialog>>
+
+<<dialog "player">>
+You're fine, Mom. We all survived without being glued to phones 24/7.
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling proudly)
+That's exactly what the article said. You're turning out pretty well, I think.
+<</dialog>>`,
+            friendship: 3,
+            trust: 2
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Thoughtful, philosophical)
+There's so much chaos in the world. Sometimes I worry about what kind of future you'll have.
+<</dialog>>
+
+<<dialog "player">>
+We'll figure it out. Your generation did, and so will mine.
+<</dialog>>
+
+<<dialog "mother">>
+(Eyes shining with pride)
+Listen to you, all wise and mature. When did that happen?
+(Pulling you close)
+I have so much faith in you.
+<</dialog>>`,
+            friendship: 4,
+            trust: 3,
+            love: 1
+        }
+    },
+
+    /* Topic 7: Neighborhood & Friends */
+    social: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Polite small talk)
+I ran into Mrs. Henderson at the store. She asked about you.
+<</dialog>>`,
+            friendship: 1
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Gossipy, conspiratorial)
+You won't believe what I heard at book club. Apparently, the Johnsons are getting a divorce. I always thought they were so perfect together.
+<</dialog>>
+
+<<dialog "player">>
+Guess you never really know what goes on behind closed doors.
+<</dialog>>
+
+<<dialog "mother">>
+(Nodding thoughtfully)
+That's very true. Makes me grateful for what we have.
+<</dialog>>`,
+            friendship: 3,
+            trust: 2
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Vulnerable, admitting)
+Honestly? I don't have many real friends. Between home and family, I lost touch with most people. Sometimes I feel... lonely.
+<</dialog>>
+
+<<dialog "player">>
+You have me. I'm your friend too.
+<</dialog>>
+
+<<dialog "mother">>
+(Voice cracking)
+That might be the sweetest thing anyone's said to me in years.
+(Wiping her eyes)
+Thank you, sweetheart.
+<</dialog>>`,
+            friendship: 5,
+            trust: 4,
+            love: 2
+        }
+    },
+
+    /* Topic 8: Cooking & Food */
+    cooking: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Practical)
+I'm thinking about trying a new recipe this week. Something with chicken, maybe.
+<</dialog>>`,
+            friendship: 1
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Enthusiastic)
+You know what I loved when you were little? How your face would light up when I made your favorite cookies. You'd try to sneak the dough before I could bake it.
+<</dialog>>
+
+<<dialog "player">>
+(Grinning)
+That dough was always better raw.
+<</dialog>>
+
+<<dialog "mother">>
+(Playfully scolding)
+And I always pretended not to notice you stealing it!
+<</dialog>>`,
+            friendship: 3,
+            love: 1
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Intimate, emotional)
+Cooking is the one way I know how to show love. I'm not always good with words, but when I make your favorite meal...
+(Voice soft)
+That's me saying "I love you" the best way I know how.
+<</dialog>>
+
+<<dialog "player">>
+I know, Mom. I've always known.
+<</dialog>>
+
+<<dialog "mother">>
+(Tears in her eyes, smiling)
+Good. Never forget it.
+<</dialog>>`,
+            friendship: 4,
+            trust: 3,
+            love: 3
+        }
+    },
+
+    /* Topic 9: Health & Wellness */
+    health: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Concerned, mother-mode)
+Are you eating properly? You look a little thin. Make sure you're getting enough vegetables.
+<</dialog>>`,
+            friendship: 2,
+            trust: 1
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Opening up)
+I've been feeling more tired lately. My doctor says it's stress, but I don't know... Getting older is strange.
+<</dialog>>
+
+<<dialog "player">>
+You should take it easier. Let us help more around the house.
+<</dialog>>
+
+<<dialog "mother">>
+(Touched)
+You're sweet. I'll try. Old habits die hard, though.
+<</dialog>>`,
+            friendship: 3,
+            trust: 2
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Vulnerable, scared)
+Sometimes I wake up in the middle of the night and I can't fall back asleep. My mind just races with worries. About you, your future, whether I'm doing enough...
+<</dialog>>
+
+<<dialog "player">>
+(Taking her hand)
+You're doing more than enough. You always have been.
+<</dialog>>
+
+<<dialog "mother">>
+(Squeezing your hand, voice breaking)
+Promise me you'll always tell me if you need me. No matter how old you get.
+<</dialog>>
+
+<<dialog "player">>
+I promise.
+<</dialog>>`,
+            friendship: 4,
+            trust: 4,
+            love: 2
+        }
+    },
+
+    /* Topic 10: Future & Aspirations */
+    future: {
+        tier1: {
+            text: `<<dialog "mother">>
+(Standard parent question)
+Have you given any thought to your future plans? College, career, that sort of thing?
+<</dialog>>`,
+            friendship: 1,
+            trust: 1
+        },
+        tier2: {
+            text: `<<dialog "mother">>
+(Supportive, interested)
+You know, whatever path you choose, I'm proud of you. You don't have to have it all figured out right now.
+<</dialog>>
+
+<<dialog "player">>
+That means a lot. I've been feeling pressure to know exactly what I want.
+<</dialog>>
+
+<<dialog "mother">>
+(Firm but kind)
+Life isn't a straight line. Trust yourself. I do.
+<</dialog>>`,
+            friendship: 3,
+            trust: 2,
+            love: 1
+        },
+        tier3: {
+            text: `<<dialog "mother">>
+(Raw honesty)
+My biggest fear is that one day you'll leave and not look back. That I'll become one of those parents their kids only call on holidays.
+<</dialog>>
+
+<<dialog "player">>
+That will never happen. You're too important to me.
+<</dialog>>
+
+<<dialog "mother">>
+(Embracing you tightly)
+I needed to hear that more than you know. I love you so much.
+<</dialog>>
+
+<<dialog "player">>
+I love you too, Mom.
+<</dialog>>`,
+            friendship: 5,
+            trust: 4,
+            love: 3
+        }
+    }
+}>>

@@ -1,0 +1,383 @@
+/* ==========================================
+   STAT CALCULATION WIDGETS
+   Derived stats, multipliers, gains
+========================================== */
+
+/* RECALCULATE DERIVED STATS */
+<<widget "recalculateStats">><<nobr>>
+    /* 0. Sync Body Measurements (Text -> CM) */
+    <<if def "updateBodyMeasurements">>
+        <<updateBodyMeasurements>>
+    <</if>>
+
+    /* 1. Fitness Calculation */
+    <<set $fitness = Math.round(($upperBody + $core + $lowerBody + $cardio) / 4)>>
+
+    /* Update clothing score from wardrobe system */
+    <<if def setup.calculateTotalLooks>>
+        <<set $clothingScore = setup.calculateTotalLooks()>>
+    <<else>>
+        <<set $clothingScore = 0>>
+    <</if>>
+    
+    /* Health is a PRIMARY stat - not derived from others */
+    /* Health decreases via penalties in NeedsSystem when vitals are critical */
+    /* Here we just clamp it to valid range */
+    <<set $health = Math.max(0, Math.min(100, $health))>>
+    
+    /* Energy Max = base + fitness bonus */
+    <<set $energyMax = Math.round(Math.min(150, Math.max(80, 80 + ($fitness * 0.2))))>>
+    
+    /* Update Body Appeal (if widget exists) */
+    <<if def "calculateBodyAppeal">>
+        <<calculateBodyAppeal>>
+    <</if>>
+
+    /* Looks = Beauty (30%) + Body Appeal (30%) + Hygiene (20%) + Clothing (20%) */
+    <<set $looks = Math.round(($beauty * 0.3) + ($body.appeal * 0.3) + ($hygiene * 0.2) + ($clothingScore * 0.2))>>
+
+    /* Confidence = charisma + looks */
+    <<set $confidence = Math.round(Math.min(100, Math.max(0, ($charisma * 0.5) + ($looks * 0.3))))>>
+    
+    /* GLOBAL CLAMPING - Ensure stats stay within bounds */
+    <<set $energy = Math.max(0, Math.min($energyMax, $energy))>>
+    <<set $stress = Math.max(0, Math.min(100, $stress))>>
+    <<set $arousal = Math.max(0, Math.min(100, $arousal))>> /* 100 cap per user request */
+    
+    /* Needs */
+    <<set $hunger = Math.max(0, Math.min(100, $hunger))>>
+    <<set $thirst = Math.max(0, Math.min(100, $thirst))>>
+    <<set $bladder = Math.max(0, Math.min(100, $bladder))>>
+    <<set $hygiene = Math.max(0, Math.min(100, $hygiene))>>
+    
+    /* Skills Clamping (Iterate over all categories) */
+    <<if $skills>>
+        <<for _cat range Object.keys($skills)>>
+            <<for _skill range Object.keys($skills[_cat])>>
+                 <<set $skills[_cat][_skill] = Math.max(0, Math.min(100, $skills[_cat][_skill]))>>
+            <</for>>
+        <</for>>
+    <</if>>
+    
+    /* Recalculate body type */
+    <<recalculateBodyType>>
+    
+    /* Update Time Event Icon (Alarm) */
+    /* Checks manual events and quest-specific meal times */
+    <<if Macro.has("updateTimedEvents")>>
+        <<updateTimedEvents>>
+    <</if>>
+    
+    /* TOPBAR NOTIFICATION THRESHOLDS (70% = critical) */
+    /* Stats where LOW is bad */
+    <<set $notificationEnergy = ($energy <= ($energyMax * 0.3)) ? 1 : 0>>
+    <<set $notificationBed = ($energy <= ($energyMax * 0.3)) ? 1 : 0>>
+    <<set $notificationHealth = ($health <= 30) ? 1 : 0>>
+    <<set $notificationMood = ($mood <= 30) ? 1 : 0>>
+    
+    /* Stats where HIGH is bad (needs) */
+    <<set $notificationArousal = ($arousal >= 70) ? 1 : 0>>
+    <<set $notificationBladder = ($bladder >= 70) ? 1 : 0>>
+    <<set $notificationThirst = ($thirst >= 70) ? 1 : 0>>
+    <<set $notificationHunger = ($hunger >= 70) ? 1 : 0>>
+    
+    /* Health notifications now handled directly in NeedsSystem when health drops */
+    
+    /* Mood Warning */
+    <<if $mood <= 30>>
+        <<if typeof $_moodWarningShown === "undefined" || $_moodWarningShown !== true>>
+            <<run window.notifyWarning("Mood Low: " + $mood)>>
+            <<set $_moodWarningShown = true>>
+        <</if>>
+    <<else>>
+        <<set $_moodWarningShown = false>>
+    <</if>>
+    
+    /* Energy Warning */
+    <<if $energy <= ($energyMax * 0.3)>>
+        <<if typeof $_energyWarningShown === "undefined" || $_energyWarningShown !== true>>
+            <<run window.notifyWarning("Energy Low: " + $energy)>>
+            <<set $_energyWarningShown = true>>
+        <</if>>
+    <<else>>
+        <<set $_energyWarningShown = false>>
+    <</if>>
+<</nobr>><</widget>>
+
+
+
+
+
+/* GAIN STAT WITH MULTIPLIER */
+/* Usage: <<gainStat "intelligence" 5>> for player stats */
+/* Usage: <<gainStat "friendship" 5 "mother">> for character stats */
+/* Fitness multiplier applies to: upperBody, core, lowerBody, cardio */
+<<widget "gainStat">><<nobr>>
+    <<set _statName = $args[0]>>
+    <<set _baseAmount = $args[1]>>
+    <<set _characterId = $args[2]>>
+
+    /* If character ID is provided (must be string), delegate to gainCharacterStat */
+    <<if _characterId && typeof _characterId === "string">>
+        <<gainCharacterStat _characterId _statName _baseAmount>>
+    <<else>>
+        /* Handle player stat */
+        <<set _multiplier = $statMultipliers[_statName] || 1.0>>
+
+        /* Apply fitness multiplier to body part stats */
+        <<set _fitnessStats = ["upperBody", "core", "lowerBody", "cardio"]>>
+        <<if _fitnessStats.includes(_statName)>>
+            <<set _fitnessMultiplier = $statMultipliers.fitness || 1.0>>
+            <<set _multiplier = _multiplier * _fitnessMultiplier>>
+        <</if>>
+
+        <<set _actualGain = _baseAmount * _multiplier>>
+
+        <<if def State.variables[_statName]>>
+            <<set _maxVal = 100>>
+            <<if _statName === "energy" && def $energyMax>>
+                <<set _maxVal = $energyMax>>
+            <</if>>
+
+            <<set State.variables[_statName] = Math.min(_maxVal, Math.max(0, State.variables[_statName] + _actualGain))>>
+            <<queueStatChange _statName _actualGain>>
+        <</if>>
+    <</if>>
+
+    /* Note: recalculateStats is called by advanceTime after all changes */
+<</nobr>><</widget>>
+
+
+/* GAIN SKILL WITH CATEGORY MULTIPLIER */
+/* Usage: <<gainSkill "mental" "research" 5>> */
+/* Physical skills also grant small stat bonuses */
+<<widget "gainSkill">><<nobr>>
+    <<set _category = $args[0]>>
+    <<set _skillName = $args[1]>>
+    <<set _baseAmount = $args[2]>>
+    <<set _multiplier = $skillMultipliers[_category] || 1.0>>
+    <<set _actualGain = _baseAmount * _multiplier>>
+    
+    <<if $skills[_category] && def $skills[_category][_skillName]>>
+        <<set $skills[_category][_skillName] = Math.min(100, Math.max(0, $skills[_category][_skillName] + _actualGain))>>
+        <<notifySkillChange _skillName _actualGain>>
+        
+        /* Auto-track skill usage for decay system */
+        <<trackSkillUsage _category _skillName>>
+        
+        /* SKILL → STAT CONNECTIONS */
+        /* Physical skills grant fitness stat bonuses (25% of skill gain) */
+        <<set _statBonus = _actualGain * 0.25>>
+        
+        <<if _skillName === "dance">>
+            <<gainStat "cardio" _statBonus>>
+            <<gainStat "core" _statBonus>>
+            <<gainStat "lowerBody" (_statBonus * 0.4)>> /* +10% total ~ 40% of bonus share */
+        <<elseif _skillName === "yoga">>
+            <<gainStat "core" _statBonus>>
+            <<gainStat "lowerBody" _statBonus>>
+        <<elseif _skillName === "basketball">>
+            <<gainStat "cardio" _statBonus>>
+            <<gainStat "lowerBody" _statBonus>>
+            <<gainStat "upperBody" (_statBonus * 0.4)>>
+        <<elseif _skillName === "volleyball">>
+            <<gainStat "cardio" _statBonus>>
+            <<gainStat "upperBody" _statBonus>>
+            <<gainStat "core" (_statBonus * 0.4)>>
+        <<elseif _skillName === "football">>
+            <<gainStat "cardio" _statBonus>>
+            <<gainStat "lowerBody" _statBonus>>
+            <<gainStat "upperBody" (_statBonus * 0.4)>>
+        <<elseif _skillName === "swimming">>
+            /* Swimming: All-around but Cardio dominant */
+            <<gainStat "cardio" _statBonus>>
+            <<gainStat "upperBody" (_statBonus * 0.5)>>
+            <<gainStat "core" (_statBonus * 0.5)>>
+            <<gainStat "lowerBody" (_statBonus * 0.5)>>
+        <</if>>
+        
+        /* Mental skills grant intelligence bonus (10% of skill gain) */
+        <<if _category === "mental">>
+            <<gainStat "intelligence" (_actualGain * 0.1)>>
+        <</if>>
+        
+        /* Social skills grant charisma bonus (10% of skill gain) */
+        <<if _category === "social">>
+            <<gainStat "charisma" (_actualGain * 0.1)>>
+        <</if>>
+        
+        /* Creative skills grant creativity bonus (10% of skill gain) */
+        <<if _category === "creative">>
+            <<gainStat "creativity" (_actualGain * 0.1)>>
+        <</if>>
+        
+        /* Technical skills grant focus bonus (10% of skill gain) */
+        <<if _category === "technical">>
+            <<gainStat "focus" (_actualGain * 0.1)>>
+        <</if>>
+        
+        /* Practical skills grant willpower bonus (10% of skill gain) */
+        <<if _category === "practical">>
+            <<gainStat "willpower" (_actualGain * 0.1)>>
+        <</if>>
+    <</if>>
+<</nobr>><</widget>>
+
+
+/* GAIN SEXUAL SKILL */
+/* Usage: <<gainSexualSkill "oral" 5>> */
+/* Applies sensitivity multiplier */
+<<widget "gainSexualSkill">><<nobr>>
+    <<set _skillName = $args[0]>>
+    <<set _baseAmount = $args[1]>>
+    <<set _multiplier = $statMultipliers.sensitivity || 1.0>>
+    <<set _actualGain = _baseAmount * _multiplier>>
+    
+    <<if def $sexual.skills[_skillName]>>
+        <<set $sexual.skills[_skillName] = Math.min(100, Math.max(0, $sexual.skills[_skillName] + _actualGain))>>
+    <</if>>
+    
+    /* Increase experience */
+    <<set $sexual.experience += _actualGain>>
+<</nobr>><</widget>>
+
+
+/* LOSE STAT (with multiplier) */
+/* Usage: <<loseStat "energy" 10>> for player stats */
+/* Usage: <<loseStat "friendship" 5 "mother">> for character stats */
+<<widget "loseStat">><<nobr>>
+    <<set _statName = $args[0]>>
+    <<set _baseAmount = $args[1]>>
+    <<set _characterId = $args[2]>>
+    <<set _negAmount = -1 * _baseAmount>>
+
+    /* If character ID is provided (must be string), delegate to loseCharacterStat */
+    <<if _characterId && typeof _characterId === "string">>
+        <<loseCharacterStat _characterId _statName _baseAmount>>
+    <<else>>
+        /* Handle player stat */
+        <<if def State.variables[_statName]>>
+            <<set State.variables[_statName] = Math.min(100, Math.max(0, State.variables[_statName] - _baseAmount))>>
+            <<queueStatChange _statName _negAmount>>
+        <</if>>
+    <</if>>
+
+    /* Note: recalculateStats is called by advanceTime after all changes */
+<</nobr>><</widget>>
+
+
+/* LOSE SKILL */
+/* Usage: <<loseSkill "mental" "research" 5>> */
+<<widget "loseSkill">><<nobr>>
+    <<set _category = $args[0]>>
+    <<set _skillName = $args[1]>>
+    <<set _amount = $args[2]>>
+    <<set _negAmount = -1 * _amount>>
+    
+    <<if $skills[_category] && def $skills[_category][_skillName]>>
+        <<set $skills[_category][_skillName] = Math.min(100, Math.max(0, $skills[_category][_skillName] - _amount))>>
+        <<notifySkillChange _skillName _negAmount>>
+    <</if>>
+<</nobr>><</widget>>
+
+
+/* APPLY PROLOGUE TRAIT */
+/* Usage: <<applyTrait _traitData>> */
+<<widget "applyTrait">><<nobr>>
+    <<set _trait = $args[0]>>
+    
+    /* Apply stat multipliers */
+    <<if _trait.statMultipliers>>
+        <<for _stat, _value range _trait.statMultipliers>>
+            <<set $statMultipliers[_stat] = ($statMultipliers[_stat] || 1.0) * _value>>
+        <</for>>
+    <</if>>
+    
+    /* Apply skill category multipliers */
+    <<if _trait.skillCategoryMultipliers>>
+        <<for _category, _value range _trait.skillCategoryMultipliers>>
+            <<set $skillMultipliers[_category] = ($skillMultipliers[_category] || 1.0) * _value>>
+        <</for>>
+    <</if>>
+    
+    /* Add to player traits */
+    <<set _effects = {}>>
+    <<if _trait.statMultipliers>>
+        <<set _effects = Object.assign(_effects, _trait.statMultipliers)>>
+    <</if>>
+    <<if _trait.skillCategoryMultipliers>>
+        <<set _effects = Object.assign(_effects, _trait.skillCategoryMultipliers)>>
+    <</if>>
+    
+    <<run $characters.player.traits.push({
+        name: _trait.name,
+        icon: _trait.icon,
+        description: _trait.description,
+        effects: _effects
+    })>>
+<</nobr>><</widget>>
+
+
+/* GET CORRUPTION LEVEL (1-10) */
+/* Usage: <<set _level = $corruptionLevel>> */
+<<widget "getCorruptionLevel">><<nobr>>
+    <<set _corruptionLevel = $corruption>>
+<</nobr>><</widget>>
+
+/* GAIN CHARACTER STAT */
+/* Usage: <<gainCharacterStat "mother" "friendship" 2>> */
+<<widget "gainCharacterStat">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<set _statName = $args[1]>>
+    <<set _baseAmount = $args[2]>>
+
+    /* Safety checks */
+    <<if !_charId>>
+        /* <<run console.warn("gainCharacterStat: No charId provided")>> */
+    <<elseif !State.variables.characters>>
+        <<run console.error("gainCharacterStat: $characters undefined")>>
+    <<elseif !State.variables.characters[_charId]>>
+        <<run console.error("gainCharacterStat: Character not found: " + _charId)>>
+    <<elseif !State.variables.characters[_charId].stats>>
+        <<run console.error("gainCharacterStat: Character has no stats: " + _charId)>>
+    <<elseif State.variables.characters[_charId].stats[_statName] === undefined>>
+        /* Stat does not exist on character, do nothing (or warn) */
+        /* <<run console.log("gainCharacterStat: Stat " + _statName + " not found on " + _charId)>> */
+    <<else>>
+        /* Apply change */
+        <<set $characters[_charId].stats[_statName] = Math.min(100, Math.max(0, $characters[_charId].stats[_statName] + _baseAmount))>>
+        
+        /* Notification */
+        <<set _charName = $characters[_charId].firstName || $characters[_charId].name || _charId>>
+        <<set _displayStat = _statName.charAt(0).toUpperCase() + _statName.slice(1)>>
+        <<set _sign = (_baseAmount > 0) ? "+" : "">>
+        <<run window.notifySuccess(_charName + " " + _displayStat + " " + _sign + _baseAmount)>>
+    <</if>>
+<</nobr>><</widget>>
+
+/* LOSE CHARACTER STAT */
+/* Usage: <<loseCharacterStat "mother" "friendship" 5>> */
+<<widget "loseCharacterStat">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<set _statName = $args[1]>>
+    <<set _amount = $args[2]>>
+    
+    <<gainCharacterStat _charId _statName (-1 * _amount)>>
+<</nobr>><</widget>>
+
+
+/* GET OBEDIENCE STATUS */
+/* Returns: Dominant, Assertive, Neutral, Compliant, Submissive */
+<<widget "getObedienceStatus">><<nobr>>
+    <<if $obedience < -50>>
+        <<set _obedienceStatus = "Dominant">>
+    <<elseif $obedience < -20>>
+        <<set _obedienceStatus = "Assertive">>
+    <<elseif $obedience < 20>>
+        <<set _obedienceStatus = "Neutral">>
+    <<elseif $obedience < 50>>
+        <<set _obedienceStatus = "Compliant">>
+    <<else>>
+        <<set _obedienceStatus = "Submissive">>
+    <</if>>
+<</nobr>><</widget>>
