@@ -20,20 +20,55 @@
     <<set _tier = "tier3">>
 <</if>>
 
-/* Get common keys AND phase-specific keys */
-<<set _commonKeys = Object.keys(setup.fatherTalkTopics.common)>>
-<<set _phaseKeys = Object.keys(setup.fatherTalkTopics[_phase])>>
-<<set _allKeys = _commonKeys.concat(_phaseKeys)>>
+/* LivingRoom-specific topics - only topics that have LivingRoom photos */
+<<set _livingRoomTopics = []>>
 
-/* Select random topic */
-<<set _randomKey = _allKeys.random()>>
+/* Add valid common topics for living room */
+<<if _tier === "tier2" or _tier === "tier3">>
+    <<set _livingRoomTopics.push("advice")>>  /* LivingRoom T2-T3 */
+<</if>>
+<<set _livingRoomTopics.push("future")>>  /* LivingRoom T1-T2-T3 */
+<<if _tier === "tier1" or _tier === "tier3">>
+    <<set _livingRoomTopics.push("health")>>  /* LivingRoom T1, T3 */
+<</if>>
+<<if _tier === "tier2" or _tier === "tier3">>
+    <<set _livingRoomTopics.push("hobbies")>>  /* LivingRoom T2-T3 */
+    <<set _livingRoomTopics.push("marriage")>>  /* LivingRoom T2-T3 */
+<</if>>
+<<set _livingRoomTopics.push("memories")>>  /* LivingRoom T1-T2-T3 */
+<<set _livingRoomTopics.push("sports")>>  /* LivingRoom T1-T2-T3 */
+
+/* Add valid phase-specific topics for living room */
+<<if _phase === "preWork">>
+    <<if _tier === "tier1" or _tier === "tier3">>
+        <<set _livingRoomTopics.push("work")>>  /* LivingRoom T1, T3 */
+    <</if>>
+<<else>>
+    /* PostWork living room topics */
+    <<set _livingRoomTopics.push("advice")>>  /* LivingRoom T1-T2-T3 (postwork) */
+    <<set _livingRoomTopics.push("car")>>  /* LivingRoom T1-T2-T3 (postwork) */
+    <<set _livingRoomTopics.push("future")>>  /* LivingRoom T1-T2-T3 (postwork) */
+    <<if _tier === "tier1" or _tier === "tier3">>
+        <<set _livingRoomTopics.push("health")>>  /* LivingRoom T1, T3 (postwork) */
+    <</if>>
+    <<set _livingRoomTopics.push("hobbies")>>  /* LivingRoom T1-T2-T3 (postwork) */
+    <<set _livingRoomTopics.push("memories")>>  /* LivingRoom T1-T2-T3 (postwork) */
+    <<set _livingRoomTopics.push("sports")>>  /* LivingRoom T1-T2-T3 (postwork) */
+    <<set _livingRoomTopics.push("work")>>  /* LivingRoom T1-T2-T3 (postwork) */
+<</if>>
+
+/* Select random topic from available living room topics */
+<<set _randomKey = _livingRoomTopics.random()>>
 
 /* Retrieve topic from correct pool */
 <<if setup.fatherTalkTopics.common[_randomKey]>>
-    <<set _topic = setup.fatherTalkTopics.common[_randomKey][_tier]>>
+    <<set _topicArray = setup.fatherTalkTopics.common[_randomKey][_tier]>>
 <<else>>
-    <<set _topic = setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
+    <<set _topicArray = setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
 <</if>>
+
+/* Select random variation from the tier array */
+<<set _topic = _topicArray.random()>>
 
 /* Time and stats */
 <<advanceTime 15>>

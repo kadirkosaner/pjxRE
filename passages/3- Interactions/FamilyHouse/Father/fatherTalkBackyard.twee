@@ -1,0 +1,134 @@
+<<silently>>
+<<set $location = "fhBackyard">>
+<<logDailyActivity "father" "talk">>
+<<set _char = $characters.father>>
+<<set _friendship = _char.stats.friendship>>
+
+/* Determine phase based on work status */
+<<if $flags.fatherStartedWork>>
+    <<set _phase = "postWork">>
+<<else>>
+    <<set _phase = "preWork">>
+<</if>>
+
+/* Determine tier based on friendship */
+<<if _friendship < 40>>
+    <<set _tier = "tier1">>
+<<elseif _friendship < 70>>
+    <<set _tier = "tier2">>
+<<else>>
+    <<set _tier = "tier3">>
+<</if>>
+
+/* Backyard-specific topics - only topics that have Backyard photos */
+<<set _backyardTopics = []>>
+
+/* Add valid common topics for backyard */
+<<if _tier === "tier1">>
+    <<set _backyardTopics.push("advice")>>  /* Backyard T1 only */
+<</if>>
+
+/* Backyard only has PreWork photos for ADVICE T1 */
+/* If no valid topics available (tier2, tier3, or postWork), fallback */
+<<if _backyardTopics.length === 0>>
+    /* No backyard photos available for this tier/phase combination */
+    /* Fallback to a generic outdoor conversation */
+    <<set _fallback = true>>
+<<else>>
+    <<set _fallback = false>>
+
+    /* Select random topic from available backyard topics */
+    <<set _randomKey = _backyardTopics.random()>>
+
+    /* Retrieve topic from correct pool */
+    <<if setup.fatherTalkTopics.common[_randomKey]>>
+        <<set _topicArray = setup.fatherTalkTopics.common[_randomKey][_tier]>>
+    <<else>>
+        <<set _topicArray = setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
+    <</if>>
+
+    /* Select random variation from the tier array */
+    <<set _topic = _topicArray.random()>>
+<</if>>
+
+/* Time and stats */
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+<<gainStat "mood" 5>> /* Fresh air bonus */
+
+/* Apply stat gains from topic */
+<<if not _fallback>>
+    <<if _topic.friendship>>
+        <<gainStat "friendship" _topic.friendship "father">>
+    <</if>>
+    <<if _topic.trust>>
+        <<gainStat "trust" _topic.trust "father">>
+    <</if>>
+    <<if _topic.love>>
+        <<gainStat "love" _topic.love "father">>
+    <</if>>
+<</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Backyard - Talk with Father">>
+<<if _phase === "preWork">>
+The backyard is peaceful. Your father is working on the garden, enjoying the fresh air and sunshine.
+<<else>>
+Your father escaped to the backyard after work, seeking fresh air and a moment of peace.
+<</if>>
+<</narrative>>
+
+<<if _fallback>>
+/* Fallback content for tier2, tier3, or postWork when no backyard photos exist */
+<<if _phase === "preWork">>
+    <<dialog "father">>
+    (Working in the yard)
+    Good to get some fresh air. Been cooped up inside too long.
+    <</dialog>>
+
+    <<dialog "player">>
+    The yard is looking good.
+    <</dialog>>
+
+    <<dialog "father">>
+    (Standing up, wiping his hands)
+    Thanks. It's therapeutic, you know? Working with your hands. No computers, no phones. Just dirt and plants.
+    <</dialog>>
+
+    <<narrative>>
+    You spend a few minutes talking about the garden and enjoying the sunshine together.
+    <</narrative>>
+<<else>>
+    <<dialog "father">>
+    (Sitting on the porch, exhausted)
+    Needed some air. Work was... a lot today.
+    <</dialog>>
+
+    <<dialog "player">>
+    Want to talk about it?
+    <</dialog>>
+
+    <<dialog "father">>
+    (Shaking his head)
+    Not really. Just... glad to be home. Glad you're here.
+    <</dialog>>
+
+    <<narrative>>
+    You sit together in comfortable silence, watching the evening light fade.
+    <</narrative>>
+<</if>>
+
+<<set _gainedFriendship = 2>>
+<<gainStat "friendship" _gainedFriendship "father">>
+<<recalculateStats>>
+
+<<else>>
+/* Display the selected topic */
+<<print _topic.text>>
+<</if>>
+
+<div class="location-actions">
+<<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+</div>

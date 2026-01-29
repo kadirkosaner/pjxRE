@@ -20,20 +20,43 @@
     <<set _tier = "tier3">>
 <</if>>
 
-/* Get common keys AND phase-specific keys */
-<<set _commonKeys = Object.keys(setup.fatherTalkTopics.common)>>
-<<set _phaseKeys = Object.keys(setup.fatherTalkTopics[_phase])>>
-<<set _allKeys = _commonKeys.concat(_phaseKeys)>>
+/* Garage-specific topics - only topics that have Garage photos */
+<<set _garageTopics = []>>
 
-/* Select random topic */
-<<set _randomKey = _allKeys.random()>>
+/* Add valid common topics for garage */
+<<set _garageTopics.push("car")>>  /* Garage T1-T2-T3 */
+<<if _tier === "tier1">>
+    <<set _garageTopics.push("hobbies")>>  /* Garage T1 */
+<</if>>
+
+/* Add valid phase-specific topics for garage */
+<<if _phase === "preWork">>
+    /* PreWork has no additional garage topics beyond common */
+<<else>>
+    /* PostWork garage topics */
+    <<if _tier === "tier2">>
+        <<set _garageTopics.push("finances")>>  /* Garage T2 (postwork) */
+        <<set _garageTopics.push("health")>>  /* Garage T2 (postwork) */
+        <<set _garageTopics.push("marriage")>>  /* Garage T2 (postwork) */
+    <</if>>
+    <<if _tier === "tier1">>
+        <<set _garageTopics.push("sports")>>  /* Garage T1 (postwork) */
+    <</if>>
+    <<set _garageTopics.push("work")>>  /* Garage T1-T2-T3 (postwork) */
+<</if>>
+
+/* Select random topic from available garage topics */
+<<set _randomKey = _garageTopics.random()>>
 
 /* Retrieve topic from correct pool */
 <<if setup.fatherTalkTopics.common[_randomKey]>>
-    <<set _topic = setup.fatherTalkTopics.common[_randomKey][_tier]>>
+    <<set _topicArray = setup.fatherTalkTopics.common[_randomKey][_tier]>>
 <<else>>
-    <<set _topic = setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
+    <<set _topicArray = setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
 <</if>>
+
+/* Select random variation from the tier array */
+<<set _topic = _topicArray.random()>>
 
 /* Time and stats */
 <<advanceTime 15>>

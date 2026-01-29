@@ -6,6 +6,7 @@
     <<loseStat "energy" 5>>
     
     <<set _watchingWith = $watchingWith || "alone">>
+    <<set _useSportsTopic = false>>
     
     /* Get current time period */
     <<getPeriod>>
@@ -76,31 +77,42 @@
             <</switch>>
         <</if>>
     
-    /* ----- DAD ----- */
+    /* ----- DAD ----- (Watch Sports - topic database) */
     <<elseif _watchingWith === "dad">>
-        <<gainStat "friendship" 2 "father">>
-        <<if _imgFolder === "morning">>
-            <<set _maxVariation = 2>>
-            <<set _variation = random(1, _maxVariation)>>
-            <<switch _variation>>
-                <<case 1>>
-                    <<set _sceneText = "Dad's watching some drama where people are having a heated argument. He's leaning forward, coffee forgotten in his hand. 'Politics,' he mutters as you sit down. 'Always makes for good TV.'">>
-                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/dad1.webp">>
-                <<case 2>>
-                    <<set _sceneText = "You join your father on the couch. He's watching some action thriller - men in suits looking tense. He immediately starts explaining who's who and what's at stake. You're not sure you follow, but his enthusiasm is entertaining.">>
-                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/dad2.webp">>
-            <</switch>>
+        <<set _useSportsTopic = true>>
+        <<set _char = $characters.father>>
+        <<set _friendship = _char.stats.friendship>>
+        <<if $flags.fatherStartedWork>>
+            <<set _phase = "postWork">>
         <<else>>
-            <<set _maxVariation = 2>>
-            <<set _variation = random(1, _maxVariation)>>
-            <<switch _variation>>
-                <<case 1>>
-                    <<set _sceneText = "Dad's claimed the couch for his evening crime drama. On screen, a tense office confrontation plays out. He watches with the focus of a detective himself, occasionally nodding as if he's figured out the plot.">>
-                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/dad1.webp">>
-                <<case 2>>
-                    <<set _sceneText = "A psychological thriller is on, and Dad's in his element. Two men face off in what looks like an interrogation room. 'This is the good part,' he whispers as you settle in beside him, eyes never leaving the screen.">>
-                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/dad2.webp">>
-            <</switch>>
+            <<set _phase = "preWork">>
+        <</if>>
+        <<if _friendship < 40>>
+            <<set _tier = "tier1">>
+        <<elseif _friendship < 70>>
+            <<set _tier = "tier2">>
+        <<else>>
+            <<set _tier = "tier3">>
+        <</if>>
+        <<if _phase === "preWork">>
+            <<set _topicArray = setup.fatherTalkTopics.common.sports[_tier]>>
+        <<else>>
+            <<set _topicArray = setup.fatherTalkTopics.postWork.sports[_tier]>>
+        <</if>>
+        <<set _topic = _topicArray.random()>>
+        <<if _topic.friendship>>
+            <<gainStat "friendship" _topic.friendship "father">>
+        <</if>>
+        <<if _topic.trust>>
+            <<gainStat "trust" _topic.trust "father">>
+        <</if>>
+        <<if _topic.love>>
+            <<gainStat "love" _topic.love "father">>
+        <</if>>
+        <<if _imgFolder === "morning">>
+            <<set _sportsIntro = "The big game is on, and your father has claimed his spot on the couch. He looks happy—this is his element.">>
+        <<else>>
+            <<set _sportsIntro = "After a long day at work, your father finally gets to unwind with the game. It's one of his few escapes.">>
         <</if>>
     
     /* ----- BROTHER ----- */
@@ -205,11 +217,19 @@
 /* ============================================
    SCENE DISPLAY
 ============================================ */
+<<if _useSportsTopic>>
+<<narrative "Living Room - Watch Sports with Father">>
+_sportsIntro
+<</narrative>>
+
+<<print _topic.text>>
+<<else>>
 <<narrative "Watching TV">>
 _sceneText
 <</narrative>>
 
 <<image _sceneImage "100%">>
+<</if>>
 
 <div class="location-actions">
     <<btn "Turn Off TV" "fhCouch">><</btn>>

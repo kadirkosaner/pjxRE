@@ -11,20 +11,38 @@
     <<set _phase = "preWork">>
 <</if>>
 
-/* Select variant based on friendship */
+/* Tier same as talk (40, 70) - topic database */
 <<if _friendship < 40>>
-    <<set _variant = 1>>
+    <<set _tier = "tier1">>
 <<elseif _friendship < 70>>
-    <<set _variant = 2>>
+    <<set _tier = "tier2">>
 <<else>>
-    <<set _variant = 3>>
+    <<set _tier = "tier3">>
 <</if>>
 
+/* Pull topic from database - finance (preWork) / finances (postWork) - Kitchen photos */
+<<if _phase === "preWork">>
+    <<set _topicArray = setup.fatherTalkTopics.preWork.finance[_tier]>>
+<<else>>
+    <<set _topicArray = setup.fatherTalkTopics.postWork.finances[_tier]>>
+<</if>>
+<<set _topic = _topicArray.random()>>
+
+/* Activity-specific stats */
 <<advanceTime 20>>
 <<gainStat "energy" 10>>
 <<gainStat "mood" 5>>
-<<gainStat "friendship" 2 "father">>
-<<gainStat "trust" 1 "father">>
+
+/* Apply stat gains from topic */
+<<if _topic.friendship>>
+    <<gainStat "friendship" _topic.friendship "father">>
+<</if>>
+<<if _topic.trust>>
+    <<gainStat "trust" _topic.trust "father">>
+<</if>>
+<<if _topic.love>>
+    <<gainStat "love" _topic.love "father">>
+<</if>>
 <<recalculateStats>>
 <</silently>>
 
@@ -36,175 +54,7 @@ Your father is up early, savoring his coffee before the chaos of the workday beg
 <</if>>
 <</narrative>>
 
-<<if _phase === "preWork">>
-/* ========== PRE-WORK VARIANTS ========== */
-<<switch _variant>>
-<<case 1>>
-/* Variant 1: Polite but Distant */
-<<dialog "father">>
-(Looking up from his paper)
-Morning. Coffee's fresh if you want some.
-<</dialog>>
-
-<<dialog "player">>
-Thanks, Dad.
-<</dialog>>
-
-<<narrative>>
-You pour yourself a cup and sit across from him. The conversation is light—weather, plans for the day. He's pleasant but preoccupied, occasionally glancing back at his paper.
-<</narrative>>
-
-<<dialog "father">>
-(Folding the paper)
-Nice having company for once. Your brother never wakes up this early.
-<</dialog>>
-
-<<case 2>>
-/* Variant 2: Comfortable */
-<<dialog "father">>
-(Smiling as you enter)
-There she is. Grab a cup and sit down.
-<</dialog>>
-
-<<narrative>>
-He's already poured you a cup—black, the way you sometimes take it. He remembered. You settle into the chair beside him instead of across.
-<</narrative>>
-
-<<dialog "father">>
-(Setting aside his paper)
-I like this. Just the two of us. Feels like we don't get enough of these moments.
-<</dialog>>
-
-<<dialog "player">>
-We could make it a habit.
-<</dialog>>
-
-<<dialog "father">>
-(Reaching over to pat your hand)
-I'd like that. I really would.
-<</dialog>>
-
-<<case 3>>
-/* Variant 3: Intimate */
-<<dialog "father">>
-(Face lighting up)
-Hey, you. I was hoping you'd come down.
-<</dialog>>
-
-<<narrative>>
-He pulls out the chair next to him—not across, next to. You sit close, your shoulders almost touching. He slides his mug toward you.
-<</narrative>>
-
-<<dialog "father">>
-(Voice warm)
-Here. I made it the way you like it. Figured I'd share.
-<</dialog>>
-
-<<dialog "player">>
-Sharing your coffee? That's serious.
-<</dialog>>
-
-<<dialog "father">>
-(Chuckling, arm draping over your chair)
-For you? Always.
-(His fingers brush your shoulder)
-You know, mornings like this... they make everything else worth it.
-<</dialog>>
-
-<<narrative>>
-You lean into his warmth, the morning sun catching the silver at his temples. He looks at you with an expression that makes your heart feel full.
-<</narrative>>
-
-<<dialog "father">>
-(Softly)
-My girl.
-<</dialog>>
-
-<</switch>>
-
-<<else>>
-/* ========== POST-WORK VARIANTS ========== */
-<<switch _variant>>
-<<case 1>>
-/* Variant 1: Tired but Present */
-<<dialog "father">>
-(Stifling a yawn)
-You're up early. Everything okay?
-<</dialog>>
-
-<<dialog "player">>
-Wanted to catch you before work.
-<</dialog>>
-
-<<dialog "father">>
-(Expression softening)
-That's... that's nice. Sit. Drink with me.
-<</dialog>>
-
-<<narrative>>
-You share a quiet cup together. He checks his watch more than once, but he stays until the last possible moment.
-<</narrative>>
-
-<<case 2>>
-/* Variant 2: Grateful for the Moment */
-<<dialog "father">>
-(Putting down his phone)
-Work can wait five minutes.
-(Gesturing to the seat next to him)
-Sit. Talk to me.
-<</dialog>>
-
-<<narrative>>
-He gives you his full attention, a rare commodity these days. His eyes are tired but warm.
-<</narrative>>
-
-<<dialog "father">>
-(Squeezing your hand)
-This is the best part of my morning. Right here.
-<</dialog>>
-
-<<dialog "player">>
-Better than coffee?
-<</dialog>>
-
-<<dialog "father">>
-(Smiling)
-Much better.
-<</dialog>>
-
-<<case 3>>
-/* Variant 3: Vulnerable Morning */
-<<dialog "father">>
-(Seeing you, his whole demeanor shifts)
-Hey... come here.
-<</dialog>>
-
-<<narrative>>
-He pulls you down into the chair beside him, close enough that your knees touch. His hand finds yours immediately.
-<</narrative>>
-
-<<dialog "father">>
-(Voice rough from sleep)
-I hate leaving every morning. You know that, right?
-<</dialog>>
-
-<<dialog "player">>
-I know, Dad.
-<</dialog>>
-
-<<dialog "father">>
-(Lifting your hand, pressing his lips to your knuckles)
-This—right here—this is what I work for. These moments with you.
-(Eyes meeting yours)
-Never doubt how much you mean to me.
-<</dialog>>
-
-<<narrative>>
-The kitchen feels smaller somehow, warmer. His thumb traces circles on your hand until he absolutely has to leave.
-<</narrative>>
-
-<</switch>>
-<</if>>
+<<print _topic.text>>
 
 <div class="location-actions">
 <<btn "Finish Coffee" "CharacterInteraction" "secondary">><</btn>>

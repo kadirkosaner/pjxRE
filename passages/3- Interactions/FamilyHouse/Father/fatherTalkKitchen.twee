@@ -20,20 +20,51 @@
     <<set _tier = "tier3">>
 <</if>>
 
-/* Get common keys AND phase-specific keys */
-<<set _commonKeys = Object.keys(setup.fatherTalkTopics.common)>>
-<<set _phaseKeys = Object.keys(setup.fatherTalkTopics[_phase])>>
-<<set _allKeys = _commonKeys.concat(_phaseKeys)>>
+/* Kitchen-specific topics - only topics that have Kitchen photos */
+<<set _kitchenTopics = []>>
 
-/* Select random topic */
-<<set _randomKey = _allKeys.random()>>
+/* Add valid common topics for kitchen */
+<<if _tier === "tier1" or _tier === "tier2" or _tier === "tier3">>
+    <<set _kitchenTopics.push("finance")>>  /* Kitchen T1-T2-T3 */
+<</if>>
+<<if _tier === "tier2">>
+    <<set _kitchenTopics.push("health")>>  /* Kitchen T2 */
+<</if>>
+<<if _tier === "tier1">>
+    <<set _kitchenTopics.push("marriage")>>  /* Kitchen T1 */
+<</if>>
+
+/* Add valid phase-specific topics for kitchen */
+<<if _phase === "preWork">>
+    <<if _tier === "tier2">>
+        <<set _kitchenTopics.push("work")>>  /* Kitchen T2 */
+    <</if>>
+<<else>>
+    /* PostWork kitchen topics */
+    <<if _tier === "tier1" or _tier === "tier3">>
+        <<set _kitchenTopics.push("finances")>>  /* Kitchen T1, T3 */
+    <</if>>
+    <<if _tier === "tier2">>
+        <<set _kitchenTopics.push("health")>>  /* Kitchen T2 (postwork) */
+        <<set _kitchenTopics.push("marriage")>>  /* Kitchen T2 (postwork) */
+    <</if>>
+    <<if _tier === "tier1" or _tier === "tier3">>
+        <<set _kitchenTopics.push("marriage")>>  /* Kitchen T1, T3 (postwork) */
+    <</if>>
+<</if>>
+
+/* Select random topic from available kitchen topics */
+<<set _randomKey = _kitchenTopics.random()>>
 
 /* Retrieve topic from correct pool */
 <<if setup.fatherTalkTopics.common[_randomKey]>>
-    <<set _topic = setup.fatherTalkTopics.common[_randomKey][_tier]>>
+    <<set _topicArray = setup.fatherTalkTopics.common[_randomKey][_tier]>>
 <<else>>
-    <<set _topic = setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
+    <<set _topicArray = setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
 <</if>>
+
+/* Select random variation from the tier array */
+<<set _topic = _topicArray.random()>>
 
 /* Time and stats */
 <<advanceTime 15>>

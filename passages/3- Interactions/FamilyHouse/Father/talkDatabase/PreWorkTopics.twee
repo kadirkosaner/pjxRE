@@ -1,0 +1,910 @@
+/* ==========================================
+   FATHER - PREWORK-ONLY TALK TOPICS
+   These topics are ONLY available during PreWork phase (before job starts)
+
+   Topics: WORK, FINANCE, HEALTH
+   Each topic has 3 tiers with 3-5 dialog variations
+
+   After 1 week, these will be replaced by PostWork versions
+========================================== */
+
+<<set setup.fatherTalkTopics = setup.fatherTalkTopics || {}>>
+<<set setup.fatherTalkTopics.preWork = {
+
+    /* ==========================================
+       TOPIC: WORK (PreWork Phase)
+       Before starting the new job - nervous, anticipation, preparation
+       Location: LivingRoom (T1, T3), Kitchen (T2)
+    ========================================== */
+    work: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking through paperwork)
+                The new job starts next week. Engineering firm downtown.
+                <</dialog>>
+
+                <<dialog "player">>
+                Are you excited?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Thoughtful)
+                Yeah. A little nervous too, if I'm honest.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Taking notes, coffee on the table)
+                Trying to review everything before I start. Don't want to look like an idiot on day one.
+                <</dialog>>
+
+                <<dialog "player">>
+                You'll be fine. You know your stuff.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Small smile)
+                Thanks for the vote of confidence.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking at documents together)
+                The benefits package is good. Health insurance, retirement. It's a solid opportunity.
+                <</dialog>>
+
+                <<dialog "player">>
+                Sounds like a great fit.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nodding)
+                I think it will be. Just need to prove myself first.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (On phone in background)
+                The commute is about 45 minutes. Not ideal, but manageable.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's pretty far.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Setting phone down)
+                It's what we need right now. I'll make it work.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 2
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Setting down his coffee, thoughtful)
+                You know, I'm actually nervous about the new job. Haven't felt like the new guy in years.
+                <</dialog>>
+
+                <<dialog "player">>
+                You'll do great, Dad. You always figure things out.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Looking at you with appreciation)
+                Thanks, kiddo. That means more than you know.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                Your father is having breakfast while discussing the new job. You reach out and touch his shoulder supportively.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Grateful)
+                I'm lucky to have you. You always know when I need encouragement.
+                <</dialog>>
+
+                <<dialog "player">>
+                You've got this, Dad.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Covering your hand with his)
+                With you believing in me? How can I fail?
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Eating breakfast in sunny kitchen)
+                This is nice. Peaceful mornings. Once I start, it'll be early wake-ups and rushing out the door.
+                <</dialog>>
+
+                <<dialog "player">>
+                We should enjoy it while we can.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling at you)
+                Exactly what I was thinking. These moments matter.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Having serious discussion at counter)
+                I need this job to work out. For all of us. The move, the house... it's all riding on this.
+                <</dialog>>
+
+                <<dialog "player">>
+                No pressure or anything.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Chuckling)
+                Right? But seriously, I feel good about it. It's the right move.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 3
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkLivingRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Voice quieter than usual)
+                Can I tell you something? I'm scared. This move, the new job... What if I can't provide like I used to?
+                <</dialog>>
+
+                <<dialog "player">>
+                (Taking his hand)
+                Dad, you've never let us down. Not once.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Squeezing your hand, eyes glistening)
+                I don't know what I'd do without you. You've grown into such an amazing person.
+                (His thumb brushes over your knuckles)
+                I'm proud of you. So damn proud.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkLivingRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're kneeling on the floor beside where he's sitting, your hand on his leg. He looks troubled, thinking about the job.
+                <</narrative>>
+
+                <<dialog "father">>
+                What if I'm not good enough? What if they realize they made a mistake hiring me?
+                <</dialog>>
+
+                <<dialog "player">>
+                (Squeezing his leg reassuringly)
+                They're lucky to have you. You're brilliant at what you do.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Looking down at you with emotion)
+                How did I raise such a wonderful daughter?
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkLivingRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He pulls you into a standing embrace, holding you tightly.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Voice emotional)
+                I'm doing this for us. For you. I want to give you everything you deserve.
+                <</dialog>>
+
+                <<dialog "player">>
+                I don't need everything. I just need you.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Holding you tighter)
+                You have me. Always.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkLivingRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Holding your hands, close-up)
+                Promise me something. No matter how crazy work gets, we'll still have this. Time together.
+                <</dialog>>
+
+                <<dialog "player">>
+                I promise.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Bringing your hands to his chest)
+                You're the most important thing in my life. Never forget that.
+                <</dialog>>
+
+                <<narrative>>
+                The intensity in his eyes makes your heart beat faster.
+                <</narrative>>`,
+                friendship: 5,
+                trust: 5,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicWorkLivingRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Standing close, looking down at you)
+                Everything I do, every decision I make... it's all for you. You know that, right?
+                <</dialog>>
+
+                <<dialog "player">>
+                Dad...
+                <</dialog>>
+
+                <<dialog "father">>
+                (Pulling you into an embrace)
+                I need to hear you say you believe in me.
+                <</dialog>>
+
+                <<dialog "player">>
+                I believe in you. Always.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Holding you close)
+                That's all I needed to hear.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: FINANCE (PreWork Phase)
+       Money concerns after the move, budgeting before job starts
+       Location: Kitchen (T1-T2-T3)
+    ========================================== */
+    finance: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Working on laptop with calculator)
+                We need to be careful with spending for a while. Moving wasn't cheap.
+                <</dialog>>
+
+                <<dialog "player">>
+                How bad is it?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Looking up)
+                Not bad. Just... tight. Until the first paycheck comes in.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (At fridge together)
+                We're good on groceries for the week. Need to make smart choices right now.
+                <</dialog>>
+
+                <<dialog "player">>
+                I can help. Cut back on things.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Appreciative)
+                That's thoughtful. But we'll be fine. Just need to be mindful.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Showing you documents at kitchen island)
+                This is the mortgage. This is utilities. This is everything else.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's... a lot.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nodding)
+                Welcome to adulthood. But the new job salary will cover it all.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Alone at counter with bills)
+                Numbers don't lie. We moved at the right time financially.
+                <</dialog>>
+
+                <<dialog "player">>
+                So we're okay?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Looking up)
+                We will be. Just need to get through this transition period.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Hand on your back while sitting at island)
+                Money's tight right now, but we'll manage. Your mother and I have been through worse.
+                <</dialog>>
+
+                <<dialog "player">>
+                Is there anything I can do to help?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Touched)
+                Just hearing you offer... that's more than enough.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're sitting at the table holding hands, coffee cups between you.
+                <</narrative>>
+
+                <<dialog "father">>
+                I want to be honest with you about our finances. You're old enough to understand.
+                <</dialog>>
+
+                <<dialog "player">>
+                I appreciate that.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Squeezing your hand)
+                We're a team. All of us. We'll figure it out together.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 3,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Watching you at the cupboard)
+                You know what? I'm not worried. We've got each other. That's what matters.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's very zen of you.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                I have my moments.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking at you affectionately)
+                The money will come. It always does. Right now, I'm just glad we're all together.
+                <</dialog>>
+
+                <<dialog "player">>
+                Me too, Dad.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Softly)
+                That's all that really matters.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Honest, vulnerable)
+                I worry sometimes. About providing for this family. Being enough.
+                <</dialog>>
+
+                <<dialog "player">>
+                You've always been more than enough, Dad.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Pulling you into a hug in the kitchen)
+                What did I do to deserve you, huh?
+                (Pressing a kiss to your temple)
+                My little girl, all grown up and taking care of her old man.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's holding you close in the kitchen, the intimate moment feeling natural.
+                <</narrative>>
+
+                <<dialog "father">>
+                Promise me you won't worry about money. That's my job. You just focus on being you.
+                <</dialog>>
+
+                <<dialog "player">>
+                We're in this together.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Holding you tighter)
+                Together. I like the sound of that.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (In a close embrace)
+                Every sacrifice I make, every hour I'll work... it's all worth it for you.
+                <</dialog>>
+
+                <<dialog "player">>
+                Dad, you don't have to—
+                <</dialog>>
+
+                <<dialog "father">>
+                (Cupping your face)
+                Yes, I do. Because you're everything to me.
+                <</dialog>>
+
+                <<narrative>>
+                The intensity of his gaze makes your breath catch.
+                <</narrative>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFinanceKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Close proximity in kitchen)
+                I want to give you the world. You deserve it.
+                <</dialog>>
+
+                <<dialog "player">>
+                I don't need the world. Just you.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Emotional, pulling you close)
+                How did I get so lucky?
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: HEALTH (PreWork Phase)
+       More relaxed, time for exercise, less stress
+       Location: LivingRoom (T1, T3), Kitchen (T2)
+    ========================================== */
+    health: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Stretching in living room)
+                Been trying to get back in shape before the job starts. Figure I should while I have time.
+                <</dialog>>
+
+                <<dialog "player">>
+                How's it going?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Grimacing)
+                Harder than I remembered. Getting old sucks.
+                <</dialog>>`,
+                friendship: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're bringing him ice pack and water while he stretches his back.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Gratefully)
+                Thanks. Pulled something yesterday.
+                <</dialog>>
+
+                <<dialog "player">>
+                Maybe take it easy?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Chuckling)
+                Now where's the fun in that?
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Celebrating on couch, arms raised)
+                Ten push-ups! New personal record.
+                <</dialog>>
+
+                <<dialog "player">>
+                (Laughing)
+                That's... great, Dad.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Grinning)
+                Hey, don't mock the progress. Baby steps.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Doing exercises while you watch)
+                Your mother says I need to take better care of myself.
+                <</dialog>>
+
+                <<dialog "player">>
+                She's right.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Between reps)
+                I know. That's... why I'm doing... this.
+                <</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Having breakfast together)
+                I'm trying to eat better too. More vegetables, less junk.
+                <</dialog>>
+
+                <<dialog "player">>
+                Full health kick, huh?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nodding)
+                Figure if I'm starting a new chapter, might as well do it right.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Arm around your waist at kitchen island)
+                You know what helps more than exercise? Having people who care about you.
+                <</dialog>>
+
+                <<dialog "player">>
+                Is that medically proven?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                It is in my book.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking at you affectionately in kitchen)
+                I want to be around for a long time. See you grow, see your life unfold.
+                <</dialog>>
+
+                <<dialog "player">>
+                Then take care of yourself.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Softly)
+                I'm trying. For you.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                Your mother's been on me about scheduling a check-up. She's probably right.
+                <</dialog>>
+
+                <<dialog "player">>
+                Definitely right.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Chuckling)
+                Fine, fine. I'll call tomorrow.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Quieter)
+                I think about getting older more than I used to. Wondering how much time I have left to...
+                (Trailing off)
+                <</dialog>>
+
+                <<dialog "player">>
+                Dad, don't talk like that.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Pulling you into a tight embrace)
+                I'm not going anywhere. Not when I have so much to stay for.
+                (Holding you tightly)
+                You especially.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's in a very close emotional embrace with you, the vulnerability showing.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Voice thick)
+                Every day with you is a gift. I don't take that for granted.
+                <</dialog>>
+
+                <<dialog "player">>
+                (Softly)
+                Me neither.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Holding you closer)
+                Promise me you'll always be here. I need you.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                Evening atmosphere. You're comforting him, your hand on his shoulder.
+                <</narrative>>
+
+                <<dialog "father">>
+                Sometimes I feel the weight of everything. The responsibilities, the expectations...
+                <</dialog>>
+
+                <<dialog "player">>
+                You don't have to carry it alone.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Looking at you with emotion)
+                With you here? I can carry anything.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHealthLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Holding you close)
+                You're my reason to stay healthy. To be better. To live longer.
+                <</dialog>>
+
+                <<dialog "player">>
+                Dad...
+                <</dialog>>
+
+                <<dialog "father">>
+                (Cupping your face)
+                I mean it. You're my motivation for everything.
+                <</dialog>>
+
+                <<narrative>>
+                The intensity of the moment is overwhelming.
+                <</narrative>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            }
+        ]
+    }
+}>>

@@ -1,0 +1,2005 @@
+/* ==========================================
+   FATHER - COMMON TALK TOPICS
+   These topics are available in BOTH PreWork and PostWork phases
+
+   Topics: ADVICE, CAR, FUTURE, HOBBIES, MARRIAGE, MEMORIES, SPORTS
+   Each topic has 3 tiers with 3-5 dialog variations
+========================================== */
+
+<<set setup.fatherTalkTopics = setup.fatherTalkTopics || {}>>
+<<set setup.fatherTalkTopics.common = {
+
+    /* ==========================================
+       TOPIC: ADVICE
+       Location: Backyard (T1), LivingRoom (T2-T3)
+    ========================================== */
+    advice: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceBackyardTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Setting down the rake)
+                You know what? The secret to success is simple. Whatever you do, do it well.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's it?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Shrugging)
+                People like to overcomplicate things. But yeah, that's it.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceBackyardTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Sitting on the porch with a drink)
+                One day you'll build your own life. Remember—nobody owes you anything.
+                <</dialog>>
+
+                <<dialog "player">>
+                Isn't that kind of harsh?
+                <</dialog>>
+
+                <<dialog "father">>
+                Realistic. Just realistic.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceBackyardTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Pointing to a spot in the yard)
+                See that tree? Three years ago, nobody thought it would grow. But I was patient.
+                <</dialog>>
+
+                <<dialog "player">>
+                So patience pays off?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                Always does. Remember that.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceBackyardTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                The only bad mistake is the one you don't learn from.
+                <</dialog>>
+
+                <<dialog "player">>
+                Have you made big mistakes?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Thoughtful)
+                A few. But I learned something from each one.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking out the window)
+                When I was your age, I thought I knew everything. Then I realized... nobody really knows anything.
+                <</dialog>>
+
+                <<dialog "player">>
+                So what do you think now?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Turning to you)
+                Being okay with not knowing is the real wisdom. Plan ahead, but stay flexible.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're working on a puzzle together with your father.
+                <</narrative>>
+
+                <<dialog "father">>
+                Life's kind of like a puzzle. Sometimes pieces don't seem to fit. But if you're patient...
+                (Placing a piece)
+                The picture comes together.
+                <</dialog>>
+
+                <<dialog "player">>
+                What if some pieces don't fit?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Laughing)
+                Then you're looking at the wrong box.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Watching TV together)
+                Time is the most valuable thing you have. You can make money back, but you can never get time back.
+                <</dialog>>
+
+                <<dialog "player">>
+                Do you have regrets?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Thoughtful)
+                Not spending more time with certain people. But you can't change the past.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                You know what I wish someone told me at your age?
+                <</dialog>>
+
+                <<dialog "player">>
+                What?
+                <</dialog>>
+
+                <<dialog "father">>
+                That it's okay to change your mind. You don't have to stick with every decision forever.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Taking your hands)
+                Hard times are coming. They come for everyone. When they do...
+                <</dialog>>
+
+                <<dialog "player">>
+                What should I remember?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Looking deep into your eyes)
+                That you're not alone. I'm always here. Always.
+                <</dialog>>
+
+                <<narrative>>
+                His grip tightens slightly. You can feel the weight of his words.
+                <</narrative>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Embracing you)
+                The most important thing in life is staying true to yourself. Don't try to please everyone.
+                <</dialog>>
+
+                <<dialog "player">>
+                But what if I disappoint people?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Holding your shoulders)
+                This is your life. If you're not happy, nothing else matters.
+                <</dialog>>
+
+                <<narrative>>
+                His eyes are serious. He really means these words.
+                <</narrative>>`,
+                friendship: 5,
+                trust: 4,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Voice emotional)
+                Sometimes, as a father... I don't feel like I'm enough. But I want you to know...
+                <</dialog>>
+
+                <<dialog "player">>
+                Dad, you're amazing.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Pulling you close)
+                You make me a better person. Just knowing that is enough.
+                <</dialog>>
+
+                <<narrative>>
+                The embrace lasts longer than usual. This moment feels special.
+                <</narrative>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                One day, you'll have to make a big decision. And nobody will be able to tell you what to do.
+                <</dialog>>
+
+                <<dialog "player">>
+                So what should I do?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Cupping your face)
+                Look inside. The answer is always there. And know this—no matter what, I'm proud of you.
+                <</dialog>>
+
+                <<narrative>>
+                He rests his forehead against yours. The closeness doesn't feel uncomfortable; it feels safe.
+                <</narrative>>`,
+                friendship: 5,
+                trust: 5,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicAdviceLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Sitting close to you)
+                I hope I've taught you enough. About life, about choices...
+                <</dialog>>
+
+                <<dialog "player">>
+                You've taught me everything that matters.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling softly)
+                Then my job here is done.
+                (Pausing)
+                But I'm not going anywhere. I'll always be right here when you need me.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: CAR GARAGE
+       Location: Garage (T1-T2-T3)
+    ========================================== */
+    car: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Wiping his hands with a rag)
+                The car needs some work. Nothing major, just routine maintenance.
+                <</dialog>>
+
+                <<dialog "player">>
+                Need help?
+                <</dialog>>
+
+                <<dialog "father">>
+                Nah, I got it. But thanks for asking.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Inspecting the engine)
+                Cars are simple once you understand them. Everything has a purpose.
+                <</dialog>>
+
+                <<dialog "player">>
+                Can you teach me?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Glancing at you)
+                Maybe. We'll see.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking under the hood)
+                Oil change is overdue. Should take care of it today.
+                <</dialog>>
+
+                <<dialog "player">>
+                How often do you have to do that?
+                <</dialog>>
+
+                <<dialog "father">>
+                Every few thousand miles. It's basic upkeep.
+                <</dialog>>`,
+                friendship: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Cleaning the engine block)
+                A clean engine runs better. Little things matter.
+                <</dialog>>
+
+                <<dialog "player">>
+                Is that really true?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nodding)
+                In cars and in life.
+                <</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Eyes lighting up)
+                You know, I rebuilt my first car when I was not much older than you. A '69 Mustang.
+                <</dialog>>
+
+                <<dialog "player">>
+                What happened to it?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Wistful smile)
+                Sold it to pay for your mother's engagement ring. Best trade I ever made.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Showing you a wrench)
+                This was my dad's. He taught me everything about cars.
+                <</dialog>>
+
+                <<dialog "player">>
+                Do you miss him?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Softly)
+                Every day. But he lives on in what he taught me.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 3,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Laughing at a memory)
+                I once tried to fix the transmission on my own. Took me three weeks and the car still didn't run right.
+                <</dialog>>
+
+                <<dialog "player">>
+                What did you do?
+                <</dialog>>
+
+                <<dialog "father">>
+                Swallowed my pride and took it to a mechanic. Sometimes you need to know your limits.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Sitting on the bumper)
+                There's something peaceful about working with your hands. No emails, no phone calls. Just you and the machine.
+                <</dialog>>
+
+                <<dialog "player">>
+                Is that why you like it out here?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nodding)
+                It's my therapy.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Standing close, guiding your hands)
+                See this? This is the heart of the machine. Treat it right, and it'll never let you down.
+                <</dialog>>
+
+                <<narrative>>
+                His hand covers yours, warm and calloused. He stands behind you, close enough that you can smell his cologne mixed with motor oil.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Voice low, near your ear)
+                You've got good hands. Steady. I like that about you.
+                <</dialog>>
+
+                <<narrative>>
+                His praise sends an unexpected warmth through you.
+                <</narrative>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Working together on the engine)
+                You're a natural at this. Better than I was at your age.
+                <</dialog>>
+
+                <<dialog "player">>
+                Really?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling at you)
+                Really. You've got talent. And patience.
+                (His hand lingers on yours as you hold a tool together)
+                I'm proud of you.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                After finishing the repair, your father pulls you into an unexpected embrace in front of the car.
+                <</narrative>>
+
+                <<dialog "father">>
+                Thanks for helping. It means a lot.
+                <</dialog>>
+
+                <<dialog "player">>
+                Of course, Dad.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Holding you a moment longer)
+                No, really. These moments... I'll remember them forever.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 3,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicCarGarageTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Leaning close to show you something)
+                Feel this right here? That's the tension. You want it just tight enough.
+                <</dialog>>
+
+                <<narrative>>
+                His chest is pressed against your back as he guides your hand. The closeness feels intimate but not uncomfortable.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Softly)
+                Perfect. Just like that.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: FUTURE
+       Location: LivingRoom (T1-T2-T3)
+    ========================================== */
+    future: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Standard dad question)
+                Have you thought about what you want to do after school? College? Career?
+                <</dialog>>
+
+                <<dialog "player">>
+                I'm still figuring it out.
+                <</dialog>>
+
+                <<dialog "father">>
+                Fair enough. Just don't wait too long.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                College is expensive. We need to start thinking about that.
+                <</dialog>>
+
+                <<dialog "player">>
+                I know. I'm looking into scholarships.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nodding)
+                Good. That's smart.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                What are you interested in? Any idea what field you want to go into?
+                <</dialog>>
+
+                <<dialog "player">>
+                Not really sure yet.
+                <</dialog>>
+
+                <<dialog "father">>
+                That's okay. You've got time.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking at a college brochure)
+                These tuition rates are insane. How does anyone afford this?
+                <</dialog>>
+
+                <<dialog "player">>
+                We'll figure it out.
+                <</dialog>>
+
+                <<dialog "father">>
+                Yeah. We will.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Supportive)
+                Whatever you decide to do, I'm behind you. Just promise me you'll chase something that makes you happy.
+                <</dialog>>
+
+                <<dialog "player">>
+                What if I don't know what that is yet?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Reassuring)
+                That's fine. You've got time. And you've got us.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking at the living room)
+                I wonder what this place will look like when you're my age. What you'll have built.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's a long time from now.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                Not as long as you think. Time moves fast.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                You know what I hope for you?
+                <</dialog>>
+
+                <<dialog "player">>
+                What?
+                <</dialog>>
+
+                <<dialog "father">>
+                That you find something you love doing. Not just for money, but because it makes you feel alive.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Planning together)
+                We should make a list. Goals for the next five years. Keep you on track.
+                <</dialog>>
+
+                <<dialog "player">>
+                That sounds... intense.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Laughing)
+                Or we could wing it. Either way, I believe in you.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Intense, sincere)
+                You know what scares me most? Not being there when you need me. Missing important moments in your life.
+                <</dialog>>
+
+                <<dialog "player">>
+                You'll be there. You always are.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Framing your face with his hands)
+                Promise me something. Promise me you'll always let me be part of your life. No matter where it takes you.
+                <</dialog>>
+
+                <<dialog "player">>
+                I promise, Dad.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Forehead pressed to yours)
+                That's my girl.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking at the room together)
+                One day this will all be yours. This house, this life. I want you to be ready.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's a long time away.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Arm around you)
+                Maybe. But I want to make sure I've taught you everything you need to know.
+                <</dialog>>
+
+                <<narrative>>
+                He pulls you closer. The moment feels significant.
+                <</narrative>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                I think about your future all the time. The person you'll become. The life you'll live.
+                <</dialog>>
+
+                <<dialog "player">>
+                No pressure, right?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Holding you close)
+                No pressure. Just... excitement. Pride. You're going to do amazing things.
+                <</dialog>>
+
+                <<narrative>>
+                His embrace is warm and reassuring.
+                <</narrative>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicFutureLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Emotional)
+                The hardest part about being a parent is knowing one day you'll leave. Build your own life.
+                <</dialog>>
+
+                <<dialog "player">>
+                I'm not going anywhere yet.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Cupping your face)
+                I know. And I'm going to savor every moment until then.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: HOBBIES
+       Location: Garage (T1), LivingRoom (T2-T3)
+    ========================================== */
+    hobbies: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesGarageTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Casual)
+                Been thinking about setting up a proper workshop in here. Need something to keep busy.
+                <</dialog>>
+
+                <<dialog "player">>
+                What would you build?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Shrugging)
+                Furniture, maybe. Small projects. We'll see.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesGarageTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Measuring space)
+                I need to organize this place. Can't work in chaos.
+                <</dialog>>
+
+                <<dialog "player">>
+                Want help?
+                <</dialog>>
+
+                <<dialog "father">>
+                Maybe this weekend. Yeah, that'd be good.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesGarageTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking at plans)
+                I used to be pretty good with my hands. Time to get back into it.
+                <</dialog>>
+
+                <<dialog "player">>
+                What did you used to make?
+                <</dialog>>
+
+                <<dialog "father">>
+                Little things. Shelves, boxes. Nothing fancy.
+                <</dialog>>`,
+                friendship: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesGarageTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Setting up tools)
+                A good workspace makes all the difference. Organization is key.
+                <</dialog>>
+
+                <<dialog "player">>
+                You sound excited about this.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                I am. It's been a long time.
+                <</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Animated)
+                Did you know I used to play guitar? Before you kids came along. Haven't touched it in years.
+                <</dialog>>
+
+                <<dialog "player">>
+                You should pick it up again!
+                <</dialog>>
+
+                <<dialog "father">>
+                (Thoughtful)
+                Maybe I will. Would you want to learn? I could teach you.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Holding an old guitar)
+                This thing is older than you. Still plays like a dream, though.
+                <</dialog>>
+
+                <<dialog "player">>
+                Can you play something?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Strumming a few chords)
+                Rusty, but it's coming back.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Playing guitar while you watch)
+                Music is one of those things that stays with you. Like riding a bike.
+                <</dialog>>
+
+                <<dialog "player">>
+                You're really good!
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                Thanks, kiddo. Means a lot.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                I used to write songs. Terrible ones, but still.
+                <</dialog>>
+
+                <<dialog "player">>
+                Really? About what?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Laughing)
+                Life. Love. The usual stuff. They were pretty cheesy.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Nostalgic)
+                There's a lot I gave up when I became a father. Not that I regret it—I'd do it all again.
+                (Looking at you warmly)
+                But having this time now, with you... it's like getting a second chance.
+                <</dialog>>
+
+                <<dialog "player">>
+                A second chance at what?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Voice soft)
+                At really knowing you. Not just as my daughter, but as a person.
+                (His hand finds yours)
+                And I like what I'm discovering.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're sitting together surrounded by vinyl records and his old guitar. He's teaching you a few chords.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Guiding your fingers)
+                Just like that. You're a natural.
+                <</dialog>>
+
+                <<narrative>>
+                His hand lingers on yours, adjusting your position gently.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Softly)
+                This is nice. Just us. No distractions.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Playing softly while you sit close)
+                I wrote this one years ago. Never played it for anyone.
+                <</dialog>>
+
+                <<dialog "player">>
+                Why not?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Glancing at you)
+                Was waiting for the right person to share it with.
+                <</dialog>>
+
+                <<narrative>>
+                The moment feels intimate and special.
+                <</narrative>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicHobbiesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Holding your hand)
+                You know what? I'm glad I picked this back up. Reminds me who I used to be.
+                <</dialog>>
+
+                <<dialog "player">>
+                Who were you?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                Someone with dreams. Someone who believed anything was possible.
+                (Squeezing your hand)
+                Kind of like you.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: MARRIAGE
+       Location: Kitchen (T1), LivingRoom (T2-T3)
+    ========================================== */
+    marriage: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Casual)
+                Your mother's been busy with the house. She's got more energy than I do.
+                <</dialog>>
+
+                <<dialog "player">>
+                She does seem to have a lot of projects going.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Chuckling)
+                That's one way to put it.
+                <</dialog>>`,
+                friendship: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Eating an apple)
+                Marriage is... compromise. Lots of compromise.
+                <</dialog>>
+
+                <<dialog "player">>
+                That doesn't sound romantic.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Shrugging)
+                Romance fades. Partnership lasts.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                Your mom wants to redecorate. Again.
+                <</dialog>>
+
+                <<dialog "player">>
+                You don't sound thrilled.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Sighing)
+                I pick my battles. This isn't one of them.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking at a note from mom)
+                She left me a list. There's always a list.
+                <</dialog>>
+
+                <<dialog "player">>
+                Are you complaining?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Small smile)
+                Not really. It's how she shows she cares.
+                <</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Smiling warmly)
+                Twenty years married, and she still surprises me. Did I ever tell you how we met?
+                <</dialog>>
+
+                <<dialog "player">>
+                Only about a hundred times, but I like hearing it.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Laughing)
+                She was the most beautiful woman in the room. Still is.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're both looking at your parents' wedding photo on the wall.
+                <</narrative>>
+
+                <<dialog "father">>
+                We were so young. Thought we had everything figured out.
+                <</dialog>>
+
+                <<dialog "player">>
+                Did you?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Laughing)
+                Not even close. But we figured it out together.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                Marriage is teamwork. When one person is weak, the other has to be strong.
+                <</dialog>>
+
+                <<dialog "player">>
+                Who's stronger?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                Your mother. Always has been.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Laughing together)
+                She still laughs at my terrible jokes. That's how I know it's real.
+                <</dialog>>
+
+                <<dialog "player">>
+                Your jokes are pretty bad.
+                <</dialog>>
+
+                <<dialog "father">>
+                And yet she married me anyway. Miracle, really.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Quieter, more vulnerable)
+                Marriage isn't always easy. We've had our rough patches. But your mother... she's my rock.
+                (Looking at you intently)
+                You remind me of her sometimes. The way you smile. The way you care about people.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's a nice thing to say.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Eyes lingering on your face)
+                It's the truth. You've got her beauty and her heart.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Holding your hands)
+                When you find someone to spend your life with, make sure they're your best friend first.
+                <</dialog>>
+
+                <<dialog "player">>
+                Is that what Mom is to you?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nodding)
+                And more. She's my partner. My confidant. The person I want to tell everything to.
+                <</dialog>>
+
+                <<narrative>>
+                He looks at you with deep affection.
+                <</narrative>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Standing close)
+                The secret to a good marriage? Never stop choosing each other. Every single day.
+                <</dialog>>
+
+                <<dialog "player">>
+                That sounds hard.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Cupping your face gently)
+                It's not when you've found the right person.
+                (His thumb brushes your cheek)
+                You'll understand someday.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMarriageLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Emotional)
+                Your mother gave me the best years of my life. And you... you're the proof of that.
+                <</dialog>>
+
+                <<dialog "player">>
+                Dad...
+                <</dialog>>
+
+                <<dialog "father">>
+                (Pulling you into an embrace)
+                I hope you find someone who loves you the way I love your mother.
+                (Pause)
+                The way I love you.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: MEMORIES
+       Location: LivingRoom (T1-T2-T3)
+    ========================================== */
+    memories: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Glancing at a family photo)
+                We've had some good times, haven't we? This family.
+                <</dialog>>
+
+                <<dialog "player">>
+                Yeah. We have.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nodding)
+                Good to remember that.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking at a framed picture alone)
+                Time goes by so fast. One minute you're in diapers, next minute you're all grown up.
+                <</dialog>>
+
+                <<dialog "player">>
+                I'm not all grown up yet.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Softly)
+                Close enough.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Pointing at a photo)
+                That was your first birthday. You cried through the whole thing.
+                <</dialog>>
+
+                <<dialog "player">>
+                Great start.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                You got better after that.
+                <</dialog>>`,
+                friendship: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                I should organize these photos. They're all over the place.
+                <</dialog>>
+
+                <<dialog "player">>
+                Want help?
+                <</dialog>>
+
+                <<dialog "father">>
+                Maybe later. It's a bigger project than it looks.
+                <</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Chuckling)
+                Remember when you were five and tried to "fix" the TV with a screwdriver? Nearly gave me a heart attack.
+                <</dialog>>
+
+                <<dialog "player">>
+                I was trying to help!
+                <</dialog>>
+
+                <<dialog "father">>
+                (Ruffling your hair affectionately)
+                You always were my little helper. Still are.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's gently stroking your hair while you sit together, watching TV.
+                <</narrative>>
+
+                <<dialog "father">>
+                I used to do this when you were little. Helped you fall asleep.
+                <</dialog>>
+
+                <<dialog "player">>
+                I remember.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Softly)
+                Some things don't change.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're going through a photo album together on the floor.
+                <</narrative>>
+
+                <<dialog "father">>
+                Look at this one. You must've been six or seven.
+                <</dialog>>
+
+                <<dialog "player">>
+                I was so little!
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nostalgic)
+                You'll always be little to me.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                Your first day of school. You held my hand so tight I thought you'd break it.
+                <</dialog>>
+
+                <<dialog "player">>
+                I was nervous.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                So was I. Didn't want to let you go.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 3
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Voice thick with emotion)
+                You know what I remember most? The day you were born. I held you in my arms and... I'd never felt anything like it.
+                <</dialog>>
+
+                <<dialog "player">>
+                Dad...
+                <</dialog>>
+
+                <<dialog "father">>
+                (Cupping your face gently)
+                You were so small. So perfect.
+                (Thumb brushing your cheek)
+                And I promised myself I'd always protect you.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's holding you in a tight embrace on the couch, his chin resting on your head.
+                <</narrative>>
+
+                <<dialog "father">>
+                Every moment with you is a memory I want to keep forever.
+                <</dialog>>
+
+                <<dialog "player">>
+                (Softly)
+                Me too, Dad.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Holding you closer)
+                Then let's make as many as we can.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Looking into your eyes, foreheads touching)
+                I'm so proud of who you've become. Every day with you is a gift.
+                <</dialog>>
+
+                <<dialog "player">>
+                You're getting sentimental.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Smiling)
+                I'm allowed. You're my daughter.
+                (Pausing)
+                My beautiful daughter.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicMemoriesLivingroom3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                His hand is gently cradling the back of your head as he holds you close.
+                <</narrative>>
+
+                <<dialog "father">>
+                Sometimes I wish I could freeze time. Keep you exactly as you are right now.
+                <</dialog>>
+
+                <<dialog "player">>
+                Why?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Softly)
+                Because right now, you still need me.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: SPORTS
+       Location: LivingRoom (T1-T2-T3)
+    ========================================== */
+    sports: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Checking his phone)
+                Game's on tonight. Should be a good one.
+                <</dialog>>
+
+                <<dialog "player">>
+                Which teams?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Still looking at phone)
+                Home team against the division rivals. Could be interesting.
+                <</dialog>>`,
+                friendship: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Watching TV with remote)
+                ESPN says we've got a good chance this season.
+                <</dialog>>
+
+                <<dialog "player">>
+                You say that every season.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Shrugging)
+                Hope springs eternal.
+                <</dialog>>`,
+                friendship: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Checking scores on phone)
+                Unbelievable. They lost again.
+                <</dialog>>
+
+                <<dialog "player">>
+                Sorry, Dad.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Sighing)
+                There's always next week.
+                <</dialog>>`,
+                friendship: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Flipping through channels)
+                Nothing but reruns. When's the next game?
+                <</dialog>>
+
+                <<dialog "player">>
+                Tomorrow, I think.
+                <</dialog>>
+
+                <<dialog "father">>
+                Can't come soon enough.
+                <</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Leaning back, relaxed)
+                Your grandfather used to take me to games when I was a kid. Those are some of my best memories.
+                <</dialog>>
+
+                <<dialog "player">>
+                Maybe we could go to a game sometime?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Face brightening)
+                I'd really like that. It's a date.
+                (Catching himself)
+                I mean... you know what I mean.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're both celebrating as your team scores. He throws his hands up and you both laugh.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Excited)
+                Did you see that?! What a play!
+                <</dialog>>
+
+                <<dialog "player">>
+                That was amazing!
+                <</dialog>>
+
+                <<dialog "father">>
+                (Grinning)
+                This is why I love the game.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Showing you an old cap)
+                This is from the championship game. '97. Best game I ever saw.
+                <</dialog>>
+
+                <<dialog "player">>
+                You were there?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Nostalgic)
+                Wouldn't have missed it for the world.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Explaining plays excitedly)
+                See, the beauty of this sport is the strategy. It's like chess on a field.
+                <</dialog>>
+
+                <<dialog "player">>
+                I never thought of it that way.
+                <</dialog>>
+
+                <<dialog "father">>
+                That's what makes it great!
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Pulling you down onto the couch beside him)
+                Come here, sit with me. I'll explain the plays.
+                <</dialog>>
+
+                <<narrative>>
+                You settle in next to him, his arm naturally finding its way around your shoulders. He points at the screen, explaining strategies, but you find yourself more aware of his warmth than the game.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Looking down at you, soft smile)
+                This is nice. Just us. I don't get enough of this.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're cuddled up together watching football. His arm is wrapped around you, and there's popcorn and snacks on the table.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Contentedly)
+                This is perfect. Good game, good snacks, and good company.
+                <</dialog>>
+
+                <<dialog "player">>
+                The best company.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Squeezing you gently)
+                Agreed.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "father">>
+                (Arm around you, warm lighting)
+                You know what? Forget the game. Just being here with you is enough.
+                <</dialog>>
+
+                <<dialog "player">>
+                You're not watching?
+                <</dialog>>
+
+                <<dialog "father">>
+                (Looking at you instead of the TV)
+                I've got a better view right here.
+                <</dialog>>
+
+                <<narrative>>
+                His gaze lingers on you longer than usual.
+                <</narrative>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/father/prework/topicSportsLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                The game is on but neither of you is really watching. You're nestled against him, his hand absently playing with your hair.
+                <</narrative>>
+
+                <<dialog "father">>
+                (Softly)
+                I could stay like this forever.
+                <</dialog>>
+
+                <<dialog "player">>
+                Me too.
+                <</dialog>>
+
+                <<dialog "father">>
+                (Holding you closer)
+                Then let's not move.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 3
+            }
+        ]
+    }
+}>>
