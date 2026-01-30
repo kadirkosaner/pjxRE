@@ -1,17 +1,18 @@
+:: brotherTalkKitchen [nobr]
 <<silently>>
 <<set $location = "fhKitchen">>
 <<logDailyActivity "brother" "talk">>
 <<set _char = $characters.brother>>
 <<set _friendship = _char.stats.friendship>>
 
-/* Determine phase */
+/* Determine phase based on summer break */
 <<if $flags.summerBreak>>
     <<set _phase = "vacation">>
 <<else>>
     <<set _phase = "school">>
 <</if>>
 
-/* Determine tier */
+/* Determine tier based on friendship */
 <<if _friendship < 40>>
     <<set _tier = "tier1">>
 <<elseif _friendship < 70>>
@@ -20,17 +21,64 @@
     <<set _tier = "tier3">>
 <</if>>
 
-/* Topics available in kitchen: friendship, future */
-<<set _kitchenTopics = ["sibling", "future"]>>
-<<set _randomIndex = random(0, _kitchenTopics.length - 1)>>
-<<set _topicKey = _kitchenTopics[_randomIndex]>>
-<<set _topic = setup.brotherTalkTopics[_phase][_topicKey][_tier]>>
+/* Kitchen-specific topics */
+<<set _kitchenTopics = []>>
+
+/* Common topics available in Kitchen */
+<<if _tier === "tier2">>
+    <<set _kitchenTopics.push("sibling")>>  /* Kitchen T2 */
+<</if>>
+<<if _tier === "tier1">>
+    <<set _kitchenTopics.push("future")>>  /* Kitchen T1 */
+<</if>>
+<<if _tier === "tier3">>
+    <<set _kitchenTopics.push("beingHome")>>  /* Kitchen T3 */
+<</if>>
+
+/* Phase-specific topics for kitchen */
+<<if _phase === "school">>
+    <<if _tier === "tier1">>
+        <<set _kitchenTopics.push("schoolLife")>>  /* Kitchen T1 - school only */
+    <</if>>
+    <<if _tier === "tier2">>
+        <<set _kitchenTopics.push("sleep")>>  /* Kitchen T2 - school only */
+    <</if>>
+    <<if _tier === "tier3">>
+        <<set _kitchenTopics.push("outsideFriends")>>  /* Kitchen T3 - school only */
+    <</if>>
+<<else>>
+    /* Vacation kitchen topics */
+    <<if _tier === "tier1">>
+        <<set _kitchenTopics.push("summerPlans")>>  /* Kitchen T1 - vacation only */
+    <</if>>
+<</if>>
+
+/* Ensure at least one topic is available */
+<<if _kitchenTopics.length === 0>>
+    <<set _kitchenTopics.push("sibling")>>
+<</if>>
+
+/* Select random topic from available kitchen topics */
+<<set _randomKey = _kitchenTopics.random()>>
+
+/* Retrieve topic from correct pool */
+<<if setup.brotherTalkTopics.common[_randomKey]>>
+    <<set _topicArray = setup.brotherTalkTopics.common[_randomKey][_tier]>>
+<<elseif setup.brotherTalkTopics[_phase] and setup.brotherTalkTopics[_phase][_randomKey]>>
+    <<set _topicArray = setup.brotherTalkTopics[_phase][_randomKey][_tier]>>
+<<else>>
+    /* Fallback to sibling if topic not found */
+    <<set _topicArray = setup.brotherTalkTopics.common.sibling[_tier]>>
+<</if>>
+
+/* Select random variation from the tier array */
+<<set _topic = _topicArray.random()>>
 
 /* Time and stats */
 <<advanceTime 15>>
 <<loseStat "energy" 5>>
 
-/* Apply stat gains */
+/* Apply stat gains from topic */
 <<if _topic.friendship>>
     <<gainStat "friendship" _topic.friendship "brother">>
 <</if>>
@@ -44,11 +92,11 @@
 <<recalculateStats>>
 <</silently>>
 
-<<narrative "Kitchen - Talk with brother">>
+<<narrative "Kitchen - Talk with Brother">>
 <<if _phase === "school">>
-brother is grabbing a quick snack between study sessions. He looks tired but manages a smile when he sees you.
+Your brother is grabbing a snack between study sessions. He looks like he could use a break.
 <<else>>
-brother is raiding the fridge, looking completely relaxed in his summer clothes—old band t-shirt and sweatpants.
+Summer means constant kitchen raids. Your brother is here again, searching the fridge for something to eat.
 <</if>>
 <</narrative>>
 

@@ -1,10 +1,11 @@
+:: brotherTalkBedroom [nobr]
 <<silently>>
-<<set $location = "fhBrotherRoom">>  /* Guest Room where brother stays */
+<<set $location = "fhGuestRoom">>
 <<logDailyActivity "brother" "talk">>
 <<set _char = $characters.brother>>
 <<set _friendship = _char.stats.friendship>>
 
-/* Determine phase - school term or vacation */
+/* Determine phase based on summer break */
 <<if $flags.summerBreak>>
     <<set _phase = "vacation">>
 <<else>>
@@ -20,11 +21,50 @@
     <<set _tier = "tier3">>
 <</if>>
 
-/* Topics available in bedroom: gaming, school_life, sleep, hobbies */
-<<set _bedroomTopics = ["gaming", "school_life", "sleep", "hobbies"]>>
-<<set _randomIndex = random(0, _bedroomTopics.length - 1)>>
-<<set _topicKey = _bedroomTopics[_randomIndex]>>
-<<set _topic = setup.brotherTalkTopics[_phase][_topicKey][_tier]>>
+/* BrotherRoom-specific topics */
+<<set _bedroomTopics = []>>
+
+/* Common topics available in BrotherRoom */
+<<set _bedroomTopics.push("gaming")>>  /* BrotherRoom T1-T2-T3 */
+<<set _bedroomTopics.push("hobbies")>>  /* BrotherRoom T1-T2-T3 */
+
+/* Intimate topics - Tier restricted */
+<<if _tier === "tier2" or _tier === "tier3">>
+    <<set _bedroomTopics.push("attraction")>>  /* BrotherRoom T2-T3 */
+    <<set _bedroomTopics.push("boundaries")>>  /* BrotherRoom T2-T3 */
+<</if>>
+<<if _tier === "tier3">>
+    <<set _bedroomTopics.push("fantasies")>>  /* BrotherRoom T3 only */
+    <<set _bedroomTopics.push("confession")>>  /* BrotherRoom T3 only */
+<</if>>
+
+/* School-specific topics for bedroom */
+<<if _phase === "school">>
+    <<if _tier === "tier3">>
+        <<set _bedroomTopics.push("sleep")>>  /* BrotherRoom T3 - school only */
+    <</if>>
+<</if>>
+
+/* Select random topic from available bedroom topics */
+<<set _randomKey = _bedroomTopics.random()>>
+
+/* Retrieve topic from correct pool */
+<<if setup.brotherTalkTopics.common[_randomKey]>>
+    <<if setup.brotherTalkTopics.common[_randomKey][_tier]>>
+        <<set _topicArray = setup.brotherTalkTopics.common[_randomKey][_tier]>>
+    <<else>>
+        /* Fallback for tier-restricted topics (e.g., fantasies only has tier3) */
+        <<set _topicArray = setup.brotherTalkTopics.common[_randomKey].tier3>>
+    <</if>>
+<<elseif setup.brotherTalkTopics[_phase] and setup.brotherTalkTopics[_phase][_randomKey]>>
+    <<set _topicArray = setup.brotherTalkTopics[_phase][_randomKey][_tier]>>
+<<else>>
+    /* Fallback to gaming if topic not found */
+    <<set _topicArray = setup.brotherTalkTopics.common.gaming[_tier]>>
+<</if>>
+
+/* Select random variation from the tier array */
+<<set _topic = _topicArray.random()>>
 
 /* Time and stats */
 <<advanceTime 15>>
@@ -44,11 +84,11 @@
 <<recalculateStats>>
 <</silently>>
 
-<<narrative "Guest Room - Talk with brother">>
+<<narrative "Brother's Room - Talk with Brother">>
 <<if _phase === "school">>
-brother is at the desk in the guest room, surrounded by textbooks and energy drink cans. His RGB-lit gaming setup glows in the background, tempting him away from homework.
+His room is a mess of textbooks and gaming gear. The blue glow of his monitors illuminates the dim space.
 <<else>>
-brother is in his element—headset on, fingers flying across his mechanical keyboard. The room is dimly lit, screen glow illuminating his focused expression.
+Summer means his room is in full gaming mode—curtains drawn, energy drinks stacked, headset ready.
 <</if>>
 <</narrative>>
 

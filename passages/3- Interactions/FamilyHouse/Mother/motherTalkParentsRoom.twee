@@ -1,6 +1,6 @@
-:: motherTalkKitchen [nobr]
+:: motherTalkParentsRoom [nobr]
 <<silently>>
-<<set $location = "fhKitchen">>
+<<set $location = "fhParentsRoom">>
 <<logDailyActivity "mother" "talk">>
 <<set _char = $characters.mother>>
 <<set _friendship = _char.stats.friendship>>
@@ -14,23 +14,29 @@
     <<set _tier = "tier3">>
 <</if>>
 
-/* Kitchen-specific topics */
-<<set _kitchenTopics = []>>
+/* Parents Room-specific topics */
+<<set _parentsroomTopics = []>>
 
-/* Common topics available in Kitchen */
-<<set _kitchenTopics.push("cooking")>>
-<<set _kitchenTopics.push("homelife")>>
-<<set _kitchenTopics.push("daughter")>>
-<<set _kitchenTopics.push("memories")>>
+/* Common topics available in Parents Room */
+<<set _parentsroomTopics.push("daughter")>>
+<<set _parentsroomTopics.push("books")>>
 
 /* Tier-restricted topics */
 <<if _tier === "tier2" or _tier === "tier3">>
-    <<set _kitchenTopics.push("compliments")>>
-    <<set _kitchenTopics.push("touch")>>
+    <<set _parentsroomTopics.push("marriage")>>
+    <<set _parentsroomTopics.push("compliments")>>
+    <<set _parentsroomTopics.push("appearance")>>
+    <<set _parentsroomTopics.push("touch")>>
 <</if>>
 
-/* Select random topic from available kitchen topics */
-<<set _randomKey = _kitchenTopics.random()>>
+<<if _tier === "tier3">>
+    <<set _parentsroomTopics.push("secrets")>>
+    <<set _parentsroomTopics.push("desires")>>
+    <<set _parentsroomTopics.push("confession")>>
+<</if>>
+
+/* Select random topic from available parents room topics */
+<<set _randomKey = _parentsroomTopics.random()>>
 
 /* Retrieve topic from common pool */
 <<if setup.motherTalkTopics.common[_randomKey]>>
@@ -45,8 +51,8 @@
         <</if>>
     <</if>>
 <<else>>
-    /* Fallback to cooking if topic not found */
-    <<set _topicArray = setup.motherTalkTopics.common.cooking[_tier]>>
+    /* Fallback to daughter if topic not found */
+    <<set _topicArray = setup.motherTalkTopics.common.daughter[_tier]>>
 <</if>>
 
 /* Select random variation from the tier array */
@@ -70,8 +76,8 @@
 <<recalculateStats>>
 <</silently>>
 
-<<narrative "Kitchen - Talk with Mom">>
-The kitchen smells of home cooking. Mom's in her element here, always busy with something.
+<<narrative "Parents' Room - Talk with Mom">>
+Mom's room feels intimate and private. The door closes behind you, shutting out the rest of the house.
 <</narrative>>
 
 <<print _topic.text>>

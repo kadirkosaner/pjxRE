@@ -1,3 +1,4 @@
+:: motherTalkLivingRoom [nobr]
 <<silently>>
 <<set $location = "fhLivingroom">>
 <<logDailyActivity "mother" "talk">>
@@ -13,13 +14,52 @@
     <<set _tier = "tier3">>
 <</if>>
 
-/* Get all topic keys */
-<<set _topicKeys = Object.keys(setup.motherTalkTopics)>>
+/* Living Room-specific topics */
+<<set _livingroomTopics = []>>
 
-/* Select random topic */
-<<set _randomIndex = random(0, _topicKeys.length - 1)>>
-<<set _topicKey = _topicKeys[_randomIndex]>>
-<<set _topic = setup.motherTalkTopics[_topicKey][_tier]>>
+/* Common topics available in Living Room */
+<<set _livingroomTopics.push("homelife")>>
+<<set _livingroomTopics.push("family")>>
+<<set _livingroomTopics.push("daughter")>>
+<<set _livingroomTopics.push("health")>>
+<<set _livingroomTopics.push("books")>>
+<<set _livingroomTopics.push("memories")>>
+
+/* Tier-restricted topics */
+<<if _tier === "tier2" or _tier === "tier3">>
+    <<set _livingroomTopics.push("marriage")>>
+    <<set _livingroomTopics.push("compliments")>>
+    <<set _livingroomTopics.push("appearance")>>
+    <<set _livingroomTopics.push("touch")>>
+<</if>>
+
+<<if _tier === "tier3">>
+    <<set _livingroomTopics.push("secrets")>>
+    <<set _livingroomTopics.push("confession")>>
+<</if>>
+
+/* Select random topic from available living room topics */
+<<set _randomKey = _livingroomTopics.random()>>
+
+/* Retrieve topic from common pool */
+<<if setup.motherTalkTopics.common[_randomKey]>>
+    <<if setup.motherTalkTopics.common[_randomKey][_tier]>>
+        <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_tier]>>
+    <<else>>
+        /* Fallback for tier-restricted topics */
+        <<if setup.motherTalkTopics.common[_randomKey].tier2>>
+            <<set _topicArray = setup.motherTalkTopics.common[_randomKey].tier2>>
+        <<else>>
+            <<set _topicArray = setup.motherTalkTopics.common[_randomKey].tier3>>
+        <</if>>
+    <</if>>
+<<else>>
+    /* Fallback to family if topic not found */
+    <<set _topicArray = setup.motherTalkTopics.common.family[_tier]>>
+<</if>>
+
+/* Select random variation from the tier array */
+<<set _topic = _topicArray.random()>>
 
 /* Time and stats */
 <<advanceTime 15>>
@@ -39,8 +79,8 @@
 <<recalculateStats>>
 <</silently>>
 
-<<narrative "Living Room - Talk with Mother">>
-The living room is cozy and inviting. You settle onto the comfortable couch next to your mother for a conversation.
+<<narrative "Living Room - Talk with Mom">>
+Mom's relaxing in the living room. The afternoon light fills the space with warmth.
 <</narrative>>
 
 <<print _topic.text>>

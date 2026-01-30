@@ -1,0 +1,2289 @@
+/* ==========================================
+   BROTHER - COMMON TALK TOPICS
+   These topics are available in BOTH School and Vacation phases
+
+   Topics: GAMING, HOBBIES, SIBLING, FUTURE, BEINGHOME, MOVIES, MEMORIES
+   Intimate Topics (T2-3 only): ATTRACTION, BOUNDARIES, INTIMACY
+   Intimate Topics (T3 only): FANTASIES, CONFESSION
+   
+   Each topic has 3 tiers with 3-5 dialog variations
+   Tier 1: friendship 0-39
+   Tier 2: friendship 40-69
+   Tier 3: friendship 70-100
+========================================== */
+
+<<set setup.brotherTalkTopics = setup.brotherTalkTopics || {}>>
+<<set setup.brotherTalkTopics.common = {
+
+    /* ==========================================
+       TOPIC: GAMING
+       Location: BrotherRoom (all tiers)
+    ========================================== */
+    gaming: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Glued to the screen)
+                Wait wait wait, hold on—
+                <</dialog>>
+
+                <<narrative>>
+                He didn't even notice you come in. Headphones on, screen flashing with chaos. You sit on his bed and wait.
+                <</narrative>>
+
+                <<dialog "brother">>
+                (Match ends, turns around)
+                Oh, when did you get here?
+                <</dialog>>
+
+                <<dialog "player">>
+                Five minutes ago.
+                <</dialog>>
+
+                <<dialog "brother">>
+                Huh. This game's driving me crazy, can't get out of this rank. (Glances at screen) I'm gonna queue another one, takes a while though.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's fine, I'll stay.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Surprised)
+                You won't get bored? Whatever, talk if you want—I can listen while I play.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You knock and enter. He's mid-game, clicking furiously.
+                <</narrative>>
+
+                <<dialog "brother">>
+                (Not looking away)
+                Gimme a sec... almost done...
+                <</dialog>>
+
+                <<narrative>>
+                "Almost done" turns into ten minutes. Finally he sighs and spins his chair around.
+                <</narrative>>
+
+                <<dialog "brother">>
+                Lost again. Teammates are useless. What's up?
+                <</dialog>>
+
+                <<dialog "player">>
+                Just checking in.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                Nothing much here. Same old.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Frustrated, slams mouse)
+                For real?! How do I keep losing to these idiots?
+                <</dialog>>
+
+                <<dialog "player">>
+                Bad game?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Sighs)
+                Bad week. Can't catch a break. (Pauses) You need something or just... here?
+                <</dialog>>
+
+                <<dialog "player">>
+                Just here.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Nods slowly)
+                Cool. I guess.
+                <</dialog>>`,
+                friendship: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                His room smells like energy drinks. He's hunched over the keyboard.
+                <</narrative>>
+
+                <<dialog "player">>
+                You've been in here all day.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Not turning around)
+                Yeah. So?
+                <</dialog>>
+
+                <<dialog "player">>
+                Just saying.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Finally looks)
+                I know, I know. Mom already said something. One more game.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Excited)
+                Dude, look look—check this out—
+                <</dialog>>
+
+                <<dialog "player">>
+                What happened?
+                <</dialog>>
+
+                <<dialog "brother">>
+                One game away from Diamond! One game! Been stuck forever because of trash teammates, but this time I'm gonna make it.
+                <</dialog>>
+
+                <<dialog "player">>
+                You said "one game away" last week too.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Laughing)
+                Yeah yeah, but I mean it this time. Hey, you should come watch sometime. Don't you wanna see what I do for hours?
+                <</dialog>>
+
+                <<dialog "player">>
+                Actually, yeah.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Pleased)
+                Nice. Sit with me one day, I'll explain everything. Maybe you can try too—you'll suck but that's fine.
+                <</dialog>>
+
+                <<narrative>>
+                He's grinning. He used to say "don't bother me when I'm playing." Now it's "come sit with me."
+                <</narrative>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Pauses game, turns to you)
+                Perfect timing. I need a break anyway.
+                <</dialog>>
+
+                <<dialog "player">>
+                You? Taking a break?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Smirking)
+                Shocking, I know. Got tilted three games in a row. Need to chill before I throw my mouse out the window.
+                <</dialog>>
+
+                <<dialog "player">>
+                That bad?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Brutal. (Stretches) At least you're here. Better than raging alone.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 1,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You walk in and he immediately pulls a chair next to him.
+                <</narrative>>
+
+                <<dialog "brother">>
+                Sit, sit. Watch this play I made—saved the replay and everything.
+                <</dialog>>
+
+                <<dialog "player">>
+                You saved it just to show me?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Slightly embarrassed)
+                Well... yeah. Who else would care?
+                <</dialog>>
+
+                <<narrative>>
+                He shows you. You don't understand half of what's happening, but his excitement is contagious.
+                <</narrative>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Hey, random question—have you ever tried gaming? Like, actually tried?
+                <</dialog>>
+
+                <<dialog "player">>
+                Not really. Never got into it.
+                <</dialog>>
+
+                <<dialog "brother">>
+                That's because no one taught you right. I could, you know. Start you off easy.
+                <</dialog>>
+
+                <<dialog "player">>
+                You'd have patience for that?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                For you? Yeah. Probably.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You enter his room and find him on the bed, phone in hand. The PC is off. Unusual—he's normally gaming at this hour.
+                <</narrative>>
+
+                <<dialog "player">>
+                Not playing tonight?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Puts phone down)
+                Nah. Got bored. Same thing over and over, playing alone gets old.
+                <</dialog>>
+
+                <<dialog "player">>
+                Hm.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Pause, then)
+                What are you doing? Watching something? I could come hang out. If you're bored, I'm bored—we can be bored together.
+                <</dialog>>
+
+                <<dialog "player">>
+                (Smiling)
+                Sure, come on.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Getting up)
+                You pick what we watch. I'm good with anything.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 2,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Leaning back in his chair)
+                You know what's weird? I used to be obsessed with ranking up. Now I mostly just... want company.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's not weird.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Quiet)
+                Maybe not. (Looks at you) You're the only one I'd actually want here though. That part's a little weird.
+                <</dialog>>
+
+                <<dialog "player">>
+                Is it?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Half-smile)
+                Don't know. Don't care.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonGamingBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                His game is paused. He's just staring at the screen, not really seeing it.
+                <</narrative>>
+
+                <<dialog "player">>
+                You okay?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Turns slowly)
+                Yeah. Just thinking. (Pause) I don't really care about the game right now. Wanted to see if you'd come by.
+                <</dialog>>
+
+                <<dialog "player">>
+                I'm here.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softly)
+                Yeah. You are.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: HOBBIES
+       Location: BrotherRoom (all tiers)
+    ========================================== */
+    hobbies: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonHobbiesBrotherRoomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (At his computer)
+                What?
+                <</dialog>>
+
+                <<dialog "player">>
+                Just wondering what you're up to.
+                <</dialog>>
+
+                <<dialog "brother">>
+                Same as always. Games, YouTube, games. What else is there?
+                <</dialog>>
+
+                <<dialog "player">>
+                Don't you ever get bored?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                Sometimes. But what else am I gonna do? Go outside? Boring.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonHobbiesBrotherRoomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's watching something on his phone, earbuds in.
+                <</narrative>>
+
+                <<dialog "player">>
+                What are you watching?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Pulls out one earbud)
+                Huh? Oh, nothing. Just some streamer.
+                <</dialog>>
+
+                <<dialog "player">>
+                Any good?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Eh. Passes the time.
+                <</dialog>>`,
+                friendship: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonHobbiesBrotherRoomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "player">>
+                Do you do anything besides gaming?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Defensive)
+                I do stuff. I watch stuff. I... (trails off) Okay, fine. Not much else.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's fine.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Relieved)
+                Good. Because I'm not changing.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonHobbiesBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Proudly)
+                Check it out—I finally fixed the cable management. Took forever but look how clean it is now.
+                <</dialog>>
+
+                <<dialog "player">>
+                Oh wow, that actually looks nice.
+                <</dialog>>
+
+                <<dialog "brother">>
+                Right? You said it was a mess last time, so I fixed it. Maybe I'll start streaming. Would you watch?
+                <</dialog>>
+
+                <<dialog "player">>
+                Of course.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Happy)
+                For real? That's... yeah, that helps. At least one viewer.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonHobbiesBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                I've been thinking about making content. Like, actual videos. Not just playing.
+                <</dialog>>
+
+                <<dialog "player">>
+                What kind?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Dunno yet. Reviews maybe? Commentary? (Pause) It's dumb, forget it.
+                <</dialog>>
+
+                <<dialog "player">>
+                It's not dumb. You should try.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking at you)
+                You think so? (Small smile) Maybe I will then.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonHobbiesBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's sketching something in a notebook. Closes it quickly when you enter.
+                <</narrative>>
+
+                <<dialog "player">>
+                What was that?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Embarrassed)
+                Nothing. Just... ideas. Game design stuff.
+                <</dialog>>
+
+                <<dialog "player">>
+                Can I see?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Hesitant, then opens it)
+                Fine. But don't laugh.
+                <</dialog>>
+
+                <<narrative>>
+                The sketches are rough but creative. Character designs, level layouts.
+                <</narrative>>
+
+                <<dialog "player">>
+                These are good.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Surprised)
+                Really?
+                <</dialog>>`,
+                friendship: 3,
+                trust: 3
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonHobbiesBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Serious)
+                So I've been thinking. After high school... maybe game design?
+                <</dialog>>
+
+                <<dialog "player">>
+                That sounds perfect for you.
+                <</dialog>>
+
+                <<dialog "brother">>
+                Yeah, but... if I ever make something, I want you to test it. Be honest. Tell me if it sucks.
+                <</dialog>>
+
+                <<dialog "player">>
+                Why me?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Quiet)
+                Because I trust you. If anyone else says "it's good" I won't believe them. If you say it... I will.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonHobbiesBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                You know what I realized? All my hobbies are solo stuff. Gaming, videos, design...
+                <</dialog>>
+
+                <<dialog "player">>
+                Is that bad?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Not really. But... (Pause) It's better when you're around. Even if you're just sitting there.
+                <</dialog>>
+
+                <<dialog "player">>
+                I like being here.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softly)
+                Good. Because I like it too.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonHobbiesBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's showing you his game concept document. Pages of notes, sketches, mechanics.
+                <</narrative>>
+
+                <<dialog "brother">>
+                I've never shown this to anyone. It's probably garbage.
+                <</dialog>>
+
+                <<dialog "player">>
+                It's impressive. You've put a lot of thought into this.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking at you, vulnerable)
+                You really think so?
+                <</dialog>>
+
+                <<dialog "player">>
+                I do.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Long pause)
+                Your opinion matters more than you know.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: SIBLING
+       Location: LivingRoom (T1), Kitchen (T2), LivingRoom (T3)
+    ========================================== */
+    sibling: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonSiblingLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Casual)
+                Hey, thanks for being cool about... you know, me still living here.
+                <</dialog>>
+
+                <<dialog "player">>
+                What do you mean? It's your home too.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                Yeah, I know. Just saying. (Small smile) Forget I said anything.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonSiblingLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "player">>
+                You've been in your room a lot lately.
+                <</dialog>>
+
+                <<dialog "brother">>
+                And?
+                <</dialog>>
+
+                <<dialog "player">>
+                Nothing. Just noticed.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softening)
+                I come out sometimes. When it's just us. It's easier.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonSiblingLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're both on the couch, some show playing neither of you is really watching.
+                <</narrative>>
+
+                <<dialog "brother">>
+                (Out of nowhere)
+                We don't really talk much anymore, do we?
+                <</dialog>>
+
+                <<dialog "player">>
+                We're talking now.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Half-smile)
+                Yeah. Guess we are.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonSiblingKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Remember when we made that blanket fort in the living room? Mom was so mad.
+                <</dialog>>
+
+                <<dialog "player">>
+                She kept yelling "clean this up!"
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Laughing)
+                Yeah, and we stayed in there for hours anyway. You told stories, I ate chips. Fell asleep to your voice once.
+                <</dialog>>
+
+                <<dialog "player">>
+                I remember.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softer)
+                Good times. We're still okay though, right?
+                <</dialog>>
+
+                <<dialog "player">>
+                Of course.
+                <</dialog>>
+
+                <<dialog "brother">>
+                Good.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonSiblingKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's making a sandwich. You join him in the kitchen.
+                <</narrative>>
+
+                <<dialog "brother">>
+                Want one?
+                <</dialog>>
+
+                <<dialog "player">>
+                Sure.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Making it)
+                Remember when you used to make these for me? When I was little?
+                <</dialog>>
+
+                <<dialog "player">>
+                You were picky. No crusts.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Grinning)
+                Still picky. (Hands you the sandwich) There. Now we're even.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonSiblingKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Do you ever think about how it'll be when we're older?
+                <</dialog>>
+
+                <<dialog "player">>
+                What do you mean?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Like... we might not live together forever. Different places, different lives.
+                <</dialog>>
+
+                <<dialog "player">>
+                We'd still see each other.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Nodding)
+                Yeah. I'd make sure of it.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonSiblingLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Quiet, then)
+                You're... good. You've always been.
+                <</dialog>>
+
+                <<dialog "player">>
+                What's this about?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Trying to smirk)
+                Nothing. Don't make it weird. Just... you know. You're good. That's all.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonSiblingLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                Late evening. The house is quiet. You're both in the living room.
+                <</narrative>>
+
+                <<dialog "brother">>
+                (Staring at the ceiling)
+                I don't say it much, but... I'm glad you're my sister.
+                <</dialog>>
+
+                <<dialog "player">>
+                That was surprisingly sweet.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Embarrassed)
+                Shut up. Moment's over.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonSiblingLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                You know what's weird? I talk to you more than anyone else.
+                <</dialog>>
+
+                <<dialog "player">>
+                Is that weird?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Thinking)
+                Maybe not. You get it. You always have.
+                <</dialog>>
+
+                <<dialog "player">>
+                I try.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Meeting your eyes)
+                You don't have to try. You just... do.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: FUTURE
+       Location: Kitchen (T1), LivingRoom (T2-T3)
+    ========================================== */
+    future: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFutureKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Irritated)
+                Ugh, don't ask me about the future. Mom and Dad already won't shut up about it.
+                <</dialog>>
+
+                <<dialog "player">>
+                I was just curious.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softening)
+                Yeah... sorry. Not you. Just... I don't know what I'm doing after high school. Something will work out.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFutureKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "player">>
+                Have you thought about college?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                I think about it. Then I stop thinking about it. Then I stress about not thinking about it.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's... a cycle.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Dry laugh)
+                Yeah. Welcome to my brain.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFutureKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Everyone's got a plan. I've got nothing.
+                <</dialog>>
+
+                <<dialog "player">>
+                Plenty of people figure it out later.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Unconvinced)
+                Maybe. (Pause) Don't worry about me.
+                <</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFutureLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Applications are coming up. Essays and all that. You did it last year, right?
+                <</dialog>>
+
+                <<dialog "player">>
+                Yeah. Stressful but it passes.
+                <</dialog>>
+
+                <<dialog "brother">>
+                Could you look at my stuff sometime? Like, tell me if it sounds stupid?
+                <</dialog>>
+
+                <<dialog "player">>
+                Of course.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Relieved)
+                Thanks. When you say I can do it, I actually believe it.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFutureLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                I'm thinking of staying local for college.
+                <</dialog>>
+
+                <<dialog "player">>
+                I thought you wanted to get out of here.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                I did. But... home's not so bad. You're here. Family's here.
+                <</dialog>>
+
+                <<dialog "player">>
+                Makes sense.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Small smile)
+                Good. Then it's settled.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFutureLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Do you think I'll be okay?
+                <</dialog>>
+
+                <<dialog "player">>
+                With what?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Everything. College, life, whatever comes next.
+                <</dialog>>
+
+                <<dialog "player">>
+                You'll be fine. You're smarter than you think.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Quiet)
+                Thanks. I needed that.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 3
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFutureLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Thoughtful)
+                What if I end up far away?
+                <</dialog>>
+
+                <<dialog "player">>
+                We'd still talk. Visits, summers.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Nodding slowly)
+                Promise me. We won't drift apart.
+                <</dialog>>
+
+                <<dialog "player">>
+                Promise.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Relaxing)
+                Okay. Then I'm not scared.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFutureLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                I used to think the future was this big scary thing. Now... I mostly think about who'll be in it.
+                <</dialog>>
+
+                <<dialog "player">>
+                And?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking at you)
+                You. I want you in it. Whatever else happens.
+                <</dialog>>
+
+                <<dialog "player">>
+                I'll be there.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softly)
+                Good.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFutureLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Serious)
+                I'm staying close. I've decided.
+                <</dialog>>
+
+                <<dialog "player">>
+                Because of school?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shaking head)
+                Because of you. (Pause) That sounds weird. But I don't care.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: BEING HOME
+       Location: LivingRoom (T1-T2), Kitchen (T3)
+    ========================================== */
+    beingHome: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonbeingHomeLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Home's nice. Outside's too much—school, people. Here I can just... be.
+                <</dialog>>
+
+                <<dialog "player">>
+                You do seem more relaxed here.
+                <</dialog>>
+
+                <<dialog "brother">>
+                Yeah. Plus you're here. That helps.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonbeingHomeLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "player">>
+                You never want to go out?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                Sometimes. But coming back here is always the best part.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonbeingHomeLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's sprawled on the couch, looking content.
+                <</narrative>>
+
+                <<dialog "brother">>
+                This is it. This is the vibe. Just... nothing happening, and that's okay.
+                <</dialog>>
+
+                <<dialog "player">>
+                You're easy to please.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Smirking)
+                Home, snacks, you bothering me. What more do I need?
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonbeingHomeLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Remember our midnight kitchen raids? Mom always caught us.
+                <</dialog>>
+
+                <<dialog "player">>
+                "It's bedtime!" (Mimicking)
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Laughing)
+                And we'd say "one minute" and stay an hour. I still stay up late. See your light on sometimes too.
+                <</dialog>>
+
+                <<dialog "player">>
+                Old habits.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Grinning)
+                At least we're consistent.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonbeingHomeLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                When Mom and Dad go out and it's just us... those are the best days.
+                <</dialog>>
+
+                <<dialog "player">>
+                Yeah?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Yeah. House feels different. Better. More ours.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonbeingHomeLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Every room has some memory. This couch, the kitchen table, the hallway...
+                <</dialog>>
+
+                <<dialog "player">>
+                Getting nostalgic?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Half-smile)
+                Maybe. Most of the good memories have you in them though.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonbeingHomeKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Thoughtful)
+                Living in the same house as you... it's weird sometimes.
+                <</dialog>>
+
+                <<dialog "player">>
+                Weird how?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Good weird. (Pause) Can't explain it. You'd understand anyway.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonbeingHomeKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                One day we won't live together. Different places, different lives.
+                <</dialog>>
+
+                <<dialog "player">>
+                Thinking about that?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Quiet)
+                Trying not to. Right now is good. I wanna stay here.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonbeingHomeKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                Late at night in the kitchen. Just the two of you.
+                <</narrative>>
+
+                <<dialog "brother">>
+                This right here. Quiet house, you and me. These are the moments.
+                <</dialog>>
+
+                <<dialog "player">>
+                They are.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softly)
+                I'll remember them. Whatever happens.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: MOVIES / SHOWS
+       Location: LivingRoom (all tiers)
+    ========================================== */
+    movies: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMoviesLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Haven't watched anything lately. No time with school and games.
+                <</dialog>>
+
+                <<dialog "player">>
+                Same here. Too busy.
+                <</dialog>>
+
+                <<dialog "brother">>
+                We should watch something together sometime. Like we used to. Popcorn, late night, after Mom and Dad sleep.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMoviesLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "player">>
+                Anything good to watch?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Scrolling through his phone)
+                Everything looks the same. We need to pick something together. You always had better taste anyway.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMoviesLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                The TV is on, but neither of you is really watching.
+                <</narrative>>
+
+                <<dialog "brother">>
+                This show is boring.
+                <</dialog>>
+
+                <<dialog "player">>
+                Change it then.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Hands you the remote)
+                You pick. I don't care what, just not this.
+                <</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMoviesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Excited)
+                That show we watched has a new season! Did you see?
+                <</dialog>>
+
+                <<dialog "player">>
+                Not yet. No spoilers.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Grinning)
+                I won't, I won't. Let's watch it together this weekend. Popcorn and everything.
+                <</dialog>>
+
+                <<dialog "player">>
+                Deal.
+                <</dialog>>
+
+                <<dialog "brother">>
+                Nice. I'll set it up.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMoviesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're watching something together. He keeps glancing at you during the emotional scenes.
+                <</narrative>>
+
+                <<dialog "brother">>
+                (After the movie)
+                That was good, right?
+                <</dialog>>
+
+                <<dialog "player">>
+                Yeah, I liked it.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Satisfied)
+                Knew you would. I picked it thinking of you.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMoviesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Movie nights are my favorite thing about being home.
+                <</dialog>>
+
+                <<dialog "player">>
+                Better than gaming?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Thinking)
+                Different. Gaming's my thing. Movies with you... that's our thing.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMoviesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Quiet)
+                Remember that movie we watched? The one with the couple who... shouldn't be together?
+                <</dialog>>
+
+                <<dialog "player">>
+                Yeah?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking away)
+                Made me think of something. Never mind. Forget it.
+                <</dialog>>
+
+                <<dialog "player">>
+                What?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shaking head)
+                Nothing. Just stupid thoughts.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 2,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMoviesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                The movie ends. Neither of you moves to turn it off.
+                <</narrative>>
+
+                <<dialog "brother">>
+                (Staring at the credits)
+                I like this. Just sitting here with you after.
+                <</dialog>>
+
+                <<dialog "player">>
+                Me too.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Quietly)
+                Could stay like this forever.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMoviesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                You know what I realized? I don't care what we watch. I just like watching it with you.
+                <</dialog>>
+
+                <<dialog "player">>
+                Even bad movies?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Smiling)
+                Especially bad movies. We can make fun of them together.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: MEMORIES
+       Location: Backyard (T1), LivingRoom (T2-T3)
+    ========================================== */
+    memories: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMemoriesBackyardTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Things were good when we were kids. Still good now, I guess.
+                <</dialog>>
+
+                <<dialog "player">>
+                What do you remember?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Everything mixes together. Blanket forts, road trips, kitchen raids... You were in all of them.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMemoriesBackyardTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're sitting in the backyard. He's looking at the old swing set.
+                <</narrative>>
+
+                <<dialog "brother">>
+                We used to play here all the time.
+                <</dialog>>
+
+                <<dialog "player">>
+                You always wanted me to push you.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Small laugh)
+                Yeah. You always did.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMemoriesBackyardTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Do you have a favorite memory? From when we were kids?
+                <</dialog>>
+
+                <<dialog "player">>
+                A few. What about you?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Thinking)
+                Most of them involve you. Guess you were always around.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMemoriesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Remember the road trips? Dad would get lost, Mom would stress out, and we'd just laugh in the backseat.
+                <</dialog>>
+
+                <<dialog "player">>
+                You made that silly map once. Dad was so confused.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Laughing)
+                "Where does this go?!" Classic. Those were good days. We sat next to each other the whole way.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMemoriesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                I found an old photo album. Us as kids.
+                <</dialog>>
+
+                <<dialog "player">>
+                Show me?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Pulling it out)
+                Look at this one—you're holding my hand. I was probably scared of something.
+                <</dialog>>
+
+                <<dialog "player">>
+                You were always scared.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softly)
+                Not when you were there.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMemoriesLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                We should make new memories too. Not just live in old ones.
+                <</dialog>>
+
+                <<dialog "player">>
+                We are. Every day.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Smiling)
+                Yeah. You're right.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMemoriesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Quiet)
+                My earliest memory... sleeping next to you. I had a nightmare and came to your room.
+                <</dialog>>
+
+                <<dialog "player">>
+                I remember.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softly)
+                That feeling's still there. Being near you. (Quickly) Sibling stuff, you know. Normal.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMemoriesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Sometimes I look back and realize... you've always been the constant.
+                <</dialog>>
+
+                <<dialog "player">>
+                The constant?
+                <</dialog>>
+
+                <<dialog "brother">>
+                Things change. Friends, school, whatever. But you're always there. That means something.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonMemoriesLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                I hope we keep making memories. Even when we're older and things are different.
+                <</dialog>>
+
+                <<dialog "player">>
+                We will.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking at you)
+                Promise?
+                <</dialog>>
+
+                <<dialog "player">>
+                Promise.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Relieved)
+                Okay. Then I'm not worried.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: ATTRACTION (Tier 2-3 only)
+       Location: BrotherRoom (T2-T3)
+    ========================================== */
+    attraction: {
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonAttractionBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Looking at you, then quickly away)
+                Sometimes I... never mind.
+                <</dialog>>
+
+                <<dialog "player">>
+                What?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Uncomfortable)
+                Nothing. Shouldn't look at you like that. I know. But sometimes I can't help it. (Pause) Sorry. Forget it.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonAttractionBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                He's staring. You catch him. He doesn't look away immediately.
+                <</narrative>>
+
+                <<dialog "player">>
+                What?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Swallowing)
+                Nothing. Just... nothing.
+                <</dialog>>
+
+                <<narrative>>
+                He finally breaks eye contact. His hands are slightly shaking.
+                <</narrative>>`,
+                friendship: 3,
+                trust: 2,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonAttractionBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Frustrated)
+                Why do you have to be... never mind.
+                <</dialog>>
+
+                <<dialog "player">>
+                Be what?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shaking head)
+                Nothing. Forget I said anything. Stupid.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 1,
+                love: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonAttractionBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Quiet)
+                When I look at you... I lose myself. (Quickly) That's stupid. Shouldn't have said it.
+                <</dialog>>
+
+                <<dialog "player">>
+                It's okay.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Turning away)
+                Don't say anything. I can't stop it. That's all. Forget it.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonAttractionBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                His eyes trace over you. There's no hiding it now.
+                <</narrative>>
+
+                <<dialog "brother">>
+                (Voice low)
+                I know how I look at you. I know it's wrong. But I can't stop.
+                <</dialog>>
+
+                <<dialog "player">>
+                ...
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Desperate)
+                Say something. Or don't. I don't know what I want you to say.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 4
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonAttractionBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Barely audible)
+                You're beautiful. I shouldn't think that. But I do.
+                <</dialog>>
+
+                <<dialog "player">>
+                (Silence)
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking down)
+                Don't hate me. Please.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 4
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: BOUNDARIES (Tier 2-3 only)
+       Location: BrotherRoom (T2-T3)
+    ========================================== */
+    boundaries: {
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonBoundariesBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                There's a line between us. I know that. (Pause) Sometimes I forget.
+                <</dialog>>
+
+                <<dialog "player">>
+                What line?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Avoiding your eyes)
+                You know. Let's not talk about it.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonBoundariesBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Careful)
+                I try to keep distance. Be normal. But it's hard sometimes.
+                <</dialog>>
+
+                <<dialog "player">>
+                Hard how?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Long pause)
+                Just... hard. Don't make me explain.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonBoundariesBrotherRoomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                You're sitting close. He shifts away slightly.
+                <</narrative>>
+
+                <<dialog "player">>
+                What's wrong?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Tense)
+                Nothing. Just... need some space. For me. Not you. It's not you.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonBoundariesBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Struggling)
+                I know it's wrong. When you're close... (Can't finish)
+                <</dialog>>
+
+                <<dialog "player">>
+                ...
+                <</dialog>>
+
+                <<dialog "brother">>
+                If you ever told me to go away... I would. (Silence) But you haven't. And I'm still here.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonBoundariesBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Raw)
+                Every rule says I should stop. Every part of me says don't.
+                <</dialog>>
+
+                <<dialog "player">>
+                Stop what?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking at you)
+                Feeling this way. Being near you. All of it.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 4
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonBoundariesBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Whispered)
+                I keep trying to draw a line. And then you look at me. And the line disappears.
+                <</dialog>>
+
+                <<narrative>>
+                His hand reaches toward you, then pulls back.
+                <</narrative>>
+
+                <<dialog "brother">>
+                See? I can't even...
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 4
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: FANTASIES (Tier 3 only)
+       Location: BrotherRoom (T3)
+    ========================================== */
+    fantasies: {
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFantasiesBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Quiet, not meeting your eyes)
+                At night... I think things. About you. (Quickly) It's wrong. Forget it.
+                <</dialog>>
+
+                <<dialog "player">>
+                Let's talk about—
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Cutting off)
+                No. I said it, now forget it. I can't control my dreams. That's all.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 4
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFantasiesBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Voice cracking)
+                I wake up sometimes... from dreams. You're in them. We're... (Can't continue)
+                <</dialog>>
+
+                <<dialog "player">>
+                ...
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Desperate)
+                I don't choose what I dream. Please believe that.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 4
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonFantasiesBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Barely audible)
+                Sometimes I imagine... things I shouldn't. With you. (Long silence) I hate myself for it.
+                <</dialog>>
+
+                <<dialog "player">>
+                You don't have to—
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Interrupting)
+                I do. Because it's eating me alive. And now you know.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 5
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: CONFESSION (Tier 3 only)
+       Location: BrotherRoom (T3)
+    ========================================== */
+    confession: {
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonConfessionBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Shaking)
+                It's wrong. I know it's wrong. We're siblings. But... (Long pause) I want you. I shouldn't. I do. I'm sorry.
+                <</dialog>>
+
+                <<dialog "player">>
+                ...
+                <</dialog>>
+
+                <<dialog "brother">>
+                Don't say anything. Just... I needed you to know. Or not know. I don't know anymore.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 4,
+                love: 5
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonConfessionBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Voice breaking)
+                I've tried to stop. To think of you like a sister. Just a sister. But I can't. Something's broken in me.
+                <</dialog>>
+
+                <<dialog "player">>
+                You're not broken.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking at you, tears threatening)
+                Then what am I? Because normal brothers don't feel this way.
+                <</dialog>>`,
+                friendship: 5,
+                trust: 5,
+                love: 5
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/common/commonConfessionBrotherRoomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Barely holding together)
+                I love you. Not like a brother should. (Silence) Tell me to leave. Tell me you hate me. Something. Because I can't keep this inside anymore.
+                <</dialog>>
+
+                <<dialog "player">>
+                (Left to player choice—response or silence)
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Waiting, vulnerable)
+                ...
+                <</dialog>>`,
+                friendship: 5,
+                trust: 5,
+                love: 5
+            }
+        ]
+    }
+
+}>>

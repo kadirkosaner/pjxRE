@@ -1,3 +1,4 @@
+:: motherTalkBackyard [nobr]
 <<silently>>
 <<set $location = "fhBackyard">>
 <<logDailyActivity "mother" "talk">>
@@ -13,18 +14,37 @@
     <<set _tier = "tier3">>
 <</if>>
 
-/* Outdoor-appropriate topics (prioritize: hobbies, youth, health, future) */
-<<set _outdoorTopics = ["hobbies", "youth", "health", "future", "memories", "news"]>>
+/* Backyard-specific topics */
+<<set _backyardTopics = []>>
 
-/* Select random outdoor topic */
-<<set _randomIndex = random(0, _outdoorTopics.length - 1)>>
-<<set _topicKey = _outdoorTopics[_randomIndex]>>
-<<set _topic = setup.motherTalkTopics[_topicKey][_tier]>>
+/* Common topics available in Backyard */
+<<set _backyardTopics.push("health")>>
+<<set _backyardTopics.push("books")>>
+<<set _backyardTopics.push("garden")>>
+<<set _backyardTopics.push("memories")>>
+
+/* Select random topic from available backyard topics */
+<<set _randomKey = _backyardTopics.random()>>
+
+/* Retrieve topic from common pool */
+<<if setup.motherTalkTopics.common[_randomKey]>>
+    <<if setup.motherTalkTopics.common[_randomKey][_tier]>>
+        <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_tier]>>
+    <<else>>
+        /* Fallback if tier doesn't exist */
+        <<set _topicArray = setup.motherTalkTopics.common[_randomKey].tier1>>
+    <</if>>
+<<else>>
+    /* Fallback to garden if topic not found */
+    <<set _topicArray = setup.motherTalkTopics.common.garden[_tier]>>
+<</if>>
+
+/* Select random variation from the tier array */
+<<set _topic = _topicArray.random()>>
 
 /* Time and stats */
 <<advanceTime 15>>
 <<loseStat "energy" 5>>
-<<gainStat "mood" 3>> /* Fresh air bonus */
 
 /* Apply stat gains from topic */
 <<if _topic.friendship>>
@@ -40,8 +60,8 @@
 <<recalculateStats>>
 <</silently>>
 
-<<narrative "Backyard - Talk with Mother">>
-The backyard is peaceful, with birds chirping and a gentle breeze rustling the leaves. You and your mother find a comfortable spot to chat outdoors.
+<<narrative "Backyard - Talk with Mom">>
+The backyard is peaceful. Mom loves spending time here, tending her garden or just enjoying the fresh air.
 <</narrative>>
 
 <<print _topic.text>>

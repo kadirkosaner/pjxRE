@@ -9,7 +9,7 @@
     firstName: "Sarah",
     lastName: "Taylor",
     birthYear: 1982,
-    occupation: "Teacher",
+    occupation: "House Wife",
     location: "Home, Living Room",
     avatar: "assets/content/people/family/mother/mother.jpg",
     type: "npc",
@@ -22,7 +22,7 @@
     },
     status: "Mother",
     firstMet: "Birth",
-    info: "<p>Your loving mother who always cares about your well-being. She works as a high school teacher and enjoys cooking, jogging, and reading romance novels.</p>",
+    info: "<p>Your loving mother who always cares about your well-being. She enjoys cooking, jogging, and reading romance novels.</p>",
     known: true,
     currentLocation: null,
     currentStatus: null
@@ -68,52 +68,24 @@
         {
             id: "talk", label: "Talk", passage: "motherTalkKitchen",
             tags: [], requirements: {}, dailyLimit: true
-        },
-        {
-            id: "helpCook", label: "Help Cook", passage: "motherHelpCook",
-            tags: [], requirements: {},
-            dailyLimit: true,
-            timeWindow: [
-                { startHour: 6, startMinute: 15, endHour: 6, endMinute: 45 },   /* Breakfast: 7:00 → 6:15-6:45 */
-                { startHour: 11, startMinute: 15, endHour: 11, endMinute: 45 }, /* Lunch: 12:00 → 11:15-11:45 */
-                { startHour: 17, startMinute: 15, endHour: 17, endMinute: 45 }  /* Dinner: 18:00 → 17:15-17:45 */
-            ]
-        },
-        {
-            id: "coffee", label: "Coffee Together", passage: "motherCoffeeTogether",
-            tags: [], requirements: {}, dailyLimit: true,
-            timeWindow: [
-                { startHour: 6, startMinute: 0, endHour: 11, endMinute: 0 } /* Morning only: 6:00-11:00 */
-            ]
-        },
-        {
-            id: "flirt", label: "Flirt", passage: "motherFlirtKitchen",
-            tags: ["incest", "romantic"], requirements: { friendship: 60 }, dailyLimit: true
-        },
-        {
-            id: "hug", label: "Hug", passage: "motherHugKitchen",
-            tags: [], requirements: { friendship: 40 }, dailyLimit: true
         }
     ],
     fhLivingroom: [
         {
             id: "talk", label: "Talk", passage: "motherTalkLivingRoom",
             tags: [], requirements: {}, dailyLimit: true
-        },
-
-        {
-            id: "yoga", label: "Yoga Together", passage: "runYogaMom",
-            tags: [], requirements: { friendship: 35 }, dailyLimit: true
         }
     ],
     fhBackyard: [
         {
             id: "talk", label: "Talk", passage: "motherTalkBackyard",
             tags: [], requirements: {}, dailyLimit: true
-        },
-        {
-            id: "garden", label: "Garden Together", passage: "motherGardenTogether",
-            tags: [], requirements: { friendship: 30 }, dailyLimit: true
         }
     ],
+    fhParentsRoom: [
+        {
+            id: "talk", label: "Talk", passage: "motherTalkParentsRoom",
+            tags: [], requirements: { fatherNotPresent: true }, dailyLimit: true
+        }
+    ]
 }>>

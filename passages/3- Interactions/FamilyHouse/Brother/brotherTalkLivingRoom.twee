@@ -1,17 +1,18 @@
+:: brotherTalkLivingRoom [nobr]
 <<silently>>
 <<set $location = "fhLivingroom">>
 <<logDailyActivity "brother" "talk">>
 <<set _char = $characters.brother>>
 <<set _friendship = _char.stats.friendship>>
 
-/* Determine phase */
+/* Determine phase based on summer break */
 <<if $flags.summerBreak>>
     <<set _phase = "vacation">>
 <<else>>
     <<set _phase = "school">>
 <</if>>
 
-/* Determine tier */
+/* Determine tier based on friendship */
 <<if _friendship < 40>>
     <<set _tier = "tier1">>
 <<elseif _friendship < 70>>
@@ -20,17 +21,60 @@
     <<set _tier = "tier3">>
 <</if>>
 
-/* Topics available in living room: movies_shows, outside_friends */
-<<set _livingroomTopics = ["movies_shows", "outside_friends"]>>
-<<set _randomIndex = random(0, _livingroomTopics.length - 1)>>
-<<set _topicKey = _livingroomTopics[_randomIndex]>>
-<<set _topic = setup.brotherTalkTopics[_phase][_topicKey][_tier]>>
+/* LivingRoom-specific topics */
+<<set _livingRoomTopics = []>>
+
+/* Common topics available in LivingRoom */
+<<if _tier === "tier1" or _tier === "tier3">>
+    <<set _livingRoomTopics.push("sibling")>>  /* LivingRoom T1, T3 */
+<</if>>
+<<if _tier === "tier2" or _tier === "tier3">>
+    <<set _livingRoomTopics.push("future")>>  /* LivingRoom T2-T3 */
+<</if>>
+<<if _tier === "tier1" or _tier === "tier2">>
+    <<set _livingRoomTopics.push("beingHome")>>  /* LivingRoom T1-T2 */
+<</if>>
+<<set _livingRoomTopics.push("movies")>>  /* LivingRoom T1-T2-T3 */
+<<if _tier === "tier2" or _tier === "tier3">>
+    <<set _livingRoomTopics.push("memories")>>  /* LivingRoom T2-T3 */
+<</if>>
+
+/* Phase-specific topics for living room */
+<<if _phase === "school">>
+    <<if _tier === "tier2" or _tier === "tier3">>
+        <<set _livingRoomTopics.push("schoolLife")>>  /* LivingRoom T2-T3 - school only */
+    <</if>>
+<<else>>
+    /* Vacation living room topics */
+    <<if _tier === "tier1" or _tier === "tier3">>
+        <<set _livingRoomTopics.push("qualityTime")>>  /* LivingRoom T1, T3 - vacation only */
+    <</if>>
+    <<if _tier === "tier2" or _tier === "tier3">>
+        <<set _livingRoomTopics.push("summerPlans")>>  /* LivingRoom T2-T3 - vacation only */
+    <</if>>
+<</if>>
+
+/* Select random topic from available living room topics */
+<<set _randomKey = _livingRoomTopics.random()>>
+
+/* Retrieve topic from correct pool */
+<<if setup.brotherTalkTopics.common[_randomKey]>>
+    <<set _topicArray = setup.brotherTalkTopics.common[_randomKey][_tier]>>
+<<elseif setup.brotherTalkTopics[_phase] and setup.brotherTalkTopics[_phase][_randomKey]>>
+    <<set _topicArray = setup.brotherTalkTopics[_phase][_randomKey][_tier]>>
+<<else>>
+    /* Fallback to movies if topic not found */
+    <<set _topicArray = setup.brotherTalkTopics.common.movies[_tier]>>
+<</if>>
+
+/* Select random variation from the tier array */
+<<set _topic = _topicArray.random()>>
 
 /* Time and stats */
 <<advanceTime 15>>
 <<loseStat "energy" 5>>
 
-/* Apply stat gains */
+/* Apply stat gains from topic */
 <<if _topic.friendship>>
     <<gainStat "friendship" _topic.friendship "brother">>
 <</if>>
@@ -44,11 +88,11 @@
 <<recalculateStats>>
 <</silently>>
 
-<<narrative "Living Room - Talk with brother">>
+<<narrative "Living Room - Talk with Brother">>
 <<if _phase === "school">>
-brother is sprawled on the couch, phone in hand. He looks up when you enter and shifts to make room for you.
+Your brother is sprawled on the couch, taking a break from homework and gaming. He looks tired but relaxed.
 <<else>>
-brother has claimed the entire couch, controller in hand. When he sees you, he pauses his game and pats the cushion next to him.
+Summer afternoon. Your brother has claimed his favorite spot on the couch, phone in hand, nowhere to be.
 <</if>>
 <</narrative>>
 

@@ -5,7 +5,6 @@
 - Looks Kesinlikle daha çok düşmeli başlangıç seviyesi 15 - 25 arasında olmalı. Bunun için face efektleri eklenebilir sivilceli veya bakımsız.
 
 questler için resim ve mp4 önerileri.
-Mother interactions için görseller.
 
 - Eve home office eklenecek.
 - Yoga için artık yoga mat ve kıyafet check
@@ -13,3 +12,5 @@ Mother interactions için görseller.
 - Görevlere devam et
 - Karakterler için artık yeni görseller bul
 - ClerckMarcus içinde interactionlarıda düzenle.
+
+ mother için gerekli kısımları tamamla maks 2 gün.

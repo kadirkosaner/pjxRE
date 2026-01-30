@@ -1,0 +1,2747 @@
+:: MotherTalkTopicsCommon [script]
+/* ==========================================
+   MOTHER TALK TOPICS - ALL TOPICS
+   No phase system - all topics always available
+   Tiers based on friendship level
+========================================== */
+
+<<set setup.motherTalkTopics = {
+    common: {
+        /* ========== COOKING ========== */
+        cooking: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicCookingKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She's stirring something at the stove. Vegetables on the counter, recipe book open.
+<</narrative>>
+
+<<dialog "mother">>
+Oh sweetie, come here. Look at this recipe—does it say salt or sugar? I can't read it without my glasses.
+<</dialog>>
+
+<<dialog "player">>
+Salt, mom. Half a teaspoon.
+<</dialog>>
+
+<<dialog "mother">>
+Ah, okay okay. I wanted to make something nice for dinner, your father keeps saying he's tired of the same meals.
+(Keeps stirring)
+Are you hungry by the way? Want a snack?
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicCookingKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's chopping vegetables, focused on dinner prep.
+<</narrative>>
+
+<<dialog "mother">>
+(Without looking up)
+Sweetie, can you grab the olive oil from the cabinet? This one's almost empty.
+<</dialog>>
+
+<<dialog "player">>
+(Handing her the oil)
+What are you making?
+<</dialog>>
+
+<<dialog "mother">>
+Just pasta. Nothing fancy. Everyone's been busy lately, no time for elaborate meals.
+(Sighs)
+At least we still eat together as a family.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicCookingKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Tasting from a spoon)
+Hmm... needs something. What do you think?
+<</dialog>>
+
+<<dialog "player">>
+I don't know, mom. Smells good though.
+<</dialog>>
+
+<<dialog "mother">>
+You always say that. You're no help.
+(Smiling)
+Go set the table at least, if you're just standing there.
+<</dialog>>`,
+                    friendship: 1,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicCookingKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom calls you over while cooking.
+<</narrative>>
+
+<<dialog "mother">>
+Come here sweetie, time you learned this. Can't eat takeout forever, you know.
+<</dialog>>
+
+<<dialog "player">>
+Mom, I know how to cook some things...
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing)
+Boiling pasta doesn't count, honey. Here, watch how I do the sauce...
+(Touches your shoulder)
+You look good in the kitchen by the way. That's my girl.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicCookingKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Here, stir this while I chop. Don't let it burn.
+<</dialog>>
+
+<<narrative>>
+You stand at the stove together, shoulders almost touching. It feels comfortable.
+<</narrative>>
+
+<<dialog "mother">>
+(Glancing at you)
+I love this. Cooking together. Reminds me of when my mother taught me.
+<</dialog>>
+
+<<dialog "player">>
+You never talk about grandma much.
+<</dialog>>
+
+<<dialog "mother">>
+(Soft smile)
+Some other time, sweetie. For now, just... enjoy this moment with me.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicCookingKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Taste this. Tell me honestly.
+<</dialog>>
+
+<<narrative>>
+She holds the spoon to your lips, other hand cupped underneath.
+<</narrative>>
+
+<<dialog "player">>
+(Tasting)
+It's really good, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Beaming)
+See? We make a good team, you and me.
+(Winks)
+Don't tell your father I let you taste before dinner.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicCookingKitchenTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+You're both preparing dinner together. A comfortable silence fills the kitchen.
+<</narrative>>
+
+<<dialog "mother">>
+(Sighing softly)
+You know, when I was your age, I couldn't cook at all. My mother never taught me.
+<</dialog>>
+
+<<dialog "player">>
+But you taught me.
+<</dialog>>
+
+<<dialog "mother">>
+(Stops and looks at you)
+I did... But it's not just about cooking, is it? I want to spend time with you, sweetie. These moments are precious to me.
+(Takes your hand)
+You've grown so much. So much.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicCookingKitchenTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's hands guide yours as you stir. She's standing close behind you.
+<</narrative>>
+
+<<dialog "mother">>
+(Softly, near your ear)
+Like this, see? Gentle circles.
+<</dialog>>
+
+<<dialog "player">>
+(Feeling her warmth)
+I got it, mom...
+<</dialog>>
+
+<<dialog "mother">>
+(Resting her chin on your shoulder)
+I know you do. I just... wanted an excuse to be close to you.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicCookingKitchenTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Putting down the spatula)
+Forget the food for a second.
+<</dialog>>
+
+<<dialog "player">>
+What? It'll burn—
+<</dialog>>
+
+<<dialog "mother">>
+(Turning to face you)
+Let it. I just want to look at you for a moment.
+(Cups your face)
+My beautiful girl. When did you become so beautiful?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                }
+            ]
+        },
+
+        /* ========== HOMELIFE ========== */
+        homelife: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Wiping the counter)
+This house is never clean. I just tidied up yesterday.
+<</dialog>>
+
+<<dialog "player">>
+Need help with anything?
+<</dialog>>
+
+<<dialog "mother">>
+(Surprised)
+Oh? That's new. No, I'm fine. Just venting.
+(Pause)
+Actually, could you take out the trash later?
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's folding laundry on the couch.
+<</narrative>>
+
+<<dialog "mother">>
+Your clothes are in the basket. Please put them away this time instead of leaving them on your chair.
+<</dialog>>
+
+<<dialog "player">>
+I will, I will...
+<</dialog>>
+
+<<dialog "mother">>
+(Skeptical look)
+Mm-hmm. I've heard that before.
+<</dialog>>`,
+                    friendship: 1,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Looking around)
+We should rearrange the furniture sometime. I'm tired of looking at the same setup.
+<</dialog>>
+
+<<dialog "player">>
+It's been like this for years.
+<</dialog>>
+
+<<dialog "mother">>
+Exactly. Time for a change.
+(Looks at you)
+Want to help me move some things this weekend?
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Sitting at the kitchen table)
+Sit with me for a bit. I made tea.
+<</dialog>>
+
+<<narrative>>
+You sit across from her. The afternoon light is warm through the window.
+<</narrative>>
+
+<<dialog "mother">>
+I like these quiet moments. Before everyone comes home and it gets chaotic.
+(Smiles)
+Just us girls.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Patting the couch)
+Come sit. Help me fold these.
+<</dialog>>
+
+<<narrative>>
+You fold laundry together, a familiar domestic rhythm.
+<</narrative>>
+
+<<dialog "mother">>
+(Quietly)
+I never minded housework when you were little. You'd always be right here with me, helping or making a mess.
+(Laughs softly)
+I miss those days sometimes.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+You know what I realized? This house is too quiet when you're not around.
+<</dialog>>
+
+<<dialog "player">>
+I'm always around, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Shaking her head)
+No, you're in your room. That's different.
+(Pats your knee)
+Come out more. Keep your mother company.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+You're both on the couch, the house quiet around you.
+<</narrative>>
+
+<<dialog "mother">>
+(Leaning against you)
+This is nice. Just being here together.
+<</dialog>>
+
+<<dialog "player">>
+Yeah. It is.
+<</dialog>>
+
+<<dialog "mother">>
+(Taking your hand)
+Promise me you won't leave too soon. When you finally move out, I mean. I'm not ready yet.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeKitchenTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Standing at the window)
+I've spent twenty years in this house. Sometimes I wonder what else is out there.
+<</dialog>>
+
+<<dialog "player">>
+Mom...?
+<</dialog>>
+
+<<dialog "mother">>
+(Turning to you)
+Don't worry, sweetie. I'm not going anywhere.
+(Walks to you, hugs you)
+You're here. That's what matters.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Running fingers through your hair)
+When did my baby girl grow up?
+<</dialog>>
+
+<<dialog "player">>
+I'm still here, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Pulls you closer)
+I know. And I'm grateful every day. This house... it's just walls without you in it.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                }
+            ]
+        },
+
+        /* ========== FAMILY ========== */
+        family: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicFamilyLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Your father called. He'll be late again tonight.
+<</dialog>>
+
+<<dialog "player">>
+Work stuff?
+<</dialog>>
+
+<<dialog "mother">>
+(Sighing)
+Always work stuff. At least we can have a quiet dinner, just the kids and me.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicFamilyLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+How's your brother doing? He barely talks to me anymore.
+<</dialog>>
+
+<<dialog "player">>
+He's fine. Just... teenage stuff, I guess.
+<</dialog>>
+
+<<dialog "mother">>
+(Nodding)
+I remember when he used to tell me everything. Now I'm lucky if I get three words.
+(Looks at you)
+At least you still talk to me.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicFamilyLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+We should do something as a family this weekend. When's the last time we all did something together?
+<</dialog>>
+
+<<dialog "player">>
+I can't even remember.
+<</dialog>>
+
+<<dialog "mother">>
+(Deflated)
+Exactly. Everyone's always busy with their own things.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicFamilyLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Sitting close to you)
+Can I tell you something? About your father?
+<</dialog>>
+
+<<dialog "player">>
+What about him?
+<</dialog>>
+
+<<dialog "mother">>
+He's been distant lately. I don't know if it's work or... something else.
+(Looks at you)
+Don't tell him I said anything. I just needed to talk to someone.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 3,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicFamilyLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+You and your brother—you two are close, right?
+<</dialog>>
+
+<<dialog "player">>
+I guess. Why?
+<</dialog>>
+
+<<dialog "mother">>
+(Thoughtful)
+Good. Siblings should be close. When your father and I are gone someday, you'll only have each other.
+<</dialog>>
+
+<<dialog "player">>
+Mom, don't talk like that.
+<</dialog>>
+
+<<dialog "mother">>
+(Soft smile)
+Just facts of life, sweetie.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicFamilyLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Sometimes I feel like I'm holding this family together by myself.
+<</dialog>>
+
+<<dialog "player">>
+That's not true—
+<</dialog>>
+
+<<dialog "mother">>
+(Taking your hand)
+No, I know. You help more than you realize.
+(Squeezes your hand)
+You're my rock, you know that?
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 3,
+                    love: 2
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicFamilyLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Quietly)
+Sometimes I think about what life would be like if it was just the two of us.
+<</dialog>>
+
+<<dialog "player">>
+What do you mean?
+<</dialog>>
+
+<<dialog "mother">>
+(Looking away)
+Nothing. Forget I said anything.
+(Pause)
+It's just... you're the one I feel closest to in this family.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicFamilyLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+If I had to choose one person to spend the rest of my life with... besides your father, I mean...
+<</dialog>>
+
+<<dialog "player">>
+(Waiting)
+<</dialog>>
+
+<<dialog "mother">>
+(Meeting your eyes)
+It would be you. Without question.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicFamilyLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Pulling you into a tight embrace)
+You're more than my daughter. Do you understand?
+<</dialog>>
+
+<<dialog "player">>
+(Heart racing)
+Mom...
+<</dialog>>
+
+<<dialog "mother">>
+You're... everything to me. Everything.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 4
+                }
+            ]
+        },
+
+        /* ========== DAUGHTER ========== */
+        daughter: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Sweetie, what did you do today? Your room's messy again, I saw.
+<</dialog>>
+
+<<dialog "player">>
+Mom, come on, I'll clean it...
+<</dialog>>
+
+<<dialog "mother">>
+(Shaking her head)
+You say that every day. Anyway. Need anything? I'm going to the store soon.
+<</dialog>>`,
+                    friendship: 1,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Looking up from her phone)
+You're going out?
+<</dialog>>
+
+<<dialog "player">>
+No, just wandering around the house.
+<</dialog>>
+
+<<dialog "mother">>
+Oh. Good. Stay home today, keep me company.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Have you eaten? There's leftover soup in the fridge.
+<</dialog>>
+
+<<dialog "player">>
+I'm not hungry right now.
+<</dialog>>
+
+<<dialog "mother">>
+(Concerned look)
+You need to eat properly. You're getting too thin.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Patting the seat beside her)
+Come sit with me. Let's talk a bit—we never talk anymore.
+<</dialog>>
+
+<<dialog "player">>
+(Sitting down)
+What's wrong, mom? Something happen?
+<</dialog>>
+
+<<dialog "mother">>
+Nothing's wrong. I just... missed you. You're always in your room or out somewhere.
+(Strokes your hair)
+My little girl grew up but I still can't get used to it.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterParentsroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's in her room, beckons you in.
+<</narrative>>
+
+<<dialog "mother">>
+Close the door. I want to talk, just us.
+<</dialog>>
+
+<<dialog "player">>
+(Closing door, sitting on bed)
+What is it?
+<</dialog>>
+
+<<dialog "mother">>
+(Sitting beside you)
+Nothing specific. I just wanted you close. Is that strange?
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Hugging you from behind while you get water)
+My baby.
+<</dialog>>
+
+<<dialog "player">>
+(Surprised)
+Mom, what—
+<</dialog>>
+
+<<dialog "mother">>
+Let me. Just for a moment. I needed this.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom closes the door and sits beside you on her bed.
+<</narrative>>
+
+<<dialog "mother">>
+Sweetie... I need to talk to you about something private.
+<</dialog>>
+
+<<dialog "player">>
+What is it, mom?
+<</dialog>>
+
+<<dialog "mother">>
+Nothing. Just... I love you so much. Do you know that? No matter what happens, I'm always on your side.
+(Eyes watering)
+You're my everything.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Holding your face in her hands)
+Look at me.
+<</dialog>>
+
+<<dialog "player">>
+(Looking into her eyes)
+<</dialog>>
+
+<<dialog "mother">>
+You're the best thing that ever happened to me. Not your father, not your brother. You.
+(Voice trembling)
+You understand?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She's sitting on her bed, reaches for your hand.
+<</narrative>>
+
+<<dialog "mother">>
+Come here. Sit with me like when you were little.
+<</dialog>>
+
+<<narrative>>
+You sit beside her. She pulls you closer until your head rests on her shoulder.
+<</narrative>>
+
+<<dialog "mother">>
+(Whispering)
+This is all I need. Just you.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                }
+            ]
+        },
+
+        /* ========== HEALTH ========== */
+        health: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Stretching)
+I did yoga this morning. My back feels so much better.
+<</dialog>>
+
+<<dialog "player">>
+You should teach me sometime.
+<</dialog>>
+
+<<dialog "mother">>
+(Pleasantly surprised)
+Really? I'd love that. Tomorrow morning, then?
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthBackyardTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's in workout clothes, heading to the backyard.
+<</narrative>>
+
+<<dialog "mother">>
+I'm going for my morning jog. Want to join?
+<</dialog>>
+
+<<dialog "player">>
+Maybe next time...
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling)
+You always say that. One day I'll hold you to it.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Are you getting enough sleep? You look tired.
+<</dialog>>
+
+<<dialog "player">>
+I'm fine, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Skeptical)
+Staying up late on your phone again. I know you.
+<</dialog>>`,
+                    friendship: 1,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's doing yoga in the living room. She looks up as you enter.
+<</narrative>>
+
+<<dialog "mother">>
+Come join me. I could use a partner.
+<</dialog>>
+
+<<dialog "player">>
+I don't really know the poses...
+<</dialog>>
+
+<<dialog "mother">>
+(Getting up)
+I'll show you. Here, stand like this...
+(Adjusts your posture with her hands)
+There. Perfect.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+You join mom for a light jog around the neighborhood.
+<</narrative>>
+
+<<dialog "mother">>
+(Slightly out of breath)
+See? This is nice. Mother-daughter exercise.
+<</dialog>>
+
+<<dialog "player">>
+You're in better shape than me.
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing)
+Years of practice, sweetie. You'll get there.
+(Nudges you playfully)
+I like having you with me though.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Touching her neck)
+Can you feel this? I think I pulled something.
+<</dialog>>
+
+<<dialog "player">>
+(Feeling carefully)
+Here?
+<</dialog>>
+
+<<dialog "mother">>
+(Wincing)
+Yes, right there. Can you rub it a little?
+(Relaxes as you do)
+Mmm... you have good hands, sweetie.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+After yoga, you're both lying on mats, catching your breath.
+<</narrative>>
+
+<<dialog "mother">>
+(Rolling to face you)
+This was nice. Just us, no distractions.
+<</dialog>>
+
+<<dialog "player">>
+We should do this more often.
+<</dialog>>
+
+<<dialog "mother">>
+(Reaching for your hand)
+I'd like that. More than you know.
+(Squeezes your fingers)
+You make everything better.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthBackyardTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+You're both cooling down in the backyard after jogging.
+<</narrative>>
+
+<<dialog "mother">>
+(Leaning against you)
+I used to run alone. It was just exercise.
+(Looks at you)
+With you, it's different. It's... something I look forward to.
+<</dialog>>
+
+<<dialog "player">>
+Me too, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Hugging your arm)
+Promise we'll keep doing this? Just the two of us?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Massaging your shoulders after workout)
+You're tense here.
+<</dialog>>
+
+<<dialog "player">>
+That feels really good...
+<</dialog>>
+
+<<dialog "mother">>
+(Hands moving slowly)
+I take care of everyone in this house. But taking care of you... that's different. That's not a chore.
+(Leans close)
+That's a privilege.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                }
+            ]
+        },
+
+        /* ========== BOOKS ========== */
+        books: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's curled up on the couch with a book.
+<</narrative>>
+
+<<dialog "player">>
+What are you reading?
+<</dialog>>
+
+<<dialog "mother">>
+(Closing it slightly)
+Oh, just a novel. Romance, you know. You wouldn't like it.
+<</dialog>>
+
+<<dialog "player">>
+You're always reading those...
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling)
+Leave me alone. What else should I read, sci-fi? Let me have my fun.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksBackyardTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's reading in the backyard, sun hat on.
+<</narrative>>
+
+<<dialog "mother">>
+(Not looking up)
+Don't disturb me, I'm at a good part.
+<</dialog>>
+
+<<dialog "player">>
+Must be really good.
+<</dialog>>
+
+<<dialog "mother">>
+(Finally looking up)
+It is. The main character just found out her husband has a secret.
+(Dramatic whisper)
+Very juicy.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Putting down book with a sigh)
+Finished it. Now I need a new one.
+<</dialog>>
+
+<<dialog "player">>
+How many have you read this month?
+<</dialog>>
+
+<<dialog "mother">>
+Four? Five? I lose count.
+(Stretching)
+Books are my escape, sweetie.
+<</dialog>>`,
+                    friendship: 1,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Holding up a book)
+This one's really good. When I finish, I'll give it to you. Maybe you'll like it.
+<</dialog>>
+
+<<dialog "player">>
+Mom, romance novels aren't really my thing...
+<</dialog>>
+
+<<dialog "mother">>
+(Grinning)
+It's not just romance. There's life in it, relationships, emotions. Give it a try.
+(Whispering)
+Some scenes are... mature. But you're old enough now.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksParentsroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's reading in bed. She pats the spot beside her.
+<</narrative>>
+
+<<dialog "mother">>
+Come, sit. Read with me.
+<</dialog>>
+
+<<dialog "player">>
+(Sitting beside her)
+What's it about?
+<</dialog>>
+
+<<dialog "mother">>
+(Showing you)
+A woman finding herself after years of marriage. It's... relatable.
+(Looks at you meaningfully)
+Sometimes fiction tells truths we can't say out loud.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Reading aloud dramatically)
+"He looked at her with eyes that held a thousand unspoken words..."
+<</dialog>>
+
+<<dialog "player">>
+(Laughing)
+Mom, stop.
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing too)
+What? This is literature!
+(Pulls you to sit beside her)
+Fine, I'll read quietly. But stay here. It's nice.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's reading in bed. She looks up as you enter.
+<</narrative>>
+
+<<dialog "mother">>
+(Lifting the covers)
+Come. Sit here.
+(Making room)
+I want to share something with you.
+<</dialog>>
+
+<<dialog "player">>
+(Sitting beside her)
+What is it?
+<</dialog>>
+
+<<dialog "mother">>
+(Opening to a page)
+This part... it's about a mother and daughter. Reading it, I kept thinking of us.
+(Rests her head on your shoulder)
+If only life was like books, right?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Setting book down)
+Can I tell you something embarrassing?
+<</dialog>>
+
+<<dialog "player">>
+Sure...
+<</dialog>>
+
+<<dialog "mother">>
+When I read these romance novels... sometimes I imagine I'm the main character.
+(Looking at you)
+And sometimes I imagine you're there too. In the story with me.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+You're both in her bed, reading together. Her hand finds yours.
+<</narrative>>
+
+<<dialog "mother">>
+(Quietly)
+I don't need these books when you're here.
+<</dialog>>
+
+<<dialog "player">>
+Why not?
+<</dialog>>
+
+<<dialog "mother">>
+(Closing the book)
+Because you're better than any story.
+(Squeezing your hand)
+You're real. You're here. With me.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                }
+            ]
+        },
+
+        /* ========== GARDEN ========== */
+        garden: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicGardenBackyardTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's tending to her plants in the backyard.
+<</narrative>>
+
+<<dialog "mother">>
+(Without turning)
+Can you hand me the watering can?
+<</dialog>>
+
+<<dialog "player">>
+(Handing it over)
+The garden looks nice.
+<</dialog>>
+
+<<dialog "mother">>
+It takes work. Daily care. Like everything worth having.
+(Glances at you)
+Unlike some people's rooms.
+<</dialog>>`,
+                    friendship: 1,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicGardenBackyardTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Examining a flower)
+These bloomed early this year. Look how pretty.
+<</dialog>>
+
+<<dialog "player">>
+They are pretty.
+<</dialog>>
+
+<<dialog "mother">>
+You sound surprised. Gardening isn't just old lady stuff, you know.
+(Smiling)
+There's something satisfying about growing things.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicGardenBackyardTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+The tomatoes are almost ready. We'll have fresh ones for salad this week.
+<</dialog>>
+
+<<dialog "player">>
+You grew those yourself?
+<</dialog>>
+
+<<dialog "mother">>
+(Proudly)
+Of course. Homegrown is always better. You'll see.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicGardenBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Come here, help me with this.
+<</dialog>>
+
+<<narrative>>
+She guides your hands to help replant a flower.
+<</narrative>>
+
+<<dialog "mother">>
+Gently. Like this. See?
+(Her hands over yours)
+You're a natural.
+<</dialog>>
+
+<<dialog "player">>
+This is actually kind of nice.
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling warmly)
+I told you. Gardening together is therapeutic.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicGardenBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+You're both sitting on the patio after gardening, dirt on your hands.
+<</narrative>>
+
+<<dialog "mother">>
+(Contentedly)
+This is my happy place, you know. Out here, everything's quiet.
+<</dialog>>
+
+<<dialog "player">>
+I get it. It's peaceful.
+<</dialog>>
+
+<<dialog "mother">>
+(Leaning against you)
+More peaceful with you here.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicGardenBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Picking a flower)
+Here. For you.
+<</dialog>>
+
+<<dialog "player">>
+(Taking it)
+Thanks, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Tucking a strand of hair behind your ear)
+My beautiful girl. More beautiful than any flower here.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicGardenBackyardTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Golden hour in the garden. Mom's sitting among her flowers.
+<</narrative>>
+
+<<dialog "mother">>
+(Patting the grass beside her)
+Sit with me. Watch the sunset.
+<</dialog>>
+
+<<narrative>>
+You sit close. She rests her head on your shoulder.
+<</narrative>>
+
+<<dialog "mother">>
+I planted this garden when you were born. Did you know that?
+<</dialog>>
+
+<<dialog "player">>
+I didn't...
+<</dialog>>
+
+<<dialog "mother">>
+It was my promise. To grow something beautiful alongside you.
+(Squeezes your hand)
+And I did.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicGardenBackyardTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Standing among the flowers)
+Sometimes I come out here and pretend I'm in a different life.
+<</dialog>>
+
+<<dialog "player">>
+What kind of life?
+<</dialog>>
+
+<<dialog "mother">>
+(Turning to you)
+One where it's just us. No responsibilities. No... complications.
+(Walking toward you)
+Just you and me, in a garden somewhere.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicGardenBackyardTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She pulls you close among the flowers, arms around your waist.
+<</narrative>>
+
+<<dialog "mother">>
+(Whispering)
+My garden. My daughter. My two favorite things in the world.
+<</dialog>>
+
+<<dialog "player">>
+(Heart beating faster)
+Mom...
+<</dialog>>
+
+<<dialog "mother">>
+(Holding tighter)
+Just let me have this moment. Please.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                }
+            ]
+        },
+
+        /* ========== MEMORIES ========== */
+        memories: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesLivingroomTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Looking at an old photo on the wall)
+Remember when this was taken? You were so small.
+<</dialog>>
+
+<<dialog "player">>
+That was a long time ago.
+<</dialog>>
+
+<<dialog "mother">>
+(Sighing)
+Time flies. Feels like yesterday.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesBackyardTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's looking around the backyard with a nostalgic expression.
+<</narrative>>
+
+<<dialog "mother">>
+You used to play here all day when you were little. Running around, getting grass stains everywhere.
+<</dialog>>
+
+<<dialog "player">>
+I vaguely remember.
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling)
+I remember everything.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+This kitchen has seen so many family meals. Birthdays, holidays...
+<</dialog>>
+
+<<dialog "player">>
+Still does.
+<</dialog>>
+
+<<dialog "mother">>
+(Nodding)
+Still does. But it's different now. Everyone's older. Busier.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom pulls out an old photo album.
+<</narrative>>
+
+<<dialog "mother">>
+(Patting beside her)
+Come look at these with me.
+<</dialog>>
+
+<<narrative>>
+You flip through together, laughing at old pictures.
+<</narrative>>
+
+<<dialog "mother">>
+(Touching a photo)
+Look at you here. So happy. So innocent.
+(Looks at you)
+You still have that same smile.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Remember when you fell off the swing there? You cried for an hour.
+<</dialog>>
+
+<<dialog "player">>
+(Embarrassed)
+Mom...
+<</dialog>>
+
+<<dialog "mother">>
+(Pulling you close)
+I held you until you stopped. I'd hold you forever if I could.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Your first birthday cake—I made it right here. It was lopsided and the frosting was a mess.
+<</dialog>>
+
+<<dialog "player">>
+But it tasted good?
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing)
+Terrible, actually. But you ate it anyway.
+(Takes your hand)
+You've always been kind that way.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+You're both on the couch with the photo album. Her head rests on your shoulder.
+<</narrative>>
+
+<<dialog "mother">>
+(Quietly)
+These are my favorite memories. Not vacations. Not holidays. Just... you.
+<</dialog>>
+
+<<dialog "player">>
+Mom...
+<</dialog>>
+
+<<dialog "mother">>
+(Looking up at you)
+I know it sounds silly. But you're the best thing I ever did. The only thing that matters.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesBackyardTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Holding you in the backyard)
+Remember when you used to fall asleep in my arms out here?
+<</dialog>>
+
+<<dialog "player">>
+I was a kid then.
+<</dialog>>
+
+<<dialog "mother">>
+(Pulling you closer)
+You could still do that. If you wanted. I wouldn't mind.
+(Whispers)
+I'd welcome it.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She's crying softly, looking at old photos.
+<</narrative>>
+
+<<dialog "player">>
+Mom? What's wrong?
+<</dialog>>
+
+<<dialog "mother">>
+(Wiping her eyes)
+Nothing. I just... I miss it. When you were small. When you needed me.
+(Takes your hand)
+Do you still need me?
+<</dialog>>
+
+<<dialog "player">>
+Of course I do.
+<</dialog>>
+
+<<dialog "mother">>
+(Pulling you into a tight hug)
+Then never leave me. Please.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                }
+            ]
+        },
+
+        /* ========== MARRIAGE ========== */
+        marriage: {
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMarriageLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Sighing)
+Marriage is hard work, sweetie. Remember that.
+<</dialog>>
+
+<<dialog "player">>
+Did something happen with dad?
+<</dialog>>
+
+<<dialog "mother">>
+No, nothing like that. It's just... years go by and people change. The relationship changes.
+(Looking out the window)
+But I still love him. Just... differently now.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 3,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMarriageLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+When you get married someday, make sure it's someone who really sees you.
+<</dialog>>
+
+<<dialog "player">>
+What do you mean?
+<</dialog>>
+
+<<dialog "mother">>
+Someone who notices when you're sad. When you need something. When you're... lonely.
+(Quiet pause)
+Don't settle for less.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 3,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMarriageParentsroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's sitting on her bed, staring at her wedding ring.
+<</narrative>>
+
+<<dialog "mother">>
+(Not looking up)
+Twenty years. Can you imagine?
+<</dialog>>
+
+<<dialog "player">>
+That's a long time.
+<</dialog>>
+
+<<dialog "mother">>
+(Finally looking at you)
+Sometimes it feels like forever. Sometimes... not long enough.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 3,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMarriageParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's in her room, looking thoughtful. She sees you at the door.
+<</narrative>>
+
+<<dialog "mother">>
+(Gesturing you in)
+Come here, sweetie... I want to ask you something.
+<</dialog>>
+
+<<dialog "player">>
+What is it?
+<</dialog>>
+
+<<dialog "mother">>
+Am I still... beautiful? The way I used to be?
+(Looking in the mirror)
+Sometimes I feel like your father doesn't see me anymore.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMarriageLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Quietly)
+Sometimes I wonder what life would be like if I'd made different choices.
+<</dialog>>
+
+<<dialog "player">>
+What kind of choices?
+<</dialog>>
+
+<<dialog "mother">>
+(Meeting your eyes)
+If I'd married someone else. Or... not married at all.
+(Taking your hand)
+But then I wouldn't have you. And that... I could never give up.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMarriageParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Lying on the bed)
+Your father and I... we haven't been close in a while. You know what I mean.
+<</dialog>>
+
+<<dialog "player">>
+(Uncomfortable)
+Mom, I don't think—
+<</dialog>>
+
+<<dialog "mother">>
+(Sitting up)
+I'm not asking you to do anything. I just... I need someone to talk to. Someone who won't judge me.
+(Eyes pleading)
+Can you be that person?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 2
+                }
+            ]
+        },
+
+        /* ========== COMPLIMENTS ========== */
+        compliments: {
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicComplimentsKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Looking at you)
+Have I told you how pretty you look today?
+<</dialog>>
+
+<<dialog "player">>
+Mom, I just woke up...
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling)
+And still gorgeous. That's natural beauty, sweetie.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicComplimentsLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Tucking hair behind your ear)
+You have your grandmother's eyes. Did you know that?
+<</dialog>>
+
+<<dialog "player">>
+You've mentioned it.
+<</dialog>>
+
+<<dialog "mother">>
+(Soft smile)
+They're beautiful. You're beautiful. Inside and out.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicComplimentsParentsroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Watching you from her bed)
+Come here. Let me look at you.
+<</dialog>>
+
+<<narrative>>
+You walk closer. She takes your hands.
+<</narrative>>
+
+<<dialog "mother">>
+Perfect. Absolutely perfect.
+(Whispers)
+I made this. I made you.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicComplimentsParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Holding your face)
+Do you have any idea how beautiful you are?
+<</dialog>>
+
+<<dialog "player">>
+(Blushing)
+Mom...
+<</dialog>>
+
+<<dialog "mother">>
+(Thumb stroking your cheek)
+I'm serious. Sometimes I just look at you and I can't believe you're mine.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicComplimentsLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Standing close)
+You're more beautiful than I ever was. Even at my best.
+<</dialog>>
+
+<<dialog "player">>
+That's not true—
+<</dialog>>
+
+<<dialog "mother">>
+(Finger on your lips)
+It is. And I'm not jealous. I'm... proud.
+(Eyes intense)
+And maybe something else I shouldn't be.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicComplimentsParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She traces her finger along your jawline.
+<</narrative>>
+
+<<dialog "mother">>
+(Whispering)
+If you weren't my daughter... if we'd met differently...
+<</dialog>>
+
+<<dialog "player">>
+(Heart pounding)
+Mom?
+<</dialog>>
+
+<<dialog "mother">>
+(Pulling away slightly)
+Nothing. Forget I said anything.
+(But she doesn't stop looking at you)
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                }
+            ]
+        },
+
+        /* ========== APPEARANCE ========== */
+        appearance: {
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicAppearanceLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Looking in a mirror)
+Sweetie, do you think I've aged?
+<</dialog>>
+
+<<dialog "player">>
+What? No, mom. You look great.
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing)
+You're just saying that. But... thank you.
+(Turns to you)
+You're prettier than me now. When did that happen?
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicAppearanceParentsroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's looking at herself in the mirror, touching her face.
+<</narrative>>
+
+<<dialog "mother">>
+(Sighing)
+When did these wrinkles show up?
+<</dialog>>
+
+<<dialog "player">>
+What wrinkles? I don't see any.
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling at you through the mirror)
+You're sweet. Come here, help me pick an outfit.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicAppearanceLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Adjusting her clothes)
+Does this make me look old?
+<</dialog>>
+
+<<dialog "player">>
+No, it looks good on you.
+<</dialog>>
+
+<<dialog "mother">>
+(Moving closer)
+Really? You'd tell me if I looked bad, right?
+(Touches your arm)
+You're the only one I trust to be honest with me.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 3,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicAppearanceParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's in her room trying on clothes. Door half open.
+<</narrative>>
+
+<<dialog "mother">>
+(Seeing you)
+Oh, come in. Close the door.
+(Holding up a dress)
+What do you think? This one or that one?
+<</dialog>>
+
+<<dialog "player">>
+(Stepping in)
+They both look nice...
+<</dialog>>
+
+<<dialog "mother">>
+(Holding dress against her body)
+Is my figure still okay? Be honest.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicAppearanceParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(In a slip dress)
+Do I still look... desirable? As a woman?
+<</dialog>>
+
+<<dialog "player">>
+(Caught off guard)
+Mom, of course you do—
+<</dialog>>
+
+<<dialog "mother">>
+(Walking toward you)
+Your father never says it anymore. But when you look at me...
+(Stops close)
+I feel like I'm still worth looking at.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicAppearanceParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She's standing before you in something more revealing than usual.
+<</narrative>>
+
+<<dialog "mother">>
+(Nervous)
+Is this too much? For my age?
+<</dialog>>
+
+<<dialog "player">>
+(Trying not to stare)
+You look... really good, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Stepping closer)
+You're blushing. Does that mean you really think so?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                }
+            ]
+        },
+
+        /* ========== TOUCH ========== */
+        touch: {
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Opening her arms)
+Come here, sweetie.
+<</dialog>>
+
+<<narrative>>
+She hugs you tightly. Her perfume is familiar and comforting.
+<</narrative>>
+
+<<dialog "mother">>
+I missed this. We live in the same house but we never hug anymore.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchLivingroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom takes your hand as you sit together on the couch.
+<</narrative>>
+
+<<dialog "mother">>
+(Intertwining fingers)
+I used to hold your hand all the time when you were little.
+<</dialog>>
+
+<<dialog "player">>
+I remember.
+<</dialog>>
+
+<<dialog "mother">>
+(Squeezing)
+Why did we stop?
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchParentsroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Rubbing your shoulders)
+You're tense. Sit here, let me help.
+<</dialog>>
+
+<<narrative>>
+Her hands work the knots in your shoulders.
+<</narrative>>
+
+<<dialog "mother">>
+Better?
+<</dialog>>
+
+<<dialog "player">>
+(Relaxing)
+Yeah... that's really nice.
+<</dialog>>
+
+<<dialog "mother">>
+(Softly)
+I like taking care of you like this.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's in bed, pats the space beside her.
+<</narrative>>
+
+<<dialog "mother">>
+Come. Lie down with me. Like when you were little.
+<</dialog>>
+
+<<dialog "player">>
+(Lying beside her)
+<</dialog>>
+
+<<dialog "mother">>
+(Stroking your hair)
+Remember when you'd crawl into bed with me during storms?
+(Pulls you closer)
+I miss that. Being needed like that.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She pulls you close, your back against her chest.
+<</narrative>>
+
+<<dialog "mother">>
+(Arms wrapped around you)
+Just stay like this for a while.
+<</dialog>>
+
+<<dialog "player">>
+(Feeling her warmth)
+Okay...
+<</dialog>>
+
+<<dialog "mother">>
+(Breath warm against your ear)
+This is all I need. Just this.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Hands tracing your arms)
+Your skin is so soft...
+<</dialog>>
+
+<<dialog "player">>
+(Shivers)
+Mom...
+<</dialog>>
+
+<<dialog "mother">>
+(Not stopping)
+Is this okay? Tell me if it's not.
+(But her hands keep moving)
+I just... I need to feel close to you.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                }
+            ]
+        },
+
+        /* ========== SECRETS ========== */
+        secrets: {
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicSecretsLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Whispering)
+Sweetie... I need to tell you something. But you can't tell anyone.
+<</dialog>>
+
+<<dialog "player">>
+What is it?
+<</dialog>>
+
+<<dialog "mother">>
+Sometimes... I feel so lonely. Your father's there but not really there.
+(Eyes filling)
+You're the only one who makes me feel... not alone.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicSecretsParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom closes the door and sits beside you on the bed.
+<</narrative>>
+
+<<dialog "mother">>
+Can I trust you with something I've never told anyone?
+<</dialog>>
+
+<<dialog "player">>
+Of course, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Voice trembling)
+Sometimes I have thoughts... about what my life could have been. About... choices I didn't make.
+(Taking your hand)
+And sometimes those thoughts involve you.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 3
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicSecretsParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Holding you close)
+I have a secret. Something dark.
+<</dialog>>
+
+<<dialog "player">>
+(Heart racing)
+What is it?
+<</dialog>>
+
+<<dialog "mother">>
+(Barely audible)
+The love I feel for you... it's not normal. It's more. It scares me.
+(Pulling back to look at you)
+Does that scare you?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 4
+                }
+            ]
+        },
+
+        /* ========== DESIRES ========== */
+        desires: {
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDesiresParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom closes the bedroom door.
+<</narrative>>
+
+<<dialog "mother">>
+(Slowly)
+Sweetie... Have you ever... wanted someone so badly it hurt? Someone you shouldn't want?
+<</dialog>>
+
+<<dialog "player">>
+That's... why are you asking me this?
+<</dialog>>
+
+<<dialog "mother">>
+(Moving closer)
+Answer me. It's between us.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 4
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDesiresParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Sitting on the bed)
+I've been having... thoughts. About you.
+<</dialog>>
+
+<<dialog "player">>
+(Frozen)
+What kind of thoughts?
+<</dialog>>
+
+<<dialog "mother">>
+(Eyes locked on yours)
+The kind a mother shouldn't have about her daughter.
+(Reaches for your hand)
+I can't help it anymore.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 5
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDesiresParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She pulls you onto the bed beside her.
+<</narrative>>
+
+<<dialog "mother">>
+(Breathing heavy)
+I've tried to ignore it. To be a good mother.
+<</dialog>>
+
+<<dialog "player">>
+Mom...
+<</dialog>>
+
+<<dialog "mother">>
+(Hand on your thigh)
+But every time I look at you... I want things I shouldn't want.
+(Whispering)
+Tell me I'm not alone in this.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 5
+                }
+            ]
+        },
+
+        /* ========== CONFESSION ========== */
+        confession: {
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicConfessionLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Taking your hands)
+I need to tell you something. Something I've been holding inside for too long.
+<</dialog>>
+
+<<dialog "player">>
+Mom, you're scaring me.
+<</dialog>>
+
+<<dialog "mother">>
+(Deep breath)
+Don't be scared. I just... I love you. More than a mother should.
+(Looking into your eyes)
+Do you understand what I'm saying?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 4
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicConfessionParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She sits you down on her bed, door closed.
+<</narrative>>
+
+<<dialog "mother">>
+(Voice shaking)
+What I feel for you... it's beyond maternal love. It's...
+<</dialog>>
+
+<<dialog "player">>
+(Heart pounding)
+Mom?
+<</dialog>>
+
+<<dialog "mother">>
+(Cupping your face)
+I'm in love with you. My own daughter. And I can't pretend anymore.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 5
+                },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicConfessionParentsroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Tears streaming)
+I've fought this for years. Years.
+<</dialog>>
+
+<<dialog "player">>
+Fought what?
+<</dialog>>
+
+<<dialog "mother">>
+(Pulling you close)
+The way I feel about you. The way I dream about you. The way I...
+(Forehead against yours)
+I love you. Not just as my daughter. As... everything.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 4,
+                    love: 5
+                }
+            ]
+        }
+    }
+}>>

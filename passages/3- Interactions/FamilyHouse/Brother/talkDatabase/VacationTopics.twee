@@ -1,0 +1,501 @@
+/* ==========================================
+   BROTHER - VACATION TALK TOPICS
+   These topics are available ONLY during Vacation/Summer phase
+   ($flags.summerBreak == true)
+
+   Topics: QUALITYTIME, SUMMERPLANS
+   Each topic has 3 tiers with 3-5 dialog variations
+   Tier 1: friendship 0-39
+   Tier 2: friendship 40-69
+   Tier 3: friendship 70-100
+========================================== */
+
+<<set setup.brotherTalkTopics = setup.brotherTalkTopics || {}>>
+<<set setup.brotherTalkTopics.vacation = {
+
+    /* ==========================================
+       TOPIC: QUALITY TIME
+       Location: LivingRoom (T1), Backyard (T2), LivingRoom (T3)
+    ========================================== */
+    qualityTime: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Summer's nice. Hanging out with you is nice—during school we're both busy. Now we're both here.
+                <</dialog>>
+
+                <<dialog "player">>
+                I was thinking the same thing.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Relaxed)
+                Good. Every summer should be like this. When Mom and Dad go out, the house is ours.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                No homework, no stress. Just vibes.
+                <</dialog>>
+
+                <<dialog "player">>
+                You seem happier.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                Summer does that. Plus, you know... you're around more.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                Lazy afternoon. Both of you sprawled on the couch, doing nothing in particular.
+                <</narrative>>
+
+                <<dialog "brother">>
+                This is it. Peak existence. Nothing to do, nowhere to be.
+                <</dialog>>
+
+                <<dialog "player">>
+                You're easy to please.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Grinning)
+                Couch, snacks, you annoying me. Perfect.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Best part of summer? This. Just us, no one else.
+                <</dialog>>
+
+                <<dialog "player">>
+                Yeah. It's nice.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Smiling)
+                I mean it. I want it to stay like this. (Genuine) Not joking—this summer's been good.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                Evening in the backyard. The air is warm, the sky turning orange.
+                <</narrative>>
+
+                <<dialog "brother">>
+                I'll miss this when summer ends.
+                <</dialog>>
+
+                <<dialog "player">>
+                We'll have more summers.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking at you)
+                Will they be like this one though? With you?
+                <</dialog>>
+
+                <<dialog "player">>
+                I hope so.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Softly)
+                Me too.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                You know what I realized? My favorite memories are the boring ones. Just hanging out, nothing special.
+                <</dialog>>
+
+                <<dialog "player">>
+                The quiet moments.
+                <</dialog>>
+
+                <<dialog "brother">>
+                Yeah. And they're all with you.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Sometimes I think about what I'd be doing if you weren't here.
+                <</dialog>>
+
+                <<dialog "player">>
+                Probably gaming all day.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Laughing)
+                Yeah, probably. But that sounds way more boring now.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Thoughtful)
+                One day we'll leave this house. Different places, different lives.
+                <</dialog>>
+
+                <<dialog "player">>
+                We'll still see each other.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Nodding slowly)
+                Yeah. But right now... I don't want to miss any of this. (Soft smile) This summer's important.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<narrative>>
+                Late night. Just the two of you, house completely quiet.
+                <</narrative>>
+
+                <<dialog "brother">>
+                These are the moments. Right here.
+                <</dialog>>
+
+                <<dialog "player">>
+                They are.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Quietly)
+                I'll remember them. No matter what happens.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationQualityTimeLivingroomTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                If I could freeze time... it would be right now. This summer. You and me.
+                <</dialog>>
+
+                <<dialog "player">>
+                That's sweet.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Embarrassed but honest)
+                Shut up. It's true though.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            }
+        ]
+    },
+
+    /* ==========================================
+       TOPIC: SUMMER PLANS
+       Location: Kitchen (T1), LivingRoom (T2-T3)
+    ========================================== */
+    summerPlans: {
+        tier1: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Summer plans? Games, sleep, hanging with you. Same as always. And it's good.
+                <</dialog>>
+
+                <<dialog "player">>
+                No big adventures?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                Nah. This is enough. Last summer was the same, didn't get bored.
+                <</dialog>>`,
+                friendship: 1,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "player">>
+                We should do something this summer. Go somewhere.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Considering)
+                Maybe. As long as you're there, I'm in.
+                <</dialog>>
+
+                <<dialog "player">>
+                Of course I'd be there.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Small smile)
+                Then yeah, let's plan something.
+                <</dialog>>`,
+                friendship: 2,
+                trust: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier1-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Mom keeps saying I should "do something productive" this summer.
+                <</dialog>>
+
+                <<dialog "player">>
+                And?
+                <</dialog>>
+
+                <<dialog "brother">>
+                And I'm very productively doing nothing. It's an art form.
+                <</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        tier2: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                I've been thinking about college. Maybe somewhere close.
+                <</dialog>>
+
+                <<dialog "player">>
+                You always said you wanted to get away.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shrugging)
+                Changed my mind. Home's not so bad. Family's here. You're here. Makes sense to stay close.
+                <</dialog>>
+
+                <<dialog "player">>
+                Makes sense.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Satisfied)
+                Good. Then it's settled.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                What are your plans? After this summer, I mean.
+                <</dialog>>
+
+                <<dialog "player">>
+                Not sure yet. Why?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Trying to sound casual)
+                Just curious. Want to know where you'll be. For... you know, planning purposes.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Let's make this the best summer yet. Like, actually do stuff together.
+                <</dialog>>
+
+                <<dialog "player">>
+                What kind of stuff?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Thinking)
+                Movies, games, staying up late, road trip maybe? Anything. As long as it's with you.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2,
+                love: 1
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier2-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Remember when we used to count down to summer? Felt like forever.
+                <</dialog>>
+
+                <<dialog "player">>
+                Now it goes too fast.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Nodding)
+                Yeah. That's why we gotta make it count.
+                <</dialog>>`,
+                friendship: 3,
+                trust: 2
+            }
+        ],
+
+        tier3: [
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Serious)
+                I'm staying close. For college, for everything. I've decided.
+                <</dialog>>
+
+                <<dialog "player">>
+                Because of school?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Shaking head)
+                Because of you. (Pause) That sounds intense. But I don't care. It's true.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 3,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                (Quiet)
+                Whatever happens next... wherever we end up... I want you in my life. Always.
+                <</dialog>>
+
+                <<dialog "player">>
+                You will.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Meeting your eyes)
+                Promise?
+                <</dialog>>
+
+                <<dialog "player">>
+                Promise.
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Relieved)
+                Okay. Then nothing else matters.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 3
+            },
+            {
+                text: `
+                <<set _img = "assets/content/scenes/interactions/brother/vacation/vacationSummerPlansKitchenTier3-" + random(1,3) + ".webp">>
+                <<image _img "100%">>
+
+                <<dialog "brother">>
+                Everyone asks what I'm doing with my life. I don't tell them the real answer.
+                <</dialog>>
+
+                <<dialog "player">>
+                What's the real answer?
+                <</dialog>>
+
+                <<dialog "brother">>
+                (Looking at you steadily)
+                Staying close to you. Everything else... is just details.
+                <</dialog>>`,
+                friendship: 4,
+                trust: 4,
+                love: 4
+            }
+        ]
+    }
+
+}>>

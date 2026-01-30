@@ -99,17 +99,6 @@
         {
             id: "talk", label: "Talk", passage: "fatherTalkKitchen",
             tags: [], requirements: {}, dailyLimit: true
-        },
-        {
-            id: "coffee", label: "Coffee Together", passage: "fatherCoffeeTogether",
-            tags: [], requirements: {}, dailyLimit: true,
-            timeWindow: [
-                { startHour: 6, startMinute: 0, endHour: 9, endMinute: 0 }
-            ]
-        },
-        {
-            id: "hug", label: "Hug", passage: "fatherHug",
-            tags: [], requirements: { friendship: 40 }, dailyLimit: true
         }
     ],
     fhLivingroom: [
@@ -128,19 +117,6 @@
         {
             id: "talk", label: "Talk", passage: "fatherTalkGarage",
             tags: [], requirements: {}, dailyLimit: true
-        },
-        {
-            id: "carWork", label: "Help with Car", passage: "fatherCarWork",
-            tags: [], requirements: { friendship: 35 }, dailyLimit: true
-        }
-    ],
-    fhParentsRoom: [
-        {
-            id: "eveningVisit", label: "Say Goodnight", passage: "parentsRoomEvening",
-            tags: [], requirements: {}, dailyLimit: true,
-            timeWindow: [
-                { startHour: 23, startMinute: 0, endHour: 24, endMinute: 0 }
-            ]
         }
     ]
 }>>
