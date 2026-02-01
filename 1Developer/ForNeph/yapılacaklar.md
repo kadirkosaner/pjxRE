@@ -8,3 +8,6 @@ questler için resim ve mp4 önerileri.
 - Görevlere devam et
 - Karakterler için artık yeni görseller bul
 - ClerckMarcus içinde interactionlarıda düzenle.
+
+
+- Profile Pictureyi saçın şekline ve rengine göre yapmak.

@@ -10,6 +10,7 @@
   left: 0;
   right: var(--rightbar-width);
   bottom: 0;
+  overflow-x: hidden;  /* Passage breakout önleme: thought/dialog sidebar'a taşmasın */
   overflow-y: scroll;
   text-align: left;
   padding: var(--spacing-xl);
@@ -36,13 +37,17 @@
 
 .passage {
   width: 100%;
+  max-width: 100%;   /* İçerik sidebar alanına taşmasın */
+  min-width: 0;      /* Flex child'ın shrink olabilmesi için */
 }
 
 /* Talk/interaction passages: single wrapper for stable layout (avoids sağdan-soldan on first load) */
 .talk-passage-content {
   width: 100%;
+  max-width: 100%;
   display: block;
   min-height: 0;
+  overflow-x: hidden; /* İçerik sınırı: thought-block/dialogue taşmasın */
 }
 
 /* ================== BODY LAYOUT STATES =================== */

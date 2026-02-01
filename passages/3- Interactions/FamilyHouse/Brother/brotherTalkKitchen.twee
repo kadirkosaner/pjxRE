@@ -106,6 +106,7 @@
 <<recalculateStats>>
 <</silently>>
 
+<<nobr>>
 <<narrative "Kitchen - Talk with Brother">>
 <<if _phase === "school">>
 Your brother is grabbing a snack between study sessions. He looks like he could use a break.
@@ -119,3 +120,4 @@ Summer means constant kitchen raids. Your brother is here again, searching the f
 <div class="location-actions">
 <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 </div>
+<</nobr>>

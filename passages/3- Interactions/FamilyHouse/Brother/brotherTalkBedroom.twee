@@ -99,6 +99,7 @@
 <<recalculateStats>>
 <</silently>>
 
+<<nobr>>
 <<narrative "Brother's Room - Talk with Brother">>
 <<if _phase === "school">>
 His room is a mess of textbooks and gaming gear. The blue glow of his monitors illuminates the dim space.
@@ -112,3 +113,4 @@ Summer means his room is in full gaming mode—curtains drawn, energy drinks sta
 <div class="location-actions">
 <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 </div>
+<</nobr>>

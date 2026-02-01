@@ -32,38 +32,11 @@
     <</if>>
 <</if>>
 
-/* Backyard-specific topics */
-<<set _backyardTopics = []>>
+/* Backyard: webp'lerde SADECE commonMemoriesBackyardTier1 var. qualityTime = Livingroom, sibling = Livingroom/Kitchen – Backyard'ta SADECE memories.tier1 kullan. */
+<<set _backyardTopics = ["memories"]>>
 
-/* Common topics available in Backyard */
-<<if _tier === "tier1">>
-    <<set _backyardTopics.push("memories")>>  /* Backyard T1 */
-<</if>>
-
-/* Phase-specific topics for backyard */
-<<if _phase === "vacation">>
-    <<if _tier === "tier2">>
-        <<set _backyardTopics.push("qualityTime")>>  /* Backyard T2 - vacation only */
-    <</if>>
-<</if>>
-
-/* Ensure at least one topic is available */
-<<if _backyardTopics.length === 0>>
-    /* Fallback topics for backyard when no specific ones available */
-    <<set _backyardTopics.push("sibling")>>
-<</if>>
-
-/* Select random topic from available backyard topics */
-<<set _randomKey = _backyardTopics.random()>>
-
-/* Retrieve topic (use _displayTier – 40% lower tier content) */
-<<if setup.brotherTalkTopics.common[_randomKey]>>
-    <<set _topicArray = setup.brotherTalkTopics.common[_randomKey][_displayTier] || setup.brotherTalkTopics.common[_randomKey][_tier]>>
-<<elseif setup.brotherTalkTopics[_phase] and setup.brotherTalkTopics[_phase][_randomKey]>>
-    <<set _topicArray = setup.brotherTalkTopics[_phase][_randomKey][_displayTier] || setup.brotherTalkTopics[_phase][_randomKey][_tier]>>
-<<else>>
-    <<set _topicArray = setup.brotherTalkTopics.common.sibling[_displayTier] || setup.brotherTalkTopics.common.sibling[_tier]>>
-<</if>>
+<<set _randomKey = "memories">>
+<<set _topicArray = setup.brotherTalkTopics.common.memories.tier1>>
 
 /* Select random variation from the tier array */
 <<set _topic = _topicArray.random()>>
@@ -90,6 +63,7 @@
 <<recalculateStats>>
 <</silently>>
 
+<<nobr>>
 <<narrative "Backyard - Talk with Brother">>
 <<if _phase === "school">>
 Your brother is outside for once, probably needed some fresh air after being cooped up studying.
@@ -103,3 +77,4 @@ Warm summer evening. Your brother actually ventured outside, enjoying the break 
 <div class="location-actions">
 <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 </div>
+<</nobr>>
