@@ -382,7 +382,6 @@ Tüm talk etkileşimleri:
 | marriage | Living (T2-3), Parents Room (T2-3) | - | 3/3/1 | 4/4/2 |
 | garden | Backyard | 1-2/1/0 | 3/2/1-2 | 4/3/3-4 |
 | memories | Kitchen, Living, Backyard | 2/1/0 | 3/2/1-2 | 4/3/3-4 |
-| compliments | Kitchen, Living, Parents Room (T2-3) | - | 3/2/2 | 4/3/3-4 |
 | appearance | Living, Parents Room (T2-3) | - | 3/2-3/1 | 4/3/2-4 |
 | touch | Kitchen, Living, Parents Room (T2-3) | - | 3/2/2 | 4/3/3-4 |
 | secrets | Living, Parents Room (T3) | - | - | 4/4/3-4 |
@@ -800,7 +799,7 @@ Bu bölüm raporun kodla karşılaştırılıp güncellendiği değişiklikleri 
 | Yoga with Mom | Stress -10 | **-15** (kod: `runYogaMom.twee`) |
 | Kitchen | Eat Food, Drink Water | **Eat with Family** eklendi (süre 30 dk, hunger/thirst/energy/stress + oradaki her karakter friendship +2, love +1) |
 | Mother Interactions | Talk + Help Cook, Coffee, Flirt, Hug, Yoga, Garden | **Sadece Talk** (diğerleri kaldırıldı). **Parents Room** eklendi (Talk, fatherNotPresent) |
-| Mother Topic DB | 10 konu (daily_routine, memories, …) | **CommonTopics.twee** – 15 konu: cooking, homelife, family, daughter, health, books, marriage, garden, memories, compliments, appearance, touch, secrets, desires, confession. Phase yok. |
+| Mother Topic DB | 10 konu (daily_routine, memories, …) | **CommonTopics.twee** – 14 konu: cooking, homelife, family, daughter, health, books, marriage, garden, memories, appearance, touch, secrets, desires, confession. (Compliments kaldırıldı; flirt ile yapılacak.) Phase yok. |
 | Father Interactions | Talk + Coffee, Hug, Car, Say Goodnight | **Sadece Talk** (Coffee, Hug, Help with Car, Say Goodnight kaldırıldı). Parents Room aksiyonu yok. |
 | Brother Interactions | Talk + Play Games, Late Chat, Midnight Snack | **Sadece Talk** (diğerleri kaldırıldı) |
 | Dosya referansları | BrotherTalkTopicsDatabase, MotherTalkTopicsDatabase | **Brother:** talkDatabase/CommonTopics, SchoolTopics, VacationTopics. **Mother:** talkDatabase/CommonTopics.twee |

@@ -1,4 +1,3 @@
-:: motherTalkKitchen [nobr]
 <<silently>>
 <<set $location = "fhKitchen">>
 <<logDailyActivity "mother" "talk">>
@@ -25,7 +24,6 @@
 
 /* Tier-restricted topics */
 <<if _tier === "tier2" or _tier === "tier3">>
-    <<set _kitchenTopics.push("compliments")>>
     <<set _kitchenTopics.push("touch")>>
 <</if>>
 
@@ -55,6 +53,7 @@
 /* Time and stats */
 <<advanceTime 15>>
 <<loseStat "energy" 5>>
+<<gainStat "mood" 3>>
 
 /* Apply stat gains from topic */
 <<if _topic.friendship>>
@@ -65,6 +64,9 @@
 <</if>>
 <<if _topic.love>>
     <<gainStat "love" _topic.love "mother">>
+<</if>>
+<<if _topic.lust>>
+    <<gainStat "lust" _topic.lust "mother">>
 <</if>>
 
 <<recalculateStats>>

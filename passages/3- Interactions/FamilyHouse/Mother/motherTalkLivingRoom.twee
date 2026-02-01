@@ -1,4 +1,3 @@
-:: motherTalkLivingRoom [nobr]
 <<silently>>
 <<set $location = "fhLivingroom">>
 <<logDailyActivity "mother" "talk">>
@@ -28,7 +27,6 @@
 /* Tier-restricted topics */
 <<if _tier === "tier2" or _tier === "tier3">>
     <<set _livingroomTopics.push("marriage")>>
-    <<set _livingroomTopics.push("compliments")>>
     <<set _livingroomTopics.push("appearance")>>
     <<set _livingroomTopics.push("touch")>>
 <</if>>
@@ -64,6 +62,7 @@
 /* Time and stats */
 <<advanceTime 15>>
 <<loseStat "energy" 5>>
+<<gainStat "mood" 3>>
 
 /* Apply stat gains from topic */
 <<if _topic.friendship>>
@@ -74,6 +73,9 @@
 <</if>>
 <<if _topic.love>>
     <<gainStat "love" _topic.love "mother">>
+<</if>>
+<<if _topic.lust>>
+    <<gainStat "lust" _topic.lust "mother">>
 <</if>>
 
 <<recalculateStats>>

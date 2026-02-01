@@ -67,6 +67,9 @@
     <<if _topic.love>>
         <<gainStat "love" _topic.love "father">>
     <</if>>
+    <<if _topic.lust>>
+        <<gainStat "lust" _topic.lust "father">>
+    <</if>>
 <</if>>
 
 <<recalculateStats>>

@@ -30,8 +30,7 @@
     <<if !$body.muscleMass>><<set $body.muscleMass = 35>><</if>>
     <<if !$body.bodyFat>><<set $body.bodyFat = 24>><</if>>
 
-    /* WAIST CALCULATION (Since not set in settings) */
-    /* Estimate waist based on hips (approx 0.72 ratio for fem) */
+    /* WAIST - auto from hips (no waist selection; waist = hips * 0.72) */
     <<if !$body.waist || $player.hipSize>>
         <<set $body.waist = Math.round($body.hips * 0.72)>>
     <</if>>
@@ -47,7 +46,10 @@
 
 <<widget "calculateBodyAppeal">>
     <<set _bmi = $body.weight / Math.pow($body.height / 100, 2)>>
-    <<set _whr = $body.waist / $body.hips>>
+    /* Core strength improves effective waist (tighter midsection) for WHR/symmetry – max ~12 cm at core 100 */
+    <<set _coreBonus = ($core || 0) * 0.12>>
+    <<set _effectiveWaist = Math.max(55, $body.waist - _coreBonus)>>
+    <<set _whr = _effectiveWaist / $body.hips>>
     
     <<set _idealBMI = 21.5>>
     <<set _bmiDiff = Math.abs(_bmi - _idealBMI)>>
@@ -58,7 +60,7 @@
     <<set _whrScore = Math.max(0, 100 - (_whrDiff * 200))>>
     
     <<set _bustHipAvg = ($body.bust + $body.hips) / 2>>
-    <<set _symmetryRatio = _bustHipAvg / $body.waist>>
+    <<set _symmetryRatio = _bustHipAvg / _effectiveWaist>>
     <<set _idealSymmetry = 1.35>>
     <<set _symDiff = Math.abs(_symmetryRatio - _idealSymmetry)>>
     <<set _symmetryScore = Math.max(0, 100 - (_symDiff * 50))>>
@@ -69,7 +71,8 @@
     <<set _fatDiff = Math.abs($body.bodyFat - _idealFat)>>
     <<set _compScore = (Math.max(0, 100 - (_muscleDiff * 2)) * 0.5) + (Math.max(0, 100 - (_fatDiff * 2)) * 0.5)>>
     
-    <<set $body.appeal = Math.round((_bmiScore * 0.3) + (_whrScore * 0.3) + (_symmetryScore * 0.2) + (_compScore * 0.2))>>
+    /* Body appeal 0–50 scale: even best start choices keep looks in 30–35 range */
+    <<set $body.appeal = Math.round((( _bmiScore * 0.3) + (_whrScore * 0.3) + (_symmetryScore * 0.2) + (_compScore * 0.2)) * 0.5)>>
 <</widget>>
 
 <<widget "calculateFitness">>
@@ -81,10 +84,12 @@
     <<if def "recalculateStats">>
         <<recalculateStats>>
     <<else>>
-        /* Fallback if StatCalculator not loaded */
+        /* Fallback: beauty = fitness (highest) + body + face + hair + dental; no base; looks = beauty + hygiene + clothing */
         <<calculateFitness>>
         <<calculateBodyAppeal>>
-        <<set $looks = Math.round(($beauty * 0.3) + ($body.appeal * 0.3) + ($hygiene * 0.2) + ($clothingScore * 0.2))>>
+        <<set _bodyS = ($body.appeal || 0) * 2>>
+        <<set _beauty = Math.min(100, ($fitness || 0) * 0.28 + _bodyS * 0.25 + ($appearance.faceCare || 0) * 0.20 + ($appearance.hairCare || 0) * 0.15 + ($appearance.dentalCare || 0) * 0.12)>>
+        <<set $looks = Math.round(_beauty * 0.5 + ($hygiene || 0) * 0.25 + ($clothingScore || 0) * 0.25)>>
     <</if>>
 <</widget>>
 
@@ -110,6 +115,17 @@
     /* Makeup Wear Off */
     <<if $gameSettings.makeupWearOff>>
         <<set $appearance.makeupLevel = Math.max(0, $appearance.makeupLevel - 20)>>
+    <</if>>
+
+    /* Appearance Care Decay: hair/face/dental care drops daily without routine (actions to be added later) */
+    <<if $gameSettings.hairCareDecay>>
+        <<set $appearance.hairCare = Math.max(0, ($appearance.hairCare || 100) - 4)>>
+    <</if>>
+    <<if $gameSettings.faceCareDecay>>
+        <<set $appearance.faceCare = Math.max(0, ($appearance.faceCare || 100) - 4)>>
+    <</if>>
+    <<if $gameSettings.dentalCareDecay>>
+        <<set $appearance.dentalCare = Math.max(0, ($appearance.dentalCare || 100) - 4)>>
     <</if>>
 <</widget>>
 

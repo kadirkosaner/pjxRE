@@ -135,6 +135,13 @@
     <<set $daily.yogaDone = false>>
     <<set $daily.danceDone = false>>
     <<set $daily.jogDone = false>>
+
+    /* Daily Appearance Update (hair growth, messiness, care decay) */
+    <<if def "dailyAppearanceUpdate">>
+        <<for _d = 0; _d < _days; _d++>>
+            <<dailyAppearanceUpdate>>
+        <</for>>
+    <</if>>
 <</widget>>
 
 <<widget "setTime">>

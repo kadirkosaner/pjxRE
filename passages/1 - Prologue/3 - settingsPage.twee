@@ -109,23 +109,18 @@
                 </div>
             </div>
 
-            <!-- Bust Size -->
+            <!-- Bust Size (A/B only – low starting looks) -->
             <div class="visual-label">Bust Size</div>
             <div class="visual-grid" id="gridBustSize">
                 <div class="visual-option selected" data-value="A"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustA" alt="A Cup"></div><div class="visual-name">A-Cup</div></div>
                 <div class="visual-option" data-value="B"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustB" alt="B Cup"></div><div class="visual-name">B-Cup</div></div>
-                <div class="visual-option" data-value="C"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustC" alt="C Cup"></div><div class="visual-name">C-Cup</div></div>
-                <div class="visual-option" data-value="D"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustD" alt="D Cup"></div><div class="visual-name">D-Cup</div></div>
-                <div class="visual-option" data-value="DD"><div class="visual-img"><img @src="setup.playerAppearanceImages.bustDD" alt="DD+ Cup"></div><div class="visual-name">DD+</div></div>
             </div>
 
-            <!-- Hip Size -->
+            <!-- Hip Size (Slim/Medium only – low starting looks; waist auto) -->
             <div class="visual-label">Hip Size</div>
             <div class="visual-grid" id="gridHipSize">
                 <div class="visual-option selected" data-value="Slim"><div class="visual-img"><img @src="setup.playerAppearanceImages.hipSlim" alt="Slim Hips"></div><div class="visual-name">Slim</div></div>
                 <div class="visual-option" data-value="Medium"><div class="visual-img"><img @src="setup.playerAppearanceImages.hipMedium" alt="Medium Hips"></div><div class="visual-name">Medium</div></div>
-                <div class="visual-option" data-value="Wide"><div class="visual-img"><img @src="setup.playerAppearanceImages.hipWide" alt="Wide Hips"></div><div class="visual-name">Wide</div></div>
-                <div class="visual-option" data-value="Curvy"><div class="visual-img"><img @src="setup.playerAppearanceImages.hipCurvy" alt="Curvy Hips"></div><div class="visual-name">Curvy</div></div>
             </div>
 
         </div>
@@ -217,6 +212,27 @@
                         <div class="sim-desc">Muscle/Fat gain/loss</div>
                     </div>
                     <button class="setting-toggle-btn active" data-setting="bodyDegradation">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Hair Care Decay</div>
+                        <div class="sim-desc">Hair care drops without routine</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="hairCareDecay">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Face Care Decay</div>
+                        <div class="sim-desc">Skincare drops without routine</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="faceCareDecay">ON</button>
+                </div>
+                <div class="sim-item">
+                    <div>
+                        <div class="sim-label">Dental Care Decay</div>
+                        <div class="sim-desc">Teeth care drops without brushing</div>
+                    </div>
+                    <button class="setting-toggle-btn active" data-setting="dentalCareDecay">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
@@ -578,27 +594,19 @@ $(document).on(':passagedisplay', function(ev) {
         const heightM = height / 100;
         vars.body.weight = Math.round(21.5 * heightM * heightM);
         
-        // Set bus measurement based on bustSize
-        // Updated to match SystemWidgets mapping
-        const bustSizes = { 'A': 80, 'B': 85, 'C': 90, 'D': 95, 'DD': 100, 'DD+': 105 };
-        vars.body.bust = bustSizes[vars.player.bustSize] || 90;
+        // Bust: A/B only (low starting looks)
+        const bustSizes = { 'A': 80, 'B': 85 };
+        vars.body.bust = bustSizes[vars.player.bustSize] ?? 80;
         
-        // Set hip measurement based on hipSize
-        // Updated to match SystemWidgets mapping (Wider hips for Curvy)
-        const hipSizes = { 'Slim': 85, 'Medium': 95, 'Wide': 105, 'Curvy': 115 };
-        vars.body.hips = hipSizes[vars.player.hipSize] || 95;
+        // Hip: Slim/Medium only (low starting looks)
+        const hipSizes = { 'Slim': 85, 'Medium': 95 };
+        vars.body.hips = hipSizes[vars.player.hipSize] ?? 85;
         
-        // Calculate Waist (Missing in original code, causing init issues)
-        // Estimate waist based on hips (approx 0.72 ratio)
+        // Waist: auto (no waist selection)
         vars.body.waist = Math.round(vars.body.hips * 0.72);
 
-        // Determine starting body type based on bust/hip selection
-        // Curvy if: bust DD OR hip Wide/Curvy
-        if (vars.player.bustSize === 'DD' || vars.player.hipSize === 'Wide' || vars.player.hipSize === 'Curvy') {
-            vars.body.bodyType = "Curvy";
-        } else {
-            vars.body.bodyType = "Normal";
-        }
+        // Only A/B + Slim/Medium at start, so body type is Normal
+        vars.body.bodyType = "Normal";
         vars.body.bmi = Math.round((vars.body.weight / (heightM * heightM)) * 10) / 10;
         
         // Trigger initial stats calculation

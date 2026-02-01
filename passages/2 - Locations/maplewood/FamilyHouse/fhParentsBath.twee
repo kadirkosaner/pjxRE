@@ -14,9 +14,7 @@
     <<nobr>>
     <<showLocationChars "fhParentsBath">>
 
-    <div class="location-actions">
-        <<btn "Take a Shower" "useParentsBath">><</btn>>
-    </div>
+    /* Shower only on own floor (fhUpperBath) – no shower in parents' bathroom */
 
     <<navMenu>>
         <<navCard "fhParentsRoom">>

@@ -2,8 +2,15 @@
     <<set $location = "fhLivingroom">>
     <<advanceTime $selectedDuration>>
     <<loseStat "stress" 20>>
+    <<gainStat "mood" 10>>
     <<run window.notifySuccess("Stress Relieved")>>
-    <<loseStat "energy" 5>>
+    /* Energy cost: base 5 for first 15 min, +2 per extra 15 min (15→5, 30→7, 45→9, 60→11) */
+    <<set _energyCost = 5>>
+    <<if ($selectedDuration || 15) > 15>>
+        <<set _energyCost = 5 + Math.floor(($selectedDuration - 15) / 15) * 2>>
+        <<set _energyCost = Math.min(11, _energyCost)>>
+    <</if>>
+    <<loseStat "energy" _energyCost>>
     
     <<set _watchingWith = $watchingWith || "alone">>
     <<set _useSportsTopic = false>>
