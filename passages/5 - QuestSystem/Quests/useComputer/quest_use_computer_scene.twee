@@ -1,0 +1,327 @@
+:: quest_use_computer_scene [quest]
+/* ========================================
+   SCENE: USE BROTHER'S COMPUTER
+   First time using Jake's PC after losing laptop
+   ======================================== */
+<<nobr>>
+<<set $location = "fhBrotherRoom">>
+<<updateCharacterLocations>>
+
+/* Check if brother is in his room */
+<<set _brotherHere = $characters.brother.currentLocation === "fhBrotherRoom" || $characters.brother.currentLocation === "fhGuestRoom">>
+<</nobr>>
+
+<<if _brotherHere>>
+    /* ===== BROTHER IS HERE - ASK PERMISSION ===== */
+    <<narrative "Brother's Room">>
+    You knock on the door frame. Jake is sitting at his desk, headphones on, focused on his screen.
+    <</narrative>>
+
+    <<narrative>>
+    He notices you and pulls one side of his headphones off.
+    <</narrative>>
+
+    <<dialog "brother">>
+    (Glances at you)
+    Yeah?
+    <</dialog>>
+
+    <<dialog "player">>
+    Hey... Mom said I could use your computer? To look some stuff up.
+    <</dialog>>
+
+    /* Random response - 70% yes, 30% no */
+    <<set _allowUse = random(1, 10) <= 7>>
+
+    <<if _allowUse>>
+        /* BROTHER ALLOWS */
+        <<dialog "brother">>
+        (Shrugs)
+        Sure, give me a sec.
+        <</dialog>>
+
+        <<narrative>>
+        He saves whatever he was doing and gets up from the chair.
+        <</narrative>>
+
+        <<dialog "brother">>
+        (Stretching)
+        I was gonna grab something to eat anyway. Just don't mess with my stuff.
+        <</dialog>>
+
+        <<dialog "player">>
+        Thanks, Jake.
+        <</dialog>>
+
+        <<dialog "brother">>
+        (Walking past you)
+        Yeah yeah. Don't download anything weird.
+        <</dialog>>
+
+        <<narrative>>
+        He heads downstairs. You sit down at his desk. The chair is still warm.
+        <</narrative>>
+
+        <<goto "quest_use_computer_browsing">>
+
+    <<else>>
+        /* BROTHER REFUSES */
+        <<dialog "brother">>
+        (Frowning)
+        Not right now. I'm in the middle of something.
+        <</dialog>>
+
+        <<dialog "player">>
+        But mom said—
+        <</dialog>>
+
+        <<dialog "brother">>
+        (Turning back to screen)
+        Later. I'll let you know when I'm done.
+        <</dialog>>
+
+        <<narrative>>
+        He puts his headphones back on, clearly ending the conversation. Guess you'll have to come back later.
+        <</narrative>>
+
+        <div class="location-actions">
+            <<btn "Leave" "fhUpperstairs" "secondary">><</btn>>
+        </div>
+    <</if>>
+
+<<else>>
+    /* ===== BROTHER NOT HERE - USE FREELY ===== */
+    <<narrative "Brother's Room">>
+    Jake's room is empty. His computer is on, screen showing a paused game.
+    <</narrative>>
+
+    <<narrative>>
+    You sit down at his desk. The setup is pretty nice - dual monitors, RGB keyboard, gaming mouse. Way better than your old laptop was.
+    <</narrative>>
+
+    <<thought>>
+    He said I could use it... He won't mind.
+    <</thought>>
+
+    <<narrative>>
+    You minimize his game and open the browser.
+    <</narrative>>
+
+    <<goto "quest_use_computer_browsing">>
+<</if>>
+
+
+:: quest_use_computer_browsing [quest]
+/* ========================================
+   BROWSING - What to look at online
+   ======================================== */
+<<narrative>>
+The browser opens. You stare at the search bar for a moment, thinking about what to look up first.
+<</narrative>>
+
+<<thought>>
+I need to find a job... but I should also learn more about this city. And maybe check if there are any good stores around.
+<</thought>>
+
+<<narrative>>
+You have a few options in mind.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Look for Jobs" "quest_use_computer_jobs">><<set $pcChoice = "jobs">><</btn>>
+    <<btn "City Directory" "quest_use_computer_city">><<set $pcChoice = "city">><</btn>>
+    <<btn "Local News" "quest_use_computer_news">><<set $pcChoice = "news">><</btn>>
+</div>
+
+
+:: quest_use_computer_jobs [quest]
+/* ========================================
+   JOB SEARCH
+   ======================================== */
+<<narrative "Job Search">>
+You type "jobs near me" into the search bar. Several results come up.
+<</narrative>>
+
+<<narrative>>
+Most of them require experience or qualifications you don't have. Retail positions, fast food, warehouse work...
+<</narrative>>
+
+<<thought>>
+Nothing exciting, but beggars can't be choosers.
+<</thought>>
+
+<<narrative>>
+You scroll through a few listings. A couple catch your eye:
+<</narrative>>
+
+<<narrative>>
+<strong>Corner Store - Part Time Clerk</strong>
+<em>"Looking for friendly, reliable person for afternoon/evening shifts. No experience needed. Ask for Marcus."</em>
+<</narrative>>
+
+<<thought>>
+Wait... Marcus? That's the guy from the shop! He seemed nice enough.
+<</thought>>
+
+<<narrative>>
+<strong>Downtown Mall - Various Positions</strong>
+<em>"Multiple retail positions available. Apply in person at the food court information desk."</em>
+<</narrative>>
+
+<<narrative>>
+<strong>Recreation Center - Front Desk</strong>
+<em>"Part-time position available. Must be comfortable with computers and customer service."</em>
+<</narrative>>
+
+<<narrative>>
+You bookmark a few listings mentally. At least there are options.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Keep Browsing" "quest_use_computer_browsing">><</btn>>
+    <<btn "Done for now" "quest_use_computer_done">><</btn>>
+</div>
+
+
+:: quest_use_computer_city [quest]
+/* ========================================
+   CITY DIRECTORY - Yellow Pages style
+   ======================================== */
+<<narrative "City Directory">>
+You find a local directory website - kind of like an online yellow pages.
+<</narrative>>
+
+<<narrative>>
+The city is bigger than you thought. Different districts, each with their own vibe:
+<</narrative>>
+
+<<narrative>>
+<strong>Maplewood</strong> - Your neighborhood. Quiet, residential. Has a small corner store and a park.
+<</narrative>>
+
+<<narrative>>
+<strong>Downtown</strong> - The city center. Big mall, offices, nightlife. Where most of the action is.
+<</narrative>>
+
+<<narrative>>
+<strong>Old Town</strong> - Historic district. Small shops, cafes, the civic center with schools and the library.
+<</narrative>>
+
+<<narrative>>
+<strong>Marina Bay</strong> - Beach area. Restaurants, bars, pier. Looks nice but probably expensive.
+<</narrative>>
+
+<<narrative>>
+<strong>Hillcrest</strong> - Rich neighborhood. Fancy boutiques, golf club. Not really your scene.
+<</narrative>>
+
+<<narrative>>
+<strong>University District</strong> - College area. Dorms, cafes, student bars.
+<</narrative>>
+
+<<thought>>
+This city has a lot more to offer than I expected. I should explore when I get the chance.
+<</thought>>
+
+<div class="location-actions">
+    <<btn "Keep Browsing" "quest_use_computer_browsing">><</btn>>
+    <<btn "Done for now" "quest_use_computer_done">><</btn>>
+</div>
+
+
+:: quest_use_computer_news [quest]
+/* ========================================
+   LOCAL NEWS / BLOGS
+   ======================================== */
+<<narrative "Local News">>
+You check out a local news site. Mostly boring stuff - city council meetings, road construction, weather.
+<</narrative>>
+
+<<narrative>>
+A few headlines catch your attention:
+<</narrative>>
+
+<<narrative>>
+<em>"New Shopping Mall Expansion Opens Next Month"</em>
+<em>"Beach Club Announces Summer Events Schedule"</em>
+<em>"University District Sees Rise in Student Population"</em>
+<</narrative>>
+
+<<narrative>>
+You scroll through a local blog about things to do in the city. Restaurants to try, hidden spots, upcoming events...
+<</narrative>>
+
+<<thought>>
+Seems like a decent place once you know your way around. I should get out more.
+<</thought>>
+
+<div class="location-actions">
+    <<btn "Keep Browsing" "quest_use_computer_browsing">><</btn>>
+    <<btn "Done for now" "quest_use_computer_done">><</btn>>
+</div>
+
+
+:: quest_use_computer_done [quest]
+/* ========================================
+   FINISH BROWSING - COMPLETE QUEST
+   ======================================== */
+<<nobr>>
+<<advanceTime 30>>
+<<completeQuest "use_computer">>
+<</nobr>>
+
+<<narrative>>
+You close the browser and lean back in the chair. That was helpful - at least now you have some idea of what's out there.
+<</narrative>>
+
+<<thought>>
+Job options, places to explore... Things are looking a little less hopeless.
+<</thought>>
+
+/* Check if brother came back */
+<<set _brotherBack = $characters.brother.currentLocation === "fhBrotherRoom" || $characters.brother.currentLocation === "fhGuestRoom">>
+
+<<if _brotherBack>>
+    <<narrative>>
+    You hear footsteps on the stairs. Jake walks back in with a sandwich.
+    <</narrative>>
+
+    <<dialog "brother">>
+    (Mouth full)
+    You done?
+    <</dialog>>
+
+    <<dialog "player">>
+    Yeah. Thanks for letting me use it.
+    <</dialog>>
+
+    <<dialog "brother">>
+    (Sitting back down)
+    Mhm. Find what you needed?
+    <</dialog>>
+
+    <<dialog "player">>
+    Sort of. I'll figure it out.
+    <</dialog>>
+
+    <<dialog "brother">>
+    (Already putting headphones on)
+    Cool.
+    <</dialog>>
+
+    <<narrative>>
+    And just like that, he's back in his own world. You leave him to it.
+    <</narrative>>
+<<else>>
+    <<narrative>>
+    You get up from the chair and push it back under the desk. Better leave things how you found them.
+    <</narrative>>
+<</if>>
+
+<<thought>>
+I should ask Jake if I can use his computer again sometime. Or maybe... eventually get my own.
+<</thought>>
+
+<div class="location-actions">
+    <<btn "Leave" "fhBrotherRoom">><</btn>>
+</div>
