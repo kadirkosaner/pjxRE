@@ -30,9 +30,9 @@
     <<if !$body.muscleMass>><<set $body.muscleMass = 35>><</if>>
     <<if !$body.bodyFat>><<set $body.bodyFat = 24>><</if>>
 
-    /* WAIST - auto from hips (no waist selection; waist = hips * 0.72) */
+    /* WAIST - auto from hips (ratio ~0.77 so Slim 85 → waist ~65–66) */
     <<if !$body.waist || $player.hipSize>>
-        <<set $body.waist = Math.round($body.hips * 0.72)>>
+        <<set $body.waist = Math.round($body.hips * 0.77)>>
     <</if>>
 
     /* Update Body Type String (Sync with Settings logic) */
@@ -84,12 +84,18 @@
     <<if def "recalculateStats">>
         <<recalculateStats>>
     <<else>>
-        /* Fallback: beauty = fitness (highest) + body + face + hair + dental; no base; looks = beauty + hygiene + clothing */
+        /* Fallback: beauty = fitness + body + face + hair + dental; looks = beauty + hygiene + clothing; penalty when face+dental bad */
         <<calculateFitness>>
         <<calculateBodyAppeal>>
         <<set _bodyS = ($body.appeal || 0) * 2>>
         <<set _beauty = Math.min(100, ($fitness || 0) * 0.28 + _bodyS * 0.25 + ($appearance.faceCare || 0) * 0.20 + ($appearance.hairCare || 0) * 0.15 + ($appearance.dentalCare || 0) * 0.12)>>
-        <<set $looks = Math.round(_beauty * 0.5 + ($hygiene || 0) * 0.25 + ($clothingScore || 0) * 0.25)>>
+        <<set _careSum = ($appearance.faceCare || 0) + ($appearance.dentalCare || 0)>>
+        <<if _careSum < 25>>
+            <<set _beauty = _beauty * 0.12>>
+        <<elseif _careSum < 50>>
+            <<set _beauty = _beauty * 0.40>>
+        <</if>>
+        <<set $looks = Math.round(_beauty * 0.55 + ($hygiene || 0) * 0.15 + ($clothingScore || 0) * 0.30)>>
     <</if>>
 <</widget>>
 

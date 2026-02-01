@@ -427,6 +427,31 @@ window.CharacterInit = function (API) {
             // --- Helper to Resolve Images ---
             const images = setup.playerAppearanceImages || {};
             
+            // Care 0-100 -> level index 0-3 and label (for photos)
+            function getCareLevel(val) {
+                const v = Number(val) || 0;
+                if (v < 25) return { index: 0, label: 'Needs care' };
+                if (v < 50) return { index: 1, label: 'Okay' };
+                if (v < 75) return { index: 2, label: 'Good' };
+                return { index: 3, label: 'Great' };
+            }
+            // Face: descriptive label for display (not "Needs care")
+            function getFaceCareLabel(val) {
+                const v = Number(val) || 0;
+                if (v < 25) return 'Acne, dull skin';
+                if (v < 50) return 'A bit tired';
+                if (v < 75) return 'Clear, fresh';
+                return 'Glowing';
+            }
+            // Teeth: descriptive label for display (not "Needs care")
+            function getTeethCareLabel(val) {
+                const v = Number(val) || 0;
+                if (v < 25) return 'Yellow, stained';
+                if (v < 50) return 'Slightly discolored';
+                if (v < 75) return 'White, clean';
+                return 'Bright, perfect';
+            }
+            
             // Hips
             const hipKey = "hip" + (p.hipSize || "Medium");
             const hipImg = images[hipKey] || "assets/content/people/player/body/ass/medium.webp";
@@ -446,9 +471,17 @@ window.CharacterInit = function (API) {
             const hairKey = "hair" + outputHairLength.replace(/\s+/g, '') + outputHairStyle;
             const hairImg = images[hairKey] || images["hairLongStraight"] || "assets/content/people/player/body/hair/straight/long_straight.webp";
             
-            // Face (Placeholder logic as no dynamic face images found in snippet, using generic or makeup)
-            // Ideally could select based on eye color or makeup level if assets existed.
-            const faceImg = "assets/content/ProfilePlaceholder.png"; // Fallback/Default
+            // Face (level-based from faceCare 0-100)
+            const faceCareLevel = getCareLevel(app.faceCare);
+            const faceImg = images['faceCare' + faceCareLevel.index] || "assets/content/people/player/body/face/face_care_" + faceCareLevel.index + ".webp";
+
+            // Teeth (level-based from dentalCare 0-100)
+            const teethCareLevel = getCareLevel(app.dentalCare);
+            const teethImg = images['teethCare' + teethCareLevel.index] || "assets/content/people/player/body/teeth/teeth_care_" + teethCareLevel.index + ".webp";
+
+            // Hair care level (for image; hair style img stays from player choice)
+            const hairCareLevel = getCareLevel(app.hairCare);
+            const hairCareImg = images['hairCare' + hairCareLevel.index] || "assets/content/people/player/appearance/hair_care_" + hairCareLevel.index + ".webp";
 
             // --- Helper for formatting ---
             const getTanText = (level) => {
@@ -490,6 +523,13 @@ window.CharacterInit = function (API) {
                                 <div class="pointer-label">Face</div>
                                 <div class="pointer-line"></div>
                                 <div class="pointer-dot"></div>
+                            </div>
+
+                            <!-- TEETH (Right Side) -> Dot, Line, Label -->
+                            <div class="body-pointer pointer-teeth" data-tooltip-target="teeth">
+                                <div class="pointer-dot"></div>
+                                <div class="pointer-line"></div>
+                                <div class="pointer-label">Teeth</div>
                             </div>
                             
                             <!-- BUST (Left Side) -> Label, Line, Dot -->
@@ -554,6 +594,7 @@ window.CharacterInit = function (API) {
                                 <div class="app-stat-row"><span>Color:</span> <span class="val">${p.hairColor}</span></div>
                                 <div class="app-stat-row"><span>Style:</span> <span class="val">${p.hairStyle}</span></div>
                                 <div class="app-stat-row"><span>Length:</span> <span class="val">${p.hairLength}</span></div>
+                                <div class="app-stat-row"><span>Status:</span> <span class="val">${hairCareLevel.label}</span></div>
                             </div>
                         </div>
 
@@ -566,6 +607,18 @@ window.CharacterInit = function (API) {
                                 <h4>Face & Makeup</h4>
                                 <div class="app-stat-row"><span>Eyes:</span> <span class="val">${p.eyeColor}</span></div>
                                 <div class="app-stat-row"><span>Makeup:</span> <span class="val">Level ${app.makeupLevel || 0}</span></div>
+                                <div class="app-stat-row"><span>Status:</span> <span class="val">${getFaceCareLabel(app.faceCare)}</span></div>
+                            </div>
+                        </div>
+
+                        <!-- TEETH -->
+                        <div class="app-info-panel" id="info-teeth">
+                            <div class="app-info-img">
+                                <img src="${teethImg}" alt="Teeth">
+                            </div>
+                            <div class="app-info-content">
+                                <h4>Teeth</h4>
+                                <div class="app-stat-row"><span>Status:</span> <span class="val">${getTeethCareLabel(app.dentalCare)}</span></div>
                             </div>
                         </div>
                         
@@ -604,9 +657,6 @@ window.CharacterInit = function (API) {
                         
                         <!-- VAGINA -->
                         <div class="app-info-panel" id="info-vagina">
-                            <div class="app-info-img placeholder-vagina">
-                                <span>Intimate Visual</span>
-                            </div>
                             <div class="app-info-content">
                                 <h4>Pussy</h4>
                                 <div class="app-stat-row"><span>Status:</span> <span class="val">${sexual.virginity?.vaginal?.intact ? 'Virgin' : 'Not Virgin'}</span></div>
@@ -616,9 +666,6 @@ window.CharacterInit = function (API) {
 
                         <!-- ANUS -->
                         <div class="app-info-panel" id="info-anus">
-                            <div class="app-info-img placeholder-anus">
-                                <span>Anal Visual</span>
-                            </div>
                             <div class="app-info-content">
                                 <h4>Anal</h4>
                                 <div class="app-stat-row"><span>Status:</span> <span class="val">${sexual.virginity?.anal?.intact ? 'Virgin' : 'Used'}</span></div>
@@ -645,7 +692,8 @@ window.CharacterInit = function (API) {
             this.API.Modal.create({
                 id: 'character-modal',
                 title: 'Character',
-                width: '1000px', // Reverted width
+                width: '1200px',
+                borderRadius: '12px',
                 tabs: [
                     {
                         id: 'profile',
@@ -709,23 +757,39 @@ window.CharacterInit = function (API) {
                 ]
             });
             
-            // Add interactions for appearance pointers
+            // Add interactions for appearance pointers (panels break out of modal via fixed positioning)
             setTimeout(() => {
-                // Body Pointers Logic
+                const Z_ABOVE_MODAL = 100000;
+                function pinPanelToViewport($panel) {
+                    if (!$panel.length) return;
+                    $panel.addClass('active');
+                    requestAnimationFrame(function() {
+                        const rect = $panel[0].getBoundingClientRect();
+                        $panel.css({
+                            position: 'fixed',
+                            left: rect.left + 'px',
+                            top: rect.top + 'px',
+                            width: rect.width + 'px',
+                            zIndex: Z_ABOVE_MODAL
+                        });
+                    });
+                }
+                function unpinPanel($panel) {
+                    if (!$panel.length) return;
+                    $panel.removeClass('active').css({ position: '', left: '', top: '', width: '', zIndex: '' });
+                }
                 $('.body-pointer').hover(
                     function() {
                         const target = $(this).data('tooltip-target');
-                        // Close any open ones first
-                        $('.app-info-panel').removeClass('active');
+                        $('.app-info-panel').each(function() { unpinPanel($(this)); });
                         $('.body-pointer').removeClass('active');
-                        
-                        // Open this one
-                        $('#info-' + target).addClass('active');
+                        const $panel = $('#info-' + target);
                         $(this).addClass('active');
-                    }, 
+                        pinPanelToViewport($panel);
+                    },
                     function() {
                         const target = $(this).data('tooltip-target');
-                        $('#info-' + target).removeClass('active');
+                        unpinPanel($('#info-' + target));
                         $(this).removeClass('active');
                     }
                 );

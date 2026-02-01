@@ -249,6 +249,13 @@
           
           /* Mark prologue as complete (for quest requirements) */
           <<set $prologue_complete = true>>
+
+          /* Appearance: worst values at prologue end; only hair "combed" (hairCare 50, hairMessiness 0) */
+          <<set $appearance.hairCare = 50>>
+          <<set $appearance.hairMessiness = 0>>
+          <<set $appearance.faceCare = 0>>
+          <<set $appearance.dentalCare = 0>>
+          <<recalculateStats>>
           
           /* Ensure map is hidden until Marcus gives it */
           <<set $hideRightbarMap = true>>

@@ -19,9 +19,12 @@ window.ModalInit = function (API) {
                 `<div class="modal-tab-content" data-tab-content="${tab.id}" ${index === 0 ? 'data-active="true"' : ''}>${tab.content}</div>`
             ).join('');
 
+            const styleParts = [`width: ${config.width || '800px'}`, `max-height: ${config.maxHeight || '90vh'}`];
+            if (config.borderRadius) styleParts.push(`border-radius: ${config.borderRadius}`);
+            const modalStyle = styleParts.join('; ');
             const modalHTML = `
                 <div class="overlay overlay-dark modal-overlay active" data-modal="${config.id}">
-                    <div class="modal" style="width: ${config.width || '800px'}; max-height: ${config.maxHeight || '90vh'};">
+                    <div class="modal" style="${modalStyle}">
                         <div class="modal-header">
                             <div class="modal-title">${config.title}</div>
                             ${hasTabs ? `<div class="modal-tabs">${tabHeaders}</div>` : ''}

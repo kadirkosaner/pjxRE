@@ -539,7 +539,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 70%);
 }
 
@@ -547,6 +547,7 @@
     position: relative;
     width: 600px;
     height: 550px;
+    overflow: visible;
 }
 
 /* Body Diagram */
@@ -659,8 +660,8 @@
 
 
 /* RIGHT SIDE POINTERS (Dot -- Line --> Label) */
-/* Hair, Waist, Vagina */
-.pointer-hair, .pointer-waist, .pointer-vagina {
+/* Hair, Teeth, Waist, Vagina */
+.pointer-hair, .pointer-teeth, .pointer-waist, .pointer-vagina {
     flex-direction: row;
     left: 50%; /* Anchor from center extending Right */
     justify-content: flex-start; /* Label on far right */
@@ -668,41 +669,12 @@
 }
 
 .pointer-hair   { top: 0%; left: 50%; transform: translateX(-3px); width: 150px; }
+.pointer-teeth  { top: 10%; left: 50%; transform: translateX(-3px); width: 150px; }
 .pointer-waist  { top: 35%; left: 52%; transform: translateX(0); width: 140px; }
 .pointer-vagina { top: 50%; left: 50%; transform: translateX(-3px); width: 160px; }
 
 
-/* Tooltip Positions matching the Zig-Zag */
-/* Left Tooltips */
-#info-face { top: 12%; left: 5%; }
-#info-bust { top: 22%; left: 5%; }
-#info-hips { top: 40%; left: 5%; }
-#info-anus { top: 56%; left: 5%; }
-
-/* Right Tooltips */
-#info-hair   { top: 5%; right: 5%; left: auto; }
-#info-waist  { top: 32%; right: 5%; left: auto; }
-#info-vagina { top: 48%; right: 5%; left: auto; }
-
-
-/* Update Info Panel Positions to match these "Outside" labels */
-/* Left side panels (Label is far left) */
-#info-hair { top: 5%; left: 5%; }
-#info-face { top: 12%; left: 5%; }
-#info-bust { top: 22%; left: 5%; }
-#info-waist { top: 32%; left: 5%; }
-
-/* Right side panels */
-#info-hips { top: 40%; right: 5%; left: auto; }
-#info-vagina { top: 48%; right: 5%; left: auto; }
-#info-anus { top: 56%; right: 5%; left: auto; }
-
-/* Ensure panels don't get covered by outfit column */
-/* Outfit column is on far right, modal is 1200px wide. 
-   Right 5% might be close to outfit column.
-   Let's check layout. Body col is middle.
-   We can use pixels or calc.
-*/
+/* Info panel positions (single block – no duplicates); JS may pin to viewport for breakout */
 
 
 /* INFO PANELS (TOOLTIPS) - New Card Style */
@@ -717,8 +689,6 @@
     z-index: 100; /* Higher Z-index */
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px) scale(0.95);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 10px 40px rgba(0,0,0,0.8);
     display: flex;
     flex-direction: column;
@@ -729,15 +699,14 @@
 .app-info-panel.active {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0) scale(1);
 }
 
-/* Image Placeholder in Tooltip */
+/* Image Placeholder in Tooltip – same size for all panels (hair, face, teeth, body overall, bust, hips, etc.) */
 .app-info-img {
     width: 100%;
-    height: auto;        /* Allow height to grow with image */
-    min-height: 120px;   /* Minimum height for consistency */
-    max-height: 300px;   /* Cap max height to prevent huge tooltips */
+    height: 280px;
+    min-height: 280px;
+    max-height: 280px;
     background: #0d0d10;
     display: flex;
     align-items: center;
@@ -752,9 +721,10 @@
 }
 .app-info-img img {
     width: 100%;
-    height: auto;        /* Natural height */
-    display: block;      /* Remove bottom gap */
-    /* Removed object-fit: cover to prevent cropping */
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
 }
 
 /* Info Content */
@@ -801,20 +771,16 @@
     color: var(--color-accent);
 }
 
-/* Specific Panel Positions */
-/* Left Side Panels (Hair, Face, Chest, Waist) */
-#info-hair { top: 0%; left: 65%; }
-#info-face { top: 10%; left: 65%; }
-#info-bust { top: 20%; left: 65%; }
-#info-waist { top: 30%; left: 65%; }
-
-/* Right Side Panels (Hips, Vagina, Anus) */
-/* Or alternating? Let's put some on left, some on right to avoid stacking if hovering quickly */
-/* Diagram is centered. Let's put them based on pointer */
-
-#info-hips { top: 40%; left: 65%; }
-#info-vagina { top: 45%; right: 65%; } /* Put to left side of body */
-#info-anus { top: 55%; right: 65%; }
+/* Info panel positions (relative to .appearance-wrapper) */
+#info-bodytype { top: -3%; left: 30%; }
+#info-hair     { top: 0%; left: 70%; }
+#info-face     { top: 5%; left: -15%; }
+#info-teeth    { top: 10%; right: -15%; }
+#info-bust     { top: 25%; right: 80%; }
+#info-waist    { top: 35%; left: 73%; }
+#info-hips     { top: 45%; right: 75%; }
+#info-vagina   { top: 50%; left: 75%; }
+#info-anus     { top: 50%; right: 75%; }
 
 
 
@@ -842,6 +808,7 @@
     padding-top: 0; /* Max top */
     padding-left: 20px; /* Slight offset from edge */
     margin-top: -70px; /* Pull it up aggressively */
+    overflow: visible;
 }
 
 /* Center the body diagram container itself */
@@ -1138,6 +1105,3 @@
     text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
 }
 
-/* Body Type Tooltip Position */
-#info-bodytype { top: 0%; left: 50%; transform: translateX(-50%) translateY(10px) scale(0.95); }
-#info-bodytype.active { transform: translateX(-50%) translateY(0) scale(1); }

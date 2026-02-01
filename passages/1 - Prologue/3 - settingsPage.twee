@@ -602,8 +602,8 @@ $(document).on(':passagedisplay', function(ev) {
         const hipSizes = { 'Slim': 85, 'Medium': 95 };
         vars.body.hips = hipSizes[vars.player.hipSize] ?? 85;
         
-        // Waist: auto (no waist selection)
-        vars.body.waist = Math.round(vars.body.hips * 0.72);
+        // Waist: auto (ratio ~0.77 so Slim 85 → waist ~65–66)
+        vars.body.waist = Math.round(vars.body.hips * 0.77);
 
         // Only A/B + Slim/Medium at start, so body type is Normal
         vars.body.bodyType = "Normal";

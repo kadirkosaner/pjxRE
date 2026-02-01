@@ -79,6 +79,7 @@ $(document).on(':passagerender', function () {
             { icon: 'work', tooltip: 'Work', show: vars.notificationWork, color: '#ef4444' }
         ],
         right: [
+            { icon: 'face', tooltip: (vars.notificationFaceText || '').replace(/"/g, '&quot;'), show: vars.notificationFace, color: '#a78bfa' },
             { icon: 'lightning', tooltip: 'Energy Low', show: vars.notificationEnergy, color: '#fbbf24' },
             { icon: 'health', tooltip: 'Health Low', show: vars.notificationHealth, color: '#ef4444' },
             { icon: 'mood', tooltip: 'Mood Low', show: vars.notificationMood, color: '#ec4899' },

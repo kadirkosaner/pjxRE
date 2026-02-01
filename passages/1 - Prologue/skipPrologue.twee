@@ -1,4 +1,3 @@
-:: skipPrologue
 <<nobr>>
 <<run $('body').addClass('fullscreen-centered')>>
 
@@ -217,6 +216,14 @@ $(document).ready(function() {
           
           // Mark prologue as complete
           State.variables.prologue_complete = true;
+
+          // Appearance: worst values at game start; only hair "combed" (hairCare 50, hairMessiness 0)
+          if (!State.variables.appearance) State.variables.appearance = {};
+          State.variables.appearance.hairCare = 50;
+          State.variables.appearance.hairMessiness = 0;
+          State.variables.appearance.faceCare = 0;
+          State.variables.appearance.dentalCare = 0;
+          if (typeof $ !== 'undefined' && $.wiki) $.wiki('<<recalculateStats>>');
           
           // Ensure map is hidden until Marcus gives it
           State.variables.hideRightbarMap = true;
