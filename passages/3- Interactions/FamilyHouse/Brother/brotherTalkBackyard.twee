@@ -20,6 +20,18 @@
     <<set _tier = "tier3">>
 <</if>>
 
+/* 40% chance to show content from 1 or 2 tiers below */
+<<set _displayTier = _tier>>
+<<if _tier === "tier3">>
+    <<if random() < 0.4>>
+        <<set _displayTier = random() < 0.5 ? "tier2" : "tier1">>
+    <</if>>
+<<elseif _tier === "tier2">>
+    <<if random() < 0.4>>
+        <<set _displayTier = "tier1">>
+    <</if>>
+<</if>>
+
 /* Backyard-specific topics */
 <<set _backyardTopics = []>>
 
@@ -44,14 +56,13 @@
 /* Select random topic from available backyard topics */
 <<set _randomKey = _backyardTopics.random()>>
 
-/* Retrieve topic from correct pool */
+/* Retrieve topic (use _displayTier – 40% lower tier content) */
 <<if setup.brotherTalkTopics.common[_randomKey]>>
-    <<set _topicArray = setup.brotherTalkTopics.common[_randomKey][_tier]>>
+    <<set _topicArray = setup.brotherTalkTopics.common[_randomKey][_displayTier] || setup.brotherTalkTopics.common[_randomKey][_tier]>>
 <<elseif setup.brotherTalkTopics[_phase] and setup.brotherTalkTopics[_phase][_randomKey]>>
-    <<set _topicArray = setup.brotherTalkTopics[_phase][_randomKey][_tier]>>
+    <<set _topicArray = setup.brotherTalkTopics[_phase][_randomKey][_displayTier] || setup.brotherTalkTopics[_phase][_randomKey][_tier]>>
 <<else>>
-    /* Fallback to sibling if topic not found */
-    <<set _topicArray = setup.brotherTalkTopics.common.sibling[_tier]>>
+    <<set _topicArray = setup.brotherTalkTopics.common.sibling[_displayTier] || setup.brotherTalkTopics.common.sibling[_tier]>>
 <</if>>
 
 /* Select random variation from the tier array */

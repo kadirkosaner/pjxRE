@@ -13,38 +13,51 @@
     <<set _tier = "tier3">>
 <</if>>
 
+/* 40% chance to show content from 1 or 2 tiers below (visual/content variety) */
+<<set _displayTier = _tier>>
+<<if _tier === "tier3">>
+    <<if random() < 0.4>>
+        <<set _displayTier = random() < 0.5 ? "tier2" : "tier1">>
+    <</if>>
+<<elseif _tier === "tier2">>
+    <<if random() < 0.4>>
+        <<set _displayTier = "tier1">>
+    <</if>>
+<</if>>
+
 /* Kitchen-specific topics */
 <<set _kitchenTopics = []>>
 
-/* Common topics available in Kitchen */
+/* Common topics available in Kitchen – ONLY location-specific keys (Kitchen content only) */
 <<set _kitchenTopics.push("cooking")>>
-<<set _kitchenTopics.push("homelife")>>
-<<set _kitchenTopics.push("daughter")>>
-<<set _kitchenTopics.push("memories")>>
+<<set _kitchenTopics.push("homelifeKitchen")>>
+<<set _kitchenTopics.push("daughterKitchen")>>
+<<set _kitchenTopics.push("memoriesKitchen")>>
 
-/* Tier-restricted topics */
+/* Tier-restricted topics – Kitchen only */
 <<if _tier === "tier2" or _tier === "tier3">>
-    <<set _kitchenTopics.push("touch")>>
+    <<set _kitchenTopics.push("touchKitchen")>>
 <</if>>
 
 /* Select random topic from available kitchen topics */
 <<set _randomKey = _kitchenTopics.random()>>
 
-/* Retrieve topic from common pool */
+/* Retrieve topic from common pool (use _displayTier – 40% lower tier content) */
 <<if setup.motherTalkTopics.common[_randomKey]>>
-    <<if setup.motherTalkTopics.common[_randomKey][_tier]>>
-        <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_tier]>>
+    <<if setup.motherTalkTopics.common[_randomKey][_displayTier]>>
+        <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_displayTier]>>
     <<else>>
-        /* Fallback for tier-restricted topics */
-        <<if setup.motherTalkTopics.common[_randomKey].tier2>>
+        /* Fallback: if displayTier missing (e.g. touchKitchen tier1) use current tier or tier2/tier3 */
+        <<if setup.motherTalkTopics.common[_randomKey][_tier]>>
+            <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_tier]>>
+        <<elseif setup.motherTalkTopics.common[_randomKey].tier2>>
             <<set _topicArray = setup.motherTalkTopics.common[_randomKey].tier2>>
         <<else>>
             <<set _topicArray = setup.motherTalkTopics.common[_randomKey].tier3>>
         <</if>>
     <</if>>
 <<else>>
-    /* Fallback to cooking if topic not found */
-    <<set _topicArray = setup.motherTalkTopics.common.cooking[_tier]>>
+    <<set _topicArray = setup.motherTalkTopics.common.cooking[_displayTier] || setup.motherTalkTopics.common.cooking[_tier]>>
 <</if>>
 
 /* Select random variation from the tier array */

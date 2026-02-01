@@ -13,29 +13,39 @@
     <<set _tier = "tier3">>
 <</if>>
 
+/* 40% chance to show content from 1 or 2 tiers below */
+<<set _displayTier = _tier>>
+<<if _tier === "tier3">>
+    <<if random() < 0.4>>
+        <<set _displayTier = random() < 0.5 ? "tier2" : "tier1">>
+    <</if>>
+<<elseif _tier === "tier2">>
+    <<if random() < 0.4>>
+        <<set _displayTier = "tier1">>
+    <</if>>
+<</if>>
+
 /* Backyard-specific topics */
 <<set _backyardTopics = []>>
 
-/* Common topics available in Backyard */
-<<set _backyardTopics.push("health")>>
-<<set _backyardTopics.push("books")>>
+/* Common topics available in Backyard (location-specific keys so only backyard content shows) */
+<<set _backyardTopics.push("healthBackyard")>>
+<<set _backyardTopics.push("booksBackyard")>>
 <<set _backyardTopics.push("garden")>>
-<<set _backyardTopics.push("memories")>>
+<<set _backyardTopics.push("memoriesBackyard")>>
 
 /* Select random topic from available backyard topics */
 <<set _randomKey = _backyardTopics.random()>>
 
-/* Retrieve topic from common pool */
+/* Retrieve topic (use _displayTier – 40% lower tier content) */
 <<if setup.motherTalkTopics.common[_randomKey]>>
-    <<if setup.motherTalkTopics.common[_randomKey][_tier]>>
-        <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_tier]>>
+    <<if setup.motherTalkTopics.common[_randomKey][_displayTier]>>
+        <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_displayTier]>>
     <<else>>
-        /* Fallback if tier doesn't exist */
-        <<set _topicArray = setup.motherTalkTopics.common[_randomKey].tier1>>
+        <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_tier] || setup.motherTalkTopics.common[_randomKey].tier1>>
     <</if>>
 <<else>>
-    /* Fallback to garden if topic not found */
-    <<set _topicArray = setup.motherTalkTopics.common.garden[_tier]>>
+    <<set _topicArray = setup.motherTalkTopics.common.garden[_displayTier] || setup.motherTalkTopics.common.garden[_tier]>>
 <</if>>
 
 /* Select random variation from the tier array */

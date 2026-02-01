@@ -1,4 +1,3 @@
-:: MotherTalkTopicsCommon [script]
 /* ==========================================
    MOTHER TALK TOPICS - ALL TOPICS
    No phase system - all topics always available
@@ -255,32 +254,9 @@ My beautiful girl. When did you become so beautiful?
             ]
         },
 
-        /* ========== HOMELIFE ========== */
+        /* ========== HOMELIFE (Living Room only) ========== */
         homelife: {
             tier1: [
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeKitchenTier1-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-(Wiping the counter)
-This house is never clean. I just tidied up yesterday.
-<</dialog>>
-
-<<dialog "player">>
-Need help with anything?
-<</dialog>>
-
-<<dialog "mother">>
-(Surprised)
-Oh? That's new. No, I'm fine. Just venting.
-(Pause)
-Actually, could you take out the trash later?
-<</dialog>>`,
-                    friendship: 2,
-                    trust: 1
-                },
                 {
                     text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier1-" + random(1,3) + ".webp">>
@@ -329,29 +305,6 @@ Want to help me move some things this weekend?
                 }
             ],
             tier2: [
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeKitchenTier2-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-(Sitting at the kitchen table)
-Sit with me for a bit. I made tea.
-<</dialog>>
-
-<<narrative>>
-You sit across from her. The afternoon light is warm through the window.
-<</narrative>>
-
-<<dialog "mother">>
-I like these quiet moments. Before everyone comes home and it gets chaotic.
-(Smiles)
-Just us girls.
-<</dialog>>`,
-                    friendship: 3,
-                    trust: 2,
-                    love: 1
-                },
                 {
                     text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier2-" + random(1,3) + ".webp">>
@@ -429,6 +382,84 @@ Promise me you won't leave too soon. When you finally move out, I mean. I'm not 
                 },
                 {
                     text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Running fingers through your hair)
+When did my baby girl grow up?
+<</dialog>>
+
+<<dialog "player">>
+I'm still here, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Pulls you closer)
+I know. And I'm grateful every day. This house... it's just walls without you in it.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                }
+            ]
+        },
+
+        /* ========== HOMELIFE KITCHEN (Kitchen only) ========== */
+        homelifeKitchen: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Wiping the counter)
+This house is never clean. I just tidied up yesterday.
+<</dialog>>
+
+<<dialog "player">>
+Need help with anything?
+<</dialog>>
+
+<<dialog "mother">>
+(Surprised)
+Oh? That's new. No, I'm fine. Just venting.
+(Pause)
+Actually, could you take out the trash later?
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Sitting at the kitchen table)
+Sit with me for a bit. I made tea.
+<</dialog>>
+
+<<narrative>>
+You sit across from her. The afternoon light is warm through the window.
+<</narrative>>
+
+<<dialog "mother">>
+I like these quiet moments. Before everyone comes home and it gets chaotic.
+(Smiles)
+Just us girls.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeKitchenTier3-" + random(1,3) + ".webp">>
 <<image _img "100%">>
 
@@ -450,28 +481,6 @@ You're here. That's what matters.
                     friendship: 4,
                     trust: 3,
                     love: 2
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicHomelifeLivingroomTier3-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-(Running fingers through your hair)
-When did my baby girl grow up?
-<</dialog>>
-
-<<dialog "player">>
-I'm still here, mom.
-<</dialog>>
-
-<<dialog "mother">>
-(Pulls you closer)
-I know. And I'm grateful every day. This house... it's just walls without you in it.
-<</dialog>>`,
-                    friendship: 4,
-                    trust: 3,
-                    love: 3
                 }
             ]
         },
@@ -691,29 +700,9 @@ You're... everything to me. Everything.
             ]
         },
 
-        /* ========== DAUGHTER ========== */
+        /* ========== DAUGHTER (Living Room only) ========== */
         daughter: {
             tier1: [
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier1-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-Sweetie, what did you do today? Your room's messy again, I saw.
-<</dialog>>
-
-<<dialog "player">>
-Mom, come on, I'll clean it...
-<</dialog>>
-
-<<dialog "mother">>
-(Shaking her head)
-You say that every day. Anyway. Need anything? I'm going to the store soon.
-<</dialog>>`,
-                    friendship: 1,
-                    trust: 1
-                },
                 {
                     text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterLivingroomTier1-" + random(1,3) + ".webp">>
@@ -730,26 +719,6 @@ No, just wandering around the house.
 
 <<dialog "mother">>
 Oh. Good. Stay home today, keep me company.
-<</dialog>>`,
-                    friendship: 2,
-                    trust: 1
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier1-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-Have you eaten? There's leftover soup in the fridge.
-<</dialog>>
-
-<<dialog "player">>
-I'm not hungry right now.
-<</dialog>>
-
-<<dialog "mother">>
-(Concerned look)
-You need to eat properly. You're getting too thin.
 <</dialog>>`,
                     friendship: 2,
                     trust: 1
@@ -779,7 +748,132 @@ My little girl grew up but I still can't get used to it.
                     friendship: 3,
                     trust: 2,
                     love: 2
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Holding your face in her hands)
+Look at me.
+<</dialog>>
+
+<<dialog "player">>
+(Looking into her eyes)
+<</dialog>>
+
+<<dialog "mother">>
+You're the best thing that ever happened to me. Not your father, not your brother. You.
+(Voice trembling)
+You understand?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4
+                }
+            ]
+        },
+
+        /* ========== DAUGHTER KITCHEN (Kitchen only) ========== */
+        daughterKitchen: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Sweetie, what did you do today? Your room's messy again, I saw.
+<</dialog>>
+
+<<dialog "player">>
+Mom, come on, I'll clean it...
+<</dialog>>
+
+<<dialog "mother">>
+(Shaking her head)
+You say that every day. Anyway. Need anything? I'm going to the store soon.
+<</dialog>>`,
+                    friendship: 1,
+                    trust: 1
                 },
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Have you eaten? There's leftover soup in the fridge.
+<</dialog>>
+
+<<dialog "player">>
+I'm not hungry right now.
+<</dialog>>
+
+<<dialog "mother">>
+(Concerned look)
+You need to eat properly. You're getting too thin.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Hugging you from behind while you get water)
+My baby.
+<</dialog>>
+
+<<dialog "player">>
+(Surprised)
+Mom, what—
+<</dialog>>
+
+<<dialog "mother">>
+Let me. Just for a moment. I needed this.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(At the kitchen table with you)
+You've grown so much. I'm so proud of you.
+<</dialog>>
+
+<<dialog "player">>
+Thanks, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Taking your hand)
+Just... stay close. Okay?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 2
+                }
+            ]
+        },
+
+        /* ========== DAUGHTER PARENTSROOM (Parents Room only) ========== */
+        daughterParentsroom: {
+            tier1: [
                 {
                     text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterParentsroomTier2-" + random(1,3) + ".webp">>
@@ -802,27 +896,32 @@ What is it?
 (Sitting beside you)
 Nothing specific. I just wanted you close. Is that strange?
 <</dialog>>`,
-                    friendship: 3,
-                    trust: 2,
-                    love: 2
-                },
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
                 {
                     text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterKitchenTier2-" + random(1,3) + ".webp">>
+<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterParentsroomTier2-" + random(1,3) + ".webp">>
 <<image _img "100%">>
 
+<<narrative>>
+Mom's in her room, beckons you in.
+<</narrative>>
+
 <<dialog "mother">>
-(Hugging you from behind while you get water)
-My baby.
+Close the door. I want to talk, just us.
 <</dialog>>
 
 <<dialog "player">>
-(Surprised)
-Mom, what—
+(Closing door, sitting on bed)
+What is it?
 <</dialog>>
 
 <<dialog "mother">>
-Let me. Just for a moment. I needed this.
+(Sitting beside you)
+Nothing specific. I just wanted you close. Is that strange?
 <</dialog>>`,
                     friendship: 3,
                     trust: 2,
@@ -858,29 +957,6 @@ You're my everything.
                 },
                 {
                     text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterLivingroomTier3-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-(Holding your face in her hands)
-Look at me.
-<</dialog>>
-
-<<dialog "player">>
-(Looking into her eyes)
-<</dialog>>
-
-<<dialog "mother">>
-You're the best thing that ever happened to me. Not your father, not your brother. You.
-(Voice trembling)
-You understand?
-<</dialog>>`,
-                    friendship: 4,
-                    trust: 3,
-                    love: 4
-                },
-                {
-                    text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicDaughterParentsroomTier3-" + random(1,3) + ".webp">>
 <<image _img "100%">>
 
@@ -907,7 +983,7 @@ This is all I need. Just you.
             ]
         },
 
-        /* ========== HEALTH ========== */
+        /* ========== HEALTH (Living Room only) ========== */
         health: {
             tier1: [
                 {
@@ -927,30 +1003,6 @@ You should teach me sometime.
 <<dialog "mother">>
 (Pleasantly surprised)
 Really? I'd love that. Tomorrow morning, then?
-<</dialog>>`,
-                    friendship: 2,
-                    trust: 1
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthBackyardTier1-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<narrative>>
-Mom's in workout clothes, heading to the backyard.
-<</narrative>>
-
-<<dialog "mother">>
-I'm going for my morning jog. Want to join?
-<</dialog>>
-
-<<dialog "player">>
-Maybe next time...
-<</dialog>>
-
-<<dialog "mother">>
-(Smiling)
-You always say that. One day I'll hold you to it.
 <</dialog>>`,
                     friendship: 2,
                     trust: 1
@@ -999,34 +1051,6 @@ I don't really know the poses...
 I'll show you. Here, stand like this...
 (Adjusts your posture with her hands)
 There. Perfect.
-<</dialog>>`,
-                    friendship: 3,
-                    trust: 2,
-                    love: 1
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthBackyardTier2-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<narrative>>
-You join mom for a light jog around the neighborhood.
-<</narrative>>
-
-<<dialog "mother">>
-(Slightly out of breath)
-See? This is nice. Mother-daughter exercise.
-<</dialog>>
-
-<<dialog "player">>
-You're in better shape than me.
-<</dialog>>
-
-<<dialog "mother">>
-(Laughing)
-Years of practice, sweetie. You'll get there.
-(Nudges you playfully)
-I like having you with me though.
 <</dialog>>`,
                     friendship: 3,
                     trust: 2,
@@ -1089,34 +1113,6 @@ You make everything better.
                 },
                 {
                     text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthBackyardTier3-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<narrative>>
-You're both cooling down in the backyard after jogging.
-<</narrative>>
-
-<<dialog "mother">>
-(Leaning against you)
-I used to run alone. It was just exercise.
-(Looks at you)
-With you, it's different. It's... something I look forward to.
-<</dialog>>
-
-<<dialog "player">>
-Me too, mom.
-<</dialog>>
-
-<<dialog "mother">>
-(Hugging your arm)
-Promise we'll keep doing this? Just the two of us?
-<</dialog>>`,
-                    friendship: 4,
-                    trust: 3,
-                    love: 3
-                },
-                {
-                    text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicHealthLivingroomTier3-" + random(1,3) + ".webp">>
 <<image _img "100%">>
 
@@ -1142,7 +1138,97 @@ That's a privilege.
             ]
         },
 
-        /* ========== BOOKS ========== */
+        /* ========== HEALTH BACKYARD (Backyard only) ========== */
+        healthBackyard: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthBackyardTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's in workout clothes, heading to the backyard.
+<</narrative>>
+
+<<dialog "mother">>
+I'm going for my morning jog. Want to join?
+<</dialog>>
+
+<<dialog "player">>
+Maybe next time...
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling)
+You always say that. One day I'll hold you to it.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+You join mom for a light jog around the neighborhood.
+<</narrative>>
+
+<<dialog "mother">>
+(Slightly out of breath)
+See? This is nice. Mother-daughter exercise.
+<</dialog>>
+
+<<dialog "player">>
+You're in better shape than me.
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing)
+Years of practice, sweetie. You'll get there.
+(Nudges you playfully)
+I like having you with me though.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicHealthBackyardTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+You're both cooling down in the backyard after jogging.
+<</narrative>>
+
+<<dialog "mother">>
+(Leaning against you)
+I used to run alone. It was just exercise.
+(Looks at you)
+With you, it's different. It's... something I look forward to.
+<</dialog>>
+
+<<dialog "player">>
+Me too, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Hugging your arm)
+Promise we'll keep doing this? Just the two of us?
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                }
+            ]
+        },
+
+        /* ========== BOOKS (Living Room only) ========== */
         books: {
             tier1: [
                 {
@@ -1170,33 +1256,6 @@ You're always reading those...
 <<dialog "mother">>
 (Smiling)
 Leave me alone. What else should I read, sci-fi? Let me have my fun.
-<</dialog>>`,
-                    friendship: 2,
-                    trust: 1
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksBackyardTier1-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<narrative>>
-Mom's reading in the backyard, sun hat on.
-<</narrative>>
-
-<<dialog "mother">>
-(Not looking up)
-Don't disturb me, I'm at a good part.
-<</dialog>>
-
-<<dialog "player">>
-Must be really good.
-<</dialog>>
-
-<<dialog "mother">>
-(Finally looking up)
-It is. The main character just found out her husband has a secret.
-(Dramatic whisper)
-Very juicy.
 <</dialog>>`,
                     friendship: 2,
                     trust: 1
@@ -1248,7 +1307,150 @@ Some scenes are... mature. But you're old enough now.
                     friendship: 3,
                     trust: 2,
                     love: 1
-                },
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Setting book down)
+Can I tell you something embarrassing?
+<</dialog>>
+
+<<dialog "player">>
+Sure...
+<</dialog>>
+
+<<dialog "mother">>
+When I read these romance novels... sometimes I imagine I'm the main character.
+(Looking at you)
+And sometimes I imagine you're there too. In the story with me.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
+                }
+            ]
+        },
+
+        /* ========== BOOKS BACKYARD (Backyard only) ========== */
+        booksBackyard: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksBackyardTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's reading in the backyard, sun hat on.
+<</narrative>>
+
+<<dialog "mother">>
+(Not looking up)
+Don't disturb me, I'm at a good part.
+<</dialog>>
+
+<<dialog "player">>
+Must be really good.
+<</dialog>>
+
+<<dialog "mother">>
+(Finally looking up)
+It is. The main character just found out her husband has a secret.
+(Dramatic whisper)
+Very juicy.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Reading aloud dramatically)
+"He looked at her with eyes that held a thousand unspoken words..."
+<</dialog>>
+
+<<dialog "player">>
+(Laughing)
+Mom, stop.
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing too)
+What? This is literature!
+(Pulls you to sit beside her)
+Fine, I'll read quietly. But stay here. It's nice.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Reading in the backyard, pats the spot beside her)
+Sit with me. It's peaceful out here.
+<</dialog>>
+
+<<dialog "player">>
+(Sitting beside her)
+Okay, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling)
+I like having you here. Just us and the birds.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 2
+                }
+            ]
+        },
+
+        /* ========== BOOKS PARENTSROOM (Parents Room only) ========== */
+        booksParentsroom: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksParentsroomTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's reading in bed. She pats the spot beside her.
+<</narrative>>
+
+<<dialog "mother">>
+Come, sit. Read with me.
+<</dialog>>
+
+<<dialog "player">>
+(Sitting beside her)
+What's it about?
+<</dialog>>
+
+<<dialog "mother">>
+(Showing you)
+A woman finding herself after years of marriage. It's... relatable.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
                 {
                     text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicBooksParentsroomTier2-" + random(1,3) + ".webp">>
@@ -1272,31 +1474,6 @@ What's it about?
 A woman finding herself after years of marriage. It's... relatable.
 (Looks at you meaningfully)
 Sometimes fiction tells truths we can't say out loud.
-<</dialog>>`,
-                    friendship: 3,
-                    trust: 2,
-                    love: 1
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksBackyardTier2-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-(Reading aloud dramatically)
-"He looked at her with eyes that held a thousand unspoken words..."
-<</dialog>>
-
-<<dialog "player">>
-(Laughing)
-Mom, stop.
-<</dialog>>
-
-<<dialog "mother">>
-(Laughing too)
-What? This is literature!
-(Pulls you to sit beside her)
-Fine, I'll read quietly. But stay here. It's nice.
 <</dialog>>`,
                     friendship: 3,
                     trust: 2,
@@ -1334,29 +1511,6 @@ If only life was like books, right?
                     friendship: 4,
                     trust: 3,
                     love: 2
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicBooksLivingroomTier3-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-(Setting book down)
-Can I tell you something embarrassing?
-<</dialog>>
-
-<<dialog "player">>
-Sure...
-<</dialog>>
-
-<<dialog "mother">>
-When I read these romance novels... sometimes I imagine I'm the main character.
-(Looking at you)
-And sometimes I imagine you're there too. In the story with me.
-<</dialog>>`,
-                    friendship: 4,
-                    trust: 3,
-                    love: 3
                 },
                 {
                     text: `
@@ -1634,7 +1788,7 @@ Just let me have this moment. Please.
             ]
         },
 
-        /* ========== MEMORIES ========== */
+        /* ========== MEMORIES (Living Room only) ========== */
         memories: {
             tier1: [
                 {
@@ -1654,50 +1808,6 @@ That was a long time ago.
 <<dialog "mother">>
 (Sighing)
 Time flies. Feels like yesterday.
-<</dialog>>`,
-                    friendship: 2,
-                    trust: 1
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesBackyardTier1-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<narrative>>
-Mom's looking around the backyard with a nostalgic expression.
-<</narrative>>
-
-<<dialog "mother">>
-You used to play here all day when you were little. Running around, getting grass stains everywhere.
-<</dialog>>
-
-<<dialog "player">>
-I vaguely remember.
-<</dialog>>
-
-<<dialog "mother">>
-(Smiling)
-I remember everything.
-<</dialog>>`,
-                    friendship: 2,
-                    trust: 1
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesKitchenTier1-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-This kitchen has seen so many family meals. Birthdays, holidays...
-<</dialog>>
-
-<<dialog "player">>
-Still does.
-<</dialog>>
-
-<<dialog "mother">>
-(Nodding)
-Still does. But it's different now. Everyone's older. Busier.
 <</dialog>>`,
                     friendship: 2,
                     trust: 1
@@ -1731,51 +1841,6 @@ You still have that same smile.
                     friendship: 3,
                     trust: 2,
                     love: 1
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesBackyardTier2-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-Remember when you fell off the swing there? You cried for an hour.
-<</dialog>>
-
-<<dialog "player">>
-(Embarrassed)
-Mom...
-<</dialog>>
-
-<<dialog "mother">>
-(Pulling you close)
-I held you until you stopped. I'd hold you forever if I could.
-<</dialog>>`,
-                    friendship: 3,
-                    trust: 2,
-                    love: 2
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesKitchenTier2-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-Your first birthday cake—I made it right here. It was lopsided and the frosting was a mess.
-<</dialog>>
-
-<<dialog "player">>
-But it tasted good?
-<</dialog>>
-
-<<dialog "mother">>
-(Laughing)
-Terrible, actually. But you ate it anyway.
-(Takes your hand)
-You've always been kind that way.
-<</dialog>>`,
-                    friendship: 3,
-                    trust: 2,
-                    love: 1
                 }
             ],
             tier3: [
@@ -1800,30 +1865,6 @@ Mom...
 <<dialog "mother">>
 (Looking up at you)
 I know it sounds silly. But you're the best thing I ever did. The only thing that matters.
-<</dialog>>`,
-                    friendship: 4,
-                    trust: 3,
-                    love: 3
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesBackyardTier3-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-(Holding you in the backyard)
-Remember when you used to fall asleep in my arms out here?
-<</dialog>>
-
-<<dialog "player">>
-I was a kid then.
-<</dialog>>
-
-<<dialog "mother">>
-(Pulling you closer)
-You could still do that. If you wanted. I wouldn't mind.
-(Whispers)
-I'd welcome it.
 <</dialog>>`,
                     friendship: 4,
                     trust: 3,
@@ -1860,6 +1901,160 @@ Then never leave me. Please.
                     friendship: 4,
                     trust: 3,
                     love: 4
+                }
+            ]
+        },
+
+        /* ========== MEMORIES KITCHEN (Kitchen only) ========== */
+        memoriesKitchen: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesKitchenTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+This kitchen has seen so many family meals. Birthdays, holidays...
+<</dialog>>
+
+<<dialog "player">>
+Still does.
+<</dialog>>
+
+<<dialog "mother">>
+(Nodding)
+Still does. But it's different now. Everyone's older. Busier.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Your first birthday cake—I made it right here. It was lopsided and the frosting was a mess.
+<</dialog>>
+
+<<dialog "player">>
+But it tasted good?
+<</dialog>>
+
+<<dialog "mother">>
+(Laughing)
+Terrible, actually. But you ate it anyway.
+(Takes your hand)
+You've always been kind that way.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+This kitchen has seen so many family meals. Birthdays, holidays... I'm glad we still have these moments.
+<</dialog>>
+
+<<dialog "player">>
+Me too, mom.
+<</dialog>>
+
+<<dialog "mother">>
+(Takes your hand)
+You've always been kind that way.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 2
+                }
+            ]
+        },
+
+        /* ========== MEMORIES BACKYARD (Backyard only) ========== */
+        memoriesBackyard: {
+            tier1: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesBackyardTier1-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+Mom's looking around the backyard with a nostalgic expression.
+<</narrative>>
+
+<<dialog "mother">>
+You used to play here all day when you were little. Running around, getting grass stains everywhere.
+<</dialog>>
+
+<<dialog "player">>
+I vaguely remember.
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling)
+I remember everything.
+<</dialog>>`,
+                    friendship: 2,
+                    trust: 1
+                }
+            ],
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesBackyardTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+Remember when you fell off the swing there? You cried for an hour.
+<</dialog>>
+
+<<dialog "player">>
+(Embarrassed)
+Mom...
+<</dialog>>
+
+<<dialog "mother">>
+(Pulling you close)
+I held you until you stopped. I'd hold you forever if I could.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicMemoriesBackyardTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Holding you in the backyard)
+Remember when you used to fall asleep in my arms out here?
+<</dialog>>
+
+<<dialog "player">>
+I was a kid then.
+<</dialog>>
+
+<<dialog "mother">>
+(Pulling you closer)
+You could still do that. If you wanted. I wouldn't mind.
+(Whispers)
+I'd welcome it.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3
                 }
             ]
         },
@@ -2188,31 +2383,9 @@ You're blushing. Does that mean you really think so?
             ]
         },
 
-        /* ========== TOUCH ========== */
+        /* ========== TOUCH (Living Room only) ========== */
         touch: {
             tier2: [
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchKitchenTier2-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<dialog "mother">>
-(Opening her arms)
-Come here, sweetie.
-<</dialog>>
-
-<<narrative>>
-She hugs you tightly. Her perfume is familiar and comforting.
-<</narrative>>
-
-<<dialog "mother">>
-I missed this. We live in the same house but we never hug anymore.
-<</dialog>>`,
-                    friendship: 3,
-                    trust: 2,
-                    love: 2,
-                    lust: 1
-                },
                 {
                     text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicTouchLivingroomTier2-" + random(1,3) + ".webp">>
@@ -2239,7 +2412,97 @@ Why did we stop?
                     trust: 2,
                     love: 2,
                     lust: 1
-                },
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchLivingroomTier3-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<narrative>>
+She pulls you close, your back against her chest.
+<</narrative>>
+
+<<dialog "mother">>
+(Arms wrapped around you)
+Just stay like this for a while.
+<</dialog>>
+
+<<dialog "player">>
+(Feeling her warmth)
+Okay...
+<</dialog>>
+
+<<dialog "mother">>
+(Breath warm against your ear)
+This is all I need. Just this.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 4,
+                    lust: 2
+                }
+            ]
+        },
+
+        /* ========== TOUCH KITCHEN (Kitchen only) ========== */
+        touchKitchen: {
+            tier2: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(Opening her arms)
+Come here, sweetie.
+<</dialog>>
+
+<<narrative>>
+She hugs you tightly. Her perfume is familiar and comforting.
+<</narrative>>
+
+<<dialog "mother">>
+I missed this. We live in the same house but we never hug anymore.
+<</dialog>>`,
+                    friendship: 3,
+                    trust: 2,
+                    love: 2,
+                    lust: 1
+                }
+            ],
+            tier3: [
+                {
+                    text: `
+<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchKitchenTier2-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+
+<<dialog "mother">>
+(At the kitchen counter, pulling you close)
+Just a moment. I need a hug.
+<</dialog>>
+
+<<dialog "player">>
+(Surprised but hugging back)
+Okay, mom...
+<</dialog>>
+
+<<dialog "mother">>
+(Whispering)
+You're my everything. Never forget that.
+<</dialog>>`,
+                    friendship: 4,
+                    trust: 3,
+                    love: 3,
+                    lust: 1
+                }
+            ]
+        },
+
+        /* ========== TOUCH PARENTSROOM (Parents Room only) ========== */
+        touchParentsroom: {
+            tier2: [
                 {
                     text: `
 <<set _img = "assets/content/scenes/interactions/mother/common/topicTouchParentsroomTier2-" + random(1,3) + ".webp">>
@@ -2300,34 +2563,6 @@ I miss that. Being needed like that.
                     friendship: 4,
                     trust: 3,
                     love: 3,
-                    lust: 2
-                },
-                {
-                    text: `
-<<set _img = "assets/content/scenes/interactions/mother/common/topicTouchLivingroomTier3-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-
-<<narrative>>
-She pulls you close, your back against her chest.
-<</narrative>>
-
-<<dialog "mother">>
-(Arms wrapped around you)
-Just stay like this for a while.
-<</dialog>>
-
-<<dialog "player">>
-(Feeling her warmth)
-Okay...
-<</dialog>>
-
-<<dialog "mother">>
-(Breath warm against your ear)
-This is all I need. Just this.
-<</dialog>>`,
-                    friendship: 4,
-                    trust: 3,
-                    love: 4,
                     lust: 2
                 },
                 {

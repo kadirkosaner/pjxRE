@@ -13,18 +13,30 @@
     <<set _tier = "tier3">>
 <</if>>
 
+/* 40% chance to show content from 1 or 2 tiers below */
+<<set _displayTier = _tier>>
+<<if _tier === "tier3">>
+    <<if random() < 0.4>>
+        <<set _displayTier = random() < 0.5 ? "tier2" : "tier1">>
+    <</if>>
+<<elseif _tier === "tier2">>
+    <<if random() < 0.4>>
+        <<set _displayTier = "tier1">>
+    <</if>>
+<</if>>
+
 /* Parents Room-specific topics */
 <<set _parentsroomTopics = []>>
 
-/* Common topics available in Parents Room */
-<<set _parentsroomTopics.push("daughter")>>
-<<set _parentsroomTopics.push("books")>>
+/* Common topics available in Parents Room – ONLY location-specific keys (Parents Room content only) */
+<<set _parentsroomTopics.push("daughterParentsroom")>>
+<<set _parentsroomTopics.push("booksParentsroom")>>
 
-/* Tier-restricted topics */
+/* Tier-restricted topics – Parents Room only */
 <<if _tier === "tier2" or _tier === "tier3">>
     <<set _parentsroomTopics.push("marriage")>>
     <<set _parentsroomTopics.push("appearance")>>
-    <<set _parentsroomTopics.push("touch")>>
+    <<set _parentsroomTopics.push("touchParentsroom")>>
 <</if>>
 
 <<if _tier === "tier3">>
@@ -36,21 +48,21 @@
 /* Select random topic from available parents room topics */
 <<set _randomKey = _parentsroomTopics.random()>>
 
-/* Retrieve topic from common pool */
+/* Retrieve topic (use _displayTier – 40% lower tier content) */
 <<if setup.motherTalkTopics.common[_randomKey]>>
-    <<if setup.motherTalkTopics.common[_randomKey][_tier]>>
-        <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_tier]>>
+    <<if setup.motherTalkTopics.common[_randomKey][_displayTier]>>
+        <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_displayTier]>>
     <<else>>
-        /* Fallback for tier-restricted topics */
-        <<if setup.motherTalkTopics.common[_randomKey].tier2>>
+        <<if setup.motherTalkTopics.common[_randomKey][_tier]>>
+            <<set _topicArray = setup.motherTalkTopics.common[_randomKey][_tier]>>
+        <<elseif setup.motherTalkTopics.common[_randomKey].tier2>>
             <<set _topicArray = setup.motherTalkTopics.common[_randomKey].tier2>>
         <<else>>
             <<set _topicArray = setup.motherTalkTopics.common[_randomKey].tier3>>
         <</if>>
     <</if>>
 <<else>>
-    /* Fallback to daughter if topic not found */
-    <<set _topicArray = setup.motherTalkTopics.common.daughter[_tier]>>
+    <<set _topicArray = setup.motherTalkTopics.common.daughterParentsroom[_displayTier] || setup.motherTalkTopics.common.daughterParentsroom[_tier]>>
 <</if>>
 
 /* Select random variation from the tier array */
