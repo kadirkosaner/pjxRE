@@ -38,6 +38,13 @@
   width: 100%;
 }
 
+/* Talk/interaction passages: single wrapper for stable layout (avoids sağdan-soldan on first load) */
+.talk-passage-content {
+  width: 100%;
+  display: block;
+  min-height: 0;
+}
+
 /* ================== BODY LAYOUT STATES =================== */
 /* Centered Layout - Used for game setup screens */
 

@@ -13,4 +13,4 @@ questler için resim ve mp4 önerileri.
 - Karakterler için artık yeni görseller bul
 - ClerckMarcus içinde interactionlarıda düzenle.
 
- mother için gerekli kısımları tamamla maks 2 gün.
+ mother için gerekli kısımları tamamla ### Memories – Backyard Tier 1 'ta kaldık quota sorunu.

@@ -1416,56 +1416,52 @@ $(document).on(':passageend', function () {
 });
 
 /* ================== Passage Centering (Timebox-aligned) =================== */
+// Shared centering so we can run after passage + async content (e.g. talk dialog) are in DOM
+function centerPassageWithTimebox() {
+    if ($('body').hasClass('fullscreen-centered')) return;
+    const $passages = $('#passages');
+    const $passage = $('.passage');
+    const $timebox = $('.timebox');
+    if (!$passages.length || !$passage.length || !$timebox.length) return;
+    $passages[0].style.removeProperty('transform');
+    void $passages[0].offsetHeight;
+    const timeboxRect = $timebox[0].getBoundingClientRect();
+    const passageRect = $passage[0].getBoundingClientRect();
+    const timeboxCenter = timeboxRect.left + (timeboxRect.width / 2);
+    const passageCenter = passageRect.left + (passageRect.width / 2);
+    const offset = timeboxCenter - passageCenter;
+    $passages[0].style.setProperty('transform', `translateX(${offset}px)`, 'important');
+}
+
+// Wrap talk-style passages (narrative + location-actions) in one div for stable layout – no need to edit each passage
+function wrapTalkPassageContent() {
+    const $passage = $('#passages .passage');
+    if (!$passage.length || $passage.children('.talk-passage-content').length) return;
+    if (!$passage.find('.narrative').length || !$passage.find('.location-actions').length) return;
+    const $wrapper = $('<div class="talk-passage-content"></div>');
+    $passage.contents().appendTo($wrapper);
+    $passage.append($wrapper);
+}
+
 // Center passage content aligned with topbar timebox
 $(document).on(':passagerender', function () {
-    // Skip if fullscreen-centered mode
-    if ($('body').hasClass('fullscreen-centered')) {
-        return;
-    }
+    wrapTalkPassageContent();
+    // Run centering with delays to catch layout shifts (incl. dialog/content)
+    setTimeout(centerPassageWithTimebox, 10);
+    setTimeout(centerPassageWithTimebox, 100);
+    setTimeout(centerPassageWithTimebox, 300);
 
-    const centerPassage = () => {
-        const $passages = $('#passages');
-        const $passage = $('.passage');
-        const $timebox = $('.timebox');
-
-        // Check all elements exist
-        if (!$passages.length || !$passage.length || !$timebox.length) return;
-
-        // Reset transform to get clean measurement
-        $passages[0].style.removeProperty('transform');
-
-        // Force reflow
-        void $passages[0].offsetHeight;
-
-        // Get positions
-        const timeboxRect = $timebox[0].getBoundingClientRect();
-        const passageRect = $passage[0].getBoundingClientRect();
-
-        // Calculate centers
-        const timeboxCenter = timeboxRect.left + (timeboxRect.width / 2);
-        const passageCenter = passageRect.left + (passageRect.width / 2);
-
-        // Calculate offset needed
-        const offset = timeboxCenter - passageCenter;
-
-        // Apply transform to #passages (outermost flex container)
-        // #passages contains #story which contains .passage
-        $passages[0].style.setProperty('transform', `translateX(${offset}px)`, 'important');
-    };
-
-    // Run centering with delays to catch layout shifts
-    setTimeout(centerPassage, 10);
-    setTimeout(centerPassage, 100);
-    setTimeout(centerPassage, 300);
-
-    // Update on window resize
-    const resizeHandler = () => requestAnimationFrame(centerPassage);
+    const resizeHandler = () => requestAnimationFrame(centerPassageWithTimebox);
     $(window).on('resize.passageCenter', resizeHandler);
-
-    // Cleanup on passage change
     $(document).one(':passagestart', () => {
         $(window).off('resize.passageCenter');
     });
+});
+
+// Re-center after passage is fully ended (fixes sağdan-soldan when opening talk without F5)
+$(document).on(':passageend', function () {
+    setTimeout(centerPassageWithTimebox, 50);
+    setTimeout(centerPassageWithTimebox, 200);
 });
 
 /* ================== Navigation Card Handlers =================== */
