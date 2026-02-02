@@ -1407,22 +1407,30 @@ Macro.add('showActions', {
 });
 
 /* ================== UI Event Handlers =================== */
-// Reset scroll position on passage change
-$(document).on(':passageend', function () {
+// Reset scroll position on passage change (both events so it's reliable regardless of engine order)
+function resetPassagesScroll() {
     const passages = document.getElementById('passages');
-    if (passages) {
-        passages.scrollTop = 0;
-    }
+    if (passages) passages.scrollTop = 0;
+}
+$(document).on(':passageend', resetPassagesScroll);
+$(document).on(':passagestart', function () {
+    resetPassagesScroll();
+    requestAnimationFrame(resetPassagesScroll);
 });
 
 /* ================== Passage Centering (Timebox-aligned) =================== */
 // Shared centering so we can run after passage + async content (e.g. talk dialog) are in DOM
+// Returns true if centering was applied, false if bailed out (e.g. timebox not ready yet)
 function centerPassageWithTimebox() {
-    if ($('body').hasClass('fullscreen-centered')) return;
+    if ($('body').hasClass('fullscreen-centered')) return false;
     const $passages = $('#passages');
     const $passage = $('.passage');
     const $timebox = $('.timebox');
-    if (!$passages.length || !$passage.length || !$timebox.length) return;
+    if (!$passages.length || !$passage.length || !$timebox.length) {
+        // Timebox/passage not ready yet – clear stale transform from previous passage
+        if ($passages.length) $passages[0].style.removeProperty('transform');
+        return false;
+    }
     $passages[0].style.removeProperty('transform');
     void $passages[0].offsetHeight;
     const timeboxRect = $timebox[0].getBoundingClientRect();
@@ -1431,7 +1439,9 @@ function centerPassageWithTimebox() {
     const passageCenter = passageRect.left + (passageRect.width / 2);
     const offset = timeboxCenter - passageCenter;
     $passages[0].style.setProperty('transform', `translateX(${offset}px)`, 'important');
+    return true;
 }
+
 
 // Wrap talk-style passages (narrative + location-actions) in one div for stable layout – no need to edit each passage
 function wrapTalkPassageContent() {
@@ -1444,12 +1454,21 @@ function wrapTalkPassageContent() {
 }
 
 // Center passage content aligned with topbar timebox
+// Run after layout is ready (rAF) and at delays for async content / layout shifts
 $(document).on(':passagerender', function () {
-    wrapTalkPassageContent();
-    // Run centering with delays to catch layout shifts (incl. dialog/content)
-    setTimeout(centerPassageWithTimebox, 10);
-    setTimeout(centerPassageWithTimebox, 100);
-    setTimeout(centerPassageWithTimebox, 300);
+    resetPassagesScroll();
+    requestAnimationFrame(function () {
+        resetPassagesScroll();
+        wrapTalkPassageContent();
+        centerPassageWithTimebox();
+    });
+    [10, 100, 300, 500, 700].forEach(function (ms) {
+        setTimeout(function () {
+            resetPassagesScroll();
+            wrapTalkPassageContent();
+            centerPassageWithTimebox();
+        }, ms);
+    });
 
     const resizeHandler = () => requestAnimationFrame(centerPassageWithTimebox);
     $(window).on('resize.passageCenter', resizeHandler);
