@@ -1,0 +1,27 @@
+<<nobr>>
+<<set $location = $mirrorReturnPassage>>
+<<checkInventoryItem "wet_wipes" 1>>
+<<if !State.temporary.inventoryCheckResult.allowed>>
+    <<narrative "Mirror">>
+    You don't have any wet wipes. You need them to remove makeup.
+    <</narrative>>
+    <div class="location-actions">
+        <<btn "Back" "Mirror">><</btn>>
+    </div>
+<<else>>
+    <<silently>>
+        <<removeFromInventory "wet_wipes" 1>>
+        <<set $makeup.state = "off">>
+        <<set $makeup.style = 0>>
+        <<set $makeup.quality = 0>>
+        <<advanceTime 5>>
+    <</silently>>
+    <<narrative "Remove Makeup">>
+    You use the wet wipes to remove your makeup. Your face is clean now.
+    <</narrative>>
+
+    <div class="location-actions">
+        <<btn "Back" "Mirror">><</btn>>
+    </div>
+<</if>>
+<</nobr>>

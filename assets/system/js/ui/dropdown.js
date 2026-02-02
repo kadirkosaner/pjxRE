@@ -68,9 +68,14 @@ window.DropdownInit = function (API) {
 
             const items = options.map(opt => {
                 if (typeof opt === 'object' && opt !== null && 'value' in opt) {
-                    return { label: opt.label ?? String(opt.value), value: opt.value };
+                    return {
+                        label: opt.label ?? String(opt.value),
+                        value: opt.value,
+                        disabled: !!opt.disabled,
+                        tooltip: opt.tooltip || ''
+                    };
                 }
-                return { label: String(opt), value: opt };
+                return { label: String(opt), value: opt, disabled: false, tooltip: '' };
             });
 
             let currentItem = items.find(i => i.value === currentValue);
@@ -108,14 +113,20 @@ window.DropdownInit = function (API) {
                     .addClass('ui-dropdown-item')
                     .text(item.label)
                     .data('value', item.value)
+                    .data('disabled', item.disabled)
                     .appendTo($menu);
 
+                if (item.disabled) {
+                    $li.addClass('disabled');
+                    if (item.tooltip) $li.attr('title', item.tooltip);
+                }
                 if (item.value === currentItem.value) {
                     $li.addClass('selected');
                 }
 
                 $li.on('click', function (e) {
                     e.stopPropagation();
+                    if ($(this).data('disabled')) return;
 
                     const newVal = $(this).data('value');
                     setValue(newVal);

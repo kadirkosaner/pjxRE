@@ -43,8 +43,21 @@
     <<elseif _careSum < 50>>
         <<set _beauty = _beauty * 0.40>>
     <</if>>
-    /* Looks = Beauty (55%) + Hygiene (15%) + Clothing (30%) */
-    <<set $looks = Math.max(0, Math.min(100, Math.round(_beauty * 0.55 + ($hygiene || 0) * 0.15 + ($clothingScore || 0) * 0.30)))>>
+    /* Makeup score (0–100) from state/style/quality */
+    <<set _style = ($makeup && $makeup.style) ? $makeup.style : 0>>
+    <<set _state = ($makeup && $makeup.state) ? $makeup.state : "off">>
+    <<set _quality = ($makeup && ($makeup.quality !== undefined)) ? $makeup.quality : 0>>
+    <<set _styleBase = (_style >= 1 && _style <= 5) ? (_style * 20) : 0>>
+    <<if _state === "off" || _style === 0>>
+        <<set _makeupScore = 0>>
+    <<elseif _quality >= 50 && _state === "fresh">>
+        <<set _makeupScore = _styleBase>>
+    <<else>>
+        <<set _makeupScore = Math.round(_styleBase * (_quality / 100))>>
+    <</if>>
+    <<set _makeupScore = Math.max(0, Math.min(100, _makeupScore))>>
+    /* Looks = Beauty (50%) + Hygiene (10%) + Clothing (20%) + Makeup (20%) */
+    <<set $looks = Math.max(0, Math.min(100, Math.round(_beauty * 0.50 + ($hygiene || 0) * 0.10 + ($clothingScore || 0) * 0.20 + _makeupScore * 0.20)))>>
 
     /* Confidence = charisma + looks */
     <<set $confidence = Math.round(Math.min(100, Math.max(0, ($charisma * 0.5) + ($looks * 0.3))))>>
@@ -122,6 +135,16 @@
         <</if>>
     <<else>>
         <<set $_energyWarningShown = false>>
+    <</if>>
+
+    /* Makeup Smeared Warning (makeup on but quality < 50 or state smeared) */
+    <<if _state !== "off" && _style >= 1 && (_quality < 50 || _state === "smeared")>>
+        <<if typeof $_makeupSmearedWarningShown === "undefined" || $_makeupSmearedWarningShown !== true>>
+            <<run window.notifyWarning("Your makeup has smeared.")>>
+            <<set $_makeupSmearedWarningShown = true>>
+        <</if>>
+    <<else>>
+        <<set $_makeupSmearedWarningShown = false>>
     <</if>>
 <</nobr>><</widget>>
 

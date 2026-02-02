@@ -1,0 +1,13 @@
+/* ==================================================
+   MIRROR WIDGETS
+   Redirect to Mirror passage and store return passage
+================================================== */
+
+/* Mirror button – goes to Mirror passage from anywhere; on click stores
+   current passage in $mirrorReturnPassage so Back in Mirror returns there.
+   Usage: <<mirrorBtn>> */
+<<widget "mirrorBtn">>
+<<btn "Mirror" "Mirror">>
+<<set $mirrorReturnPassage = State.passage>>
+<</btn>>
+<</widget>>

@@ -1,0 +1,59 @@
+<<nobr>>
+<<set $location = $mirrorReturnPassage>>
+<<if ndef $mirrorRoutine>><<set $mirrorRoutine = { makeup: 0, combHair: true, hairCream: true, faceCream: true, dentalCare: true }>><</if>>
+<<if ndef $mirrorRoutineDraft>>
+    <<set $mirrorRoutineDraft = { makeup: $mirrorRoutine.makeup, combHair: $mirrorRoutine.combHair, hairCream: $mirrorRoutine.hairCream, faceCream: $mirrorRoutine.faceCream, dentalCare: $mirrorRoutine.dentalCare }>>
+<</if>>
+<<silently>>
+    <<set _corr = $corruption || 0>>
+    <<set _skill = $skills.practical.makeup || 0>>
+    <<set _makeupOptions = [
+        {label: "None", value: 0},
+        {label: "Light", value: 1, disabled: _corr < 1, tooltip: "Need corruption 1"},
+        {label: "Medium", value: 2, disabled: _corr < 3 or _skill < 20, tooltip: "Need corruption 3 and makeup skill 20"},
+        {label: "Heavy", value: 3, disabled: _corr < 4 or _skill < 40, tooltip: "Need corruption 4 and makeup skill 40"},
+        {label: "Slutty", value: 4, disabled: _corr < 5 or _skill < 75, tooltip: "Need corruption 5 and makeup skill 75"},
+        {label: "Bimbo", value: 5, disabled: _corr < 5 or _skill < 75, tooltip: "Need corruption 5 and makeup skill 75"}
+    ]>>
+<</silently>>
+
+<<narrative "Mirror">>
+Choose what to include in your daily routine. Confirm to save; Back cancels without saving.
+<</narrative>>
+
+<div class="routine-settings-wrap">
+<div class="routine-settings">
+    <div class="routine-row">
+        <label class="routine-label">Makeup</label>
+        <span class="routine-control">
+            <<uiDropdown "$mirrorRoutineDraft.makeup" _makeupOptions>>
+        </span>
+    </div>
+    <div class="routine-row routine-row-checkbox">
+        <label class="routine-label">Comb Hair</label>
+        <span class="routine-control"><<checkbox "$mirrorRoutineDraft.combHair" false true autocheck>></span>
+    </div>
+    <div class="routine-row routine-row-checkbox">
+        <label class="routine-label">Hair Cream</label>
+        <span class="routine-control"><<checkbox "$mirrorRoutineDraft.hairCream" false true autocheck>></span>
+    </div>
+    <div class="routine-row routine-row-checkbox">
+        <label class="routine-label">Dental Care</label>
+        <span class="routine-control"><<checkbox "$mirrorRoutineDraft.dentalCare" false true autocheck>></span>
+    </div>
+    <div class="routine-row routine-row-checkbox">
+        <label class="routine-label">Face Cream</label>
+        <span class="routine-control"><<checkbox "$mirrorRoutineDraft.faceCream" false true autocheck>></span>
+    </div>
+</div>
+</div>
+
+<div class="routine-note">
+If you don't have the required items, those steps won't be applied when you run the routine.
+</div>
+
+<div class="location-actions">
+    <<btn "Confirm" "Mirror" "accent">><<set $mirrorRoutine.makeup = $mirrorRoutineDraft.makeup>><<set $mirrorRoutine.combHair = $mirrorRoutineDraft.combHair>><<set $mirrorRoutine.hairCream = $mirrorRoutineDraft.hairCream>><<set $mirrorRoutine.faceCream = $mirrorRoutineDraft.faceCream>><<set $mirrorRoutine.dentalCare = $mirrorRoutineDraft.dentalCare>><<set $mirrorRoutineConfirmed = true>><<run window.notifySuccess("Routine saved")>><</btn>>
+    <<btn "Back" "Mirror">><</btn>>
+</div>
+<</nobr>>

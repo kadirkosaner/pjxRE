@@ -295,7 +295,7 @@ body.btn-picker-open .navmenu-wrapper {
   background: transparent;
   border: 1px solid var(--color-border-secondary);
   color: var(--color-text-tertiary);
-  padding: 0.8rem var(--spacing-lg);
+  padding: 0.5rem var(--spacing-lg);
   text-decoration: none;
   font-size: 0.875rem;
   letter-spacing: 1px;
@@ -330,6 +330,36 @@ body.btn-picker-open .navmenu-wrapper {
   color: #555;
   background: transparent;
   border-bottom: 1px solid var(--color-border-secondary);
+}
+
+/* Locked state for btn-style (activityButton when requirements not met) – same size/align as btn */
+.passage .btn-style.locked,
+.btn-style.locked {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem var(--spacing-lg);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: var(--spacing-xs);
+  border: 1px solid var(--color-border-secondary);
+  color: #555;
+  cursor: help;
+  opacity: 0.4;
+}
+
+.passage .btn-style.locked:hover,
+.btn-style.locked:hover {
+  border-color: var(--color-border-secondary);
+  color: #555;
+  background: transparent;
+}
+
+.btn-style.locked .icon {
+  margin-right: 6px;
+  vertical-align: middle;
 }
 
 .action-btn .icon {

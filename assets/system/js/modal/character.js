@@ -451,6 +451,14 @@ window.CharacterInit = function (API) {
                 if (v < 75) return 'White, clean';
                 return 'Bright, perfect';
             }
+            // Hair care: condition from hairCare (0-100) – separate from combed status
+            function getHairCareLabel(val) {
+                const v = Number(val) || 0;
+                if (v < 25) return 'Unkempt';
+                if (v < 50) return 'Dull';
+                if (v < 75) return 'Healthy';
+                return 'Shiny';
+            }
             
             // Hips
             const hipKey = "hip" + (p.hipSize || "Medium");
@@ -594,7 +602,7 @@ window.CharacterInit = function (API) {
                                 <div class="app-stat-row"><span>Color:</span> <span class="val">${p.hairColor}</span></div>
                                 <div class="app-stat-row"><span>Style:</span> <span class="val">${p.hairStyle}</span></div>
                                 <div class="app-stat-row"><span>Length:</span> <span class="val">${p.hairLength}</span></div>
-                                <div class="app-stat-row"><span>Status:</span> <span class="val">${hairCareLevel.label}</span></div>
+                                <div class="app-stat-row"><span>Status:</span> <span class="val">${(app.hairCombed === 1) ? 'Combed' : 'Messy'}, ${getHairCareLabel(app.hairCare)}</span></div>
                             </div>
                         </div>
 

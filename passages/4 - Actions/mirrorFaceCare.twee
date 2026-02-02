@@ -1,0 +1,29 @@
+<<nobr>>
+<<set $location = $mirrorReturnPassage>>
+<<checkInventoryItem "face_cream" 1>>
+<<if !State.temporary.inventoryCheckResult.allowed>>
+    <<narrative "Mirror">>
+    You don't have any face cream. You need a bottle to apply it.
+    <</narrative>>
+    <div class="location-actions">
+        <<btn "Back" "Mirror">><</btn>>
+    </div>
+<<else>>
+    <<silently>>
+        <<removeFromInventory "face_cream" 1>>
+        <<if !$daily.faceCreamUsed>>
+            <<set $weeklyFaceCreamUses = ($weeklyFaceCreamUses || 0) + 1>>
+        <</if>>
+        <<set $daily.faceCreamUsed = true>>
+        <<set $appearance.faceCare = Math.min(100, ($appearance.faceCare || 0) + 2)>>
+        <<advanceTime 5>>
+    <</silently>>
+    <<narrative "Apply Face Cream">>
+    You apply the cream to your face, massaging it in gently. It feels refreshing. With regular use, your skin will stay clearer and healthier.
+    <</narrative>>
+
+    <div class="location-actions">
+        <<btn "Back" "Mirror">><</btn>>
+    </div>
+<</if>>
+<</nobr>>

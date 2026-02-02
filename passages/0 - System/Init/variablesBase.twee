@@ -65,8 +65,24 @@
     <<set $daily = { 
         yogaDone: false, 
         danceDone: false,
-        jogDone: false
+        jogDone: false,
+        hairCreamUsed: false,
+        faceCreamUsed: false,
+        dentalCareUsed: false
     }>>
+<</if>>
+
+/* Makeup (state/style/quality; makeup score computed in recalculateStats) */
+<<if ndef $makeup>>
+    <<set $makeup = { state: "off", style: 0, quality: 0 }>>
+<</if>>
+
+/* Mirror routine: saved on Confirm; Apply Routine button shows only when confirmed */
+<<if ndef $mirrorRoutine>>
+    <<set $mirrorRoutine = { makeup: 0, combHair: true, hairCream: true, faceCream: true, dentalCare: true }>>
+<</if>>
+<<if ndef $mirrorRoutineConfirmed>>
+    <<set $mirrorRoutineConfirmed = false>>
 <</if>>
 
 /* ==========================================

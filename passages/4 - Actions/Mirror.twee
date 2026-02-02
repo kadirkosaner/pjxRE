@@ -1,0 +1,43 @@
+<<nobr>>
+<<set _backTo = $mirrorReturnPassage || "fhUpperBath">>
+<<set $location = $mirrorReturnPassage>>
+<<if ndef $makeup>><<set $makeup = { state: "off", style: 0, quality: 0 }>><</if>>
+<<if ndef $mirrorRoutine>><<set $mirrorRoutine = { makeup: 0, combHair: true, hairCream: true, faceCream: true, dentalCare: true }>><</if>>
+<<set _hasRoutine = $mirrorRoutineConfirmed && ($mirrorRoutine.combHair || $mirrorRoutine.hairCream || $mirrorRoutine.faceCream || $mirrorRoutine.dentalCare || ($mirrorRoutine.makeup >= 1))>>
+<<narrative "Mirror">>
+You stand in front of the mirror. Here you can take care of your appearance.
+<</narrative>>
+
+<div class="location-actions">
+    <<if _hasRoutine>>
+        <<btn "Apply Routine" "mirrorApplyRoutine">><</btn>>
+    <</if>>
+    <<btn "Routine Settings" "mirrorRoutineSettingsEnter">><</btn>>
+</div>
+<div class="location-actions">
+    <<if $appearance.hairCombed === 1>>
+        <span class="link-internal btn-style btn-default locked" data-tooltip="Already combed" data-tooltip-type="success"><i class="icon icon-lock icon-12"></i> Comb Hair</span>
+    <<else>>
+        <<activityButton "Comb Hair" "mirrorCombHair" "item:comb" false>>
+    <</if>>
+    <<if $daily.hairCreamUsed>>
+        <span class="link-internal btn-style btn-default locked" data-tooltip="Already used today" data-tooltip-type="success"><i class="icon icon-lock icon-12"></i> Apply Hair Cream</span>
+    <<else>>
+        <<activityButton "Apply Hair Cream" "mirrorHairCream" "item:hair_cream" false>>
+    <</if>>
+    <<if $daily.faceCreamUsed>>
+        <span class="link-internal btn-style btn-default locked" data-tooltip="Already used today" data-tooltip-type="success"><i class="icon icon-lock icon-12"></i> Face Care</span>
+    <<else>>
+        <<activityButton "Face Care" "mirrorFaceCare" "item:face_cream" false>>
+    <</if>>
+    <<if $daily.dentalCareUsed>>
+        <span class="link-internal btn-style btn-default locked" data-tooltip="Already used today" data-tooltip-type="success"><i class="icon icon-lock icon-12"></i> Dental Care</span>
+    <<else>>
+        <<activityButton "Dental Care" "mirrorDentalCare" "item:toothpaste" false>>
+    <</if>>
+    <<btn "Makeup" "mirrorMakeup">><</btn>>
+</div>
+<div class="location-actions">
+    <<btn "Back" _backTo>><</btn>>
+</div>
+<</nobr>>

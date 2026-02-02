@@ -221,6 +221,7 @@ $(document).ready(function() {
           if (!State.variables.appearance) State.variables.appearance = {};
           State.variables.appearance.hairCare = 50;
           State.variables.appearance.hairMessiness = 0;
+          State.variables.appearance.hairCombed = 1;
           State.variables.appearance.faceCare = 0;
           State.variables.appearance.dentalCare = 0;
           if (typeof $ !== 'undefined' && $.wiki) $.wiki('<<recalculateStats>>');

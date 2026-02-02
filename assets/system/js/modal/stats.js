@@ -194,6 +194,7 @@ window.StatsInit = function (API) {
                                     ${this.createStatRow('Finance', vars.skills.practical?.finance || 0, 100, '#f97316', 'Money management.')}
                                     ${this.createStatRow('Mechanics', vars.skills.practical?.mechanics || 0, 100, '#f97316', 'Vehicle and machine repair.')}
                                     ${this.createStatRow('Gardening', vars.skills.practical?.gardening || 0, 100, '#f97316', 'Plant care and botany.')}
+                                    ${this.createStatRow('Makeup', vars.skills.practical?.makeup || 0, 100, '#f97316', 'Makeup application quality. Unlocks higher style tiers at mirror.')}
                                 `)}
 
                                 ${this.createAccordion('sexual', 'Sexual Proficiency', 'heart', `

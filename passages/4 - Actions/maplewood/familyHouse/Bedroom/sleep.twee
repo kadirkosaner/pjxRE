@@ -67,6 +67,7 @@
     /* Apply changes */
     <<advanceTime _sleepDuration>>
     <<set $isSleeping = false>>
+    <<set $appearance.hairCombed = 0>>
     
     <<gainStat "energy" _energyGain>>
     <<loseStat "stress" _stressLoss>>

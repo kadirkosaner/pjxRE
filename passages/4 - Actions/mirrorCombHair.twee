@@ -1,0 +1,14 @@
+:: mirrorCombHair
+<<silently>>
+    <<set $appearance.hairCombed = 1>>
+    <<set $appearance.hairMessiness = 0>>
+    <<advanceTime 5>>
+<</silently>>
+
+<<narrative "Comb Hair">>
+You run the comb through your hair, smoothing out the tangles. Your hair looks neat and tidy now.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Back" "Mirror">><</btn>>
+</div>

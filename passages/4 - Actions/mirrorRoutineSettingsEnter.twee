@@ -1,0 +1,5 @@
+<<nobr>>
+<<if ndef $mirrorRoutine>><<set $mirrorRoutine = { makeup: 0, combHair: true, hairCream: true, faceCream: true, dentalCare: true }>><</if>>
+<<set $mirrorRoutineDraft = { makeup: $mirrorRoutine.makeup, combHair: $mirrorRoutine.combHair, hairCream: $mirrorRoutine.hairCream, faceCream: $mirrorRoutine.faceCream, dentalCare: $mirrorRoutine.dentalCare }>>
+<<goto "mirrorRoutineSettings">>
+<</nobr>>

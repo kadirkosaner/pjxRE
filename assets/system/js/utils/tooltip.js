@@ -50,11 +50,13 @@ window.initTooltips = function() {
             
             $globalTooltip.text(tooltipText);
             
-            // Handle locked/error state
-            if ($el.hasClass('locked') || $el.hasClass('disabled') || $el.attr('data-allowed') === 'false') {
-                $globalTooltip.addClass('locked-tooltip');
+            // Handle success (green) tooltip
+            if ($el.attr('data-tooltip-type') === 'success') {
+                $globalTooltip.addClass('success-tooltip').removeClass('locked-tooltip');
+            } else if ($el.hasClass('locked') || $el.hasClass('disabled') || $el.attr('data-allowed') === 'false') {
+                $globalTooltip.addClass('locked-tooltip').removeClass('success-tooltip');
             } else {
-                $globalTooltip.removeClass('locked-tooltip');
+                $globalTooltip.removeClass('locked-tooltip success-tooltip');
             }
             
             $globalTooltip.css({

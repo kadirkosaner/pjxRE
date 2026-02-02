@@ -110,6 +110,17 @@
     font-weight: 600;
 }
 
+.ui-dropdown-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: #666;
+}
+
+.ui-dropdown-item.disabled:hover {
+    background: transparent;
+    color: #666;
+}
+
 /* Scrollbar styling */
 .ui-dropdown-menu::-webkit-scrollbar {
     width: 4px;

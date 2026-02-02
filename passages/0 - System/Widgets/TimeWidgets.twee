@@ -135,6 +135,28 @@
     <<set $daily.yogaDone = false>>
     <<set $daily.danceDone = false>>
     <<set $daily.jogDone = false>>
+    <<set $daily.hairCreamUsed = false>>
+    <<set $daily.faceCreamUsed = false>>
+    <<set $daily.dentalCareUsed = false>>
+
+    /* Weekly care bonuses: if new week (weekday 0), apply bonus for previous week then reset */
+    <<if ndef $weeklyHairCreamUses>><<set $weeklyHairCreamUses = 0>><</if>>
+    <<if ndef $weeklyFaceCreamUses>><<set $weeklyFaceCreamUses = 0>><</if>>
+    <<if ndef $weeklyDentalCareUses>><<set $weeklyDentalCareUses = 0>><</if>>
+    <<if $timeSys.weekday === 0>>
+        <<if $weeklyHairCreamUses >= 2>>
+            <<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 5)>>
+        <</if>>
+        <<set $weeklyHairCreamUses = 0>>
+        <<if $weeklyFaceCreamUses >= 2>>
+            <<set $appearance.faceCare = Math.min(100, ($appearance.faceCare || 0) + 5)>>
+        <</if>>
+        <<set $weeklyFaceCreamUses = 0>>
+        <<if $weeklyDentalCareUses >= 2>>
+            <<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 5)>>
+        <</if>>
+        <<set $weeklyDentalCareUses = 0>>
+    <</if>>
 
     /* Daily Appearance Update (hair growth, messiness, care decay) */
     <<if def "dailyAppearanceUpdate">>

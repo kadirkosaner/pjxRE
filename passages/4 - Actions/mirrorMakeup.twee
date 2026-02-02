@@ -1,0 +1,49 @@
+<<nobr>>
+<<set $location = $mirrorReturnPassage>>
+<<checkInventoryItem "makeup_kit" 1>>
+<<if State.temporary.inventoryCheckResult.allowed>>
+    <<set _hasKit = true>>
+<<else>>
+    <<checkInventoryItem "portable_makeup" 1>>
+    <<set _hasKit = State.temporary.inventoryCheckResult.allowed>>
+<</if>>
+<<set _corr = $corruption || 0>>
+<<set _skill = $skills.practical.makeup || 0>>
+<<if ndef $makeup>><<set $makeup = { state: "off", style: 0, quality: 0 }>><</if>>
+<<set _makeupOn = $makeup.state !== "off" && $makeup.style >= 1>>
+<<if _makeupOn>><<checkInventoryItem "wet_wipes" 1>><<set _hasWipes = State.temporary.inventoryCheckResult.allowed>><<else>><<set _hasWipes = false>><</if>>
+
+<<narrative "Mirror">>
+<<if !_hasKit>>
+You don't have any makeup. You need a makeup kit or portable makeup to apply.
+<<else>>
+Choose a makeup style, or remove your current makeup. Your corruption and skill determine which styles you can use.
+<</if>>
+<</narrative>>
+<div class="location-actions">
+    <<if _makeupOn && _hasWipes>>
+        <<btn "Remove Makeup" "mirrorMakeupRemove">><</btn>>
+    <<elseif _makeupOn>>
+        <span class="link-internal btn-style btn-default locked" data-tooltip="Need wet wipes to remove makeup"><i class="icon icon-lock icon-12"></i> Remove Makeup</span>
+    <<else>>
+        <span class="link-internal btn-style btn-default locked" data-tooltip="No makeup on" data-tooltip-type="success"><i class="icon icon-lock icon-12"></i> Remove Makeup</span>
+    <</if>>
+</div>
+<div class="location-actions">
+<<if !_hasKit>>
+    <<btn "Back" "Mirror">><</btn>>
+<<else>>
+    <<set _unlock1 = _corr >= 1 && _skill >= 0>>
+    <<set _unlock2 = _corr >= 3 && _skill >= 20>>
+    <<set _unlock3 = _corr >= 4 && _skill >= 40>>
+    <<set _unlock4 = _corr >= 5 && _skill >= 75>>
+    <<set _unlock5 = _corr >= 5 && _skill >= 75>>
+    <<if _unlock1>><<link "Light">><<set $makeupChosenStyle = 1>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 1"><i class="icon icon-lock icon-12"></i> Light</span><</if>>
+    <<if _unlock2>><<link "Medium">><<set $makeupChosenStyle = 2>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 3 and makeup skill 20"><i class="icon icon-lock icon-12"></i> Medium</span><</if>>
+    <<if _unlock3>><<link "Heavy">><<set $makeupChosenStyle = 3>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 4 and makeup skill 40"><i class="icon icon-lock icon-12"></i> Heavy</span><</if>>
+    <<if _unlock4>><<link "Slutty">><<set $makeupChosenStyle = 4>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 5 and makeup skill 75"><i class="icon icon-lock icon-12"></i> Slutty</span><</if>>
+    <<if _unlock5>><<link "Bimbo">><<set $makeupChosenStyle = 5>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 5 and makeup skill 75"><i class="icon icon-lock icon-12"></i> Bimbo</span><</if>>
+    <<btn "Back" "Mirror">><</btn>>
+<</if>>
+</div>
+<</nobr>>

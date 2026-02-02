@@ -95,7 +95,18 @@
         <<elseif _careSum < 50>>
             <<set _beauty = _beauty * 0.40>>
         <</if>>
-        <<set $looks = Math.round(_beauty * 0.55 + ($hygiene || 0) * 0.15 + ($clothingScore || 0) * 0.30)>>
+        <<set _styleBase = (($makeup && $makeup.style >= 1 && $makeup.style <= 5) ? ($makeup.style * 20) : 0)>>
+        <<set _muState = ($makeup && $makeup.state) ? $makeup.state : "off">>
+        <<set _muQuality = ($makeup && ($makeup.quality !== undefined)) ? $makeup.quality : 0>>
+        <<if _muState === "off" || !$makeup || !$makeup.style>>
+            <<set _makeupScore = 0>>
+        <<elseif _muQuality >= 50 && _muState === "fresh">>
+            <<set _makeupScore = _styleBase>>
+        <<else>>
+            <<set _makeupScore = Math.round(_styleBase * (_muQuality / 100))>>
+        <</if>>
+        <<set _makeupScore = Math.max(0, Math.min(100, _makeupScore))>>
+        <<set $looks = Math.round(_beauty * 0.50 + ($hygiene || 0) * 0.10 + ($clothingScore || 0) * 0.20 + _makeupScore * 0.20)>>
     <</if>>
 <</widget>>
 
@@ -109,6 +120,7 @@
     /* Hair Messiness */
     <<if $gameSettings.hairMessiness>>
         <<set $appearance.hairMessiness = Math.min(100, $appearance.hairMessiness + 15)>>
+        <<set $appearance.hairCombed = 0>>
     <</if>>
 
     /* Body Hair Growth */
@@ -118,20 +130,31 @@
         <<set $appearance.bodyHair.armpits = Math.min(100, $appearance.bodyHair.armpits + 5)>>
     <</if>>
 
-    /* Makeup Wear Off */
+    /* Makeup quality decay (when makeup on) */
     <<if $gameSettings.makeupWearOff>>
-        <<set $appearance.makeupLevel = Math.max(0, $appearance.makeupLevel - 20)>>
+        <<if ndef $makeup>><<set $makeup = { state: "off", style: 0, quality: 0 }>><</if>>
+        <<if $makeup.state !== "off">>
+            <<set $makeup.quality = Math.max(0, ($makeup.quality || 0) - 20)>>
+        <</if>>
     <</if>>
 
-    /* Appearance Care Decay: hair/face/dental care drops daily without routine (actions to be added later) */
+    /* Appearance Care Decay: hair/face/dental care drops daily; skip if hair cream used today */
     <<if $gameSettings.hairCareDecay>>
-        <<set $appearance.hairCare = Math.max(0, ($appearance.hairCare || 100) - 4)>>
+        <<if !$daily.hairCreamUsed>>
+            <<set $appearance.hairCare = Math.max(0, ($appearance.hairCare || 100) - 4)>>
+        <</if>>
     <</if>>
+    /* Face care decay: skip if face cream used today */
     <<if $gameSettings.faceCareDecay>>
-        <<set $appearance.faceCare = Math.max(0, ($appearance.faceCare || 100) - 4)>>
+        <<if !$daily.faceCreamUsed>>
+            <<set $appearance.faceCare = Math.max(0, ($appearance.faceCare || 100) - 4)>>
+        <</if>>
     <</if>>
+    /* Dental care decay: skip if dental care (toothpaste) used today */
     <<if $gameSettings.dentalCareDecay>>
-        <<set $appearance.dentalCare = Math.max(0, ($appearance.dentalCare || 100) - 4)>>
+        <<if !$daily.dentalCareUsed>>
+            <<set $appearance.dentalCare = Math.max(0, ($appearance.dentalCare || 100) - 4)>>
+        <</if>>
     <</if>>
 <</widget>>
 

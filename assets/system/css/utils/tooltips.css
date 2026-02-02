@@ -70,3 +70,16 @@
 .tooltip-popup.locked-tooltip::after {
   border-bottom-color: #ef4444;
 }
+
+/* Success (green) tooltip variant */
+.tooltip-popup.success-tooltip {
+  background: #10b981;
+  border-color: #059669;
+  color: #ffffff;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+}
+
+.tooltip-popup.success-tooltip::after {
+  border-bottom-color: #10b981;
+}

@@ -2,6 +2,7 @@
     <<set $location = "fhUpperBath">>
     <<advanceTime 20>>
     <<gainStat "hygiene" 100>>
+    <<set $appearance.hairCombed = 0>>
     <<run window.notifySuccess("Hygiene Restored")>>
     <<gainStat "energy" 5>>
     <<loseStat "stress" 10>>

@@ -1,0 +1,29 @@
+<<nobr>>
+<<set $location = $mirrorReturnPassage>>
+<<checkInventoryItem "toothpaste" 1>>
+<<if !State.temporary.inventoryCheckResult.allowed>>
+    <<narrative "Mirror">>
+    You don't have any toothpaste. You need a tube to brush your teeth.
+    <</narrative>>
+    <div class="location-actions">
+        <<btn "Back" "Mirror">><</btn>>
+    </div>
+<<else>>
+    <<silently>>
+        <<removeFromInventory "toothpaste" 1>>
+        <<if !$daily.dentalCareUsed>>
+            <<set $weeklyDentalCareUses = ($weeklyDentalCareUses || 0) + 1>>
+        <</if>>
+        <<set $daily.dentalCareUsed = true>>
+        <<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 2)>>
+        <<advanceTime 5>>
+    <</silently>>
+    <<narrative "Dental Care">>
+    You brush your teeth thoroughly. Your mouth feels fresh and clean. Regular care keeps your teeth and gums healthy.
+    <</narrative>>
+
+    <div class="location-actions">
+        <<btn "Back" "Mirror">><</btn>>
+    </div>
+<</if>>
+<</nobr>>

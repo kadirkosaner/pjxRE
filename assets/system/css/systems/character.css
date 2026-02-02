@@ -155,6 +155,122 @@
   display: none;
 }
 
+/* ================== MIRROR ROUTINE SETTINGS =================== */
+.routine-settings-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.routine-settings {
+  max-width: 360px;
+  width: 100%;
+}
+
+.routine-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--color-border-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.routine-row:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* Tablo gibi: yazılar bir sütunda, seçimler bir sütunda dikey hizalı */
+.routine-label {
+  flex: 0 0 7.5rem;
+  min-width: 7.5rem;
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.routine-control {
+  flex: 0 0 auto;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+}
+
+/* Makeup dropdown (SugarCube <<listbox>>) – same visual weight as btn-style */
+.routine-listbox-wrap select,
+.routine-select,
+.routine-makeup-select {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem var(--spacing-lg);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-tertiary);
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 8rem;
+}
+
+.routine-listbox-wrap select:hover,
+.routine-select:hover,
+.routine-makeup-select:hover {
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Checkbox row (SugarCube <<checkbox>>) – align with other controls */
+.routine-row-checkbox .routine-control {
+  display: inline-flex;
+  align-items: center;
+}
+
+.routine-row-checkbox .routine-control label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.routine-row-checkbox input[type="checkbox"],
+.routine-checkbox {
+  width: 1.125rem;
+  height: 1.125rem;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.routine-row-checkbox .routine-control input[type="checkbox"] {
+  flex-shrink: 0;
+}
+
+/* Action row: Confirm + Back – prologue-btn style (same as skipPrologue) */
+.routine-actions {
+  margin-top: var(--spacing-md);
+}
+
+.routine-actions a.link-internal {
+  text-decoration: none;
+}
+
+/* Routine note (items message) */
+.routine-note {
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background: var(--white-alpha-03);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-border-secondary);
+}
+
 /* Delete badge (EXACTLY like AUTO SAVE) */
 .save-delete-btn {
   position: absolute;

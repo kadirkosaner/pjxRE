@@ -1,0 +1,137 @@
+:: mirrorApplyRoutine
+<<nobr>>
+<<set $location = $mirrorReturnPassage>>
+<<if ndef $mirrorRoutine>><<set $mirrorRoutine = { makeup: 0, combHair: true, hairCream: true, faceCream: true, dentalCare: true }>><</if>>
+<<set _r = $mirrorRoutine>>
+<<run State.temporary.applied = []; State.temporary.skipped = [];>>
+<<silently>>
+    /* 1. Comb Hair */
+    <<if _r.combHair>>
+        <<if $appearance.hairCombed !== 1>>
+            <<checkInventoryItem "comb" 1>>
+            <<if State.temporary.inventoryCheckResult.allowed>>
+                <<set $appearance.hairCombed = 1>>
+                <<set $appearance.hairMessiness = 0>>
+                <<advanceTime 5>>
+                <<run State.temporary.applied.push("Comb Hair")>>
+            <<else>>
+                <<run State.temporary.skipped.push("Comb Hair (no item)")>>
+            <</if>>
+        <<else>>
+            <<run State.temporary.skipped.push("Comb Hair (already done)")>>
+        <</if>>
+    <</if>>
+
+    /* 2. Hair Cream */
+    <<if _r.hairCream>>
+        <<if !$daily.hairCreamUsed>>
+            <<checkInventoryItem "hair_cream" 1>>
+            <<if State.temporary.inventoryCheckResult.allowed>>
+                <<removeFromInventory "hair_cream" 1>>
+                <<set $weeklyHairCreamUses = ($weeklyHairCreamUses || 0) + 1>>
+                <<set $daily.hairCreamUsed = true>>
+                <<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 2)>>
+                <<advanceTime 5>>
+                <<run State.temporary.applied.push("Hair Cream")>>
+            <<else>>
+                <<run State.temporary.skipped.push("Hair Cream (no item)")>>
+            <</if>>
+        <<else>>
+            <<run State.temporary.skipped.push("Hair Cream (already used today)")>>
+        <</if>>
+    <</if>>
+
+    /* 3. Face Cream */
+    <<if _r.faceCream>>
+        <<if !$daily.faceCreamUsed>>
+            <<checkInventoryItem "face_cream" 1>>
+            <<if State.temporary.inventoryCheckResult.allowed>>
+                <<removeFromInventory "face_cream" 1>>
+                <<set $weeklyFaceCreamUses = ($weeklyFaceCreamUses || 0) + 1>>
+                <<set $daily.faceCreamUsed = true>>
+                <<set $appearance.faceCare = Math.min(100, ($appearance.faceCare || 0) + 2)>>
+                <<advanceTime 5>>
+                <<run State.temporary.applied.push("Face Cream")>>
+            <<else>>
+                <<run State.temporary.skipped.push("Face Cream (no item)")>>
+            <</if>>
+        <<else>>
+            <<run State.temporary.skipped.push("Face Cream (already used today)")>>
+        <</if>>
+    <</if>>
+
+    /* 4. Dental Care */
+    <<if _r.dentalCare>>
+        <<if !$daily.dentalCareUsed>>
+            <<checkInventoryItem "toothpaste" 1>>
+            <<if State.temporary.inventoryCheckResult.allowed>>
+                <<removeFromInventory "toothpaste" 1>>
+                <<set $weeklyDentalCareUses = ($weeklyDentalCareUses || 0) + 1>>
+                <<set $daily.dentalCareUsed = true>>
+                <<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 2)>>
+                <<advanceTime 5>>
+                <<run State.temporary.applied.push("Dental Care")>>
+            <<else>>
+                <<run State.temporary.skipped.push("Dental Care (no item)")>>
+            <</if>>
+        <<else>>
+            <<run State.temporary.skipped.push("Dental Care (already used today)")>>
+        <</if>>
+    <</if>>
+
+    /* 5. Makeup */
+    <<if _r.makeup >= 1 && _r.makeup <= 5>>
+        <<set _style = _r.makeup>>
+        <<set _corr = $corruption || 0>>
+        <<set _skill = $skills.practical.makeup || 0>>
+        <<set _corruptUnlock = [0, 1, 3, 4, 5, 5]>>
+        <<set _skillMin = [0, 0, 20, 40, 75, 75]>>
+        <<set _canApply = _corr >= _corruptUnlock[_style] && _skill >= _skillMin[_style]>>
+        <<if _canApply>>
+            <<checkInventoryItem "makeup_kit" 1>>
+            <<if State.temporary.inventoryCheckResult.allowed>>
+                <<set _useKit = "makeup_kit">>
+            <<else>>
+                <<checkInventoryItem "portable_makeup" 1>>
+                <<if State.temporary.inventoryCheckResult.allowed>>
+                    <<set _useKit = "portable_makeup">>
+                <<else>>
+                    <<set _useKit = "">>
+                <</if>>
+            <</if>>
+            <<if _useKit !== "">>
+                <<removeFromInventory _useKit 1>>
+                <<set _quality = Math.min(100, Math.round(50 + _skill * 0.5))>>
+                <<set $makeup.state = "fresh">>
+                <<set $makeup.style = _style>>
+                <<set $makeup.quality = _quality>>
+                <<set _cap = (_style === 1) ? 20 : (_style === 2) ? 40 : (_style === 3) ? 75 : 100>>
+                <<set _gain = 2>>
+                <<set _newSkill = Math.min(100, Math.min(_skill + _gain, _cap))>>
+                <<set _actualGain = _newSkill - _skill>>
+                <<set $skills.practical.makeup = _newSkill>>
+                <<if _actualGain > 0>>
+                    <<notifySkillChange "makeup" _actualGain>>
+                    <<trackSkillUsage "practical" "makeup">>
+                <</if>>
+                <<advanceTime 10>>
+                <<run State.temporary.applied.push("Makeup")>>
+            <<else>>
+                <<run State.temporary.skipped.push("Makeup (no item)")>>
+            <</if>>
+        <<else>>
+            <<run State.temporary.skipped.push("Makeup (corruption/skill)")>>
+        <</if>>
+    <</if>>
+<</silently>>
+<<run State.temporary.appliedStr = (State.temporary.applied || []).join(", "); State.temporary.skippedStr = (State.temporary.skipped || []).join("\n");>>
+<<set _appliedStr = State.temporary.appliedStr>>
+<<set _skippedStr = State.temporary.skippedStr>>
+<<if _appliedStr !== "">>
+    <<run window.notifySuccess("Routine applied. " + _appliedStr)>>
+<</if>>
+<<if _skippedStr !== "">>
+    <<run window.notifyWarning("Skipped:\n" + _skippedStr)>>
+<</if>>
+<<goto "Mirror">>
+<</nobr>>

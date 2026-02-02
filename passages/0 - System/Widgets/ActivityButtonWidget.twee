@@ -100,11 +100,9 @@
 
 <<if !_skipButton>>
     <<if _canDoActivity>>
-        /* Standard active button - CSS height ensures alignment */
-        <<btn _btnText _targetPassage "btn-default action-btn">><</btn>>
+        <<btn _btnText _targetPassage "default">><</btn>>
     <<else>>
-        /* Locked button with icon - CSS height ensures alignment */
-        <<set _lockedSpan = '<span class="btn-style btn-default action-btn locked" data-tooltip="' + _tooltipText + '"><i class="icon icon-lock icon-12"></i> ' + _btnText + '</span>'>>
+        <<set _lockedSpan = '<span class="link-internal btn-style btn-default locked" data-tooltip="' + _tooltipText + '"><i class="icon icon-lock icon-12"></i> ' + _btnText + '</span>'>>
         <<print _lockedSpan>>
     <</if>>
 <</if>>
