@@ -143,33 +143,8 @@ $(document).one(':storyready', async function () {
         $('#ui-bar').remove();
         $(document.head).find('#style-ui-bar').remove();
 
-        // Convert margin to padding and add right margin from CSS variable
-        const $story = $('#story');
-        const $passages = $('#passages');
-
-        // Get current margin values (only once, initial values)
-        const storyMarginLeft = $story.css('margin-left');
-        const passagesMarginLeft = $passages.css('margin-left');
-
-        function updateMargins() {
-            const rightbarWidth = getComputedStyle(document.documentElement).getPropertyValue('--rightbar-width').trim();
-
-            $story.css({
-                'margin-left': '0',
-                'margin-right': rightbarWidth,
-                'padding-left': storyMarginLeft
-            });
-
-            $passages.css({
-                'margin-left': '0',
-            });
-        }
-
-        // Initial call
-        updateMargins();
-
-        // Update on resize
-        $(window).on('resize', updateMargins);
+        // Ortalama artık CSS ile yapılıyor (layout.js + structure.css)
+        // #passages zaten right: var(--rightbar-width) ile rightbar için yer bırakıyor
     } catch (error) {
         console.error("[Loader] Error:", error);
     }
@@ -1418,70 +1393,15 @@ $(document).on(':passagestart', function () {
     requestAnimationFrame(resetPassagesScroll);
 });
 
-/* ================== Passage Centering (Timebox-aligned) =================== */
-// Shared centering so we can run after passage + async content (e.g. talk dialog) are in DOM
-// Returns true if centering was applied, false if bailed out (e.g. timebox not ready yet)
-function centerPassageWithTimebox() {
-    if ($('body').hasClass('fullscreen-centered')) return false;
-    const $passages = $('#passages');
-    const $passage = $('.passage');
-    const $timebox = $('.timebox');
-    if (!$passages.length || !$passage.length || !$timebox.length) {
-        // Timebox/passage not ready yet – clear stale transform from previous passage
-        if ($passages.length) $passages[0].style.removeProperty('transform');
-        return false;
-    }
-    $passages[0].style.removeProperty('transform');
-    void $passages[0].offsetHeight;
-    const timeboxRect = $timebox[0].getBoundingClientRect();
-    const passageRect = $passage[0].getBoundingClientRect();
-    const timeboxCenter = timeboxRect.left + (timeboxRect.width / 2);
-    const passageCenter = passageRect.left + (passageRect.width / 2);
-    const offset = timeboxCenter - passageCenter;
-    $passages[0].style.setProperty('transform', `translateX(${offset}px)`, 'important');
-    return true;
-}
+/* ================== Passage Layout =================== */
+// Ortalama artık layout.js + CSS ile yapılıyor (transform yok)
 
 
-// Wrap talk-style passages (narrative + location-actions) in one div for stable layout – no need to edit each passage
-function wrapTalkPassageContent() {
-    const $passage = $('#passages .passage');
-    if (!$passage.length || $passage.children('.talk-passage-content').length) return;
-    if (!$passage.find('.narrative').length || !$passage.find('.location-actions').length) return;
-    const $wrapper = $('<div class="talk-passage-content"></div>');
-    $passage.contents().appendTo($wrapper);
-    $passage.append($wrapper);
-}
 
-// Center passage content aligned with topbar timebox
-// Run after layout is ready (rAF) and at delays for async content / layout shifts
-$(document).on(':passagerender', function () {
-    resetPassagesScroll();
-    requestAnimationFrame(function () {
-        resetPassagesScroll();
-        wrapTalkPassageContent();
-        centerPassageWithTimebox();
-    });
-    [10, 100, 300, 500, 700].forEach(function (ms) {
-        setTimeout(function () {
-            resetPassagesScroll();
-            wrapTalkPassageContent();
-            centerPassageWithTimebox();
-        }, ms);
-    });
+// Topbar’a göre ortala: timebox DOM’a geldikten sonra (topbar :topbarready tetikler)
 
-    const resizeHandler = () => requestAnimationFrame(centerPassageWithTimebox);
-    $(window).on('resize.passageCenter', resizeHandler);
-    $(document).one(':passagestart', () => {
-        $(window).off('resize.passageCenter');
-    });
-});
+$(document).on(':passagerender', resetPassagesScroll);
 
-// Re-center after passage is fully ended (fixes sağdan-soldan when opening talk without F5)
-$(document).on(':passageend', function () {
-    setTimeout(centerPassageWithTimebox, 50);
-    setTimeout(centerPassageWithTimebox, 200);
-});
 
 /* ================== Navigation Card Handlers =================== */
 

@@ -11,6 +11,7 @@ window.SystemModules = {
   // UI - Passage render driven components
   ui: [
     "topbar", // Top navigation bar
+    "layout", // Passage content wrapper (ortalama)
     "rightbar", // Right sidebar
     "phone", // Phone overlay
     "map", // Map overlay (injects into rightbar)

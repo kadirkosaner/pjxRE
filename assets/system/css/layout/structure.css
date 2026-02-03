@@ -10,16 +10,12 @@
   left: 0;
   right: var(--rightbar-width);
   bottom: 0;
-  overflow-x: hidden;  /* Passage breakout önleme: thought/dialog sidebar'a taşmasın */
+  overflow-x: hidden;
   overflow-y: scroll;
-  text-align: left;
   padding: var(--spacing-xl);
   z-index: 10;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
 }
 
 #passages::-webkit-scrollbar {
@@ -27,27 +23,19 @@
 }
 
 #story {
-  text-align: left;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
 }
 
 .passage {
   width: 100%;
-  max-width: 100%;   /* İçerik sidebar alanına taşmasın */
-  min-width: 0;      /* Flex child'ın shrink olabilmesi için */
 }
 
-/* Talk/interaction passages: single wrapper for stable layout (avoids sağdan-soldan on first load) */
-.talk-passage-content {
-  width: 100%;
-  max-width: 100%;
-  display: block;
-  min-height: 0;
-  overflow-x: hidden; /* İçerik sınırı: thought-block/dialogue taşmasın */
+/* Content wrapper */
+.passage-content {
+  max-width: 800px;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  /* Ortalama JS ile yapılıyor (layout.js) */
 }
 
 /* ================== BODY LAYOUT STATES =================== */
@@ -109,9 +97,6 @@ body.no-rightbar .right-bar {
 }
 
 /* FULLSCREEN LAYOUT - When hideTopbar AND hideRightbar are true */
-body.fullscreen-layout {
-  /* Remove any topbar offset */
-}
 
 body.fullscreen-layout .top-bar-wrapper {
   position: fixed !important;

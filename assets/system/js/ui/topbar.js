@@ -303,6 +303,7 @@ $(document).on(':passagerender', function () {
         const action = TopbarAPI.$(this).data('action');
         showNavDialog(action);
     });
+
 });
 
 function showNavDialog(action) {
