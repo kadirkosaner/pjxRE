@@ -77,6 +77,32 @@
   display: block;
 }
 
+.profile-status-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: -4px;
+  color: var(--color-text-primary);
+}
+
+.profile-status-item {
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+}
+
+.profile-status-icons .icon {
+  opacity: 0.9;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.profile-status-item:hover .icon {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
 .stats-section {
   width: 85%;
   display: flex;

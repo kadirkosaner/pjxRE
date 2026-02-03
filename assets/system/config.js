@@ -93,6 +93,7 @@ window.SystemCSS = {
     "character", // Character interaction
     "saveload", // Save/load modal
     "alarm", // Alarm clock system
+    "read", // Read system (books & magazines)
   ],
 
   // Utils - Helpers (load last)

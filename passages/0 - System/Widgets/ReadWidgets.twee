@@ -1,0 +1,11 @@
+/* ==================================================
+   READ WIDGETS
+   Redirect to Read passage and store return passage
+   Usage: <<readBtn>>
+================================================== */
+
+<<widget "readBtn">>
+<<btn "Read" "Read">>
+<<set $readReturnPassage = State.passage>>
+<</btn>>
+<</widget>>

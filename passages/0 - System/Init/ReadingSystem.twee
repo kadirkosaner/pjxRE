@@ -1,0 +1,77 @@
+:: ReadingSystem[init]
+<<script>>
+/* =====================================================================
+   READING SYSTEM - Books & Magazines
+   setup.readingItems: metadata for reading (pages, gains, narratives)
+   Links to items in ItemDatabase (books/magazines categories)
+   ===================================================================== */
+
+setup.readingItems = {
+    books: [
+        {
+            id: "book_math_basics",
+            name: "Math Basics",
+            pages: 100,
+            gainType: "intelligence",
+            gainValue: 10,
+            narratives: [
+                "You flip through the chapter on algebra. The examples gradually build in complexity.",
+                "A section on geometry catches your eye. You trace the diagrams with your finger.",
+                "The chapter on word problems makes you think. You work through a few examples.",
+                "You review the summary at the end of the chapter. Key formulas stand out.",
+                "A footnote leads you to an interesting historical note about the development of calculus."
+            ]
+        },
+        {
+            id: "book_intro_psychology",
+            name: "Introduction to Psychology",
+            pages: 150,
+            gainType: "intelligence",
+            gainValue: 10,
+            narratives: [
+                "You read about cognitive development. The stages of learning fascinate you.",
+                "A chapter on memory explains why you sometimes forget names. You nod in recognition.",
+                "The section on motivation theory connects to your own goals.",
+                "You learn about different personality types. Some descriptions feel familiar.",
+                "The book discusses stress and coping mechanisms. You bookmark a few tips."
+            ]
+        }
+    ],
+    magazines: [
+        {
+            id: "mag_fashion_weekly",
+            name: "Fashion Weekly",
+            pages: 50,
+            gainType: "creativity",
+            gainValue: 2,
+            narratives: [
+                "You browse the latest seasonal trends. Color palettes and textures fill the pages.",
+                "An article on sustainable fashion catches your eye. You consider your own wardrobe.",
+                "The street style section inspires you. You imagine different combinations.",
+                "A DIY customization guide shows how to refresh old pieces. You make a mental note.",
+                "The editorial photos are striking. You study the composition and lighting."
+            ]
+        }
+    ]
+};
+
+/* Helper: get reading item by id */
+setup.getReadingItem = function(id) {
+    for (let b of (setup.readingItems.books || [])) {
+        if (b.id === id) return { ...b, type: "book" };
+    }
+    for (let m of (setup.readingItems.magazines || [])) {
+        if (m.id === id) return { ...m, type: "magazine" };
+    }
+    return null;
+};
+
+/* Helper: ~1 pg/min base, 100/100 int+focus => ~100-120 pg/hour */
+setup.calcReadingSpeed = function(intelligence, focus) {
+    const base = 1; /* 1 page/min = 60/hour at 0/0 */
+    const intMult = 1 + (intelligence || 0) / 250;   /* +40% at 100 int */
+    const focusMult = 1 + (focus || 0) / 250;       /* +40% at 100 focus */
+    return base * intMult * focusMult;
+};
+
+<</script>>

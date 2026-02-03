@@ -1,0 +1,87 @@
+/* ==================================================
+   READ SYSTEM - Books & Magazines
+   Two-column layout, checkbox/radio rows
+================================================== */
+
+.read-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1rem 0;
+}
+
+.read-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.read-column-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-secondary, #666);
+}
+
+.read-empty {
+    color: var(--color-text-muted, #999);
+    font-style: italic;
+    margin: 0.5rem 0;
+}
+
+.read-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.35rem 0;
+}
+
+/* Radio/checkbox – theme: unchecked gray, checked pink */
+.read-checkbox-row input[type="radio"] {
+    margin: 0;
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid var(--color-border-secondary);
+    border-radius: 50%;
+    background: var(--color-bg-tertiary);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.read-checkbox-row input[type="radio"]:hover {
+    border-color: var(--color-text-tertiary);
+}
+
+.read-checkbox-row input[type="radio"]:checked {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+}
+
+.read-checkbox-row input[type="radio"]:focus {
+    outline: none;
+}
+
+.read-checkbox-row input[type="radio"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-accent-alpha-30);
+}
+
+.read-actions {
+    margin-top: 1rem;
+}
+
+.read-finished-list {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.read-finished-list li {
+    margin: 0.25rem 0;
+}
+
+.read-finished-item {
+    cursor: help;
+}

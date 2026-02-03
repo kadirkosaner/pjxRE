@@ -1,0 +1,29 @@
+<<nobr>>
+<<set _backTo = $readReturnPassage || "Read">>
+<<set $location = $readReturnPassage>>
+
+<<narrative "Finished Books">>
+Books you have completed reading:
+<</narrative>>
+
+<<if !$readFinished || $readFinished.length === 0>>
+    <p>You haven't finished any books yet.</p>
+<<else>>
+    <ul class="read-finished-list">
+        <<for _bookId range $readFinished>>
+            <<set _meta = setup.getReadingItem(_bookId)>>
+            <<if _meta>>
+                <<set _statLabel = _meta.gainType ? (_meta.gainType.charAt(0).toUpperCase() + _meta.gainType.slice(1)) : "">>
+                <<set _tip = _meta.pages + " pages · " + _statLabel + " +" + (_meta.gainValue || 0)>>
+                <<print '<li><span class="read-finished-item" data-tooltip="' + _tip + '">' + _meta.name + '</span></li>'>>
+            <<else>>
+                <li><<print _bookId>></li>
+            <</if>>
+        <</for>>
+    </ul>
+<</if>>
+
+<div class="location-actions">
+    <<btn "Back" _backTo>><</btn>>
+</div>
+<</nobr>>

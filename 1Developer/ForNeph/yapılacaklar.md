@@ -2,18 +2,10 @@
 - Settings Help sayfası yapılacak.
 - Settings Bug Report sayfası yapılacak.
 
-questler için resim ve mp4 önerileri.
-
-- Eve home office eklenecek.
+- questler için resim ve mp4 önerileri.
 - Görevlere devam et
-- Karakterler için artık yeni görseller bul
 - ClerckMarcus içinde interactionlarıda düzenle.
-
-
 - Profile Pictureyi saçın şekline ve rengine göre yapmak.
-
-- yeni iconlar geldi bunları rightbarda karakter photo altı veya üstünde kullanıcaz;
-makyaj ve comb iconları.
--Yeni görsel veya videolar gelecek mirror kısmına.
-
-
+- Yeni görsel veya videolar gelecek mirror kısmına.
+- Yeni itemler için shoppingi yapmaya başlamak. Kitap ve İtemlar.
+- Read book kısımlarına yeni düzenlemeler gelebilir üzerine geldiğinde kitabın hoverı içerikte ne olduğu vs vs.

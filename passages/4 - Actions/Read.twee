@@ -1,0 +1,88 @@
+<<nobr>>
+<<set _backTo = $readReturnPassage || "fhUpperBath">>
+<<set $location = $readReturnPassage>>
+<<if ndef $readProgress>><<set $readProgress = {}>><</if>>
+<<if ndef $readFinished>><<set $readFinished = []>><</if>>
+
+<<narrative "Read">>
+Choose a book or magazine to read. Select one, pick how long you want to read, then click Read.
+<</narrative>>
+
+/* Build lists: owned books (not finished) and owned magazines */
+<<script>>
+(function() {
+    var sv = State.variables;
+    var ownedBooks = [], ownedMags = [];
+    var inv = sv.inventory || [];
+    var readFinished = sv.readFinished || [];
+    var readProgress = sv.readProgress || {};
+    for (var i = 0; i < inv.length; i++) {
+        var item = inv[i];
+        var meta = setup.getReadingItem(item.id);
+        if (!meta) continue;
+        if (meta.type === "book") {
+            if (readFinished.indexOf(item.id) >= 0) continue;
+            ownedBooks.push({
+                id: item.id,
+                name: meta.name,
+                pages: meta.pages,
+                pagesRead: readProgress[item.id] || 0
+            });
+        } else if (meta.type === "magazine") {
+            var magPagesRead = readProgress[item.id] || 0;
+            ownedMags.push({ id: item.id, name: meta.name, pages: meta.pages, pagesRead: magPagesRead });
+        }
+    }
+    State.temporary.ownedBooks = ownedBooks;
+    State.temporary.ownedMags = ownedMags;
+})();
+<</script>>
+<<set _ownedBooks = State.temporary.ownedBooks>>
+<<set _ownedMags = State.temporary.ownedMags>>
+
+<div class="read-grid">
+    <div class="read-column">
+        <h4 class="read-column-title">Books</h4>
+        <<if _ownedBooks.length === 0>>
+            <p class="read-empty">No books in inventory.</p>
+        <<else>>
+            <<for _b range _ownedBooks>>
+                <<set _label = _b.name + " " + _b.pagesRead + "/" + _b.pages>>
+                <label class="read-checkbox-row">
+                    <<radiobutton "$readSelectedItem" _b.id autocheck>>
+                    <<print _label>>
+                </label>
+            <</for>>
+        <</if>>
+    </div>
+    <div class="read-column">
+        <h4 class="read-column-title">Magazines</h4>
+        <<if _ownedMags.length === 0>>
+            <p class="read-empty">No magazines in inventory.</p>
+        <<else>>
+            <<for _m range _ownedMags>>
+                <<set _mLabel = _m.pagesRead > 0 ? _m.name + " " + _m.pagesRead + "/" + _m.pages : _m.name>>
+                <label class="read-checkbox-row">
+                    <<radiobutton "$readSelectedItem" _m.id autocheck>>
+                    <<print _mLabel>>
+                </label>
+            <</for>>
+        <</if>>
+    </div>
+</div>
+
+<<if ndef $readSelectedItem>><<set $readSelectedItem = "">><</if>>
+
+<div class="location-actions read-actions">
+    <<if _ownedBooks.length > 0 || _ownedMags.length > 0>>
+        <<btnPicker "Read" "readExecute" "readingDuration">>
+    <</if>>
+</div>
+
+<div class="location-actions">
+    <<if $readFinished && $readFinished.length > 0>>
+        <<btn "Finished Books" "readMyBooks">><</btn>>
+    <</if>>
+    <<btn "Back" _backTo>><</btn>>
+</div>
+<</nobr>>

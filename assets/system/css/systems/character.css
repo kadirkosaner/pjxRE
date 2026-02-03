@@ -237,14 +237,48 @@
   cursor: pointer;
 }
 
+/* Mirror routine checkboxes – gray bg/border, hover/checked pink, gray check on pink */
 .routine-row-checkbox input[type="checkbox"],
 .routine-checkbox {
   width: 1.125rem;
   height: 1.125rem;
-  accent-color: var(--color-accent);
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-tertiary);
   cursor: pointer;
   margin: 0;
   vertical-align: middle;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.routine-row-checkbox input[type="checkbox"]:hover,
+.routine-checkbox:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-alpha-10);
+}
+
+.routine-row-checkbox input[type="checkbox"]:checked,
+.routine-checkbox:checked {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.routine-row-checkbox input[type="checkbox"]:checked:hover,
+.routine-checkbox:checked:hover {
+  border-color: var(--color-accent-hover);
+  background-color: var(--color-accent-hover);
+}
+
+.routine-row-checkbox input[type="checkbox"]:focus,
+.routine-checkbox:focus {
+  outline: none;
+}
+
+.routine-row-checkbox input[type="checkbox"]:focus-visible,
+.routine-checkbox:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent-alpha-30);
 }
 
 .routine-row-checkbox .routine-control input[type="checkbox"] {

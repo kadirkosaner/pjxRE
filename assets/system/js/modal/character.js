@@ -103,11 +103,16 @@ window.CharacterInit = function (API) {
             return `${sign}${effect.value} ${name}${suffix}`;
         },
 
-        // Helper to generate inventory HTML
+        // Helper to generate inventory HTML (exclude reading items – books/magazines – they are used from Read screen)
         generateInventoryHtml: function(vars) {
             const inventory = vars.inventory || [];
-            
-            if (inventory.length === 0) {
+            const self = this;
+            const filtered = inventory.filter(invItem => {
+                const item = self.getItemById(invItem.id);
+                return item && item.category !== 'reading';
+            });
+
+            if (filtered.length === 0) {
                 return `
                     <div class="tab-content-inner inventory-container">
                         <div class="inventory-empty">
@@ -118,8 +123,7 @@ window.CharacterInit = function (API) {
                 `;
             }
 
-            const self = this;
-            const itemsHtml = inventory.map(invItem => {
+            const itemsHtml = filtered.map(invItem => {
                 const item = self.getItemById(invItem.id);
                 if (!item) return '';
                 

@@ -95,6 +95,24 @@ $(document).on(':passagerender', function () {
     const hidePhone = vars.hideRightbarPhone === true;
     const hideMap = vars.hideRightbarMap === true;
 
+    // Profile status icons (combed/makeup) under profile image
+    const combedOn = vars.appearance?.hairCombed === 1;
+    const makeupStyle = (vars.makeup && vars.makeup.style >= 1 && vars.makeup.style <= 5) ? vars.makeup.style : 0;
+    const makeupStyles = {
+        1: { label: 'Light', color: '#94a3b8' },
+        2: { label: 'Medium', color: '#f59e0b' },
+        3: { label: 'Heavy', color: '#f97316' },
+        4: { label: 'Slutty', color: '#ef4444' },
+        5: { label: 'Bimbo', color: '#ec4899' }
+    };
+    const makeupConfig = makeupStyle ? makeupStyles[makeupStyle] : null;
+    const profileStatusIcons = `
+        <div class="profile-status-icons" style="${hideProfile ? 'visibility: hidden;' : ''}">
+            ${combedOn ? `<span class="profile-status-item" data-tooltip="Combed"><span class="icon icon-comb icon-18" style="color: #a78bfa"></span></span>` : ''}
+            ${makeupConfig ? `<span class="profile-status-item" data-tooltip="${makeupConfig.label}\u00A0Makeup"><span class="icon icon-makeup icon-18" style="color: ${makeupConfig.color}"></span></span>` : ''}
+        </div>
+    `;
+
     // Build complete HTML with visibility control (layout preserved)
     const html = `
         <div class="right-bar">
@@ -107,6 +125,7 @@ $(document).on(':passagerender', function () {
             
             <div class="rightbar-section rightbar-middle">
                 <img src="${imageProfile}" class="profile-image" style="${hideProfile || !imageProfile ? 'visibility: hidden;' : ''}">
+                ${profileStatusIcons}
                 
                 <div class="stats-section" style="${hideStats ? 'visibility: hidden;' : ''}">
                     ${statsHTML}

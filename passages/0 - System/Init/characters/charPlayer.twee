@@ -350,6 +350,10 @@
 <<set $inventory = []>>       /* Player's inventory: [{id, quantity}, ...] */
 <<set $shoppingCart = []>>    /* Temporary cart: [{id, quantity, price}, ...] */
 
+/* READING SYSTEM */
+<<set $readProgress = {}>>    /* { bookId: pagesRead } - partial progress */
+<<set $readFinished = []>>    /* [bookId, ...] - finished books (for My Books list) */
+
 
 /* ==========================================
    17. WARDROBE INITIALIZATION

@@ -1,0 +1,100 @@
+<<nobr>>
+<<set _backTo = $readReturnPassage || "Read">>
+<<set $location = $readReturnPassage>>
+
+<<if !$readSelectedItem>>
+    <<run window.notifyWarning("Please select a book or magazine first.")>>
+    <<goto "Read">>
+<</if>>
+
+<<set _meta = setup.getReadingItem($readSelectedItem)>>
+<<if !_meta>>
+    <<run window.notifyWarning("Invalid selection.")>>
+    <<goto "Read">>
+<</if>>
+
+<<silently>>
+    /* Duration from btnPicker */
+    <<if def $pickerMemory and def $pickerMemory.readingDuration>>
+        <<set $selectedDuration = $pickerMemory.readingDuration>>
+    <<else>>
+        <<set $selectedDuration = 15>>
+    <</if>>
+    <<set $selectedDuration = Math.min(120, Math.max(15, parseInt($selectedDuration) || 15))>>
+
+    /* Reading speed: pages per minute (intelligence + focus affect speed) */
+    <<set _int = $intelligence || 0>>
+    <<set _foc = $focus || 0>>
+    <<set _pagesPerMin = setup.calcReadingSpeed(_int, _foc)>>
+    <<set _minutes = $selectedDuration>>
+    <<set _pagesRead = Math.floor(_pagesPerMin * _minutes)>>
+
+    /* For books & magazines: cap at remaining pages */
+    <<set _startPage = $readProgress[$readSelectedItem] || 0>>
+    <<set _remaining = _meta.pages - _startPage>>
+    <<set _pagesRead = Math.min(_pagesRead, _remaining)>>
+    <<set _newPage = _startPage + _pagesRead>>
+
+    /* Gains: 10 total ÷ total pages = per-page gain */
+    <<set _perPageGain = _meta.gainValue / _meta.pages>>
+    <<set _totalGain = _pagesRead * _perPageGain>>
+
+    /* Apply stat gain */
+    <<if _totalGain > 0>>
+        <<gainStat _meta.gainType _totalGain>>
+    <</if>>
+
+    /* Focus increases when reading (small gain per page) */
+    <<set _focusGain = _pagesRead * 0.05>>
+    <<if _focusGain > 0>>
+        <<gainStat "focus" _focusGain>>
+    <</if>>
+
+    /* Advance time */
+    <<advanceTime $selectedDuration>>
+
+    /* Update progress / finish */
+    <<set State.temporary.newPage = _newPage>>
+    <<if _meta.type === "book">>
+        <<if _newPage >= _meta.pages>>
+            <<run (function(){ var sv=State.variables,rp=sv.readProgress,id=sv.readSelectedItem; if(rp&&rp[id]!==undefined)delete rp[id]; if(!sv.readFinished)sv.readFinished=[]; sv.readFinished.push(id); })()>>
+        <<else>>
+            <<run (function(){ var sv=State.variables,rp=sv.readProgress,id=sv.readSelectedItem,np=State.temporary.newPage; if(!rp)sv.readProgress={}; rp[id]=np; })()>>
+        <</if>>
+    <<else>>
+        /* Magazine: remove from inventory only when fully finished */
+        <<set _magStart = $readProgress[$readSelectedItem] || 0>>
+        <<set _magNewPage = _magStart + _pagesRead>>
+        <<set State.temporary.magNewPage = _magNewPage>>
+        <<if _magNewPage >= _meta.pages>>
+            <<removeFromInventory $readSelectedItem 1>>
+            <<run (function(){ var rp=State.variables.readProgress; if(rp&&rp[State.variables.readSelectedItem]!==undefined)delete rp[State.variables.readSelectedItem]; })()>>
+        <<else>>
+            <<run (function(){ var sv=State.variables,rp=sv.readProgress,id=sv.readSelectedItem,mnp=State.temporary.magNewPage; if(!rp)sv.readProgress={}; rp[id]=mnp; })()>>
+        <</if>>
+    <</if>>
+
+    /* Random narrative */
+    <<set _narratives = _meta.narratives || ["You read quietly for a while."]>>
+    <<set _narrIdx = random(1, _narratives.length) - 1>>
+    <<set _narrText = _narratives[_narrIdx]>>
+<</silently>>
+
+<<narrative "Reading">>
+<<print _narrText>>
+<br><br>
+You read for <<print $selectedDuration>> minutes and finished <<print _pagesRead>> pages.
+<<if _totalGain > 0>>
+<br>
+<<print _meta.gainType.charAt(0).toUpperCase() + _meta.gainType.slice(1)>> +<<print _totalGain.toFixed(1)>>.
+<</if>>
+<<if _focusGain > 0>>
+<br>
+Focus +<<print _focusGain.toFixed(1)>>.
+<</if>>
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Back" _backTo>><</btn>>
+</div>
+<</nobr>>

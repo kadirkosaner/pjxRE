@@ -340,6 +340,53 @@
             effects: [],
             hasTooltip: true
         }
+    ],
+
+    /* ==========================================
+       BOOKS
+       One-time read, progress saved, 10 total gain ÷ pages
+    ========================================== */
+    books: [
+        {
+            id: "book_math_basics",
+            name: "Math Basics",
+            category: "reading",
+            usageType: "passage",
+            desc: "A beginner-friendly math textbook. Use at Read passage.",
+            price: 80,
+            image: "assets/content/inventory/books/mathBasics.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_intro_psychology",
+            name: "Introduction to Psychology",
+            category: "reading",
+            usageType: "passage",
+            desc: "Introduction to psychology. Use at Read passage.",
+            price: 95,
+            image: "assets/content/inventory/books/psychology.webp",
+            effects: [],
+            hasTooltip: true
+        }
+    ],
+
+    /* ==========================================
+       MAGAZINES
+       Consumable - disappears when finished
+    ========================================== */
+    magazines: [
+        {
+            id: "mag_fashion_weekly",
+            name: "Fashion Weekly",
+            category: "reading",
+            usageType: "passage",
+            desc: "Fashion and style magazine. Use at Read passage. Consumed when finished.",
+            price: 15,
+            image: "assets/content/inventory/magazines/fashionWeekly.webp",
+            effects: [],
+            hasTooltip: true
+        }
     ]
 }>>
 
