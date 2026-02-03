@@ -1,14 +1,13 @@
 /**
  * LayoutManager
- * - Pasaj içeriğini .passage-content ile sarar
- * - Timebox varsa → timebox'a göre ortala
- * - fullscreen-centered varsa → viewport ortasına göre ortala
- * - Wardrobe/Shopping → ortalama yok
+ * - Wraps passage content in .passage-content div
+ * - Centers content based on timebox position
+ * - Skips fullscreen-centered, wardrobe-active, shop-active pages
  */
 
 window.LayoutInit = function(API) {
     
-    // Layout işlemleri atlanacak body class'ları
+    // Body classes that should skip layout processing
     var skipClasses = ['fullscreen-centered', 'wardrobe-active', 'shop-active'];
     
     function shouldSkip() {
@@ -45,15 +44,15 @@ window.LayoutInit = function(API) {
         var content = document.querySelector('.passage-content');
         if (!content) return;
         
-        // Transform sıfırla
+        // Reset transform
         content.style.transform = '';
         
         var timebox = document.querySelector('.timebox');
         
-        // Timebox yoksa ortalama yapma
+        // No timebox = no centering
         if (!timebox) return;
         
-        // Timebox'a göre ortala
+        // Center based on timebox
         var tbRect = timebox.getBoundingClientRect();
         var targetCenter = tbRect.left + tbRect.width / 2;
         
@@ -64,13 +63,45 @@ window.LayoutInit = function(API) {
         content.style.transform = 'translateX(' + offset + 'px)';
     }
     
+    function applyLayout() {
+        wrapContent();
+        centerContent();
+    }
+    
+    // Passage render
     $(document).on(':passagerender', function() {
+        requestAnimationFrame(applyLayout);
+    });
+    
+    // After passage fully loaded
+    $(document).on(':passageend', function() {
         requestAnimationFrame(function() {
-            wrapContent();
-            centerContent();
+            requestAnimationFrame(applyLayout);
         });
     });
     
+    // After hard reset / initial load
+    $(document).one(':storyready', function() {
+        requestAnimationFrame(applyLayout);
+    });
+    
+    // Watch for body class changes (wardrobe/shop exit)
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'class') {
+                // Skip class removed, apply layout
+                if (!shouldSkip()) {
+                    setTimeout(function() {
+                        requestAnimationFrame(applyLayout);
+                    }, 50);
+                }
+            }
+        });
+    });
+    
+    observer.observe(document.body, { attributes: true });
+    
+    // Resize handler
     $(window).on('resize', function() {
         requestAnimationFrame(centerContent);
     });
