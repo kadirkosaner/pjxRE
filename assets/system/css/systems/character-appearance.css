@@ -1,0 +1,238 @@
+/* ============================================
+   SYSTEMS/CHARACTER-APPEARANCE.CSS
+   Character modal – Appearance tab (body diagram, pointers, info panels)
+   ============================================ */
+
+.appearance-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: visible;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 70%);
+}
+
+.appearance-wrapper {
+  position: relative;
+  width: 600px;
+  height: 550px;
+  overflow: visible;
+}
+
+/* Body Diagram */
+.body-diagram-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.body-diagram-img {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.2));
+  opacity: 0.9;
+}
+
+/* POINTERS */
+.body-pointer {
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pointer-dot {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.pointer-line {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  width: 40px;
+  transition: all 0.3s ease;
+  margin: 0 2px;
+}
+
+.pointer-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.body-pointer:hover .pointer-dot,
+.body-pointer.active .pointer-dot {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.3);
+  transform: scale(1.2);
+}
+
+.body-pointer:hover .pointer-line,
+.body-pointer.active .pointer-line {
+  background: var(--color-accent);
+  width: 60px;
+  opacity: 1;
+  box-shadow: 0 0 5px var(--color-accent);
+}
+
+.body-pointer:hover .pointer-label,
+.body-pointer.active .pointer-label {
+  color: var(--color-accent);
+  opacity: 1;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(236, 72, 153, 0.6);
+}
+
+/* LEFT SIDE POINTERS */
+.pointer-face, .pointer-bust, .pointer-hips, .pointer-anus {
+  flex-direction: row;
+  right: 50%;
+  justify-content: flex-end;
+  transform-origin: right center;
+}
+
+.pointer-face { top: 5%; right: 50%; transform: translateX(3px); width: 160px; }
+.pointer-bust { top: 24%; right: 65%; transform: translateX(0); width: 140px; }
+.pointer-hips { top: 45%; right: 65%; transform: translateX(0); width: 150px; }
+.pointer-anus { top: 50%; right: 50%; transform: translateX(3px); width: 150px; }
+
+/* RIGHT SIDE POINTERS */
+.pointer-hair, .pointer-teeth, .pointer-waist, .pointer-vagina {
+  flex-direction: row;
+  left: 50%;
+  justify-content: flex-start;
+  transform-origin: left center;
+}
+
+.pointer-hair   { top: 0%; left: 50%; transform: translateX(-3px); width: 150px; }
+.pointer-teeth  { top: 10%; left: 50%; transform: translateX(-3px); width: 150px; }
+.pointer-waist  { top: 35%; left: 52%; transform: translateX(0); width: 140px; }
+.pointer-vagina { top: 50%; left: 50%; transform: translateX(-3px); width: 160px; }
+
+/* INFO PANELS (TOOLTIPS) */
+.app-info-panel {
+  position: absolute;
+  width: 260px;
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 0;
+  color: var(--color-text-primary);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.app-info-panel.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.app-info-img {
+  width: 100%;
+  height: 280px;
+  min-height: 280px;
+  max-height: 280px;
+  background: #0d0d10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-border-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.app-info-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.app-info-content {
+  padding: 12px 16px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.02), transparent);
+}
+
+.app-info-panel h4 {
+  margin: 0 0 10px 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 6px;
+  display: inline-block;
+}
+
+.app-stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding-bottom: 4px;
+}
+
+.app-stat-row:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.app-stat-row span:first-child {
+  color: var(--color-text-secondary);
+}
+
+.app-stat-row .val {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.app-stat-row .text-highlight {
+  color: var(--color-accent);
+}
+
+/* Info panel positions */
+#info-bodytype { top: -3%; left: 30%; }
+#info-hair     { top: 0%; left: 70%; }
+#info-face     { top: 5%; left: -15%; }
+#info-teeth    { top: 10%; right: -15%; }
+#info-bust     { top: 25%; right: 80%; }
+#info-waist    { top: 35%; left: 73%; }
+#info-hips     { top: 45%; right: 75%; }
+#info-vagina   { top: 50%; left: 75%; }
+#info-anus     { top: 50%; right: 75%; }

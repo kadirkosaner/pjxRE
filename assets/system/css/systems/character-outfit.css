@@ -1,0 +1,296 @@
+/* ============================================
+   SYSTEMS/CHARACTER-OUTFIT.CSS
+   Character modal – Outfit display (outfit list, cards, tooltips)
+   ============================================ */
+
+.appearance-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+  padding: var(--spacing-lg);
+  padding-top: 10px;
+}
+
+.appearance-body-column {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 0;
+  padding-left: 20px;
+  margin-top: -70px;
+  overflow: visible;
+}
+
+.appearance-layout .appearance-wrapper {
+  margin: 0;
+}
+
+.outfit-column {
+  width: 320px;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0;
+  margin-right: 20px;
+}
+
+.outfit-list {
+  flex: 0 0 auto;
+  overflow: visible;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.outfit-list::-webkit-scrollbar {
+  display: none;
+}
+
+.outfit-section-header {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 16px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 2px;
+}
+
+.outfit-section-header:first-child {
+  margin-top: 5px;
+}
+
+.outfit-card {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(10, 10, 14, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  gap: 12px;
+  position: relative;
+  transition: all 0.2s ease;
+  min-height: 50px;
+}
+
+.outfit-card:hover {
+  background: rgba(30, 30, 40, 0.9);
+  border-color: var(--color-accent);
+  transform: translateX(-4px);
+}
+
+.outfit-card.empty {
+  opacity: 0.3;
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.outfit-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.outfit-card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.outfit-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.outfit-card-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.outfit-card-name {
+  font-size: 0.85rem;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outfit-status-icon {
+  display: none;
+}
+
+.outfit-card .outfit-tooltip {
+  display: none !important;
+}
+
+/* Global outfit tooltip (created by JS) */
+#global-outfit-tooltip {
+  position: fixed;
+  width: 200px;
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border-radius: 6px;
+  padding: 10px;
+  z-index: 10000;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+#global-outfit-tooltip.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-header {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tooltip-desc {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  line-height: 1.3;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.tooltip-stat-val.quality-common { color: #aaaaaa; }
+.tooltip-stat-val.quality-rare { color: #3b82f6; }
+.tooltip-stat-val.quality-premium { color: #a855f7; }
+.tooltip-stat-val.quality-legendary { color: #eab308; }
+
+.tooltip-stat-val.looks-value,
+.tooltip-stat-val[style*="color: #ec4899"] {
+  color: #ec4899 !important;
+}
+
+.tooltip-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.tooltip-tag-pill {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.tooltip-tag-pill.normal,
+.tooltip-tag-pill.casual,
+.tooltip-tag-pill.comfortable {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.tooltip-tag-pill.revealing,
+.tooltip-tag-pill.sexy {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+.tooltip-tag-pill.provocative,
+.tooltip-tag-pill.naughty {
+  background: rgba(236, 72, 153, 0.15);
+  color: #ec4899;
+  border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+.tooltip-tag-pill.formal,
+.tooltip-tag-pill.elegant,
+.tooltip-tag-pill.party {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.outfit-top-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+.top-stat-card {
+  flex: 1;
+  background: rgba(10, 10, 14, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.top-stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+
+.top-stat-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.pointer-bodytype {
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  justify-content: center;
+  cursor: help;
+}
+
+.pointer-bodytype:hover .pointer-label {
+  color: var(--color-accent);
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+}

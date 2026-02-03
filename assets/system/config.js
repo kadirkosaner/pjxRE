@@ -90,7 +90,10 @@ window.SystemCSS = {
     "journal", // Journal modal styling
     "quest", // Quest prompt system
     "profile", // Profile system
-    "character", // Character interaction
+    "character", // Character interaction (passage + modal overlay)
+    "character-appearance", // Character modal – Appearance tab
+    "character-outfit", // Character modal – Outfit display
+    "location-nav", // Location navigation widget (accordion cards)
     "saveload", // Save/load modal
     "alarm", // Alarm clock system
     "read", // Read system (books & magazines)
