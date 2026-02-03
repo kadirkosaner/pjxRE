@@ -1,12 +1,5 @@
-/**
- * LayoutManager
- * 1. Pasaj içeriğini .passage-content ile sarar (navmenu hariç)
- * 2. İçeriği timebox'a göre ortalar
- */
-
 window.LayoutInit = function(API) {
     
-    // İçeriği .passage-content ile sar
     function wrapContent() {
         var passage = document.querySelector('#passages .passage');
         if (!passage) return;
@@ -26,13 +19,11 @@ window.LayoutInit = function(API) {
         if (navmenu) passage.appendChild(navmenu);
     }
     
-    // Timebox'a göre ortala
     function centerContent() {
         var timebox = document.querySelector('.timebox');
         var content = document.querySelector('.passage-content');
         if (!timebox || !content) return;
         
-        // Önce transform'u sıfırla
         content.style.transform = '';
         
         var tbRect = timebox.getBoundingClientRect();
@@ -45,7 +36,6 @@ window.LayoutInit = function(API) {
         content.style.transform = 'translateX(' + offset + 'px)';
     }
     
-    // Her pasajda çalıştır
     $(document).on(':passagerender', function() {
         requestAnimationFrame(function() {
             wrapContent();
@@ -53,7 +43,6 @@ window.LayoutInit = function(API) {
         });
     });
     
-    // Resize'da ortala
     $(window).on('resize', function() {
         requestAnimationFrame(centerContent);
     });

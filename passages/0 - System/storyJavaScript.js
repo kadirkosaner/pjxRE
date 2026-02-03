@@ -143,8 +143,6 @@ $(document).one(':storyready', async function () {
         $('#ui-bar').remove();
         $(document.head).find('#style-ui-bar').remove();
 
-        // Ortalama artık CSS ile yapılıyor (layout.js + structure.css)
-        // #passages zaten right: var(--rightbar-width) ile rightbar için yer bırakıyor
     } catch (error) {
         console.error("[Loader] Error:", error);
     }

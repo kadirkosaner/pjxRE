@@ -30,20 +30,52 @@ Choose a makeup style, or remove your current makeup. Your corruption and skill 
     <</if>>
 </div>
 <div class="location-actions">
-<<if !_hasKit>>
+    /* Light: corruption 1, kit */
+    <<set _unlock1 = _hasKit && _corr >= 1>>
+    <<set _req1 = []>>
+    <<if _corr < 1>><<run _req1.push("corruption 1")>><</if>>
+    <<if !_hasKit>><<run _req1.push("makeup kit")>><</if>>
+    <<set _tip1 = "Need " + _req1.join(", ")>>
+    <<if _unlock1>><<link "Light">><<set $makeupChosenStyle = 1>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" @data-tooltip="_tip1"><i class="icon icon-lock icon-12"></i> Light</span><</if>>
+
+    /* Medium: corruption 3, skill 20, kit */
+    <<set _unlock2 = _hasKit && _corr >= 3 && _skill >= 20>>
+    <<set _req2 = []>>
+    <<if _corr < 3>><<run _req2.push("corruption 3")>><</if>>
+    <<if _skill < 20>><<run _req2.push("makeup skill 20")>><</if>>
+    <<if !_hasKit>><<run _req2.push("makeup kit")>><</if>>
+    <<set _tip2 = "Need " + _req2.join(", ")>>
+    <<if _unlock2>><<link "Medium">><<set $makeupChosenStyle = 2>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" @data-tooltip="_tip2"><i class="icon icon-lock icon-12"></i> Medium</span><</if>>
+
+    /* Heavy: corruption 4, skill 40, kit */
+    <<set _unlock3 = _hasKit && _corr >= 4 && _skill >= 40>>
+    <<set _req3 = []>>
+    <<if _corr < 4>><<run _req3.push("corruption 4")>><</if>>
+    <<if _skill < 40>><<run _req3.push("makeup skill 40")>><</if>>
+    <<if !_hasKit>><<run _req3.push("makeup kit")>><</if>>
+    <<set _tip3 = "Need " + _req3.join(", ")>>
+    <<if _unlock3>><<link "Heavy">><<set $makeupChosenStyle = 3>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" @data-tooltip="_tip3"><i class="icon icon-lock icon-12"></i> Heavy</span><</if>>
+
+    /* Slutty: corruption 5, skill 75, kit */
+    <<set _unlock4 = _hasKit && _corr >= 5 && _skill >= 75>>
+    <<set _req4 = []>>
+    <<if _corr < 5>><<run _req4.push("corruption 5")>><</if>>
+    <<if _skill < 75>><<run _req4.push("makeup skill 75")>><</if>>
+    <<if !_hasKit>><<run _req4.push("makeup kit")>><</if>>
+    <<set _tip4 = "Need " + _req4.join(", ")>>
+    <<if _unlock4>><<link "Slutty">><<set $makeupChosenStyle = 4>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" @data-tooltip="_tip4"><i class="icon icon-lock icon-12"></i> Slutty</span><</if>>
+
+    /* Bimbo: corruption 5, skill 75, kit */
+    <<set _unlock5 = _hasKit && _corr >= 5 && _skill >= 75>>
+    <<set _req5 = []>>
+    <<if _corr < 5>><<run _req5.push("corruption 5")>><</if>>
+    <<if _skill < 75>><<run _req5.push("makeup skill 75")>><</if>>
+    <<if !_hasKit>><<run _req5.push("makeup kit")>><</if>>
+    <<set _tip5 = "Need " + _req5.join(", ")>>
+    <<if _unlock5>><<link "Bimbo">><<set $makeupChosenStyle = 5>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" @data-tooltip="_tip5"><i class="icon icon-lock icon-12"></i> Bimbo</span><</if>>
+</div>
+
+<div class="location-actions">
     <<btn "Back" "Mirror">><</btn>>
-<<else>>
-    <<set _unlock1 = _corr >= 1 && _skill >= 0>>
-    <<set _unlock2 = _corr >= 3 && _skill >= 20>>
-    <<set _unlock3 = _corr >= 4 && _skill >= 40>>
-    <<set _unlock4 = _corr >= 5 && _skill >= 75>>
-    <<set _unlock5 = _corr >= 5 && _skill >= 75>>
-    <<if _unlock1>><<link "Light">><<set $makeupChosenStyle = 1>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 1"><i class="icon icon-lock icon-12"></i> Light</span><</if>>
-    <<if _unlock2>><<link "Medium">><<set $makeupChosenStyle = 2>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 3 and makeup skill 20"><i class="icon icon-lock icon-12"></i> Medium</span><</if>>
-    <<if _unlock3>><<link "Heavy">><<set $makeupChosenStyle = 3>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 4 and makeup skill 40"><i class="icon icon-lock icon-12"></i> Heavy</span><</if>>
-    <<if _unlock4>><<link "Slutty">><<set $makeupChosenStyle = 4>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 5 and makeup skill 75"><i class="icon icon-lock icon-12"></i> Slutty</span><</if>>
-    <<if _unlock5>><<link "Bimbo">><<set $makeupChosenStyle = 5>><<goto "mirrorMakeupApply">><</link>><<else>><span class="link-internal btn-style btn-default locked" data-tooltip="Need corruption 5 and makeup skill 75"><i class="icon icon-lock icon-12"></i> Bimbo</span><</if>>
-    <<btn "Back" "Mirror">><</btn>>
-<</if>>
 </div>
 <</nobr>>
