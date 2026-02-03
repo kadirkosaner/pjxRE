@@ -57,15 +57,18 @@
         <<advanceTime $selectedDuration>>
         <<loseStat "stress" _stressLossFactor>>
         <<gainStat "energy" _energyGainFactor>>
-        
+        <<gainStat "mood" 5>>
+        <<flushNotifications>>
+        <<recalculateStats>>
         <<set _resultText = "After " + Math.floor($selectedDuration) + " minutes, you wake up feeling refreshed.">>
-        
         <<if $location == "fhLivingroom">>
             <<set _napSceneIndex = random(1, 3)>>
         <</if>>
     <</silently>>
 
     <<narrative "Taking a Nap">>
+    <<print _baseSceneText>>
+    <</narrative>>
     <<if $location == "fhLivingroom">>
         <<if _napSceneIndex == 1>>
             <<vid "assets/content/scenes/maplewood/familyHouse/livingroom/nap/napLivingroom1.mp4" "1000%">>
@@ -74,10 +77,8 @@
         <<else>>
             <<vid "assets/content/scenes/maplewood/familyHouse/livingroom/nap/napLivingroom3.mp4" "1000%">>
         <</if>>
-        <br>
     <</if>>
-    <<print _baseSceneText>>
-    <br><br>
+    <<narrative "Taking a Nap">>
     <<print _resultText>>
     <</narrative>>
     

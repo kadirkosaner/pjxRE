@@ -1,3 +1,4 @@
+
 <<if $energy > 30>>
     <<run window.notifyWarning("You are not tired enough to sleep yet.")>>
     <<goto "fhBed">>
@@ -81,7 +82,7 @@
 
     <<set _sceneIndex = random(1, 3)>>
 <</silently>>
-<<nobr>>
+
 <<narrative "Sleep">>
 You curl up under the covers, the softness of the bed inviting you to let go of the day's worries. You close your eyes, letting your breathing slow.
 <</narrative>>
@@ -95,7 +96,7 @@ You curl up under the covers, the softness of the bed inviting you to let go of 
     <<narrative>>
     The comfort of the bed wraps around you as you slowly fade into sleep...
     <</narrative>>
-    <<vid "assets/content/scenes/maplewood/familyHouse/bedroom/sleep/sleep2.mp4" "60%">>
+    <<vid "assets/content/scenes/maplewood/familyHouse/bedroom/sleep/sleep2.mp4" "100%">>
 <<elseif _sceneIndex == 3>>
     <<narrative>>
     Exhaustion takes over, and you find yourself asleep almost as soon as your head hits the pillow...
@@ -115,4 +116,3 @@ You curl up under the covers, the softness of the bed inviting you to let go of 
     <<btn "Wake Up" "fhBedroom">><</btn>>
 </div>
 <</if>>
-<</nobr>>

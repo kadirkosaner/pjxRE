@@ -3,6 +3,17 @@
    Derived stats, multipliers, gains
 ========================================== */
 
+/* REQUIRE MIN ENERGY - Block action if energy too low */
+/* Usage: <<requireMinEnergy 1 "fhCouch">> or <<requireMinEnergy 5>> (uses $location or fhLivingroom) */
+<<widget "requireMinEnergy">><<nobr>>
+    <<set _min = typeof $args[0] !== "undefined" ? parseInt($args[0]) : 1>>
+    <<set _returnPassage = $args[1] || $location || "fhLivingroom">>
+    <<if (parseInt($energy || 0)) < _min>>
+        <<run window.notifyWarning("Not enough energy.")>>
+        <<goto _returnPassage>>
+    <</if>>
+<</nobr>><</widget>>
+
 /* RECALCULATE DERIVED STATS */
 <<widget "recalculateStats">><<nobr>>
     /* 0. Sync Body Measurements (Text -> CM) */
@@ -36,7 +47,7 @@
     /* Beauty (0-100) = overall body/face attractiveness. No base – derived from fitness (highest), body, face/hair/dental care. */
     <<set _bodyScaled = ($body.appeal || 0) * 2>>
     <<set _beauty = Math.min(100, ($fitness || 0) * 0.28 + _bodyScaled * 0.25 + ($appearance.faceCare || 0) * 0.20 + ($appearance.hairCare || 0) * 0.15 + ($appearance.dentalCare || 0) * 0.12)>>
-    /* Penalty when face + dental care are bad: hygiene 100 ile bile looks 20–25 band */
+    /* Penalty when face + dental care are bad: even with hygiene 100, looks stay in 20–25 range */
     <<set _careSum = ($appearance.faceCare || 0) + ($appearance.dentalCare || 0)>>
     <<if _careSum < 25>>
         <<set _beauty = _beauty * 0.12>>

@@ -1,6 +1,5 @@
 /* ================== External Loader =================== */
 $(document).one(':storyready', async function () {
-    // Helper functions
     function loadCSS(url) {
         return new Promise((resolve, reject) => {
             if (document.querySelector(`link[href="${url}"]`)) {
@@ -28,23 +27,16 @@ $(document).one(':storyready', async function () {
         });
     }
 
-    // Convert module name to Init function name
-    // 'tooltip' -> 'TooltipInit'
     function getInitFunctionName(moduleName) {
         return moduleName.charAt(0).toUpperCase() + moduleName.slice(1) + 'Init';
     }
 
-    // API object
     const API = {
         State: State,
         Engine: Engine,
         Window: Window,
         Dialog: Dialog,
         Save: Save,
-
-        // Load CSS - MODULAR STRUCTURE
-        // All styles are now split into modular files
-
         Config: Config,
         $: $,
         setup: setup,
@@ -52,72 +44,44 @@ $(document).one(':storyready', async function () {
     };
 
     try {
-        // Load config first to get module definitions
         await loadJS("assets/system/config.js");
-
-        // Load CSS - MODULAR STRUCTURE
-        // All styles are now split into modular files
-
         const cssBase = "assets/system/css/";
 
-        // Base - Variables, reset (MUST load first)
         for (const module of window.SystemCSS.base) {
             try { await loadCSS(`${cssBase}base/${module}.css`); } catch (e) { }
         }
-
-        // Layout - Structure, topbar, rightbar
         for (const module of window.SystemCSS.layout) {
             try { await loadCSS(`${cssBase}layout/${module}.css`); } catch (e) { }
         }
-
-        // UI - Buttons, modals, tabs, forms
         for (const module of window.SystemCSS.ui) {
             try { await loadCSS(`${cssBase}ui/${module}.css`); } catch (e) { }
         }
-
-        // Screens - Welcome, startscreen, gamesetup
         for (const module of window.SystemCSS.screens) {
             try { await loadCSS(`${cssBase}screens/${module}.css`); } catch (e) { }
         }
-
-        // Systems - Phone, map, wardrobe, relations, etc.
         for (const module of window.SystemCSS.systems) {
             try { await loadCSS(`${cssBase}systems/${module}.css`); } catch (e) { }
         }
-
-        // Utils - Notifications, tooltips, animations (load last)
         for (const module of window.SystemCSS.utils) {
             try { await loadCSS(`${cssBase}utils/${module}.css`); } catch (e) { }
         }
-
-        // Collect all module names for auto-init
         const allModules = [];
-
-        // Load utils first (base systems)
         for (const module of window.SystemModules.utils) {
             await loadJS(`assets/system/js/utils/${module}.js`);
             allModules.push(module);
         }
-
-        // Load UI modules
         for (const module of window.SystemModules.ui) {
             await loadJS(`assets/system/js/ui/${module}.js`);
             allModules.push(module);
         }
-
-        // Load modal modules
         for (const module of window.SystemModules.modal) {
             await loadJS(`assets/system/js/modal/${module}.js`);
             allModules.push(module);
         }
-
-        // Load system modules
         for (const module of window.SystemModules.system) {
             await loadJS(`assets/system/js/system/${module}.js`);
             allModules.push(module);
         }
-
-        // Auto-initialize all modules
         allModules.forEach(moduleName => {
             const initFn = getInitFunctionName(moduleName);
             if (window[initFn]) {
@@ -125,20 +89,11 @@ $(document).one(':storyready', async function () {
                 window[initFn](API);
             }
         });
-
-        // Monitor loading state
         console.log("[Loader] All modules loaded and initialized.");
-
-        // Force re-render of the current passage now that macros are available
-        // This fixes the race condition where passage renders before external JS loads
         if (typeof Engine !== 'undefined' && typeof Engine.show === 'function') {
             setTimeout(() => Engine.show(), 50);
         }
-
-        // Trigger initial render event listeners
         $(document).trigger(':passagerender');
-
-        // Destroy UIBar completely - remove element and CSS
         if (typeof UIBar !== 'undefined') UIBar.destroy();
         $('#ui-bar').remove();
         $(document.head).find('#style-ui-bar').remove();
@@ -149,58 +104,39 @@ $(document).one(':storyready', async function () {
 });
 
 /* ================== Fullscreen Layout Detection =================== */
-// When topbar and rightbar are hidden, center the page content
 $(document).on(':passagerender', function () {
     const vars = State.variables;
-
-    // Check if both topbar content and rightbar are hidden
     const topbarHidden = vars.hideTopbar === true ||
         (vars.hideTopbarNav === true && vars.hideTopbarTimebox === true && vars.hideTopbarNotifications === true);
     const rightbarHidden = vars.hideRightbar === true;
-
-    // Fullscreen Layout
     if (topbarHidden && rightbarHidden) {
         $('body').addClass('fullscreen-layout');
     } else {
         $('body').removeClass('fullscreen-layout');
     }
-
-    // Auto-suppress Navigation in Quest Scenes or Explicit Tag
     if (State.passage.startsWith('quest_') || tags().includes('hide-nav')) {
         $('body').addClass('hide-nav');
     } else {
         $('body').removeClass('hide-nav');
     }
-
-    // Auto-inject Quest Prompts if any are pending
-    // Only inject in non-quest passages (quest scenes handle their own flow)
     if (!State.passage.startsWith('quest_') && State.variables.pendingQuestPrompts?.length > 0) {
         const $passage = $('#passages .passage');
-
-        // Try to inject after .narrative, otherwise at the end before .btn-center
         const $narrative = $passage.find('.narrative').last();
         const $btnCenter = $passage.find('.btn-center').first();
 
         if ($narrative.length) {
-            // Inject after the last narrative block
-            const promptHtml = $('<div class="quest-prompts-inject"></div>');
             $.wiki('<<questPrompts>>');
             $narrative.after($('.quest-prompts-container').detach());
         } else if ($btnCenter.length) {
-            // Inject before button container
             $.wiki('<<questPrompts>>');
             $btnCenter.before($('.quest-prompts-container').detach());
         } else {
-            // Fallback: append to passage
             $.wiki('<<questPrompts>>');
             $passage.append($('.quest-prompts-container').detach());
         }
     }
 });
 /* ================== QUEST SYSTEM V2 =================== */
-// Complete quest management with automatic triggers, cinematic scenes, and rewards
-
-// Helper: Get current time period
 function getQuestPeriod(hour) {
     if (hour >= 6 && hour < 12) return 'morning';
     if (hour >= 12 && hour < 18) return 'afternoon';
@@ -208,29 +144,20 @@ function getQuestPeriod(hour) {
     return 'night';
 }
 
-// Helper: Check if all trigger conditions are met
 function checkQuestTriggers(triggers, vars, currentLoc, currentHour, currentPeriod) {
     if (!triggers) return { met: true, blocking: null };
-
-    // Location check
     if (triggers.location && triggers.location !== currentLoc) {
         return { met: false, blocking: 'location' };
     }
-
-    // Time period check
     if (triggers.time?.period && triggers.time.period !== currentPeriod) {
         return { met: false, blocking: 'time' };
     }
-
-    // Hour range check
     if (triggers.time?.hour) {
         const [minH, maxH] = triggers.time.hour;
         if (currentHour < minH || currentHour >= maxH) {
             return { met: false, blocking: 'time' };
         }
     }
-
-    // Character presence check
     if (triggers.character) {
         const char = vars.characters?.[triggers.character.id];
         if (!char) return { met: false, blocking: 'character' };
@@ -241,8 +168,6 @@ function checkQuestTriggers(triggers, vars, currentLoc, currentHour, currentPeri
             return { met: false, blocking: 'character_status' };
         }
     }
-
-    // Flag check
     if (triggers.flag && !vars[triggers.flag]) {
         return { met: false, blocking: 'flag' };
     }
@@ -250,20 +175,15 @@ function checkQuestTriggers(triggers, vars, currentLoc, currentHour, currentPeri
     return { met: true, blocking: null };
 }
 
-// Helper: Check quest requirements (stats, relationships, flags, quests)
 function checkQuestRequirements(reqs, vars) {
     if (!reqs) return { met: true, missing: [] };
 
     const missing = [];
-
-    // Flag requirements
     if (reqs.flags) {
         for (const flag of reqs.flags) {
             if (!vars[flag]) missing.push({ type: 'flag', name: flag });
         }
     }
-
-    // Quest requirements
     if (reqs.quests) {
         for (const qid of reqs.quests) {
             if (!vars.questState?.completed?.includes(qid)) {
@@ -271,8 +191,6 @@ function checkQuestRequirements(reqs, vars) {
             }
         }
     }
-
-    // Relationship requirements
     if (reqs.relationships) {
         for (const [charId, stats] of Object.entries(reqs.relationships)) {
             for (const [stat, min] of Object.entries(stats)) {
@@ -283,8 +201,6 @@ function checkQuestRequirements(reqs, vars) {
             }
         }
     }
-
-    // Stat requirements
     if (reqs.stats) {
         for (const [stat, min] of Object.entries(reqs.stats)) {
             const current = vars.player?.[stat] || 0;
@@ -298,33 +214,21 @@ function checkQuestRequirements(reqs, vars) {
 }
 
 /* -------------------- QUEST LEGACY SUPPORT -------------------- */
-// Legacy support for old questCheck widget (if exists)
 $(document).on(':passagerender', function () {
-    if (Macro.has("questCheck")) {
-        $.wiki("<<questCheck>>");
-    }
-    // Update Time Event icons (automatic check on every passage load)
+    if (Macro.has("questCheck")) $.wiki("<<questCheck>>");
     $.wiki("<<updateTimedEvents>>");
 });
 
-/* -------------------- QUEST PROMPTS WIDGET -------------------- */
-// Renders quest prompts by checking triggers dynamically when macro is called
-// Usage: <<questPrompts>>              - shows location-only prompts
-//        <<questPrompts "charId">>     - shows prompts for specific character
+/* -------------------- QUEST PROMPTS -------------------- */
+/* Usage: <<questPrompts>> or <<questPrompts "charId">> */
 Macro.add('questPrompts', {
     handler: function () {
         const vars = State.variables;
-        const charFilter = this.args[0] || null;  // Optional character ID
-
-        // Get current context
+        const charFilter = this.args[0] || null;
         const currentLoc = vars.location || '';
         const currentHour = vars.timeSys?.hour || 12;
         const currentPeriod = getQuestPeriod(currentHour);
-
-        // Collect matching prompts
         const prompts = [];
-
-        // Check if we have active quests
         if (!vars.questState?.active || !setup.quests) return;
 
         for (const [qid, state] of Object.entries(vars.questState.active)) {
@@ -333,24 +237,15 @@ Macro.add('questPrompts', {
 
             const stage = quest.stages[state.stage];
             if (!stage || !stage.forceScene || !stage.passage) continue;
-
-            // Skip if already triggered this stage
             if (state.triggeredStage === state.stage) continue;
 
-
-            // Check trigger conditions
             const triggerResult = checkQuestTriggers(
                 stage.triggers, vars, currentLoc, currentHour, currentPeriod
             );
 
             if (!triggerResult.met) continue;
-
-            // Check requirements
             const reqResult = checkQuestRequirements(stage.requirements, vars);
             if (!reqResult.met) continue;
-
-            // ===== MEAL TIME VALIDATION =====
-            // If quest has mealType, only show during that meal time
             if (quest.mealType) {
                 const isBreakfast = currentHour >= 7 && currentHour < 8;
                 const isLunch = currentHour >= 12 && currentHour < 13;
@@ -363,17 +258,11 @@ Macro.add('questPrompts', {
 
                 if (!inMealTime) continue;
             }
-
-            // Determine trigger type
             const triggerChar = stage.triggers?.character?.id || null;
             const triggerType = triggerChar ? 'character' : 'location';
-
-            // Filter based on context
             if (charFilter) {
-                // Character context: show only prompts for this character
                 if (triggerChar !== charFilter) continue;
             } else {
-                // Location context: show only location-based prompts
                 if (triggerType !== 'location') continue;
             }
 
@@ -390,13 +279,11 @@ Macro.add('questPrompts', {
         const container = $('<div>').addClass('location-actions');
 
         prompts.forEach(prompt => {
-            // Create button using quest style
             const btn = $('<a>')
                 .addClass('link-internal btn-style action-btn btn-quest')
                 .attr('data-passage', prompt.passage)
                 .text(prompt.buttonText)
                 .ariaClick({ namespace: '.quest-prompt', one: true }, function () {
-                    // Mark this stage as triggered
                     if (vars.questState?.active?.[prompt.questId]) {
                         vars.questState.active[prompt.questId].triggeredStage =
                             vars.questState.active[prompt.questId].stage;
@@ -421,13 +308,9 @@ Macro.add('startQuest', {
         if (!quest) return this.error(`Quest "${qid}" not found in setup.quests`);
 
         const vars = State.variables;
-
-        // Initialize questState if needed
         if (!vars.questState) {
             vars.questState = { active: {}, completed: [], failed: [], daily: {} };
         }
-
-        // Already active or completed?
         if (vars.questState.active[qid]) {
             console.log(`[Quest V2] Quest "${qid}" already active`);
             return;
@@ -436,23 +319,17 @@ Macro.add('startQuest', {
             console.log(`[Quest V2] Quest "${qid}" already completed`);
             return;
         }
-
-        // Check requirements
         const reqResult = checkQuestRequirements(quest.requirements, vars);
         if (!reqResult.met) {
             console.log(`[Quest V2] Cannot start "${qid}" - missing requirements:`, reqResult.missing);
             return;
         }
-
-        // Start the quest
         vars.questState.active[qid] = {
             stage: 0,
             objectives: {},
             triggeredStage: -1,
             startDate: `${vars.timeSys?.day || 1}/${vars.timeSys?.month || 1}/${vars.timeSys?.year || 2025}`
         };
-
-        // Show notification
         if (window.showNotification) {
             window.showNotification({
                 type: 'quest',
@@ -483,11 +360,8 @@ Macro.add('advanceQuestStage', {
 
         state.stage++;
         state.objectives = {};
-        state.triggeredStage = -1; // Reset trigger flag for new stage
-
+        state.triggeredStage = -1;
         console.log(`[Quest V2] Advanced "${qid}" to stage ${state.stage}`);
-
-        // Check if quest complete
         if (state.stage >= quest.stages.length) {
             $.wiki(`<<completeQuest "${qid}">>`);
         } else {
@@ -516,17 +390,10 @@ Macro.add('completeObjective', {
         const quest = setup.quests?.[qid];
 
         if (!state || !quest) return;
-
         const stage = quest.stages[state.stage];
         if (!stage?.objectives) return;
-
-        // Already completed?
         if (state.objectives[objId]) return;
-
-        // Mark objective complete
         state.objectives[objId] = true;
-
-        // Find objective text
         const obj = stage.objectives.find(o => o.id === objId);
         if (obj && window.showNotification) {
             window.showNotification({
@@ -537,8 +404,6 @@ Macro.add('completeObjective', {
         }
 
         console.log(`[Quest V2] Completed objective "${objId}" for quest "${qid}"`);
-
-        // Check stage completion
         const allComplete = stage.objectives.every(o => state.objectives[o.id]);
         const anyComplete = stage.objectives.some(o => state.objectives[o.id]);
 
@@ -560,18 +425,11 @@ Macro.add('completeQuest', {
         const quest = setup.quests?.[qid];
 
         if (!vars.questState?.active?.[qid] || !quest) return;
-
-        // Remove from active
         delete vars.questState.active[qid];
-
-        // Add to completed
         if (!vars.questState.completed) vars.questState.completed = [];
         vars.questState.completed.push(qid);
-
-        // Apply rewards
         const rewards = quest.onComplete;
         if (rewards) {
-            // Relationship rewards
             if (rewards.relationships) {
                 for (const [charId, gains] of Object.entries(rewards.relationships)) {
                     if (!vars.characters?.[charId]) continue;
@@ -581,8 +439,6 @@ Macro.add('completeQuest', {
                     }
                 }
             }
-
-            // Stat rewards
             if (rewards.stats) {
                 for (const [stat, value] of Object.entries(rewards.stats)) {
                     vars.player[stat] = (vars.player[stat] || 0) + value;
@@ -591,20 +447,14 @@ Macro.add('completeQuest', {
                     $.wiki('<<recalculateStats>>');
                 }
             }
-
-            // Money
             if (rewards.money) {
                 vars.money = (vars.money || 0) + rewards.money;
             }
-
-            // Flags
             if (rewards.flags) {
                 for (const flag of rewards.flags) {
                     vars[flag] = true;
                 }
             }
-
-            // Notification
             const msg = rewards.notification || `Quest Complete: ${quest.title}`;
             if (window.showNotification) {
                 window.showNotification({
@@ -666,19 +516,38 @@ Macro.add('getQuestHint', {
     }
 });
 
-/* ================== Custom Link Macro =================== */
-/* Usage: <<btn "Text" "passage" "style">>optional code<</btn>> */
+/* ================== btn Macro =================== */
+/* Usage: <<btn "Text" "passage" "style">> or <<btn "Text" "passage" "style" minEnergy>> */
 Macro.add('btn', {
-    tags: null,  // Makes this a container macro
+    tags: null,
     handler: function () {
         if (this.args.length < 1) {
             return this.error('btn macro requires at least 1 argument: text');
         }
 
         const text = this.args[0];
-        const passage = this.args[1]; // Optional
+        const passage = this.args[1];
         const style = this.args[2] ? this.args[2].toLowerCase() : 'default';
-        const payload = this.payload[0].contents;  // Code inside the macro
+        const minEnergy = this.args[3] !== undefined ? parseInt(this.args[3], 10) : 0;
+        const payload = this.payload[0].contents;
+
+        const energy = parseInt(State.variables.energy || 0, 10);
+        const locked = minEnergy > 0 && energy < minEnergy;
+
+        if (locked) {
+            const tooltip = 'Need ' + minEnergy + ' energy';
+            const span = $('<span>')
+                .addClass('link-internal btn-style locked')
+                .attr('data-tooltip', tooltip)
+                .html('<span class="icon icon-lock icon-12"></span> ' + text)
+                .appendTo(this.output);
+            if (style.includes(' ')) {
+                span.addClass(style);
+            } else {
+                span.addClass('btn-' + style);
+            }
+            return;
+        }
 
         const link = $('<a>')
             .addClass('link-internal')
@@ -688,9 +557,9 @@ Macro.add('btn', {
             .appendTo(this.output);
 
         if (style.includes(' ')) {
-            link.addClass(style); // Add raw classes: "btn-default action-btn"
+            link.addClass(style);
         } else {
-            link.addClass('btn-' + style); // Add prefixed class: "btn-default"
+            link.addClass('btn-' + style);
         }
 
         if (passage) {
@@ -701,11 +570,7 @@ Macro.add('btn', {
             namespace: '.macros',
             one: true
         }, function () {
-            // Run any code inside the macro first
-            if (payload.trim()) {
-                $.wiki(payload);
-            }
-            // Then navigate if passage specified
+            if (payload.trim()) $.wiki(payload);
             if (passage) {
                 Engine.play(passage);
             }
@@ -713,9 +578,8 @@ Macro.add('btn', {
     }
 });
 
-/* ================== Picker Button Macro =================== */
-// Duration presets are defined in System/Base/DurationPresets[INIT].twee
-// Usage: <<btnPicker "Watch TV" "watchTV" "tvDuration">>
+/* ================== btnPicker Macro =================== */
+/* Usage: <<btnPicker "Text" "passage" "presetName">> or add 4th style, 5th minEnergy. Presets in DurationPresets.twee */
 Macro.add('btnPicker', {
     handler: function () {
         if (this.args.length < 3) {
@@ -726,51 +590,52 @@ Macro.add('btnPicker', {
         const passage = this.args[1];
         const presetName = this.args[2];
         const style = this.args[3] ? this.args[3].toLowerCase() : 'default';
+        const minEnergy = this.args[4] !== undefined ? parseInt(this.args[4], 10) : 0;
 
-        const preset = setup.durationPresets[presetName];
-        if (!preset) {
-            return this.error(`Preset "${presetName}" not found in setup.durationPresets`);
+        const energy = parseInt(State.variables.energy || 0, 10);
+        const locked = minEnergy > 0 && energy < minEnergy;
+
+        if (locked) {
+            const tooltip = 'Need ' + minEnergy + ' energy';
+            const span = $('<span>')
+                .addClass('link-internal btn-style locked')
+                .attr('data-tooltip', tooltip)
+                .html('<span class="icon icon-lock icon-12"></span> ' + text)
+                .appendTo(this.output);
+            if (style.includes(' ')) {
+                span.addClass(style);
+            } else {
+                span.addClass('btn-' + style);
+            }
+            return;
         }
 
-        // Get or initialize remembered selection
+        const preset = setup.durationPresets[presetName];
+        if (!preset) return this.error(`Preset "${presetName}" not found in setup.durationPresets`);
         if (!State.variables.pickerMemory) {
             State.variables.pickerMemory = {};
         }
-
-        // Default to first option if not remembered
         const remembered = State.variables.pickerMemory[presetName];
         let selectedValue = remembered !== undefined ? remembered : preset[0].value;
-
-        // Find label for selected value
         const getLabel = (val) => {
             const found = preset.find(p => p.value === val);
             return found ? found.label : preset[0].label;
         };
-
-        // Create wrapper
         const wrapper = $('<div>')
             .addClass('btn-picker-split')
             .appendTo(this.output);
-
-        // Create main button (clickable, goes to passage)
         const btn = $('<a>')
             .addClass('link-internal btn-style btn-' + style + ' btn-picker-main')
             .attr('tabindex', '0')
             .text(text)
             .appendTo(wrapper);
-
-        // Create dropdown trigger (shows current selection)
         const trigger = $('<a>')
             .addClass('btn-picker-trigger')
             .html('<span class="picker-value">' + getLabel(selectedValue) + '</span> <span class="icon icon-chevron-down icon-12"></span>')
             .appendTo(wrapper);
-
-        // Create dropdown
         const dropdown = $('<div>')
             .addClass('btn-picker-dropdown')
             .appendTo(wrapper);
-
-        // Add options
         preset.forEach(option => {
             const optionBtn = $('<a>')
                 .addClass('btn-picker-option')
@@ -786,25 +651,17 @@ Macro.add('btnPicker', {
                 e.preventDefault();
                 e.stopPropagation();
 
-                // Update selection
                 selectedValue = option.value;
                 State.variables.pickerMemory[presetName] = selectedValue;
-
-                // Update trigger display
                 trigger.find('.picker-value').text(option.label);
 
-                // Update visual
                 dropdown.find('.btn-picker-option').removeClass('selected');
                 $(this).addClass('selected');
-
-                // Close dropdown
                 dropdown.removeClass('open');
                 wrapper.removeClass('open');
                 $('body').removeClass('btn-picker-open');
             });
         });
-
-        // Toggle dropdown on trigger click
         trigger.on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -817,15 +674,11 @@ Macro.add('btnPicker', {
                 $('body').removeClass('btn-picker-open');
             }
         });
-
-        // Main button click - use selected value and navigate
         btn.on('click', function (e) {
             e.preventDefault();
             State.variables.selectedDuration = selectedValue;
             Engine.play(passage);
         });
-
-        // Close on outside click
         $(document).on('click.btnPicker' + presetName, function (e) {
             if (!wrapper.is(e.target) && wrapper.has(e.target).length === 0) {
                 dropdown.removeClass('open');
@@ -833,8 +686,6 @@ Macro.add('btnPicker', {
                 $('body').removeClass('btn-picker-open');
             }
         });
-
-        // Cleanup on passage change
         $(document).one(':passagestart', function () {
             $(document).off('click.btnPicker' + presetName);
             $('body').removeClass('btn-picker-open');
@@ -845,23 +696,16 @@ Macro.add('btnPicker', {
 
 
 /* ================== Dynamic Button Styles =================== */
-// Generate button styles from CSS variables
 $(document).one(':storyready', function () {
     const generateButtonStyles = () => {
         const root = document.documentElement;
         const styles = getComputedStyle(root);
         let cssRules = '';
-
-        // Get all CSS custom properties from root
         const allProps = [];
         for (let i = 0; i < styles.length; i++) {
             const prop = styles[i];
-            if (prop.startsWith('--color-')) {
-                allProps.push(prop);
-            }
+            if (prop.startsWith('--color-')) allProps.push(prop);
         }
-
-        // Filter: only pure color variables (exclude bg, border, text)
         const colorVars = allProps.filter(prop =>
             !prop.includes('-bg-') &&
             !prop.includes('-border-') &&
@@ -1021,7 +865,7 @@ Macro.add('dialog', {
         const type = character.type || 'npc';
         const color = character.color || '#666';
 
-        // Player için sadece firstName, diğerleri için firstName + lastName
+        // Player: firstName only; others: firstName + lastName
         let charName;
         if (type === 'player') {
             charName = vars.player?.firstName || character.firstName || charId;
@@ -1339,7 +1183,7 @@ Macro.add('showActions', {
                 }
             }
 
-            // Check stat requirements
+            // Check stat requirements (character stats)
             const reqs = action.requirements || {};
             let meetsReqs = true;
             let missingReqs = [];
@@ -1350,6 +1194,18 @@ Macro.add('showActions', {
                     missingReqs.push(`${stat.charAt(0).toUpperCase() + stat.slice(1)}: ${value}`);
                 }
             }
+
+            // Check player energy (e.g. Talk costs 5)
+            const minEnergy = action.minPlayerEnergy != null ? action.minPlayerEnergy : 0;
+            const playerEnergy = parseInt(vars.energy || 0, 10);
+            if (minEnergy > 0 && playerEnergy < minEnergy) {
+                meetsReqs = false;
+                missingReqs.push('Need ' + minEnergy + ' energy');
+            }
+
+            const lockTooltip = missingReqs.length === 1 && missingReqs[0].startsWith('Need ') && missingReqs[0].endsWith(' energy')
+                ? missingReqs[0]
+                : (missingReqs.length ? 'Requires: ' + missingReqs.join(', ') : '');
 
             // Create button
             const btn = $('<a>').addClass('btn-style action-btn');
@@ -1364,7 +1220,7 @@ Macro.add('showActions', {
             } else {
                 btn.addClass('locked')
                     .html(`<span class="icon icon-lock icon-12"></span> ${action.label}`)
-                    .attr('data-tooltip', `Requires: ${missingReqs.join(', ')}`);
+                    .attr('data-tooltip', lockTooltip);
             }
 
             container.append(btn);
@@ -1380,7 +1236,6 @@ Macro.add('showActions', {
 });
 
 /* ================== UI Event Handlers =================== */
-// Reset scroll position on passage change (both events so it's reliable regardless of engine order)
 function resetPassagesScroll() {
     const passages = document.getElementById('passages');
     if (passages) passages.scrollTop = 0;
@@ -1392,47 +1247,24 @@ $(document).on(':passagestart', function () {
 });
 
 /* ================== Passage Layout =================== */
-// Ortalama artık layout.js + CSS ile yapılıyor (transform yok)
-
-
-
-// Topbar’a göre ortala: timebox DOM’a geldikten sonra (topbar :topbarready tetikler)
-
 $(document).on(':passagerender', resetPassagesScroll);
 
-
 /* ================== Navigation Card Handlers =================== */
-
-/**
- * Check if a location is currently open
- * @param {string} locationId - The location ID to check
- * @returns {boolean} True if open, false if closed
- */
+/** @param {string} locationId @returns {boolean} */
 window.isLocationOpen = function (locationId) {
     const hours = setup.locationHours?.[locationId];
-
-    // Not in list = always open
     if (!hours) return true;
-
-    // 24h flag = always open
     if (hours.open24h) return true;
 
     const currentHour = State.variables.timeSys?.hour ?? 12;
     const { open, close } = hours;
-
-    // Handle overnight hours (e.g., 22-05)
     if (close < open) {
         return currentHour >= open || currentHour < close;
     }
-
-    // Normal hours
     return currentHour >= open && currentHour < close;
 };
 
-// Helper function for Navigation Cards
-// Processes <<navCard>> tags and renders navigation menu cards
 window.processNavCard = function (tag, $container, passedSetup) {
-    // Ensure we have access to setup
     const navSetup = passedSetup || window.setup || {};
 
     const args = tag.args;
@@ -1440,32 +1272,18 @@ window.processNavCard = function (tag, $container, passedSetup) {
     let displayName = args[0];
     let passageName = args[1];
     let imagePath = args[2];
-
-    // === DISCOVERED CHECK ===
-    // Check if this card is explicitly hidden via $discoveredCardId = false
-    // Format: cardId "fhKitchen" -> check $discoveredFhKitchen (capitalize first letter)
     const capitalizedId = cardId.charAt(0).toUpperCase() + cardId.slice(1);
     const discoveryVar = 'discovered' + capitalizedId;
-    const discoveryState = State.variables[discoveryVar];
-
-    // If explicitly set to false, don't render this card
-    if (discoveryState === false) {
+    if (State.variables[discoveryVar] === false) {
         console.log(`[Navigation] Card "${cardId}" hidden (${discoveryVar} = false)`);
-        return; // Skip this card
+        return;
     }
-    // Note: undefined or true means visible (default visible)
-
-    // Check if ID exists in database (setup.navCards)
     if (navSetup.navCards && navSetup.navCards[cardId]) {
         const dbCard = navSetup.navCards[cardId];
-        // Use DB values if not overridden
         displayName = args[1] || dbCard.name;
-        passageName = dbCard.passage || cardId; // If passage not in DB, assume ID is passage
-        // Image priority: manual arg > $locationImages > navCards DB > placeholder
+        passageName = dbCard.passage || cardId;
         imagePath = args[2] || null;
-    }
-    else {
-        // First arg is just display name if 2nd arg exists (Manual Mode)
+    } else {
         if (args.length >= 2) {
             displayName = args[0];
             passageName = args[1];
@@ -1475,12 +1293,6 @@ window.processNavCard = function (tag, $container, passedSetup) {
             passageName = args[0];
         }
     }
-
-    // Image resolution priority:
-    // 1. Manual argument (args[2])
-    // 2. $locationImages[cardId]
-    // 3. setup.navCards[cardId].image
-    // 4. Placeholder
     if (!imagePath) {
         const locationImages = setup.locationImages || {};
         if (locationImages[cardId]) {
@@ -1489,24 +1301,16 @@ window.processNavCard = function (tag, $container, passedSetup) {
             imagePath = navSetup.navCards[cardId].image;
         }
     }
-
-    // Default image if still missing
     if (!imagePath) imagePath = "assets/system/images/placeholder_nav.png";
-
-    // Check location hours
     const hours = setup.locationHours?.[cardId];
     const hasHours = !!hours;
     const isOpen = window.isLocationOpen(cardId);
-
-    // Create status badge (only if location has hours defined)
     let statusBadge = '';
     if (hasHours) {
         const statusClass = isOpen ? 'status-open' : 'status-closed';
         const statusText = isOpen ? 'Open' : 'Closed';
         statusBadge = `<div class="nav-card-status ${statusClass}">${statusText}</div>`;
     }
-
-    // Create Navigation Card HTML
     const $card = $(`
         <div class="nav-card ${hasHours && !isOpen ? 'location-closed' : ''}">
             <img src="${imagePath}" class="card-bg">
@@ -1515,10 +1319,7 @@ window.processNavCard = function (tag, $container, passedSetup) {
             <div class="nav-card-name">${displayName}</div>
         </div>
     `);
-
-    // Click Handler -> Go to Passage (with travel time)
     $card.on('click', function () {
-        // Block if location is closed
         if (hasHours && !isOpen) {
             const openHour = hours.open?.toString().padStart(2, '0') || '??';
             if (window.showNotification) {
@@ -1553,12 +1354,9 @@ window.processNavCard = function (tag, $container, passedSetup) {
 Macro.add('navMenu', {
     tags: ['navCard'],
     handler: function () {
-        // Fix: Suppress navigation menu in cinematic quest scenes
         if (State.passage.startsWith('quest_')) {
             return;
         }
-
-        // Add body class for overflow management
         $('body').addClass('has-navmenu');
 
         const payload = this.payload;
@@ -1638,7 +1436,6 @@ Macro.add('navMenu', {
                 'opacity': '1' // Show after calculation
             });
 
-            // Apply container styles - Restore rounded corners and transparency
             $container.css({
                 'width': '100%',
                 'overflow': 'hidden',
@@ -1647,8 +1444,6 @@ Macro.add('navMenu', {
                 'box-shadow': 'none',
                 'border-radius': '12px'
             });
-
-            // Fix: Explicitly round the outermost cards
             $container.find('.nav-card').first().css({
                 'border-top-left-radius': '12px',
                 'border-bottom-left-radius': '12px'
@@ -1658,27 +1453,18 @@ Macro.add('navMenu', {
                 'border-bottom-right-radius': '12px'
             });
         };
-
-        // Initialize positioning
-        // We use delays to ensure DOM is settled and passage centering is complete
         setTimeout(positionNavMenu, 10);
         setTimeout(positionNavMenu, 100);
-        setTimeout(positionNavMenu, 350); // After passage centering's last timeout (300ms)
-
-        // Update on resize
+        setTimeout(positionNavMenu, 350);
         const resizeHandler = () => requestAnimationFrame(positionNavMenu);
         window.addEventListener('resize', resizeHandler);
-
-        // Update on sidebar toggle or other layout changes
         const observer = new MutationObserver(positionNavMenu);
         const rightbarEl = document.querySelector('.right-bar');
         if (rightbarEl) observer.observe(rightbarEl, { attributes: true, attributeFilter: ['style', 'class'] });
-
-        // Cleanup
         $(document).one(':passagestart', () => {
             window.removeEventListener('resize', resizeHandler);
             observer.disconnect();
-            $('body').removeClass('has-navmenu'); // Remove body class on passage change
+            $('body').removeClass('has-navmenu');
         });
     }
 });

@@ -5,7 +5,7 @@
 <<set $location = "fhKitchen">>
 <<updateCharacterLocations>>
 
-/* Stats ve time - normal yemekle aynı */
+/* Stats and time - same as normal meal */
 <<advanceTime 30>>
 <<loseStat "hunger" 50>>
 <<loseStat "thirst" 80>>

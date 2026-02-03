@@ -75,6 +75,9 @@
     
     /* Clear the queue */
     <<set $pendingNotifications = {}>>
+
+    /* Refresh topbar/rightbar so stat values update in same passage */
+    <<run $(document).trigger(':passagerender')>>
 <</widget>>
 
 /* NOTIFY STAT CHANGE IMMEDIATELY (no queue) */

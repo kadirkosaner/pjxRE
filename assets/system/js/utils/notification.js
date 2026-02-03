@@ -102,7 +102,7 @@ window.showNotification = function (options) {
     $el.addClass('active');
   }, 10);
 
-  // Otomatik kapanış
+  // Auto close
   const closeAfter = Math.max(0, Number(config.duration) || 0);
   if (closeAfter > 0) {
     setTimeout(() => closeNotification($el), closeAfter);

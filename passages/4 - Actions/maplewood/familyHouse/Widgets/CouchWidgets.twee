@@ -17,13 +17,21 @@
         
         <<if _presentFamily.length === 0>>
             <<set $watchingWith = "alone">>
-            <<btnPicker "Watch TV" "watchTV" "tvDuration">>
+            <<btnPicker "Watch TV" "watchTV" "tvDuration" "default" 5>>
         <<elseif _presentFamily.length === 1>>
             <<set $watchingWith = _presentFamily[0].toLowerCase()>>
-            <<btnPicker ` "Watch TV with " + _presentFamily[0] ` "watchTV" "tvDuration">>
-        <<elseif _presentFamily.length >= 2>>
+            <<btnPicker ` "Watch TV with " + _presentFamily[0] ` "watchTV" "tvDuration" "default" 5>>
+        <<elseif _presentFamily.length === 2>>
+            <<if _presentFamily.includes("Mom") && _presentFamily.includes("Dad")>>
+                <<set $watchingWith = "momdad">>
+                <<btnPicker "Watch TV with Mom & Dad" "watchTV" "tvDuration" "default" 5>>
+            <<else>>
+                <<set $watchingWith = "family">>
+                <<btnPicker "Watch TV with Family" "watchTV" "tvDuration" "default" 5>>
+            <</if>>
+        <<else>>
             <<set $watchingWith = "family">>
-            <<btnPicker "Watch TV with Family" "watchTV" "tvDuration">>
+            <<btnPicker "Watch TV with Family" "watchTV" "tvDuration" "default" 5>>
         <</if>>
     </div>
 <</nobr>>

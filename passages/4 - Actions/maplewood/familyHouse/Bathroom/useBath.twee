@@ -5,7 +5,10 @@
     <<set $appearance.hairCombed = 0>>
     <<run window.notifySuccess("Hygiene Restored")>>
     <<gainStat "energy" 5>>
+    <<gainStat "mood" 5>>
     <<loseStat "stress" 10>>
+    <<flushNotifications>>
+    <<recalculateStats>>
     <<set _sceneIndex = random(1, 3)>>
 <</silently>>
 

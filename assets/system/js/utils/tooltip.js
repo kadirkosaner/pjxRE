@@ -20,7 +20,7 @@ window.TooltipInit = function(API) {
     });
 };
 
-// Global tooltip popup oluştur (tek seferlik)
+// Create global tooltip popup (one-time)
 function createGlobalTooltip() {
     if (!TooltipAPI) return;
     

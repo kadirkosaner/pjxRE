@@ -6,7 +6,7 @@
     gap: 0.75rem;
     animation: dialogSlide 0.3s ease;
     width: 100%;
-    max-width: 100%;   /* Passage alanından taşmasın */
+    max-width: 100%;   /* Don't overflow passage area */
 }
 
 @keyframes dialogSlide {
@@ -60,7 +60,7 @@
     border-radius: 8px;
     padding: 0.875rem 1.125rem;
     transition: all 0.2s ease;
-    min-width: min(425px, 100%);  /* Dar alanda taşmayı önle */
+    min-width: min(425px, 100%);  /* Prevent overflow on narrow area */
     max-width: min(600px, 100%);
     order: 2;
 }
@@ -84,7 +84,7 @@
 
 .dialogue.player .name {
     text-align: right;
-    /* Player ismi sağa yasla */
+    /* Align player name to right */
 }
 
 /* Text */
@@ -161,7 +161,7 @@
     justify-content: flex-end;
     margin-bottom: 0.75rem;
     width: 100%;
-    max-width: 100%;   /* Passage alanından taşmasın */
+    max-width: 100%;   /* Don't overflow passage area */
     animation: dialogSlide 0.3s ease;
 }
 
@@ -170,7 +170,7 @@
     border: 1px dashed #333;
     border-radius: 8px;
     padding: 0.875rem 1.125rem;
-    min-width: min(425px, 100%);  /* Dar ekranda taşmayı önle */
+    min-width: min(425px, 100%);  /* Prevent overflow on narrow screen */
     max-width: min(600px, 100%);
     transition: all 0.2s ease;
     order: 1;

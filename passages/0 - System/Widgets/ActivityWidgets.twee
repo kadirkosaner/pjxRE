@@ -1,7 +1,7 @@
 /* ==========================================
    ACTIVITY WIDGETS
-   Logic for Living Room Activities (Yoga, Dance)
-   + Daily Activity Tracking for Character Interactions
+   Daily activity tracking for character interactions (Talk daily limit).
+   Location activity buttons: single definition per activity, included in passages.
 ========================================== */
 
 /* ==========================================
@@ -58,41 +58,32 @@
 
 /* ==========================================
    LOCATION ACTIVITY BUTTONS
+   One definition per activity – include in passages to avoid duplication.
 ========================================== */
 
 <<widget "yogaActions">><<nobr>>
     <<if $location === "fhBackyard">>
         <<set $activityOrigin = "fhBackyard">>
-        <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat" $daily.yogaDone>>
+        <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
     <<else>>
         <<set $activityOrigin = "fhLivingroom">>
         <<set _momPresent = ($characters.mother.currentLocation === "fhLivingroom")>>
         <<if _momPresent>>
-            <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat" $daily.yogaDone>>
+            <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
         <<else>>
-            <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat" $daily.yogaDone>>
+            <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
         <</if>>
     <</if>>
 <</nobr>><</widget>>
 
 <<widget "danceActions">><<nobr>>
     <<set $activityOrigin = "fhLivingroom">>
-    <<activityButton "Dance" "runDance" "" $daily.danceDone>>
+    <<activityButton "Dance" "runDance" "minStat:energy 20" $daily.danceDone>>
 <</nobr>><</widget>>
-
-/* ==========================================
-   PARK ACTIVITY BUTTONS
-========================================== */
 
 <<widget "parkActions">><<nobr>>
     <<set $activityOrigin = "sunsetPark">>
-    
-    /* Bench - Always available */
-    <<btn "Sit on Bench" "parkBench">><</btn>>
-    
-    /* Jogging - Requires sporty outfit (top, bottom, shoes) */
-    <<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3" $daily.jogDone>>
-    
-    /* Yoga - Requires yoga mat + sporty outfit */
-    <<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat" $daily.yogaDone>>
+    <<btnPicker "Sit on Bench" "parkBench" "benchDuration">>
+    <<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3|minStat:energy 20" $daily.jogDone>>
+    <<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
 <</nobr>><</widget>>

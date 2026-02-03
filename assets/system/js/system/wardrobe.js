@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Wardrobe System Module
  * Renders the wardrobe UI and handles clothing management
  */
@@ -191,7 +191,7 @@ function checkRequirements(item) {
     if (!S.temporary) S.temporary = {};
     S.temporary.wardrobeItemToCheck = item;
     
-    // Wikifier'ı bul
+    // Find Wikifier
     const WikifierClass = window.Wikifier || (typeof SugarCube !== 'undefined' && SugarCube.Wikifier);
     
     if (!WikifierClass) {
@@ -199,7 +199,7 @@ function checkRequirements(item) {
         return { allowed: true };
     }
     
-    // Widget çağır
+    // Call widget
     new WikifierClass(null, "<<checkClothingRequirements>>");
     
     const result = S.temporary.wardrobeCheckResult;
@@ -228,7 +228,7 @@ function checkCommandoRequirement(slot) {
         return { allowed: true };
     }
     
-    // Widget çağır
+    // Call widget
     new WikifierClass(null, "<<checkCommandoRequirement>>");
     
     const result = S.temporary.wardrobeCheckResult;

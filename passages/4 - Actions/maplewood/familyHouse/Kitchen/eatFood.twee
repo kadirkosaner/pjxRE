@@ -5,7 +5,10 @@
     <<loseStat "thirst" 100>>
     <<run window.notifySuccess("Hunger & Thirst Restored")>>
     <<gainStat "energy" 5>>
+    <<gainStat "mood" 10>>
     <<loseStat "stress" 5>>
+    <<flushNotifications>>
+    <<recalculateStats>>
 <</silently>>
 
 <<narrative "Eat Food">>

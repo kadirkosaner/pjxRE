@@ -71,7 +71,7 @@
                     <<set _currentValue = State.variables[_statName] || 0>>
                     <<if _currentValue < _minValue>>
                         <<set _canDoActivity = false>>
-                        <<run _errorMessages.push("Need " + _statName + " >= " + _minValue + " (current: " + _currentValue + ")")>>
+                        <<run _errorMessages.push("Need " + _minValue + " " + _statName)>>
                     <</if>>
                 <</if>>
                 
@@ -114,21 +114,21 @@
    
    Requirements Format: "type:value|type2:value2"
    
-   Park Yoga (outfit + item):
-   <<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat" $daily.yogaDone>>
+   Park Yoga (outfit + item + min energy 15):
+   <<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
    
-   Park Jog (outfit only):
-   <<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3" $daily.jogDone>>
+   Park Jog (outfit + min energy 20):
+   <<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3|minStat:energy 20" $daily.jogDone>>
    
    Nap (with max energy check):
    <<activityButton "Take a Nap" "runNap" "maxStat:energy 50" false>>
    
-   Yoga with Mom (outfit + item, no character check in widget):
-   <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat" $daily.yogaDone>>
+   Yoga with Mom (outfit + item + min energy 15):
+   <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
    
    Character presence check (optional):
    <<activityButton "Study with Sarah" "studyWithSarah" "character:sarah|minStat:intelligence 20" false>>
    
-   Dance (no requirements):
-   <<activityButton "Dance" "runDance" "" $daily.danceDone>>
+   Dance (min energy 20):
+   <<activityButton "Dance" "runDance" "minStat:energy 20" $daily.danceDone>>
 ========================================== */

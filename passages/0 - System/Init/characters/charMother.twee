@@ -67,25 +67,25 @@
     fhKitchen: [
         {
             id: "talk", label: "Talk", passage: "motherTalkKitchen",
-            tags: [], requirements: {}, dailyLimit: true
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
         }
     ],
     fhLivingroom: [
         {
             id: "talk", label: "Talk", passage: "motherTalkLivingRoom",
-            tags: [], requirements: {}, dailyLimit: true
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
         }
     ],
     fhBackyard: [
         {
             id: "talk", label: "Talk", passage: "motherTalkBackyard",
-            tags: [], requirements: {}, dailyLimit: true
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
         }
     ],
     fhParentsRoom: [
         {
             id: "talk", label: "Talk", passage: "motherTalkParentsRoom",
-            tags: [], requirements: { fatherNotPresent: true }, dailyLimit: true
+            tags: [], requirements: { fatherNotPresent: true }, dailyLimit: true, minPlayerEnergy: 5
         }
     ]
 }>>

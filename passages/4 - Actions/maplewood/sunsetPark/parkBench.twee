@@ -1,15 +1,17 @@
 <<nobr>>
-<<set $location = "sunsetPark">>
+<<silently>>
+    <<set $location = "sunsetPark">>
+    <<set $selectedDuration = $selectedDuration || 30>>
+    <<advanceTime $selectedDuration>>
+    <<loseStat "stress" 5>>
+    <<gainStat "mood" 5>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+<</silently>>
 
 <<narrative "Park Bench">>
 You find a quiet bench overlooking the pond and settle in. People pass by - joggers, dog walkers, families with children. The park has its own rhythm. Sometimes it's nice to just sit and watch life go by.
 <</narrative>>
-
-<<silently>>
-    <<advanceTime 30>>
-    <<loseStat "stress" 5>>
-    <<recalculateStats>>
-<</silently>>
 
 <div class="location-actions">
     <<btn "Stand Up" $activityOrigin>><</btn>>
