@@ -1,0 +1,59 @@
+/* ========================================
+   SCENE: USE COMPUTER - DISTRICT MAP
+   ======================================== */
+:: quest_use_computer_02_district_map
+<<silently>>
+<<advanceTime 5>>
+<</silently>>
+
+<<narrative "Brother's Computer">>
+A stylized map appears - the city divided into colored zones. Your cursor hovers over each area, revealing popup descriptions:
+
+**Maplewood** - Residential district. Tree-lined streets. Family-friendly.
+You nod. "That's where we are."
+
+**Downtown** - Business district. Skyscrapers. Always busy.
+"Wow, looks pretty big and crowded."
+
+**Hillcrest** - Upscale neighborhood. Expensive homes. Golf courses.
+"So this is where the rich people live. I wonder what it's like... Whatever."
+
+**University District** - College campus. Student housing. Cafes.
+"Hmm, I should keep this in mind. Might be good to know if I want to continue with college."
+
+**Old Town** - Historic center. Civic services. Main street shops.
+
+Your cursor stops here. The "civic services" part catches your attention.
+
+You click on Old Town.
+
+The page loads with vintage photographs - old brick buildings, cobblestone streets, black and white images from decades past. The description reads:
+
+"Old Town is the historic heart of our city. Originally the main business district, it now serves as the civic and cultural center."
+
+You keep scrolling. A section labeled "Key Locations:"
+
+**• Civic Center** - City government hub
+  - Town Hall (City offices, Career Services)
+  - Maplewood High School
+  - Public Library
+  - Post Office
+
+**• Historic Main Street**
+  - Local shops and businesses
+  - Ruby's Diner (Est. 1952)
+
+**• Community Spaces**
+  - Old Town Square
+  - Heritage Museum
+
+"So everything's here," you mutter to yourself.
+
+Your eyes linger on "Town Hall - Career Services"
+
+"Career Services... I guess it's like the yellow pages or something... This could be useful."
+<</narrative>>
+
+<div class="btn-center">
+<<btn "Continue" "quest_use_computer_03_career_center">><</btn>>
+</div>

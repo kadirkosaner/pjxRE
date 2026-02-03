@@ -148,25 +148,43 @@
         title: "Use Brother's Computer",
         category: "tutorial",
         character: "player",
-        
+
         requirements: {
             quests: ["new_beginnings"]
         },
-        
+
         stages: [
             {
-                id: "go_to_computer",
+                id: "start_computer",
                 title: "Use the Computer",
                 desc: "Use your brother's computer to explore online",
                 buttonText: "Use Computer",
-                triggers: { location: "fhBrothersRoom" },
+                triggers: { location: "fhBrotherRoom" },
                 forceScene: true,
-                passage: "quest_use_computer_scene"
+                passage: "quest_use_computer_01_start"
+            },
+            {
+                id: "browse_districts",
+                title: "Browse City Districts",
+                desc: "Learning about the city neighborhoods",
+                passage: "quest_use_computer_02_district_map"
+            },
+            {
+                id: "check_career_center",
+                title: "Check Career Center",
+                desc: "Found information about Town Hall Career Services",
+                passage: "quest_use_computer_03_career_center"
+            },
+            {
+                id: "brother_interrupts",
+                title: "Brother Returns",
+                desc: "Your brother wants to use his computer",
+                passage: "quest_use_computer_04_brother_enters"
             }
         ],
-        
+
         onComplete: {
-            flags: ["used_computer"],
+            flags: ["used_computer", "learned_oldtown", "learned_civic_center", "knows_corner_shop_hiring"],
             notification: "Quest Complete: Use Brother's Computer"
         }
     },
@@ -177,11 +195,11 @@
         title: "Find a Job",
         category: "main",
         character: "player",
-        
+
         requirements: {
             quests: ["new_beginnings"]
         },
-        
+
         stages: [
             {
                 id: "start_job_search",
@@ -191,11 +209,20 @@
                 triggers: { location: "fhBedroom" },
                 forceScene: true,
                 passage: "quest_find_job_scene"
+            },
+            {
+                id: "check_corner_shop",
+                title: "Check Corner Shop",
+                desc: "Your brother mentioned the Corner Shop is hiring",
+                buttonText: "Ask About the Job",
+                triggers: { location: "storeCorner" },
+                forceScene: true,
+                passage: "quest_find_job_corner_shop"
             }
         ],
-        
+
         onComplete: {
-            flags: ["job_search_started"],
+            flags: ["job_search_started", "applied_corner_shop"],
             notification: "Quest Complete: Find a Job"
         }
     }

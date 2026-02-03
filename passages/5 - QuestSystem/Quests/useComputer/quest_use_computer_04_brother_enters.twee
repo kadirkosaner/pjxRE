@@ -1,0 +1,109 @@
+/* ========================================
+   SCENE: USE COMPUTER - BROTHER ENTERS
+   ======================================== */
+:: quest_use_computer_04_brother_enters
+<<silently>>
+<<advanceTime 5>>
+
+/* Relationship bonus */
+<<gainCharacterStat "brother" "friendship" 3>>
+<</silently>>
+
+<<narrative "Brother's Room">>
+Your brother walks in, looking at his phone. He looks up when he sees you at the desk.
+<</narrative>>
+
+<<dialog "brother">>
+Oh, you done?
+<</dialog>>
+
+<<dialog "player">>
+Yeah, just looked up some stuff about the city.
+<</dialog>>
+
+<<dialog "brother">>
+(Leans against the desk)
+Find anything good?
+<</dialog>>
+
+<<dialog "player">>
+There's a career center at Town Hall. I'll probably check it out tomorrow.
+<</dialog>>
+
+<<dialog "brother">>
+Town Hall? I think I've seen it. My school should be around there.
+<</dialog>>
+
+<<narrative>>
+You shrug.
+<</narrative>>
+
+<<dialog "player">>
+I don't know, it's only been a few days since we got here. Haven't explored much yet.
+<</dialog>>
+
+<<dialog "brother">>
+Actually, I think it's close. You'll find it easily. Makes sense to go there. But... I think there was a help wanted sign at the Corner Shop. Saw it yesterday when I walked by.
+<</dialog>>
+
+<<dialog "player">>
+Corner Shop? The one around our corner?
+<</dialog>>
+
+<<dialog "brother">>
+Yeah. I think they're looking for someone.
+<</dialog>>
+
+<<narrative>>
+You think about it. The Corner Shop is closer, simpler. Maybe it's a good place to start.
+<</narrative>>
+
+<<dialog "player">>
+Okay, I'll check there first then. If that doesn't work out, I'll head to Town Hall.
+<</dialog>>
+
+<<dialog "brother">>
+(Smiles)
+Anyway, if you're done, I'll take over the computer. You know, last days of summer break. Trying to enjoy them.
+<</dialog>>
+
+<<narrative>>
+You stand up from the desk.
+<</narrative>>
+
+<<dialog "player">>
+(Laughing)
+You've trashed your room. Clean this place up sometime. Your desktop looks just as messy as your room.
+<</dialog>>
+
+<<narrative>>
+Your brother quickly sits down in the chair you just left and clicks on a game.
+<</narrative>>
+
+<<dialog "brother">>
+By the way, you can use my messy computer anytime, sis. Just not when I'm gaming.
+<</dialog>>
+
+<<dialog "player">>
+(Laughing)
+Okay, thanks kiddo.
+<</dialog>>
+
+<<dialog "brother">>
+Good morning, and in case I don't see ya, good afternoon, good evening, and good night!
+<</dialog>>
+
+<<narrative>>
+You slowly walk out of the room. The plan is clear in your head: Check the Corner Shop first, then Town Hall if needed.
+
+"Time to find a job."
+<</narrative>>
+
+<<nobr>>
+<<completeQuest "use_computer">>
+<<advanceQuestStage "find_job" "check_corner_shop">>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Leave the room" "fhUpperstairs">><</btn>>
+</div>
