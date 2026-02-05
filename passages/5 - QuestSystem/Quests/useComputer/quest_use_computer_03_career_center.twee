@@ -3,6 +3,7 @@
    ======================================== */
 :: quest_use_computer_03_career_center
 <<silently>>
+<<set $location = "fhBrotherRoomPC">>
 <<advanceTime 5>>
 <</silently>>
 
@@ -11,24 +12,26 @@ You click on the "Career Services" link.
 
 A new page opens. A photo of Town Hall - a classic building with white columns, official-looking.
 
-Heading: **"Town Hall - Career Services Center"**
+Heading: "Town Hall - Career Services Center"
 
 Below it, a description:
 
 "Our city's official job placement and career counseling center. We offer free services to job-seeking citizens:
-• Resume preparation assistance
-• Job application counseling
-• Local employer connections
-• Vocational training programs"
+Resume preparation assistance
+Job application counseling
+Local employer connections
+Vocational training programs"
 
-**Hours:**
-Monday - Friday
-09:00 - 17:00
+Hours: Monday - Friday, 09:00 - 17:00
 
-**Address:** Old Town, Civic Center
+Address: Old Town, Civic Center
+<</narrative>>
 
-"I should go there," you think. "It's an official place, I'll get professional help. I'll stop by tomorrow."
+<<thought>>
+I should go there. It's an official place, I'll get professional help. I'll stop by tomorrow.
+<</thought>>
 
+<<narrative>>
 You've gathered enough information. You close the browser—
 
 Just then, the door opens.

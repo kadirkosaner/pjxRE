@@ -1,0 +1,34 @@
+/* ==========================================
+   COMPUTER WIDGET
+   Handles brother's computer interaction
+   - Quest prompts when quest is active
+   - Availability check (brother presence)
+   - Computer usage menu
+========================================== */
+
+<<widget "useComputerWidget">><<nobr>>
+<<silently>>
+    /* Check if brother is in the room */
+    <<set _brotherPresent = $characters.brother &&
+         $characters.brother.location === "fhBrotherRoom">>
+
+    /* Check if quest is completed */
+    <<set _computerQuestDone = $flags && $flags.includes("used_computer")>>
+<</silently>>
+
+/* If quest is done and brother is NOT present, allow computer use */
+<<if _computerQuestDone && !_brotherPresent>>
+    <<actions>>
+        <<action "Use Computer" "computerMenu">>
+    <</actions>>
+
+/* If quest is done but brother is present, show message */
+<<elseif _computerQuestDone && _brotherPresent>>
+    <div class="info-box">
+        <i class="fas fa-desktop"></i> Your brother is currently using his computer.
+    </div>
+
+/* Before quest is done, don't show anything */
+<</if>>
+
+<</nobr>><</widget>>

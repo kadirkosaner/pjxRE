@@ -3,7 +3,7 @@
    ======================================== */
 :: quest_use_computer_01_start
 <<silently>>
-<<set $location = "fhBrothersRoom">>
+<<set $location = "fhBrotherRoomPC">>
 <<updateCharacterLocations>>
 <<advanceTime 5>>
 <</silently>>
@@ -12,9 +12,13 @@
 You sit down at your brother's desk. As messy as usual - empty energy drink cans, crumpled papers, gaming magazines scattered about.
 
 You power on the computer. The monitor flickers with a bluish light. The desktop loads - a sexy anime character wallpaper. You're a bit surprised, but that's not what you're curious about right now. Folders everywhere, ridiculous file names, game shortcuts. The desktop is just as messy as his room.
+<</narrative>>
 
+<<thought>>
 For a moment, you wonder what's in those folders. You glance at the door... but your mind is elsewhere, so you let it go.
+<</thought>>
 
+<<narrative>>
 You open the browser and type "city guide" into the search bar.
 
 First result: "CityGuide.com - Everything About Your New Home"
@@ -24,10 +28,10 @@ You click on it. The page loads - city skyline at sunset, welcoming text:
 "From a small railway town founded in 1889 to a diverse city of 200,000 today... From historic districts to modern downtown, from quiet suburbs to vibrant university life - there's something here for everyone."
 
 You see the navigation links:
-• About the City
-• Districts & Neighborhoods
-• Services & Amenities
-• Community Board
+About the City
+Districts & Neighborhoods
+Services & Amenities
+Community Board
 
 You click on "Districts & Neighborhoods."
 <</narrative>>

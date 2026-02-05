@@ -1,0 +1,22 @@
+/* ==========================================
+   COMPUTER MENU
+   Post-quest computer usage
+========================================== */
+:: computerMenu
+<<silently>>
+<<set $location = "fhBrotherRoom">>
+<<advanceTime 5>>
+<</silently>>
+
+<<narrative "Brother's Computer">>
+You sit down at your brother's messy desk and power on the computer. The familiar anime wallpaper loads up.
+
+What do you want to do?
+<</narrative>>
+
+<<actions>>
+    <<action "Browse City Guide" "computerCityGuide">>
+    <<action "Check Email" "computerEmail">>
+    <<action "Social Media" "computerSocialMedia">>
+    <<action "Close Computer" "fhBrotherRoom">>
+<</actions>>

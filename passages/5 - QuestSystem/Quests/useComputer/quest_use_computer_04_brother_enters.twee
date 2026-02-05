@@ -3,6 +3,7 @@
    ======================================== */
 :: quest_use_computer_04_brother_enters
 <<silently>>
+<<set $location = "fhBrotherRoomPC">>
 <<advanceTime 5>>
 
 /* Relationship bonus */
@@ -34,11 +35,8 @@ There's a career center at Town Hall. I'll probably check it out tomorrow.
 Town Hall? I think I've seen it. My school should be around there.
 <</dialog>>
 
-<<narrative>>
-You shrug.
-<</narrative>>
-
 <<dialog "player">>
+(Shrugs)
 I don't know, it's only been a few days since we got here. Haven't explored much yet.
 <</dialog>>
 
@@ -96,10 +94,11 @@ Good morning, and in case I don't see ya, good afternoon, good evening, and good
 <<narrative>>
 You slowly walk out of the room. The plan is clear in your head: Check the Corner Shop first, then Town Hall if needed.
 
-"Time to find a job."
+Time to find a job.
 <</narrative>>
 
 <<nobr>>
+<<run $flags.pushUnique("used_computer", "learned_oldtown", "learned_civic_center", "knows_corner_shop_hiring")>>
 <<completeQuest "use_computer">>
 <<advanceQuestStage "find_job" "check_corner_shop">>
 <</nobr>>

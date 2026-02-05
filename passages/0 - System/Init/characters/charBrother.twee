@@ -34,74 +34,73 @@
 <<set setup.schedules.brother = {
     school: {
         weekday: [
-            { hour: 0, location: "fhGuestRoom", status: "sleeping" },
+            { hour: 0, location: "fhBrotherRoom", status: "sleeping" },
             { hour: 6, minute: 50, location: "fhUpperBath", status: "showering" },   /* Shower 6:50-7:00 (10 min) */
             { hour: 7, location: "fhKitchen", status: "available" },                 /* Family Breakfast 7:00-7:30 */
-            { hour: 7, minute: 30, location: "fhGuestRoom", status: "available" },   /* Get ready for school */
+            { hour: 7, minute: 30, location: "fhBrotherRoom", status: "available" },   /* Get ready for school */
             { hour: 8, location: "school", status: "busy" },                         /* At school 8:00-15:00 */
-            { hour: 15, location: "fhGuestRoom", status: "available" },              /* Back from school */
+            { hour: 15, location: "fhBrotherRoom", status: "available" },              /* Back from school */
             { hour: 17, location: "fhLivingroom", status: "available" },
             { hour: 18, minute: 30, location: "fhKitchen", status: "available" },    /* Family Dinner 18:30-19:30 */
-            { hour: 19, minute: 30, location: "fhGuestRoom", status: "available" },
-            { hour: 20, location: "fhGuestRoom", status: "available" },
-            { hour: 23, location: "fhGuestRoom", status: "sleeping" }
+            { hour: 19, minute: 30, location: "fhBrotherRoom", status: "available" },
+            { hour: 20, location: "fhBrotherRoom", status: "available" },
+            { hour: 23, location: "fhBrotherRoom", status: "sleeping" }
         ],
         weekend: [
-            { hour: 0, location: "fhGuestRoom", status: "sleeping" },
+            { hour: 0, location: "fhBrotherRoom", status: "sleeping" },
             { hour: 8, location: "fhUpperBath", status: "showering" },               /* Shower 8:00-8:15 (15 min) */
-            { hour: 8, minute: 15, location: "fhGuestRoom", status: "available" },   /* Getting ready */
+            { hour: 8, minute: 15, location: "fhBrotherRoom", status: "available" },   /* Getting ready */
             { hour: 8, minute: 30, location: "fhKitchen", status: "available" },     /* Family Breakfast 8:30-9:30 */
-            { hour: 9, minute: 30, location: "fhGuestRoom", status: "available" },
+            { hour: 9, minute: 30, location: "fhBrotherRoom", status: "available" },
             { hour: 11, location: "fhLivingroom", status: "available" },
             { hour: 12, minute: 30, location: "fhKitchen", status: "available" },    /* Family Lunch 12:30-13:30 */
-            { hour: 13, minute: 30, location: "fhGuestRoom", status: "available" },
+            { hour: 13, minute: 30, location: "fhBrotherRoom", status: "available" },
             { hour: 14, location: "fhLivingroom", status: "available" },
             { hour: 18, minute: 30, location: "fhKitchen", status: "available" },    /* Family Dinner 18:30-19:30 */
-            { hour: 19, minute: 30, location: "fhGuestRoom", status: "available" },
-            { hour: 20, location: "fhGuestRoom", status: "available" },
-            { hour: 23, location: "fhGuestRoom", status: "sleeping" }
+            { hour: 19, minute: 30, location: "fhBrotherRoom", status: "available" },
+            { hour: 20, location: "fhBrotherRoom", status: "available" },
+            { hour: 23, location: "fhBrotherRoom", status: "sleeping" }
         ]
     },
     vacation: {
         weekday: [
-            { hour: 0, location: "fhGuestRoom", status: "available" },               /* Late night gaming */
-            { hour: 2, location: "fhGuestRoom", status: "sleeping" },
+            { hour: 0, location: "fhBrotherRoom", status: "available" },               /* Late night gaming */
+            { hour: 2, location: "fhBrotherRoom", status: "sleeping" },
             { hour: 6, minute: 50, location: "fhUpperBath", status: "showering" },   /* Shower 6:50-7:00 (10 min) */
             { hour: 7, location: "fhKitchen", status: "available" },                 /* Family Breakfast 7:00-7:30 */
-            { hour: 7, minute: 30, location: "fhGuestRoom", status: "available" },
+            { hour: 7, minute: 30, location: "fhBrotherRoom", status: "available" },
             { hour: 10, location: "fhLivingroom", status: "available" },
             { hour: 12, minute: 30, location: "fhKitchen", status: "available" },    /* Family Lunch 12:30-13:00 */
-            { hour: 13, location: "fhGuestRoom", status: "available" },
+            { hour: 13, location: "fhBrotherRoom", status: "available" },
             { hour: 15, location: "fhBackyard", status: "available" },               /* Backyard - summer vibes */
             { hour: 16, location: "fhLivingroom", status: "available" },
             { hour: 18, minute: 30, location: "fhKitchen", status: "available" },    /* Family Dinner 18:30-19:30 */
             { hour: 19, minute: 30, location: "fhBackyard", status: "available" },   /* Evening backyard */
-            { hour: 20, minute: 30, location: "fhGuestRoom", status: "available" },
-            { hour: 23, location: "fhGuestRoom", status: "available" }               /* Still up */
+            { hour: 20, minute: 30, location: "fhBrotherRoom", status: "available" },
+            { hour: 23, location: "fhBrotherRoom", status: "available" }               /* Still up */
         ],
         weekend: [
-            { hour: 0, location: "fhGuestRoom", status: "available" },               /* Late night gaming */
-            { hour: 2, location: "fhGuestRoom", status: "sleeping" },
+            { hour: 0, location: "fhBrotherRoom", status: "available" },               /* Late night gaming */
+            { hour: 2, location: "fhBrotherRoom", status: "sleeping" },
             { hour: 8, location: "fhUpperBath", status: "showering" },               /* Shower 8:00-8:15 (15 min) */
-            { hour: 8, minute: 15, location: "fhGuestRoom", status: "available" },   /* Getting ready */
+            { hour: 8, minute: 15, location: "fhBrotherRoom", status: "available" },   /* Getting ready */
             { hour: 8, minute: 30, location: "fhKitchen", status: "available" },     /* Family Breakfast 8:30-9:30 */
-            { hour: 9, minute: 30, location: "fhGuestRoom", status: "available" },
+            { hour: 9, minute: 30, location: "fhBrotherRoom", status: "available" },
             { hour: 11, location: "fhLivingroom", status: "available" },
             { hour: 12, minute: 30, location: "fhKitchen", status: "available" },    /* Family Lunch 12:30-13:30 */
-            { hour: 13, minute: 30, location: "fhGuestRoom", status: "available" },
+            { hour: 13, minute: 30, location: "fhBrotherRoom", status: "available" },
             { hour: 15, location: "fhBackyard", status: "available" },               /* Backyard - summer vibes */
             { hour: 16, location: "fhLivingroom", status: "available" },
             { hour: 18, minute: 30, location: "fhKitchen", status: "available" },    /* Family Dinner 18:30-19:30 */
             { hour: 19, minute: 30, location: "fhBackyard", status: "available" },   /* Evening backyard */
-            { hour: 20, minute: 30, location: "fhGuestRoom", status: "available" },
-            { hour: 23, location: "fhGuestRoom", status: "available" }               /* Still up */
+            { hour: 20, minute: 30, location: "fhBrotherRoom", status: "available" },
+            { hour: 23, location: "fhBrotherRoom", status: "available" }               /* Still up */
         ]
     }
 }>>
 
 /* ACTIONS - What can you do with him at each location */
 /* Uses setup.* to avoid save file bloat */
-/* NOTE: fhBrotherRoom is used as Guest Room where brother stays */
 <<set setup.characterActions.brother = {
     fhBrotherRoom: [
         {
