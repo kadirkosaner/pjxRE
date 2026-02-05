@@ -5,7 +5,7 @@
 <<set _friendship = _char.stats.friendship>>
 
 /* Determine phase based on work status */
-<<if $flags.fatherStartedWork>>
+<<if def $flags && $flags.fatherStartedWork>>
     <<set _phase = "postWork">>
 <<else>>
     <<set _phase = "preWork">>

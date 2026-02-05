@@ -1,7 +1,6 @@
 /* ========================================
    SCENE: USE COMPUTER - START
    ======================================== */
-:: quest_use_computer_01_start
 <<silently>>
 <<set $location = "fhBrotherRoomPC">>
 <<updateCharacterLocations>>
@@ -24,7 +23,7 @@ You open the browser and type "city guide" into the search bar.
 First result: "CityGuide.com - Everything About Your New Home"
 
 You click on it. The page loads - city skyline at sunset, welcoming text:
-
+<<image "assets/content/scenes/maplewood/familyHouse/brotherRoom/questComputer/browser_cityguide.webp" "100%">>
 "From a small railway town founded in 1889 to a diverse city of 200,000 today... From historic districts to modern downtown, from quiet suburbs to vibrant university life - there's something here for everyone."
 
 You see the navigation links:

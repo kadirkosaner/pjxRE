@@ -1,0 +1,90 @@
+<<nobr>>
+/* Safety check - ensure we have a valid character */
+<<set _returnLoc = previous()>>
+<<if !_returnLoc>>
+    <<set _returnLoc = $location>>
+<</if>>
+
+<<if !$interactingChar || !$characters[$interactingChar]>>
+    <<goto _returnLoc>>
+<</if>>
+<<set _char = $characters[$interactingChar]>>
+
+/* Make sure character locations are updated */
+<<if !_char.currentLocation>>
+    <<updateCharacterLocations>>
+    <<set _char = $characters[$interactingChar]>>
+<</if>>
+
+<<set _charLoc = _char.currentLocation || "unknown">>
+<<set _status = _char.currentStatus || "available">>
+<<set $location = _charLoc>>
+/* Get display name from navCards, fallback to raw ID */
+<<set _charLocName = setup.navCards[_charLoc]?.name || _charLoc>>
+
+
+<<if _status === "sleeping">>
+<<narrative _charLocName>>
+You quietly approach <<print _char.firstName>>'s room. The door is slightly ajar, and you can hear soft breathing. They're fast asleep.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Leave quietly" _charLoc "secondary">><</btn>>
+</div>
+
+<<elseif _status === "showering">>
+/* Redirect to shower encounter passage based on character */
+<<if $interactingChar === "mother">>
+    <<goto "showerEncounter_Mother">>
+<<elseif $interactingChar === "father">>
+    <<goto "showerEncounter_Father">>
+<<elseif $interactingChar === "brother">>
+    <<goto "showerEncounter_Brother">>
+<<else>>
+    <<narrative _charLocName>>
+    <<print _char.firstName>> is in the shower right now.
+    <</narrative>>
+    <div class="location-actions">
+    <<btn "Leave" _charLoc "secondary">><</btn>>
+    </div>
+<</if>>
+
+<<elseif _status === "busy">>
+<<narrative _charLocName>>
+<<print _char.firstName>> seems to be occupied with something important right now. Maybe you should come back later.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Leave" _charLoc "secondary">><</btn>>
+</div>
+
+<<elseif _status === "waking">>
+<<narrative _charLocName>>
+<<print _char.firstName>> is just waking up, stretching and yawning. They notice you and give a sleepy smile.
+<</narrative>>
+
+<<questPrompts $interactingChar>>
+
+<<showActions $interactingChar _charLoc>>
+
+<div class="location-actions">
+<<btn "Leave" _charLoc "secondary">><</btn>>
+</div>
+
+<<else>>
+<<narrative _charLocName>>
+You approach <<print _char.firstName>>.
+<</narrative>>
+
+<<charInfoCard $interactingChar>>
+
+<<questPrompts $interactingChar>>
+
+<<showActions $interactingChar _charLoc>>
+
+<div class="location-actions">
+<<btn "Leave" _charLoc "secondary">><</btn>>
+</div>
+
+<</if>>
+<</nobr>>

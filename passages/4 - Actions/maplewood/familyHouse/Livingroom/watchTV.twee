@@ -89,7 +89,7 @@
         <<set _useSportsTopic = true>>
         <<set _char = $characters.father>>
         <<set _friendship = _char.stats.friendship>>
-        <<if $flags.fatherStartedWork>>
+        <<if def $flags && $flags.fatherStartedWork>>
             <<set _phase = "postWork">>
         <<else>>
             <<set _phase = "preWork">>

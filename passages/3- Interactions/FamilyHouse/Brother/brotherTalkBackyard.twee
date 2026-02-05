@@ -5,7 +5,7 @@
 <<set _friendship = _char.stats.friendship>>
 
 /* Determine phase based on summer break */
-<<if $flags.summerBreak>>
+<<if def $flags && $flags.summerBreak>>
     <<set _phase = "vacation">>
 <<else>>
     <<set _phase = "school">>

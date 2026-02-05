@@ -2,9 +2,8 @@
    COMPUTER MENU
    Post-quest computer usage
 ========================================== */
-:: computerMenu
 <<silently>>
-<<set $location = "fhBrotherRoom">>
+<<set $location = "fhBrotherRoomPC">>
 <<advanceTime 5>>
 <</silently>>
 
@@ -14,9 +13,9 @@ You sit down at your brother's messy desk and power on the computer. The familia
 What do you want to do?
 <</narrative>>
 
-<<actions>>
-    <<action "Browse City Guide" "computerCityGuide">>
-    <<action "Check Email" "computerEmail">>
-    <<action "Social Media" "computerSocialMedia">>
-    <<action "Close Computer" "fhBrotherRoom">>
-<</actions>>
+<div class="location-actions">
+<<btn "Browse City Guide" "computerCityGuide">><</btn>>
+<<btn "Check Email" "computerEmail">><</btn>>
+<<btn "Social Media" "computerSocialMedia">><</btn>>
+<<btn "Close Computer" "fhBrotherRoom">><</btn>>
+</div>

@@ -30,9 +30,9 @@
   width: 100%;
 }
 
-/* Content wrapper */
-.passage-content {
-  max-width: 800px;
+/* Content wrapper - #passages .passage içindeki .passage-content (layout.js ile sarılan) */
+#passages .passage .passage-content {
+  max-width: var(--passage-max-width);
   padding: 0 1rem;
   box-sizing: border-box;
   /* Centering via layout.js + CSS (no transform) */

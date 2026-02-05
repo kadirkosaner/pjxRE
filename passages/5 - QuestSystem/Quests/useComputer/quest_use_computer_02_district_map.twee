@@ -1,7 +1,6 @@
 /* ========================================
    SCENE: USE COMPUTER - DISTRICT MAP
    ======================================== */
-:: quest_use_computer_02_district_map
 <<silently>>
 <<set $location = "fhBrotherRoomPC">>
 <<advanceTime 5>>
@@ -9,11 +8,11 @@
 
 <<narrative "Brother's Computer">>
 A stylized map appears — the city divided into colored zones. Your cursor hovers over each area, revealing popup descriptions: Maplewood, residential, tree-lined, family-friendly. Downtown, business district, skyscrapers, always busy. Hillcrest, upscale neighborhood, expensive homes, golf courses. University District, college campus, student housing, cafes. Old Town, historic center, civic services, main street shops.
-
+<<image "assets/content/scenes/maplewood/familyHouse/brotherRoom/questComputer/browser_district_map.webp" "100%">>
 Your cursor stops on Old Town. The "civic services" part catches your attention. You click.
 
 The page loads with vintage photographs: old brick buildings, cobblestone streets, black and white images from decades past. "Old Town is the historic heart of our city. Originally the main business district, it now serves as the civic and cultural center."
-
+<<image "assets/content/scenes/maplewood/familyHouse/brotherRoom/questComputer/browser_old_town.webp" "100%">>
 You keep scrolling. Key locations: Civic Center — Town Hall (City offices, Career Services), Maplewood High School, Public Library, Post Office. Historic Main Street — local shops, Ruby's Diner (Est. 1952). Community Spaces — Old Town Square, Heritage Museum.
 
 Your eyes linger on "Town Hall - Career Services."

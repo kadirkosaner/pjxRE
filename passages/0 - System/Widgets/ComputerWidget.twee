@@ -8,27 +8,18 @@
 
 <<widget "useComputerWidget">><<nobr>>
 <<silently>>
-    /* Check if brother is in the room */
-    <<set _brotherPresent = $characters.brother &&
-         $characters.brother.location === "fhBrotherRoom">>
-
-    /* Check if quest is completed */
-    <<set _computerQuestDone = $flags && $flags.includes("used_computer")>>
+    /* Check if quest is completed: flag or completed list */
+    <<set _computerQuestDone = $used_computer === true ||
+         ($questState && $questState.completed && $questState.completed.includes("use_computer"))>>
+    /* Brother in room = PC locked (schedule uses currentLocation) */
+    <<set _brotherOnPC = $characters.brother &&
+         $characters.brother.currentLocation === "fhBrotherRoom">>
 <</silently>>
 
-/* If quest is done and brother is NOT present, allow computer use */
-<<if _computerQuestDone && !_brotherPresent>>
-    <<actions>>
-        <<action "Use Computer" "computerMenu">>
-    <</actions>>
-
-/* If quest is done but brother is present, show message */
-<<elseif _computerQuestDone && _brotherPresent>>
-    <div class="info-box">
-        <i class="fas fa-desktop"></i> Your brother is currently using his computer.
-    </div>
-
-/* Before quest is done, don't show anything */
+<<if _computerQuestDone && _brotherOnPC>>
+    <span class="link-internal btn-style btn-default locked" data-tooltip="Your brother is on the PC right now."><span class="icon icon-lock icon-12"></span> Use Computer</span>
+<<elseif _computerQuestDone>>
+    <<btn "Use Computer" "computerMenu">><</btn>>
 <</if>>
 
 <</nobr>><</widget>>
