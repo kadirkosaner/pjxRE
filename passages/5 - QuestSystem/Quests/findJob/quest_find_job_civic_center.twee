@@ -1,0 +1,61 @@
+/* ========================================
+   SCENE: FIND JOB - CIVIC CENTER EXPLORATION
+   Player explores Old Town and discovers key locations
+   ======================================== */
+<<silently>>
+<<set $location = "oldTown">>
+<<updateCharacterLocations>>
+<<advanceTime 20>>
+<</silently>>
+<<nobr>>
+<<narrative "Old Town - Main Street">>
+You arrive at Old Town. The area is bustling with activity - older buildings with character, tree-lined streets, people going about their day.
+Marcus mentioned the Civic Center is around here, somewhere near Town Hall. You start walking, taking in your surroundings.
+<</narrative>>
+<<image "assets/content/locations/oldTown/oldTown.webp" "100%">>
+<<narrative>>
+As you walk down the main street, you start noticing the different buildings. This area feels more established, more... official than your neighborhood.
+<</narrative>>
+<<narrative "Old Town - Civic Center Area">>
+You turn a corner and the atmosphere shifts. The buildings here are larger, more institutional. You've found the civic center district.
+<</narrative>>
+<<image "assets/content/locations/oldTown/civicCenter.webp" "100%">>
+<<narrative>>
+You slow down, looking around. This is clearly the heart of Old Town's administrative area. You start exploring to get your bearings.
+<</narrative>>
+<<narrative "High School">>
+The first building you notice is a large structure with students milling around outside. A sign identifies it as "Old Town High School."
+Your brother mentioned his school is in this area. This must be it.
+<</narrative>>
+<<image "assets/content/locations/oldTown/civicCenter/highSchool.webp" "100%">>
+<<narrative "Hospital">>
+Further down the street, you see a modern building with a red cross symbol. The hospital. Clean, professional, with ambulances parked near the emergency entrance.
+Good to know where this is, just in case.
+<</narrative>>
+<<image "assets/content/locations/oldTown/civicCenter/hospital.webp" "100%">>
+<<narrative "Police Station">>
+Next to the hospital, a sturdy building with police cruisers parked outside. The police station. The American flag waves from a pole out front.
+You make note of the location - always useful to know where the police station is in a new city.
+<</narrative>>
+<<image "assets/content/locations/oldTown/civicCenter/policeStation.webp" "100%">>
+<<narrative "Town Hall">>
+And then you see it - at the end of the street, an impressive building with grand columns and wide steps leading up to the entrance. A sign reads "Town Hall."
+This is it. This is where the Career Services office is located, where you can find job listings.
+You found it.
+<</narrative>>
+<<image "assets/content/locations/oldTown/civicCenter/townHall.webp" "100%">>
+<<narrative>>
+You take a moment to absorb everything. You've mapped out the civic district - the high school, hospital, police station, and most importantly, Town Hall with its Career Services office.
+You know where to go now for the job search.
+<</narrative>>
+<</nobr>>
+<<silently>>
+<<discover "townHall" "Town Hall">>
+<<discover "highSchool" "Old Town High School">>
+<<discover "hospital" "Hospital">>
+<<discover "policeStation" "Police Station">>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<div class="btn-center">
+<<btn "Step inside" "townHall">><</btn>>
+</div>

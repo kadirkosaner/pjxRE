@@ -172,8 +172,9 @@
 
 
 <<widget "discover">><<nobr>>
-    <<set _flag = "discovered" + $args[0]>>
+    <<set _locationId = $args[0]>>
     <<set _name = $args[1]>>
+    <<set _flag = "discovered" + _locationId.charAt(0).toUpperCase() + _locationId.slice(1)>>
     
     <<if !State.variables[_flag]>>
         <<set State.variables[_flag] = true>>

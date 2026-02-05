@@ -1,0 +1,108 @@
+:: quest_find_job_corner_shop
+/* ========================================
+   SCENE: FIND JOB - CORNER SHOP, MARCUS (Redirecting to Civic Center)
+   ======================================== */
+<<silently>>
+<<set $location = "storeCorner">>
+<<updateCharacterLocations>>
+<<advanceTime 8>>
+<</silently>>
+
+<<narrative "Quick Mart">>
+You step inside. Close to home, a familiar place. Worth a try.
+<</narrative>>
+
+<<narrative>>
+There are a few people at the register, Marcus is helping customers. You get in line.
+<</narrative>>
+
+<<narrative>>
+When it's your turn, Marcus looks up and his face lights up when he sees you.
+<</narrative>>
+
+<<dialog "shopClerkMarcus">>
+(Smiling)
+Oh, $player.firstName! Welcome. What are you getting today, another map?
+(In a playful tone)
+Or are you starting a brochure collection now?
+<</dialog>>
+
+<<dialog "player">>
+(Laughing)
+No, no. Actually, I didn't come to buy anything, I came about the sign in the window.
+<</dialog>>
+
+<<dialog "shopClerkMarcus">>
+(Raising an eyebrow)
+The cashier posting? 
+(Smiling and pointing at the register)
+Ooo, look at that. I got that position, just a few days ago. So you're after my job, huh?
+<</dialog>>
+
+<<dialog "player">>
+(Laughs a bit embarrassed)
+I just saw it in the window and got curious.
+<</dialog>>
+
+<<dialog "shopClerkMarcus">>
+(Waving his hand)
+Just kidding. We forgot to take down the sign, good you reminded me.
+(In a more serious tone)
+Are you really looking for a job?
+<</dialog>>
+
+<<dialog "player">>
+Yeah. I figured this would be close to home, thought I'd give it a shot.
+<</dialog>>
+
+<<dialog "shopClerkMarcus">>
+(Nodding understandingly)
+Makes sense. But unfortunately this spot's filled.
+(With a thoughtful expression)
+Not many open positions around here right now. But have you checked out Career Services at the Civic Center? You know, the office inside Town Hall.
+<</dialog>>
+
+<<dialog "player">>
+Not yet, actually. I saw the name when I was looking online but... you're right, I should probably go there directly.
+<</dialog>>
+
+<<dialog "shopClerkMarcus">>
+(Enthusiastically)
+Yeah yeah, that place exists exactly for people like you. Job postings, application help and all that... My friend applied there last month, it's a pretty solid place. 
+(Smiling)
+And it's free too, you just need to go in and talk to them.
+<</dialog>>
+
+<<dialog "player">>
+Okay, I'll do that then. Thanks Marcus, I appreciate the help.
+<</dialog>>
+
+<<dialog "shopClerkMarcus">>
+(Warmly)
+No problem $player.firstName. I hope you find a good job. We'll see you around anyway, I'm curious how it goes.
+(Adds playfully)
+Maybe one day you'll be working nearby somewhere, we'll meet up on coffee breaks.
+<</dialog>>
+
+<<dialog "player">>
+(Laughing)
+Who knows! See you Marcus.
+<</dialog>>
+
+<<dialog "shopClerkMarcus">>
+See you..
+<</dialog>>
+
+<<narrative>>
+You leave the shop. Marcus is right about where he reminded you - Civic Center, Career Services. Going there makes sense.
+<</narrative>>
+
+<<silently>>
+<<gainCharacterStat "shopClerkMarcus" "friendship" 5>>
+<<discover "OldTown" "Old Town">>
+<<advanceQuestStage "find_job">>
+<</silently>>
+
+<div class="btn-center">
+<<btn "Leave the shop" "maplewood">><</btn>>
+</div>

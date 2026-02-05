@@ -101,7 +101,7 @@ Time to find a job.
 <<nobr>>
 <<completeQuest "use_computer">>
 <<set $used_computer = true>>
-<<advanceQuestStage "find_job" "check_corner_shop">>
+<<if $questState.active.find_job && $questState.active.find_job.stage === 0>><<advanceQuestStage "find_job" "check_corner_shop">><</if>>
 <</nobr>>
 
 <div class="btn-center">

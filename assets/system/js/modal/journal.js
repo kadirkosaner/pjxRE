@@ -299,7 +299,7 @@ window.JournalInit = function (API) {
               <div class="quest-list-title">${quest.title}</div>
               <div class="quest-list-meta">
                 ${status === 'active' 
-                  ? `Stage ${state.stage + 1}/${quest.stages?.length || 1}`
+                  ? `Stage ${state.stage + 1}`
                   : ''
                 }
               </div>
@@ -354,6 +354,32 @@ window.JournalInit = function (API) {
           `;
         }
         
+        // Build stages history for active quests (completed + current only)
+        let activeStagesHistoryHtml = '';
+        if (status === 'active' && quest.stages && state) {
+          const currentStageIndex = state.stage;
+          activeStagesHistoryHtml = `
+            <div class="quest-stages-history">
+              <h4>Quest Progress</h4>
+              ${quest.stages.slice(0, currentStageIndex + 1).map((stg, idx) => {
+                const isCompleted = idx < currentStageIndex;
+                const isCurrent = idx === currentStageIndex;
+                return `
+                  <div class="quest-stage-item ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}">
+                    <div class="quest-stage-number">${idx + 1}</div>
+                    <div class="quest-stage-info">
+                      <div class="quest-stage-title">${stg.title}</div>
+                      <div class="quest-stage-desc">${stg.desc || ''}</div>
+                    </div>
+                    ${isCompleted ? '<i class="icon icon-check quest-stage-check"></i>' : ''}
+                    ${isCurrent ? '<i class="icon icon-circle quest-stage-current"></i>' : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        }
+        
         return `
           <div class="quest-detail-content">
             <div class="quest-detail-header">
@@ -361,19 +387,7 @@ window.JournalInit = function (API) {
             </div>
             
             ${status === 'active' ? `
-              <div class="quest-progress-bar">
-                <div class="quest-progress-label">
-                  Progress: <strong>Stage ${state.stage + 1}</strong> of ${quest.stages?.length || 1}
-                </div>
-                <div class="quest-progress-track">
-                  <div class="quest-progress-fill" style="width: ${((state.stage + 1) / (quest.stages?.length || 1)) * 100}%"></div>
-                </div>
-              </div>
-              
-              <div class="quest-current-stage">
-                <h3>Current Stage: ${stage?.title || 'In Progress'}</h3>
-                <p>${stage?.desc || ''}</p>
-              </div>
+              ${activeStagesHistoryHtml}
               
               ${objectivesHtml}
             ` : `

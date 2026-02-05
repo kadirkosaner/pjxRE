@@ -522,6 +522,17 @@
   opacity: 0.9;
 }
 
+/* Current (active) stage - pink/accent color */
+.quest-stage-item.current {
+  border-left: 3px solid var(--color-accent);
+  background: rgba(236, 72, 153, 0.08);
+}
+
+.quest-stage-item.current .quest-stage-number {
+  background: rgba(236, 72, 153, 0.15);
+  color: var(--color-accent);
+}
+
 .quest-stage-number {
   display: flex;
   align-items: center;
@@ -556,6 +567,12 @@
 
 .quest-stage-check {
   color: var(--color-success, #10b981);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.quest-stage-current {
+  color: var(--color-accent);
   font-size: 16px;
   flex-shrink: 0;
 }

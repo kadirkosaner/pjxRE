@@ -204,11 +204,7 @@
             {
                 id: "start_job_search",
                 title: "Start Job Search",
-                desc: "Look for employment opportunities in the city",
-                buttonText: "Look for Jobs",
-                triggers: { location: "fhBedroom" },
-                forceScene: true,
-                passage: "quest_find_job_scene"
+                desc: "Look for employment opportunities in the city"
             },
             {
                 id: "check_corner_shop",
@@ -218,11 +214,24 @@
                 triggers: { location: "storeCorner" },
                 forceScene: true,
                 passage: "quest_find_job_corner_shop"
+            },
+            {
+                id: "check_civic_center",
+                title: "Check Civic Center",
+                desc: "Marcus suggested looking for jobs at Town Hall, Civic Center",
+                buttonText: "Find Town Hall",
+                triggers: { 
+                    location: "oldTown",
+                    timeRange: { min: 9, max: 17 }
+                },
+                lockedText: "Town Hall is closed. (Open 9:00 - 17:00)",
+                forceScene: true,
+                passage: "quest_find_job_civic_center"
             }
         ],
 
         onComplete: {
-            flags: ["job_search_started", "applied_corner_shop"],
+            flags: ["job_search_started", "knows_civic_center_jobs"],
             notification: "Quest Complete: Find a Job"
         }
     }

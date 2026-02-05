@@ -158,6 +158,13 @@ function checkQuestTriggers(triggers, vars, currentLoc, currentHour, currentPeri
             return { met: false, blocking: 'time' };
         }
     }
+    // Check timeRange (business hours, etc.)
+    if (triggers.timeRange) {
+        const { min, max } = triggers.timeRange;
+        if (currentHour < min || currentHour >= max) {
+            return { met: false, blocking: 'time' };
+        }
+    }
     if (triggers.character) {
         const char = vars.characters?.[triggers.character.id];
         if (!char) return { met: false, blocking: 'character' };
@@ -239,11 +246,18 @@ Macro.add('questPrompts', {
             if (!stage || !stage.forceScene || !stage.passage) continue;
             if (state.triggeredStage === state.stage) continue;
 
+            // Check location requirement first - if not in right location, skip entirely
+            if (stage.triggers?.location && stage.triggers.location !== currentLoc) {
+                continue;
+            }
+
+            // Now check other triggers (time, character, etc.) for locked state
+            // Create a copy of triggers without location since we already checked it
+            const nonLocationTriggers = stage.triggers ? { ...stage.triggers, location: undefined } : null;
             const triggerResult = checkQuestTriggers(
-                stage.triggers, vars, currentLoc, currentHour, currentPeriod
+                nonLocationTriggers, vars, currentLoc, currentHour, currentPeriod
             );
 
-            if (!triggerResult.met) continue;
             const reqResult = checkQuestRequirements(stage.requirements, vars);
             if (!reqResult.met) continue;
             if (quest.mealType) {
@@ -270,7 +284,9 @@ Macro.add('questPrompts', {
                 questId: qid,
                 stageId: stage.id,
                 buttonText: stage.buttonText || stage.title,
-                passage: stage.passage
+                passage: stage.passage,
+                locked: !triggerResult.met,
+                lockedText: stage.lockedText || 'Not available right now'
             });
         }
 
@@ -279,19 +295,28 @@ Macro.add('questPrompts', {
         const container = $('<div>').addClass('location-actions');
 
         prompts.forEach(prompt => {
-            const btn = $('<a>')
-                .addClass('link-internal btn-style action-btn btn-quest')
-                .attr('data-passage', prompt.passage)
-                .text(prompt.buttonText)
-                .ariaClick({ namespace: '.quest-prompt', one: true }, function () {
-                    if (vars.questState?.active?.[prompt.questId]) {
-                        vars.questState.active[prompt.questId].triggeredStage =
-                            vars.questState.active[prompt.questId].stage;
-                    }
-                    Engine.play(prompt.passage);
-                });
-
-            container.append(btn);
+            if (prompt.locked) {
+                // Render locked button
+                const lockedBtn = $('<span>')
+                    .addClass('link-internal btn-style btn-default locked')
+                    .attr('data-tooltip', prompt.lockedText)
+                    .html('<i class="icon icon-lock icon-12"></i> ' + prompt.buttonText);
+                container.append(lockedBtn);
+            } else {
+                // Render active button
+                const btn = $('<a>')
+                    .addClass('link-internal btn-style action-btn btn-quest')
+                    .attr('data-passage', prompt.passage)
+                    .text(prompt.buttonText)
+                    .ariaClick({ namespace: '.quest-prompt', one: true }, function () {
+                        if (vars.questState?.active?.[prompt.questId]) {
+                            vars.questState.active[prompt.questId].triggeredStage =
+                                vars.questState.active[prompt.questId].stage;
+                        }
+                        Engine.play(prompt.passage);
+                    });
+                container.append(btn);
+            }
         });
 
         $(this.output).append(container);
