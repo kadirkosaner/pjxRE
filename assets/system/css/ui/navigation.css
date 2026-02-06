@@ -141,7 +141,7 @@ body.has-navmenu .passage {
 .navmenu-wrapper {
   position: relative;
   left: 0;
-  /* Width and margins are set by JS */
+  margin-left: 0; /* No negative offset; width set by JS */
 }
 
 /* Breakout positioning for accordion-container */

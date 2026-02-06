@@ -30,26 +30,7 @@ body.topbar-hidden #passages {
   margin-top: 0 !important;
 }
 
-body.wardrobe-active #story,
-body.wardrobe-active #passages,
-body.wardrobe-active .passage {
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 !important;
-  display: block !important;
-}
-
-body.wardrobe-active #passages {
-  padding: 0 !important;
-  padding-top: 50px !important;
-  padding-right: var(--rightbar-width) !important;
-  box-sizing: border-box;
-}
-
-body.wardrobe-active .passage {
-  padding: 0 !important;
-  background: transparent !important;
-}
+/* Full-width layout → structure.css (body.wardrobe-active, body.fullwidth-active) */
 
 /* Wardrobe Header & Main - Shared Base */
 .wardrobe-header,

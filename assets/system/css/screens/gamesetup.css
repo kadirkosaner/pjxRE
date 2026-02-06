@@ -6,52 +6,7 @@
    SETTINGS UI GLOBAL STYLES
 ========================================== */
 
-.settings-list {
-  display: grid;
-  gap: 20px;
-  padding: 10px;
-}
-
-.settings-control {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-}
-
-.settings-control:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.setting-toggle-btn {
-  padding: 8px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  color: var(--color-text-secondary);
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.setting-toggle-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #fff;
-}
-
-.setting-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.setting-toggle-btn.active:hover {
-  background: #f472b6;
-}
+/* .settings-list, .settings-control, .setting-toggle-btn → settings.css */
 
 /* ==========================================
    SETTINGS & TABS COMMON STYLES

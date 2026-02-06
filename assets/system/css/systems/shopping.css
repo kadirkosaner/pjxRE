@@ -5,27 +5,7 @@
 
 /*#region SHOP SYSTEM */
 
-/* Full-width when shop is active (exact wardrobe pattern) */
-body.shop-active #story,
-body.shop-active #passages,
-body.shop-active .passage {
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 !important;
-  display: block !important;
-}
-
-body.shop-active #passages {
-  padding: 0 !important;
-  padding-top: 50px !important;
-  padding-right: var(--rightbar-width) !important;
-  box-sizing: border-box;
-}
-
-body.shop-active .passage {
-  padding: 0 !important;
-  background: transparent !important;
-}
+/* Full-width layout → structure.css (body.shop-active, body.fullwidth-active) */
 
 /* Shop Wrapper */
 .shop-wrapper {

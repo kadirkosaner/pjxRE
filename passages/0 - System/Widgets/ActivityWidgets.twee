@@ -23,9 +23,9 @@
             <<set $dailyActivityLog = {}>>
         <</if>>
 
-        /* Create activity key with current day */
-        <<set _currentDay = $timeSysDay || 0>>
-        <<set _activityKey = `${_charId}_${_actionId}_${_currentDay}`>>
+        /* Create activity key with current calendar date (so it resets each real day) */
+        <<set _dateKey = $timeSys.year + "-" + $timeSys.month + "-" + $timeSys.day>>
+        <<set _activityKey = _charId + "_" + _actionId + "_" + _dateKey>>
 
         /* Log the activity */
         <<set $dailyActivityLog[_activityKey] = true>>
@@ -47,8 +47,8 @@
             <<set $dailyActivityLog = {}>>
         <</if>>
 
-        <<set _currentDay = $timeSysDay || 0>>
-        <<set _activityKey = `${_charId}_${_actionId}_${_currentDay}`>>
+        <<set _dateKey = $timeSys.year + "-" + $timeSys.month + "-" + $timeSys.day>>
+        <<set _activityKey = _charId + "_" + _actionId + "_" + _dateKey>>
 
         <<set _hasActivity = !!$dailyActivityLog[_activityKey]>>
     <</if>>

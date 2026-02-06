@@ -54,14 +54,16 @@ body.no-topbar .top-bar-wrapper {
   display: none !important;
 }
 
-/* TOPBAR HIDDEN - Page centered, no top offset */
-body.topbar-hidden .top-bar-wrapper {
+/* TOPBAR HIDDEN / FULLSCREEN LAYOUT - Shared: minimal topbar, centered content */
+body.topbar-hidden .top-bar-wrapper,
+body.fullscreen-layout .top-bar-wrapper {
   position: fixed !important;
   top: var(--spacing-xl) !important;
   left: 0 !important;
+  right: auto !important;
   width: auto !important;
-  min-height: 90px !important; /* Force height to match Timebox height for stability */
-  display: flex !important; /* Use flex to ensure vertical centering */
+  min-height: 90px !important;
+  display: flex !important;
   align-items: center !important;
   padding: 0 var(--spacing-xl) !important;
   z-index: 100 !important;
@@ -69,11 +71,13 @@ body.topbar-hidden .top-bar-wrapper {
   pointer-events: none;
 }
 
-body.topbar-hidden .top-bar-wrapper .left-section {
-  pointer-events: auto; /* Buttons clickable */
+body.topbar-hidden .top-bar-wrapper .left-section,
+body.fullscreen-layout .top-bar-wrapper .left-section {
+  pointer-events: auto;
 }
 
-body.topbar-hidden .top-bar-wrapper .center-section {
+body.topbar-hidden .top-bar-wrapper .center-section,
+body.fullscreen-layout .top-bar-wrapper .center-section {
   display: none !important;
 }
 
@@ -96,30 +100,39 @@ body.no-rightbar .right-bar {
   display: none !important;
 }
 
-/* FULLSCREEN LAYOUT - When hideTopbar AND hideRightbar are true */
+/* FULLWIDTH ACTIVE - Wardrobe, shop, or any full-width overlay (DRY) */
+body.wardrobe-active #story,
+body.wardrobe-active #passages,
+body.wardrobe-active .passage,
+body.shop-active #story,
+body.shop-active #passages,
+body.shop-active .passage,
+body.fullwidth-active #story,
+body.fullwidth-active #passages,
+body.fullwidth-active .passage {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  display: block !important;
+}
 
-body.fullscreen-layout .top-bar-wrapper {
-  position: fixed !important;
-  top: var(--spacing-xl) !important;
-  left: 0 !important;
-  right: auto !important;
-  width: auto !important;
-  min-height: 90px !important;
-  display: flex !important;
-  align-items: center !important;
-  padding: 0 var(--spacing-xl) !important;
-  z-index: 100 !important;
+body.wardrobe-active #passages,
+body.shop-active #passages,
+body.fullwidth-active #passages {
+  padding: 0 !important;
+  padding-top: 50px !important;
+  padding-right: var(--rightbar-width) !important;
+  box-sizing: border-box;
+}
+
+body.wardrobe-active .passage,
+body.shop-active .passage,
+body.fullwidth-active .passage {
+  padding: 0 !important;
   background: transparent !important;
-  pointer-events: none;
 }
 
-body.fullscreen-layout .top-bar-wrapper .left-section {
-  pointer-events: auto;
-}
-
-body.fullscreen-layout .top-bar-wrapper .center-section {
-  display: none !important;
-}
+/* FULLSCREEN LAYOUT - hideRightbar */
 
 body.fullscreen-layout .right-bar {
   display: none !important;
@@ -174,11 +187,7 @@ body.fullscreen-centered .top-bar-wrapper .left-section {
 
 body.fullscreen-centered #passages {
   margin: 0 !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
   padding: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
   max-width: 100% !important;
   position: static !important;
   width: 100% !important;
@@ -191,14 +200,10 @@ body.fullscreen-centered #passages {
 }
 
 body.fullscreen-centered #story {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+  margin: 0 !important;
   padding: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
   max-width: 100% !important;
   width: 100% !important;
-  /* margin-left and margin-right intentionally omitted to allow JS centering */
 }
 
 body.fullscreen-centered .page-wrapper {

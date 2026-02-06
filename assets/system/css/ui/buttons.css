@@ -57,14 +57,14 @@
 }
 
 .btn-blue {
-  border-color: #3b82f6;
-  color: #3b82f6;
+  border-color: var(--color-info);
+  color: var(--color-info);
 }
 
 .btn-blue:hover {
-  border-color: #60a5fa;
-  color: #60a5fa;
-  background: rgba(59, 130, 246, 0.1);
+  border-color: var(--color-info-hover);
+  color: var(--color-info-hover);
+  background: var(--color-info-alpha-20);
 }
 
 .btn-green {
@@ -79,36 +79,36 @@
 }
 
 .btn-red {
-  border-color: #ef4444;
-  color: #ef4444;
+  border-color: var(--color-danger);
+  color: var(--color-danger);
 }
 
 .btn-red:hover {
-  border-color: #f87171;
-  color: #f87171;
-  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--color-danger-hover);
+  color: var(--color-danger-hover);
+  background: var(--color-danger-alpha-20);
 }
 
 .btn-yellow {
-  border-color: #f59e0b;
-  color: #f59e0b;
+  border-color: var(--color-warning);
+  color: var(--color-warning);
 }
 
 .btn-yellow:hover {
-  border-color: #fbbf24;
-  color: #fbbf24;
-  background: rgba(245, 158, 11, 0.1);
+  border-color: var(--color-quest-hover);
+  color: var(--color-quest-hover);
+  background: var(--color-accent-alpha-10);
 }
 
 .btn-purple {
-  border-color: #8b5cf6;
-  color: #8b5cf6;
+  border-color: var(--color-purple);
+  color: var(--color-purple);
 }
 
 .btn-purple:hover {
   border-color: #a78bfa;
   color: #a78bfa;
-  background: rgba(139, 92, 246, 0.1);
+  background: var(--color-info-alpha-20);
 }
 
 /* Centered button container */
@@ -126,14 +126,14 @@
 button.btn-danger,
 .passage .btn-danger,
 .modal .btn-danger {
-  background-color: #ef4444;
-  border-color: #ef4444;
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
   color: #fff;
 }
 
 .btn-danger:hover {
-  background-color: #dc2626;
-  border-color: #dc2626;
+  background-color: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
 }
 
 /* Consolidated: btn-accent and btn-primary are identical */

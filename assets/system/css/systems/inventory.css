@@ -167,19 +167,19 @@
 
 .category-academic {
     background: rgba(139, 92, 246, 0.2);
-    color: #8b5cf6;
+    color: var(--color-purple);
     border: 1px solid rgba(139, 92, 246, 0.3);
 }
 
 .category-gift {
     background: rgba(249, 115, 22, 0.2);
-    color: #f97316;
+    color: var(--color-orange);
     border: 1px solid rgba(249, 115, 22, 0.3);
 }
 
 .category-tool {
     background: rgba(59, 130, 246, 0.2);
-    color: #3b82f6;
+    color: var(--color-info);
     border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
@@ -198,7 +198,7 @@
     opacity: 1;
 }
 
-.action-btn {
+.inv-action-icon {
     width: 24px;
     height: 24px;
     border-radius: 4px;
@@ -211,25 +211,25 @@
     transition: all var(--transition-fast);
 }
 
-.action-btn.use {
-    background: rgba(34, 197, 94, 0.2);
-    border-color: rgba(34, 197, 94, 0.3);
-    color: #22c55e;
+.inv-action-icon.use {
+    background: var(--color-success-alpha-20);
+    border-color: var(--color-success);
+    color: var(--color-success);
 }
 
-.action-btn.use:hover {
-    background: #22c55e;
+.inv-action-icon.use:hover {
+    background: var(--color-success);
     color: white;
 }
 
-.action-btn.delete {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: rgba(239, 68, 68, 0.3);
-    color: #ef4444;
+.inv-action-icon.delete {
+    background: var(--color-danger-alpha-20);
+    border-color: var(--color-danger);
+    color: var(--color-danger);
 }
 
-.action-btn.delete:hover {
-    background: #ef4444;
+.inv-action-icon.delete:hover {
+    background: var(--color-danger);
     color: white;
 }
 
@@ -346,7 +346,7 @@
 
 .item-effects-tooltip .effect-line {
     font-size: 0.7rem;
-    color: #22c55e;
+    color: var(--color-success);
     padding: 2px 0;
 }
 

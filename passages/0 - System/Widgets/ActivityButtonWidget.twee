@@ -10,14 +10,13 @@
     <<set _btnText = _args[0]>>           /* Button display text */
     <<set _targetPassage = _args[1]>>     /* Where to go when clicked */  
     <<set _requirementsStr = _args[2]>>   /* String format: "outfit:sporty 3" or "outfit:sporty 3|item:yoga_mat" */
-    <<set _dailyCheck = _args[3]>>        /* Optional: true/false */
+    <<set _dailyCheck = _args[3]>>        /* Optional: true/false - when true, show locked "Already done today" like Talk */
 
-    /* Skip if already done today */
+    /* Already done today: show locked button (same as Talk), do not hide */
     <<if _dailyCheck === true>>
-        <<set _skipButton = true>>
+        <<set _canDoActivity = false>>
+        <<set _tooltipText = "Already done today">>
     <<else>>
-        <<set _skipButton = false>>
-        
         /* Initialize check result */
         <<set _canDoActivity = true>>
         <<set _errorMessages = []>>
@@ -98,13 +97,11 @@
     <</if>>
 <</silently>>
 
-<<if !_skipButton>>
-    <<if _canDoActivity>>
-        <<btn _btnText _targetPassage "default">><</btn>>
-    <<else>>
-        <<set _lockedSpan = '<span class="link-internal btn-style btn-default locked" data-tooltip="' + _tooltipText + '"><i class="icon icon-lock icon-12"></i> ' + _btnText + '</span>'>>
-        <<print _lockedSpan>>
-    <</if>>
+<<if _canDoActivity>>
+    <<btn _btnText _targetPassage "default">><</btn>>
+<<else>>
+    <<set _lockedSpan = '<span class="link-internal btn-style btn-default locked" data-tooltip="' + _tooltipText + '"><i class="icon icon-lock icon-12"></i> ' + _btnText + '</span>'>>
+    <<print _lockedSpan>>
 <</if>>
 
 <</nobr>><</widget>>

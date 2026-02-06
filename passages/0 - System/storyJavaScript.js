@@ -1231,8 +1231,9 @@ Macro.add('showActions', {
 
             // Check time window (if specified)
             if (action.timeWindow) {
-                const currentHour = vars.timeSysHour || 0;
-                const currentMinute = vars.timeSysMinute || 0;
+                const ts = vars.timeSys;
+                const currentHour = (ts && ts.hour != null) ? ts.hour : 0;
+                const currentMinute = (ts && ts.minute != null) ? ts.minute : 0;
                 const currentTimeInMinutes = (currentHour * 60) + currentMinute;
 
                 let isInWindow = false;
@@ -1253,8 +1254,9 @@ Macro.add('showActions', {
             let isDoneToday = false;
             if (action.dailyLimit) {
                 vars.dailyActivityLog = vars.dailyActivityLog || {};
-                const currentDay = vars.timeSysDay || 0;
-                const activityKey = `${charId}_${action.id}_${currentDay}`;
+                const ts = vars.timeSys;
+                const dateKey = ts ? `${ts.year}-${ts.month}-${ts.day}` : '0';
+                const activityKey = `${charId}_${action.id}_${dateKey}`;
 
                 if (vars.dailyActivityLog[activityKey]) {
                     isDoneToday = true;
@@ -1501,19 +1503,9 @@ Macro.add('navMenu', {
             // Available width (Screen - Rightbar)
             const availableWidth = window.innerWidth - rightbarWidth;
 
-            // Get current visual position (includes all transforms from parents)
-            const rect = $wrapper[0].getBoundingClientRect();
-
-            // Get current margin-left to calculate adjustment
-            const currentMarginLeft = parseFloat($wrapper.css('margin-left')) || 0;
-
-            // Calculate margin-left needed to place element at visual x=0
-            // Formula: new_margin = current_margin - current_visual_position
-            const targetMarginLeft = currentMarginLeft - rect.left;
-
-            // Apply breakout styles
+            // Apply breakout styles (no margin-left offset; wrapper stays in content flow)
             $wrapper.css({
-                'margin-left': `${targetMarginLeft}px`,
+                'margin-left': '0',
                 'width': `${availableWidth}px`,
                 'max-width': 'none',
                 'opacity': '1', // Show after calculation

@@ -14,7 +14,7 @@
   margin-bottom: 1rem;
 }
 
-.action-btn {
+.char-action-btn {
   padding: 0.75rem 1.5rem;
   border: 1px solid var(--color-border-secondary);
   border-radius: var(--radius-md);
@@ -29,20 +29,20 @@
   gap: 0.5rem;
 }
 
-.action-btn.available:hover {
+.char-action-btn.available:hover {
   border-color: var(--color-accent);
   color: var(--color-text-primary);
-  background: rgba(236, 72, 153, 0.1);
+  background: var(--color-accent-alpha-10);
   transform: translateY(-2px);
 }
 
-.action-btn.locked {
+.char-action-btn.locked {
   opacity: 0.5;
   cursor: not-allowed;
   color: var(--color-text-tertiary);
 }
 
-.action-btn.locked:hover {
+.char-action-btn.locked:hover {
   background: rgba(255, 255, 255, 0.02);
 }
 
