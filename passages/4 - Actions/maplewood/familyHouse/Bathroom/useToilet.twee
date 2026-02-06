@@ -1,5 +1,9 @@
 <<silently>>
-    <<set $location = "fhUpperBath">>
+    /* Return to bathroom from global $returnAfterToilet (set by each bathroom passage) */
+    <<if ndef $returnAfterToilet>>
+        <<set $returnAfterToilet = "fhUpperBath">>
+    <</if>>
+    <<set $location = $returnAfterToilet>>
     <<advanceTime 5>>
     <<loseStat "bladder" 100>>
     <<run window.notifySuccess("Bladder Emptied")>>
@@ -26,5 +30,5 @@ You step over to the sink and wash your hands thoroughly with soap and water.
 <<vid "assets/content/scenes/maplewood/FamilyHouse/bathroom/washinghands.mp4" "60%">>
 
 <div class="location-actions">
-    <<btn "Finish" "fhUpperBath">><</btn>>
+    <<btn "Finish" $returnAfterToilet>><</btn>>
 </div>

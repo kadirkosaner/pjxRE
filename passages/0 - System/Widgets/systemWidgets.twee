@@ -139,21 +139,22 @@
     <</if>>
 
     /* Appearance Care Decay: hair/face/dental care drops daily; skip if hair cream used today */
+    /* Note: Use ?? not || because 0 is valid - (0 || 100) would wrongly treat 0 as "use 100" */
     <<if $gameSettings.hairCareDecay>>
         <<if !$daily.hairCreamUsed>>
-            <<set $appearance.hairCare = Math.max(0, ($appearance.hairCare || 100) - 4)>>
+            <<set $appearance.hairCare = Math.max(0, ($appearance.hairCare ?? 100) - 4)>>
         <</if>>
     <</if>>
     /* Face care decay: skip if face cream used today */
     <<if $gameSettings.faceCareDecay>>
         <<if !$daily.faceCreamUsed>>
-            <<set $appearance.faceCare = Math.max(0, ($appearance.faceCare || 100) - 4)>>
+            <<set $appearance.faceCare = Math.max(0, ($appearance.faceCare ?? 100) - 4)>>
         <</if>>
     <</if>>
     /* Dental care decay: skip if dental care (toothpaste) used today */
     <<if $gameSettings.dentalCareDecay>>
         <<if !$daily.dentalCareUsed>>
-            <<set $appearance.dentalCare = Math.max(0, ($appearance.dentalCare || 100) - 4)>>
+            <<set $appearance.dentalCare = Math.max(0, ($appearance.dentalCare ?? 100) - 4)>>
         <</if>>
     <</if>>
 <</widget>>

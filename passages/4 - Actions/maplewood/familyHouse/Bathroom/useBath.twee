@@ -1,5 +1,8 @@
 <<silently>>
-    <<set $location = "fhUpperBath">>
+    <<if ndef $returnAfterToilet>>
+        <<set $returnAfterToilet = "fhUpperBath">>
+    <</if>>
+    <<set $location = $returnAfterToilet>>
     <<advanceTime 20>>
     <<gainStat "hygiene" 100>>
     <<set $appearance.hairCombed = 0>>
@@ -36,5 +39,5 @@ Stepping under the spray, you let the hot water run over your body, relaxing you
 <</if>>
 
 <div class="location-actions">
-    <<btn "Finish & Dry Off" "fhUpperBath">><</btn>>
+    <<btn "Finish & Dry Off" $returnAfterToilet>><</btn>>
 </div>

@@ -1,5 +1,8 @@
 <<silently>>
-    <<set $location = "fhUpperBath">>
+    <<if ndef $returnAfterToilet>>
+        <<set $returnAfterToilet = "fhUpperBath">>
+    <</if>>
+    <<set $location = $returnAfterToilet>>
     <<advanceTime 5>>
     <<gainStat "hygiene" 10>>
     <<gainStat "energy" 2>>
@@ -14,5 +17,5 @@ You splash cold water on your face, scrubbing gently. It wakes you up a little a
 <<vid "assets/content/scenes/maplewood/FamilyHouse/bathroom/washface.mp4" "60%">>
 
 <div class="location-actions">
-    <<btn "Done" "fhUpperBath">><</btn>>
+    <<btn "Done" $returnAfterToilet>><</btn>>
 </div>
