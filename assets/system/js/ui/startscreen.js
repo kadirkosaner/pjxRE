@@ -77,8 +77,9 @@ function createStartScreenContainer() {
     if (!StartScreenAPI) return;
 
     const vars = StartScreenAPI.State.variables;
-    const gameName = vars.gameName || 'Game Title';
-    const gameVersion = vars.gameVersion || 'v1.0';
+    const setup = StartScreenAPI.setup || window.setup || {};
+    const gameName = setup.gameName || vars.gameName || 'Game Title';
+    const gameVersion = setup.gameVersion || vars.gameVersion || 'v1.0';
 
     const html = `
         <div id="startscreen-container">
