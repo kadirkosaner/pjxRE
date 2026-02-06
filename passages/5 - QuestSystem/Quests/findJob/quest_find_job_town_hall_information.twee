@@ -3,13 +3,14 @@
    Player asks for directions to Career Services
    ======================================== */
 <<silently>>
-/* Ensure characters exist for old saves */
+<<set $location = "townHall">>
 <<advanceTime 2>>
 <</silently>>
 <<nobr>>
 <<narrative "Information Desk">>
 You walk up to the information desk. The woman looks up from her computer, offering a professional but tired smile.
 <</narrative>>
+<<image "assets/content/scenes/oldtown/cityHall/questJob/townHall_information_desk.webp" "100%">>
 <<dialog "townHallReceptionist">>
 Good morning. How can I help you?
 <</dialog>>

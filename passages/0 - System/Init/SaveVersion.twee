@@ -1,26 +1,55 @@
+:: SaveVersion [init] {"position":"100,475","size":"100,100"}
 /* ==========================================
-   SAVE VERSION INITS
-   Çalıştırma: Save yüklendikten sonra JS ile.
-   Her versiyon için yeni state variable'ları ekleyen
-   pasajları burada include et. Yeni versiyon eklerken:
-   1. Aşağıya yeni <<if $saveVersion lt N>> bloğu ekle
-   2. İçine o versiyondaki init pasajlarını <<include>> et
-   3. Sonda <<set $saveVersion to N>>
+   SAVE VERSION MIGRATION
+   
+   Purpose: Ensures old saves receive new state variables,
+   characters, and systems added in later updates.
+   
+   Triggered by: window.runSaveVersion() after a save is loaded.
+   
+   HOW TO ADD A NEW VERSION:
+   ─────────────────────────
+   1. Add a new <<if $saveVersion lt N>> block below
+   2. Inside the block, use <<domInclude>> to run init passages
+      (use <<domInclude>> instead of <<include>> because
+       Story API can't find passages in external JS context)
+   3. At the end of the block, set $saveVersion to N
+   
+   EXAMPLE:
+   <<if $saveVersion lt 3>>
+       <<domInclude "charNewCharacter[Location]">>
+       <<set $someNewFlag to false>>
+       <<set $saveVersion to 3>>
+   <</if>>
+   
+   RULES:
+   • Never modify existing version blocks after release
+   • Always increment version number sequentially
+   • Each block runs ONLY ONCE per save (tracked by $saveVersion)
+   • New games start at version 0 and run through all blocks
+   • Blocks execute in order: v0→v1, v1→v2, v2→v3, etc.
+   
+   VERSION HISTORY:
+   ─────────────────
+   v1 - Town Hall characters (Receptionist, Career Clerk)
 ========================================== */
 <<silently>>
-<<if ndef $saveVersion>><<set $saveVersion to 0>><</if>>
 
-/* Versiyon 1: Town Hall karakterleri */
+/* Initialize saveVersion if undefined (new game or pre-versioning save) 
+<<if ndef $saveVersion>><<set $saveVersion to 0>><</if>>*/
+
+/* ── Version 1: Town Hall Characters ── 
 <<if $saveVersion lt 1>>
-<<include "charReceptionist[TownHall][init]">>
-<<include "charCareerClerk[TownHall][init]">>
-<<set $saveVersion to 1>>
+    <<domInclude "charReceptionist[TownHall]">>
+    <<domInclude "charCareerClerk[TownHall]">>
+    <<set $saveVersion to 1>>
 <</if>>
-
-/* İleride versiyon 2 örneği:
+*/
+/* ── Version 2: (template for future use) ──
 <<if $saveVersion lt 2>>
-<<include "YeniInitPasaji">>
-<<set $saveVersion to 2>>
+    <<domInclude "newPassageName">>
+    <<set $someNewVariable to false>>
+    <<set $saveVersion to 2>>
 <</if>>
 */
 

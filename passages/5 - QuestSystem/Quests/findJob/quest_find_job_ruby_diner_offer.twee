@@ -3,22 +3,22 @@
    Clerk offers waitress position at Ruby's Diner
    ======================================== */
 <<silently>>
-/* Ensure characters exist for old saves */
+<<set $location = "townHall">>
 <<advanceTime 3>>
 <</silently>>
 <<nobr>>
 <<narrative "Job Listing">>
 You lean forward to read the screen.
 <</narrative>>
+<<image "assets/content/scenes/oldtown/cityHall/questJob/townHall_ruby_offer_screen.webp" "100%">>
 <<narrative "Computer Screen">>
-<span style="font-family: monospace; background: #f5f5f5; padding: 10px; display: block; border: 1px solid #ccc;">
+<span style="font-family: monospace; padding: 10px; display: block; border: 1px solid #ccc;">
 JOB ID: #2847
 POSITION: Waitress / Server
 EMPLOYER: Ruby's Diner
 LOCATION: Downtown District, Main Street
 HOURS: Part-time / Full-time Available
 EXPERIENCE REQUIRED: None
-WAGE: $12/hour + tips
 </span>
 <</narrative>>
 <<dialog "careerClerk">>
@@ -53,7 +53,7 @@ You know where you need to go next.
 <</narrative>>
 <</nobr>>
 <<silently>>
-<<discover "rubysDiner" "Ruby's Diner">>
+<<discover "DinerRubys" "Ruby's Diner">>
 <<advanceQuestStage "find_job">>
 <</silently>>
 <div class="btn-center">
