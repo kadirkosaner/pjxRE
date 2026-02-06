@@ -2,7 +2,6 @@
 - Settings Help sayfası yapılacak.
 - Settings Bug Report sayfası yapılacak.
 
-- questler için resim ve mp4 önerileri.(hepsi)
 - ClerckMarcus içinde interactionlarıda düzenle. (hazır zaten interaction olacak o yüzden burada düzenlemeler yapılsın)
 - Görevlere devam et
 - Yeni görsel veya videolar gelecek mirror kısmına.

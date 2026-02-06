@@ -1,22 +1,100 @@
-<<nobr>>
+<<silently>>
 <<set $location = "storeCorner">>
+<<logDailyActivity "shopClerk" "talk">>
 <<updateCharacterLocations>>
-<</nobr>>
 
-<<narrative "Quick Mart - Counter">>
-Marcus is behind the counter, keeping an eye on the store. He looks up and gives you a welcoming nod as you approach.
+/* Time and energy */
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+
+/* Friendship gain (1-2 points, max 25) */
+<<set _currentFriendship = $characters.shopClerkMarcus.stats.friendship>>
+<<if _currentFriendship < 25>>
+    <<set _friendshipGain = random(1, 2)>>
+    <<set _newFriendship = Math.min(25, _currentFriendship + _friendshipGain)>>
+    <<set $characters.shopClerkMarcus.stats.friendship = _newFriendship>>
+    
+    /* Notification */
+    <<set _charName = $characters.shopClerkMarcus.firstName || $characters.shopClerkMarcus.name || "shopClerkMarcus">>
+    <<set _actualGain = _newFriendship - _currentFriendship>>
+    <<if _actualGain > 0>>
+        <<run window.notifySuccess(_charName + " Friendship +" + _actualGain)>>
+    <</if>>
+<</if>>
+
+/* Conversation topics - 7 variations */
+<<set _conversations = [
+    {
+        narrative: "Quick Mart - Counter",
+        intro: "Marcus is behind the counter, keeping an eye on the store. He looks up and gives you a welcoming nod as you approach.",
+        clerk: "Hey there! Good to see you again. Finding your way around the neighborhood okay?",
+        player: "Yeah, I'm getting the hang of it. That map you gave me really helped.",
+        clerk2: "Glad to hear it! Like I said, don't be a stranger. It's always nice to have a friendly face stop by."
+    },
+    {
+        narrative: "Quick Mart - Counter",
+        intro: "Marcus is restocking some snacks on the shelf when he notices you. He gives you a friendly wave.",
+        clerk: "Oh hey! Back again? You're becoming a regular here.",
+        player: "I guess so. It's convenient being so close to home.",
+        clerk2: "That's what I like to hear. Plus, I get to chat with someone who isn't just asking where the bathroom is."
+    },
+    {
+        narrative: "Quick Mart - Counter",
+        intro: "Marcus is at the register, finishing up with another customer. When they leave, he turns to you with a smile.",
+        clerk: "What's up? Need anything today, or just stopping by to say hi?",
+        player: "Just saying hi, actually.",
+        clerk2: "Cool, I appreciate that. This job can get pretty boring, so friendly conversations are always welcome."
+    },
+    {
+        narrative: "Quick Mart - Counter",
+        intro: "You find Marcus organizing some items behind the counter. He looks up and his face lights up.",
+        clerk: "Hey! How's it going? Everything treating you well?",
+        player: "Pretty good, thanks. How about you?",
+        clerk2: "Can't complain. Same old routine, but at least it pays the bills. You settling in okay around here?"
+    },
+    {
+        narrative: "Quick Mart - Counter",
+        intro: "Marcus is checking inventory on a tablet when you walk in. He sets it down and leans on the counter.",
+        clerk: "Well, look who it is! What brings you in today?",
+        player: "Just browsing, maybe grabbing a snack.",
+        clerk2: "Take your time. And hey, if you need any recommendations, I've tried pretty much everything in here."
+    },
+    {
+        narrative: "Quick Mart - Counter",
+        intro: "Marcus is wiping down the counter when you enter. He looks up and grins.",
+        clerk: "Back so soon? You must really like this place.",
+        player: "It's growing on me. Plus, you're pretty friendly.",
+        clerk2: "Aw, thanks! I try to be. Makes the day go by faster when you can actually talk to people instead of just ringing them up."
+    },
+    {
+        narrative: "Quick Mart - Counter",
+        intro: "Marcus is reading something on his phone behind the counter. When he sees you, he quickly puts it away.",
+        clerk: "Oh hey! Didn't expect to see you again so soon. What's up?",
+        player: "Not much, just in the area. Thought I'd pop in.",
+        clerk2: "Nice! I'm always happy to see a familiar face. Makes this job way less lonely."
+    }
+]>>
+
+/* Select random conversation */
+<<set _selectedConversation = _conversations.random()>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<narrative _selectedConversation.narrative>>
+_selectedConversation.intro
 <</narrative>>
 
 <<dialog "shopClerk">>
-Hey there! Good to see you again. Finding your way around the neighborhood okay?
+_selectedConversation.clerk
 <</dialog>>
 
 <<dialog "player">>
-Yeah, I'm getting the hang of it. That map you gave me really helped.
+_selectedConversation.player
 <</dialog>>
 
 <<dialog "shopClerk">>
-Glad to hear it! Like I said, don't be a stranger. It's always nice to have a friendly face stop by.
+_selectedConversation.clerk2
 <</dialog>>
 
 <div class="btn-center">
