@@ -114,6 +114,11 @@ Summer afternoon. Your brother has claimed his favorite spot on the couch, phone
 <<print _topic.text>>
 
 <div class="location-actions">
-<<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<set _currentCharLocation = $characters.brother.currentLocation>>
+<<if _currentCharLocation === $location>>
+    <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<else>>
+    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+<</if>>
 </div>
 <</nobr>>

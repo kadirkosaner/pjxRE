@@ -110,5 +110,10 @@ Your father stands by the counter, still in his work clothes, decompressing from
 <<print _topic.text>>
 
 <div class="location-actions">
-<<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<set _currentCharLocation = $characters.father.currentLocation>>
+<<if _currentCharLocation === $location>>
+    <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<else>>
+    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+<</if>>
 </div>

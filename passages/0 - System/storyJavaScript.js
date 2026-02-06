@@ -1198,13 +1198,14 @@ Macro.add('showActions', {
             }
 
             // Check daily limit (if specified)
+            let isDoneToday = false;
             if (action.dailyLimit) {
                 vars.dailyActivityLog = vars.dailyActivityLog || {};
                 const currentDay = vars.timeSysDay || 0;
                 const activityKey = `${charId}_${action.id}_${currentDay}`;
 
                 if (vars.dailyActivityLog[activityKey]) {
-                    return; // Hide if already done today
+                    isDoneToday = true;
                 }
             }
 
@@ -1235,7 +1236,12 @@ Macro.add('showActions', {
             // Create button
             const btn = $('<a>').addClass('btn-style action-btn');
 
-            if (meetsReqs) {
+            // Check if done today first (highest priority lock)
+            if (isDoneToday) {
+                btn.addClass('locked')
+                    .html(`<span class="icon icon-lock icon-12"></span> ${action.label}`)
+                    .attr('data-tooltip', 'Already done today');
+            } else if (meetsReqs) {
                 btn.addClass('available')
                     .text(action.label)
                     .attr('data-passage', action.passage)

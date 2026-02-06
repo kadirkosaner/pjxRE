@@ -80,5 +80,10 @@ The backyard is peaceful. Mom loves spending time here, tending her garden or ju
 <<print _topic.text>>
 
 <div class="location-actions">
-<<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<set _currentCharLocation = $characters.mother.currentLocation>>
+<<if _currentCharLocation === $location>>
+    <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<else>>
+    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+<</if>>
 </div>

@@ -145,5 +145,10 @@ Your father escaped to the backyard after work, seeking fresh air and a moment o
 <</if>>
 
 <div class="location-actions">
-<<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<set _currentCharLocation = $characters.father.currentLocation>>
+<<if _currentCharLocation === $location>>
+    <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<else>>
+    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+<</if>>
 </div>
