@@ -249,6 +249,12 @@ button.btn-secondary,
   visibility: visible;
 }
 
+/* When dropdown is portaled to body (above right-bar and breakout) */
+.btn-picker-dropdown-portal {
+  position: fixed !important;
+  z-index: 10000 !important;
+}
+
 .btn-picker-option {
   display: block;
   padding: 0.5rem 1rem;
@@ -272,7 +278,15 @@ button.btn-secondary,
   color: #fff;
 }
 
-/* Ensure picker dropdown is above breakout navigation cards */
+/* Ensure picker dropdown is above right-bar (navcard) and breakout navmenu */
+body.btn-picker-open #passages {
+  z-index: 100 !important;
+}
+/* Breakout navmenu gets z-index:10 from JS; passage-content has transform (stacking context).
+   Raise passage-content so dropdown (inside it) paints above the breakout cards. */
+body.btn-picker-open .passage-content {
+  z-index: 20 !important;
+}
 body.btn-picker-open .navmenu-wrapper {
   z-index: 5 !important;
 }

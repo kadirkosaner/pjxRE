@@ -3,8 +3,8 @@
 - Settings Bug Report sayfası yapılacak.
 
 - questler için resim ve mp4 önerileri.(hepsi)
-- Görevlere devam et
 - ClerckMarcus içinde interactionlarıda düzenle. (hazır zaten interaction olacak o yüzden burada düzenlemeler yapılsın)
+- Görevlere devam et
 - Yeni görsel veya videolar gelecek mirror kısmına.
 - Yeni itemler için shoppingi yapmaya başlamak. Kitap ve İtemlar.
 - Read book kısımlarına yeni düzenlemeler gelebilir üzerine geldiğinde kitabın hoverı içerikte ne olduğu vs vs.

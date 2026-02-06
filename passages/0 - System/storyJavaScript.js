@@ -685,8 +685,54 @@ Macro.add('btnPicker', {
                 dropdown.removeClass('open');
                 wrapper.removeClass('open');
                 $('body').removeClass('btn-picker-open');
+                moveDropdownBackToWrapper();
             });
         });
+        function positionDropdownInPortal() {
+            const triggerEl = trigger[0];
+            const dropEl = dropdown[0];
+            if (!triggerEl || !dropEl) return;
+            const rect = triggerEl.getBoundingClientRect();
+            const w = dropEl.offsetWidth || 120;
+            dropdown.css({
+                position: 'fixed',
+                top: (rect.bottom + 4) + 'px',
+                left: (rect.right - w) + 'px',
+                right: 'auto',
+                zIndex: '10000'
+            });
+        }
+
+        const scrollNamespace = 'scroll.btnPickerPortal' + presetName;
+
+        function moveDropdownToBody() {
+            dropdown.addClass('btn-picker-dropdown-portal');
+            $(document.body).append(dropdown);
+            requestAnimationFrame(positionDropdownInPortal);
+            $(document).on(scrollNamespace, function () {
+                if (dropdown.hasClass('btn-picker-dropdown-portal')) {
+                    requestAnimationFrame(positionDropdownInPortal);
+                }
+            });
+            $('#passages').on(scrollNamespace, function () {
+                if (dropdown.hasClass('btn-picker-dropdown-portal')) {
+                    requestAnimationFrame(positionDropdownInPortal);
+                }
+            });
+        }
+
+        function moveDropdownBackToWrapper() {
+            if (!dropdown.hasClass('btn-picker-dropdown-portal')) return;
+            $(document).off(scrollNamespace);
+            $('#passages').off(scrollNamespace);
+            dropdown.removeClass('btn-picker-dropdown-portal').css({ position: '', top: '', left: '', right: '', zIndex: '' });
+            if (wrapper[0].isConnected) {
+                wrapper.append(dropdown);
+            } else {
+                dropdown.remove();
+            }
+        }
+
         trigger.on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -695,8 +741,10 @@ Macro.add('btnPicker', {
 
             if (dropdown.hasClass('open')) {
                 $('body').addClass('btn-picker-open');
+                moveDropdownToBody();
             } else {
                 $('body').removeClass('btn-picker-open');
+                moveDropdownBackToWrapper();
             }
         });
         btn.on('click', function (e) {
@@ -705,15 +753,19 @@ Macro.add('btnPicker', {
             Engine.play(passage);
         });
         $(document).on('click.btnPicker' + presetName, function (e) {
-            if (!wrapper.is(e.target) && wrapper.has(e.target).length === 0) {
+            const inWrapper = wrapper.is(e.target) || wrapper.has(e.target).length > 0;
+            const inDropdown = dropdown.is(e.target) || dropdown.has(e.target).length > 0;
+            if (!inWrapper && !inDropdown) {
                 dropdown.removeClass('open');
                 wrapper.removeClass('open');
                 $('body').removeClass('btn-picker-open');
+                moveDropdownBackToWrapper();
             }
         });
         $(document).one(':passagestart', function () {
             $(document).off('click.btnPicker' + presetName);
             $('body').removeClass('btn-picker-open');
+            moveDropdownBackToWrapper();
         });
     }
 });
