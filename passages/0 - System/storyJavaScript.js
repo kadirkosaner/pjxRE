@@ -1464,7 +1464,8 @@ Macro.add('navMenu', {
                 'margin-left': `${targetMarginLeft}px`,
                 'width': `${availableWidth}px`,
                 'max-width': 'none',
-                'opacity': '1' // Show after calculation
+                'opacity': '1', // Show after calculation
+                'z-index': '10' // Below btnPicker (99999) to ensure dropdown visibility
             });
 
             $container.css({
@@ -1473,7 +1474,8 @@ Macro.add('navMenu', {
                 'background': 'transparent',
                 'border': 'none',
                 'box-shadow': 'none',
-                'border-radius': '12px'
+                'border-radius': '12px',
+                'z-index': '1' // Relative to wrapper
             });
             $container.find('.nav-card').first().css({
                 'border-top-left-radius': '12px',
