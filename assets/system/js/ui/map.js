@@ -319,8 +319,8 @@ window.MapInit = function (API) {
 
             let contentSection = '';
 
-            // Residence structureType - show ONLY known residents
-            if (location.structureType === 'residence' && location.residents && location.residents.length > 0) {
+            // Show known people at this location (residents for residence, staff/workers for stores, etc.)
+            if (location.residents && location.residents.length > 0) {
                 const residentCards = location.residents
                     .filter(charId => {
                         const char = characters[charId];
@@ -340,8 +340,9 @@ window.MapInit = function (API) {
                         `;
                     }).join('');
 
+                const peopleSectionTitle = location.structureType === 'residence' ? 'Residents' : 'People here';
                 contentSection = residentCards ? `
-                    <div class="map-section-title">Residents</div>
+                    <div class="map-section-title">${peopleSectionTitle}</div>
                     <div class="map-residents-list">
                         ${residentCards}
                     </div>
@@ -364,7 +365,7 @@ window.MapInit = function (API) {
                         const storeImage = locationImages[childId] || '';
                         
                         return `
-                            <div class="map-store-card">
+                            <div class="map-store-card" data-location="${childId}">
                                 <div class="store-icon">
                                     ${storeImage ? `<img src="${storeImage}" alt="${childName}">` : '🏪'}
                                 </div>
@@ -457,7 +458,8 @@ window.MapInit = function (API) {
             if (this.currentArea) {
                 this.navigationStack.push({
                     area: this.currentArea,
-                    isRegion: this.currentView === 'region'
+                    isRegion: this.currentView === 'region',
+                    viewType: this.currentView  // 'location' = came from store cards, 'subregion'/'region' = came from markers
                 });
             }
             
@@ -472,9 +474,17 @@ window.MapInit = function (API) {
             if (this.navigationStack.length > 0) {
                 const prev = this.navigationStack.pop();
                 this.currentArea = prev.area;
-                const content = this.buildAreaView(prev.area, prev.isRegion);
+                let content;
+                if (prev.viewType === 'location') {
+                    // Came from store cards (e.g. Town Hall from Civic Center) - show location view again
+                    content = this.buildLocationView(prev.area);
+                    this.currentView = 'location';
+                } else {
+                    // Came from area markers - show area view
+                    content = this.buildAreaView(prev.area, prev.isRegion);
+                    this.currentView = prev.isRegion ? 'region' : 'subregion';
+                }
                 this.updateContent(content);
-                this.currentView = prev.isRegion ? 'region' : 'subregion';
             } else {
                 this.showMain();
             }
@@ -523,7 +533,21 @@ window.MapInit = function (API) {
                 }
             });
 
+            // Resident/People card click - open character interaction
+            $doc.off('click.map-resident').on('click.map-resident', '.map-resident-card', function () {
+                const charId = self.API.$(this).data('character');
+                if (!charId) return;
+                self.API.State.variables.interactingChar = charId;
+                $('#map-overlay').removeClass('active');
+                self.API.Engine.play('CharacterInteraction');
+            });
 
+            // Store/location card click - show that location's detail (e.g. Town Hall from Civic Center)
+            $doc.off('click.map-store').on('click.map-store', '.map-store-card', function () {
+                const locationId = self.API.$(this).data('location');
+                if (!locationId) return;
+                self.showLocation(locationId);
+            });
 
             // Taxi button
             $doc.off('click.map-taxi').on('click.map-taxi', '.map-taxi-btn', function () {

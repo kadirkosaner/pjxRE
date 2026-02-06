@@ -7,7 +7,7 @@
   {
     id: "maplewood",
     mapImage: "assets/content/locations/map/maplewood.webp",
-    desc: "Quiet residential neighborhood - Your home",
+    desc: "Neighborhood - Your home",
     color: "#22c55e",
     x: 55,
     y: 15
@@ -90,7 +90,7 @@
      ========================================== */
   FamilyHouse: {
     structureType: "residence",
-    category: "residential",
+    category: "Residential",
     x: 8,
     y: 45,
     residents: ["mother", "father", "brother"],
@@ -98,7 +98,7 @@
   },
   storeCorner: {
     structureType: "location",
-    category: "store",
+    category: "Store",
     residents: ["shopClerkMarcus"],
     x: 25,
     y: 15,
@@ -106,14 +106,14 @@
   },
   mapleChurch: {
     structureType: "location",
-    category: "public",
+    category: "Public",
     x: 50,
     y: 50,
     taxiCost: 5
   },
   sunsetPark: {
     structureType: "location",
-    category: "public",
+    category: "Public",
     x: 40,
     y: 30,
     taxiCost: 5
@@ -124,7 +124,7 @@
      ========================================== */
   skyline: {
     structureType: "area",
-    category: "business",
+    category: "Business",
     x: 15,
     y: 20,
     taxiCost: 15
@@ -133,28 +133,28 @@
   /* -- Mall & Floors -- */
   mall: {
     structureType: "area",
-    category: "store",
+    category: "Store",
     x: 75,
     y: 45,
     taxiCost: 15
   },
   floorGround: {
     structureType: "floor",
-    category: "store",
+    category: "Store",
     x: 46,
     y: 55,
     taxiCost: 15
   },
   floorSecond: {
     structureType: "floor",
-    category: "store",
+    category: "Store",
     x: 46,
     y: 40,
     taxiCost: 15
   },
   floorThird: {
     structureType: "floor",
-    category: "store",
+    category: "Store",
     x: 46,
     y: 25,
     taxiCost: 15
@@ -163,21 +163,21 @@
   /* -- Downtown Direct -- */
   cityHall: {
     structureType: "location",
-    category: "public",
+    category: "Public",
     x: 70,
     y: 10,
     taxiCost: 15
   },
   nightClub: {
     structureType: "location",
-    category: "entertainment",
+    category: "Entertainment",
     x: 30,
     y: 60,
     taxiCost: 15
   },
   restaurantDowntown: {
     structureType: "location",
-    category: "food",
+    category: "Food",
     x: 70,
     y: 80,
     taxiCost: 15
@@ -186,28 +186,28 @@
   /* -- Skyline Towers -- */
   towerA: {
     structureType: "area",
-    category: "business",
+    category: "Business",
     x: 45,
     y: 35,
     taxiCost: 15
   },
   recreationCenter: {
     structureType: "area",
-    category: "entertainment",
+    category: "Entertainment",
     x: 40,
     y: 80,
     taxiCost: 15
   },
   towerB: {
     structureType: "area",
-    category: "business",
+    category: "Business",
     x: 32,
     y: 30,
     taxiCost: 15
   },
   towerC: {
     structureType: "area",
-    category: "business",
+    category: "Business",
     x: 70,
     y: 30,
     taxiCost: 20
@@ -218,21 +218,21 @@
      ========================================== */
   galleryArt: {
     structureType: "location",
-    category: "entertainment",
+    category: "Entertainment",
     x: 30,
     y: 10,
     taxiCost: 20
   },
   golfClub: {
     structureType: "area",
-    category: "entertainment",
+    category: "Entertainment",
     x: 65,
     y: 15,
     taxiCost: 25
   },
   streetFifth: {
     structureType: "area",
-    category: "store",
+    category: "Store",
     x: 45,
     y: 50,
     taxiCost: 20
@@ -243,35 +243,35 @@
      ========================================== */
   marina: {
     structureType: "location",
-    category: "business",
+    category: "Business",
     x: 55,
     y: 65,
     taxiCost: 18
   },
   beachClub: {
     structureType: "location",
-    category: "entertainment",
+    category: "Entertainment",
     x: 40,
     y: 80,
     taxiCost: 22
   },
   restaurantBeach: {
     structureType: "location",
-    category: "food",
+    category: "Food",
     x: 25,
     y: 25,
     taxiCost: 18
   },
   beach: {
     structureType: "area",
-    category: "public",
+    category: "Public",
     x: 30,
     y: 40,
     taxiCost: 18
   },
   pier: {
     structureType: "area",
-    category: "public",
+    category: "Public",
     x: 35,
     y: 60,
     taxiCost: 18
@@ -282,49 +282,49 @@
      ========================================== */
   civicCenter: {
     structureType: "location",
-    category: "public",
+    category: "Public",
     x: 80,
     y: 25,
     taxiCost: 12
   },
   pharmacy: {
     structureType: "location",
-    category: "store",
+    category: "Store",
     x: 55,
     y: 65,
     taxiCost: 12
   },
   dinerRubys: {
     structureType: "location",
-    category: "food",
+    category: "Food",
     x: 55,
     y: 15,
     taxiCost: 12
   },
   shopBarber: {
     structureType: "location",
-    category: "store",
+    category: "Store",
     x: 50,
     y: 40,
     taxiCost: 12
   },
   shopCoffeeOldtown: {
     structureType: "location",
-    category: "food",
+    category: "Food",
     x: 15,
     y: 55,
     taxiCost: 12
   },
   storeBook: {
     structureType: "location",
-    category: "store",
+    category: "Store",
     x: 25,
     y: 35,
     taxiCost: 12
   },
   storeHardware: {
     structureType: "location",
-    category: "store",
+    category: "Store",
     x: 85,
     y: 60,
     taxiCost: 12
@@ -335,35 +335,35 @@
      ========================================== */
   campus: {
     structureType: "location",
-    category: "public",
+    category: "Public",
     x: 55,
     y: 55,
     taxiCost: 14
   },
   dormsUni: {
     structureType: "residence",
-    category: "residential",
+    category: "Residential",
     x: 55,
     y: 30,
     taxiCost: 14
   },
   studentBar: {
     structureType: "location",
-    category: "food",
+    category: "Food",
     x: 75,
     y: 55,
     taxiCost: 14
   },
   fratHouse: {
     structureType: "residence",
-    category: "residential",
+    category: "Residential",
     x: 40,
     y: 65,
     taxiCost: 14
   },
   sororityHouse: {
     structureType: "residence",
-    category: "residential",
+    category: "Residential",
     x: 60,
     y: 80,
     taxiCost: 14
@@ -374,42 +374,42 @@
      ========================================== */
   apartmentComplex: {
     structureType: "residence",
-    category: "residential",
+    category: "Residential",
     x: 40,
     y: 65,
     taxiCost: 10
   },
   cornerBlock: {
     structureType: "area",
-    category: "public",
+    category: "Public",
     x: 15,
     y: 25,
     taxiCost: 10
   },
   laundromat: {
     structureType: "location",
-    category: "store",
+    category: "Store",
     x: 65,
     y: 40,
     taxiCost: 10
   },
   oldFactory: {
     structureType: "location",
-    category: "public",
+    category: "Public",
     x: 50,
     y: 10,
     taxiCost: 10
   },
   shopPawn: {
     structureType: "location",
-    category: "store",
+    category: "Store",
     x: 55,
     y: 85,
     taxiCost: 10
   },
   storeLiquor: {
     structureType: "location",
-    category: "store",
+    category: "Store",
     x: 40,
     y: 35,
     taxiCost: 10
@@ -420,35 +420,35 @@
      ========================================== */
   apartmentsSuburbs: {
     structureType: "residence",
-    category: "residential",
+    category: "Residential",
     x: 85,
     y: 40,
     taxiCost: 8
   },
   houseCrack: {
     structureType: "residence",
-    category: "residential",
+    category: "Residential",
     x: 50,
     y: 40,
     taxiCost: 8
   },
   motelSuburbs: {
     structureType: "location",
-    category: "business",
+    category: "Business",
     x: 70,
     y: 10,
     taxiCost: 8
   },
   thePit: {
     structureType: "location",
-    category: "entertainment",
+    category: "Entertainment",
     x: 35,
     y: 65,
     taxiCost: 8
   },
   gangTerritory: {
     structureType: "location",
-    category: "public",
+    category: "Public",
     x: 20,
     y: 20,
     taxiCost: 8
@@ -459,49 +459,49 @@
      ========================================== */
   alleyBack: {
     structureType: "area",
-    category: "public",
+    category: "Public",
     x: 10,
     y: 20,
     taxiCost: 15
   },
   basementEntrance: {
     structureType: "location",
-    category: "entertainment",
+    category: "Entertainment",
     x: 35,
     y: 45,
     taxiCost: 15
   },
   roomsPrivate: {
     structureType: "location",
-    category: "entertainment",
+    category: "Entertainment",
     x: 35,
     y: 20,
     taxiCost: 15
   },
   clubPrivate: {
     structureType: "location",
-    category: "entertainment",
+    category: "Entertainment",
     x: 60,
     y: 40,
     taxiCost: 15
   },
   motelRedLight: {
     structureType: "location",
-    category: "business",
+    category: "Business",
     x: 55,
     y: 80,
     taxiCost: 15
   },
   parlorMassage: {
     structureType: "location",
-    category: "business",
+    category: "Business",
     x: 15,
     y: 70,
     taxiCost: 15
   },
   storeAdult: {
     structureType: "location",
-    category: "store",
+    category: "Store",
     x: 68,
     y: 13,
     taxiCost: 15,

@@ -348,7 +348,7 @@
   padding: 0 1.5rem;
 }
 
-/* Resident Cards - 3 Column Grid */
+/* Resident Cards - 3 Column Grid (clickable → Character Interaction) */
 .map-resident-card {
   display: flex;
   flex-direction: column;
@@ -363,6 +363,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .map-resident-card:hover {
@@ -393,6 +394,13 @@
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.map-store-card:hover {
+  background: rgba(40, 40, 55, 0.75);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .map-store-card .store-icon {
