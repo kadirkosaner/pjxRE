@@ -1,0 +1,44 @@
+:: charCareerClerk[TownHall][init]
+/* ==========================================
+   CAREER SERVICES CLERK - Sandra Wilson
+   Career counselor at Town Hall
+========================================== */
+
+/* CHARACTER DATA */
+/* Ensure $characters object exists (in case of load order issues) */
+<<if !$characters>><<set $characters = {}>><</if>>
+
+/* Backwards compatibility: Only initialize if character doesn't exist in save */
+<<if !$characters.careerClerk>>
+    <<set $characters.careerClerk = {
+        name: "Sandra Wilson",
+        firstName: "Sandra",
+        lastName: "Wilson",
+        birthYear: 1984,
+        occupation: "Career Counselor",
+        location: "Town Hall - Career Services",
+        avatar: "assets/content/people/generic/clerk.webp",
+        type: "npc",
+        color: "#8b5cf6",
+        stats: {
+            love: 0,
+            friendship: 0,
+            lust: 0,
+            trust: 0
+        },
+        status: "Career Counselor",
+        firstMet: null,
+        info: "<p>A businesslike career counselor who works at the Town Hall Career Services office. She's efficient but somewhat impersonal in her approach.</p>",
+        known: false,
+        currentLocation: null,
+        currentStatus: null
+    }>>
+<<else>>
+    /* Ensure all required properties exist (for saves from older versions) */
+    <<if !$characters.careerClerk.hasOwnProperty('currentLocation')>>
+        <<set $characters.careerClerk.currentLocation = null>>
+    <</if>>
+    <<if !$characters.careerClerk.hasOwnProperty('currentStatus')>>
+        <<set $characters.careerClerk.currentStatus = null>>
+    <</if>>
+<</if>>

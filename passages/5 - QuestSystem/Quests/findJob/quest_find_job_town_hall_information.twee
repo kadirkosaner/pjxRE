@@ -1,0 +1,48 @@
+/* ========================================
+   SCENE: FIND JOB - INFORMATION DESK
+   Player asks for directions to Career Services
+   ======================================== */
+<<silently>>
+/* Ensure characters exist for old saves */
+<<advanceTime 2>>
+<</silently>>
+<<nobr>>
+<<narrative "Information Desk">>
+You walk up to the information desk. The woman looks up from her computer, offering a professional but tired smile.
+<</narrative>>
+<<dialog "townHallReceptionist">>
+Good morning. How can I help you?
+<</dialog>>
+<<dialog "player">>
+Hi, I'm looking for the Career Services office? I need to find job listings.
+<</dialog>>
+<<narrative>>
+She nods knowingly, like she's answered this question a hundred times before.
+<</narrative>>
+<<dialog "townHallReceptionist">>
+Career Services, of course. Take the hallway to your right, past the Public Records office. You'll see a sign for Employment & Career Services. Can't miss it.
+<</dialog>>
+<<dialog "player">>
+Thank you.
+<</dialog>>
+<<dialog "townHallReceptionist">>
+Fair warning - it can get busy in there. Especially in the mornings.
+<</dialog>>
+<<narrative>>
+She gives you a sympathetic look before turning back to her computer.
+You follow her directions, heading down the right hallway.
+<</narrative>>
+<<narrative "Finding Career Services">>
+The hallway is lined with frosted glass doors, each labeled with different department names. You pass "Public Records," "City Planning," "Building Permits"...
+<</narrative>>
+<<narrative>>
+And then you see it: "EMPLOYMENT & CAREER SERVICES" in bold letters on a door at the end of the hall.
+You found it.
+<</narrative>>
+<</nobr>>
+<<silently>>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<div class="btn-center">
+<<btn "Enter Career Services" "quest_find_job_career_services_queue">><</btn>>
+</div>

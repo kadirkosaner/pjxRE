@@ -1,0 +1,44 @@
+:: charReceptionist[TownHall][init]
+/* ==========================================
+   TOWN HALL RECEPTIONIST
+   Information desk worker at Town Hall
+========================================== */
+
+/* CHARACTER DATA */
+/* Ensure $characters object exists (in case of load order issues) */
+<<if !$characters>><<set $characters = {}>><</if>>
+
+/* Backwards compatibility: Only initialize if character doesn't exist in save */
+<<if !$characters.townHallReceptionist>>
+    <<set $characters.townHallReceptionist = {
+        name: "Receptionist",
+        firstName: "Janet",
+        lastName: "Morrison",
+        birthYear: 1974,
+        occupation: "Receptionist",
+        location: "Town Hall",
+        avatar: "assets/content/people/generic/receptionist.webp",
+        type: "npc",
+        color: "#6b7280",
+        stats: {
+            love: 0,
+            friendship: 0,
+            lust: 0,
+            trust: 0
+        },
+        status: "Receptionist",
+        firstMet: null,
+        info: "<p>A professional woman who works at the Town Hall information desk. She's been here for years and knows the building inside and out.</p>",
+        known: false,
+        currentLocation: null,
+        currentStatus: null
+    }>>
+<<else>>
+    /* Ensure all required properties exist (for saves from older versions) */
+    <<if !$characters.townHallReceptionist.hasOwnProperty('currentLocation')>>
+        <<set $characters.townHallReceptionist.currentLocation = null>>
+    <</if>>
+    <<if !$characters.townHallReceptionist.hasOwnProperty('currentStatus')>>
+        <<set $characters.townHallReceptionist.currentStatus = null>>
+    <</if>>
+<</if>>

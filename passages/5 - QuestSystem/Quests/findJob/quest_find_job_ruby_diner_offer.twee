@@ -1,0 +1,61 @@
+/* ========================================
+   SCENE: FIND JOB - RUBY'S DINER OFFER
+   Clerk offers waitress position at Ruby's Diner
+   ======================================== */
+<<silently>>
+/* Ensure characters exist for old saves */
+<<advanceTime 3>>
+<</silently>>
+<<nobr>>
+<<narrative "Job Listing">>
+You lean forward to read the screen.
+<</narrative>>
+<<narrative "Computer Screen">>
+<span style="font-family: monospace; background: #f5f5f5; padding: 10px; display: block; border: 1px solid #ccc;">
+JOB ID: #2847
+POSITION: Waitress / Server
+EMPLOYER: Ruby's Diner
+LOCATION: Downtown District, Main Street
+HOURS: Part-time / Full-time Available
+EXPERIENCE REQUIRED: None
+WAGE: $12/hour + tips
+</span>
+<</narrative>>
+<<dialog "careerClerk">>
+Ruby's Diner. It's a local restaurant in the Downtown district. They're looking for waitstaff. No experience required.
+<</dialog>>
+<<narrative>>
+She prints out a small slip of paper and hands it to you.
+<</narrative>>
+<<dialog "careerClerk">>
+Here's the address and contact information. You'll need to go there in person to apply. Ask for Ruby - she's the owner.
+<</dialog>>
+<<dialog "player">>
+Thank you.
+<</dialog>>
+<<dialog "careerClerk">>
+It's entry-level work, but it's steady employment. Good tips if you're pleasant with customers.
+<</dialog>>
+<<narrative>>
+She's already typing again, ready for the next person.
+<</narrative>>
+<<dialog "careerClerk">>
+Good luck.
+<</dialog>>
+<<narrative>>
+You take the paper and stand up, feeling a mix of relief and nervousness.
+It's not much, but it's a start. A real job opportunity.
+<</narrative>>
+<<narrative "Leaving Town Hall">>
+You walk out of the Career Services office, clutching the address slip.
+Ruby's Diner. Downtown district.
+You know where you need to go next.
+<</narrative>>
+<</nobr>>
+<<silently>>
+<<discover "rubysDiner" "Ruby's Diner">>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<div class="btn-center">
+<<btn "Leave Town Hall" "townHall">><</btn>>
+</div>

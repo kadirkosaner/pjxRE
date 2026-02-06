@@ -1,0 +1,53 @@
+/* ========================================
+   SCENE: FIND JOB - CAREER SERVICES QUEUE
+   Player waits in a long line at Career Services
+   ======================================== */
+<<silently>>
+<<advanceTime 3>>
+<</silently>>
+<<nobr>>
+<<narrative "Career Services Office">>
+You push open the door and step into the Career Services office.
+The receptionist wasn't kidding about it being busy.
+<</narrative>>
+<<narrative>>
+The room is packed. A long line of people snakes from the service kiosks all the way to the entrance. You count quickly - at least fifteen people ahead of you.
+Some look young, around your age. Others are older, middle-aged. All of them have the same expression: tired resignation mixed with hope.
+<</narrative>>
+<<narrative "The Wait">>
+You take your place at the end of the line.
+The wait begins.
+<</narrative>>
+<<narrative>>
+Minutes tick by. The line moves slowly - painfully slowly. Each person at the kiosks seems to take forever, discussing their employment history, skills, available positions...
+<</narrative>>
+<<narrative>>
+You shift your weight from foot to foot. Check your phone. Look around the room. There's not much to see - generic motivational posters on the walls ("Your Future Starts Here!"), a water cooler in the corner, uncomfortable plastic chairs filled with waiting people.
+<</narrative>>
+<<narrative>>
+More time passes. The line inches forward. You've moved up maybe three spots in what feels like forever.
+You understand now why the receptionist gave you that sympathetic look.
+<</narrative>>
+<<narrative>>
+You zone out a bit, lost in thought. Thinking about the apartment, about money, about needing this job search to work out...
+<</narrative>>
+<<narrative "Finally...">>
+When you snap back to attention, you realize you've moved up significantly. Only two people ahead of you now.
+Almost there.
+<</narrative>>
+<<narrative>>
+The person in front of you finishes up and walks away, looking frustrated. You don't know if that's a good sign or not.
+One more person... and then it's your turn.
+<</narrative>>
+<<narrative "Your Turn">>
+The clerk at kiosk number three waves you over.
+Here goes nothing.
+<</narrative>>
+<</nobr>>
+<<silently>>
+<<advanceTime 30>>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<div class="btn-center">
+<<btn "Approach the kiosk" "quest_find_job_career_services_kiosk">><</btn>>
+</div>

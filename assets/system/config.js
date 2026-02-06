@@ -11,7 +11,6 @@ window.SystemModules = {
   // UI - Passage render driven components
   ui: [
     "topbar", // Top navigation bar
-    "layout", // Passage content wrapper (ortalama)
     "rightbar", // Right sidebar
     "phone", // Phone overlay
     "map", // Map overlay (injects into rightbar)
@@ -90,13 +89,9 @@ window.SystemCSS = {
     "journal", // Journal modal styling
     "quest", // Quest prompt system
     "profile", // Profile system
-    "character", // Character interaction (passage + modal overlay)
-    "character-appearance", // Character modal – Appearance tab
-    "character-outfit", // Character modal – Outfit display
-    "location-nav", // Location navigation widget (accordion cards)
+    "character", // Character interaction
     "saveload", // Save/load modal
     "alarm", // Alarm clock system
-    "read", // Read system (books & magazines)
   ],
 
   // Utils - Helpers (load last)

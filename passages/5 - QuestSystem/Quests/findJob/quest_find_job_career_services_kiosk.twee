@@ -1,0 +1,86 @@
+/* ========================================
+   SCENE: FIND JOB - CAREER SERVICES KIOSK
+   Player speaks with the career services clerk
+   ======================================== */
+<<silently>>
+<<advanceTime 5>>
+<</silently>>
+<<nobr>>
+<<narrative "Kiosk #3">>
+You walk up to the kiosk and sit down in the chair facing the clerk.
+She's a woman in her forties, glasses perched on her nose, expression neutral and businesslike. Her name tag reads "Sandra Wilson - Career Counselor."
+She doesn't look up from her computer screen right away.
+<</narrative>>
+<<dialog "careerClerk">>
+Name?
+<</dialog>>
+<<narrative>>
+Straight to business. No pleasantries.
+<</narrative>>
+<<dialog "player">>
+<<= $player.name>> <<= $player.surname>>.
+<</dialog>>
+<<narrative>>
+She types something, still not looking at you.
+<</narrative>>
+<<dialog "careerClerk">>
+Age?
+<</dialog>>
+<<dialog "player">>
+<<= $player.age>>.
+<</dialog>>
+<<narrative>>
+More typing. Her fingers move quickly across the keyboard, mechanical and efficient.
+<</narrative>>
+<<dialog "careerClerk">>
+Previous work experience?
+<</dialog>>
+<<dialog "player">>
+Uh... none, actually. I just moved to the city.
+<</dialog>>
+<<narrative>>
+For the first time, she pauses. Her fingers stop typing.
+<</narrative>>
+<<dialog "careerClerk">>
+No work experience at all?
+<</dialog>>
+<<dialog "player">>
+No. I'm new here. Just arrived a few days ago.
+<</dialog>>
+<<narrative>>
+She types a few more things, her expression unchanged. You can't tell if this is good or bad.
+<</narrative>>
+<<dialog "careerClerk">>
+Education level?
+<</dialog>>
+<<dialog "player">>
+High school graduate.
+<</dialog>>
+<<narrative>>
+More typing. The clicking of keys fills the silence.
+Then she stops, staring at her screen, scanning through something. Her eyes move back and forth, reading.
+The wait feels longer than it probably is.
+<</narrative>>
+<<narrative>>
+Finally, she looks up at you. Really looks at you, for the first time since you sat down.
+Her expression is... not encouraging.
+<</narrative>>
+<<dialog "careerClerk">>
+Alright. Based on your profile - no experience, just arrived in the city - your options are limited.
+<</dialog>>
+<<narrative>>
+Your stomach sinks a little. You expected this, but hearing it out loud still stings.
+<</narrative>>
+<<dialog "careerClerk">>
+I have one current opening that matches your criteria.
+<</dialog>>
+<<narrative>>
+She clicks a few more times, then turns the monitor slightly so you can see.
+<</narrative>>
+<</nobr>>
+<<silently>>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<div class="btn-center">
+<<btn "Look at the screen" "quest_find_job_ruby_diner_offer">><</btn>>
+</div>

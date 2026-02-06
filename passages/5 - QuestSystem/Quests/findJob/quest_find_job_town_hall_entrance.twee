@@ -1,0 +1,33 @@
+/* ========================================
+   SCENE: FIND JOB - TOWN HALL ENTRANCE
+   Player enters Town Hall and looks for Career Services
+   ======================================== */
+<<silently>>
+<<set $location = "townHall">>
+<<updateCharacterLocations>>
+<<advanceTime 5>>
+<</silently>>
+<<nobr>>
+<<narrative "Town Hall - Main Lobby">>
+You push through the heavy wooden doors and step into Town Hall's main lobby. The interior is impressive - high ceilings, marble floors, and the echo of footsteps bouncing off stone walls.
+<</narrative>>
+<<image "assets/content/locations/oldTown/civicCenter/townHall_interior.webp" "100%">>
+<<narrative>>
+The lobby is busy with people coming and going. Some are dressed in business attire, others in casual clothes. Everyone seems to know where they're going.
+You don't.
+<</narrative>>
+<<narrative>>
+You look around, trying to get your bearings. There are hallways branching off in different directions, signs pointing to various offices and departments. It's a bit overwhelming.
+<</narrative>>
+<<narrative "Information Desk">>
+Near the center of the lobby, you spot a large information desk with a sign above it: "INFORMATION & VISITOR SERVICES."
+A woman in her fifties sits behind the desk, typing on a computer. She looks like she's been working here for years.
+That's probably a good place to start.
+<</narrative>>
+<</nobr>>
+<<silently>>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<div class="btn-center">
+<<btn "Approach the information desk" "quest_find_job_town_hall_information">><</btn>>
+</div>

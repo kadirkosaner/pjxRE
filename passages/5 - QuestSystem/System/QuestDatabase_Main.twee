@@ -220,13 +220,49 @@
                 title: "Check Civic Center",
                 desc: "Marcus suggested looking for jobs at Town Hall, Civic Center",
                 buttonText: "Find Town Hall",
-                triggers: { 
+                triggers: {
                     location: "oldTown",
                     timeRange: { min: 9, max: 17 }
                 },
                 lockedText: "Town Hall is closed. (Open 9:00 - 17:00)",
                 forceScene: true,
                 passage: "quest_find_job_civic_center"
+            },
+            {
+                id: "enter_town_hall",
+                title: "Enter Town Hall",
+                desc: "Step inside Town Hall to find the Career Services office",
+                buttonText: "Find Career Services",
+                triggers: { 
+                    location: "townHall",
+                    timeRange: { min: 9, max: 17 } 
+                },
+                forceScene: true,
+                passage: "quest_find_job_town_hall_entrance"
+            },
+            {
+                id: "find_career_services",
+                title: "Find Career Services",
+                desc: "Ask at the information desk for directions",
+                passage: "quest_find_job_town_hall_information"
+            },
+            {
+                id: "wait_in_queue",
+                title: "Wait in Queue",
+                desc: "There's a long line at Career Services",
+                passage: "quest_find_job_career_services_queue"
+            },
+            {
+                id: "meet_with_clerk",
+                title: "Meet with Clerk",
+                desc: "Speak with the Career Services clerk",
+                passage: "quest_find_job_career_services_kiosk"
+            },
+            {
+                id: "ruby_diner_offer",
+                title: "Job Opportunity Found",
+                desc: "The clerk found a waitress position at Ruby's Diner",
+                passage: "quest_find_job_ruby_diner_offer"
             }
         ],
 
