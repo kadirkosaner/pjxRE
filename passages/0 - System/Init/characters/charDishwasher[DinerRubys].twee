@@ -1,0 +1,36 @@
+/* ==========================================
+   DISHWASHER - Ruby's Diner
+   Kitchen staff, coworker
+========================================== */
+
+<<set $characters.dinerDishwasher = {
+    name: "Mike Torres",
+    firstName: "Mike",
+    lastName: "Torres",
+    birthYear: 1995,
+    occupation: "Dishwasher",
+    location: "Ruby's Diner",
+    avatar: "assets/content/people/generic/dishwasher.webp",
+    type: "npc",
+    color: "#0ea5e9",
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    status: "Coworker",
+    firstMet: null,
+    info: "<p>Dishwasher at Ruby's Diner. He works in the back and keeps the plates moving.</p>",
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.dinerDishwasher = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ]
+}>>

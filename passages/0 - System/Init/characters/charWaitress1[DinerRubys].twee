@@ -1,0 +1,36 @@
+/* ==========================================
+   WAITRESS - Ruby's Diner (1 of 3, female)
+   Front of house, coworker
+========================================== */
+
+<<set $characters.dinerWaitress1 = {
+    name: "Emma Walsh",
+    firstName: "Emma",
+    lastName: "Walsh",
+    birthYear: 1999,
+    occupation: "Waitress",
+    location: "Ruby's Diner",
+    avatar: "assets/content/people/generic/waitress.webp",
+    type: "npc",
+    color: "#8b5cf6",
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    status: "Coworker",
+    firstMet: null,
+    info: "<p>Waitress at Ruby's Diner. She's been there a while and knows the regulars.</p>",
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.dinerWaitress1 = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ]
+}>>

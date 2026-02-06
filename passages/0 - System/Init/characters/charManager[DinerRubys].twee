@@ -1,0 +1,36 @@
+/* ==========================================
+   MANAGER / OWNER - Ruby's Diner
+   Owner, 40s, demeaning, clingy, slightly creepy
+========================================== */
+
+<<set $characters.dinerManager = {
+    name: "Vince Ruby",
+    firstName: "Vince",
+    lastName: "Ruby",
+    birthYear: 1982,
+    occupation: "Owner / Manager",
+    location: "Ruby's Diner",
+    avatar: "assets/content/people/generic/manager.webp",
+    type: "npc",
+    color: "#b45309",
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    status: "Acquaintance",
+    firstMet: null,
+    info: "<p>Owner and manager of Ruby's Diner. He runs the place with an iron hand and a habit of looking a little too long.</p>",
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.dinerManager = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ]
+}>>

@@ -263,6 +263,31 @@
                 title: "Job Opportunity Found",
                 desc: "The clerk found a waitress position at Ruby's Diner",
                 passage: "quest_find_job_ruby_diner_offer"
+            },
+            {
+                id: "ruby_diner_interview",
+                title: "Apply at Ruby's Diner",
+                desc: "You have the address. Go to Ruby's Diner and apply for the job.",
+                buttonText: "Ask about the job",
+                triggers: {
+                    location: "dinerRubys",
+                    timeRange: { min: 6, max: 22 }
+                },
+                lockedText: "Ruby's Diner is closed. (Open 6:00 - 22:00)",
+                forceScene: true,
+                passage: "quest_find_job_ruby_diner_entrance"
+            },
+            {
+                id: "family_dinner_18",
+                title: "Family Dinner (18:00)",
+                desc: "Join your family for dinner at 18:00",
+                buttonText: "Dinner",
+                triggers: {
+                    location: "fhKitchen",
+                    timeRange: { min: 18, max: 19 }
+                },
+                forceScene: true,
+                passage: "quest_find_job_family_dinner_wip"
             }
         ],
 

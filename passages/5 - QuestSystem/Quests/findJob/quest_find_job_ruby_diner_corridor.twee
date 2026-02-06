@@ -1,0 +1,33 @@
+/* ========================================
+   SCENE: FIND JOB - CORRIDOR / MANAGER DOOR
+   Player walks down the corridor and knocks
+   ======================================== */
+<<silently>>
+<<set $location = "dinerRubys">>
+<<advanceTime 2>>
+<</silently>>
+<<nobr>>
+<<narrative "Back corridor">>
+You walk down the corridor. On your left you pass two doors—one labeled "Dressing room," the other "Storage." At the end is a closed door with no sign. Manager's office.
+<</narrative>>
+<<image "assets/content/scenes/oldtown/rubysDiner/questJob/diner_corridor_01.webp" "100%">>
+<<narrative>>
+You knock.
+<</narrative>>
+<<dialog "dinerManager">>
+Come in.
+<</dialog>>
+<<narrative>>
+You open the door and step inside.
+<</narrative>>
+<<dialog "player">>
+Hi. I'm here to apply for the job. The waitress position.
+<</dialog>>
+<</nobr>>
+<<silently>>
+<<set $characters.dinerManager.known = true>>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<div class="btn-center">
+<<btn "Enter the office" "quest_find_job_ruby_diner_manager_room">><</btn>>
+</div>

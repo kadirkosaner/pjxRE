@@ -1,0 +1,36 @@
+/* ==========================================
+   CLERK - Ruby's Diner (front register)
+   30s, owner's right hand, kind and helpful
+========================================== */
+
+<<set $characters.dinerClerk = {
+    name: "Tom Reese",
+    firstName: "Tom",
+    lastName: "Reese",
+    birthYear: 1992,
+    occupation: "Front Clerk",
+    location: "Ruby's Diner",
+    avatar: "assets/content/people/generic/clerk.webp",
+    type: "npc",
+    color: "#0d9488",
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    status: "Acquaintance",
+    firstMet: null,
+    info: "<p>Works the register at Ruby's Diner. He's been here for years and is the owner's right hand. Friendly and helpful.</p>",
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.dinerClerk = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ]
+}>>

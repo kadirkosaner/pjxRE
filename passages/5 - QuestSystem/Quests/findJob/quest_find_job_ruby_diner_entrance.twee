@@ -1,0 +1,46 @@
+/* ========================================
+   SCENE: FIND JOB - RUBY'S DINER ENTRANCE
+   Player enters with the address slip, goes to register
+   ======================================== */
+<<silently>>
+<<set $location = "dinerRubys">>
+<<advanceTime 5>>
+<<set $characters.dinerClerk.known = true>>
+<</silently>>
+<<nobr>>
+<<narrative "Ruby's Diner">>
+You step inside and take a quick look around. Red vinyl booths, the smell of coffee and grease, a few customers. You clutch the address slip from Career Services and head for the register.
+<</narrative>>
+<<image "assets/content/scenes/oldtown/rubysDiner/questJob/diner_entrance_01.webp" "100%">>
+<<narrative>>
+A man in his thirties is at the counter—friendly face, like he's been working here for years. He looks up as you approach.
+<</narrative>>
+<<image "assets/content/scenes/oldtown/rubysDiner/questJob/diner_entrance_02.webp" "100%">>
+<<dialog "dinerClerk">>
+Hey. What can I get you?
+<</dialog>>
+<<dialog "player">>
+Hi. I'm here about the job. The waitress position? I got this from Career Services.
+<</dialog>>
+<<narrative>>
+You hold out the slip. He takes it, glances at it, and nods.
+<</narrative>>
+<<dialog "dinerClerk">>
+Oh, you're here for that. Good. Boss handles all hiring—I'll take you back. Come on.
+<</dialog>>
+<<narrative>>
+He comes out from behind the counter and leads you toward the back. You pass the kitchen, then a door that opens onto a narrow corridor.
+<</narrative>>
+<<dialog "dinerClerk">>
+Dressing room and storage are on the left. Manager's office is at the end. Just knock.
+<</dialog>>
+<<narrative>>
+He points down the hall, gives you an encouraging look, and heads back to the front.
+<</narrative>>
+<</nobr>>
+<<silently>>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<div class="btn-center">
+<<btn "Walk to the manager's office" "quest_find_job_ruby_diner_corridor">><</btn>>
+</div>

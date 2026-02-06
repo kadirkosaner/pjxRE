@@ -1,0 +1,36 @@
+/* ==========================================
+   WAITRESS - Ruby's Diner (2 of 3, female)
+   Front of house, coworker
+========================================== */
+
+<<set $characters.dinerWaitress2 = {
+    name: "Sofia Chen",
+    firstName: "Sofia",
+    lastName: "Chen",
+    birthYear: 2001,
+    occupation: "Waitress",
+    location: "Ruby's Diner",
+    avatar: "assets/content/people/generic/waitress2.webp",
+    type: "npc",
+    color: "#ec4899",
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    status: "Coworker",
+    firstMet: null,
+    info: "<p>Waitress at Ruby's Diner. She usually works the morning shift.</p>",
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.dinerWaitress2 = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "dinerRubys", status: "available" },
+        { hour: 22, location: null, status: "unavailable" }
+    ]
+}>>

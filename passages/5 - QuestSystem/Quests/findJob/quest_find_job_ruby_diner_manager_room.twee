@@ -1,0 +1,78 @@
+/* ========================================
+   SCENE: FIND JOB - MANAGER'S OFFICE
+   Interview: rejection as waitress, dishwashing offer
+   ======================================== */
+<<silently>>
+<<set $location = "dinerRubys">>
+<<advanceTime 3>>
+<</silently>>
+<<nobr>>
+<<narrative "Manager's office">>
+A man in his forties sits behind the desk. He looks you over—not quite professional, a bit too long—then smiles.
+<</narrative>>
+<<image "assets/content/scenes/oldtown/rubysDiner/questJob/diner_manager_room_01.webp" "100%">>
+<<dialog "dinerManager">>
+Welcome. Have a seat. Right there in front of the desk.
+<</dialog>>
+<<narrative>>
+You sit down. He leans back and folds his hands.
+<</narrative>>
+<<dialog "dinerManager">>
+So you're interested in working here. I'm Vince. I own this place. And you are?
+<</dialog>>
+<<dialog "player">>
+<<= $player.firstName>> <<= $player.lastName>>. I just moved to the city. I don't have experience, but I'm a hard worker.
+<</dialog>>
+<<dialog "dinerManager">>
+<<= $player.firstName>>. Nice to meet you.
+<</dialog>>
+<<narrative>>
+He keeps looking at you in a way that makes you want to fold your arms. You wait for him to continue.
+<</narrative>>
+<<dialog "dinerManager">>
+Look, I'll be straight with you. I can't take you on as waitress.
+<</dialog>>
+<<dialog "player">>
+Oh. Can I ask why?
+<</dialog>>
+<<dialog "dinerManager">>
+Do you ever look at yourself in the mirror?
+<</dialog>>
+<<image "assets/content/scenes/oldtown/rubysDiner/questJob/diner_manager_room_02.webp" "100%">>
+<<narrative>>
+You freeze. The words hit like a slap.
+<</narrative>>
+<<dialog "dinerManager">>
+I mean—you're a bit unkempt. For the front, we need someone who looks put together. Customers notice. So that position isn't going to work.
+<</dialog>>
+<<narrative>>
+You feel your face burn. You keep your voice steady. You don't let it show.
+<</narrative>>
+<<dialog "player">>
+I see.
+<</dialog>>
+<<narrative>>
+You're about to stand up and leave when he holds up a hand.
+<</narrative>>
+<<image "assets/content/scenes/oldtown/rubysDiner/questJob/diner_manager_room_03.webp" "100%">>
+<<dialog "dinerManager">>
+Wait. If you want, I could set you up with a dishwashing job. Back of house. No one has to see you there. Same building, steady hours. What do you say?
+<</dialog>>
+<<dialog "player">>
+I... I'd need to know more. Pay, hours. And I'd like some time to think about it.
+<</dialog>>
+<<dialog "dinerManager">>
+Sure. Take your time. When you've decided, just come back and ask for me.
+<</dialog>>
+<<image "assets/content/scenes/oldtown/rubysDiner/questJob/diner_manager_room_04.webp" "100%">>
+<<narrative>>
+You get up. Your chest is tight, but you keep it together. You walk out of the office, down the corridor, and back into the diner. You don't look back.
+<</narrative>>
+<</nobr>>
+<<silently>>
+<<advanceTime 60>>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<div class="btn-center">
+<<btn "Leave Ruby's Diner" "dinerRubys">><</btn>>
+</div>
