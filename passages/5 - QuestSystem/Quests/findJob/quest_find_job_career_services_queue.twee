@@ -3,8 +3,9 @@
    Player waits in a long line at Career Services
    ======================================== */
 <<silently>>
-<<advanceTime 3>>
 <<set $location = "townHall">>
+<<advanceTime 33>>
+<<advanceQuestStage "find_job">>
 <</silently>>
 <<nobr>>
 <<narrative "Career Services Office">>
@@ -46,10 +47,6 @@ The clerk at kiosk number three waves you over.
 Here goes nothing.
 <</narrative>>
 <</nobr>>
-<<silently>>
-<<advanceTime 30>>
-<<advanceQuestStage "find_job">>
-<</silently>>
 <div class="btn-center">
 <<btn "Approach the kiosk" "quest_find_job_career_services_kiosk">><</btn>>
 </div>

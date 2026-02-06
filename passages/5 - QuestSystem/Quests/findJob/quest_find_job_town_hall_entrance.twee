@@ -6,6 +6,7 @@
 <<set $location = "townHall">>
 <<updateCharacterLocations>>
 <<advanceTime 5>>
+<<advanceQuestStage "find_job">>
 <</silently>>
 <<nobr>>
 <<narrative "Town Hall - Main Lobby">>
@@ -25,9 +26,6 @@ A woman in her fifties sits behind the desk, typing on a computer. She looks lik
 That's probably a good place to start.
 <</narrative>>
 <</nobr>>
-<<silently>>
-<<advanceQuestStage "find_job">>
-<</silently>>
 <div class="btn-center">
 <<btn "Approach the information desk" "quest_find_job_town_hall_information">><</btn>>
 </div>

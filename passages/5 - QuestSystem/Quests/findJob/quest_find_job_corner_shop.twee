@@ -6,6 +6,9 @@
 <<set $location = "storeCorner">>
 <<updateCharacterLocations>>
 <<advanceTime 8>>
+<<gainCharacterStat "shopClerkMarcus" "friendship" 5>>
+<<discover "OldTown" "Old Town">>
+<<advanceQuestStage "find_job">>
 <</silently>>
 
 <<narrative "Quick Mart">>
@@ -96,12 +99,6 @@ See you..
 <<narrative>>
 You leave the shop. Marcus is right about where he reminded you - Civic Center, Career Services. Going there makes sense.
 <</narrative>>
-
-<<silently>>
-<<gainCharacterStat "shopClerkMarcus" "friendship" 5>>
-<<discover "OldTown" "Old Town">>
-<<advanceQuestStage "find_job">>
-<</silently>>
 
 <div class="btn-center">
 <<btn "Leave the shop" "maplewood">><</btn>>

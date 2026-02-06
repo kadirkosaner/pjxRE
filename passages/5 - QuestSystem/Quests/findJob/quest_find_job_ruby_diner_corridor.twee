@@ -4,7 +4,9 @@
    ======================================== */
 <<silently>>
 <<set $location = "dinerRubys">>
-<<advanceTime 2>>
+<<advanceTime 5>>
+<<set $characters.dinerManager.known = true>>
+<<advanceQuestStage "find_job">>
 <</silently>>
 <<nobr>>
 <<narrative "Back corridor">>
@@ -24,10 +26,6 @@ You open the door and step inside.
 Hi. I'm here to apply for the job. The waitress position.
 <</dialog>>
 <</nobr>>
-<<silently>>
-<<set $characters.dinerManager.known = true>>
-<<advanceQuestStage "find_job">>
-<</silently>>
 <div class="btn-center">
 <<btn "Enter the office" "quest_find_job_ruby_diner_manager_room">><</btn>>
 </div>

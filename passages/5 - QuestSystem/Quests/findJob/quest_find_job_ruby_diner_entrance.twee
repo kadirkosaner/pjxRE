@@ -4,8 +4,9 @@
    ======================================== */
 <<silently>>
 <<set $location = "dinerRubys">>
-<<advanceTime 5>>
+<<advanceTime 10>>
 <<set $characters.dinerClerk.known = true>>
+<<advanceQuestStage "find_job">>
 <</silently>>
 <<nobr>>
 <<narrative "Ruby's Diner">>
@@ -38,9 +39,6 @@ Dressing room and storage are on the left. Manager's office is at the end. Just 
 He points down the hall, gives you an encouraging look, and heads back to the front.
 <</narrative>>
 <</nobr>>
-<<silently>>
-<<advanceQuestStage "find_job">>
-<</silently>>
 <div class="btn-center">
 <<btn "Walk to the manager's office" "quest_find_job_ruby_diner_corridor">><</btn>>
 </div>

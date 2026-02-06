@@ -3,8 +3,9 @@
    Player speaks with the career services clerk
    ======================================== */
 <<silently>>
-<<advanceTime 5>>
 <<set $location = "townHall">>
+<<advanceTime 5>>
+<<advanceQuestStage "find_job">>
 <</silently>>
 <<nobr>>
 <<narrative "Kiosk #3">>
@@ -80,9 +81,6 @@ I have one current opening that matches your criteria.
 She clicks a few more times, then turns the monitor slightly so you can see.
 <</narrative>>
 <</nobr>>
-<<silently>>
-<<advanceQuestStage "find_job">>
-<</silently>>
 <div class="btn-center">
 <<btn "Look at the screen" "quest_find_job_ruby_diner_offer">><</btn>>
 </div>

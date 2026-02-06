@@ -6,6 +6,11 @@
 <<set $location = "oldTown">>
 <<updateCharacterLocations>>
 <<advanceTime 20>>
+<<discover "townHall" "Town Hall">>
+<<discover "highSchool" "Old Town High School">>
+<<discover "hospital" "Hospital">>
+<<discover "policeStation" "Police Station">>
+<<advanceQuestStage "find_job">>
 <</silently>>
 <<nobr>>
 <<narrative "Old Town - Main Street">>
@@ -49,13 +54,6 @@ You take a moment to absorb everything. You've mapped out the civic district - t
 You know where to go now for the job search.
 <</narrative>>
 <</nobr>>
-<<silently>>
-<<discover "townHall" "Town Hall">>
-<<discover "highSchool" "Old Town High School">>
-<<discover "hospital" "Hospital">>
-<<discover "policeStation" "Police Station">>
-<<advanceQuestStage "find_job">>
-<</silently>>
 <div class="btn-center">
 <<btn "Step inside" "townHall">><</btn>>
 </div>

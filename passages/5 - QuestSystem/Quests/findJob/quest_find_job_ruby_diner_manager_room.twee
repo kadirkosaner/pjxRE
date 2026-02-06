@@ -4,7 +4,8 @@
    ======================================== */
 <<silently>>
 <<set $location = "dinerRubys">>
-<<advanceTime 3>>
+<<advanceTime 25>>
+<<advanceQuestStage "find_job">>
 <</silently>>
 <<nobr>>
 <<narrative "Manager's office">>
@@ -69,10 +70,6 @@ Sure. Take your time. When you've decided, just come back and ask for me.
 You get up. Your chest is tight, but you keep it together. You walk out of the office, down the corridor, and back into the diner. You don't look back.
 <</narrative>>
 <</nobr>>
-<<silently>>
-<<advanceTime 60>>
-<<advanceQuestStage "find_job">>
-<</silently>>
 <div class="btn-center">
 <<btn "Leave Ruby's Diner" "dinerRubys">><</btn>>
 </div>

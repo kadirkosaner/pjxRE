@@ -5,6 +5,8 @@
 <<silently>>
 <<set $location = "townHall">>
 <<advanceTime 3>>
+<<discover "DinerRubys" "Ruby's Diner">>
+<<advanceQuestStage "find_job">>
 <</silently>>
 <<nobr>>
 <<narrative "Job Listing">>
@@ -52,10 +54,6 @@ Ruby's Diner. Downtown district.
 You know where you need to go next.
 <</narrative>>
 <</nobr>>
-<<silently>>
-<<discover "DinerRubys" "Ruby's Diner">>
-<<advanceQuestStage "find_job">>
-<</silently>>
 <div class="btn-center">
 <<btn "Leave Town Hall" "townHall">><</btn>>
 </div>

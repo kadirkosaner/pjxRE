@@ -5,6 +5,7 @@
 <<silently>>
 <<set $location = "townHall">>
 <<advanceTime 2>>
+<<advanceQuestStage "find_job">>
 <</silently>>
 <<nobr>>
 <<narrative "Information Desk">>
@@ -41,9 +42,6 @@ And then you see it: "EMPLOYMENT & CAREER SERVICES" in bold letters on a door at
 You found it.
 <</narrative>>
 <</nobr>>
-<<silently>>
-<<advanceQuestStage "find_job">>
-<</silently>>
 <div class="btn-center">
 <<btn "Enter Career Services" "quest_find_job_career_services_queue">><</btn>>
 </div>
