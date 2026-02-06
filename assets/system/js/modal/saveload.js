@@ -302,6 +302,11 @@ function loadFromSlot(slotId) {
     try {
         API.Save.slots.load(slotId);
         console.log('[SaveLoad] Load successful');
+        if (typeof window.runSaveVersion === 'function') {
+            window.runSaveVersion();
+        } else {
+            console.warn('[SaveLoad] runSaveVersion not found – save version inits skipped.');
+        }
 
         // Close modal
         closeCustomSaveLoad();
@@ -588,6 +593,11 @@ function loadFromDisk() {
                 // 3. RESTORE
                 API.State.restore(stateToRestore);
                 console.log('[SaveLoad] State restored');
+                if (typeof window.runSaveVersion === 'function') {
+                    window.runSaveVersion();
+                } else {
+                    console.warn('[SaveLoad] runSaveVersion not found – save version inits skipped.');
+                }
 
                 // 4. NAVIGATION FIX
                 let savedPassage = null;

@@ -10,6 +10,7 @@ window.SystemModules = {
 
   // UI - Passage render driven components
   ui: [
+    "layout", // Passage content wrapper / layout (load first)
     "topbar", // Top navigation bar
     "rightbar", // Right sidebar
     "phone", // Phone overlay

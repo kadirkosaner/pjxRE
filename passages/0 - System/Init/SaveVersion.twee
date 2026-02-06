@@ -1,0 +1,27 @@
+/* ==========================================
+   SAVE VERSION INITS
+   Çalıştırma: Save yüklendikten sonra JS ile.
+   Her versiyon için yeni state variable'ları ekleyen
+   pasajları burada include et. Yeni versiyon eklerken:
+   1. Aşağıya yeni <<if $saveVersion lt N>> bloğu ekle
+   2. İçine o versiyondaki init pasajlarını <<include>> et
+   3. Sonda <<set $saveVersion to N>>
+========================================== */
+<<silently>>
+<<if ndef $saveVersion>><<set $saveVersion to 0>><</if>>
+
+/* Versiyon 1: Town Hall karakterleri */
+<<if $saveVersion lt 1>>
+<<include "charReceptionist[TownHall][init]">>
+<<include "charCareerClerk[TownHall][init]">>
+<<set $saveVersion to 1>>
+<</if>>
+
+/* İleride versiyon 2 örneği:
+<<if $saveVersion lt 2>>
+<<include "YeniInitPasaji">>
+<<set $saveVersion to 2>>
+<</if>>
+*/
+
+<</silently>>

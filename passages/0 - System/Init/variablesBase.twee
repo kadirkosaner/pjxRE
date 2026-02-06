@@ -5,6 +5,7 @@
 // Game Information
 <<set setup.gameName = "Deneme">>
 <<set setup.gameVersion = "Beta">>
+<<if ndef $saveVersion>><<set $saveVersion to 1>><</if>>
 
 /* ==========================================
    UI VISIBILITY SETTINGS

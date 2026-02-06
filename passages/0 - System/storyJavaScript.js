@@ -40,7 +40,9 @@ $(document).one(':storyready', async function () {
         Config: Config,
         $: $,
         setup: setup,
-        Macro: Macro
+        Macro: Macro,
+        Story: Story,
+        Wikifier: Wikifier
     };
 
     try {
@@ -102,6 +104,44 @@ $(document).one(':storyready', async function () {
         console.error("[Loader] Error:", error);
     }
 });
+
+/* ================== Save Version Migration =================== */
+window.runSaveVersion = function () {
+    try {
+        var API = window.SaveLoadAPI;
+        if (!API) {
+            console.warn('[SaveVersion] API not ready');
+            return;
+        }
+
+        var V = API.State.variables;
+        console.log('[SaveVersion] $saveVersion:', V.saveVersion);
+
+        // Story API can't find passages — read directly from DOM
+        var el = document.querySelector('tw-passagedata[name="SaveVersion"]');
+        if (!el) {
+            console.warn('[SaveVersion] "SaveVersion" passage not found in DOM');
+            return;
+        }
+
+        var content = el.textContent;
+        if (!content || !content.trim()) {
+            console.warn('[SaveVersion] Passage is empty');
+            return;
+        }
+
+        console.log('[SaveVersion] Passage loaded from DOM, wikifying...');
+        var Wk = API.Wikifier || window.Wikifier;
+        new Wk(null, content);
+
+        console.log('[SaveVersion] Done, $saveVersion:', V.saveVersion);
+    } catch (e) {
+        console.error('[SaveVersion]', e);
+    }
+};
+
+// Legacy alias for older saveload references
+window.runSaveVersionInits = window.runSaveVersion;
 
 /* ================== Fullscreen Layout Detection =================== */
 $(document).on(':passagerender', function () {
@@ -1564,6 +1604,27 @@ Macro.add('notify', {
                 message: message,
                 duration: duration
             });
+        }
+    }
+});
+
+/* DOM-based include */
+Macro.add('domInclude', {
+    handler: function () {
+        if (this.args.length === 0) {
+            return this.error('domInclude requires a passage name');
+        }
+
+        var passageName = this.args[0];
+        var el = document.querySelector('tw-passagedata[name="' + passageName + '"]');
+
+        if (!el) {
+            return this.error('passage "' + passageName + '" does not exist');
+        }
+
+        var content = el.textContent;
+        if (content && content.trim()) {
+            new Wikifier(this.output, content);
         }
     }
 });
