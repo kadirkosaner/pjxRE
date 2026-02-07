@@ -2,13 +2,12 @@
 <<set $location = "fhKitchen">>
 <<updateCharacterLocations>>
 <</silently>>
-
+<<nobr>>
 <<narrative "Kitchen">>The kitchen is warm and inviting, filled with the aroma of home cooking. Sunlight streams through the window.<</narrative>>
-
-<<questPrompts>>
 
 <<showLocationChars "fhKitchen">>
 
+<<questPrompts>>
 <div class="location-actions"><<nobr>>
 <<btn "Eat Food" "eatFood">><</btn>>
 <<btn "Drink Water" "drinkWater">><</btn>>
@@ -20,3 +19,4 @@
 	<<navCard "fhBackyard">>
 	<<navCard "fhDownstairs">>
 <</navMenu>>
+<</nobr>>
