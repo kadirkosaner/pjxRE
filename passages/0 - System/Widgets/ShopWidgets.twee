@@ -187,6 +187,10 @@
 <<widget "addToInventory">>
     <<set _itemId = $args[0]>>
     <<set _qty = $args[1] || 1>>
+    <<getItem _itemId>>
+    <<if _item !== null && _item.maxUses>>
+        <<set _qty = _qty * _item.maxUses>>
+    <</if>>
     /* Check if already in inventory */
     <<set _found = false>>
     <<for _idx, _invItem range $inventory>>

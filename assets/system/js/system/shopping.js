@@ -448,14 +448,15 @@ function addCartToInventory() {
                 console.log(`[Shopping] Already own clothing: ${cartItem.id}`);
             }
         } else {
-            // Add to regular inventory (stackable)
+            // Add to regular inventory (stackable); cosmetics with maxUses add quantity * maxUses
+            const qty = item.maxUses ? cartItem.quantity * item.maxUses : cartItem.quantity;
             const existing = inventory.find(i => i.id === cartItem.id);
             if (existing) {
-                existing.quantity += cartItem.quantity;
+                existing.quantity += qty;
             } else {
-                inventory.push({ id: cartItem.id, quantity: cartItem.quantity });
+                inventory.push({ id: cartItem.id, quantity: qty });
             }
-            console.log(`[Shopping] Added item to inventory: ${cartItem.id} x${cartItem.quantity}`);
+            console.log(`[Shopping] Added item to inventory: ${cartItem.id} x${qty}`);
         }
     });
     
