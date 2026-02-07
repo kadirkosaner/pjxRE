@@ -590,7 +590,7 @@ window.CharacterInit = function (API) {
                             <div class="app-info-content">
                                 <h4>Body Overall</h4>
                                 <div class="app-stat-row"><span>Type:</span> <span class="val">${body.bodyType || 'Normal'}</span></div>
-                                <div class="app-stat-row"><span>Height:</span> <span class="val">${body.height}cm</span></div>
+                                <div class="app-stat-row"><span>Height:</span> <span class="val">${body.height != null ? body.height + 'cm' : '—'}</span></div>
                                 <div class="app-stat-row"><span>Skin:</span> <span class="val">${getTanText(app.tanLevel)}</span></div>
                                 <div class="app-stat-row"><span>Body Hair:</span> <span class="val">${(app.bodyHair?.legs > 0 || app.bodyHair?.armpits > 0) ? 'Natural' : 'Smooth'}</span></div>
                             </div>
@@ -650,9 +650,9 @@ window.CharacterInit = function (API) {
                             <!-- Removed visual as requested -->
                             <div class="app-info-content">
                                 <h4>Waist & Core</h4>
-                                <div class="app-stat-row"><span>Size:</span> <span class="val">${body.waist}cm</span></div>
-                                <div class="app-stat-row"><span>Body Fat:</span> <span class="val">${body.bodyFat}%</span></div>
-                                <div class="app-stat-row"><span>BMI:</span> <span class="val">${body.bmi || 'N/A'}</span></div>
+                                <div class="app-stat-row"><span>Size:</span> <span class="val">${body.waist ?? '—'}cm</span></div>
+                                <div class="app-stat-row"><span>Body Fat:</span> <span class="val">${body.bodyFat ?? '—'}%</span></div>
+                                <div class="app-stat-row"><span>BMI:</span> <span class="val">${body.bmi ?? 'N/A'}</span></div>
                             </div>
                         </div>
 
@@ -683,8 +683,9 @@ window.CharacterInit = function (API) {
                                 <div class="app-stat-row"><span>Status:</span> <span class="val">${sexual.virginity?.anal?.intact ? 'Virgin' : 'Used'}</span></div>
                                 <div class="app-stat-row"><span>Capacity:</span> <span class="val">Tight</span></div>
                             </div>
-                        </div>        </div>
-                            </div>
+                        </div>
+                        </div>
+                        </div>
                         </div>
                         
                         <!-- Right: Outfit Display -->

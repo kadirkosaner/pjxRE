@@ -91,6 +91,8 @@ window.SystemCSS = {
     "quest", // Quest prompt system
     "profile", // Profile system
     "character", // Character interaction
+    "character-appearance", // Character modal – Appearance tab (body diagram, pointers, info panels)
+    "character-outfit", // Character modal – Outfit display (outfit list, cards, tooltips)
     "saveload", // Save/load modal
     "alarm", // Alarm clock system
   ],
