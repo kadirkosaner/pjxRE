@@ -247,6 +247,7 @@
 /* Quest List Item (Compact) */
 .quest-list-item {
   display: flex;
+  align-items: center;
   gap: 10px;
   padding: 12px;
   background: var(--color-bg-tertiary);
@@ -270,19 +271,24 @@
   font-size: 14px;
   color: var(--color-accent);
   line-height: 1;
-  padding-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .quest-list-content {
   flex: 1;
   min-width: 0;
+  display: flex;
+  align-items: center;
 }
 
 .quest-list-title {
   font-size: 13px;
   font-weight: 600;
   color: var(--color-text-primary);
-  margin-bottom: 2px;
+  line-height: 1.4;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

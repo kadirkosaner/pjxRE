@@ -86,7 +86,8 @@
 
 <<recalculateStats>>
 <</silently>>
-
+<<nobr>>
+<div class="talk-interaction">
 <<narrative "Backyard - Talk with Father">>
 <<if _phase === "preWork">>
 The backyard is peaceful. Your father is working on the garden, enjoying the fresh air and sunshine.
@@ -94,61 +95,53 @@ The backyard is peaceful. Your father is working on the garden, enjoying the fre
 Your father escaped to the backyard after work, seeking fresh air and a moment of peace.
 <</if>>
 <</narrative>>
-
 <<if _fallback>>
 /* Fallback content for tier2, tier3, or postWork when no backyard photos exist */
 <<if _phase === "preWork">>
-    <<dialog "father">>
-    (Working in the yard)
-    Good to get some fresh air. Been cooped up inside too long.
-    <</dialog>>
-
-    <<dialog "player">>
-    The yard is looking good.
-    <</dialog>>
-
-    <<dialog "father">>
-    (Standing up, wiping his hands)
-    Thanks. It's therapeutic, you know? Working with your hands. No computers, no phones. Just dirt and plants.
-    <</dialog>>
-
-    <<narrative>>
-    You spend a few minutes talking about the garden and enjoying the sunshine together.
-    <</narrative>>
+<<dialog "father">>
+(Working in the yard)
+Good to get some fresh air. Been cooped up inside too long.
+<</dialog>>
+<<dialog "player">>
+The yard is looking good.
+<</dialog>>
+<<dialog "father">>
+(Standing up, wiping his hands)
+Thanks. It's therapeutic, you know? Working with your hands. No computers, no phones. Just dirt and plants.
+<</dialog>>
+<<narrative>>
+You spend a few minutes talking about the garden and enjoying the sunshine together.
+<</narrative>>
 <<else>>
-    <<dialog "father">>
-    (Sitting on the porch, exhausted)
-    Needed some air. Work was... a lot today.
-    <</dialog>>
-
-    <<dialog "player">>
-    Want to talk about it?
-    <</dialog>>
-
-    <<dialog "father">>
-    (Shaking his head)
-    Not really. Just... glad to be home. Glad you're here.
-    <</dialog>>
-
-    <<narrative>>
-    You sit together in comfortable silence, watching the evening light fade.
-    <</narrative>>
+<<dialog "father">>
+(Sitting on the porch, exhausted)
+Needed some air. Work was... a lot today.
+<</dialog>>
+<<dialog "player">>
+Want to talk about it?
+<</dialog>>
+<<dialog "father">>
+(Shaking his head)
+Not really. Just... glad to be home. Glad you're here.
+<</dialog>>
+<<narrative>>
+You sit together in comfortable silence, watching the evening light fade.
+<</narrative>>
 <</if>>
-
 <<set _gainedFriendship = 2>>
 <<gainStat "friendship" _gainedFriendship "father">>
 <<recalculateStats>>
-
 <<else>>
 /* Display the selected topic */
 <<print _topic.text>>
 <</if>>
-
 <div class="location-actions">
 <<set _currentCharLocation = $characters.father.currentLocation>>
 <<if _currentCharLocation === $location>>
     <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 <<else>>
-    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<btn "Back" ($interactionEntryPassage || $location) "secondary">><<unset $interactionEntryPassage>><</btn>>
 <</if>>
 </div>
+</div>
+<</nobr>>

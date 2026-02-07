@@ -82,6 +82,97 @@ window.StatsInit = function (API) {
         },
 
         // ============================================
+        // WORK TAB
+        // ============================================
+        renderWorkTab: function(vars) {
+            const job = vars.job;
+            const jobState = vars.jobState || {};
+            const setup = this.API?.setup || window.setup || {};
+            const jobs = setup.jobs || {};
+            const timeConfig = vars.timeConfig || { weekdayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] };
+
+            if (!job || !job.id || !jobs[job.id]) {
+                return `
+                    <div class="stats-view work-tab">
+                        <div class="work-panel work-panel-full">
+                            <div class="work-empty">
+                                <span class="stat-label">No job</span>
+                                <p class="work-empty-desc">You are not currently employed.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const def = jobs[job.id];
+            const tier = Math.min(job.tier || 1, def.tierMax || 6);
+            const reqs = def.tierExperienceRequirements || [0, 50, 120, 200, 320, 500];
+            const currentXP = jobState.jobExperience || 0;
+            const xpForCurrent = reqs[tier - 1] || 0;
+            const xpForNext = tier >= (def.tierMax || 6) ? xpForCurrent : (reqs[tier] || 0);
+            const xpInTier = currentXP - xpForCurrent;
+            const xpNeeded = xpForNext - xpForCurrent;
+            const xpPct = xpNeeded <= 0 ? 100 : Math.min(100, (xpInTier / xpNeeded) * 100);
+
+            const wageByTier = def.wageByTier || [];
+            const wage = (wageByTier[tier - 1] != null) ? wageByTier[tier - 1] : (def.wagePerHour || 0);
+            const payDayWeekday = def.payDayWeekday != null ? def.payDayWeekday : 1;
+            const payDayName = timeConfig.weekdayNames[payDayWeekday] || 'Monday';
+
+            const gross = jobState.weeklyEarnings || 0;
+            const deductions = jobState.weeklyDeductions || 0;
+            const net = Math.max(0, gross - deductions);
+
+            return `
+                <div class="stats-view work-tab">
+                    <div class="work-layout">
+                        <div class="work-panel work-panel-job">
+                            <div class="work-field">
+                                <span class="stat-label">Work place</span>
+                                <span class="work-value">${def.workplaceName || job.id}</span>
+                            </div>
+                            <div class="work-field work-field-inline">
+                                <span class="stat-label">Job</span>
+                                <span class="work-value">${def.position || def.name || ''}</span>
+                                <span class="work-tier">Tier ${tier}</span>
+                            </div>
+                            <div class="work-field work-field-row">
+                                <span class="stat-label">Work experience</span>
+                                <div class="stat-bar-wrapper work-xp-bar">
+                                    <div class="stat-bar-fill" style="width: ${xpPct}%; background: var(--color-accent);"></div>
+                                </div>
+                                <span class="stat-value-text">${Math.round(xpInTier)} / ${xpNeeded || '—'} XP</span>
+                            </div>
+                            <div class="work-field">
+                                <span class="stat-label">Wage</span>
+                                <span class="work-value">$${wage}/hr</span>
+                            </div>
+                        </div>
+                        <div class="work-panel work-panel-salary">
+                            <div class="work-salary-title">This week salary</div>
+                            <div class="work-salary-row">
+                                <span class="stat-label">Salary</span>
+                                <span class="work-value">$${(gross).toFixed(2)}</span>
+                            </div>
+                            <div class="work-salary-row">
+                                <span class="stat-label">Deductions</span>
+                                <span class="work-value">$${(deductions).toFixed(2)}</span>
+                            </div>
+                            <div class="work-salary-row work-salary-total">
+                                <span class="stat-label">Net</span>
+                                <span class="work-value">$${(net).toFixed(2)}</span>
+                            </div>
+                            <div class="work-payday">
+                                <span class="stat-label">Pay day</span>
+                                <span class="work-value">${payDayName}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        },
+
+        // ============================================
         // MODAL RENDER
         // ============================================
         
@@ -209,6 +300,12 @@ window.StatsInit = function (API) {
                                 `)}
                             </div>
                         `
+                    },
+                    // ====================== TAB 3: WORK ======================
+                    {
+                        id: 'work',
+                        label: 'Work',
+                        content: this.renderWorkTab(vars)
                     }
                 ]
             });

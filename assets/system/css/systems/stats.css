@@ -248,3 +248,142 @@
   z-index: 1;
 }
 /*#endregion */
+
+/*#region WORK TAB */
+.work-tab .work-layout {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.work-tab .work-panel {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.work-tab .work-panel:hover {
+  border-color: var(--color-border-secondary);
+}
+
+.work-tab .work-panel-job {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.work-tab .work-panel-salary {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.work-tab .work-panel-full {
+  flex: 1;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.work-tab .work-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.work-tab .work-field-row {
+  display: grid;
+  grid-template-columns: 220px 1fr 60px;
+  align-items: center;
+  gap: 20px;
+}
+
+.work-tab .work-field-row .stat-value-text {
+  margin-top: 0;
+  text-align: right;
+}
+
+.work-tab .work-field-inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.work-tab .work-field-inline .work-tier {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+}
+
+.work-tab .work-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.work-tab .work-xp-bar {
+  margin-top: 2px;
+}
+
+.work-tab .work-field .stat-value-text {
+  margin-top: 2px;
+  text-align: left;
+}
+
+.work-tab .work-salary-title {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  padding-left: 0;
+}
+
+.work-tab .work-salary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.work-tab .work-salary-row .stat-label {
+  margin: 0;
+}
+
+.work-tab .work-salary-total {
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px solid var(--color-border-primary);
+}
+
+.work-tab .work-salary-total .work-value {
+  font-weight: 600;
+}
+
+.work-tab .work-payday {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.work-tab .work-empty {
+  text-align: center;
+}
+
+.work-tab .work-empty-desc {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  margin-top: 8px;
+}
+/*#endregion */

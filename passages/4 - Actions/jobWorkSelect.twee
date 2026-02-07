@@ -1,0 +1,34 @@
+/* ========================================
+   JOB - Select Shift Duration
+   Shows available shift options based on schedule
+========================================== */
+<<silently>>
+<<set _job = setup.jobs[$job.id]>>
+<<jobSetAvailableShifts $job.id>>
+<<set _available = $jobAvailableShifts>>
+<</silently>>
+
+<<narrative "Work">>
+You're at <<= _job.workplaceName>>. How long do you want to work?
+<</narrative>>
+
+<<if _available.length === 0>>
+<p>You can't start a shift right now—either you've already worked today, or the available shift times wouldn't fit before closing.</p>
+<<else>>
+<div class="btn-center">
+<<for _h range _available>>
+    <<set _wage = (_job.wageByTier && _job.wageByTier[($job.tier || 1) - 1]) ? _job.wageByTier[($job.tier || 1) - 1] : _job.wagePerHour || 7>>
+    <<set _est = _wage * _h>>
+    <<link _h + " hours ($" + _est.toFixed(0) + ")">>
+        <<jobExecuteShift _h>>
+        <<if $jobShiftSuccess>>
+            <<goto "dinerRubys">>
+        <</if>>
+    <</link>>
+<</for>>
+<</div>>
+<</if>>
+
+<div class="btn-center" style="margin-top: 1em;">
+<<btn "Back" $location>><</btn>>
+</div>

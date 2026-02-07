@@ -98,7 +98,7 @@
 
 <<recalculateStats>>
 <</silently>>
-
+<div class="talk-interaction">
 <<narrative "Kitchen - Talk with Father">>
 <<if _phase === "preWork">>
 The kitchen smells of fresh coffee. Your father is at the table, relaxed for once, enjoying the quiet morning.
@@ -114,6 +114,7 @@ Your father stands by the counter, still in his work clothes, decompressing from
 <<if _currentCharLocation === $location>>
     <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 <<else>>
-    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<btn "Back" ($interactionEntryPassage || $location) "secondary">><<unset $interactionEntryPassage>><</btn>>
 <</if>>
+</div>
 </div>

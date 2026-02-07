@@ -1,13 +1,18 @@
 <<nobr>>
-/* Save the original passage we came from - this will be used for all "back" buttons */
-<<if !$interactionEntryPassage>>
-    <<set $interactionEntryPassage = previous()>>
+/* Save entry passage only when coming from a location (not from a Talk "Back" button) so Leave returns to the right place */
+<<set _prev = previous()>>
+<<if _prev && !_prev.includes("Talk")>>
+    <<set $interactionEntryPassage = _prev>>
 <</if>>
 
-/* Safety check - ensure we have a valid character */
-<<set _returnLoc = $interactionEntryPassage || previous()>>
+/* When coming from a Talk passage (Back): use talk's $location, fallback to saved entry (set when we first entered) */
+<<if _prev && _prev.includes("Talk")>>
+    <<set _returnLoc = $location || $interactionEntryPassage>>
+<<else>>
+    <<set _returnLoc = $interactionEntryPassage || _prev || $location>>
+<</if>>
 <<if !_returnLoc>>
-    <<set _returnLoc = $location>>
+    <<set _returnLoc = $interactionEntryPassage || $location>>
 <</if>>
 
 <<if !$interactingChar || !$characters[$interactingChar]>>

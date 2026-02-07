@@ -271,9 +271,9 @@
                 buttonText: "Ask about the job",
                 triggers: {
                     location: "dinerRubys",
-                    timeRange: { min: 6, max: 22 }
+                    timeRange: { min: 10, max: 22 }
                 },
-                lockedText: "Ruby's Diner is closed. (Open 6:00 - 22:00)",
+                lockedText: "Ruby's Diner is closed. (Open 10:00 - 22:00)",
                 forceScene: true,
                 passage: "quest_find_job_ruby_diner_entrance"
             },
@@ -287,13 +287,55 @@
                     timeRange: { min: 18, max: 19 }
                 },
                 forceScene: true,
-                passage: "quest_find_job_family_dinner_wip"
+                passage: "quest_find_job_family_dinner"
+            },
+            {
+                id: "family_dinner_dishes",
+                title: "After Dinner",
+                desc: "You helped mom with the dishes and told her the truth about Ruby's.",
+                passage: "quest_find_job_family_dinner_dishes"
+            },
+            {
+                id: "accept_job",
+                title: "Accept the Job",
+                desc: "Return to Ruby's Diner and accept the dishwashing position.",
+                buttonText: "Accept the job",
+                triggers: { location: "dinerRubys" },
+                forceScene: true,
+                passage: "quest_find_job_accept_entrance",
+                requirements: { flags: ["mom_dinner_talk"] }
             }
         ],
 
         onComplete: {
             flags: ["job_search_started", "knows_civic_center_jobs"],
             notification: "Quest Complete: Find a Job"
+        }
+    },
+
+    /* ========== GO TO MALL ========== */
+    go_to_mall: {
+        id: "go_to_mall",
+        title: "Go to Mall",
+        category: "side",
+        character: "player",
+
+        requirements: {
+            flags: ["mom_suggested_mall"]
+        },
+
+        stages: [
+            {
+                id: "visit_mall",
+                title: "Visit the Mall",
+                desc: "Mom suggested you get a few things to feel better. Head to the mall.",
+                /* WIP: triggers and passage TBD */
+                passage: "quest_go_to_mall_wip"
+            }
+        ],
+
+        onComplete: {
+            notification: "Quest Complete: Go to Mall"
         }
     }
 })>>

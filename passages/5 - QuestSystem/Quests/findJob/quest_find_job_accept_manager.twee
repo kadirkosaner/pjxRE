@@ -1,0 +1,66 @@
+:: quest_find_job_accept_manager
+/* ========================================
+   FIND JOB - Accept flow: Manager room, say you want to start, accepted, start tomorrow
+========================================== */
+<<silently>>
+<<set $location = "dinerRubys">>
+<<advanceTime 5>>
+<</silently>>
+<<nobr>>
+<<narrative "Manager'ın odası">>
+Kapıyı çalıp içeri girdin. Vince masanın arkasında—seni hatırlıyor. Elini hafifçe sallayıp oturmanı işaret ediyor.
+<</narrative>>
+
+<<dialog "dinerManager">>
+Gel, otur. Düşündün demek.
+<</dialog>>
+
+<<dialog "player">>
+Evet. İşe başlamak istiyorum. Bulaşıkçı pozisyonunu kabul ediyorum.
+<</dialog>>
+
+<<dialog "dinerManager">>
+Tamam. O zaman yarın başlayabilirsin.
+<</dialog>>
+
+<<dialog "player">>
+Yarın saat kaçta gelmem gerekiyor?
+<</dialog>>
+
+<<dialog "dinerManager">>
+Sabah onda açıyoruz. O saatte burada ol; üniforma ve yerini o gün hallederiz.
+<</dialog>>
+
+<<dialog "player">>
+Tamam. Yarın sabah onda buradayım.
+<</dialog>>
+
+<<dialog "dinerManager">>
+Güzel. O zaman yarın görüşürüz.
+<</dialog>>
+
+<<narrative>>
+Ayağa kalkıyorsun. Odadan çıkıp koridordan geçiyor, dinerin önüne kadar yürüyorsun. İşe yarın başlayacaksın—şimdilik serbestsin.
+<</narrative>>
+<</nobr>>
+
+<<silently>>
+<<set $job.id = "ruby_dishwasher">>
+<<set $job.tier = 1>>
+<<set $job.startedOn = { year: $timeSys.year, month: $timeSys.month, day: $timeSys.day }>>
+<<set $jobState.hoursThisWeek = 0>>
+<<set $jobState.shiftsToday = 0>>
+<<set $jobState.totalDaysWorked = 0>>
+<<set $jobState.jobExperience = 0>>
+<<set $jobState.weeklyEarnings = 0>>
+<<set $jobState.weeklyDeductions = 0>>
+<<set $jobState.lastPayWeek = null>>
+<<set $jobState.minHoursWarningCount = 0>>
+<<completeQuest "find_job">>
+<</silently>>
+
+<<run window.notifySuccess("Ruby's Diner'da bulaşıkçı olarak işe yarın başlıyorsun.")>>
+
+<div class="btn-center">
+<<btn "Devam et" "dinerRubys">><</btn>>
+</div>

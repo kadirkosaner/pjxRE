@@ -1,0 +1,47 @@
+:: quest_find_job_accept_entrance
+/* ========================================
+   FIND JOB - Accept flow: Return to Ruby's, clerk at door
+   Turkish dialogue: welcome, "you again?", ask for manager, go to back
+========================================== */
+<<silently>>
+<<set $location = "dinerRubys">>
+<<advanceTime 10>>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<<nobr>>
+<<narrative "Ruby's Diner">>
+Eve dönüp hazırlandın. Annenle konuştuktan sonra karar verdin: işi kabul edeceksin. Ruby's Diner'a doğru yürüdün ve kapıdan girdin.
+<</narrative>>
+
+<<narrative>>
+Kırmızı döşemeler, kahve ve yağ kokusu, birkaç müşteri. Tezgâhta tanıdık yüz—daha önce geldiğinde seni karşılayan eleman. Başını kaldırıp seni görünce hafifçe gülümsüyor.
+<</narrative>>
+
+<<dialog "dinerClerk">>
+Hoş geldin. Yine mi sen?
+<</dialog>>
+
+<<dialog "player">>
+Evet. Bir karar verdim.
+<</dialog>>
+
+<<dialog "dinerClerk">>
+Tamam, buyur. Bir şey mi istiyordun?
+<</dialog>>
+
+<<dialog "player">>
+Manager ile görüşmek istiyorum. İş konusunda—daha önce konuşmuştuk.
+<</dialog>>
+
+<<dialog "dinerClerk">>
+Vince'i mi diyorsun? Tamam, arkaya geç, şu an müsait. Koridordan sonra son kapı.
+<</dialog>>
+
+<<narrative>>
+Tezgâhtan çıkıp seni arkaya doğru yönlendiriyor. Mutfağın yanından geçiyorsun; dar bir koridor, solda soyunma ve depo, en sonda kapalı bir kapı. Manager'ın odası.
+<</narrative>>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Arkaya, manager'ın odasına git" "quest_find_job_accept_manager">><</btn>>
+</div>

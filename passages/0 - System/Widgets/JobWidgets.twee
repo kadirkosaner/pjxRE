@@ -1,0 +1,176 @@
+<<nobr>>
+/* ==========================================
+   JOB SYSTEM WIDGETS
+   Shift execution, pay day, weekly reset
+   Design: 1Developer/JobSystemDesign.md
+========================================== */
+
+/* Set $jobAvailableShifts (filter by schedule: currentHour + shiftHours <= close) */
+<<widget "jobSetAvailableShifts">>
+    <<set _jobId = $args[0] || $job.id>>
+    <<set _job = setup.jobs[_jobId]>>
+    <<if !_job>>
+        <<set $jobAvailableShifts = []>>
+    <<else>>
+        <<set _hour = $timeSys.hour>>
+        <<set _close = _job.schedule.close>>
+        <<set _options = _job.shiftHoursOptions || [2, 4, 6, 8]>>
+        <<set $jobAvailableShifts = []>>
+        <<for _h range _options>>
+            <<if _hour + _h <= _close>>
+                <<run $jobAvailableShifts.push(_h)>>
+            <</if>>
+        <</for>>
+    <</if>>
+<</widget>>
+
+/* Execute a shift: advanceTime, apply stat/skill costs, update earnings */
+<<widget "jobExecuteShift">>
+    <<set $jobShiftSuccess = false>>
+    <<set _shiftHours = $args[0]>>
+    <<set _jobId = $job.id>>
+    <<if !_jobId>>
+        <<run window.notifyWarning("You don't have a job.")>>
+        <<return>>
+    <</if>>
+    <<set _job = setup.jobs[_jobId]>>
+    <<if !_job>>
+        <<return>>
+    <</if>>
+
+    /* Check min energy (approx cost for this shift) */
+    <<set _mult = _shiftHours / 4>>
+    <<set _energyCost = Math.ceil(Math.abs((_job.statCostsPer4Hours || {}).energy || 50) * _mult)>>
+    <<if ($energy || 0) < _energyCost>>
+        <<run window.notifyWarning("Not enough energy. You need at least " + _energyCost + " for this shift.")>>
+        <<return>>
+    <</if>>
+
+    /* Check maxShiftsPerDay */
+    <<if ndef $jobState.shiftsToday>><<set $jobState.shiftsToday = 0>><</if>>
+    <<if $jobState.shiftsToday >= _job.maxShiftsPerDay>>
+        <<run window.notifyWarning("You've already worked your shift today.")>>
+        <<return>>
+    <</if>>
+
+    /* Check schedule (open <= currentHour, currentHour + shiftHours <= close) */
+    <<set _hour = $timeSys.hour>>
+    <<if _hour < _job.schedule.open>>
+        <<run window.notifyWarning("Workplace opens at " + _job.schedule.open + ":00.")>>
+        <<return>>
+    <</if>>
+    <<if _hour + _shiftHours > _job.schedule.close>>
+        <<run window.notifyWarning("Shift would end after closing time.")>>
+        <<return>>
+    <</if>>
+
+    /* Apply stat costs (per 4h, scaled) */
+    <<set _mult = _shiftHours / 4>>
+    <<set _costs = _job.statCostsPer4Hours>>
+    <<if _costs.energy>>
+        <<loseStat "energy" Math.abs(_costs.energy * _mult)>>
+    <</if>>
+    <<if _costs.mood>>
+        <<loseStat "mood" Math.abs(_costs.mood * _mult)>>
+    <</if>>
+    <<if _costs.stress>>
+        <<set $stress = Math.min(100, ($stress || 0) + Math.round(_costs.stress * _mult))>>
+    <</if>>
+    <<if _costs.hygiene>>
+        <<loseStat "hygiene" Math.abs(_costs.hygiene * _mult)>>
+    <</if>>
+
+    /* Advance time */
+    <<advanceTime _shiftHours * 60>>
+
+    /* Skill gains (per 4h, scaled) */
+    <<set _gains = _job.skillGainsPer4Hours || []>>
+    <<for _g range _gains>>
+        <<set _amt = Math.round((_g.amount || 0) * _mult)>>
+        <<if _amt > 0>>
+            <<gainSkill _g.category _g.skill _amt>>
+        <</if>>
+    <</for>>
+
+    /* Job experience */
+    <<set _xp = Math.round((_job.xpPerHour || 5) * _shiftHours)>>
+    <<set $jobState.jobExperience += _xp>>
+
+    /* Earnings (per shift, current tier wage) */
+    <<set _tier = $job.tier || 1>>
+    <<set _wage = (_job.wageByTier && _job.wageByTier[_tier - 1]) ? _job.wageByTier[_tier - 1] : _job.wagePerHour || 7>>
+    <<set _earned = Math.round(_wage * _shiftHours * 100) / 100>>
+    <<set $jobState.weeklyEarnings += _earned>>
+    <<set $jobState.hoursThisWeek += _shiftHours>>
+    <<set $jobState.totalDaysWorked += 1>>
+    <<set $jobState.shiftsToday += 1>>
+
+    /* Tier up check (one tier per shift; multiple tiers rare) */
+    <<set _reqs = _job.tierExperienceRequirements || []>>
+    <<set _maxTier = _job.tierMax || 6>>
+    <<if _tier < _maxTier && $jobState.jobExperience >= (_reqs[_tier] || 0)>>
+        <<set $job.tier = _tier + 1>>
+        <<run window.notifySuccess("Tier up! You're now tier " + $job.tier + " at " + _job.position + ".")>>
+    <</if>>
+
+    <<set $jobShiftSuccess = true>>
+    <<run window.notifySuccess("Shift done. +$" + _earned.toFixed(2) + " (payday Monday).")>>
+<</widget>>
+
+/* Process pay day: minHours check, pay, reset. Call when weekday becomes Monday (1). */
+<<widget "jobProcessPayDay">>
+    <<if !$job || !$job.id>>
+        <<return>>
+    <</if>>
+    <<set _job = setup.jobs[$job.id]>>
+    <<if !_job>>
+        <<return>>
+    <</if>>
+
+    /* Avoid double pay (same day) */
+    <<set _payDateKey = $timeSys.year + "-" + $timeSys.month + "-" + $timeSys.day>>
+    <<if $jobState.lastPayWeek === _payDateKey>>
+        <<return>>
+    <</if>>
+
+    /* minHours check */
+    <<set _minHours = _job.minHoursPerWeek || 0>>
+    <<set _warningsBeforeFire = _job.minHoursWarningsBeforeFire || 1>>
+    <<if _minHours > 0 && $jobState.hoursThisWeek < _minHours>>
+        <<if ($jobState.minHoursWarningCount || 0) >= _warningsBeforeFire>>
+            <<set $job.id = null>>
+            <<set $job.tier = 1>>
+            <<set $job.startedOn = null>>
+            <<run window.notifyWarning("You lost your job at " + _job.workplaceName + " for not meeting minimum hours.")>>
+            <<return>>
+        <<else>>
+            <<set $jobState.minHoursWarningCount = ($jobState.minHoursWarningCount || 0) + 1>>
+            <<run window.notifyWarning("You didn't work enough hours this week. Warning " + $jobState.minHoursWarningCount + "/" + _warningsBeforeFire + ".")>>
+        <</if>>
+    <<else>>
+        <<set $jobState.minHoursWarningCount = 0>>
+    <</if>>
+
+    /* Pay */
+    <<set _gross = $jobState.weeklyEarnings || 0>>
+    <<set _deductions = $jobState.weeklyDeductions || 0>>
+    <<set _net = Math.max(0, _gross - _deductions)>>
+    <<if _net > 0>>
+        <<earnMoney _net "Weekly pay: $" + _net.toFixed(2)>>
+    <</if>>
+
+    /* Reset for new week */
+    <<set $jobState.hoursThisWeek = 0>>
+    <<set $jobState.weeklyEarnings = 0>>
+    <<set $jobState.weeklyDeductions = 0>>
+    <<set $jobState.lastPayWeek = _payDateKey>>
+<</widget>>
+
+/* Reset daily job state (shiftsToday). Call at start of advanceDay. */
+<<widget "jobResetDaily">>
+    <<if def $jobState>>
+        <<set $jobState.shiftsToday = 0>>
+    <</if>>
+<</widget>>
+
+<</nobr>>

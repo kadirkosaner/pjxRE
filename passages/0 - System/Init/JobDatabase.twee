@@ -1,0 +1,65 @@
+/* ==========================================
+   JOB DATABASE (Global)
+   setup.jobs[jobId] – single job rule, currently only ruby_dishwasher.
+   Design: 1Developer/JobSystemDesign.md
+   Economy: 1Developer/economyCheatsheet.md
+========================================== */
+
+<<set setup.jobs = {
+    ruby_dishwasher: {
+        id: "ruby_dishwasher",
+        name: "Dishwasher",
+        workplace: "dinerRubys",
+        workplaceName: "Ruby's Diner",
+        position: "Dishwasher",
+
+        tierMax: 6,
+        tierExperienceRequirements: [0, 50, 120, 200, 320, 500],
+        wageByTier: [7, 8, 9, 10, 11, 12],
+        xpPerHour: 5,
+
+        shiftHoursOptions: [2, 4, 6, 8],
+        tips: false,
+        maxShiftsPerDay: 1,
+
+        schedule: { open: 10, close: 22 },
+        payDayWeekday: 1,
+        minHoursPerWeek: 8,
+        minHoursWarningsBeforeFire: 1,
+
+        statCostsPer4Hours: {
+            energy: -50,
+            mood: -15,
+            stress: 20,
+            hygiene: -30
+        },
+
+        skillGainsPer4Hours: [
+            { category: "practical", skill: "cleaning", amount: 3 },
+            { category: "practical", skill: "cooking", amount: 1 }
+        ],
+
+        requirements: {
+            looks: 0,
+            skills: {},
+            friendship: {},
+            flags: []
+        },
+
+        shiftStart: {
+            clothingCheck: false,
+            statCheck: null
+        },
+
+        promotesTo: "ruby_waitress",
+        promotionReqs: {
+            daysWorked: 14,
+            jobExperience: 100,
+            looks: 35,
+            skills: { "social.conversation": 10 },
+            scenePassage: null
+        }
+    }
+
+    /* Later: ruby_waitress, barista, cashier etc. follow same schema. */
+}>>

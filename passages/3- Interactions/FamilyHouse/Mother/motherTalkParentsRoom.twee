@@ -89,7 +89,7 @@
 
 <<recalculateStats>>
 <</silently>>
-
+<div class="talk-interaction">
 <<narrative "Parents' Room - Talk with Mom">>
 Mom's room feels intimate and private. The door closes behind you, shutting out the rest of the house.
 <</narrative>>
@@ -101,6 +101,7 @@ Mom's room feels intimate and private. The door closes behind you, shutting out 
 <<if _currentCharLocation === $location>>
     <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 <<else>>
-    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<btn "Back" ($interactionEntryPassage || $location) "secondary">><<unset $interactionEntryPassage>><</btn>>
 <</if>>
+</div>
 </div>

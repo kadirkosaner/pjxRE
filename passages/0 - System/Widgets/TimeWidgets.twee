@@ -139,6 +139,14 @@
     <<set $daily.faceCreamUsed = false>>
     <<set $daily.dentalCareUsed = false>>
 
+    /* Job: reset shiftsToday for new day */
+    <<jobResetDaily>>
+
+    /* Job: pay day (Monday) - minHours check, pay, reset */
+    <<if $timeSys.weekday === 1>>
+        <<jobProcessPayDay>>
+    <</if>>
+
     /* Weekly care bonuses: if new week (weekday 0), apply bonus for previous week then reset */
     <<if ndef $weeklyHairCreamUses>><<set $weeklyHairCreamUses = 0>><</if>>
     <<if ndef $weeklyFaceCreamUses>><<set $weeklyFaceCreamUses = 0>><</if>>

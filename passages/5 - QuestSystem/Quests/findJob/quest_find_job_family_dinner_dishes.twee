@@ -1,0 +1,86 @@
+:: quest_find_job_family_dinner_dishes
+/* ========================================
+   FIND JOB - Family Dinner (Scene 2: Dishes, confession, $40)
+   ======================================== */
+<<silently>>
+<<set $location = "fhKitchen">>
+<<advanceTime 15>>
+<<advanceQuestStage "find_job">>
+<</silently>>
+<<nobr>>
+<<narrative "Kitchen – After Dinner">>
+Dinner is over. Your mother gathers the plates; you follow her into the kitchen. There's a dishwasher: you rinse at the sink—scraping bits off, quick rinse under the tap—then pass each piece to her and she loads the machine. Hot water, soap, the clink of plates. She turns on the radio or hums something. You stay quiet. One plate, then another. Then you can't hold it in anymore.
+<</narrative>>
+
+<<dialog "player">>
+Mom.
+<</dialog>>
+
+<<dialog "mother">>
+Hmm?
+<</dialog>>
+
+<<dialog "player">>
+Mom… what I said at the table wasn't really true.
+<</dialog>>
+
+<<narrative>>
+You pause. The water's still running. You can't look at her.
+<</narrative>>
+
+<<dialog "player">>
+At Ruby's, the owner—Vince—he said, "Do you ever look in the mirror?" That I looked… unkempt. That for the front they need someone put together.
+<</dialog>>
+
+<<dialog "mother">>
+He said that? To your face?
+<</dialog>>
+
+<<dialog "player">>
+(Your voice drops)
+Then he offered dishwashing. "In the back. No one has to see you there." I told you guys I'd think about it. I didn't tell you the real reason.
+<</dialog>>
+
+<<narrative>>
+A short silence. Water runs; the plate goes from your hands to hers.
+<</narrative>>
+
+<<dialog "mother">>
+(She slots it into the dishwasher, then turns. Her voice is soft but clear.)
+Sweetie, that's nonsense. You're beautiful. Don't listen to that.
+<</dialog>>
+
+<<dialog "player">>
+I'm not saying I'm making it up. He really said it. It still hurt.
+<</dialog>>
+
+<<dialog "mother">>
+(She steps closer, rests a hand on your dry shoulder.)
+Listen. We just moved, everything's been turned upside down. When you're stressed, everything feels bigger. They'd find another excuse even if you were perfectly put together. What matters is what you believe about yourself. If it helps, get yourself a few things tomorrow. You'll feel better.
+<</dialog>>
+
+<<narrative>>
+You keep rinsing. She reassures you again; if you still blame yourself, she insists it wasn't your fault.
+<</narrative>>
+
+<<dialog "mother">>
+(Drying her hands, then pulling out some cash from her pocket or a drawer—forty dollars.)
+Here. If it'll make you feel better, buy some lotion or something. Whatever you need. I don't want you stuck in your head like this.
+<</dialog>>
+
+<<narrative>>
+She holds out the money. You take it. You keep rinsing for a while; then she leaves you to it.
+<</narrative>>
+<</nobr>>
+
+<<silently>>
+<<earnMoney 40 "Mom gave you $40">>
+<<set $mom_dinner_talk = true>>
+<<advanceQuestStage "find_job">>
+<<set $mom_suggested_mall = true>>
+<<startQuest "go_to_mall">>
+<</silently>>
+
+<div class="btn-center">
+<<btn "Continue" "fhKitchen">><</btn>>
+</div>

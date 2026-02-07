@@ -297,12 +297,6 @@ window.JournalInit = function (API) {
             </div>
             <div class="quest-list-content">
               <div class="quest-list-title">${quest.title}</div>
-              <div class="quest-list-meta">
-                ${status === 'active' 
-                  ? `Stage ${state.stage + 1}`
-                  : ''
-                }
-              </div>
             </div>
           </div>
         `;

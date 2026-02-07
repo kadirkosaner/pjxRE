@@ -84,7 +84,7 @@
 
 <<recalculateStats>>
 <</silently>>
-
+<div class="talk-interaction">
 <<narrative "Kitchen - Talk with Mom">>
 The kitchen smells of home cooking. Mom's in her element here, always busy with something.
 <</narrative>>
@@ -93,9 +93,11 @@ The kitchen smells of home cooking. Mom's in her element here, always busy with 
 
 <div class="location-actions">
 <<set _currentCharLocation = $characters.mother.currentLocation>>
+<<set _backPassage = $interactionEntryPassage || $location>>
 <<if _currentCharLocation === $location>>
     <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 <<else>>
-    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<btn "Back" _backPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
 <</if>>
+</div>
 </div>

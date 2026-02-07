@@ -72,7 +72,7 @@
 
 <<recalculateStats>>
 <</silently>>
-
+<div class="talk-interaction">
 <<narrative "Backyard - Talk with Mom">>
 The backyard is peaceful. Mom loves spending time here, tending her garden or just enjoying the fresh air.
 <</narrative>>
@@ -84,6 +84,7 @@ The backyard is peaceful. Mom loves spending time here, tending her garden or ju
 <<if _currentCharLocation === $location>>
     <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 <<else>>
-    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<btn "Back" ($interactionEntryPassage || $location) "secondary">><<unset $interactionEntryPassage>><</btn>>
 <</if>>
+</div>
 </div>

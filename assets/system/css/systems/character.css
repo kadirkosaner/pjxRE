@@ -155,6 +155,11 @@
   display: none;
 }
 
+/* Hide stray <br> in talk interactions */
+.talk-interaction br {
+  display: none;
+}
+
 /* ================== MIRROR ROUTINE SETTINGS =================== */
 .routine-settings-wrap {
   display: flex;

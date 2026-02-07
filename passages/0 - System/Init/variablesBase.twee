@@ -119,6 +119,30 @@
     }>>
 <</if>>
 
+/* ==========================================
+   JOB SYSTEM STATE (Global – single job)
+   Details: 1Developer/JobSystemDesign.md
+========================================= */
+<<if ndef $job>>
+<<set $job = {
+    id: null,
+    tier: 1,
+    startedOn: null
+}>>
+<</if>>
+<<if ndef $jobState>>
+<<set $jobState = {
+    hoursThisWeek: 0,
+    shiftsToday: 0,
+    totalDaysWorked: 0,
+    jobExperience: 0,
+    weeklyEarnings: 0,
+    weeklyDeductions: 0,
+    lastPayWeek: null,
+    minHoursWarningCount: 0
+}>>
+<</if>>
+
 /* School calendar - cyclical, repeats every year */
 /* Uses month/day only, works for any year */
 <<set setup.schoolCalendar = {

@@ -103,6 +103,7 @@
 <</silently>>
 
 <<nobr>>
+<div class="talk-interaction">
 <<narrative "Living Room - Talk with Brother">>
 <<if _phase === "school">>
 Your brother is sprawled on the couch, taking a break from homework and gaming. He looks tired but relaxed.
@@ -118,7 +119,8 @@ Summer afternoon. Your brother has claimed his favorite spot on the couch, phone
 <<if _currentCharLocation === $location>>
     <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 <<else>>
-    <<btn "Back" $interactionEntryPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<btn "Back" ($interactionEntryPassage || $location) "secondary">><<unset $interactionEntryPassage>><</btn>>
 <</if>>
+</div>
 </div>
 <</nobr>>

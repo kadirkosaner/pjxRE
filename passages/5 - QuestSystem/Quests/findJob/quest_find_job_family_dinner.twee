@@ -1,9 +1,86 @@
+:: quest_find_job_family_dinner
 /* ========================================
-   FIND JOB - Family Dinner 18:00 (placeholder)
-   Content TBD
+   FIND JOB - Family Dinner 18:00 (Scene 1: Table)
    ======================================== */
 <<silently>>
 <<set $location = "fhKitchen">>
 <</silently>>
+<<nobr>>
+<<narrative "Family Dinner">>
+You sit down at the table last. Plates are full; your father has his fork in hand, your mother is pouring water. Your face is a little down. Your father notices right away.
+<</narrative>>
 
-WIP
+<<dialog "father">>
+What's wrong, sweetie? Something on your mind? You've barely said a word today.
+<</dialog>>
+
+<<narrative>>
+A beat of silence. You don't want to answer, but the question hangs there and you feel awkward.
+<</narrative>>
+
+<<dialog "player">>
+…I was at Town Hall all day looking for work. I waited in line, filled out forms. But there weren't many listings. And with no experience, there were hardly any options.
+<</dialog>>
+
+<<dialog "mother">>
+(Placing a hand on your shoulder)
+Don't let it get to you. You're just getting started.
+<</dialog>>
+
+<<dialog "player">>
+I'm not, really. I mean… I did find something. There's a place in Old Town called Ruby's Diner. I went for the waitress job but…
+(Your voice drops a little)
+I guess that position was filled. They offered me dishwashing. I said I wanted to think about it. Didn't give them an answer.
+<</dialog>>
+
+<<dialog "father">>
+(Taking a bite, thinking)
+Ruby's Diner… Actually it's not that far. But you know best, sweetie. Whatever you're comfortable with.
+<</dialog>>
+
+<<dialog "mother">>
+You have to start somewhere. If you're thinking about it, just go for it. You'll earn some money, get some experience. You can always move on later if you want.
+<</dialog>>
+
+<<narrative>>
+You're quiet for a moment. What they said sinks in.
+<</narrative>>
+
+<<narrative>>
+They're right. You have to start somewhere. Money's tight, the move's still fresh, every dollar counts. Dishwashing is still a start. Nothing to be ashamed of.
+<</narrative>>
+
+<<narrative>>
+You focus on your plate again; you feel a bit lighter.
+<</narrative>>
+
+<<dialog "father">>
+(Gesturing at the plates)
+You like it? Your mother did good today.
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling)
+You say that every day and it's enough.
+<</dialog>>
+
+<<narrative>>
+A short silence—clink of cutlery, maybe your father saying something else or the TV in the background. The meal goes on.
+<</narrative>>
+
+<<dialog "father">>
+I'm off early again tomorrow. What about you, sweetie—Town Hall again?
+<</dialog>>
+
+<<dialog "player">>
+I don't know. Maybe I'll stop by Ruby's again and give them an answer.
+<</dialog>>
+
+<<narrative>>
+Dinner continues like that—table talk, maybe your brother chimes in or your father glances at the paper. The meal ends with dessert or tea; everyone gets up.
+<</narrative>>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Help with the dishes" "quest_find_job_family_dinner_dishes">><</btn>>
+</div>
