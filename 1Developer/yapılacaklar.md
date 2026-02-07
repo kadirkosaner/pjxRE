@@ -2,7 +2,6 @@
 - Settings Help sayfası yapılacak.
 - Settings Bug Report sayfası yapılacak.
 
-+++++++++ İTEMLAR VE KIYAFETLER İÇİN BİR EKONOMİ SİSTEMİ+++++++++
 - Görevlere devam et ev ve işi kabul etme ek olarak anneyle konuşma ve anne biraz para verecek yüz saç ve diş bakımı için mall aktivasyon yapmak
 - görevlerden sonra job sistemi.
 - Yeni görsel veya videolar gelecek mirror kısmına.
