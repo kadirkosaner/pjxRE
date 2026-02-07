@@ -290,51 +290,70 @@
   justify-content: center;
 }
 
-.work-tab .work-field {
+.work-tab .work-row {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.work-tab .work-field-row {
-  display: grid;
-  grid-template-columns: 220px 1fr 60px;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
 
-.work-tab .work-field-row .stat-value-text {
-  margin-top: 0;
-  text-align: right;
+.work-tab .work-row .stat-label {
+  width: 130px;
+  flex-shrink: 0;
+  margin: 0;
 }
 
-.work-tab .work-field-inline {
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+.work-tab .work-row .work-value {
+  flex: 1;
 }
 
-.work-tab .work-field-inline .work-tier {
+.work-tab .work-row .work-value .work-tier {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.work-tab .work-row .work-tier {
   font-size: 13px;
   color: var(--color-text-tertiary);
   font-weight: 500;
 }
 
+.work-tab .work-field-xp {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.work-tab .work-field-xp .stat-label {
+  margin: 0;
+}
+
+.work-tab .work-xp-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.work-tab .work-xp-row .work-xp-bar {
+  flex: 1;
+  min-width: 80px;
+}
+
+.work-tab .work-xp-row .work-xp-text {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+  min-width: 70px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 .work-tab .work-value {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-primary);
   font-variant-numeric: tabular-nums;
-}
-
-.work-tab .work-xp-bar {
-  margin-top: 2px;
-}
-
-.work-tab .work-field .stat-value-text {
-  margin-top: 2px;
-  text-align: left;
 }
 
 .work-tab .work-salary-title {
@@ -344,17 +363,6 @@
   letter-spacing: 1px;
   margin-bottom: 4px;
   padding-left: 0;
-}
-
-.work-tab .work-salary-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.work-tab .work-salary-row .stat-label {
-  margin: 0;
 }
 
 .work-tab .work-salary-total {

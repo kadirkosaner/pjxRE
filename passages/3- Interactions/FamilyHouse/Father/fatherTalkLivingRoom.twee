@@ -119,7 +119,8 @@ Your father sinks into the couch, the weight of the workday still visible on his
 <<if _currentCharLocation === $location>>
     <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 <<else>>
-    <<btn "Back" ($interactionEntryPassage || $location) "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<set _backPassage = $interactionEntryPassage || $location>>
+    <<btn "Back" _backPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
 <</if>>
 </div>
 </div>

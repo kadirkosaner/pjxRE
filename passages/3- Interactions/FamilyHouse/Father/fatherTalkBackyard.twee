@@ -137,10 +137,11 @@ You sit together in comfortable silence, watching the evening light fade.
 <</if>>
 <div class="location-actions">
 <<set _currentCharLocation = $characters.father.currentLocation>>
+<<set _backPassage = $interactionEntryPassage || $location>>
 <<if _currentCharLocation === $location>>
     <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 <<else>>
-    <<btn "Back" ($interactionEntryPassage || $location) "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<btn "Back" _backPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
 <</if>>
 </div>
 </div>

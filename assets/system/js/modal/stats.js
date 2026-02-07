@@ -127,42 +127,43 @@ window.StatsInit = function (API) {
                 <div class="stats-view work-tab">
                     <div class="work-layout">
                         <div class="work-panel work-panel-job">
-                            <div class="work-field">
+                            <div class="work-row">
                                 <span class="stat-label">Work place</span>
                                 <span class="work-value">${def.workplaceName || job.id}</span>
                             </div>
-                            <div class="work-field work-field-inline">
+                            <div class="work-row">
                                 <span class="stat-label">Job</span>
-                                <span class="work-value">${def.position || def.name || ''}</span>
-                                <span class="work-tier">Tier ${tier}</span>
+                                <span class="work-value">${def.position || def.name || ''} <span class="work-tier">Tier ${tier}</span></span>
                             </div>
-                            <div class="work-field work-field-row">
-                                <span class="stat-label">Work experience</span>
-                                <div class="stat-bar-wrapper work-xp-bar">
-                                    <div class="stat-bar-fill" style="width: ${xpPct}%; background: var(--color-accent);"></div>
-                                </div>
-                                <span class="stat-value-text">${Math.round(xpInTier)} / ${xpNeeded || '—'} XP</span>
-                            </div>
-                            <div class="work-field">
+                            <div class="work-row">
                                 <span class="stat-label">Wage</span>
                                 <span class="work-value">$${wage}/hr</span>
+                            </div>
+                            <div class="work-field-xp">
+                                <span class="stat-label">Work experience</span>
+                                <div class="work-xp-row">
+                                    <div class="stat-bar-wrapper work-xp-bar">
+                                        <div class="stat-bar-fill" style="width: ${xpPct}%; background: var(--color-accent);"></div>
+                                    </div>
+                                    <span class="work-xp-text">${Math.round(xpInTier)} / ${xpNeeded || '—'} XP</span>
+                                </div>
                             </div>
                         </div>
                         <div class="work-panel work-panel-salary">
                             <div class="work-salary-title">This week salary</div>
-                            <div class="work-salary-row">
+                            <div class="work-row">
                                 <span class="stat-label">Salary</span>
                                 <span class="work-value">$${(gross).toFixed(2)}</span>
                             </div>
-                            <div class="work-salary-row">
+                            <div class="work-row">
                                 <span class="stat-label">Deductions</span>
                                 <span class="work-value">$${(deductions).toFixed(2)}</span>
                             </div>
-                            <div class="work-salary-row work-salary-total">
+                            <div class="work-row work-salary-total">
                                 <span class="stat-label">Net</span>
                                 <span class="work-value">$${(net).toFixed(2)}</span>
                             </div>
-                            <div class="work-payday">
+                            <div class="work-row work-payday">
                                 <span class="stat-label">Pay day</span>
                                 <span class="work-value">${payDayName}</span>
                             </div>

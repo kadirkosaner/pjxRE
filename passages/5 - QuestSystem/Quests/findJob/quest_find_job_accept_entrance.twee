@@ -1,7 +1,6 @@
 :: quest_find_job_accept_entrance
 /* ========================================
    FIND JOB - Accept flow: Return to Ruby's, clerk at door
-   Turkish dialogue: welcome, "you again?", ask for manager, go to back
 ========================================== */
 <<silently>>
 <<set $location = "dinerRubys">>
@@ -10,38 +9,30 @@
 <</silently>>
 <<nobr>>
 <<narrative "Ruby's Diner">>
-Eve dönüp hazırlandın. Annenle konuştuktan sonra karar verdin: işi kabul edeceksin. Ruby's Diner'a doğru yürüdün ve kapıdan girdin.
+You walk over to Ruby's Diner and step through the door.
 <</narrative>>
 
 <<narrative>>
-Kırmızı döşemeler, kahve ve yağ kokusu, birkaç müşteri. Tezgâhta tanıdık yüz—daha önce geldiğinde seni karşılayan eleman. Başını kaldırıp seni görünce hafifçe gülümsüyor.
+Red vinyl booths, the smell of coffee and grease, a few customers. Behind the counter—a familiar face. The guy who greeted you last time. He looks up, sees you, and gives a slight smile.
 <</narrative>>
 
 <<dialog "dinerClerk">>
-Hoş geldin. Yine mi sen?
+Oh, you're back. Something you need?
 <</dialog>>
 
 <<dialog "player">>
-Evet. Bir karar verdim.
+I need to see Vince. About the job… we talked before. I've thought about it, and I've made a decision.
 <</dialog>>
 
 <<dialog "dinerClerk">>
-Tamam, buyur. Bir şey mi istiyordun?
-<</dialog>>
-
-<<dialog "player">>
-Manager ile görüşmek istiyorum. İş konusunda—daha önce konuşmuştuk.
-<</dialog>>
-
-<<dialog "dinerClerk">>
-Vince'i mi diyorsun? Tamam, arkaya geç, şu an müsait. Koridordan sonra son kapı.
+Vince? Sure, go ahead. Head to the back—if he's free, he'll talk. Last door at the end of the corridor, just knock.
 <</dialog>>
 
 <<narrative>>
-Tezgâhtan çıkıp seni arkaya doğru yönlendiriyor. Mutfağın yanından geçiyorsun; dar bir koridor, solda soyunma ve depo, en sonda kapalı bir kapı. Manager'ın odası.
+He waves you toward the back. You pass the kitchen; a narrow corridor, dressing room and storage on the left, a closed door at the end. Vince's office.
 <</narrative>>
 <</nobr>>
 
 <div class="btn-center">
-<<btn "Arkaya, manager'ın odasına git" "quest_find_job_accept_manager">><</btn>>
+<<btn "Go to Vince's office" "quest_find_job_accept_manager">><</btn>>
 </div>

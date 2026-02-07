@@ -1,9 +1,16 @@
-:: quest_find_job_family_dinner
 /* ========================================
    FIND JOB - Family Dinner 18:00 (Scene 1: Table)
    ======================================== */
 <<silently>>
 <<set $location = "fhKitchen">>
+<<advanceTime 30>>
+<<set $hunger = 0>>
+<<set $thirst = 0>>
+<<gainStat "bladder" 15>>
+<<gainStat "energy" 30>>
+<<loseStat "stress" 10>>
+<<gainStat "mood" 5>>
+<<gainStat "health" 5>>
 <</silently>>
 <<nobr>>
 <<narrative "Family Dinner">>

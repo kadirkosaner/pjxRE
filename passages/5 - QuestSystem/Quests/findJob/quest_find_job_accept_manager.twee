@@ -7,47 +7,52 @@
 <<advanceTime 5>>
 <</silently>>
 <<nobr>>
-<<narrative "Manager'ın odası">>
-Kapıyı çalıp içeri girdin. Vince masanın arkasında—seni hatırlıyor. Elini hafifçe sallayıp oturmanı işaret ediyor.
+<<narrative "Manager's office">>
+You knock and step inside. Vince is behind the desk—he remembers you, raises his eyebrows slightly. He gestures for you to take a seat.
 <</narrative>>
 
 <<dialog "dinerManager">>
-Gel, otur. Düşündün demek.
+So? Made up your mind, I take it.
 <</dialog>>
 
 <<dialog "player">>
-Evet. İşe başlamak istiyorum. Bulaşıkçı pozisyonunu kabul ediyorum.
+Yeah. I thought about it… I'd like to accept the dishwashing position.
 <</dialog>>
 
 <<dialog "dinerManager">>
-Tamam. O zaman yarın başlayabilirsin.
+Alright. Start tomorrow. First day we'll get you a uniform, show you where everything goes.
 <</dialog>>
 
 <<dialog "player">>
-Yarın saat kaçta gelmem gerekiyor?
+What time should I be here?
 <</dialog>>
 
 <<dialog "dinerManager">>
-Sabah onda açıyoruz. O saatte burada ol; üniforma ve yerini o gün hallederiz.
+We open at ten. Be here then, that's all.
 <</dialog>>
 
 <<dialog "player">>
-Tamam. Yarın sabah onda buradayım.
+Okay. I'll be here tomorrow at ten.
 <</dialog>>
 
 <<dialog "dinerManager">>
-Güzel. O zaman yarın görüşürüz.
+Good. See you tomorrow.
 <</dialog>>
 
 <<narrative>>
-Ayağa kalkıyorsun. Odadan çıkıp koridordan geçiyor, dinerin önüne kadar yürüyorsun. İşe yarın başlayacaksın—şimdilik serbestsin.
+You stand up. You leave the office, walk down the corridor to the front of the diner. You start tomorrow—for now, you're free.
 <</narrative>>
 <</nobr>>
 
 <<silently>>
 <<set $job.id = "ruby_dishwasher">>
 <<set $job.tier = 1>>
-<<set $job.startedOn = { year: $timeSys.year, month: $timeSys.month, day: $timeSys.day }>>
+<<run (function(){
+    var t = State.variables.timeSys;
+    var d = new Date(t.year, t.month - 1, t.day);
+    d.setDate(d.getDate() + 1);
+    State.variables.job.startedOn = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
+})()>>
 <<set $jobState.hoursThisWeek = 0>>
 <<set $jobState.shiftsToday = 0>>
 <<set $jobState.totalDaysWorked = 0>>
@@ -59,8 +64,8 @@ Ayağa kalkıyorsun. Odadan çıkıp koridordan geçiyor, dinerin önüne kadar 
 <<completeQuest "find_job">>
 <</silently>>
 
-<<run window.notifySuccess("Ruby's Diner'da bulaşıkçı olarak işe yarın başlıyorsun.")>>
+<<run window.notifySuccess("You start as dishwasher at Ruby's Diner tomorrow.")>>
 
 <div class="btn-center">
-<<btn "Devam et" "dinerRubys">><</btn>>
+<<btn "Continue" "dinerRubys">><</btn>>
 </div>

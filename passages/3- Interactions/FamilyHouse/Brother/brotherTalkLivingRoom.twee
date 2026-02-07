@@ -69,8 +69,13 @@
 <<set _randomKey = _livingRoomTopics.random()>>
 
 /* Retrieve topic (use _displayTier – 40% lower tier content) */
+/* memories.tier1 has only Backyard images – in LivingRoom use tier2/tier3 */
+<<set _effectiveTier = _displayTier>>
+<<if _randomKey === "memories" && (_displayTier === "tier1" || _tier === "tier1")>>
+    <<set _effectiveTier = "tier2">>
+<</if>>
 <<if setup.brotherTalkTopics.common[_randomKey]>>
-    <<set _topicArray = setup.brotherTalkTopics.common[_randomKey][_displayTier] || setup.brotherTalkTopics.common[_randomKey][_tier]>>
+    <<set _topicArray = setup.brotherTalkTopics.common[_randomKey][_effectiveTier] || setup.brotherTalkTopics.common[_randomKey][_tier]>>
 <<elseif setup.brotherTalkTopics[_phase] and setup.brotherTalkTopics[_phase][_randomKey]>>
     <<set _topicArray = setup.brotherTalkTopics[_phase][_randomKey][_displayTier] || setup.brotherTalkTopics[_phase][_randomKey][_tier]>>
 <<else>>
@@ -119,7 +124,8 @@ Summer afternoon. Your brother has claimed his favorite spot on the couch, phone
 <<if _currentCharLocation === $location>>
     <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
 <<else>>
-    <<btn "Back" ($interactionEntryPassage || $location) "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<set _backPassage = $interactionEntryPassage || $location>>
+    <<btn "Back" _backPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
 <</if>>
 </div>
 </div>

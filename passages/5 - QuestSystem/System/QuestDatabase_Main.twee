@@ -286,6 +286,7 @@
                     location: "fhKitchen",
                     timeRange: { min: 18, max: 19 }
                 },
+                lockedText: "Family dinner is at 18:00. Come back then.",
                 forceScene: true,
                 passage: "quest_find_job_family_dinner"
             },
@@ -302,8 +303,7 @@
                 buttonText: "Accept the job",
                 triggers: { location: "dinerRubys" },
                 forceScene: true,
-                passage: "quest_find_job_accept_entrance",
-                requirements: { flags: ["mom_dinner_talk"] }
+                passage: "quest_find_job_accept_entrance"
             }
         ],
 

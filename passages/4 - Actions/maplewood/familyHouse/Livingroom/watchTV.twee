@@ -158,6 +158,73 @@
             <</switch>>
         <</if>>
     
+    /* ----- MOM & BROTHER ----- */
+    <<elseif _watchingWith === "mombrother">>
+        <<gainStat "friendship" 1 "mother">>
+        <<gainStat "friendship" 1 "brother">>
+        <<if _imgFolder === "morning">>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Mom's already deep into her morning drama when you and your brother join her. On screen, a couple shares an intense moment. She sighs dreamily and pats the seat next to her, eager to have someone to discuss the plot twists with.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/mom1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "You find Mom and your brother watching her favorite hospital drama. Doctors rush through corridors on screen while she leans forward, completely absorbed. 'Sit, sit!' she whispers urgently. 'You won't believe what just happened.'">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/morning/mom2.webp">>
+            <</switch>>
+        <<else>>
+            <<set _maxVariation = 2>>
+            <<set _variation = random(1, _maxVariation)>>
+            <<switch _variation>>
+                <<case 1>>
+                    <<set _sceneText = "Mom pats the seat beside her as you enter the room. Your brother's already there. Her favorite romantic drama is on - a couple locked in one of those will-they-won't-they moments. She's been following this show for weeks and gives you a whispered recap.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/mom1.webp">>
+                <<case 2>>
+                    <<set _sceneText = "You find Mom and your brother watching some period drama - elaborate costumes, forbidden glances across ballrooms. She's completely enchanted by it. 'The cinematography is gorgeous,' she murmurs, making room for you on the couch.">>
+                    <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/watchTv/evening/mom2.webp">>
+            <</switch>>
+        <</if>>
+
+    /* ----- DAD & BROTHER ----- */
+    <<elseif _watchingWith === "dadbrother">>
+        <<set _useSportsTopic = true>>
+        <<set _char = $characters.father>>
+        <<set _friendship = _char.stats.friendship>>
+        <<if def $flags && $flags.fatherStartedWork>>
+            <<set _phase = "postWork">>
+        <<else>>
+            <<set _phase = "preWork">>
+        <</if>>
+        <<if _friendship < 40>>
+            <<set _tier = "tier1">>
+        <<elseif _friendship < 70>>
+            <<set _tier = "tier2">>
+        <<else>>
+            <<set _tier = "tier3">>
+        <</if>>
+        <<if _phase === "preWork">>
+            <<set _topicArray = setup.fatherTalkTopics.common.sports[_tier]>>
+        <<else>>
+            <<set _topicArray = setup.fatherTalkTopics.postWork.sports[_tier]>>
+        <</if>>
+        <<set _topic = _topicArray.random()>>
+        <<if _topic.friendship>>
+            <<gainStat "friendship" _topic.friendship "father">>
+        <</if>>
+        <<if _topic.trust>>
+            <<gainStat "trust" _topic.trust "father">>
+        <</if>>
+        <<if _topic.love>>
+            <<gainStat "love" _topic.love "father">>
+        <</if>>
+        <<gainStat "friendship" 1 "brother">>
+        <<if _imgFolder === "morning">>
+            <<set _sportsIntro = "The big game is on, and your father has claimed his spot on the couch. Your brother's there too. He looks happy—this is his element.">>
+        <<else>>
+            <<set _sportsIntro = "After a long day at work, your father finally gets to unwind with the game. Your brother's beside him. It's one of his few escapes.">>
+        <</if>>
+
     /* ----- MOM & DAD ----- */
     <<elseif _watchingWith === "momdad">>
         <<gainStat "friendship" 1 "mother">>

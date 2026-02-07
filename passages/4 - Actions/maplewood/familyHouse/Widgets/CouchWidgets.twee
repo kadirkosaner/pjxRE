@@ -25,6 +25,12 @@
             <<if _presentFamily.includes("Mom") && _presentFamily.includes("Dad")>>
                 <<set $watchingWith = "momdad">>
                 <<btnPicker "Watch TV with Mom & Dad" "watchTV" "tvDuration" "default" 5>>
+            <<elseif _presentFamily.includes("Mom") && _presentFamily.includes("Brother")>>
+                <<set $watchingWith = "mombrother">>
+                <<btnPicker "Watch TV with Mom & Brother" "watchTV" "tvDuration" "default" 5>>
+            <<elseif _presentFamily.includes("Dad") && _presentFamily.includes("Brother")>>
+                <<set $watchingWith = "dadbrother">>
+                <<btnPicker "Watch TV with Dad & Brother" "watchTV" "tvDuration" "default" 5>>
             <<else>>
                 <<set $watchingWith = "family">>
                 <<btnPicker "Watch TV with Family" "watchTV" "tvDuration" "default" 5>>

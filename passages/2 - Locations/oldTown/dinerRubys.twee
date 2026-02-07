@@ -6,10 +6,16 @@
 A classic American diner with red vinyl booths. Burgers, milkshakes, and good company.
 <</narrative>>
 
+<<showLocationChars "dinerRubys">>
+<<questPrompts>>
+
 <<if $job && $job.id && setup.jobs[$job.id] && setup.jobs[$job.id].workplace === "dinerRubys">>
     <<set _job = setup.jobs[$job.id]>>
     <<set _hour = $timeSys.hour>>
-        <<if _hour >= _job.schedule.open && _hour < _job.schedule.close>>
+    <<set _currentDate = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+    <<set _startDate = $job.startedOn.year * 10000 + $job.startedOn.month * 100 + $job.startedOn.day>>
+    <<set _canWorkToday = _currentDate >= _startDate && _hour >= _job.schedule.open>>
+        <<if _canWorkToday && _hour < _job.schedule.close>>
             <<if $jobState.shiftsToday < _job.maxShiftsPerDay>>
             <div class="btn-center" style="margin-bottom: 0.5em;">
             <<btn "Work" "jobWorkSelect">><</btn>>
@@ -18,8 +24,6 @@ A classic American diner with red vinyl booths. Burgers, milkshakes, and good co
     <</if>>
 <</if>>
 
-<<showLocationChars "dinerRubys">>
-<<questPrompts>>
 <<navMenu>>
 <<navCard "oldTown">>
 <</navMenu>>
