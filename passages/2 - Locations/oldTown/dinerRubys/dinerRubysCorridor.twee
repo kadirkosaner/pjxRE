@@ -1,0 +1,15 @@
+:: dinerRubysCorridor
+<<nobr>>
+<<set $location = "dinerRubysCorridor">>
+<<updateCharacterLocations>>
+
+<<narrative "Corridor">>
+A narrow corridor behind the kitchen. Dressing room and storage on the left, manager's office at the end.
+<</narrative>>
+
+<<navMenu>>
+<<navCard "dinerRubysManagerOffice">>
+<<navCard "dinerRubysDressingRoom">>
+<<navCard "dinerRubysStorage">>
+<<navCard "dinerRubys" "Go Back">>
+<</navMenu>>

@@ -25,6 +25,11 @@ A classic American diner with red vinyl booths. Burgers, milkshakes, and good co
 <</if>>
 
 <<navMenu>>
+<<navCard "dinerRubysBathroom">>
+<<if $job && $job.id && setup.jobs[$job.id] && setup.jobs[$job.id].workplace === "dinerRubys">>
+<<navCard "dinerRubysKitchen">>
+<<navCard "dinerRubysCorridor">>
+<</if>>
 <<navCard "oldTown">>
 <</navMenu>>
 
