@@ -1,7 +1,7 @@
 <<silently>>
     <<set $location = "fhLivingroom">>
     <<advanceTime $selectedDuration>>
-    <<loseStat "stress" 20>>
+    <<loseStat "stress" 7>>
     <<gainStat "mood" 10>>
     <<run window.notifySuccess("Stress Relieved")>>
     /* Energy cost: base 5 for first 15 min, +2 per extra 15 min (15→5, 30→7, 45→9, 60→11) */

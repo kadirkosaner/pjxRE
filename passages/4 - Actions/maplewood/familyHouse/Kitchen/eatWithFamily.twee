@@ -1,14 +1,19 @@
 <<silently>>
 <<set $location = "fhKitchen">>
 <<advanceTime 30>>
-/* Needs: full meal resets hunger/thirst; eating and drinking fill bladder */
-<<set $hunger = 0>>
-<<set $thirst = 0>>
-<<gainStat "bladder" 15>>
-<<gainStat "energy" 30>>
-<<loseStat "stress" 10>>
-<<gainStat "mood" 5>>
-<<gainStat "health" 5>>
+/* Stat bonus only once per day (first family meal); later meals same day only give relationship */
+<<if ndef $familyMealStatBonusUsedToday>><<set $familyMealStatBonusUsedToday = false>><</if>>
+<<if !$familyMealStatBonusUsedToday>>
+    /* Needs: full meal resets hunger/thirst; eating and drinking fill bladder */
+    <<set $hunger = 0>>
+    <<set $thirst = 0>>
+    <<gainStat "bladder" 15>>
+    <<gainStat "energy" 30>>
+    <<loseStat "stress" 10>>
+    <<gainStat "mood" 5>>
+    <<gainStat "health" 5>>
+    <<set $familyMealStatBonusUsedToday = true>>
+<</if>>
 
 /* Detect family members in kitchen */
 <<set _presentFamily = []>>

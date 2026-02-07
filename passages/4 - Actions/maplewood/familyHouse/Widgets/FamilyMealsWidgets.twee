@@ -24,6 +24,7 @@
 /* Reset family meals - call this at start of new day */
 <<widget "resetFamilyMeals">><<silently>>
 <<set $familyMeals = { breakfast: false, lunch: false, dinner: false }>>
+<<set $familyMealStatBonusUsedToday = false>>
 <</silently>><</widget>>
 
 /* Show Family Meal Button

@@ -43,7 +43,7 @@
         /* Increase hunger, thirst, bladder and decrease energy, hygiene for each hour passed */
         <<for _i = 0; _i < _hours; _i++>>
             <<increaseHunger 5>>
-            <<increaseThirst 10>>
+            <<increaseThirst 5>>
             <<increaseBladder 8>>
             <<decreaseHygiene 5>>
             <<loseStat "energy" 5>>

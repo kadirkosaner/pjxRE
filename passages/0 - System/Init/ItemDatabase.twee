@@ -103,97 +103,6 @@
                 { stat: "health", value: 2, type: "instant" }
             ],
             hasTooltip: true
-        },
-        {
-            id: "beer",
-            name: "Beer",
-            category: "consumable",
-            usageType: "direct",
-            desc: "A cold alcoholic beverage. Can be kept for quests or consumed.",
-            price: 30,
-            image: "assets/content/inventory/consumables/beer.webp",
-            effects: [
-                { stat: "mood", value: 15, type: "instant" },
-                { stat: "inhibition", value: -10, type: "temporary", duration: 3 }
-            ],
-            hasTooltip: true
-        }
-    ],
-    
-    /* ==========================================
-       GIFTS
-       Items that can be given to NPCs (used in passages)
-    ========================================== */
-    gifts: [
-        {
-            id: "flowers_roses",
-            name: "Rose Bouquet",
-            category: "gift",
-            usageType: "passage",
-            desc: "Beautiful red roses. A romantic gesture.",
-            price: 80,
-            image: "assets/content/inventory/gifts/roses.webp",
-            effects: [
-                { stat: "relationship", value: 15, type: "gift" }
-            ],
-            hasTooltip: true
-        },
-        {
-            id: "chocolate_box",
-            name: "Chocolate Box",
-            category: "gift",
-            usageType: "passage",
-            desc: "Premium assorted chocolates in an elegant box.",
-            price: 65,
-            image: "assets/content/inventory/gifts/chocolate_box.webp",
-            effects: [
-                { stat: "relationship", value: 10, type: "gift" }
-            ],
-            hasTooltip: true
-        },
-        {
-            id: "teddy_bear",
-            name: "Teddy Bear",
-            category: "gift",
-            usageType: "passage",
-            desc: "A cute and cuddly stuffed bear.",
-            price: 50,
-            image: "assets/content/inventory/gifts/teddy_bear.webp",
-            effects: [
-                { stat: "relationship", value: 8, type: "gift" }
-            ],
-            hasTooltip: true
-        }
-    ],
-    
-    /* ==========================================
-       ACADEMIC
-       Study and school related items
-    ========================================== */
-    academic: [
-        {
-            id: "notebook",
-            name: "Notebook",
-            category: "academic",
-            usageType: "passive",
-            desc: "Essential for taking notes in class.",
-            price: 20,
-            image: "assets/content/inventory/academic/notebook.webp",
-            effects: [],
-            hasTooltip: false
-        },
-        {
-            id: "math_textbook",
-            name: "Math Textbook",
-            category: "academic",
-            usageType: "passive",
-            desc: "Calculus II textbook. Required for advanced math classes.",
-            price: 120,
-            image: "assets/content/inventory/academic/math_textbook.webp",
-            effects: [
-                { stat: "studyBonus", value: 20, type: "modifier", skill: "math" }
-            ],
-            hasTooltip: true
         }
     ],
     
@@ -202,19 +111,6 @@
        Reusable utility items
     ========================================== */
     tools: [
-        {
-            id: "headphones",
-            name: "Headphones",
-            category: "tool",
-            usageType: "passive",
-            desc: "Noise-cancelling headphones for focused studying.",
-            price: 150,
-            image: "assets/content/inventory/tools/headphones.webp",
-            effects: [
-                { stat: "focus", value: 10, type: "equip" }
-            ],
-            hasTooltip: true
-        },
         {
             id: "umbrella",
             name: "Umbrella",
