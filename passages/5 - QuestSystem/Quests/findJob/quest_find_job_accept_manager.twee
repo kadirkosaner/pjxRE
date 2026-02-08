@@ -61,6 +61,7 @@ You stand up. You leave the office, walk down the corridor to the front of the d
 <<set $jobState.weeklyDeductions = 0>>
 <<set $jobState.lastPayWeek = null>>
 <<set $jobState.minHoursWarningCount = 0>>
+<<set $jobState.firstWorkDayEventShown = false>>
 <<completeQuest "find_job">>
 <</silently>>
 

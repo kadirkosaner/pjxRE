@@ -280,8 +280,8 @@
 ========================================== */
 <<widget "updateCharacterLocations">>
 <<nobr>>
-    <<set _isWeekend = ($timeSys.weekday === 0 || $timeSys.weekday === 6)>>
-    <<set _scheduleType = _isWeekend ? "weekend" : "weekday">>
+    /* Sunday=0: use "sunday" if character has it, else "weekend". Saturday=6: weekend. Mon-Fri: weekday */
+    <<set _scheduleType = ($timeSys.weekday === 0) ? "sunday" : (($timeSys.weekday === 6) ? "weekend" : "weekday")>>
     <<set _currentHour = $timeSys.hour>>
     
     /* Calculate current date as number for comparison (YYYYMMDD) */
@@ -325,11 +325,17 @@
             <<set _schedulePhase = _isVacation ? "vacation" : "school">>
         <</if>>
         
-        /* Get schedule: nested (with phase) or flat (legacy) */
+        /* Get schedule: nested (with phase) or flat (legacy). Sunday: use sunday if defined, else fallback to weekend */
         <<if _schedulePhase && _charData[_schedulePhase]>>
             <<set _schedule = _charData[_schedulePhase][_scheduleType]>>
+            <<if _scheduleType === "sunday" && !_schedule>>
+                <<set _schedule = _charData[_schedulePhase].weekend>>
+            <</if>>
         <<else>>
             <<set _schedule = _charData[_scheduleType]>>
+            <<if _scheduleType === "sunday" && !_schedule>>
+                <<set _schedule = _charData.weekend>>
+            <</if>>
         <</if>>
         
         <<if _schedule>>

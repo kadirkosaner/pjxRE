@@ -20,7 +20,8 @@ const categoryToSlot = {
     bracelets: 'bracelet',
     bras: 'bra',
     panties: 'panty',
-    sleepwear: 'sleepwear'
+    sleepwear: 'sleepwear',
+    apron: 'apron'
 };
 
 // ============================================
@@ -339,6 +340,9 @@ const defaultCategories = [
     { group: "Underwear", items: [
         { id: "bras", name: "Bras", slot: "bra" },
         { id: "panties", name: "Panties", slot: "panty" }
+    ]},
+    { group: "Special", items: [
+        { id: "apron", name: "Apron", slot: "apron" }
     ]}
 ];
 
@@ -361,6 +365,13 @@ function _w_renderCategories() {
     if (!categories || categories.length === 0) {
         console.warn('[Wardrobe] Categories missing in setup, using defaults');
         categories = defaultCategories;
+    }
+    // Ensure Special (apron) is always present in the left menu
+    const hasSpecial = categories.some(g => g.group === 'Special');
+    if (!hasSpecial) {
+        categories = categories.concat([
+            { group: 'Special', items: [{ id: 'apron', name: 'Apron', slot: 'apron' }] }
+        ]);
     }
 
     let html = '';
@@ -544,6 +555,8 @@ function renderWearingSlots() {
     html += ['earrings', 'necklace', 'bracelet'].map(renderSlot).join('');
     html += '<div class="slots-section-title">Underwear</div>';
     html += ['bra', 'panty'].map(renderSlot).join('');
+    html += '<div class="slots-section-title">Special</div>';
+    html += ['apron'].map(renderSlot).join('');
 
     container.innerHTML = html;
 

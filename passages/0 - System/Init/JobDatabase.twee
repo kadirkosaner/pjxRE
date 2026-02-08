@@ -16,9 +16,10 @@
         tierMax: 6,
         tierExperienceRequirements: [0, 50, 120, 200, 320, 500],
         wageByTier: [7, 8, 9, 10, 11, 12],
-        xpPerHour: 5,
+        xpPerHour: 0.5,
 
         shiftHoursOptions: [2, 4, 6, 8],
+        requiredHoursPerDay: 8,
         tips: false,
         maxShiftsPerDay: 1,
 
@@ -28,7 +29,7 @@
         minHoursWarningsBeforeFire: 1,
 
         statCostsPer4Hours: {
-            energy: -50,
+            energy: -30,
             mood: -15,
             stress: 20,
             hygiene: -30
@@ -47,7 +48,8 @@
         },
 
         shiftStart: {
-            clothingCheck: false,
+            clothingCheck: true,
+            requiredOutfit: { top: "topRubysDishwash", bottom: "bottomRubysDishwash", apron: "apronRubysDishwash" },
             statCheck: null
         },
 

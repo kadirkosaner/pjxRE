@@ -1,0 +1,22 @@
+/* Special - Apron and other special/work items
+ *
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.apron = [
+    {
+        id: "apronRubysDishwash",
+        name: "Ruby's Dishwashing Apron",
+        brand: "Ruby's Diner",
+        desc: "Work apron for the dishwashing station.",
+        image: "assets/content/clothing/workclothes/rubysdiner/dishwashing/apronRubysDishwash.webp",
+        looks: 0,
+        quality: "Common",
+        tags: ["work"],
+        price: 0,
+        shopAvailable: false,
+        startOwned: false
+    }
+]>>

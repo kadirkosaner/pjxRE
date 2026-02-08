@@ -5,19 +5,22 @@
    Design: 1Developer/JobSystemDesign.md
 ========================================== */
 
-/* Set $jobAvailableShifts (filter by schedule: currentHour + shiftHours <= close) */
+/* Set $jobAvailableShifts (filter by schedule + energy) */
 <<widget "jobSetAvailableShifts">>
     <<set _jobId = $args[0] || $job.id>>
     <<set _job = setup.jobs[_jobId]>>
     <<if !_job>>
         <<set $jobAvailableShifts = []>>
     <<else>>
-        <<set _hour = $timeSys.hour>>
+        <<set _hour = parseInt($timeSys.hour, 10)>>
         <<set _close = _job.schedule.close>>
+        <<set _energy = parseInt($energy, 10) || 0>>
         <<set _options = _job.shiftHoursOptions || [2, 4, 6, 8]>>
         <<set $jobAvailableShifts = []>>
         <<for _h range _options>>
-            <<if _hour + _h <= _close>>
+            <<set _mult = _h / 4>>
+            <<set _energyCost = Math.ceil(Math.abs((_job.statCostsPer4Hours || {}).energy || 50) * _mult)>>
+            <<if _hour + _h <= _close && _energy >= _energyCost>>
                 <<run $jobAvailableShifts.push(_h)>>
             <</if>>
         <</for>>
@@ -36,6 +39,23 @@
     <<set _job = setup.jobs[_jobId]>>
     <<if !_job>>
         <<return>>
+    <</if>>
+
+    /* Check work outfit (required slots must match job's requiredOutfit) */
+    <<if _job.shiftStart && _job.shiftStart.clothingCheck && _job.shiftStart.requiredOutfit>>
+        <<set _outfitOk = true>>
+        <<set _missing = []>>
+        <<for _slot, _requiredId range _job.shiftStart.requiredOutfit>>
+            <<set _worn = $wardrobe.equipped[_slot]>>
+            <<if _worn !== _requiredId>>
+                <<set _outfitOk = false>>
+                <<run _missing.push(_slot)>>
+            <</if>>
+        <</for>>
+        <<if !_outfitOk>>
+            <<run window.notifyWarning("You need to wear the work uniform (apron, top, and bottom from Ruby's Diner) to start a shift.")>>
+            <<return>>
+        <</if>>
     <</if>>
 
     /* Check min energy (approx cost for this shift) */
@@ -102,6 +122,8 @@
     <<set _earned = Math.round(_wage * _shiftHours * 100) / 100>>
     <<set $jobState.weeklyEarnings += _earned>>
     <<set $jobState.hoursThisWeek += _shiftHours>>
+    <<if ndef $jobState.hoursToday>><<set $jobState.hoursToday = 0>><</if>>
+    <<set $jobState.hoursToday += _shiftHours>>
     <<set $jobState.totalDaysWorked += 1>>
     <<set $jobState.shiftsToday += 1>>
 
@@ -166,10 +188,64 @@
     <<set $jobState.lastPayWeek = _payDateKey>>
 <</widget>>
 
-/* Reset daily job state (shiftsToday). Call at start of advanceDay. */
+/* Reset daily job state (shiftsToday, hoursToday). Call at start of advanceDay. */
 <<widget "jobResetDaily">>
     <<if def $jobState>>
         <<set $jobState.shiftsToday = 0>>
+        <<set $jobState.hoursToday = 0>>
+    <</if>>
+<</widget>>
+
+/* Work button for a workplace: locked (daily complete, already worked, outfit, energy) or link to jobWorkSelect.
+   Usage: <<jobWorkButton "dinerRubys">> or <<jobWorkButton>> (uses $location as workplace) */
+<<widget "jobWorkButton">>
+    <<set _workplace = $args[0] || $location>>
+    <<if _workplace && $job && $job.id && setup.jobs[$job.id] && setup.jobs[$job.id].workplace === _workplace>>
+    <<set _job = setup.jobs[$job.id]>>
+    <<set _hour = $timeSys.hour>>
+    <<set _currentDate = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+    <<set _startDate = $job.startedOn.year * 10000 + $job.startedOn.month * 100 + $job.startedOn.day>>
+    <<set _canWorkToday = _currentDate >= _startDate && _hour >= _job.schedule.open>>
+        <<if _canWorkToday && _hour < _job.schedule.close>>
+            <<silently>>
+            <<set _workLocked = false>>
+            <<set _workLockedReasons = []>>
+            <<set _requiredHoursPerDay = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
+            <<set _hoursToday = $jobState.hoursToday || 0>>
+            <<set _shiftsToday = $jobState.shiftsToday || 0>>
+            <<if _shiftsToday >= _job.maxShiftsPerDay>>
+                <<set _workLocked = true>>
+                <<set _workLockedText = "Already worked today (" + _hoursToday + "/" + _requiredHoursPerDay + " h)">>
+            <<elseif _hoursToday >= _requiredHoursPerDay>>
+                <<set _workLocked = true>>
+                <<set _workLockedText = "Daily shift complete (" + _hoursToday + "/" + _requiredHoursPerDay + " h)">>
+            <</if>>
+            <<if !_workLocked && _job.shiftStart && _job.shiftStart.clothingCheck && _job.shiftStart.requiredOutfit>>
+                <<for _slot, _requiredId range _job.shiftStart.requiredOutfit>>
+                    <<set _worn = $wardrobe.equipped[_slot]>>
+                    <<if _worn !== _requiredId>>
+                        <<set _workLocked = true>>
+                        <<run _workLockedReasons.push(_slot === "top" ? "work top" : _slot === "bottom" ? "work bottom" : "apron")>>
+                    <</if>>
+                <</for>>
+            <</if>>
+            <<if !_workLocked>>
+            <<set _minEnergy2h = Math.ceil(Math.abs((_job.statCostsPer4Hours || {}).energy || 50) * (2/4))>>
+            <<if ($energy || 0) < _minEnergy2h>>
+                <<set _workLocked = true>>
+                <<run _workLockedReasons.push(_minEnergy2h + " energy for 2h shift")>>
+            <</if>>
+            <</if>>
+            <<if _workLockedReasons.length>><<set _workLockedText = "Need: " + _workLockedReasons.join(", ")>><</if>>
+            <</silently>>
+            <div class="btn-center" style="margin-bottom: 0.5em;">
+            <<if _workLocked>>
+            <span class="link-internal btn-style btn-default locked" @data-tooltip="_workLockedText"><span class="icon icon-lock icon-12"></span> Work</span>
+            <<else>>
+            <<link '<span class="btn-style btn-default">Work</span>' "jobWorkSelect">><</link>>
+            <</if>>
+            </div>
+        <</if>>
     <</if>>
 <</widget>>
 

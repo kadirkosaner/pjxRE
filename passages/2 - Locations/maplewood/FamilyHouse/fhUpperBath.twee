@@ -2,7 +2,7 @@
 <<set $location = "fhUpperBath">>
 <<set $returnAfterToilet = "fhUpperBath">>
 <<updateCharacterLocations>>
-<</nobr>>
+
 
 <<bathroomEntry "fhUpperBath" "Upstairs Bathroom" "fhUpperstairs">>
 
@@ -12,12 +12,10 @@
     A clean, shared bathroom with a shower and basic amenities. The mirror reflects the morning light.
     <</narrative>>
 
-    <<nobr>>
     <<showLocationChars "fhUpperBath">>
     <div class="location-actions">
         <<btn "Take a Shower" "useBath">><</btn>>
-        <<btn "Use Toilet" "useToilet">><</btn>>
-        <<btn "Wash Face" "washFace">><</btn>>
+        <<bathroomActions>>
         <<mirrorBtn>>
     </div>
 

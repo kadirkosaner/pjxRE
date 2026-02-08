@@ -9,20 +9,7 @@ A classic American diner with red vinyl booths. Burgers, milkshakes, and good co
 <<showLocationChars "dinerRubys">>
 <<questPrompts>>
 
-<<if $job && $job.id && setup.jobs[$job.id] && setup.jobs[$job.id].workplace === "dinerRubys">>
-    <<set _job = setup.jobs[$job.id]>>
-    <<set _hour = $timeSys.hour>>
-    <<set _currentDate = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
-    <<set _startDate = $job.startedOn.year * 10000 + $job.startedOn.month * 100 + $job.startedOn.day>>
-    <<set _canWorkToday = _currentDate >= _startDate && _hour >= _job.schedule.open>>
-        <<if _canWorkToday && _hour < _job.schedule.close>>
-            <<if $jobState.shiftsToday < _job.maxShiftsPerDay>>
-            <div class="btn-center" style="margin-bottom: 0.5em;">
-            <<btn "Work" "jobWorkSelect">><</btn>>
-            </div>
-        <</if>>
-    <</if>>
-<</if>>
+<<jobWorkButton "dinerRubys">>
 
 <<if $job && $job.id && setup.jobs[$job.id] && setup.jobs[$job.id].workplace === "dinerRubys">>
 <<navMenu>>

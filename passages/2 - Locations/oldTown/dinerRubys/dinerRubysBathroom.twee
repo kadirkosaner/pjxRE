@@ -1,11 +1,16 @@
 :: dinerRubysBathroom
 <<nobr>>
 <<set $location = "dinerRubysBathroom">>
+<<set $returnAfterToilet = "dinerRubysBathroom">>
 <<updateCharacterLocations>>
 
 <<narrative "Bathroom">>
 A small restroom off the main dining area. Clean and functional.
 <</narrative>>
+
+<div class="location-actions">
+<<bathroomActions>>
+</div>
 
 <<navMenu>>
 <<navCard "dinerRubys">>

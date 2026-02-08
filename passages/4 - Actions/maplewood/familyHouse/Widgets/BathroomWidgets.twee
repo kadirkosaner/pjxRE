@@ -3,6 +3,15 @@
    Widgets for bathroom interactions and shower checking
 ================================================== */
 
+/* Use Toilet + Wash Face buttons (global)
+   Usage: <<bathroomActions>> – outputs both buttons. Caller must set $returnAfterToilet before calling.
+   Use inside: <div class="location-actions"><<bathroomActions>></div>
+   Or combine with other buttons: <<btn "Shower" ...>><<bathroomActions>><<mirrorBtn>> */
+<<widget "bathroomActions">>
+<<btn "Use Toilet" "useToilet">><</btn>>
+<<btn "Wash Face" "washFace">><</btn>>
+<</widget>>
+
 /* Bathroom Entry Check Widget
    Usage: <<bathroomEntry "fhUpperBath" "Upstairs Bathroom" "fhUpperstairs">>
 

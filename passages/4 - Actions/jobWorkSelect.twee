@@ -4,31 +4,24 @@
 ========================================== */
 <<silently>>
 <<set _job = setup.jobs[$job.id]>>
+<<if def _job>><<set $location = _job.workplace>><</if>>
 <<jobSetAvailableShifts $job.id>>
 <<set _available = $jobAvailableShifts>>
 <</silently>>
-
+<<nobr>>
 <<narrative "Work">>
 You're at <<= _job.workplaceName>>. How long do you want to work?
 <</narrative>>
 
 <<if _available.length === 0>>
-<p>You can't start a shift right now—either you've already worked today, or the available shift times wouldn't fit before closing.</p>
+<p style="text-align: center; font-style: italic;">You can't start a shift right now—either you've already worked today, or the available shift times wouldn't fit before closing.</p>
 <<else>>
-<div class="btn-center">
-<<for _h range _available>>
-    <<set _wage = (_job.wageByTier && _job.wageByTier[($job.tier || 1) - 1]) ? _job.wageByTier[($job.tier || 1) - 1] : _job.wagePerHour || 7>>
-    <<set _est = _wage * _h>>
-    <<link _h + " hours ($" + _est.toFixed(0) + ")">>
-        <<jobExecuteShift _h>>
-        <<if $jobShiftSuccess>>
-            <<goto "dinerRubys">>
-        <</if>>
-    <</link>>
-<</for>>
-<</div>>
+<div class="location-actions">
+<<jobWorkPicker "Work" "jobWorkExecute">>
+</div>
 <</if>>
 
-<div class="btn-center" style="margin-top: 1em;">
-<<btn "Back" $location>><</btn>>
+<div class="location-actions">
+<<link '<span class="btn-style btn-default">Back</span>' previous()>><</link>>
 </div>
+<</nobr>>

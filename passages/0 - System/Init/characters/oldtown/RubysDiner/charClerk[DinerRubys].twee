@@ -10,7 +10,7 @@
     birthYear: 1992,
     occupation: "Front Clerk",
     location: "Ruby's Diner",
-    avatar: "assets/content/people/oldtown/townhall/tomReese.webp",
+    avatar: "assets/content/people/oldtown/rubysdiner/tomReese.webp",
     type: "npc",
     color: "#0d9488",
     stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
@@ -25,12 +25,12 @@
 <<set setup.schedules.dinerClerk = {
     weekday: [
         { hour: 0, location: null, status: "unavailable" },
-        { hour: 6, location: "dinerRubys", status: "available" },
-        { hour: 22, location: null, status: "unavailable" }
+        { hour: 10, location: "dinerRubys", status: "available" },
+        { hour: 18, location: null, status: "unavailable" }
     ],
     weekend: [
         { hour: 0, location: null, status: "unavailable" },
-        { hour: 6, location: "dinerRubys", status: "available" },
-        { hour: 22, location: null, status: "unavailable" }
+        { hour: 10, location: "dinerRubys", status: "available" },
+        { hour: 18, location: null, status: "unavailable" }
     ]
 }>>

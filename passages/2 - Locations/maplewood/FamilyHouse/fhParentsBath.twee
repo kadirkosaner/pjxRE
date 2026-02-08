@@ -2,7 +2,6 @@
 <<set $location = "fhParentsBath">>
 <<set $returnAfterToilet = "fhParentsBath">>
 <<updateCharacterLocations>>
-<</nobr>>
 
 <<bathroomEntry "fhParentsBath" "Parents Bathroom" "fhParentsRoom">>
 
@@ -12,13 +11,15 @@
     A luxurious en-suite bathroom connected to the master bedroom. A large bathtub and marble counters speak of comfort.
     <</narrative>>
 
-    <<nobr>>
     <<showLocationChars "fhParentsBath">>
 
     /* Shower only on own floor (fhUpperBath) – no shower in parents' bathroom */
+    <div class="location-actions">
+        <<bathroomActions>>
+    </div>
 
     <<navMenu>>
         <<navCard "fhParentsRoom">>
     <</navMenu>>
-    <</nobr>>
 <</if>>
+<</nobr>>

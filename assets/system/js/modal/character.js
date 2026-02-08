@@ -332,6 +332,10 @@ window.CharacterInit = function (API) {
                  { id: 'panty', label: 'Panties' }
             ];
 
+            const specialSlots = [
+                { id: 'apron', label: 'Apron' }
+            ];
+
             // Calculate Stats First
             const { style, totalLooks } = this.getOverallStyle(equipped);
 
@@ -410,6 +414,10 @@ window.CharacterInit = function (API) {
             // Intimates Header & Section (Optional, keeping it for completeness)
             html += '<div class="outfit-section-header">Intimates</div>';
             html += renderSlots(intimateSlots);
+
+            // Special Header & Section (e.g. Apron)
+            html += '<div class="outfit-section-header">Special</div>';
+            html += renderSlots(specialSlots);
 
             html += '</div>'; // End outfit-list
             

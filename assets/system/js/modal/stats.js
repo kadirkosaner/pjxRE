@@ -123,6 +123,10 @@ window.StatsInit = function (API) {
             const deductions = jobState.weeklyDeductions || 0;
             const net = Math.max(0, gross - deductions);
 
+            const requiredHoursPerDay = def.requiredHoursPerDay != null ? def.requiredHoursPerDay : 8;
+            const hoursToday = jobState.hoursToday || 0;
+            const hoursTodayPct = requiredHoursPerDay <= 0 ? 100 : Math.min(100, (hoursToday / requiredHoursPerDay) * 100);
+
             return `
                 <div class="stats-view work-tab">
                     <div class="work-layout">
@@ -138,6 +142,15 @@ window.StatsInit = function (API) {
                             <div class="work-row">
                                 <span class="stat-label">Wage</span>
                                 <span class="work-value">$${wage}/hr</span>
+                            </div>
+                            <div class="work-field-xp work-field-hours">
+                                <span class="stat-label">Hours today</span>
+                                <div class="work-xp-row">
+                                    <div class="stat-bar-wrapper work-xp-bar">
+                                        <div class="stat-bar-fill" style="width: ${hoursTodayPct}%; background: var(--color-accent);"></div>
+                                    </div>
+                                    <span class="work-xp-text">${hoursToday} / ${requiredHoursPerDay} h</span>
+                                </div>
                             </div>
                             <div class="work-field-xp">
                                 <span class="stat-label">Work experience</span>

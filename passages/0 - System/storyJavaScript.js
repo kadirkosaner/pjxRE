@@ -810,7 +810,133 @@ Macro.add('btnPicker', {
     }
 });
 
+/* ================== jobWorkPicker Macro =================== */
+/* Usage: <<jobWorkPicker "Work" "jobWorkExecute">>
+   Uses $jobAvailableShifts (from jobSetAvailableShifts) - only shows options with enough energy + schedule
+   If no options, shows locked state. */
+Macro.add('jobWorkPicker', {
+    handler: function () {
+        if (this.args.length < 2) {
+            return this.error('jobWorkPicker requires: text, passage');
+        }
+        const text = this.args[0];
+        const passage = this.args[1];
+        const style = this.args[2] ? this.args[2].toLowerCase() : 'default';
 
+        const available = State.variables.jobAvailableShifts || [];
+        const preset = setup.durationPresets && setup.durationPresets.jobShiftDuration;
+        if (!preset) return this.error('jobShiftDuration preset not found');
+
+        const options = preset.filter(p => available.includes(p.value));
+        const presetName = 'jobShiftDuration';
+
+        if (options.length === 0) {
+            const span = $('<span>')
+                .addClass('link-internal btn-style locked')
+                .attr('data-tooltip', "Not enough energy or no shifts available")
+                .html('<span class="icon icon-lock icon-12"></span> ' + text)
+                .appendTo(this.output)
+                .addClass('btn-' + style);
+            return;
+        }
+
+        if (!State.variables.pickerMemory) State.variables.pickerMemory = {};
+        let selectedValue = State.variables.pickerMemory[presetName];
+        if (!available.includes(selectedValue)) selectedValue = options[0].value;
+        State.variables.pickerMemory[presetName] = selectedValue;
+
+        const getLabel = (val) => {
+            const found = preset.find(p => p.value === val);
+            return found ? found.label : options[0].label;
+        };
+
+        const wrapper = $('<div>').addClass('btn-picker-split').appendTo(this.output);
+        const btn = $('<a>').addClass('link-internal btn-style btn-' + style + ' btn-picker-main')
+            .attr('tabindex', '0').text(text).appendTo(wrapper);
+        const trigger = $('<a>').addClass('btn-picker-trigger')
+            .html('<span class="picker-value">' + getLabel(selectedValue) + '</span> <span class="icon icon-chevron-down icon-12"></span>')
+            .appendTo(wrapper);
+        const dropdown = $('<div>').addClass('btn-picker-dropdown').appendTo(wrapper);
+
+        options.forEach(option => {
+            const optionBtn = $('<a>').addClass('btn-picker-option')
+                .text(option.label).attr('data-value', option.value).appendTo(dropdown);
+            if (option.value === selectedValue) optionBtn.addClass('selected');
+            optionBtn.on('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                selectedValue = option.value;
+                State.variables.pickerMemory[presetName] = selectedValue;
+                trigger.find('.picker-value').text(option.label);
+                dropdown.find('.btn-picker-option').removeClass('selected');
+                $(this).addClass('selected');
+                dropdown.removeClass('open');
+                wrapper.removeClass('open');
+                $('body').removeClass('btn-picker-open');
+                moveDropdownBackToWrapper();
+            });
+        });
+
+        function moveDropdownBackToWrapper() {
+            if (!dropdown.hasClass('btn-picker-dropdown-portal')) return;
+            $(document).off(scrollNamespace);
+            $('#passages').off(scrollNamespace);
+            dropdown.removeClass('btn-picker-dropdown-portal').css({ position: '', top: '', left: '', right: '', zIndex: '' });
+            if (wrapper[0].isConnected) wrapper.append(dropdown);
+        }
+        const scrollNamespace = 'scroll.btnPickerPortal' + presetName + 'Job';
+
+        function positionDropdownInPortal() {
+            const triggerEl = trigger[0];
+            const dropEl = dropdown[0];
+            if (!triggerEl || !dropEl) return;
+            const rect = triggerEl.getBoundingClientRect();
+            const w = dropEl.offsetWidth || 120;
+            dropdown.css({ position: 'fixed', top: (rect.bottom + 4) + 'px', left: (rect.right - w) + 'px', right: 'auto', zIndex: '10000' });
+        }
+        function moveDropdownToBody() {
+            dropdown.addClass('btn-picker-dropdown-portal');
+            $(document.body).append(dropdown);
+            requestAnimationFrame(positionDropdownInPortal);
+            $(document).on(scrollNamespace, () => { if (dropdown.hasClass('btn-picker-dropdown-portal')) requestAnimationFrame(positionDropdownInPortal); });
+            $('#passages').on(scrollNamespace, () => { if (dropdown.hasClass('btn-picker-dropdown-portal')) requestAnimationFrame(positionDropdownInPortal); });
+        }
+
+        trigger.on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            wrapper.toggleClass('open');
+            dropdown.toggleClass('open');
+            if (dropdown.hasClass('open')) {
+                $('body').addClass('btn-picker-open');
+                moveDropdownToBody();
+            } else {
+                $('body').removeClass('btn-picker-open');
+                moveDropdownBackToWrapper();
+            }
+        });
+        btn.on('click', function (e) {
+            e.preventDefault();
+            State.variables.selectedDuration = selectedValue;
+            Engine.play(passage);
+        });
+        $(document).on('click.jobWorkPicker' + presetName, function (e) {
+            const inWrapper = wrapper.is(e.target) || wrapper.has(e.target).length > 0;
+            const inDropdown = dropdown.is(e.target) || dropdown.has(e.target).length > 0;
+            if (!inWrapper && !inDropdown) {
+                dropdown.removeClass('open');
+                wrapper.removeClass('open');
+                $('body').removeClass('btn-picker-open');
+                moveDropdownBackToWrapper();
+            }
+        });
+        $(document).one(':passagestart', function () {
+            $(document).off('click.jobWorkPicker' + presetName);
+            $('body').removeClass('btn-picker-open');
+            moveDropdownBackToWrapper();
+        });
+    }
+});
 
 /* ================== Dynamic Button Styles =================== */
 $(document).one(':storyready', function () {
