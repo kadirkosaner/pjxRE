@@ -1,0 +1,22 @@
+<<nobr>>
+<<silently>>
+<<set $location = "dinerRubysStorage">>
+<<if !$job || !$job.id || !setup.jobs[$job.id] || setup.jobs[$job.id].workplace !== "dinerRubys">>
+<<goto "dinerRubysStorage">>
+<</if>>
+<<advanceTime 15>>
+<<loseStat "thirst" 30>>
+<<gainStat "energy" 10>>
+<<flushNotifications>>
+<<run window.notifySuccess("Coffee – thirst and a bit of energy.")>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Coffee">>
+You pour yourself a cup from the staff machine. Hot, strong, and on the house. You take a few minutes to drink it.
+<</narrative>>
+
+<div class="btn-center">
+<<btn "Back" "dinerRubysStorage">><</btn>>
+</div>
+<</nobr>>

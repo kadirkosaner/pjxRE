@@ -1,0 +1,23 @@
+<<nobr>>
+<<silently>>
+<<set $location = "dinerRubysStorage">>
+<<if !$job || !$job.id || !setup.jobs[$job.id] || setup.jobs[$job.id].workplace !== "dinerRubys">>
+<<goto "dinerRubysStorage">>
+<</if>>
+<<advanceTime 30>>
+<<loseStat "stress" 25>>
+<<gainStat "energy" 25>>
+<<gainStat "mood" 10>>
+<<flushNotifications>>
+<<run window.notifySuccess("Short rest – energy and mood restored.")>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Short rest">>
+You sit in the break corner for half an hour. No one bothers you. You breathe, stretch your shoulders, and feel more ready to go back.
+<</narrative>>
+
+<div class="btn-center">
+<<btn "Back" "dinerRubysStorage">><</btn>>
+</div>
+<</nobr>>

@@ -177,6 +177,7 @@
             <<set $job.id = null>>
             <<set $job.tier = 1>>
             <<set $job.startedOn = null>>
+            <<jobResetState>>
             <<run window.notifyWarning("You lost your job at " + _job.workplaceName + " for not meeting minimum hours.")>>
             <<return>>
         <<else>>
@@ -250,8 +251,7 @@
         <<set $job.id = null>>
         <<set $job.tier = 1>>
         <<set $job.startedOn = null>>
-        <<set $jobState.bossWantsToSeePlayer = false>>
-        <<set $jobState.visitedBossThisMonday = false>>
+        <<jobResetState>>
         <<run window.notifyWarning("You didn't show up when your boss wanted to see you. You've been fired from " + _job.workplaceName + ".")>>
     <</if>>
     /* Clear visitedBossThisMonday when we leave Monday (advance to Tuesday) */
@@ -260,11 +260,32 @@
     <</if>>
 <</widget>>
 
-/* Reset daily job state (shiftsToday, hoursToday). Call at start of advanceDay. */
+/* Reset entire job state. Call when fired or when starting a new job. */
+<<widget "jobResetState">>
+    <<set $jobState = {
+        hoursThisWeek: 0,
+        hoursToday: 0,
+        shiftsToday: 0,
+        totalDaysWorked: 0,
+        jobExperience: 0,
+        weeklyEarnings: 0,
+        weeklyDeductions: 0,
+        lastPayWeek: null,
+        minHoursWarningCount: 0,
+        firstWorkDayEventShown: false,
+        insufficientDaysThisWeek: 0,
+        bossWantsToSeePlayer: false,
+        visitedBossThisMonday: false,
+        freeMealUsedToday: false
+    }>>
+<</widget>>
+
+/* Reset daily job state (shiftsToday, hoursToday, freeMealUsedToday). Call at start of advanceDay. */
 <<widget "jobResetDaily">>
     <<if def $jobState>>
         <<set $jobState.shiftsToday = 0>>
         <<set $jobState.hoursToday = 0>>
+        <<set $jobState.freeMealUsedToday = false>>
     <</if>>
 <</widget>>
 

@@ -33,7 +33,7 @@ He hands you a final paycheck. Your time at <<= _job.workplaceName>> is over.
 <<set $job.id = null>>
 <<set $job.tier = 1>>
 <<set $job.startedOn = null>>
-<<set $jobState.minHoursWarningCount = 0>>
+<<jobResetState>>
 <<run window.notifyWarning("You've been fired from " + _job.workplaceName + " for repeated failure to meet your daily hours.")>>
 <</silently>>
 <div class="btn-center">

@@ -1,12 +1,24 @@
-:: dinerRubysStorage
 <<nobr>>
 <<set $location = "dinerRubysStorage">>
 <<updateCharacterLocations>>
 
 <<narrative "Storage">>
-Shelves of canned goods, dry supplies, and cleaning products. The diner's backstage.
+Shelves of canned goods, dry supplies, and cleaning products. The diner's backstage. A small break corner by the back wall—stool, coffee machine, and a place to sit for a few minutes.
 <</narrative>>
+<<narrative>>
+You can grab something to eat once per day, coffee anytime, and take a short rest here.
+<</narrative>>
+<div class="location-actions" style="margin-bottom: 0.5em;">
+<<if !$jobState.freeMealUsedToday>>
+<<btn "Eat food" "dinerRubysStorage_freeMeal">><</btn>>
+<<else>>
+<span class="link-internal btn-style btn-default locked" data-tooltip="Already had your meal today"><span class="icon icon-lock icon-12"></span> Eat food</span>
+<</if>>
+<<btn "Coffee" "dinerRubysStorage_coffee">><</btn>>
+<<btn "Rest" "dinerRubysStorage_rest">><</btn>>
+</div>
 
 <<navMenu>>
 <<navCard "dinerRubysCorridor">>
 <</navMenu>>
+<</nobr>>

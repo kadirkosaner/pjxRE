@@ -3,10 +3,9 @@
 - Settings Bug Report sayfası yapılacak.
 
 
-##### Work sistemi
-- Günlük çalışma saatleri eğer uymazsa patron bizi pazartesi günü odasına çağırıp eventler tetiklenecek.
-- dinersRuby'nin geri kalan kısımları doldurlacak.
+- dinersRuby'nin geri kalan kısımları doldurlacak. ve eventte resimler gelecek.
 - rubys dinerda bir kere bedava yemek ve sınırsız kahve hakkı ve dinlen butonları. (storage room)
+
 
 - yüz saç ve diş bakımı için mall aktivasyon yapmak
 - Yeni görsel veya videolar gelecek mirror kısmına.

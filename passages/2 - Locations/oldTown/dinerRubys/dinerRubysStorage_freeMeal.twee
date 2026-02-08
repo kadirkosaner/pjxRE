@@ -1,0 +1,29 @@
+<<nobr>>
+<<silently>>
+<<set $location = "dinerRubysStorage">>
+<<if !$job || !$job.id || !setup.jobs[$job.id] || setup.jobs[$job.id].workplace !== "dinerRubys">>
+<<goto "dinerRubysStorage">>
+<</if>>
+<<if $jobState.freeMealUsedToday>>
+<<goto "dinerRubysStorage">>
+<</if>>
+<<set $jobState.freeMealUsedToday = true>>
+<<advanceTime 15>>
+<<loseStat "hunger" 50>>
+<<loseStat "thirst" 25>>
+<<gainStat "energy" 25>>
+<<gainStat "mood" 8>>
+<<loseStat "stress" 5>>
+<<flushNotifications>>
+<<run window.notifySuccess("Staff meal – hunger and energy restored.")>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Staff meal">>
+You grab a quick staff meal from the back—today it's a burger and fries. You eat by the storage shelves, refueling before heading back.
+<</narrative>>
+
+<div class="btn-center">
+<<btn "Back" "dinerRubysStorage">><</btn>>
+</div>
+<</nobr>>
