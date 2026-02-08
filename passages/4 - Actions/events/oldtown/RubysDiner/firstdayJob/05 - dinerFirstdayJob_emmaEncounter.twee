@@ -1,0 +1,26 @@
+<<nobr>>
+<<set $location = "dinerRubysCorridor">>
+<<narrative "Encounter">>
+You open the door. You're in the corridor.
+A bit further down – on the left – another door opens. The one that says "STORAGE."
+A blonde girl steps out. She's holding an empty tray. She's wearing a pink shirt – waitress uniform. Her hair is messy, she looks tired.
+Your eyes meet.
+She pauses for a moment. She sizes you up – new uniform, new face.
+Then a slight smile. A nod. Polite.
+She doesn't say anything. She walks down the corridor, passes you. Heads toward the other end – the front, the counter.
+You stay where you are. You turn your head, watch out of the corner of your eye.
+She walks away. You watch until she's gone.
+Then you look at the storage room door. Still half open. The faint smell of coffee from inside. A sound – maybe a radio. A chair creaking.
+Must be some kind of break room.
+The door slowly closes.
+You turn forward. You walk down the corridor toward the front.
+<</narrative>>
+<<silently>>
+<<set $characters.dinerWaitress1.known = true>>
+<<if !$characters.dinerWaitress1.firstMet>><<set $characters.dinerWaitress1.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
+<</silently>>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Continue" "dinerFirstdayJob_backToFront">><</btn>>
+</div>

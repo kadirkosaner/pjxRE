@@ -6,6 +6,7 @@
 <<set $location = "dinerRubys">>
 <<advanceTime 10>>
 <<set $characters.dinerClerk.known = true>>
+<<if !$characters.dinerClerk.firstMet>><<set $characters.dinerClerk.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
 <</silently>>
 <<nobr>>
 <<narrative "Ruby's Diner">>

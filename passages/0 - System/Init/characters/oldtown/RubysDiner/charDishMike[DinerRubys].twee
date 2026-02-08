@@ -3,20 +3,22 @@
    Kitchen staff, coworker
 ========================================== */
 
-<<set $characters.dinerDishwasher = {
+<<set setup.characterDefs.dinerDishwasher = {
     name: "Mike Torres",
     firstName: "Mike",
     lastName: "Torres",
     birthYear: 1995,
     occupation: "Dishwasher",
     location: "Ruby's Diner",
-    avatar: "assets/content/people/oldtown/townhall/mikeTorres.webp",
+    avatar: "assets/content/people/oldtown/rubysdiner/mikeTorres.webp",
     type: "npc",
     color: "#0ea5e9",
-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
-    status: "Coworker",
-    firstMet: null,
     info: "<p>Dishwasher at Ruby's Diner. He works in the back and keeps the plates moving.</p>",
+    status: "Dishwasher"
+}>>
+<<set $characters.dinerDishwasher = {
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    firstMet: null,
     known: false,
     currentLocation: null,
     currentStatus: null

@@ -1,7 +1,9 @@
 /* Special - Apron and other special/work items
  *
  * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned, locationId?, locations? }
+ * locationId (string): single location for <<wardrobe "locationId">> filter (global, reusable).
+ * locations (array): alternative - list of locationIds this item belongs to.
  */
 
 <<set setup.clothingData = setup.clothingData || {}>>
@@ -17,6 +19,7 @@
         tags: ["work"],
         price: 0,
         shopAvailable: false,
-        startOwned: false
+        startOwned: false,
+        locationId: "rubysDiner"
     }
 ]>>

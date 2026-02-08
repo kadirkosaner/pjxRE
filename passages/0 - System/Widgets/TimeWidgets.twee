@@ -29,13 +29,13 @@
 <</widget>>
 
 <<widget "advanceTime">>
-    <<set _minutes = $args[0] || 30>>
-    <<set $timeSys.minute += _minutes>>
+    <<set _minutes = parseInt($args[0], 10) || 30>>
+    <<set $timeSys.minute = (parseInt($timeSys.minute, 10) || 0) + _minutes>>
     
     <<if $timeSys.minute >= 60>>
         <<set _hours = Math.floor($timeSys.minute / 60)>>
         <<set $timeSys.minute = $timeSys.minute % 60>>
-        <<set $timeSys.hour += _hours>>
+        <<set $timeSys.hour = (parseInt($timeSys.hour, 10) || 0) + _hours>>
         
         /* Initialize notification queue */
         <<initNotificationQueue>>
@@ -83,6 +83,7 @@
 
 <<widget "advanceDay">>
     <<set _days = $args[0] || 1>>
+    <<set _oldWeekday = $timeSys.weekday>>
     <<set $timeSys.day += _days>>
     <<set $timeSys.weekday = ($timeSys.weekday + _days) % 7>>
     
@@ -139,8 +140,14 @@
     <<set $daily.faceCreamUsed = false>>
     <<set $daily.dentalCareUsed = false>>
 
+    /* Job: record insufficient days before reset (hoursToday from day we're leaving) */
+    <<jobRecordInsufficientDay _days>>
+
     /* Job: reset shiftsToday for new day */
     <<jobResetDaily>>
+
+    /* Job: check if player skipped Monday boss call - fire immediately */
+    <<jobCheckSkippedBossCall _days _oldWeekday>>
 
     /* Job: pay day (Monday) - minHours check, pay, reset */
     <<if $timeSys.weekday === 1>>

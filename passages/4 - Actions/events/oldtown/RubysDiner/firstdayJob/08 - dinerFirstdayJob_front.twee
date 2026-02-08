@@ -1,0 +1,75 @@
+<<nobr>>
+<<set $location = "dinerRubysInterior">>
+<<narrative "To the Front">>
+You leave the kitchen. You reach the front.
+Three people by the counter.
+One – the blonde girl from the corridor. You see her up close now. Young, twenties. Tired but friendly. She's holding an order pad.
+Another – a young dark-haired girl. Wearing a navy blue shirt. Calm, serious. Wiping glasses.
+The third – a young man in a white t-shirt. Dark hair, good-looking. Organizing menus.
+<</narrative>>
+<<dialog "dinerClerk">>
+<<= setup.characterDefs.dinerWaitress1.firstName>>, <<= setup.characterDefs.dinerWaitress2.firstName>>, <<= setup.characterDefs.dinerWaitress3.firstName>>.
+<</dialog>>
+<<narrative>>
+The blonde – <<= setup.characterDefs.dinerWaitress1.firstName>> – looks up. She gives you a slight smile when she sees you. She recognizes you – the corridor.
+<</narrative>>
+<<dialog "dinerWaitress1">>
+Hi. I'm <<= setup.characterDefs.dinerWaitress1.firstName>>.
+<</dialog>>
+<<narrative>>
+Her voice is soft, warm.
+The dark-haired girl – <<= setup.characterDefs.dinerWaitress2.firstName>> – looks up.
+<</narrative>>
+<<dialog "dinerWaitress2">>
+<<= setup.characterDefs.dinerWaitress2.firstName>>.
+<</dialog>>
+<<narrative>>
+Short. She doesn't smile but she's not hostile either. Just distant.
+The man in the white t-shirt – <<= setup.characterDefs.dinerWaitress3.firstName>> – approaches. Holds out his hand.
+<</narrative>>
+<<dialog "dinerWaitress3">>
+<<= setup.characterDefs.dinerWaitress3.firstName>>. Welcome.
+<</dialog>>
+<<narrative>>
+You shake hands.
+<</narrative>>
+<<dialog "dinerWaitress3">>
+You here for dishwashing?
+<</dialog>>
+<<dialog "player">>
+Yeah.
+<</dialog>>
+<<dialog "dinerWaitress3">>
+Good. <<= setup.characterDefs.dinerDishwasher.firstName>> is a good guy. He'll help you out.
+<</dialog>>
+<<narrative>>
+The manager's office door opens. <<= setup.characterDefs.dinerManager.firstName>> steps out – the same man from your interview. He sees you in the uniform, gives a short nod.
+<</narrative>>
+<<dialog "dinerManager">>
+Good. Welcome to the team. I'll leave you to it.
+<</dialog>>
+<<narrative>>
+He heads back into his office.
+<</narrative>>
+<<dialog "dinerClerk">>
+Okay. Everyone's met. Let's get to work.
+<</dialog>>
+<<narrative>>
+He turns to you.
+<</narrative>>
+<<dialog "dinerClerk">>
+Come on, I'll take you there.
+<</dialog>>
+<<silently>>
+<<set $characters.dinerManager.known = true>>
+<<if !$characters.dinerManager.firstMet>><<set $characters.dinerManager.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
+<<set $characters.dinerWaitress2.known = true>>
+<<set $characters.dinerWaitress3.known = true>>
+<<if !$characters.dinerWaitress2.firstMet>><<set $characters.dinerWaitress2.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
+<<if !$characters.dinerWaitress3.firstMet>><<set $characters.dinerWaitress3.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
+<</silently>>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Continue" "dinerFirstdayJob_dishwasher">><</btn>>
+</div>

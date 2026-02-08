@@ -3,8 +3,7 @@
    Friendly corner shop employee
 ========================================== */
 
-/* CHARACTER DATA */
-<<set $characters.shopClerkMarcus = {
+<<set setup.characterDefs.shopClerkMarcus = {
     name: "Marcus",
     firstName: "Marcus",
     lastName: "Johnson",
@@ -14,21 +13,17 @@
     avatar: "assets/content/people/maplewood/cornershop/marcus.webp",
     type: "npc",
     color: "#f59e0b",
-    stats: {
-        love: 0,
-        friendship: 0,
-        lust: 0,
-        trust: 0
-    },
-    status: "Acquaintance",
-    firstMet: null,
     info: "<p>A friendly young man who works at the Quick Mart convenience store. He's always helpful and welcoming to newcomers in the neighborhood.</p>",
+    status: "Shop Clerk"
+}>>
+<<set $characters.shopClerkMarcus = {
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    firstMet: null,
     known: false,
     currentLocation: null,
     currentStatus: null
 }>>
 
-/* SCHEDULE - Where is he at different times */
 <<set setup.schedules.shopClerk = {
     weekday: [
         { hour: 0, location: null, status: "unavailable" },
@@ -42,7 +37,6 @@
     ]
 }>>
 
-/* ACTIONS - What can you do with him at the shop */
 <<set setup.characterActions.shopClerk = {
     storeCorner: [
         {

@@ -1,0 +1,80 @@
+<<nobr>>
+<<set $location = "dinerRubysKitchen">>
+<<narrative "Entering the Kitchen">>
+You step into the kitchen. A narrow, hot space. Burners blazing, pans sizzling. Steam everywhere.
+Two people inside.
+One – an older man with a beard – at the stove. Cracking eggs, making an omelet. Calm, slow movements. He looks experienced.
+The other – a young man with scars – at the sink. Washing dishes. Sleeves rolled up, apron wet.
+<</narrative>>
+<<dialog "dinerClerk">>
+<<= setup.characterDefs.dinerChef.firstName>>, <<= setup.characterDefs.dinerDishwasher.firstName>>.
+<</dialog>>
+<<narrative>>
+They both look up.
+<</narrative>>
+<<dialog "dinerClerk">>
+Our new teammate. Starting today. Dishwashing.
+<</dialog>>
+<<narrative>>
+The bearded man – <<= setup.characterDefs.dinerChef.firstName>> – puts down the spatula. He looks at you. His eyes are sharp but not hostile. Just sizing you up.
+<</narrative>>
+<<dialog "dinerChef">>
+What's your name?
+<</dialog>>
+<<dialog "player">>
+<<= $player.firstName>>.
+<</dialog>>
+<<dialog "dinerChef">>
+I'm <<= setup.characterDefs.dinerChef.firstName>>. I run the kitchen here.
+<</dialog>>
+<<narrative>>
+He nods. Short, distant.
+<</narrative>>
+<<dialog "dinerChef">>
+Speed matters here. If dishes pile up, we stop. Got it?
+<</dialog>>
+<<dialog "player">>
+Got it.
+<</dialog>>
+<<dialog "dinerChef">>
+Good.
+<</dialog>>
+<<narrative>>
+He turns back to flip the omelet. Conversation over as far as he's concerned.
+The scarred man – <<= setup.characterDefs.dinerDishwasher.firstName>> – wipes his hands on a towel. He walks over. Smiles.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Hey, I'm <<= setup.characterDefs.dinerDishwasher.firstName>>. I'll be working with you.
+<</dialog>>
+<<narrative>>
+He holds out his hand. You shake. His hand is wet but warm.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+First day?
+<</dialog>>
+<<dialog "player">>
+Yeah.
+<</dialog>>
+<<dialog "dinerDishwasher">>
+I get it. I was nervous my first day too. But you'll get used to it. Easy job, really. Just gotta be fast.
+<</dialog>>
+<<narrative>>
+He talks with a slight accent – maybe Spanish. Friendly, relaxed.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+I'll show you everything in a bit. Don't worry.
+<</dialog>>
+<<dialog "dinerClerk">>
+Alright. Let's keep going.
+<</dialog>>
+<<silently>>
+<<set $characters.dinerChef.known = true>>
+<<set $characters.dinerDishwasher.known = true>>
+<<if !$characters.dinerChef.firstMet>><<set $characters.dinerChef.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
+<<if !$characters.dinerDishwasher.firstMet>><<set $characters.dinerDishwasher.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
+<</silently>>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Continue" "dinerFirstdayJob_front">><</btn>>
+</div>

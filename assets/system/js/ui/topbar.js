@@ -69,6 +69,37 @@ $(document).on(':passagerender', function () {
     const weekdayName = weekdayNames[timeSys.weekday] || '';
     const dateStr = timeSys.day + ' ' + monthName + ', ' + timeSys.year;
 
+    // Work: use same State as rest of game (SugarCube State.variables)
+    const stateVars = (typeof State !== 'undefined' && State.variables) ? State.variables : vars;
+    const job = stateVars.job;
+    const setupObj = window.setup || window.Setup || (TopbarAPI && TopbarAPI.setup) || {};
+    const jobs = setupObj.jobs || {};
+    const jobDef = job && job.id ? jobs[job.id] : null;
+    const open = jobDef?.schedule?.open ?? 0;
+    const close = jobDef?.schedule?.close ?? 24;
+    const currentHour = parseInt(timeSys.hour || 0, 10);
+    const WORK_ICON_HOURS_BEFORE = 2;
+    const hasJob = !!(job && job.id);
+    const currentDate = (timeSys.year || 0) * 10000 + (timeSys.month || 0) * 100 + (timeSys.day || 0);
+    const startDate = job?.startedOn ? (job.startedOn.year * 10000 + job.startedOn.month * 100 + job.startedOn.day) : 0;
+    const isFirstWorkDayOrLater = !job?.startedOn || currentDate >= startDate;
+    const jobState = stateVars.jobState || {};
+    const hoursToday = parseInt(jobState.hoursToday || 0, 10);
+    const requiredHoursPerDay = jobDef?.requiredHoursPerDay ?? 8;
+    const dailyQuotaComplete = hoursToday >= requiredHoursPerDay;
+    const showWorkIcon = hasJob && isFirstWorkDayOrLater && !dailyQuotaComplete && currentHour >= (open - WORK_ICON_HOURS_BEFORE) && currentHour < close;
+
+    // Work tooltip: dynamic based on job schedule
+    function getWorkTooltip() {
+        if (!job || !job.id) return 'Work';
+        if (!jobDef || !jobDef.schedule) return 'Work';
+        if (dailyQuotaComplete) return 'Already worked ' + hoursToday + '/' + requiredHoursPerDay + ' hours today';
+        if (currentHour < open) return 'Work starts at ' + open + ':00';
+        if (currentHour >= open && currentHour < close) return 'You need to go to work';
+        return 'Work has ended for today';
+    }
+    const workTooltip = getWorkTooltip();
+
     const notifications = {
         left: [
             { icon: 'cum', tooltip: 'Cum', show: vars.notificationCum, color: '#e0e0e0' },
@@ -76,7 +107,7 @@ $(document).on(':passagerender', function () {
             { icon: 'bed', tooltip: 'Sleep', show: vars.notificationBed, color: '#3b82f6' },
             { icon: 'alarm', tooltip: vars.notificationAlarmText || 'Time Event', show: vars.notificationAlarm, color: '#f59e0b' },
             { icon: 'school', tooltip: 'School', show: vars.notificationSchool, color: '#10b981' },
-            { icon: 'work', tooltip: 'Work', show: vars.notificationWork, color: '#ef4444' }
+            { icon: 'work', tooltip: workTooltip, show: showWorkIcon, color: '#ef4444' }
         ],
         right: [
             { icon: 'face', tooltip: (vars.notificationFaceText || '').replace(/"/g, '&quot;'), show: vars.notificationFace, color: '#a78bfa' },

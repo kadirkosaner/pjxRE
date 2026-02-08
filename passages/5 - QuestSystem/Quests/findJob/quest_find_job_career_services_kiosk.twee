@@ -21,7 +21,7 @@ Name?
 Straight to business. No pleasantries.
 <</narrative>>
 <<dialog "player">>
-<<= $player.name>> <<= $player.surname>>.
+<<= $player.firstName>> <<= $player.lastName>>.
 <</dialog>>
 <<narrative>>
 She types something, still not looking at you.
@@ -30,7 +30,7 @@ She types something, still not looking at you.
 Age?
 <</dialog>>
 <<dialog "player">>
-<<= $player.age>>.
+<<= $timeSys.year - $characters.player.birthYear>>.
 <</dialog>>
 <<narrative>>
 More typing. Her fingers move quickly across the keyboard, mechanical and efficient.

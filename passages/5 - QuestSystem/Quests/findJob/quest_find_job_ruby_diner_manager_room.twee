@@ -6,6 +6,8 @@
 <<set $location = "dinerRubys">>
 <<advanceTime 25>>
 <<advanceQuestStage "find_job">>
+<<set $characters.dinerManager.known = true>>
+<<if !$characters.dinerManager.firstMet>><<set $characters.dinerManager.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
 <</silently>>
 <<nobr>>
 <<narrative "Manager's office">>

@@ -15,7 +15,7 @@
     <<set $characters.shopClerkMarcus.stats.friendship = _newFriendship>>
     
     /* Notification */
-    <<set _charName = $characters.shopClerkMarcus.firstName || $characters.shopClerkMarcus.name || "shopClerkMarcus">>
+    <<set _charName = setup.characterDefs.shopClerkMarcus.firstName || setup.characterDefs.shopClerkMarcus.name || "Marcus">>
     <<set _actualGain = _newFriendship - _currentFriendship>>
     <<if _actualGain > 0>>
         <<run window.notifySuccess(_charName + " Friendship +" + _actualGain)>>

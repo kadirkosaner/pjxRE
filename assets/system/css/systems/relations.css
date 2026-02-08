@@ -34,11 +34,21 @@
   gap: 16px;
 }
 
+/* --- RELATIONS: Açık/kapalı net olsun – accent sadece "açık" olanda --- */
+/* Location: kapalı = sade gri; açık = sol çizgi + arka plan */
 .relations-group {
-  background: #0f0f0f;
-  border: 1px solid #1a1a1a;
+  background: #0d0d0d;
+  border: 1px solid #2a2a2a;
   border-radius: 8px;
   overflow: hidden;
+}
+
+.relations-group.expanded {
+  background: #141414;
+  border-left: 3px solid #f472b6;
+  border-top-color: #2a2a2a;
+  border-right-color: #2a2a2a;
+  border-bottom-color: #2a2a2a;
 }
 
 .relations-group-header {
@@ -47,12 +57,15 @@
   gap: 12px;
   padding: 16px;
   cursor: pointer;
-
   user-select: none;
 }
 
 .relations-group-header:hover {
-  background: #1a1a1a;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.relations-group.expanded > .relations-group-header:hover {
+  background: rgba(244, 114, 182, 0.08);
 }
 
 .relations-group-icon {
@@ -68,6 +81,12 @@
   letter-spacing: 0.5px;
 }
 
+.relations-group-location {
+  font-size: 13px;
+  color: #888;
+  font-weight: 400;
+}
+
 .relations-group-count {
   font-size: 11px;
   color: #666;
@@ -78,28 +97,113 @@
 }
 
 .relations-collapse-icon {
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
+  flex-shrink: 0;
+  display: inline-block;
+}
 
+/* Sadece AÇIK location'da ok pembe ve dönük */
+.relations-group.expanded > .relations-group-header .relations-collapse-icon {
+  transform: rotate(180deg);
+  color: #f472b6;
+}
+
+.relations-group-places {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Place'ler location içinde sağdan soldan içeride; ilk grup üstten boşluk alır */
+.relations-group.expanded .relations-group-places {
+  max-height: 2000px;
+  padding: 12px 16px 16px 16px;
+}
+
+.relations-place {
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background: #0d0d0d;
+  border: 1px solid #2a2a2a;
+  overflow: hidden;
+}
+
+.relations-place.expanded {
+  background: #121212;
+  border-left: 3px solid #93c5fd;
+  border-top-color: #2a2a2a;
+  border-right-color: #2a2a2a;
+  border-bottom-color: #2a2a2a;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.relations-place:last-child {
+  margin-bottom: 0;
+}
+
+.relations-place-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.relations-place-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.relations-place.expanded > .relations-place-header:hover {
+  background: rgba(147, 197, 253, 0.08);
+}
+
+.relations-place-name {
+  flex: 1;
+  font-size: 15px;
+  color: #e0e0e0;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.relations-place-count {
+  font-size: 11px;
+  color: #666;
+  background: #1a1a1a;
+  padding: 4px 10px;
+  border-radius: 10px;
   flex-shrink: 0;
 }
 
-.relations-group.expanded .relations-collapse-icon {
-  transform: rotate(180deg);
+.relations-place-icon {
+  font-size: 14px;
+  color: #666;
+  flex-shrink: 0;
+  display: inline-block;
 }
 
-.relations-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  padding: 0;
+/* Sadece AÇIK place'de ok pastel mavi ve dönük */
+.relations-place.expanded > .relations-place-header .relations-place-icon {
+  transform: rotate(180deg);
+  color: #93c5fd;
+}
+
+.relations-place-grid-wrap {
   max-height: 0;
   overflow: hidden;
 }
 
-.relations-group.expanded .relations-grid {
-  max-height: 1000px;
-  padding: 16px;
+.relations-place.expanded .relations-place-grid-wrap {
+  max-height: 800px;
+}
+
+.relations-place .relations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 12px 16px 16px 16px;
 }
 
 .relations-card {
@@ -112,7 +216,6 @@
   border: 1px solid #1a1a1a;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .relations-card:hover {
@@ -127,7 +230,6 @@
   inset: 0;
   border-radius: 50%;
   border: 2px solid transparent;
-  transition: border-color 0.2s ease;
 }
 
 .relations-card:hover .relations-avatar::after {

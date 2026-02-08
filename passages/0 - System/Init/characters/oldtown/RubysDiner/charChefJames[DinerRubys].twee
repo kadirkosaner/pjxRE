@@ -3,20 +3,22 @@
    Kitchen staff, coworker
 ========================================== */
 
-<<set $characters.dinerChef = {
+<<set setup.characterDefs.dinerChef = {
     name: "James Holt",
     firstName: "James",
     lastName: "Holt",
     birthYear: 1988,
     occupation: "Chef",
     location: "Ruby's Diner",
-    avatar: "assets/content/people/oldtown/townhall/jamesHolt.webp",
+    avatar: "assets/content/people/oldtown/rubysdiner/jamesHolt.webp",
     type: "npc",
     color: "#dc2626",
-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
-    status: "Coworker",
-    firstMet: null,
     info: "<p>Chef at Ruby's Diner. He runs the kitchen and keeps the place running during service.</p>",
+    status: "Chef"
+}>>
+<<set $characters.dinerChef = {
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    firstMet: null,
     known: false,
     currentLocation: null,
     currentStatus: null

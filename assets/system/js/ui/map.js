@@ -323,18 +323,18 @@ window.MapInit = function (API) {
             if (location.residents && location.residents.length > 0) {
                 const residentCards = location.residents
                     .filter(charId => {
-                        const char = characters[charId];
+                        const char = setup.getCharacter ? setup.getCharacter(charId) : characters[charId];
                         return char && char.known === true;
                     })
                     .map(charId => {
-                        const char = characters[charId];
+                        const char = setup.getCharacter ? setup.getCharacter(charId) : characters[charId];
                         return `
                             <div class="map-resident-card" data-character="${charId}">
                                 <div class="resident-avatar">
-                                    ${char.avatar ? `<img src="${char.avatar}" alt="${char.firstName + ' ' + char.lastName}">` : '👤'}
+                                    ${char.avatar ? `<img src="${char.avatar}" alt="${(char.firstName || '') + ' ' + (char.lastName || '')}">` : '👤'}
                                 </div>
                                 <div class="resident-info">
-                                    <div class="resident-name">${char.firstName + ' ' + char.lastName}</div>
+                                    <div class="resident-name">${(char.firstName || '') + ' ' + (char.lastName || '')}</div>
                                 </div>
                             </div>
                         `;

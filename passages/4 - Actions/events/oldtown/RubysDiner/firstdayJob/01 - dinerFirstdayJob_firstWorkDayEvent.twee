@@ -1,0 +1,42 @@
+/* ========================================
+   JOB - First work day event (one-time)
+   Ruby's Diner. Clerk (Tom) greets you.
+======================================== */
+<<nobr>>
+<<set $location = "dinerRubys">>
+<<narrative "First Work Day – Ruby's Diner">>
+You step through the door of Ruby's Diner. Morning. The smell of coffee, fried bacon, a faint wet-floor scent. Steam rises from the kitchen, dishes clatter.
+<<= setup.characterDefs.dinerClerk.firstName>> stands behind the counter. He's busy with the register – counting change, checking receipts. He looks up when he sees you.
+<</narrative>>
+<<dialog "dinerClerk">>
+Oh, you made it.
+<</dialog>>
+<<narrative>>
+He smiles. Calm, friendly.
+<</narrative>>
+<<dialog "player">>
+Good morning <<= setup.characterDefs.dinerClerk.firstName>>.
+<</dialog>>
+<<dialog "dinerClerk">>
+Good morning. Ready?
+<</dialog>>
+<<dialog "player">>
+I think so.
+<</dialog>>
+<<dialog "dinerClerk">>
+Don't worry. Nothing hard. I'll show you what to do.
+<</dialog>>
+<<narrative>>
+He closes the register and walks toward you.
+<</narrative>>
+<<dialog "dinerClerk">>
+Come on, let's get you into uniform first.
+<</dialog>>
+<<narrative>>
+He passes the counter and leads you toward the back.
+<</narrative>>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Continue" "dinerFirstdayJob_dressingRoom">><</btn>>
+</div>

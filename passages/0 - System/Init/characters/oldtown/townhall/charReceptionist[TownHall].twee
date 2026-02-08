@@ -3,8 +3,7 @@
    Information desk worker at Town Hall
 ========================================== */
 
-/* CHARACTER DATA */
-<<set $characters.townHallReceptionist = {
+<<set setup.characterDefs.townHallReceptionist = {
     name: "Receptionist",
     firstName: "Janet",
     lastName: "Morrison",
@@ -14,17 +13,13 @@
     avatar: "assets/content/people/oldtown/townhall/janetMorrison.webp",
     type: "npc",
     color: "#6b7280",
-    stats: {
-        love: 0,
-        friendship: 0,
-        lust: 0,
-        trust: 0
-    },
-    status: "Receptionist",
-    firstMet: null,
     info: "<p>A professional woman who works at the Town Hall information desk. She's been here for years and knows the building inside and out.</p>",
+    status: "Receptionist"
+}>>
+<<set $characters.townHallReceptionist = {
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    firstMet: null,
     known: false,
     currentLocation: null,
     currentStatus: null
 }>>
-

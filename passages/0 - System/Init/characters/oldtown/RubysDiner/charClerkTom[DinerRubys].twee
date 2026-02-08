@@ -3,7 +3,7 @@
    30s, owner's right hand, kind and helpful
 ========================================== */
 
-<<set $characters.dinerClerk = {
+<<set setup.characterDefs.dinerClerk = {
     name: "Tom Reese",
     firstName: "Tom",
     lastName: "Reese",
@@ -13,10 +13,12 @@
     avatar: "assets/content/people/oldtown/rubysdiner/tomReese.webp",
     type: "npc",
     color: "#0d9488",
-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
-    status: "Acquaintance",
-    firstMet: null,
     info: "<p>Works the register at Ruby's Diner. He's been here for years and is the owner's right hand. Friendly and helpful.</p>",
+    status: "Clerk"
+}>>
+<<set $characters.dinerClerk = {
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    firstMet: null,
     known: false,
     currentLocation: null,
     currentStatus: null

@@ -3,20 +3,22 @@
    Owner, 40s, demeaning, clingy, slightly creepy
 ========================================== */
 
-<<set $characters.dinerManager = {
+<<set setup.characterDefs.dinerManager = {
     name: "Vince Ruby",
     firstName: "Vince",
     lastName: "Ruby",
     birthYear: 1982,
     occupation: "Owner / Manager",
     location: "Ruby's Diner",
-    avatar: "assets/content/people/oldtown/townhall/vinceRuby.webp",
+    avatar: "assets/content/people/oldtown/rubysdiner/vinceRuby.webp",
     type: "npc",
     color: "#b45309",
-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
-    status: "Acquaintance",
-    firstMet: null,
     info: "<p>Owner and manager of Ruby's Diner. He runs the place with an iron hand and a habit of looking a little too long.</p>",
+    status: "Manager"
+}>>
+<<set $characters.dinerManager = {
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    firstMet: null,
     known: false,
     currentLocation: null,
     currentStatus: null

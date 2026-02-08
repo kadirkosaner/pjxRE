@@ -7,19 +7,16 @@
 /* Character definitions - populated by CharacterInit files */
 <<set $characters = {}>>
 
-/* Relationship groups */
-<<set setup.relationGroups = [
-    {
-        id: "family",
-        name: "Family",
-        members: ["father", "mother", "brother"]
-    },
-    {
-        id: "maplewood",
-        name: "Maplewood",
-        members: ["shopClerkMarcus"]
-    }
-    ]>>
+/* Static NPC data (name, avatar, etc.) – not saved. Core (father, mother, brother, player) stay only in $characters. */
+<<set setup.characterDefs = {}>>
+
+/* Locations (oldTown, downTown, maplewood...) are read from setup.locations (parent === null).
+   Places per location: defined here. Only places with at least one known member appear; places are expandable. */
+<<set setup.relationPlaces = [
+    { locationId: "maplewood", placeId: "FamilyHouse", name: "Family House", members: ["father", "mother", "brother"] },
+    { locationId: "maplewood", placeId: "storeCorner", name: "Quick Mart", members: ["shopClerkMarcus"] },
+    { locationId: "oldTown", placeId: "dinerRubys", name: "Ruby's Diner", members: ["dinerClerk", "dinerDishwasher", "dinerChef", "dinerManager", "dinerWaitress1", "dinerWaitress2", "dinerWaitress3"] }
+]>>
 
 /* Schedule and action containers */
 <<set setup.schedules = {}>>

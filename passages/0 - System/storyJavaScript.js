@@ -143,6 +143,16 @@ window.runSaveVersion = function () {
 // Legacy alias for older saveload references
 window.runSaveVersionInits = window.runSaveVersion;
 
+/* ================== Character prop helper (NPC static from setup.characterDefs, core from $characters) =================== */
+/** Returns merged character object (static from setup.characterDefs + state from $characters) for UI/JS. */
+setup.getCharacter = function (id) {
+    if (!id) return null;
+    const def = setup.characterDefs && setup.characterDefs[id];
+    const state = State.variables.characters && State.variables.characters[id];
+    if (!def && !state) return null;
+    return Object.assign({}, def || {}, state || {});
+};
+
 /* ================== Fullscreen Layout Detection =================== */
 $(document).on(':passagerender', function () {
     const vars = State.variables;
@@ -996,13 +1006,19 @@ $(document).one(':storyready', function () {
 });
 
 /* ================== WARDROBE MACRO =================== */
+// Usage: <<wardrobe>> | <<wardrobe "locationId">> | <<wardrobe "locationId" "backPassage">>
+// Optional 3rd: noBack (true/"noBack") = hide back link. Optional 4th: jobId = require job uniform to leave (Wear this outfit).
 Macro.add('wardrobe', {
     handler: function () {
         const output = this.output;
+        const locationFilter = (this.args && this.args.length) ? this.args[0] : null;
+        const backPassage = (this.args && this.args.length > 1) ? this.args[1] : null;
+        const noBack = (this.args && this.args.length > 2) ? this.args[2] : null;
+        const jobId = (this.args && this.args.length > 3) ? this.args[3] : null;
 
         // Direct access if already loaded
         if (window.wardrobeModule?.macroHandler) {
-            window.wardrobeModule.macroHandler(output);
+            window.wardrobeModule.macroHandler(output, locationFilter, backPassage, noBack, jobId);
             return;
         }
 
@@ -1027,8 +1043,7 @@ Macro.add('wardrobe', {
                 $anchor.empty();
 
                 try {
-                    // Pass the ANCHOR element, not the original output fragment
-                    window.wardrobeModule.macroHandler($anchor);
+                    window.wardrobeModule.macroHandler($anchor, locationFilter, backPassage, noBack, jobId);
                     console.log('[Wardrobe Macro] Handler executed on Anchor.');
                 } catch (e) {
                     console.error('[Wardrobe Macro] Handler CRASH:', e);
@@ -1098,10 +1113,10 @@ Macro.add('dialog', {
 
         const charId = this.args[0];
         const vars = State.variables;
-        const character = vars.characters?.[charId];
+        const character = setup.getCharacter ? setup.getCharacter(charId) : vars.characters?.[charId];
 
         if (!character) {
-            return this.error(`Character "${charId}" not found in $characters`);
+            return this.error(`Character "${charId}" not found`);
         }
 
         const content = this.payload[0].contents.trim();

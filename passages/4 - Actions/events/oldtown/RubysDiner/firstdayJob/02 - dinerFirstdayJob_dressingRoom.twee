@@ -1,0 +1,62 @@
+<<nobr>>
+<<set $location = "dinerRubysDressingRoom">>
+<<narrative "Dressing Room">>
+You walk down a narrow corridor. On the left, the kitchen entrance – the sound of burners, sizzling pans from inside. Steam pours out.
+On the right, two doors. One has a small sign that says "STORAGE." The other is plain, painted metal.
+<</narrative>>
+<<dialog "dinerClerk">>
+This is the dressing room. Everyone gets ready here.
+<</dialog>>
+<<narrative>>
+<<= setup.characterDefs.dinerClerk.firstName>> opens the second door.
+<</narrative>>
+<<narrative>>
+A small, cramped room. Metal lockers on the walls – most locked, some open. An old wooden bench in the middle, paint flaking off. A fluorescent light flickers on the ceiling. A "NO SMOKING" sign, next to a "WASH YOUR HANDS" poster – yellowed, torn.
+A trash can in one corner, hangers on the other.
+<<= setup.characterDefs.dinerClerk.firstName>> goes to one of the lockers and opens it. Inside are uniforms – different sizes, stacked.
+<</narrative>>
+<<dialog "dinerClerk">>
+What size do you wear?
+<</dialog>>
+<<dialog "player">>
+Medium.
+<</dialog>>
+<<dialog "dinerClerk">>
+Okay. One minute.
+<</dialog>>
+<<silently>>
+<<set _uniformIds = ["topRubysDishwash", "bottomRubysDishwash", "apronRubysDishwash"]>>
+<<set $wardrobe.owned = $wardrobe.owned || []>>
+<<for _id range _uniformIds>>
+<<if !$wardrobe.owned.includes(_id)>><<set $wardrobe.owned = $wardrobe.owned.concat([_id])>><</if>>
+<</for>>
+<</silently>>
+<<narrative>>
+He rummages inside. Pulls out a top, grabs the pants, adds the apron.
+<</narrative>>
+<<dialog "dinerClerk">>
+Here. Top, pants, apron. All here.
+<</dialog>>
+<<narrative>>
+He holds them out. The uniforms are heavy, thick fabric. They look clean.
+<</narrative>>
+<<dialog "dinerClerk">>
+Try them on. If they don't fit, say so and I'll get another size. If they're too big, don't just deal with it – swap them.
+<</dialog>>
+<<narrative>>
+He turns toward the door.
+<</narrative>>
+<<dialog "dinerClerk">>
+I'll be outside. Come out when you're ready.
+<</dialog>>
+<<dialog "player">>
+Alright.
+<</dialog>>
+<<narrative>>
+He opens the door, steps into the corridor. Closes it behind him.
+<</narrative>>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Continue" "dinerFirstdayJob_gettingDressed">><</btn>>
+</div>

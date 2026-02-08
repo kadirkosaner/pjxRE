@@ -160,6 +160,11 @@
   display: none;
 }
 
+/* Hide stray <br> in passages (cuz sometimes if macros dont work with nobr tags) */
+.divnobr br {
+  display: none;
+}
+
 /* ================== MIRROR ROUTINE SETTINGS =================== */
 .routine-settings-wrap {
   display: flex;

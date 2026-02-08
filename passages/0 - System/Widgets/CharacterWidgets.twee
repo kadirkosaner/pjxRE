@@ -18,9 +18,10 @@
     <<if _charId !== "player" && _char.currentLocation === _targetLocation && _char.known === true>>
         <<set _hasCharacter = true>>
         <<capture _charId>>
-        <<set _avatar = $characters[_charId].avatar>>
-        <<set _name = $characters[_charId].firstName + " " + $characters[_charId].lastName>>
-        <<set _status = $characters[_charId].currentStatus>>
+        <<set _charMerged = setup.getCharacter(_charId)>>
+        <<set _avatar = _charMerged.avatar>>
+        <<set _name = (_charMerged.firstName || "") + " " + (_charMerged.lastName || "")>>
+        <<set _status = _char.currentStatus>>
         
         <<if _status === "busy">>
             <div class="character-card-inner busy">
@@ -67,11 +68,11 @@
 <<widget "charInfoCard">>
 <<nobr>>
 <<set _charId = _args[0]>>
-<<if !$characters[_charId]>>
+<<set _char = setup.getCharacter(_charId)>>
+<<if !_char>>
     <p class="error">Character not found: <<print _charId>></p>
 <<else>>
-    <<set _char = $characters[_charId]>>
-    <<set _fullName = _char.firstName + " " + _char.lastName>>
+    <<set _fullName = (_char.firstName || "") + " " + (_char.lastName || "")>>
     <<set _age = ($timeSysYear || 2024) - (_char.birthYear || 2000)>>
     <<set _stats = _char.stats || { love: 0, friendship: 0, lust: 0, trust: 0 }>>
     <<set _opinion = _char.opinion || { awareness: 0, flags: [] }>>

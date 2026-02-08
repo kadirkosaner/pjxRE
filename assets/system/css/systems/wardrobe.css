@@ -71,6 +71,12 @@ body.topbar-hidden #passages {
   justify-self: end;
 }
 
+/* Placeholder when back link is hidden (noBack mode) – keeps header grid from shifting */
+.wardrobe-header-back-placeholder {
+  display: block;
+  min-width: 0;
+}
+
 /* Back Link */
 .wardrobe-header .back-link {
   display: flex;

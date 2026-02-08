@@ -15,12 +15,14 @@
         <<set _hour = parseInt($timeSys.hour, 10)>>
         <<set _close = _job.schedule.close>>
         <<set _energy = parseInt($energy, 10) || 0>>
+        <<set _hoursToday = $jobState.hoursToday || 0>>
+        <<set _requiredHoursPerDay = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
         <<set _options = _job.shiftHoursOptions || [2, 4, 6, 8]>>
         <<set $jobAvailableShifts = []>>
         <<for _h range _options>>
             <<set _mult = _h / 4>>
             <<set _energyCost = Math.ceil(Math.abs((_job.statCostsPer4Hours || {}).energy || 50) * _mult)>>
-            <<if _hour + _h <= _close && _energy >= _energyCost>>
+            <<if _hour + _h <= _close && _energy >= _energyCost && _hoursToday + _h <= _requiredHoursPerDay>>
                 <<run $jobAvailableShifts.push(_h)>>
             <</if>>
         <</for>>
@@ -66,10 +68,11 @@
         <<return>>
     <</if>>
 
-    /* Check maxShiftsPerDay */
-    <<if ndef $jobState.shiftsToday>><<set $jobState.shiftsToday = 0>><</if>>
-    <<if $jobState.shiftsToday >= _job.maxShiftsPerDay>>
-        <<run window.notifyWarning("You've already worked your shift today.")>>
+    /* Check requiredHoursPerDay - block when daily quota reached */
+    <<set _requiredHoursPerDay = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
+    <<if ndef $jobState.hoursToday>><<set $jobState.hoursToday = 0>><</if>>
+    <<if $jobState.hoursToday >= _requiredHoursPerDay>>
+        <<run window.notifyWarning("You've already worked " + _requiredHoursPerDay + " hours today.")>>
         <<return>>
     <</if>>
 
@@ -155,10 +158,21 @@
         <<return>>
     <</if>>
 
-    /* minHours check */
+    /* Insufficient days (daily quota not met): boss wants to see player on Monday.
+       Firing (3 strikes) happens when they VISIT the boss - see jobBossOfficeCall. */
+    <<set _insufficientDays = $jobState.insufficientDaysThisWeek || 0>>
+    <<if _insufficientDays > 0>>
+        <<set $jobState.bossWantsToSeePlayer = true>>
+        <<set $jobState.visitedBossThisMonday = false>>
+    <<else>>
+        <<set $jobState.bossWantsToSeePlayer = false>>
+        <<set $jobState.minHoursWarningCount = 0>>
+    <</if>>
+
+    /* Legacy minHoursPerWeek check (weekly total) - still apply if no insufficient days */
     <<set _minHours = _job.minHoursPerWeek || 0>>
-    <<set _warningsBeforeFire = _job.minHoursWarningsBeforeFire || 1>>
-    <<if _minHours > 0 && $jobState.hoursThisWeek < _minHours>>
+    <<set _warningsBeforeFire = _job.minHoursWarningsBeforeFire || 3>>
+    <<if _minHours > 0 && $jobState.hoursThisWeek < _minHours && _insufficientDays === 0>>
         <<if ($jobState.minHoursWarningCount || 0) >= _warningsBeforeFire>>
             <<set $job.id = null>>
             <<set $job.tier = 1>>
@@ -169,7 +183,7 @@
             <<set $jobState.minHoursWarningCount = ($jobState.minHoursWarningCount || 0) + 1>>
             <<run window.notifyWarning("You didn't work enough hours this week. Warning " + $jobState.minHoursWarningCount + "/" + _warningsBeforeFire + ".")>>
         <</if>>
-    <<else>>
+    <<elseif _insufficientDays === 0>>
         <<set $jobState.minHoursWarningCount = 0>>
     <</if>>
 
@@ -186,6 +200,64 @@
     <<set $jobState.weeklyEarnings = 0>>
     <<set $jobState.weeklyDeductions = 0>>
     <<set $jobState.lastPayWeek = _payDateKey>>
+    <<set $jobState.insufficientDaysThisWeek = 0>>
+<</widget>>
+
+/* Record insufficient days before reset. Call before jobResetDaily in advanceDay.
+   When advancing _days, record if we had < requiredHoursPerDay on the day we're leaving.
+   For multi-day skips, add extra insufficient days. */
+<<widget "jobRecordInsufficientDay">>
+    <<set _days = $args[0] || 1>>
+    <<if !$job || !$job.id>>
+        <<return>>
+    <</if>>
+    <<set _job = setup.jobs[$job.id]>>
+    <<if !_job>>
+        <<return>>
+    <</if>>
+    <<set _required = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
+    <<set _hoursToday = parseInt($jobState.hoursToday || 0, 10)>>
+    <<if ndef $jobState.insufficientDaysThisWeek>><<set $jobState.insufficientDaysThisWeek = 0>><</if>>
+    <<if _hoursToday < _required>>
+        <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + 1>>
+    <</if>>
+    <<if _days > 1>>
+        <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + (_days - 1)>>
+    <</if>>
+<</widget>>
+
+/* Check if player skipped Monday boss call. If we advanced past Monday without visiting, fire. */
+<<widget "jobCheckSkippedBossCall">>
+    <<set _days = $args[0] || 1>>
+    <<set _oldWeekday = $args[1] || 0>>
+    <<if !$job || !$job.id>>
+        <<return>>
+    <</if>>
+    <<if !$jobState.bossWantsToSeePlayer>>
+        <<return>>
+    <</if>>
+    /* Did we advance through a Monday? (weekday 1) */
+    <<set _passedMonday = false>>
+    <<for _i range _days>>
+        <<set _d = (_oldWeekday + _i - 1) % 7>>
+        <<if _d === 1>>
+            <<set _passedMonday = true>>
+            <<break>>
+        <</if>>
+    <</for>>
+    <<if _passedMonday && !$jobState.visitedBossThisMonday>>
+        <<set _job = setup.jobs[$job.id]>>
+        <<set $job.id = null>>
+        <<set $job.tier = 1>>
+        <<set $job.startedOn = null>>
+        <<set $jobState.bossWantsToSeePlayer = false>>
+        <<set $jobState.visitedBossThisMonday = false>>
+        <<run window.notifyWarning("You didn't show up when your boss wanted to see you. You've been fired from " + _job.workplaceName + ".")>>
+    <</if>>
+    /* Clear visitedBossThisMonday when we leave Monday (advance to Tuesday) */
+    <<if _passedMonday>>
+        <<set $jobState.visitedBossThisMonday = false>>
+    <</if>>
 <</widget>>
 
 /* Reset daily job state (shiftsToday, hoursToday). Call at start of advanceDay. */
@@ -212,15 +284,12 @@
             <<set _workLockedReasons = []>>
             <<set _requiredHoursPerDay = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
             <<set _hoursToday = $jobState.hoursToday || 0>>
-            <<set _shiftsToday = $jobState.shiftsToday || 0>>
-            <<if _shiftsToday >= _job.maxShiftsPerDay>>
+            <<if _hoursToday >= _requiredHoursPerDay>>
                 <<set _workLocked = true>>
                 <<set _workLockedText = "Already worked today (" + _hoursToday + "/" + _requiredHoursPerDay + " h)">>
-            <<elseif _hoursToday >= _requiredHoursPerDay>>
-                <<set _workLocked = true>>
-                <<set _workLockedText = "Daily shift complete (" + _hoursToday + "/" + _requiredHoursPerDay + " h)">>
             <</if>>
-            <<if !_workLocked && _job.shiftStart && _job.shiftStart.clothingCheck && _job.shiftStart.requiredOutfit>>
+            <<if ndef $jobState.firstWorkDayEventShown>><<set $jobState.firstWorkDayEventShown = false>><</if>>
+            <<if !_workLocked && $jobState.firstWorkDayEventShown && _job.shiftStart && _job.shiftStart.clothingCheck && _job.shiftStart.requiredOutfit>>
                 <<for _slot, _requiredId range _job.shiftStart.requiredOutfit>>
                     <<set _worn = $wardrobe.equipped[_slot]>>
                     <<if _worn !== _requiredId>>
@@ -237,12 +306,15 @@
             <</if>>
             <</if>>
             <<if _workLockedReasons.length>><<set _workLockedText = "Need: " + _workLockedReasons.join(", ")>><</if>>
+            <<set _isMonday = $timeSys.weekday === 1>>
+            <<set _bossWantsToSee = $jobState.bossWantsToSeePlayer>>
+            <<set _workTarget = (_isMonday && _bossWantsToSee && _job.bossOfficePassage) ? _job.bossOfficePassage : ($jobState.firstWorkDayEventShown ? "jobWorkSelect" : (_job.firstWorkDayEventPassage || "jobWorkSelect"))>>
             <</silently>>
             <div class="btn-center" style="margin-bottom: 0.5em;">
             <<if _workLocked>>
             <span class="link-internal btn-style btn-default locked" @data-tooltip="_workLockedText"><span class="icon icon-lock icon-12"></span> Work</span>
             <<else>>
-            <<link '<span class="btn-style btn-default">Work</span>' "jobWorkSelect">><</link>>
+            <<btn "Work" _workTarget>><</btn>>
             <</if>>
             </div>
         <</if>>

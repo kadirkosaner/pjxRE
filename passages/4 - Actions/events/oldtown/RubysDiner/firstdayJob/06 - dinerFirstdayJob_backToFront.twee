@@ -1,0 +1,38 @@
+<<nobr>>
+<<set $location = "dinerRubysInterior">>
+<<narrative "Back to the Front">>
+You step out of the corridor. You reach the counter.
+<<= setup.characterDefs.dinerClerk.firstName>> is there – filling a thermos with coffee. He smiles when he sees you.
+<</narrative>>
+<<dialog "dinerClerk">>
+How'd it go?
+<</dialog>>
+<<dialog "player">>
+Not bad.
+<</dialog>>
+<<dialog "dinerClerk">>
+Good. A bit loose?
+<</dialog>>
+<<dialog "player">>
+A little. But it's fine.
+<</dialog>>
+<<dialog "dinerClerk">>
+Okay. If it bothers you too much, say so and I'll find a smaller size. First day it's usually like this.
+<</dialog>>
+<<narrative>>
+He sets the thermos on the counter.
+<</narrative>>
+<<dialog "dinerClerk">>
+Now let me introduce you to everyone. You should know the people who work here.
+<</dialog>>
+<<narrative>>
+He turns toward the kitchen.
+<</narrative>>
+<<dialog "dinerClerk">>
+Come with me.
+<</dialog>>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Continue" "dinerFirstdayJob_kitchen">><</btn>>
+</div>

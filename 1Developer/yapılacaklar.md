@@ -4,10 +4,8 @@
 
 
 ##### Work sistemi
-- dressing roomda otomatik kıyafet değiştirme olayı yapılacak. yani üstümüzdeki kıyafetleri kaydedebiliriz otomatik olarak ve hızlı kıyafet çıkar giy.
 - Günlük çalışma saatleri eğer uymazsa patron bizi pazartesi günü odasına çağırıp eventler tetiklenecek.
 - dinersRuby'nin geri kalan kısımları doldurlacak.
-- firstday 'e karakter tanıtmaları ve kıyafetleri verme yapılacak.
 - rubys dinerda bir kere bedava yemek ve sınırsız kahve hakkı ve dinlen butonları. (storage room)
 
 - yüz saç ve diş bakımı için mall aktivasyon yapmak
@@ -19,3 +17,5 @@
 
 
 - sleep ayarlarına bakılabilinir energy'ye göre uyuma gibi yada uyuma saatini zorunlu yapmak gibi.
+- location geçişlerinde enerji harcaması yok ! 
+- quickmartta No one is here right now. diyor marcus görünmüyor.

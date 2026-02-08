@@ -1,20 +1,37 @@
+:: jobWorkSelect
 /* ========================================
    JOB - Select Shift Duration
    Shows available shift options based on schedule
 ========================================== */
 <<silently>>
+<<set _backPassage = previous()>>
+<<if !$job || !$job.id>>
+<<set _job = null>>
+<<else>>
 <<set _job = setup.jobs[$job.id]>>
-<<if def _job>><<set $location = _job.workplace>><</if>>
+<<if def _job>>
+<<set $location = _job.workplace>>
 <<jobSetAvailableShifts $job.id>>
 <<set _available = $jobAvailableShifts>>
+<</if>>
+<</if>>
 <</silently>>
 <<nobr>>
+<<if !_job>>
+<<narrative "Work">>
+You don't have a job here.
+<</narrative>>
+<div class="location-actions">
+<<btn "Back" _backPassage "secondary">><</btn>>
+</div>
+<<else>>
 <<narrative "Work">>
 You're at <<= _job.workplaceName>>. How long do you want to work?
 <</narrative>>
 
+<<if ndef _available>><<set _available = []>><</if>>
 <<if _available.length === 0>>
-<p style="text-align: center; font-style: italic;">You can't start a shift right now—either you've already worked today, or the available shift times wouldn't fit before closing.</p>
+<p style="text-align: center; font-style: italic;">You can't start a shift right now—either you've already worked 8 hours today, or the available shift times wouldn't fit before closing.</p>
 <<else>>
 <div class="location-actions">
 <<jobWorkPicker "Work" "jobWorkExecute">>
@@ -22,6 +39,7 @@ You're at <<= _job.workplaceName>>. How long do you want to work?
 <</if>>
 
 <div class="location-actions">
-<<link '<span class="btn-style btn-default">Back</span>' previous()>><</link>>
+<<btn "Back" _backPassage "secondary">><</btn>>
 </div>
+<</if>>
 <</nobr>>

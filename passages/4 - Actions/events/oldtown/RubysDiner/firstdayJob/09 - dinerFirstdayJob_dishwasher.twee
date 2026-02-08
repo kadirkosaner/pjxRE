@@ -1,0 +1,113 @@
+<<nobr>>
+<<set $location = "dinerRubysKitchen">>
+<<narrative "To the Dish Station">>
+You head back into the kitchen. <<= setup.characterDefs.dinerDishwasher.firstName>> is still at the sink.
+<</narrative>>
+<<dialog "dinerClerk">>
+<<= setup.characterDefs.dinerDishwasher.firstName>>, I'm handing her over to you. You got this.
+<</dialog>>
+<<dialog "dinerDishwasher">>
+Okay <<= setup.characterDefs.dinerClerk.firstName>>. No worries.
+<</dialog>>
+<<narrative>>
+<<= setup.characterDefs.dinerClerk.firstName>> turns to you.
+<</narrative>>
+<<dialog "dinerClerk">>
+Good luck. Say something if you need anything.
+<</dialog>>
+<<narrative>>
+He smiles. Heads out.
+<<= setup.characterDefs.dinerDishwasher.firstName>> walks over to you.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Okay. Come on, I'll show you.
+<</dialog>>
+<<narrative>>
+He goes to the sink. A big two-basin sink – stainless steel. Dishwasher on the left, a wide basin for big pots on the right.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+This is your spot. I'm here in the mornings too. Afternoon you're on your own.
+<</dialog>>
+<<narrative>>
+He points to the shelves.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Dirty plates come here. <<= setup.characterDefs.dinerChef.firstName>> brings them, waitstaff bring them. You take them, wash them.
+<</dialog>>
+<<narrative>>
+He points to the machine.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Small stuff – plates, cups, silverware – goes in the machine. Rinse with hot water first, then load it. Machine takes 2 minutes.
+<</dialog>>
+<<narrative>>
+He points to the big sink.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Big stuff – pans, pots – you wash by hand here. Hot water, soap, brush. Scrub hard.
+<</dialog>>
+<<narrative>>
+He points to the gloves.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Wear these. Water gets real hot. Or you'll burn your hands.
+<</dialog>>
+<<narrative>>
+He points to the sponge, brush, detergent.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Cleaning supplies. Grab what you need.
+<</dialog>>
+<<narrative>>
+He looks at you.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Got it?
+<</dialog>>
+<<dialog "player">>
+Got it.
+<</dialog>>
+<<dialog "dinerDishwasher">>
+Good. Let's get started.
+<</dialog>>
+<<narrative>>
+He hands you the gloves.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Put these on.
+<</dialog>>
+<<narrative>>
+You put them on. Thick rubber gloves. They get hot quick inside.
+Right then <<= setup.characterDefs.dinerChef.firstName>> calls out.
+<</narrative>>
+<<dialog "dinerChef">>
+First batch coming!
+<</dialog>>
+<<narrative>>
+He brings a tray full of dirty plates. Sets it on the counter.
+<</narrative>>
+<<dialog "dinerChef">>
+Let's go.
+<</dialog>>
+<<narrative>>
+He heads back to the stove.
+<<= setup.characterDefs.dinerDishwasher.firstName>> looks at you.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Let's get started then.
+<</dialog>>
+<</nobr>>
+
+<div class="btn-center">
+<<btn "Start work" "">>
+<<silently>>
+<<jobExecuteShift 2>>
+<</silently>>
+<<if $jobShiftSuccess>>
+<<set $jobState.firstWorkDayEventShown = true>>
+<<goto "dinerRubys">>
+<<else>>
+<<goto "dinerFirstdayJob_dishwasher">>
+<</if>>
+<</btn>>
+</div>

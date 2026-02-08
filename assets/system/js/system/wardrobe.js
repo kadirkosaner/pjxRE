@@ -7,6 +7,14 @@ let WardrobeAPI = null;
 let currentCategory = 'tops';
 let selectedItem = null;
 let wardrobeContainer = null;
+/** When set (e.g. "rubysDiner"), only show session snapshot + items with matching locationId. */
+let wardrobeLocationFilter = null;
+/** Snapshot of equipped (slot -> itemId) when opening wardrobe with location filter; those + location items stay visible. */
+let wardrobeSessionEquipped = null;
+/** When set (e.g. from <<wardrobe "id" "passage">>), "Wear this outfit" and back link go here. */
+let wardrobeReturnPassage = null;
+/** When set (e.g. "ruby_dishwasher"), Wear this outfit only allowed if equipped matches job's requiredOutfit. */
+let wardrobeRequiredJobId = null;
 
 // Category to slot mapping
 const categoryToSlot = {
@@ -260,6 +268,59 @@ function ownsItem(itemId) {
     return ownsClothing(itemId);
 }
 
+/** True if this itemId is currently equipped in any slot. */
+function isEquipped(itemId) {
+    if (!WardrobeAPI || !itemId) return false;
+    const equipped = WardrobeAPI.State.variables.wardrobe?.equipped || {};
+    return Object.values(equipped).indexOf(itemId) !== -1;
+}
+
+/**
+ * True if item is valid for the given location filter (global locationId).
+ * Item can have: locationId: "rubysDiner" or locations: ["rubysDiner", "otherPlace"].
+ * @param {Object} item - Clothing item from clothingData
+ * @param {string} locationId - e.g. "rubysDiner"
+ */
+function itemMatchesLocation(item, locationId) {
+    if (!locationId) return true;
+    if (!item) return false;
+    if (item.locationId === locationId) return true;
+    if (Array.isArray(item.locations) && item.locations.indexOf(locationId) !== -1) return true;
+    return false;
+}
+
+/** If wardrobeRequiredJobId is set, check equipped matches job's requiredOutfit. Returns { allowed, reason }. */
+function checkJobRequiredOutfit() {
+    if (!wardrobeRequiredJobId) return { allowed: true };
+    const job = getSetup().jobs?.[wardrobeRequiredJobId];
+    const required = job?.shiftStart?.requiredOutfit;
+    if (!required || typeof required !== 'object') return { allowed: true };
+    const equipped = WardrobeAPI?.State?.variables?.wardrobe?.equipped || {};
+    const missing = [];
+    for (const [slot, itemId] of Object.entries(required)) {
+        if (!itemId) continue;
+        if (equipped[slot] !== itemId) missing.push(slot);
+    }
+    if (missing.length === 0) return { allowed: true };
+    const slotNames = { top: 'top', bottom: 'bottom', apron: 'apron' };
+    const list = missing.map(s => slotNames[s] || s).join(', ');
+    return { allowed: false, reason: 'Work uniform required: wear ' + list + '.' };
+}
+
+/** True if itemId is in the snapshot taken when opening wardrobe with location filter. */
+function isInSessionSnapshot(itemId) {
+    if (!wardrobeSessionEquipped || !itemId) return false;
+    return Object.values(wardrobeSessionEquipped).indexOf(itemId) !== -1;
+}
+
+/** When no location filter: all owned. When filter set: session snapshot (what was on when entering) + location-matching items. */
+function filterVisibleItems(items) {
+    if (!wardrobeLocationFilter) {
+        return items.filter(i => ownsItem(i.id));
+    }
+    return items.filter(i => ownsItem(i.id) && (isInSessionSnapshot(i.id) || itemMatchesLocation(i, wardrobeLocationFilter)));
+}
+
 function equipItem(itemId) {
     if (!WardrobeAPI) return;
     const item = _w_getItemById(itemId);
@@ -379,7 +440,7 @@ function _w_renderCategories() {
     categories.forEach((group, gi) => {
         html += `<div class="category-group-title">${group.group}</div>`;
         group.items.forEach(cat => {
-            const count = getCategoryItems(cat.id).filter(i => ownsItem(i.id)).length;
+            const count = filterVisibleItems(getCategoryItems(cat.id)).length;
             const active = cat.id === currentCategory ? 'active' : '';
             html += `
                 <div class="category-item ${active}" data-category="${cat.id}">
@@ -417,7 +478,7 @@ function renderClothingGrid() {
     const titleEl = root?.querySelector('.panel-title');
     if (!container) return;
 
-    const items = getCategoryItems(currentCategory).filter(i => ownsItem(i.id));
+    const items = filterVisibleItems(getCategoryItems(currentCategory));
     
     const slot = categoryToSlot[currentCategory] || null;
     const equippedId = WardrobeAPI.State.variables.wardrobe?.equipped?.[slot];
@@ -828,13 +889,18 @@ function _w_renderAll() {
     }
 }
 
-function createWardrobeHTML() {
+function createWardrobeHTML(backPassage, backLinkText, hideBackLink) {
+    backPassage = backPassage || 'fhBedroom';
+    backLinkText = backLinkText || 'Bedroom';
+    const backLinkHtml = hideBackLink
+        ? '<span class="wardrobe-header-back-placeholder" aria-hidden="true"></span>'
+        : `<a href="#" class="back-link" data-passage="${backPassage}">
+                    <i class="icon icon-chevron-left"></i> ${backLinkText}
+                </a>`;
     return `
         <div class="wardrobe-container">
             <div class="wardrobe-header">
-                <a href="#" class="back-link" data-passage="fhBedroom">
-                    <i class="icon icon-chevron-left"></i> Bedroom
-                </a>
+                ${backLinkHtml}
                 <div class="wardrobe-title">Wardrobe</div>
                 <button class="wear-return-btn" id="wear-return-btn">
                     Wear this outfit <i class="icon icon-chevron-right" style="margin-left: 5px; width: 12px; height: 12px;"></i>
@@ -899,12 +965,25 @@ function createWardrobeHTML() {
 // MACRO HANDLER
 // ============================================
 
-function wardrobeMacroHandler(output) {
+function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack, jobId) {
     console.log('[Wardrobe] SYSTEM v2.5 LOADED (Requirement Fix)');
-    
+    wardrobeLocationFilter = null;
+    wardrobeSessionEquipped = null;
+    wardrobeRequiredJobId = jobId || null;
+    const hideBackLink = !!(noBack === true || noBack === 'noBack' || noBack === 'true' || noBack === 1);
+    const S = getState();
+
+    const setupObj = getSetup();
+    const passage = S?.passage || '';
+    const locations = setupObj.locations || {};
+    const navCards = setupObj.navCards || {};
+    const backPassage = customBackPassage || locations[passage]?.parent || 'fhBedroom';
+    const backLinkText = navCards[backPassage]?.name || 'Back';
+    wardrobeReturnPassage = backPassage;
+
     const $wrapper = $(document.createElement('div'));
     $wrapper.addClass('wardrobe-wrapper');
-    $wrapper.html(createWardrobeHTML());
+    $wrapper.html(createWardrobeHTML(backPassage, backLinkText, hideBackLink));
     $wrapper.appendTo(output);
 
     wardrobeContainer = $wrapper.find('.wardrobe-container')[0];
@@ -920,8 +999,6 @@ function wardrobeMacroHandler(output) {
         document.body.classList.remove('wardrobe-active');
     });
 
-    const S = getState();
-    const setupObj = getSetup();
     const wardrobe = S.variables.wardrobe;
     const clothingData = setupObj.clothingData || {};
 
@@ -936,6 +1013,7 @@ function wardrobeMacroHandler(output) {
     }
 
     $wrapper.find('.back-link').on('click', function(e) {
+        if (hideBackLink) return;
         e.preventDefault();
         
         console.log('[Wardrobe] Back clicked. Reverting changes...');
@@ -967,13 +1045,13 @@ function wardrobeMacroHandler(output) {
         const S = getState();
         const wardrobe = S.variables.wardrobe;
         const currentOutfit = { equipped: wardrobe.equipped };
-        const outfitReq = checkOutfitRequirements(currentOutfit);
-        
+        let req = checkOutfitRequirements(currentOutfit);
+        const jobReq = checkJobRequiredOutfit();
+        if (jobReq.allowed === false) req = jobReq;
         const $btn = $(wardrobeContainer).find('.wear-return-btn');
-        
-        if (!outfitReq.allowed) {
+        if (!req.allowed) {
             $btn.addClass('disabled');
-            $btn.attr('data-outfit-tooltip', outfitReq.reason);
+            $btn.attr('data-outfit-tooltip', req.reason);
         } else {
             $btn.removeClass('disabled');
             $btn.removeAttr('data-outfit-tooltip');
@@ -982,14 +1060,14 @@ function wardrobeMacroHandler(output) {
 
     $wrapper.find('.wear-return-btn').on('click', function(e) {
         e.preventDefault();
-        
         const S = getState();
         const wardrobe = S.variables.wardrobe;
         const currentOutfit = { equipped: wardrobe.equipped };
-        const outfitReq = checkOutfitRequirements(currentOutfit);
-        
-        if (!outfitReq.allowed) {
-            showToast(outfitReq.reason);
+        let req = checkOutfitRequirements(currentOutfit);
+        const jobReq = checkJobRequiredOutfit();
+        if (jobReq.allowed === false) req = jobReq;
+        if (!req.allowed) {
+            showToast(req.reason);
             return;
         }
         
@@ -997,7 +1075,7 @@ function wardrobeMacroHandler(output) {
         
         document.body.classList.remove('wardrobe-active');
         if (WardrobeAPI) {
-            const target = 'fhBedroom';
+            const target = wardrobeReturnPassage || 'fhBedroom';
             if (target === WardrobeAPI.State.passage) {
                 WardrobeAPI.Engine.display(target, null, "back");
                 if (typeof UIBar !== 'undefined' && UIBar.update) UIBar.update();

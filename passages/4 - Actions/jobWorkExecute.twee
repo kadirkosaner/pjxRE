@@ -1,15 +1,20 @@
+:: jobWorkExecute
 /* ========================================
    JOB - Execute Shift (from btnPicker)
    Receives $selectedDuration in hours
 ======================================== */
 <<jobExecuteShift $selectedDuration>>
 <<if $jobShiftSuccess>>
+<<silently>>
+<<set _job = setup.jobs[$job.id]>>
+<<set _postWork = _job.postWorkPassage || _job.workplace || $location>>
+<</silently>>
 <<if ndef $jobState.firstWorkDayEventShown>><<set $jobState.firstWorkDayEventShown = false>><</if>>
 <<if !$jobState.firstWorkDayEventShown>>
 <<set $jobState.firstWorkDayEventShown = true>>
-<<goto "firstWorkDayEvent">>
+<<goto "dinerFirstdayJob_firstWorkDayEvent">>
 <<else>>
-<<goto $location>>
+<<goto _postWork>>
 <</if>>
 <<else>>
 <<goto "jobWorkSelect">>

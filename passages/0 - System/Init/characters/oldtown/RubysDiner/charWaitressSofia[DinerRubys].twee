@@ -3,7 +3,7 @@
    Front of house, coworker
 ========================================== */
 
-<<set $characters.dinerWaitress2 = {
+<<set setup.characterDefs.dinerWaitress2 = {
     name: "Sofia Chen",
     firstName: "Sofia",
     lastName: "Chen",
@@ -13,10 +13,12 @@
     avatar: "assets/content/people/oldtown/rubysdiner/sofiaChen.webp",
     type: "npc",
     color: "#ec4899",
-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
-    status: "Coworker",
-    firstMet: null,
     info: "<p>Waitress at Ruby's Diner. She usually works the morning shift.</p>",
+    status: "Waitress"
+}>>
+<<set $characters.dinerWaitress2 = {
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    firstMet: null,
     known: false,
     currentLocation: null,
     currentStatus: null

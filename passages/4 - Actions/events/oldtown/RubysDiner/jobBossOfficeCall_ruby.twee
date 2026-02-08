@@ -1,0 +1,67 @@
+:: jobBossOfficeCall_ruby
+<<nobr>>
+<<set $location = "dinerRubysManagerOffice">>
+<<updateCharacterLocations>>
+
+<<silently>>
+<<set _job = setup.jobs[$job.id]>>
+<<set _bossName = setup.characterDefs[_job.bossCharId].firstName>>
+<<set $jobState.visitedBossThisMonday = true>>
+<<set $jobState.bossWantsToSeePlayer = false>>
+<<set $jobState.minHoursWarningCount = ($jobState.minHoursWarningCount || 0) + 1>>
+<<set _warningsBeforeFire = _job.minHoursWarningsBeforeFire || 3>>
+<<set _isFired = $jobState.minHoursWarningCount >= _warningsBeforeFire>>
+<</silently>>
+
+<<if _isFired>>
+<<narrative "Manager's Office">>
+<<= _bossName>> doesn't look up when you enter. He's staring at a spreadsheet. After a long moment, he sets down his pen.
+<</narrative>>
+<<dialog _job.bossCharId>>
+We've had this talk before. More than once. You know what I expect.
+<</dialog>>
+<<dialog "player">>
+I'm sorry. I'll do better.
+<</dialog>>
+<<dialog _job.bossCharId>>
+No. You won't. Not here. I'm letting you go.
+<</dialog>>
+<<narrative>>
+He hands you a final paycheck. Your time at <<= _job.workplaceName>> is over.
+<</narrative>>
+<<silently>>
+<<set $job.id = null>>
+<<set $job.tier = 1>>
+<<set $job.startedOn = null>>
+<<set $jobState.minHoursWarningCount = 0>>
+<<run window.notifyWarning("You've been fired from " + _job.workplaceName + " for repeated failure to meet your daily hours.")>>
+<</silently>>
+<div class="btn-center">
+<<btn "Leave" "dinerRubys">><</btn>>
+</div>
+<<else>>
+<<narrative "Manager's Office">>
+<<= _bossName>> looks up when you knock. He gestures you in. His expression is stern.
+<</narrative>>
+<<dialog _job.bossCharId>>
+Sit. We need to talk about your hours.
+<</dialog>>
+<<dialog "player">>
+I know. I'm sorry.
+<</dialog>>
+<<dialog _job.bossCharId>>
+You didn't work your full eight hours every day last week. That's not acceptable. This is strike <<= $jobState.minHoursWarningCount>>. You get <<= _warningsBeforeFire>>. One more and you're out. Understand?
+<</dialog>>
+<<dialog "player">>
+I understand. It won't happen again.
+<</dialog>>
+<<dialog _job.bossCharId>>
+Good. Now get back to work.
+<</dialog>>
+<<run window.notifyWarning("Warning " + $jobState.minHoursWarningCount + "/" + _warningsBeforeFire + " – work your full hours every day.")>>
+<div class="btn-center">
+<<btn "Start work" "jobWorkSelect">><</btn>>
+<<btn "Leave" "dinerRubys">><</btn>>
+</div>
+<</if>>
+<</nobr>>

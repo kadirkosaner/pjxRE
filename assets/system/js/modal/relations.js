@@ -49,39 +49,75 @@ window.RelationsInit = function (API) {
         },
 
         // Build list view HTML
+        // Locations (oldTown, downtown...) auto from setup.locations (parent === null). Click location → expands to show places. Click place → expands to show members.
         buildListView: function (vars) {
-            const groups = this.API.setup.relationGroups || [];
+            const setup = this.API.setup || (typeof window !== 'undefined' && window.setup);
+            const locations = setup.locations || {};
+            const navCards = setup.navCards || {};
+            const relationPlaces = (setup && setup.relationPlaces) || [];
             const characters = vars.characters || {};
+
+            const getChar = (id) => (setup && setup.getCharacter) ? setup.getCharacter(id) : characters[id];
+            const isKnown = (id) => { const c = getChar(id); return c && c.known === true; };
+
+            // Districts = locations with parent === null (auto from setup.locations)
+            const districtIds = Object.keys(locations)
+                .filter(id => locations[id].parent === null)
+                .sort((a, b) => {
+                    const nameA = (navCards[a] && navCards[a].name) || a;
+                    const nameB = (navCards[b] && navCards[b].name) || b;
+                    return nameA.localeCompare(nameB);
+                });
+            const getLocationName = (id) => (navCards[id] && navCards[id].name) ? navCards[id].name : id;
 
             let html = '<div class="relations-list-container">';
 
-            groups.forEach(group => {
-                // Filter only known characters
-                const knownMembers = group.members.filter(id => {
-                    const char = characters[id];
-                    return char && char.known === true;
-                });
+            districtIds.forEach(locationId => {
+                const placesForLocation = relationPlaces.filter(p => p.locationId === locationId);
+                const placesWithKnown = placesForLocation.map(place => {
+                    const knownMembers = (place.members || []).filter(isKnown);
+                    return { place, knownMembers };
+                }).filter(p => p.knownMembers.length > 0);
 
-                if (knownMembers.length === 0) return; // Skip empty groups
+                if (placesWithKnown.length === 0) return;
 
+                const locationName = getLocationName(locationId);
                 html += `
-                    <div class="relations-group" id="relations-group-${group.id}">
-                        <div class="relations-group-header" onclick="window.RelationsSystem.toggleGroup('${group.id}')">
-                            <span class="relations-group-name">${group.name}</span>
-                            <span class="relations-group-count">${knownMembers.length} ${knownMembers.length === 1 ? 'member' : 'members'}</span>
+                    <div class="relations-group" id="relations-group-${locationId}">
+                        <div class="relations-group-header" onclick="window.RelationsSystem.toggleGroup('${locationId}')">
+                            <span class="relations-group-name">${locationName}</span>
                             <span class="relations-collapse-icon">▼</span>
                         </div>
-                        <div class="relations-grid">
+                        <div class="relations-group-places">
                 `;
 
-                knownMembers.forEach(charId => {
-                    const char = characters[charId];
+                placesWithKnown.forEach(({ place, knownMembers }) => {
+                    const placeKey = `${locationId}-${place.placeId}`;
                     html += `
-                        <div class="relations-card" onclick="window.RelationsSystem.showDetail('${charId}')">
-                            <div class="relations-avatar">
-                                <img src="${char.avatar || 'assets/images/default-avatar.jpg'}" alt="${char.firstName + ' ' + char.lastName}">
+                        <div class="relations-place" id="relations-place-${placeKey}">
+                            <div class="relations-place-header" onclick="window.RelationsSystem.togglePlace('${placeKey}')">
+                                <span class="relations-place-name">${place.name}</span>
+                                <span class="relations-place-count">${knownMembers.length} ${knownMembers.length === 1 ? 'member' : 'members'}</span>
+                                <span class="relations-collapse-icon relations-place-icon">▼</span>
                             </div>
-                            <div class="relations-card-name">${char.firstName + ' ' + char.lastName}</div>
+                            <div class="relations-place-grid-wrap">
+                                <div class="relations-grid">
+                    `;
+                    knownMembers.forEach(charId => {
+                        const char = getChar(charId);
+                        if (!char) return;
+                        html += `
+                            <div class="relations-card" onclick="window.RelationsSystem.showDetail('${charId}')">
+                                <div class="relations-avatar">
+                                    <img src="${char.avatar || 'assets/images/default-avatar.jpg'}" alt="${(char.firstName || '') + ' ' + (char.lastName || '')}">
+                                </div>
+                                <div class="relations-card-name">${(char.firstName || '') + ' ' + (char.lastName || '')}</div>
+                            </div>
+                        `;
+                    });
+                    html += `
+                                </div>
+                            </div>
                         </div>
                     `;
                 });
@@ -232,17 +268,21 @@ window.RelationsInit = function (API) {
             // Other events are handled via onclick attributes in HTML
         },
 
-        // Toggle group
-        toggleGroup: function (groupId) {
-            const group = this.API.$('#relations-group-' + groupId);
-            group.toggleClass('expanded');
+        // Toggle location (district)
+        toggleGroup: function (locationId) {
+            this.API.$('#relations-group-' + locationId).toggleClass('expanded');
+        },
+
+        // Toggle place (e.g. Ruby's Diner) inside a location
+        togglePlace: function (placeKey) {
+            this.API.$('#relations-place-' + placeKey).toggleClass('expanded');
         },
 
         // Show detail view
         showDetail: function (characterId) {
             const vars = this.API.State.variables;
-            const characters = vars.characters || {};
-            const char = characters[characterId];
+            const setup = this.API.setup || (typeof window !== 'undefined' && window.setup);
+            const char = (setup && setup.getCharacter) ? setup.getCharacter(characterId) : (vars.characters || {})[characterId];
 
             if (!char) return;
 

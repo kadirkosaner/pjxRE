@@ -26,7 +26,10 @@
         schedule: { open: 10, close: 22 },
         payDayWeekday: 1,
         minHoursPerWeek: 8,
-        minHoursWarningsBeforeFire: 1,
+        minHoursWarningsBeforeFire: 3,
+
+        bossOfficePassage: "jobBossOfficeCall_ruby",
+        bossCharId: "dinerManager",
 
         statCostsPer4Hours: {
             energy: -30,
@@ -36,8 +39,7 @@
         },
 
         skillGainsPer4Hours: [
-            { category: "practical", skill: "cleaning", amount: 3 },
-            { category: "practical", skill: "cooking", amount: 1 }
+            { category: "practical", skill: "cleaning", amount: 1 }
         ],
 
         requirements: {
@@ -46,6 +48,9 @@
             friendship: {},
             flags: []
         },
+
+        firstWorkDayEventPassage: "dinerFirstdayJob_firstWorkDayEvent",
+        postWorkPassage: "RubysDishwashWork",
 
         shiftStart: {
             clothingCheck: true,

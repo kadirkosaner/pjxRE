@@ -3,8 +3,7 @@
    Career counselor at Town Hall
 ========================================== */
 
-/* CHARACTER DATA */
-<<set $characters.careerClerk = {
+<<set setup.characterDefs.careerClerk = {
     name: "Sandra Wilson",
     firstName: "Sandra",
     lastName: "Wilson",
@@ -14,17 +13,13 @@
     avatar: "assets/content/people/oldtown/townhall/sandraWilson.webp",
     type: "npc",
     color: "#8b5cf6",
-    stats: {
-        love: 0,
-        friendship: 0,
-        lust: 0,
-        trust: 0
-    },
-    status: "Career Counselor",
-    firstMet: null,
     info: "<p>A businesslike career counselor who works at the Town Hall Career Services office. She's efficient but somewhat impersonal in her approach.</p>",
+    status: "Career Counselor"
+}>>
+<<set $characters.careerClerk = {
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    firstMet: null,
     known: false,
     currentLocation: null,
     currentStatus: null
 }>>
-
