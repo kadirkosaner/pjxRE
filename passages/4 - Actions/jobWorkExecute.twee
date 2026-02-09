@@ -12,10 +12,11 @@
 <<if ndef $jobState.firstWorkDayEventShown>><<set $jobState.firstWorkDayEventShown = false>><</if>>
 <<if !$jobState.firstWorkDayEventShown>>
 <<set $jobState.firstWorkDayEventShown = true>>
-<<goto "dinerFirstdayJob_firstWorkDayEvent">>
+<<run Engine.play("dinerFirstdayJob_firstWorkDayEvent")>>
 <<else>>
-<<goto _postWork>>
+<<set $tmpPassage = _postWork>>
+<<run Engine.play(State.variables.tmpPassage)>>
 <</if>>
 <<else>>
-<<goto "jobWorkSelect">>
+<<run Engine.play("jobWorkSelect")>>
 <</if>>
