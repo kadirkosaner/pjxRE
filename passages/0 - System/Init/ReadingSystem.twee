@@ -1,58 +1,46 @@
 :: ReadingSystem[init]
 <<script>>
 /* =====================================================================
-   READING SYSTEM - Books & Magazines
-   setup.readingItems: metadata for reading (pages, gains, narratives)
-   Links to items in ItemDatabase (books/magazines categories)
+   READING SYSTEM - Config (readingLocations) + logic (helpers, speed).
+   Data: setup.readingItems from ReadingDatabase[init].
    ===================================================================== */
 
-setup.readingItems = {
-    books: [
-        {
-            id: "book_math_basics",
-            name: "Math Basics",
-            pages: 100,
-            gainType: "intelligence",
-            gainValue: 10,
-            narratives: [
-                "You flip through the chapter on algebra. The examples gradually build in complexity.",
-                "A section on geometry catches your eye. You trace the diagrams with your finger.",
-                "The chapter on word problems makes you think. You work through a few examples.",
-                "You review the summary at the end of the chapter. Key formulas stand out.",
-                "A footnote leads you to an interesting historical note about the development of calculus."
+/* Location-based reading: intro + book.media / magazine.media per passage. */
+setup.readingLocations = {
+    fhBedroom: {
+        intro: "You sit on the bed and get comfortable with your book.",
+        book: {
+            media: [
+                { type: "vid", path: "assets/content/scenes/global/read/readBookBed1.mp4", size: "100%" },
+                /*{ type: "image", path: "assets/content/scenes/global/read/bed_book.webp", size: "100%" }*/
             ]
         },
-        {
-            id: "book_intro_psychology",
-            name: "Introduction to Psychology",
-            pages: 150,
-            gainType: "intelligence",
-            gainValue: 10,
-            narratives: [
-                "You read about cognitive development. The stages of learning fascinate you.",
-                "A chapter on memory explains why you sometimes forget names. You nod in recognition.",
-                "The section on motivation theory connects to your own goals.",
-                "You learn about different personality types. Some descriptions feel familiar.",
-                "The book discusses stress and coping mechanisms. You bookmark a few tips."
+        magazine: {
+            media: [
+                { type: "vid", path: "assets/content/scenes/global/read/readMagazineBed1.mp4", size: "100%" },
+                { type: "vid", path: "assets/content/scenes/global/read/readMagazineBed2.mp4", size: "100%" },
             ]
         }
-    ],
-    magazines: [
-        {
-            id: "mag_fashion_weekly",
-            name: "Fashion Weekly",
-            pages: 50,
-            gainType: "creativity",
-            gainValue: 2,
-            narratives: [
-                "You browse the latest seasonal trends. Color palettes and textures fill the pages.",
-                "An article on sustainable fashion catches your eye. You consider your own wardrobe.",
-                "The street style section inspires you. You imagine different combinations.",
-                "A DIY customization guide shows how to refresh old pieces. You make a mental note.",
-                "The editorial photos are striking. You study the composition and lighting."
+    },
+    fhLivingRoom: {
+        intro: "You curl up on the couch and open your book.",
+        book: {
+            media: [
+                { type: "vid", path: "assets/content/scenes/global/read/readBookLivingroom1.mp4", size: "100%" },
+                { type: "vid", path: "assets/content/scenes/global/read/readbookLivingroom2.mp4", size: "100%" },
+            ]
+        },
+        magazine: {
+            media: [
+                { type: "vid", path: "assets/content/scenes/global/read/readMagazineLivingroom1.mp4", size: "100%" },
             ]
         }
-    ]
+    },
+    default: {
+        intro: "You find a quiet spot and start reading.",
+        book: { media: [] },
+        magazine: { media: [] }
+    }
 };
 
 /* Helper: get reading item by id */
@@ -72,6 +60,23 @@ setup.calcReadingSpeed = function(intelligence, focus) {
     const intMult = 1 + (intelligence || 0) / 250;   /* +40% at 100 int */
     const focusMult = 1 + (focus || 0) / 250;       /* +40% at 100 focus */
     return base * intMult * focusMult;
+};
+
+setup.getReadingLocationIntro = function(passageId) {
+    var loc = setup.readingLocations[passageId] || setup.readingLocations.default;
+    return (typeof loc === "string") ? loc : loc.intro;
+};
+
+/* Returns one random media item for the location and item type (book/magazine), or null if none. */
+setup.getReadingLocationMediaRandom = function(passageId, itemType) {
+    var loc = setup.readingLocations[passageId] || setup.readingLocations.default;
+    if (typeof loc === "string") return null;
+    var media = [];
+    if (itemType === "book" && loc.book && loc.book.media && loc.book.media.length) media = loc.book.media;
+    else if (itemType === "magazine" && loc.magazine && loc.magazine.media && loc.magazine.media.length) media = loc.magazine.media;
+    else if (loc.media && loc.media.length) media = loc.media;
+    if (media.length === 0) return null;
+    return media[Math.floor(Math.random() * media.length)];
 };
 
 <</script>>

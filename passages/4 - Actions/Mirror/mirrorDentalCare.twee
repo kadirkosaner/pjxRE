@@ -1,29 +1,38 @@
 <<nobr>>
+<<set _sceneIndex = random(1, 3)>>
 <<set $location = $mirrorReturnPassage>>
 <<checkInventoryItem "toothpaste" 1>>
 <<if !State.temporary.inventoryCheckResult.allowed>>
-    <<narrative "Mirror">>
-    You don't have any toothpaste. You need a tube to brush your teeth.
-    <</narrative>>
-    <div class="location-actions">
-        <<btn "Back" "Mirror">><</btn>>
-    </div>
+<<narrative "Mirror">>
+You don't have any toothpaste. You need a tube to brush your teeth.
+<</narrative>>
+<div class="location-actions">
+<<btn "Back" "Mirror">><</btn>>
+</div>
 <<else>>
-    <<silently>>
-        <<removeFromInventory "toothpaste" 1>>
-        <<if !$daily.dentalCareUsed>>
-            <<set $weeklyDentalCareUses = ($weeklyDentalCareUses || 0) + 1>>
-        <</if>>
-        <<set $daily.dentalCareUsed = true>>
-        <<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 2)>>
-        <<advanceTime 5>>
-    <</silently>>
-    <<narrative "Dental Care">>
-    You brush your teeth thoroughly. Your mouth feels fresh and clean. Regular care keeps your teeth and gums healthy.
-    <</narrative>>
+<<silently>>
+<<removeFromInventory "toothpaste" 1>>
+<<if !$daily.dentalCareUsed>>
+    <<set $weeklyDentalCareUses = ($weeklyDentalCareUses || 0) + 1>>
+<</if>>
+<<set $daily.dentalCareUsed = true>>
+<<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 2)>>
+<<advanceTime 5>>
+<</silently>>
+<<narrative "Dental Care">>
+You brush your teeth thoroughly. Your mouth feels fresh and clean. Regular care keeps your teeth and gums healthy.
+<</narrative>>
 
-    <div class="location-actions">
-        <<btn "Back" "Mirror">><</btn>>
-    </div>
+<<if _sceneIndex === 1>>
+<<vid "assets/content/scenes/global/mirror/dentalcare/dentalCare1.mp4" "100%">>
+<<elseif _sceneIndex === 2>>
+<<vid "assets/content/scenes/global/mirror/dentalcare/dentalCare2.mp4" "100%">>
+<<else>>
+<<vid "assets/content/scenes/global/mirror/dentalcare/dentalCare3.mp4" "100%">>
+<</if>>
+
+<div class="location-actions">
+<<btn "Back" "Mirror">><</btn>>
+</div>
 <</if>>
 <</nobr>>

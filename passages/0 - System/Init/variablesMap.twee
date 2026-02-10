@@ -299,7 +299,8 @@
     category: "Food",
     x: 55,
     y: 15,
-    taxiCost: 12
+    taxiCost: 12,
+    residents: ["dinerManager", "dinerClerk", "dinerChef", "dinerDishwasher", "dinerWaitress1", "dinerWaitress2", "dinerWaitress3"]
   },
   shopBarber: {
     structureType: "location",
@@ -532,8 +533,6 @@
       storeBags: { open: 10, close: 22, region: "downTown" },
       storeElectronics: { open: 10, close: 22, region: "downTown" },
       storeSports: { open: 10, close: 22, region: "downTown" },
-      storeCosmetics: { open: 10, close: 22, region: "downTown" },
-      storeBags: { open: 10, close: 22, region: "downTown" },
       foodCourtMall: { open: 10, close: 22, region: "downTown" },
       theatreMovie: { open: 10, close: 22, region: "downTown" },
       salonBeautyMall: { open: 10, close: 22, region: "downTown" },

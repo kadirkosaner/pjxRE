@@ -1,10 +1,21 @@
 <<nobr>>
 <<set $location = "dinerRubys">>
+<<set _sceneIndex = random(1, 4)>>
 <<updateCharacterLocations>>
 
 <<narrative "Shift Complete">>
 Your shift at the dish station is done. The sink is cleared, the last load is dried. Time to head back out front.
 <</narrative>>
+
+<<if _sceneIndex === 1>>
+<<vid "assets/content/scenes/oldtown/rubysDiner/work/dishwash/vids/dinerDishwasher1.mp4" "100%">>
+<<elseif _sceneIndex === 2>>
+<<vid "assets/content/scenes/oldtown/rubysDiner/work/dishwash/vids/dinerDishwasher2.mp4" "100%">>
+<<elseif _sceneIndex === 3>>
+<<vid "assets/content/scenes/oldtown/rubysDiner/work/dishwash/vids/dinerDishwasher3.mp4" "100%">>
+<<else>>
+<<image "assets/content/scenes/oldtown/rubysDiner/work/dishwash/pics/dinerDishwashing.webp" "100%">>
+<</if>>
 
 <div class="btn-center">
 <<btn "Return to diner" "dinerRubys">><</btn>>

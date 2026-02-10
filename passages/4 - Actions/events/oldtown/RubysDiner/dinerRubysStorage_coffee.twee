@@ -10,11 +10,20 @@
 <<flushNotifications>>
 <<run window.notifySuccess("Coffee – thirst and a bit of energy.")>>
 <<recalculateStats>>
+<<set _sceneIndex = random(1, 3)>>
 <</silently>>
 
 <<narrative "Coffee">>
 You pour yourself a cup from the staff machine. Hot, strong, and on the house. You take a few minutes to drink it.
 <</narrative>>
+
+<<if _sceneIndex === 1>>
+<<vid "assets/content/scenes/oldtown/rubysDiner/storage/coffee/coffee1.mp4" "100%">>
+<<elseif _sceneIndex === 2>>
+<<vid "assets/content/scenes/oldtown/rubysDiner/storage/coffee/coffee2.mp4" "100%">>
+<<else>>
+<<vid "assets/content/scenes/oldtown/rubysDiner/storage/coffee/coffee3.mp4" "100%">>
+<</if>>
 
 <div class="btn-center">
 <<btn "Back" "dinerRubysStorage">><</btn>>

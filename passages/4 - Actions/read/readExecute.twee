@@ -78,11 +78,32 @@
     <<set _narratives = _meta.narratives || ["You read quietly for a while."]>>
     <<set _narrIdx = random(1, _narratives.length) - 1>>
     <<set _narrText = _narratives[_narrIdx]>>
+    /* Location-based intro (where you're reading: bed, couch, etc.) */
+    <<set _locationIntro = setup.getReadingLocationIntro($readReturnPassage)>>
+    /* Location-based media: one random image/video for this spot and item type (book vs magazine) */
+    <<set _media = setup.getReadingLocationMediaRandom($readReturnPassage, _meta.type)>>
+    <<if _media>>
+        <<set _mediaType = _media.type>>
+        <<set _mediaPath = _media.path>>
+        <<set _mediaSize = _media.size || "100%">>
+    <<else>>
+        <<set _mediaType = "">>
+        <<set _mediaPath = "">>
+        <<set _mediaSize = "100%">>
+    <</if>>
 <</silently>>
 
 <<narrative "Reading">>
-<<print _narrText>>
-<br><br>
+<<print _locationIntro>> <<print _narrText>>
+<</narrative>>
+
+<<if _mediaType === "vid">>
+<<vid _mediaPath _mediaSize>>
+<<elseif _mediaType === "image">>
+<<image _mediaPath _mediaSize>>
+<</if>>
+
+<<narrative>>
 You read for <<print $selectedDuration>> minutes and finished <<print _pagesRead>> pages.
 <<if _totalGain > 0>>
 <br>

@@ -1,0 +1,58 @@
+:: ReadingDatabase[init]
+<<script>>
+/* =====================================================================
+   READING DATABASE
+   Data only: books & magazines (setup.readingItems).
+   System/config (readingLocations, helpers) in ReadingSystem[init].
+   ===================================================================== */
+
+setup.readingItems = {
+    books: [
+        {
+            id: "book_math_basics",
+            name: "Math Basics",
+            pages: 100,
+            gainType: "intelligence",
+            gainValue: 10,
+            narratives: [
+                "You flip through the chapter on algebra. The examples gradually build in complexity.",
+                "A section on geometry catches your eye. You trace the diagrams with your finger.",
+                "The chapter on word problems makes you think. You work through a few examples.",
+                "You review the summary at the end of the chapter. Key formulas stand out.",
+                "A footnote leads you to an interesting historical note about the development of calculus."
+            ]
+        },
+        {
+            id: "book_intro_psychology",
+            name: "Introduction to Psychology",
+            pages: 150,
+            gainType: "intelligence",
+            gainValue: 10,
+            narratives: [
+                "You read about cognitive development. The stages of learning fascinate you.",
+                "A chapter on memory explains why you sometimes forget names. You nod in recognition.",
+                "The section on motivation theory connects to your own goals.",
+                "You learn about different personality types. Some descriptions feel familiar.",
+                "The book discusses stress and coping mechanisms. You bookmark a few tips."
+            ]
+        }
+    ],
+    magazines: [
+        {
+            id: "mag_fashion_weekly",
+            name: "Fashion Weekly",
+            pages: 50,
+            gainType: "creativity",
+            gainValue: 2,
+            narratives: [
+                "You browse the latest seasonal trends. Color palettes and textures fill the pages.",
+                "An article on sustainable fashion catches your eye. You consider your own wardrobe.",
+                "The street style section inspires you. You imagine different combinations.",
+                "A DIY customization guide shows how to refresh old pieces. You make a mental note.",
+                "The editorial photos are striking. You study the composition and lighting."
+            ]
+        }
+    ]
+};
+
+<</script>>

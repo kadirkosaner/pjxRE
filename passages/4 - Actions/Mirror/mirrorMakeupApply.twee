@@ -1,52 +1,61 @@
 <<nobr>>
+<<set _sceneIndex = random(1, 3)>>
 <<set $location = $mirrorReturnPassage>>
 <<set _style = $makeupChosenStyle || 0>>
 <<if _style < 1 || _style > 5>>
-    <<goto "mirrorMakeup">>
+<<goto "mirrorMakeup">>
 <</if>>
 <<checkInventoryItem "makeup_kit" 1>>
 <<if State.temporary.inventoryCheckResult.allowed>>
-    <<set _useKit = "makeup_kit">>
+<<set _useKit = "makeup_kit">>
 <<else>>
-    <<checkInventoryItem "portable_makeup" 1>>
-    <<if State.temporary.inventoryCheckResult.allowed>>
-        <<set _useKit = "portable_makeup">>
-    <<else>>
-        <<set _useKit = "">>
-    <</if>>
+<<checkInventoryItem "portable_makeup" 1>>
+<<if State.temporary.inventoryCheckResult.allowed>>
+<<set _useKit = "portable_makeup">>
+<<else>>
+<<set _useKit = "">>
+<</if>>
 <</if>>
 <<if _useKit === "">>
-    <<narrative "Mirror">>
-    You don't have any makeup. You need a makeup kit or portable makeup.
-    <</narrative>>
-    <div class="location-actions">
-        <<btn "Back" "mirrorMakeup">><</btn>>
-    </div>
+<<narrative "Mirror">>
+You don't have any makeup. You need a makeup kit or portable makeup.
+<</narrative>>
+<div class="location-actions">
+<<btn "Back" "mirrorMakeup">><</btn>>
+</div>
 <<else>>
-    <<silently>>
-        <<removeFromInventory _useKit 1>>
-        <<set _skill = $skills.practical.makeup || 0>>
-        <<set _quality = Math.min(100, Math.round(50 + _skill * 0.5))>>
-        <<set $makeup.state = "fresh">>
-        <<set $makeup.style = _style>>
-        <<set $makeup.quality = _quality>>
-        <<set _cap = (_style === 1) ? 20 : (_style === 2) ? 40 : (_style === 3) ? 75 : 100>>
-        <<set _gain = 2>>
-        <<set _newSkill = Math.min(100, Math.min(_skill + _gain, _cap))>>
-        <<set _actualGain = _newSkill - _skill>>
-        <<set $skills.practical.makeup = _newSkill>>
-        <<if _actualGain > 0>>
-            <<notifySkillChange "makeup" _actualGain>>
-            <<trackSkillUsage "practical" "makeup">>
-        <</if>>
-        <<advanceTime 10>>
-    <</silently>>
-    <<narrative "Apply Makeup">>
-    You apply your makeup carefully. You went for a <<if _style === 1>>light<<elseif _style === 2>>medium<<elseif _style === 3>>heavy<<elseif _style === 4>>slutty<<else>>bimbo<</if>> look. It looks good.
-    <</narrative>>
+<<silently>>
+<<removeFromInventory _useKit 1>>
+<<set _skill = $skills.practical.makeup || 0>>
+<<set _quality = Math.min(100, Math.round(50 + _skill * 0.5))>>
+<<set $makeup.state = "fresh">>
+<<set $makeup.style = _style>>
+<<set $makeup.quality = _quality>>
+<<set _cap = (_style === 1) ? 20 : (_style === 2) ? 40 : (_style === 3) ? 75 : 100>>
+<<set _gain = 2>>
+<<set _newSkill = Math.min(100, Math.min(_skill + _gain, _cap))>>
+<<set _actualGain = _newSkill - _skill>>
+<<set $skills.practical.makeup = _newSkill>>
+<<if _actualGain > 0>>
+<<notifySkillChange "makeup" _actualGain>>
+<<trackSkillUsage "practical" "makeup">>
+<</if>>
+<<advanceTime 10>>
+<</silently>>
+<<narrative "Apply Makeup">>
+You apply your makeup carefully. You went for a <<if _style === 1>>light<<elseif _style === 2>>medium<<elseif _style === 3>>heavy<<elseif _style === 4>>slutty<<else>>bimbo<</if>> look. It looks good.
+<</narrative>>
 
-    <div class="location-actions">
-        <<btn "Back" "Mirror">><</btn>>
-    </div>
+<<if _sceneIndex === 1>>
+<<vid "assets/content/scenes/global/mirror/makeup/makeup1.mp4" "100%">>
+<<elseif _sceneIndex === 2>>
+<<vid "assets/content/scenes/global/mirror/makeup/makeup2.mp4" "100%">>
+<<else>>
+<<vid "assets/content/scenes/global/mirror/makeup/makeup3.mp4" "100%">>
+<</if>>
+
+<div class="location-actions">
+<<btn "Back" "Mirror">><</btn>>
+</div>
 <</if>>
 <</nobr>>

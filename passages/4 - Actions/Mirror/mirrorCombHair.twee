@@ -1,14 +1,21 @@
-:: mirrorCombHair
+
 <<silently>>
-    <<set $appearance.hairCombed = 1>>
-    <<set $appearance.hairMessiness = 0>>
-    <<advanceTime 5>>
+<<set $appearance.hairCombed = 1>>
+<<set $appearance.hairMessiness = 0>>
+<<advanceTime 5>>
+<<set _sceneIndex = random(1, 2)>>
 <</silently>>
 
 <<narrative "Comb Hair">>
 You run the comb through your hair, smoothing out the tangles. Your hair looks neat and tidy now.
 <</narrative>>
 
+<<if _sceneIndex === 1>>
+<<vid "assets/content/scenes/global/mirror/comb/comb1.mp4" "100%">>
+<<else>>
+<<vid "assets/content/scenes/global/mirror/comb/comb2.mp4" "100%">>
+<</if>>
+
 <div class="location-actions">
-    <<btn "Back" "Mirror">><</btn>>
+<<btn "Back" "Mirror">><</btn>>
 </div>

@@ -1,29 +1,36 @@
 <<nobr>>
+<<set _sceneIndex = random(1, 2)>>
 <<set $location = $mirrorReturnPassage>>
 <<checkInventoryItem "hair_cream" 1>>
 <<if !State.temporary.inventoryCheckResult.allowed>>
-    <<narrative "Mirror">>
-    You don't have any hair cream. You need a bottle to apply it.
-    <</narrative>>
-    <div class="location-actions">
-        <<btn "Back" "Mirror">><</btn>>
-    </div>
+<<narrative "Mirror">>
+You don't have any hair cream. You need a bottle to apply it.
+<</narrative>>
+<div class="location-actions">
+<<btn "Back" "Mirror">><</btn>>
+</div>
 <<else>>
-    <<silently>>
-        <<removeFromInventory "hair_cream" 1>>
-        <<if !$daily.hairCreamUsed>>
-            <<set $weeklyHairCreamUses = ($weeklyHairCreamUses || 0) + 1>>
-        <</if>>
-        <<set $daily.hairCreamUsed = true>>
-        <<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 2)>>
-        <<advanceTime 5>>
-    <</silently>>
-    <<narrative "Apply Hair Cream">>
-    You work the cream through your hair, from roots to tips. It feels nourishing. With regular use, your hair will stay healthier.
-    <</narrative>>
+<<silently>>
+<<removeFromInventory "hair_cream" 1>>
+<<if !$daily.hairCreamUsed>>
+<<set $weeklyHairCreamUses = ($weeklyHairCreamUses || 0) + 1>>
+<</if>>
+<<set $daily.hairCreamUsed = true>>
+<<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 2)>>
+<<advanceTime 5>>
+<</silently>>
+<<narrative "Apply Hair Cream">>
+You work the cream through your hair, from roots to tips. It feels nourishing. With regular use, your hair will stay healthier.
+<</narrative>>
 
-    <div class="location-actions">
-        <<btn "Back" "Mirror">><</btn>>
-    </div>
+<<if _sceneIndex === 1>>
+<<vid "assets/content/scenes/global/mirror/haircare/hairCream1.mp4" "100%">>
+<<else>>
+<<vid "assets/content/scenes/global/mirror/haircare/hairCream2.mp4" "100%">>
+<</if>>
+
+<div class="location-actions">
+<<btn "Back" "Mirror">><</btn>>
+</div>
 <</if>>
 <</nobr>>

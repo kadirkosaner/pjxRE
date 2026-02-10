@@ -16,12 +16,19 @@
 <<loseStat "stress" 5>>
 <<flushNotifications>>
 <<run window.notifySuccess("Staff meal – hunger and energy restored.")>>
+<<set _sceneIndex = random(1, 2)>>
 <<recalculateStats>>
 <</silently>>
 
 <<narrative "Staff meal">>
 You grab a quick staff meal from the back—today it's a burger and fries. You eat by the storage shelves, refueling before heading back.
 <</narrative>>
+
+<<if _sceneIndex === 1>>
+<<vid "assets/content/scenes/oldtown/rubysDiner/storage/eatfood/eatFood1.mp4" "100%">>
+<<else>>
+<<vid "assets/content/scenes/oldtown/rubysDiner/storage/eatfood/eatFood2.mp4" "100%">>
+<</if>>
 
 <div class="btn-center">
 <<btn "Back" "dinerRubysStorage">><</btn>>

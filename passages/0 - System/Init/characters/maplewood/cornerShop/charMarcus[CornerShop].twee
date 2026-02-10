@@ -24,7 +24,7 @@
     currentStatus: null
 }>>
 
-<<set setup.schedules.shopClerk = {
+<<set setup.schedules.shopClerkMarcus = {
     weekday: [
         { hour: 0, location: null, status: "unavailable" },
         { hour: 9, location: "storeCorner", status: "available" },
@@ -37,7 +37,7 @@
     ]
 }>>
 
-<<set setup.characterActions.shopClerk = {
+<<set setup.characterActions.shopClerkMarcus = {
     storeCorner: [
         {
             id: "talk", label: "Talk", passage: "shopClerkTalk",

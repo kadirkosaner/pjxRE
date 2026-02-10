@@ -1270,11 +1270,24 @@ Macro.add('vid', {
             .prop('loop', globalLoop)
             .prop('controls', controls)
             .css({
+                'position': 'absolute',
+                'top': 0,
+                'left': 0,
                 'width': '100%',
+                'height': '100%',
                 'display': 'block',
                 'cursor': 'pointer'
             })
             .appendTo(container);
+
+        // Match container to video aspect ratio so browser draws no black letterbox
+        video.on('loadedmetadata', function () {
+            const w = video[0].videoWidth;
+            const h = video[0].videoHeight;
+            if (w && h) {
+                container.css('aspect-ratio', w + ' / ' + h);
+            }
+        });
 
         // Apply volume from settings
         const getVolume = () => {
