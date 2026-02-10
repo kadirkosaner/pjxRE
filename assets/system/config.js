@@ -37,6 +37,7 @@ window.SystemModules = {
     "wardrobe", // Wardrobe macro handler
     "location", // Location background handler
     "shopping", // Shop cart/checkout handler
+    "restaurant", // Restaurant menu (food + drink, pay, effects)
   ],
 };
 
@@ -84,6 +85,7 @@ window.SystemCSS = {
     "map", // Map section + full modal
     "wardrobe", // Wardrobe system
     "shopping", // Shop system
+    "restaurant", // Restaurant menu UI
     "inventory", // Inventory system
     "relations", // Relations modal
     "stats", // Stats modal styling

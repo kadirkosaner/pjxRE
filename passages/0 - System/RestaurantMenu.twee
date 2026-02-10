@@ -1,0 +1,5 @@
+<<nobr>>
+<<set _menuId = $restaurantMenuId>>
+<<if ndef _menuId>><<set _menuId = "dinerRubys">><</if>>
+<</nobr>>
+<<restaurant _menuId>>

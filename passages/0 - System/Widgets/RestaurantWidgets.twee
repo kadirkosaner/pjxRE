@@ -1,0 +1,13 @@
+<<nobr>>
+/* ==========================================
+   RESTAURANT WIDGET
+   Link to restaurant menu. Back passage comes from database (menu.back) or $location.
+   Usage: <<restaurantLink "dinerRubys">>
+   Or:    <<restaurantLink "dinerRubys" "Order food">>  → menuId, label
+========================================== */
+<<widget "restaurantLink">>
+    <<set _menuId = $args[0]>>
+    <<set _label = $args[1] || "View menu">>
+    <<link _label "RestaurantMenu">><<set $restaurantMenuId = _menuId>><</link>>
+<</widget>>
+<</nobr>>

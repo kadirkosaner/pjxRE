@@ -1103,6 +1103,43 @@ Macro.add('shop', {
     }
 });
 
+/* ================== RESTAURANT MACRO =================== */
+// Usage: <<restaurant "menuId">> or <<restaurant "menuId" "backPassage">>
+Macro.add('restaurant', {
+    handler: function () {
+        var menuId = this.args[0] || '';
+        var backPassage = this.args[1] || null;
+        var output = this.output;
+
+        if (window.restaurantModule && window.restaurantModule.macroHandler) {
+            window.restaurantModule.macroHandler(output, menuId, backPassage);
+            return;
+        }
+
+        var $anchor = $('<div class="restaurant-anchor"><div class="system-loader">Loading menu…</div></div>');
+        $(output).append($anchor);
+
+        var attempts = 0;
+        var maxAttempts = 50;
+        var checkInterval = setInterval(function () {
+            attempts++;
+            if (window.restaurantModule && window.restaurantModule.macroHandler) {
+                clearInterval(checkInterval);
+                $anchor.empty();
+                try {
+                    window.restaurantModule.macroHandler($anchor, menuId, backPassage);
+                } catch (e) {
+                    console.error('[Restaurant Macro] Error:', e);
+                    $anchor.html('<div class="restaurant-error">Restaurant failed to load. Refresh the page.</div>');
+                }
+            } else if (attempts >= maxAttempts) {
+                clearInterval(checkInterval);
+                $anchor.html('<div class="restaurant-error">Restaurant module not loaded. Refresh the page.</div>');
+            }
+        }, 100);
+    }
+});
+
 /* ================== DIALOG MACROS =================== */
 Macro.add('dialog', {
     tags: null,

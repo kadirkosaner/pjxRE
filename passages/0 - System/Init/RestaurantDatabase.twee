@@ -1,0 +1,42 @@
+:: RestaurantDatabase[init]
+<<script>>
+/* =====================================================================
+   RESTAURANT DATABASE
+   - setup.restaurantDishes: { foods: [...], drinks: [...] }
+   - setup.restaurantMenus[menuId]: { name, foods, drinks, back? }  back = dönüş pasajı (yoksa $location kullanılır)
+   Dish: id, name, price, desc?, image?, effects: [{ stat, value, type, duration? }]
+   NOT related to setup.items (shopping). Used only by restaurant system.
+   ===================================================================== */
+
+setup.restaurantDishes = {
+    foods: [
+        { id: "house_salad", 
+        name: "House Salad", 
+        price: 8, 
+        desc: "Fresh greens with vinaigrette.", 
+        image: "assets/content/inventory/consumables/sandwich.webp", 
+        effects: [
+            { stat: "hunger", value: -25, type: "instant" }, { stat: "energy", value: 5, type: "instant" }] },
+        { id: "grilled_salmon", name: "Grilled Salmon", price: 22, desc: "Atlantic salmon with herbs.", image: "assets/content/inventory/consumables/sandwich.webp", effects: [{ stat: "hunger", value: -50, type: "instant" }, { stat: "energy", value: 15, type: "instant" }, { stat: "mood", value: 5, type: "instant" }] },
+        { id: "steak_frites", name: "Steak & Frites", price: 28, desc: "Grilled ribeye with fries.", image: "assets/content/inventory/consumables/sandwich.webp", effects: [{ stat: "hunger", value: -55, type: "instant" }, { stat: "energy", value: 20, type: "instant" }] },
+        { id: "pasta_carbonara", name: "Pasta Carbonara", price: 16, desc: "Creamy bacon and parmesan.", image: "assets/content/inventory/consumables/sandwich.webp", effects: [{ stat: "hunger", value: -45, type: "instant" }, { stat: "energy", value: 12, type: "instant" }] },
+        { id: "soup_of_day", name: "Soup of the Day", price: 7, desc: "Chef's daily selection.", image: "assets/content/inventory/consumables/sandwich.webp", effects: [{ stat: "hunger", value: -20, type: "instant" }, { stat: "mood", value: 3, type: "instant" }] }
+    ],
+    drinks: [
+        { id: "water", name: "Water", price: 0, desc: "Still or sparkling.", image: "assets/content/inventory/consumables/water.webp", effects: [{ stat: "thirst", value: -40, type: "instant" }] },
+        { id: "coffee", name: "Coffee", price: 4, desc: "Freshly brewed.", image: "assets/content/inventory/consumables/coffee.webp", effects: [{ stat: "energy", value: 15, type: "instant" }, { stat: "focus", value: 5, type: "temporary", duration: 2 }] },
+        { id: "iced_tea", name: "Iced Tea", price: 3.5, desc: "Refreshing and cold.", image: "assets/content/inventory/consumables/water.webp", effects: [{ stat: "thirst", value: -35, type: "instant" }, { stat: "energy", value: 5, type: "instant" }] },
+        { id: "fresh_juice", name: "Fresh Juice", price: 5, desc: "Seasonal fruit juice.", image: "assets/content/inventory/consumables/energyDrink.webp", effects: [{ stat: "thirst", value: -30, type: "instant" }, { stat: "energy", value: 8, type: "instant" }] },
+        { id: "soda", name: "Soda", price: 2.5, desc: "Cola, lemon-lime, or root beer.", image: "assets/content/inventory/consumables/energyDrink.webp", effects: [{ stat: "thirst", value: -25, type: "instant" }] }
+    ]
+};
+
+setup.restaurantMenus = {
+    dinerRubys: {
+        name: "Ruby's Diner",
+        foods: ["house_salad", "soup_of_day", "pasta_carbonara"],
+        drinks: ["water", "coffee", "iced_tea", "soda"],
+        back: "dinerRubys"
+    }
+};
+<</script>>
