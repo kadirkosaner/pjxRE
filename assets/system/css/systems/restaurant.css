@@ -61,16 +61,26 @@
   margin: 0;
 }
 
-.restaurant-header-balances {
+/* Cash/Bank = same as shopping (balance-display, balance-item) */
+.restaurant-header .balance-display {
   display: flex;
   gap: var(--spacing-md);
-  font-size: 0.9rem;
-  color: var(--color-text-secondary);
 }
 
-.restaurant-balance-item strong {
+.restaurant-header .balance-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+}
+
+.restaurant-header .balance-amount {
   color: var(--color-success);
-  margin-left: 4px;
+  font-weight: 600;
 }
 
 .restaurant-main {
@@ -88,32 +98,10 @@
   padding: var(--spacing-lg);
 }
 
-.restaurant-column-title {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  font-size: 0.8rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-  margin: 0 0 var(--spacing-md) 0;
-  padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid var(--color-border-primary);
-}
+/* Dishes / Drinks use .cart-header + .cart-title (same as YOUR ORDER, from shopping.css) */
 
-.restaurant-column-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.restaurant-column-icon-food {
-  background: linear-gradient(135deg, var(--color-quest) 0%, var(--color-orange) 100%);
-}
-
-.restaurant-column-icon-drink {
-  background: linear-gradient(135deg, var(--color-info) 0%, #0ea5e9 100%);
+.restaurant-column .cart-header {
+  margin-bottom: 0;
 }
 
 .restaurant-foods-list,
@@ -123,11 +111,13 @@
   gap: var(--spacing-sm);
   max-height: 420px;
   overflow-y: auto;
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
 }
 
 .restaurant-dish-card {
   display: grid;
-  grid-template-columns: 56px 1fr auto;
+  grid-template-columns: 56px 1fr;
   gap: var(--spacing-sm);
   align-items: center;
   padding: var(--spacing-sm);
@@ -189,17 +179,7 @@
 }
 
 .restaurant-dish-select {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid var(--color-border-secondary);
-  flex-shrink: 0;
-  transition: all var(--transition-fast);
-}
-
-.restaurant-dish-card.selected .restaurant-dish-select {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
+  display: none;
 }
 
 .restaurant-empty {
@@ -220,16 +200,12 @@
   gap: var(--spacing-md);
 }
 
-.restaurant-order-title {
-  font-size: 0.8rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-  margin: 0 0 var(--spacing-xs) 0;
-}
+/* Your order uses .cart-header + .cart-title + .cart-count from shopping.css */
 
 .restaurant-order-summary {
   min-height: 60px;
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
   font-size: 0.85rem;
   color: var(--color-text-secondary);
 }
@@ -242,18 +218,7 @@
 }
 
 .restaurant-order-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.restaurant-order-dot-food {
-  background: var(--color-quest);
-}
-
-.restaurant-order-dot-drink {
-  background: var(--color-info);
+  display: none;
 }
 
 .restaurant-order-placeholder {

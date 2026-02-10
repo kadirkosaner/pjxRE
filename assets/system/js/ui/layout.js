@@ -2,13 +2,13 @@
  * LayoutManager
  * - Wraps passage content in .passage-content div
  * - Centers content based on timebox position
- * - Skips fullscreen-centered, wardrobe-active, shop-active pages
+ * - Skips fullscreen-centered, wardrobe-active, shop-active, restaurant-active pages
  */
 
 window.LayoutInit = function(API) {
     
-    // Body classes that should skip layout processing
-    var skipClasses = ['fullscreen-centered', 'wardrobe-active', 'shop-active'];
+    // Body classes that should skip layout processing (full-width / fullscreen)
+    var skipClasses = ['fullscreen-centered', 'wardrobe-active', 'shop-active', 'restaurant-active'];
     
     function shouldSkip() {
         for (var i = 0; i < skipClasses.length; i++) {

@@ -184,8 +184,8 @@ function restaurantRenderOrder() {
     var cash = S.variables.cashBalance != null ? S.variables.cashBalance : 0;
     var bank = S.variables.bankBalance != null ? S.variables.bankBalance : 0;
     var totalEl = restaurantContainer ? restaurantContainer.querySelector('.restaurant-order-total') : null;
-    var cashEl = restaurantContainer ? restaurantContainer.querySelector('.restaurant-cash-balance') : null;
-    var bankEl = restaurantContainer ? restaurantContainer.querySelector('.restaurant-bank-balance') : null;
+    var cashEl = restaurantContainer ? restaurantContainer.querySelector('.balance-cash') : null;
+    var bankEl = restaurantContainer ? restaurantContainer.querySelector('.balance-bank') : null;
     var cashBtn = restaurantContainer ? restaurantContainer.querySelector('.restaurant-pay-cash') : null;
     var cardBtn = restaurantContainer ? restaurantContainer.querySelector('.restaurant-pay-card') : null;
     var summaryEl = restaurantContainer ? restaurantContainer.querySelector('.restaurant-order-summary') : null;
@@ -218,20 +218,20 @@ function restaurantCreateHTML() {
         '<header class="restaurant-header">' +
         '<a href="#" class="restaurant-back-link" data-passage="' + (restaurantReturnPassage || '') + '"><i class="icon icon-chevron-left"></i> Back</a>' +
         '<h1 class="restaurant-title">' + restaurantName + '</h1>' +
-        '<div class="restaurant-header-balances">' +
-        '<span class="restaurant-balance-item">Cash <strong class="restaurant-cash-balance">$0</strong></span> ' +
-        '<span class="restaurant-balance-item">Bank <strong class="restaurant-bank-balance">$0</strong></span>' +
+        '<div class="balance-display">' +
+        '<div class="balance-item">Cash: <span class="balance-amount balance-cash">$0</span></div>' +
+        '<div class="balance-item">Bank: <span class="balance-amount balance-bank">$0</span></div>' +
         '</div></header>' +
         '<div class="restaurant-main">' +
         '<section class="restaurant-column restaurant-column-foods">' +
-        '<h2 class="restaurant-column-title"><span class="restaurant-column-icon restaurant-column-icon-food"></span> Dishes</h2>' +
+        '<div class="cart-header"><span class="cart-title">DISHES</span></div>' +
         '<div class="restaurant-foods-list"></div></section>' +
         '<section class="restaurant-column restaurant-column-drinks">' +
-        '<h2 class="restaurant-column-title"><span class="restaurant-column-icon restaurant-column-icon-drink"></span> Drinks</h2>' +
+        '<div class="cart-header"><span class="cart-title">DRINKS</span></div>' +
         '<div class="restaurant-drinks-list"></div></section>' +
         '<aside class="restaurant-column restaurant-column-order">' +
         '<div class="restaurant-order-panel">' +
-        '<h2 class="restaurant-order-title">Your order</h2>' +
+        '<div class="cart-header"><span class="cart-title">YOUR ORDER</span></div>' +
         '<div class="restaurant-order-summary"></div>' +
         '<div class="restaurant-order-total-row"><span class="restaurant-order-total-label">Total</span><span class="restaurant-order-total">$0.00</span></div>' +
         '<div class="restaurant-payment-buttons">' +

@@ -7,7 +7,7 @@
 - Mirror check.
 - yüz saç ve diş bakımı için mall aktivasyon yapmak
 
-- restaurantlarda yemek yeme menüsü gibi birşey lazım yani wardrobe ve shopping gibi bir sistem. Her restaurantta farklı bir menü olacak şekilde.
+- Restaurant için yemek listesi ve yemek imageleri eklenecek.
 - Yeni itemler için shoppingi yapmaya başlamak. Kitap ve İtemlar.
 
 
