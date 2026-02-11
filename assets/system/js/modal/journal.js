@@ -348,19 +348,21 @@ window.JournalInit = function (API) {
           `;
         }
         
-        // Build stages history for active quests (completed + current only)
+        // Build stages history for active quests (newest first: 4, 3, 2, 1)
         let activeStagesHistoryHtml = '';
         if (status === 'active' && quest.stages && state) {
           const currentStageIndex = state.stage;
+          const stagesSlice = quest.stages.slice(0, currentStageIndex + 1);
           activeStagesHistoryHtml = `
             <div class="quest-stages-history">
               <h4>Quest Progress</h4>
-              ${quest.stages.slice(0, currentStageIndex + 1).map((stg, idx) => {
-                const isCompleted = idx < currentStageIndex;
-                const isCurrent = idx === currentStageIndex;
+              ${stagesSlice.slice().reverse().map((stg, reversedIdx) => {
+                const originalIdx = currentStageIndex - reversedIdx;
+                const isCompleted = originalIdx < currentStageIndex;
+                const isCurrent = originalIdx === currentStageIndex;
                 return `
                   <div class="quest-stage-item ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}">
-                    <div class="quest-stage-number">${idx + 1}</div>
+                    <div class="quest-stage-number">${originalIdx + 1}</div>
                     <div class="quest-stage-info">
                       <div class="quest-stage-title">${stg.title}</div>
                       <div class="quest-stage-desc">${stg.desc || ''}</div>

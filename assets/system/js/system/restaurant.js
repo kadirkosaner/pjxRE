@@ -110,11 +110,15 @@ function restaurantPayCash() {
     restaurantSelectedFood = null;
     restaurantSelectedDrink = null;
     S.variables.restaurantReturnPassage = restaurantReturnPassage;
-    if (typeof $ !== 'undefined' && $.wiki) { $.wiki('<<recalculateStats>>'); }
-    $(document).trigger(':passagerender');
-    document.body.classList.remove('restaurant-active');
-    var Eng = restaurantGetEngine();
-    if (Eng && Eng.play) Eng.play('restaurantEating');
+    if (typeof $ !== 'undefined' && $.wiki) {
+        $.wiki('<<recalculateStats>>');
+        document.body.classList.remove('restaurant-active');
+        $.wiki('<<goto "restaurantEating">>');
+    } else {
+        document.body.classList.remove('restaurant-active');
+        var Eng = restaurantGetEngine();
+        if (Eng && Eng.play) Eng.play('restaurantEating');
+    }
 }
 
 function restaurantPayCard() {
@@ -136,11 +140,15 @@ function restaurantPayCard() {
     restaurantSelectedDrink = null;
     S = restaurantGetState();
     S.variables.restaurantReturnPassage = restaurantReturnPassage;
-    if (typeof $ !== 'undefined' && $.wiki) { $.wiki('<<recalculateStats>>'); }
-    $(document).trigger(':passagerender');
-    document.body.classList.remove('restaurant-active');
-    var Eng = restaurantGetEngine();
-    if (Eng && Eng.play) Eng.play('restaurantEating');
+    if (typeof $ !== 'undefined' && $.wiki) {
+        $.wiki('<<recalculateStats>>');
+        document.body.classList.remove('restaurant-active');
+        $.wiki('<<goto "restaurantEating">>');
+    } else {
+        document.body.classList.remove('restaurant-active');
+        var Eng = restaurantGetEngine();
+        if (Eng && Eng.play) Eng.play('restaurantEating');
+    }
 }
 
 function restaurantToast(msg) {

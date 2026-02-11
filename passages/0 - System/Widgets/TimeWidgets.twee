@@ -67,8 +67,8 @@
     /* Update character locations based on new time */
     <<updateCharacterLocations>>
     
-    /* Check if current location is now closed */
-    <<if $location && setup.locationHours[$location]>>
+    /* Check if current location is now closed (skip when user navigated backward in history) */
+    <<if ndef $_navigatingBackward && $location && setup.locationHours[$location]>>
         <<set _hours = setup.locationHours[$location]>>
         <<if !_hours.open24h && !window.isLocationOpen($location)>>
             <<set _region = _hours.region || "downTown">>

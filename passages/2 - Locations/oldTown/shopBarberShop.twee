@@ -1,0 +1,12 @@
+<<nobr>>
+<<set $location = "shopBarber">>
+<<set _shopItems = []>>
+<<set _shopBack = "shopBarber">>
+<<updateCharacterLocations>>
+<</nobr>>
+<<narrative "The Clipper Shop">>Hair products and grooming supplies.<</narrative>>
+<<shop "The Clipper Shop" "Hair & Grooming" _shopItems _shopBack>>
+
+<div class="location-actions">
+<<btn "Back" "shopBarber">><</btn>>
+</div>

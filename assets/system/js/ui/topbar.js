@@ -29,14 +29,18 @@ function rebuildTopbar() {
     // Remove only topbar, NOT modals
     $('.top-bar-wrapper').remove();
 
-    const canBack = state.activeIndex > 0;
-    const canForward = state.activeIndex < (state.size - 1);
+    // SugarCube 2: State.index / State.length; some builds use activeIndex / size
+    const currentIndex = state.activeIndex ?? state.index ?? 0;
+    const historySize = state.size ?? state.length ?? (state.history && state.history.length) ?? 0;
+    const canBack = currentIndex > 0;
+    const canForward = currentIndex < (historySize - 1);
 
     // Check if previous passage is Start (don't allow backward to StartScreen)
     let previousPassage = null;
-    if (state.activeIndex > 0) {
+    if (currentIndex > 0 && state.history) {
         const moments = state.history;
-        previousPassage = moments[state.activeIndex - 1]?.title;
+        const prev = moments[currentIndex - 1];
+        previousPassage = prev?.title ?? prev?.passage;
     }
     const canBackToStart = canBack && previousPassage !== 'Start';
 
@@ -302,18 +306,23 @@ function rebuildTopbar() {
     });
 
     $('#time-back').on('click', () => {
-        // Check if we can go back and won't land on Start passage
-        if (TopbarAPI.State.activeIndex > 0) {
-            const moments = TopbarAPI.State.history;
-            const previousPassage = moments[TopbarAPI.State.activeIndex - 1]?.title;
+        const s = TopbarAPI.State;
+        const idx = s.activeIndex ?? s.index ?? 0;
+        if (idx > 0 && s.history) {
+            const prev = s.history[idx - 1];
+            const previousPassage = prev?.title ?? prev?.passage;
             if (previousPassage !== 'Start') {
+                if (s.variables) s.variables._navigatingBackward = true;
                 TopbarAPI.Engine.backward();
             }
         }
     });
 
     $('#time-forward').on('click', () => {
-        if (TopbarAPI.State.activeIndex < (TopbarAPI.State.size - 1)) {
+        const s = TopbarAPI.State;
+        const idx = s.activeIndex ?? s.index ?? 0;
+        const size = s.size ?? s.length ?? (s.history && s.history.length) ?? 0;
+        if (idx < size - 1) {
             TopbarAPI.Engine.forward();
         }
     });

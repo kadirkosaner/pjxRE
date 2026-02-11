@@ -871,7 +871,12 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
         
         document.body.classList.remove('shop-active');
         const passage = $(this).data('passage');
-        if (passage && ShopAPI && ShopAPI.Engine) {
+        if (!ShopAPI || !ShopAPI.Engine) return;
+        const currentPassage = (ShopAPI.State && ShopAPI.State.passage) ? ShopAPI.State.passage : '';
+        // If "back" is the same passage we're in (shop embedded here), go backward in history instead
+        if (passage && passage === currentPassage && typeof ShopAPI.Engine.backward === 'function') {
+            ShopAPI.Engine.backward();
+        } else if (passage) {
             ShopAPI.Engine.play(passage);
         }
     });

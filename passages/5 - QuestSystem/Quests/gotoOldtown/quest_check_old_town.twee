@@ -1,0 +1,32 @@
+/* ========================================
+   CHECK OLD TOWN - Single scene
+   Location: Old Town. Narrative + pharmacy & barber images, discover, complete.
+   ======================================== */
+<<nobr>>
+<<silently>>
+	<<set $location = "oldTown">>
+	<<discover "Pharmacy" "Green Cross Pharmacy">>
+	<<discover "ShopBarber" "The Clipper Shop">>
+	<<completeQuest "check_old_town">>
+<</silently>>
+
+<<narrative "Old Town">>
+You take a look around Old Town. Among the cobblestone streets and vintage storefronts you spot a pharmacy and a barber shop—a proper women's salon. Good to know where they are for later.
+<</narrative>>
+
+<<image "assets/content/locations/oldTown/pharmacy.webp" "100%">>
+
+<<narrative>>
+The Green Cross Pharmacy. A neighborhood spot for medications and basics.
+<</narrative>>
+
+<<image "assets/content/locations/oldTown/shopBarber.webp" "100%">>
+
+<<narrative>>
+The Clipper Shop. You make a mental note of both places.
+<</narrative>>
+
+<div class="btn-center">
+	<<btn "Back" "oldTown">><</btn>>
+</div>
+<</nobr>>

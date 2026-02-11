@@ -1,5 +1,21 @@
-<<nobr>><<set $location = "shopBarber">><</nobr>>
+<<nobr>>
+<<set $location = "shopBarber">>
 <<updateCharacterLocations>>
-<<narrative "The Clipper Shop">>An old-fashioned barber shop with a spinning pole. Cuts, shaves, and neighborhood gossip.<</narrative>>
+
+<<narrative "The Clipper Shop">>
+An old-fashioned barber shop with a spinning pole. Cuts, shaves, and neighborhood gossip.
+<</narrative>>
+
 <<showLocationChars "shopBarber">>
-<<navMenu>><<navCard "oldTown">><</navMenu>>
+
+<div class="location-actions">
+<span class="link-internal btn-style btn-default locked" data-tooltip="W.I.P"><i class="icon icon-lock icon-12"></i> Shop</span>
+<span class="link-internal btn-style btn-default locked" data-tooltip="W.I.P"><i class="icon icon-lock icon-12"></i> Dye Hair</span>
+<span class="link-internal btn-style btn-default locked" data-tooltip="W.I.P"><i class="icon icon-lock icon-12"></i> Cut Hair</span>
+</div>
+
+<<navMenu>>
+<<navCard "oldTown">>
+<</navMenu>>
+
+<</nobr>>

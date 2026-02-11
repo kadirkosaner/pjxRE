@@ -1589,6 +1589,7 @@ function sealQuestAdvancesForPassage() {
 $(document).on(':passageend', function () {
     sealQuestAdvancesForPassage();
     resetPassagesScroll();
+    if (State && State.variables) State.variables._navigatingBackward = false;
 });
 $(document).on(':passagestart', function () {
     resetPassagesScroll();
