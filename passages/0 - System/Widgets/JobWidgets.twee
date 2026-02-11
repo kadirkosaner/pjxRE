@@ -212,18 +212,17 @@
     <<if !$job || !$job.id>>
         <<return>>
     <</if>>
-    <<set _job = setup.jobs[$job.id]>>
-    <<if !_job>>
-        <<return>>
-    <</if>>
-    <<set _required = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
-    <<set _hoursToday = parseInt($jobState.hoursToday || 0, 10)>>
-    <<if ndef $jobState.insufficientDaysThisWeek>><<set $jobState.insufficientDaysThisWeek = 0>><</if>>
-    <<if _hoursToday < _required>>
-        <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + 1>>
-    <</if>>
-    <<if _days > 1>>
-        <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + (_days - 1)>>
+    <<set _job = setup.jobs != null ? setup.jobs[$job.id] : null>>
+    <<if _job>>
+        <<set _required = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
+        <<set _hoursToday = parseInt($jobState.hoursToday || 0, 10)>>
+        <<if ndef $jobState.insufficientDaysThisWeek>><<set $jobState.insufficientDaysThisWeek = 0>><</if>>
+        <<if _hoursToday < _required>>
+            <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + 1>>
+        <</if>>
+        <<if _days > 1>>
+            <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + (_days - 1)>>
+        <</if>>
     <</if>>
 <</widget>>
 

@@ -405,6 +405,8 @@ Macro.add('startQuest', {
             triggeredStage: -1,
             startDate: `${vars.timeSys?.day || 1}/${vars.timeSys?.month || 1}/${vars.timeSys?.year || 2025}`
         };
+        if (vars.questAdvancesFromPassage && vars.questAdvancesFromPassage[qid]) delete vars.questAdvancesFromPassage[qid];
+        if (vars.questMaxAdvancesFromPassage && vars.questMaxAdvancesFromPassage[qid]) delete vars.questMaxAdvancesFromPassage[qid];
         if (window.showNotification) {
             window.showNotification({
                 type: 'quest',
@@ -419,6 +421,8 @@ Macro.add('startQuest', {
 });
 
 /* -------------------- ADVANCE QUEST STAGE MACRO -------------------- */
+/* Allow multiple advances from the same passage; block only on F5/re-render by
+   capping advances per (quest, passage) when we leave the passage. */
 Macro.add('advanceQuestStage', {
     handler: function () {
         const qid = this.args[0];
@@ -432,6 +436,15 @@ Macro.add('advanceQuestStage', {
             console.log(`[Quest V2] Cannot advance - quest "${qid}" not found or not active`);
             return;
         }
+
+        const passage = State.passage;
+        if (!vars.questAdvancesFromPassage) vars.questAdvancesFromPassage = {};
+        if (!vars.questAdvancesFromPassage[qid]) vars.questAdvancesFromPassage[qid] = {};
+        const count = (vars.questAdvancesFromPassage[qid][passage] || 0);
+        const maxFromPassage = vars.questMaxAdvancesFromPassage?.[qid]?.[passage];
+        /* Skip if we already did all advances this passage allows (e.g. after F5 re-run). */
+        if (maxFromPassage != null && count >= maxFromPassage) return;
+        vars.questAdvancesFromPassage[qid][passage] = count + 1;
 
         state.stage++;
         state.objectives = {};
@@ -501,6 +514,8 @@ Macro.add('completeQuest', {
 
         if (!vars.questState?.active?.[qid] || !quest) return;
         delete vars.questState.active[qid];
+        if (vars.questAdvancesFromPassage && vars.questAdvancesFromPassage[qid]) delete vars.questAdvancesFromPassage[qid];
+        if (vars.questMaxAdvancesFromPassage && vars.questMaxAdvancesFromPassage[qid]) delete vars.questMaxAdvancesFromPassage[qid];
         if (!vars.questState.completed) vars.questState.completed = [];
         vars.questState.completed.push(qid);
         const rewards = quest.onComplete;
@@ -649,6 +664,8 @@ Macro.add('btn', {
             if (passage) {
                 Engine.play(passage);
             }
+            // Refresh topbar/rightbar even if we stayed in the same passage
+            $(document).trigger(':passagerender');
         });
     }
 });
@@ -1556,7 +1573,23 @@ function resetPassagesScroll() {
     const passages = document.getElementById('passages');
     if (passages) passages.scrollTop = 0;
 }
-$(document).on(':passageend', resetPassagesScroll);
+/* When leaving a passage, seal how many advances that passage may do (so F5 re-run doesn't advance again). */
+function sealQuestAdvancesForPassage() {
+    const vars = State.variables;
+    const passage = State.passage;
+    if (!passage || !vars.questAdvancesFromPassage) return;
+    if (!vars.questMaxAdvancesFromPassage) vars.questMaxAdvancesFromPassage = {};
+    Object.keys(vars.questAdvancesFromPassage).forEach(function (qid) {
+        const n = vars.questAdvancesFromPassage[qid][passage];
+        if (n == null) return;
+        if (!vars.questMaxAdvancesFromPassage[qid]) vars.questMaxAdvancesFromPassage[qid] = {};
+        vars.questMaxAdvancesFromPassage[qid][passage] = n;
+    });
+}
+$(document).on(':passageend', function () {
+    sealQuestAdvancesForPassage();
+    resetPassagesScroll();
+});
 $(document).on(':passagestart', function () {
     resetPassagesScroll();
     requestAnimationFrame(resetPassagesScroll);

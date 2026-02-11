@@ -1,5 +1,7 @@
 <<nobr>>
 <<set _menuId = $restaurantMenuId>>
 <<if ndef _menuId>><<set _menuId = "dinerRubys">><</if>>
+<<set _menu = setup.restaurantMenus[_menuId]>>
+<<if _menu && _menu.back>><<set $location = _menu.back>><</if>>
 <</nobr>>
 <<restaurant _menuId>>

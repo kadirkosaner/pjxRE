@@ -321,13 +321,14 @@ window.MapInit = function (API) {
 
             // Show known people at this location (residents for residence, staff/workers for stores, etc.)
             if (location.residents && location.residents.length > 0) {
+                const getCharacter = this.API.setup?.getCharacter;
                 const residentCards = location.residents
                     .filter(charId => {
-                        const char = setup.getCharacter ? setup.getCharacter(charId) : characters[charId];
+                        const char = getCharacter ? getCharacter(charId) : characters[charId];
                         return char && char.known === true;
                     })
                     .map(charId => {
-                        const char = setup.getCharacter ? setup.getCharacter(charId) : characters[charId];
+                        const char = getCharacter ? getCharacter(charId) : characters[charId];
                         return `
                             <div class="map-resident-card" data-character="${charId}">
                                 <div class="resident-avatar">
@@ -533,14 +534,7 @@ window.MapInit = function (API) {
                 }
             });
 
-            // Resident/People card click - open character interaction
-            $doc.off('click.map-resident').on('click.map-resident', '.map-resident-card', function () {
-                const charId = self.API.$(this).data('character');
-                if (!charId) return;
-                self.API.State.variables.interactingChar = charId;
-                $('#map-overlay').removeClass('active');
-                self.API.Engine.play('CharacterInteraction');
-            });
+            // Resident/People cards are display-only (not clickable)
 
             // Store/location card click - show that location's detail (e.g. Town Hall from Civic Center)
             $doc.off('click.map-store').on('click.map-store', '.map-store-card', function () {

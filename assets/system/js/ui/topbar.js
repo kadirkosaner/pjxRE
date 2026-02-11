@@ -8,14 +8,13 @@ window.TopbarInit = function (API) {
     TopbarAPI.Modal = window.ModalTabSystem;
 };
 
-// Rebuild on every passage render
-$(document).on(':passagerender', function () {
+// Rebuild topbar UI on every passage render
+function rebuildTopbar() {
     if (!TopbarAPI) return;
 
-    console.log('[Topbar] :passagerender event fired');
-    console.log('[Topbar] State.passage:', TopbarAPI.State.passage);
-
-    const vars = TopbarAPI.State.variables;
+    // Always use up-to-date global State (kept in sync on passage changes)
+    const state = (typeof State !== 'undefined' && State) ? State : TopbarAPI.State;
+    const vars = state.variables || {};
 
     // Check if current passage is Start (startscreen) - ALLOW topbar for hamburger menu
     // if (TopbarAPI.State.passage === 'Start') {
@@ -25,22 +24,19 @@ $(document).on(':passagerender', function () {
     // }
 
     // hideTopbar now only hides the content, hamburger still shows
-    // Body class is now set by smart detection below (when Nav+Timebox+Notifications are all hidden)
     const hideTopbarContent = vars.hideTopbar === true;
-
-    console.log('[Topbar] Creating topbar...');
 
     // Remove only topbar, NOT modals
     $('.top-bar-wrapper').remove();
 
-    const canBack = TopbarAPI.State.activeIndex > 0;
-    const canForward = TopbarAPI.State.activeIndex < (TopbarAPI.State.size - 1);
+    const canBack = state.activeIndex > 0;
+    const canForward = state.activeIndex < (state.size - 1);
 
     // Check if previous passage is Start (don't allow backward to StartScreen)
     let previousPassage = null;
-    if (TopbarAPI.State.activeIndex > 0) {
-        const moments = TopbarAPI.State.history;
-        previousPassage = moments[TopbarAPI.State.activeIndex - 1]?.title;
+    if (state.activeIndex > 0) {
+        const moments = state.history;
+        previousPassage = moments[state.activeIndex - 1]?.title;
     }
     const canBackToStart = canBack && previousPassage !== 'Start';
 
@@ -69,9 +65,8 @@ $(document).on(':passagerender', function () {
     const weekdayName = weekdayNames[timeSys.weekday] || '';
     const dateStr = timeSys.day + ' ' + monthName + ', ' + timeSys.year;
 
-    // Work: use same State as rest of game (SugarCube State.variables)
-    const stateVars = (typeof State !== 'undefined' && State.variables) ? State.variables : vars;
-    const job = stateVars.job;
+    // Work: use same State as rest of game
+    const job = vars.job;
     const setupObj = window.setup || window.Setup || (TopbarAPI && TopbarAPI.setup) || {};
     const jobs = setupObj.jobs || {};
     const jobDef = job && job.id ? jobs[job.id] : null;
@@ -83,7 +78,7 @@ $(document).on(':passagerender', function () {
     const currentDate = (timeSys.year || 0) * 10000 + (timeSys.month || 0) * 100 + (timeSys.day || 0);
     const startDate = job?.startedOn ? (job.startedOn.year * 10000 + job.startedOn.month * 100 + job.startedOn.day) : 0;
     const isFirstWorkDayOrLater = !job?.startedOn || currentDate >= startDate;
-    const jobState = stateVars.jobState || {};
+    const jobState = vars.jobState || {};
     const hoursToday = parseInt(jobState.hoursToday || 0, 10);
     const requiredHoursPerDay = jobDef?.requiredHoursPerDay ?? 8;
     const dailyQuotaComplete = hoursToday >= requiredHoursPerDay;
@@ -202,18 +197,14 @@ $(document).on(':passagerender', function () {
     }
 
     const clothesResult = calculateClothesNotification();
-    console.log('[Topbar Debug] Clothes Result:', clothesResult);
-    
     let config = null;
-    
+
     if (clothesResult.type === 'style') {
         config = clothesConfig[clothesResult.style];
-        console.log('[Topbar Debug] Selected Style Config:', clothesResult.style, config);
     } else if (clothesResult.type > 0) {
         config = clothesConfig[clothesResult.type];
-        console.log('[Topbar Debug] Selected Type Config:', clothesResult.type, config);
     }
-    
+
     if (config) {
         notifications.right.push({
             icon: config.icon,
@@ -221,9 +212,6 @@ $(document).on(':passagerender', function () {
             show: true,
             color: config.color
         });
-        console.log('[Topbar Debug] Pushed to notifications.right:', notifications.right);
-    } else {
-        console.warn('[Topbar Debug] No config found for clothes result!');
     }
 
     const leftIcons = notifications.left
@@ -334,7 +322,14 @@ $(document).on(':passagerender', function () {
         const action = TopbarAPI.$(this).data('action');
         showNavDialog(action);
     });
+}
 
+// Rebuild topbar on each passage render (next frame, after State updates)
+$(document).on(':passagerender', function () {
+    requestAnimationFrame(rebuildTopbar);
+});
+$(document).on(':passagedisplay', function () {
+    requestAnimationFrame(rebuildTopbar);
 });
 
 function showNavDialog(action) {

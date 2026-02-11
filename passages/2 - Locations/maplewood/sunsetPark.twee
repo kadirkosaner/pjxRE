@@ -10,9 +10,15 @@ A beautiful park with walking paths, benches, and a small pond. Perfect for an a
 <<showLocationChars "sunsetPark">>
 <<questPrompts>>
 <div class="location-actions">
-	<<parkActions>>
+	<<set $activityOrigin = "sunsetPark">>
+	<<btnPicker "Rest" "parkRest" "mediumActivity">>
+	<<btnPicker "Sit on Bench" "parkBench" "mediumActivity">>
+	<<btn "Walk" "parkWalk">><</btn>>
+	<<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3|minStat:energy 20" $daily.jogDone>>
+	<<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
 </div>
 
 <<navMenu>>
+	<<navCard "sunsetWC">>
 	<<navCard "maplewood">>
 <</navMenu>>

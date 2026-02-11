@@ -6,7 +6,7 @@
     <<advanceTime 30>>
     <<loseStat "energy" 15>>
     <<loseStat "stress" 10>>
-    <<gainSkill "physical" "yoga" 5>>
+    <<gainSkill "physical" "yoga" 2>>
     <<recalculateStats>>
     
     /* Location-based content */
@@ -22,6 +22,9 @@
             <<case 3>>
                 <<set _sceneText = "You find a shady spot under the tree and lay out your mat. The backyard is peaceful at this hour. You flow through your poses slowly, feeling more connected to your body with each breath of fresh air.">>
         <</switch>>
+        /* Random yoga video (backyard): yogaBackyard1.mp4 – yogaBackyard9.mp4 */
+        <<set _yogaVidNum = random(1, 9)>>
+        <<set _yogaVid = "assets/content/scenes/maplewood/FamilyHouse/backyard/yoga/yogaBackyard" + _yogaVidNum + ".mp4">>
     <<else>>
         /* LIVING ROOM YOGA */
         <<set _sceneImage = "assets/content/scenes/maplewood/FamilyHouse/livingroom/yogaSetup.webp">>
@@ -34,6 +37,9 @@
             <<case 3>>
                 <<set _sceneText = "You focus on gentle stretches today, holding each pose a little longer than usual. Your mind wanders peacefully as your body loosens up. Sometimes the slow sessions are exactly what you need.">>
         <</switch>>
+        /* Random yoga video (living room): yogaLivingroom1.mp4 – yogaLivingroom13.mp4 */
+        <<set _yogaVidNum = random(1, 13)>>
+        <<set _yogaVid = "assets/content/scenes/maplewood/FamilyHouse/livingroom/yoga/solo/yogaLivingroom" + _yogaVidNum + ".mp4">>
     <</if>>
 <</silently>>
 
@@ -41,7 +47,11 @@
 _sceneText
 <</narrative>>
 
+<<if _yogaVid>>
+<<vid _yogaVid "100%">>
+<<else>>
 <<image _sceneImage "80%">>
+<</if>>
 
 <div class="location-actions">
     <<btn "Finish" $location>><</btn>>

@@ -1,13 +1,12 @@
 <<silently>>
-    /* Return to bathroom from global $returnAfterToilet (set by each bathroom passage) */
     <<if ndef $returnAfterToilet>>
         <<set $returnAfterToilet = "fhUpperBath">>
     <</if>>
     <<set $location = $returnAfterToilet>>
-    <<advanceTime 5>>
     <<loseStat "bladder" 100>>
     <<run window.notifySuccess("Bladder Emptied")>>
     <<loseStat "hygiene" 5>>
+    <<advanceTime 5>>
 <</silently>>
 
 <<if $contentPreferences.watersports>>

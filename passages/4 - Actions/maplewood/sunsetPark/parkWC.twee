@@ -1,0 +1,18 @@
+:: parkWC
+<<nobr>>
+<<set $location = "sunsetWC">>
+<<set $returnAfterToilet = "sunsetWC">>
+<<updateCharacterLocations>>
+
+<<narrative "Park Restroom">>
+A small public restroom by the park. Basic but clean—sink, mirror, and stalls.
+<</narrative>>
+
+<div class="location-actions">
+<<bathroomActions>>
+<<mirrorBtn>>
+</div>
+
+<<navMenu>>
+<<navCard "sunsetPark">>
+<</navMenu>>

@@ -1,0 +1,21 @@
+<<silently>>
+    <<set $location = $activityOrigin>>
+    <<advanceTime 15>>
+    <<loseStat "stress" 12>>
+    <<gainStat "mood" 5>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+    <<run $(document).trigger(':passagerender')>>
+    <<set _vidNum = random(1, 2)>>
+    <<set _walkVid = "assets/content/scenes/maplewood/park/walk/walkingPark" + _vidNum + ".mp4">>
+<</silently>>
+
+<<narrative "Park Walk">>
+You take a leisurely walk along the paths. Not a workout—just moving, taking in the trees and the light. Your steps find a steady rhythm and your head clears a little.
+<</narrative>>
+
+<<vid _walkVid "100%">>
+
+<div class="location-actions">
+    <<btn "Finish" $location>><</btn>>
+</div>

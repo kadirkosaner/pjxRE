@@ -5,9 +5,9 @@
 
 - dinersRuby Check yap.
 - Mirror check.
-- yüz saç ve diş bakımı için mall aktivasyon yapmak
+- yüz saç ve diş bakımı için mall aktivasyon yapmak (questle beraber)
 
-- Restaurant için yemek listesi ve yemek imageleri eklenecek.
+- Restaurant için yemek listesi ve yemek imageleri eklenecek. İmageler hazır
 - Yeni itemler için shoppingi yapmaya başlamak. Kitap ve İtemlar.
 
 

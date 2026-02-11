@@ -80,10 +80,3 @@
     <<set $activityOrigin = "fhLivingroom">>
     <<activityButton "Dance" "runDance" "minStat:energy 20" $daily.danceDone>>
 <</nobr>><</widget>>
-
-<<widget "parkActions">><<nobr>>
-    <<set $activityOrigin = "sunsetPark">>
-    <<btnPicker "Sit on Bench" "parkBench" "benchDuration">>
-    <<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3|minStat:energy 20" $daily.jogDone>>
-    <<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
-<</nobr>><</widget>>

@@ -26,13 +26,16 @@
         <<case 3>>
             <<set _sceneText = "You put in your earbuds and start your jog. The music helps you maintain a steady pace as you loop around the park. People watching, breathing fresh air, moving your body - this is exactly what you needed.">>
     <</switch>>
+    /* Random jog video: jogPark1.mp4 – jogPark4.mp4 */
+    <<set _vidNum = random(1, 4)>>
+    <<set _jogVid = "assets/content/scenes/maplewood/park/jog/jogPark" + _vidNum + ".mp4">>
 <</silently>>
 
 <<narrative "Park Jogging">>
 <<print _sceneText>>
 <</narrative>>
 
-<<image "assets/content/scenes/maplewood/park/jogging.webp" "80%">>
+<<vid _jogVid "100%">>
 
 <div class="location-actions">
     <<btn "Finish" $location>><</btn>>

@@ -61,6 +61,7 @@ setup.navCards = {
     "mapleChurch": { name: "St. Mary's Chapel" },
     "storeCorner": { name: "Quick Mart" },
     "sunsetPark": { name: "Sunset Park" },
+    "sunsetWC": { name: "Restroom" },
 
     /* ==========================================
        DOWNTOWN
@@ -261,6 +262,7 @@ setup.locations = {
     "mapleChurch": { parent: "maplewood", type: "room" },
     "storeCorner": { parent: "maplewood", type: "room" },
     "sunsetPark": { parent: "maplewood", type: "area" },
+    "sunsetWC": { parent: "sunsetPark", type: "subroom" },
     
     // Family House
     "FamilyHouse": { parent: "maplewood", type: "house" },

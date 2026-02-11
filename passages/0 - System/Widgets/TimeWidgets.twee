@@ -28,6 +28,8 @@
     <<set _return = $timeConfig.weekdayNames[$timeSys.weekday]>>
 <</widget>>
 
+/* advanceTime: call LAST in a passage, after all <<loseStat>>/<<gainStat>>/<<set>> etc.
+   So recalculateStats and topbar/rightbar refresh see the final state. */
 <<widget "advanceTime">>
     <<set _minutes = parseInt($args[0], 10) || 30>>
     <<set $timeSys.minute = (parseInt($timeSys.minute, 10) || 0) + _minutes>>
@@ -77,8 +79,10 @@
         <</if>>
     <</if>>
     
-    /* Recalculate and clamp stats */
+    /* Recalculate and clamp stats (hunger, thirst, bladder, notifications, etc.) */
     <<recalculateStats>>
+    /* Refresh topbar/rightbar after time & stat changes */
+    <<run $(document).trigger(':passagerender')>>
 <</widget>>
 
 <<widget "advanceDay">>
