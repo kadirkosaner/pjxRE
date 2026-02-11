@@ -1,0 +1,20 @@
+<<nobr>>
+<<silently>>
+    <<set $location = "fhKitchen">>
+    <<gainStat "energy" 10>>
+    <<loseStat "stress" 5>>
+    <<flushNotifications>>
+    <<advanceTime 10>>
+    <<recalculateStats>>
+<</silently>>
+
+<<narrative "Coffee">>
+You brew a fresh cup and take a moment at the counter. The warmth in your hands and the familiar smell help you pause. You sip slowly, feeling a little more alert and a bit less wound up.
+<</narrative>>
+
+<<vid "assets/content/scenes/maplewood/familyHouse/kitchen/coffee.mp4" "100%">>
+
+<div class="location-actions">
+    <<btn "Finish" "fhKitchen">><</btn>>
+</div>
+<</nobr>>

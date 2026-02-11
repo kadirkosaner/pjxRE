@@ -52,6 +52,22 @@ function restaurantGetMenu(menuId) {
     return menus && menus[menuId] ? menus[menuId] : null;
 }
 
+var restaurantStatLabels = { hunger: 'Hunger', thirst: 'Thirst', energy: 'Energy', mood: 'Mood' };
+
+function restaurantFormatEffects(dish) {
+    if (!dish || !dish.effects || !dish.effects.length) return '';
+    var parts = [];
+    for (var i = 0; i < dish.effects.length; i++) {
+        var e = dish.effects[i];
+        if (e.type !== 'instant' || !e.stat) continue;
+        var label = restaurantStatLabels[e.stat] || e.stat;
+        var v = e.value;
+        var s = (v > 0 ? '+' : '') + v + ' ' + label;
+        parts.push(s);
+    }
+    return parts.join(', ');
+}
+
 function restaurantOrderTotal() {
     var total = 0;
     if (restaurantSelectedFood) {
@@ -95,6 +111,8 @@ function restaurantPayCash() {
     restaurantSelectedFood = null;
     restaurantSelectedDrink = null;
     restaurantRenderAll();
+    if (typeof $ !== 'undefined' && $.wiki) { $.wiki('<<recalculateStats>>'); }
+    $(document).trigger(':passagerender');
 }
 
 function restaurantPayCard() {
@@ -116,6 +134,8 @@ function restaurantPayCard() {
     restaurantSelectedFood = null;
     restaurantSelectedDrink = null;
     restaurantRenderAll();
+    if (typeof $ !== 'undefined' && $.wiki) { $.wiki('<<recalculateStats>>'); }
+    $(document).trigger(':passagerender');
 }
 
 function restaurantToast(msg) {
@@ -140,6 +160,8 @@ function restaurantRenderFoods() {
         html += '<div class="restaurant-dish-card' + sel + '" data-type="food" data-id="' + d.id + '">';
         html += '<div class="restaurant-dish-image"><img src="' + (d.image || '') + '" alt="' + d.name + '" onerror="this.style.display=\'none\'"></div>';
         html += '<div class="restaurant-dish-info"><div class="restaurant-dish-name">' + d.name + '</div><div class="restaurant-dish-price">$' + (typeof d.price === 'number' ? d.price.toFixed(2) : d.price) + '</div>';
+        var effectsStr = restaurantFormatEffects(d);
+        if (effectsStr) html += '<div class="restaurant-dish-effects">' + effectsStr + '</div>';
         if (d.desc) html += '<div class="restaurant-dish-desc">' + d.desc + '</div>';
         html += '</div><div class="restaurant-dish-select"></div></div>';
     }
@@ -166,6 +188,8 @@ function restaurantRenderDrinks() {
         html += '<div class="restaurant-dish-card' + sel + '" data-type="drink" data-id="' + d.id + '">';
         html += '<div class="restaurant-dish-image"><img src="' + (d.image || '') + '" alt="' + d.name + '" onerror="this.style.display=\'none\'"></div>';
         html += '<div class="restaurant-dish-info"><div class="restaurant-dish-name">' + d.name + '</div><div class="restaurant-dish-price">$' + (typeof d.price === 'number' ? d.price.toFixed(2) : d.price) + '</div>';
+        var effectsStr = restaurantFormatEffects(d);
+        if (effectsStr) html += '<div class="restaurant-dish-effects">' + effectsStr + '</div>';
         if (d.desc) html += '<div class="restaurant-dish-desc">' + d.desc + '</div>';
         html += '</div><div class="restaurant-dish-select"></div></div>';
     }

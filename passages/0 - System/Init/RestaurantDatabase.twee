@@ -3,9 +3,31 @@
    RESTAURANT DATABASE
    - setup.restaurantDishes: { foods: [...], drinks: [...] }
    - setup.restaurantMenus[menuId]: { name, foods, drinks, back? }
-     back = dönüş pasajı (yoksa $location kullanılır)
-   - Dish: id, name, price, desc?, image?, effects: [{ stat, value, type, duration? }]
+     back = return passage (else $location)
+   - Dish: id, name, price, desc?, image?, effects: [{ stat, value, type }]
    NOT related to setup.items (shopping). Used only by restaurant system.
+
+   EFFECTS BY ITEM (value = change: negative = reduce, positive = gain)
+   -----------------------------------------------------------------------
+   FOODS:
+   - House Salad         hunger -25, energy +5
+   - Soup of the Day     hunger -20, mood +3
+   - Ruby's Classic Burger  hunger -45, energy +15
+   - Grilled Cheese      hunger -35, mood +3
+   - Short Stack Pancakes   hunger -40, energy +12
+   - Club Sandwich       hunger -48, energy +14
+   - Mac & Cheese        hunger -38, mood +4
+   - Eggs & Bacon        hunger -42, energy +18
+   - Pasta Carbonara     hunger -45, energy +12
+   - Grilled Salmon      hunger -50, energy +15, mood +5
+   - Steak & Frites      hunger -55, energy +20
+
+   DRINKS:
+   - Water               thirst -40
+   - Coffee              energy +15
+   - Iced Tea            thirst -35, energy +5
+   - Soda                thirst -25
+   - Fresh Juice         thirst -30, energy +8
    ===================================================================== */
 
 setup.restaurantDishes = {
@@ -151,8 +173,7 @@ setup.restaurantDishes = {
             desc: "Freshly brewed.",
             image: "assets/content/items/restaurants/coffee.png",
             effects: [
-                { stat: "energy", value: 15, type: "instant" },
-                { stat: "focus", value: 5, type: "temporary", duration: 2 }
+                { stat: "energy", value: 15, type: "instant" }
             ]
         },
         {

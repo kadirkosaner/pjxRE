@@ -1,0 +1,23 @@
+<<silently>>
+    <<set $location = $activityOrigin>>
+    <<set $selectedDuration = $selectedDuration || 30>>
+    <<advanceTime $selectedDuration>>
+    <<loseStat "stress" 10>>
+    <<gainStat "mood" 5>>
+    <<gainStat "energy" 5>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+    <<run $(document).trigger(':passagerender')>>
+    <<set _vidNum = random(1, 2)>>
+    <<set _restVid = "assets/content/scenes/maplewood/park/rest/restingPark" + _vidNum + ".mp4">>
+<</silently>>
+
+<<narrative "Backyard Rest">>
+You settle into a chair on the patio or find a spot on the grass. The garden is quiet—just birds and the rustle of leaves. You let yourself unwind with no agenda. After a while you feel a bit more at ease.
+<</narrative>>
+
+<<vid _restVid "100%">>
+
+<div class="location-actions">
+    <<btn "Continue" $location>><</btn>>
+</div>
