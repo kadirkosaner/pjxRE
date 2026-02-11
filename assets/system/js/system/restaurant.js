@@ -107,12 +107,14 @@ function restaurantPayCash() {
         d = restaurantGetDish('drink', restaurantSelectedDrink);
         if (d) restaurantApplyEffects(d);
     }
-    restaurantToast('Enjoy your meal!');
     restaurantSelectedFood = null;
     restaurantSelectedDrink = null;
-    restaurantRenderAll();
+    S.variables.restaurantReturnPassage = restaurantReturnPassage;
     if (typeof $ !== 'undefined' && $.wiki) { $.wiki('<<recalculateStats>>'); }
     $(document).trigger(':passagerender');
+    document.body.classList.remove('restaurant-active');
+    var Eng = restaurantGetEngine();
+    if (Eng && Eng.play) Eng.play('restaurantEating');
 }
 
 function restaurantPayCard() {
@@ -130,12 +132,15 @@ function restaurantPayCard() {
         d = restaurantGetDish('drink', restaurantSelectedDrink);
         if (d) restaurantApplyEffects(d);
     }
-    restaurantToast('Enjoy your meal!');
     restaurantSelectedFood = null;
     restaurantSelectedDrink = null;
-    restaurantRenderAll();
+    S = restaurantGetState();
+    S.variables.restaurantReturnPassage = restaurantReturnPassage;
     if (typeof $ !== 'undefined' && $.wiki) { $.wiki('<<recalculateStats>>'); }
     $(document).trigger(':passagerender');
+    document.body.classList.remove('restaurant-active');
+    var Eng = restaurantGetEngine();
+    if (Eng && Eng.play) Eng.play('restaurantEating');
 }
 
 function restaurantToast(msg) {

@@ -313,10 +313,10 @@
         }
     },
 
-    /* ========== GO TO MALL ========== */
-    go_to_mall: {
-        id: "go_to_mall",
-        title: "Go to Mall",
+    /* ========== CHECK OLD TOWN ========== */
+    check_old_town: {
+        id: "check_old_town",
+        title: "Check Old Town",
         category: "side",
         character: "player",
 
@@ -326,16 +326,27 @@
 
         stages: [
             {
-                id: "visit_mall",
-                title: "Visit the Mall",
-                desc: "Mom suggested you get a few things to feel better. Head to the mall.",
-                /* WIP: triggers and passage TBD */
-                passage: "quest_go_to_mall_wip"
+                id: "check_old_town",
+                title: "Check Old Town",
+                desc: "You remember seeing a pharmacy and a barber shop in Old Town. Take a look around.",
+                buttonText: "Check Old Town",
+                triggers: { location: "maplewood" },
+                forceScene: true,
+                passage: "quest_check_old_town"
+            },
+            {
+                id: "check_old_town_oldtown",
+                title: "Check Old Town",
+                desc: "Look around Old Town and find the pharmacy and barber shop.",
+                buttonText: "Check Old Town",
+                triggers: { location: "oldTown" },
+                forceScene: true,
+                passage: "quest_check_old_town"
             }
         ],
 
         onComplete: {
-            notification: "Quest Complete: Go to Mall"
+            notification: "Quest Complete: Check Old Town"
         }
     }
 })>>

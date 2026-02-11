@@ -1,0 +1,14 @@
+<<nobr>>
+<<set $location = $restaurantReturnPassage || $location || "start">>
+<<set _back = $location>>
+<<set _mealMinutes = random(30, 45)>>
+<<advanceTime _mealMinutes>>
+
+<<narrative "Meal">>
+You enjoy your meal. The food hits the spot and you feel refreshed.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Back" _back>><</btn>>
+</div>
+<</nobr>>
