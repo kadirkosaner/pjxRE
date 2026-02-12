@@ -862,21 +862,13 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
     // Render initial content
     renderAll();
 
-    // Bind back link
+    // Bind back link — always navigate to the backPassage (location), never backward
     $wrapper.find('.back-link').on('click', function(e) {
         e.preventDefault();
-        
-        // Clean up session before leaving
         cleanupShopSession();
-        
         document.body.classList.remove('shop-active');
         const passage = $(this).data('passage');
-        if (!ShopAPI || !ShopAPI.Engine) return;
-        const currentPassage = (ShopAPI.State && ShopAPI.State.passage) ? ShopAPI.State.passage : '';
-        // If "back" is the same passage we're in (shop embedded here), go backward in history instead
-        if (passage && passage === currentPassage && typeof ShopAPI.Engine.backward === 'function') {
-            ShopAPI.Engine.backward();
-        } else if (passage) {
+        if (passage && ShopAPI && ShopAPI.Engine) {
             ShopAPI.Engine.play(passage);
         }
     });

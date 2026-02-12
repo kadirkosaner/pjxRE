@@ -191,14 +191,12 @@ window.JournalInit = function (API) {
         const defaultRegionData = { athlete: 0, model: 0, camgirl: 0, stripper: 0, escort: 0, porn: 0, socialMedia: 0 };
         
         let accordionsHtml = '';
-        let firstExpanded = true;
         
         regions.forEach((region) => {
-            // Only show if discovered
+            // Only show if discovered; all start collapsed
             if (vars[region.discoveredVar]) {
                 const regionData = reputation[region.id] || defaultRegionData;
-                accordionsHtml += this.buildRegionAccordion(region.id, regionData, firstExpanded);
-                firstExpanded = false;
+                accordionsHtml += this.buildRegionAccordion(region.id, regionData, false);
             }
         });
 
@@ -484,6 +482,9 @@ window.JournalInit = function (API) {
         },
       ];
       const certificates = vars.certificates || [];
+      const locationsDiscoveredCount = Object.keys(vars).filter(
+        (k) => typeof k === 'string' && k.startsWith('discovered') && vars[k]
+      ).length;
 
       // Reputation Content
       const reputationKeys = Object.keys(reputation);
@@ -590,7 +591,7 @@ window.JournalInit = function (API) {
                                         )}
                                         ${this.createRecordRow(
                                           "Locations Discovered",
-                                          "1"
+                                          locationsDiscoveredCount
                                         )}
                                     `
                                     )}

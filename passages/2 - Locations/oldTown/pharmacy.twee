@@ -1,7 +1,8 @@
 <<nobr>>
 <<set $location = "pharmacy">>
 <<set _shopItems = ["face_cream", "hair_cream", "skincare_set", "toothpaste"]>>
-<<set _shopBack = "pharmacy">>
+<<set _shopBack = "oldTown">>
+<<updateCharacterLocations>>
 
 <<narrative "Green Cross Pharmacy">>A neighborhood pharmacy run by a friendly pharmacist. Medications and basic health supplies.<</narrative>>
 <<showLocationChars "pharmacy">>

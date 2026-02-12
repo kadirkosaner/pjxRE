@@ -1,0 +1,46 @@
+/* ==========================================
+   PARK RUNNER - Lily Morgan
+   Regular runner at Sunset Park. First met on the bench.
+   25-28, friendly, sporty.
+========================================= */
+
+<<set setup.characterDefs.parkRunnerLily = {
+    name: "Lily Morgan",
+    firstName: "Lily",
+    lastName: "Morgan",
+    birthYear: 1998,
+    occupation: "Fitness Enthusiast",
+    location: "Sunset Park",
+    avatar: "assets/content/people/maplewood/sunsetPark/lilyMorgan.webp",
+    type: "npc",
+    color: "#06b6d4",
+    info: "<p>A friendly woman you met at Sunset Park. She runs there regularly and pointed you to the mall's sports store. Approachable and welcoming.</p>",
+    status: "Park Regular"
+}>>
+<<set $characters.parkRunnerLily = {
+    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.parkRunnerLily = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 7, location: "sunsetPark", status: "jogging" },
+        { hour: 9, location: null, status: "unavailable" },
+        { hour: 17, location: "sunsetPark", status: "jogging" },
+        { hour: 20, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 8, location: "sunsetPark", status: "jogging" },
+        { hour: 12, location: null, status: "unavailable" },
+        { hour: 16, location: "sunsetPark", status: "jogging" },
+        { hour: 19, location: null, status: "unavailable" }
+    ]
+}>>
+
+/* Talk action added later – first meeting is scripted in park bench event */
+<<set setup.characterActions.parkRunnerLily = {}>>

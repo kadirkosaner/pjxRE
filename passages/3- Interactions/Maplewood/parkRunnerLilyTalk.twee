@@ -1,0 +1,40 @@
+<<silently>>
+<<set $location = "sunsetPark">>
+<<logDailyActivity "parkRunnerLily" "talk">>
+<<updateCharacterLocations>>
+
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+
+<<set _currentFriendship = $characters.parkRunnerLily.stats.friendship>>
+<<if _currentFriendship < 25>>
+    <<set _friendshipGain = random(1, 2)>>
+    <<set $characters.parkRunnerLily.stats.friendship = Math.min(25, _currentFriendship + _friendshipGain)>>
+    <<set _actualGain = $characters.parkRunnerLily.stats.friendship - _currentFriendship>>
+    <<if _actualGain > 0>>
+        <<run window.notifySuccess("Lily Friendship +" + _actualGain)>>
+    <</if>>
+<</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Sunset Park">>
+You catch up with Lily by the pond. She's cooling down after her run, stretching her calves against the bench. She waves when she sees you.
+<</narrative>>
+
+<<dialog "parkRunnerLily">>
+Hey! Good to see you again. How's the sportswear hunt going? Did you make it to the mall?
+<</dialog>>
+
+<<dialog "player">>
+Getting there. Thanks for the tip.
+<</dialog>>
+
+<<dialog "parkRunnerLily">>
+Anytime! This park's become my second home. If you ever want a running buddy, you know where to find me.
+<</dialog>>
+
+<div class="btn-center">
+<<btn "Continue" "sunsetPark">><</btn>>
+</div>

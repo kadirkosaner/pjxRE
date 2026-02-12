@@ -116,8 +116,8 @@ window.CharacterInit = function (API) {
                 return `
                     <div class="tab-content-inner inventory-container">
                         <div class="inventory-empty">
-                            <div style="font-size: 2rem; opacity: 0.3; margin-bottom: 8px;">📦</div>
-                            <div style="color: var(--color-text-tertiary);">Your inventory is empty</div>
+                            <div class="inventory-empty-icon">📦</div>
+                            <div class="inventory-empty-text">Your inventory is empty</div>
                         </div>
                     </div>
                 `;
@@ -138,8 +138,9 @@ window.CharacterInit = function (API) {
                 // Show use button only for direct usage items
                 const showUseBtn = item.usageType === 'direct';
                 
+                const safeId = String(item.id).replace(/"/g, '&quot;');
                 return `
-                    <div class="inventory-item" data-item-id="${item.id}">
+                    <div class="inventory-item" data-item-id="${safeId}">
                         <div class="item-info-icon">i</div>
                         <div class="item-effects-tooltip">
                             <div class="tooltip-title">${item.name}</div>
@@ -153,13 +154,17 @@ window.CharacterInit = function (API) {
                         <div class="inventory-item-info">
                             <div class="inventory-item-name">${item.name}</div>
                         </div>
-                        ${showUseBtn ? `<button class="item-use-btn" onclick="CharacterSystem.useInventoryItem('${item.id}')">Use</button>` : ''}
+                        ${showUseBtn ? `<button type="button" class="item-use-btn" data-item-id="${safeId}">Use</button>` : ''}
                     </div>
                 `;
             }).join('');
 
             return `
                 <div class="tab-content-inner inventory-container">
+                    <div class="inventory-tab-header">
+                        <span class="inventory-tab-title">Inventory</span>
+                        <span class="inventory-tab-count">${filtered.length} item${filtered.length !== 1 ? 's' : ''}</span>
+                    </div>
                     <div class="inventory-grid">
                         ${itemsHtml}
                     </div>
@@ -253,20 +258,20 @@ window.CharacterInit = function (API) {
             // Generate new HTML
             const newHtml = self.generateInventoryHtml(vars);
             
-            // Use jQuery to find and replace the container
-            // This is more robust as it handles cross-browser discrepancies and SugarCube's dialog structure
-            const $container = $('.inventory-container');
+            // Use character modal-scoped selector first to avoid cross-view collisions.
+            const $container = $('.modal-overlay[data-modal="character-modal"] .inventory-container');
             
             if ($container.length > 0) {
                 $container.replaceWith(newHtml);
+                $('.modal-overlay[data-modal="character-modal"] .modal-content').scrollTop(0);
                 console.log('[Inventory] DOM successfully replaced via jQuery');
             } else {
                 console.error('[Inventory] Container not found via jQuery');
-                // Try finding it within the modal specific context if generic fail
-                const $modalContainer = $('#character-modal .inventory-container');
+                const $modalContainer = $('.inventory-container');
                 if ($modalContainer.length > 0) {
                     $modalContainer.replaceWith(newHtml);
-                    console.log('[Inventory] DOM replaced using modal ID scope');
+                    $('.modal-overlay[data-modal="character-modal"] .modal-content').scrollTop(0);
+                    console.log('[Inventory] DOM replaced using fallback scope');
                 }
             }
         },
@@ -694,7 +699,6 @@ window.CharacterInit = function (API) {
                         </div>
                         </div>
                         </div>
-                        </div>
                         
                         <!-- Right: Outfit Display -->
                         ${outfitHtml}
@@ -720,49 +724,31 @@ window.CharacterInit = function (API) {
                         id: 'profile',
                         label: 'Profile',
                         content: `
-                            <div class="tab-content-inner profile-container">
-                                    <div class="profile-card">
-                                    <div class="profile-header">
-                                        <div class="profile-avatar-wrapper">
-                                            <img src="${vars.characters.player.avatar}" class="profile-avatar" alt="Player Avatar">
-                                        </div>
-                                        <div class="profile-identity">
-                                            <h2 class="profile-name">
-                                                ${vars.characters.player.name} ${vars.characters.player.lastname || ""}
-                                            </h2>
-                                            <div class="profile-subtitle">
-                                                ${2025 - vars.characters.player.birthYear} Years Old
-                                            </div>
-                                            <div class="profile-corruption" style="font-size: 0.85rem; color: #9333ea; margin-top: 4px;">
-                                                Corruption Level ${vars.corruption || 0}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="profile-body">
-                                        <div class="profile-section">
-                                            <h3><span class="icon icon-bio"></span> Bio</h3>
-                                            <div class="profile-text">
-                                                ${vars.characters.player.info}
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="profile-section">
-                                            <h3><span class="icon icon-personal"></span> Personal History & Traits</h3>
-                                            
-                                            <!-- Prologue Memories -->
-                                            <div class="history-list" style="margin-bottom: 16px;">
-                                                ${historyHtml}
-                                            </div>
-                                            
-                                            <!-- Traits -->
-                                            <div class="traits-list" id="player-traits-container">
-                                                ${traitsHtml}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<div class="tab-content-inner profile-container">
+  <div class="profile-card">
+    <div class="profile-header">
+      <div class="profile-avatar-wrapper">
+        <img src="${vars.characters.player.avatar}" class="profile-avatar" alt="Player Avatar">
+      </div>
+      <div class="profile-identity">
+        <h2 class="profile-name">${vars.characters.player.name} ${vars.characters.player.lastname || ""}</h2>
+        <div class="profile-subtitle">${2025 - vars.characters.player.birthYear} Years Old</div>
+        <div class="profile-corruption" style="font-size: 0.85rem; color: #9333ea; margin-top: 4px;">Corruption Level ${vars.corruption || 0}</div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <div class="profile-section">
+        <h3><span class="icon icon-bio"></span> Bio</h3>
+        <div class="profile-text">${vars.characters.player.info}</div>
+      </div>
+      <div class="profile-section">
+        <h3><span class="icon icon-personal"></span> Personal History & Traits</h3>
+        <div class="history-list" style="margin-bottom: 16px;">${historyHtml}</div>
+        <div class="traits-list" id="player-traits-container">${traitsHtml}</div>
+      </div>
+    </div>
+  </div>
+</div>
                         `
                     },
                     {
@@ -776,6 +762,16 @@ window.CharacterInit = function (API) {
                         content: this.generateInventoryHtml(vars)
                     }
                 ]
+            });
+
+            const $characterModal = $('.modal-overlay[data-modal="character-modal"]');
+            const $modalContent = $characterModal.find('.modal-content');
+            const resetScroll = function () { $modalContent.scrollTop(0); };
+            resetScroll();
+            $characterModal.off('click.characterInventoryTabReset', '.modal-tab[data-tab="inventory"]');
+            $characterModal.on('click.characterInventoryTabReset', '.modal-tab[data-tab="inventory"]', function () {
+                setTimeout(resetScroll, 0);
+                requestAnimationFrame(resetScroll);
             });
             
             // Add interactions for appearance pointers (panels break out of modal via fixed positioning)
@@ -856,6 +852,16 @@ window.CharacterInit = function (API) {
                 );
                 
             }, 100);
+
+            // Delegated click for Use button (works after refreshInventoryTab)
+            $(document).off('click.characterInventory', '.modal-overlay[data-modal="character-modal"] .item-use-btn');
+            $(document).on('click.characterInventory', '.modal-overlay[data-modal="character-modal"] .item-use-btn', function (e) {
+                e.preventDefault();
+                const itemId = $(this).data('item-id') || $(this).closest('.inventory-item').data('item-id');
+                if (itemId && window.CharacterSystem && typeof window.CharacterSystem.useInventoryItem === 'function') {
+                    window.CharacterSystem.useInventoryItem(itemId);
+                }
+            });
         }
     };
 };

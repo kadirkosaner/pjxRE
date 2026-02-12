@@ -1,0 +1,87 @@
+<<nobr>>
+<<silently>>
+<<set $location = "sunsetPark">>
+<<if ndef $flags>>
+<<set $flags = {}>>
+<</if>>
+<<set $flags.parkBenchFirstEncounter = true>>
+
+<<set $characters.parkRunnerLily.known = true>>
+<<if !$characters.parkRunnerLily.firstMet>>
+<<set $characters.parkRunnerLily.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
+<</if>>
+<<gainCharacterStat "parkRunnerLily" "friendship" 2>>
+
+<<set $selectedDuration = $selectedDuration || 30>>
+<<advanceTime $selectedDuration>>
+<<loseStat "stress" 5>>
+<<gainStat "mood" 5>>
+<<flushNotifications>>
+<<recalculateStats>>
+
+<<set _vidNum = random(1, 2)>>
+<<set _benchVid = "assets/content/scenes/maplewood/park/bench/sittingBenchPark" + _vidNum + ".mp4">>
+<</silently>>
+
+<<narrative "Park Bench">>
+You settle onto the bench, letting out a quiet breath. The park stretches out in front of you – the pond, the trees, the steady flow of joggers and walkers.
+
+A moment later you notice her. A woman in athletic wear – light gray leggings, a fitted top, running shoes – is crouched beside the bench, one foot up on the edge of the seat as she ties her shoelace. Her hair is pulled back in a ponytail. She finishes the knot, pulls her foot down, and catches you looking.
+
+You hadn't meant to stare. You quickly look away, then back – an awkward half-smile. //Sorry.//
+<</narrative>>
+
+<<vid "assets/content/scenes/maplewood/park/bench/lilyBenchInteraction.mp4" "100%">>
+
+<div class="talk-interaction">
+<<dialog "player">>
+Sorry, I didn't mean to disturb you.
+<</dialog>>
+
+<<dialog "parkRunnerLily">>
+Oh, no worries at all! You're fine. I was just fixing my laces – one came loose on my last lap.
+<</dialog>>
+
+<<narrative>>
+She straightens up and brushes her hands on her thighs. A friendly smile. She doesn't seem bothered. If anything, she looks like she might be open to talking.
+<</narrative>>
+
+<<dialog "player">>
+Actually… I've been meaning to ask. I'm still new around here and I've been looking for sportswear – you know, something decent for jogging or yoga. I can't seem to find anything in the neighborhood.
+<</dialog>>
+
+<<dialog "parkRunnerLily">>
+Ah, I know exactly what you mean! There's not much around Maplewood for that. I got these from the mall – Skyline Mall, downtown? They have a really good sports store. Decent prices, decent selection. It's a bit of a trip, but worth it if you're serious about working out.
+<</dialog>>
+
+<<dialog "player">>
+That helps, thanks. I'll have to check it out.
+<</dialog>>
+
+<<dialog "parkRunnerLily">>
+You're welcome! Oh – I'm Lily, by the way. I run here a few times a week. Maybe I'll see you around.
+<</dialog>>
+
+<<narrative>>
+She gives a small wave, warm but not pushy.
+<</narrative>>
+
+<<dialog "player">>
+Nice to meet you. I'm <<print $player.firstName>>. Yeah, maybe you will.
+<</dialog>>
+
+<<dialog "parkRunnerLily">>
+Good luck with the sportswear hunt. And welcome to the neighborhood!
+<</dialog>>
+
+<<narrative>>
+She stretches her arms overhead, then starts a light jog back toward the path. You watch her go – ponytail swinging, steady rhythm – before settling back against the bench.
+<</narrative>>
+</div>
+
+<<vid _benchVid "100%">>
+
+<div class="location-actions">
+<<btn "Stand Up" $activityOrigin>><</btn>>
+</div>
+<</nobr>>
