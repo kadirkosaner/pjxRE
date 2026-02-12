@@ -1,9 +1,14 @@
 <<nobr>>
 <<set $location = "downTown">>
-<</nobr>>
-
 <<updateCharacterLocations>>
 
+<<if ndef $flags>><<set $flags = {}>><</if>>
+<<set _goToMallActive = $questState.active.go_to_mall>>
+<<set _firstDowntown = !$flags.firstDowntownVisit>>
+<<set _atVisitStage = _goToMallActive && _goToMallActive.stage === 0>>
+<<if _firstDowntown && _atVisitStage>>
+<<include "quest_go_to_mall_downtown_first">>
+<<else>>
 <<narrative "Downtown">>
 The bustling heart of the city. Towering skyscrapers, busy streets, and endless opportunities await. The sound of traffic and city life fills the air.
 <</narrative>>
@@ -21,3 +26,5 @@ The bustling heart of the city. Towering skyscrapers, busy streets, and endless 
 	<<navCard "marinaBay">>
 	<<navCard "redLightCenter">>
 <</navMenu>>
+<</if>>
+<</nobr>>

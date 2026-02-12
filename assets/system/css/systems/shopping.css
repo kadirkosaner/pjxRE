@@ -104,12 +104,75 @@
   font-weight: 600;
 }
 
+/* Shop Tabs Row: category tabs + owned toggle */
+.shop-tabs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
 /* Category Tabs Container */
 .category-tabs {
   display: flex;
   gap: 8px;
-  margin-bottom: var(--spacing-md);
   flex-wrap: wrap;
+}
+
+/* Owned-only toggle (right of category tabs) */
+.shop-owned-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.shop-owned-toggle:hover,
+.shop-owned-toggle:focus,
+.shop-owned-toggle:focus-visible {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--color-text-secondary) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.shop-owned-toggle .toggle-track {
+  display: inline-flex;
+  align-items: center;
+  width: 40px;
+  height: 22px;
+  padding: 2px;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 11px;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.shop-owned-toggle .toggle-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-text-tertiary);
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.shop-owned-toggle.active .toggle-track {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.shop-owned-toggle.active .toggle-thumb {
+  transform: translateX(18px);
+  background: white;
 }
 
 /* Category Tabs - Header Variant (for shopping comparison) */
@@ -256,6 +319,50 @@
 .product-add-btn:hover {
   background: var(--color-accent-hover);
   transform: scale(1.1);
+}
+
+.product-card-locked {
+  position: relative;
+}
+
+.product-card-locked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+}
+
+.product-locked-tooltip {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #f59e0b;
+  font-size: 0.8rem;
+  border-radius: var(--radius-md);
+  max-width: 180px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.product-card-locked:hover .product-locked-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.tooltip-requirement {
+  color: #f59e0b;
+  font-size: 0.8rem;
+  margin-top: 4px;
 }
 
 /* Info Icon & Tooltip */

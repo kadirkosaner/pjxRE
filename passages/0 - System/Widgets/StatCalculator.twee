@@ -166,14 +166,17 @@
 /* GAIN STAT WITH MULTIPLIER */
 /* Usage: <<gainStat "intelligence" 5>> for player stats */
 /* Usage: <<gainStat "friendship" 5 "mother">> for character stats */
+/* Usage: <<gainStat "cardio" 6 20>> for player stat capped at 20 (3rd arg number = maxCap) */
 /* Fitness multiplier applies to: upperBody, core, lowerBody, cardio */
 <<widget "gainStat">><<nobr>>
     <<set _statName = $args[0]>>
     <<set _baseAmount = $args[1]>>
-    <<set _characterId = $args[2]>>
+    <<set _arg3 = $args[2]>>
+    <<set _characterId = (typeof _arg3 === "string" ? _arg3 : null)>>
+    <<set _maxCap = (typeof _arg3 === "number" ? _arg3 : null)>>
 
     /* If character ID is provided (must be string), delegate to gainCharacterStat */
-    <<if _characterId && typeof _characterId === "string">>
+    <<if _characterId>>
         <<gainCharacterStat _characterId _statName _baseAmount>>
     <<else>>
         /* Handle player stat */
@@ -190,12 +193,16 @@
 
         <<if def State.variables[_statName]>>
             <<set _maxVal = 100>>
-            <<if _statName === "energy" && def $energyMax>>
+            <<if _maxCap>>
+                <<set _maxVal = _maxCap>>
+            <<elseif _statName === "energy" && def $energyMax>>
                 <<set _maxVal = $energyMax>>
             <</if>>
-
-            <<set State.variables[_statName] = Math.min(_maxVal, Math.max(0, State.variables[_statName] + _actualGain))>>
-            <<queueStatChange _statName _actualGain>>
+            <<set _current = State.variables[_statName]>>
+            <<set _newVal = Math.min(_maxVal, Math.max(0, _current + _actualGain))>>
+            <<set _realGain = _newVal - _current>>
+            <<set State.variables[_statName] = _newVal>>
+            <<if _realGain > 0>><<queueStatChange _statName _realGain>><</if>>
         <</if>>
     <</if>>
 
@@ -205,16 +212,22 @@
 
 /* GAIN SKILL WITH CATEGORY MULTIPLIER */
 /* Usage: <<gainSkill "mental" "research" 5>> */
+/* Usage: <<gainSkill "physical" "yoga" 2 20>> - 4th arg = maxCap (cap skill at 20) */
 /* Physical skills also grant small stat bonuses */
 <<widget "gainSkill">><<nobr>>
     <<set _category = $args[0]>>
     <<set _skillName = $args[1]>>
     <<set _baseAmount = $args[2]>>
+    <<set _maxCap = $args[3]>>
     <<set _multiplier = $skillMultipliers[_category] || 1.0>>
     <<set _actualGain = _baseAmount * _multiplier>>
     
     <<if $skills[_category] && def $skills[_category][_skillName]>>
-        <<set $skills[_category][_skillName] = Math.min(100, Math.max(0, $skills[_category][_skillName] + _actualGain))>>
+        <<set _skillMax = (_maxCap ? Math.min(100, _maxCap) : 100)>>
+        <<set _currentSkill = $skills[_category][_skillName]>>
+        <<set _newSkillVal = Math.min(_skillMax, Math.max(0, _currentSkill + _actualGain))>>
+        <<set _actualGain = _newSkillVal - _currentSkill>>
+        <<set $skills[_category][_skillName] = _newSkillVal>>
         <<notifySkillChange _skillName _actualGain>>
         
         /* Auto-track skill usage for decay system */
@@ -225,12 +238,12 @@
         <<set _statBonus = _actualGain * 0.25>>
         
         <<if _skillName === "dance">>
-            <<gainStat "cardio" _statBonus>>
-            <<gainStat "core" _statBonus>>
-            <<gainStat "lowerBody" (_statBonus * 0.4)>> /* +10% total ~ 40% of bonus share */
+            <<gainStat "cardio" _statBonus _maxCap>>
+            <<gainStat "core" _statBonus _maxCap>>
+            <<gainStat "lowerBody" (_statBonus * 0.4) _maxCap>> /* +10% total ~ 40% of bonus share */
         <<elseif _skillName === "yoga">>
-            <<gainStat "core" _statBonus>>
-            <<gainStat "lowerBody" _statBonus>>
+            <<gainStat "core" _statBonus _maxCap>>
+            <<gainStat "lowerBody" _statBonus _maxCap>>
         <<elseif _skillName === "basketball">>
             <<gainStat "cardio" _statBonus>>
             <<gainStat "lowerBody" _statBonus>>

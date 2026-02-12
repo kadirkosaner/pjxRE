@@ -1,0 +1,39 @@
+<<nobr>>
+<<silently>>
+<<set $location = "downTown">>
+<<if ndef $flags>><<set $flags = {}>><</if>>
+<<set $flags.firstDowntownVisit = true>>
+<<advanceQuestStage "go_to_mall">>
+<<updateCharacterLocations>>
+<</silently>>
+
+<<narrative "Downtown">>
+You step off the bus and the city hits you all at once.
+<</narrative>>
+
+<<vid "assets/content/scenes/downtown/cityLandscape.mp4" "100%">>
+
+<<narrative>>
+The noise. The crowd. The sheer //scale// of it – buildings that seem to scrape the sky, streets packed with people in every direction. Maplewood felt quiet, almost sleepy. This is something else entirely. Your chest tightens. You didn't expect it to feel this big.
+
+You walk forward anyway. One step, then another. The crowd flows around you – suits, tourists, someone shouting into their phone. You keep your head down and follow the main strip. The air smells like exhaust and street food. Car horns. A distant siren.
+<</narrative>>
+
+<<vid "assets/content/scenes/downtown/cityCrowd.mp4" "100%">>
+
+<<narrative>>
+Then, at the end of the block, you see it.
+
+A massive glass building rises above the storefronts. Three floors. Bright signs. People streaming in and out of the entrance. The crowd thickens as you get closer – families with shopping bags, couples, groups of teenagers. Everyone moving with purpose.
+
+//Metro Shopping Center.// Lily was right. You can't miss it.
+
+You pause at the doors. The buzz from inside spills out – music, voices, the hum of escalators. For a moment you think of the park. The quiet bench. The pond. You take a breath. You know where to go when you're ready.
+<</narrative>>
+
+<<image "assets/content/locations/downTown/mall.webp">>
+
+<div class="location-actions">
+<<btn "Continue" "downTown">><</btn>>
+</div>
+<</nobr>>

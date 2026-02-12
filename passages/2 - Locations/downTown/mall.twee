@@ -1,9 +1,14 @@
 <<nobr>>
 <<set $location = "mall">>
-<</nobr>>
-
 <<updateCharacterLocations>>
 
+<<if ndef $flags>><<set $flags = {}>><</if>>
+<<set _goToMallActive = $questState.active.go_to_mall>>
+<<set _firstMall = !$flags.firstMallVisit>>
+<<set _atMallStage = _goToMallActive && _goToMallActive.stage === 1>>
+<<if _firstMall && _atMallStage>>
+<<include "quest_go_to_mall_mall_first">>
+<<else>>
 <<narrative "Metro Shopping Center">>
 A massive three-story mall filled with shops, restaurants, and entertainment. Shoppers browse the gleaming storefronts.
 <</narrative>>
@@ -16,3 +21,4 @@ A massive three-story mall filled with shops, restaurants, and entertainment. Sh
 	<<navCard "floorThird">>
 	<<navCard "downTown">>
 <</navMenu>>
+<</if>>

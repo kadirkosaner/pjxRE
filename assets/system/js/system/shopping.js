@@ -10,6 +10,7 @@ let currentShopName = 'Shop';
 let currentShopType = 'Store';
 let returnPassage = null;
 let shopCurrentCategory = 'all';  // For clothing category filter
+let shopShowPurchasableOnly = false;  // Toggle: show only items player can buy (meets confidence etc.)
 let isClothingShop = false;   // True if any item is clothing
 let shopCategories = [];      // Available categories in this shop
 
@@ -143,6 +144,14 @@ function getBankBalance() {
     return getState().variables.bankBalance || 0;
 }
 
+// Check if player has item in inventory (non-clothing)
+function ownsInventoryItem(itemId) {
+    const inventory = getState().variables.inventory;
+    if (!inventory || !Array.isArray(inventory)) return false;
+    const entry = inventory.find(i => i.id === itemId);
+    return entry && (entry.quantity || 0) > 0;
+}
+
 // Check if player already owns a clothing item
 function ownsClothingItem(itemId) {
     const wardrobe = getState().variables.wardrobe;
@@ -150,7 +159,7 @@ function ownsClothingItem(itemId) {
     return wardrobe.owned.includes(itemId);
 }
 
-// Category labels for display
+// Category labels for display (clothing tabs)
 const categoryLabels = {
     tops: 'Tops',
     bottoms: 'Bottoms',
@@ -161,8 +170,39 @@ const categoryLabels = {
     necklaces: 'Necklaces',
     bracelets: 'Bracelets',
     bras: 'Bras',
-    panties: 'Panties'
+    panties: 'Panties',
+    sleepwear: 'Sleepwear',
+    special: 'Special',
+    equipment: 'Equipment'
 };
+
+// Display order for category tabs (only categories present in shop will show)
+const categoryTabOrder = ['tops', 'bras', 'bottoms', 'panties', 'dresses', 'shoes', 'socks', 'sleepwear', 'earrings', 'necklaces', 'bracelets', 'special', 'equipment'];
+
+// Check if player can wear a clothing item (stat requirements - mirrors wardrobe checkClothingRequirements)
+function canWearClothingItem(item) {
+    if (!item || !item._isClothing) return { allowed: true, reason: '' };
+    const S = getState();
+    let reqConf = 0, reqExh = 0, reqCorr = 0;
+    const tags = item.tags || [];
+    if (tags.includes('crop')) reqConf = Math.max(reqConf, 20);
+    if (tags.includes('short')) reqConf = Math.max(reqConf, 30);
+    if (tags.includes('revealing')) reqConf = Math.max(reqConf, 40);
+    if (tags.includes('daring')) reqConf = Math.max(reqConf, 55);
+    if (tags.includes('bold')) reqConf = Math.max(reqConf, 70);
+    if (tags.includes('erotic')) { reqConf = Math.max(reqConf, 75); reqExh = Math.max(reqExh, 10); }
+    if (tags.includes('lewd')) { reqConf = Math.max(reqConf, 85); reqExh = Math.max(reqExh, 30); }
+    if (item.reqConfidence != null) reqConf = item.reqConfidence;
+    if (item.reqExhibitionism != null) reqExh = item.reqExhibitionism;
+    if (item.reqCorruption != null) reqCorr = item.reqCorruption;
+    const conf = S.variables.confidence ?? 0;
+    const exh = S.variables.exhibitionism ?? 0;
+    const corr = S.variables.corruption ?? 0;
+    if (conf < reqConf) return { allowed: false, reason: `Requires ${reqConf} Confidence` };
+    if (exh < reqExh) return { allowed: false, reason: `Requires ${reqExh} Exhibitionism` };
+    if (corr < reqCorr) return { allowed: false, reason: `Requires ${reqCorr} Corruption` };
+    return { allowed: true, reason: '' };
+}
 
 // ============================================
 // CART OPERATIONS
@@ -200,6 +240,14 @@ function addToCart(itemId) {
         }
         existing.quantity++;
     } else {
+        // Clothing: block purchase if player doesn't meet stat requirements
+        if (item._isClothing) {
+            const wearCheck = canWearClothingItem(item);
+            if (!wearCheck.allowed) {
+                showToast(wearCheck.reason);
+                return;
+            }
+        }
         // Store quest item metadata in cart for reliable checkout processing
         const cartEntry = { 
             id: itemId, 
@@ -253,7 +301,8 @@ function saveShopState() {
         type: currentShopType,
         itemIds: currentShopItems.map(i => i.id),
         returnPassage: returnPassage,
-        category: shopCurrentCategory
+        category: shopCurrentCategory,
+        showPurchasableOnly: shopShowPurchasableOnly
     };
 }
 
@@ -266,6 +315,7 @@ function loadShopState() {
         currentShopItems = getItemsByIds(saved.itemIds);
         returnPassage = saved.returnPassage;
         shopCurrentCategory = saved.category || 'all';
+        shopShowPurchasableOnly = !!saved.showPurchasableOnly;
         return true;
     }
     return false;
@@ -481,12 +531,16 @@ function showToast(message) {
 // ============================================
 
 function renderCategoryTabs() {
+    const tabsRow = shopContainer?.querySelector('.shop-tabs-row');
     const tabsContainer = shopContainer?.querySelector('.category-tabs');
-    if (!tabsContainer || !isClothingShop) {
-        if (tabsContainer) tabsContainer.style.display = 'none';
+    if (!tabsRow || !tabsContainer) return;
+    
+    if (!isClothingShop) {
+        tabsRow.style.display = 'none';
         return;
     }
     
+    tabsRow.style.display = 'flex';
     tabsContainer.style.display = 'flex';
     
     // Build tabs HTML - "All" + each category
@@ -500,15 +554,30 @@ function renderCategoryTabs() {
     
     tabsContainer.innerHTML = html;
     
-    // Bind click events
+    // Bind tab click events
     tabsContainer.querySelectorAll('.category-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             shopCurrentCategory = tab.dataset.category;
-            saveShopState(); // Save state on tab change
+            saveShopState();
             renderCategoryTabs();
             renderProducts();
         });
     });
+    
+    // Update and bind purchasable-only toggle
+    const toggleBtn = tabsRow.querySelector('.shop-owned-toggle');
+    if (toggleBtn) {
+        toggleBtn.classList.toggle('active', shopShowPurchasableOnly);
+        toggleBtn.setAttribute('aria-pressed', shopShowPurchasableOnly);
+        toggleBtn.replaceWith(toggleBtn.cloneNode(true)); // Remove old listeners
+        const newToggle = tabsRow.querySelector('.shop-owned-toggle');
+        newToggle.addEventListener('click', () => {
+            shopShowPurchasableOnly = !shopShowPurchasableOnly;
+            saveShopState();
+            renderCategoryTabs();
+            renderProducts();
+        });
+    }
 }
 
 function renderProducts() {
@@ -516,17 +585,21 @@ function renderProducts() {
     if (!grid) return;
 
     // Filter items:
-    // 1. For clothing: hide already owned items
-    // 2. Filter by selected category if not "all"
+    // 1. shopShowPurchasableOnly: show only items player can buy (meets confidence etc.); otherwise show all
+    // 2. Hide already owned clothing (always)
+    // 3. Filter by selected category if not "all"
     let itemsToShow = currentShopItems.filter(item => {
-        // Hide owned clothing
-        if (item._isClothing && ownsClothingItem(item.id)) {
-            return false;
+        if (item._isClothing && ownsClothingItem(item.id)) return false; // Hide owned clothing
+        // Hide non-clothing single-purchase items (equipment, tools) when owned
+        if (!item._isClothing && (item.category === 'equipment' || item.category === 'tool') && ownsInventoryItem(item.id)) return false;
+        if (shopShowPurchasableOnly) {
+            if (item._isClothing) {
+                const wearCheck = canWearClothingItem(item);
+                if (!wearCheck.allowed) return false; // Hide locked items
+            }
+            // Non-clothing: always purchasable
         }
-        // Filter by category
-        if (shopCurrentCategory !== 'all' && item._category !== shopCurrentCategory) {
-            return false;
-        }
+        if (shopCurrentCategory !== 'all' && item._category !== shopCurrentCategory) return false;
         return true;
     });
 
@@ -536,20 +609,21 @@ function renderProducts() {
     }
 
     grid.innerHTML = itemsToShow.map(item => {
-        // Show info icon for items with effects OR description (clothing)
         const hasEffects = item.effects && item.effects.length > 0;
         const hasDesc = item.desc && item.desc.length > 0;
         const isClothing = item._isClothing;
+        const wearCheck = isClothing ? canWearClothingItem(item) : { allowed: true, reason: '' };
+        const isLocked = isClothing && !wearCheck.allowed;
         const showTooltip = hasEffects || hasDesc || isClothing;
         
         return `
-        <div class="product-card" data-item-id="${item.id}">
+        <div class="product-card${isLocked ? ' product-card-locked' : ''}" data-item-id="${item.id}">
             ${showTooltip ? `
                 <div class="product-info-icon">i</div>
                 <div class="product-tooltip">
                     <div class="tooltip-title">${item.name}</div>
                     ${hasDesc ? `<div class="tooltip-desc">${item.desc}</div>` : ''}
-                    
+                    ${isLocked ? `<div class="tooltip-requirement">${wearCheck.reason}</div>` : ''}
                     ${isClothing ? `
                         <div class="tooltip-divider"></div>
                         <div class="tooltip-stats">
@@ -557,15 +631,9 @@ function renderProducts() {
                             ${item.looks ? `<div class="tooltip-row"><span class="label">Looks:</span> <span class="value looks-value">+${item.looks}</span></div>` : ''}
                             ${item.tags && item.tags.length ? (() => {
                                 const tagColors = {
-                                    'naked': '#ef4444',       // 1
-                                    'underwear': '#f97316',   // 2
-                                    'revealing': '#f59e0b',   // 3
-                                    'prostitution': '#ef4444',// 4
-                                    'bimbo': '#ec4899',       // 5
-                                    'casual': '#9ca3af',      // Default gray
-                                    'formal': '#3b82f6',
-                                    'elegant': '#8b5cf6',
-                                    'sporty': '#10b981'
+                                    'naked': '#ef4444', 'underwear': '#f97316', 'revealing': '#f59e0b',
+                                    'prostitution': '#ef4444', 'bimbo': '#ec4899', 'casual': '#9ca3af',
+                                    'formal': '#3b82f6', 'elegant': '#8b5cf6', 'sporty': '#10b981'
                                 };
                                 const tagsHtml = item.tags.map(tag => {
                                     const color = tagColors[tag.toLowerCase()] || tagColors.casual;
@@ -575,7 +643,6 @@ function renderProducts() {
                             })() : ''}
                         </div>
                     ` : ''}
-                    
                     ${hasEffects ? item.effects.map(e => `<div class="tooltip-effect">${e.value > 0 ? '+' : ''}${e.value} ${e.stat}</div>`).join('') : ''}
                 </div>
             ` : ''}
@@ -586,7 +653,13 @@ function renderProducts() {
                 <div class="product-name">${item.name}</div>
                 <div class="product-price">$${item.price}</div>
             </div>
-            <button class="product-add-btn" data-action="add" data-item="${item.id}"><span class="icon icon-plus"></span></button>
+            ${isLocked ? `
+                <div class="product-locked-tooltip">This clothing is too much for you. ${wearCheck.reason}</div>
+            ` : `
+                <button class="product-add-btn" data-action="add" data-item="${item.id}">
+                    <span class="icon icon-plus"></span>
+                </button>
+            `}
         </div>
     `}).join('');
 
@@ -724,7 +797,13 @@ function createShopHTML() {
                         <span class="shop-name">${currentShopName}</span>
                         <span class="shop-type">${currentShopType}</span>
                     </div>
-                    <div class="category-tabs"></div>
+                    <div class="shop-tabs-row">
+                        <div class="category-tabs"></div>
+                        <button type="button" class="shop-owned-toggle" title="Show only items you can buy (meets requirements)" aria-pressed="false">
+                            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                            <span class="toggle-label">Purchasable only</span>
+                        </button>
+                    </div>
                     <div class="products-grid"></div>
                 </div>
 
@@ -793,6 +872,7 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
         currentShopItems = getItemsByIds(itemIds);
         returnPassage = backPassage || getState().variables.location || 'start';
         shopCurrentCategory = 'all';
+        shopShowPurchasableOnly = false;
         
         // Add quest items for this location
         const locationId = S.variables.location || '';
@@ -837,12 +917,18 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
     isClothingShop = currentShopItems.some(item => item._isClothing);
     
     if (isClothingShop) {
-        // Extract unique categories from items
+        // Extract unique categories from items, sorted by display order
         const cats = new Set();
         currentShopItems.forEach(item => {
             if (item._category) cats.add(item._category);
         });
-        shopCategories = Array.from(cats);
+        shopCategories = Array.from(cats).sort((a, b) => {
+            const idxA = categoryTabOrder.indexOf(a);
+            const idxB = categoryTabOrder.indexOf(b);
+            const orderA = idxA === -1 ? 999 : idxA;
+            const orderB = idxB === -1 ? 999 : idxB;
+            return orderA - orderB;
+        });
         console.log('[Shopping] Clothing shop detected. Categories:', shopCategories);
     } else {
         shopCategories = [];

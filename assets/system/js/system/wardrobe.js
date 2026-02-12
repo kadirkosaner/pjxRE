@@ -560,10 +560,20 @@ function renderSelectedInfo() {
     container.querySelector('.selected-name').textContent = selectedItem.name;
     
     const itemStyles = selectedItem.tags ? selectedItem.tags.filter(t => STYLE_TAGS.includes(t)) : [];
-    const styleText = itemStyles.length > 0 ? itemStyles.map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(', ') : 'Normal';
-    
-    container.querySelector('#selected-style').textContent = styleText;
-    container.querySelector('#selected-style').className = 'style-tag ' + (itemStyles[0] || 'normal');
+    const itemTags = selectedItem.tags || [];
+    const tagsToShow = itemStyles.length > 0 ? itemStyles : itemTags;
+    const styleWrap = container.querySelector('#selected-style');
+    if (tagsToShow.length > 0) {
+        styleWrap.innerHTML = tagsToShow.map(tag => {
+            const label = tag.charAt(0).toUpperCase() + tag.slice(1);
+            const cls = 'style-tag ' + tag.toLowerCase();
+            return `<span class="${cls}">${label}</span>`;
+        }).join(' ');
+        styleWrap.className = 'selected-style-tags';
+    } else {
+        styleWrap.innerHTML = '<span class="style-tag normal">Normal</span>';
+        styleWrap.className = 'selected-style-tags';
+    }
 
     const req = checkRequirements(selectedItem);
     const descEl = container.querySelector('.selected-desc');

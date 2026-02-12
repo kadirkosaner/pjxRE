@@ -274,6 +274,25 @@ function checkQuestRequirements(reqs, vars) {
 $(document).on(':passagerender', function () {
     if (Macro.has("questCheck")) $.wiki("<<questCheck>>");
     $.wiki("<<updateTimedEvents>>");
+
+    /* Check if current location is closed – move player outside (e.g. mall at 22:00).
+       Defer to next tick so we run after nav-card Engine.play, which can overwrite advanceTime's goto. */
+    setTimeout(function () {
+        const vars = State.variables;
+        if (vars._navigatingBackward) return;
+        const loc = vars.location;
+        if (!loc) return;
+        const hours = setup.locationHours && setup.locationHours[loc];
+        if (!hours || hours.open24h) return;
+        if (window.isLocationOpen && window.isLocationOpen(loc)) return;
+        const region = hours.region || "downTown";
+        const locName = (setup.navCards && setup.navCards[loc]?.name) || loc;
+        if (window.showNotification) {
+            window.showNotification({ type: "warning", message: locName + " is now closed. You've been moved outside." });
+        }
+        vars.location = region;
+        Engine.play(region);
+    }, 0);
 });
 
 /* -------------------- QUEST PROMPTS -------------------- */
@@ -607,7 +626,7 @@ Macro.add('getQuestHint', {
 });
 
 /* ================== btn Macro =================== */
-/* Usage: <<btn "Text" "passage" "style">> or <<btn "Text" "passage" "style" minEnergy>> */
+/* Usage: <<btn "Text" "passage" "style">> or <<btn "Text" "passage" "style" minEnergy>> or <<btn "Text" "" "locked" "tooltip">> */
 Macro.add('btn', {
     tags: null,
     handler: function () {
@@ -622,7 +641,21 @@ Macro.add('btn', {
         const payload = this.payload[0].contents;
 
         const energy = parseInt(State.variables.energy || 0, 10);
-        const locked = minEnergy > 0 && energy < minEnergy;
+        const lockedByEnergy = minEnergy > 0 && energy < minEnergy;
+        const lockedByStyle = style === 'locked';
+
+        if (lockedByStyle) {
+            const tooltip = (typeof this.args[3] === 'string' ? this.args[3] : '') || 'Locked';
+            const span = $('<span>')
+                .addClass('link-internal btn-style locked')
+                .attr('data-tooltip', tooltip)
+                .html('<span class="icon icon-lock icon-12"></span> ' + text)
+                .appendTo(this.output);
+            span.addClass('btn-default');
+            return;
+        }
+
+        const locked = lockedByEnergy;
 
         if (locked) {
             const tooltip = 'Need ' + minEnergy + ' energy';
@@ -1682,6 +1715,12 @@ window.processNavCard = function (tag, $container, passedSetup) {
         }
 
         if (passageName) {
+            // Run setBefore (e.g. mall bathroom: set return floor before going to bathroom - avoids gate in history)
+            const dbCard = navSetup.navCards && navSetup.navCards[cardId];
+            if (dbCard && dbCard.setBefore) {
+                $.wiki('<<set ' + dbCard.setBefore + '>>');
+            }
+
             // Calculate travel time
             const currentLocation = State.variables.location || '';
             const travelTime = setup.getTravelTime ? setup.getTravelTime(currentLocation, cardId) : 0;

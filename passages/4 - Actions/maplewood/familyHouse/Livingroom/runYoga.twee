@@ -1,3 +1,4 @@
+<div class="divnobr">
 <<silently>>
     /* Set location from activity origin */
     <<set $location = $activityOrigin>>
@@ -39,21 +40,21 @@
     You clear some space in the living room and roll out your yoga mat. The soft carpet underneath makes for a comfortable surface.
 
     As you stretch your arms, you look over at Mom, who is relaxing nearby. She notices your preparations and watches with interest.
-
-    <<if _friendship >= 30>>
-        <<link "Invite Mom to join you">>
-            <<goto "runYogaMom">>
-        <</link>>
-    <<else>>
-        <span class="locked-action" title="Friendship too low (< 30)">Invite Mom (She looks busy)</span>
-    <</if>>
-
-    <<link "Do Yoga Alone">>
-        <<goto "runYogaSolo">>
-    <</link>>
     <</narrative>>
 
+    <<image "assets/content/scenes/maplewood/FamilyHouse/livingroom/yogaSetup.webp">>
+
+    <div class="location-actions">
+        <<if _friendship >= 30>>
+            <<btn "Invite Mom to join you" "runYogaMom">><</btn>>
+        <<else>>
+            <<btn "Invite Mom (She looks busy)" "" "locked" "Friendship too low (< 30)">><</btn>>
+        <</if>>
+
+        <<btn "Do Yoga Alone" "runYogaSolo">><</btn>>
+    </div>
     <div class="location-actions">
         <<btn "Back" $location>><</btn>>
     </div>
 <</if>>
+</div>

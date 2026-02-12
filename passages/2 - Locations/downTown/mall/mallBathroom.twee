@@ -1,0 +1,17 @@
+<<nobr>>
+<<set $location = "mallBathroom">>
+<<if ndef $mallBathroomReturn>><<set $mallBathroomReturn = "floorGround">><</if>>
+<<set $returnAfterToilet = "mallBathroom">>
+<<updateCharacterLocations>>
+
+<<narrative "Restroom">>
+A clean, well-maintained restroom. The mall's busy foot traffic keeps it in decent shape – fluorescent lights, neutral tiles, the usual facilities.
+<</narrative>>
+
+<div class="location-actions">
+<<bathroomActions>>
+</div>
+
+<<navMenu>>
+<<navCard $mallBathroomReturn>>
+<</navMenu>>

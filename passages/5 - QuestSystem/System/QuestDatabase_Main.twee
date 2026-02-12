@@ -313,6 +313,42 @@
         }
     },
 
+    /* ========== GO TO MALL - Lily's suggestion ========== */
+    go_to_mall: {
+        id: "go_to_mall",
+        title: "Go to Mall",
+        category: "side",
+        character: "parkRunnerLily",
+
+        requirements: {},
+
+        stages: [
+            {
+                id: "visit_downtown",
+                title: "Visit Downtown",
+                desc: "Lily pointed you to Metro Shopping Center. Head to Downtown and find the mall.",
+                buttonText: "Go to Downtown",
+                triggers: { location: "downTown" },
+                forceScene: true,
+                passage: "quest_go_to_mall_downtown_first"
+            },
+            {
+                id: "visit_mall",
+                title: "Explore the Mall",
+                desc: "You've found the mall. Take a look around inside.",
+                buttonText: "Enter the Mall",
+                triggers: { location: "mall" },
+                forceScene: true,
+                passage: "quest_go_to_mall_mall_first"
+            }
+        ],
+
+        onComplete: {
+            flags: ["go_to_mall_done"],
+            notification: "Quest Complete: Go to Mall"
+        }
+    },
+
     /* ========== CHECK OLD TOWN ========== */
     check_old_town: {
         id: "check_old_town",

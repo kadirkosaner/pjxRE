@@ -1,0 +1,53 @@
+:: quest_go_to_mall_mall_first
+<<nobr>>
+<<silently>>
+<<set $location = "floorGround">>
+<<if ndef $flags>><<set $flags = {}>><</if>>
+<<set $flags.firstMallVisit = true>>
+<<completeQuest "go_to_mall">>
+<<updateCharacterLocations>>
+
+/* Discover all mall locations */
+<<set $discoveredMall = true>>
+<<set $discoveredFloorGround = true>>
+<<set $discoveredFloorSecond = true>>
+<<set $discoveredFloorThird = true>>
+<<set $discoveredStoreClothingA = true>>
+<<set $discoveredStoreCosmetics = true>>
+<<set $discoveredStoreElectronics = true>>
+<<set $discoveredStoreShoeA = true>>
+<<set $discoveredStoreSports = true>>
+<<set $discoveredStoreBags = true>>
+<<set $discoveredStoreClothingB = true>>
+<<set $discoveredStoreClothingC = true>>
+<<set $discoveredStoreJewelry = true>>
+<<set $discoveredStoreLingerieA = true>>
+<<set $discoveredStoreLingerieB = true>>
+<<set $discoveredStoreShoeB = true>>
+<<set $discoveredFoodCourtMall = true>>
+<<set $discoveredSalonBeautyMall = true>>
+<<set $discoveredTheatreMovie = true>>
+<</silently>>
+
+<<narrative "Metro Shopping Center">>
+You're inside.
+<</narrative>>
+
+<<image "assets/content/locations/downTown/mall/floorGround.webp">>
+
+<<narrative>>
+The space opens up – high ceilings, skylights, gleaming floors. Escalators climb to upper levels. Storefronts line the corridor in both directions: clothing, shoes, electronics. Music plays overhead. The air is cool, conditioned. Nothing like the sticky heat outside.
+
+You stand there for a moment, taking it in. The Quick Mart in Maplewood could fit in a corner of this place. The family house, the park, the quiet streets – it all feels very far away. Very small. You're not sure if that's comforting or overwhelming.
+
+Shoppers pass by. A mother herds two kids toward a toy store. A couple laughs at something on a phone. Everyone seems to belong here. You take a slow breath. Maybe you can too.
+
+You walk a few steps down the corridor. Store windows flash with mannequins and sale signs. Somewhere to your left you catch a glimpse of athletic wear – a sporty logo, racks of leggings and tops. //Lily's store.// You'll come back for that.
+
+For now, you've seen enough. You know where everything is. The mall isn't going anywhere.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Look Around" "floorGround">><</btn>>
+</div>
+<</nobr>>

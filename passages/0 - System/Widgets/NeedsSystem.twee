@@ -50,7 +50,8 @@
     <<set $hunger = Math.min(100, $hunger + _amount)>>
     <<queueStatChange "hunger" _amount>>
     
-    /* Check for critical hunger levels and apply penalties */
+    /* Check for critical hunger levels and apply penalties (skip during sleep - no mood/stress/health) */
+    <<if !$isSleeping>>
     <<if $hunger >= 90>>
         <<set $energy = Math.max(0, $energy - 20)>>
         <<queueStatChange "energy" -20>>
@@ -63,6 +64,7 @@
         <<queueStatChange "energy" -10>>
         <<set $mood = Math.max(0, $mood - 5)>>
         <<queueStatChange "mood" -5>>
+    <</if>>
     <</if>>
 <</widget>>
 
@@ -77,7 +79,8 @@
     <<set $thirst = Math.min(100, $thirst + _amount)>>
     <<queueStatChange "thirst" _amount>>
     
-    /* Penalties for Dehydration */
+    /* Penalties for Dehydration (skip during sleep) */
+    <<if !$isSleeping>>
     <<if $thirst >= 90>>
         <<set $energy = Math.max(0, $energy - 15)>>
         <<queueStatChange "energy" -15>>
@@ -91,6 +94,7 @@
         <<set $focus = Math.max(0, $focus - 10)>>
         <<queueStatChange "focus" -10>>
     <</if>>
+    <</if>>
 <</widget>>
 
 
@@ -103,7 +107,8 @@
     <<set $bladder = Math.min(100, $bladder + _amount)>>
     <<queueStatChange "bladder" _amount>>
     
-    /* Penalties for Holding it */
+    /* Penalties for Holding it (skip during sleep) */
+    <<if !$isSleeping>>
     <<if $bladder >= 100>>
         <<set $stress = Math.min(100, $stress + 10)>>
         <<queueStatChange "stress" 10>>
@@ -112,6 +117,7 @@
     <<elseif $bladder >= 80>>
         <<set $stress = Math.min(100, $stress + 5)>>
         <<queueStatChange "stress" 5>>
+    <</if>>
     <</if>>
 <</widget>>
 
@@ -126,7 +132,8 @@
     <<set $hygiene = Math.max(0, $hygiene - _amount)>>
     <<queueStatChange "hygiene" _negAmount>>
     
-    /* Penalties for Poor Hygiene */
+    /* Penalties for Poor Hygiene (skip during sleep) */
+    <<if !$isSleeping>>
     <<if $hygiene <= 10>>
         <<set $mood = Math.max(0, $mood - 10)>>
         <<queueStatChange "mood" -10>>
@@ -135,6 +142,7 @@
     <<elseif $hygiene <= 30>>
         <<set $charisma = Math.max(0, $charisma - 5)>>
         <<queueStatChange "charisma" -5>>
+    <</if>>
     <</if>>
 <</widget>>
 

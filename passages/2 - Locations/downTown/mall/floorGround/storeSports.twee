@@ -1,5 +1,27 @@
-<<nobr>><<set $location = "storeSports">><</nobr>>
+<<nobr>>
+<<set $location = "storeSports">>
+<<set _shopItems = [
+    "yoga_mat",
+    "tank_racerback_white",
+    "tank_top_mesh_black",
+    "tank_top_mesh_charcoal",
+    "crop_sports_tee_navy",
+    "tank_top_cutout_white",
+    "bra_sports_black",
+    "bra_sports_gray",
+    "bra_crop_top_pink",
+    "bra_sports_low_support_white",
+    "bra_sports_strappy",
+    "leggings_high_waist_navy",
+    "leggings_high_cut_black",
+    "shorts_running_black",
+    "shorts_yoga_gray",
+    "short_thong_back_black",
+    "short_mesh_see_through_gray",
+    "sneakers_trail_runners",
+    "socks_crew_white",
+    "socks_crew_black"
+]>>
 <<updateCharacterLocations>>
-<<narrative "Sports Store">>Athletic wear, equipment, and accessories. Mannequins display the latest sportswear.<</narrative>>
-<<showLocationChars "storeSports">>
-<<navMenu>><<navCard "floorGround">><</navMenu>>
+<<shop "FastBreak Athletics" "Sports Store" _shopItems "floorGround">>
+<</nobr>>

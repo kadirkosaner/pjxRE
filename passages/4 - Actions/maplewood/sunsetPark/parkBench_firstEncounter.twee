@@ -6,6 +6,9 @@
 <</if>>
 <<set $flags.parkBenchFirstEncounter = true>>
 
+<<if ndef $characters.parkRunnerLily>>
+<<set $characters.parkRunnerLily = { stats: { love: 0, friendship: 0, lust: 0, trust: 0 }, firstMet: null, known: false, currentLocation: null, currentStatus: null }>>
+<</if>>
 <<set $characters.parkRunnerLily.known = true>>
 <<if !$characters.parkRunnerLily.firstMet>>
 <<set $characters.parkRunnerLily.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
@@ -51,7 +54,7 @@ Actually… I've been meaning to ask. I'm still new around here and I've been lo
 <</dialog>>
 
 <<dialog "parkRunnerLily">>
-Ah, I know exactly what you mean! There's not much around Maplewood for that. I got these from the mall – Skyline Mall, downtown? They have a really good sports store. Decent prices, decent selection. It's a bit of a trip, but worth it if you're serious about working out.
+Ah, I know exactly what you mean! There's not much around Maplewood for that. I got these from the mall – Metro Shopping Center, downtown. You take the bus or drive toward the city center, and once you're in Downtown the building's hard to miss. Big glass front, three floors. The sports store's on the ground level, near the main entrance. Decent prices, decent selection. It's a bit of a trip, but worth it if you're serious about working out.
 <</dialog>>
 
 <<dialog "player">>
@@ -78,6 +81,12 @@ Good luck with the sportswear hunt. And welcome to the neighborhood!
 She stretches her arms overhead, then starts a light jog back toward the path. You watch her go – ponytail swinging, steady rhythm – before settling back against the bench.
 <</narrative>>
 </div>
+
+<<silently>>
+<<startQuest "go_to_mall">>
+<<discover "DownTown" "Downtown">>
+<<discover "Mall" "Metro Shopping Center">>
+<</silently>>
 
 <<vid _benchVid "100%">>
 

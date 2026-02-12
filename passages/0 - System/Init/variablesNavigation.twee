@@ -96,6 +96,11 @@ setup.navCards = {
     "storeLingerieB": { name: "Intimate Secrets" },
     "storeShoeB": { name: "Stiletto Studio" },
 
+    /* -- Mall Bathroom (setBefore = set return floor, then go to mallBathroom - no gate in history) -- */
+    "mallBathroomFromGround": { name: "Bathroom", passage: "mallBathroom", setBefore: "$mallBathroomReturn to 'floorGround'" },
+    "mallBathroomFromSecond": { name: "Bathroom", passage: "mallBathroom", setBefore: "$mallBathroomReturn to 'floorSecond'" },
+    "mallBathroomFromThird": { name: "Bathroom", passage: "mallBathroom", setBefore: "$mallBathroomReturn to 'floorThird'" },
+
     /* -- Mall Third Floor -- */
     "foodCourtMall": { name: "Food Court" },
     "salonBeautyMall": { name: "Headlines Salon" },
@@ -301,6 +306,7 @@ setup.locations = {
     "storeElectronics": { parent: "floorGround", type: "room" },
     "storeShoeA": { parent: "floorGround", type: "room" },
     "storeSports": { parent: "floorGround", type: "room" },
+    "mallBathroom": { parent: "mall", type: "room" },
     
     // Mall Second Floor Stores
     "storeBags": { parent: "floorSecond", type: "room" },
