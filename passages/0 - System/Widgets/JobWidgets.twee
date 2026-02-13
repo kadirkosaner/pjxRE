@@ -29,10 +29,12 @@
     <</if>>
 <</widget>>
 
-/* Execute a shift: advanceTime, apply stat/skill costs, update earnings */
+/* Execute a shift: advanceTime, apply stat/skill costs, update earnings.
+   Duration in MINUTES (e.g. 120, 240, 360, 480). advanceTime expects minutes. */
 <<widget "jobExecuteShift">>
     <<set $jobShiftSuccess = false>>
-    <<set _shiftHours = $args[0]>>
+    <<set _shiftMinutes = $args[0]>>
+    <<set _shiftHours = _shiftMinutes / 60>>
     <<set _jobId = $job.id>>
     <<if !_jobId>>
         <<run window.notifyWarning("You don't have a job.")>>
@@ -108,7 +110,7 @@
     <</if>>
 
     /* Advance time */
-    <<advanceTime _shiftHours * 60>>
+    <<advanceTime _shiftMinutes>>
 
     /* Skill gains (per 4h, scaled) */
     <<set _gains = _job.skillGainsPer4Hours || []>>

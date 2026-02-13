@@ -883,11 +883,11 @@ Macro.add('jobWorkPicker', {
         const passage = this.args[1];
         const style = this.args[2] ? this.args[2].toLowerCase() : 'default';
 
-        const available = State.variables.jobAvailableShifts || [];
+        const available = State.variables.jobAvailableShifts || []; /* hours: 2,4,6,8 */
         const preset = setup.durationPresets && setup.durationPresets.jobShiftDuration;
         if (!preset) return this.error('jobShiftDuration preset not found');
 
-        const options = preset.filter(p => available.includes(p.value));
+        const options = preset.filter(p => available.includes(p.value / 60));
         const presetName = 'jobShiftDuration';
 
         if (options.length === 0) {
@@ -902,7 +902,7 @@ Macro.add('jobWorkPicker', {
 
         if (!State.variables.pickerMemory) State.variables.pickerMemory = {};
         let selectedValue = State.variables.pickerMemory[presetName];
-        if (!available.includes(selectedValue)) selectedValue = options[0].value;
+        if (!options.some(p => p.value === selectedValue)) selectedValue = options[0].value;
         State.variables.pickerMemory[presetName] = selectedValue;
 
         const getLabel = (val) => {

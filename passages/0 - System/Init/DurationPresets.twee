@@ -104,13 +104,13 @@ setup.durationPresets = {
     ],
 
     /* ==========================================
-       JOB SHIFTS (values in hours)
+       JOB SHIFTS (values in minutes: 120, 240, 360, 480)
        ========================================== */
     "jobShiftDuration": [
-        { label: "2 hours", value: 2 },
-        { label: "4 hours", value: 4 },
-        { label: "6 hours", value: 6 },
-        { label: "8 hours", value: 8 }
+        { label: "2 hours", value: 120 },
+        { label: "4 hours", value: 240 },
+        { label: "6 hours", value: 360 },
+        { label: "8 hours", value: 480 }
     ]
 };
 

@@ -102,7 +102,7 @@ Let's get started then.
 <div class="btn-center">
 <<btn "Start work" "">>
 <<silently>>
-<<jobExecuteShift 2>>
+<<jobExecuteShift 120>>
 <</silently>>
 <<if $jobShiftSuccess>>
 <<set $jobState.firstWorkDayEventShown = true>>
