@@ -4,7 +4,8 @@
    - setup.restaurantDishes: { foods: [...], drinks: [...] }
    - setup.restaurantMenus[menuId]: { name, foods, drinks, back? }
      back = return passage (else $location)
-   - Dish: id, name, price, desc?, image?, effects: [{ stat, value, type }]
+   - Dish: id, name, price, desc?, image?, calories?, effects: [{ stat, value, type }]
+   calories = added to $dailyCalorieIntake when $gameSettings.trackCalories (foods & drinks).
    NOT related to setup.items (shopping). Used only by restaurant system.
 
    EFFECTS BY ITEM (value = change: negative = reduce, positive = gain)
@@ -36,6 +37,7 @@ setup.restaurantDishes = {
             id: "house_salad",
             name: "House Salad",
             price: 8,
+            calories: 150,
             desc: "Fresh greens with vinaigrette.",
             image: "assets/content/items/restaurants/house_salad.png",
             effects: [
@@ -47,6 +49,7 @@ setup.restaurantDishes = {
             id: "soup_of_day",
             name: "Soup of the Day",
             price: 8,
+            calories: 120,
             desc: "Chef's daily selection.",
             image: "assets/content/items/restaurants/soup_of_day.png",
             effects: [
@@ -58,6 +61,7 @@ setup.restaurantDishes = {
             id: "diner_burger",
             name: "Ruby's Classic Burger",
             price: 10,
+            calories: 550,
             desc: "Beef patty, lettuce, tomato, fries on the side.",
             image: "assets/content/items/restaurants/diner_burger.png",
             effects: [
@@ -69,6 +73,7 @@ setup.restaurantDishes = {
             id: "grilled_cheese",
             name: "Grilled Cheese",
             price: 8,
+            calories: 400,
             desc: "Toasted cheese sandwich, side of tomato soup.",
             image: "assets/content/items/restaurants/grilled_cheese.png",
             effects: [
@@ -80,6 +85,7 @@ setup.restaurantDishes = {
             id: "pancakes",
             name: "Short Stack Pancakes",
             price: 9,
+            calories: 450,
             desc: "Fluffy pancakes with butter and syrup.",
             image: "assets/content/items/restaurants/pancakes.png",
             effects: [
@@ -91,6 +97,7 @@ setup.restaurantDishes = {
             id: "club_sandwich",
             name: "Club Sandwich",
             price: 11,
+            calories: 550,
             desc: "Triple-decker, turkey, bacon, lettuce, tomato.",
             image: "assets/content/items/restaurants/club_sandwich.png",
             effects: [
@@ -102,6 +109,7 @@ setup.restaurantDishes = {
             id: "mac_cheese",
             name: "Mac & Cheese",
             price: 8,
+            calories: 450,
             desc: "Creamy macaroni and cheese, comfort classic.",
             image: "assets/content/items/restaurants/mac_cheese.png",
             effects: [
@@ -113,6 +121,7 @@ setup.restaurantDishes = {
             id: "eggs_bacon",
             name: "Eggs & Bacon",
             price: 9,
+            calories: 400,
             desc: "Two eggs any style, crispy bacon, toast.",
             image: "assets/content/items/restaurants/eggs_bacon.png",
             effects: [
@@ -124,6 +133,7 @@ setup.restaurantDishes = {
             id: "pasta_carbonara",
             name: "Pasta Carbonara",
             price: 12,
+            calories: 650,
             desc: "Creamy bacon and parmesan.",
             image: "assets/content/items/restaurants/pasta_carbonara.png",
             effects: [
@@ -135,6 +145,7 @@ setup.restaurantDishes = {
             id: "grilled_salmon",
             name: "Grilled Salmon",
             price: 14,
+            calories: 450,
             desc: "Atlantic salmon with herbs.",
             image: "assets/content/items/restaurants/grilled_salmon.png",
             effects: [
@@ -147,6 +158,7 @@ setup.restaurantDishes = {
             id: "steak_frites",
             name: "Steak & Frites",
             price: 15,
+            calories: 750,
             desc: "Grilled ribeye with fries.",
             image: "assets/content/items/restaurants/steak_frites.png",
             effects: [
@@ -160,6 +172,7 @@ setup.restaurantDishes = {
             id: "water",
             name: "Water",
             price: 0,
+            calories: 0,
             desc: "Still or sparkling. Complimentary.",
             image: "assets/content/items/restaurants/water.png",
             effects: [
@@ -170,6 +183,7 @@ setup.restaurantDishes = {
             id: "coffee",
             name: "Coffee",
             price: 2.5,
+            calories: 5,
             desc: "Freshly brewed.",
             image: "assets/content/items/restaurants/coffee.png",
             effects: [
@@ -180,6 +194,7 @@ setup.restaurantDishes = {
             id: "iced_tea",
             name: "Iced Tea",
             price: 3.5,
+            calories: 80,
             desc: "Refreshing and cold.",
             image: "assets/content/items/restaurants/iced_tea.png",
             effects: [
@@ -191,6 +206,7 @@ setup.restaurantDishes = {
             id: "soda",
             name: "Soda",
             price: 2.5,
+            calories: 100,
             desc: "Cola, lemon-lime, or root beer.",
             image: "assets/content/items/restaurants/soda.png",
             effects: [
@@ -201,6 +217,7 @@ setup.restaurantDishes = {
             id: "fresh_juice",
             name: "Fresh Juice",
             price: 5,
+            calories: 120,
             desc: "Seasonal fruit juice.",
             image: "assets/content/items/restaurants/fresh_juice.png",
             effects: [

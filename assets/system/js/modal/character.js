@@ -604,6 +604,7 @@ window.CharacterInit = function (API) {
                                 <h4>Body Overall</h4>
                                 <div class="app-stat-row"><span>Type:</span> <span class="val">${body.bodyType || 'Normal'}</span></div>
                                 <div class="app-stat-row"><span>Height:</span> <span class="val">${body.height != null ? body.height + 'cm' : '—'}</span></div>
+                                <div class="app-stat-row"><span>Weight:</span> <span class="val">${body.weight != null ? body.weight + ' kg' : '—'}</span></div>
                                 <div class="app-stat-row"><span>Skin:</span> <span class="val">${getTanText(app.tanLevel)}</span></div>
                                 <div class="app-stat-row"><span>Body Hair:</span> <span class="val">${(app.bodyHair?.legs > 0 || app.bodyHair?.armpits > 0) ? 'Natural' : 'Smooth'}</span></div>
                             </div>

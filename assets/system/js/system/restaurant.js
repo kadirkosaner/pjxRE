@@ -92,6 +92,14 @@ function restaurantApplyEffects(dish) {
     }
 }
 
+function restaurantAddCalories(dish) {
+    if (!dish || typeof dish.calories !== 'number') return;
+    var S = restaurantGetState();
+    var trackCalories = S.variables.gameSettings && S.variables.gameSettings.trackCalories;
+    if (!trackCalories) return;
+    S.variables.dailyCalorieIntake = (S.variables.dailyCalorieIntake || 0) + dish.calories;
+}
+
 function restaurantPayCash() {
     var total = restaurantOrderTotal();
     if (total <= 0) { restaurantToast('Select something first.'); return; }
@@ -101,11 +109,17 @@ function restaurantPayCash() {
     S.variables.cashBalance = (S.variables.moneyEarn || 0) - (S.variables.moneySpend || 0);
     if (restaurantSelectedFood) {
         var d = restaurantGetDish('food', restaurantSelectedFood);
-        if (d) restaurantApplyEffects(d);
+        if (d) {
+            restaurantApplyEffects(d);
+            restaurantAddCalories(d);
+        }
     }
     if (restaurantSelectedDrink) {
         d = restaurantGetDish('drink', restaurantSelectedDrink);
-        if (d) restaurantApplyEffects(d);
+        if (d) {
+            restaurantApplyEffects(d);
+            restaurantAddCalories(d);
+        }
     }
     restaurantSelectedFood = null;
     restaurantSelectedDrink = null;
@@ -130,11 +144,17 @@ function restaurantPayCard() {
     S.variables.bankBalance = (S.variables.bankDeposit || 0) - (S.variables.bankSpend || 0) - (S.variables.bankWithdraw || 0);
     if (restaurantSelectedFood) {
         var d = restaurantGetDish('food', restaurantSelectedFood);
-        if (d) restaurantApplyEffects(d);
+        if (d) {
+            restaurantApplyEffects(d);
+            restaurantAddCalories(d);
+        }
     }
     if (restaurantSelectedDrink) {
         d = restaurantGetDish('drink', restaurantSelectedDrink);
-        if (d) restaurantApplyEffects(d);
+        if (d) {
+            restaurantApplyEffects(d);
+            restaurantAddCalories(d);
+        }
     }
     restaurantSelectedFood = null;
     restaurantSelectedDrink = null;
