@@ -33,30 +33,30 @@
 <<set setup.schedules.mother = {
     weekday: [
         { hour: 0, location: "fhParentsRoom", status: "sleeping" },
-        { hour: 6, minute: 20, location: "fhParentsBath", status: "showering" },  /* Shower 6:20-6:50 (30 min, after Father) */
-        { hour: 6, minute: 50, location: "fhParentsRoom", status: "available" },  /* Getting ready */
-        { hour: 7, location: "fhKitchen", status: "available" },      /* Family Breakfast 7:00-7:30 */
+        { hour: 6, minute: 20, location: "fhParentsBath", status: "showering" }, 
+        { hour: 6, minute: 50, location: "fhParentsRoom", status: "available" },
+        { hour: 7, location: "fhKitchen", status: "available" },
         { hour: 7, minute: 30, location: "fhLivingroom", status: "available" },
-        { hour: 9, location: "fhLivingroom", status: "available" },
-        { hour: 12, minute: 30, location: "fhKitchen", status: "available" },     /* Lunch 12:30-13:00 */
-        { hour: 13, location: "fhKitchen", status: "available" },
-        { hour: 14, location: "fhKitchen", status: "available" },
-        { hour: 18, minute: 30, location: "fhKitchen", status: "available" },     /* Family Dinner 18:30-19:30 */
-        { hour: 19, minute: 30, location: "fhLivingroom", status: "available" },
+        { hour: 9, location: "fhLivingroom", status: "available", meetup: true },
+        { hour: 12, minute: 30, location: "fhKitchen", status: "available" },
+        { hour: 13, location: "fhKitchen", status: "available", meetup: true },
+        { hour: 14, location: "fhKitchen", status: "available", meetup: true },
+        { hour: 18, minute: 30, location: "fhKitchen", status: "available" },
+        { hour: 19, minute: 30, location: "fhLivingroom", status: "available", meetup: true },
         { hour: 23, location: "fhParentsRoom", status: "available" }
     ],
     weekend: [
         { hour: 0, location: "fhParentsRoom", status: "sleeping" },
-        { hour: 7, minute: 20, location: "fhParentsBath", status: "showering" },  /* Shower 7:20-7:50 (30 min, after Father) */
-        { hour: 7, minute: 50, location: "fhParentsRoom", status: "available" },  /* Getting ready */
-        { hour: 8, minute: 30, location: "fhKitchen", status: "available" },      /* Family Breakfast 8:30-9:30 */
+        { hour: 7, minute: 20, location: "fhParentsBath", status: "showering" },
+        { hour: 7, minute: 50, location: "fhParentsRoom", status: "available" },
+        { hour: 8, minute: 30, location: "fhKitchen", status: "available" },
         { hour: 9, minute: 30, location: "fhLivingroom", status: "available" },
-        { hour: 10, location: "fhLivingroom", status: "available" },
-        { hour: 12, minute: 30, location: "fhKitchen", status: "available" },     /* Family Lunch 12:30-13:30 */
-        { hour: 13, minute: 30, location: "fhKitchen", status: "available" },
-        { hour: 14, location: "fhKitchen", status: "available" },
-        { hour: 18, minute: 30, location: "fhKitchen", status: "available" },     /* Family Dinner 18:30-19:30 */
-        { hour: 19, minute: 30, location: "fhLivingroom", status: "available" },
+        { hour: 10, location: "fhLivingroom", status: "available", meetup: true },
+        { hour: 12, minute: 30, location: "fhKitchen", status: "available" },
+        { hour: 13, minute: 30, location: "fhKitchen", status: "available", meetup: true },
+        { hour: 14, location: "fhKitchen", status: "available", meetup: true },
+        { hour: 18, minute: 30, location: "fhKitchen", status: "available" },
+        { hour: 19, minute: 30, location: "fhLivingroom", status: "available", meetup: true },
         { hour: 23, location: "fhParentsRoom", status: "available" }
     ]
 }>>

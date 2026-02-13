@@ -5,6 +5,19 @@ window.RightbarInit = function (API) {
     RightbarAPI = API;
 };
 
+// Keep rightbar phone badge in sync with phone overlay (e.g. after closing phone or when badges change)
+$(document).on('phoneBadgesUpdated', function () {
+    if (!RightbarAPI) return;
+    var total = (typeof window.phoneTotalBadge === 'function') ? window.phoneTotalBadge() : 0;
+    var $preview = $('.right-bar .phone-preview');
+    if ($preview.length) {
+        var html = total > 0
+            ? '<div class="message-item"><div class="message-info"><div class="message-name">New Notifications</div></div><div class="message-count">' + (total > 99 ? '99+' : total) + '</div></div>'
+            : '<div class="phone-empty"><div class="phone-empty-text">No new notifications</div></div>';
+        $preview.html(html);
+    }
+});
+
 // Rebuild on every passage render
 $(document).on(':passagerender', function () {
     if (!RightbarAPI) return;
@@ -29,7 +42,7 @@ $(document).on(':passagerender', function () {
     const gameVersion = RightbarAPI.setup?.gameVersion;
     const imageProfile = RightbarAPI.setup?.imageProfile;
     const imageMap = RightbarAPI.setup?.imageMap;
-    const notificationPhoneCount = vars.notificationPhoneCount || 0;
+    const notificationPhoneCount = (typeof window.phoneTotalBadge === 'function') ? window.phoneTotalBadge() : 0;
 
     // Calculate total money (cash + bank)
     const totalMoney = (vars.cashBalance || 0) + (vars.bankBalance || 0);

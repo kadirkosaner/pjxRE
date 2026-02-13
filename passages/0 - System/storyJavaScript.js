@@ -153,6 +153,58 @@ setup.getCharacter = function (id) {
     return Object.assign({}, def || {}, state || {});
 };
 
+/* ================== Phone badge (derived – phone_system_data_and_technical.md §9) =================== */
+/** Unread message count; computed from $phoneConversations. */
+window.phoneUnreadCount = function () {
+    if (!State || !State.variables || !State.variables.phoneConversations) return 0;
+    const conv = State.variables.phoneConversations;
+    let n = 0;
+    Object.keys(conv).forEach(function (charId) {
+        (conv[charId] || []).forEach(function (m) {
+            if (m.from !== 'player' && m.read === false) n++;
+        });
+    });
+    return n;
+};
+/** Check if a phone message topic is unlocked (requirements met). */
+window.phoneTopicUnlocked = function (charId, topic, vars) {
+    if (!topic || !topic.requirements || Object.keys(topic.requirements).length === 0) return true;
+    var req = topic.requirements;
+    if (req.flag && !(vars.flags && vars.flags[req.flag])) return false;
+    if (req.minLove != null) {
+        var c = vars.characters && vars.characters[charId];
+        if (!c || !c.stats || (c.stats.love || 0) < req.minLove) return false;
+    }
+    return true;
+};
+
+
+/** Return array of unlocked topics for a character. Data only from setup.phoneMessageTopics set in variablesPhoneTopics.twee (passage source). */
+window.phoneGetUnlockedTopics = function (charId, vars) {
+    var storySetup = (typeof setup !== 'undefined') ? setup : (window.setup || {});
+    if (!storySetup.phoneMessageTopics) storySetup.phoneMessageTopics = {};
+    var topics = storySetup.phoneMessageTopics[charId] || [];
+    return topics.filter(function (t) { return window.phoneTopicUnlocked(charId, t, vars); });
+};
+
+/** Location display name from setup.navCards (variablesNavigation.twee). Used by phone "Where are you?" reply. */
+window.getLocationName = function (locId) {
+    if (!locId) return 'home';
+    var s = (typeof setup !== 'undefined' && setup.navCards) ? setup : (window.setup || {});
+    var card = s.navCards && s.navCards[locId];
+    return (card && card.name) ? card.name : locId;
+};
+
+/** Total phone badge (Messages + Fotogram + Finder). */
+window.phoneTotalBadge = function () {
+    if (!State || !State.variables) return 0;
+    const v = State.variables;
+    const messages = window.phoneUnreadCount ? window.phoneUnreadCount() : 0;
+    const fotogram = (v.phoneNotifications && v.phoneNotifications.fotogram && v.phoneNotifications.fotogram.length) ? v.phoneNotifications.fotogram.length : 0;
+    const finder = (v.phoneNotifications && v.phoneNotifications.finder && v.phoneNotifications.finder.length) ? v.phoneNotifications.finder.length : 0;
+    return messages + fotogram + finder;
+};
+
 /* ================== Fullscreen Layout Detection =================== */
 $(document).on(':passagerender', function () {
     const vars = State.variables;
@@ -1497,13 +1549,39 @@ Macro.add('showActions', {
             return;
         }
 
-        if (actions.length === 0) {
-            $(this.output).append('<p class="no-actions">No actions available here.</p>');
-            return;
-        }
-
         const container = $('<div>').addClass('location-actions');
         let visibleActions = 0;
+
+        // Meetup button: show when there's a pending phone meetup for this char at this location, now
+        const ts = vars.timeSys || {};
+        const currentDate = (ts.year || 0) * 10000 + (ts.month || 0) * 100 + (ts.day || 0);
+        const nowMin = (ts.hour || 0) * 60 + (ts.minute || 0);
+        const appointments = vars.phoneAppointments || [];
+        let meetupPassage = null;
+        for (let i = 0; i < appointments.length; i++) {
+            const a = appointments[i];
+            if (!a || a.status !== 'pending' || !a.time || a.charId !== charId) continue;
+            const aptDate = (a.time.year || 0) * 10000 + (a.time.month || 0) * 100 + (a.time.day || 0);
+            if (aptDate !== currentDate) continue;
+            const aptMin = (a.time.hour || 0) * 60 + (a.time.minute || 0);
+            if (nowMin < aptMin || nowMin > aptMin + 30) continue;
+            const locMatch = (a.location === location) || (setup.locations && setup.locations[location] && setup.locations[location].parent === a.location);
+            if (!locMatch) continue;
+            meetupPassage = 'Meetup'; // generic meetup passage
+            break;
+        }
+        if (meetupPassage) {
+            const returnLoc = location;
+            const meetupBtn = $('<a>').addClass('btn-style action-btn available').text('Meetup')
+                .attr('data-passage', meetupPassage)
+                .ariaClick({ namespace: '.macros', one: true }, function () {
+                    State.variables.meetupReturnLocation = returnLoc;
+                    State.variables.location = returnLoc;
+                    Engine.play(meetupPassage);
+                });
+            container.append(meetupBtn);
+            visibleActions++;
+        }
 
         actions.forEach(action => {
             // Check content tags - if any tag is disabled, hide the action

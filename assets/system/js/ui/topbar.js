@@ -99,10 +99,37 @@ function rebuildTopbar() {
     }
     const workTooltip = getWorkTooltip();
 
+    /* Meetup notification: show only while meetup is pending, in the 15-min window (meetup time .. meetup time + 15 min). Hide as soon as meetup is completed. */
+    function getMeetupNotification() {
+        const appointments = vars.phoneAppointments || [];
+        const nowMinutes = (timeSys.hour || 0) * 60 + (timeSys.minute || 0);
+        const currentDate = (timeSys.year || 0) * 10000 + (timeSys.month || 0) * 100 + (timeSys.day || 0);
+        const windowMinutes = 15;
+        let nearest = null;
+
+        appointments.forEach(function (a) {
+            if (!a || !a.time || a.status !== 'pending') return;
+            const aptDate = ((a.time.year || timeSys.year || 0) * 10000) + ((a.time.month || 0) * 100) + (a.time.day || 0);
+            if (aptDate !== currentDate) return;
+            const aptMinutes = (a.time.hour || 0) * 60 + (a.time.minute || 0);
+            if (nowMinutes < aptMinutes || nowMinutes > aptMinutes + windowMinutes) return;
+            if (!nearest || (a.time.hour * 60 + (a.time.minute || 0)) < (nearest.time.hour * 60 + (nearest.time.minute || 0))) nearest = a;
+        });
+
+        if (!nearest) return { show: false, tooltip: '' };
+        const hh = String(nearest.time.hour || 0).padStart(2, '0');
+        const mm = String(nearest.time.minute || 0).padStart(2, '0');
+        const place = nearest.locationName || ((setupObj.navCards && setupObj.navCards[nearest.location] && setupObj.navCards[nearest.location].name) ? setupObj.navCards[nearest.location].name : (nearest.location || ''));
+        const withName = setupObj.getCharacter ? setupObj.getCharacter(nearest.charId) : null;
+        const charName = withName ? ((withName.firstName || withName.name || nearest.charId) + (withName.lastName ? (' ' + withName.lastName) : '')) : nearest.charId;
+        return { show: true, tooltip: 'Meetup with ' + charName + ' at ' + place + ' (' + hh + ':' + mm + ')' };
+    }
+    const meetupNotif = getMeetupNotification();
+
     const notifications = {
         left: [
             { icon: 'cum', tooltip: 'Cum', show: vars.notificationCum, color: '#e0e0e0' },
-            { icon: 'heart', tooltip: 'Relationship', show: vars.notificationHeart, color: '#ec4899' },
+            { icon: 'heart', tooltip: (meetupNotif.tooltip || '').replace(/"/g, '&quot;'), show: meetupNotif.show, color: '#ec4899' },
             { icon: 'bed', tooltip: 'Sleep', show: vars.notificationBed, color: '#3b82f6' },
             { icon: 'alarm', tooltip: vars.notificationAlarmText || 'Time Event', show: vars.notificationAlarm, color: '#f59e0b' },
             { icon: 'school', tooltip: 'School', show: vars.notificationSchool, color: '#10b981' },

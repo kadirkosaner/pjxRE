@@ -288,6 +288,7 @@
 
 .phone-device-screen {
   flex: 1;
+  position: relative;
   background: linear-gradient(
     135deg,
     #1a0a2e 0%,
@@ -299,6 +300,15 @@
   overflow: hidden;
   padding-top: 44px;
   position: relative;
+}
+
+/* Home screen wrapper: same flex layout as before so "Put the phone down" stays at bottom */
+.phone-home {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .phone-device-screen::before {
@@ -477,6 +487,559 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* Phone app view (in-app screen) */
+.phone-app-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-primary);
+  z-index: 2;
+  padding-top: 44px;
+}
+
+.phone-app-view-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-lg);
+  height: 44px;
+  min-height: 44px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+.phone-app-back {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+  padding: 0;
+  font-family: inherit;
+}
+
+.phone-app-back .icon {
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.phone-app-back:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.phone-app-view-title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 44px;
+  height: 44px;
+  color: var(--color-text-primary);
+  flex: 1;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.phone-app-view-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.phone-app-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.phone-app-placeholder-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin: 0 0 0.5rem 0;
+}
+
+.phone-app-placeholder-sub {
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
+.phone-app-calendar {
+  padding: var(--spacing-md) 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.phone-calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.phone-calendar-nav-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  padding: 0;
+}
+
+.phone-calendar-nav-btn .icon {
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.phone-calendar-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.phone-calendar-nav-btn-disabled,
+.phone-calendar-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.phone-calendar-nav-range {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-align: center;
+  flex: 1;
+}
+
+.phone-calendar-days {
+  overflow: visible;
+}
+
+.phone-calendar-day {
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.phone-calendar-day:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.phone-calendar-day-today {
+  padding: var(--spacing-sm);
+  margin-left: calc(-1 * var(--spacing-sm));
+  margin-right: calc(-1 * var(--spacing-sm));
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.phone-calendar-day-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.phone-calendar-day-events {
+  text-align: left;
+}
+
+.phone-calendar-day-empty {
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+
+.phone-calendar-event {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: var(--spacing-xs) 0;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.phone-calendar-event:last-child {
+  border-bottom: none;
+}
+
+.phone-calendar-event-time {
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--color-accent);
+  min-width: 2.5rem;
+}
+
+.phone-calendar-event-desc {
+  color: var(--color-text-primary);
+}
+
+/* New message / New call button */
+.phone-new-action {
+  margin-bottom: var(--spacing-md);
+}
+
+.phone-new-btn {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.phone-new-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Messages list & thread */
+.phone-messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Contact list (New message / New call): centered rows, avatar + name */
+.phone-contact-list-centered {
+  align-items: center;
+  max-width: 100%;
+}
+
+.phone-contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.phone-contact-row .phone-conv-name {
+  text-align: center;
+  flex: 1;
+}
+
+.phone-contact-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-round);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.phone-contact-avatar-placeholder {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.phone-conv-item {
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.phone-conv-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.phone-conv-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.phone-conv-preview {
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.phone-conv-meta {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  margin-top: 0.25rem;
+}
+
+.phone-conv-unread {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  color: var(--color-text-primary);
+  border-radius: 50%;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-left: 0.25rem;
+}
+
+.phone-messages-thread {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.phone-thread-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.phone-thread-bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.phone-msg-bubble {
+  max-width: 85%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 14px;
+  font-size: 0.875rem;
+}
+
+.phone-msg-sent {
+  align-self: flex-end;
+  background: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+.phone-msg-received {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.phone-msg-time {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  margin-top: 0.2rem;
+}
+
+/* Thread compose (input + Send) */
+.phone-thread-compose {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.phone-message-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+}
+
+.phone-message-input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.phone-send-btn {
+  padding: 0.5rem 1rem;
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.phone-send-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* Thread actions: Talk + Where are you? */
+.phone-thread-actions {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.phone-topic-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.phone-topic-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.phone-where-cooldown {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  opacity: 0.85;
+  padding: 0.5rem 0.75rem;
+}
+
+.phone-topic-list {
+  margin: 0.5rem 0;
+}
+
+.phone-topic-item {
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.phone-topic-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.phone-topic-label {
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+}
+
+.phone-topic-back {
+  padding: 0.4rem 0;
+  background: transparent;
+  border: none;
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.phone-topic-back:hover {
+  text-decoration: underline;
+}
+
+/* Calls */
+.phone-calls-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.phone-calls-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.phone-call-item {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.phone-call-dir {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  margin-right: 0.5rem;
+}
+
+.phone-call-time {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  margin-left: 0.5rem;
+}
+
+/* Meetup prompt – passage widget */
+.meetup-prompt {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(236, 72, 153, 0.12);
+  border: 1px solid rgba(236, 72, 153, 0.3);
+  border-radius: var(--radius-md);
+}
+
+.meetup-prompt-text {
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.meetup-prompt a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.meetup-prompt a:hover {
+  filter: brightness(1.1);
+}
+
+.meetup-prompt-done {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
 }
 
 /*#endregion */

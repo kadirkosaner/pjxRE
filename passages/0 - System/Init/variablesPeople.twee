@@ -10,6 +10,9 @@
 /* Static NPC data (name, avatar, etc.) – not saved. Core (father, mother, brother, player) stay only in $characters. */
 <<set setup.characterDefs = {}>>
 
+/* Family: always in phone contact list (have their numbers from the start). Others added via <<phoneUnlockContact charId>> when player swaps numbers. */
+<<set setup.phoneContactsFamily = setup.phoneContactsFamily || ["mother", "father", "brother"]>>
+
 /* Locations (oldTown, downTown, maplewood...) are read from setup.locations (parent === null).
    Places per location: defined here. Only places with at least one known member appear; places are expandable. */
 <<set setup.relationPlaces = [

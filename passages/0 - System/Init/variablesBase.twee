@@ -39,7 +39,7 @@
 <<set $notificationThirst = 0>>
 <<set $notificationHunger = 0>>
 <<set $notificationCum = 1>>
-<<set $notificationHeart = 1>>
+<<set $notificationHeart = 0>>
 <<set $notificationBed = 1>>
 <<set $notificationAlarm = 1>>
 <<set $notificationSchool = 1>>
@@ -48,14 +48,31 @@
 <<set $notificationFaceText = "">>
 
 /* ==========================================
-   PHONE NOTIFICATIONS
+   PHONE – Data model (phone_system_data_and_technical.md)
+   Badge counts are derived from state; no manual counters.
 ========================================== */
 
 <<set $notificationPush = 0>>
-<<set $notificationPhoneCount = 0>>
-<<set $notificationPhoneMessages = 1>>
-<<set $notificationPhoneFotogram = 2>>
-<<set $notificationPhoneFinder = 3>>
+<<if ndef $phoneConversations>><<set $phoneConversations = {}>><</if>>
+<<if ndef $phoneGallery>><<set $phoneGallery = []>><</if>>
+<<if ndef $phoneFotogramPosts>><<set $phoneFotogramPosts = []>><</if>>
+<<if ndef $phoneFotogramDMs>><<set $phoneFotogramDMs = []>><</if>>
+<<if ndef $phoneNotifications>>
+    <<set $phoneNotifications = { fotogram: [], finder: [] }>>
+<</if>>
+<<if ndef $phoneFinderProfile>><<set $phoneFinderProfile = { galleryIds: [] }>><</if>>
+<<if ndef $phoneFinderMatches>><<set $phoneFinderMatches = []>><</if>>
+<<if ndef $phoneCallsLog>><<set $phoneCallsLog = []>><</if>>
+<<if ndef $phoneAppointments>><<set $phoneAppointments = []>><</if>>
+<<if ndef $phoneFameEventsFired>><<set $phoneFameEventsFired = []>><</if>>
+<<if ndef $phoneContactPromoted>><<set $phoneContactPromoted = {}>><</if>>
+<<if ndef $phoneContactsUnlocked>><<set $phoneContactsUnlocked = []>><</if>>
+<<if ndef $phoneWhereAskedLast>><<set $phoneWhereAskedLast = {}>><</if>>
+<<if ndef $phoneTalkAskedLast>><<set $phoneTalkAskedLast = {}>><</if>>
+/* Each entry: { day, month, year, hour, minute } – 30 min cooldown per character */
+
+/* Preferred meetup places for phone date planner (only discovered ones will be shown). */
+<<set setup.phoneMeetupLocationIds = setup.phoneMeetupLocationIds || ["sunsetPark", "restaurantDowntown", "nightClub", "cityHall", "mapleChurch", "restaurantBeach", "beachClub"]>>
 
 /* ==========================================
    DAILY TRACKING
@@ -151,4 +168,7 @@
         { name: "semesterBreak", startMonth: 1, startDay: 23, endMonth: 2, endDay: 7 }     /* Jan 23 - Feb 7 */
     ]
 }>>
+
+<<domInclude "variablesPhoneTopics">>
+
 

@@ -20,26 +20,27 @@ function createPhoneOverlay() {
     if (!PhoneAPI) return;
 
     const vars = PhoneAPI.State.variables;
+    if (cleanupExpiredMeetups(vars)) persistPhoneChanges();
 
     // Get time from timeSys object and format with leading zeros
     const timeSys = vars.timeSys || { hour: 0, minute: 0 };
     const timeSysHour = timeSys.hour.toString().padStart(2, '0');
     const timeSysMinute = timeSys.minute.toString().padStart(2, '0');
 
-    // Get notification counts
-    const notificationMessages = vars.notificationPhoneMessages || 0;
-    const notificationFotogram = vars.notificationPhoneFotogram || 0;
-    const notificationFinder = vars.notificationPhoneFinder || 0;
+    // Badge: derived from state (phone_system_data_and_technical.md §9)
+    const notificationMessages = (typeof window.phoneUnreadCount === 'function') ? window.phoneUnreadCount() : 0;
+    const notificationFotogram = (vars.phoneNotifications && vars.phoneNotifications.fotogram) ? vars.phoneNotifications.fotogram.length : 0;
+    const notificationFinder = (vars.phoneNotifications && vars.phoneNotifications.finder) ? vars.phoneNotifications.finder.length : 0;
 
     // Phone apps configuration
     const apps = [
-        { name: 'Camera', icon: 'assets/content/phone/icon_camera.png', action: 'camera', badge: 0 },
-        { name: 'Calls', icon: 'assets/content/phone/icon_calls.png', action: 'calls', badge: 0 },
-        { name: 'Messages', icon: 'assets/content/phone/icon_messages.png', action: 'messages', badge: notificationMessages },
-        { name: 'Gallery', icon: 'assets/content/phone/icon_gallery.png', action: 'gallery', badge: 0 },
-        { name: 'Calendar', icon: 'assets/content/phone/icon_calendar.png', action: 'calendar', badge: 0 },
-        { name: 'Fotogram', icon: 'assets/content/phone/icon_fotogram.png', action: 'fotogram', badge: notificationFotogram },
-        { name: 'Finder', icon: 'assets/content/phone/icon_finder.png', action: 'finder', badge: notificationFinder }
+        { name: 'Camera', icon: 'assets/content/phone/icon_camera.webp', action: 'camera', badge: 0 },
+        { name: 'Calls', icon: 'assets/content/phone/icon_calls.webp', action: 'calls', badge: 0 },
+        { name: 'Messages', icon: 'assets/content/phone/icon_messages.webp', action: 'messages', badge: notificationMessages },
+        { name: 'Gallery', icon: 'assets/content/phone/icon_gallery.webp', action: 'gallery', badge: 0 },
+        { name: 'Calendar', icon: 'assets/content/phone/icon_calendar.webp', action: 'calendar', badge: 0 },
+        { name: 'Fotogram', icon: 'assets/content/phone/icon_fotogram.webp', action: 'fotogram', badge: notificationFotogram },
+        { name: 'Finder', icon: 'assets/content/phone/icon_finder.webp', action: 'finder', badge: notificationFinder }
     ];
 
     // Render apps
@@ -66,14 +67,22 @@ function createPhoneOverlay() {
                 </div>
                 
                 <div class="phone-device-screen">
-                    <div class="phone-apps-container">
-                        <div class="phone-apps-grid">
-                            ${appsHtml}
+                    <div class="phone-home">
+                        <div class="phone-apps-container">
+                            <div class="phone-apps-grid">
+                                ${appsHtml}
+                            </div>
+                        </div>
+                        <div class="phone-action-area">
+                            <button type="button" class="phone-close-btn" id="phone-close">Put the phone down</button>
                         </div>
                     </div>
-                    
-                    <div class="phone-action-area">
-                        <button class="phone-close-btn" id="phone-close">Put the phone down</button>
+                    <div class="phone-app-view" id="phone-app-view" style="display: none;">
+                        <div class="phone-app-view-header">
+                            <button type="button" class="phone-app-back" id="phone-app-back" aria-label="Back"><span class="icon icon-chevron-left icon-24"></span></button>
+                            <span class="phone-app-view-title" id="phone-app-view-title"></span>
+                        </div>
+                        <div class="phone-app-view-content" id="phone-app-view-content"></div>
                     </div>
                 </div>
                 
@@ -84,13 +93,11 @@ function createPhoneOverlay() {
 
     PhoneAPI.$('body').append(html);
 
-    // Close events
-    $('#phone-close').on('click', function () {
-        closePhoneOverlay();
-    });
-
+    // Close only via "Put the phone down" button (not overlay background)
     $('#phone-overlay').on('click', function (e) {
-        if ($(e.target).hasClass('phone-overlay')) {
+        const $t = $(e.target);
+        if ($t.closest('#phone-close').length || $t.hasClass('phone-close-btn')) {
+            e.preventDefault();
             closePhoneOverlay();
         }
     });
@@ -100,12 +107,1024 @@ function createPhoneOverlay() {
         const action = $(this).data('action');
         handleAppClick(action);
     });
+
+    // Back: from sub-views -> previous view; from list -> home
+    $('#phone-app-back').on('click', function () {
+        if (!PhoneAPI) return;
+        const vars = PhoneAPI.State.variables;
+        if (phoneViewState.app && phoneViewState.sub === 'topics') {
+            phoneViewState.sub = 'thread';
+            var charId = phoneViewState.threadCharId;
+            $('#phone-app-view-title').text(phoneViewState.pickerFor === 'message' ? 'New message' : (PHONE_APP_NAMES.messages || 'Messages'));
+            $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+            updatePhoneBadges();
+        } else if (phoneViewState.app && phoneViewState.sub === 'thread') {
+            phoneViewState.sub = 'contacts';
+            phoneViewState.threadCharId = null;
+            phoneViewState.meetup = null;
+            if (phoneViewState.pickerFor === 'message') {
+                $('#phone-app-view-title').text('New message');
+                $('#phone-app-view-content').html(getContactListHtml(vars));
+            } else {
+                phoneViewState.sub = 'list';
+                phoneViewState.pickerFor = null;
+                $('#phone-app-view-title').text(PHONE_APP_NAMES[phoneViewState.app] || phoneViewState.app);
+                $('#phone-app-view-content').html(getAppContent(phoneViewState.app, vars));
+            }
+            updatePhoneBadges();
+        } else if (phoneViewState.app && phoneViewState.sub === 'contacts') {
+            phoneViewState.sub = 'list';
+            phoneViewState.pickerFor = null;
+            $('#phone-app-view-title').text(PHONE_APP_NAMES[phoneViewState.app] || phoneViewState.app);
+            $('#phone-app-view-content').html(getAppContent(phoneViewState.app, vars));
+            updatePhoneBadges();
+        } else {
+            hideAppView();
+        }
+    });
+
+    // Calendar: prev/next day (only within today .. today+9)
+    $('#phone-overlay').on('click', '#phone-calendar-prev', function () {
+        if (!PhoneAPI) return;
+        if (phoneViewState.calendarOffset <= 0) return;
+        phoneViewState.calendarOffset--;
+        $('#phone-app-view-content').html(getAppContent('calendar', PhoneAPI.State.variables));
+    });
+    $('#phone-overlay').on('click', '#phone-calendar-next', function () {
+        if (!PhoneAPI) return;
+        if (phoneViewState.calendarOffset >= 9) return;
+        phoneViewState.calendarOffset++;
+        $('#phone-app-view-content').html(getAppContent('calendar', PhoneAPI.State.variables));
+    });
+
+    // New message: show contact picker
+    $('#phone-overlay').on('click', '#phone-new-message', function () {
+        if (!PhoneAPI) return;
+        phoneViewState.sub = 'contacts';
+        phoneViewState.pickerFor = 'message';
+        $('#phone-app-view-title').text('New message');
+        $('#phone-app-view-content').html(getContactListHtml(PhoneAPI.State.variables));
+    });
+
+    // New call: show contact picker
+    $('#phone-overlay').on('click', '#phone-new-call', function () {
+        if (!PhoneAPI) return;
+        phoneViewState.sub = 'contacts';
+        phoneViewState.pickerFor = 'call';
+        $('#phone-app-view-title').text('New call');
+        $('#phone-app-view-content').html(getContactListHtml(PhoneAPI.State.variables));
+    });
+
+    // Contact pick: open thread (message) or place call (call)
+    $('#phone-overlay').on('click', '.phone-contact-pick', function () {
+        const charId = $(this).data('char-id');
+        if (!charId || !PhoneAPI) return;
+        const vars = PhoneAPI.State.variables;
+        const $content = $('#phone-app-view-content');
+        if (phoneViewState.pickerFor === 'message') {
+            phoneViewState.sub = 'thread';
+            phoneViewState.threadCharId = charId;
+            phoneViewState.meetup = null;
+            markConversationReadInState(charId, vars);
+            $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
+            $content.html(getMessagesThreadHtml(charId, vars));
+            updatePhoneBadges();
+        } else if (phoneViewState.pickerFor === 'call') {
+            if (typeof Engine !== 'undefined' && Engine.wiki) {
+                Engine.wiki('<<phoneCallLog "' + charId + '" "out">>');
+            }
+            phoneViewState.sub = 'list';
+            phoneViewState.pickerFor = null;
+            $('#phone-app-view-title').text(PHONE_APP_NAMES.calls || 'Calls');
+            $content.html(getAppContent('calls', PhoneAPI.State.variables));
+        }
+    });
+
+    // Messages: open conversation thread from list (existing conv) and mark read
+    $('#phone-overlay').on('click', '.phone-conv-item:not(.phone-contact-pick)', function () {
+        const charId = $(this).data('char-id');
+        if (!charId || !PhoneAPI) return;
+        phoneViewState.sub = 'thread';
+        phoneViewState.threadCharId = charId;
+        phoneViewState.meetup = null;
+        const vars = PhoneAPI.State.variables;
+        markConversationReadInState(charId, vars);
+        $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        updatePhoneBadges();
+    });
+
+    // Talk: ensure topics loaded from passage then show topic list
+    $('#phone-overlay').on('click', '#phone-talk-btn', function () {
+        if (!PhoneAPI) return;
+        var charId = phoneViewState.threadCharId;
+        ensureTalkTopicsLoaded();
+        var vars = PhoneAPI.State.variables;
+        phoneViewState.sub = 'topics';
+        $('#phone-app-view-title').text('Talk - ' + getPhoneContactFullName(charId, vars));
+        $('#phone-app-view-content').html(getTopicListHtml(charId, vars));
+    });
+
+    // Where are you?: 30 min cooldown per character; when allowed, always send fresh location (no "I already told you" block)
+    $('#phone-overlay').on('click', '#phone-where-btn', function () {
+        if (!PhoneAPI) return;
+        var charId = phoneViewState.threadCharId;
+        if (!charId) return;
+        var v = PhoneAPI.State.variables;
+        var t = v.timeSys || {};
+        var today = { day: t.day, month: t.month, year: t.year };
+        pushPhoneMessage(charId, 'player', 'Where are you?');
+        if (typeof Engine !== 'undefined' && Engine.wiki) {
+            Engine.wiki('<<updateCharacterLocations>>');
+        }
+        var ch = v.characters && v.characters[charId];
+        var status = (ch && ch.currentStatus) || '';
+        if (status !== 'sleeping' && status !== 'showering') {
+            var locId = (ch && ch.currentLocation) || '';
+            var locName = (typeof window.getLocationName === 'function') ? window.getLocationName(locId) : (locId || 'home');
+            pushPhoneMessage(charId, charId, "I'm in the " + locName + ".");
+        }
+        if (!v.phoneWhereAskedLast) v.phoneWhereAskedLast = {};
+        v.phoneWhereAskedLast[charId] = { day: today.day, month: today.month, year: today.year, hour: t.hour, minute: t.minute };
+        markConversationReadInState(charId, v);
+        persistPhoneChanges();
+        phoneViewState.sub = 'thread';
+        $('#phone-app-view-title').text(getPhoneContactFullName(charId, v));
+        $('#phone-app-view-content').html(getMessagesThreadHtml(charId, v));
+        updatePhoneBadges();
+    });
+
+    // Plan meetup flow
+    $('#phone-overlay').on('click', '#phone-meetup-btn', function () {
+        if (!PhoneAPI) return;
+        var charId = phoneViewState.threadCharId;
+        var vars = PhoneAPI.State.variables;
+        if (!charId || !canShowMeetupButton(charId, vars)) return;
+        if (cleanupExpiredMeetups(vars)) persistPhoneChanges();
+        if (hasPendingMeetupToday(vars)) {
+            pushPhoneMessage(charId, charId, "You already have a meetup scheduled today.");
+            markConversationReadInState(charId, vars);
+            persistPhoneChanges();
+            $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+            updatePhoneBadges();
+            return;
+        }
+
+        pushPhoneMessage(charId, 'player', 'Are you free today?');
+        if (typeof Engine !== 'undefined' && Engine.wiki) {
+            Engine.wiki('<<updateCharacterLocations>>');
+        }
+        var ch = vars.characters && vars.characters[charId];
+        var status = (ch && ch.currentStatus) || '';
+        var isFree = status !== 'busy' && status !== 'sleeping' && status !== 'showering';
+        if (!isFree) {
+            pushPhoneMessage(charId, charId, "Sorry, I'm busy right now.");
+            markConversationReadInState(charId, vars);
+            persistPhoneChanges();
+            phoneViewState.sub = 'thread';
+            $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
+            $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+            updatePhoneBadges();
+            return;
+        }
+
+        pushPhoneMessage(charId, charId, "I'm free. What time are you thinking?");
+        markConversationReadInState(charId, vars);
+        persistPhoneChanges();
+        phoneViewState.meetup = { charId: charId, step: 'pick_time' };
+        phoneViewState.sub = 'thread';
+        $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
+        $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        updatePhoneBadges();
+    });
+
+    $('#phone-overlay').on('click', '.phone-meetup-place-item', function () {
+        if (!PhoneAPI) return;
+        var charId = phoneViewState.threadCharId;
+        var vars = PhoneAPI.State.variables;
+        var placeId = $(this).data('place-id');
+        var placeName = $(this).data('place-name');
+        if (!charId || !placeId || !phoneViewState.meetup || phoneViewState.meetup.step !== 'pick_place') return;
+        var selHour = phoneViewState.meetup.hour;
+        var selMinute = phoneViewState.meetup.minute;
+        var selDay = phoneViewState.meetup.day;
+        var selMonth = phoneViewState.meetup.month;
+        var selYear = phoneViewState.meetup.year;
+        if (typeof selHour !== 'number' || typeof selMinute !== 'number') return;
+
+        phoneViewState.meetup.placeId = placeId;
+        phoneViewState.meetup.placeName = placeName || placeId;
+
+        var hh = String(selHour).padStart(2, '0');
+        var mm = String(selMinute).padStart(2, '0');
+        pushPhoneMessage(charId, 'player', "Let's meet at " + phoneViewState.meetup.placeName + ".");
+        pushPhoneMessage(charId, charId, 'Perfect. See you at ' + phoneViewState.meetup.placeName + ' at ' + hh + ':' + mm + '.');
+        pushPhoneMessage(charId, 'player', 'See you there.');
+        createMeetupAppointment(
+            charId,
+            phoneViewState.meetup.placeId,
+            phoneViewState.meetup.placeName,
+            selHour,
+            selMinute,
+            vars,
+            { day: selDay, month: selMonth, year: selYear }
+        );
+        markConversationReadInState(charId, vars);
+        persistPhoneChanges();
+
+        phoneViewState.meetup = null;
+        phoneViewState.sub = 'thread';
+        $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
+        $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        updatePhoneBadges();
+    });
+
+    $('#phone-overlay').on('click', '.phone-meetup-time-item', function () {
+        if (!PhoneAPI) return;
+        var charId = phoneViewState.threadCharId;
+        var vars = PhoneAPI.State.variables;
+        if (!charId || !phoneViewState.meetup || phoneViewState.meetup.step !== 'pick_time') return;
+
+        var hour = parseInt($(this).data('hour'), 10);
+        var minute = parseInt($(this).data('minute') || 0, 10);
+        var day = parseInt($(this).data('day'), 10);
+        var month = parseInt($(this).data('month'), 10);
+        var year = parseInt($(this).data('year'), 10);
+        var dayOffset = parseInt($(this).data('day-offset') || 0, 10);
+        if (Number.isNaN(hour) || Number.isNaN(minute)) return;
+        if (Number.isNaN(day) || Number.isNaN(month) || Number.isNaN(year)) return;
+        if (isMeetupTimeBlocked(hour, minute, vars, { day: day, month: month, year: year })) return;
+
+        var hh = String(hour).padStart(2, '0');
+        var mm = String(minute).padStart(2, '0');
+        var whenText = dayOffset > 0 ? ('tomorrow at ' + hh + ':' + mm) : (hh + ':' + mm);
+        pushPhoneMessage(charId, 'player', 'How about ' + whenText + '?');
+        pushPhoneMessage(charId, charId, "I'm available then. Where should we meet?");
+        phoneViewState.meetup.hour = hour;
+        phoneViewState.meetup.minute = minute;
+        phoneViewState.meetup.day = day;
+        phoneViewState.meetup.month = month;
+        phoneViewState.meetup.year = year;
+        phoneViewState.meetup.step = 'pick_place';
+        markConversationReadInState(charId, vars);
+        persistPhoneChanges();
+
+        phoneViewState.sub = 'thread';
+        $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
+        $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        updatePhoneBadges();
+    });
+
+    $('#phone-overlay').on('click', '#phone-meetup-cancel-btn', function () {
+        if (!PhoneAPI) return;
+        var charId = phoneViewState.threadCharId;
+        var vars = PhoneAPI.State.variables;
+        if (!charId) return;
+        pushPhoneMessage(charId, 'player', "Let's plan it another day.");
+        pushPhoneMessage(charId, charId, 'Sure, text me when you are ready.');
+        markConversationReadInState(charId, vars);
+        persistPhoneChanges();
+        phoneViewState.meetup = null;
+        phoneViewState.sub = 'thread';
+        $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
+        $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        updatePhoneBadges();
+    });
+
+    // Topic selected: send player message + NPC reply, refresh thread (use same unlocked list as getTopicListHtml)
+    $('#phone-overlay').on('click', '.phone-topic-item', function () {
+        if (!PhoneAPI) return;
+        var charId = phoneViewState.threadCharId;
+        var topicId = $(this).data('topic-id');
+        var vars = PhoneAPI.State.variables;
+        var topics = getAvailableTalkTopics(charId, vars);
+        var topic = topics.filter(function (t) { return t.id === topicId; })[0];
+        if (!topic || !charId) return;
+        pushPhoneMessage(charId, 'player', topic.message || '');
+        if (typeof Engine !== 'undefined' && Engine.wiki) {
+            Engine.wiki('<<updateCharacterLocations>>');
+        }
+        var ch = vars.characters && vars.characters[charId];
+        var status = (ch && ch.currentStatus) || '';
+        var availableNow = status !== 'sleeping' && status !== 'showering';
+        if (availableNow) {
+            if (topic.reply) pushPhoneMessage(charId, charId, topic.reply);
+            markTalkTopicUsedToday(charId, topicId, vars);
+        } else {
+            pushPhoneMessage(charId, charId, 'You waited for a while. No reply... probably not available right now.');
+        }
+        // User is already inside this chat, so mark conversation as read after appending.
+        markConversationReadInState(charId, vars);
+        persistPhoneChanges();
+        phoneViewState.sub = 'thread';
+        $('#phone-app-view-title').text(phoneViewState.pickerFor === 'message' ? 'New message' : (PHONE_APP_NAMES.messages || 'Messages'));
+        $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        updatePhoneBadges();
+    });
+
+}
+
+// App display names
+const PHONE_APP_NAMES = {
+    camera: 'Camera',
+    calls: 'Calls',
+    messages: 'Messages',
+    gallery: 'Gallery',
+    calendar: 'Calendar',
+    fotogram: 'Fotogram',
+    finder: 'Finder'
+};
+
+// Display name for previews (use full name consistently)
+function getPhoneContactName(charId, vars) {
+    if (!charId) return '';
+    return getPhoneContactFullName(charId, vars);
+}
+
+// Full display: "Name Surname" for contact list and thread header (uses vars.characters or setup.getCharacter)
+function getPhoneContactFullName(charId, vars) {
+    if (!charId) return '';
+    var c = (vars && vars.characters && vars.characters[charId]) ? vars.characters[charId] : null;
+    if (!c && typeof setup !== 'undefined' && setup.getCharacter) c = setup.getCharacter(charId);
+    if (!c) return charId;
+    var first = c.firstName || c.name || '';
+    var last = c.lastName || '';
+    if (first && last) return first + ' ' + last;
+    if (first) return first;
+    return charId;
+}
+
+// Avatar URL for contact list (uses vars.characters or setup.getCharacter)
+function getPhoneContactAvatar(charId, vars) {
+    if (!charId) return '';
+    var c = (vars && vars.characters && vars.characters[charId]) ? vars.characters[charId] : null;
+    if (!c && typeof setup !== 'undefined' && setup.getCharacter) c = setup.getCharacter(charId);
+    return (c && c.avatar) ? c.avatar : '';
+}
+
+function formatPhoneTime(t) {
+    if (!t) return '';
+    const h = (t.hour != null) ? String(t.hour).padStart(2, '0') : '00';
+    const m = (t.minute != null) ? String(t.minute).padStart(2, '0') : '00';
+    return h + ':' + m;
+}
+
+// Can ask "Where are you?" again? (30 min game-time cooldown per character)
+function canAskWhereAreYou(charId, vars) {
+    var last = (vars.phoneWhereAskedLast && vars.phoneWhereAskedLast[charId]) || null;
+    if (!last) return true;
+    var t = vars.timeSys || {};
+    if (t.day !== last.day || t.month !== last.month || (t.year && last.year && t.year !== last.year)) return true;
+    var nowMin = (t.hour || 0) * 60 + (t.minute || 0);
+    var lastMin = (last.hour || 0) * 60 + (last.minute || 0);
+    var diff = nowMin - lastMin;
+    if (diff < 0) diff += 24 * 60;
+    return diff >= 30;
+}
+
+// Minutes until can ask again (0 if can ask now)
+function minutesUntilWhereCooldown(charId, vars) {
+    var last = (vars.phoneWhereAskedLast && vars.phoneWhereAskedLast[charId]) || null;
+    if (!last) return 0;
+    var t = vars.timeSys || {};
+    if (t.day !== last.day || t.month !== last.month) return 0;
+    var nowMin = (t.hour || 0) * 60 + (t.minute || 0);
+    var lastMin = (last.hour || 0) * 60 + (last.minute || 0);
+    var diff = nowMin - lastMin;
+    if (diff < 0) diff += 24 * 60;
+    return diff >= 30 ? 0 : 30 - diff;
+}
+
+// Talk availability: once per day per topic per character.
+function canUseTalkTopicToday(charId, topicId, vars) {
+    var lastByChar = (vars.phoneTalkAskedLast && vars.phoneTalkAskedLast[charId]) || null;
+    var last = (lastByChar && lastByChar[topicId]) || null;
+    if (!last) return true;
+    var t = vars.timeSys || {};
+    return (t.day !== last.day) || (t.month !== last.month) || ((t.year || 0) !== (last.year || 0));
+}
+
+function getAvailableTalkTopics(charId, vars) {
+    var topics = (typeof window.phoneGetUnlockedTopics === 'function') ? window.phoneGetUnlockedTopics(charId, vars) : [];
+    return topics.filter(function (t) { return canUseTalkTopicToday(charId, t.id, vars); });
+}
+
+function markTalkTopicUsedToday(charId, topicId, vars) {
+    if (!vars.phoneTalkAskedLast) vars.phoneTalkAskedLast = {};
+    if (!vars.phoneTalkAskedLast[charId]) vars.phoneTalkAskedLast[charId] = {};
+    var t = vars.timeSys || {};
+    vars.phoneTalkAskedLast[charId][topicId] = { day: t.day, month: t.month, year: t.year };
+}
+
+function persistPhoneChanges() {
+    try {
+        if (window.Save && Save.autosave && typeof Save.autosave.save === 'function') {
+            Save.autosave.save();
+            return;
+        }
+    } catch (e) { }
+    try {
+        var api = window.SaveLoadAPI;
+        if (api && api.Save && api.Save.slots && typeof api.Save.slots.save === 'function') {
+            api.Save.slots.save(0);
+        }
+    } catch (e2) { }
+}
+
+function cleanupExpiredMeetups(vars) {
+    var ts = vars.timeSys || {};
+    var nowMinutes = (ts.hour || 0) * 60 + (ts.minute || 0);
+    var currentDate = (ts.year || 0) * 10000 + (ts.month || 0) * 100 + (ts.day || 0);
+    var changed = false;
+    (vars.phoneAppointments || []).forEach(function (a) {
+        if (!a || a.status !== 'pending' || !a.time) return;
+        var aptDate = ((a.time.year || ts.year || 0) * 10000) + ((a.time.month || 0) * 100) + (a.time.day || 0);
+        var aptMinutes = (a.time.hour || 0) * 60 + (a.time.minute || 0);
+        if (aptDate < currentDate || (aptDate === currentDate && nowMinutes >= (aptMinutes + 15))) {
+            a.status = 'cancelled';
+            changed = true;
+        }
+    });
+    return changed;
+}
+
+function hasPendingMeetupToday(vars) {
+    var ts = vars.timeSys || {};
+    var currentDate = (ts.year || 0) * 10000 + (ts.month || 0) * 100 + (ts.day || 0);
+    return (vars.phoneAppointments || []).some(function (a) {
+        if (!a || a.status !== 'pending' || !a.time) return false;
+        var aptDate = ((a.time.year || ts.year || 0) * 10000) + ((a.time.month || 0) * 100) + (a.time.day || 0);
+        return aptDate === currentDate;
+    });
+}
+
+/** True if this character has any meetup today (pending or completed). Used to hide "Plan meetup" in messages for the rest of the day. */
+function hasMeetupTodayWithChar(charId, vars) {
+    var ts = vars.timeSys || {};
+    var currentDate = (ts.year || 0) * 10000 + (ts.month || 0) * 100 + (ts.day || 0);
+    return (vars.phoneAppointments || []).some(function (a) {
+        if (!a || !a.time || a.charId !== charId) return false;
+        var aptDate = ((a.time.year || ts.year || 0) * 10000) + ((a.time.month || 0) * 100) + (a.time.day || 0);
+        return aptDate === currentDate;
+    });
+}
+
+function createMeetupAppointment(charId, placeId, placeName, hour, minute, vars, dateInfo) {
+    if (!vars.phoneAppointments) vars.phoneAppointments = [];
+    var t = vars.timeSys || {};
+    var d = dateInfo || { day: t.day, month: t.month, year: t.year };
+    vars.phoneAppointments.push({
+        id: 'apt_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+        charId: charId,
+        time: { day: d.day, month: d.month, year: d.year, hour: hour, minute: minute },
+        location: placeId,
+        locationName: placeName || placeId,
+        type: 'meetup',
+        status: 'pending'
+    });
+}
+
+function canShowMeetupButton(charId, vars) {
+    var c = vars.characters && vars.characters[charId];
+    var friendship = c && c.stats ? (c.stats.friendship || 0) : 0;
+    if (friendship < 20) return false;
+    // Only show if character has at least one meetup: true slot in schedule (today or tomorrow)
+    return getMeetupTimeOptions(charId, vars).length > 0;
+}
+
+/* Known meetup places (variablesNavigation.twee: navCards with meetup:true). Used when setup is not available. */
+var PHONE_MEETUP_IDS_FALLBACK = ['sunsetPark', 'dinerRubys'];
+var PHONE_MEETUP_NAMES_FALLBACK = { sunsetPark: 'Sunset Park', dinerRubys: "Ruby's Diner" };
+
+function getStorySetupObj() {
+    var s = (typeof setup !== 'undefined') ? setup : null;
+    var ws = (typeof window !== 'undefined' && window.setup) ? window.setup : null;
+    var sugar = (typeof window !== 'undefined' && window.SugarCube && window.SugarCube.setup) ? window.SugarCube.setup : null;
+    if (s && s.navCards && Object.keys(s.navCards).length) return s;
+    if (ws && ws.navCards && Object.keys(ws.navCards).length) return ws;
+    if (sugar && sugar.navCards && Object.keys(sugar.navCards).length) return sugar;
+    return s || ws || sugar || {};
+}
+
+/** Same discovery key as processNavCard and map: discovered + (first letter upper + rest). */
+function isDiscoveredLocation(locationId, vars, setupObj) {
+    if (!locationId) return false;
+    var stateVars = (typeof State !== 'undefined' && State.variables) ? State.variables
+        : (typeof window !== 'undefined' && window.State && window.State.variables) ? window.State.variables
+        : (vars || {});
+    var capitalizedId = locationId.charAt(0).toUpperCase() + locationId.slice(1);
+    var discoveryVar = 'discovered' + capitalizedId;
+    var v = stateVars[discoveryVar];
+    if (v === true || v === 1 || v === '1' || v === 'true') return true;
+    var altKeys = ['discovered' + locationId, 'discoveredsunsetPark', 'discoveredDinerRubys'];
+    for (var i = 0; i < altKeys.length; i++) {
+        if (stateVars[altKeys[i]] === true || stateVars[altKeys[i]] === 1) return true;
+    }
+    if (stateVars.location === locationId) return true;
+    var locSource = (setupObj && setupObj.locations) ? setupObj.locations : (window.setup && window.setup.locations) || null;
+    if (locSource && locSource[locationId]) {
+        var parentId = locSource[locationId].parent;
+        if (parentId) {
+            var pCap = parentId.charAt(0).toUpperCase() + parentId.slice(1);
+            if (stateVars['discovered' + pCap] === true || stateVars['discovered' + pCap] === 1) return true;
+        }
+    }
+    return false;
+}
+
+function getMeetupLocations(vars) {
+    var setupObj = getStorySetupObj();
+    var out = [];
+    var seen = {};
+    var ids = [];
+    /* Only locations with meetup: true in navCards (variablesNavigation.twee). */
+    if (setupObj.navCards) {
+        Object.keys(setupObj.navCards).forEach(function (id) {
+            if (setupObj.navCards[id] && setupObj.navCards[id].meetup === true && ids.indexOf(id) === -1) ids.push(id);
+        });
+    }
+    if (window.setup && window.setup.navCards) {
+        Object.keys(window.setup.navCards).forEach(function (id) {
+            if (window.setup.navCards[id] && window.setup.navCards[id].meetup === true && ids.indexOf(id) === -1) ids.push(id);
+        });
+    }
+    if (!ids.length) ids = PHONE_MEETUP_IDS_FALLBACK.slice();
+    // Only include locations the player has discovered (variablesDiscovery.twee: discoveredSunsetPark, discoveredDinerRubys, etc.).
+    ids.forEach(function (id) {
+        if (seen[id]) return;
+        if (!isDiscoveredLocation(id, vars, setupObj)) return;
+        seen[id] = true;
+        var nav = (setupObj.navCards && setupObj.navCards[id]) || (window.setup && window.setup.navCards && window.setup.navCards[id]);
+        var name = (nav && nav.name) ? nav.name : (PHONE_MEETUP_NAMES_FALLBACK[id] || id);
+        out.push({ id: id, name: name });
+    });
+    return out;
+}
+
+function getDateWithOffset(ts, dayOffset) {
+    var dt = new Date(ts.year || 2025, (ts.month || 1) - 1, ts.day || 1);
+    dt.setDate(dt.getDate() + dayOffset);
+    return {
+        year: dt.getFullYear(),
+        month: dt.getMonth() + 1,
+        day: dt.getDate(),
+        weekday: dt.getDay()
+    };
+}
+
+function getCurrentScheduleForChar(charId, vars, dateInfo) {
+    var setupObj = getStorySetupObj();
+    var schedules = setupObj.schedules || {};
+    var sch = schedules[charId];
+    if (!sch) return null;
+    var ts = vars.timeSys || {};
+    var d = dateInfo || { year: ts.year, month: ts.month, day: ts.day, weekday: ts.weekday };
+    var scheduleType = (d.weekday === 0) ? 'sunday' : ((d.weekday === 6) ? 'weekend' : 'weekday');
+    var phase = null;
+    var curDate = (d.year || 0) * 10000 + (d.month || 0) * 100 + (d.day || 0);
+    if (charId === 'father' && vars.importantDates && vars.importantDates.fatherWorkStart) {
+        var f = vars.importantDates.fatherWorkStart;
+        var workDate = (f.year || 0) * 10000 + (f.month || 0) * 100 + (f.day || 0);
+        phase = curDate >= workDate ? 'postWork' : 'preWork';
+    } else if (charId === 'father' && (sch.preWork || sch.postWork)) {
+        phase = sch.postWork ? 'postWork' : 'preWork';
+    }
+    if (charId === 'brother' && setupObj.schoolCalendar && setupObj.schoolCalendar.vacations) {
+        var md = (d.month || 0) * 100 + (d.day || 0);
+        var isVac = false;
+        (setupObj.schoolCalendar.vacations || []).forEach(function (v) {
+            var s = (v.startMonth || 0) * 100 + (v.startDay || 0);
+            var e = (v.endMonth || 0) * 100 + (v.endDay || 0);
+            if (s <= e) {
+                if (md >= s && md <= e) isVac = true;
+            } else {
+                if (md >= s || md <= e) isVac = true;
+            }
+        });
+        phase = isVac ? 'vacation' : 'school';
+    } else if (charId === 'brother' && (sch.school || sch.vacation)) {
+        phase = sch.school ? 'school' : 'vacation';
+    }
+    var daySchedule = null;
+    if (phase && sch[phase]) {
+        daySchedule = sch[phase][scheduleType] || ((scheduleType === 'sunday') ? sch[phase].weekend : null);
+    } else {
+        daySchedule = sch[scheduleType] || ((scheduleType === 'sunday') ? sch.weekend : null);
+    }
+    return daySchedule || null;
+}
+
+function getStatusAtMinute(schedule, minuteOfDay) {
+    if (!schedule || !schedule.length) return 'busy';
+    var cur = schedule[schedule.length - 1];
+    for (var i = 0; i < schedule.length; i++) {
+        var slot = schedule[i];
+        var slotMinute = (slot.hour || 0) * 60 + (slot.minute || 0);
+        if (slotMinute <= minuteOfDay) cur = slot;
+    }
+    return cur && cur.status ? cur.status : 'busy';
+}
+
+function isMeetupTimeBlocked(hour, minute, vars, dateInfo) {
+    var ts = vars.timeSys || {};
+    var d = dateInfo || { day: ts.day, month: ts.month, year: ts.year };
+    var candidate = hour * 60 + minute;
+    var list = vars.phoneAppointments || [];
+    for (var i = 0; i < list.length; i++) {
+        var a = list[i];
+        if (!a || a.status !== 'pending' || !a.time) continue;
+        if ((a.time.day !== d.day) || (a.time.month !== d.month) || ((a.time.year || 0) !== (d.year || 0))) continue;
+        var existing = (a.time.hour || 0) * 60 + (a.time.minute || 0);
+        if (candidate === existing || candidate === (existing + 60)) return true;
+    }
+    return false;
+}
+
+function getMeetupTimeOptions(charId, vars) {
+    cleanupExpiredMeetups(vars);
+    var ts = vars.timeSys || {};
+    var options = [];
+    var dates = [getDateWithOffset(ts, 0), getDateWithOffset(ts, 1)];
+    for (var d = 0; d < dates.length; d++) {
+        var dateInfo = dates[d];
+        var schedule = getCurrentScheduleForChar(charId, vars, dateInfo);
+        var seen = {};
+        var timeCandidates = [];
+        if (schedule && schedule.length) {
+            // Only slots with meetup: true and status available are offered (character schedule integration).
+            schedule.forEach(function (slot) {
+                if (!slot || slot.status !== 'available' || slot.meetup !== true) return;
+                var h = slot.hour || 0;
+                var m = slot.minute || 0;
+                var key = String(h) + ':' + String(m);
+                if (seen[key]) return;
+                seen[key] = true;
+                timeCandidates.push({ hour: h, minute: m });
+            });
+        }
+        // No fallback when schedule has no meetup slots – only show times from schedule with meetup: true
+        var nowMin = (ts.hour || 0) * 60 + (ts.minute || 0);
+        for (var i = 0; i < timeCandidates.length; i++) {
+            var h = timeCandidates[i].hour;
+            var m = timeCandidates[i].minute;
+            var minuteOfDay = h * 60 + m;
+            if (d === 0 && minuteOfDay <= nowMin) continue;
+            if (isMeetupTimeBlocked(h, m, vars, dateInfo)) continue;
+            options.push({ hour: h, minute: m, day: dateInfo.day, month: dateInfo.month, year: dateInfo.year, dayOffset: d });
+        }
+        if (options.length) break;
+    }
+    return options;
+}
+
+function getMeetupPlaceListHtml(charId, vars) {
+    cleanupExpiredMeetups(vars);
+    var places = getMeetupLocations(vars);
+    if (!places.length) {
+        return '<div class="phone-messages-thread" data-char-id="' + charId + '"><div class="phone-thread-name">Pick a place</div><div class="phone-app-placeholder"><p class="phone-app-placeholder-text">No meetup places available</p><p class="phone-app-placeholder-sub">Discover more public locations first.</p></div></div>';
+    }
+    var list = places.map(function (p) {
+        return '<div class="phone-topic-item phone-meetup-place-item" data-place-id="' + escapeHtml(p.id) + '" data-place-name="' + escapeHtml(p.name) + '"><div class="phone-topic-label">' + escapeHtml(p.name) + '</div></div>';
+    }).join('');
+    return '<div class="phone-messages-thread phone-topic-list-view" data-char-id="' + charId + '"><div class="phone-thread-name">Pick a place</div><div class="phone-messages-list phone-topic-list">' + list + '</div></div>';
+}
+
+function getMeetupTimeListHtml(charId, vars, placeId, placeName) {
+    cleanupExpiredMeetups(vars);
+    var options = getMeetupTimeOptions(charId, vars);
+    if (!options.length) {
+        return '<div class="phone-messages-thread" data-char-id="' + charId + '"><div class="phone-thread-name">Pick a time</div><div class="phone-app-placeholder"><p class="phone-app-placeholder-text">No suitable times today</p><p class="phone-app-placeholder-sub">Try another day or character.</p></div></div>';
+    }
+        var list = options.map(function (o) {
+        var hh = String(o.hour).padStart(2, '0');
+        var mm = String(o.minute).padStart(2, '0');
+        var label = (o.dayOffset > 0 ? 'Tomorrow ' : 'Today ') + hh + ':' + mm;
+        return '<div class="phone-topic-item phone-meetup-time-item" data-hour="' + o.hour + '" data-minute="' + o.minute + '" data-day="' + o.day + '" data-month="' + o.month + '" data-year="' + o.year + '" data-day-offset="' + o.dayOffset + '"><div class="phone-topic-label">' + label + '</div></div>';
+    }).join('');
+    return '<div class="phone-messages-thread phone-topic-list-view" data-char-id="' + charId + '"><div class="phone-thread-name">Pick a time - ' + escapeHtml(placeName || placeId || '') + '</div><div class="phone-messages-list phone-topic-list">' + list + '</div></div>';
+}
+
+function getMeetupInlineTimeOptionsHtml(charId, vars) {
+    var options = getMeetupTimeOptions(charId, vars);
+    if (!options.length) {
+        return '<div class="phone-thread-inline-prompt"><p class="phone-app-placeholder-text">No suitable times today</p><p class="phone-app-placeholder-sub">Try another day or character.</p><button type="button" class="phone-topic-btn" id="phone-meetup-cancel-btn">Cancel</button></div>';
+    }
+    var list = options.map(function (o) {
+        var hh = String(o.hour).padStart(2, '0');
+        var mm = String(o.minute).padStart(2, '0');
+        var label = (o.dayOffset > 0 ? 'Tomorrow ' : 'Today ') + hh + ':' + mm;
+        return '<button type="button" class="phone-topic-btn phone-meetup-time-item" data-hour="' + o.hour + '" data-minute="' + o.minute + '" data-day="' + o.day + '" data-month="' + o.month + '" data-year="' + o.year + '" data-day-offset="' + o.dayOffset + '">' + label + '</button>';
+    }).join('');
+    return '<div class="phone-thread-inline-prompt"><div class="phone-thread-name">Pick a time</div><div class="phone-thread-actions">' + list + '<button type="button" class="phone-topic-btn" id="phone-meetup-cancel-btn">Cancel</button></div></div>';
+}
+
+function getMeetupInlinePlaceOptionsHtml(charId, vars) {
+    var places = getMeetupLocations(vars);
+    if (!places.length) {
+        return '<div class="phone-thread-inline-prompt"><p class="phone-app-placeholder-text">No meetup places available</p><p class="phone-app-placeholder-sub">Discover more public locations first.</p><button type="button" class="phone-topic-btn" id="phone-meetup-cancel-btn">Cancel</button></div>';
+    }
+    var list = places.map(function (p) {
+        return '<button type="button" class="phone-topic-btn phone-meetup-place-item" data-place-id="' + escapeHtml(p.id) + '" data-place-name="' + escapeHtml(p.name) + '">' + escapeHtml(p.name) + '</button>';
+    }).join('');
+    return '<div class="phone-thread-inline-prompt"><div class="phone-thread-name">Pick a place</div><div class="phone-thread-actions">' + list + '<button type="button" class="phone-topic-btn" id="phone-meetup-cancel-btn">Cancel</button></div></div>';
+}
+
+// Push a message into conversation (JS-only, for Where are you? flow). Uses same shape as widgets.
+function pushPhoneMessage(charId, from, text) {
+    if (!PhoneAPI || !charId) return;
+    var v = PhoneAPI.State.variables;
+    if (!v.phoneConversations) v.phoneConversations = {};
+    if (!v.phoneConversations[charId]) v.phoneConversations[charId] = [];
+    var t = v.timeSys || {};
+    var time = { day: t.day, month: t.month, year: t.year, hour: t.hour, minute: t.minute };
+    v.phoneConversations[charId].push({ from: from, text: text, time: time, read: from === 'player' });
+    var arr = v.phoneConversations[charId];
+    if (arr.length > 100) arr.splice(0, arr.length - 100);
+}
+
+function markConversationReadInState(charId, vars) {
+    if (!charId || !vars || !vars.phoneConversations || !vars.phoneConversations[charId]) return;
+    vars.phoneConversations[charId].forEach(function (m) { m.read = true; });
+}
+
+// Contact list: single source – setup.phoneContactsFamily (variablesPeople.twee) + $phoneContactsUnlocked (unlocked via swap). Merged and deduped.
+function getContacts(vars) {
+    var setupObj = getStorySetupObj();
+    var family = (setupObj.phoneContactsFamily && setupObj.phoneContactsFamily.length) ? setupObj.phoneContactsFamily : ['mother', 'father', 'brother'];
+    var unlocked = vars.phoneContactsUnlocked || [];
+    var seen = {};
+    var out = [];
+    family.forEach(function (id) { if (!seen[id]) { seen[id] = true; out.push(id); } });
+    unlocked.forEach(function (id) { if (!seen[id]) { seen[id] = true; out.push(id); } });
+    return out;
+}
+
+function getContactListHtml(vars) {
+    var contacts = getContacts(vars);
+    if (contacts.length === 0) {
+        return '<div class="phone-app-placeholder"><p class="phone-app-placeholder-text">No contacts</p><p class="phone-app-placeholder-sub">Family and anyone you swap numbers with will appear here.</p></div>';
+    }
+    var list = contacts.map(function (charId) {
+        var avatar = getPhoneContactAvatar(charId, vars);
+        var fullName = getPhoneContactFullName(charId, vars);
+        var img = avatar ? '<img src="' + avatar + '" alt="" class="phone-contact-avatar">' : '<div class="phone-contact-avatar phone-contact-avatar-placeholder"></div>';
+        return '<div class="phone-conv-item phone-contact-pick phone-contact-row" data-char-id="' + charId + '">' + img + '<div class="phone-conv-name">' + escapeHtml(fullName) + '</div></div>';
+    }).join('');
+    return '<div class="phone-messages-list phone-contact-list phone-contact-list-centered">' + list + '</div>';
+}
+
+// Escape text for use inside a SugarCube macro string (double-quoted)
+function escapeForWiki(s) {
+    if (s == null) return '';
+    return String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+// Ensure setup.phoneMessageTopics is loaded from passage source.
+function ensureTalkTopicsLoaded() {
+    var setupObj = (typeof setup !== 'undefined') ? setup : (window.setup || {});
+    if (setupObj.phoneMessageTopics && Object.keys(setupObj.phoneMessageTopics).length > 0) return true;
+
+    if (typeof Engine !== 'undefined' && Engine.wiki) {
+        Engine.wiki('<<phoneEnsureTopics>>');
+    }
+
+    setupObj = (typeof setup !== 'undefined') ? setup : (window.setup || {});
+    if (setupObj.phoneMessageTopics && Object.keys(setupObj.phoneMessageTopics).length > 0) return true;
+
+    // Fallback: locate passage from DOM (case-insensitive name lookup) and wikify directly.
+    var el = document.querySelector('tw-passagedata[name="variablesPhoneTopics"]');
+    if (!el) {
+        var nodes = Array.prototype.slice.call(document.querySelectorAll('tw-passagedata[name]'));
+        el = nodes.filter(function (n) {
+            var nm = (n.getAttribute('name') || '').toLowerCase();
+            return nm.indexOf('variablesphonetopics') !== -1;
+        })[0] || null;
+    }
+    if (el && typeof Wikifier !== 'undefined') {
+        var content = el.textContent || '';
+        try {
+            if (typeof Wikifier.wikifyEval === 'function') {
+                Wikifier.wikifyEval(content);
+            } else {
+                new Wikifier(document.createDocumentFragment(), content);
+            }
+        } catch (e) {
+            // Ignore fallback errors; UI will simply show "No topics available".
+        }
+    }
+
+    setupObj = (typeof setup !== 'undefined') ? setup : (window.setup || {});
+    return !!(setupObj.phoneMessageTopics && Object.keys(setupObj.phoneMessageTopics).length > 0);
+}
+
+// In-app view state (list / contacts picker / thread)
+var phoneViewState = { app: null, sub: 'list', threadCharId: null, pickerFor: null, meetup: null, calendarOffset: 0 };
+
+// Get content HTML for each app
+function getAppContent(action, vars) {
+    const timeSys = vars.timeSys || { hour: 0, minute: 0, day: 1, month: 1, year: 2025, weekday: 1 };
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    switch (action) {
+        case 'messages': {
+            const conv = vars.phoneConversations || {};
+            const charIds = Object.keys(conv).filter(function (id) { return conv[id] && conv[id].length > 0; });
+            const newBtn = '<div class="phone-new-action"><button type="button" class="phone-new-btn" id="phone-new-message">New message</button></div>';
+            if (charIds.length === 0) {
+                return newBtn + '<div class="phone-app-placeholder"><p class="phone-app-placeholder-text">No conversations yet.</p><p class="phone-app-placeholder-sub">Tap New message to start one.</p></div>';
+            }
+            const list = charIds.map(function (charId) {
+                const msgs = conv[charId];
+                const last = msgs[msgs.length - 1];
+                const unread = msgs.filter(function (m) { return m.from !== 'player' && m.read === false; }).length;
+                const name = getPhoneContactName(charId, vars);
+                const preview = (last && last.text) ? (last.text.length > 30 ? last.text.slice(0, 30) + '…' : last.text) : '';
+                const timeStr = last && last.time ? formatPhoneTime(last.time) : '';
+                return '<div class="phone-conv-item" data-char-id="' + charId + '"><div class="phone-conv-name">' + name + '</div><div class="phone-conv-preview">' + preview + '</div><div class="phone-conv-meta">' + timeStr + (unread > 0 ? ' <span class="phone-conv-unread">' + unread + '</span>' : '') + '</div></div>';
+            }).join('');
+            return newBtn + '<div class="phone-messages-list">' + list + '</div>';
+        }
+        case 'calendar': {
+            if (cleanupExpiredMeetups(vars)) persistPhoneChanges();
+            var offset = phoneViewState.calendarOffset;
+            if (typeof offset !== 'number' || offset < 0) offset = 0;
+            if (offset > 9) offset = 9;
+            phoneViewState.calendarOffset = offset;
+            var dateInfo = getDateWithOffset(timeSys, offset);
+            var todayKey = (timeSys.year || 0) * 10000 + (timeSys.month || 0) * 100 + (timeSys.day || 0);
+            var dateKey = (dateInfo.year || 0) * 10000 + (dateInfo.month || 0) * 100 + (dateInfo.day || 0);
+            var isToday = dateKey === todayKey;
+            var dayLabel = weekdays[dateInfo.weekday % 7] + ', ' + months[(dateInfo.month || 1) - 1] + ' ' + (dateInfo.day || 1);
+            if (isToday) dayLabel = 'Today – ' + dayLabel;
+            var canPrev = offset > 0;
+            var canNext = offset < 9;
+            var navHtml = '<div class="phone-calendar-nav">' +
+                '<button type="button" class="phone-calendar-nav-btn' + (canPrev ? '' : ' phone-calendar-nav-btn-disabled') + '" id="phone-calendar-prev" aria-label="Previous day"' + (canPrev ? '' : ' disabled') + '><span class="icon icon-chevron-left icon-20"></span></button>' +
+                '<span class="phone-calendar-nav-range">' + dayLabel + '</span>' +
+                '<button type="button" class="phone-calendar-nav-btn' + (canNext ? '' : ' phone-calendar-nav-btn-disabled') + '" id="phone-calendar-next" aria-label="Next day"' + (canNext ? '' : ' disabled') + '><span class="icon icon-chevron-right icon-20"></span></button>' +
+                '</div>';
+            var appointments = vars.phoneAppointments || [];
+            var dayEvents = appointments.filter(function (a) {
+                if (!a || a.status !== 'pending' || !a.time) return false;
+                var aptDate = ((a.time.year || 0) * 10000) + ((a.time.month || 0) * 100) + (a.time.day || 0);
+                return aptDate === dateKey;
+            }).sort(function (x, y) {
+                var mx = (x.time.hour || 0) * 60 + (x.time.minute || 0);
+                var my = (y.time.hour || 0) * 60 + (y.time.minute || 0);
+                return mx - my;
+            });
+            var daysHtml = '<div class="phone-calendar-day' + (isToday ? ' phone-calendar-day-today' : '') + '">';
+            daysHtml += '<div class="phone-calendar-day-title">' + dayLabel + '</div>';
+            if (dayEvents.length === 0) {
+                daysHtml += '<div class="phone-calendar-day-events phone-calendar-day-empty">No events</div>';
+            } else {
+                daysHtml += '<div class="phone-calendar-day-events">';
+                dayEvents.forEach(function (a) {
+                    var timeStr = a.time ? (String(a.time.hour || 0).padStart(2, '0') + ':' + String(a.time.minute || 0).padStart(2, '0')) : '';
+                    var name = getPhoneContactName(a.charId, vars);
+                    var place = a.locationName || a.location || '';
+                    daysHtml += '<div class="phone-calendar-event"><span class="phone-calendar-event-time">' + timeStr + '</span> <span class="phone-calendar-event-desc">' + escapeHtml(name) + (place ? ' @ ' + escapeHtml(place) : '') + '</span></div>';
+                });
+                daysHtml += '</div>';
+            }
+            daysHtml += '</div>';
+            return '<div class="phone-app-calendar">' + navHtml +
+                '<div class="phone-calendar-days">' + daysHtml + '</div></div>';
+        }
+        case 'calls': {
+            const log = vars.phoneCallsLog || [];
+            let html = '<div class="phone-calls-view">';
+            html += '<div class="phone-new-action"><button type="button" class="phone-new-btn" id="phone-new-call">New call</button></div>';
+            if (log.length === 0) {
+                html += '<div class="phone-app-placeholder"><p class="phone-app-placeholder-text">No recent calls</p><p class="phone-app-placeholder-sub">Tap New call to call someone.</p></div>';
+            } else {
+                html += '<div class="phone-calls-section"><div class="phone-calls-section-title">Recent</div>';
+                log.slice(-20).reverse().forEach(function (entry) {
+                    const name = getPhoneContactName(entry.charId, vars);
+                    const dir = entry.direction === 'in' ? 'Incoming' : 'Outgoing';
+                    const timeStr = entry.time ? formatPhoneTime(entry.time) : '';
+                    html += '<div class="phone-call-item"><span class="phone-call-dir">' + dir + '</span> ' + name + ' <span class="phone-call-time">' + timeStr + '</span></div>';
+                });
+                html += '</div>';
+            }
+            html += '</div>';
+            return html;
+        }
+        case 'camera':
+        case 'gallery':
+        case 'fotogram':
+        case 'finder':
+        default:
+            return '<div class="phone-app-placeholder"><p class="phone-app-placeholder-text">Coming soon</p><p class="phone-app-placeholder-sub">This app is not available yet.</p></div>';
+    }
+}
+
+function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function getTopicListHtml(charId, vars) {
+    var topics = getAvailableTalkTopics(charId, vars);
+    var name = getPhoneContactFullName(charId, vars);
+    if (topics.length === 0) {
+        return '<div class="phone-messages-thread" data-char-id="' + charId + '"><div class="phone-thread-name">Pick a topic</div><div class="phone-app-placeholder"><p class="phone-app-placeholder-text">No topics available</p><p class="phone-app-placeholder-sub">More topics unlock as your relationship grows.</p></div></div>';
+    }
+    var list = topics.map(function (t) {
+        return '<div class="phone-topic-item" data-topic-id="' + escapeHtml(t.id) + '"><div class="phone-topic-label">' + escapeHtml(t.label || t.id) + '</div></div>';
+    }).join('');
+    return '<div class="phone-messages-thread phone-topic-list-view" data-char-id="' + charId + '"><div class="phone-thread-name">Pick a topic</div><div class="phone-messages-list phone-topic-list">' + list + '</div></div>';
+}
+
+function getMessagesThreadHtml(charId, vars) {
+    cleanupExpiredMeetups(vars);
+    var conv = (vars.phoneConversations && vars.phoneConversations[charId]) || [];
+    var name = getPhoneContactFullName(charId, vars);
+    var bubbles = conv.map(function (m) {
+        var isPlayer = m.from === 'player';
+        var timeStr = m.time ? formatPhoneTime(m.time) : '';
+        var safeText = escapeHtml(m.text || '');
+        return '<div class="phone-msg-bubble ' + (isPlayer ? 'phone-msg-sent' : 'phone-msg-received') + '"><div class="phone-msg-text">' + safeText + '</div><div class="phone-msg-time">' + timeStr + '</div></div>';
+    }).join('');
+    var canWhere = canAskWhereAreYou(charId, vars);
+    var canTalk = getAvailableTalkTopics(charId, vars).length > 0;
+    var meetupInProgress = !!(phoneViewState.meetup && phoneViewState.meetup.charId === charId);
+    var canMeetup = canShowMeetupButton(charId, vars) && !hasMeetupTodayWithChar(charId, vars) && !meetupInProgress;
+    var talkBtn = canTalk ? '<button type="button" class="phone-topic-btn" id="phone-talk-btn">Talk</button>' : '';
+    var meetupBtn = canMeetup ? '<button type="button" class="phone-topic-btn" id="phone-meetup-btn">Plan meetup</button>' : '';
+    var whereBtn = canWhere ? '<button type="button" class="phone-topic-btn" id="phone-where-btn">Where are you?</button>' : '';
+    var composeButtons = talkBtn + meetupBtn + whereBtn;
+    var compose = (!meetupInProgress && composeButtons)
+        ? ('<div class="phone-thread-compose phone-thread-actions">' + composeButtons + '</div>')
+        : '';
+    var meetupInline = '';
+    if (phoneViewState.meetup && phoneViewState.meetup.charId === charId) {
+        if (phoneViewState.meetup.step === 'pick_time') meetupInline = getMeetupInlineTimeOptionsHtml(charId, vars);
+        else if (phoneViewState.meetup.step === 'pick_place') meetupInline = getMeetupInlinePlaceOptionsHtml(charId, vars);
+    }
+    return '<div class="phone-messages-thread" data-char-id="' + charId + '"><div class="phone-thread-name">' + escapeHtml(name) + '</div><div class="phone-thread-bubbles">' + bubbles + '</div>' + meetupInline + compose + '</div>';
+}
+
+function updatePhoneBadges() {
+    if (!PhoneAPI) return;
+    var v = PhoneAPI.State.variables;
+    var msgCount = (typeof window.phoneUnreadCount === 'function') ? window.phoneUnreadCount() : 0;
+    var fotogramCount = (v.phoneNotifications && v.phoneNotifications.fotogram) ? v.phoneNotifications.fotogram.length : 0;
+    var finderCount = (v.phoneNotifications && v.phoneNotifications.finder) ? v.phoneNotifications.finder.length : 0;
+    var badges = { messages: msgCount, fotogram: fotogramCount, finder: finderCount };
+    $('#phone-overlay .phone-app').each(function () {
+        var action = $(this).data('action');
+        var n = badges[action];
+        var $badge = $(this).find('.phone-app-badge');
+        if (n > 0) {
+            if (!$badge.length) $(this).find('.phone-app-icon').append('<span class="phone-app-badge">' + (n > 99 ? '99+' : n) + '</span>');
+            else $badge.text(n > 99 ? '99+' : n);
+        } else {
+            $badge.remove();
+        }
+    });
+    var total = (typeof window.phoneTotalBadge === 'function') ? window.phoneTotalBadge() : 0;
+    var $preview = $('.right-bar .phone-preview');
+    if ($preview.length) {
+        var html = total > 0
+            ? '<div class="message-item"><div class="message-info"><div class="message-name">New Notifications</div></div><div class="message-count">' + (total > 99 ? '99+' : total) + '</div></div>'
+            : '<div class="phone-empty"><div class="phone-empty-text">No new notifications</div></div>';
+        $preview.html(html);
+    }
+    $(document).trigger('phoneBadgesUpdated');
+}
+
+// Show app view and fill content
+function showAppView(action) {
+    if (!PhoneAPI) return;
+    phoneViewState.app = action;
+    phoneViewState.sub = 'list';
+    phoneViewState.threadCharId = null;
+    phoneViewState.pickerFor = null;
+    phoneViewState.meetup = null;
+    const vars = PhoneAPI.State.variables;
+    if (action === 'calendar') phoneViewState.calendarOffset = 0;
+    const $view = $('#phone-app-view');
+    const $title = $('#phone-app-view-title');
+    const $content = $('#phone-app-view-content');
+    if (!$view.length || !$title.length || !$content.length) return;
+
+    $title.text(PHONE_APP_NAMES[action] || action);
+    $content.html(getAppContent(action, vars));
+    $view.show();
+    $('#phone-overlay .phone-home').hide();
+}
+
+// Hide app view and show home
+function hideAppView() {
+    $('#phone-app-view').hide();
+    $('#phone-overlay .phone-home').show();
 }
 
 // Handle app clicks
 function handleAppClick(action) {
-    console.log(`App clicked: ${action}`);
-    // App actions will be implemented later
+    if (!action) return;
+    showAppView(action);
 }
 
 // Open phone overlay
@@ -116,4 +1135,5 @@ window.openPhoneOverlay = function () {
 // Close phone overlay
 function closePhoneOverlay() {
     $('#phone-overlay').removeClass('active');
+    $(document).trigger('phoneBadgesUpdated');
 }

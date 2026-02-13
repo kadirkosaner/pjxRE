@@ -1,0 +1,183 @@
+/* ==========================================
+   PHONE WIDGETS – Messages, Calls
+   Data model: phone_system_data_and_technical.md
+   All state updates go through these widgets.
+========================================== */
+
+<<widget "phoneReceiveMessage">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<set _text = $args[1] || "">>
+    <<if !_charId || !_text>><<return>><</if>>
+    <<if !$phoneConversations>><<set $phoneConversations = {}>><</if>>
+    <<if !$phoneConversations[_charId]>><<set $phoneConversations[_charId] = []>><</if>>
+    <<set _t = $timeSys || {}>>
+    <<set _time = { day: _t.day, month: _t.month, year: _t.year, hour: _t.hour, minute: _t.minute }>>
+    <<run $phoneConversations[_charId].push({ from: _charId, text: _text, time: _time, read: false })>>
+    <<set _limit = 100>>
+    <<if $phoneConversations[_charId].length > _limit>>
+        <<run $phoneConversations[_charId].splice(0, $phoneConversations[_charId].length - _limit)>>
+    <</if>>
+    <<if window.notifyPhone>><<run window.notifyPhone("New message")>><</if>>
+<</widget>>
+
+<<widget "phoneSendMessage">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<set _text = $args[1] || "">>
+    <<if !_charId>><<return>><</if>>
+    <<if !$phoneConversations>><<set $phoneConversations = {}>><</if>>
+    <<if !$phoneConversations[_charId]>><<set $phoneConversations[_charId] = []>><</if>>
+    <<set _t = $timeSys || {}>>
+    <<set _time = { day: _t.day, month: _t.month, year: _t.year, hour: _t.hour, minute: _t.minute }>>
+    <<run $phoneConversations[_charId].push({ from: "player", text: _text, time: _time, read: true })>>
+    <<set _limit = 100>>
+    <<if $phoneConversations[_charId].length > _limit>>
+        <<run $phoneConversations[_charId].splice(0, $phoneConversations[_charId].length - _limit)>>
+    <</if>>
+<</widget>>
+
+<<widget "phoneMarkConversationRead">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<if !_charId || !$phoneConversations[_charId]>><<return>><</if>>
+    <<run $phoneConversations[_charId].forEach(function(m){ m.read = true; })>>
+<</widget>>
+
+<<widget "phoneStartConversation">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<set _firstMsg = $args[1]>>
+    <<if !_charId>><<return>><</if>>
+    <<if !$phoneConversations>><<set $phoneConversations = {}>><</if>>
+    <<if !$phoneConversations[_charId]>><<set $phoneConversations[_charId] = []>><</if>>
+    <<if _firstMsg>>
+        <<phoneSendMessage _charId _firstMsg>>
+    <</if>>
+<</widget>>
+
+/* Ensure setup.phoneMessageTopics is loaded from variablesPhoneTopics passage. */
+<<widget "phoneEnsureTopics">><<nobr>>
+    <<if !setup.phoneMessageTopics>>
+        <<set setup.phoneMessageTopics = {}>>
+    <</if>>
+    <<if !setup.phoneMessageTopics.mother>>
+        <<domInclude "variablesPhoneTopics">>
+    <</if>>
+<</widget>>
+
+<<widget "phoneUnlockContact">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<if !_charId>><<return>><</if>>
+    <<if ndef $phoneContactsUnlocked>><<set $phoneContactsUnlocked = []>><</if>>
+    <<if !$phoneContactsUnlocked.includes(_charId)>>
+        <<run $phoneContactsUnlocked.push(_charId)>>
+    <</if>>
+<</widget>>
+
+/* ========== Where are you? – send player message + reply from schedule (no reply if sleeping/showering) ========== */
+<<widget "phoneWhereAreYou">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<if !_charId>><<return>><</if>>
+    <<phoneSendMessage _charId "Where are you?">>
+    <<updateCharacterLocations>>
+    <<set _char = $characters[_charId]>>
+    <<if !_char>><<return>><</if>>
+    <<set _status = _char.currentStatus || "">>
+    <<if _status === "sleeping">><<return>><</if>>
+    <<if _status === "showering">><<return>><</if>>
+    <<set _locId = _char.currentLocation || "">>
+    <<set _locName = "">>
+    <<if setup.navCards[_locId]>><<set _locName = setup.navCards[_locId].name>><</if>>
+    <<if !_locName>><<set _locName = _locId>><</if>>
+    <<if !_locName>><<set _locName = "home">><</if>>
+    <<set _reply = "I'm in the " + _locName + ".">>
+    <<phoneReceiveMessage _charId _reply>>
+<</widget>>
+
+/* ========== Calls (phone_system_data_and_technical.md §6) ========== */
+
+<<widget "phoneCallLog">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<set _dir = $args[1] || "out">>
+    <<if !_charId>><<return>><</if>>
+    <<if ndef $phoneCallsLog>><<set $phoneCallsLog = []>><</if>>
+    <<set _t = $timeSys || {}>>
+    <<set _time = { day: _t.day, month: _t.month, hour: _t.hour, minute: _t.minute }>>
+    <<run $phoneCallsLog.push({ charId: _charId, direction: _dir, time: _time })>>
+    <<set _max = 50>>
+    <<if $phoneCallsLog.length > _max>>
+        <<run $phoneCallsLog.splice(0, $phoneCallsLog.length - _max)>>
+    <</if>>
+<</widget>>
+
+<<widget "phoneCreateAppointment">><<nobr>>
+    <<set _charId = $args[0]>>
+    <<set _location = $args[1] || "">>
+    <<set _hour = $args[2]>>
+    <<set _minute = $args[3]>>
+    <<if !_charId>><<return>><</if>>
+    <<if ndef $phoneAppointments>><<set $phoneAppointments = []>><</if>>
+    <<set _t = $timeSys || {}>>
+    <<set _time = { day: _t.day, month: _t.month, hour: _hour, minute: _minute }>>
+    <<set _id = "apt_" + Date.now()>>
+    <<run $phoneAppointments.push({ id: _id, charId: _charId, time: _time, location: _location, status: "pending" })>>
+<</widget>>
+
+<<widget "phoneCancelAppointment">><<nobr>>
+    <<set _id = $args[0]>>
+    <<if !_id>><<return>><</if>>
+    <<run ($phoneAppointments || []).forEach(function(a,i,arr){ if(a.id === _id) arr[i].status = "cancelled"; })>>
+<</widget>>
+
+/* ========== Meetup prompt – show in passage when player is at meetup location at meetup time ========== */
+/* Usage: <<meetupPrompt>> (uses current passage as location) or <<meetupPrompt "sunsetPark">> */
+/* Uses State.variables._meetupPromptData (State.temp is not always extensible). */
+<<widget "meetupPrompt">>
+    <<set _locId = $args[0] || State.passage>>
+    <<set State.variables._meetupPromptData = State.variables._meetupPromptData || {}>>
+    <<set State.variables._meetupPromptData.locId = _locId>>
+    <<run (function(){
+        var V = State.variables;
+        var data = V._meetupPromptData;
+        if (!data) return;
+        data.apt = null;
+        data.name = "";
+        data.aptId = null;
+        var list = V.phoneAppointments || [];
+        var ts = V.timeSys || {};
+        var currentDate = (ts.year || 0) * 10000 + (ts.month || 0) * 100 + (ts.day || 0);
+        var nowMin = (ts.hour || 0) * 60 + (ts.minute || 0);
+        var locId = data.locId;
+        var passage = State.passage;
+        for (var i = 0; i < list.length; i++) {
+            var a = list[i];
+            if (!a || a.status !== 'pending' || !a.time) continue;
+            var aptDate = (a.time.year || 0) * 10000 + (a.time.month || 0) * 100 + (a.time.day || 0);
+            if (aptDate !== currentDate) continue;
+            var aptMin = (a.time.hour || 0) * 60 + (a.time.minute || 0);
+            if (nowMin < aptMin || nowMin > aptMin + 30) continue;
+            var locMatch = (a.location === locId) || (setup.locations && setup.locations[passage] && setup.locations[passage].parent === locId);
+            if (!locMatch) continue;
+            data.apt = a;
+            data.aptId = a.id;
+            var ch = setup.getCharacter ? setup.getCharacter(a.charId) : null;
+            data.name = ch ? ((ch.firstName || ch.name || a.charId) + (ch.lastName ? " " + ch.lastName : "")) : a.charId;
+            return;
+        }
+    })()>>
+    <<set _data = State.variables._meetupPromptData>>
+    <<if !_data || !_data.apt>>
+        <<return>>
+    <</if>>
+    <div id="meetup-prompt-box" class="meetup-prompt">
+        <div class="meetup-prompt-text"><<print _data.name>> is here to meet you.</div>
+        <<link "Meet">>
+            <<run (function(){
+                var id = State.variables._meetupPromptData.aptId;
+                var list = State.variables.phoneAppointments || [];
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i] && list[i].id === id) { list[i].status = 'completed'; break; }
+                }
+                if (window.persistPhoneChanges) window.persistPhoneChanges();
+            })()>>
+            <<replace "#meetup-prompt-box">><div class="meetup-prompt-done">You met with <<print State.variables._meetupPromptData.name>>!</div><</replace>>
+        <</link>>
+    </div>
+<</widget>>

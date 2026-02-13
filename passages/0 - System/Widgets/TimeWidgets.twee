@@ -373,6 +373,21 @@
             <</if>>
         <</if>>
     <</for>>
+
+    /* Meetup override: at meetup time, character appears at appointment location (overwrite schedule) */
+    <<set _currentMinute = _currentHour * 60 + $timeSys.minute>>
+    <<for _apt range $phoneAppointments>>
+        <<if _apt && _apt.status === "pending" && _apt.time && _apt.charId>>
+            <<set _aptDate = (_apt.time.year || 0) * 10000 + (_apt.time.month || 0) * 100 + (_apt.time.day || 0)>>
+            <<set _aptMin = (_apt.time.hour || 0) * 60 + (_apt.time.minute || 0)>>
+            <<if _aptDate === _currentDate && _currentMinute >= _aptMin && _currentMinute <= _aptMin + 30>>
+                <<if $characters[_apt.charId]>>
+                    <<set $characters[_apt.charId].currentLocation = _apt.location>>
+                    <<set $characters[_apt.charId].currentStatus = "available">>
+                <</if>>
+            <</if>>
+        <</if>>
+    <</for>>
 <</nobr>>
 <</widget>>
 

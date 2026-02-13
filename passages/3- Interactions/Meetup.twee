@@ -1,0 +1,34 @@
+:: Meetup
+<<nobr>>
+<<run (function(){
+    var charId = State.variables.interactingChar;
+    var list = State.variables.phoneAppointments || [];
+    var ts = State.variables.timeSys || {};
+    var today = (ts.year||0)*10000+(ts.month||0)*100+(ts.day||0);
+    for (var i = 0; i < list.length; i++) {
+        var a = list[i];
+        if (!a || a.status !== 'pending' || a.charId !== charId) continue;
+        var aptDate = (a.time.year||0)*10000+(a.time.month||0)*100+(a.time.day||0);
+        if (aptDate !== today) continue;
+        list[i].status = 'completed';
+        if (window.persistPhoneChanges) window.persistPhoneChanges();
+        break;
+    }
+})()>>
+
+<<set _returnLoc = $meetupReturnLocation || $location || $interactionEntryPassage>>
+<<set _returnLocName = _returnLoc ? (setup.navCards[_returnLoc]?.name || _returnLoc) : "location">>
+<<set _backLabel = "Back to " + (_returnLocName || "location")>>
+
+<<narrative "Meetup">>
+You met as planned.
+<</narrative>>
+
+<<if _returnLoc>>
+<p class="meetup-return-hint">Return to <strong><<print _returnLocName>></strong>.</p>
+<</if>>
+
+<div class="location-actions">
+<<btn _backLabel _returnLoc "secondary">><</btn>>
+</div>
+<</nobr>>

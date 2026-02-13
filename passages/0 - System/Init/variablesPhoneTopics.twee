@@ -1,0 +1,24 @@
+:: variablesPhoneTopics [init]
+/* ==========================================
+   PHONE MESSAGE TOPICS – Predefined topics per character
+   Topics can be locked via requirements (flag, minLove, etc.).
+   UI shows only unlocked topics; Talk opens this list.
+========================================== */
+
+<<set setup.phoneMessageTopics = setup.phoneMessageTopics || {}>>
+
+<<set setup.phoneMessageTopics.mother = [
+    { id: "greeting", label: "How are you?", message: "How are you?", reply: "I'm good, honey. Just busy with the house.", requirements: {} },
+    { id: "dinner", label: "What's for dinner?", message: "What's for dinner tonight?", reply: "I'm thinking pasta. Sound good?", requirements: {} },
+    { id: "love", label: "I love you", message: "I love you, mom.", reply: "I love you too, sweetie.", requirements: { minLove: 40 } }
+]>>
+
+<<set setup.phoneMessageTopics.father = [
+    { id: "greeting", label: "How are you?", message: "How's work?", reply: "Same as always. You good?", requirements: {} },
+    { id: "car", label: "Working on the car?", message: "Are you in the garage?", reply: "Yeah, just tinkering. Need something?", requirements: { flag: "fatherTalkedGarage" } }
+]>>
+
+<<set setup.phoneMessageTopics.brother = [
+    { id: "greeting", label: "What's up?", message: "What's up?", reply: "Not much. You?", requirements: {} },
+    { id: "game", label: "Wanna play later?", message: "Wanna do something later?", reply: "Maybe. Hit me up when you're free.", requirements: { minLove: 20 } }
+]>>
