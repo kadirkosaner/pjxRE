@@ -5,10 +5,10 @@
    Usage: <<restaurantLink "dinerRubys">>
    Or:    <<restaurantLink "dinerRubys" "Order food">>  → menuId, label
 ========================================== */
-<<widget "restaurantLink">>
+<<widget "restaurantLink">><<nobr>>
     <<set _menuId = $args[0]>>
     <<set _label = $args[1] || "Order">>
     <<set $._restaurantMenuIdNext = _menuId>>
     <<btn _label "RestaurantMenu">><<set $restaurantMenuId = $._restaurantMenuIdNext>><</btn>>
-<</widget>>
+<</nobr>><</widget>>
 <</nobr>>

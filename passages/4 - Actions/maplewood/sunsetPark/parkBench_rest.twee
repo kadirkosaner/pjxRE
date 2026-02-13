@@ -3,7 +3,7 @@
 <<set $location = "sunsetPark">>
 <<set $selectedDuration = $selectedDuration || 30>>
 <<advanceTime $selectedDuration>>
-<<loseStat "stress" 5>>
+<<loseStat "stress" 10>>
 <<gainStat "mood" 5>>
 <<flushNotifications>>
 <<recalculateStats>>

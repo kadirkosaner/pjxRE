@@ -1,22 +1,38 @@
-:: jobWorkExecute
 /* ========================================
    JOB - Execute Shift (from btnPicker)
    Receives $selectedDuration in hours
 ======================================== */
-<<jobExecuteShift $selectedDuration>>
-<<if $jobShiftSuccess>>
-<<silently>>
-<<set _job = setup.jobs[$job.id]>>
-<<set _postWork = _job.postWorkPassage || _job.workplace || $location>>
-<</silently>>
-<<if ndef $jobState.firstWorkDayEventShown>><<set $jobState.firstWorkDayEventShown = false>><</if>>
-<<if !$jobState.firstWorkDayEventShown>>
-<<set $jobState.firstWorkDayEventShown = true>>
-<<run Engine.play("dinerFirstdayJob_firstWorkDayEvent")>>
-<<else>>
-<<set $tmpPassage = _postWork>>
-<<run Engine.play(State.variables.tmpPassage)>>
-<</if>>
-<<else>>
-<<run Engine.play("jobWorkSelect")>>
-<</if>>
+<div class="divnobr">
+   <<jobExecuteShift $selectedDuration "validate">>
+   <<if $jobShiftSuccess>>
+      <<silently>>
+      <<set _job = setup.jobs[$job.id]>>
+      <<set $location = _job.workplace>>
+      <<set _postWork = _job.postWorkPassage || _job.workplace || $location>>
+      <</silently>>
+   <<if ndef $jobState.firstWorkDayEventShown>><<set $jobState.firstWorkDayEventShown = false>><</if>>
+   <<if !$jobState.firstWorkDayEventShown>>
+      <<set $jobState.firstWorkDayEventShown = true>>
+      <<goto "dinerFirstdayJob_firstWorkDayEvent">>
+   <<else>>
+
+      <<narrative "Shift">>
+      You got ready for the job and came to your place to start work.
+      <</narrative>>
+
+      <div class="location-actions">
+         <<btn "Start job" _postWork>><</btn>>
+      </div>
+   <</if>>
+   <<else>>
+      <<set _backPassage = "jobWorkSelect">>
+
+      <<narrative "Cannot start shift">>
+      You couldn't start the shift. Check the notification for details.
+      <</narrative>>
+      
+      <div class="location-actions">
+         <<btn "Back" _backPassage "secondary">><</btn>>
+      </div>
+   <</if>>
+</div>

@@ -1,23 +1,33 @@
-<<nobr>>
+<div class="divnobr">
+<<jobExecuteShift $selectedDuration>>
+<<if !$jobShiftSuccess>>
+<<goto "jobWorkSelect">>
+<<else>>
 <<set $location = "dinerRubys">>
-<<set _sceneIndex = random(1, 4)>>
 <<updateCharacterLocations>>
 
-<<narrative "Shift Complete">>
-Your shift at the dish station is done. The sink is cleared, the last load is dried. Time to head back out front.
+<<set _n = random(1, 3)>>
+<<switch _n>>
+<<case 1>>
+<<narrative "Shift">>
+Another shift at the sink. Hands raw, stacks cleared. Time to head out front.
 <</narrative>>
+<<case 2>>
+<<narrative "Shift">>
+You rinsed, scrubbed, and dried your way through another shift. The dish station is spotless—sink empty, last load done. Time to head out front.
+<</narrative>>
+<<case 3>>
+<<narrative "Shift">>
+Soap, steam, and stacks of plates. You pushed through. The sink is clear, the last rack dried. Another shift in the books.
+<</narrative>>
+<</switch>>
 
-<<if _sceneIndex === 1>>
-<<vid "assets/content/scenes/oldtown/rubysDiner/work/dishwash/vids/dinerDishwasher1.mp4" "100%">>
-<<elseif _sceneIndex === 2>>
-<<vid "assets/content/scenes/oldtown/rubysDiner/work/dishwash/vids/dinerDishwasher2.mp4" "100%">>
-<<elseif _sceneIndex === 3>>
-<<vid "assets/content/scenes/oldtown/rubysDiner/work/dishwash/vids/dinerDishwasher3.mp4" "100%">>
-<<else>>
-<<image "assets/content/scenes/oldtown/rubysDiner/work/dishwash/pics/dinerDishwashing.webp" "100%">>
-<</if>>
+<<set _vidNum = random(1, 3)>>
+<<set _dishVid = "assets/content/scenes/oldtown/rubysDiner/work/dishwash/vids/dinerDishwash" + _vidNum + ".mp4">>
+<<vid _dishVid "100%">>
 
-<div class="btn-center">
-<<btn "Return to diner" "dinerRubys">><</btn>>
+<div class="location-actions">
+<<btn "Finish shift" "dinerRubys">><</btn>>
 </div>
-<</nobr>>
+<</if>>
+</div>

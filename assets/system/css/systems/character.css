@@ -144,10 +144,16 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 0.75rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--color-border-primary);
+}
+
+/* Reset btn-center margin when inside location-actions (e.g. ORDER + WORK row) */
+.location-actions .btn-center {
+  margin-top: 0;
 }
 
 /* Hide any stray <br> tags inside action containers */

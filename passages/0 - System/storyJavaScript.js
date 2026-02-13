@@ -1730,6 +1730,16 @@ window.processNavCard = function (tag, $container, passedSetup) {
                 $.wiki('<<advanceTime ' + travelTime + '>>');
             }
 
+            /* Flush pending notifications before navigating */
+            if (Macro.has('flushNotifications')) {
+                $.wiki('<<flushNotifications>>');
+            }
+
+            /* Ensure stats are fresh before rendering new passage */
+            if (Macro.has('recalculateStats')) {
+                $.wiki('<<recalculateStats>>');
+            }
+
             Engine.play(passageName);
         } else {
             console.error("[Navigation] No passage defined for:", displayName);

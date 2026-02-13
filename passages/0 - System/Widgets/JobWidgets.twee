@@ -87,6 +87,10 @@
         <<return>>
     <</if>>
 
+    /* Validate-only: pass 2nd arg "validate" to check without applying costs/time/pay */
+    <<if $args[1] === "validate">>
+        <<set $jobShiftSuccess = true>>
+    <<else>>
     /* Apply stat costs (per 4h, scaled) */
     <<set _mult = _shiftHours / 4>>
     <<set _costs = _job.statCostsPer4Hours>>
@@ -140,6 +144,7 @@
 
     <<set $jobShiftSuccess = true>>
     <<run window.notifySuccess("Shift done. +$" + _earned.toFixed(2) + " (payday Monday).")>>
+    <</if>>
 <</widget>>
 
 /* Process pay day: minHours check, pay, reset. Call when weekday becomes Monday (1). */
@@ -330,13 +335,11 @@
             <<set _bossWantsToSee = $jobState.bossWantsToSeePlayer>>
             <<set _workTarget = (_isMonday && _bossWantsToSee && _job.bossOfficePassage) ? _job.bossOfficePassage : ($jobState.firstWorkDayEventShown ? "jobWorkSelect" : (_job.firstWorkDayEventPassage || "jobWorkSelect"))>>
             <</silently>>
-            <div class="btn-center" style="margin-bottom: 0.5em;">
             <<if _workLocked>>
-            <span class="link-internal btn-style btn-default locked" @data-tooltip="_workLockedText"><span class="icon icon-lock icon-12"></span> Work</span>
+            <<btn "Work" "" "locked" _workLockedText>><</btn>>
             <<else>>
             <<btn "Work" _workTarget>><</btn>>
             <</if>>
-            </div>
         <</if>>
     <</if>>
 <</widget>>
