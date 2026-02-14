@@ -57,7 +57,8 @@ window.MapInit = function (API) {
         // Helper: Check if location is discovered
         isDiscovered: function(locationId) {
             const vars = this.API.State.variables;
-            const discoveryVar = 'discovered' + locationId.charAt(0).toUpperCase() + locationId.slice(1);
+            const getKey = (typeof window !== 'undefined' && window.getDiscoveryKey) ? window.getDiscoveryKey : null;
+            const discoveryVar = getKey ? getKey(locationId) : ('discovered' + locationId.charAt(0).toUpperCase() + locationId.slice(1));
             return vars[discoveryVar] === true || vars[discoveryVar] === 1;
         },
 

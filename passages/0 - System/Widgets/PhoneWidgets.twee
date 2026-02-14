@@ -18,7 +18,8 @@
         <<run $phoneConversations[_charId].splice(0, $phoneConversations[_charId].length - _limit)>>
     <</if>>
     <<if window.notifyPhone>><<run window.notifyPhone("New message")>><</if>>
-<</widget>>
+    <<if window.updatePhoneBadges>><<run window.updatePhoneBadges()>><</if>>
+<</nobr>><</widget>>
 
 <<widget "phoneSendMessage">><<nobr>>
     <<set _charId = $args[0]>>
@@ -39,6 +40,7 @@
     <<set _charId = $args[0]>>
     <<if !_charId || !$phoneConversations[_charId]>><<return>><</if>>
     <<run $phoneConversations[_charId].forEach(function(m){ m.read = true; })>>
+    <<if window.updatePhoneBadges>><<run window.updatePhoneBadges()>><</if>>
 <</widget>>
 
 <<widget "phoneStartConversation">><<nobr>>

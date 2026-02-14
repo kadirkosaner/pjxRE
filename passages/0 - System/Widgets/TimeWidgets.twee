@@ -236,26 +236,35 @@
     <</if>>
 
     /* 2. Quest Events (Immediate) */
-    /* If any active quest has a specific mealType/time, show icon immediately */
+    /* If any active quest has mealType OR current stage has timeRange matching current hour, show icon */
     <<if !_shouldShowIcon and $questState and $questState.active>>
+        <<set _currentHour = $timeSys.hour>>
         <<for _qid, _state range $questState.active>>
             <<set _quest = setup.quests[_qid]>>
-            /* Check if quest has a mealType defined */
-            <<if _quest and _quest.mealType>>
+            <<if !_quest>><<continue>><</if>>
+            <<set _stageIndex = _state.stage>>
+            <<set _stage = _quest.stages && _quest.stages[_stageIndex] ? _quest.stages[_stageIndex] : null>>
+            /* 2a. Quest has mealType (e.g. new_beginnings) */
+            <<if _quest.mealType>>
                 <<set _shouldShowIcon = true>>
-                
-                /* Try to use current stage description */
-                <<set _stageIndex = _state.stage>>
-                <<if _quest.stages and _quest.stages[_stageIndex]>>
-                    <<set _iconText = _quest.stages[_stageIndex].desc>>
+                <<if _stage>>
+                    <<set _iconText = _stage.desc>>
                 <</if>>
-                
-                /* Fallback to title if no desc found */
                 <<if !_iconText or _iconText == "Time Event">>
                     <<set _iconText = _quest.title || "Quest Event">>
                 <</if>>
-                
                 <<break>>
+            <</if>>
+            /* 2b. Current stage has timeRange and we're in that hour (e.g. find_job family_dinner_18) */
+            <<if _stage and _stage.triggers and _stage.triggers.timeRange>>
+                <<set _tr = _stage.triggers.timeRange>>
+                <<set _min = typeof _tr.min === 'number' ? _tr.min : 0>>
+                <<set _max = typeof _tr.max === 'number' ? _tr.max : 23>>
+                <<if _currentHour >= _min and _currentHour < _max>>
+                    <<set _shouldShowIcon = true>>
+                    <<set _iconText = _stage.desc || _stage.title || _quest.title || "Quest Event">>
+                    <<break>>
+                <</if>>
             <</if>>
         <</for>>
     <</if>>

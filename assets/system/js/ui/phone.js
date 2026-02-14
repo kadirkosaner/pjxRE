@@ -601,9 +601,7 @@ function canShowMeetupButton(charId, vars) {
     return getMeetupTimeOptions(charId, vars).length > 0;
 }
 
-/* Known meetup places (variablesNavigation.twee: navCards with meetup:true). Used when setup is not available. */
-var PHONE_MEETUP_IDS_FALLBACK = ['sunsetPark', 'dinerRubys'];
-var PHONE_MEETUP_NAMES_FALLBACK = { sunsetPark: 'Sunset Park', dinerRubys: "Ruby's Diner" };
+
 
 function getStorySetupObj() {
     var s = (typeof setup !== 'undefined') ? setup : null;
@@ -615,30 +613,18 @@ function getStorySetupObj() {
     return s || ws || sugar || {};
 }
 
-/** Same discovery key as processNavCard and map: discovered + (first letter upper + rest). */
-function isDiscoveredLocation(locationId, vars, setupObj) {
+/** Discovery check using standard pattern: discovered + CapitalizedLocationId */
+function isDiscoveredLocation(locationId, vars) {
     if (!locationId) return false;
+    
     var stateVars = (typeof State !== 'undefined' && State.variables) ? State.variables
         : (typeof window !== 'undefined' && window.State && window.State.variables) ? window.State.variables
         : (vars || {});
-    var capitalizedId = locationId.charAt(0).toUpperCase() + locationId.slice(1);
-    var discoveryVar = 'discovered' + capitalizedId;
-    var v = stateVars[discoveryVar];
-    if (v === true || v === 1 || v === '1' || v === 'true') return true;
-    var altKeys = ['discovered' + locationId, 'discoveredsunsetPark', 'discoveredDinerRubys'];
-    for (var i = 0; i < altKeys.length; i++) {
-        if (stateVars[altKeys[i]] === true || stateVars[altKeys[i]] === 1) return true;
-    }
-    if (stateVars.location === locationId) return true;
-    var locSource = (setupObj && setupObj.locations) ? setupObj.locations : (window.setup && window.setup.locations) || null;
-    if (locSource && locSource[locationId]) {
-        var parentId = locSource[locationId].parent;
-        if (parentId) {
-            var pCap = parentId.charAt(0).toUpperCase() + parentId.slice(1);
-            if (stateVars['discovered' + pCap] === true || stateVars['discovered' + pCap] === 1) return true;
-        }
-    }
-    return false;
+    
+    var getKey = (typeof window !== 'undefined' && window.getDiscoveryKey) ? window.getDiscoveryKey : null;
+    var discoveryKey = getKey ? getKey(locationId) : ('discovered' + locationId.charAt(0).toUpperCase() + locationId.slice(1));
+    
+    return stateVars[discoveryKey] === true;
 }
 
 function getMeetupLocations(vars) {
@@ -657,14 +643,14 @@ function getMeetupLocations(vars) {
             if (window.setup.navCards[id] && window.setup.navCards[id].meetup === true && ids.indexOf(id) === -1) ids.push(id);
         });
     }
-    if (!ids.length) ids = PHONE_MEETUP_IDS_FALLBACK.slice();
+    // No fallback: if no meetup locations found, return empty list
     // Only include locations the player has discovered (variablesDiscovery.twee: discoveredSunsetPark, discoveredDinerRubys, etc.).
     ids.forEach(function (id) {
         if (seen[id]) return;
-        if (!isDiscoveredLocation(id, vars, setupObj)) return;
+        if (!isDiscoveredLocation(id, vars)) return;
         seen[id] = true;
         var nav = (setupObj.navCards && setupObj.navCards[id]) || (window.setup && window.setup.navCards && window.setup.navCards[id]);
-        var name = (nav && nav.name) ? nav.name : (PHONE_MEETUP_NAMES_FALLBACK[id] || id);
+        var name = (nav && nav.name) ? nav.name : id;
         out.push({ id: id, name: name });
     });
     return out;
@@ -693,8 +679,12 @@ function getCurrentScheduleForChar(charId, vars, dateInfo) {
     var curDate = (d.year || 0) * 10000 + (d.month || 0) * 100 + (d.day || 0);
     if (charId === 'father' && vars.importantDates && vars.importantDates.fatherWorkStart) {
         var f = vars.importantDates.fatherWorkStart;
-        var workDate = (f.year || 0) * 10000 + (f.month || 0) * 100 + (f.day || 0);
-        phase = curDate >= workDate ? 'postWork' : 'preWork';
+        // Validate all date fields exist before calculating phase
+        if (f.year && f.month && f.day) {
+            var workDate = (f.year || 0) * 10000 + (f.month || 0) * 100 + (f.day || 0);
+            phase = curDate >= workDate ? 'postWork' : 'preWork';
+        }
+        // If invalid date, fall through to default schedule selection
     } else if (charId === 'father' && (sch.preWork || sch.postWork)) {
         phase = sch.postWork ? 'postWork' : 'preWork';
     }

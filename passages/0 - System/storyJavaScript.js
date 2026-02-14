@@ -195,6 +195,20 @@ window.getLocationName = function (locId) {
     return (card && card.name) ? card.name : locId;
 };
 
+/** Global discovery key helper - standardized pattern: "discovered" + CapitalizedLocationId */
+window.getDiscoveryKey = function (locationId) {
+    if (!locationId) return null;
+    return 'discovered' + locationId.charAt(0).toUpperCase() + locationId.slice(1);
+};
+
+
+/** Notification stub for phone events (future: toast notifications) */
+window.notifyPhone = function (message) {
+    // TODO: Implement toast notification system
+    console.log('[Phone Notification]', message);
+};
+
+
 /** Total phone badge (Messages + Fotogram + Finder). */
 window.phoneTotalBadge = function () {
     if (!State || !State.variables) return 0;
@@ -1735,8 +1749,7 @@ window.processNavCard = function (tag, $container, passedSetup) {
     let displayName = args[0];
     let passageName = args[1];
     let imagePath = args[2];
-    const capitalizedId = cardId.charAt(0).toUpperCase() + cardId.slice(1);
-    const discoveryVar = 'discovered' + capitalizedId;
+    const discoveryVar = window.getDiscoveryKey ? window.getDiscoveryKey(cardId) : ('discovered' + cardId.charAt(0).toUpperCase() + cardId.slice(1));
     if (State.variables[discoveryVar] === false) {
         console.log(`[Navigation] Card "${cardId}" hidden (${discoveryVar} = false)`);
         return;
