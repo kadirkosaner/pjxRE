@@ -1575,7 +1575,9 @@ Macro.add('showActions', {
             const meetupBtn = $('<a>').addClass('btn-style action-btn available').text('Meetup')
                 .attr('data-passage', meetupPassage)
                 .ariaClick({ namespace: '.macros', one: true }, function () {
+                    State.variables.interactingChar = charId;
                     State.variables.meetupReturnLocation = returnLoc;
+                    State.variables.meetupLocation = returnLoc;
                     State.variables.location = returnLoc;
                     Engine.play(meetupPassage);
                 });

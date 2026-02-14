@@ -1,0 +1,26 @@
+:: Meetup_Park_Walk
+<<nobr>>
+<<set _charId = $interactingChar>>
+<<set _returnLoc = $meetupReturnLocation || "sunsetPark">>
+<<set _char = setup.getCharacter(_charId)>>
+<<set _charName = _char ? ((_char.firstName || _char.name || "") + (_char.lastName ? " " + _char.lastName : "")) : _charId>>
+
+<<silently>>
+<<completeMeetupAppointment>>
+<<advanceTime 30>>
+<<loseStat "energy" 10>>
+<<gainStat "mood" 5>>
+<<set _curFriend = $characters[_charId].stats.friendship || 0>>
+<<set $characters[_charId].stats.friendship = Math.min(100, _curFriend + 3)>>
+<<flushNotifications>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Meetup - Walk">>
+You and <<print _charName>> take a stroll along the park paths. The conversation flows easily as you walk past trees and the pond. A pleasant way to spend some time together.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" _returnLoc>><</btn>>
+</div>
+<</nobr>>

@@ -1,0 +1,27 @@
+:: Meetup_Diner_Eat
+<<nobr>>
+<<set _charId = $interactingChar>>
+<<set _returnLoc = $meetupReturnLocation || "dinerRubys">>
+<<set _char = setup.getCharacter(_charId)>>
+<<set _charName = _char ? ((_char.firstName || _char.name || "") + (_char.lastName ? " " + _char.lastName : "")) : _charId>>
+
+<<silently>>
+<<completeMeetupAppointment>>
+<<advanceTime 45>>
+<<loseStat "hunger" 40>>
+<<gainStat "energy" 10>>
+<<gainStat "mood" 5>>
+<<set _curFriend = $characters[_charId].stats.friendship || 0>>
+<<set $characters[_charId].stats.friendship = Math.min(100, _curFriend + 3)>>
+<<flushNotifications>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Meetup - Diner">>
+You and <<print _charName>> share a meal at the diner. Good food and good company – you chat over burgers and drinks. A nice way to catch up.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" _returnLoc>><</btn>>
+</div>
+<</nobr>>

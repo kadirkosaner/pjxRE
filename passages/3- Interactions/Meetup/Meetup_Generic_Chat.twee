@@ -1,0 +1,25 @@
+:: Meetup_Generic_Chat
+<<nobr>>
+<<set _charId = $interactingChar>>
+<<set _returnLoc = $meetupReturnLocation || $location>>
+<<set _char = setup.getCharacter(_charId)>>
+<<set _charName = _char ? ((_char.firstName || _char.name || "") + (_char.lastName ? " " + _char.lastName : "")) : _charId>>
+
+<<silently>>
+<<completeMeetupAppointment>>
+<<advanceTime 20>>
+<<gainStat "mood" 3>>
+<<set _curFriend = $characters[_charId].stats.friendship || 0>>
+<<set $characters[_charId].stats.friendship = Math.min(100, _curFriend + 2)>>
+<<flushNotifications>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Meetup">>
+You spend some time chatting with <<print _charName>>. The conversation is relaxed and enjoyable.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" _returnLoc>><</btn>>
+</div>
+<</nobr>>

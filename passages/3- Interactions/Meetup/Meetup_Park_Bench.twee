@@ -1,0 +1,26 @@
+:: Meetup_Park_Bench
+<<nobr>>
+<<set _charId = $interactingChar>>
+<<set _returnLoc = $meetupReturnLocation || "sunsetPark">>
+<<set _char = setup.getCharacter(_charId)>>
+<<set _charName = _char ? ((_char.firstName || _char.name || "") + (_char.lastName ? " " + _char.lastName : "")) : _charId>>
+
+<<silently>>
+<<completeMeetupAppointment>>
+<<advanceTime 15>>
+<<gainStat "mood" 3>>
+<<loseStat "stress" 5>>
+<<set _curFriend = $characters[_charId].stats.friendship || 0>>
+<<set $characters[_charId].stats.friendship = Math.min(100, _curFriend + 2)>>
+<<flushNotifications>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Meetup - Park Bench">>
+You and <<print _charName>> sit down on a bench overlooking the pond. You chat about nothing in particular – the weather, the people passing by. It's a nice, relaxed moment together.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" _returnLoc>><</btn>>
+</div>
+<</nobr>>
