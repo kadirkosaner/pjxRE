@@ -13,7 +13,20 @@ window.SystemModules = {
     "layout", // Passage content wrapper / layout (load first)
     "topbar", // Top navigation bar
     "rightbar", // Right sidebar
-    "phone", // Phone overlay
+    "phone/utils",
+    "phone/config",
+    "phone/shared-contacts",
+    "phone/shared-meetup",
+    "phone/shared-topics",
+    "phone/phone-messages",
+    "phone/phone-contacts",
+    "phone/phone-calendar",
+    "phone/phone-fotogram",
+    "phone/phone-finder",
+    "phone/topic-system",
+    "phone/phone-camera",
+    "phone/phone-gallery",
+    "phone/index", // Main entry – overlay, events (load last)
     "map", // Map overlay (injects into rightbar)
     "startscreen", // Start screen handler
     "mainmenu", // Main menu sliding panel

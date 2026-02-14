@@ -28,6 +28,7 @@ $(document).one(':storyready', async function () {
     }
 
     function getInitFunctionName(moduleName) {
+        if (moduleName === 'phone/index') return 'PhoneInit';
         return moduleName.charAt(0).toUpperCase() + moduleName.slice(1) + 'Init';
     }
 

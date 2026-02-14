@@ -34,13 +34,13 @@ function createPhoneOverlay() {
 
     // Phone apps configuration
     const apps = [
-        { name: 'Camera', icon: 'assets/content/phone/icon_camera.webp', action: 'camera', badge: 0 },
-        { name: 'Contacts', icon: 'assets/content/phone/icon_calls.webp', action: 'contacts', badge: 0 },
-        { name: 'Messages', icon: 'assets/content/phone/icon_messages.webp', action: 'messages', badge: notificationMessages },
-        { name: 'Gallery', icon: 'assets/content/phone/icon_gallery.webp', action: 'gallery', badge: 0 },
-        { name: 'Calendar', icon: 'assets/content/phone/icon_calendar.webp', action: 'calendar', badge: 0 },
-        { name: 'Fotogram', icon: 'assets/content/phone/icon_fotogram.webp', action: 'fotogram', badge: notificationFotogram },
-        { name: 'Finder', icon: 'assets/content/phone/icon_finder.webp', action: 'finder', badge: notificationFinder }
+        { name: 'Camera', icon: 'assets/content/phone/apps/icon_camera.webp', action: 'camera', badge: 0 },
+        { name: 'Contacts', icon: 'assets/content/phone/apps/icon_calls.webp', action: 'contacts', badge: 0 },
+        { name: 'Messages', icon: 'assets/content/phone/apps/icon_messages.webp', action: 'messages', badge: notificationMessages },
+        { name: 'Gallery', icon: 'assets/content/phone/apps/icon_gallery.webp', action: 'gallery', badge: 0 },
+        { name: 'Calendar', icon: 'assets/content/phone/apps/icon_calendar.webp', action: 'calendar', badge: 0 },
+        { name: 'Fotogram', icon: 'assets/content/phone/apps/icon_fotogram.webp', action: 'fotogram', badge: notificationFotogram },
+        { name: 'Finder', icon: 'assets/content/phone/apps/icon_finder.webp', action: 'finder', badge: notificationFinder }
     ];
 
     // Render apps
@@ -1171,3 +1171,127 @@ function closePhoneOverlay() {
     $('#phone-overlay').removeClass('active');
     $(document).trigger('phoneBadgesUpdated');
 }
+
+/* ==========================================
+   PHONE TOPIC SYSTEM – Helper Functions
+========================================== */
+
+/**
+ * Get available topics for a character filtered by category and stat tier
+ * @param {string} charId - Character ID
+ * @param {string} category - 'friendship', 'love', or 'lust'
+ * @param {object} vars - State.variables
+ * @returns {array} Filtered topics
+ */
+window.phoneGetTopicsByCategory = function(charId, category, vars) {
+    if (!charId || !category) return [];
+    
+    var char = vars.characters && vars.characters[charId];
+    if (!char || !char.stats) return [];
+    
+    var stat = char.stats[category] || 0;
+    var setupTopics = (typeof setup !== 'undefined' && setup.phoneMessageTopics) ? setup.phoneMessageTopics[charId] : null;
+    if (!setupTopics) return [];
+    
+    return setupTopics.filter(function(topic) {
+        return topic.category === category && stat >= topic.tier;
+    });
+};
+
+/**
+ * Pick a random reply from topic's replies array
+ * @param {array} replies - Array of possible replies
+ * @returns {string} Random reply
+ */
+window.phonePickRandomReply = function(replies) {
+    if (!replies || !Array.isArray(replies) || replies.length === 0) return "";
+    return replies[Math.floor(Math.random() * replies.length)];
+};
+
+/**
+ * Pick a random image from topic's images array
+ * @param {array} images - Array of image paths
+ * @returns {string} Random image path
+ */
+window.phonePickRandomImage = function(images) {
+    if (!images || !Array.isArray(images) || images.length === 0) return null;
+    return images[Math.floor(Math.random() * images.length)];
+};
+
+/**
+ * Apply topic effects: stat gains (with tier caps) and time advancement
+ * Lower tier topics stop giving stats when higher tiers unlock
+ * @param {string} charId - Character ID
+ * @param {object} topic - Topic object from setup.phoneMessageTopics
+ * @param {object} vars - State.variables
+ */
+window.phoneApplyTopicEffects = function(charId, topic, vars) {
+    if (!charId || !topic || !vars) return;
+    
+    var char = vars.characters && vars.characters[charId];
+    if (!char || !char.stats) return;
+    
+    // Apply stat gains with tier caps
+    if (topic.statGain) {
+        for (var stat in topic.statGain) {
+            if (char.stats.hasOwnProperty(stat)) {
+                var currentStat = char.stats[stat] || 0;
+                var topicTier = topic.tier || 0;
+                
+                // Determine max stat cap for this topic's tier
+                // Tier 0: cap at 20
+                // Tier 20: cap at 40
+                // Tier 40: cap at 60
+                // Tier 60: cap at 100
+                var maxCap = 100;
+                if (topicTier === 0) {
+                    maxCap = 20;
+                } else if (topicTier === 20) {
+                    maxCap = 40;
+                } else if (topicTier === 40) {
+                    maxCap = 60;
+                } else if (topicTier === 60) {
+                    maxCap = 100;
+                }
+                
+                // Only apply stat gain if current stat is below this tier's cap
+                if (currentStat < maxCap) {
+                    var gainVal = topic.statGain[stat] || 0;
+                    // Don't exceed the tier cap
+                    char.stats[stat] = Math.min(maxCap, currentStat + gainVal);
+                }
+                // If stat >= maxCap, this topic gives no more stats (tier maxed out)
+            }
+        }
+    }
+    
+    // Advance time if macro exists
+    if (topic.timeAdvance && typeof Macro !== 'undefined' && Macro.has && Macro.has('advanceTime')) {
+        var wiki = (typeof $ !== 'undefined' && $.wiki) ? $.wiki : null;
+        if (wiki) {
+            wiki('<<advanceTime ' + topic.timeAdvance + '>>');
+        }
+    }
+};
+
+/**
+ * Get all categories that have unlocked topics for a character
+ * @param {string} charId - Character ID
+ * @param {object} vars - State.variables
+ * @returns {array} Array of category names ['friendship', 'love', 'lust']
+ */
+window.phoneGetAvailableCategories = function(charId, vars) {
+    if (!charId || !vars) return [];
+    
+    var categories = ['friendship', 'love', 'lust'];
+    var available = [];
+    
+    categories.forEach(function(cat) {
+        var topics = window.phoneGetTopicsByCategory(charId, cat, vars);
+        if (topics && topics.length > 0) {
+            available.push(cat);
+        }
+    });
+    
+    return available;
+};
