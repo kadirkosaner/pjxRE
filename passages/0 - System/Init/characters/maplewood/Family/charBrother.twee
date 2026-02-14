@@ -35,28 +35,28 @@
     school: {
         weekday: [
             { hour: 0, location: "fhBrotherRoom", status: "sleeping" },
-            { hour: 6, minute: 50, location: "fhUpperBath", status: "showering" },   /* Shower 6:50-7:00 (10 min) */
-            { hour: 7, location: "fhKitchen", status: "available" },                 /* Family Breakfast 7:00-7:30 */
-            { hour: 7, minute: 30, location: "fhBrotherRoom", status: "available" },   /* Get ready for school */
-            { hour: 8, location: "school", status: "busy" },                         /* At school 8:00-15:00 */
-            { hour: 15, location: "fhBrotherRoom", status: "available", meetup: true },              /* Back from school */
+            { hour: 6, minute: 50, location: "fhUpperBath", status: "showering" },   
+            { hour: 7, location: "fhKitchen", status: "available" },
+            { hour: 7, minute: 30, location: "fhBrotherRoom", status: "available" },
+            { hour: 8, location: "school", status: "busy" },
+            { hour: 15, location: "fhBrotherRoom", status: "available", meetup: true },
             { hour: 17, location: "fhLivingroom", status: "available", meetup: true },
-            { hour: 18, minute: 30, location: "fhKitchen", status: "available" },    /* Family Dinner 18:30-19:30 */
+            { hour: 18, minute: 30, location: "fhKitchen", status: "available" },
             { hour: 19, minute: 30, location: "fhBrotherRoom", status: "available", meetup: true },
             { hour: 20, location: "fhBrotherRoom", status: "available", meetup: true },
             { hour: 23, location: "fhBrotherRoom", status: "sleeping" }
         ],
         weekend: [
             { hour: 0, location: "fhBrotherRoom", status: "sleeping" },
-            { hour: 8, location: "fhUpperBath", status: "showering" },               /* Shower 8:00-8:15 (15 min) */
-            { hour: 8, minute: 15, location: "fhBrotherRoom", status: "available" },   /* Getting ready */
-            { hour: 8, minute: 30, location: "fhKitchen", status: "available" },     /* Family Breakfast 8:30-9:30 */
+            { hour: 8, location: "fhUpperBath", status: "showering" }, 
+            { hour: 8, minute: 15, location: "fhBrotherRoom", status: "available" },
+            { hour: 8, minute: 30, location: "fhKitchen", status: "available" },
             { hour: 9, minute: 30, location: "fhBrotherRoom", status: "available" },
             { hour: 11, location: "fhLivingroom", status: "available", meetup: true },
-            { hour: 12, minute: 30, location: "fhKitchen", status: "available" },    /* Family Lunch 12:30-13:30 */
+            { hour: 12, minute: 30, location: "fhKitchen", status: "available" },
             { hour: 13, minute: 30, location: "fhBrotherRoom", status: "available" },
             { hour: 14, location: "fhLivingroom", status: "available", meetup: true },
-            { hour: 18, minute: 30, location: "fhKitchen", status: "available" },    /* Family Dinner 18:30-19:30 */
+            { hour: 18, minute: 30, location: "fhKitchen", status: "available" },
             { hour: 19, minute: 30, location: "fhBrotherRoom", status: "available", meetup: true },
             { hour: 20, location: "fhBrotherRoom", status: "available", meetup: true },
             { hour: 23, location: "fhBrotherRoom", status: "sleeping" }

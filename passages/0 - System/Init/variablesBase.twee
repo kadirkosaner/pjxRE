@@ -67,6 +67,7 @@
 <<if ndef $phoneFameEventsFired>><<set $phoneFameEventsFired = []>><</if>>
 <<if ndef $phoneContactPromoted>><<set $phoneContactPromoted = {}>><</if>>
 <<if ndef $phoneContactsUnlocked>><<set $phoneContactsUnlocked = []>><</if>>
+<<if ndef $phoneBlocked>><<set $phoneBlocked = []>><</if>>
 <<if ndef $phoneWhereAskedLast>><<set $phoneWhereAskedLast = {}>><</if>>
 <<if ndef $phoneTalkAskedLast>><<set $phoneTalkAskedLast = {}>><</if>>
 /* Each entry: { day, month, year, hour, minute } – 30 min cooldown per character */
@@ -170,5 +171,4 @@
 }>>
 
 <<domInclude "variablesPhoneTopics">>
-
 

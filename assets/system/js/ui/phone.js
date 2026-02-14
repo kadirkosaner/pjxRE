@@ -35,7 +35,7 @@ function createPhoneOverlay() {
     // Phone apps configuration
     const apps = [
         { name: 'Camera', icon: 'assets/content/phone/icon_camera.webp', action: 'camera', badge: 0 },
-        { name: 'Calls', icon: 'assets/content/phone/icon_calls.webp', action: 'calls', badge: 0 },
+        { name: 'Contacts', icon: 'assets/content/phone/icon_calls.webp', action: 'contacts', badge: 0 },
         { name: 'Messages', icon: 'assets/content/phone/icon_messages.webp', action: 'messages', badge: notificationMessages },
         { name: 'Gallery', icon: 'assets/content/phone/icon_gallery.webp', action: 'gallery', badge: 0 },
         { name: 'Calendar', icon: 'assets/content/phone/icon_calendar.webp', action: 'calendar', badge: 0 },
@@ -115,7 +115,7 @@ function createPhoneOverlay() {
         if (phoneViewState.app && phoneViewState.sub === 'topics') {
             phoneViewState.sub = 'thread';
             var charId = phoneViewState.threadCharId;
-            $('#phone-app-view-title').text(phoneViewState.pickerFor === 'message' ? 'New message' : (PHONE_APP_NAMES.messages || 'Messages'));
+            $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
             $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
             updatePhoneBadges();
         } else if (phoneViewState.app && phoneViewState.sub === 'thread') {
@@ -166,15 +166,6 @@ function createPhoneOverlay() {
         $('#phone-app-view-content').html(getContactListHtml(PhoneAPI.State.variables));
     });
 
-    // New call: show contact picker
-    $('#phone-overlay').on('click', '#phone-new-call', function () {
-        if (!PhoneAPI) return;
-        phoneViewState.sub = 'contacts';
-        phoneViewState.pickerFor = 'call';
-        $('#phone-app-view-title').text('New call');
-        $('#phone-app-view-content').html(getContactListHtml(PhoneAPI.State.variables));
-    });
-
     // Contact pick: open thread (message) or place call (call)
     $('#phone-overlay').on('click', '.phone-contact-pick', function () {
         const charId = $(this).data('char-id');
@@ -195,13 +186,31 @@ function createPhoneOverlay() {
             }
             phoneViewState.sub = 'list';
             phoneViewState.pickerFor = null;
-            $('#phone-app-view-title').text(PHONE_APP_NAMES.calls || 'Calls');
-            $content.html(getAppContent('calls', PhoneAPI.State.variables));
+            $('#phone-app-view-title').text(PHONE_APP_NAMES.contacts || 'Contacts');
+            $content.html(getAppContent('contacts', PhoneAPI.State.variables));
         }
+    });
+
+    // Block contact: confirmation modal, then block (remove from unlocked, add to blocked, delete conv)
+    $('#phone-overlay').on('click', '.phone-contact-block-btn', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var charId = $(this).data('char-id');
+        if (!charId || !PhoneAPI) return;
+        var vars = PhoneAPI.State.variables;
+        var name = getPhoneContactFullName(charId, vars);
+        var msg = 'You are blocking this person and deleting their number. If you block them you will not be able to communicate with them again. Telling this person about it could cause problems in your relationship.';
+        showBlockConfirmModal(name, msg, function () {
+            var v = PhoneAPI.State.variables;
+            blockPhoneContact(charId, v);
+            $('#phone-app-view-content').html(getAppContent('contacts', v));
+            updatePhoneBadges();
+        });
     });
 
     // Messages: open conversation thread from list (existing conv) and mark read
     $('#phone-overlay').on('click', '.phone-conv-item:not(.phone-contact-pick)', function () {
+        if (phoneViewState.app === 'contacts') return;
         const charId = $(this).data('char-id');
         if (!charId || !PhoneAPI) return;
         phoneViewState.sub = 'thread';
@@ -209,6 +218,7 @@ function createPhoneOverlay() {
         phoneViewState.meetup = null;
         const vars = PhoneAPI.State.variables;
         markConversationReadInState(charId, vars);
+        $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
         $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
         updatePhoneBadges();
     });
@@ -416,7 +426,7 @@ function createPhoneOverlay() {
         markConversationReadInState(charId, vars);
         persistPhoneChanges();
         phoneViewState.sub = 'thread';
-        $('#phone-app-view-title').text(phoneViewState.pickerFor === 'message' ? 'New message' : (PHONE_APP_NAMES.messages || 'Messages'));
+        $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
         $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
         updatePhoneBadges();
     });
@@ -426,7 +436,7 @@ function createPhoneOverlay() {
 // App display names
 const PHONE_APP_NAMES = {
     camera: 'Camera',
-    calls: 'Calls',
+    contacts: 'Contacts',
     messages: 'Messages',
     gallery: 'Gallery',
     calendar: 'Calendar',
@@ -846,16 +856,25 @@ function markConversationReadInState(charId, vars) {
     vars.phoneConversations[charId].forEach(function (m) { m.read = true; });
 }
 
-// Contact list: single source – setup.phoneContactsFamily (variablesPeople.twee) + $phoneContactsUnlocked (unlocked via swap). Merged and deduped.
+// Contact list: single source – setup.phoneContactsFamily (variablesPeople.twee) + $phoneContactsUnlocked (unlocked via swap). Blocked excluded.
 function getContacts(vars) {
     var setupObj = getStorySetupObj();
     var family = (setupObj.phoneContactsFamily && setupObj.phoneContactsFamily.length) ? setupObj.phoneContactsFamily : ['mother', 'father', 'brother'];
     var unlocked = vars.phoneContactsUnlocked || [];
+    var blocked = vars.phoneBlocked || [];
+    var blockedSet = {};
+    blocked.forEach(function (id) { blockedSet[id] = true; });
     var seen = {};
     var out = [];
-    family.forEach(function (id) { if (!seen[id]) { seen[id] = true; out.push(id); } });
-    unlocked.forEach(function (id) { if (!seen[id]) { seen[id] = true; out.push(id); } });
+    family.forEach(function (id) { if (!blockedSet[id] && !seen[id]) { seen[id] = true; out.push(id); } });
+    unlocked.forEach(function (id) { if (!blockedSet[id] && !seen[id]) { seen[id] = true; out.push(id); } });
     return out;
+}
+
+function isFamilyContact(charId, vars) {
+    var setupObj = getStorySetupObj();
+    var family = (setupObj.phoneContactsFamily && setupObj.phoneContactsFamily.length) ? setupObj.phoneContactsFamily : ['mother', 'father', 'brother'];
+    return family.indexOf(charId) !== -1;
 }
 
 function getContactListHtml(vars) {
@@ -870,6 +889,24 @@ function getContactListHtml(vars) {
         return '<div class="phone-conv-item phone-contact-pick phone-contact-row" data-char-id="' + charId + '">' + img + '<div class="phone-conv-name">' + escapeHtml(fullName) + '</div></div>';
     }).join('');
     return '<div class="phone-messages-list phone-contact-list phone-contact-list-centered">' + list + '</div>';
+}
+
+// Contacts app: same list but no click-to-call, block icon for non-family contacts
+function getContactListHtmlForContacts(vars) {
+    var contacts = getContacts(vars);
+    if (contacts.length === 0) {
+        return '<div class="phone-app-placeholder"><p class="phone-app-placeholder-text">No contacts</p><p class="phone-app-placeholder-sub">Family and anyone you swap numbers with will appear here.</p></div>';
+    }
+    var list = contacts.map(function (charId) {
+        var avatar = getPhoneContactAvatar(charId, vars);
+        var fullName = getPhoneContactFullName(charId, vars);
+        var img = avatar ? '<img src="' + avatar + '" alt="" class="phone-contact-avatar">' : '<div class="phone-contact-avatar phone-contact-avatar-placeholder"></div>';
+        var blockBtn = !isFamilyContact(charId, vars)
+            ? '<button type="button" class="phone-contact-block-btn" data-char-id="' + charId + '" aria-label="Block"><span class="icon icon-block icon-18"></span></button>'
+            : '';
+        return '<div class="phone-conv-item phone-contact-row" data-char-id="' + charId + '">' + img + '<div class="phone-conv-name">' + escapeHtml(fullName) + '</div>' + blockBtn + '</div>';
+    }).join('');
+    return '<div class="phone-messages-list phone-contact-list phone-contact-list-contacts">' + list + '</div>';
 }
 
 // Escape text for use inside a SugarCube macro string (double-quoted)
@@ -940,7 +977,9 @@ function getAppContent(action, vars) {
                 const name = getPhoneContactName(charId, vars);
                 const preview = (last && last.text) ? (last.text.length > 30 ? last.text.slice(0, 30) + '…' : last.text) : '';
                 const timeStr = last && last.time ? formatPhoneTime(last.time) : '';
-                return '<div class="phone-conv-item" data-char-id="' + charId + '"><div class="phone-conv-name">' + name + '</div><div class="phone-conv-preview">' + preview + '</div><div class="phone-conv-meta">' + timeStr + (unread > 0 ? ' <span class="phone-conv-unread">' + unread + '</span>' : '') + '</div></div>';
+                const avatar = getPhoneContactAvatar(charId, vars);
+                const img = avatar ? '<img src="' + avatar + '" alt="" class="phone-conv-avatar">' : '<div class="phone-conv-avatar phone-conv-avatar-placeholder"></div>';
+                return '<div class="phone-conv-item" data-char-id="' + charId + '">' + img + '<div class="phone-conv-content"><div class="phone-conv-name">' + name + '</div><div class="phone-conv-preview">' + preview + '</div><div class="phone-conv-meta">' + timeStr + (unread > 0 ? ' <span class="phone-conv-unread">' + unread + '</span>' : '') + '</div></div></div>';
             }).join('');
             return newBtn + '<div class="phone-messages-list">' + list + '</div>';
         }
@@ -991,24 +1030,8 @@ function getAppContent(action, vars) {
             return '<div class="phone-app-calendar">' + navHtml +
                 '<div class="phone-calendar-days">' + daysHtml + '</div></div>';
         }
-        case 'calls': {
-            const log = vars.phoneCallsLog || [];
-            let html = '<div class="phone-calls-view">';
-            html += '<div class="phone-new-action"><button type="button" class="phone-new-btn" id="phone-new-call">New call</button></div>';
-            if (log.length === 0) {
-                html += '<div class="phone-app-placeholder"><p class="phone-app-placeholder-text">No recent calls</p><p class="phone-app-placeholder-sub">Tap New call to call someone.</p></div>';
-            } else {
-                html += '<div class="phone-calls-section"><div class="phone-calls-section-title">Recent</div>';
-                log.slice(-20).reverse().forEach(function (entry) {
-                    const name = getPhoneContactName(entry.charId, vars);
-                    const dir = entry.direction === 'in' ? 'Incoming' : 'Outgoing';
-                    const timeStr = entry.time ? formatPhoneTime(entry.time) : '';
-                    html += '<div class="phone-call-item"><span class="phone-call-dir">' + dir + '</span> ' + name + ' <span class="phone-call-time">' + timeStr + '</span></div>';
-                });
-                html += '</div>';
-            }
-            html += '</div>';
-            return html;
+        case 'contacts': {
+            return getContactListHtmlForContacts(vars);
         }
         case 'camera':
         case 'gallery':
@@ -1022,6 +1045,28 @@ function getAppContent(action, vars) {
 function escapeHtml(s) {
     if (s == null) return '';
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function blockPhoneContact(charId, vars) {
+    if (!vars.phoneContactsUnlocked) vars.phoneContactsUnlocked = [];
+    if (!vars.phoneBlocked) vars.phoneBlocked = [];
+    var idx = vars.phoneContactsUnlocked.indexOf(charId);
+    if (idx !== -1) vars.phoneContactsUnlocked.splice(idx, 1);
+    if (vars.phoneBlocked.indexOf(charId) === -1) vars.phoneBlocked.push(charId);
+    if (vars.phoneConversations && vars.phoneConversations[charId]) delete vars.phoneConversations[charId];
+    persistPhoneChanges();
+}
+
+function showBlockConfirmModal(name, message, onConfirm) {
+    if (!PhoneAPI) return;
+    var title = 'Block ' + name + '?';
+    var content = '<div class="confirmation-content"><div class="confirmation-icon"><span class="icon icon-block icon-24"></span></div><div class="confirmation-message">' + escapeHtml(message) + '</div><div class="confirmation-actions"><button class="btn" id="block-confirm-no">No</button><button class="btn btn-danger" id="block-confirm-yes">Yes</button></div></div>';
+    var modalHTML = '<div class="overlay overlay-dark modal-overlay active" id="phone-block-confirm-overlay"><div class="modal" style="width: 500px; max-width: 90vw;"><div class="modal-header"><span class="modal-title">' + escapeHtml(title) + '</span><button class="close-btn" id="block-confirm-close"><span class="icon icon-close icon-18"></span></button></div><div class="modal-content">' + content + '</div></div></div>';
+    PhoneAPI.$('body').append(modalHTML);
+    var closeFn = function () { PhoneAPI.$('#phone-block-confirm-overlay').remove(); };
+    PhoneAPI.$('#block-confirm-yes').on('click', function () { if (onConfirm) onConfirm(); closeFn(); });
+    PhoneAPI.$('#block-confirm-no, #block-confirm-close').on('click', closeFn);
+    PhoneAPI.$('#phone-block-confirm-overlay').on('click', function (e) { if (e.target === this) closeFn(); });
 }
 
 function getTopicListHtml(charId, vars) {
@@ -1039,7 +1084,6 @@ function getTopicListHtml(charId, vars) {
 function getMessagesThreadHtml(charId, vars) {
     cleanupExpiredMeetups(vars);
     var conv = (vars.phoneConversations && vars.phoneConversations[charId]) || [];
-    var name = getPhoneContactFullName(charId, vars);
     var bubbles = conv.map(function (m) {
         var isPlayer = m.from === 'player';
         var timeStr = m.time ? formatPhoneTime(m.time) : '';
@@ -1062,7 +1106,7 @@ function getMessagesThreadHtml(charId, vars) {
         if (phoneViewState.meetup.step === 'pick_time') meetupInline = getMeetupInlineTimeOptionsHtml(charId, vars);
         else if (phoneViewState.meetup.step === 'pick_place') meetupInline = getMeetupInlinePlaceOptionsHtml(charId, vars);
     }
-    return '<div class="phone-messages-thread" data-char-id="' + charId + '"><div class="phone-thread-name">' + escapeHtml(name) + '</div><div class="phone-thread-bubbles">' + bubbles + '</div>' + meetupInline + compose + '</div>';
+    return '<div class="phone-messages-thread" data-char-id="' + charId + '"><div class="phone-thread-bubbles">' + bubbles + '</div>' + meetupInline + compose + '</div>';
 }
 
 function updatePhoneBadges() {

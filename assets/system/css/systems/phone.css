@@ -517,8 +517,10 @@
 }
 
 .phone-app-back {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  min-width: 36px;
+  max-width: 36px;
+  height: 36px;
   flex-shrink: 0;
   border: none;
   background: transparent;
@@ -744,6 +746,47 @@
   max-width: 100%;
 }
 
+/* Contacts app: rows with block icon on the right */
+.phone-contact-list-contacts {
+  align-items: stretch;
+  max-width: 100%;
+}
+
+.phone-contact-list-contacts .phone-contact-row {
+  justify-content: flex-start;
+}
+
+.phone-contact-list-contacts .phone-conv-name {
+  flex: 1;
+  text-align: left;
+  min-width: 0;
+}
+
+.phone-contact-block-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.phone-contact-block-btn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.phone-contact-block-btn .icon {
+  background-color: currentColor;
+}
+
 .phone-contact-row {
   display: flex;
   align-items: center;
@@ -775,12 +818,33 @@
 }
 
 .phone-conv-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
   padding: var(--spacing-md);
   background: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
   transition: background var(--transition-fast);
+}
+
+.phone-conv-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-round);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.phone-conv-avatar-placeholder {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.phone-conv-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .phone-conv-item:hover {
@@ -917,6 +981,7 @@
   flex: 1;
   min-width: 120px;
   padding: 0.5rem 0.75rem;
+  margin: 0.1rem;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-md);
