@@ -1,8 +1,25 @@
 /* ==========================================
-   PHONE WIDGETS – Messages, Calls
+   PHONE WIDGETS – Messages, Calls, Gallery
    Data model: phone_system_data_and_technical.md
    All state updates go through these widgets.
 ========================================== */
+
+/* Add a photo/video to the gallery from a passage. Usage:
+   <<GalleryAdd "assets/content/phone/special/quest_photo.webp">>
+   <<GalleryAdd "path" "photos" "received" 75 "mother">>   (path, kind, category, quality, from)
+   Defaults: kind=photos, category=received, quality=50, from=player
+*/
+<<widget "GalleryAdd">><<nobr>>
+    <<if !$args[0]>><<return>><</if>>
+    <<run (function(){
+        if (typeof window.phoneGalleryAddItem !== "function") return;
+        var a = $args;
+        var path = a[0];
+        var opts = { kind: a[1] || "photos", category: a[2] || "received", from: a[4] || "player" };
+        if (a[3] != null && a[3] !== "") opts.quality = parseInt(a[3], 10) || 50;
+        window.phoneGalleryAddItem(path, opts);
+    })()>>
+<</nobr>><</widget>>
 
 <<widget "phoneReceiveMessage">><<nobr>>
     <<set _charId = $args[0]>>
@@ -58,9 +75,6 @@
 <<widget "phoneEnsureTopics">><<nobr>>
     <<if !setup.phoneMessageTopics>>
         <<set setup.phoneMessageTopics = {}>>
-    <</if>>
-    <<if !setup.phoneMessageTopics.mother>>
-        <<domInclude "variablesPhoneTopics">>
     <</if>>
 <</widget>>
 

@@ -5,7 +5,7 @@
 // Game Information
 <<set setup.gameName = "Deneme">>
 <<set setup.gameVersion = "Beta">>
-<<if ndef $saveVersion>><<set $saveVersion to 1>><</if>>
+<<set $saveVersion to 1>>
 
 /* ==========================================
    UI VISIBILITY SETTINGS
@@ -53,101 +53,74 @@
 ========================================== */
 
 <<set $notificationPush = 0>>
-<<if ndef $phoneConversations>><<set $phoneConversations = {}>><</if>>
-<<if ndef $phoneGallery>><<set $phoneGallery = []>><</if>>
-<<if ndef $phoneFotogramPosts>><<set $phoneFotogramPosts = []>><</if>>
-<<if ndef $phoneFotogramDMs>><<set $phoneFotogramDMs = []>><</if>>
-<<if ndef $phoneNotifications>>
-    <<set $phoneNotifications = { fotogram: [], finder: [] }>>
-<</if>>
-<<if ndef $phoneFinderProfile>><<set $phoneFinderProfile = { galleryIds: [] }>><</if>>
-<<if ndef $phoneFinderMatches>><<set $phoneFinderMatches = []>><</if>>
-<<if ndef $phoneCallsLog>><<set $phoneCallsLog = []>><</if>>
-<<if ndef $phoneAppointments>><<set $phoneAppointments = []>><</if>>
-<<if ndef $phoneFameEventsFired>><<set $phoneFameEventsFired = []>><</if>>
-<<if ndef $phoneContactPromoted>><<set $phoneContactPromoted = {}>><</if>>
-<<if ndef $phoneContactsUnlocked>><<set $phoneContactsUnlocked = []>><</if>>
-<<if ndef $phoneBlocked>><<set $phoneBlocked = []>><</if>>
-<<if ndef $phoneWhereAskedLast>><<set $phoneWhereAskedLast = {}>><</if>>
-<<if ndef $phoneTalkAskedLast>><<set $phoneTalkAskedLast = {}>><</if>>
-/* Each entry: { day, month, year, hour, minute } – 30 min cooldown per character */
-
-/* Preferred meetup places for phone date planner (only discovered ones will be shown). */
-<<set setup.phoneMeetupLocationIds = setup.phoneMeetupLocationIds || ["sunsetPark", "restaurantDowntown", "nightClub", "cityHall", "mapleChurch", "restaurantBeach", "beachClub"]>>
+<<set $phoneConversations = {}>>
+<<set $phoneFotogramPosts = []>>
+<<set $phoneFotogramDMs = []>>
+<<set $phoneNotifications = { fotogram: [], finder: [] }>>
+<<set $phoneFinderProfile = { galleryIds: [] }>>
+<<set $phoneFinderMatches = []>>
+<<set $phoneCallsLog = []>>
+<<set $phoneAppointments = []>>
+<<set $phoneFameEventsFired = []>>
+<<set $phoneContactPromoted = {}>>
+<<set $phoneContactsUnlocked = []>>
+<<set $phoneBlocked = []>>
+<<set $phoneWhereAskedLast = {}>>
+<<set $phoneTalkAskedLast = {}>>
+<<set setup.phoneMessageTopics = {}>>
 
 /* ==========================================
    DAILY TRACKING
 ========================================== */
-<<if def $daily>>
-<<else>>
-    <<set $daily = { 
-        yogaDone: false, 
-        danceDone: false,
-        jogDone: false,
-        hairCreamUsed: false,
-        faceCreamUsed: false,
-        dentalCareUsed: false
-    }>>
-<</if>>
+<<set $daily = { 
+    yogaDone: false, 
+    danceDone: false,
+    jogDone: false,
+    hairCreamUsed: false,
+    faceCreamUsed: false,
+    dentalCareUsed: false
+}>>
 
 /* Makeup (state/style/quality; makeup score computed in recalculateStats) */
-<<if ndef $makeup>>
-    <<set $makeup = { state: "off", style: 0, quality: 0 }>>
-<</if>>
+<<set $makeup = { state: "off", style: 0, quality: 0 }>>
 
 /* Mirror routine: saved on Confirm; Apply Routine button shows only when confirmed */
-<<if ndef $mirrorRoutine>>
-    <<set $mirrorRoutine = { makeup: 0, combHair: true, hairCream: true, faceCream: true, dentalCare: true }>>
-<</if>>
-<<if ndef $mirrorRoutineConfirmed>>
-    <<set $mirrorRoutineConfirmed = false>>
-<</if>>
+<<set $mirrorRoutine = { makeup: 0, combHair: true, hairCream: true, faceCream: true, dentalCare: true }>>
+<<set $mirrorRoutineConfirmed = false>>
 
 /* ==========================================
    SYSTEM VARIABLES
 ========================================== */
 
 /* Alarm System */
-<<if def $alarm>>
-<<else>>
-    <<set $alarm = {
-        weekdayEnabled: false,
-        weekdayHour: 7,
-        weekdayMinute: 0,
-        weekendEnabled: false,
-        weekendHour: 10,
-        weekendMinute: 0
-    }>>
-<</if>>
+<<set $alarm = {
+    weekdayEnabled: false,
+    weekdayHour: 7,
+    weekdayMinute: 0,
+    weekendEnabled: false,
+    weekendHour: 10,
+    weekendMinute: 0
+}>>
 
 /* Flags System - For story events/states */
-<<if def $flags>>
-<<else>>
-    <<set $flags = {
-        fatherStartedWork: false
-    }>>
-<</if>>
+<<set $flags = {
+    fatherStartedWork: false
+}>>
 
 /* Important Dates */
-<<if def $importantDates>>
-<<else>>
-    <<set $importantDates = {
-        fatherWorkStart: { year: 2025, month: 8, day: 25 }
-    }>>
-<</if>>
+<<set $importantDates = {
+    fatherWorkStart: { year: 2025, month: 8, day: 25 }
+}>>
 
 /* ==========================================
    JOB SYSTEM STATE (Global – single job)
    Details: 1Developer/JobSystemDesign.md
 ========================================= */
-<<if ndef $job>>
 <<set $job = {
     id: null,
     tier: 1,
     startedOn: null
 }>>
-<</if>>
-<<if ndef $jobState>>
 <<set $jobState = {
     hoursThisWeek: 0,
     shiftsToday: 0,
@@ -158,7 +131,6 @@
     lastPayWeek: null,
     minHoursWarningCount: 0
 }>>
-<</if>>
 
 /* School calendar - cyclical, repeats every year */
 /* Uses month/day only, works for any year */
@@ -170,5 +142,5 @@
     ]
 }>>
 
-<<domInclude "variablesPhoneTopics">>
+
 

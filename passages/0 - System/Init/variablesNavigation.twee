@@ -18,6 +18,13 @@
    -----------------------
    "lockerRoom": { name: "Locker Room" },
    
+   Camera (optional): cameraLoc = "public" | "safe" | "forbidden" | "never"
+   - public: normal rules (Hot/Spicy need higher corruption outside).
+   - safe: only fhBedroom; lower corruption for Hot/Spicy.
+   - forbidden: no camera unless Exhibitionism >= cameraExhibitionismMin (then public).
+   - never: camera never allowed (no override).
+   Example: "policeStation": { name: "5th Precinct", cameraLoc: "never" }
+   
    STEP 2: Add to locations
    ------------------------
    "lockerRoom": { parent: "gym", type: "subroom" },
@@ -39,197 +46,198 @@ setup.navCards = {
     /* ==========================================
        MAPLEWOOD - FAMILY HOUSE
        ========================================== */
-    "FamilyHouse": { name: "Family House", passage: "fhDownstairs" },
-    "fhBedroom": { name: "My Bedroom" },
-    "fhWardrobe": { name: "Wardrobe" },
-    "fhBrotherRoom": { name: "Brother's Room" },
-    "fhKitchen": { name: "Kitchen" },
-    "fhLivingroom": { name: "Living Room" },
-    "fhUpperBath": { name: "Upstairs Bathroom" },
-    "fhDownbath": { name: "Downstairs Bathroom" },
-    "fhUpperstairs": { name: "Upstairs" },
-    "fhDownstairs": { name: "Downstairs" },
-    "fhParentsRoom": { name: "Parents Room" },
-    "fhParentsBath": { name: "Parents Bathroom" },
-    "fhBackyard": { name: "Backyard" },
-    "fhGarage": { name: "Garage" },
+    "FamilyHouse": { name: "Family House", passage: "fhDownstairs", cameraLoc: "public" },
+    "fhBedroom": { name: "My Bedroom", cameraLoc: "safe" },
+    "fhWardrobe": { name: "Wardrobe", cameraLoc: "public" },
+    "fhBrotherRoom": { name: "Brother's Room", cameraLoc: "public" },
+    "fhKitchen": { name: "Kitchen", cameraLoc: "public" },
+    "fhLivingroom": { name: "Living Room", cameraLoc: "public" },
+    "fhUpperBath": { name: "Upstairs Bathroom", cameraLoc: "public" },
+    "fhDownbath": { name: "Downstairs Bathroom", cameraLoc: "public" },
+    "fhUpperstairs": { name: "Upstairs", cameraLoc: "public" },
+    "fhDownstairs": { name: "Downstairs", cameraLoc: "public" },
+    "fhParentsRoom": { name: "Parents Room", cameraLoc: "public" },
+    "fhParentsBath": { name: "Parents Bathroom", cameraLoc: "public" },
+    "fhBackyard": { name: "Backyard", cameraLoc: "public" },
+    "fhGarage": { name: "Garage", cameraLoc: "public" },
 
     /* ==========================================
        MAPLEWOOD - NEIGHBORHOOD
        ========================================== */
-    "maplewood": { name: "Maplewood" },
-    "mapleChurch": { name: "St. Mary's Chapel" },
-    "storeCorner": { name: "Quick Mart" },
-    "sunsetPark": { name: "Sunset Park", meetup: true },
-    "sunsetWC": { name: "Restroom" },
+    "maplewood": { name: "Maplewood", cameraLoc: "public" },
+    "mapleChurch": { name: "St. Mary's Chapel", cameraLoc: "forbidden", cameraExhibitionismMin: 60 },
+    "storeCorner": { name: "Quick Mart", cameraLoc: "public" },
+    "sunsetPark": { name: "Sunset Park", meetup: true, cameraLoc: "public" },
+    "sunsetWC": { name: "Restroom", cameraLoc: "public" },
 
     /* ==========================================
        DOWNTOWN
        ========================================== */
-    "downTown": { name: "Downtown" },
-    "bank": { name: "First National Bank" },
-    "cityHall": { name: "City Hall" },
-    "hospital": { name: "St. Luke's Hospital" },
-    "hotel": { name: "The Grand Hotel" },
-    "nightClub": { name: "Pulse Nightclub" },
-    "restaurantDowntown": { name: "The Brass Rail" },
+    "downTown": { name: "Downtown", cameraLoc: "public" },
+    "bank": { name: "First National Bank", cameraLoc: "never" },
+    "cityHall": { name: "City Hall", cameraLoc: "never" },
+    "hospital": { name: "St. Luke's Hospital", cameraLoc: "forbidden", cameraExhibitionismMin: 55 },
+    "hotel": { name: "The Grand Hotel", cameraLoc: "public" },
+    "nightClub": { name: "Pulse Nightclub", cameraLoc: "public" },
+    "restaurantDowntown": { name: "The Brass Rail", cameraLoc: "public" },
 
     /* -- Mall -- */
-    "mall": { name: "Metro Shopping Center", meetup: true },
-    "floorGround": { name: "Ground Floor" },
-    "floorSecond": { name: "Second Floor" },
-    "floorThird": { name: "Third Floor" },
+    "mall": { name: "Metro Shopping Center", meetup: true, cameraLoc: "public" },
+    "floorGround": { name: "Ground Floor", cameraLoc: "public" },
+    "floorSecond": { name: "Second Floor", cameraLoc: "public" },
+    "floorThird": { name: "Third Floor", cameraLoc: "public" },
     
     /* -- Mall Stores Ground -- */
-    "storeClothingA": { name: "Northline Apparel" },
-    "storeCosmetics": { name: "Lumière Beauty" },
-    "storeElectronics": { name: "TechPoint Express" },
-    "storeShoeA": { name: "StepUp Footwear" },
-    "storeSports": { name: "FastBreak Athletics" },
+    "storeClothingA": { name: "Northline Apparel", cameraLoc: "public" },
+    "storeCosmetics": { name: "Lumière Beauty", cameraLoc: "public" },
+    "storeElectronics": { name: "TechPoint Express", cameraLoc: "public" },
+    "storeShoeA": { name: "StepUp Footwear", cameraLoc: "public" },
+    "storeSports": { name: "FastBreak Athletics", cameraLoc: "public" },
 
     /* -- Mall Stores Second -- */
-    "storeBags": { name: "Luxe Leather" },
-    "storeClothingB": { name: "VERA Mode" },
-    "storeClothingC": { name: "Fifth Avenue Wear" },
-    "storeJewelry": { name: "Diamond Dreams" },
-    "storeLingerieA": { name: "Silk & Lace" },
-    "storeLingerieB": { name: "Intimate Secrets" },
-    "storeShoeB": { name: "Stiletto Studio" },
+    "storeBags": { name: "Luxe Leather", cameraLoc: "public" },
+    "storeClothingB": { name: "VERA Mode", cameraLoc: "public" },
+    "storeClothingC": { name: "Fifth Avenue Wear", cameraLoc: "public" },
+    "storeJewelry": { name: "Diamond Dreams", cameraLoc: "public" },
+    "storeLingerieA": { name: "Silk & Lace", cameraLoc: "public" },
+    "storeLingerieB": { name: "Intimate Secrets", cameraLoc: "public" },
+    "storeShoeB": { name: "Stiletto Studio", cameraLoc: "public" },
 
     /* -- Mall Bathroom (setBefore = set return floor, then go to mallBathroom - no gate in history) -- */
-    "mallBathroomFromGround": { name: "Bathroom", passage: "mallBathroom", setBefore: "$mallBathroomReturn to 'floorGround'" },
-    "mallBathroomFromSecond": { name: "Bathroom", passage: "mallBathroom", setBefore: "$mallBathroomReturn to 'floorSecond'" },
-    "mallBathroomFromThird": { name: "Bathroom", passage: "mallBathroom", setBefore: "$mallBathroomReturn to 'floorThird'" },
+    "mallBathroom": { name: "Bathroom", cameraLoc: "public" },
+    "mallBathroomFromGround": { name: "Bathroom", passage: "mallBathroom", setBefore: "$mallBathroomReturn to 'floorGround'", cameraLoc: "public" },
+    "mallBathroomFromSecond": { name: "Bathroom", passage: "mallBathroom", setBefore: "$mallBathroomReturn to 'floorSecond'", cameraLoc: "public" },
+    "mallBathroomFromThird": { name: "Bathroom", passage: "mallBathroom", setBefore: "$mallBathroomReturn to 'floorThird'", cameraLoc: "public" },
 
     /* -- Mall Third Floor -- */
-    "foodCourtMall": { name: "Food Court" },
-    "salonBeautyMall": { name: "Headlines Salon" },
-    "theatreMovie": { name: "CineLux Cinemas" },
+    "foodCourtMall": { name: "Food Court", cameraLoc: "public" },
+    "salonBeautyMall": { name: "Headlines Salon", cameraLoc: "public" },
+    "theatreMovie": { name: "CineLux Cinemas", cameraLoc: "public" },
 
     /* -- Skyline (Tower District) -- */
-    "skyline": { name: "Skyline District" },
-    "towerA": { name: "Apex Tower" },
-    "recreationCenter": { name: "Metro Recreation Center" },
-    "courtBasketball": { name: "Basketball Courts" },
-    "courtVolleyball": { name: "Volleyball Courts" },
-    "gym": { name: "Iron Works Gym" },
+    "skyline": { name: "Skyline District", cameraLoc: "public" },
+    "towerA": { name: "Apex Tower", cameraLoc: "public" },
+    "recreationCenter": { name: "Metro Recreation Center", cameraLoc: "public" },
+    "courtBasketball": { name: "Basketball Courts", cameraLoc: "public" },
+    "courtVolleyball": { name: "Volleyball Courts", cameraLoc: "public" },
+    "gym": { name: "Iron Works Gym", cameraLoc: "public" },
 
     /* -- Tower B (Sterling Tower) -- */
-    "towerB": { name: "Sterling Tower" },
+    "towerB": { name: "Sterling Tower", cameraLoc: "public" },
 
     /* -- Tower C (Crown Plaza) -- */
-    "towerC": { name: "Crown Plaza" },
-    "jazzClub": { name: "The Blue Note" },
-    "pethouseSuite": { name: "The Pinnacle" },
-    "restaurantRoof": { name: "Altitude 47" },
-    "roofTopLounge": { name: "Cloud Nine Lounge" },
+    "towerC": { name: "Crown Plaza", cameraLoc: "public" },
+    "jazzClub": { name: "The Blue Note", cameraLoc: "public" },
+    "pethouseSuite": { name: "The Pinnacle", cameraLoc: "public" },
+    "restaurantRoof": { name: "Altitude 47", cameraLoc: "public" },
+    "roofTopLounge": { name: "Cloud Nine Lounge", cameraLoc: "public" },
 
 
     /* ==========================================
        HILLCREST
        ========================================== */
-    "hillcrest": { name: "Hillcrest" },
-    "galleryArt": { name: "The Gallery" },
-    "golfClub": { name: "Hillcrest Country Club" },
-    "golfCourse": { name: "Hillcrest Golf Course" },
-    "golfRestaurant": { name: "The Clubhouse" },
-    "golfSpa": { name: "The Spa at Hillcrest" },
+    "hillcrest": { name: "Hillcrest", cameraLoc: "public" },
+    "galleryArt": { name: "The Gallery", cameraLoc: "public" },
+    "golfClub": { name: "Hillcrest Country Club", cameraLoc: "public" },
+    "golfCourse": { name: "Hillcrest Golf Course", cameraLoc: "public" },
+    "golfRestaurant": { name: "The Clubhouse", cameraLoc: "public" },
+    "golfSpa": { name: "The Spa at Hillcrest", cameraLoc: "public" },
 
     /* -- Fifth Street -- */
-    "streetFifth": { name: "Fifth Avenue" },
-    "barWine": { name: "The Wine Cellar" },
-    "boutiqueA": { name: "Maison Élise" },
-    "boutiqueB": { name: "Aurum Couture" },
-    "boutiqueC": { name: "Bellucci Milano" },
-    "restaurantLuxury": { name: "Château Noir" },
-    "salonBeautyFifth": { name: "Salon Privé" },
+    "streetFifth": { name: "Fifth Avenue", cameraLoc: "public" },
+    "barWine": { name: "The Wine Cellar", cameraLoc: "public" },
+    "boutiqueA": { name: "Maison Élise", cameraLoc: "public" },
+    "boutiqueB": { name: "Aurum Couture", cameraLoc: "public" },
+    "boutiqueC": { name: "Bellucci Milano", cameraLoc: "public" },
+    "restaurantLuxury": { name: "Château Noir", cameraLoc: "public" },
+    "salonBeautyFifth": { name: "Salon Privé", cameraLoc: "public" },
 
     /* ==========================================
        MARINA BAY
        ========================================== */
-    "marinaBay": { name: "Marina Bay" },
-    "marina": { name: "Harbor Marina" },
-    "beach": { name: "Marina Beach" },
-    "beachBar": { name: "The Sandbar" },
-    "beachClub": { name: "The Yacht Club" },
-    "beachVolleyball": { name: "Beach Volleyball Courts" },
-    "pier": { name: "The Pier" },
-    "pierIcecream": { name: "Scoops & Swirls" },
-    "restaurantBeach": { name: "Captain Jack's" },
+    "marinaBay": { name: "Marina Bay", cameraLoc: "public" },
+    "marina": { name: "Harbor Marina", cameraLoc: "public" },
+    "beach": { name: "Marina Beach", cameraLoc: "public" },
+    "beachBar": { name: "The Sandbar", cameraLoc: "public" },
+    "beachClub": { name: "The Yacht Club", cameraLoc: "public" },
+    "beachVolleyball": { name: "Beach Volleyball Courts", cameraLoc: "public" },
+    "pier": { name: "The Pier", cameraLoc: "public" },
+    "pierIcecream": { name: "Scoops & Swirls", cameraLoc: "public" },
+    "restaurantBeach": { name: "Captain Jack's", cameraLoc: "public" },
 
     /* ==========================================
        OLD TOWN
        ========================================== */
-    "oldTown": { name: "Old Town" },
-    "civicCenter": { name: "Civic Center" },
-    "townHall": { name: "Town Hall" },
-    "highSchool": { name: "Lincoln High School" },
-    "libraryOldtown": { name: "Carnegie Public Library" },
-    "pharmacy": { name: "Green Cross Pharmacy" },
-    "policeStation": { name: "5th Precinct" },
-    "postOffice": { name: "Old Town Post Office" },
-    "dinerRubys": { name: "Ruby's Diner", meetup: true },
-    "dinerRubysBathroom": { name: "Bathroom" },
-    "dinerRubysKitchen": { name: "Kitchen" },
-    "dinerRubysCorridor": { name: "Corridor" },
-    "dinerRubysManagerOffice": { name: "Manager's Office" },
-    "dinerRubysDressingRoom": { name: "Dressing Room" },
-    "dinerRubysStorage": { name: "Storage" },
-    "shopBarber": { name: "The Clipper Shop" },
-    "shopCoffeeOldtown": { name: "The Daily Grind", meetup: true },
-    "storeBook": { name: "Bookworm's Corner" },
-    "storeHardware": { name: "Dan's Hardware" },
+    "oldTown": { name: "Old Town", cameraLoc: "public" },
+    "civicCenter": { name: "Civic Center", cameraLoc: "public" },
+    "townHall": { name: "Town Hall", cameraLoc: "never" },
+    "highSchool": { name: "Lincoln High School", cameraLoc: "forbidden", cameraExhibitionismMin: 65 },
+    "libraryOldtown": { name: "Carnegie Public Library", cameraLoc: "public" },
+    "pharmacy": { name: "Green Cross Pharmacy", cameraLoc: "public" },
+    "policeStation": { name: "5th Precinct", cameraLoc: "never" },
+    "postOffice": { name: "Old Town Post Office", cameraLoc: "public" },
+    "dinerRubys": { name: "Ruby's Diner", meetup: true, cameraLoc: "public" },
+    "dinerRubysBathroom": { name: "Bathroom", cameraLoc: "public" },
+    "dinerRubysKitchen": { name: "Kitchen", cameraLoc: "public" },
+    "dinerRubysCorridor": { name: "Corridor", cameraLoc: "public" },
+    "dinerRubysManagerOffice": { name: "Manager's Office", cameraLoc: "public" },
+    "dinerRubysDressingRoom": { name: "Dressing Room", cameraLoc: "public" },
+    "dinerRubysStorage": { name: "Storage", cameraLoc: "public" },
+    "shopBarber": { name: "The Clipper Shop", cameraLoc: "public" },
+    "shopCoffeeOldtown": { name: "The Daily Grind", meetup: true, cameraLoc: "public" },
+    "storeBook": { name: "Bookworm's Corner", cameraLoc: "public" },
+    "storeHardware": { name: "Dan's Hardware", cameraLoc: "public" },
 
     /* ==========================================
        UNIVERSITY DISTRICT
        ========================================== */
-    "universityDistrict": { name: "University District" },
-    "campus": { name: "University Campus" },
-    "cafeteriaUni": { name: "Student Union" },
-    "dormsUni": { name: "Wellington Hall" },
-    "fratHouse": { name: "Delta Tau House" },
-    "lectureHall": { name: "Science Building" },
-    "libraryUni": { name: "Morrison Library" },
-    "sororityHouse": { name: "Alpha Omega House" },
-    "studentBar": { name: "The Tap Room" },
+    "universityDistrict": { name: "University District", cameraLoc: "public" },
+    "campus": { name: "University Campus", cameraLoc: "public" },
+    "cafeteriaUni": { name: "Student Union", cameraLoc: "public" },
+    "dormsUni": { name: "Wellington Hall", cameraLoc: "public" },
+    "fratHouse": { name: "Delta Tau House", cameraLoc: "public" },
+    "lectureHall": { name: "Science Building", cameraLoc: "public" },
+    "libraryUni": { name: "Morrison Library", cameraLoc: "public" },
+    "sororityHouse": { name: "Alpha Omega House", cameraLoc: "public" },
+    "studentBar": { name: "The Tap Room", cameraLoc: "public" },
 
     /* ==========================================
        SOUTHSIDE
        ========================================== */
-    "southside": { name: "Southside" },
-    "apartmentComplex": { name: "Brookside Apartments" },
-    "cornerBlock": { name: "Junction Street" },
-    "laundromat": { name: "Suds Laundromat" },
-    "oldFactory": { name: "Abandoned Textile Mill" },
-    "shopPawn": { name: "Lucky's Pawn & Loan" },
-    "storeLiquor": { name: "Quick Liquor" },
+    "southside": { name: "Southside", cameraLoc: "public" },
+    "apartmentComplex": { name: "Brookside Apartments", cameraLoc: "public" },
+    "cornerBlock": { name: "Junction Street", cameraLoc: "public" },
+    "laundromat": { name: "Suds Laundromat", cameraLoc: "public" },
+    "oldFactory": { name: "Abandoned Textile Mill", cameraLoc: "public" },
+    "shopPawn": { name: "Lucky's Pawn & Loan", cameraLoc: "public" },
+    "storeLiquor": { name: "Quick Liquor", cameraLoc: "public" },
 
     /* ==========================================
        SUBURBS
        ========================================== */
-    "suburbs": { name: "Suburbs" },
-    "apartmentsSuburbs": { name: "Sunset Heights" },
-    "houseCrack": { name: "Condemned House" },
-    "motelSuburbs": { name: "Route 9 Motor Lodge" },
-    "thePit": { name: "The Pit" },
-    "gangTerritory": { name: "West Side" },
-    "dealerCorner": { name: "The Drop" },
-    "wallGraffiti": { name: "The Wall" },
+    "suburbs": { name: "Suburbs", cameraLoc: "public" },
+    "apartmentsSuburbs": { name: "Sunset Heights", cameraLoc: "public" },
+    "houseCrack": { name: "Condemned House", cameraLoc: "public" },
+    "motelSuburbs": { name: "Route 9 Motor Lodge", cameraLoc: "public" },
+    "thePit": { name: "The Pit", cameraLoc: "public" },
+    "gangTerritory": { name: "West Side", cameraLoc: "public" },
+    "dealerCorner": { name: "The Drop", cameraLoc: "public" },
+    "wallGraffiti": { name: "The Wall", cameraLoc: "public" },
 
     /* ==========================================
        RED LIGHT CENTER
        ========================================== */
-    "redLightCenter": { name: "Red Light Center" },
-    "alleyBack": { name: "Back Alley" },
-    "barGloryHole": { name: "Anonymous" },
-    "barNeon": { name: "Neon Nights" },
-    "basementEntrance": { name: "The Underground" },
-    "clubPrivate": { name: "The Dungeon" },
-    "clubStrip": { name: "The Velvet Rose" },
-    "motelRedLight": { name: "The Stardust" },
-    "parlorMassage": { name: "Lotus Spa" },
-    "roomsPrivate": { name: "VIP Rooms" },
-    "storeAdult": { name: "Eros Boutique" },
+    "redLightCenter": { name: "Red Light Center", cameraLoc: "public" },
+    "alleyBack": { name: "Back Alley", cameraLoc: "public" },
+    "barGloryHole": { name: "Anonymous", cameraLoc: "public" },
+    "barNeon": { name: "Neon Nights", cameraLoc: "public" },
+    "basementEntrance": { name: "The Underground", cameraLoc: "public" },
+    "clubPrivate": { name: "The Dungeon", cameraLoc: "public" },
+    "clubStrip": { name: "The Velvet Rose", cameraLoc: "public" },
+    "motelRedLight": { name: "The Stardust", cameraLoc: "public" },
+    "parlorMassage": { name: "Lotus Spa", cameraLoc: "public" },
+    "roomsPrivate": { name: "VIP Rooms", cameraLoc: "public" },
+    "storeAdult": { name: "Eros Boutique", cameraLoc: "public" },
 };
 
 /* =====================================================================

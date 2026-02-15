@@ -1,0 +1,971 @@
+:: variablesPhoneTopicsMother [init]
+/* Mother phone topics – 2–4 variations per topic, slang/profanity ok */
+
+<<set setup.phoneMessageTopics.mother = [
+    /* === FRIENDSHIP === */
+    {
+        id: "dayCheck",
+        version: 1,
+        label: "How's your day?",
+        category: "friendship",
+        tier: 0,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "Hey mom, how's your day going?" },
+                { from: "character", text: "Pretty good sweetie, just finished cleaning the kitchen. How about you? Everything okay?" },
+                { from: "player", text: "I'm okay. Just wanted to check in." },
+                { from: "character", text: "That's sweet of you. Miss you honey." }
+            ],
+            [
+                { from: "player", text: "Mom, how's it going today?" },
+                { from: "character", text: "Oh you know, same old shit. Housework never ends. You good?" },
+                { from: "player", text: "Yeah, all good. Just checking on you." },
+                { from: "character", text: "Love you baby. Text me later." }
+            ],
+            [
+                { from: "player", text: "Hey mom, how's your day?" },
+                { from: "character", text: "Not bad honey. Your father's been in the garage all afternoon. How are you doing?" },
+                { from: "player", text: "I'm good. Just wanted to hear your voice. Well, read your text." },
+                { from: "character", text: "That's so sweet. Busy day but good. Miss you honey. How are you?" },
+                { from: "player", text: "Missing you too. Talk later." }
+            ],
+            [
+                { from: "player", text: "Mom, how's everything going?" },
+                { from: "character", text: "Oh you know, the usual. Are you eating well? Don't skip meals honey." },
+                { from: "player", text: "I'm eating. Promise. You take care of yourself too." },
+                { from: "character", text: "I will. You're so good to me. Love you." },
+                { from: "player", text: "Love you too mom." }
+            ],
+            [
+                { from: "player", text: "Hey mom, how's your day going?" },
+                { from: "character", text: "Pretty good sweetie. Want to come over for dinner tonight? Just us two?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes, I'd love that. What time?", then: [ { from: "character", text: "Six? I'll make your favorite. Can't wait to see you honey." } ] },
+                    { label: "Not today", playerText: "Maybe another day. I'm busy tonight.", then: [ { from: "character", text: "No problem. Another time. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Mom, how's everything going?" },
+                { from: "character", text: "Oh you know, the usual. Can you help me with groceries this weekend?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure mom. I'll drive.", then: [ { from: "character", text: "Thank you honey. You're the best. Love you." } ] },
+                    { label: "I can't", playerText: "Sorry, I've got plans. Next time?", then: [ { from: "character", text: "That's okay. Let me know if something changes. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "whatUp",
+        version: 1,
+        label: "What are you up to?",
+        category: "friendship",
+        tier: 0,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "What are you doing right now?" },
+                { from: "character", text: "Just relaxing with some tea. Had a busy morning with all the errands." },
+                { from: "player", text: "Sounds nice. I'll be home later." },
+                { from: "character", text: "Okay honey. See you then." }
+            ],
+            [
+                { from: "player", text: "Yo mom, what's up?" },
+                { from: "character", text: "Watching TV and folding clothes. Nothing exciting! Your father's in the garage again." },
+                { from: "player", text: "Cool. I'll see you tonight." },
+                { from: "character", text: "Okay sweetie. Don't be late." }
+            ],
+            [
+                { from: "player", text: "What are you up to right now?" },
+                { from: "character", text: "Making dinner plans. Will you be home to eat with us tonight?" },
+                { from: "player", text: "Yeah, I'll be there. What're we having?" },
+                { from: "character", text: "Nothing fancy. Just wanted to see you. Miss you already." },
+                { from: "player", text: "Same. See you at dinner." }
+            ],
+            [
+                { from: "player", text: "Mom, you busy?" },
+                { from: "character", text: "Watching TV and folding clothes. Nothing exciting! Just the usual mom stuff." },
+                { from: "player", text: "Sounds peaceful. I'll leave you to it." },
+                { from: "character", text: "You don't have to. I like when you text. Had a busy morning with all the errands." },
+                { from: "player", text: "Okay. Love you. Bye." }
+            ],
+            [
+                { from: "player", text: "What are you doing right now?" },
+                { from: "character", text: "Just relaxing. Will you be home for dinner tonight? I'm making something nice." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. What time? I'll be there.", then: [ { from: "character", text: "Six. See you then honey. Love you." } ] },
+                    { label: "No", playerText: "Not tonight. Maybe tomorrow?", then: [ { from: "character", text: "Okay sweetie. Another time. Miss you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Mom, you busy?" },
+                { from: "character", text: "Watching TV. Want to video call later? I miss your face." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. In an hour?", then: [ { from: "character", text: "Perfect. I'll be here. Love you." } ] },
+                    { label: "Can't", playerText: "Not today. Text you tomorrow?", then: [ { from: "character", text: "Okay. Talk then. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "helpOffer",
+        version: 1,
+        label: "Need any help?",
+        category: "friendship",
+        tier: 20,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "Do you need help with anything around the house?" },
+                { from: "character", text: "That's so sweet of you to offer! Actually, could you help me with the groceries this weekend?" },
+                { from: "player", text: "Sure, I can do that." },
+                { from: "character", text: "Thank you honey. You're the best." }
+            ],
+            [
+                { from: "player", text: "Need a hand with anything?" },
+                { from: "character", text: "Aw honey, I'm okay for now. But it's really nice of you to ask! Maybe later with the pantry – it's a damn mess." },
+                { from: "player", text: "Just say when." },
+                { from: "character", text: "I will. Love you." }
+            ],
+            [
+                { from: "player", text: "Anything I can help with around the house?" },
+                { from: "character", text: "Well, if you're free later, maybe you could help me organize the pantry? It's a mess!" },
+                { from: "player", text: "Sure. When do you want to do it?" },
+                { from: "character", text: "This weekend? No rush. That's so sweet of you to offer." },
+                { from: "player", text: "Done. Text me when." }
+            ],
+            [
+                { from: "player", text: "You need help with anything?" },
+                { from: "character", text: "Actually, could you help me with the groceries this weekend? I hate going alone." },
+                { from: "player", text: "Of course. I'll drive." },
+                { from: "character", text: "Thank you honey. You're the best. Really." },
+                { from: "player", text: "Anything for you mom." }
+            ],
+            [
+                { from: "player", text: "Do you need help with anything around the house?" },
+                { from: "character", text: "That's so sweet. Could you help me with the pantry Saturday? It's a mess." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. What time?", then: [ { from: "character", text: "Morning? Ten? Thank you honey. You're the best." } ] },
+                    { label: "Busy", playerText: "I'm busy Saturday. Sunday okay?", then: [ { from: "character", text: "Sunday works. Thanks for offering. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Need a hand with anything?" },
+                { from: "character", text: "Actually yes. Want to run to the store with me tomorrow? I hate going alone." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yeah. I'll drive.", then: [ { from: "character", text: "Perfect. Thank you sweetie. See you then." } ] },
+                    { label: "No", playerText: "Can't tomorrow. Next time?", then: [ { from: "character", text: "No problem. Let me know when you're free. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "weekendPlans",
+        version: 1,
+        label: "Weekend plans?",
+        category: "friendship",
+        tier: 20,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "Got any plans for the weekend mom?" },
+                { from: "character", text: "Just the usual - cleaning, maybe some gardening. Want to help?" },
+                { from: "player", text: "Maybe. I'll let you know." },
+                { from: "character", text: "Okay sweetie. You're always welcome." }
+            ],
+            [
+                { from: "player", text: "What's up for the weekend?" },
+                { from: "character", text: "Your father wants to go to the hardware store. Thrilling, I know! How about you?" },
+                { from: "player", text: "Nothing set. Might hang with friends." },
+                { from: "character", text: "Have fun. Be safe. Love you." }
+            ],
+            [
+                { from: "player", text: "Any plans for the weekend?" },
+                { from: "character", text: "Nothing set in stone. Maybe we could do something together?" },
+                { from: "player", text: "I'd like that. What do you want to do?" },
+                { from: "character", text: "Quiet weekend. You're welcome to join us for dinner. Or just us two." },
+                { from: "player", text: "Let's do just us two. I'll text you." }
+            ],
+            [
+                { from: "player", text: "Weekend plans mom?" },
+                { from: "character", text: "Just the usual - cleaning, maybe some gardening. Want to help?" },
+                { from: "player", text: "Maybe. Can I let you know tomorrow?" },
+                { from: "character", text: "Okay sweetie. You're always welcome. Your father wants to go to the hardware store. Thrilling, I know!" },
+                { from: "player", text: "Haha. Okay. Love you." }
+            ],
+            [
+                { from: "player", text: "Got any plans for the weekend mom?" },
+                { from: "character", text: "Nothing set. Want to do something together? Just you and me?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "I'd like that. What do you want to do?", then: [ { from: "character", text: "Lunch and a walk? My treat. Love you honey." } ] },
+                    { label: "Maybe", playerText: "Maybe. I'll let you know Friday?", then: [ { from: "character", text: "Okay. No pressure. Text me. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "What's up for the weekend?" },
+                { from: "character", text: "Your father's going to the hardware store. Want to skip that and have coffee with me instead?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. Saturday morning?", then: [ { from: "character", text: "Perfect. Can't wait. See you then." } ] },
+                    { label: "No", playerText: "I've got plans. Next weekend?", then: [ { from: "character", text: "Sure. Another time. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "deepTalk",
+        version: 1,
+        label: "Deep conversation",
+        category: "friendship",
+        tier: 40,
+        timeAdvance: 3,
+        statGain: { friendship: 3 },
+        variations: [
+            [
+                { from: "player", text: "Mom, can we talk about something serious sometime?" },
+                { from: "character", text: "Of course honey. Anytime. Is everything okay? You can always talk to me about anything." },
+                { from: "player", text: "Yeah. I just need to figure some stuff out." },
+                { from: "character", text: "I'm here for you. Whenever you're ready." }
+            ],
+            [
+                { from: "player", text: "I need to talk to you about something." },
+                { from: "character", text: "I'm always here for you sweetie. What's on your mind? Want to sit down over coffee?" },
+                { from: "player", text: "Not right now. Soon though." },
+                { from: "character", text: "Whenever. I love you. You know that." }
+            ],
+            [
+                { from: "player", text: "Mom, I need to talk to you about something serious." },
+                { from: "character", text: "Of course honey. Anytime. Is everything okay? You can always talk to me about anything." },
+                { from: "player", text: "It's not bad. Just... stuff I've been carrying. I need to figure some stuff out." },
+                { from: "character", text: "I'm here for you. Whenever you're ready. Want to sit down over coffee?" },
+                { from: "player", text: "Yeah. Soon. Thanks mom." }
+            ],
+            [
+                { from: "player", text: "Can we have a real talk sometime?" },
+                { from: "character", text: "I'm always here for you sweetie. What's on your mind?" },
+                { from: "player", text: "Nothing I can put in a text. Face to face better." },
+                { from: "character", text: "Absolutely dear. Let's find some quiet time soon. I'm here for you, always." },
+                { from: "player", text: "Love you. I'll come find you." }
+            ],
+            [
+                { from: "player", text: "Mom, can we talk about something serious sometime?" },
+                { from: "character", text: "Of course honey. Do you want to talk now or in person? I'm here either way." },
+                { type: "choice", options: [
+                    { label: "In person", playerText: "In person. Can we sit down soon?", then: [ { from: "character", text: "Whenever you're ready. I'm here. Love you." } ] },
+                    { label: "Later", playerText: "Not yet. Soon. I just wanted you to know.", then: [ { from: "character", text: "I'm here whenever. No rush. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "I need to talk to you about something." },
+                { from: "character", text: "I'm listening. Want to meet for coffee so we can talk properly?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. This week?", then: [ { from: "character", text: "Name the day. I'll be there. You can tell me anything." } ] },
+                    { label: "Not yet", playerText: "I need a bit more time. But thanks.", then: [ { from: "character", text: "Take your time. I'm not going anywhere. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "sharePersonal",
+        version: 1,
+        label: "Share something",
+        category: "friendship",
+        tier: 40,
+        timeAdvance: 3,
+        statGain: { friendship: 3 },
+        variations: [
+            [
+                { from: "player", text: "I've been thinking about a lot of stuff lately..." },
+                { from: "character", text: "I'm listening honey. You know you can share anything with me. What's been on your mind?" },
+                { from: "player", text: "I'll tell you when I'm ready. Thanks mom." },
+                { from: "character", text: "Anytime. I'm here for you." }
+            ],
+            [
+                { from: "player", text: "There's something I've been meaning to tell you." },
+                { from: "character", text: "That sounds deep. Want to talk about it? I've got time for you sweetie." },
+                { from: "player", text: "Not yet. Soon." },
+                { from: "character", text: "I'm here. Whenever you're ready." }
+            ],
+            [
+                { from: "player", text: "There's something I've been meaning to tell you." },
+                { from: "character", text: "I'm listening honey. You know you can share anything with me. What's been on your mind?" },
+                { from: "player", text: "It's not easy to say. I'll tell you when I'm ready. Thanks for not pushing." },
+                { from: "character", text: "That sounds deep. Want to talk about it? I've got time for you sweetie. Anytime." },
+                { from: "player", text: "I know. Love you." }
+            ],
+            [
+                { from: "player", text: "I've been thinking about a lot of stuff lately..." },
+                { from: "character", text: "You can always talk to me. What's going on?" },
+                { from: "player", text: "Nothing bad. Just... life. You know?" },
+                { from: "character", text: "I'm here for you. Tell me when you're ready. No rush." },
+                { from: "player", text: "Thanks mom. Means a lot." }
+            ],
+            [
+                { from: "player", text: "I've been thinking about a lot of stuff lately..." },
+                { from: "character", text: "I'm here. Do you want to talk about it now or wait until we're face to face?" },
+                { type: "choice", options: [
+                    { label: "Face to face", playerText: "Face to face. Can we find time this week?", then: [ { from: "character", text: "Of course. Anytime. Just say when. Love you." } ] },
+                    { label: "Not yet", playerText: "Not yet. Just needed to say it's on my mind.", then: [ { from: "character", text: "Okay. I'm here when you're ready. Always." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "There's something I've been meaning to tell you." },
+                { from: "character", text: "You can tell me anything. Want to come over so we can talk?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. Tomorrow?", then: [ { from: "character", text: "Tomorrow works. I'll be here. Love you honey." } ] },
+                    { label: "Later", playerText: "I'll tell you when I'm ready. Soon.", then: [ { from: "character", text: "Whenever. I'm not going anywhere. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "lifeAdvice",
+        version: 1,
+        label: "Life advice",
+        category: "friendship",
+        tier: 60,
+        timeAdvance: 3,
+        statGain: { friendship: 4 },
+        variations: [
+            [
+                { from: "player", text: "Mom, I could really use some advice..." },
+                { from: "character", text: "Of course sweetie. I'm always here to help however I can. What do you need?" },
+                { from: "player", text: "It's about school and stuff. Can we talk later?" },
+                { from: "character", text: "Of course. Whenever you're ready honey." }
+            ],
+            [
+                { from: "player", text: "I need your advice on something." },
+                { from: "character", text: "Lay it on me. I'm listening. What's going on?" },
+                { from: "player", text: "It's kinda heavy. I'll call you." },
+                { from: "character", text: "Okay. I've got your back. You know that." }
+            ],
+            [
+                { from: "player", text: "Mom, I could really use some advice..." },
+                { from: "character", text: "Of course sweetie. I'm always here to help however I can. What do you need?" },
+                { from: "player", text: "It's about school and stuff. And maybe... relationships. Can we talk later?" },
+                { from: "character", text: "Of course. Whenever you're ready honey. I'll help you figure it out. Tell me what's going on." },
+                { from: "player", text: "I will. Thanks. Love you." }
+            ],
+            [
+                { from: "player", text: "I need your advice on something." },
+                { from: "character", text: "Lay it on me. I'm listening. What's going on?" },
+                { from: "player", text: "It's kinda heavy. Not for text. I'll call you or we'll talk at home." },
+                { from: "character", text: "Anytime. You know I've got your back. What's the matter?" },
+                { from: "player", text: "Just... need my mom. Thanks." }
+            ],
+            [
+                { from: "player", text: "Mom, I could really use some advice..." },
+                { from: "character", text: "Of course. Do you want to talk now or can we meet up so you can tell me properly?" },
+                { type: "choice", options: [
+                    { label: "Meet up", playerText: "Meet up. Can we get coffee soon?", then: [ { from: "character", text: "Name the day. I'm here. Love you." } ] },
+                    { label: "Later", playerText: "I'll call you. Maybe tonight?", then: [ { from: "character", text: "Anytime. I've got your back. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "I need your advice on something." },
+                { from: "character", text: "Lay it on me. Want to do it over text or in person? Heavy stuff is easier face to face." },
+                { type: "choice", options: [
+                    { label: "In person", playerText: "In person. This weekend?", then: [ { from: "character", text: "Sure. Come find me. I'm here. Love you." } ] },
+                    { label: "Text", playerText: "I'll try to explain. It's about...", then: [ { from: "character", text: "Take your time. I'm listening. Always." } ] }
+                ]}
+            ]
+        ]
+    },
+
+    /* === LOVE === */
+    {
+        id: "missYou",
+        version: 1,
+        label: "I miss you",
+        category: "love",
+        tier: 20,
+        timeAdvance: 3,
+        statGain: { love: 2, friendship: 1 },
+        variations: [
+            [
+                { from: "player", text: "I miss you mom" },
+                { from: "character", text: "Aw honey, I miss you too! We should spend more quality time together." },
+                { from: "player", text: "Yeah. Let's do something soon." },
+                { from: "character", text: "I'd love that. Love you ❤️" }
+            ],
+            [
+                { from: "player", text: "Just missing you." },
+                { from: "character", text: "I miss you too sweetie. So much. Let's plan something soon, just us. ❤️" },
+                { from: "player", text: "Deal." },
+                { from: "character", text: "You're the best. Love you." }
+            ],
+            [
+                { from: "player", text: "I miss you mom" },
+                { from: "character", text: "Aw honey, I miss you too! We should spend more quality time together." },
+                { from: "player", text: "Yeah. Let's do something soon. Just us." },
+                { from: "character", text: "I'd love that. Love you ❤️ Let's plan something special." },
+                { from: "player", text: "Deal. Miss you." }
+            ],
+            [
+                { from: "player", text: "Just missing you." },
+                { from: "character", text: "I miss you too sweetie. So much. You're so sweet. I miss having you around more." },
+                { from: "player", text: "Same. I'll come see you soon." },
+                { from: "character", text: "Love you honey. You're the best. Text me when you're free." },
+                { from: "player", text: "Love you too. Bye." }
+            ],
+            [
+                { from: "player", text: "I miss you mom" },
+                { from: "character", text: "I miss you too! Want to plan something soon? Just us two?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. I'd love that. This weekend?", then: [ { from: "character", text: "Perfect. Let's do it. Love you ❤️" } ] },
+                    { label: "Soon", playerText: "Soon. I'll text you when I'm free.", then: [ { from: "character", text: "Okay. I'll be here. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Just missing you." },
+                { from: "character", text: "Me too. Should we have a movie night at home? You pick the film." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. Friday?", then: [ { from: "character", text: "Friday it is. Can't wait. Love you ❤️" } ] },
+                    { label: "Another time", playerText: "Maybe next week. Busy this week.", then: [ { from: "character", text: "No problem. Miss you. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "loveYou",
+        version: 1,
+        label: "Love you mom",
+        category: "love",
+        tier: 20,
+        timeAdvance: 3,
+        statGain: { love: 2, friendship: 1 },
+        variations: [
+            [
+                { from: "player", text: "Just wanted to say I love you" },
+                { from: "character", text: "Aw honey, I love you too so much! You always know how to make me smile. ❤️" },
+                { from: "player", text: "You're the best." },
+                { from: "character", text: "You're going to make me cry! I love you more than you know." }
+            ],
+            [
+                { from: "player", text: "Love you mom." },
+                { from: "character", text: "I love you too baby. So much. You're my everything. ❤️" },
+                { from: "player", text: "Same." },
+                { from: "character", text: "Take care of yourself. Call me anytime." }
+            ],
+            [
+                { from: "player", text: "Just wanted to say I love you" },
+                { from: "character", text: "Aw honey, I love you too so much! You always know how to make me smile. ❤️" },
+                { from: "player", text: "You're the best. Seriously." },
+                { from: "character", text: "You're going to make me cry! I love you more than you know. You're my everything." },
+                { from: "player", text: "Love you more. Bye mom." }
+            ],
+            [
+                { from: "player", text: "Love you mom." },
+                { from: "character", text: "I love you too baby. So much. You're my everything. ❤️" },
+                { from: "player", text: "Same. Just wanted you to know." },
+                { from: "character", text: "I know. I feel it too. Call me anytime. Love you." },
+                { from: "player", text: "I will. Bye." }
+            ],
+            [
+                { from: "player", text: "Just wanted to say I love you" },
+                { from: "character", text: "I love you too! Want to come over so I can hug you in person?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. Tomorrow?", then: [ { from: "character", text: "Perfect. I'll make something nice. Love you ❤️" } ] },
+                    { label: "Soon", playerText: "Soon. Just wanted you to know.", then: [ { from: "character", text: "I know. Love you too. So much." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Love you mom." },
+                { from: "character", text: "Love you too baby. Can I call you tonight? I just want to hear your voice." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. After eight?", then: [ { from: "character", text: "I'll call you. Love you ❤️" } ] },
+                    { label: "Busy", playerText: "I'm busy tonight. Tomorrow?", then: [ { from: "character", text: "Tomorrow. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "flirt",
+        version: 1,
+        label: "Flirt",
+        category: "love",
+        tier: 40,
+        requiredStats: { friendship: 20 },
+        timeAdvance: 3,
+        statGain: { love: 3, friendship: 1 },
+        variations: [
+            [
+                { from: "player", text: "You look really beautiful today mom" },
+                { from: "character", text: "Oh honey, you're making me blush! That's very sweet of you to say." },
+                { from: "player", text: "I mean it. You really do." },
+                { from: "character", text: "Thank you sweetie. You always know how to make me feel good." }
+            ],
+            [
+                { from: "player", text: "You look amazing today." },
+                { from: "character", text: "That's such a nice thing to say. Your father never notices anymore... but you do. Thank you." },
+                { from: "player", text: "He's an idiot. You're gorgeous." },
+                { from: "character", text: "Oh god, you're going to spoil me. I love it. Thank you honey." }
+            ],
+            [
+                { from: "player", text: "You look really beautiful today mom" },
+                { from: "character", text: "Oh honey, you're making me blush! That's very sweet of you to say." },
+                { from: "player", text: "I mean it. You really do. You always look good." },
+                { from: "character", text: "Thank you sweetie. You always know how to make me feel good. Your father never notices anymore... but you do." },
+                { from: "player", text: "His loss. You're gorgeous." }
+            ],
+            [
+                { from: "player", text: "You look amazing today." },
+                { from: "character", text: "That's such a nice thing to say. Thank you." },
+                { from: "player", text: "It's the truth. You're stunning." },
+                { from: "character", text: "You're such a charmer! Where did you learn to be so sweet? I love it." },
+                { from: "player", text: "From you. Love you." }
+            ],
+            [
+                { from: "player", text: "You look really beautiful today mom" },
+                { from: "character", text: "Thank you honey. You're so sweet. Want to get lunch together this week? Just us?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. I'd like that.", then: [ { from: "character", text: "Me too. Name the day. Love you." } ] },
+                    { label: "Maybe", playerText: "Maybe next week. Schedule's crazy.", then: [ { from: "character", text: "No problem. Whenever. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "You look amazing today." },
+                { from: "character", text: "That's so nice. You always know how to make me feel good. Should we take a selfie together next time we see each other?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. I'd like that.", then: [ { from: "character", text: "Perfect. Can't wait to see you. Love you." } ] },
+                    { label: "Sure", playerText: "Sure. Next time.", then: [ { from: "character", text: "Deal. Love you honey." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "compliment",
+        version: 1,
+        label: "Compliment",
+        category: "love",
+        tier: 40,
+        timeAdvance: 3,
+        statGain: { love: 3, friendship: 1 },
+        variations: [
+            [
+                { from: "player", text: "You're the best mom anyone could ask for" },
+                { from: "character", text: "Oh sweetie... that means the world to me. Thank you so much." },
+                { from: "player", text: "Just saying the truth." },
+                { from: "character", text: "I try my best honey. I love you." }
+            ],
+            [
+                { from: "player", text: "Nobody's mom is as cool as you." },
+                { from: "character", text: "Oh god, you're going to make me cry! Thank you. I love you." },
+                { from: "player", text: "It's true." },
+                { from: "character", text: "You make it easy. Love you too." }
+            ],
+            [
+                { from: "player", text: "You're the best mom anyone could ask for" },
+                { from: "character", text: "Oh sweetie... that means the world to me. Thank you so much." },
+                { from: "player", text: "Just saying the truth. I'm lucky to have you." },
+                { from: "character", text: "I try my best honey. I love you. You're going to make me cry!" },
+                { from: "player", text: "Don't cry. Love you. Bye." }
+            ],
+            [
+                { from: "player", text: "Nobody's mom is as cool as you." },
+                { from: "character", text: "Oh god, you're going to make me cry! Thank you. I love you." },
+                { from: "player", text: "It's true. You're amazing." },
+                { from: "character", text: "That's the sweetest thing. I'm lucky to have you too dear. Love you." },
+                { from: "player", text: "Love you too mom." }
+            ],
+            [
+                { from: "player", text: "You're the best mom anyone could ask for" },
+                { from: "character", text: "Oh sweetie... that means the world. Can I see you this week? I need a hug." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. When?", then: [ { from: "character", text: "Whenever you're free. Thank you. Love you." } ] },
+                    { label: "Soon", playerText: "Soon. I promise. Busy right now.", then: [ { from: "character", text: "I understand. Love you. Come when you can." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Nobody's mom is as cool as you." },
+                { from: "character", text: "Thank you. Want to do something fun together? My treat." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. What did you have in mind?", then: [ { from: "character", text: "Lunch and shopping? Or just coffee. You pick. Love you." } ] },
+                    { label: "Another time", playerText: "I'd love to but not this week.", then: [ { from: "character", text: "Another time then. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "meanEverything",
+        version: 1,
+        label: "You mean everything",
+        category: "love",
+        tier: 60,
+        timeAdvance: 5,
+        statGain: { love: 4, friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "Mom, you mean everything to me" },
+                { from: "character", text: "Oh honey... you're going to make me cry. I love you so, so much. You're my world too. ❤️" },
+                { from: "player", text: "I just wanted you to know." },
+                { from: "character", text: "That means more to me than you'll ever know. You're my everything too." }
+            ],
+            [
+                { from: "player", text: "You're my whole world. You know that?" },
+                { from: "character", text: "Sweetie... I feel the same. You're my everything. Always have been. ❤️" },
+                { from: "player", text: "Good." },
+                { from: "character", text: "I love you. So much." }
+            ],
+            [
+                { from: "player", text: "Mom, you mean everything to me" },
+                { from: "character", text: "Oh honey... you're going to make me cry. I love you so, so much. You're my world too. ❤️" },
+                { from: "player", text: "I just wanted you to know. Every day." },
+                { from: "character", text: "That means more to me than you'll ever know. You're my everything too. Always." },
+                { from: "player", text: "Good. Same here. Love you." }
+            ],
+            [
+                { from: "player", text: "Mom, you mean everything to me" },
+                { from: "character", text: "Oh honey... I feel the same. Can we see each other soon? I need to tell you in person." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. This week?", then: [ { from: "character", text: "Perfect. I love you. So much. ❤️" } ] },
+                    { label: "Soon", playerText: "Soon. I'll come find you.", then: [ { from: "character", text: "I'll be here. Love you. Always. ❤️" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "You're my whole world. You know that?" },
+                { from: "character", text: "Sweetie... I feel the same. You're my everything. Always have been. ❤️" },
+                { from: "player", text: "Good. Don't ever forget it." },
+                { from: "character", text: "I won't. I love you. So much. You're my world too." },
+                { from: "player", text: "Love you mom. Bye." }
+            ],
+            [
+                { from: "player", text: "You're my whole world. You know that?" },
+                { from: "character", text: "Sweetie... you're my world too. Want to have a quiet dinner together? Just us?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. When?", then: [ { from: "character", text: "This weekend? I'll cook. Love you. ❤️" } ] },
+                    { label: "Soon", playerText: "Soon. I promise.", then: [ { from: "character", text: "I know. Love you. So much. ❤️" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "deepFeelings",
+        version: 1,
+        label: "Deep feelings",
+        category: "love",
+        tier: 60,
+        timeAdvance: 5,
+        statGain: { love: 4, friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "I don't know what I'd do without you mom" },
+                { from: "character", text: "And I don't know what I'd do without you honey. We're a team. Always. ❤️" },
+                { from: "player", text: "We've got each other." },
+                { from: "character", text: "Always. I'm right here." }
+            ],
+            [
+                { from: "player", text: "Don't ever leave me. Seriously." },
+                { from: "character", text: "You'll never have to find out. I'm here for you, no matter what. We've got each other." },
+                { from: "player", text: "Thanks mom." },
+                { from: "character", text: "Always. Love you." }
+            ],
+            [
+                { from: "player", text: "I don't know what I'd do without you mom" },
+                { from: "character", text: "And I don't know what I'd do without you honey. We're a team. Always. ❤️" },
+                { from: "player", text: "We've got each other. No matter what." },
+                { from: "character", text: "Always. I'm right here. You'll never have to find out. I'm here for you, no matter what." },
+                { from: "player", text: "Thanks mom. Love you." }
+            ],
+            [
+                { from: "player", text: "Don't ever leave me. Seriously." },
+                { from: "character", text: "You'll never have to find out. I'm here for you, no matter what. We've got each other." },
+                { from: "player", text: "Thanks. I needed to hear that." },
+                { from: "character", text: "Anytime. Always. Love you. You're my world too." },
+                { from: "player", text: "Love you too. Bye." }
+            ],
+            [
+                { from: "player", text: "I don't know what I'd do without you mom" },
+                { from: "character", text: "We've got each other. Want to come over so we can just be together for a bit?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. This weekend?", then: [ { from: "character", text: "Perfect. I'll be here. Love you. Always. ❤️" } ] },
+                    { label: "Soon", playerText: "Soon. I'll come find you.", then: [ { from: "character", text: "I'm not going anywhere. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Don't ever leave me. Seriously." },
+                { from: "character", text: "I won't. Can we have a quiet night in soon? Just you and me?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. When?", then: [ { from: "character", text: "You name it. I'm here. Love you." } ] },
+                    { label: "Later", playerText: "I need some time. But thanks.", then: [ { from: "character", text: "Anytime. I'm here. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+
+    /* === LUST === */
+    {
+        id: "lookGood",
+        version: 1,
+        label: "You look good",
+        category: "lust",
+        tier: 20,
+        timeAdvance: 2,
+        statGain: { lust: 3, love: 1 },
+        variations: [
+            [
+                { from: "player", text: "You're looking really good today mom" },
+                { from: "character", text: "Oh! That's... sweet of you to notice honey. Thank you." },
+                { from: "player", text: "Just saying what I see." },
+                { from: "character", text: "Well thank you sweetie! I did put in a little extra effort today." }
+            ],
+            [
+                { from: "player", text: "You look great. Like, really great." },
+                { from: "character", text: "Your father never notices these things anymore! But you do. Thank you." },
+                { from: "player", text: "His loss." },
+                { from: "character", text: "That's sweet. Love you honey." }
+            ],
+            [
+                { from: "player", text: "You're looking really good today mom" },
+                { from: "character", text: "Oh! That's... sweet of you to notice honey. Thank you." },
+                { from: "player", text: "Just saying what I see. You always look good." },
+                { from: "character", text: "Well thank you sweetie! I did put in a little extra effort today. Your father never notices!" },
+                { from: "player", text: "His loss. You're beautiful." }
+            ],
+            [
+                { from: "player", text: "You look great. Like, really great." },
+                { from: "character", text: "Your father never notices these things anymore! But you do. Thank you." },
+                { from: "player", text: "I notice. Every time. You're gorgeous." },
+                { from: "character", text: "That's sweet. Love you honey. You're so good to me." },
+                { from: "player", text: "Love you too. Bye." }
+            ],
+            [
+                { from: "player", text: "You're looking really good today mom" },
+                { from: "character", text: "Thank you! Want to go for a walk together this week? I could use the company." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. When?", then: [ { from: "character", text: "Saturday morning? My treat for coffee after. Love you." } ] },
+                    { label: "Maybe", playerText: "Maybe. I'll let you know.", then: [ { from: "character", text: "No pressure. Love you honey." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "You look great. Like, really great." },
+                { from: "character", text: "That's sweet. Your father never says that. Should we take a photo together next time? For me?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. Next time we see each other.", then: [ { from: "character", text: "Can't wait. Love you." } ] },
+                    { label: "Sure", playerText: "Yeah. I'd like that.", then: [ { from: "character", text: "Perfect. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "spicyCompliment",
+        version: 1,
+        label: "Suggestive compliment",
+        category: "lust",
+        tier: 40,
+        requiredStats: { love: 20 },
+        timeAdvance: 3,
+        statGain: { lust: 4, love: 1 },
+        variations: [
+            [
+                { from: "player", text: "Mom, you're looking really attractive today" },
+                { from: "character", text: "Oh my... honey, you're making me blush! That's quite forward of you." },
+                { from: "player", text: "I mean it." },
+                { from: "character", text: "That's... very bold sweetie. But thank you. You're flattering me!" }
+            ],
+            [
+                { from: "player", text: "You look hot today. Seriously." },
+                { from: "character", text: "Jesus, honey! You can't just say things like that! But... fuck, thank you. I needed to hear that." },
+                { from: "player", text: "Your husband's blind. You're gorgeous." },
+                { from: "character", text: "Oh god. Stop. You're embarrassing me. But... I love it. Don't tell anyone I said that." }
+            ],
+            [
+                { from: "player", text: "Mom, you're looking really attractive today" },
+                { from: "character", text: "Oh my... honey, you're making me blush! That's quite forward of you." },
+                { from: "player", text: "I mean it. You're stunning. Seriously." },
+                { from: "character", text: "That's... very bold sweetie. But thank you. You're flattering me! You're such a charmer." },
+                { from: "player", text: "Just honest. Love you." }
+            ],
+            [
+                { from: "player", text: "You look hot today. Seriously." },
+                { from: "character", text: "Jesus, honey! You can't just say things like that! But... fuck, thank you. I needed to hear that." },
+                { from: "player", text: "Your husband's blind. You're gorgeous. I can't help it." },
+                { from: "character", text: "Oh god. Stop. You're embarrassing me. But... I love it. Don't tell anyone. Thank you." },
+                { from: "player", text: "My secret. Bye mom." }
+            ],
+            [
+                { from: "player", text: "Mom, you're looking really attractive today" },
+                { from: "character", text: "Oh my... you're so bold. Want to come over tonight? We could have wine. Just us." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. I'd like that.", then: [ { from: "character", text: "Me too. See you tonight. Don't tell anyone. 💋" } ] },
+                    { label: "Not tonight", playerText: "Not tonight. Another time?", then: [ { from: "character", text: "Whenever you want. I'll be here. 💋" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "You look hot today. Seriously." },
+                { from: "character", text: "Jesus, honey... You're making me feel things. Want to send me a picture of you? Something nice?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Maybe. What kind?", then: [ { from: "character", text: "Whatever you're comfortable with. I just want to see you. 💋" } ] },
+                    { label: "Later", playerText: "Maybe later. You're so hot when you're flustered.", then: [ { from: "character", text: "You're trouble. I love it. Text me. 🔥" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "whatWearing",
+        version: 1,
+        label: "What are you wearing?",
+        category: "lust",
+        tier: 40,
+        timeAdvance: 3,
+        statGain: { lust: 4, love: 1 },
+        variations: [
+            [
+                { from: "player", text: "What are you wearing right now?" },
+                { from: "character", text: "Just my usual loungewear. Nothing special! Why do you ask?" },
+                { from: "player", text: "Just curious." },
+                { from: "character", text: "Curious, aren't you? Just casual stuff honey." }
+            ],
+            [
+                { from: "player", text: "What're you wearing? 😏" },
+                { from: "character", text: "Oh, just some comfortable clothes. It's too hot to wear much today. Why? You planning something?" },
+                { from: "player", text: "Maybe. Just thinking about you." },
+                { from: "character", text: "You're trouble. But I like it." }
+            ],
+            [
+                { from: "player", text: "What are you wearing right now?" },
+                { from: "character", text: "Just my usual loungewear. Nothing special! Why do you ask?" },
+                { from: "player", text: "Just curious. You always look good." },
+                { from: "character", text: "Curious, aren't you? Just casual stuff honey. Nothing exciting! It's too hot to wear much today." },
+                { from: "player", text: "Okay. Just wondering. Bye." }
+            ],
+            [
+                { from: "player", text: "What're you wearing? 😏" },
+                { from: "character", text: "Oh, just some comfortable clothes. It's too hot to wear much today. Why? You planning something?" },
+                { from: "player", text: "Maybe. Just thinking about you." },
+                { from: "character", text: "You're trouble. But I like it. Nothing fancy. Why? You planning something?" },
+                { from: "player", text: "Maybe. Talk later." }
+            ],
+            [
+                { from: "player", text: "What are you wearing right now?" },
+                { from: "character", text: "Something comfortable. Why? You want a picture? 😏" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. Send me one?", then: [ { from: "character", text: "Maybe later. You're so bad. I like it. 💋" } ] },
+                    { label: "Just curious", playerText: "Just curious. You always look good.", then: [ { from: "character", text: "Thank you. You're sweet. And trouble. 🔥" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "What're you wearing? 😏" },
+                { from: "character", text: "Not much. It's hot. Want me to send you a pic? You send me one too?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Deal. You first.", then: [ { from: "character", text: "You're on. Check your phone. 🔥💋" } ] },
+                    { label: "Just you", playerText: "Just you. I want to see you.", then: [ { from: "character", text: "Okay. Just for you. Don't show anyone. 😳" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "askSpicySelfie",
+        version: 1,
+        label: "Ask for spicy selfie",
+        category: "lust",
+        tier: 60,
+        requiredStats: { love: 40 },
+        timeAdvance: 3,
+        statGain: { lust: 5, love: 2 },
+        imageType: "receiver",
+        imagePool: "mother",
+        variations: [
+            [
+                { from: "player", text: "Mom... can you send me a picture? Something... spicy?" },
+                { from: "character", text: "Oh my god... you want THAT kind of picture? Honey, this is so wrong but... fuck it. Here. Don't you dare show anyone! 😳" },
+                { from: "player", text: "I won't. Promise." },
+                { from: "character", text: "You better delete this after! 💋" }
+            ],
+            [
+                { from: "player", text: "Send me something... sexy? Please?" },
+                { from: "character", text: "Holy shit, you're serious? I can't believe I'm doing this... okay, just for you. This stays between us. You like what you see? 😏" },
+                { from: "player", text: "Fuck yes. You're incredible." },
+                { from: "character", text: "God, I'm so wet just thinking about you looking at this... 🔥" }
+            ],
+            [
+                { from: "player", text: "Mom... can you send me a picture? Something... spicy?" },
+                { from: "character", text: "Oh my god... you want THAT kind of picture? Honey, this is so wrong but... fuck it. Here. Don't you dare show anyone! 😳" },
+                { from: "player", text: "I won't. Promise. You're so fucking hot." },
+                { from: "character", text: "You better delete this after! 💋 Jesus Christ, you're serious? I can't believe I'm doing this..." },
+                { from: "player", text: "Thank you. You're incredible. My secret." }
+            ],
+            [
+                { from: "player", text: "Send me something... sexy? Please?" },
+                { from: "character", text: "Holy shit, you're serious? I can't believe I'm doing this... okay, just for you. This stays between us. You like what you see? 😏" },
+                { from: "player", text: "Fuck yes. You're incredible. I can't stop looking." },
+                { from: "character", text: "God, I'm so wet just thinking about you looking at this... 🔥 Don't tell anyone. Ever." },
+                { from: "player", text: "Never. You're perfect. Thank you." }
+            ],
+            [
+                { from: "player", text: "Mom... can you send me a picture? Something... spicy?" },
+                { from: "character", text: "Oh god... okay. Here. But only if you send me one too. Deal? 😳💋" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Deal. I'll send one. Just for you.", requiresSpicyPhoto: true, then: [ { from: "character", text: "I can't believe we're doing this. Send it. I want to see you. 🔥" } ] },
+                    { label: "No", playerText: "Just you. I want to see you. Maybe I'll send one later.", then: [ { from: "character", text: "Okay. Your eyes only. Don't show anyone. 💋" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Send me something... sexy? Please?" },
+                { from: "character", text: "Holy shit... okay. Here. But I want one from you too. Fair's fair. 😏" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Okay. Sending one. Just for you.", requiresSpicyPhoto: true, then: [ { from: "character", text: "Fuck. I'm so wet thinking about it. Send it. 🔥" } ] },
+                    { label: "Not now", playerText: "Not right now. Just wanted to see you.", then: [ { from: "character", text: "Okay. Maybe later. This stays between us. 💋" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "sendSpicySelfie",
+        version: 1,
+        label: "Send spicy selfie",
+        category: "lust",
+        tier: 60,
+        timeAdvance: 2,
+        statGain: { lust: 5 },
+        imageType: "sender",
+        imagePool: "player",
+        variations: [
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "OH MY FUCKING GOD! Honey... your body is... jesus christ you're absolutely gorgeous. I can't stop staring at this. 😳🔥" },
+                { from: "player", text: "You like what you see?" },
+                { from: "character", text: "I shouldn't be looking at this but... damn. You're perfect. Send more? 😏" }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "Holy shit sweetie... you're stunning. Like, seriously fucking beautiful. I'm getting so turned on right now. This is so wrong but... fuck. 💋" },
+                { from: "player", text: "Wrong feels good sometimes." },
+                { from: "character", text: "Don't. You're going to make me do something we'll regret. But... send more. Please. 🔥" }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "OH MY FUCKING GOD! Honey... your body is... jesus christ you're absolutely gorgeous. I can't stop staring at this. 😳🔥" },
+                { from: "player", text: "You like what you see? I wanted you to see me." },
+                { from: "character", text: "I shouldn't be looking at this but... damn. You're perfect. I'm getting so turned on. This is so wrong but... fuck." },
+                { from: "player", text: "Send more? Maybe. You're so hot when you're flustered." }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "Holy shit sweetie... you're stunning. Like, seriously fucking beautiful. I'm getting so turned on right now. This is so wrong but... fuck. 💋" },
+                { from: "player", text: "Wrong feels good sometimes. You're gorgeous too. I thought about you." },
+                { from: "character", text: "Don't. You're going to make me do something we'll regret. But... send more. Please. 🔥 I can't stop looking." },
+                { from: "player", text: "Maybe later. You're incredible. Bye." }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "OH MY GOD. You're so fucking beautiful. Send me another? I'll send you one back. 🔥" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Okay. One more. You send one too.", requiresSpicyPhoto: true, then: [ { from: "character", text: "Deal. Check your phone. Fuck you're hot. 💋🔥" } ] },
+                    { label: "Later", playerText: "Maybe later. Enjoy that one for now.", then: [ { from: "character", text: "I will. You're incredible. Don't forget. Send more when you want. 😏" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "Jesus Christ... I can't stop looking. Can I send you one back? I want you to see me too. 💋" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. Send it. I want to see you.", requiresSpicyPhoto: true, then: [ { from: "character", text: "Here. Just for you. Your eyes only. 🔥" } ] },
+                    { label: "Not now", playerText: "Not right now. But thank you. You're so hot.", then: [ { from: "character", text: "Okay. Another time. I'll save it for you. 💋" } ] }
+                ]}
+            ]
+        ]
+    }
+]>>

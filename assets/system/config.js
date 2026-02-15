@@ -95,6 +95,8 @@ window.SystemCSS = {
   // Systems - Game feature modules
   systems: [
     "phone", // Phone mockup + full overlay
+    "phone-camera", // Phone camera app styles
+    "phone-gallery", // Phone gallery folders + grid
     "map", // Map section + full modal
     "wardrobe", // Wardrobe system
     "shopping", // Shop system

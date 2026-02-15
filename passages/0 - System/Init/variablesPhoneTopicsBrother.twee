@@ -1,0 +1,781 @@
+:: variablesPhoneTopicsBrother [init]
+/* Brother phone topics – 2–4 variations per topic, slang/profanity ok */
+
+<<set setup.phoneMessageTopics.brother = [
+    /* === FRIENDSHIP === */
+    {
+        id: "sup",
+        version: 1,
+        label: "What's up?",
+        category: "friendship",
+        tier: 0,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "yo what are you doing" },
+                { from: "character", text: "nothing much just gaming. why whats up" },
+                { from: "player", text: "bored. wanna do something later?" },
+                { from: "character", text: "yeah maybe. hit me up" }
+            ],
+            [
+                { from: "player", text: "hey what's good" },
+                { from: "character", text: "chillin. whats up with you" },
+                { from: "player", text: "same. just checking in" },
+                { from: "character", text: "cool. text me if you need anything" }
+            ],
+            [
+                { from: "player", text: "yo what are you doing" },
+                { from: "character", text: "nothing much just gaming. why whats up" },
+                { from: "player", text: "bored. wanna do something later? just checking in" },
+                { from: "character", text: "yeah maybe. hit me up. homework lol. so bored. you?" },
+                { from: "player", text: "same. text you later." }
+            ],
+            [
+                { from: "player", text: "hey what's good" },
+                { from: "character", text: "chillin. whats up with you. just watching some stuff. bored tbh" },
+                { from: "player", text: "same. not much. you?" },
+                { from: "character", text: "cool. text me if you need anything. we could hang" },
+                { from: "player", text: "ok. bye." }
+            ],
+            [
+                { from: "player", text: "yo what are you doing" },
+                { from: "character", text: "nothing much. wanna hang later? or game?" },
+                { type: "choice", options: [
+                    { label: "Hang", playerText: "yeah lets hang. when?", then: [ { from: "character", text: "tonight? hit me up when youre free. cool" } ] },
+                    { label: "Game", playerText: "lets game. what are we playing?", then: [ { from: "character", text: "idk you pick. text me when. yeah im down" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "hey what's good" },
+                { from: "character", text: "chillin. you wanna do something? bored as hell" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yeah. grab food?", then: [ { from: "character", text: "down. when? text me. cool" } ] },
+                    { label: "Later", playerText: "maybe later. just checking in", then: [ { from: "character", text: "ok. hit me up. love you" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "bored",
+        version: 1,
+        label: "Bored?",
+        category: "friendship",
+        tier: 0,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "you bored?" },
+                { from: "character", text: "yeah kinda. wanna do something?" },
+                { from: "player", text: "maybe. got any ideas?" },
+                { from: "character", text: "idk. we could game or some shit" }
+            ],
+            [
+                { from: "player", text: "bored as hell" },
+                { from: "character", text: "always lol. got any ideas?" },
+                { from: "player", text: "not really. you?" },
+                { from: "character", text: "meh. same old. we could hang later" }
+            ],
+            [
+                { from: "player", text: "you bored?" },
+                { from: "character", text: "yeah kinda. wanna do something?" },
+                { from: "player", text: "maybe. got any ideas? im dying over here" },
+                { from: "character", text: "idk. we could game or some shit. or just chill" },
+                { from: "player", text: "cool. hit me up" }
+            ],
+            [
+                { from: "player", text: "bored as hell" },
+                { from: "character", text: "always lol. got any ideas?" },
+                { from: "player", text: "not really. you? we could do something" },
+                { from: "character", text: "meh. same old. we could hang later. yeah. got plans?" },
+                { from: "player", text: "nah. later then." }
+            ],
+            [
+                { from: "player", text: "you bored?" },
+                { from: "character", text: "yeah. wanna game or go out? your call" },
+                { type: "choice", options: [
+                    { label: "Game", playerText: "game. what we playing?", then: [ { from: "character", text: "idk. you pick. text me when. yeah" } ] },
+                    { label: "Go out", playerText: "go out. food?", then: [ { from: "character", text: "down. when? hit me up. cool" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "bored as hell" },
+                { from: "character", text: "same. you got plans? we could do something" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yeah. tonight?", then: [ { from: "character", text: "cool. text me. will do" } ] },
+                    { label: "Nah", playerText: "nah. just complaining lol", then: [ { from: "character", text: "lol same. hit me up if you wanna hang. later" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "hangLater",
+        version: 1,
+        label: "Hang out later?",
+        category: "friendship",
+        tier: 20,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "wanna hang out later?" },
+                { from: "character", text: "yeah sure. what did you have in mind?" },
+                { from: "player", text: "idk. just something" },
+                { from: "character", text: "ok cool. text me when youre free" }
+            ],
+            [
+                { from: "player", text: "down to hang later?" },
+                { from: "character", text: "yeah im down. lets do something fun" },
+                { from: "player", text: "sure. hit me up" },
+                { from: "character", text: "will do" }
+            ],
+            [
+                { from: "player", text: "wanna hang out later?" },
+                { from: "character", text: "yeah sure. what did you have in mind?" },
+                { from: "player", text: "idk. just something. get out of the house" },
+                { from: "character", text: "ok cool. text me when youre free. yeah im down. lets do something fun" },
+                { from: "player", text: "sure. hit me up" }
+            ],
+            [
+                { from: "player", text: "down to hang later?" },
+                { from: "character", text: "yeah im down. lets do something fun" },
+                { from: "player", text: "sure. hit me up. what do you wanna do?" },
+                { from: "character", text: "will do. maybe grab food or some shit. idk" },
+                { from: "player", text: "cool. later." }
+            ],
+            [
+                { from: "player", text: "wanna hang out later?" },
+                { from: "character", text: "yeah. you wanna game or do something else?" },
+                { type: "choice", options: [
+                    { label: "Game", playerText: "game. then maybe food?", then: [ { from: "character", text: "down. text me when. will do" } ] },
+                    { label: "Just hang", playerText: "just hang. your place or mine?", then: [ { from: "character", text: "idk. either. hit me up. cool" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "down to hang later?" },
+                { from: "character", text: "yeah im down. what do you wanna do? game? food?" },
+                { type: "choice", options: [
+                    { label: "Game", playerText: "game first. then we see", then: [ { from: "character", text: "ok. text me when. yeah" } ] },
+                    { label: "Food", playerText: "grab food. you drive?", then: [ { from: "character", text: "sure. when? hit me up. later" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "gaming",
+        version: 1,
+        label: "Game together?",
+        category: "friendship",
+        tier: 20,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "wanna play something later?" },
+                { from: "character", text: "yeah for sure. what game?" },
+                { from: "player", text: "whatever. you pick" },
+                { from: "character", text: "ok cool. text me when" }
+            ],
+            [
+                { from: "player", text: "game later?" },
+                { from: "character", text: "yeah im down. been wanting to play anyway" },
+                { from: "player", text: "same" },
+                { from: "character", text: "yeah. what do you wanna play?" }
+            ],
+            [
+                { from: "player", text: "wanna play something later?" },
+                { from: "character", text: "yeah for sure. what game?" },
+                { from: "player", text: "whatever. you pick. im easy" },
+                { from: "character", text: "ok cool. text me when. been wanting to play anyway" },
+                { from: "player", text: "will do. bye" }
+            ],
+            [
+                { from: "player", text: "game later?" },
+                { from: "character", text: "yeah im down. been wanting to play anyway" },
+                { from: "player", text: "same. what do you wanna play?" },
+                { from: "character", text: "yeah. what do you wanna play? idk surprise me" },
+                { from: "player", text: "ok. text you" }
+            ],
+            [
+                { from: "player", text: "wanna play something later?" },
+                { from: "character", text: "yeah. what game? or you wanna pick?" },
+                { type: "choice", options: [
+                    { label: "You pick", playerText: "you pick. im easy", then: [ { from: "character", text: "ok. text me when. cool. will do" } ] },
+                    { label: "Co-op", playerText: "something co-op. got anything?", then: [ { from: "character", text: "yeah. we can figure it out. hit me up. yeah" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "game later?" },
+                { from: "character", text: "yeah. when? and what we playing?" },
+                { type: "choice", options: [
+                    { label: "Tonight", playerText: "tonight. you pick the game", then: [ { from: "character", text: "down. text me. ok cool" } ] },
+                    { label: "Tomorrow", playerText: "tomorrow maybe. busy tonight", then: [ { from: "character", text: "ok. hit me up. later" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "realTalk",
+        version: 1,
+        label: "Real talk",
+        category: "friendship",
+        tier: 40,
+        timeAdvance: 3,
+        statGain: { friendship: 3 },
+        variations: [
+            [
+                { from: "player", text: "can we talk about something serious?" },
+                { from: "character", text: "sure whats up? everything ok?" },
+                { from: "player", text: "yeah. just need to get some stuff off my chest" },
+                { from: "character", text: "yeah of course. im listening" }
+            ],
+            [
+                { from: "player", text: "i need to talk. like for real" },
+                { from: "character", text: "yeah totally. what's going on?" },
+                { from: "player", text: "not over text. later?" },
+                { from: "character", text: "yeah. im here. talk to me whenever" }
+            ],
+            [
+                { from: "player", text: "can we talk about something serious?" },
+                { from: "character", text: "sure whats up? everything ok?" },
+                { from: "player", text: "yeah. just need to get some stuff off my chest. not over text though" },
+                { from: "character", text: "yeah of course. im listening. whenever youre ready. face to face" },
+                { from: "player", text: "thanks. later" }
+            ],
+            [
+                { from: "player", text: "i need to talk. like for real" },
+                { from: "character", text: "yeah totally. what's going on?" },
+                { from: "player", text: "not over text. later? its important" },
+                { from: "character", text: "yeah. im here. talk to me whenever. sounds serious" },
+                { from: "player", text: "it is. thanks. bye" }
+            ]
+        ]
+    },
+    {
+        id: "futurePlans",
+        version: 1,
+        label: "Future plans",
+        category: "friendship",
+        tier: 60,
+        timeAdvance: 3,
+        statGain: { friendship: 4 },
+        variations: [
+            [
+                { from: "player", text: "what do you think youll do after school?" },
+                { from: "character", text: "idk honestly. been thinking about it a lot. you?" },
+                { from: "player", text: "same. we should talk about it sometime" },
+                { from: "character", text: "yeah. no clue. still figuring it out" }
+            ],
+            [
+                { from: "player", text: "any plans after graduation?" },
+                { from: "character", text: "not sure yet. maybe college? what about you?" },
+                { from: "player", text: "figuring it out" },
+                { from: "character", text: "same. we got time" }
+            ],
+            [
+                { from: "player", text: "what do you think youll do after school?" },
+                { from: "character", text: "idk honestly. been thinking about it a lot. you?" },
+                { from: "player", text: "same. we should talk about it sometime. no rush" },
+                { from: "character", text: "yeah. no clue. still figuring it out. we got time" },
+                { from: "player", text: "cool. later" }
+            ],
+            [
+                { from: "player", text: "any plans after graduation?" },
+                { from: "character", text: "not sure yet. maybe college? what about you?" },
+                { from: "player", text: "figuring it out. we should talk" },
+                { from: "character", text: "same. we got time. no clue. we should talk about it sometime" },
+                { from: "player", text: "yeah. bye" }
+            ],
+            [
+                { from: "player", text: "what do you think youll do after school?" },
+                { from: "character", text: "idk. you wanna talk about it? we could get coffee or some shit" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yeah. this weekend?", then: [ { from: "character", text: "down. we can figure it out. same. we got time" } ] },
+                    { label: "Later", playerText: "maybe later. just thinking out loud", then: [ { from: "character", text: "ok. hit me up. we got time. later" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "any plans after graduation?" },
+                { from: "character", text: "not sure. you? we should talk about it sometime" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yeah. lets talk. when?", then: [ { from: "character", text: "this week? idk. we got time. cool" } ] },
+                    { label: "Same", playerText: "same. no clue. we'll figure it out", then: [ { from: "character", text: "yeah. no rush. later" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "seriousStuff",
+        version: 1,
+        label: "Serious stuff",
+        category: "friendship",
+        tier: 60,
+        timeAdvance: 3,
+        statGain: { friendship: 4 },
+        variations: [
+            [
+                { from: "player", text: "i need to talk to you about something important" },
+                { from: "character", text: "ok yeah. im here. whats up?" },
+                { from: "player", text: "cant do it over text. face to face?" },
+                { from: "character", text: "yeah of course. whenever youre ready" }
+            ],
+            [
+                { from: "player", text: "something important. need to tell you" },
+                { from: "character", text: "sounds serious. talk to me. whats going on?" },
+                { from: "player", text: "later. promise" },
+                { from: "character", text: "im listening. go ahead when you're ready" }
+            ],
+            [
+                { from: "player", text: "i need to talk to you about something important" },
+                { from: "character", text: "ok yeah. im here. whats up?" },
+                { from: "player", text: "cant do it over text. face to face? its heavy" },
+                { from: "character", text: "yeah of course. whenever youre ready. sounds serious" },
+                { from: "player", text: "thanks. later" }
+            ],
+            [
+                { from: "player", text: "something important. need to tell you" },
+                { from: "character", text: "sounds serious. talk to me. whats going on?" },
+                { from: "player", text: "later. promise. not over text" },
+                { from: "character", text: "im listening. go ahead when you're ready. yeah. im here" },
+                { from: "player", text: "ok. bye" }
+            ],
+            [
+                { from: "player", text: "i need to talk to you about something important" },
+                { from: "character", text: "ok. you wanna do it now or face to face? your call" },
+                { type: "choice", options: [
+                    { label: "Face to face", playerText: "face to face. can we?", then: [ { from: "character", text: "yeah. whenever. im here. you know that. love you" } ] },
+                    { label: "Later", playerText: "later. i'll find you. promise", then: [ { from: "character", text: "ok. im listening. whenever. go ahead when youre ready" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "something important. need to tell you" },
+                { from: "character", text: "sounds serious. you want to meet up so we can talk properly?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yes. this week?", then: [ { from: "character", text: "name the day. im here. love you. for real" } ] },
+                    { label: "Not yet", playerText: "not yet. soon. thanks for being there", then: [ { from: "character", text: "always. im here. whenever. love you" } ] }
+                ]}
+            ]
+        ]
+    },
+
+    /* === LOVE === */
+    {
+        id: "goodBro",
+        version: 1,
+        label: "Good brother",
+        category: "love",
+        tier: 20,
+        timeAdvance: 3,
+        statGain: { love: 2, friendship: 1 },
+        variations: [
+            [
+                { from: "player", text: "youre a good brother you know" },
+                { from: "character", text: "aw thanks. you too honestly" },
+                { from: "player", text: "mean it" },
+                { from: "character", text: "haha thanks. so are you. love you" }
+            ],
+            [
+                { from: "player", text: "best brother ever ngl" },
+                { from: "character", text: "thats actually really nice. thanks for saying that" },
+                { from: "player", text: "just facts" },
+                { from: "character", text: "yo thanks. youre pretty great yourself" }
+            ],
+            [
+                { from: "player", text: "youre a good brother you know" },
+                { from: "character", text: "aw thanks. you too honestly" },
+                { from: "player", text: "mean it. you're the best" },
+                { from: "character", text: "haha thanks. so are you. love you. thats actually really nice" },
+                { from: "player", text: "love you too. bye" }
+            ],
+            [
+                { from: "player", text: "best brother ever ngl" },
+                { from: "character", text: "thats actually really nice. thanks for saying that" },
+                { from: "player", text: "just facts. you're awesome" },
+                { from: "character", text: "yo thanks. youre pretty great yourself. means a lot" },
+                { from: "player", text: "good. bye" }
+            ],
+            [
+                { from: "player", text: "youre a good brother you know" },
+                { from: "character", text: "aw thanks. you wanna hang soon? just us?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yeah. when?", then: [ { from: "character", text: "this weekend? game or food. your call. love you" } ] },
+                    { label: "Soon", playerText: "soon. just wanted to say it", then: [ { from: "character", text: "means a lot. love you too. hit me up" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "best brother ever ngl" },
+                { from: "character", text: "thats really nice. wanna do something together? game night?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "down. when?", then: [ { from: "character", text: "friday? cool. love you. will do" } ] },
+                    { label: "Maybe", playerText: "maybe. i'll let you know", then: [ { from: "character", text: "ok. love you. thanks for saying that" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "flirtBro",
+        version: 1,
+        label: "Flirt",
+        category: "love",
+        tier: 40,
+        requiredStats: { friendship: 20 },
+        timeAdvance: 3,
+        statGain: { love: 3, friendship: 1 },
+        variations: [
+            [
+                { from: "player", text: "youre actually really cute you know" },
+                { from: "character", text: "lol what? thanks i guess haha. youre pretty hot yourself" },
+                { from: "player", text: "i mean it" },
+                { from: "character", text: "wait really? lol thanks. you look amazing honestly" }
+            ],
+            [
+                { from: "player", text: "you look good. like really good" },
+                { from: "character", text: "um thanks? youre not so bad yourself honestly" },
+                { from: "player", text: "not so bad? try gorgeous" },
+                { from: "character", text: "haha ok where is this coming from? but thanks. youre gorgeous btw" }
+            ],
+            [
+                { from: "player", text: "youre actually really cute you know" },
+                { from: "character", text: "lol what? thanks i guess haha. youre pretty hot yourself" },
+                { from: "player", text: "i mean it. seriously. you're gorgeous" },
+                { from: "character", text: "wait really? lol thanks. you look amazing honestly. damn okay" },
+                { from: "player", text: "appreciate it. bye" }
+            ],
+            [
+                { from: "player", text: "you look good. like really good" },
+                { from: "character", text: "um thanks? youre not so bad yourself honestly" },
+                { from: "player", text: "not so bad? try gorgeous. i mean it" },
+                { from: "character", text: "haha ok where is this coming from? but thanks. youre gorgeous btw. making me blush" },
+                { from: "player", text: "good. bye" }
+            ],
+            [
+                { from: "player", text: "youre actually really cute you know" },
+                { from: "character", text: "lol thanks. you wanna send me a pic? you're hot. i'd send one back 😏" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "maybe. you first?", then: [ { from: "character", text: "deal. check your phone. you're gorgeous btw 🔥" } ] },
+                    { label: "Flirty no", playerText: "not now. but you're really hot. just saying", then: [ { from: "character", text: "haha ok. thanks. you too. hit me up if you change your mind 😏" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "you look good. like really good" },
+                { from: "character", text: "um thanks. you wanna hang? just us. you look amazing" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yeah. when?", then: [ { from: "character", text: "this week? your place or mine. youre gorgeous. love you" } ] },
+                    { label: "Later", playerText: "maybe later. you're making me blush", then: [ { from: "character", text: "lol same. thanks. later" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "deepBond",
+        version: 1,
+        label: "Deep bond",
+        category: "love",
+        tier: 60,
+        timeAdvance: 5,
+        statGain: { love: 4, friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "im really glad youre my brother. i love you" },
+                { from: "character", text: "aw dude thats sweet. same here honestly. love you too" },
+                { from: "player", text: "for real" },
+                { from: "character", text: "yeah me too. were pretty cool together. love you" }
+            ],
+            [
+                { from: "player", text: "love you bro. no cap" },
+                { from: "character", text: "fuck thats nice to hear. love you too. for real" },
+                { from: "player", text: "same. means a lot" },
+                { from: "character", text: "same. love you too. means a lot." }
+            ],
+            [
+                { from: "player", text: "im really glad youre my brother. i love you" },
+                { from: "character", text: "aw dude thats sweet. same here honestly. love you too" },
+                { from: "player", text: "for real. you're my best friend" },
+                { from: "character", text: "yeah me too. were pretty cool together. love you. fuck thats nice to hear" },
+                { from: "player", text: "good. bye" }
+            ],
+            [
+                { from: "player", text: "love you bro. no cap" },
+                { from: "character", text: "fuck thats nice to hear. love you too. for real" },
+                { from: "player", text: "same. means a lot. don't forget it" },
+                { from: "character", text: "same. love you too. means a lot. always" },
+                { from: "player", text: "bye" }
+            ],
+            [
+                { from: "player", text: "im really glad youre my brother. i love you" },
+                { from: "character", text: "same. love you too. wanna do something together soon? just us" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yeah. what do you wanna do?", then: [ { from: "character", text: "idk. game. food. whatever. just want to hang. love you" } ] },
+                    { label: "Soon", playerText: "soon. promise. just wanted you to know", then: [ { from: "character", text: "i know. means a lot. love you. for real" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "love you bro. no cap" },
+                { from: "character", text: "love you too. we should hang. like actually hang. when?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yeah. saturday?", then: [ { from: "character", text: "down. text me. love you. means a lot" } ] },
+                    { label: "Soon", playerText: "soon. busy this week", then: [ { from: "character", text: "ok. hit me up. love you" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "careAbout",
+        version: 1,
+        label: "Really care",
+        category: "love",
+        tier: 60,
+        timeAdvance: 5,
+        statGain: { love: 4, friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "i really care about you. more than you know" },
+                { from: "character", text: "yeah i know. i care about you too. so much honestly" },
+                { from: "player", text: "good" },
+                { from: "character", text: "same. youre important to me. like really important" }
+            ],
+            [
+                { from: "player", text: "you matter to me. a lot" },
+                { from: "character", text: "damn... thats deep. i care about you too. always" },
+                { from: "player", text: "always got you" },
+                { from: "character", text: "i know. same here. always got you." }
+            ],
+            [
+                { from: "player", text: "i really care about you. more than you know" },
+                { from: "character", text: "yeah i know. i care about you too. so much honestly" },
+                { from: "player", text: "good. just wanted you to know" },
+                { from: "character", text: "same. youre important to me. like really important. always" },
+                { from: "player", text: "same. bye" }
+            ],
+            [
+                { from: "player", text: "you matter to me. a lot" },
+                { from: "character", text: "damn... thats deep. i care about you too. always" },
+                { from: "player", text: "always got you. no matter what" },
+                { from: "character", text: "i know. same here. always got you. means a lot" },
+                { from: "player", text: "good. bye" }
+            ],
+            [
+                { from: "player", text: "i really care about you. more than you know" },
+                { from: "character", text: "yeah i know. same. you wanna hang soon? just us?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yeah. when?", then: [ { from: "character", text: "this week? your call. love you. means a lot" } ] },
+                    { label: "Soon", playerText: "soon. just wanted you to know", then: [ { from: "character", text: "i know. always got you. love you" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "you matter to me. a lot" },
+                { from: "character", text: "damn. same. we should do something together. when are you free?" },
+                { type: "choice", options: [
+                    { label: "This week", playerText: "this week. what do you wanna do?", then: [ { from: "character", text: "idk. game. food. just us. love you" } ] },
+                    { label: "Later", playerText: "i'll let you know. busy rn", then: [ { from: "character", text: "ok. always here. love you" } ] }
+                ]}
+            ]
+        ]
+    },
+
+    /* === LUST === */
+    {
+        id: "lookingGood",
+        version: 1,
+        label: "Looking good",
+        category: "lust",
+        tier: 40,
+        timeAdvance: 2,
+        statGain: { lust: 3, love: 1 },
+        variations: [
+            [
+                { from: "player", text: "dude you been working out? looking good ngl" },
+                { from: "character", text: "haha thanks! yeah been hitting the gym. you look hot too btw 😏" },
+                { from: "player", text: "thanks. you're not bad yourself" },
+                { from: "character", text: "lol appreciate it. you too honestly. damn when did you get so sexy?" }
+            ],
+            [
+                { from: "player", text: "you're looking really good lately" },
+                { from: "character", text: "yo thanks! youre not so bad yourself. actually youre looking really good" },
+                { from: "player", text: "we both clean up nice" },
+                { from: "character", text: "yeah a bit. thanks for noticing. you look amazing honestly" }
+            ],
+            [
+                { from: "player", text: "dude you been working out? looking good ngl" },
+                { from: "character", text: "haha thanks! yeah been hitting the gym. you look hot too btw 😏" },
+                { from: "player", text: "thanks. you're not bad yourself. we should go together sometime" },
+                { from: "character", text: "lol appreciate it. you too honestly. damn when did you get so sexy?" },
+                { from: "player", text: "haha. bye" }
+            ],
+            [
+                { from: "player", text: "you're looking really good lately" },
+                { from: "character", text: "yo thanks! youre not so bad yourself. actually youre looking really good" },
+                { from: "player", text: "we both clean up nice. no cap" },
+                { from: "character", text: "yeah a bit. thanks for noticing. you look amazing honestly. for real" },
+                { from: "player", text: "thanks. later" }
+            ],
+            [
+                { from: "player", text: "dude you been working out? looking good ngl" },
+                { from: "character", text: "thanks! you too. wanna gym together sometime? or send me a pic 😏" },
+                { type: "choice", options: [
+                    { label: "Gym", playerText: "yeah lets hit the gym. when?", then: [ { from: "character", text: "saturday? i'll show you my routine. you're hot btw" } ] },
+                    { label: "Pic", playerText: "maybe a pic. you first?", then: [ { from: "character", text: "lol deal. check your phone. you're sexy. 🔥" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "you're looking really good lately" },
+                { from: "character", text: "yo thanks. you too. you wanna swap pics? just saying 😏" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "maybe. you first?", then: [ { from: "character", text: "alright. your eyes only. you're stunning. 🔥" } ] },
+                    { label: "Flirty no", playerText: "not now. but you're hot. keep it up", then: [ { from: "character", text: "haha thanks. you too. later" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "suggestive",
+        version: 1,
+        label: "Suggestive",
+        category: "lust",
+        tier: 60,
+        requiredStats: { love: 30 },
+        timeAdvance: 3,
+        statGain: { lust: 4, love: 1 },
+        variations: [
+            [
+                { from: "player", text: "youre looking really hot today ngl" },
+                { from: "character", text: "haha damn thanks. you too. seriously youre fucking gorgeous" },
+                { from: "player", text: "so are you" },
+                { from: "character", text: "lol thanks. youre pretty hot yourself not gonna lie. like really hot" }
+            ],
+            [
+                { from: "player", text: "fuck you look good. i can't stop staring" },
+                { from: "character", text: "shit thanks. you look amazing too. damn" },
+                { from: "player", text: "we're both hot. deal with it" },
+                { from: "character", text: "fuck youre making me blush. but thanks. youre stunning btw" }
+            ],
+            [
+                { from: "player", text: "youre looking really hot today ngl" },
+                { from: "character", text: "haha damn thanks. you too. seriously youre fucking gorgeous" },
+                { from: "player", text: "so are you. i can't stop looking" },
+                { from: "character", text: "lol thanks. youre pretty hot yourself not gonna lie. like really hot. shit" },
+                { from: "player", text: "thanks. bye" }
+            ],
+            [
+                { from: "player", text: "fuck you look good. i can't stop staring" },
+                { from: "character", text: "shit thanks. you look amazing too. damn" },
+                { from: "player", text: "we're both hot. deal with it. mutual" },
+                { from: "character", text: "fuck youre making me blush. but thanks. youre stunning btw. this is so wrong lol" },
+                { from: "player", text: "whatever. bye" }
+            ],
+            [
+                { from: "player", text: "youre looking really hot today ngl" },
+                { from: "character", text: "damn thanks. you too. you wanna send me something? i'll send one back 😏" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "deal. you first.", then: [ { from: "character", text: "alright. check your phone. you're fucking gorgeous. 🔥" } ] },
+                    { label: "Later", playerText: "maybe later. you're so hot though", then: [ { from: "character", text: "haha thanks. hit me up. you're stunning. later" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "fuck you look good. i can't stop staring" },
+                { from: "character", text: "shit thanks. you wanna swap? send me a pic. i'll send you one. 🔥" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "ok. sending. you send one too.", requiresSpicyPhoto: true, then: [ { from: "character", text: "fuck yes. check your phone. you're so hot. 💋" } ] },
+                    { label: "No", playerText: "just you. i want to see you.", then: [ { from: "character", text: "alright. your eyes only. this is so wrong lol. 😳" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "askPic",
+        version: 1,
+        label: "Ask for spicy pic",
+        category: "lust",
+        tier: 60,
+        timeAdvance: 3,
+        statGain: { lust: 5, love: 2 },
+        imageType: "receiver",
+        imagePool: "brother",
+        variations: [
+            [
+                { from: "player", text: "yo send me a spicy pic? wanna see you" },
+                { from: "character", text: "fuck... you want to see my dick? alright. here. just for you. dont tell anyone 😏🔥" },
+                { from: "player", text: "my eyes only. promise. you're so fucking hot" },
+                { from: "character", text: "holy shit youre serious? im so hard. you like what you see? 🔥" }
+            ],
+            [
+                { from: "player", text: "send me something sexy. please" },
+                { from: "character", text: "you want my cock? fuck it. here. your eyes only. you're so hot. 💋" },
+                { from: "player", text: "fuck yes. you're huge. i can't stop looking" },
+                { from: "character", text: "bruh... im rock hard. this is so fucked up but fuck. you're stunning. 😳🔥" }
+            ],
+            [
+                { from: "player", text: "yo send me a spicy pic? wanna see you" },
+                { from: "character", text: "alright. here. but you send me one too. fair's fair. deal? 😏" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "deal. i'll send one. just for you.", requiresSpicyPhoto: true, then: [ { from: "character", text: "fuck yes. send it. im so hard thinking about it. your eyes only. 🔥" } ] },
+                    { label: "No", playerText: "just you. i want to see you. maybe i'll send one later.", then: [ { from: "character", text: "ok. our secret. you're so hot. dont show anyone. 💋" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "send me something sexy. please" },
+                { from: "character", text: "here. but you send me one too. i want to see you. deal? 🔥" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "ok. sending. just for you.", requiresSpicyPhoto: true, then: [ { from: "character", text: "fuck. send it. you're so fucking gorgeous. im rock hard. 💋🔥" } ] },
+                    { label: "Not now", playerText: "not right now. just wanted to see you.", then: [ { from: "character", text: "ok. maybe later. im hard just from you asking. this is so wrong lol. 😳" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "sendPicBro",
+        version: 1,
+        label: "Send spicy selfie",
+        category: "lust",
+        tier: 60,
+        timeAdvance: 2,
+        statGain: { lust: 5 },
+        imageType: "sender",
+        imagePool: "player",
+        variations: [
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "HOLY FUCK! youre... damn sis your body is fucking incredible. i cant stop looking at this. youre so hot 😳🔥" },
+                { from: "player", text: "you like?" },
+                { from: "character", text: "jesus fuck! you cant just send me that! but... shit you look amazing. your body is perfect. im so turned on rn 🔥" }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "oh my fucking god... youre gorgeous. like seriously fucking beautiful. im getting hard looking at this lmao 💋" },
+                { from: "player", text: "that's the idea" },
+                { from: "character", text: "FUCK! thats hot as hell. youre stunning sis. im rock hard now lmao. this is so wrong but... send more? 😏" }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "HOLY FUCK! youre... damn sis your body is fucking incredible. i cant stop looking at this. youre so hot 😳🔥" },
+                { from: "player", text: "you like? i wanted you to see" },
+                { from: "character", text: "jesus fuck! you cant just send me that! but... shit you look amazing. your body is perfect. im so turned on rn 🔥" },
+                { from: "player", text: "maybe more later. bye" }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "oh my fucking god... youre gorgeous. like seriously fucking beautiful. im getting hard looking at this lmao 💋" },
+                { from: "player", text: "that's the idea. you're hot too" },
+                { from: "character", text: "FUCK! thats hot as hell. youre stunning sis. im rock hard now lmao. this is so wrong but... send more? 😏" },
+                { from: "player", text: "maybe. bye" }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "HOLY FUCK. your body is incredible. send me another? i'll send you one back. im so hard. 🔥" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "ok. one more. you send one too.", requiresSpicyPhoto: true, then: [ { from: "character", text: "deal. check your phone. fuck you're hot. 💋🔥" } ] },
+                    { label: "Later", playerText: "maybe later. enjoy that one for now.", then: [ { from: "character", text: "i will. you're stunning. send more when you want. 😏" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "jesus fuck... i can't stop looking. can i send you one back? i want you to see what you do to me. 💋" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "yes. send it. i want to see you.", requiresSpicyPhoto: true, then: [ { from: "character", text: "here. just for you. your eyes only. im so hard. 🔥" } ] },
+                    { label: "Not now", playerText: "not right now. but thank you. you're so hot.", then: [ { from: "character", text: "ok. another time. i'll save it for you. you're perfect. 💋" } ] }
+                ]}
+            ]
+        ]
+    }
+]>>

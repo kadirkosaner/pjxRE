@@ -1,0 +1,16 @@
+:: variablesPhoneSelfiePaths [init nobr]
+/* Path'lar tek yerde – topic'ler imagePool ile referans verir (örn. imagePool: "mother"). */
+<<set setup.phoneSelfiePaths = {
+	mother: [
+		"assets/content/phone/camera/normal_safe_1.webp",
+	],
+	father: [
+		"assets/content/phone/camera/normal_safe_1.webp",
+	],
+	brother: [
+		"assets/content/phone/camera/normal_safe_1.webp",
+	],
+	player: [
+		"assets/content/phone/camera/normal_safe_1.webp",
+	]
+}>>

@@ -3,22 +3,24 @@
 ========================================== */
 
 var PhoneAPI = null;
-var phoneViewState = { app: null, sub: 'list', threadCharId: null, pickerFor: null, meetup: null, calendarOffset: 0 };
+var phoneViewState = { app: null, sub: 'list', threadCharId: null, pickerFor: null, meetup: null, calendarOffset: 0, galleryFolder: null, pendingTopicChoice: null, pendingTopicChoicePhotoPick: null };
 
 window.PhoneInit = function (API) {
     PhoneAPI = API;
 };
 
 function getAppContent(action, vars) {
+    if (action === 'camera' && typeof window.phoneRenderCameraApp === 'function') {
+        var rawLoc = (vars && vars.location) || (PhoneAPI && PhoneAPI.State && (PhoneAPI.State.variables && PhoneAPI.State.variables.location || PhoneAPI.State.passage)) || '';
+        var locationId = (rawLoc && (rawLoc.indexOf('/') >= 0 || rawLoc.indexOf('\\') >= 0)) ? rawLoc.split(/[/\\]/).pop() : (rawLoc || '');
+        return window.phoneRenderCameraApp(vars, { locationId: locationId });
+    }
     var app = window.PhoneApps && window.PhoneApps[action];
     if (app && typeof app.render === 'function') {
         return app.render(vars);
     }
-    if (action === 'camera' && typeof window.phoneRenderCameraApp === 'function') {
-        return window.phoneRenderCameraApp(vars);
-    }
     if (action === 'gallery' && typeof window.phoneRenderGalleryApp === 'function') {
-        return window.phoneRenderGalleryApp(vars);
+        return window.phoneRenderGalleryApp(vars, { galleryFolder: phoneViewState.galleryFolder });
     }
     return '<div class="phone-app-placeholder"><p class="phone-app-placeholder-text">Coming soon</p><p class="phone-app-placeholder-sub">This app is not available yet.</p></div>';
 }
@@ -61,6 +63,7 @@ function showAppView(action) {
     phoneViewState.meetup = null;
     var vars = PhoneAPI.State.variables;
     if (action === 'calendar') phoneViewState.calendarOffset = 0;
+    if (action === 'gallery') phoneViewState.galleryFolder = null;
     var $view = $('#phone-app-view');
     var $title = $('#phone-app-view-title');
     var $content = $('#phone-app-view-content');
@@ -69,6 +72,11 @@ function showAppView(action) {
     $content.html(getAppContent(action, vars));
     $view.show();
     $('#phone-overlay .phone-home').hide();
+    
+    // Re-initialize tooltips for new content
+    if (typeof window.initTooltips === 'function') {
+        window.initTooltips();
+    }
 }
 
 function hideAppView() {
@@ -76,12 +84,35 @@ function hideAppView() {
     $('#phone-overlay .phone-home').show();
 }
 
+function scrollPhoneThreadToBottom() {
+    var el = document.getElementById('phone-app-view-content');
+    if (!el) return;
+    var run = function () { el.scrollTop = el.scrollHeight; };
+    if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(run);
+    else run();
+}
+
 function handleAppClick(action) {
     if (!action) return;
     showAppView(action);
 }
 
+window.openGalleryFolder = function (folder) {
+    if (!PhoneAPI || !folder) return;
+    phoneViewState.galleryFolder = folder;
+    var titles = { photos: 'Photos', videos: 'Videos', received: 'Received' };
+    var $title = $('#phone-app-view-title');
+    var $content = $('#phone-app-view-content');
+    if ($title.length) $title.text(titles[folder] || folder);
+    if ($content.length && typeof window.phoneRenderGalleryApp === 'function') {
+        $content.html(window.phoneRenderGalleryApp(PhoneAPI.State.variables, { galleryFolder: folder }));
+    }
+};
+
 window.openPhoneOverlay = function () {
+    if (!PhoneAPI) return;
+    $('#phone-overlay').remove();
+    createPhoneOverlay();
     $('#phone-overlay').addClass('active');
 };
 
@@ -115,6 +146,11 @@ function createPhoneOverlay() {
     var html = '<div class="overlay overlay-dark phone-overlay" id="phone-overlay"><div class="phone-device"><div class="phone-device-header"><div class="phone-device-notch"><div class="notch-camera"></div><div class="notch-speaker"></div><div class="notch-sensor"></div></div><span class="status-time">' + timeSysHour + ':' + timeSysMinute + '</span></div><div class="phone-device-screen"><div class="phone-home"><div class="phone-apps-container"><div class="phone-apps-grid">' + appsHtml + '</div></div><div class="phone-action-area"><button type="button" class="phone-close-btn" id="phone-close">Put the phone down</button></div></div><div class="phone-app-view" id="phone-app-view" style="display: none;"><div class="phone-app-view-header"><button type="button" class="phone-app-back" id="phone-app-back" aria-label="Back"><span class="icon icon-chevron-left icon-24"></span></button><span class="phone-app-view-title" id="phone-app-view-title"></span></div><div class="phone-app-view-content" id="phone-app-view-content"></div></div></div><div class="phone-device-home-indicator"></div></div></div>';
     PhoneAPI.$('body').append(html);
 
+    // Re-initialize tooltips for phone overlay content
+    if (typeof window.initTooltips === 'function') {
+        window.initTooltips();
+    }
+
     $('#phone-overlay').on('click', function (e) {
         var $t = $(e.target);
         if ($t.closest('#phone-close').length || $t.hasClass('phone-close-btn')) {
@@ -130,11 +166,29 @@ function createPhoneOverlay() {
     $('#phone-app-back').on('click', function () {
         if (!PhoneAPI) return;
         var vars = PhoneAPI.State.variables;
+        if (phoneViewState.app === 'camera' && $('#phone-app-view').find('.phone-camera-preview-overlay').length) {
+            $('#phone-app-view').find('.phone-camera-preview-overlay').remove();
+            $('#phone-app-view-title').text(PHONE_APP_NAMES.camera || 'Camera');
+            return;
+        }
+        if (phoneViewState.app === 'gallery' && $('#phone-app-view').find('.phone-gallery-preview-overlay').length) {
+            $('#phone-app-view').find('.phone-gallery-preview-overlay').remove();
+            var titles = { photos: 'Photos', videos: 'Videos', received: 'Received' };
+            $('#phone-app-view-title').text(titles[phoneViewState.galleryFolder] || phoneViewState.galleryFolder || 'Gallery');
+            return;
+        }
+        if (phoneViewState.app === 'gallery' && phoneViewState.galleryFolder) {
+            phoneViewState.galleryFolder = null;
+            $('#phone-app-view-title').text(PHONE_APP_NAMES.gallery || 'Gallery');
+            $('#phone-app-view-content').html(getAppContent('gallery', vars));
+            return;
+        }
         if (phoneViewState.app && phoneViewState.sub === 'topics') {
             phoneViewState.sub = 'thread';
             var charId = phoneViewState.threadCharId;
             $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
             $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+            scrollPhoneThreadToBottom();
             updatePhoneBadges();
         } else if (phoneViewState.app && phoneViewState.sub === 'thread') {
             phoneViewState.sub = 'contacts';
@@ -194,6 +248,7 @@ function createPhoneOverlay() {
             markConversationReadInState(charId, vars);
             $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
             $content.html(getMessagesThreadHtml(charId, vars));
+            scrollPhoneThreadToBottom();
             updatePhoneBadges();
         } else if (phoneViewState.pickerFor === 'call') {
             if (typeof Engine !== 'undefined' && Engine.wiki) Engine.wiki('<<phoneCallLog "' + charId + '" "out">>');
@@ -231,6 +286,7 @@ function createPhoneOverlay() {
         markConversationReadInState(charId, vars);
         $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
         $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        scrollPhoneThreadToBottom();
         updatePhoneBadges();
     });
 
@@ -267,6 +323,7 @@ function createPhoneOverlay() {
         phoneViewState.sub = 'thread';
         $('#phone-app-view-title').text(getPhoneContactFullName(charId, v));
         $('#phone-app-view-content').html(getMessagesThreadHtml(charId, v));
+        scrollPhoneThreadToBottom();
         updatePhoneBadges();
     });
 
@@ -281,6 +338,7 @@ function createPhoneOverlay() {
             markConversationReadInState(charId, vars);
             persistPhoneChanges();
             $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+            scrollPhoneThreadToBottom();
             updatePhoneBadges();
             return;
         }
@@ -296,6 +354,7 @@ function createPhoneOverlay() {
             phoneViewState.sub = 'thread';
             $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
             $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+            scrollPhoneThreadToBottom();
             updatePhoneBadges();
             return;
         }
@@ -306,6 +365,7 @@ function createPhoneOverlay() {
         phoneViewState.sub = 'thread';
         $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
         $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        scrollPhoneThreadToBottom();
         updatePhoneBadges();
     });
 
@@ -336,6 +396,7 @@ function createPhoneOverlay() {
         phoneViewState.sub = 'thread';
         $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
         $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        scrollPhoneThreadToBottom();
         updatePhoneBadges();
     });
 
@@ -369,6 +430,7 @@ function createPhoneOverlay() {
         phoneViewState.sub = 'thread';
         $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
         $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        scrollPhoneThreadToBottom();
         updatePhoneBadges();
     });
 
@@ -385,6 +447,7 @@ function createPhoneOverlay() {
         phoneViewState.sub = 'thread';
         $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
         $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        scrollPhoneThreadToBottom();
         updatePhoneBadges();
     });
 
@@ -396,28 +459,204 @@ function createPhoneOverlay() {
         var topics = getAvailableTalkTopics(charId, vars);
         var topic = topics.filter(function (t) { return t.id === topicId; })[0];
         if (!topic || !charId) return;
-        pushPhoneMessage(charId, 'player', topic.message || '');
         if (typeof Engine !== 'undefined' && Engine.wiki) Engine.wiki('<<updateCharacterLocations>>');
         var ch = vars.characters && vars.characters[charId];
         var status = (ch && ch.currentStatus) || '';
         var availableNow = status !== 'sleeping' && status !== 'showering';
-        if (availableNow) {
-            if (topic.reply) pushPhoneMessage(charId, charId, topic.reply);
-            markTalkTopicUsedToday(charId, topicId, vars);
-        } else {
-            pushPhoneMessage(charId, charId, 'You waited for a while. No reply... probably not available right now.');
+        var turns = topic.turns;
+        if (topic.variations && Array.isArray(topic.variations) && topic.variations.length > 0) {
+            var vIdx = Math.floor(Math.random() * topic.variations.length);
+            turns = topic.variations[vIdx];
         }
+        if (turns && Array.isArray(turns) && turns.length > 0) {
+            if (availableNow) {
+                var choiceHit = false;
+                console.log('[Topic] Processing topic:', topicId, 'imagePool:', topic.imagePool, 'imageType:', topic.imageType);
+                var topicImage = (typeof window.phonePickRandomImage === 'function' && (topic.imagePool || (topic.images && topic.images.length))) ? window.phonePickRandomImage(topic) : null;
+                console.log('[Topic] topicImage selected:', topicImage);
+                var topicImageType = topic.imageType || null;
+                var photoPushed = false;
+                for (var i = 0; i < turns.length; i++) {
+                    var turn = turns[i];
+                    if (turn && turn.type === 'choice' && turn.options && turn.options.length > 0) {
+                        phoneViewState.pendingTopicChoice = { charId: charId, topicId: topicId, topic: topic, choiceTurn: turn, topicImage: topicImage, topicImageType: topicImageType, photoPushed: photoPushed };
+                        choiceHit = true;
+                        break;
+                    }
+                    var from = (turn.from === 'player') ? 'player' : charId;
+                    var text = turn.text || '';
+                    var img = null;
+                    console.log('[Topic Turn ' + i + '] from:', from, 'text:', text.substring(0, 30) + '...', 'topicImage:', topicImage, 'photoPushed:', photoPushed, 'topicImageType:', topicImageType);
+                    if (topicImage && !photoPushed) {
+                        if (topicImageType === 'receiver' && from !== 'player') { 
+                            img = topicImage; 
+                            photoPushed = true;
+                            console.log('[Topic Turn ' + i + '] ATTACHING receiver image:', img);
+                        }
+                        else if (topicImageType === 'sender' && from === 'player') { 
+                            img = topicImage; 
+                            photoPushed = true; 
+                            console.log('[Topic Turn ' + i + '] ATTACHING sender image:', img);
+                        }
+                    }
+                    console.log('[Topic Turn ' + i + '] Calling pushPhoneMessage with img:', img);
+                    if (text || img) pushPhoneMessage(charId, from, text, img);
+                }
+                if (!choiceHit && typeof window.phoneApplyTopicEffects === 'function') window.phoneApplyTopicEffects(charId, topic, vars);
+            } else {
+                pushPhoneMessage(charId, 'player', turns[0].text || '');
+                pushPhoneMessage(charId, charId, 'You waited for a while. No reply... probably not available right now.');
+            }
+        } else {
+            pushPhoneMessage(charId, 'player', topic.message || '');
+            if (availableNow) {
+                var reply = (topic.replies && topic.replies.length) ? (typeof window.phonePickRandomReply === 'function' ? window.phonePickRandomReply(topic.replies) : topic.replies[0]) : (topic.reply || '');
+                if (reply) pushPhoneMessage(charId, charId, reply);
+            } else {
+                pushPhoneMessage(charId, charId, 'You waited for a while. No reply... probably not available right now.');
+            }
+        }
+        if (availableNow && !phoneViewState.pendingTopicChoice) markTalkTopicUsedToday(charId, topicId, vars);
         markConversationReadInState(charId, vars);
         persistPhoneChanges();
         phoneViewState.sub = 'thread';
         $('#phone-app-view-title').text(getPhoneContactFullName(charId, vars));
         $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        scrollPhoneThreadToBottom();
         updatePhoneBadges();
+    });
+
+    $('#phone-overlay').on('click', '.phone-topic-choice-btn', function () {
+        var pending = phoneViewState.pendingTopicChoice;
+        if (!PhoneAPI || !pending || pending.charId !== phoneViewState.threadCharId) return;
+        var optIdx = parseInt($(this).data('option-index'), 10);
+        var options = pending.choiceTurn && pending.choiceTurn.options;
+        if (!options || optIdx < 0 || optIdx >= options.length) return;
+        var opt = options[optIdx];
+        var vars = PhoneAPI.State.variables;
+        if (opt.requiresSpicyPhoto) {
+            phoneViewState.pendingTopicChoicePhotoPick = { pending: pending, optionIndex: optIdx };
+            $('#phone-app-view-content').html(typeof getSpicyPhotoPickerHtml === 'function' ? getSpicyPhotoPickerHtml(vars) : '');
+            return;
+        }
+        applyTopicChoiceOption(pending, optIdx, null);
+    });
+
+    function applyTopicChoiceOption(pending, optIdx, selectedImagePath) {
+        if (!PhoneAPI || !pending) return;
+        var options = pending.choiceTurn && pending.choiceTurn.options;
+        if (!options || optIdx < 0 || optIdx >= options.length) return;
+        var opt = options[optIdx];
+        var charId = pending.charId;
+        var vars = PhoneAPI.State.variables;
+        var topicImage = pending.topicImage || null;
+        var topicImageType = pending.topicImageType || null;
+        var photoPushed = pending.photoPushed || false;
+        var attachImgToPlayer = topicImage && !photoPushed && topicImageType === 'sender';
+        var playerImg = selectedImagePath || (attachImgToPlayer ? topicImage : null);
+        pushPhoneMessage(charId, 'player', opt.playerText || '', playerImg);
+        if (attachImgToPlayer || selectedImagePath) photoPushed = true;
+        if (opt.then && Array.isArray(opt.then)) {
+            opt.then.forEach(function (t) {
+                var from = (t.from === 'player') ? 'player' : charId;
+                var text = t.text || '';
+                var img = null;
+                if (topicImage && !photoPushed) {
+                    if (topicImageType === 'receiver' && from !== 'player') { img = topicImage; photoPushed = true; }
+                    else if (topicImageType === 'sender' && from === 'player') { img = topicImage; photoPushed = true; }
+                }
+                if (text || img) pushPhoneMessage(charId, from, text, img);
+            });
+        }
+        if (typeof window.phoneApplyTopicEffects === 'function') window.phoneApplyTopicEffects(charId, pending.topic, vars);
+        markTalkTopicUsedToday(charId, pending.topicId, vars);
+        phoneViewState.pendingTopicChoice = null;
+        phoneViewState.pendingTopicChoicePhotoPick = null;
+        markConversationReadInState(charId, vars);
+        persistPhoneChanges();
+        $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        scrollPhoneThreadToBottom();
+        updatePhoneBadges();
+    }
+
+    $('#phone-overlay').on('click', '.phone-spicy-pick-cell', function () {
+        var pick = phoneViewState.pendingTopicChoicePhotoPick;
+        if (!pick || !pick.pending || pick.pending.charId !== phoneViewState.threadCharId) return;
+        var path = $(this).data('path');
+        if (!path) return;
+        applyTopicChoiceOption(pick.pending, pick.optionIndex, path);
+    });
+
+    $('#phone-overlay').on('click', '.phone-spicy-pick-cancel', function () {
+        if (!phoneViewState.pendingTopicChoicePhotoPick || phoneViewState.threadCharId !== phoneViewState.pendingTopicChoicePhotoPick.pending.charId) return;
+        phoneViewState.pendingTopicChoicePhotoPick = null;
+        var charId = phoneViewState.threadCharId;
+        var vars = PhoneAPI ? PhoneAPI.State.variables : {};
+        $('#phone-app-view-content').html(getMessagesThreadHtml(charId, vars));
+        scrollPhoneThreadToBottom();
+    });
+
+    // Camera: Selfie buttons
+    $('#phone-overlay').on('click', '#phone-camera-normal', function () {
+        if (typeof window.phoneTakeSelfie === 'function') {
+            window.phoneTakeSelfie('normal');
+        }
+    });
+    $('#phone-overlay').on('click', '#phone-camera-cute', function () {
+        if (typeof window.phoneTakeSelfie === 'function') {
+            window.phoneTakeSelfie('cute');
+        }
+    });
+    $('#phone-overlay').on('click', '#phone-camera-hot', function () {
+        if (typeof window.phoneTakeSelfie === 'function') {
+            window.phoneTakeSelfie('hot');
+        }
+    });
+    $('#phone-overlay').on('click', '#phone-camera-spicy', function () {
+        if (typeof window.phoneTakeSelfie === 'function') {
+            window.phoneTakeSelfie('spicy');
+        }
+    });
+
+    // Camera: Video buttons
+    $('#phone-overlay').on('click', '#phone-camera-video-normal', function () {
+        if (typeof window.phoneRecordVideo === 'function') {
+            window.phoneRecordVideo('normal');
+        }
+    });
+    $('#phone-overlay').on('click', '#phone-camera-video-cute', function () {
+        if (typeof window.phoneRecordVideo === 'function') {
+            window.phoneRecordVideo('cute');
+        }
+    });
+    $('#phone-overlay').on('click', '#phone-camera-video-hot', function () {
+        if (typeof window.phoneRecordVideo === 'function') {
+            window.phoneRecordVideo('hot');
+        }
+    });
+    $('#phone-overlay').on('click', '#phone-camera-video-spicy', function () {
+        if (typeof window.phoneRecordVideo === 'function') {
+            window.phoneRecordVideo('spicy');
+        }
+    });
+
+    $('#phone-overlay').on('click', '[id^="phone-gallery-folder-"]', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!PhoneAPI) return;
+        var folder = $(this).data('folder') || (this.id ? this.id.replace('phone-gallery-folder-', '') : '');
+        if (!folder) return;
+        phoneViewState.galleryFolder = folder;
+        var titles = { photos: 'Photos', videos: 'Videos', received: 'Received' };
+        $('#phone-app-view-title').text(titles[folder] || folder);
+        $('#phone-app-view-content').html(getAppContent('gallery', PhoneAPI.State.variables));
     });
 }
 
 $(document).on(':passagerender', function () {
     if (!PhoneAPI) return;
+    /* Don't close/recreate phone when refresh was triggered from inside phone (e.g. topic effects, advanceTime) */
+    if (window._phoneApplyTopicEffectsActive) return;
     $('#phone-overlay').remove();
     createPhoneOverlay();
 });

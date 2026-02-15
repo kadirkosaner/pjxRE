@@ -14,6 +14,11 @@ function formatPhoneTime(t) {
     return h + ':' + m;
 }
 
+/**
+ * Persist phone-related state (gallery, messages, appointments, etc.) to save.
+ * Phone data lives in State.variables ($phoneGallery, phoneMessages, etc.); no separate widget
+ * or passage stores it — this just triggers SugarCube Save (autosave or SaveLoadAPI slot save).
+ */
 function persistPhoneChanges() {
     try {
         if (window.Save && Save.autosave && typeof Save.autosave.save === 'function') {

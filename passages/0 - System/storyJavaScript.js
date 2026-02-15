@@ -167,14 +167,38 @@ window.phoneUnreadCount = function () {
     });
     return n;
 };
-/** Check if a phone message topic is unlocked (requirements met). */
+/** Stats used for phone topics (must match topic-system.js). */
+var PHONE_TOPIC_STAT_KEYS = ["friendship", "love", "lust"];
+
+/** Check if a phone message topic is unlocked (friendship/love/lust tier + requiredStats, plus legacy requirements). */
 window.phoneTopicUnlocked = function (charId, topic, vars) {
-    if (!topic || !topic.requirements || Object.keys(topic.requirements).length === 0) return true;
+    if (!topic) return false;
+    var char = vars && vars.characters && vars.characters[charId];
+    if (!char || !char.stats) return false;
+
+    /* Category + tier: character stat for this topic's category must be >= topic.tier */
+    if (topic.category && PHONE_TOPIC_STAT_KEYS.indexOf(topic.category) !== -1) {
+        var statVal = char.stats[topic.category] != null ? Number(char.stats[topic.category]) : 0;
+        var tier = topic.tier != null ? Number(topic.tier) : 0;
+        if (statVal < tier) return false;
+    }
+
+    /* requiredStats: each listed stat must meet the minimum */
+    if (topic.requiredStats && typeof topic.requiredStats === "object") {
+        for (var key in topic.requiredStats) {
+            if (!Object.prototype.hasOwnProperty.call(topic.requiredStats, key)) continue;
+            if (PHONE_TOPIC_STAT_KEYS.indexOf(key) === -1) continue;
+            var need = Number(topic.requiredStats[key]);
+            var have = char.stats[key] != null ? Number(char.stats[key]) : 0;
+            if (have < need) return false;
+        }
+    }
+
+    /* Legacy: topic.requirements.flag and topic.requirements.minLove */
     var req = topic.requirements;
-    if (req.flag && !(vars.flags && vars.flags[req.flag])) return false;
-    if (req.minLove != null) {
-        var c = vars.characters && vars.characters[charId];
-        if (!c || !c.stats || (c.stats.love || 0) < req.minLove) return false;
+    if (req && typeof req === "object") {
+        if (req.flag && !(vars.flags && vars.flags[req.flag])) return false;
+        if (req.minLove != null && (char.stats.love || 0) < req.minLove) return false;
     }
     return true;
 };

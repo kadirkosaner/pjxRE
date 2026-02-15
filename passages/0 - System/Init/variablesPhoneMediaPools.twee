@@ -1,0 +1,47 @@
+:: variablesPhoneMediaPools [init nobr]
+/* Location-specific (special) photos: add entries with tags: ["locationId"].
+   locationId = last segment of $location (e.g. sunsetPark, fhBedroom). When shooting there, those images are preferred; if none match, any image in the slot is used.
+   Example: public: [ { path: "", tags: ["sunsetPark"] }, { path: "assets/.../generic.webp" } ]
+*/
+<<set setup.phoneMediaPools = {
+	photos: {
+		normal: {
+			safe: [
+				{ path: "assets/content/phone/camera/normal_safe_1.webp" },
+			],
+			public: [				
+				{ path: "assets/content/phone/camera/normal_safe_1.webp" },
+			],
+		},
+		cute: {
+			safe: [
+				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+			],
+			public: [
+				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+			]
+		},
+		hot: {
+			safe: [
+				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+			],
+			public: [
+				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+			]
+		},
+		spicy: {
+			safe: [
+				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+			],
+			public: [
+				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+			]
+		}
+	},
+	videos: {
+		normal: { safe: [], public: [] },
+		cute:   { safe: [], public: [] },
+		hot:    { safe: [], public: [] },
+		spicy:  { safe: [], public: [] }
+	}
+}>>

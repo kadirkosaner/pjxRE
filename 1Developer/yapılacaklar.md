@@ -7,9 +7,6 @@
 
 - Yeni itemler için shoppingi yapmaya başlamak. Kitap ve İtemlar.
 
-- Galery ve Camera sistemi yapılacak.
-- bazı phone talklar interactive olacak. mesela birinden fotoğraf geldi fotoğraf at dedi redetme olacak.
-
 ############################################################################################################################
 
 - sleep ayarlarına bakılabilinir energy'ye göre uyuma gibi yada uyuma saatini zorunlu yapmak gibi.

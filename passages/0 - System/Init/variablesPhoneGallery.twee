@@ -1,0 +1,28 @@
+:: variablesPhoneGallery [init nobr]
+<<set $phoneGallery = {
+	photos: {
+		normal: [],
+		cute: [],
+		hot: [],
+		spicy: [],
+		received: []
+	},
+	videos: {
+		normal: [],
+		cute: [],
+		hot: [],
+		spicy: [],
+		received: []
+	}
+}>>
+
+/*
+Phone Gallery Structure:
+- Each item: { id, path, flags, timestamp, quality, from }
+- id: unique identifier
+- path: image/video path (empty until variant from pool; pool sets it in Adım 6)
+- flags: string[] e.g. ["casual","clothed"] or ["nude","public","risky","special{public_sunsetPark}"] (location context in flags)
+- timestamp: { day, month, year, hour, minute }
+- quality: 1-100 score from stats (Beauty + Looks + Confidence + Exhibitionism)
+- from: 'player' or charId (for received)
+*/

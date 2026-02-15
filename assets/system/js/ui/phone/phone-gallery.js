@@ -1,27 +1,209 @@
 /* ==========================================
-   PHONE GALLERY MODULE - NEW FEATURE
-   Gallery for viewing and selecting photos/videos
+   PHONE GALLERY MODULE - Folders + Grid
+   Gallery: folder grid, then media grid per folder
 ========================================== */
 
 /**
- * Render gallery app UI
- * @param {object} vars - State.variables
- * @returns {string} HTML content
+ * Get list of media items for a folder
+ * @param {object} gallery - vars.phoneGallery
+ * @param {string} folder - 'photos' | 'videos' | 'received'
+ * @returns {{ item: object, kind: string, category: string }[]}
  */
-function phoneRenderGalleryApp(vars) {
-    const gallery = vars.phoneGallery || { photos: {}, videos: {} };
+function getGalleryItemsForFolder(gallery, folder) {
+    if (!gallery || !gallery.photos || !gallery.videos) return [];
+    var out = [];
+    if (folder === 'photos') {
+        ['normal', 'cute', 'hot', 'spicy'].forEach(function (cat) {
+            var list = gallery.photos[cat];
+            if (Array.isArray(list)) list.forEach(function (item) { out.push({ item: item, kind: 'photo', category: cat }); });
+        });
+    } else if (folder === 'videos') {
+        ['normal', 'cute', 'hot', 'spicy'].forEach(function (cat) {
+            var list = gallery.videos[cat];
+            if (Array.isArray(list)) list.forEach(function (item) { out.push({ item: item, kind: 'video', category: cat }); });
+        });
+    } else if (folder === 'received') {
+        var pr = gallery.photos.received;
+        var vr = gallery.videos.received;
+        if (Array.isArray(pr)) pr.forEach(function (item) { out.push({ item: item, kind: 'photo', category: 'received' }); });
+        if (Array.isArray(vr)) vr.forEach(function (item) { out.push({ item: item, kind: 'video', category: 'received' }); });
+    }
+    return out;
+}
+
+/**
+ * Count items per folder (for folder grid labels)
+ */
+function getGalleryFolderCounts(gallery) {
+    if (!gallery || !gallery.photos || !gallery.videos) return { photos: 0, videos: 0, received: 0 };
+    var photos = 0, videos = 0, received = 0;
+    ['normal', 'cute', 'hot', 'spicy'].forEach(function (cat) {
+        if (Array.isArray(gallery.photos[cat])) photos += gallery.photos[cat].length;
+        if (Array.isArray(gallery.videos[cat])) videos += gallery.videos[cat].length;
+    });
+    if (Array.isArray(gallery.photos.received)) received += gallery.photos.received.length;
+    if (Array.isArray(gallery.videos.received)) received += gallery.videos.received.length;
+    return { photos: photos, videos: videos, received: received };
+}
+
+function getAssetUrl(path) {
+    return (typeof window.getPhoneAssetUrl === 'function') ? window.getPhoneAssetUrl(path) : (path || '');
+}
+
+/**
+ * Render gallery app: folder grid or media grid
+ * @param {object} vars - State.variables
+ * @param {object} opts - { galleryFolder: string | null } from phoneViewState
+ * @returns {string} HTML
+ */
+function phoneRenderGalleryApp(vars, opts) {
+    var gallery = vars.phoneGallery || { photos: {}, videos: {} };
+    var folder = (opts && opts.galleryFolder) ? opts.galleryFolder : null;
+
+    if (!folder) {
+        var counts = getGalleryFolderCounts(gallery);
+        var folderLabel = function (key, label) {
+            var n = counts[key] || 0;
+            return '<div class="phone-gallery-folder" id="phone-gallery-folder-' + key + '" data-folder="' + key + '" role="button" tabindex="0" onclick="typeof window.openGalleryFolder===\'function\'&&window.openGalleryFolder(\'' + key + '\');return false;">' +
+                '<div class="phone-gallery-folder-inner">' +
+                '<span class="phone-gallery-folder-label">' + label + '</span>' +
+                '<span class="phone-gallery-folder-count">' + n + '</span>' +
+                '</div></div>';
+        };
+        return '<div class="phone-gallery-folders">' +
+            folderLabel('photos', 'Photos') +
+            folderLabel('videos', 'Videos') +
+            folderLabel('received', 'Received') +
+            '</div>';
+    }
+
+    var items = getGalleryItemsForFolder(gallery, folder);
+    if (items.length === 0) {
+        return '<div class="phone-gallery-empty">' +
+            '<p class="phone-app-placeholder-text">No media</p>' +
+            '<p class="phone-app-placeholder-sub">This folder is empty.</p>' +
+            '</div>';
+    }
+
+    var folderTitles = { photos: 'Photos', videos: 'Videos', received: 'Received' };
+    var title = folderTitles[folder] || folder;
+    var cells = items.map(function (entry) {
+        var it = entry.item;
+        var path = (it.path && String(it.path).trim()) ? it.path : '';
+        var src = path ? getAssetUrl(path) : '';
+        var isVideo = entry.kind === 'video';
+        var thumb = isVideo
+            ? (src ? '<video class="phone-gallery-thumb-img" src="' + src.replace(/"/g, '&quot;') + '" muted preload="metadata"></video>' : '<div class="phone-gallery-thumb-placeholder">Video</div>')
+            : (path ? '<img class="phone-gallery-thumb-img" src="' + (src || path).replace(/"/g, '&quot;') + '" alt="" loading="lazy">' : '<div class="phone-gallery-thumb-placeholder">Photo</div>');
+        var safeId = (it.id || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        var safeCat = (entry.category || '').replace(/'/g, "\\'");
+        return '<div class="phone-gallery-cell" data-id="' + safeId + '" data-kind="' + entry.kind + '" data-category="' + safeCat + '" data-folder="' + folder + '" onclick="typeof window.openGalleryPreview===\'function\'&&window.openGalleryPreview(\'' + safeId + '\',\'' + entry.kind + '\',\'' + safeCat + '\',\'' + folder + '\');return false;">' + thumb + '</div>';
+    }).join('');
+
+    return '<div class="phone-gallery-grid" data-folder="' + folder + '">' + cells + '</div>';
+}
+
+/**
+ * Find a gallery item by id in the given folder/category/kind
+ */
+function findGalleryItem(gallery, id, kind, category, folder) {
+    var list = null;
+    if (folder === 'received') {
+        list = kind === 'photo' ? (gallery.photos && gallery.photos.received) : (gallery.videos && gallery.videos.received);
+    } else if (folder === 'photos' && gallery.photos) {
+        list = gallery.photos[category];
+    } else if (folder === 'videos' && gallery.videos) {
+        list = gallery.videos[category];
+    }
+    if (!Array.isArray(list)) return null;
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].id === id) return list[i];
+    }
+    return null;
+}
+
+/**
+ * Open full-screen preview for a gallery item (photo or video). Back closes it.
+ * @param {string} id - item id
+ * @param {string} kind - 'photo' | 'video'
+ * @param {string} category - 'normal' | 'cute' | 'hot' | 'spicy' | 'received'
+ * @param {string} folder - 'photos' | 'videos' | 'received'
+ */
+window.openGalleryPreview = function (id, kind, category, folder) {
+    if (!id || typeof PhoneAPI === 'undefined' || !PhoneAPI.State || !PhoneAPI.State.variables) return;
+    var vars = PhoneAPI.State.variables;
+    var gallery = vars.phoneGallery || { photos: {}, videos: {} };
+    var item = findGalleryItem(gallery, id, kind, category, folder);
+    if (!item) return;
+    var path = (item.path && String(item.path).trim()) ? item.path : '';
+    var subtitleText;
+    if (folder === 'received' && item.from && typeof getPhoneContactFullName === 'function') {
+        var fromName = getPhoneContactFullName(item.from, vars) || item.from;
+        subtitleText = (typeof escapeHtml === 'function' ? escapeHtml('From: ' + fromName) : ('From: ' + fromName));
+    } else {
+        var quality = (item.quality != null) ? Number(item.quality) : 0;
+        subtitleText = 'Quality: ' + quality + '/100';
+    }
+    var src = path ? getAssetUrl(path) : '';
+    var safeSrc = (src || path).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    var mediaHtml;
+    if (kind === 'video') {
+        mediaHtml = path
+            ? '<video class="phone-camera-preview-img" src="' + safeSrc + '" controls playsinline></video>'
+            : '<div class="phone-camera-preview-placeholder">No video</div>';
+    } else {
+        mediaHtml = path
+            ? '<img class="phone-camera-preview-img" src="' + safeSrc + '" alt="">'
+            : '<div class="phone-camera-preview-placeholder">No image</div>';
+    }
+    var html = '<div class="phone-gallery-preview-overlay">' +
+        '<div class="phone-camera-preview-media">' + mediaHtml + '</div>' +
+        '<div class="phone-camera-preview-score">' + subtitleText + '</div>' +
+        '</div>';
+    var $view = typeof $ !== 'undefined' ? $('#phone-app-view') : null;
+    if (!$view || !$view.length) return;
+    $view.find('.phone-gallery-preview-overlay').remove();
+    $view.append(html);
+    if (typeof $ !== 'undefined' && $('#phone-app-view-title').length) {
+        $('#phone-app-view-title').text(kind === 'video' ? 'Video' : 'Photo');
+    }
+};
+
+window.phoneGalleryAddItem = function(path, metadata) {
+    if (!path || typeof PhoneAPI === 'undefined' || !PhoneAPI.State || !PhoneAPI.State.variables) return;
+    var vars = PhoneAPI.State.variables;
+    if (!vars.phoneGallery) vars.phoneGallery = { photos: {}, videos: {} };
+    var gallery = vars.phoneGallery;
     
-    return `
-        <div class="phone-gallery-app">
-            <div class="phone-app-placeholder">
-                <p class="phone-app-placeholder-text">Gallery</p>
-                <p class="phone-app-placeholder-sub">Your photos and videos</p>
-            </div>
-            <div class="phone-gallery-grid">
-                <p>No media yet. Use the Camera app to take your first selfie!</p>
-            </div>
-        </div>
-    `;
+    // Ensure structure exists
+    if (!gallery.photos) gallery.photos = {};
+    if (!gallery.videos) gallery.videos = {};
+    if (!gallery.photos.received) gallery.photos.received = [];
+    if (!gallery.videos.received) gallery.videos.received = [];
+
+    // Check if valid image path (basic check)
+    var isVideo = path.endsWith('.mp4') || path.endsWith('.webm');
+    var targetList = isVideo ? gallery.videos.received : gallery.photos.received;
+
+    // Avoid duplicates
+    for (var i = 0; i < targetList.length; i++) {
+        if (targetList[i].path === path) return;
+    }
+
+    var item = {
+        id: 'received_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+        path: path,
+        from: (metadata && metadata.from) ? metadata.from : 'unknown',
+        date: vars.timeSys ? { ...vars.timeSys } : null,
+        unlocked: true
+    };
+
+    targetList.push(item);
+    
+    // Optional: Notification that new media was added
+    if (typeof window.showNotification === 'function') {
+        window.showNotification({ type: 'info', message: 'New photo received!' });
+    }
 };
 
 window.phoneRenderGalleryApp = phoneRenderGalleryApp;

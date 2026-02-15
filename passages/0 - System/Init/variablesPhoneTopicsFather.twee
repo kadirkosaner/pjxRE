@@ -1,0 +1,796 @@
+:: variablesPhoneTopicsFather [init]
+/* Father phone topics – 2–4 variations per topic, slang/profanity ok */
+
+<<set setup.phoneMessageTopics.father = [
+    /* === FRIENDSHIP === */
+    {
+        id: "workCheck",
+        version: 1,
+        label: "How's work?",
+        category: "friendship",
+        tier: 0,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "Hey dad, how's work going?" },
+                { from: "character", text: "Same as always. Busy. You good?" },
+                { from: "player", text: "Yeah. Just checking in." },
+                { from: "character", text: "Appreciate it. Love you honey." }
+            ],
+            [
+                { from: "player", text: "How's the job treating you?" },
+                { from: "character", text: "Been tough this week. But it pays the bills. How about you?" },
+                { from: "player", text: "Hanging in. Take it easy." },
+                { from: "character", text: "You too. Don't work too hard. Call me if you need anything." }
+            ],
+            [
+                { from: "player", text: "Hey dad, how's work going?" },
+                { from: "character", text: "Can't complain. Long hours though. Everything okay with you?" },
+                { from: "player", text: "Yeah. Just wanted to check in. Same old?" },
+                { from: "character", text: "Same as always. Busy. You good? Appreciate it. Love you honey." },
+                { from: "player", text: "Love you too. Take it easy." }
+            ],
+            [
+                { from: "player", text: "How's the job?" },
+                { from: "character", text: "Same old. You need something honey? Been tough this week but it pays the bills." },
+                { from: "player", text: "Nah. Just checking on you." },
+                { from: "character", text: "How about you? Everything okay? Love you." },
+                { from: "player", text: "All good. Bye dad." }
+            ],
+            [
+                { from: "player", text: "Hey dad, how's work going?" },
+                { from: "character", text: "Same as always. Busy. You want to grab dinner this week? Just us?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. When?", then: [ { from: "character", text: "Friday? I'll get off early. Love you honey." } ] },
+                    { label: "Maybe", playerText: "Maybe next week. Schedule's full.", then: [ { from: "character", text: "No problem. Let me know. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "How's the job treating you?" },
+                { from: "character", text: "Been tough. Need to blow off steam. Want to help me in the garage Saturday?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. What time?", then: [ { from: "character", text: "Morning. I'll show you the new project. Thanks honey." } ] },
+                    { label: "Can't", playerText: "Can't this week. Next time?", then: [ { from: "character", text: "Okay. Another time. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "whatUpDad",
+        version: 1,
+        label: "What's up?",
+        category: "friendship",
+        tier: 0,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "What are you up to?" },
+                { from: "character", text: "Just watching the game. Not much. You?" },
+                { from: "player", text: "Nothing much. Just bored." },
+                { from: "character", text: "Come by if you want. Fridge is full." }
+            ],
+            [
+                { from: "player", text: "Yo dad, what's good?" },
+                { from: "character", text: "In the garage. Always something to fix. You need something?" },
+                { from: "player", text: "Nah. Just saying hi." },
+                { from: "character", text: "Good to hear from you. Love you." }
+            ],
+            [
+                { from: "player", text: "What are you up to?" },
+                { from: "character", text: "Just watching the game. Not much. You?" },
+                { from: "player", text: "Nothing much. Just bored. Fridge still full?" },
+                { from: "character", text: "Come by if you want. Always. Taking it easy. You?" },
+                { from: "player", text: "Maybe later. Bye." }
+            ],
+            [
+                { from: "player", text: "Yo dad, what's good?" },
+                { from: "character", text: "In the garage. Always something to fix. You need something?" },
+                { from: "player", text: "Nah. Just saying hi. Want company?" },
+                { from: "character", text: "Nothing much. Why, you need something? Good to hear from you. Love you." },
+                { from: "player", text: "Love you too. See you." }
+            ],
+            [
+                { from: "player", text: "What are you up to?" },
+                { from: "character", text: "Just watching the game. You want to come over? Fridge is full." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yeah. Be there in a bit.", then: [ { from: "character", text: "Good. See you. Love you." } ] },
+                    { label: "Not today", playerText: "Not today. Maybe tomorrow?", then: [ { from: "character", text: "Okay. Door's always open. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Yo dad, what's good?" },
+                { from: "character", text: "In the garage. Want to help? I could use another pair of hands." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. What are we doing?", then: [ { from: "character", text: "Oil change. I'll show you. Come on over." } ] },
+                    { label: "Later", playerText: "Maybe later. Just saying hi.", then: [ { from: "character", text: "Good to hear from you. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "garage",
+        version: 1,
+        label: "Working on car?",
+        category: "friendship",
+        tier: 20,
+        timeAdvance: 2,
+        statGain: { friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "Are you in the garage again dad?" },
+                { from: "character", text: "Yeah, just tinkering with the car. Need something?" },
+                { from: "player", text: "Nah. Want help?" },
+                { from: "character", text: "Changing the oil. You can come out if you want. I'll show you." }
+            ],
+            [
+                { from: "player", text: "Garage again?" },
+                { from: "character", text: "Always. Car needs work. What's up honey?" },
+                { from: "player", text: "Just wondering." },
+                { from: "character", text: "I'm here if you need me." }
+            ],
+            [
+                { from: "player", text: "Are you in the garage again dad?" },
+                { from: "character", text: "Yeah, just tinkering with the car. Need something?" },
+                { from: "player", text: "Nah. Want help? I've got time." },
+                { from: "character", text: "Changing the oil. You can come out if you want. I'll show you. Car needs work." },
+                { from: "player", text: "Okay. Maybe in a bit. Bye." }
+            ],
+            [
+                { from: "player", text: "Garage again?" },
+                { from: "character", text: "Always. Car needs work. What's up honey?" },
+                { from: "player", text: "Just wondering. You're always out there." },
+                { from: "character", text: "I'm here if you need me. Yeah. You can come out if you want." },
+                { from: "player", text: "Cool. Love you." }
+            ],
+            [
+                { from: "player", text: "Are you in the garage again dad?" },
+                { from: "character", text: "Yeah. Changing the oil. Want to learn? I'll show you." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yeah. When?", then: [ { from: "character", text: "Now if you want. Or Saturday. Your call. Love you." } ] },
+                    { label: "Maybe", playerText: "Maybe next time. Just checking.", then: [ { from: "character", text: "No problem. I'm here if you need me." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Garage again?" },
+                { from: "character", text: "Always. Car needs work. You want to come keep me company?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. Be there soon.", then: [ { from: "character", text: "Good. See you. Bring a beer if you want. Ha." } ] },
+                    { label: "No", playerText: "Nah. Just wondering.", then: [ { from: "character", text: "Okay. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "advice",
+        version: 1,
+        label: "Need advice?",
+        category: "friendship",
+        tier: 40,
+        timeAdvance: 3,
+        statGain: { friendship: 3 },
+        variations: [
+            [
+                { from: "player", text: "Dad, can I get your advice on something?" },
+                { from: "character", text: "Sure honey. What's on your mind?" },
+                { from: "player", text: "It's kinda personal. Can we talk later?" },
+                { from: "character", text: "Anytime. I'm always here. You know that." }
+            ],
+            [
+                { from: "player", text: "I need your advice." },
+                { from: "character", text: "Of course. Shoot. What is it?" },
+                { from: "player", text: "Not over text. Maybe tonight?" },
+                { from: "character", text: "Yeah. Let's talk. I'm here." }
+            ],
+            [
+                { from: "player", text: "Dad, can I get your advice on something?" },
+                { from: "character", text: "Sure honey. What's on your mind?" },
+                { from: "player", text: "It's kinda personal. Can we talk later? Not over text." },
+                { from: "character", text: "Anytime. I'm always here. You know that. Whatever it is." },
+                { from: "player", text: "Thanks. I'll find you tonight." }
+            ],
+            [
+                { from: "player", text: "I need your advice." },
+                { from: "character", text: "Of course. Shoot. What is it?" },
+                { from: "player", text: "Not over text. Maybe tonight? Face to face better." },
+                { from: "character", text: "Yeah. Let's talk. Anytime. I'm here. What do you need?" },
+                { from: "player", text: "Just you. Thanks dad." }
+            ],
+            [
+                { from: "player", text: "Dad, can I get your advice on something?" },
+                { from: "character", text: "Sure. Want to talk now or meet up so we can talk properly?" },
+                { type: "choice", options: [
+                    { label: "Meet up", playerText: "Meet up. Tonight?", then: [ { from: "character", text: "Yeah. I'll be here. Love you. Anytime." } ] },
+                    { label: "Later", playerText: "Later. I'll find you.", then: [ { from: "character", text: "Whenever. I'm here. You know that." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "I need your advice." },
+                { from: "character", text: "Of course. Coffee this week? We can talk then." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. Saturday?", then: [ { from: "character", text: "Saturday. My treat. See you then. Love you." } ] },
+                    { label: "Not yet", playerText: "Not yet. I'll let you know.", then: [ { from: "character", text: "Okay. I'm here when you're ready." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "weekendDad",
+        version: 1,
+        label: "Weekend plans?",
+        category: "friendship",
+        tier: 40,
+        timeAdvance: 2,
+        statGain: { friendship: 3 },
+        variations: [
+            [
+                { from: "player", text: "Got any plans for the weekend?" },
+                { from: "character", text: "Might work on the car if the weather holds up. You're welcome to help." },
+                { from: "player", text: "Maybe. I'll see." },
+                { from: "character", text: "Your mom wants me to fix the fence too. The usual." }
+            ],
+            [
+                { from: "player", text: "What's the plan for the weekend?" },
+                { from: "character", text: "Not sure yet. Maybe grill something. You around?" },
+                { from: "player", text: "Could be. I'll let you know." },
+                { from: "character", text: "Quiet one. Need me for something?" }
+            ],
+            [
+                { from: "player", text: "Got any plans for the weekend?" },
+                { from: "character", text: "Might work on the car if the weather holds up. You're welcome to help." },
+                { from: "player", text: "Maybe. I'll see. What else?" },
+                { from: "character", text: "Your mom wants me to fix the fence too. The usual. Not sure yet. Maybe grill something." },
+                { from: "player", text: "Sounds good. I'll let you know if I'm around." }
+            ],
+            [
+                { from: "player", text: "What's the plan for the weekend?" },
+                { from: "character", text: "Not sure yet. Maybe grill something. You around?" },
+                { from: "player", text: "Could be. I'll let you know. Need me for something?" },
+                { from: "character", text: "Quiet one. Just good to see you. You're welcome to help with the car if you want." },
+                { from: "player", text: "Okay. Love you. Bye." }
+            ],
+            [
+                { from: "player", text: "Got any plans for the weekend?" },
+                { from: "character", text: "Might work on the car. You want to help? Or we could grill. You around?" },
+                { type: "choice", options: [
+                    { label: "Help", playerText: "Yeah. I'll help. What time?", then: [ { from: "character", text: "Saturday morning. I'll show you. Thanks honey." } ] },
+                    { label: "Maybe", playerText: "Maybe. I'll let you know.", then: [ { from: "character", text: "No problem. Door's open. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "What's the plan for the weekend?" },
+                { from: "character", text: "Not sure. Your mom wants me to fix the fence. Want to have a beer with me after?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. I'll come by.", then: [ { from: "character", text: "Good. See you then. Love you." } ] },
+                    { label: "Can't", playerText: "Can't this week. Next time?", then: [ { from: "character", text: "Okay. Another time. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "seriousTalk",
+        version: 1,
+        label: "Serious talk",
+        category: "friendship",
+        tier: 60,
+        timeAdvance: 3,
+        statGain: { friendship: 4 },
+        variations: [
+            [
+                { from: "player", text: "Dad, can we have a serious conversation?" },
+                { from: "character", text: "Of course honey. Anytime. What's going on?" },
+                { from: "player", text: "Not now. Soon. I need to figure out how to say it." },
+                { from: "character", text: "Whenever you're ready. I'm listening. You know that." }
+            ],
+            [
+                { from: "player", text: "I need to talk to you about something important." },
+                { from: "character", text: "Sure thing. I'm here. What do you need?" },
+                { from: "player", text: "Face to face. Can we?" },
+                { from: "character", text: "Yeah. Let's talk. Anytime." }
+            ],
+            [
+                { from: "player", text: "Dad, can we have a serious conversation?" },
+                { from: "character", text: "Of course honey. Anytime. What's going on?" },
+                { from: "player", text: "Not now. Soon. I need to figure out how to say it. It's important." },
+                { from: "character", text: "Whenever you're ready. I'm listening. You know that. Sure thing. I'm here." },
+                { from: "player", text: "Thanks. Love you. Bye." }
+            ],
+            [
+                { from: "player", text: "I need to talk to you about something important." },
+                { from: "character", text: "Sure thing. I'm here. What do you need?" },
+                { from: "player", text: "Face to face. Can we? Not over text." },
+                { from: "character", text: "Yeah. Let's talk. Anytime. Whenever you're ready. You know that." },
+                { from: "player", text: "Okay. I'll find you. Thanks." }
+            ],
+            [
+                { from: "player", text: "Dad, can we have a serious conversation?" },
+                { from: "character", text: "Of course. Want to do it in person? I'm here whenever." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. This week?", then: [ { from: "character", text: "Name the day. I'll make time. Love you. You know that." } ] },
+                    { label: "Soon", playerText: "Soon. I need to figure out how to say it.", then: [ { from: "character", text: "Whenever you're ready. I'm listening. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "I need to talk to you about something important." },
+                { from: "character", text: "Sure. Face to face or you want to try now? Your call." },
+                { type: "choice", options: [
+                    { label: "Face to face", playerText: "Face to face. Can we?", then: [ { from: "character", text: "Yeah. Anytime. Let's talk. I'm here." } ] },
+                    { label: "Later", playerText: "I'll find you. Maybe tonight.", then: [ { from: "character", text: "Okay. I'll be here. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+
+    /* === LOVE === */
+    {
+        id: "loveDad",
+        version: 1,
+        label: "Love you dad",
+        category: "love",
+        tier: 20,
+        timeAdvance: 3,
+        statGain: { love: 2, friendship: 1 },
+        variations: [
+            [
+                { from: "player", text: "Love you dad" },
+                { from: "character", text: "Love you too honey. Always." },
+                { from: "player", text: "Means a lot." },
+                { from: "character", text: "You too sweetheart. You know that right?" }
+            ],
+            [
+                { from: "player", text: "Just wanted to say I love you." },
+                { from: "character", text: "You too. Means a lot. Really." },
+                { from: "player", text: "Good." },
+                { from: "character", text: "Take care. Call me if you need anything." }
+            ],
+            [
+                { from: "player", text: "Love you dad" },
+                { from: "character", text: "Love you too honey. Always." },
+                { from: "player", text: "Means a lot. Just wanted you to know." },
+                { from: "character", text: "You too sweetheart. You know that right? Really. Means a lot." },
+                { from: "player", text: "Good. Bye." }
+            ],
+            [
+                { from: "player", text: "Just wanted to say I love you." },
+                { from: "character", text: "You too. Means a lot. Really." },
+                { from: "player", text: "Good. You're the best dad." },
+                { from: "character", text: "Take care. Call me if you need anything. Love you." },
+                { from: "player", text: "Love you too. Bye." }
+            ],
+            [
+                { from: "player", text: "Love you dad" },
+                { from: "character", text: "Love you too. Want to grab lunch this week? Just us?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. When?", then: [ { from: "character", text: "Friday? My treat. Love you honey." } ] },
+                    { label: "Maybe", playerText: "Maybe next week. Busy right now.", then: [ { from: "character", text: "No problem. Let me know. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Just wanted to say I love you." },
+                { from: "character", text: "Means a lot. Can I call you tonight? Just want to hear your voice." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. After eight?", then: [ { from: "character", text: "I'll call. Love you. Take care." } ] },
+                    { label: "Busy", playerText: "I'm busy tonight. Tomorrow?", then: [ { from: "character", text: "Tomorrow. Love you. Call me if you need anything." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "proudDad",
+        version: 1,
+        label: "Proud of you",
+        category: "love",
+        tier: 40,
+        timeAdvance: 3,
+        statGain: { love: 3, friendship: 1 },
+        variations: [
+            [
+                { from: "player", text: "I'm really proud of you dad" },
+                { from: "character", text: "That's... really nice to hear. You're making your old man soft here." },
+                { from: "player", text: "You deserve it." },
+                { from: "character", text: "I appreciate that more than you know. I'm proud of you too honey." }
+            ],
+            [
+                { from: "player", text: "You're a good dad. Seriously." },
+                { from: "character", text: "Shit, that actually means a lot. Thank you." },
+                { from: "player", text: "Just the truth." },
+                { from: "character", text: "Love you. You're a good kid." }
+            ],
+            [
+                { from: "player", text: "I'm really proud of you dad" },
+                { from: "character", text: "That's... really nice to hear. You're making your old man soft here." },
+                { from: "player", text: "You deserve it. You work so hard." },
+                { from: "character", text: "I appreciate that more than you know. I'm proud of you too honey. Shit, that actually means a lot." },
+                { from: "player", text: "Thank you. Love you." }
+            ],
+            [
+                { from: "player", text: "You're a good dad. Seriously." },
+                { from: "character", text: "Shit, that actually means a lot. Thank you." },
+                { from: "player", text: "Just the truth. You don't hear it enough." },
+                { from: "character", text: "Love you. You're a good kid. I try. Your mom doesn't say it much anymore." },
+                { from: "player", text: "Well I mean it. Bye." }
+            ],
+            [
+                { from: "player", text: "I'm really proud of you dad" },
+                { from: "character", text: "That's really nice. Want to come over so we can talk? I don't hear that enough." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. This weekend?", then: [ { from: "character", text: "Perfect. I appreciate that. Love you. More than you know." } ] },
+                    { label: "Soon", playerText: "Soon. Just wanted you to know.", then: [ { from: "character", text: "I know. Means a lot. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "You're a good dad. Seriously." },
+                { from: "character", text: "Thank you. Can we do something together soon? Garage, grill, whatever." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. What do you want to do?", then: [ { from: "character", text: "Your call. Just want to spend time with you. Love you." } ] },
+                    { label: "Maybe", playerText: "Maybe. I'll let you know.", then: [ { from: "character", text: "Okay. I'm here. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "amazingDad",
+        version: 1,
+        label: "You're amazing",
+        category: "love",
+        tier: 60,
+        timeAdvance: 5,
+        statGain: { love: 4, friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "You're an amazing dad, you know that?" },
+                { from: "character", text: "Jesus, you're going to make me cry here. Thank you honey. I love you." },
+                { from: "player", text: "You are. Don't doubt it." },
+                { from: "character", text: "That means everything. I don't always feel like I'm doing enough, but... thank you." }
+            ],
+            [
+                { from: "player", text: "Best dad ever. No cap." },
+                { from: "character", text: "You're an amazing daughter. I'm lucky to have you." },
+                { from: "player", text: "We're lucky to have you." },
+                { from: "character", text: "Love you. So much." }
+            ],
+            [
+                { from: "player", text: "You're an amazing dad, you know that?" },
+                { from: "character", text: "Jesus, you're going to make me cry here. Thank you honey. I love you." },
+                { from: "player", text: "You are. Don't doubt it. Ever." },
+                { from: "character", text: "That means everything. I don't always feel like I'm doing enough, but... thank you. You're an amazing daughter." },
+                { from: "player", text: "We're lucky to have you. Bye." }
+            ],
+            [
+                { from: "player", text: "Best dad ever. No cap." },
+                { from: "character", text: "You're an amazing daughter. I'm lucky to have you." },
+                { from: "player", text: "We're lucky to have you. Seriously." },
+                { from: "character", text: "Love you. So much. That means everything. Don't forget it." },
+                { from: "player", text: "I won't. Love you. Bye." }
+            ],
+            [
+                { from: "player", text: "You're an amazing dad, you know that?" },
+                { from: "character", text: "Jesus. Thank you. Want to have dinner together this week? Just you and me?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. When?", then: [ { from: "character", text: "Friday? I'll cook. Or we go out. Your pick. Love you." } ] },
+                    { label: "Soon", playerText: "Soon. I promise. Just wanted to say it.", then: [ { from: "character", text: "Means everything. Love you. So much." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Best dad ever. No cap." },
+                { from: "character", text: "You're amazing too. Want to help me in the garage Saturday? We can talk." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. What time?", then: [ { from: "character", text: "Morning. I'll show you. Thanks honey. Love you." } ] },
+                    { label: "Can't", playerText: "Can't this week. Next time?", then: [ { from: "character", text: "No problem. Another time. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "thanksDad",
+        version: 1,
+        label: "Thanks for everything",
+        category: "love",
+        tier: 60,
+        timeAdvance: 5,
+        statGain: { love: 4, friendship: 2 },
+        variations: [
+            [
+                { from: "player", text: "Thanks for everything you do for us dad" },
+                { from: "character", text: "I'd do anything for you. You know that. You and your mom are my world." },
+                { from: "player", text: "I know. Thank you." },
+                { from: "character", text: "Don't need to thank me. It's what I'm here for. Love you honey." }
+            ],
+            [
+                { from: "player", text: "Seriously, thanks for everything." },
+                { from: "character", text: "You're worth every damn second. Love you sweetheart." },
+                { from: "player", text: "Love you too." },
+                { from: "character", text: "Anytime. Always." }
+            ],
+            [
+                { from: "player", text: "Thanks for everything you do for us dad" },
+                { from: "character", text: "I'd do anything for you. You know that. You and your mom are my world." },
+                { from: "player", text: "I know. Thank you. Just wanted to say it." },
+                { from: "character", text: "Don't need to thank me. It's what I'm here for. Love you honey. You're worth every damn second." },
+                { from: "player", text: "Love you too. Bye." }
+            ],
+            [
+                { from: "player", text: "Seriously, thanks for everything." },
+                { from: "character", text: "You're worth every damn second. Love you sweetheart." },
+                { from: "player", text: "Love you too. I don't say it enough." },
+                { from: "character", text: "Anytime. Always. You know that. We're good." },
+                { from: "player", text: "Yeah. Bye dad." }
+            ],
+            [
+                { from: "player", text: "Thanks for everything you do for us dad" },
+                { from: "character", text: "I'd do anything for you. Want to do something together this weekend? My treat." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. What did you have in mind?", then: [ { from: "character", text: "Lunch? Or the game. Whatever you want. Love you." } ] },
+                    { label: "Maybe", playerText: "Maybe. I'll let you know.", then: [ { from: "character", text: "Okay. Anytime. Always. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Seriously, thanks for everything." },
+                { from: "character", text: "You're worth it. Can I see you this week? Just want to hang out." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. When?", then: [ { from: "character", text: "You name it. I'll be there. Love you sweetheart." } ] },
+                    { label: "Soon", playerText: "Soon. Promise.", then: [ { from: "character", text: "Good. I'll be here. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+
+    /* === LUST === */
+    {
+        id: "lookGoodDad",
+        version: 1,
+        label: "Looking good",
+        category: "lust",
+        tier: 20,
+        timeAdvance: 2,
+        statGain: { lust: 3, love: 1 },
+        variations: [
+            [
+                { from: "player", text: "You're looking good lately dad" },
+                { from: "character", text: "Oh yeah? Well thanks honey. Nice of you to notice." },
+                { from: "player", text: "Just saying." },
+                { from: "character", text: "Your old man's still got it, huh? Ha. You're sweet." }
+            ],
+            [
+                { from: "player", text: "You've been working out or something?" },
+                { from: "character", text: "Been trying to stay in shape. Appreciate you... wait, that came out wrong. Thanks sweetheart." },
+                { from: "player", text: "It didn't. You look good." },
+                { from: "character", text: "Glad someone around here notices. Your mom's too busy to care. Thanks." }
+            ],
+            [
+                { from: "player", text: "You're looking good lately dad" },
+                { from: "character", text: "Oh yeah? Well thanks honey. Nice of you to notice." },
+                { from: "player", text: "Just saying. You've been taking care of yourself." },
+                { from: "character", text: "Your old man's still got it, huh? Ha. You're sweet. Been trying." },
+                { from: "player", text: "Yeah. You look good. Bye." }
+            ],
+            [
+                { from: "player", text: "You've been working out or something?" },
+                { from: "character", text: "Been trying to stay in shape. Appreciate you... wait, that came out wrong. Thanks sweetheart." },
+                { from: "player", text: "It didn't. You look good. Seriously." },
+                { from: "character", text: "Glad someone around here notices. Your mom's too busy to care. Thanks. Means a lot." },
+                { from: "player", text: "Love you. Bye." }
+            ],
+            [
+                { from: "player", text: "You're looking good lately dad" },
+                { from: "character", text: "Thanks. You've been working out too? Want to hit the gym together sometime?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yeah. When?", then: [ { from: "character", text: "Saturday morning? I'll show you my routine. Love you." } ] },
+                    { label: "Maybe", playerText: "Maybe. I'll let you know.", then: [ { from: "character", text: "No problem. You're sweet to notice. Thanks." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "You've been working out or something?" },
+                { from: "character", text: "Trying. Your mom doesn't notice. Want to run with me this weekend?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. Where?", then: [ { from: "character", text: "The usual route. Saturday? Good. See you." } ] },
+                    { label: "Can't", playerText: "Can't this week. Next time?", then: [ { from: "character", text: "Okay. Keep it up. You look good too." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "workingOut",
+        version: 1,
+        label: "Working out?",
+        category: "lust",
+        tier: 40,
+        timeAdvance: 3,
+        statGain: { lust: 4, love: 1 },
+        variations: [
+            [
+                { from: "player", text: "Have you been working out? You look really fit dad" },
+                { from: "character", text: "Yeah, been hitting the gym when I can. Glad you noticed. You're looking good too." },
+                { from: "player", text: "Thanks. Trying." },
+                { from: "character", text: "Trying to keep up. Your mom doesn't appreciate it anymore but... thanks for noticing." }
+            ],
+            [
+                { from: "player", text: "Damn dad, you're looking fit." },
+                { from: "character", text: "Damn right I have. You've been working out too, haven't you?" },
+                { from: "player", text: "A bit. You're looking hot." },
+                { from: "character", text: "Thanks honey. You're looking pretty damn good yourself lately." }
+            ],
+            [
+                { from: "player", text: "Have you been working out? You look really fit dad" },
+                { from: "character", text: "Yeah, been hitting the gym when I can. Glad you noticed. You're looking good too." },
+                { from: "player", text: "Thanks. Trying. You're inspiring me." },
+                { from: "character", text: "Trying to keep up. Your mom doesn't appreciate it anymore but... thanks for noticing. Damn right I have." },
+                { from: "player", text: "Well you look great. Bye." }
+            ],
+            [
+                { from: "player", text: "Damn dad, you're looking fit." },
+                { from: "character", text: "Damn right I have. You've been working out too, haven't you?" },
+                { from: "player", text: "A bit. You're looking hot. No lie." },
+                { from: "character", text: "Thanks honey. You're looking pretty damn good yourself lately. Keep it up." },
+                { from: "player", text: "You too. Bye." }
+            ],
+            [
+                { from: "player", text: "Have you been working out? You look really fit dad" },
+                { from: "character", text: "Yeah. Want to work out together? I could show you some stuff." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Sure. This weekend?", then: [ { from: "character", text: "Saturday. Gym or garage. Your call. Thanks for noticing." } ] },
+                    { label: "Maybe", playerText: "Maybe. You're looking hot though.", then: [ { from: "character", text: "Ha. Thanks. You too. Seriously. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Damn dad, you're looking fit." },
+                { from: "character", text: "Damn right. You want a spotter? We could train together." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yeah. When?", then: [ { from: "character", text: "Saturday. I'll text you. You're looking good too. Keep it up." } ] },
+                    { label: "Later", playerText: "Maybe later. Just saying you look good.", then: [ { from: "character", text: "Appreciate it. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "spicyDad",
+        version: 1,
+        label: "Suggestive",
+        category: "lust",
+        tier: 60,
+        requiredStats: { love: 40 },
+        timeAdvance: 3,
+        statGain: { lust: 5, love: 2 },
+        variations: [
+            [
+                { from: "player", text: "Dad... you're looking really hot lately" },
+                { from: "character", text: "Jesus, that's... very forward. But thank you sweetheart. You're not so bad yourself." },
+                { from: "player", text: "I mean it." },
+                { from: "character", text: "Shit, that's quite a compliment. You're looking absolutely stunning too honey." }
+            ],
+            [
+                { from: "player", text: "You're seriously hot. I can't stop looking." },
+                { from: "character", text: "Damn. That's bold as hell. But I appreciate it. You look amazing." },
+                { from: "player", text: "So do you." },
+                { from: "character", text: "Fuck, you're making me blush here. Thanks. You're gorgeous yourself." }
+            ],
+            [
+                { from: "player", text: "Dad... you're looking really hot lately" },
+                { from: "character", text: "Jesus, that's... very forward. But thank you sweetheart. You're not so bad yourself." },
+                { from: "player", text: "I mean it. I can't stop looking. Sorry, is that weird?" },
+                { from: "character", text: "Shit, that's quite a compliment. You're looking absolutely stunning too honey. Not weird. Flattering." },
+                { from: "player", text: "Good. Just wanted you to know. Bye." }
+            ],
+            [
+                { from: "player", text: "You're seriously hot. I can't stop looking." },
+                { from: "character", text: "Damn. That's bold as hell. But I appreciate it. You look amazing." },
+                { from: "player", text: "So do you. Seriously. Your body is..." },
+                { from: "character", text: "Fuck, you're making me blush here. Thanks. You're gorgeous yourself. Don't tell your mother I said that." },
+                { from: "player", text: "Never. Bye." }
+            ],
+            [
+                { from: "player", text: "Dad... you're looking really hot lately" },
+                { from: "character", text: "That's bold. You want to get lunch? Just us? I don't get to see you enough." },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. When?", then: [ { from: "character", text: "Friday? My treat. You're stunning too. Don't tell your mother I said that. 😏" } ] },
+                    { label: "Maybe", playerText: "Maybe. Just wanted you to know you look good.", then: [ { from: "character", text: "Thanks. Means a lot. You're gorgeous yourself. Love you." } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "You're seriously hot. I can't stop looking." },
+                { from: "character", text: "Fuck. You're making me blush. Want me to send you something? A picture?" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. I'd like that.", then: [ { from: "character", text: "Okay. Just for you. Don't show anyone. 🔥" } ] },
+                    { label: "Later", playerText: "Maybe later. You're just so hot.", then: [ { from: "character", text: "Whenever. I'm here. You're stunning. Love you." } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "askPicDad",
+        version: 1,
+        label: "Ask for spicy pic",
+        category: "lust",
+        tier: 60,
+        timeAdvance: 3,
+        statGain: { lust: 5, love: 2 },
+        imageType: "receiver",
+        imagePool: "father",
+        variations: [
+            [
+                { from: "player", text: "Dad... can you send me a pic? A spicy one?" },
+                { from: "character", text: "Fuck... you want to see me like that? Okay. Here. Just for you. Don't tell your mother. 😳🔥" },
+                { from: "player", text: "I won't. Promise. You're so fucking hot." },
+                { from: "character", text: "This stays between us. You like what you see? I'm so hard just thinking about you looking at it." }
+            ],
+            [
+                { from: "player", text: "Send me something... sexy? Please?" },
+                { from: "character", text: "Shit. You want to see your old man's cock? Alright. Here. Your eyes only. 🔥" },
+                { from: "player", text: "Fuck yes. You're huge. I can't stop looking." },
+                { from: "character", text: "Holy shit. You're serious? I'm rock hard. Don't show anyone. You're so hot." }
+            ],
+            [
+                { from: "player", text: "Dad... can you send me a pic? A spicy one?" },
+                { from: "character", text: "Fuck... okay. Here. Just for you. But I want one from you too. Fair's fair. 😏" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Deal. I'll send one. Just for you.", requiresSpicyPhoto: true, then: [ { from: "character", text: "Fuck. I'm so hard thinking about it. Send it. Your eyes only. 🔥" } ] },
+                    { label: "No", playerText: "Just you. I want to see you. Maybe I'll send one later.", then: [ { from: "character", text: "Okay. Our secret. Don't show anyone. You're so fucking hot. 💋" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "Send me something... sexy? Please?" },
+                { from: "character", text: "Alright. Here. But you send me one too. I want to see you. Deal? 🔥" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Okay. Sending one. Just for you.", requiresSpicyPhoto: true, then: [ { from: "character", text: "Fuck yes. Send it. I'm so turned on. Your body... shit. 💋🔥" } ] },
+                    { label: "Not now", playerText: "Not right now. Just wanted to see you.", then: [ { from: "character", text: "Okay. Maybe later. This stays between us. I'm hard just from you asking. 😳" } ] }
+                ]}
+            ]
+        ]
+    },
+    {
+        id: "sendPicDad",
+        version: 1,
+        label: "Send spicy selfie",
+        category: "lust",
+        tier: 60,
+        timeAdvance: 2,
+        statGain: { lust: 5 },
+        imageType: "sender",
+        imagePool: "player",
+        variations: [
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "HOLY FUCKING SHIT! honey... you're... jesus christ your body is incredible. I shouldn't be looking at this but I can't stop. You're so fucking hot. 😳🔥" },
+                { from: "player", text: "You like what you see?" },
+                { from: "character", text: "Fuck. Your body is perfect. I'm so turned on right now... this is so fucked up but I love it. Send more? 😏" }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "Oh my god... that's... wow. You're absolutely gorgeous sweetheart. Fuck, I'm getting hard just looking at this. 💋" },
+                { from: "player", text: "Your old man's not so bad at reacting." },
+                { from: "character", text: "Jesus fuck! You can't just send me something like that! But... shit, you look amazing. Your old man is rock hard now. 🔥" }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "HOLY FUCKING SHIT! honey... you're... jesus christ your body is incredible. I shouldn't be looking at this but I can't stop. You're so fucking hot. 😳🔥" },
+                { from: "player", text: "You like what you see? I wanted you to see me." },
+                { from: "character", text: "Fuck. Your body is perfect. I'm so turned on right now... this is so fucked up but I love it. Send more? 😏" },
+                { from: "player", text: "Maybe. You're so hot when you're flustered. Bye." }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "Oh my god... that's... wow. You're absolutely gorgeous sweetheart. Fuck, I'm getting hard just looking at this. 💋" },
+                { from: "player", text: "Your old man's not so bad at reacting. I thought about you." },
+                { from: "character", text: "Jesus fuck! You can't just send me something like that! But... shit, you look amazing. Your old man is rock hard now. 🔥" },
+                { from: "player", text: "Good. Maybe later. Bye." }
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "HOLY FUCK. You're so fucking beautiful. Send me another? I'll send you one back. My cock's rock hard. 🔥" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Okay. One more. You send one too.", requiresSpicyPhoto: true, then: [ { from: "character", text: "Deal. Check your phone. Fuck you're hot. 💋🔥" } ] },
+                    { label: "Later", playerText: "Maybe later. Enjoy that one for now.", then: [ { from: "character", text: "I will. You're incredible. Send more when you want. I'm so turned on. 😏" } ] }
+                ]}
+            ],
+            [
+                { from: "player", text: "[You send a nude photo]" },
+                { from: "character", text: "Jesus Christ... I can't stop looking. Can I send you one back? I want you to see what you do to me. 💋" },
+                { type: "choice", options: [
+                    { label: "Yes", playerText: "Yes. Send it. I want to see you.", requiresSpicyPhoto: true, then: [ { from: "character", text: "Here. Just for you. Your eyes only. I'm so hard. 🔥" } ] },
+                    { label: "Not now", playerText: "Not right now. But thank you. You're so hot.", then: [ { from: "character", text: "Okay. Another time. I'll save it for you. Don't tell your mother. 💋" } ] }
+                ]}
+            ]
+        ]
+    }
+]>>
