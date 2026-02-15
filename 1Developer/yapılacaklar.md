@@ -5,6 +5,7 @@
 - dinersRuby Check yap.
 - Mirror check.
 
+- phone için selfieler ve videoları tamamla.
 - Yeni itemler için shoppingi yapmaya başlamak. Kitap ve İtemlar.
 
 ############################################################################################################################
