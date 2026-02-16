@@ -176,6 +176,12 @@ setup.getClothingById = function(id) {
     - Corruption >= 5: Can leave Nude
 */
 <<widget "checkBedroomExit">>
+    /* When navigating backward in history, don't re-run exit guard loop. */
+    <<if $_navigatingBackward>>
+        <<goto "fhBedroom">>
+        <<return>>
+    <</if>>
+
     <<set _canExit to false>>
     <<set _reason to "">>
     

@@ -1,0 +1,72 @@
+/* Global character generator config (phone/Fotogram and future systems). */
+
+<<set setup.charGeneratorMaleFirstNames = ["Luca", "Noah", "Ethan", "Leo", "Mason", "Liam", "Ezra", "Caleb"]>>
+<<set setup.charGeneratorFemaleFirstNames = ["Aria", "Mila", "Nora", "Sofia", "Lena", "Ivy", "Elena", "Maya"]>>
+<<set setup.charGeneratorUnisexFirstNames = ["Alex", "Sam", "Riley", "Taylor"]>>
+<<set setup.charGeneratorLastNames = ["Carter", "Hayes", "Brooks", "Reed", "Bennett", "Morris", "Parker", "Cole", "Morgan", "Hayden"]>>
+<<run setup.charGeneratorEthnicities = [
+    { id: "white_western", label: "White/Western", weight: 30, preferredSkinTones: ["white", "tan"] },
+    { id: "black_african_diaspora", label: "Black/African Diaspora", weight: 20, preferredSkinTones: ["black"] },
+    { id: "latino", label: "Latino", weight: 18, preferredSkinTones: ["tan", "white"] },
+    { id: "middle_eastern", label: "Middle Eastern", weight: 12, preferredSkinTones: ["tan", "white"] },
+    { id: "south_asian", label: "South Asian", weight: 10, preferredSkinTones: ["tan", "black"] },
+    { id: "east_asian", label: "East Asian", weight: 10, preferredSkinTones: ["white", "tan"] }
+]>>
+
+<<run setup.charGenerator = {
+    maleWeight: 0.52,
+    femaleWeight: 0.48,
+    maleFirstNames: setup.charGeneratorMaleFirstNames,
+    femaleFirstNames: setup.charGeneratorFemaleFirstNames,
+    unisexFirstNames: setup.charGeneratorUnisexFirstNames,
+    lastNames: setup.charGeneratorLastNames,
+    ageMin: 18,
+    ageMax: 60,
+    skinTones: ["white", "black", "tan"],
+    occupations: ["Student", "Barista", "Retail Worker", "Freelancer", "Office Assistant", "Gym Staff", "Receptionist"],
+    statuses: ["Online Contact", "DM Contact", "New Contact"],
+    colors: ["#a855f7", "#3b82f6", "#f97316", "#14b8a6", "#ec4899"],
+    relations: {
+        locationId: "maplewood",
+        placeId: "onlineContacts",
+        placeName: "Online Contacts"
+    },
+    ethnicities: setup.charGeneratorEthnicities,
+    heightRanges: {
+        male: { min: 168, max: 198 },
+        female: { min: 150, max: 182 }
+    },
+    maleBody: {
+        penisMinCm: 10,
+        penisMaxCm: 22
+    },
+    femaleBody: {
+        bustMinCm: 78, bustMaxCm: 108,
+        waistMinCm: 56, waistMaxCm: 84,
+        hipsMinCm: 82, hipsMaxCm: 120,
+        hairMinCm: 8, hairMaxCm: 90
+    },
+    avatarPool: {
+        male: { white: [], black: [], tan: [] },
+        female: { white: [], black: [], tan: [] }
+    },
+    initialState: {
+        stats: { love: 0, friendship: 25, lust: 0, trust: 5 },
+        opinion: { awareness: 0, flags: [] },
+        firstMet: null,
+        known: true,
+        currentLocation: null,
+        currentStatus: null
+    },
+    meetupFallbackSlots: [
+        { hour: 13, minute: 0 },
+        { hour: 16, minute: 0 },
+        { hour: 18, minute: 0 },
+        { hour: 21, minute: 0 }
+    ]
+}>>
+
+/* Avatar pool usage examples:
+   <<run setup.charGenerator.avatarPool.male.white.push("assets/content/people/generated/male_white_01.webp")>>
+   <<run setup.charGenerator.avatarPool.female.tan.push("assets/content/people/generated/female_tan_01.webp")>>
+*/

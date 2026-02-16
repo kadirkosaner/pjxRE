@@ -49,6 +49,61 @@ function canTakeHotSpicyByCorruption(type, vars) {
     return false;
 }
 
+function getPhoneCameraDailyConfig() {
+    var enabled = (typeof setup !== 'undefined' && setup.phoneCameraDailyEnabled !== undefined) ? !!setup.phoneCameraDailyEnabled : true;
+    var photoLimit = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.phoneCameraDailyPhotoLimit))) ? Number(setup.phoneCameraDailyPhotoLimit) : 1;
+    var videoLimit = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.phoneCameraDailyVideoLimit))) ? Number(setup.phoneCameraDailyVideoLimit) : 1;
+    return {
+        enabled: enabled,
+        photoLimit: Math.max(0, Math.floor(photoLimit)),
+        videoLimit: Math.max(0, Math.floor(videoLimit))
+    };
+}
+
+function getPhoneCameraDateKey(vars) {
+    var ts = (vars && vars.timeSys) ? vars.timeSys : {};
+    return (Number(ts.year) || 0) * 10000 + (Number(ts.month) || 0) * 100 + (Number(ts.day) || 0);
+}
+
+function ensurePhoneCameraDailyState(vars) {
+    if (!vars.phoneCameraDaily || typeof vars.phoneCameraDaily !== 'object') {
+        vars.phoneCameraDaily = { dateKey: 0, photosTaken: 0, videosTaken: 0 };
+    }
+    var key = getPhoneCameraDateKey(vars);
+    if ((Number(vars.phoneCameraDaily.dateKey) || 0) !== key) {
+        vars.phoneCameraDaily.dateKey = key;
+        vars.phoneCameraDaily.photosTaken = 0;
+        vars.phoneCameraDaily.videosTaken = 0;
+    }
+    return vars.phoneCameraDaily;
+}
+
+function isPhoneCameraDailyBypassed(vars) {
+    return !!((vars && vars.phoneCameraDailyBypass === true) || (typeof setup !== 'undefined' && setup.phoneCameraDailyBypass === true));
+}
+
+function canUsePhoneCameraToday(vars, kind) {
+    var cfg = getPhoneCameraDailyConfig();
+    if (!cfg.enabled || isPhoneCameraDailyBypassed(vars)) return { ok: true, reason: '' };
+    var daily = ensurePhoneCameraDailyState(vars);
+    var isVideo = kind === 'video';
+    var current = isVideo ? (Number(daily.videosTaken) || 0) : (Number(daily.photosTaken) || 0);
+    var limit = isVideo ? cfg.videoLimit : cfg.photoLimit;
+    if (limit <= 0) return { ok: false, reason: 'Camera disabled for this media today.' };
+    if (current >= limit) {
+        return { ok: false, reason: isVideo ? 'You already recorded video today.' : 'You already took photo today.' };
+    }
+    return { ok: true, reason: '' };
+}
+
+function markPhoneCameraUsed(vars, kind) {
+    var cfg = getPhoneCameraDailyConfig();
+    if (!cfg.enabled || isPhoneCameraDailyBypassed(vars)) return;
+    var daily = ensurePhoneCameraDailyState(vars);
+    if (kind === 'video') daily.videosTaken = (Number(daily.videosTaken) || 0) + 1;
+    else daily.photosTaken = (Number(daily.photosTaken) || 0) + 1;
+}
+
 /**
  * Render camera app UI
  * @param {object} vars - State.variables
@@ -67,6 +122,8 @@ function phoneRenderCameraApp(vars, opts) {
     var isSafe = locInfo.effective === 'safe';
     var dataLocAttrs = ' data-camera-location-id="' + (locationId || '').replace(/"/g, '&quot;') + '" data-camera-loc="' + (locInfo.effective || '').replace(/"/g, '&quot;') + '"';
     var hotSpicyAllowedByLocation = !locInfo.isBlocked;
+    var selfieDailyGate = canUsePhoneCameraToday(vars, 'photo');
+    var videoDailyGate = canUsePhoneCameraToday(vars, 'video');
 
     // Cute: Corruption 1+ (anywhere)
     var canCute = corruption >= 1;
@@ -100,25 +157,35 @@ function phoneRenderCameraApp(vars, opts) {
     selfieHtml += '<div class="phone-thread-actions">';
     
     // Normal - always available
-    selfieHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-normal">Normal</button>';
+    if (selfieDailyGate.ok) {
+        selfieHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-normal">Normal</button>';
+    } else {
+        selfieHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + selfieDailyGate.reason.replace(/"/g, '&quot;') + '" disabled>Normal</button>';
+    }
     
     // Cute - Corruption 1+
-    if (canCute) {
+    if (selfieDailyGate.ok && canCute) {
         selfieHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-cute">Cute</button>';
+    } else if (!selfieDailyGate.ok) {
+        selfieHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + selfieDailyGate.reason.replace(/"/g, '&quot;') + '" disabled>Cute</button>';
     } else {
         selfieHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + cuteTooltip.replace(/"/g, '&quot;') + '" disabled>Cute</button>';
     }
     
     // Hot - Corruption 2 safe / 3 public + location allowed
-    if (canHot) {
+    if (selfieDailyGate.ok && canHot) {
         selfieHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-hot">Hot</button>';
+    } else if (!selfieDailyGate.ok) {
+        selfieHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + selfieDailyGate.reason.replace(/"/g, '&quot;') + '" disabled>Hot</button>';
     } else {
         selfieHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + (hotTooltip || "Requires Corruption Level 2").replace(/"/g, '&quot;') + '" disabled>Hot</button>';
     }
     
     // Spicy - Corruption 4 safe / 5 public + location allowed
-    if (canSpicy) {
+    if (selfieDailyGate.ok && canSpicy) {
         selfieHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-spicy">Spicy</button>';
+    } else if (!selfieDailyGate.ok) {
+        selfieHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + selfieDailyGate.reason.replace(/"/g, '&quot;') + '" disabled>Spicy</button>';
     } else {
         selfieHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + (spicyTooltip || "Requires Corruption Level 4").replace(/"/g, '&quot;') + '" disabled>Spicy</button>';
     }
@@ -131,25 +198,35 @@ function phoneRenderCameraApp(vars, opts) {
     videoHtml += '<div class="phone-thread-actions">';
     
     // Normal - always available
-    videoHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-video-normal">Normal</button>';
+    if (videoDailyGate.ok) {
+        videoHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-video-normal">Normal</button>';
+    } else {
+        videoHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + videoDailyGate.reason.replace(/"/g, '&quot;') + '" disabled>Normal</button>';
+    }
     
     // Cute - Corruption 1+
-    if (canCute) {
+    if (videoDailyGate.ok && canCute) {
         videoHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-video-cute">Cute</button>';
+    } else if (!videoDailyGate.ok) {
+        videoHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + videoDailyGate.reason.replace(/"/g, '&quot;') + '" disabled>Cute</button>';
     } else {
         videoHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + cuteTooltip.replace(/"/g, '&quot;') + '" disabled>Cute</button>';
     }
     
     // Hot - Corruption 2 safe / 3 public + location allowed
-    if (canHot) {
+    if (videoDailyGate.ok && canHot) {
         videoHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-video-hot">Hot</button>';
+    } else if (!videoDailyGate.ok) {
+        videoHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + videoDailyGate.reason.replace(/"/g, '&quot;') + '" disabled>Hot</button>';
     } else {
         videoHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + (hotTooltip || "Requires Corruption Level 2").replace(/"/g, '&quot;') + '" disabled>Hot</button>';
     }
     
     // Spicy - Corruption 4 safe / 5 public + location allowed
-    if (canSpicy) {
+    if (videoDailyGate.ok && canSpicy) {
         videoHtml += '<button type="button" class="phone-topic-btn" id="phone-camera-video-spicy">Spicy</button>';
+    } else if (!videoDailyGate.ok) {
+        videoHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + videoDailyGate.reason.replace(/"/g, '&quot;') + '" disabled>Spicy</button>';
     } else {
         videoHtml += '<button type="button" class="phone-topic-btn btn-locked" data-tooltip="' + (spicyTooltip || "Requires Corruption Level 4").replace(/"/g, '&quot;') + '" disabled>Spicy</button>';
     }
@@ -248,15 +325,70 @@ function getMediaFlagsForType(type, locationId, isSafe) {
 }
 
 /**
- * Get pool from setup.phoneMediaPools (Twee). Each item: { path, tags? }.
+ * Check if player meets conditions for a media pool entry.
+ * conditions: { fitness?: number, outfitStyle?: string, outfitMinItems?: number, location?: string|string[] }
+ * @param {object} item - Pool entry { path, tags?, flags?, conditions? }
+ * @param {object} vars - State.variables
+ * @returns {boolean}
+ */
+function meetsMediaConditions(item, vars) {
+    var cond = item && item.conditions;
+    if (!cond || typeof cond !== 'object') return true;
+
+    if (cond.fitness != null) {
+        var fitness = (vars && vars.fitness != null) ? Number(vars.fitness) : 0;
+        if (fitness < Number(cond.fitness)) return false;
+    }
+
+    if (cond.outfitStyle) {
+        var style = String(cond.outfitStyle);
+        var minItems = (cond.outfitMinItems != null) ? Number(cond.outfitMinItems) : 1;
+        var styleCount = 0;
+        var wardrobe = (vars && vars.wardrobe && vars.wardrobe.equipped) ? vars.wardrobe.equipped : {};
+        var getClothing = (typeof setup !== 'undefined' && setup.getClothingById) ? setup.getClothingById : (typeof PhoneAPI !== 'undefined' && PhoneAPI.setup && PhoneAPI.setup.getClothingById) ? PhoneAPI.setup.getClothingById : null;
+        if (getClothing) {
+            var slots = ['top', 'bottom', 'dress', 'shoes', 'bra', 'underwear', 'socks'];
+            for (var i = 0; i < slots.length; i++) {
+                var slotId = wardrobe[slots[i]];
+                if (!slotId) continue;
+                var clothing = getClothing(slotId);
+                if (clothing && Array.isArray(clothing.tags) && clothing.tags.indexOf(style) >= 0) {
+                    styleCount++;
+                }
+            }
+        }
+        if (styleCount < minItems) return false;
+    }
+
+    if (cond.location != null) {
+        var loc = (vars && vars.location) ? String(vars.location) : '';
+        var locId = loc.indexOf('/') >= 0 || loc.indexOf('\\') >= 0 ? loc.split(/[/\\]/).pop() : loc;
+        var required = Array.isArray(cond.location) ? cond.location : [cond.location];
+        var match = false;
+        for (var j = 0; j < required.length; j++) {
+            if (locId === String(required[j]) || loc.indexOf(String(required[j])) >= 0) {
+                match = true;
+                break;
+            }
+        }
+        if (!match) return false;
+    }
+
+    return true;
+}
+
+/**
+ * Get pool from setup.phoneMediaPools (Twee). Each item: { path, tags?, conditions? }.
+ * conditions: { fitness?: number, outfitStyle?: string, outfitMinItems?: number, location?: string|string[] }
  * @param {string} mediaKind - 'photos' | 'videos'
  * @param {string} type - 'normal' | 'cute' | 'hot' | 'spicy'
  * @param {boolean} isSafe - safe location (bedroom) vs public
- * @param {object} vars - State.variables (for optional stat-based variant later)
+ * @param {object} vars - State.variables (for stat/outfit/location checks)
  * @param {string[]} [contextTags] - optional; only items with at least one of these tags (empty = use all)
+ * @param {number} [targetQuality] - candidate priority check against existing gallery quality
  * @returns {string} path or ''
  */
-function getMediaPathFromPool(mediaKind, type, isSafe, vars, contextTags) {
+function getMediaPathFromPool(mediaKind, type, isSafe, vars, contextTags, targetQuality) {
     // Try PhoneAPI.setup first, then fallback to global setup
     var pools = null;
     if (typeof PhoneAPI !== 'undefined' && PhoneAPI.setup && PhoneAPI.setup.phoneMediaPools) {
@@ -281,8 +413,31 @@ function getMediaPathFromPool(mediaKind, type, isSafe, vars, contextTags) {
         });
         if (candidates.length === 0) candidates = list;
     }
-    var idx = Math.floor(Math.random() * candidates.length);
-    var chosen = candidates[idx];
+    var conditioned = candidates.filter(function (item) { return meetsMediaConditions(item, vars || {}); });
+    if (conditioned.length > 0) candidates = conditioned;
+    var chosenPool = candidates;
+    var qualityNum = Number(targetQuality);
+    if (!isNaN(qualityNum) && vars && vars.phoneGallery && vars.phoneGallery[mediaKind] && Array.isArray(vars.phoneGallery[mediaKind][type])) {
+        var existingList = vars.phoneGallery[mediaKind][type];
+        var preferred = candidates.filter(function (entry) {
+            if (!entry || !entry.path) return false;
+            var bestExisting = -1;
+            for (var ei = 0; ei < existingList.length; ei++) {
+                var ex = existingList[ei];
+                if (!ex || !ex.path) continue;
+                if (String(ex.path).trim() !== String(entry.path).trim()) continue;
+                var exQ = (ex.quality != null) ? Number(ex.quality) : 0;
+                if (exQ > bestExisting) bestExisting = exQ;
+            }
+            return bestExisting < qualityNum;
+        });
+        if (preferred.length > 0) {
+            // 3/1 ratio: 75% prefer candidate pool, 25% full pool random
+            chosenPool = (Math.random() < 0.75) ? preferred : candidates;
+        }
+    }
+    var idx = Math.floor(Math.random() * chosenPool.length);
+    var chosen = chosenPool[idx];
     return (chosen && chosen.path) ? chosen.path : '';
 }
 
@@ -304,32 +459,77 @@ function getPhoneAssetUrl(path) {
 }
 
 /**
- * Show full-screen preview after capturing a selfie. Uses main app header (Back + title).
+ * Show full-screen preview after capturing media. Uses main app header (Back + title).
  * Back button closes preview and returns to camera.
- * @param {object} photo - { path, quality }
+ * @param {object} media - { path, quality, mediaKind? }
  */
-function phoneShowCapturePreview(photo) {
+function phoneShowCapturePreview(media) {
     var $view = typeof $ !== 'undefined' && $('#phone-app-view').length ? $('#phone-app-view') : null;
-    if (!$view || !photo) return;
-    var path = (photo.path && String(photo.path).trim()) ? photo.path : '';
-    var quality = (photo.quality != null) ? Number(photo.quality) : 0;
+    if (!$view || !media) return;
+    var stateVars = (typeof State !== 'undefined' && State.variables) ? State.variables : null;
+    var path = (media.path && String(media.path).trim()) ? media.path : '';
+    var quality = (media.quality != null) ? Number(media.quality) : 0;
     var qualityText = 'Quality: ' + quality + '/100';
-    var imgHtml;
+    var isVideo = (media.mediaKind === 'video') || (/\.mp4$/i.test(path) || /\.webm$/i.test(path));
+    var mediaHtml;
     if (path) {
-        var imgSrc = getPhoneAssetUrl(path);
-        var safeSrc = (imgSrc || path).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-        imgHtml = '<img class="phone-camera-preview-img" src="' + safeSrc + '" alt="Selfie" onerror="this.onerror=null;this.style.display=\'none\';var p=document.createElement(\'div\');p.className=\'phone-camera-preview-placeholder\';p.textContent=\'No image\';this.parentNode.appendChild(p);">';
+        var src = getPhoneAssetUrl(path);
+        var safeSrc = (src || path).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        if (isVideo) {
+            var autoplaySet = !!(stateVars && stateVars.videoSettings && stateVars.videoSettings.autoplaySet !== undefined ? stateVars.videoSettings.autoplaySet : true);
+            var loopSet = !!(stateVars && stateVars.videoSettings && stateVars.videoSettings.loopSet !== undefined ? stateVars.videoSettings.loopSet : true);
+            mediaHtml = '<div class="video-container phone-camera-video-container" data-autoplay="' + (autoplaySet ? '1' : '0') + '" data-loop="' + (loopSet ? '1' : '0') + '">' +
+                '<video class="phone-camera-preview-img" src="' + safeSrc + '" playsinline></video>' +
+                '<div class="play-overlay"><div class="video-play-btn"><span class="icon icon-play"></span></div></div>' +
+                '</div>';
+        } else {
+            mediaHtml = '<img class="phone-camera-preview-img" src="' + safeSrc + '" alt="Selfie" onerror="this.onerror=null;this.style.display=\'none\';var p=document.createElement(\'div\');p.className=\'phone-camera-preview-placeholder\';p.textContent=\'No image\';this.parentNode.appendChild(p);">';
+        }
     } else {
-        imgHtml = '<div class="phone-camera-preview-placeholder">No image</div>';
+        mediaHtml = '<div class="phone-camera-preview-placeholder">No ' + (isVideo ? 'video' : 'image') + '</div>';
     }
     var html = '<div class="phone-camera-preview-overlay">' +
-        '<div class="phone-camera-preview-media">' + imgHtml + '</div>' +
+        '<div class="phone-camera-preview-media">' + mediaHtml + '</div>' +
         '<div class="phone-camera-preview-score">' + qualityText + '</div>' +
         '</div>';
     $view.find('.phone-camera-preview-overlay').remove();
     $view.append(html);
+    if (isVideo) {
+        var $container = $view.find('.phone-camera-video-container').first();
+        var $video = $container.find('video').first();
+        var $overlay = $container.find('.play-overlay').first();
+        if ($video.length) {
+            var videoEl = $video[0];
+            var loopEnabled = $container.attr('data-loop') === '1';
+            var autoplayEnabled = $container.attr('data-autoplay') === '1';
+            videoEl.loop = loopEnabled;
+            if (stateVars && stateVars.videoSettings) {
+                var master = stateVars.videoSettings.masterVolume !== undefined ? Number(stateVars.videoSettings.masterVolume) : 100;
+                var videoVol = stateVars.videoSettings.videoVolume !== undefined ? Number(stateVars.videoSettings.videoVolume) : 100;
+                videoEl.volume = Math.max(0, Math.min(1, (master * videoVol) / 10000));
+            }
+            $container.off('click.phoneVid').on('click.phoneVid', function () {
+                if (videoEl.paused) videoEl.play();
+                else videoEl.pause();
+            });
+            $video.off('play.phoneVid playing.phoneVid').on('play.phoneVid playing.phoneVid', function () {
+                $overlay.addClass('hidden');
+            });
+            $video.off('pause.phoneVid ended.phoneVid').on('pause.phoneVid ended.phoneVid', function () {
+                if (!videoEl.ended || loopEnabled) $overlay.removeClass('hidden');
+            });
+            if (autoplayEnabled) {
+                var playPromise = videoEl.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(function () { $overlay.removeClass('hidden'); });
+                }
+            } else {
+                $overlay.removeClass('hidden');
+            }
+        }
+    }
     if (typeof $ !== 'undefined' && $('#phone-app-view-title').length) {
-        $('#phone-app-view-title').text('Photo');
+        $('#phone-app-view-title').text(isVideo ? 'Video' : 'Photo');
     }
 }
 
@@ -340,6 +540,11 @@ function phoneShowCapturePreview(photo) {
 window.phoneTakeSelfie = function(type) {
     if (!PhoneAPI) return;
     const vars = PhoneAPI.State.variables;
+    var dailyGate = canUsePhoneCameraToday(vars, 'photo');
+    if (!dailyGate.ok) {
+        if (typeof Engine !== 'undefined' && Engine.wiki) Engine.wiki('<<notify>>' + dailyGate.reason + '<</notify>>');
+        return;
+    }
     // Cute requires Corruption 1+
     if (type === 'cute') {
         var corruptionCute = (vars && vars.corruption != null) ? parseInt(vars.corruption, 10) : 0;
@@ -375,7 +580,7 @@ window.phoneTakeSelfie = function(type) {
     const quality = calculateMediaQuality(vars, type);
     var flags = getMediaFlagsForType(type, location, isSafe);
     var contextTags = locationId ? [locationId] : [];
-    var path = getMediaPathFromPool('photos', type, isSafe, vars, contextTags) || '';
+    var path = getMediaPathFromPool('photos', type, isSafe, vars, contextTags, quality) || '';
     
     const photo = {
         id: generateMediaId(),
@@ -391,6 +596,8 @@ window.phoneTakeSelfie = function(type) {
         quality: quality,
         from: 'player'
     };
+    markPhoneCameraUsed(vars, 'photo');
+    if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
 
     var list = vars.phoneGallery.photos[type];
     if (!Array.isArray(list)) list = vars.phoneGallery.photos[type] = [];
@@ -431,6 +638,11 @@ window.phoneTakeSelfie = function(type) {
 window.phoneRecordVideo = function(type) {
     if (!PhoneAPI) return;
     const vars = PhoneAPI.State.variables;
+    var dailyGate = canUsePhoneCameraToday(vars, 'video');
+    if (!dailyGate.ok) {
+        if (typeof Engine !== 'undefined' && Engine.wiki) Engine.wiki('<<notify>>' + dailyGate.reason + '<</notify>>');
+        return;
+    }
     // Cute requires Corruption 1+
     if (type === 'cute') {
         var corruptionCute = (vars && vars.corruption != null) ? parseInt(vars.corruption, 10) : 0;
@@ -466,10 +678,11 @@ window.phoneRecordVideo = function(type) {
     const quality = calculateMediaQuality(vars, type);
     var flags = getMediaFlagsForType(type, location, isSafe);
     var contextTags = locationId ? [locationId] : [];
-    var path = getMediaPathFromPool('videos', type, isSafe, vars, contextTags) || '';
+    var path = getMediaPathFromPool('videos', type, isSafe, vars, contextTags, quality) || '';
     const video = {
         id: generateMediaId(),
         path: path,
+        mediaKind: 'video',
         flags: flags,
         timestamp: {
             day: timeSys.day,
@@ -481,18 +694,38 @@ window.phoneRecordVideo = function(type) {
         quality: quality,
         from: 'player'
     };
+    markPhoneCameraUsed(vars, 'video');
+    if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
     
-    vars.phoneGallery.videos[type].push(video);
-    
-    // Persist changes
-    persistPhoneChanges();
-    
-    // Show feedback
-    const feedbackMsg = 'Video recorded! Quality: ' + quality + '/100';
-    if (typeof Engine !== 'undefined' && Engine.wiki) {
-        Engine.wiki('<<notify>>' + feedbackMsg + '<</notify>>');
+    var list = vars.phoneGallery.videos[type];
+    if (!Array.isArray(list)) list = vars.phoneGallery.videos[type] = [];
+    var samePathIndex = -1;
+    if (path) {
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].path === path) { samePathIndex = i; break; }
+        }
     }
-    
+    if (samePathIndex >= 0) {
+        var existing = list[samePathIndex];
+        if (quality > (existing.quality || 0)) {
+            list[samePathIndex] = video;
+            persistPhoneChanges();
+            phoneShowCapturePreview(video);
+            if (typeof window.notifySuccess === 'function') {
+                window.notifySuccess('You recorded a better quality video!');
+            }
+            return video;
+        }
+        phoneShowCapturePreview(video);
+        if (typeof window.notifyWarning === 'function') {
+            window.notifyWarning('You already have a better version of this video.');
+        }
+        return video;
+    }
+
+    list.push(video);
+    persistPhoneChanges();
+    phoneShowCapturePreview(video);
     return video;
 };
 

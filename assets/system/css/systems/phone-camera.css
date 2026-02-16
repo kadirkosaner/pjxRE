@@ -116,6 +116,19 @@
   box-sizing: border-box;
 }
 
+.phone-camera-video-container {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0 !important;
+  aspect-ratio: auto;
+}
+
+.phone-camera-video-container video {
+  object-fit: cover;
+  background: #000;
+}
+
 .phone-camera-preview-img {
   width: 100%;
   height: 100%;

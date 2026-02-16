@@ -104,6 +104,34 @@ function phoneRenderGalleryApp(vars, opts) {
 }
 
 /**
+ * Find a gallery item by id across all categories (photos + videos).
+ * @param {object} gallery - vars.phoneGallery
+ * @param {string} id - item id
+ * @returns {{ item: object, kind: string, category: string, folder: string } | null}
+ */
+function findGalleryItemById(gallery, id) {
+    if (!gallery || !id) return null;
+    var cats = ['normal', 'cute', 'hot', 'spicy', 'received'];
+    for (var k = 0; k < cats.length; k++) {
+        var list = gallery.photos && gallery.photos[cats[k]];
+        if (Array.isArray(list)) {
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].id === id) return { item: list[i], kind: 'photo', category: cats[k], folder: cats[k] === 'received' ? 'received' : 'photos' };
+            }
+        }
+    }
+    for (var j = 0; j < cats.length; j++) {
+        var vlist = gallery.videos && gallery.videos[cats[j]];
+        if (Array.isArray(vlist)) {
+            for (var vi = 0; vi < vlist.length; vi++) {
+                if (vlist[vi].id === id) return { item: vlist[vi], kind: 'video', category: cats[j], folder: cats[j] === 'received' ? 'received' : 'videos' };
+            }
+        }
+    }
+    return null;
+}
+
+/**
  * Find a gallery item by id in the given folder/category/kind
  */
 function findGalleryItem(gallery, id, kind, category, folder) {
@@ -148,8 +176,13 @@ window.openGalleryPreview = function (id, kind, category, folder) {
     var safeSrc = (src || path).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     var mediaHtml;
     if (kind === 'video') {
+        var autoplaySet = !!(vars && vars.videoSettings && vars.videoSettings.autoplaySet !== undefined ? vars.videoSettings.autoplaySet : true);
+        var loopSet = !!(vars && vars.videoSettings && vars.videoSettings.loopSet !== undefined ? vars.videoSettings.loopSet : true);
         mediaHtml = path
-            ? '<video class="phone-camera-preview-img" src="' + safeSrc + '" controls playsinline></video>'
+            ? '<div class="video-container phone-gallery-video-container" data-autoplay="' + (autoplaySet ? '1' : '0') + '" data-loop="' + (loopSet ? '1' : '0') + '">' +
+                '<video class="phone-camera-preview-img" src="' + safeSrc + '" playsinline></video>' +
+                '<div class="play-overlay"><div class="video-play-btn"><span class="icon icon-play"></span></div></div>' +
+              '</div>'
             : '<div class="phone-camera-preview-placeholder">No video</div>';
     } else {
         mediaHtml = path
@@ -164,6 +197,41 @@ window.openGalleryPreview = function (id, kind, category, folder) {
     if (!$view || !$view.length) return;
     $view.find('.phone-gallery-preview-overlay').remove();
     $view.append(html);
+    if (kind === 'video') {
+        var $container = $view.find('.phone-gallery-video-container').first();
+        var $video = $container.find('video').first();
+        var $overlay = $container.find('.play-overlay').first();
+        if ($video.length) {
+            var videoEl = $video[0];
+            var loopEnabled = $container.attr('data-loop') === '1';
+            var autoplayEnabled = $container.attr('data-autoplay') === '1';
+            videoEl.loop = loopEnabled;
+            // Apply same volume model used by vid macro
+            if (vars && vars.videoSettings) {
+                var master = vars.videoSettings.masterVolume !== undefined ? Number(vars.videoSettings.masterVolume) : 100;
+                var videoVol = vars.videoSettings.videoVolume !== undefined ? Number(vars.videoSettings.videoVolume) : 100;
+                videoEl.volume = Math.max(0, Math.min(1, (master * videoVol) / 10000));
+            }
+            $container.off('click.phoneVid').on('click.phoneVid', function () {
+                if (videoEl.paused) videoEl.play();
+                else videoEl.pause();
+            });
+            $video.off('play.phoneVid playing.phoneVid').on('play.phoneVid playing.phoneVid', function () {
+                $overlay.addClass('hidden');
+            });
+            $video.off('pause.phoneVid ended.phoneVid').on('pause.phoneVid ended.phoneVid', function () {
+                if (!videoEl.ended || loopEnabled) $overlay.removeClass('hidden');
+            });
+            if (autoplayEnabled) {
+                var playPromise = videoEl.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(function () { $overlay.removeClass('hidden'); });
+                }
+            } else {
+                $overlay.removeClass('hidden');
+            }
+        }
+    }
     if (typeof $ !== 'undefined' && $('#phone-app-view-title').length) {
         $('#phone-app-view-title').text(kind === 'video' ? 'Video' : 'Photo');
     }

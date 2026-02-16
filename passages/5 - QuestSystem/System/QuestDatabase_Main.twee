@@ -195,7 +195,7 @@
         title: "Find a Job",
         category: "main",
         character: "player",
-        mealType: "dinner",  // Topbar alarm: aile yemeği 18:00 (stage family_dinner_18)
+        /* No mealType: Corner Shop / Civic Center etc. show any time; dinner stage uses triggers.timeRange */
 
         requirements: {
             quests: ["new_beginnings"]

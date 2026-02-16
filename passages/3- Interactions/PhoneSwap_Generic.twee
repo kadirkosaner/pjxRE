@@ -1,0 +1,68 @@
+:: PhoneSwap_Generic
+<<nobr>>
+<<set _swapTargetCharId = $interactingChar>>
+<<if (!_swapTargetCharId || !$characters[_swapTargetCharId]) && $phoneSwapTargetCharId && $characters[$phoneSwapTargetCharId]>>
+    <<set _swapTargetCharId = $phoneSwapTargetCharId>>
+<</if>>
+<<unset $phoneSwapTargetCharId>>
+<<if !_swapTargetCharId || !$characters[_swapTargetCharId]>>
+    <<goto $location>>
+<</if>>
+<<set _char = setup.getCharacter(_swapTargetCharId)>>
+<<set _charName = _char ? ((_char.firstName || _char.name || "") + (_char.lastName ? " " + _char.lastName : "")) : _swapTargetCharId>>
+<<set _charState = $characters[_swapTargetCharId]>>
+<<if !_charState.currentLocation>><<updateCharacterLocations>><<set _charState = $characters[_swapTargetCharId]>><</if>>
+<<set _charLoc = _charState.currentLocation || "unknown">>
+<<set $location = _charLoc>>
+<<set _charLocName = (typeof window.getLocationName === 'function') ? window.getLocationName(_charLoc) : (setup.navCards[_charLoc] && setup.navCards[_charLoc].name) || _charLoc>>
+
+<<silently>>
+<<phoneUnlockContact _swapTargetCharId>>
+<<advanceTime 5>>
+<<if window.persistPhoneChanges>><<run window.persistPhoneChanges()>><</if>>
+<<if window.updatePhoneBadges>><<run window.updatePhoneBadges()>><</if>>
+<<run window.notifySuccess(_charName + "'s number added to your contacts!")>>
+<</silently>>
+
+<<set _swapReplies = [
+	"Sure, why not! Here, add me.",
+	"Of course! Let me get my phone.",
+	"Yeah, that'd be nice. One sec.",
+	"Sure thing!",
+	"Absolutely! Here you go.",
+	"Why not? We can stay in touch.",
+	"Sure! I'd like that.",
+	"Yeah, good idea. Let me pull it up.",
+	"Of course! One moment.",
+	"Sure! It's always nice to have another contact."
+]>>
+<<set _swapReply = _swapReplies.random()>>
+
+<<narrative _charLocName>>
+You pull out your phone.
+<</narrative>>
+
+<<dialog "player">>
+Would you swap numbers with me?
+<</dialog>>
+
+<<dialog _swapTargetCharId>>
+<<print _swapReply>>
+<</dialog>>
+
+<<set _swapVids = [
+	"assets/content/phone/scenes/swap/numberSwap1.mp4",
+	"assets/content/phone/scenes/swap/numberSwap2.mp4",
+	"assets/content/phone/scenes/swap/numberSwap3.mp4"
+]>>
+<<set _swapVid = _swapVids.random()>>
+<<vid _swapVid "100%">>
+
+<<narrative>>
+You exchange numbers, saving each other's contact. Now you can text or call whenever you like.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "CharacterInteraction">><</btn>>
+</div>
+<</nobr>>

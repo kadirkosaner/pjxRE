@@ -8,6 +8,7 @@
     firstName: "Marcus",
     lastName: "Johnson",
     birthYear: 1998,
+    gender: "male",
     occupation: "Shop Clerk",
     location: "Quick Mart",
     avatar: "assets/content/people/maplewood/cornershop/marcus.webp",
@@ -42,6 +43,11 @@
         {
             id: "talk", label: "Talk", passage: "shopClerkTalk",
             tags: [], requirements: {}
+        },
+        {
+            id: "swapNumbers", label: "Swap numbers", passage: "PhoneSwap_Generic",
+            charId: "shopClerkMarcus",
+            tags: [], requirements: { friendship: 20 }
         }
     ]
 }>>

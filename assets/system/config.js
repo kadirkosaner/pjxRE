@@ -97,6 +97,7 @@ window.SystemCSS = {
     "phone", // Phone mockup + full overlay
     "phone-camera", // Phone camera app styles
     "phone-gallery", // Phone gallery folders + grid
+    "phone-fotogram", // Phone Fotogram app
     "map", // Map section + full modal
     "wardrobe", // Wardrobe system
     "shopping", // Shop system

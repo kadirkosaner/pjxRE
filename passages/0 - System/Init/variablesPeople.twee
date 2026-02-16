@@ -22,6 +22,13 @@
     { locationId: "oldTown", placeId: "dinerRubys", name: "Ruby's Diner", members: ["dinerClerk", "dinerDishwasher", "dinerChef", "dinerManager", "dinerWaitress1", "dinerWaitress2", "dinerWaitress3"] }
 ]>>
 
+/* Dynamic relation group labels (runtime-generated members are injected by JS). */
+<<set setup.relationDynamicGroups = setup.relationDynamicGroups || {
+    fotogram: {
+        groupName: "Fotogram"
+    }
+}>>
+
 /* Schedule and action containers */
 <<set setup.schedules = {}>>
 <<set setup.characterActions = {}>>

@@ -1,45 +1,111 @@
 :: variablesPhoneMediaPools [init nobr]
-/* Location-specific (special) photos: add entries with tags: ["locationId"].
-   locationId = last segment of $location (e.g. sunsetPark, fhBedroom). When shooting there, those images are preferred; if none match, any image in the slot is used.
-   Example: public: [ { path: "", tags: ["sunsetPark"] }, { path: "assets/.../generic.webp" } ]
-*/
+/* =============================================================================
+   PHONE MEDIA POOLS – Camera & Fotogram
+   =============================================================================
+   Camera picks paths from these pools by category + location (safe/public).
+   Gallery item: { id, path, flags, timestamp, quality, from }.
+   Same path + higher quality → replaces old item (phone-camera.js).
+   Fotogram: flags determine post eligibility (Instagram-style; topless/nude not allowed).
+
+   STRUCTURE:
+   setup.phoneMediaPools = {
+     photos: {
+       normal: { safe: [...], public: [...] },
+       cute:   { safe: [...], public: [...] },
+       hot:    { safe: [...], public: [...] },
+       spicy:  { safe: [...], public: [...] }
+     },
+     videos: { same }
+   }
+
+   ENTRY: { path, tags?, flags?, conditions? }
+   - path: asset path (e.g. "assets/content/phone/gallery/photos/normal/normalSelfie1.webp")
+   - tags: ["locationId"] – locationId = last segment of $location. When shooting there,
+     those images preferred; if none match, any in slot used. E.g. ["sunsetPark"].
+   - flags: ["risky"] | ["teasing"] | ["bikini"] | etc. Applied to gallery item.
+     Fotogram: risky/teasing/suggestive/bikini = postable. topless/nude/explicit = not postable.
+   - conditions: Stat/outfit/location checks. Entry used only if ALL pass.
+     { fitness: 50 }           – min $fitness
+     { outfitStyle: "sporty", outfitMinItems: 1 } – wearing sporty (1+ items)
+     { location: "fhBathroom" } or { location: ["fhBathroom","fhBedroom"] }
+     Example: Fitness 50 + sporty outfit + fhBathroom → photoNameX
+
+   FULL EXAMPLE:
+   photos: {
+     normal: {
+       safe: [
+         { path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp", tags: [], flags: ["casual"] },
+         { path: "assets/content/phone/camera/normal_safe_2.webp", tags: ["fhBedroom"], flags: ["casual","clothed"] }
+       ],
+       public: [
+         { path: "assets/content/phone/camera/normal_public_1.webp", tags: ["sunsetPark"], flags: ["casual"] }
+       ]
+     },
+     spicy: {
+       safe: [
+         { path: "assets/.../spicy_tease_1.webp", tags: [], flags: ["teasing","risky"] },   // Fotogram OK
+         { path: "assets/.../spicy_topless_1.webp", tags: [], flags: ["topless"] }          // Fotogram NOT OK
+       ],
+       public: [
+         { path: "assets/.../spicy_bikini_1.webp", tags: ["sunsetPark"], flags: ["bikini","risky"] }  // Fotogram OK
+       ]
+     }
+   }
+   ============================================================================= */
 <<set setup.phoneMediaPools = {
 	photos: {
 		normal: {
 			safe: [
-				{ path: "assets/content/phone/camera/normal_safe_1.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp", desc: "Normal selfie" },
+        { path: "assets/content/phone/gallery/photos/normal/normalSelfie2.webp", desc: "Normal selfie" },
+        { path: "assets/content/phone/gallery/photos/normal/normalSelfie3.webp", desc: "Normal selfie" },
+        { path: "assets/content/phone/gallery/photos/normal/normalSelfie4.webp", desc: "Normal selfie" },
+        { path: "assets/content/phone/gallery/photos/normal/normalSelfie5.webp", desc: "Normal selfie" },
+        { path: "assets/content/phone/gallery/photos/normal/normalSelfie6.webp", desc: "Normal selfie" },
+        { path: "assets/content/phone/gallery/photos/normal/normalSelfie7.webp", desc: "Normal selfie" },
+				/* Example: Fitness 50 + sporty outfit + fhBathroom → specific photo
+				{ path: "assets/content/phone/camera/normal_fitness_sporty_bathroom.webp", conditions: { fitness: 50, outfitStyle: "sporty", outfitMinItems: 1, location: "fhBathroom" } },
+				*/
 			],
 			public: [				
-				{ path: "assets/content/phone/camera/normal_safe_1.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" },
 			],
 		},
 		cute: {
 			safe: [
-				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
 			],
 			public: [
-				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
 			]
 		},
 		hot: {
 			safe: [
-				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
 			],
 			public: [
-				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
 			]
 		},
 		spicy: {
 			safe: [
-				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
 			],
 			public: [
-				{ path: "assets/content/phone/camera/normal_safe_1.webp" }
+				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
 			]
 		}
 	},
 	videos: {
-		normal: { safe: [], public: [] },
+		normal: { 
+      safe: [
+        { path: "assets/content/phone/gallery/videos/normal/normalVideo1.mp4" },
+        { path: "assets/content/phone/gallery/videos/normal/normalVideo2.mp4" },
+        { path: "assets/content/phone/gallery/videos/normal/normalVideo3.mp4" },
+      ], 
+      public: [
+      ] 
+    },
 		cute:   { safe: [], public: [] },
 		hot:    { safe: [], public: [] },
 		spicy:  { safe: [], public: [] }

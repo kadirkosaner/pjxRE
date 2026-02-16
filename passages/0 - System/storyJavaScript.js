@@ -1625,6 +1625,14 @@ Macro.add('showActions', {
         }
 
         actions.forEach(action => {
+            // Swap numbers: hide if already unlocked (one-time action)
+            if (action.id === 'swapNumbers') {
+                const unlocked = vars.phoneContactsUnlocked || [];
+                /* Source of truth is current interaction character. */
+                const targetSwapCharId = charId;
+                if (unlocked.includes(targetSwapCharId)) return;
+            }
+
             // Check content tags - if any tag is disabled, hide the action
             const tagBlocked = action.tags && action.tags.some(tag => prefs[tag] === false);
             if (tagBlocked) return;
@@ -1696,11 +1704,18 @@ Macro.add('showActions', {
                     .html(`<span class="icon icon-lock icon-12"></span> ${action.label}`)
                     .attr('data-tooltip', 'Already done today');
             } else if (meetsReqs) {
+                const passage = action.passage;
+                /* For swap action, never trust external action.charId to avoid stale/mismatched IDs. */
+                const swapCharId = charId;
                 btn.addClass('available')
                     .text(action.label)
-                    .attr('data-passage', action.passage)
+                    .attr('data-passage', passage)
+                    .attr('data-swap-char-id', swapCharId)
                     .ariaClick({ namespace: '.macros', one: true }, function () {
-                        Engine.play(action.passage);
+                        const id = ($(this).attr('data-swap-char-id')) || swapCharId;
+                        State.variables.interactingChar = id;
+                        State.variables.phoneSwapTargetCharId = id;
+                        Engine.play(passage);
                     });
             } else {
                 btn.addClass('locked')

@@ -4,12 +4,20 @@
 <<updateCharacterLocations>>
 
 <<silently>>
-<<set _job = setup.jobs[$job.id]>>
+<<set _job = (setup.jobs && setup.jobs[$job.id]) ? setup.jobs[$job.id] : null>>
+<<if !_job>>
+    <<set $job.id = null>>
+    <<set $job.tier = 1>>
+    <<set $job.startedOn = null>>
+    <<jobResetState>>
+    <<run window.notifyWarning("Your previous job data is invalid and has been reset.")>>
+    <<goto "dinerRubys">>
+<</if>>
 <<set _bossName = setup.characterDefs[_job.bossCharId].firstName>>
 <<set $jobState.visitedBossThisMonday = true>>
 <<set $jobState.bossWantsToSeePlayer = false>>
 <<set $jobState.minHoursWarningCount = ($jobState.minHoursWarningCount || 0) + 1>>
-<<set _warningsBeforeFire = _job.minHoursWarningsBeforeFire || 3>>
+<<set _warningsBeforeFire = (_job.minHoursWarningsBeforeFire != null) ? _job.minHoursWarningsBeforeFire : 3>>
 <<set _isFired = $jobState.minHoursWarningCount >= _warningsBeforeFire>>
 <</silently>>
 
