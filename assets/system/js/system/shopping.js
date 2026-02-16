@@ -204,10 +204,27 @@ function canWearClothingItem(item) {
     const exh = S.variables.exhibitionism ?? 0;
     const corr = S.variables.corruption ?? 0;
     const heelsSkill = (S.variables.skills && S.variables.skills.physical && S.variables.skills.physical.heels) ? S.variables.skills.physical.heels : 0;
-    if (conf < reqConf) return { allowed: false, reason: `Requires ${reqConf} Confidence` };
-    if (exh < reqExh) return { allowed: false, reason: `Requires ${reqExh} Exhibitionism` };
-    if (corr < reqCorr) return { allowed: false, reason: `Requires ${reqCorr} Corruption` };
-    if (item.reqHeelsSkill != null && heelsSkill < item.reqHeelsSkill) return { allowed: false, reason: `Requires ${item.reqHeelsSkill} Heels skill` };
+    let reason;
+    if (conf < reqConf) {
+        reason = `Requires ${reqConf} Confidence`;
+        if (item.reqHeelsSkill != null) reason += `, ${item.reqHeelsSkill} Heels skill`;
+        return { allowed: false, reason };
+    }
+    if (exh < reqExh) {
+        reason = `Requires ${reqExh} Exhibitionism`;
+        if (item.reqHeelsSkill != null) reason += `, ${item.reqHeelsSkill} Heels skill`;
+        return { allowed: false, reason };
+    }
+    if (corr < reqCorr) {
+        reason = `Requires ${reqCorr} Corruption`;
+        if (item.reqHeelsSkill != null) reason += `, ${item.reqHeelsSkill} Heels skill`;
+        return { allowed: false, reason };
+    }
+    if (item.reqHeelsSkill != null && heelsSkill < item.reqHeelsSkill) {
+        reason = `Requires ${item.reqHeelsSkill} Heels skill`;
+        if (reqConf > 0) reason += `, ${reqConf} Confidence`;
+        return { allowed: false, reason };
+    }
     return { allowed: true, reason: '' };
 }
 

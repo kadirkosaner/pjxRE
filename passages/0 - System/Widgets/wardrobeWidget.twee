@@ -60,15 +60,23 @@
         <<if ndef $corruption>><<set $corruption to 0>><</if>>
         
         <<if $confidence < _reqConf>>
-            <<set _checkResult = { allowed: false, reason: "Requires " + _reqConf + " Confidence" }>>
+            <<set _reason to "Requires " + _reqConf + " Confidence">>
+            <<if def _item.reqHeelsSkill>><<set _reason to _reason + ", " + _item.reqHeelsSkill + " Heels skill">><</if>>
+            <<set _checkResult = { allowed: false, reason: _reason }>>
         <<elseif $exhibitionism < _reqExh>>
-            <<set _checkResult = { allowed: false, reason: "Requires " + _reqExh + " Exhibitionism" }>>
+            <<set _reason to "Requires " + _reqExh + " Exhibitionism">>
+            <<if def _item.reqHeelsSkill>><<set _reason to _reason + ", " + _item.reqHeelsSkill + " Heels skill">><</if>>
+            <<set _checkResult = { allowed: false, reason: _reason }>>
         <<elseif $corruption < _reqCorr>>
-            <<set _checkResult = { allowed: false, reason: "Requires " + _reqCorr + " Corruption" }>>
+            <<set _reason to "Requires " + _reqCorr + " Corruption">>
+            <<if def _item.reqHeelsSkill>><<set _reason to _reason + ", " + _item.reqHeelsSkill + " Heels skill">><</if>>
+            <<set _checkResult = { allowed: false, reason: _reason }>>
         <<elseif def _item.reqHeelsSkill>>
             <<if ndef $skills.physical.heels>><<set $skills.physical.heels to 0>><</if>>
             <<if $skills.physical.heels < _item.reqHeelsSkill>>
-                <<set _checkResult = { allowed: false, reason: "Requires " + _item.reqHeelsSkill + " Heels skill" }>>
+                <<set _reason to "Requires " + _item.reqHeelsSkill + " Heels skill">>
+                <<if _reqConf > 0>><<set _reason to _reason + ", " + _reqConf + " Confidence">><</if>>
+                <<set _checkResult = { allowed: false, reason: _reason }>>
             <</if>>
         <</if>>
         
