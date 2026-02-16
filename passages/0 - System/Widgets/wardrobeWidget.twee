@@ -65,6 +65,11 @@
             <<set _checkResult = { allowed: false, reason: "Requires " + _reqExh + " Exhibitionism" }>>
         <<elseif $corruption < _reqCorr>>
             <<set _checkResult = { allowed: false, reason: "Requires " + _reqCorr + " Corruption" }>>
+        <<elseif def _item.reqHeelsSkill>>
+            <<if ndef $skills.physical.heels>><<set $skills.physical.heels to 0>><</if>>
+            <<if $skills.physical.heels < _item.reqHeelsSkill>>
+                <<set _checkResult = { allowed: false, reason: "Requires " + _item.reqHeelsSkill + " Heels skill" }>>
+            <</if>>
         <</if>>
         
     <</if>>

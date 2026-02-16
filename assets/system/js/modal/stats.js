@@ -275,9 +275,10 @@ window.StatsInit = function (API) {
                                     ${this.createStatRow('Volleyball', vars.skills.physical?.volleyball || 0, 100, '#f97316', 'Net sports proficiency.')}
                                     ${this.createStatRow('Football', vars.skills.physical?.football || 0, 100, '#f97316', 'Field sports proficiency.')}
                                     ${this.createStatRow('Swimming', vars.skills.physical?.swimming || 0, 100, '#f97316', 'Aquatic endurance.')}
-                                    ${this.createStatRow('Dance', vars.skills.physical?.dance || 0, 20, '#f97316', 'Rhythmic movement.')}
-                                    ${this.createStatRow('Running', vars.skills.physical?.running || 0, 20, '#f97316', 'Endurance and pace.')}
+                                    ${this.createStatRow('Dance', vars.skills.physical?.dance || 0, 100, '#f97316', 'Rhythmic movement.')}
+                                    ${this.createStatRow('Running', vars.skills.physical?.running || 0, 100, '#f97316', 'Endurance and pace.')}
                                     ${this.createStatRow('Yoga', vars.skills.physical?.yoga || 0, 100, '#f97316', 'Flexibility and balance.')}
+                                    ${this.createStatRow('Heels', vars.skills.physical?.heels || 0, 100, '#f97316', 'Walking in heels. Gained by navigating and walking while wearing heels.')}
                                 `)}
 
                                 ${this.createAccordion('creative_skills', 'Creative Skills', 'star', `

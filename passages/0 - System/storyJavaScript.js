@@ -1863,6 +1863,11 @@ window.processNavCard = function (tag, $container, passedSetup) {
                 $.wiki('<<advanceTime ' + travelTime + '>>');
             }
 
+            // Heels skill: accumulate travel minutes when wearing heels (60 min = +1 skill, capped by shoe tier)
+            if (travelTime > 0 && typeof Macro !== 'undefined' && Macro.get('addHeelsTravelMinutes')) {
+                $.wiki('<<addHeelsTravelMinutes ' + travelTime + '>>');
+            }
+
             /* Flush pending notifications before navigating */
             if (Macro.has('flushNotifications')) {
                 $.wiki('<<flushNotifications>>');
