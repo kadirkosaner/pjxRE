@@ -1,4 +1,17 @@
-<<nobr>><<set $location = "storeLingerieA">><</nobr>>
+<<nobr>>
+<<set $location = "storeLingerieA">>
+<<set _shopItems = [
+    "bra_bralette_lace_black",
+    "bra_demi_black",
+    "bra_lace_ivory",
+    "bra_matching_rose",
+    "bra_tshirt_nude",
+    "panty_boyshort_charcoal",
+    "panty_hipster_lace_nude",
+    "panty_matching_rose",
+    "thong_lace_black",
+    "slip_satin_black"
+]>>
 <<updateCharacterLocations>>
-
-<<shop "Intimate Secrets" "Lingerie Boutique" `["bra_basic", "bra_lace", "panty_basic", "panty_lace"]` "floorSecond">>
+<<shop "Silk & Lace" "Lingerie & Intimates" _shopItems "floorSecond">>
+<</nobr>>

@@ -166,18 +166,23 @@ const categoryLabels = {
     dresses: 'Dresses',
     shoes: 'Shoes',
     socks: 'Socks',
+    coats: 'Coats',
+    bags: 'Bags',
     earrings: 'Earrings',
     necklaces: 'Necklaces',
     bracelets: 'Bracelets',
+    rings: 'Rings',
     bras: 'Bras',
     panties: 'Panties',
+    bodysuits: 'Bodysuits',
     sleepwear: 'Sleepwear',
+    garter: 'Garter',
     special: 'Special',
     equipment: 'Equipment'
 };
 
 // Display order for category tabs (only categories present in shop will show)
-const categoryTabOrder = ['tops', 'bras', 'bottoms', 'panties', 'dresses', 'shoes', 'socks', 'sleepwear', 'earrings', 'necklaces', 'bracelets', 'special', 'equipment'];
+const categoryTabOrder = ['coats', 'tops', 'bottoms', 'dresses', 'bags', 'shoes', 'socks', 'bodysuits', 'bras', 'panties', 'sleepwear', 'garter', 'earrings', 'necklaces', 'bracelets', 'rings', 'special', 'equipment'];
 
 // Check if player can wear a clothing item (stat requirements - mirrors wardrobe checkClothingRequirements)
 function canWearClothingItem(item) {

@@ -8,21 +8,26 @@
 /* Category definitions */
 <<set setup.wardrobeCategories = [
     { group: "Outerwear", items: [
+        { id: "coats", name: "Coats", slot: "coat" },
         { id: "tops", name: "Tops", slot: "top" },
         { id: "bottoms", name: "Bottoms", slot: "bottom" },
         { id: "dresses", name: "Dresses", slot: "dress" },
         { id: "shoes", name: "Shoes", slot: "shoes" },
-        { id: "socks", name: "Socks", slot: "socks" }
+        { id: "socks", name: "Socks", slot: "socks" },
+        { id: "bags", name: "Bags", slot: "bag" }
     ]},
     { group: "Accessories", items: [
         { id: "earrings", name: "Earrings", slot: "earrings" },
         { id: "necklaces", name: "Necklaces", slot: "necklace" },
-        { id: "bracelets", name: "Bracelets", slot: "bracelet" }
+        { id: "bracelets", name: "Bracelets", slot: "bracelet" },
+        { id: "rings", name: "Rings", slot: "ring" }
     ]},
     { group: "Underwear", items: [
+        { id: "bodysuits", name: "Bodysuits", slot: "bodysuit" },
         { id: "bras", name: "Bras", slot: "bra" },
         { id: "panties", name: "Panties", slot: "panty" },
-        { id: "sleepwear", name: "Sleepwear", slot: "sleepwear" }
+        { id: "sleepwear", name: "Sleepwear", slot: "sleepwear" },
+        { id: "garter", name: "Garter", slot: "garter" }
     ]},
     { group: "Special", items: [
         { id: "apron", name: "Apron", slot: "apron" }
@@ -36,12 +41,17 @@
     dress: "Dress",
     shoes: "Shoes",
     socks: "Socks",
+    coat: "Coat",
+    bag: "Bag",
     earrings: "Earrings",
     necklace: "Necklace",
     bracelet: "Bracelet",
+    ring: "Rings",
+    bodysuit: "Bodysuit",
     bra: "Bra",
     panty: "Panties",
     sleepwear: "Sleepwear",
+    garter: "Garter",
     apron: "Apron"
 }>>
 

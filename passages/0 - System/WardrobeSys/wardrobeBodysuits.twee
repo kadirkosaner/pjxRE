@@ -1,0 +1,52 @@
+/* Bodysuits - One-piece that occupies both bra and panty slots
+ * 
+ * When equipped: sets both wardrobe.equipped.bra and wardrobe.equipped.panty
+ * Items must have tag: "bodysuit"
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * Tags: bodysuit (required), casual, revealing, elegant, etc.
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.bodysuits = [
+    {
+        id: "bodysuit_lace_black",
+        name: "Black Lace Bodysuit",
+        brand: "Intimate Secrets",
+        desc: "One-piece black lace bodysuit with décolleté.",
+        image: "assets/content/clothing/bodysuits/IntimateSecrets/bodysuitLaceBlack.webp",
+        looks: 6,
+        quality: "Premium",
+        tags: ["bodysuit", "revealing"],
+        price: 75.00,
+        shopAvailable: true,
+        startOwned: false
+    },
+    {
+        id: "bodysuit_silk_cream",
+        name: "Cream Silk Bodysuit",
+        brand: "Intimate Secrets",
+        desc: "Soft cream silk bodysuit, elegant and comfortable.",
+        image: "assets/content/clothing/bodysuits/IntimateSecrets/bodysuitSilkCream.webp",
+        looks: 5,
+        quality: "Premium",
+        tags: ["bodysuit", "elegant"],
+        price: 68.00,
+        shopAvailable: true,
+        startOwned: false
+    },
+    {
+        id: "teddy_lace_black",
+        name: "Black Lace Teddy",
+        brand: "Intimate Secrets",
+        desc: "One-piece black lace teddy with balconette cups and scalloped trim.",
+        image: "assets/content/clothing/bodysuits/IntimateSecrets/teddyLaceBlack.webp",
+        looks: 7,
+        quality: "Premium",
+        tags: ["bodysuit", "revealing", "daring"],
+        price: 72.00,
+        shopAvailable: true,
+        startOwned: false
+    }
+]>>

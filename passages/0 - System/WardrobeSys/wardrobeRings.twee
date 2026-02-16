@@ -1,0 +1,28 @@
+/* Rings - Statement rings, stacks, bands, etc.
+ * 
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.rings = [
+    /* ==========================================
+       DIAMOND DREAMS (StoreJewelry)
+    ========================================== */
+    {
+        id: "ring_stack_gold",
+        name: "Gold Stack Rings",
+        brand: "Diamond Dreams",
+        desc: "A set of trendy gold stacking rings.",
+        image: "assets/content/clothing/rings/DiamondDreams/ringStackGold.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 35.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "ring_statement_crystal",
+        name: "Crystal Statement Ring",
+        brand: "Diamond Dreams",
+        desc: "A bold ring featuring a large crystal.",
+        image: "assets/content/clothing/rings/DiamondDreams/ringStatementCrystal.webp",
+        looks: 4, quality: "Rare", tags: ["elegant"], price: 45.00, shopAvailable: true, startOwned: false
+    }
+]>>

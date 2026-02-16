@@ -1,28 +1,92 @@
-/* Dresses - Full dresses, gowns, etc.
- * Note: Wearing a dress removes top and bottom
+/* Dresses - Full body outfits covering top and bottom
  * 
  * Template:
  * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- * 
- * Tags: casual, formal, revealing, sexy, elegant, party
- * Quality: Common, Rare, Premium
- * FUTURE: size, durability, effects, unlockCondition
  */
 
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.dresses = [
+    /* ==========================================
+       NORTHLINE APPAREL (StoreClothingA)
+    ========================================== */
     {
-        id: "dress_summer_owned",
-        name: "Summer Dress",
-        brand: "Fifth Avenue Wear",
-        desc: "A light and breezy floral dress perfect for warm days.",
-        image: "assets/content/clothing/dress/dressSummerOwned.webp",
-        looks: 6,
-        quality: "Common",
-        tags: ["casual"],
-        price: 35.00,
-        shopAvailable: false,
-        startOwned: true
+        id: "dress_sundress_floral",
+        name: "Floral Sundress",
+        brand: "Northline Apparel",
+        desc: "Cute floral dress for sunny days.",
+        image: "assets/content/clothing/dress/NorthlineApparel/dressSundressFloral.webp",
+        looks: 4, quality: "Common", tags: ["casual", "cute", "summer"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "dress_midi_shirtdress",
+        name: "Midi Shirt Dress",
+        brand: "Northline Apparel",
+        desc: "Casual button-up midi dress.",
+        image: "assets/content/clothing/dress/NorthlineApparel/dressMidiShirtdress.webp",
+        looks: 4, quality: "Common", tags: ["casual", "modest"], price: 42.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "dress_elegant",
+        name: "Simple Elegant Dress",
+        brand: "Northline Apparel",
+        desc: "A simple but elegant dress suitable for many occasions.",
+        image: "assets/content/clothing/dress/NorthlineApparel/dressElegant.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant"], price: 45.00, shopAvailable: true, startOwned: false
+    },
+
+    /* ==========================================
+       VERA MODE (StoreClothingB)
+    ========================================== */
+    {
+        id: "dress_midi_wrap_floral",
+        name: "Floral Wrap Dress",
+        brand: "VERA Mode",
+        desc: "Elegant floral wrap dress.",
+        image: "assets/content/clothing/dress/VERAMode/dressMidiWrapFloral.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant"], price: 62.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "jumpsuit_wideleg_black",
+        name: "Black Jumpsuit",
+        brand: "VERA Mode",
+        desc: "Chic black wide-leg jumpsuit.",
+        image: "assets/content/clothing/dress/VERAMode/jumpsuitWidelegBlack.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "party"], price: 72.00, shopAvailable: true, startOwned: false
+    },
+
+    /* ==========================================
+       FIFTH AVENUE WEAR (StoreClothingC)
+    ========================================== */
+    {
+        id: "dress_cocktail_black",
+        name: "Black Cocktail Dress",
+        brand: "Fifth Avenue",
+        desc: "Premium black cocktail dress.",
+        image: "assets/content/clothing/dress/FifthAvenue/dressCocktailBlack.webp",
+        looks: 6, quality: "Premium", tags: ["formal", "elegant", "party", "revealing"], price: 110.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "dress_maxi_flowing",
+        name: "Flowing Maxi Dress",
+        brand: "Fifth Avenue",
+        desc: "Luxurious flowing maxi dress.",
+        image: "assets/content/clothing/dress/FifthAvenue/dressMaxiFlowing.webp",
+        looks: 6, quality: "Premium", tags: ["formal", "elegant"], price: 98.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "dress_midi_silk_blend_navy",
+        name: "Navy Silk Dress",
+        brand: "Fifth Avenue",
+        desc: "Sophisticated navy silk blend midi dress.",
+        image: "assets/content/clothing/dress/FifthAvenue/dressMidiSilkBlendNavy.webp",
+        looks: 6, quality: "Premium", tags: ["formal", "elegant", "revealing"], price: 105.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "dress_back_cutout_lbd",
+        name: "Cutout Back LBD",
+        brand: "Fifth Avenue",
+        desc: "Little black dress with a daring back cutout.",
+        image: "assets/content/clothing/dress/FifthAvenue/dressBackCutoutLbd.webp",
+        looks: 7, quality: "Premium", tags: ["revealing", "formal", "elegant", "sexy"], price: 115.00, shopAvailable: true, startOwned: false
     }
 ]>>
-

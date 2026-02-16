@@ -23,12 +23,17 @@ const categoryToSlot = {
     dresses: 'dress',
     shoes: 'shoes',
     socks: 'socks',
+    coats: 'coat',
+    bags: 'bag',
     earrings: 'earrings',
     necklaces: 'necklace',
     bracelets: 'bracelet',
+    rings: 'ring',
+    bodysuits: 'bodysuit',
     bras: 'bra',
     panties: 'panty',
     sleepwear: 'sleepwear',
+    garter: 'garter',
     apron: 'apron'
 };
 
@@ -313,6 +318,20 @@ function isInSessionSnapshot(itemId) {
     return Object.values(wardrobeSessionEquipped).indexOf(itemId) !== -1;
 }
 
+/** True if item has bodysuit tag (occupies both bra and panty slots). */
+function isBodysuitItem(item) {
+    return item && item.tags && Array.isArray(item.tags) && item.tags.includes('bodysuit');
+}
+
+/** True if a bodysuit is currently equipped (bra === panty and that item is bodysuit). */
+function isBodysuitEquipped(wardrobe) {
+    const bra = wardrobe?.equipped?.bra;
+    const panty = wardrobe?.equipped?.panty;
+    if (!bra || bra !== panty) return false;
+    const item = _w_getItemById(bra);
+    return isBodysuitItem(item);
+}
+
 /** When no location filter: all owned. When filter set: session snapshot (what was on when entering) + location-matching items. */
 function filterVisibleItems(items) {
     if (!wardrobeLocationFilter) {
@@ -350,7 +369,24 @@ function equipItem(itemId) {
         delete wardrobe.equipped.dress;
     }
 
-    wardrobe.equipped[slot] = itemId;
+    /* Bodysuit: occupies both bra and panty */
+    if (slot === 'bodysuit') {
+        delete wardrobe.equipped.bra;
+        delete wardrobe.equipped.panty;
+        wardrobe.equipped.bra = itemId;
+        wardrobe.equipped.panty = itemId;
+    } else if (slot === 'bra' || slot === 'panty') {
+        /* Equipping bra or panty: if bodysuit is on, clear both first */
+        const braId = wardrobe.equipped.bra;
+        const pantyId = wardrobe.equipped.panty;
+        if (braId && braId === pantyId && isBodysuitItem(_w_getItemById(braId))) {
+            delete wardrobe.equipped.bra;
+            delete wardrobe.equipped.panty;
+        }
+        wardrobe.equipped[slot] = itemId;
+    } else {
+        wardrobe.equipped[slot] = itemId;
+    }
     selectedItem = item;
     showToast(`Equipped: ${item.name}`);
     
@@ -368,7 +404,13 @@ function unequipSlot(slot) {
     if (!itemId) return;
     
     const item = _w_getItemById(itemId);
-    delete wardrobe.equipped[slot];
+    /* Bodysuit: clearing bra, panty, or bodysuit slot clears both */
+    if (slot === 'bodysuit' || ((slot === 'bra' || slot === 'panty') && isBodysuitItem(item) && wardrobe.equipped.bra === wardrobe.equipped.panty)) {
+        delete wardrobe.equipped.bra;
+        delete wardrobe.equipped.panty;
+    } else {
+        delete wardrobe.equipped[slot];
+    }
     if (item) showToast(`Removed: ${item.name}`);
     
     if (window.Wikifier) new Wikifier(null, "<<recalculateStats>><<updateCaption>><<updateClothesNotification>>");
@@ -387,20 +429,26 @@ function showToast(message) {
 
 const defaultCategories = [
     { group: "Outerwear", items: [
+        { id: "coats", name: "Coats", slot: "coat" },
         { id: "tops", name: "Tops", slot: "top" },
         { id: "bottoms", name: "Bottoms", slot: "bottom" },
         { id: "dresses", name: "Dresses", slot: "dress" },
         { id: "shoes", name: "Shoes", slot: "shoes" },
-        { id: "socks", name: "Socks", slot: "socks" }
+        { id: "socks", name: "Socks", slot: "socks" },
+        { id: "bags", name: "Bags", slot: "bag" }
     ]},
     { group: "Accessories", items: [
         { id: "earrings", name: "Earrings", slot: "earrings" },
         { id: "necklaces", name: "Necklaces", slot: "necklace" },
-        { id: "bracelets", name: "Bracelets", slot: "bracelet" }
+        { id: "bracelets", name: "Bracelets", slot: "bracelet" },
+        { id: "rings", name: "Rings", slot: "ring" }
     ]},
     { group: "Underwear", items: [
+        { id: "bodysuits", name: "Bodysuits", slot: "bodysuit" },
         { id: "bras", name: "Bras", slot: "bra" },
-        { id: "panties", name: "Panties", slot: "panty" }
+        { id: "panties", name: "Panties", slot: "panty" },
+        { id: "sleepwear", name: "Sleepwear", slot: "sleepwear" },
+        { id: "garter", name: "Garter", slot: "garter" }
     ]},
     { group: "Special", items: [
         { id: "apron", name: "Apron", slot: "apron" }
@@ -481,7 +529,9 @@ function renderClothingGrid() {
     const items = filterVisibleItems(getCategoryItems(currentCategory));
     
     const slot = categoryToSlot[currentCategory] || null;
-    const equippedId = WardrobeAPI.State.variables.wardrobe?.equipped?.[slot];
+    const equipped = WardrobeAPI.State.variables.wardrobe?.equipped || {};
+    /* Bodysuits are stored in bra+panty; use bra for "equipped" check */
+    const equippedId = slot === 'bodysuit' ? equipped.bra : equipped[slot];
 
     const categories = getSetup().wardrobeCategories || defaultCategories;
     const catInfo = categories.flatMap(g => g.items).find(c => c.id === currentCategory);
@@ -621,11 +671,35 @@ function renderWearingSlots() {
     }
 
     let html = '<div class="slots-section-title">Outerwear</div>';
-    html += ['top', 'bottom', 'dress', 'shoes', 'socks'].map(renderSlot).join('');
+    html += ['coat', 'top', 'bottom', 'dress', 'shoes', 'socks', 'bag'].map(renderSlot).join('');
     html += '<div class="slots-section-title">Accessories</div>';
-    html += ['earrings', 'necklace', 'bracelet'].map(renderSlot).join('');
+    html += ['earrings', 'necklace', 'bracelet', 'ring'].map(renderSlot).join('');
     html += '<div class="slots-section-title">Underwear</div>';
-    html += ['bra', 'panty'].map(renderSlot).join('');
+    /* When bodysuit equipped, show single Bodysuit slot instead of bra+panty */
+    const wardrobe = WardrobeAPI.State.variables.wardrobe || {};
+    const underwearSlots = (() => {
+        if (isBodysuitEquipped(wardrobe)) {
+            const braId = wardrobe.equipped.bra;
+            const combinedSlot = { slot: 'bodysuit', itemId: braId };
+            return [combinedSlot, { slot: 'sleepwear' }, { slot: 'garter' }];
+        }
+        return [{ slot: 'bra' }, { slot: 'panty' }, { slot: 'sleepwear' }, { slot: 'garter' }];
+    })();
+    html += underwearSlots.map(s => {
+        const sid = typeof s === 'object' ? s.slot : s;
+        const itemId = typeof s === 'object' && s.itemId !== undefined ? s.itemId : equipped[sid];
+        const item = itemId ? _w_getItemById(itemId) : null;
+        return `
+            <div class="wearing-slot ${!item ? 'empty' : ''}" data-slot="${sid}">
+                <div class="wearing-slot-img">${item ? `<img src="${item.image}">` : ''}</div>
+                <div class="wearing-slot-info">
+                    <div class="wearing-slot-category">${slotLabels[sid] || sid}</div>
+                    <div class="wearing-slot-name">${item ? item.name : 'Empty'}</div>
+                </div>
+                ${item ? `<button class="wearing-slot-remove" data-slot="${sid}">✕</button>` : ''}
+            </div>
+        `;
+    }).join('');
     html += '<div class="slots-section-title">Special</div>';
     html += ['apron'].map(renderSlot).join('');
 

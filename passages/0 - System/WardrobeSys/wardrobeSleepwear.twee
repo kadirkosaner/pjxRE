@@ -1,4 +1,3 @@
-
 /* Sleepwear - Pyjamas, nightgowns, etc.
  * 
  * Template:
@@ -7,18 +6,55 @@
 
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.sleepwear = [
-   {
+    /* ==========================================
+       OWNED / STARTER ITEMS (sleepwear/Owned)
+    ========================================== */
+    {
         id: "pajama_color_owned",
         name: "Pajama Set",
         brand: "VERA Mode",
         desc: "Comfortable colorful floral pajama set.",
-        image: "assets/content/clothing/sleepwear/pyjamaColorOwned.webp",
-        looks: 4,
-        quality: "Common",
-        tags: ["sleepwear"],
-        price: 22.00,
-        shopAvailable: false,
-        startOwned: true
+        image: "assets/content/clothing/sleepwear/Owned/pyjamaColorOwned.webp",
+        looks: 4, quality: "Common", tags: ["sleepwear"], price: 22.00, shopAvailable: false, startOwned: true
+    },
+
+    /* ==========================================
+       SILK & LACE (StoreLingerieA)
+    ========================================== */
+    {
+        id: "slip_satin_black",
+        name: "Black Satin Slip",
+        brand: "Silk & Lace",
+        desc: "Elegant black satin slip dress for sleeping.",
+        image: "assets/content/clothing/sleepwear/SilkAndLace/slipSatinBlack.webp",
+        looks: 5, quality: "Rare", tags: ["sleepwear", "elegant"], price: 42.00, shopAvailable: true, startOwned: false
+    },
+
+    /* ==========================================
+       INTIMATE SECRETS (StoreLingerieB)
+    ========================================== */
+    {
+        id: "babydoll_lace_black",
+        name: "Lace Babydoll",
+        brand: "Intimate Secrets",
+        desc: "Sheer black lace babydoll with matching trim.",
+        image: "assets/content/clothing/sleepwear/IntimateSecrets/babydollLaceBlack.webp",
+        looks: 6, quality: "Premium", tags: ["sleepwear", "revealing"], price: 65.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "chemise_silk_champagne",
+        name: "Silk Chemise",
+        brand: "Intimate Secrets",
+        desc: "Luxurious champagne silk chemise.",
+        image: "assets/content/clothing/sleepwear/IntimateSecrets/chemiseSilkChampagne.webp",
+        looks: 5, quality: "Premium", tags: ["sleepwear", "elegant"], price: 58.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "robe_sheer_lace_trim",
+        name: "Sheer Lace Robe",
+        brand: "Intimate Secrets",
+        desc: "Thin, transparent robe with lace edges.",
+        image: "assets/content/clothing/sleepwear/IntimateSecrets/robeSheerLaceTrim.webp",
+        looks: 6, quality: "Premium", tags: ["sleepwear", "revealing", "elegant"], price: 70.00, shopAvailable: true, startOwned: false
     }
 ]>>
-

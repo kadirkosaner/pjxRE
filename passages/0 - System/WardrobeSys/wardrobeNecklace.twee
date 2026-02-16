@@ -2,39 +2,43 @@
  * 
  * Template:
  * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- * 
- * Tags: casual, formal, elegant, cute, statement
- * Quality: Common, Rare, Premium
- * FUTURE: durability, effects, unlockCondition
  */
 
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.necklaces = [
+    /* ==========================================
+       DIAMOND DREAMS (StoreJewelry)
+    ========================================== */
     {
-        id: "necklace_simple",
-        name: "Simple Necklace",
-        brand: "Silver Touch",
-        desc: "A delicate chain necklace for subtle style.",
-        image: "assets/content/clothing/necklace/necklace1.jpg",
-        looks: 4,
-        quality: "Common",
-        tags: ["casual"],
-        price: 15.00,
-        shopAvailable: true,
-        startOwned: false
+        id: "necklace_choker_velvet_drop",
+        name: "Velvet Drop Choker",
+        brand: "Diamond Dreams",
+        desc: "Black velvet choker with a drop pendant.",
+        image: "assets/content/clothing/necklace/DiamondDreams/necklaceChokerVelvetDrop.webp",
+        looks: 4, quality: "Common", tags: ["casual"], price: 28.00, shopAvailable: true, startOwned: false
     },
     {
-        id: "necklace_pearl",
-        name: "Pearl Necklace",
-        brand: "Royal Pearl",
-        desc: "Elegant pearl necklace for sophisticated occasions.",
-        image: "assets/content/clothing/necklace/necklace2.jpg",
-        looks: 8,
-        quality: "Premium",
-        tags: ["formal", "elegant"],
-        price: 120.00,
-        shopAvailable: true,
-        startOwned: false
+        id: "necklace_choker_velvet_halfmoon",
+        name: "Half-Moon Choker",
+        brand: "Diamond Dreams",
+        desc: "Velvet choker with a half-moon charm.",
+        image: "assets/content/clothing/necklace/DiamondDreams/necklaceChokerVelvetHalfmoon.webp",
+        looks: 4, quality: "Common", tags: ["casual"], price: 30.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "necklace_pendant_silver",
+        name: "Silver Pendant",
+        brand: "Diamond Dreams",
+        desc: "Delicate silver chain with pendant.",
+        image: "assets/content/clothing/necklace/DiamondDreams/necklacePendantSilver.webp",
+        looks: 4, quality: "Rare", tags: ["casual", "elegant"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "necklace_layer_gold",
+        name: "Gold Layered Necklace",
+        brand: "Diamond Dreams",
+        desc: "Trendy layered gold chains.",
+        image: "assets/content/clothing/necklace/DiamondDreams/necklaceLayerGold.webp",
+        looks: 4, quality: "Rare", tags: ["elegant"], price: 45.00, shopAvailable: true, startOwned: false
     }
 ]>>
-

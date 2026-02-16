@@ -1,0 +1,76 @@
+/* Bags - Handbags, totes, backpacks, clutches, etc.
+ *
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.bags = [
+    /* ==========================================
+       LUXE LEATHER (StoreBags)
+    ========================================== */
+    {
+        id: "handbag_tote_leather_black",
+        name: "Black Leather Tote",
+        brand: "Luxe Leather",
+        desc: "Professional black leather tote.",
+        image: "assets/content/clothing/bags/LuxeLeather/handbagToteLeatherBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "professional"], price: 45.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "handbag_tote_canvas",
+        name: "Canvas Tote",
+        brand: "Luxe Leather",
+        desc: "Simple canvas tote bag for daily essentials.",
+        image: "assets/content/clothing/bags/LuxeLeather/handbagToteCanvas.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 25.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "backpack_leather_brown",
+        name: "Brown Leather Backpack",
+        brand: "Luxe Leather",
+        desc: "Stylish brown leather backpack.",
+        image: "assets/content/clothing/bags/LuxeLeather/backpackLeatherBrown.webp",
+        looks: 4, quality: "Rare", tags: ["casual"], price: 55.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crossbody_small_chain",
+        name: "Chain Crossbody Bag",
+        brand: "Luxe Leather",
+        desc: "Small crossbody bag with a gold chain strap.",
+        image: "assets/content/clothing/bags/LuxeLeather/crossbodySmallChain.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant"], price: 35.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "clutch_evening_gold",
+        name: "Gold Evening Clutch",
+        brand: "Luxe Leather",
+        desc: "Elegant gold clutch for formal events.",
+        image: "assets/content/clothing/bags/LuxeLeather/clutchEveningGold.webp",
+        looks: 5, quality: "Rare", tags: ["formal", "elegant"], price: 50.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "clutch_evening_silver",
+        name: "Silver Evening Clutch",
+        brand: "Luxe Leather",
+        desc: "Elegant silver clutch for formal events.",
+        image: "assets/content/clothing/bags/LuxeLeather/clutchEveningSilver.webp",
+        looks: 5, quality: "Rare", tags: ["formal", "elegant"], price: 50.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "wristlet_clutch",
+        name: "Wristlet Clutch",
+        brand: "Luxe Leather",
+        desc: "Small wristlet clutch, perfect for carrying just the essentials.",
+        image: "assets/content/clothing/bags/LuxeLeather/wristletClutch.webp",
+        looks: 3, quality: "Common", tags: ["casual", "elegant"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "bucket_bag_tan",
+        name: "Tan Bucket Bag",
+        brand: "Luxe Leather",
+        desc: "Trendy tan bucket bag.",
+        image: "assets/content/clothing/bags/LuxeLeather/bucketBagTan.webp",
+        looks: 4, quality: "Common", tags: ["casual"], price: 40.00, shopAvailable: true, startOwned: false
+    }
+]>>

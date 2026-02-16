@@ -1,67 +1,192 @@
-
-/* Shoes - Sneakers, heels, boots, sandals, etc.
+/* Shoes - Footwear
  * 
  * Template:
  * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- * 
- * Tags: casual, formal, revealing, sporty, elegant, comfortable
- * Quality: Common, Rare, Premium
- * FUTURE: size, durability, effects, unlockCondition
  */
 
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.shoes = [
+    /* ==========================================
+       OWNED / STARTER ITEMS (shoes/Owned)
+    ========================================== */
     {
-        id: "sandals_owned",
-        name: "Brown Sandals",
+        id: "sneakers_white_owned",
+        name: "White Sneakers",
         brand: "StepUp Footwear",
-        desc: "Comfortable brown leather sandals.",
-        image: "assets/content/clothing/shoes/sandals/sandalsOwned.webp",
-        looks: 3,
-        quality: "Common",
-        tags: ["casual"],
-        price: 20.00,
-        shopAvailable: false,
-        startOwned: true
+        desc: "Comfortable white sneakers for daily use.",
+        image: "assets/content/clothing/shoes/Owned/sneakersWhiteOwned.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sporty"], price: 35.00, shopAvailable: false, startOwned: true
     },
     {
-        id: "sneakers_flat_owned",
-        name: "Black Sneakers",
+        id: "sandals_strappy_owned",
+        name: "Strappy Sandals",
         brand: "StepUp Footwear",
-        desc: "Classic black low-top canvas sneakers.",
-        image: "assets/content/clothing/shoes/sneakers/sneakersFlatOwned.webp",
-        looks: 4,
-        quality: "Common",
-        tags: ["casual"],
-        price: 28.00,
-        shopAvailable: false,
-        startOwned: true
+        desc: "Simple strappy sandals perfect for summer.",
+        image: "assets/content/clothing/shoes/Owned/sandalsStrappyOwned.webp",
+        looks: 3, quality: "Common", tags: ["casual", "summer"], price: 30.00, shopAvailable: false, startOwned: true
+    },
+
+    /* ==========================================
+       STEPUP FOOTWEAR (StoreShoeA - Casual)
+    ========================================== */
+    {
+        id: "sneakers_white_lowtop",
+        name: "White Low-Tops",
+        brand: "StepUp Footwear",
+        desc: "Classic white low-top sneakers.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sneakersWhiteLowtop.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 35.00, shopAvailable: true, startOwned: false
     },
     {
-        id: "sneakers_girly_owned",
-        name: "Athletic Sneakers",
-        brand: "FastBreak Athletics",
-        desc: "Cute white sneakers with pink and blue accents.",
-        image: "assets/content/clothing/shoes/sneakers/sneakersGirlyOwned.webp",
-        looks: 5,
-        quality: "Common",
-        tags: ["sporty"],
-        price: 35.00,
-        shopAvailable: false,
-        startOwned: true
+        id: "sneakers_black_canvas",
+        name: "Black Canvas Sneakers",
+        brand: "StepUp Footwear",
+        desc: "High-top black canvas sneakers.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sneakersBlackCanvas.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 32.00, shopAvailable: true, startOwned: false
     },
     {
-        id: "sneakers_trail_runners",
+        id: "flats_ballet_black",
+        name: "Black Ballet Flats",
+        brand: "StepUp Footwear",
+        desc: "Simple comfortable flats.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/flatsBalletBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "boots_ankle_black",
+        name: "Black Ankle Boots",
+        brand: "StepUp Footwear",
+        desc: "Versatile black ankle boots.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/bootsAnkleBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual"], price: 48.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "loafers_black_basic",
+        name: "Basic Black Loafers",
+        brand: "StepUp Footwear",
+        desc: "Classic slip-on loafers.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/loafersBlackBasic.webp",
+        looks: 3, quality: "Common", tags: ["casual", "professional"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sandals_flat_strap",
+        name: "Strappy Flat Sandals",
+        brand: "StepUp Footwear",
+        desc: "Summer sandals with multiple straps.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsFlatStrap.webp",
+        looks: 3, quality: "Common", tags: ["casual", "summer"], price: 25.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "heels_block_nude",
+        name: "Nude Block Heels",
+        brand: "StepUp Footwear",
+        desc: "Comfortable nude heels with a block heel.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/heelsBlockNude.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant"], price: 45.00, shopAvailable: true, startOwned: false
+    },
+
+    /* ==========================================
+       FASTBREAK ATHLETICS (StoreSports)
+    ========================================== */
+    {
+        id: "sneakers_platform_white",
+        name: "Platform Sneakers",
+        brand: "StepUp Footwear",
+        desc: "Trendy white platform sneakers.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/sneakersPlatformWhite.webp",
+        looks: 4, quality: "Common", tags: ["trendy", "sporty"], price: 42.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sneakers_trail_runners_gray_orange",
         name: "Trail Runners",
         brand: "FastBreak Athletics",
-        desc: "Gray and orange trail running shoes.",
-        image: "assets/content/clothing/shoes/sneakers/sneakersTrailRunnersGrayOrange.webp",
-        looks: 4,
-        quality: "Common",
-        tags: ["sporty"],
-        price: 45.00,
-        shopAvailable: true,
-        startOwned: false
+        desc: "Rugged gray and orange trail running shoes.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/sneakersTrailRunnersGrayOrange.webp",
+        looks: 3, quality: "Common", tags: ["sporty", "durable"], price: 45.00, shopAvailable: true, startOwned: false
+    },
+
+    /* ==========================================
+       STILETTO STUDIO (StoreShoeB - Heels)
+    ========================================== */
+    {
+        id: "heels_stiletto_black",
+        name: "Black Stilettos",
+        brand: "Stiletto Studio",
+        desc: "Classic sexy black stilettos.",
+        image: "assets/content/clothing/shoes/StilettoStudio/heelsStilettoBlack.webp",
+        looks: 5, quality: "Rare", tags: ["formal", "elegant"], price: 75.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "heels_stiletto_nude",
+        name: "Nude Stilettos",
+        brand: "Stiletto Studio",
+        desc: "Leg-lengthening nude stilettos.",
+        image: "assets/content/clothing/shoes/StilettoStudio/heelsStilettoNude.webp",
+        looks: 5, quality: "Rare", tags: ["formal", "elegant"], price: 72.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "boots_knehigh_black",
+        name: "Black Knee-High Boots",
+        brand: "Stiletto Studio",
+        desc: "Elegant knee-high leather boots.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsKnehighBlack.webp",
+        looks: 5, quality: "Rare", tags: ["elegant"], price: 85.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "pumps_satin_black",
+        name: "Satin Pumps",
+        brand: "Stiletto Studio",
+        desc: "Formal satin pumps.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsSatinBlack.webp",
+        looks: 6, quality: "Rare", tags: ["formal", "elegant"], price: 80.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "heels_block_metallic",
+        name: "Metallic Block Heels",
+        brand: "Stiletto Studio",
+        desc: "Eye-catching metallic heels.",
+        image: "assets/content/clothing/shoes/StilettoStudio/heelsBlockMetallic.webp",
+        looks: 5, quality: "Rare", tags: ["elegant"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "heels_maryjane_black",
+        name: "Black Mary Janes",
+        brand: "Stiletto Studio",
+        desc: "Glossy black heels with a strap.",
+        image: "assets/content/clothing/shoes/StilettoStudio/heelsMaryjaneBlack.webp",
+        looks: 4, quality: "Rare", tags: ["elegant"], price: 58.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "ankle_boots_suede_tan",
+        name: "Tan Suede Boots",
+        brand: "Stiletto Studio",
+        desc: "Stylish tan suede ankle boots.",
+        image: "assets/content/clothing/shoes/StilettoStudio/ankleBootsSuedeTan.webp",
+        looks: 4, quality: "Rare", tags: ["casual", "elegant"], price: 72.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "boots_knehigh_brown",
+        name: "Brown Knee-High Boots",
+        brand: "Stiletto Studio",
+        desc: "Classic brown leather riding boots.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsKnehighBrown.webp",
+        looks: 5, quality: "Rare", tags: ["elegant"], price: 82.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "loafers_leather_horsebit",
+        name: "Horsebit Loafers",
+        brand: "Stiletto Studio",
+        desc: "Premium leather loafers with metal detail.",
+        image: "assets/content/clothing/shoes/StilettoStudio/loafersLeatherHorsebit.webp",
+        looks: 4, quality: "Rare", tags: ["casual", "elegant"], price: 65.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sandals_stiletto_nude",
+        name: "Nude Stiletto Sandals",
+        brand: "Stiletto Studio",
+        desc: "Barely-there nude strappy heels.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsStilettoNude.webp",
+        looks: 5, quality: "Rare", tags: ["elegant"], price: 68.00, shopAvailable: true, startOwned: false
     }
 ]>>
-

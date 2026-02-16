@@ -755,7 +755,7 @@ function getPostById(vars, postId) {
 
 function pickMessageForFlags(byFlag) {
     if (!byFlag || typeof byFlag !== 'object') return null;
-    var flags = ['spicy', 'bikini', 'risky', 'hips', 'ass', 'hot', 'teasing', 'default'];
+    var flags = ['spicy', 'bikini', 'risky', 'hips', 'ass', 'boobs', 'hot', 'teasing', 'default'];
     for (var f = 0; f < flags.length; f++) {
         var arr = byFlag[flags[f]];
         if (Array.isArray(arr) && arr.length > 0) {
@@ -766,7 +766,7 @@ function pickMessageForFlags(byFlag) {
 }
 
 function getBestFlagMatch(postFlags) {
-    var order = ['spicy', 'bikini', 'risky', 'hips', 'ass', 'hot', 'teasing'];
+    var order = ['spicy', 'bikini', 'risky', 'hips', 'ass', 'boobs', 'hot', 'teasing'];
     for (var i = 0; i < order.length; i++) {
         if (postFlags && postFlags.indexOf(order[i]) >= 0) return order[i];
     }

@@ -319,23 +319,35 @@ window.CharacterInit = function (API) {
             
             // Define strict order as per reference image
             const mainSlots = [
+                { id: 'coat', label: 'Coat' },
                 { id: 'top', label: 'Top' },
                 { id: 'bottom', label: 'Bottom' },
                 { id: 'dress', label: 'Dress' },
                 { id: 'shoes', label: 'Shoes' },
-                { id: 'socks', label: 'Socks' }
+                { id: 'socks', label: 'Socks' },
+                { id: 'bag', label: 'Bag' }
             ];
             
             const accessorySlots = [
                 { id: 'earrings', label: 'Earrings' },
                 { id: 'necklace', label: 'Necklace' },
-                { id: 'bracelet', label: 'Bracelet' }
+                { id: 'bracelet', label: 'Bracelet' },
+                { id: 'ring', label: 'Rings' }
             ];
             
-            const intimateSlots = [
-                 { id: 'bra', label: 'Bra' },
-                 { id: 'panty', label: 'Panties' }
-            ];
+            /* When bodysuit equipped (bra===panty with bodysuit tag), show single Bodysuit slot */
+            const braId = equipped.bra;
+            const pantyId = equipped.panty;
+            const braItem = braId ? self.getClothingItemById(braId) : null;
+            const isBodysuitOn = braId && braId === pantyId && braItem && braItem.tags && braItem.tags.includes('bodysuit');
+            const intimateSlots = isBodysuitOn
+                ? [{ id: 'bra', label: 'Bodysuit' }, { id: 'sleepwear', label: 'Sleepwear' }, { id: 'garter', label: 'Garter' }]
+                : [
+                    { id: 'bra', label: 'Bra' },
+                    { id: 'panty', label: 'Panties' },
+                    { id: 'sleepwear', label: 'Sleepwear' },
+                    { id: 'garter', label: 'Garter' }
+                ];
 
             const specialSlots = [
                 { id: 'apron', label: 'Apron' }
