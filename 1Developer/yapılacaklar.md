@@ -1,3 +1,4 @@
+
 - Kıyafetler ve itemlara denge getirilecek.
 - Settings Help sayfası yapılacak.
 - Settings Bug Report sayfası yapılacak.

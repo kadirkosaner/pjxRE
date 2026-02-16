@@ -773,6 +773,33 @@ function getBestFlagMatch(postFlags) {
     return 'default';
 }
 
+/**
+ * Pick one item from pool: prefer indices not yet used; when all used, reset and pick random.
+ * Reduces back-to-back repeats when pool is large.
+ * @param {object} vars - State.variables (will store used indices under storageKey)
+ * @param {string} storageKey - e.g. 'phoneFotogramCommentUsedNameIndices'
+ * @param {Array} poolArray - full pool of options
+ * @returns {*} one element from poolArray, or null if pool empty
+ */
+function pickFromPoolWithUnusedPreference(vars, storageKey, poolArray) {
+    if (!poolArray || !Array.isArray(poolArray) || poolArray.length === 0) return null;
+    if (!vars) return poolArray[Math.floor(Math.random() * poolArray.length)];
+    var used = vars[storageKey];
+    if (!Array.isArray(used)) used = [];
+    var unusedIndices = [];
+    for (var i = 0; i < poolArray.length; i++) {
+        if (used.indexOf(i) < 0) unusedIndices.push(i);
+    }
+    if (unusedIndices.length === 0) {
+        used = [];
+        for (i = 0; i < poolArray.length; i++) unusedIndices.push(i);
+    }
+    var idx = unusedIndices[Math.floor(Math.random() * unusedIndices.length)];
+    used.push(idx);
+    vars[storageKey] = used;
+    return poolArray[idx];
+}
+
 function createFotogramCommentForPost(vars, post) {
     var postFlags = (post && post.flags) ? post.flags : [];
     var flagKey = getBestFlagMatch(postFlags);
@@ -783,8 +810,15 @@ function createFotogramCommentForPost(vars, post) {
     var authorPool = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramCommentNames) && setup.fotogramCommentNames.length)
         ? setup.fotogramCommentNames
         : FOTOGRAM_COMMENT_NAMES_FALLBACK;
-    var author = authorPool[Math.floor(Math.random() * authorPool.length)] || 'user';
-    var text = byFlag[Math.floor(Math.random() * byFlag.length)] || 'Nice!';
+    var author = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
+        ? (pickFromPoolWithUnusedPreference(vars, 'phoneFotogramCommentUsedNameIndices', authorPool) || authorPool[Math.floor(Math.random() * authorPool.length)])
+        : (authorPool[Math.floor(Math.random() * authorPool.length)]);
+    var textKey = 'phoneFotogramCommentUsedText_' + flagKey;
+    var text = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
+        ? (pickFromPoolWithUnusedPreference(vars, textKey, byFlag) || byFlag[Math.floor(Math.random() * byFlag.length)])
+        : (byFlag[Math.floor(Math.random() * byFlag.length)]);
+    author = author || 'user';
+    text = text || 'Nice!';
     var t = vars && vars.timeSys ? vars.timeSys : {};
     return {
         id: 'fgc_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
@@ -902,16 +936,28 @@ function createFotogramDM(vars, post, opts) {
         var encouragingMsgs = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramDMEncouragingMessages) && setup.fotogramDMEncouragingMessages.length)
             ? setup.fotogramDMEncouragingMessages
             : ['Keep it up!'];
-        firstMsg = encouragingMsgs[Math.floor(Math.random() * encouragingMsgs.length)] || 'Keep it up!';
+        firstMsg = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
+            ? (pickFromPoolWithUnusedPreference(vars, 'phoneFotogramDMUsedEncouragingIndices', encouragingMsgs) || encouragingMsgs[Math.floor(Math.random() * encouragingMsgs.length)])
+            : (encouragingMsgs[Math.floor(Math.random() * encouragingMsgs.length)]);
+        firstMsg = firstMsg || 'Keep it up!';
         charId = null;
     } else if (cfg && cfg.firstMessagesByFlag && cfg.firstMessagesByFlag[flagKey] && cfg.firstMessagesByFlag[flagKey].length) {
-        firstMsg = cfg.firstMessagesByFlag[flagKey][Math.floor(Math.random() * cfg.firstMessagesByFlag[flagKey].length)];
+        var charPool = cfg.firstMessagesByFlag[flagKey];
+        var charMsgKey = 'phoneFotogramDMUsedFirstMsgChar_' + (charId || '') + '_' + flagKey;
+        firstMsg = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
+            ? (pickFromPoolWithUnusedPreference(vars, charMsgKey, charPool) || charPool[Math.floor(Math.random() * charPool.length)])
+            : (charPool[Math.floor(Math.random() * charPool.length)]);
     } else if (byFlag && byFlag[flagKey] && byFlag[flagKey].length) {
-        firstMsg = byFlag[flagKey][Math.floor(Math.random() * byFlag[flagKey].length)];
+        var globalMsgKey = 'phoneFotogramDMUsedFirstMsg_' + flagKey;
+        firstMsg = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
+            ? (pickFromPoolWithUnusedPreference(vars, globalMsgKey, byFlag[flagKey]) || byFlag[flagKey][Math.floor(Math.random() * byFlag[flagKey].length)])
+            : (byFlag[flagKey][Math.floor(Math.random() * byFlag[flagKey].length)]);
     } else {
         firstMsg = 'Hey! Nice post!';
     }
-    var anonName = anonNames[Math.floor(Math.random() * anonNames.length)];
+    var anonName = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
+        ? (pickFromPoolWithUnusedPreference(vars, 'phoneFotogramDMUsedAnonNameIndices', anonNames) || anonNames[Math.floor(Math.random() * anonNames.length)])
+        : (anonNames[Math.floor(Math.random() * anonNames.length)]);
     var dmId = 'fotodm_' + Date.now();
     var startReplyKeys = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramDMStartReplyKeys) && setup.fotogramDMStartReplyKeys.length)
         ? setup.fotogramDMStartReplyKeys.slice()
