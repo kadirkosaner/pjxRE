@@ -1,0 +1,20 @@
+/* Garter - Garter belts (special underwear)
+ *
+ * Template:
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ */
+
+<<set setup.clothingData = setup.clothingData || {}>>
+<<set setup.clothingData.garter = [
+    /* ==========================================
+       INTIMATE SECRETS (StoreLingerieB)
+    ========================================== */
+    {
+        id: "garter_belt_black",
+        name: "Black Garter Belt",
+        brand: "Intimate Secrets",
+        desc: "A sexy black lace garter belt to hold up stockings.",
+        image: "assets/content/clothing/garter/IntimateSecrets/garterBeltBlack.webp",
+        looks: 6, quality: "Premium", tags: ["revealing"], price: 55.00, shopAvailable: true, startOwned: false
+    }
+]>>

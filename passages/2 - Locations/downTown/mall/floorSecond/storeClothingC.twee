@@ -1,5 +1,19 @@
-<<nobr>><<set $location = "storeClothingC">><</nobr>>
+<<nobr>>
+<<set $location = "storeClothingC">>
+<<set _shopItems = [
+    "coat_wool_blend_black",
+    "coat_soft_cream",
+    "trench_coat_khaki",
+    "blazer_structured_navy",
+    "blouse_printed_floral",
+    "trousers_suit_navy",
+    "trousers_wideleg_navy",
+    "skirt_pencil_midi_black",
+    "dress_cocktail_black",
+    "dress_maxi_flowing",
+    "dress_midi_silk_blend_navy",
+    "dress_back_cutout_lbd"
+]>>
 <<updateCharacterLocations>>
-<<narrative "Designer Clothing">>High-end designer brands with premium price tags. Personal shopping assistants on standby.<</narrative>>
-<<showLocationChars "storeClothingC">>
-<<navMenu>><<navCard "floorSecond">><</navMenu>>
+<<shop "Fifth Avenue" "Luxury Boutique" _shopItems "floorSecond">>
+<</nobr>>

@@ -12,7 +12,10 @@
 
 - Fotogramdaki text düzenlemeleri.
 - comment ve dmlerdeki random karakterlere avatarlar gelecek.
-- comment ve dmlere en az 100 çeşit gelecek ! tabi fotoğrafa göre sexsist şeyler bile olabilir
+
+- commentlere ve dmlere 100den fazla içerik geldi ! Ama önemli olan bunlardan biri varsa havuzdan çıkıp random pick yapılacak eğer hepsi yazıldıysa random pick yap.
+- İnteraktif dmleri detaylı 2 mesajda bitmeyen sextinge yönelten seçim belki karşı taraftan gelen dickpiclerle ortaya karşışık hep aynı olmayan bir sistem
+
 
 ############################################################################################################################
 
@@ -20,6 +23,7 @@
 - location geçişlerinde enerji harcaması yok !
 - Read book kısımlarına yeni düzenlemeler gelebilir üzerine geldiğinde kitabın hoverı içerikte ne olduğu vs vs. ve resimler videolar.
 - Profile Pictureyi saçın şekline ve rengine göre yapmak.
+
 
 
 

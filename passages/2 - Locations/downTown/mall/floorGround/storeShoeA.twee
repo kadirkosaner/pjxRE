@@ -1,5 +1,17 @@
-<<nobr>><<set $location = "storeShoeA">><</nobr>>
+<<nobr>>
+<<set $location = "storeShoeA">>
+<<set _shopItems = [
+    "sneakers_white_lowtop",
+    "sneakers_black_canvas",
+    "sneakers_platform_white",
+    "flats_ballet_black",
+    "sandals_flat_strap",
+    "boots_ankle_black",
+    "heels_block_nude",
+    "loafers_black_basic",
+    "socks_ankle_white",
+    "socks_ankle_black"
+]>>
 <<updateCharacterLocations>>
-<<narrative "Shoe Store">>Rows of sneakers, heels, and boots. A comfortable seating area for trying on shoes.<</narrative>>
-<<showLocationChars "storeShoeA">>
-<<navMenu>><<navCard "floorGround">><</navMenu>>
+<<shop "StepUp Footwear" "Casual Shoe Store" _shopItems "floorGround">>
+<</nobr>>

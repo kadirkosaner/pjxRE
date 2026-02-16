@@ -1,93 +1,95 @@
-# storeCosmetics – Kozmetik Mağazası
+# storeCosmetics – Kozmetik (Ground Floor)
 
-## Items – Sadece yeni (vardaki yok)
+*Ürün fotoğrafı – kadın model yok.*
 
----
-
-**Item ID:** lipstick_set_matte_5shade_nude  
-**Tags:** —  
-**KayıtID:** lipstickSetMatte5shadeNude  
-
-**Prompt:**  
-1:1. A set of lipstick tubes in various shades; product photography; elegant packaging; beauty aesthetic. Studio lighting, isolated on pure white background, focus on the product.
+## Items (10–20)
 
 ---
 
-**Item ID:** mascara_volumizing_black_waterproof  
+**Item ID:** lipstick_set_matte_5shade  
 **Tags:** —  
-**KayıtID:** mascaraVolumizingBlackWaterproof  
+**KayıtID:** lipstickSetMatte5shade  
 
 **Prompt:**  
-1:1. A mascara tube with brush; product photography; cosmetics packaging. Studio lighting, isolated on pure white background, focus on the product.
+1:1. Lipstick set with 5 nude/pink shades; product photography; clean packaging. Studio lighting, isolated on pure white background, focus on the product.
 
 ---
 
-**Item ID:** nail_polish_set_pastels_6bottle  
+**Item ID:** mascara_volumizing_black  
 **Tags:** —  
-**KayıtID:** nailPolishSetPastels6bottle  
+**KayıtID:** mascaraVolumizingBlack  
 
 **Prompt:**  
-1:1. A set of nail polish bottles in various colors; product photography; clean display. Studio lighting, isolated on pure white background, focus on the product.
+1:1. Black mascara tube with brush; product photography. Studio lighting, isolated on pure white background, focus on the product.
 
 ---
 
-**Item ID:** serum_vitamin_c_antioxidant_30ml  
+**Item ID:** nail_polish_set_pastels  
 **Tags:** —  
-**KayıtID:** serumVitaminCAntioxidant30ml  
+**KayıtID:** nailPolishSetPastels  
 
 **Prompt:**  
-1:1. A vitamin C serum bottle; product photography; dropper design; skincare packaging. Studio lighting, isolated on pure white background, focus on the product.
+1:1. Set of pastel nail polish bottles; product photography. Studio lighting, isolated on pure white background, focus on the product.
 
 ---
 
-**Item ID:** face_mask_set_hydrating_5pack  
+**Item ID:** serum_vitamin_c_30ml  
 **Tags:** —  
-**KayıtID:** faceMaskSetHydrating5pack  
+**KayıtID:** serumVitaminC30ml  
 
 **Prompt:**  
-1:1. A set of sheet masks or clay masks; product photography; K-beauty aesthetic. Studio lighting, isolated on pure white background, focus on the product.
+1:1. Vitamin C serum bottle with dropper; product photography. Studio lighting, isolated on pure white background, focus on the product.
 
 ---
 
-**Item ID:** blush_palette_nude_pink_quad  
+**Item ID:** face_mask_set_5pack  
 **Tags:** —  
-**KayıtID:** blushPaletteNudePinkQuad  
+**KayıtID:** faceMaskSet5pack  
 
 **Prompt:**  
-1:1. A blush palette with mirror; product photography; compact design; neutral to pink tones. Studio lighting, isolated on pure white background, focus on the product.
+1:1. Set of sheet masks; product photography; skincare. Studio lighting, isolated on pure white background, focus on the product.
 
 ---
 
-**Item ID:** setting_spray_matte_finish_100ml  
+**Item ID:** blush_palette_quad  
 **Tags:** —  
-**KayıtID:** settingSprayMatteFinish100ml  
+**KayıtID:** blushPaletteQuad  
 
 **Prompt:**  
-1:1. A makeup setting spray bottle; product photography; glass or plastic; cosmetics packaging. Studio lighting, isolated on pure white background, focus on the product.
+1:1. Blush palette with mirror; product photography; pink tones. Studio lighting, isolated on pure white background, focus on the product.
 
 ---
 
-**Item ID:** body_lotion_moisturizing_almond_250ml  
+**Item ID:** setting_spray_matifying  
 **Tags:** —  
-**KayıtID:** bodyLotionMoisturizingAlmond250ml  
+**KayıtID:** settingSprayMatifying  
 
 **Prompt:**  
-1:1. A body lotion bottle; product photography; moisturizing product; clean packaging. Studio lighting, isolated on pure white background, focus on the product.
+1:1. Makeup setting spray bottle; product photography. Studio lighting, isolated on pure white background, focus on the product.
 
 ---
 
-**Item ID:** dry_shampoo_volumizing_aerosol  
+**Item ID:** body_lotion_moisturizing  
 **Tags:** —  
-**KayıtID:** dryShampooVolumizingAerosol  
+**KayıtID:** bodyLotionMoisturizing  
 
 **Prompt:**  
-1:1. A dry shampoo aerosol can; product photography; hair care; sleek design. Studio lighting, isolated on pure white background, focus on the product.
+1:1. Body lotion bottle; product photography. Studio lighting, isolated on pure white background, focus on the product.
 
 ---
 
-**Item ID:** eyebrow_pencil_set_dual_3shade  
+**Item ID:** dry_shampoo_aerosol  
 **Tags:** —  
-**KayıtID:** eyebrowPencilSetDual3shade  
+**KayıtID:** dryShampooAerosol  
 
 **Prompt:**  
-1:1. A set of eyebrow pencils; product photography; dual-ended or multi-shade; beauty accessory. Studio lighting, isolated on pure white background, focus on the product.
+1:1. Dry shampoo aerosol can; product photography. Studio lighting, isolated on pure white background, focus on the product.
+
+---
+
+**Item ID:** eyebrow_pencil_dual  
+**Tags:** —  
+**KayıtID:** eyebrowPencilDual  
+
+**Prompt:**  
+1:1. Dual-ended eyebrow pencil; product photography. Studio lighting, isolated on pure white background, focus on the product.

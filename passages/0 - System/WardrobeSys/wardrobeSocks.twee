@@ -1,67 +1,68 @@
-
 /* Socks - Regular socks, stockings, etc.
  * 
  * Template:
  * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- * 
- * Tags: casual, formal, revealing, cute
- * Quality: Common, Rare, Premium
- * FUTURE: size, durability, effects, unlockCondition
  */
 
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.socks = [
+    /* ==========================================
+       OWNED / STARTER ITEMS (socks/Owned)
+    ========================================== */
     {
         id: "socks_white_owned",
         name: "White Socks",
         brand: "StepUp Footwear",
         desc: "Simple white ankle socks.",
-        image: "assets/content/clothing/socks/socksWhiteOwned.webp",
-        looks: 1,
-        quality: "Common",
-        tags: ["casual"],
-        price: 3.00,
-        shopAvailable: false,
-        startOwned: true
+        image: "assets/content/clothing/socks/Owned/socksWhiteOwned.webp",
+        looks: 1, quality: "Common", tags: ["casual"], price: 3.00, shopAvailable: false, startOwned: true
     },
     {
         id: "socks_black_owned",
         name: "Black Socks",
         brand: "StepUp Footwear",
         desc: "Simple black ankle socks.",
-        image: "assets/content/clothing/socks/sockBlackOwned.webp",
-        looks: 1,
-        quality: "Common",
-        tags: ["casual"],
-        price: 3.00,
-        shopAvailable: false,
-        startOwned: true
+        image: "assets/content/clothing/socks/Owned/sockBlackOwned.webp",
+        looks: 1, quality: "Common", tags: ["casual"], price: 3.00, shopAvailable: false, startOwned: true
     },
+
+    /* ==========================================
+       FASTBREAK ATHLETICS (StoreSports)
+    ========================================== */
     {
         id: "socks_crew_white",
         name: "Athletic Crew Socks (White)",
         brand: "FastBreak Athletics",
         desc: "White athletic crew socks.",
-        image: "assets/content/clothing/socks/socksCrewWhite.webp",
-        looks: 1,
-        quality: "Common",
-        tags: ["casual", "sporty"],
-        price: 6.00,
-        shopAvailable: true,
-        startOwned: false
+        image: "assets/content/clothing/socks/FastBreakAthletics/socksCrewWhite.webp",
+        looks: 1, quality: "Common", tags: ["casual", "sporty"], price: 6.00, shopAvailable: true, startOwned: false
     },
     {
         id: "socks_crew_black",
         name: "Athletic Crew Socks (Black)",
         brand: "FastBreak Athletics",
         desc: "Black athletic crew socks.",
-        image: "assets/content/clothing/socks/socksCrewBlack.webp",
-        looks: 1,
-        quality: "Common",
-        tags: ["casual", "sporty"],
-        price: 6.00,
-        shopAvailable: true,
-        startOwned: false
+        image: "assets/content/clothing/socks/FastBreakAthletics/socksCrewBlack.webp",
+        looks: 1, quality: "Common", tags: ["casual", "sporty"], price: 6.00, shopAvailable: true, startOwned: false
+    },
+
+    /* ==========================================
+       STEPUP FOOTWEAR (StoreShoeA)
+    ========================================== */
+    {
+        id: "socks_ankle_white",
+        name: "White Ankle Socks",
+        brand: "StepUp Footwear",
+        desc: "Classic white ankle socks.",
+        image: "assets/content/clothing/socks/StepUpFootwear/socksAnkleWhite.webp",
+        looks: 2, quality: "Common", tags: ["casual"], price: 5.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "socks_ankle_black",
+        name: "Black Ankle Socks",
+        brand: "StepUp Footwear",
+        desc: "Classic black ankle socks.",
+        image: "assets/content/clothing/socks/StepUpFootwear/socksAnkleBlack.webp",
+        looks: 2, quality: "Common", tags: ["casual"], price: 5.00, shopAvailable: true, startOwned: false
     }
 ]>>
-

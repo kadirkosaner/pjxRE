@@ -1,5 +1,23 @@
-<<nobr>><<set $location = "storeClothingB">><</nobr>>
+<<nobr>>
+<<set $location = "storeClothingB">>
+<<set _shopItems = [
+    "blazer_cropped_black",
+    "blazer_cropped_singlebreast_black",
+    "blazer_cropped_singlebreast_navy",
+    "blouse_silk_like_cream",
+    "crop_shoulder",
+    "crop_sweater_knit_oatmeal",
+    "top_cutout_side_white",
+    "top_wrap_vneck",
+    "vest_fauxleather_black",
+    "pants_paperbag_beige",
+    "pant_wide_cream",
+    "skirt_mini_black_aline",
+    "skirt_mini_plaid",
+    "skirt_mini_plaid_scotch_red",
+    "dress_midi_wrap_floral",
+    "jumpsuit_wideleg_black"
+]>>
 <<updateCharacterLocations>>
-<<narrative "Fashion Boutique">>A trendy boutique with curated fashion pieces. Unique styles not found elsewhere.<</narrative>>
-<<showLocationChars "storeClothingB">>
-<<navMenu>><<navCard "floorSecond">><</navMenu>>
+<<shop "VERA Mode" "Fashion Boutique" _shopItems "floorSecond">>
+<</nobr>>

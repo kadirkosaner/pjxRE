@@ -1,4 +1,23 @@
-<<nobr>><<set $location = "storeClothingA">><</nobr>>
+<<nobr>>
+<<set $location = "storeClothingA">>
+<<set _shopItems = [
+    "tee_basic_white_cotton",
+    "crop_tee_black_relaxed",
+    "crop_tee_white",
+    "top_offshoulder_striped",
+    "top_wrap_vneck_cream",
+    "hoodie_oversize_gray",
+    "jeans_slim_blue_highrise",
+    "pant_black",
+    "leggings_black_basic",
+    "skirt_mini_denim",
+    "dress_sundress_floral",
+    "dress_midi_shirtdress",
+    "dress_elegant",
+    "bra_basic_black_cotton",
+    "panty_brief_cotton_black",
+    "panty_hipster_lace_trim_black"
+]>>
 <<updateCharacterLocations>>
-
-<<shop "Fashion Forward" "Clothing Store" `["crop_shoulder", "pant_black", "dress_elegant", "dress_casual", "shoes_heels", "socks_black", "bra_lace", "panty_lace"]` "floorGround">>
+<<shop "Northline Apparel" "Casual Clothing Store" _shopItems "floorGround">>
+<</nobr>>

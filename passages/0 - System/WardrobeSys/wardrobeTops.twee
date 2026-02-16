@@ -2,118 +2,225 @@
  * 
  * Template:
  * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- * 
- * Tags: casual, formal, revealing, sexy, sporty, elegant
- * Quality: Common, Rare, Premium
- * FUTURE: size, durability, effects, unlockCondition
  */
-
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.tops = [
+    /* ==========================================
+       OWNED / STARTER ITEMS (tops/Owned)
+    ========================================== */
     {
         id: "tshirt_white_owned",
         name: "White T-Shirt",
         brand: "Northline Apparel",
         desc: "A simple white cotton tee, perfect for everyday wear.",
-        image: "assets/content/clothing/tops/tshirtWhiteOwned.webp",
-        looks: 3,
-        quality: "Common",
-        tags: ["casual"],
-        price: 8.00,
-        shopAvailable: false,
-        startOwned: true
+        image: "assets/content/clothing/tops/Owned/tshirtWhiteOwned.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 8.00, shopAvailable: false, startOwned: true
     },
     {
         id: "tshirt_blue_owned",
         name: "Blue T-Shirt",
         brand: "Northline Apparel",
         desc: "A comfortable light blue cotton tee.",
-        image: "assets/content/clothing/tops/tshirtBlueOwned.webp",
-        looks: 3,
-        quality: "Common",
-        tags: ["casual"],
-        price: 8.00,
-        shopAvailable: false,
-        startOwned: true
+        image: "assets/content/clothing/tops/Owned/tshirtBlueOwned.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 8.00, shopAvailable: false, startOwned: true
     },
-    {
-        id: "topRubysDishwash",
-        name: "Ruby's Dishwashing Top",
-        brand: "Ruby's Diner",
-        desc: "Work top for the dishwashing station.",
-        image: "assets/content/clothing/workclothes/rubysdiner/dishwashing/topRubysDishwash.webp",
-        looks: 0,
-        quality: "Common",
-        tags: ["work"],
-        price: 0,
-        shopAvailable: false,
-        startOwned: false,
-        locationId: "rubysDiner"
-    },
+    /* ==========================================
+       FASTBREAK ATHLETICS (StoreSports)
+    ========================================== */
     {
         id: "crop_sports_tee_navy",
         name: "Crop Sports Tee",
         brand: "FastBreak Athletics",
         desc: "Navy blue cropped athletic t-shirt.",
-        image: "assets/content/clothing/tops/cropSportsTeeNavy.webp",
-        looks: 4,
-        quality: "Common",
-        tags: ["casual", "sporty", "crop"],
-        price: 16.00,
-        shopAvailable: true,
-        startOwned: false
+        image: "assets/content/clothing/tops/FastBreakAthletics/cropSportsTeeNavy.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sporty", "crop"], price: 16.00, shopAvailable: true, startOwned: false
     },
     {
         id: "tank_racerback_white",
         name: "Racerback Tank",
         brand: "FastBreak Athletics",
         desc: "White racerback tank for yoga and running.",
-        image: "assets/content/clothing/tops/tankRacerbackWhite.webp",
-        looks: 3,
-        quality: "Common",
-        tags: ["casual", "sporty"],
-        price: 18.00,
-        shopAvailable: true,
-        startOwned: false
+        image: "assets/content/clothing/tops/FastBreakAthletics/tankRacerbackWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sporty"], price: 18.00, shopAvailable: true, startOwned: false
     },
     {
         id: "tank_top_cutout_white",
         name: "Cutout Tank",
         brand: "FastBreak Athletics",
         desc: "White athletic tank with side cutouts.",
-        image: "assets/content/clothing/tops/tankTopCutoutWhite.webp",
-        looks: 5,
-        quality: "Common",
-        tags: ["casual", "sporty", "revealing"],
-        price: 22.00,
-        shopAvailable: true,
-        startOwned: false
+        image: "assets/content/clothing/tops/FastBreakAthletics/tankTopCutoutWhite.webp",
+        looks: 5, quality: "Common", tags: ["casual", "sporty", "revealing"], price: 22.00, shopAvailable: true, startOwned: false
     },
     {
         id: "tank_top_mesh_black",
         name: "Mesh Tank Top (Black)",
         brand: "FastBreak Athletics",
         desc: "Black breathable mesh tank top.",
-        image: "assets/content/clothing/tops/tankTopMeshBlack.webp",
-        looks: 3,
-        quality: "Common",
-        tags: ["casual", "sporty"],
-        price: 22.00,
-        shopAvailable: true,
-        startOwned: false
+        image: "assets/content/clothing/tops/FastBreakAthletics/tankTopMeshBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sporty"], price: 22.00, shopAvailable: true, startOwned: false
     },
     {
         id: "tank_top_mesh_charcoal",
         name: "Mesh Tank Top (Charcoal)",
         brand: "FastBreak Athletics",
         desc: "Charcoal gray breathable mesh tank top.",
-        image: "assets/content/clothing/tops/tankTopMeshChorcoalGray.webp",
-        looks: 3,
-        quality: "Common",
-        tags: ["casual", "sporty"],
-        price: 22.00,
-        shopAvailable: true,
-        startOwned: false
+        image: "assets/content/clothing/tops/FastBreakAthletics/tankTopMeshChorcoalGray.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sporty"], price: 22.00, shopAvailable: true, startOwned: false
+    },
+    /* ==========================================
+       NORTHLINE APPAREL (StoreClothingA)
+    ========================================== */
+    {
+        id: "tee_basic_white_cotton",
+        name: "Basic White Tee",
+        brand: "Northline Apparel",
+        desc: "A staple white cotton t-shirt.",
+        image: "assets/content/clothing/tops/NorthlineApparel/teeBasicWhiteCotton.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 15.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_tee_black_relaxed",
+        name: "Relaxed Crop Tee",
+        brand: "Northline Apparel",
+        desc: "Relaxed fit black crop top.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cropTeeBlackRelaxed.webp",
+        looks: 4, quality: "Common", tags: ["casual", "crop"], price: 22.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_tee_white",
+        name: "White Crop Tee",
+        brand: "Northline Apparel",
+        desc: "Simple white crop top.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cropTeeWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "crop"], price: 20.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_offshoulder_striped",
+        name: "Striped Off-Shoulder Top",
+        brand: "Northline Apparel",
+        desc: "Cute striped top with off-shoulder cut.",
+        image: "assets/content/clothing/tops/NorthlineApparel/topOffshoulderStriped.webp",
+        looks: 4, quality: "Common", tags: ["casual", "cute"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_wrap_vneck_cream",
+        name: "Cream Wrap Top",
+        brand: "Northline Apparel",
+        desc: "Casual cream top with a wrap design.",
+        image: "assets/content/clothing/tops/NorthlineApparel/topWrapVneckCream.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant"], price: 26.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "hoodie_oversize_gray",
+        name: "Oversized Hoodie",
+        brand: "Northline Apparel",
+        desc: "Comfy oversized gray hoodie.",
+        image: "assets/content/clothing/tops/NorthlineApparel/hoodieOversizeGray.webp",
+        looks: 3, quality: "Common", tags: ["casual", "comfortable", "warm"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    /* ==========================================
+       VERA MODE (StoreClothingB)
+    ========================================== */
+    {
+        id: "blazer_cropped_black",
+        name: "Cropped Black Blazer",
+        brand: "VERA Mode",
+        desc: "Stylish cropped blazer for a sharp look.",
+        image: "assets/content/clothing/tops/VERAMode/blazerCroppedBlack.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "work"], price: 65.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blazer_cropped_singlebreast_black",
+        name: "Single-Breasted Crop Blazer (Black)",
+        brand: "VERA Mode",
+        desc: "Sharp single-breasted cropped blazer.",
+        image: "assets/content/clothing/tops/VERAMode/blazerCroppedSinglebreastBlack.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "work"], price: 68.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blazer_cropped_singlebreast_navy",
+        name: "Single-Breasted Crop Blazer (Navy)",
+        brand: "VERA Mode",
+        desc: "Elegant navy single-breasted cropped blazer.",
+        image: "assets/content/clothing/tops/VERAMode/blazerCroppedSinglebreastNavy.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "work"], price: 68.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_silk_like_cream",
+        name: "Silky Cream Blouse",
+        brand: "VERA Mode",
+        desc: "Smooth texture blouse in cream color.",
+        image: "assets/content/clothing/tops/VERAMode/blouseSilkLikeCream.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant"], price: 48.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_shoulder",
+        name: "Shoulder Crop Top",
+        brand: "VERA Mode",
+        desc: "Trendy shoulder-baring crop top.",
+        image: "assets/content/clothing/tops/VERAMode/cropShoulder.webp",
+        looks: 4, quality: "Common", tags: ["crop", "casual"], price: 32.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_sweater_knit_oatmeal",
+        name: "Knit Crop Sweater",
+        brand: "VERA Mode",
+        desc: "Warm oatmeal colored knit crop.",
+        image: "assets/content/clothing/tops/VERAMode/cropSweaterKnitOatmeal.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "crop", "warm"], price: 45.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_cutout_side_white",
+        name: "Side Cutout Top",
+        brand: "VERA Mode",
+        desc: "White top with daring side cutouts.",
+        image: "assets/content/clothing/tops/VERAMode/topCutoutSideWhite.webp",
+        looks: 5, quality: "Rare", tags: ["revealing", "casual"], price: 42.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_wrap_vneck",
+        name: "Wrap V-Neck Top",
+        brand: "VERA Mode",
+        desc: "Elegant wrap top with a V-neckline.",
+        image: "assets/content/clothing/tops/VERAMode/topWrapVneck.webp",
+        looks: 4, quality: "Rare", tags: ["casual", "elegant"], price: 40.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "vest_fauxleather_black",
+        name: "Faux Leather Vest",
+        brand: "VERA Mode",
+        desc: "Edgy black faux leather vest.",
+        image: "assets/content/clothing/tops/VERAMode/vestFauxleatherBlack.webp",
+        looks: 4, quality: "Rare", tags: ["casual", "edgy"], price: 52.00, shopAvailable: true, startOwned: false
+    },
+    /* ==========================================
+       FIFTH AVENUE WEAR (StoreClothingC)
+    ========================================== */
+    {
+        id: "blazer_structured_navy",
+        name: "Structured Navy Blazer",
+        brand: "Fifth Avenue",
+        desc: "High-end navy blazer for professional settings.",
+        image: "assets/content/clothing/tops/FifthAvenue/blazerStructuredNavy.webp",
+        looks: 6, quality: "Premium", tags: ["formal", "elegant", "work"], price: 95.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_printed_floral",
+        name: "Floral Print Blouse",
+        brand: "Fifth Avenue",
+        desc: "Elegant blouse with premium floral print.",
+        image: "assets/content/clothing/tops/FifthAvenue/blousePrintedFloral.webp",
+        looks: 5, quality: "Premium", tags: ["formal", "elegant"], price: 65.00, shopAvailable: true, startOwned: false
+    },
+    /* ==========================================
+       SPECIAL / WORK UNIFORMS
+    ========================================== */
+    {
+        id: "topRubysDishwash",
+        name: "Ruby's Dishwashing Top",
+        brand: "Ruby's Diner",
+        desc: "Work top for the dishwashing station.",
+        image: "assets/content/clothing/workclothes/rubysdiner/dishwashing/topRubysDishwash.webp",
+        looks: 0, quality: "Common", tags: ["work"], price: 0, shopAvailable: false, startOwned: false, locationId: "rubysDiner"
     }
 ]>>
-

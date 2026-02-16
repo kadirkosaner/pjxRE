@@ -1,5 +1,15 @@
-<<nobr>><<set $location = "storeBags">><</nobr>>
+<<nobr>>
+<<set $location = "storeBags">>
+<<set _shopItems = [
+    "handbag_tote_leather_black",
+    "handbag_tote_canvas",
+    "backpack_leather_brown",
+    "crossbody_small_chain",
+    "clutch_evening_gold",
+    "clutch_evening_silver",
+    "wristlet_clutch",
+    "bucket_bag_tan"
+]>>
 <<updateCharacterLocations>>
-<<narrative "Bag Store">>Designer handbags, backpacks, and luggage on elegant displays.<</narrative>>
-<<showLocationChars "storeBags">>
-<<navMenu>><<navCard "floorSecond">><</navMenu>>
+<<shop "Luxe Leather" "Designer Bag Store" _shopItems "floorSecond">>
+<</nobr>>
