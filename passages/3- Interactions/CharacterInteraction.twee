@@ -1,7 +1,9 @@
 <<nobr>>
-/* Save entry passage only when coming from a location (not from a Talk "Back" button) so Leave returns to the right place */
+/* Save entry passage only when coming from a location (not from Talk/Meetup/PhoneSwap sub-passages) so Leave returns to the right place */
 <<set _prev = previous()>>
-<<if _prev && !_prev.includes("Talk")>>
+<<set _fromSubPassage = _prev && (_prev.includes("Talk") || _prev.includes("Meetup") || _prev.startsWith("PhoneSwap_"))>>
+<<unset $phoneSwapTargetCharId>>
+<<if _prev && !_fromSubPassage>>
     <<set $interactionEntryPassage = _prev>>
 <</if>>
 
@@ -20,16 +22,17 @@
     <<unset $interactionEntryPassage>>
     <<goto _returnLoc>>
 <</if>>
-<<set _char = $characters[$interactingChar]>>
+<<set _charState = $characters[$interactingChar]>>
+<<set _char = setup.getCharacter($interactingChar)>>
 
 /* Make sure character locations are updated */
-<<if !_char.currentLocation>>
+<<if !_charState.currentLocation>>
     <<updateCharacterLocations>>
-    <<set _char = $characters[$interactingChar]>>
+    <<set _charState = $characters[$interactingChar]>>
 <</if>>
 
-<<set _charLoc = _char.currentLocation || "unknown">>
-<<set _status = _char.currentStatus || "available">>
+<<set _charLoc = _charState.currentLocation || "unknown">>
+<<set _status = _charState.currentStatus || "available">>
 <<set $location = _returnLoc>>
 /* Get display name from navCards, fallback to raw ID */
 <<set _charLocName = setup.navCards[_returnLoc]?.name || _returnLoc>>

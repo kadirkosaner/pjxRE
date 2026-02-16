@@ -9,6 +9,7 @@
     firstName: "Lily",
     lastName: "Morgan",
     birthYear: 1998,
+    gender: "female",
     occupation: "Fitness Enthusiast",
     location: "Sunset Park",
     avatar: "assets/content/people/maplewood/sunsetPark/lilyMorgan.webp",
@@ -43,4 +44,12 @@
 }>>
 
 /* Talk action added later – first meeting is scripted in park bench event */
-<<set setup.characterActions.parkRunnerLily = {}>>
+<<set setup.characterActions.parkRunnerLily = {
+    sunsetPark: [
+        {
+            id: "swapNumbers", label: "Swap numbers", passage: "PhoneSwap_Generic",
+            charId: "parkRunnerLily",
+            tags: [], requirements: { friendship: 15 }
+        }
+    ]
+}>>

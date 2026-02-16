@@ -1,0 +1,230 @@
+/* Global character generator. Usage: <<charGenerate dmId>>
+   dmId: Fotogram DM id (looks up dm for context, skinTone, caches result in dm.generatedPromotedCharId)
+   Result: State.temporary._generatedCharId */
+
+<<widget "charGenerate">><<nobr>>
+    <<set _dmId = $args[0]>>
+    <<if !_dmId>><<return>><</if>>
+    <<run (function(){
+        var dmId = State.temporary._dmId;
+        if (!dmId) return;
+        var vars = State.variables;
+        var dms = vars.phoneFotogramDMs || [];
+        var dm = null;
+        for (var i = 0; i < dms.length; i++) { if (dms[i].id === dmId) { dm = dms[i]; break; } }
+        if (!dm) return;
+        if (dm.generatedPromotedCharId) {
+            State.temporary._generatedCharId = dm.generatedPromotedCharId;
+            return;
+        }
+
+        function pick(arr, fallback) {
+            return (Array.isArray(arr) && arr.length) ? arr[Math.floor(Math.random() * arr.length)] : fallback;
+        }
+        function weightedPick(arr, fallback) {
+            if (!Array.isArray(arr) || arr.length === 0) return fallback;
+            var total = 0;
+            for (var wi = 0; wi < arr.length; wi++) {
+                var w = Number(arr[wi] && arr[wi].weight);
+                if (Number.isFinite(w) && w > 0) total += w;
+            }
+            if (total <= 0) return pick(arr, fallback);
+            var roll = Math.random() * total;
+            var acc = 0;
+            for (var wj = 0; wj < arr.length; wj++) {
+                var item = arr[wj];
+                var ww = Number(item && item.weight);
+                if (!Number.isFinite(ww) || ww <= 0) continue;
+                acc += ww;
+                if (roll <= acc) return item;
+            }
+            return arr[arr.length - 1] || fallback;
+        }
+        function rint(min, max) {
+            var lo = Number(min), hi = Number(max);
+            if (!Number.isFinite(lo)) lo = 0;
+            if (!Number.isFinite(hi)) hi = lo;
+            if (hi < lo) { var t = hi; hi = lo; lo = t; }
+            return lo + Math.floor(Math.random() * (hi - lo + 1));
+        }
+
+        var cfg = (typeof setup !== "undefined" && setup.charGenerator) ? setup.charGenerator : {};
+        var initState = (cfg.initialState && typeof cfg.initialState === "object") ? cfg.initialState : {};
+        var maleW = Number(cfg.maleWeight != null ? cfg.maleWeight : 0.5);
+        var femaleW = Number(cfg.femaleWeight != null ? cfg.femaleWeight : 0.5);
+        if (!Number.isFinite(maleW) || maleW < 0) maleW = 0.5;
+        if (!Number.isFinite(femaleW) || femaleW < 0) femaleW = 0.5;
+        var totalW = maleW + femaleW;
+        var dmGender = String(dm.profileGender || "").toLowerCase();
+        var gender = (dmGender === "male" || dmGender === "female")
+            ? dmGender
+            : ((totalW <= 0) ? (Math.random() < 0.5 ? "male" : "female") : (Math.random() < (maleW / totalW) ? "male" : "female"));
+
+        var maleNames = cfg.maleFirstNames || ["Luca", "Noah", "Ethan", "Leo", "Mason"];
+        var femaleNames = cfg.femaleFirstNames || ["Aria", "Mila", "Nora", "Sofia", "Lena"];
+        var unisexNames = cfg.unisexFirstNames || ["Alex", "Sam", "Riley", "Taylor"];
+        var lastNames = cfg.lastNames || ["Carter", "Hayes", "Brooks", "Reed", "Morgan"];
+        var ethnicities = cfg.ethnicities || [];
+        var firstPool = gender === "male" ? maleNames : femaleNames;
+        var firstName = pick(firstPool, pick(unisexNames, "Alex"));
+        var lastName = pick(lastNames, "Taylor");
+        var ethnicity = weightedPick(ethnicities, null);
+        var ethnicityId = ethnicity && ethnicity.id ? ethnicity.id : "unspecified";
+        var ethnicityLabel = ethnicity && ethnicity.label ? ethnicity.label : "Unspecified";
+
+        var tones = (typeof setup !== "undefined" && Array.isArray(setup.fotogramAnonSkinTones) && setup.fotogramAnonSkinTones.length)
+            ? setup.fotogramAnonSkinTones
+            : ["white", "black", "tan"];
+        if (Array.isArray(cfg.skinTones) && cfg.skinTones.length) tones = cfg.skinTones;
+        var preferredTones = (ethnicity && Array.isArray(ethnicity.preferredSkinTones) && ethnicity.preferredSkinTones.length)
+            ? ethnicity.preferredSkinTones
+            : tones;
+        var skinTone = dm.skinTone || pick(preferredTones, pick(tones, "tan"));
+
+        var hRanges = cfg.heightRanges || { male: { min: 168, max: 198 }, female: { min: 150, max: 182 } };
+        var hRange = hRanges[gender] || { min: 155, max: 195 };
+        var heightCm = rint(hRange.min, hRange.max);
+        var currentYear = (vars.timeSys && Number(vars.timeSys.year)) || 2024;
+        var ageMin = Number(cfg.ageMin);
+        var ageMax = Number(cfg.ageMax);
+        if (!Number.isFinite(ageMin)) ageMin = 18;
+        if (!Number.isFinite(ageMax)) ageMax = 60;
+        if (ageMax < ageMin) { var at = ageMax; ageMax = ageMin; ageMin = at; }
+        var dmAge = Number(dm.profileAge);
+        var birthYear = (Number.isFinite(dmAge) && dmAge >= ageMin && dmAge <= ageMax)
+            ? (currentYear - dmAge)
+            : rint(currentYear - ageMax, currentYear - ageMin);
+
+        var avatarPool = cfg.avatarPool || { male: { white: [], black: [], tan: [] }, female: { white: [], black: [], tan: [] } };
+        var gp = avatarPool[gender] || {};
+        var avatar = "";
+        var tonePool = Array.isArray(gp[skinTone]) ? gp[skinTone] : [];
+        if (tonePool.length > 0) {
+            avatar = pick(tonePool, "");
+        } else {
+            for (var tp = 0; tp < tones.length; tp++) {
+                var toneKey = tones[tp];
+                var altPool = Array.isArray(gp[toneKey]) ? gp[toneKey] : [];
+                if (altPool.length > 0) {
+                    skinTone = toneKey;
+                    avatar = pick(altPool, "");
+                    break;
+                }
+            }
+        }
+
+        var occupations = Array.isArray(cfg.occupations) && cfg.occupations.length ? cfg.occupations : ["Student", "Barista", "Retail Worker", "Freelancer", "Office Assistant"];
+        var statuses = Array.isArray(cfg.statuses) && cfg.statuses.length ? cfg.statuses : ["Online Contact", "DM Contact", "New Contact"];
+        var colors = Array.isArray(cfg.colors) && cfg.colors.length ? cfg.colors : ["#a855f7", "#3b82f6", "#f97316", "#14b8a6", "#ec4899"];
+
+        var body;
+        if (gender === "male") {
+            var mb = cfg.maleBody || { penisMinCm: 10, penisMaxCm: 22 };
+            var penisCm = rint(mb.penisMinCm, mb.penisMaxCm);
+            body = { penisCm: penisCm, penisTier: penisCm >= 19 ? "large" : (penisCm >= 15 ? "medium" : "small") };
+        } else {
+            var fb = cfg.femaleBody || { bustMinCm: 78, bustMaxCm: 108, waistMinCm: 56, waistMaxCm: 84, hipsMinCm: 82, hipsMaxCm: 120, hairMinCm: 8, hairMaxCm: 90 };
+            var bust = rint(fb.bustMinCm, fb.bustMaxCm);
+            var waist = rint(fb.waistMinCm, fb.waistMaxCm);
+            var hips = rint(fb.hipsMinCm, fb.hipsMaxCm);
+            body = {
+                bustCm: bust,
+                waistCm: waist,
+                hipsCm: hips,
+                hairLengthCm: rint(fb.hairMinCm, fb.hairMaxCm),
+                waistHipRatio: hips > 0 ? Number((waist / hips).toFixed(2)) : null,
+                bustWaistRatio: waist > 0 ? Number((bust / waist).toFixed(2)) : null
+            };
+        }
+
+        var baseId = (firstName + "_" + lastName).toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+        if (!baseId) baseId = "generated_contact";
+        var generatedCharId = baseId;
+        var idCounter = 2;
+        var defs = (typeof setup !== "undefined" && setup.characterDefs) ? setup.characterDefs : {};
+        while ((defs && defs[generatedCharId]) || (vars.characters && vars.characters[generatedCharId])) {
+            generatedCharId = baseId + "_" + idCounter;
+            idCounter++;
+        }
+
+        var fullName = firstName + " " + lastName;
+        var occupation = pick(occupations, "Unknown");
+        var status = pick(statuses, "Contact");
+        var color = pick(colors, "#a855f7");
+        var infoText = "<p>You met this person online and swapped numbers through DMs.</p>";
+        var def = {
+            id: generatedCharId,
+            name: fullName,
+            firstName: firstName,
+            lastName: lastName,
+            birthYear: birthYear,
+            occupation: occupation,
+            location: "Online",
+            avatar: avatar,
+            type: "npc",
+            color: color,
+            status: status,
+            gender: gender,
+            ethnicity: ethnicityId,
+            ethnicityLabel: ethnicityLabel,
+            skinTone: skinTone,
+            heightCm: heightCm,
+            body: body,
+            hasSchedule: false,
+            scheduleType: "none",
+            generatedFromPhone: true,
+            info: infoText
+        };
+
+        if (!vars.phoneGeneratedContacts) vars.phoneGeneratedContacts = {};
+        vars.phoneGeneratedContacts[generatedCharId] = def;
+        if (!vars.characters) vars.characters = {};
+        if (!vars.characters[generatedCharId]) {
+            var initStats = (initState.stats && typeof initState.stats === "object")
+                ? {
+                    love: Number(initState.stats.love || 0),
+                    friendship: Number(initState.stats.friendship || 0),
+                    lust: Number(initState.stats.lust || 0),
+                    trust: Number(initState.stats.trust || 0)
+                }
+                : { love: 0, friendship: 25, lust: 0, trust: 5 };
+            var initOpinion = (initState.opinion && typeof initState.opinion === "object")
+                ? {
+                    awareness: Number(initState.opinion.awareness || 0),
+                    flags: Array.isArray(initState.opinion.flags) ? initState.opinion.flags.slice() : []
+                }
+                : { awareness: 0, flags: [] };
+            vars.characters[generatedCharId] = {
+                stats: initStats,
+                opinion: initOpinion,
+                firstMet: (initState.firstMet != null) ? initState.firstMet : null,
+                known: (initState.known != null) ? !!initState.known : true,
+                currentLocation: (initState.currentLocation != null) ? initState.currentLocation : null,
+                currentStatus: (initState.currentStatus != null) ? initState.currentStatus : null
+            };
+        }
+        if (typeof setup !== "undefined") {
+            if (!setup.characterDefs) setup.characterDefs = {};
+            setup.characterDefs[generatedCharId] = def;
+            if (!Array.isArray(setup.relationPlaces)) setup.relationPlaces = [];
+            var relCfg = cfg.relations || {};
+            var relLocation = relCfg.locationId || "maplewood";
+            var relPlaceId = relCfg.placeId || "onlineContacts";
+            var relPlaceName = relCfg.placeName || "Online Contacts";
+            var relPlace = null;
+            for (var rp = 0; rp < setup.relationPlaces.length; rp++) {
+                var place = setup.relationPlaces[rp];
+                if (place && place.locationId === relLocation && place.placeId === relPlaceId) { relPlace = place; break; }
+            }
+            if (!relPlace) {
+                relPlace = { locationId: relLocation, placeId: relPlaceId, name: relPlaceName, members: [] };
+                setup.relationPlaces.push(relPlace);
+            }
+            if (!Array.isArray(relPlace.members)) relPlace.members = [];
+            if (relPlace.members.indexOf(generatedCharId) === -1) relPlace.members.push(generatedCharId);
+        }
+
+        dm.generatedPromotedCharId = generatedCharId;
+        State.temporary._generatedCharId = generatedCharId;
+    })()>>
+<</nobr>><</widget>>

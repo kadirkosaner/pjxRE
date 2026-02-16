@@ -56,6 +56,9 @@
 <<set $phoneConversations = {}>>
 <<set $phoneFotogramPosts = []>>
 <<set $phoneFotogramDMs = []>>
+<<set $phoneFollowers = 0>>
+<<set $phoneLastFotogramPostDate = null>>
+<<set $phoneFotogramCooldownDays = 0>>
 <<set $phoneNotifications = { fotogram: [], finder: [] }>>
 <<set $phoneFinderProfile = { galleryIds: [] }>>
 <<set $phoneFinderMatches = []>>
@@ -65,9 +68,18 @@
 <<set $phoneContactPromoted = {}>>
 <<set $phoneContactsUnlocked = []>>
 <<set $phoneBlocked = []>>
+<<set $phoneGeneratedContacts = {}>>
+<<set $phoneFotogramRandomSwapIds = []>>
+<<set $phonePromotedContactCounter = 0>>
 <<set $phoneWhereAskedLast = {}>>
 <<set $phoneTalkAskedLast = {}>>
 <<set setup.phoneMessageTopics = {}>>
+<<set setup.phoneCameraDailyEnabled = true>>
+<<set setup.phoneCameraDailyPhotoLimit = 1>>
+<<set setup.phoneCameraDailyVideoLimit = 1>>
+<<set setup.phoneCameraDailyBypass = false>>
+<<set $phoneCameraDailyBypass = false>>
+<<set $phoneCameraDaily = { dateKey: 0, photosTaken: 0, videosTaken: 0 }>>
 
 /* ==========================================
    DAILY TRACKING

@@ -1,0 +1,190 @@
+:: variablesFotogram [init nobr]
+/* =============================================================================
+   FOTOGRAM – DM + COMMENT configuration
+   =============================================================================
+   skinTone: white (beyaz), black (siyahi), tan (esmer/olive) – foto havuzu için.
+   Flag-based: post.flags → ilk mesaj + anon cevapları.
+   Quick replies: player seçer → anon geri cevap (text + opsiyonel foto).
+   Comment pool: post.flags → yorum metinleri (setup.fotogramCommentTemplates).
+   ============================================================================= */
+
+/* Comment author display names (random pick per comment) */
+<<set setup.fotogramCommentNames = ["moonvibe", "wildpeach", "nocturna", "softglow", "mellowfox", "sunsetkid", "velvetcloud"]>>
+
+/* Comment text pool by post flag – add more strings to reduce repetition */
+<<run setup.fotogramCommentTemplates = {
+  default: [
+    "Looking great!",
+    "Love this shot.",
+    "This is so good.",
+    "Keep posting please!",
+    "Amazing vibe.",
+    "So good.",
+    "Need more of this."
+  ],
+  spicy: [
+    "You are unreal.",
+    "Okay this one is fire.",
+    "Can we talk about this post? wow.",
+    "Too good honestly.",
+    "This hit different."
+  ],
+  bikini: [
+    "Beach energy is perfect.",
+    "That look suits you so much.",
+    "Summer mood unlocked.",
+    "You glow."
+  ],
+  risky: [
+    "Bold post, respect.",
+    "You really own your style.",
+    "Not everyone can pull this off."
+  ],
+  hips: [
+    "The pose is perfect.",
+    "That angle is everything.",
+    "This pic is so well done."
+  ],
+  ass: [
+    "This post is dangerous.",
+    "I had to stop scrolling.",
+    "You know what you are doing."
+  ]
+}>>
+
+<<set setup.fotogramAnonNames = ["Anonymous Fan", "Secret Admirer", "Curious Follower", "Unknown User", "Mystery Follower"]>>
+
+<<set setup.fotogramAnonSkinTones = ["white", "black", "tan"]>>
+<<set setup.fotogramDmMaleWeight = 0.7>>
+<<set setup.fotogramDmFemaleWeight = 0.3>>
+<<set setup.fotogramDmMinConfidenceInteractive = 30>>
+<<set setup.fotogramDmMinCorruptionSwap = 2>>
+<<set setup.fotogramCommentLikeRatio = 0.08>>
+<<set setup.fotogramPostCooldownMinDays = 2>>
+<<set setup.fotogramPostCooldownMaxDays = 4>>
+
+<<run setup.fotogramDMMessagesByFlag = {
+  default: [
+    "Been following for a while and had to reach out. You've got something special.",
+    "Saw your post and couldn't scroll past without saying something. Really nice.",
+    "Your feed keeps showing up and I keep liking. Figured I'd say hi properly.",
+    "Not usually one to DM strangers but you caught my eye. Hope that's okay.",
+    "Just wanted to let you know your content actually brightens my feed. Keep it up.",
+    "Random question – do you ever reply to DMs? Either way, had to tell you you're stunning.",
+    "I know you probably get tons of these but... had to try. You're gorgeous."
+  ],
+  spicy: [
+    "Okay I wasn't going to say anything but... that last one got me. You know exactly what you're doing.",
+    "Had to message. You're incredibly attractive and that post... wow.",
+    "Not gonna lie, I've been thinking about that photo. Had to reach out.",
+    "You're making it really hard to just scroll. Had to say hi.",
+    "That was bold. I like it. Had to message."
+  ],
+  bikini: [
+    "That bikini shot is *chef's kiss*. You look incredible.",
+    "Beach vibes suit you. Had to drop a message.",
+    "You're glowing in that. Seriously stunning.",
+    "Okay that angle? Perfect. Had to say something."
+  ],
+  risky: [
+    "You've got guts posting that. I'm here for it.",
+    "That's bold. I respect it. And... yeah, I'm into it.",
+    "Wasn't expecting to see that today. In a good way. Had to message."
+  ],
+  hips: [
+    "Your curves are unreal. That's all. Had to tell you.",
+    "That angle is doing things. You know what you're doing.",
+    "Had to message about that post. You're stunning."
+  ],
+  ass: [
+    "Okay that shot. I had to say something. You're incredible.",
+    "Not even gonna pretend I'm not staring. Had to message.",
+    "That's a work of art. Had to tell you."
+  ]
+}>>
+
+<<set setup.fotogramDMEncouragingMessages = [
+  "Keep up the good work. Your posts are getting better.",
+  "Nice progress. Keep posting and building your style.",
+  "You are doing great. Keep up the consistency.",
+  "Good shot. Keep it up, you are improving every post."
+]>>
+
+<<set setup.fotogramDMEncouragingReplyMessages = [
+  "Thanks! I appreciate the support.",
+  "Thank you, that means a lot.",
+  "Thanks for the kind words!",
+  "Appreciate it. I will keep posting."
+]>>
+
+<<set setup.fotogramSwapIntroMessages = [
+  "Hey {playerName}! It's {contactName}. I'm {age} and I'm really glad we connected.",
+  "Yo {playerName}, {contactName} here. I'm {age}. Happy we swapped numbers.",
+  "Heyy {playerName}! I'm {contactName}, {age}. Nice meeting you for real.",
+  "Hi {playerName}, it's {contactName}. I'm {age}. Looking forward to talking more.",
+  "Hey {playerName}! {contactName} here, {age}. I feel like we're gonna vibe.",
+  "What’s up {playerName}? I’m {contactName}, {age}. Glad we can text now.",
+  "Hey {playerName}, I’m {contactName}. I’m {age}, and I’m excited to get to know you.",
+  "Hi {playerName}! {contactName} here. {age} years old and already happy we linked up.",
+  "Hey {playerName}, it’s {contactName}. I’m {age}. Can’t lie, I’m hyped to chat more.",
+  "Yo {playerName}! I'm {contactName}, {age}. This is gonna be fun, I can feel it."
+]>>
+
+<<run setup.fotogramDMQuickReplies = [
+  { key: "hi", playerText: "Hi! Thanks for the message!", anonReplies: {
+    default: { text: "Oh you actually replied! That made my day. What are you up to today?" },
+    spicy: { text: "Hey you ;) Glad you replied. What are you up to right now?" }
+  }, nextReplyKeys: ["vibe", "busy"]},
+  { key: "thanks", playerText: "Thanks, that's sweet!", anonReplies: {
+    default: { text: "Of course! Just being honest. I'll let you get back to it for now." },
+    spicy: { text: "Anytime. You can ping me whenever you want." }
+  }, endConversation: true},
+  { key: "who", playerText: "Who is this?", anonReplies: {
+    default: { text: "Just someone who appreciates your content. We could stay strangers or... we could get to know each other. Up to you." },
+    spicy: { text: "Someone who definitely appreciates what you're putting out there. Maybe we could trade pics sometime? No pressure, just saying." }
+  }, nextReplyKeys: ["hi", "vibe"]},
+  { key: "vibe", playerText: "Just chilling. You?", anonReplies: {
+    default: { text: "Same here. Want to swap numbers?" },
+    spicy: { text: "Same here. Want to swap numbers?" }
+  }, nextReplyKeys: ["swap_yes", "swap_later"]},
+  { key: "busy", playerText: "Bit busy right now.", anonReplies: {
+    default: { text: "No worries. Text me when you're free." },
+    spicy: { text: "No stress. Text me later then." }
+  }, endConversation: true},
+  { key: "swap_yes", playerText: "Yeah, let's swap numbers.", anonReplies: {
+    default: { text: "Perfect. Hit \"Give number\" and I'll add you." },
+    spicy: { text: "Perfect. Hit \"Give number\" and I'll add you." }
+  }, endConversation: true},
+  { key: "swap_later", playerText: "Maybe later.", anonReplies: {
+    default: { text: "All good. I'll be around." },
+    spicy: { text: "All good. I'll be around." }
+  }, endConversation: true}
+]>>
+
+<<set setup.fotogramDMStartReplyKeys = ["hi", "thanks", "who"]>>
+
+<<run setup.fotogramDMPhotoPool = {
+  spicy: { white: [], black: [], tan: [] },
+  default: { white: [], black: [], tan: [] }
+}>>
+/* Add paths: setup.fotogramDMPhotoPool.spicy.white.push("assets/content/phone/dm/...webp") */
+
+<<set setup.fotogramAnonCharPool = []>>
+/* charId listesi – DM olarak görünebilecek karakterler. "numara ver" ile promote edilir. */
+
+<<run setup.fotogramAnonCharConfig = {}>>
+/* Karaktere özel config. fotogramAnonCharPool'a eklediğin charId'ler için:
+   setup.fotogramAnonCharConfig["lily"] = {
+     skinTone: "white",                    // bu anon beyaz
+     firstMessagesByFlag: {
+       default: ["Been watching your posts for a while..."],
+       spicy: ["That last photo... I couldn't help myself."]
+     },
+     quickReplies: {
+       hi: { default: { text: "Hey! Wasn't sure you'd reply." }, spicy: { text: "Hey you ;)", photoPool: true } },
+       who: { default: { text: "Maybe you'll find out someday." } }
+     },
+     photoPool: { spicy: { white: ["assets/content/phone/dm/lily_spicy.webp"] } }
+   };
+   Özel tanım yoksa global mesaj/foto havuzu kullanılır.
+*/

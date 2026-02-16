@@ -161,6 +161,8 @@ function getMeetupTimeOptions(charId, vars) {
     cleanupExpiredMeetups(vars);
     var ts = vars.timeSys || {};
     var options = [];
+    var setupObj = getStorySetupObj();
+    var charGenCfg = (setupObj && setupObj.charGenerator) ? setupObj.charGenerator : {};
     var dates = [getDateWithOffset(ts, 0), getDateWithOffset(ts, 1)];
     for (var d = 0; d < dates.length; d++) {
         var dateInfo = dates[d];
@@ -177,6 +179,25 @@ function getMeetupTimeOptions(charId, vars) {
                 seen[key] = true;
                 timeCandidates.push({ hour: h, minute: m });
             });
+        } else {
+            var charDef = (setupObj && setupObj.getCharacter) ? setupObj.getCharacter(charId) : (vars.characters && vars.characters[charId]);
+            var isNoScheduleContact = !!(charDef && (charDef.hasSchedule === false || charDef.scheduleType === 'none' || charDef.generatedFromPhone === true));
+            if (isNoScheduleContact) {
+                var fallbackSlots = Array.isArray(charGenCfg.meetupFallbackSlots) && charGenCfg.meetupFallbackSlots.length
+                    ? charGenCfg.meetupFallbackSlots
+                    : [{ hour: 13, minute: 0 }, { hour: 18, minute: 0 }, { hour: 21, minute: 0 }];
+                fallbackSlots.forEach(function (slot) {
+                    if (!slot) return;
+                    var h = Number(slot.hour);
+                    var m = Number(slot.minute || 0);
+                    if (!Number.isFinite(h) || h < 0 || h > 23) return;
+                    if (!Number.isFinite(m) || m < 0 || m > 59) m = 0;
+                    var key = String(h) + ':' + String(m);
+                    if (seen[key]) return;
+                    seen[key] = true;
+                    timeCandidates.push({ hour: h, minute: m });
+                });
+            }
         }
         var nowMin = (ts.hour || 0) * 60 + (ts.minute || 0);
         for (var i = 0; i < timeCandidates.length; i++) {

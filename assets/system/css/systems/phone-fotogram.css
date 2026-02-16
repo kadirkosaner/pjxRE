@@ -1,0 +1,876 @@
+/* Phone Fotogram App – Header (parent), Content (scroll), Footer (fixed) */
+
+.phone-fotogram-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#phone-app-view-content:has(.phone-fotogram-app) {
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Content area – scrollable */
+.phone-fotogram-content {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 0;
+  padding: var(--spacing-md, 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 1rem);
+  position: relative;
+}
+
+/* Cooldown overlay görünürken scroll kapalı – backdrop tam kaplar */
+.phone-fotogram-content:has(.phone-fotogram-share-overlay) {
+  overflow: hidden;
+}
+
+.phone-fotogram-posts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 1rem);
+}
+
+.phone-fotogram-content .phone-app-placeholder {
+  justify-content: flex-start;
+  min-height: 0;
+  padding-top: var(--spacing-md, 1rem);
+}
+
+.phone-fotogram-profile,
+.phone-fotogram-dm,
+.phone-fotogram-share {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.phone-fotogram-profile-stats {
+  display: flex;
+  gap: var(--spacing-lg, 1.5rem);
+  padding-bottom: var(--spacing-md, 1rem);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.phone-fotogram-profile-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg, 8px);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.phone-fotogram-profile-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.phone-fotogram-profile-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #f97316, #ec4899 45%, #8b5cf6);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.phone-fotogram-profile-avatar-img {
+  padding: 0;
+}
+
+.phone-fotogram-profile-avatar-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.phone-fotogram-profile-id {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.phone-fotogram-profile-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.phone-fotogram-profile-handle {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+}
+
+.phone-fotogram-profile-totals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.phone-fotogram-profile-total {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.phone-fotogram-profile-total strong {
+  color: var(--color-text-primary);
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.phone-fotogram-stat strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.phone-fotogram-post-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.phone-fotogram-post-card[data-post-id] {
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.phone-fotogram-post-card[data-post-id]:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.phone-fotogram-post-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.phone-fotogram-post-card video {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.phone-fotogram-post-video-container {
+  width: 100%;
+  max-width: none;
+  margin: 0 !important;
+  aspect-ratio: 1;
+  border-radius: 0;
+}
+
+.phone-fotogram-post-card.detail img,
+.phone-fotogram-post-card.detail video {
+  aspect-ratio: 9 / 16;
+}
+
+.phone-fotogram-post-card.detail .phone-fotogram-post-video-container {
+  aspect-ratio: 9 / 16;
+}
+
+.phone-fotogram-post-video-container video {
+  object-fit: cover;
+  border-radius: 0;
+  background: #000;
+}
+
+.phone-fotogram-post-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-md);
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.phone-fotogram-likes {
+  font-weight: 500;
+}
+
+.phone-fotogram-comments-count {
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+.phone-fotogram-post-q {
+  opacity: 0.8;
+}
+
+.phone-fotogram-comments {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 var(--spacing-md) var(--spacing-sm);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.phone-fotogram-comment {
+  line-height: 1.35;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.phone-fotogram-comment-block {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius-lg, 8px);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.15s, border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.phone-fotogram-comment-block:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.phone-fotogram-comment-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.phone-fotogram-comment-user {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  margin-bottom: 2px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.phone-fotogram-comment-text {
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  padding-left: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.phone-fotogram-avatar {
+  --avatar-h: 210;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: hsl(var(--avatar-h), 65%, 45%);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.phone-fotogram-avatar[data-tone="white"] { box-shadow: inset 0 0 0 999px rgba(255, 224, 197, 0.18); }
+.phone-fotogram-avatar[data-tone="tan"] { box-shadow: inset 0 0 0 999px rgba(210, 150, 98, 0.2); }
+.phone-fotogram-avatar[data-tone="black"] { box-shadow: inset 0 0 0 999px rgba(80, 56, 40, 0.26); }
+
+.phone-fotogram-post-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.5rem);
+  min-width: 0;
+}
+
+/* Sol/sağ padding = görselinkiyle aynı (content zaten var(--spacing-md) veriyor) */
+.phone-fotogram-detail-comments-panel {
+  padding: 12px 0 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 8px;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.phone-fotogram-comments.detail {
+  padding: 8px 0 0;
+  gap: 0;
+  min-width: 0;
+}
+
+.phone-fotogram-comments.detail .phone-fotogram-comment-block {
+  margin-bottom: 10px;
+}
+
+.phone-fotogram-comments.detail .phone-fotogram-comment-user,
+.phone-fotogram-comments.detail .phone-fotogram-comment-text {
+  font-size: 0.875rem;
+}
+
+.phone-fotogram-comment-empty {
+  color: var(--color-text-secondary);
+  opacity: 0.85;
+  font-size: 0.875rem;
+  padding: 12px 0;
+}
+
+/* Footer – fixed tab bar */
+.phone-fotogram-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.phone-fotogram-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-md, 6px);
+  transition: color 0.15s, background 0.15s;
+}
+
+.phone-fotogram-tab:hover:not(.disabled):not([disabled]) {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.phone-fotogram-tab.active {
+  color: var(--color-accent, #3b82f6);
+}
+
+.phone-fotogram-tab.disabled,
+.phone-fotogram-tab[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.phone-fotogram-tab .icon {
+  background-color: currentColor;
+}
+
+.phone-fotogram-share {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 1rem);
+}
+
+.phone-fotogram-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.5rem);
+  height: 100%;
+}
+
+.phone-fotogram-preview-top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 24px;
+}
+
+.phone-fotogram-preview-info {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  cursor: help;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  -webkit-appearance: none;
+  line-height: 1;
+  overflow: hidden;
+}
+
+.phone-fotogram-preview-info.overlay {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+}
+
+.phone-fotogram-preview-info .icon {
+  background-color: currentColor;
+}
+
+.phone-fotogram-preview-media {
+  flex: 1;
+  min-height: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.phone-fotogram-preview-media img,
+.phone-fotogram-preview-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.phone-fotogram-preview-video-container {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0 !important;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+.phone-fotogram-preview-video-container video {
+  object-fit: cover;
+  border-radius: 0;
+  background: #000;
+}
+
+.phone-fotogram-preview-desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.35;
+}
+
+.phone-fotogram-preview-actions {
+  display: flex;
+  gap: var(--spacing-sm, 0.5rem);
+}
+
+.phone-fotogram-preview-btn {
+  flex: 1;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.phone-fotogram-preview-btn.primary {
+  background: var(--color-accent, #3b82f6);
+  border-color: transparent;
+  color: #fff;
+}
+
+.phone-fotogram-share-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.phone-fotogram-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.phone-fotogram-share-overlay {
+  position: absolute;
+  inset: calc(-1 * var(--spacing-md, 1rem));
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-md, 1rem);
+  border-radius: 0;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.phone-fotogram-share-overlay-text {
+  color: #fff;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.phone-fotogram-pick-cell {
+  aspect-ratio: 1;
+  min-height: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, opacity 0.15s;
+}
+
+.phone-fotogram-pick-cell:hover:not(.disabled) {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.phone-fotogram-pick-cell:active:not(.disabled) {
+  opacity: 0.9;
+}
+
+.phone-fotogram-pick-cell.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.phone-fotogram-pick-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.phone-fotogram-pick-cell video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.phone-fotogram-pick-q {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  font-size: 0.6875rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: var(--color-text-secondary);
+}
+
+.phone-fotogram-media-badge {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+/* DM List – Instagram-style inbox */
+.phone-fotogram-dm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  min-width: 0;
+}
+
+.phone-fotogram-dm-list-header:empty {
+  display: none;
+}
+
+.phone-fotogram-dm-list-header:not(:empty) {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  padding-bottom: var(--spacing-sm, 0.5rem);
+}
+
+.phone-fotogram-dm-empty {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  padding: var(--spacing-md, 1rem) 0;
+}
+
+.phone-fotogram-dm-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-lg, 8px);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.phone-fotogram-dm-row:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.phone-fotogram-dm-row.unread {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.phone-fotogram-dm-unread-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent, #3b82f6);
+}
+
+.phone-fotogram-dm-row.unread .phone-fotogram-dm-name {
+  font-weight: 600;
+}
+
+.phone-fotogram-dm-row-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.phone-fotogram-dm-name {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.phone-fotogram-dm-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+  padding-left: 4px;
+  padding-bottom: 1px;
+}
+
+.phone-fotogram-dm-preview {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 0.05em;
+}
+
+/* DM Thread */
+.phone-fotogram-dm-thread {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.phone-fotogram-dm-thread-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg, 8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.phone-fotogram-dm-thread-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.phone-fotogram-dm-thread-info {
+  margin-left: auto;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+  padding: 0;
+}
+
+.phone-fotogram-dm-thread-info .icon {
+  background-color: currentColor;
+}
+
+.phone-fotogram-dm-messages {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 0;
+  min-width: 0;
+}
+
+/* Message row = clear block (Instagram-style) */
+.phone-fotogram-dm-message {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.phone-fotogram-dm-message.me {
+  justify-content: flex-end;
+}
+
+.phone-fotogram-dm-message.me .phone-fotogram-dm-bubble {
+  order: 1;
+}
+
+/* Bubbles: Instagram-style with tail (one corner less rounded) */
+.phone-fotogram-dm-bubble {
+  max-width: 78%;
+  min-width: 0;
+  padding: 10px 14px 12px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.phone-fotogram-dm-bubble.me {
+  background: var(--color-accent, #3b82f6);
+  color: #fff;
+  border-radius: 18px 18px 4px 18px;
+}
+
+.phone-fotogram-dm-bubble:not(.me) {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-text-primary);
+  border-radius: 18px 18px 18px 4px;
+}
+
+.phone-fotogram-avatar.comment,
+.phone-fotogram-avatar.dm-msg {
+  width: 24px;
+  height: 24px;
+  font-size: 0.68rem;
+  flex-shrink: 0;
+}
+
+.phone-fotogram-avatar.dm-list,
+.phone-fotogram-avatar.dm-thread {
+  width: 26px;
+  height: 26px;
+  font-size: 0.72rem;
+}
+
+.phone-fotogram-dm-bubble-text {
+  display: block;
+  line-height: 1.5;
+  padding-bottom: 0.1em;
+}
+
+.phone-fotogram-dm-actions {
+  display: flex;
+  gap: var(--spacing-sm, 0.5rem);
+  flex-wrap: wrap;
+  padding-top: var(--spacing-md, 1rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 0;
+}
+
+.phone-fotogram-dm-quick {
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+  font-size: 0.8125rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md, 6px);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.phone-fotogram-dm-quick:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.phone-fotogram-dm-quick.promote {
+  background: var(--color-accent, #3b82f6);
+  border-color: transparent;
+  color: #fff;
+}
+
+.phone-fotogram-dm-quick.block-btn {
+  background: transparent;
+  border-color: rgba(239, 68, 68, 0.6);
+  color: #ef4444;
+}
+
+.phone-fotogram-dm-quick.block-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.phone-fotogram-dm-locked-text {
+  flex: 1 0 100%;
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  padding: 2px 0 6px;
+}
+
+.phone-fotogram-dm-attachment {
+  margin-bottom: 4px;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 180px;
+}
+
+.phone-fotogram-dm-attachment img {
+  width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: top;
+}

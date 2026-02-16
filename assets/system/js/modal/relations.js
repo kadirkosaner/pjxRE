@@ -55,10 +55,25 @@ window.RelationsInit = function (API) {
             const locations = setup.locations || {};
             const navCards = setup.navCards || {};
             const relationPlaces = (setup && setup.relationPlaces) || [];
+            const relationDynamicGroups = (setup && setup.relationDynamicGroups) || {};
+            const fotogramCfg = relationDynamicGroups.fotogram || {};
             const characters = vars.characters || {};
+            const setupDefs = (setup && setup.characterDefs) ? setup.characterDefs : {};
 
-            const getChar = (id) => (setup && setup.getCharacter) ? setup.getCharacter(id) : characters[id];
+            const getChar = (id) => {
+                if (!id) return null;
+                const def = setupDefs[id] || null;
+                const gen = (vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[id]) ? vars.phoneGeneratedContacts[id] : null;
+                const stateChar = characters[id] || null;
+                if (!def && !gen && !stateChar) return null;
+                return Object.assign({}, def || {}, gen || {}, stateChar || {});
+            };
             const isKnown = (id) => { const c = getChar(id); return c && c.known === true; };
+            const getDisplayName = (char, fallbackId) => {
+                if (!char) return fallbackId || 'Unknown';
+                const full = [char.firstName, char.lastName].filter(Boolean).join(' ').trim();
+                return full || char.name || fallbackId || 'Unknown';
+            };
 
             // Districts = locations with parent === null (auto from setup.locations)
             const districtIds = Object.keys(locations)
@@ -106,12 +121,13 @@ window.RelationsInit = function (API) {
                     knownMembers.forEach(charId => {
                         const char = getChar(charId);
                         if (!char) return;
+                        const displayName = getDisplayName(char, charId);
                         html += `
                             <div class="relations-card" onclick="window.RelationsSystem.showDetail('${charId}')">
                                 <div class="relations-avatar">
-                                    <img src="${char.avatar || 'assets/images/default-avatar.jpg'}" alt="${(char.firstName || '') + ' ' + (char.lastName || '')}">
+                                    <img src="${char.avatar || 'assets/images/default-avatar.jpg'}" alt="${displayName}">
                                 </div>
-                                <div class="relations-card-name">${(char.firstName || '') + ' ' + (char.lastName || '')}</div>
+                                <div class="relations-card-name">${displayName}</div>
                             </div>
                         `;
                     });
@@ -127,6 +143,47 @@ window.RelationsInit = function (API) {
                     </div>
                 `;
             });
+
+            const unlocked = vars.phoneContactsUnlocked || [];
+            const fgPool = Array.isArray(vars.phoneFotogramRandomSwapIds) ? vars.phoneFotogramRandomSwapIds : [];
+            const fotogramMembers = fgPool.filter(id => {
+                const def = vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[id];
+                const c = getChar(id);
+                return !!(def && def.generatedFromPhone && unlocked.indexOf(id) !== -1 && c && c.firstMet);
+            }).slice(0, 10);
+            if (fotogramMembers.length > 0) {
+                html += `
+                    <div class="relations-group" id="relations-group-fotogram">
+                        <div class="relations-group-header" onclick="window.RelationsSystem.toggleGroup('fotogram')">
+                            <span class="relations-group-name">${fotogramCfg.groupName || 'Fotogram'}</span>
+                            <span class="relations-collapse-icon">▼</span>
+                        </div>
+                        <div class="relations-group-places">
+                            <div class="relations-place expanded" id="relations-place-fotogram-online">
+                                <div class="relations-place-grid-wrap">
+                                    <div class="relations-grid">
+                `;
+                fotogramMembers.forEach(charId => {
+                    const char = getChar(charId);
+                    if (!char) return;
+                    const displayName = getDisplayName(char, charId);
+                    html += `
+                            <div class="relations-card" onclick="window.RelationsSystem.showDetail('${charId}')">
+                                <div class="relations-avatar">
+                                    <img src="${char.avatar || 'assets/images/default-avatar.jpg'}" alt="${displayName}">
+                                </div>
+                                <div class="relations-card-name">${displayName}</div>
+                            </div>
+                    `;
+                });
+                html += `
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
 
             html += '</div>';
 
@@ -152,6 +209,8 @@ window.RelationsInit = function (API) {
                             <div class="relations-profile-name" id="relations-detail-name"></div>
                             <div class="relations-profile-meta">
                                 <span id="relations-detail-age"></span>
+                                <span>•</span>
+                                <span id="relations-detail-gender"></span>
                                 <span>•</span>
                                 <span id="relations-detail-occupation"></span>
                             </div>
@@ -282,25 +341,40 @@ window.RelationsInit = function (API) {
         showDetail: function (characterId) {
             const vars = this.API.State.variables;
             const setup = this.API.setup || (typeof window !== 'undefined' && window.setup);
-            const char = (setup && setup.getCharacter) ? setup.getCharacter(characterId) : (vars.characters || {})[characterId];
+            const setupDefs = (setup && setup.characterDefs) ? setup.characterDefs : {};
+            const baseChar = setupDefs[characterId] || null;
+            const generatedChar = (vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[characterId]) ? vars.phoneGeneratedContacts[characterId] : null;
+            const stateChar = (vars.characters || {})[characterId] || null;
+            const char = (baseChar || generatedChar || stateChar) ? Object.assign({}, baseChar || {}, generatedChar || {}, stateChar || {}) : null;
 
             if (!char) return;
 
             this.currentCharacter = characterId;
 
             // Calculate age dynamically from timeSysYear
-            const currentYear = vars.timeSysYear || 2024;
-            const age = char.birthYear ? (currentYear - char.birthYear) : '???';
-            const ageText = age + ' years old';
+            const currentYear = (vars.timeSys && Number(vars.timeSys.year)) || vars.timeSysYear || 2024;
+            const ageText = (char.birthYear && Number.isFinite(Number(char.birthYear)))
+                ? ((currentYear - Number(char.birthYear)) + ' years old')
+                : 'Unknown age';
+            const rawGender = String(char.gender || '').toLowerCase();
+            const genderText = rawGender === 'male'
+                ? 'Male'
+                : (rawGender === 'female' ? 'Female' : 'Unknown');
+            const fullName = [char.firstName, char.lastName].filter(Boolean).join(' ') || char.name || characterId || 'Unknown';
+            const occupationText = char.occupation || (char.generatedFromPhone ? 'Online Contact' : 'Unknown');
+            const locationText = char.location || (char.generatedFromPhone ? 'Fotogram' : 'Unknown');
+            const statusText = char.status || (char.generatedFromPhone ? 'Swapped on Fotogram' : 'Unknown');
+            const firstMetText = char.firstMet || 'Unknown';
 
             // Update detail view
             this.API.$('#relations-detail-avatar').attr('src', char.avatar || 'assets/images/default-avatar.jpg');
-            this.API.$('#relations-detail-name').text(char.firstName + ' ' + char.lastName || 'Unknown');
+            this.API.$('#relations-detail-name').text(fullName);
             this.API.$('#relations-detail-age').text(ageText);
-            this.API.$('#relations-detail-occupation').text(char.occupation || '???');
-            this.API.$('#relations-detail-location').text(char.location || 'Unknown');
-            this.API.$('#relations-detail-status').text(char.status || 'Unknown');
-            this.API.$('#relations-detail-firstmet').text(char.firstMet || 'Unknown');
+            this.API.$('#relations-detail-gender').text(genderText);
+            this.API.$('#relations-detail-occupation').text(occupationText);
+            this.API.$('#relations-detail-location').text(locationText);
+            this.API.$('#relations-detail-status').text(statusText);
+            this.API.$('#relations-detail-firstmet').text(firstMetText);
 
             // Update info section
             const infoContent = char.info || '<p>No additional information available.</p>';

@@ -154,8 +154,13 @@
     <<if !$job || !$job.id>>
         <<return>>
     <</if>>
-    <<set _job = setup.jobs[$job.id]>>
+    <<set _job = (setup.jobs && setup.jobs[$job.id]) ? setup.jobs[$job.id] : null>>
     <<if !_job>>
+        /* Save may contain an old/removed job id; fail safe instead of crashing. */
+        <<set $job.id = null>>
+        <<set $job.tier = 1>>
+        <<set $job.startedOn = null>>
+        <<jobResetState>>
         <<return>>
     <</if>>
 
@@ -177,8 +182,8 @@
     <</if>>
 
     /* Legacy minHoursPerWeek check (weekly total) - still apply if no insufficient days */
-    <<set _minHours = _job.minHoursPerWeek || 0>>
-    <<set _warningsBeforeFire = _job.minHoursWarningsBeforeFire || 3>>
+    <<set _minHours = (_job && _job.minHoursPerWeek != null) ? _job.minHoursPerWeek : 0>>
+    <<set _warningsBeforeFire = (_job && _job.minHoursWarningsBeforeFire != null) ? _job.minHoursWarningsBeforeFire : 3>>
     <<if _minHours > 0 && $jobState.hoursThisWeek < _minHours && _insufficientDays === 0>>
         <<if ($jobState.minHoursWarningCount || 0) >= _warningsBeforeFire>>
             <<set $job.id = null>>

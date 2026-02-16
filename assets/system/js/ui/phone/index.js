@@ -3,7 +3,7 @@
 ========================================== */
 
 var PhoneAPI = null;
-var phoneViewState = { app: null, sub: 'list', threadCharId: null, pickerFor: null, meetup: null, calendarOffset: 0, galleryFolder: null, pendingTopicChoice: null, pendingTopicChoicePhotoPick: null };
+var phoneViewState = { app: null, sub: 'list', threadCharId: null, pickerFor: null, meetup: null, calendarOffset: 0, galleryFolder: null, fotogramSub: 'feed', fotogramDmThread: null, fotogramSharePreview: null, fotogramPostDetail: null, pendingTopicChoice: null, pendingTopicChoicePhotoPick: null };
 
 window.PhoneInit = function (API) {
     PhoneAPI = API;
@@ -64,12 +64,61 @@ function showAppView(action) {
     var vars = PhoneAPI.State.variables;
     if (action === 'calendar') phoneViewState.calendarOffset = 0;
     if (action === 'gallery') phoneViewState.galleryFolder = null;
+    if (action === 'fotogram') {
+        phoneViewState.fotogramSub = 'feed';
+        phoneViewState.fotogramDmThread = null;
+        phoneViewState.fotogramSharePreview = null;
+        phoneViewState.fotogramPostDetail = null;
+        var notifs = (vars.phoneNotifications && vars.phoneNotifications.fotogram) ? vars.phoneNotifications.fotogram : [];
+        for (var ni = notifs.length - 1; ni >= 0; ni--) {
+            var n = notifs[ni];
+            if (n.type === 'dm' && n.refId) {
+                var dms = vars.phoneFotogramDMs || [];
+                var dmExists = false;
+                for (var di = 0; di < dms.length; di++) {
+                    if (dms[di] && dms[di].id === n.refId) {
+                        dmExists = true;
+                        break;
+                    }
+                }
+                if (dmExists) {
+                    phoneViewState.fotogramSub = 'dm';
+                    phoneViewState.fotogramDmThread = n.refId;
+                    break;
+                }
+                continue;
+            }
+            if (n.type === 'comment' && n.refId) {
+                var posts = vars.phoneFotogramPosts || [];
+                var postExists = false;
+                for (var pi = 0; pi < posts.length; pi++) {
+                    if (posts[pi] && posts[pi].id === n.refId) {
+                        postExists = true;
+                        break;
+                    }
+                }
+                if (postExists) {
+                    phoneViewState.fotogramSub = 'feed';
+                    phoneViewState.fotogramPostDetail = n.refId;
+                    break;
+                }
+            }
+        }
+        if (typeof drainFotogramNotifications === 'function') drainFotogramNotifications(vars);
+    }
     var $view = $('#phone-app-view');
     var $title = $('#phone-app-view-title');
     var $content = $('#phone-app-view-content');
     if (!$view.length || !$title.length || !$content.length) return;
-    $title.text(PHONE_APP_NAMES[action] || action);
+    if (action === 'fotogram' && phoneViewState.fotogramSub === 'dm' && phoneViewState.fotogramDmThread) {
+        $title.text('Messages');
+    } else if (action === 'fotogram' && phoneViewState.fotogramPostDetail) {
+        $title.text('Post');
+    } else {
+        $title.text(PHONE_APP_NAMES[action] || action);
+    }
     $content.html(getAppContent(action, vars));
+    if (action === 'fotogram') initFotogramMediaPlayers(vars);
     $view.show();
     $('#phone-overlay .phone-home').hide();
     
@@ -90,6 +139,15 @@ function scrollPhoneThreadToBottom() {
     var run = function () { el.scrollTop = el.scrollHeight; };
     if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(run);
     else run();
+}
+
+function initFotogramMediaPlayers(vars) {
+    if (typeof window.initFotogramFeedVideoPlayers === 'function') {
+        window.initFotogramFeedVideoPlayers(vars);
+    }
+    if (typeof window.initFotogramPreviewVideoPlayer === 'function') {
+        window.initFotogramPreviewVideoPlayer(vars);
+    }
 }
 
 function handleAppClick(action) {
@@ -132,13 +190,13 @@ function createPhoneOverlay() {
     var notificationFotogram = (vars.phoneNotifications && vars.phoneNotifications.fotogram) ? vars.phoneNotifications.fotogram.length : 0;
     var notificationFinder = (vars.phoneNotifications && vars.phoneNotifications.finder) ? vars.phoneNotifications.finder.length : 0;
     var apps = [
-        { name: 'Camera', icon: 'assets/content/phone/apps/icon_camera.webp', action: 'camera', badge: 0 },
-        { name: 'Contacts', icon: 'assets/content/phone/apps/icon_calls.webp', action: 'contacts', badge: 0 },
-        { name: 'Messages', icon: 'assets/content/phone/apps/icon_messages.webp', action: 'messages', badge: notificationMessages },
-        { name: 'Gallery', icon: 'assets/content/phone/apps/icon_gallery.webp', action: 'gallery', badge: 0 },
-        { name: 'Calendar', icon: 'assets/content/phone/apps/icon_calendar.webp', action: 'calendar', badge: 0 },
-        { name: 'Fotogram', icon: 'assets/content/phone/apps/icon_fotogram.webp', action: 'fotogram', badge: notificationFotogram },
-        { name: 'Finder', icon: 'assets/content/phone/apps/icon_finder.webp', action: 'finder', badge: notificationFinder }
+        { name: 'Camera', icon: 'assets/content/phone/icons/icon_camera.webp', action: 'camera', badge: 0 },
+        { name: 'Contacts', icon: 'assets/content/phone/icons/icon_calls.webp', action: 'contacts', badge: 0 },
+        { name: 'Messages', icon: 'assets/content/phone/icons/icon_messages.webp', action: 'messages', badge: notificationMessages },
+        { name: 'Gallery', icon: 'assets/content/phone/icons/icon_gallery.webp', action: 'gallery', badge: 0 },
+        { name: 'Calendar', icon: 'assets/content/phone/icons/icon_calendar.webp', action: 'calendar', badge: 0 },
+        { name: 'Fotogram', icon: 'assets/content/phone/icons/icon_fotogram.webp', action: 'fotogram', badge: notificationFotogram },
+        { name: 'Finder', icon: 'assets/content/phone/icons/icon_finder.webp', action: 'finder', badge: notificationFinder }
     ];
     var appsHtml = apps.map(function(app) {
         return '<div class="phone-app" data-action="' + app.action + '"><div class="phone-app-icon"><img src="' + app.icon + '" alt="' + app.name + '">' + (app.badge > 0 ? '<span class="phone-app-badge">' + (app.badge > 99 ? '99+' : app.badge) + '</span>' : '') + '</div><div class="phone-app-name">' + app.name + '</div></div>';
@@ -169,6 +227,8 @@ function createPhoneOverlay() {
         if (phoneViewState.app === 'camera' && $('#phone-app-view').find('.phone-camera-preview-overlay').length) {
             $('#phone-app-view').find('.phone-camera-preview-overlay').remove();
             $('#phone-app-view-title').text(PHONE_APP_NAMES.camera || 'Camera');
+            $('#phone-app-view-content').html(getAppContent('camera', vars));
+            if (typeof window.initTooltips === 'function') window.initTooltips();
             return;
         }
         if (phoneViewState.app === 'gallery' && $('#phone-app-view').find('.phone-gallery-preview-overlay').length) {
@@ -210,6 +270,30 @@ function createPhoneOverlay() {
             $('#phone-app-view-title').text(PHONE_APP_NAMES[phoneViewState.app] || phoneViewState.app);
             $('#phone-app-view-content').html(getAppContent(phoneViewState.app, vars));
             updatePhoneBadges();
+        } else if (phoneViewState.app === 'fotogram') {
+            if (phoneViewState.fotogramSub === 'share' && phoneViewState.fotogramSharePreview) {
+                phoneViewState.fotogramSharePreview = null;
+                $('#phone-app-view-title').text('Share from Gallery');
+                $('#phone-app-view-content').html(getAppContent('fotogram', vars));
+                initFotogramMediaPlayers(vars);
+            } else if (phoneViewState.fotogramSub === 'feed' && phoneViewState.fotogramPostDetail) {
+                phoneViewState.fotogramPostDetail = null;
+                $('#phone-app-view-title').text(PHONE_APP_NAMES.fotogram || 'Fotogram');
+                $('#phone-app-view-content').html(getAppContent('fotogram', vars));
+                initFotogramMediaPlayers(vars);
+            } else if (phoneViewState.fotogramDmThread) {
+                phoneViewState.fotogramDmThread = null;
+                $('#phone-app-view-title').text('Messages');
+                $('#phone-app-view-content').html(getAppContent('fotogram', vars));
+                initFotogramMediaPlayers(vars);
+            } else if (phoneViewState.fotogramSub && phoneViewState.fotogramSub !== 'feed') {
+                phoneViewState.fotogramSub = 'feed';
+                $('#phone-app-view-title').text(PHONE_APP_NAMES.fotogram || 'Fotogram');
+                $('#phone-app-view-content').html(getAppContent('fotogram', vars));
+                initFotogramMediaPlayers(vars);
+            } else {
+                hideAppView();
+            }
         } else {
             hideAppView();
         }
@@ -650,6 +734,331 @@ function createPhoneOverlay() {
         var titles = { photos: 'Photos', videos: 'Videos', received: 'Received' };
         $('#phone-app-view-title').text(titles[folder] || folder);
         $('#phone-app-view-content').html(getAppContent('gallery', PhoneAPI.State.variables));
+    });
+
+    $('#phone-overlay').on('click', '.phone-fotogram-tab:not(.disabled):not([disabled])', function () {
+        if (!PhoneAPI) return;
+        var tab = $(this).data('tab');
+        if (!tab) return;
+        phoneViewState.fotogramSub = tab;
+        phoneViewState.fotogramDmThread = null;
+        phoneViewState.fotogramSharePreview = null;
+        phoneViewState.fotogramPostDetail = null;
+        var titles = { feed: PHONE_APP_NAMES.fotogram || 'Fotogram', share: 'Share from Gallery', profile: 'Profile', dm: 'Messages' };
+        $('#phone-app-view-title').text(titles[tab] || tab);
+        $('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+        initFotogramMediaPlayers(PhoneAPI.State.variables);
+        if (typeof window.initTooltips === 'function') window.initTooltips();
+    });
+
+    $('#phone-overlay').on('click', '.phone-fotogram-post-card[data-post-id]', function () {
+        if (!PhoneAPI) return;
+        if (phoneViewState.fotogramSub !== 'feed') return;
+        var postId = $(this).data('post-id');
+        if (!postId) return;
+        phoneViewState.fotogramPostDetail = postId;
+        $('#phone-app-view-title').text('Post');
+        $('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+        initFotogramMediaPlayers(PhoneAPI.State.variables);
+    });
+
+    $('#phone-overlay').on('click', '.phone-fotogram-dm-row', function () {
+        if (!PhoneAPI) return;
+        var dmId = $(this).data('dm-id');
+        if (!dmId) return;
+        phoneViewState.fotogramDmThread = dmId;
+        $('#phone-app-view-title').text('Messages');
+        $('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+        if (typeof window.initTooltips === 'function') window.initTooltips();
+    });
+
+    var $phone = (PhoneAPI && PhoneAPI.$) ? PhoneAPI.$ : $;
+    $phone('#phone-overlay').on('click', '.phone-fotogram-dm-quick', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!PhoneAPI) return;
+        var action = $phone(this).data('action');
+        var dmId = $phone(this).data('dm-id');
+        var replyKey = $phone(this).data('reply-key');
+        if (!dmId) return;
+        var vars = PhoneAPI.State.variables;
+        if (action === 'promote') {
+            var canSwap = (typeof canUseSwapInFotogramDm === 'function') ? canUseSwapInFotogramDm(vars) : true;
+            if (!canSwap) {
+                if (typeof Engine !== 'undefined' && Engine.wiki) Engine.wiki('<<notify>>You are not ready to swap numbers yet.<</notify>>');
+                return;
+            }
+            if (typeof Engine !== 'undefined' && Engine.wiki) Engine.wiki('<<phonePromoteContact "' + dmId + '">>');
+            phoneViewState.fotogramDmThread = null;
+            $phone('#phone-app-view-title').text('Messages');
+            $phone('#phone-app-view-content').html(getAppContent('fotogram', vars));
+            if (typeof window.initTooltips === 'function') window.initTooltips();
+            if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+        } else if (action === 'block') {
+            var dm = (typeof getFotogramDMById === 'function') ? getFotogramDMById(vars, dmId) : null;
+            var name = dm ? (dm.anonName || 'this person') : 'this person';
+            var msg = 'You will block ' + name + '. They will not be able to message you again.';
+            if (typeof showBlockConfirmModal === 'function') {
+                showBlockConfirmModal(name, msg, function () {
+                    if (typeof blockFotogramDM === 'function') blockFotogramDM(PhoneAPI.State.variables, dmId);
+                    phoneViewState.fotogramDmThread = null;
+                    $phone('#phone-app-view-title').text('Messages');
+                    $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                    if (typeof window.initTooltips === 'function') window.initTooltips();
+                    if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+                    if (typeof showNotification === 'function') showNotification({ type: 'info', message: name + ' has been blocked.' });
+                });
+            } else {
+                if (typeof blockFotogramDM === 'function') blockFotogramDM(vars, dmId);
+                phoneViewState.fotogramDmThread = null;
+                $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                if (typeof window.initTooltips === 'function') window.initTooltips();
+            }
+        } else if (action === 'reply' && replyKey && typeof processFotogramDMReply === 'function') {
+            processFotogramDMReply(vars, dmId, replyKey);
+            if (replyKey === 'swap_yes') {
+                vars.phoneFotogramRandomSwapIds = Array.isArray(vars.phoneFotogramRandomSwapIds) ? vars.phoneFotogramRandomSwapIds : [];
+                var isActiveFotogramRandom = function (id) {
+                    if (!id) return false;
+                    var def = vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[id];
+                    var st = vars.characters && vars.characters[id];
+                    return !!(def && def.generatedFromPhone && st && st.firstMet);
+                };
+                vars.phoneFotogramRandomSwapIds = vars.phoneFotogramRandomSwapIds.filter(isActiveFotogramRandom).slice(0, 10);
+                var canCreateFotogramRandom = function () { return vars.phoneFotogramRandomSwapIds.length < 10; };
+                var markFotogramFirstMet = function (id) {
+                    if (!id) return;
+                    vars.characters = vars.characters || {};
+                    if (!vars.characters[id]) return;
+                    if (!vars.characters[id].firstMet) {
+                        var tsm = vars.timeSys || {};
+                        vars.characters[id].firstMet = (tsm.day || 1) + '/' + (tsm.month || 1) + '/' + (tsm.year || 0);
+                    }
+                };
+                var eng = (typeof Engine !== 'undefined' && Engine.wiki) ? Engine : (window.parent && window.parent.Engine && window.parent.Engine.wiki ? window.parent.Engine : null);
+                if (eng && eng.wiki) eng.wiki('<<phonePromoteContact "' + dmId + '">>');
+                var promotedMap = (PhoneAPI.State && PhoneAPI.State.variables && PhoneAPI.State.variables.phoneContactPromoted) || {};
+                var promotedId = promotedMap ? promotedMap[dmId] : null;
+                var allDms = (PhoneAPI.State && PhoneAPI.State.variables && PhoneAPI.State.variables.phoneFotogramDMs) || [];
+                var dmEntry = null;
+                for (var di = 0; di < allDms.length; di++) {
+                    if (allDms[di] && allDms[di].id === dmId) { dmEntry = allDms[di]; break; }
+                }
+                if (!promotedId && dmEntry) {
+                    promotedId = dmEntry.promotedToCharId || dmEntry.generatedPromotedCharId || null;
+                }
+                /* Hard JS fallback so swap always creates a contact even if macro path fails. */
+                if (!promotedId && dmEntry) {
+                    if (dmEntry.charId) promotedId = dmEntry.charId;
+                }
+                if (!promotedId && dmEntry) {
+                    if (!canCreateFotogramRandom()) {
+                        if (typeof window.showNotification === 'function') {
+                            window.showNotification({ type: 'warning', message: 'You can have at most 10 Fotogram swaps.' });
+                        }
+                        $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        return;
+                    }
+                    var cfg = (typeof setup !== 'undefined' && setup.charGenerator) ? setup.charGenerator : {};
+                    var stp = (typeof setup !== 'undefined' && setup) ? setup : (window.setup || null);
+                    var maleNames = cfg.maleFirstNames || ['Luca', 'Noah', 'Ethan', 'Leo', 'Mason'];
+                    var femaleNames = cfg.femaleFirstNames || ['Aria', 'Mila', 'Nora', 'Sofia', 'Lena'];
+                    var lastNames = cfg.lastNames || ['Carter', 'Hayes', 'Brooks', 'Reed', 'Morgan'];
+                    var colors = Array.isArray(cfg.colors) && cfg.colors.length ? cfg.colors : ['#a855f7', '#3b82f6', '#f97316', '#14b8a6', '#ec4899'];
+                    var pickOne = function (arr, fallback) { return (Array.isArray(arr) && arr.length) ? arr[Math.floor(Math.random() * arr.length)] : fallback; };
+                    var currentYear = (vars.timeSys && Number(vars.timeSys.year)) || 2024;
+                    var ageMin = Number(cfg.ageMin);
+                    var ageMax = Number(cfg.ageMax);
+                    if (!Number.isFinite(ageMin)) ageMin = 18;
+                    if (!Number.isFinite(ageMax)) ageMax = 60;
+                    if (ageMax < ageMin) { var tmpAge = ageMax; ageMax = ageMin; ageMin = tmpAge; }
+                    var maleW = Number(cfg.maleWeight != null ? cfg.maleWeight : 0.5);
+                    var femaleW = Number(cfg.femaleWeight != null ? cfg.femaleWeight : 0.5);
+                    if (!Number.isFinite(maleW) || maleW < 0) maleW = 0.5;
+                    if (!Number.isFinite(femaleW) || femaleW < 0) femaleW = 0.5;
+                    var totalW = maleW + femaleW;
+                    var dmGender = String((dmEntry && dmEntry.profileGender) || '').toLowerCase();
+                    var gender = (dmGender === 'male' || dmGender === 'female')
+                        ? dmGender
+                        : ((totalW <= 0) ? (Math.random() < 0.5 ? 'male' : 'female') : (Math.random() < (maleW / totalW) ? 'male' : 'female'));
+                    var firstName = pickOne(gender === 'male' ? maleNames : femaleNames, 'Alex');
+                    var lastName = pickOne(lastNames, 'Taylor');
+                    var dmAge = Number(dmEntry && dmEntry.profileAge);
+                    var birthYear = (Number.isFinite(dmAge) && dmAge >= ageMin && dmAge <= ageMax)
+                        ? (currentYear - dmAge)
+                        : ((currentYear - ageMax) + Math.floor(Math.random() * ((currentYear - ageMin) - (currentYear - ageMax) + 1)));
+                    var baseId = (firstName + '_' + lastName).toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+                    if (!baseId) baseId = 'generated_contact';
+                    var candidate = baseId;
+                    var n = 2;
+                    while ((stp && stp.characterDefs && stp.characterDefs[candidate]) || (vars.characters && vars.characters[candidate])) {
+                        candidate = baseId + '_' + n;
+                        n++;
+                    }
+                    var fullName = firstName + ' ' + lastName;
+                    var def = {
+                        id: candidate,
+                        name: fullName,
+                        firstName: firstName,
+                        lastName: lastName,
+                        birthYear: birthYear,
+                        location: 'Online',
+                        avatar: dmEntry.avatar || '',
+                        type: 'npc',
+                        color: pickOne(colors, '#a855f7'),
+                        status: 'Online Contact',
+                        gender: gender,
+                        skinTone: dmEntry.skinTone || 'tan',
+                        hasSchedule: false,
+                        scheduleType: 'none',
+                        generatedFromPhone: true,
+                        info: '<p>You met this person online and swapped numbers through DMs.</p>'
+                    };
+                    vars.phoneGeneratedContacts = vars.phoneGeneratedContacts || {};
+                    vars.phoneGeneratedContacts[candidate] = def;
+                    vars.characters = vars.characters || {};
+                    if (!vars.characters[candidate]) {
+                        vars.characters[candidate] = {
+                            stats: { love: 0, friendship: 25, lust: 0, trust: 5 },
+                            opinion: { awareness: 0, flags: [] },
+                            firstMet: (vars.timeSys.day || 1) + '/' + (vars.timeSys.month || 1) + '/' + (vars.timeSys.year || 0),
+                            known: true,
+                            currentLocation: null,
+                            currentStatus: null
+                        };
+                    }
+                    if (stp) {
+                        stp.characterDefs = stp.characterDefs || {};
+                        stp.characterDefs[candidate] = def;
+                    }
+                    dmEntry.generatedPromotedCharId = candidate;
+                    dmEntry.promotedToCharId = candidate;
+                    promotedId = candidate;
+                }
+                if (!promotedId) {
+                    if (typeof window.showNotification === 'function') {
+                        window.showNotification({ type: 'warning', message: 'Swap failed. Please try again.' });
+                    }
+                    $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                    return;
+                }
+                vars.phoneContactPromoted = vars.phoneContactPromoted || {};
+                vars.phoneContactPromoted[dmId] = promotedId;
+                vars.phoneContactsUnlocked = vars.phoneContactsUnlocked || [];
+                if (vars.phoneContactsUnlocked.indexOf(promotedId) === -1) vars.phoneContactsUnlocked.push(promotedId);
+                markFotogramFirstMet(promotedId);
+                var promotedDef = vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[promotedId];
+                if (promotedDef && promotedDef.generatedFromPhone && vars.phoneFotogramRandomSwapIds.indexOf(promotedId) === -1) {
+                    if (vars.phoneFotogramRandomSwapIds.length < 10) vars.phoneFotogramRandomSwapIds.push(promotedId);
+                }
+                vars.phoneConversations = vars.phoneConversations || {};
+                if (!vars.phoneConversations[promotedId] && dmEntry) {
+                    var buildSwapIntroMessage = function (contactId) {
+                        var playerName = (vars.player && vars.player.firstName) ? vars.player.firstName : ((vars.characters && vars.characters.player && vars.characters.player.name) ? vars.characters.player.name : 'Player');
+                        var defLocal = (vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[contactId]) || ((typeof setup !== 'undefined' && setup.characterDefs) ? setup.characterDefs[contactId] : null) || {};
+                        var first = defLocal.firstName || '';
+                        var last = defLocal.lastName || '';
+                        var contactName = (first && last) ? (first + ' ' + last) : (defLocal.name || contactId || 'Unknown');
+                        var currYear = (vars.timeSys && Number(vars.timeSys.year)) || 2024;
+                        var age = (defLocal.birthYear && Number.isFinite(Number(defLocal.birthYear))) ? (currYear - Number(defLocal.birthYear)) : 0;
+                        if (!Number.isFinite(age) || age <= 0) age = 25;
+                        var pool = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramSwapIntroMessages) && setup.fotogramSwapIntroMessages.length)
+                            ? setup.fotogramSwapIntroMessages
+                            : [];
+                        if (!pool.length) return '';
+                        var tpl = pool[Math.floor(Math.random() * pool.length)] || '';
+                        return String(tpl)
+                            .replace(/\{playerName\}/g, playerName)
+                            .replace(/\{contactName\}/g, contactName)
+                            .replace(/\{age\}/g, String(age));
+                    };
+                    vars.phoneConversations[promotedId] = [];
+                    var msgs = dmEntry.messages || [];
+                    for (var mi = 0; mi < msgs.length; mi++) {
+                        var msg = msgs[mi];
+                        vars.phoneConversations[promotedId].push({
+                            from: msg.from === 'me' ? 'player' : promotedId,
+                            text: msg.text,
+                            time: msg.time || {},
+                            read: true
+                        });
+                    }
+                    if (!dmEntry.swapIntroSent) {
+                        var introText = buildSwapIntroMessage(promotedId);
+                        if (introText) {
+                        var tNow = vars.timeSys || {};
+                        vars.phoneConversations[promotedId].push({
+                            from: promotedId,
+                            text: introText,
+                            time: { day: tNow.day, month: tNow.month, year: tNow.year, hour: tNow.hour, minute: tNow.minute },
+                            read: false
+                        });
+                        dmEntry.swapIntroSent = true;
+                        }
+                    }
+                }
+                phoneViewState.fotogramDmThread = null;
+                $phone('#phone-app-view-title').text('Messages');
+                $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                if (typeof window.initTooltips === 'function') window.initTooltips();
+                if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+            } else {
+                $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                if (typeof window.initTooltips === 'function') window.initTooltips();
+            }
+        }
+    });
+
+    $('#phone-overlay').on('click', '.phone-fotogram-pick-cell:not(.disabled)', function () {
+        if (!PhoneAPI) return;
+        var $el = $(this);
+        var itemId = $el.data('id');
+        var upgrade = $el.data('upgrade') === true;
+        if (!itemId) return;
+        phoneViewState.fotogramSharePreview = { itemId: itemId, upgrade: upgrade };
+        $('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+        initFotogramMediaPlayers(PhoneAPI.State.variables);
+        if (typeof window.initTooltips === 'function') window.initTooltips();
+    });
+
+    $('#phone-overlay').on('click', '#phone-fotogram-preview-back', function () {
+        if (!PhoneAPI) return;
+        phoneViewState.fotogramSharePreview = null;
+        $('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+        initFotogramMediaPlayers(PhoneAPI.State.variables);
+        if (typeof window.initTooltips === 'function') window.initTooltips();
+    });
+
+    $('#phone-overlay').on('click', '#phone-fotogram-preview-share', function () {
+        if (!PhoneAPI) return;
+        var itemId = $(this).data('id');
+        var upgrade = $(this).data('upgrade') === true;
+        if (!itemId) return;
+        var result = null;
+        if (typeof window.phoneCreateFotogramPost === 'function') {
+            result = window.phoneCreateFotogramPost(itemId, upgrade);
+        } else if (typeof Engine !== 'undefined' && Engine.wiki) {
+            Engine.wiki('<<phoneFotogramPost "' + itemId + '"' + (upgrade ? ' true>>' : '>>'));
+            result = { ok: true };
+        }
+        if (!result || !result.ok) {
+            var msg = 'Could not post right now.';
+            if (result && result.reason === 'COOLDOWN') msg = 'You posted recently. You need to wait ' + (result.daysLeft != null ? (result.daysLeft + ' day(s)') : 'a while') + '.';
+            else if (result && result.reason === 'DUPLICATE_POST') msg = 'This photo is already posted.';
+            else if (result && result.reason === 'NOT_UPGRADE') msg = 'Only higher quality can replace an old post.';
+            if (typeof window.showNotification === 'function') {
+                window.showNotification({ type: 'warning', message: msg, duration: 4000 });
+            }
+            return;
+        }
+        phoneViewState.fotogramSharePreview = null;
+        phoneViewState.fotogramSub = 'feed';
+        $('#phone-app-view-title').text(PHONE_APP_NAMES.fotogram || 'Fotogram');
+        $('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+        initFotogramMediaPlayers(PhoneAPI.State.variables);
+        if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+        if (typeof window.updatePhoneBadges === 'function') window.updatePhoneBadges();
+        if (typeof window.notifySuccess === 'function') window.notifySuccess('Posted!');
     });
 }
 

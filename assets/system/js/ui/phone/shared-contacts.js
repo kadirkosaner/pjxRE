@@ -7,10 +7,21 @@ function getPhoneContactName(charId, vars) {
     return getPhoneContactFullName(charId, vars);
 }
 
+function getPhoneContact(charId, vars) {
+    if (!charId) return null;
+    var setupObj = getStorySetupObj();
+    var def = (setupObj && setupObj.characterDefs && setupObj.characterDefs[charId]) ? setupObj.characterDefs[charId] : null;
+    if (!def && vars && vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[charId]) {
+        def = vars.phoneGeneratedContacts[charId];
+    }
+    var stateChar = (vars && vars.characters && vars.characters[charId]) ? vars.characters[charId] : null;
+    if (!def && !stateChar) return null;
+    return Object.assign({}, def || {}, stateChar || {});
+}
+
 function getPhoneContactFullName(charId, vars) {
     if (!charId) return '';
-    var c = (vars && vars.characters && vars.characters[charId]) ? vars.characters[charId] : null;
-    if (!c && typeof setup !== 'undefined' && setup.getCharacter) c = setup.getCharacter(charId);
+    var c = getPhoneContact(charId, vars);
     if (!c) return charId;
     var first = c.firstName || c.name || '';
     var last = c.lastName || '';
@@ -21,8 +32,7 @@ function getPhoneContactFullName(charId, vars) {
 
 function getPhoneContactAvatar(charId, vars) {
     if (!charId) return '';
-    var c = (vars && vars.characters && vars.characters[charId]) ? vars.characters[charId] : null;
-    if (!c && typeof setup !== 'undefined' && setup.getCharacter) c = setup.getCharacter(charId);
+    var c = getPhoneContact(charId, vars);
     return (c && c.avatar) ? c.avatar : '';
 }
 
@@ -80,10 +90,17 @@ function getContactListHtmlForContacts(vars) {
 function blockPhoneContact(charId, vars) {
     if (!vars.phoneContactsUnlocked) vars.phoneContactsUnlocked = [];
     if (!vars.phoneBlocked) vars.phoneBlocked = [];
+    if (!vars.phoneFotogramRandomSwapIds) vars.phoneFotogramRandomSwapIds = [];
     var idx = vars.phoneContactsUnlocked.indexOf(charId);
     if (idx !== -1) vars.phoneContactsUnlocked.splice(idx, 1);
     if (vars.phoneBlocked.indexOf(charId) === -1) vars.phoneBlocked.push(charId);
     if (vars.phoneConversations && vars.phoneConversations[charId]) delete vars.phoneConversations[charId];
+    var generatedDef = vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[charId] ? vars.phoneGeneratedContacts[charId] : null;
+    if (generatedDef && generatedDef.generatedFromPhone && vars.characters && vars.characters[charId]) {
+        vars.characters[charId].firstMet = null;
+    }
+    var fgIdx = vars.phoneFotogramRandomSwapIds.indexOf(charId);
+    if (fgIdx !== -1) vars.phoneFotogramRandomSwapIds.splice(fgIdx, 1);
     persistPhoneChanges();
 }
 

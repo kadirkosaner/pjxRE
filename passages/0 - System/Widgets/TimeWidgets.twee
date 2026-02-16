@@ -50,6 +50,9 @@
             <<decreaseHygiene 5>>
             <<loseStat "energy" 5>>
         <</for>>
+
+        /* Fotogram – first-hours engagement spike */
+        <<updateFotogramEngagementHours _hours>>
         
         /* Show all accumulated notifications as combined toasts */
         <<flushNotifications>>
@@ -183,6 +186,9 @@
             <<dailyAppearanceUpdate>>
         <</for>>
     <</if>>
+
+    /* Fotogram – engagement (likes, followers) for posts */
+    <<updateFotogramEngagement>>
 <</widget>>
 
 <<widget "setTime">>
