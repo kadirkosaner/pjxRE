@@ -1,7 +1,9 @@
 /* Shoes - Footwear
- * 
+ *
  * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned
+ *   [, reqConfidence, reqHeelsSkill, heelsSkillCap ]  // for heels: confidence + heels skill required; cap = max skill gain from this shoe
+ * }
  */
 
 <<set setup.clothingData = setup.clothingData || {}>>
