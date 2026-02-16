@@ -203,9 +203,11 @@ function canWearClothingItem(item) {
     const conf = S.variables.confidence ?? 0;
     const exh = S.variables.exhibitionism ?? 0;
     const corr = S.variables.corruption ?? 0;
+    const heelsSkill = (S.variables.skills && S.variables.skills.physical && S.variables.skills.physical.heels) ? S.variables.skills.physical.heels : 0;
     if (conf < reqConf) return { allowed: false, reason: `Requires ${reqConf} Confidence` };
     if (exh < reqExh) return { allowed: false, reason: `Requires ${reqExh} Exhibitionism` };
     if (corr < reqCorr) return { allowed: false, reason: `Requires ${reqCorr} Corruption` };
+    if (item.reqHeelsSkill != null && heelsSkill < item.reqHeelsSkill) return { allowed: false, reason: `Requires ${item.reqHeelsSkill} Heels skill` };
     return { allowed: true, reason: '' };
 }
 

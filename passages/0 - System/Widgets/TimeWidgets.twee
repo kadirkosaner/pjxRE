@@ -88,6 +88,36 @@
     <<run $(document).trigger(':passagerender')>>
 <</widget>>
 
+/* addHeelsTravelMinutes: when navigating or walking with heels on, add travel minutes.
+   Every 60 accumulated minutes = +1 heels skill, capped by worn shoe's heelsSkillCap.
+   Call from navCard (travelTime) or walk activities (activity duration in minutes). */
+<<widget "addHeelsTravelMinutes">>
+    <<set _minutes = parseInt($args[0], 10) || 0>>
+    <<if _minutes <= 0>><<return>><</if>>
+    <<if ndef $heelsTravelMinutes>><<set $heelsTravelMinutes to 0>><</if>>
+    <<if ndef $wardrobe>><<set $wardrobe = { equipped: {} }>><</if>>
+    <<if ndef $wardrobe.equipped>><<set $wardrobe.equipped = {}>><</if>>
+    <<set _shoeId to $wardrobe.equipped.shoes>>
+    <<if !_shoeId>><<return>><</if>>
+    <<set _item to setup.getClothingById(_shoeId)>>
+    <<if !_item>><<return>><</if>>
+    <<if ndef _item.heelsSkillCap>><<return>><</if>>
+    <<if ndef $skills.physical>><<return>><</if>>
+    <<if ndef $skills.physical.heels>><<set $skills.physical.heels to 0>><</if>>
+    <<set _cap to _item.heelsSkillCap>>
+    <<set $heelsTravelMinutes = $heelsTravelMinutes + _minutes>>
+    <<set _currentHeels to $skills.physical.heels>>
+    <<set _maxGain to _cap - _currentHeels>>
+    <<set _fullBlocks to Math.floor($heelsTravelMinutes / 60)>>
+    <<set _gain to Math.min(_maxGain, _fullBlocks)>>
+    <<if _gain > 0>>
+        <<set $skills.physical.heels = _currentHeels + _gain>>
+        <<set $heelsTravelMinutes = $heelsTravelMinutes - (_gain * 60)>>
+        <<trackSkillUsage "physical" "heels">>
+        <<notifySkillChange "heels" _gain>>
+    <</if>>
+<</widget>>
+
 <<widget "advanceDay">>
     <<set _days = $args[0] || 1>>
     <<set _oldWeekday = $timeSys.weekday>>

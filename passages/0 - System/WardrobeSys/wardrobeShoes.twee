@@ -83,7 +83,8 @@
         brand: "StepUp Footwear",
         desc: "Comfortable nude heels with a block heel.",
         image: "assets/content/clothing/shoes/StepUpFootwear/heelsBlockNude.webp",
-        looks: 4, quality: "Common", tags: ["casual", "elegant"], price: 45.00, shopAvailable: true, startOwned: false
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "heels"], price: 45.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
     },
 
     /* ==========================================
@@ -115,7 +116,8 @@
         brand: "Stiletto Studio",
         desc: "Classic sexy black stilettos.",
         image: "assets/content/clothing/shoes/StilettoStudio/heelsStilettoBlack.webp",
-        looks: 5, quality: "Rare", tags: ["formal", "elegant"], price: 75.00, shopAvailable: true, startOwned: false
+        looks: 10, quality: "Rare", tags: ["formal", "elegant", "heels"], price: 75.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
     },
     {
         id: "heels_stiletto_nude",
@@ -123,7 +125,8 @@
         brand: "Stiletto Studio",
         desc: "Leg-lengthening nude stilettos.",
         image: "assets/content/clothing/shoes/StilettoStudio/heelsStilettoNude.webp",
-        looks: 5, quality: "Rare", tags: ["formal", "elegant"], price: 72.00, shopAvailable: true, startOwned: false
+        looks: 10, quality: "Rare", tags: ["formal", "elegant", "heels"], price: 72.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
     },
     {
         id: "boots_knehigh_black",
@@ -131,7 +134,8 @@
         brand: "Stiletto Studio",
         desc: "Elegant knee-high leather boots.",
         image: "assets/content/clothing/shoes/StilettoStudio/bootsKnehighBlack.webp",
-        looks: 5, quality: "Rare", tags: ["elegant"], price: 85.00, shopAvailable: true, startOwned: false
+        looks: 7, quality: "Rare", tags: ["elegant", "heels"], price: 85.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
     },
     {
         id: "pumps_satin_black",
@@ -139,7 +143,8 @@
         brand: "Stiletto Studio",
         desc: "Formal satin pumps.",
         image: "assets/content/clothing/shoes/StilettoStudio/pumpsSatinBlack.webp",
-        looks: 6, quality: "Rare", tags: ["formal", "elegant"], price: 80.00, shopAvailable: true, startOwned: false
+        looks: 10, quality: "Rare", tags: ["formal", "elegant", "heels"], price: 80.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
     },
     {
         id: "heels_block_metallic",
@@ -147,7 +152,8 @@
         brand: "Stiletto Studio",
         desc: "Eye-catching metallic heels.",
         image: "assets/content/clothing/shoes/StilettoStudio/heelsBlockMetallic.webp",
-        looks: 5, quality: "Rare", tags: ["elegant"], price: 70.00, shopAvailable: true, startOwned: false
+        looks: 4, quality: "Rare", tags: ["elegant", "heels"], price: 70.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
     },
     {
         id: "heels_maryjane_black",
@@ -155,7 +161,8 @@
         brand: "Stiletto Studio",
         desc: "Glossy black heels with a strap.",
         image: "assets/content/clothing/shoes/StilettoStudio/heelsMaryjaneBlack.webp",
-        looks: 4, quality: "Rare", tags: ["elegant"], price: 58.00, shopAvailable: true, startOwned: false
+        looks: 7, quality: "Rare", tags: ["elegant", "heels"], price: 58.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
     },
     {
         id: "ankle_boots_suede_tan",
@@ -163,7 +170,8 @@
         brand: "Stiletto Studio",
         desc: "Stylish tan suede ankle boots.",
         image: "assets/content/clothing/shoes/StilettoStudio/ankleBootsSuedeTan.webp",
-        looks: 4, quality: "Rare", tags: ["casual", "elegant"], price: 72.00, shopAvailable: true, startOwned: false
+        looks: 7, quality: "Rare", tags: ["casual", "elegant", "heels"], price: 72.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
     },
     {
         id: "boots_knehigh_brown",
@@ -171,7 +179,8 @@
         brand: "Stiletto Studio",
         desc: "Classic brown leather riding boots.",
         image: "assets/content/clothing/shoes/StilettoStudio/bootsKnehighBrown.webp",
-        looks: 5, quality: "Rare", tags: ["elegant"], price: 82.00, shopAvailable: true, startOwned: false
+        looks: 7, quality: "Rare", tags: ["elegant", "heels"], price: 82.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
     },
     {
         id: "loafers_leather_horsebit",
@@ -187,6 +196,7 @@
         brand: "Stiletto Studio",
         desc: "Barely-there nude strappy heels.",
         image: "assets/content/clothing/shoes/StilettoStudio/sandalsStilettoNude.webp",
-        looks: 5, quality: "Rare", tags: ["elegant"], price: 68.00, shopAvailable: true, startOwned: false
+        looks: 10, quality: "Rare", tags: ["elegant", "heels"], price: 68.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
     }
 ]>>

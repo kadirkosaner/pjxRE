@@ -5,8 +5,8 @@
 - dinersRuby Check yap.
 - Mirror check.
 
+- Kitap ve İtemlar.
 - phone için selfieler ve videoları tamamla.
-- Yeni itemler için shoppingi yapmaya başlamak. Kitap ve İtemlar.
 - lily morgan avatar photo
 - Numara silindiği zaman karakter tepkileri.
 
