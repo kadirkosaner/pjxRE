@@ -36,6 +36,30 @@
   teasing: { pickup_open: 25, praise_open: 45, dickpic_open: 30 }
 }>>
 
+/* Interactive DM variety controls */
+<<set setup.fotogramDmScenarioRecentWindow = 4>>
+<<set setup.fotogramDmScenarioRecentPenalty = 0.55>>
+<<set setup.fotogramDmNodeTextRecentWindow = 8>>
+<<set setup.fotogramDmNodeTextStrictTurns = 2>>
+<<set setup.fotogramDmAttachmentRecentWindow = 6>>
+<<set setup.fotogramDmAttachmentStageHeatMid = 3>>
+<<set setup.fotogramDmAttachmentStageHeatLate = 6>>
+<<set setup.fotogramDmAttachmentStageTrustLate = 3>>
+<<set setup.fotogramDMAttachmentPoolsEarly = ["default", "spicy"]>>
+<<set setup.fotogramDMAttachmentPoolsMid = ["spicy", "default", "sexting"]>>
+<<set setup.fotogramDMAttachmentPoolsLate = ["sexting", "spicy", "default"]>>
+<<set setup.fotogramDmDynamicAttachmentChanceEarly = 0.08>>
+<<set setup.fotogramDmDynamicAttachmentChanceMid = 0.18>>
+<<set setup.fotogramDmDynamicAttachmentChanceLate = 0.32>>
+<<run setup.fotogramDMPersonaWeights = { dominant: 35, playful: 30, manipulative: 15, soft: 20 }>>
+<<run setup.fotogramDMMediaBehaviorWeights = { text_only: 35, media_only: 20, mixed: 45 }>>
+<<run setup.fotogramDMPersonaAddons = {
+  dominant: ["Don't play innocent now.", "Keep the same energy.", "You opened this door."],
+  manipulative: ["Don't switch up now.", "You wanted this vibe.", "Own what you started."],
+  playful: ["You are trouble 😏", "This chat is wild 😂", "You're really doing this, huh?"],
+  soft: ["Careful... this is getting intense.", "Slow and messy, I like it.", "You're pulling me in."]
+}>>
+
 /* Legacy quick-reply keys (only for explicit non-scenario fallback mode) */
 <<set setup.fotogramDMStartReplyKeys = ["hi", "thanks", "who"]>>
 

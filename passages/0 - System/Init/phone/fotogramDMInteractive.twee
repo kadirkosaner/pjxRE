@@ -5,6 +5,59 @@
 
 /* Scenario selection settings moved to variablesFotogram.twee */
 
+<<run setup.fotogramDMExplicitOverlayPools = {
+  male: {
+    dickpic_open: {
+      direct: [
+        "Pants off, cock out, send that dick pic right fucking now.",
+        "I'm done with games. Show me that hard cock, full view, no excuses.",
+        "Stroke it until it's throbbing then snap a pic for me.",
+        "That's mine to look at now. Keep sending more angles.",
+        "You're gonna blue-ball me after getting me this wet? Send it.",
+        "I'm touching myself thinking about it… don't make me finish alone."
+      ],
+      euphemism: [
+        "Bet that dick's begging to be seen. Prove me right or I'm gone.",
+        "Bigger than I thought? Prove it. Dick pic or you're all talk.",
+        "Get that cock nice and hard and hit send, I'm waiting.",
+        "Fuck the mystery, show me that dick dripping already.",
+        "I want to see how hard you get just thinking of me.",
+        "Let me see it pulse for me… please, baby."
+      ]
+    }
+  },
+  female: {
+    dickpic_open: {
+      direct: [
+        "Cock hard, camera ready. Send or I lose interest.",
+        "Show me every inch of that stiff dick. No mercy.",
+        "Get it up and prove you're worth my attention.",
+        "I'm literally soaked because of you. Don't you dare stop now."
+      ],
+      euphemism: [
+        "You started this fire between my legs. Finish it with your number.",
+        "That dick looks delicious. Gimme digits so I can drool in peace.",
+        "Fuck, that's a nice cock. Keep 'em coming, stud.",
+        "My pussy's throbbing looking at you… don't leave me like this."
+      ]
+    }
+  }
+}>>
+
+<<run setup.fotogramDMRuntimeConfig = {
+  text: {
+    emptyAnonText: "...",
+    deletedMessageText: "[Message deleted]",
+    legacyReplyFallbackText: "Thanks for replying!",
+    quickReplyButtonText: "Reply",
+    giveNumberButtonText: "Give number",
+    blockButtonText: "Block"
+  },
+  legacyReplyKeys: ["hi", "thanks", "who", "vibe", "busy", "swap_yes", "swap_later"],
+  swapKeywordHints: ["swap", "number"],
+  explicitOverlayChanceByTone: { male: 0.35, female: 0.24 }
+}>>
+
 <<run setup.fotogramDMScenarioOpeners = {
   default: {
     pickup_open: {
@@ -129,21 +182,70 @@
       },
       pickup_heat_2: {
         anon: {
-          male: ["You're making this harder to keep polite.", "I am trying to behave, but you are not helping."],
-          female: ["You're pushing me into dangerous territory.", "At this point, you're asking for trouble."]
+          male: [
+            "You're making this harder to keep polite.",
+            "I am trying to behave, but you are not helping.",
+            "You keep nudging this into a much dirtier lane.",
+            "At this pace, I am one message away from dropping all filters.",
+            "Damn, you escalate fast 😈",
+            "You're playing with fire and acting innocent, hell no 😂"
+          ],
+          female: [
+            "You're pushing me into dangerous territory.",
+            "At this point, you're asking for trouble.",
+            "You really know how to turn a normal chat into chaos.",
+            "You keep pulling me to the side of me that never behaves.",
+            "Girl, you're messy and I kinda love it 😏",
+            "You really said 'be good' and then sent that energy? wild 💀"
+          ]
         },
+        randomAttachment: { chance: 0.25, pools: ["default", "spicy"] },
         choices: [
-          { key: "pickup_more_heat", playerText: "Then don't behave.", next: "pickup_ask_pic", effects: { heat: 2, ghostRisk: 1 } },
+          { key: "pickup_more_heat", playerText: "Then don't behave.", next: "pickup_tension_3", effects: { heat: 2, ghostRisk: 1 } },
           { key: "pickup_swap_now", playerText: "Let's swap numbers and continue there.", next: "pickup_swap_success", requiresSwap: true, effects: { swapOpen: true, trust: 1 } },
           { key: "pickup_back_to_safe", playerText: "Slow down. Let's keep it chat.", next: "pickup_chat_2", effects: { control: 1 } }
         ]
       },
+      pickup_tension_3: {
+        anon: {
+          male: [
+            "You're actually dangerous. I respect it.",
+            "Damn, okay, now I'm fully in this 😮‍💨",
+            "You keep pushing and I'm not gonna pretend I'm calm anymore."
+          ],
+          female: [
+            "You really know how to drag this into chaos.",
+            "Okayyy, this got spicy real quick 😏",
+            "You're trouble and I walked straight into it."
+          ]
+        },
+        randomAttachment: { chance: 0.28, pools: ["spicy", "default"] },
+        choices: [
+          { key: "pickup_tension_pic", playerText: "If it's real, show me.", next: "pickup_ask_pic", effects: { heat: 1, ghostRisk: 1 } },
+          { key: "pickup_tension_swap", playerText: "Move this to number.", next: "pickup_swap_offer", effects: { trust: 1, swapOpen: true } },
+          { key: "pickup_tension_cool", playerText: "Enough. Keep it chill.", next: "pickup_chat_2", effects: { control: 1 } }
+        ]
+      },
       pickup_ask_pic: {
         anon: {
-          male: ["You asked for it.", "Fine. You started this."],
-          female: ["You wanted bold, right?", "Okay, no regrets then."]
+          male: [
+            "You asked for it.",
+            "Fine. You started this.",
+            "No taking this back now.",
+            "You wanted proof, so proof it is.",
+            "Say less. Sending 😏",
+            "You really asked for evidence, huh? alright then 📸"
+          ],
+          female: [
+            "You wanted bold, right?",
+            "Okay, no regrets then.",
+            "You asked in the worst possible way. I like that.",
+            "Say less. You get exactly what you asked for.",
+            "Fine, but don't panic after 😈",
+            "Ask and receive, babe 💅"
+          ]
         },
-        attachment: { pool: "spicy" },
+        randomAttachment: { chance: 0.85, pools: ["spicy", "sexting"] },
         choices: [
           { key: "pickup_after_pic_praise", playerText: "Hmm... not bad.", next: "pickup_swap_offer", effects: { heat: 1, trust: 1 } },
           { key: "pickup_after_pic_tease", playerText: "Forget the pic, I'll see it live one day.", next: "pickup_swap_offer", effects: { swapOpen: true, trust: 1 } },
@@ -152,8 +254,18 @@
       },
       pickup_swap_offer: {
         anon: {
-          male: ["Then let's move this to phone. Give me your number.", "Give number and we continue properly."],
-          female: ["Let's take this off-app. Give me your number.", "Number swap and we keep this going."]
+          male: [
+            "Then let's move this to phone. Give me your number.",
+            "Give number and we continue properly.",
+            "This app is limiting. Number and we continue with no brakes.",
+            "Let's move where I can text you directly. Drop your number."
+          ],
+          female: [
+            "Let's take this off-app. Give me your number.",
+            "Number swap and we keep this going.",
+            "This chat is too restricted here. We should move.",
+            "Give your number and I will keep this energy there."
+          ]
         },
         flags: { anonAskedSwap: true },
         choices: [
@@ -242,21 +354,70 @@
       },
       praise_heat_2: {
         anon: {
-          male: ["You're making me lose composure, honestly.", "At this pace, I will say very bad things."],
-          female: ["You're making this too tempting.", "You are pushing this into dangerous fun."]
+          male: [
+            "You're making me lose composure, honestly.",
+            "At this pace, I will say very bad things.",
+            "You keep pushing and I keep dropping my restraint.",
+            "This is getting dirtier than I planned and I am not complaining.",
+            "Damn, your mouth is dangerous 😏",
+            "You're baiting me on purpose and it's working, hell."
+          ],
+          female: [
+            "You're making this too tempting.",
+            "You are pushing this into dangerous fun.",
+            "You keep feeding the worst side of me.",
+            "At this point, this is one line away from full chaos.",
+            "Girl, you're shameless and I'm here for it 😂",
+            "You keep poking the beast and smiling, that's wild 😈"
+          ]
         },
+        randomAttachment: { chance: 0.2, pools: ["default", "spicy"] },
         choices: [
-          { key: "praise_heat_pic", playerText: "Show it while you explain those bad things.", next: "praise_pic_2", effects: { heat: 2, ghostRisk: 1 } },
+          { key: "praise_heat_pic", playerText: "Show it while you explain those bad things.", next: "praise_tension_3", effects: { heat: 2, ghostRisk: 1 } },
           { key: "praise_heat_swap", playerText: "Give your number, talk there.", next: "praise_swap_offer", effects: { trust: 1, swapOpen: true } },
           { key: "praise_heat_slow", playerText: "Slow down a little.", next: "praise_accept_1", effects: { control: 1 } }
         ]
       },
+      praise_tension_3: {
+        anon: {
+          male: [
+            "You keep this up and I'm done pretending to be decent.",
+            "Okay, wow. You're bold-bold 😮‍💨",
+            "You're pulling a worse side out of me, damn."
+          ],
+          female: [
+            "You know exactly how to tease. It's honestly rude 😏",
+            "This is getting reckless and I love it.",
+            "You're giving chaos and confidence at the same time 💅"
+          ]
+        },
+        randomAttachment: { chance: 0.26, pools: ["spicy", "default"] },
+        choices: [
+          { key: "praise_tension_pic", playerText: "Then prove it now.", next: "praise_pic_2", effects: { heat: 1, ghostRisk: 1 } },
+          { key: "praise_tension_swap", playerText: "Take this off-app.", next: "praise_swap_offer", effects: { trust: 1, swapOpen: true } },
+          { key: "praise_tension_calm", playerText: "Keep it flirty, not crazy.", next: "praise_accept_1", effects: { control: 1 } }
+        ]
+      },
       praise_pic_2: {
         anon: {
-          male: ["Say less.", "You asked, I deliver."],
-          female: ["You really wanted proof, huh?", "Fine, but this stays between us."]
+          male: [
+            "Say less.",
+            "You asked, I deliver.",
+            "No hesitation now.",
+            "You asked for receipts. Here.",
+            "There you go. Don't act shocked now 😏",
+            "Proof dropped. Your turn to talk big 📸"
+          ],
+          female: [
+            "You really wanted proof, huh?",
+            "Fine, but this stays between us.",
+            "You asked with that tone? You were getting it anyway.",
+            "Okay, proof delivered. Your move.",
+            "Sent. Try to behave now 😂",
+            "Don't start what you can't finish, babe 😈"
+          ]
         },
-        attachment: { pool: "spicy" },
+        randomAttachment: { chance: 0.8, pools: ["spicy", "sexting"] },
         choices: [
           { key: "praise_pic_swap", playerText: "Alright, let's move to numbers.", next: "praise_swap_offer", effects: { swapOpen: true, trust: 1 } },
           { key: "praise_pic_tease", playerText: "A pic is not enough, need live.", next: "praise_swap_offer", effects: { swapOpen: true } },
@@ -265,8 +426,18 @@
       },
       praise_swap_offer: {
         anon: {
-          male: ["Give me your number and we continue there.", "Off-app is better. Give number."],
-          female: ["Let's move this to number. Give it and I text you.", "Number swap? This app is too limiting."]
+          male: [
+            "Give me your number and we continue there.",
+            "Off-app is better. Give number.",
+            "Let's move where this can actually breathe.",
+            "Drop your number and I will keep this same tone there."
+          ],
+          female: [
+            "Let's move this to number. Give it and I text you.",
+            "Number swap? This app is too limiting.",
+            "I'd rather continue this where it feels private.",
+            "Give number and I text you right away."
+          ]
         },
         flags: { anonAskedSwap: true },
         choices: [
@@ -311,10 +482,22 @@
       },
       dick_shock_1: {
         anon: {
-          male: ["Yeah. I wanted a real reaction from you.", "I am blunt, no games."],
-          female: ["I said what I said. You got my honest mood.", "Bold opener, yes. Intentional."]
+          male: [
+            "Yeah. I wanted a real reaction from you.",
+            "I am blunt, no games.",
+            "I prefer raw honesty over fake polite lines.",
+            "You looked like you could handle blunt.",
+            "No fake polite act from me. I came in hot on purpose."
+          ],
+          female: [
+            "I said what I said. You got my honest mood.",
+            "Bold opener, yes. Intentional.",
+            "I don't do soft intros when the vibe is like this.",
+            "You wanted direct? This is direct.",
+            "I don't flirt with brakes on. Never did."
+          ]
         },
-        randomAttachment: { chance: 0.35, pools: ["sexting", "spicy"] },
+        randomAttachment: { chance: 0.4, pools: ["default", "spicy", "sexting"] },
         choices: [
           { key: "dick_shock_flirt", playerText: "If you got a reaction, convince me now.", next: "dick_play_1", effects: { heat: 1, trust: 1 } },
           { key: "dick_shock_end", playerText: "That's too much for me.", next: "dick_end_soft" }
@@ -322,14 +505,64 @@
       },
       dick_play_1: {
         anon: {
-          male: ["Good. Tell me what you want next.", "I can be worse if you want."],
-          female: ["Now we are talking.", "Say one word and I push further."]
+          male: [
+            "Good. Tell me what you want next.",
+            "I can be worse if you want.",
+            "You're opening that door and I am stepping through it.",
+            "Say the word and I stop playing nice.",
+            "Damn, finally someone who can handle this vibe 😮‍💨",
+            "You keep talking like that and this gets messy fast.",
+            "You keep pushing buttons like you want trouble on purpose.",
+            "Bet it's already half-hard. Show me the proof.",
+            "Give it a few slow strokes then send the result.",
+            "You're not gonna leave me soaked and empty-handed, right?",
+            "I'm dying to see how you look when you're turned on."
+          ],
+          female: [
+            "Now we are talking.",
+            "Say one word and I push further.",
+            "This is the tone I wanted from you.",
+            "You keep feeding this and I keep escalating.",
+            "You really woke up and chose chaos today 😏",
+            "Talk slick again and I go full demon mode 😂",
+            "Keep that mouth going and I will drag this way past safe.",
+            "Show me how hard I can make you from text alone.",
+            "I'm getting so wet just imagining it. Let me see."
+          ]
         },
-        randomAttachment: { chance: 0.55, pools: ["sexting", "spicy"] },
+        randomAttachment: { chance: 0.55, pools: ["default", "spicy", "sexting"] },
         choices: [
-          { key: "dick_pic_now", playerText: "Then send something.", next: "dick_pic_2", effects: { heat: 2, ghostRisk: 1 } },
+          { key: "dick_pic_now", playerText: "Then send something.", next: "dick_tension_3", effects: { heat: 2, ghostRisk: 1 } },
           { key: "dick_swap_tease", playerText: "Forget the pic, I'll see it live one day.", next: "dick_swap_offer", effects: { swapOpen: true, trust: 1 } },
           { key: "dick_slow", playerText: "You're going too fast.", next: "dick_bound_1", effects: { control: 1 } }
+        ]
+      },
+      dick_tension_3: {
+        anon: {
+          male: [
+            "You're really asking for trouble now.",
+            "Hell, you're not shy at all 😈",
+            "You keep pushing, I keep escalating. That's the deal.",
+            "You're bold as hell. I respect that.",
+            "Get it rock hard and send that full, veiny shot.",
+            "You made me this wet, now finish what you started.",
+            "Is it leaking yet? Prove it with a pic.",
+            "Show me how it jumps when you read my messages."
+          ],
+          female: [
+            "You like danger, huh? same.",
+            "Damn, this got filthy quick 😂",
+            "You keep acting brave. I like brave.",
+            "You keep aiming between my thighs with that tone.",
+            "You're making me ache. Send the full hard shot.",
+            "Stroke until precum shows, then send that glistening dick."
+          ]
+        },
+        randomAttachment: { chance: 0.35, pools: ["spicy", "sexting"] },
+        choices: [
+          { key: "dick_tension_pic", playerText: "Stop talking. Send it.", next: "dick_pic_2", effects: { heat: 1, ghostRisk: 1 } },
+          { key: "dick_tension_swap", playerText: "Move to number now.", next: "dick_swap_offer", effects: { trust: 1, swapOpen: true } },
+          { key: "dick_tension_back", playerText: "Keep it under control.", next: "dick_bound_1", effects: { control: 1 } }
         ]
       },
       dick_bound_1: {
@@ -344,9 +577,20 @@
       },
       dick_controlled_2: {
         anon: {
-          male: ["I can keep it clean-ish, but you're tempting.", "Trying to behave here."],
-          female: ["I can be nice... for now.", "You are still dangerous though."]
+          male: [
+            "I can keep it clean-ish, but you're tempting.",
+            "Trying to behave here.",
+            "I can hold back, but only if you stop provoking me.",
+            "I'll be measured, but don't test me too hard."
+          ],
+          female: [
+            "I can be nice... for now.",
+            "You are still dangerous though.",
+            "I'll keep it controlled if you keep it smart.",
+            "I can play calm, but I know where this can go."
+          ]
         },
+        randomAttachment: { chance: 0.2, pools: ["default", "spicy"] },
         choices: [
           { key: "dick_control_heat", playerText: "Make it a little dirtier.", next: "dick_pic_2", effects: { heat: 1 } },
           { key: "dick_control_swap", playerText: "Let's move to numbers.", next: "dick_swap_offer", effects: { swapOpen: true, trust: 1 } },
@@ -355,10 +599,38 @@
       },
       dick_pic_2: {
         anon: {
-          male: ["You asked.", "There. Happy now?"],
-          female: ["Your turn to react.", "No take-backs now."]
+          male: [
+            "You asked.",
+            "There. Happy now?",
+            "You wanted bold, I gave bold.",
+            "No rewinding this now.",
+            "Boom. Now talk that same energy 😏",
+            "Sent. Don't freeze up now, come on.",
+            "There. Now own what you asked for.",
+            "Cock out, hand off, straight-on pic. Do it.",
+            "That dick belongs to my eyes now. More, closer.",
+            "Fuck yes, that's thick. Send the side view next.",
+            "God I can almost feel it… send another, please.",
+            "No more hiding. Full erection, balls included, now.",
+            "You got me this close… give me your number so I can finish.",
+            "Holy shit that's hot. Digits now or I riot.",
+            "My body's reacting so hard to this… keep feeding me."
+          ],
+          female: [
+            "Your turn to react.",
+            "No take-backs now.",
+            "You asked for fuel and I dropped it.",
+            "Let's see if your words match your reaction.",
+            "Delivered. You still acting tough? 😂",
+            "There. Keep that same mouth now 😈",
+            "I dropped it. Now tell me what that did to you.",
+            "That cock is under my command now. More pics, tighter grip.",
+            "I'm two fingers deep because of you. Number. Now.",
+            "Goddamn that's hot. Swap numbers so I can moan your name.",
+            "My clit's pulsing looking at this… don't stop sending."
+          ]
         },
-        attachment: { pool: "sexting" },
+        randomAttachment: { chance: 0.9, pools: ["sexting", "spicy"] },
         choices: [
           { key: "dick_pic_like", playerText: "Hmm. Not bad.", next: "dick_swap_offer", effects: { heat: 1, trust: 1 } },
           { key: "dick_pic_refuse", playerText: "I didn't actually want this.", next: "dick_ghost_delete", effects: { ghostRisk: 2 } },
@@ -367,8 +639,24 @@
       },
       dick_swap_offer: {
         anon: {
-          male: ["Give me your number. We continue there.", "Off-app. Give number."],
-          female: ["Let's move this to your number.", "Number swap and we keep going."]
+          male: [
+            "Give me your number. We continue there.",
+            "Off-app. Give number.",
+            "This app kills momentum. Number now.",
+            "Drop it and I text you right away.",
+            "Enough pics. Number. I want to own this dick live.",
+            "You made me drip. Give me your number so I can beg properly.",
+            "This cock deserves voice notes. Drop those digits.",
+            "I need to hear you groan while I look at this. Number?"
+          ],
+          female: [
+            "Let's move this to your number.",
+            "Number swap and we keep going.",
+            "I'd rather continue where this feels private.",
+            "Give number and we keep this exact energy.",
+            "I need that dick in my ear. Give me your fucking number.",
+            "This is too good for text. Drop digits, let's get filthy."
+          ]
         },
         flags: { anonAskedSwap: true },
         choices: [

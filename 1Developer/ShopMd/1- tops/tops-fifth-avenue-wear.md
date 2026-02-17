@@ -127,7 +127,6 @@
 **KayıtID:** sweaterCashmereGray
 
 **Prompt:**
-1:1. A young fit woman wearing a heather gray cashmere-like fine knit v-neck sweater paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; premium softness. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -136,7 +135,7 @@
 **Tags:** elegant, casual
 **Looks:** 6
 **Quality:** Rare
-**KayıtID:** sweaterTurtleneckCream
+**KayıtID:** 
 
 **Prompt:**
 1:1. A young fit woman wearing a cream fine-gauge ribbed turtleneck sweater paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; elevated basic. Studio lighting, isolated on pure white background, focus on the top.
@@ -148,7 +147,7 @@
 **Tags:** elegant, casual
 **Looks:** 6
 **Quality:** Rare
-**KayıtID:** knitMockneckCamel
+**KayıtID:** 
 
 **Prompt:**
 1:1. A young fit woman wearing a camel mock neck relaxed knit top with soft drape paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; understated luxury. Studio lighting, isolated on pure white background, focus on the top.
@@ -164,7 +163,7 @@
 **Tags:** elegant, casual
 **Looks:** 6
 **Quality:** Rare
-**KayıtID:** cardiganCashmereGray
+**KayıtID:** 
 
 **Prompt:**
 1:1. A young fit woman wearing a gray cashmere-like button cardigan with ribbed trim paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; investment knitwear. Studio lighting, isolated on pure white background, focus on the top.
@@ -176,7 +175,7 @@
 **Tags:** elegant, casual
 **Looks:** 6
 **Quality:** Rare
-**KayıtID:** cardiganOversizedCream
+**KayıtID:** 
 
 **Prompt:**
 1:1. A young fit woman wearing a cream oversized chunky knit cardigan with large buttons over a simple top paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; cozy premium. Studio lighting, isolated on pure white background, focus on the top.
