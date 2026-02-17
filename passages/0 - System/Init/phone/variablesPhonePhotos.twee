@@ -1,0 +1,57 @@
+:: variablesPhonePhotos [init nobr]
+/* Centralized phone photo pools:
+   - setup.phonePhotos for topic imagePool selections
+   - setup.fotogramDMPhotoPool for Fotogram DM attachments */
+
+<<set setup.phonePhotos = {
+	mother: [
+		"assets/content/phone/camera/normal_safe_1.webp",
+	],
+	father: [
+		"assets/content/phone/camera/normal_safe_1.webp",
+	],
+	brother: [
+		"assets/content/phone/camera/normal_safe_1.webp",
+	],
+	player: [
+		"assets/content/phone/camera/normal_safe_1.webp",
+	]
+}>>
+/* Backward compatibility */
+<<set setup.phoneSelfiePaths = setup.phonePhotos>>
+
+<<run setup.fotogramDMPhotoPool = {
+  spicy: {
+    white: [
+      "assets/content/phone/dm/spicy/white/spicy_w_01.webp",
+      { path: "assets/content/phone/gallery/videos/normal/normalVideo1.mp4", kind: "video" }
+    ],
+    black: [
+      "assets/content/phone/dm/spicy/black/spicy_b_01.webp",
+      { path: "assets/content/phone/gallery/videos/normal/normalVideo2.mp4", kind: "video" }
+    ],
+    tan: [
+      "assets/content/phone/dm/spicy/tan/spicy_t_01.webp",
+      { path: "assets/content/phone/gallery/videos/normal/normalVideo3.mp4", kind: "video" }
+    ]
+  },
+  sexting: {
+    white: [
+      "assets/content/phone/dm/sexting/white/sext_w_01.webp",
+      { path: "assets/content/phone/gallery/videos/normal/normalVideo1.mp4", kind: "video" }
+    ],
+    black: [
+      "assets/content/phone/dm/sexting/black/sext_b_01.webp",
+      { path: "assets/content/phone/gallery/videos/normal/normalVideo2.mp4", kind: "video" }
+    ],
+    tan: [
+      "assets/content/phone/dm/sexting/tan/sext_t_01.webp",
+      { path: "assets/content/phone/gallery/videos/normal/normalVideo3.mp4", kind: "video" }
+    ]
+  },
+  default: {
+    white: ["assets/content/phone/dm/default/white/def_w_01.webp"],
+    black: ["assets/content/phone/dm/default/black/def_b_01.webp"],
+    tan: ["assets/content/phone/dm/default/tan/def_t_01.webp"]
+  }
+}>>

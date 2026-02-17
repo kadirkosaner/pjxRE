@@ -469,8 +469,8 @@ function phoneShowCapturePreview(media) {
     var stateVars = (typeof State !== 'undefined' && State.variables) ? State.variables : null;
     var path = (media.path && String(media.path).trim()) ? media.path : '';
     var quality = (media.quality != null) ? Number(media.quality) : 0;
-    var qualityText = 'Quality: ' + quality + '/100';
     var isVideo = (media.mediaKind === 'video') || (/\.mp4$/i.test(path) || /\.webm$/i.test(path));
+    var infoText = 'Type: ' + (isVideo ? 'Video' : 'Photo') + '\nQuality: ' + quality + '/100';
     var mediaHtml;
     if (path) {
         var src = getPhoneAssetUrl(path);
@@ -489,11 +489,13 @@ function phoneShowCapturePreview(media) {
         mediaHtml = '<div class="phone-camera-preview-placeholder">No ' + (isVideo ? 'video' : 'image') + '</div>';
     }
     var html = '<div class="phone-camera-preview-overlay">' +
-        '<div class="phone-camera-preview-media">' + mediaHtml + '</div>' +
-        '<div class="phone-camera-preview-score">' + qualityText + '</div>' +
+        '<div class="phone-camera-preview-media">' +
+        '<button type="button" class="phone-camera-preview-info overlay" data-tooltip="' + (typeof escapeHtml === 'function' ? escapeHtml(infoText) : infoText) + '"><span class="icon icon-info icon-16"></span></button>' +
+        mediaHtml + '</div>' +
         '</div>';
     $view.find('.phone-camera-preview-overlay').remove();
     $view.append(html);
+    if (typeof window.initTooltips === 'function') window.initTooltips();
     if (isVideo) {
         var $container = $view.find('.phone-camera-video-container').first();
         var $video = $container.find('video').first();
@@ -736,37 +738,46 @@ window.phoneRecordVideo = function(type) {
  * @param {object} [opts] - { kind: 'photos'|'videos', category: 'normal'|'cute'|'hot'|'spicy'|'received', quality: number, from: 'player'|charId, flags: string[] }
  * @returns {object|null} Added item or null
  */
-window.phoneGalleryAddItem = function (path, opts) {
-    if (!path || typeof path !== 'string') return null;
-    path = path.trim();
-    var vars = (typeof State !== 'undefined' && State.variables) ? State.variables : (typeof window.PhoneAPI !== 'undefined' && window.PhoneAPI.State && window.PhoneAPI.State.variables) ? window.PhoneAPI.State.variables : null;
-    if (!vars || !vars.phoneGallery) return null;
-    opts = opts || {};
-    var kind = (opts.kind === 'videos') ? 'videos' : 'photos';
-    var category = opts.category || 'received';
-    if (['normal', 'cute', 'hot', 'spicy', 'received'].indexOf(category) < 0) category = 'received';
-    var quality = (opts.quality != null && opts.quality >= 0 && opts.quality <= 100) ? parseInt(opts.quality, 10) : 50;
-    var from = (opts.from != null && opts.from !== '') ? opts.from : 'player';
-    var flags = Array.isArray(opts.flags) ? opts.flags : ['special'];
-    var list = vars.phoneGallery[kind][category];
-    if (!list) vars.phoneGallery[kind][category] = list = [];
-    if (category === 'received') {
-        var exists = list.some(function (el) { return el.path === path; });
-        if (exists) return null;
-    }
-    var timeSys = vars.timeSys || {};
-    var item = {
-        id: generateMediaId(),
-        path: path,
-        flags: flags,
-        timestamp: { day: timeSys.day, month: timeSys.month, year: timeSys.year, hour: timeSys.hour, minute: timeSys.minute },
-        quality: quality,
-        from: from
+if (typeof window.phoneGalleryAddItem !== 'function') {
+    window.phoneGalleryAddItem = function (path, opts) {
+        if (!path || typeof path !== 'string') return null;
+        path = path.trim();
+        var vars = (typeof State !== 'undefined' && State.variables)
+            ? State.variables
+            : (typeof window.PhoneAPI !== 'undefined' && window.PhoneAPI.State && window.PhoneAPI.State.variables)
+                ? window.PhoneAPI.State.variables
+                : null;
+        if (!vars || !vars.phoneGallery) return null;
+        opts = opts || {};
+        var kind = (opts.kind === 'videos') ? 'videos' : 'photos';
+        var category = opts.category || 'received';
+        if (['normal', 'cute', 'hot', 'spicy', 'received'].indexOf(category) < 0) category = 'received';
+        var quality = (opts.quality != null && opts.quality >= 0 && opts.quality <= 100) ? parseInt(opts.quality, 10) : 50;
+        var from = (opts.from != null && opts.from !== '') ? opts.from : 'player';
+        var flags = Array.isArray(opts.flags) ? opts.flags : ['special'];
+        var list = vars.phoneGallery[kind][category];
+        if (!list) vars.phoneGallery[kind][category] = list = [];
+        if (category === 'received') {
+            var exists = list.some(function (el) { return el.path === path; });
+            if (exists) return null;
+        }
+        var timeSys = vars.timeSys || {};
+        var generatedId = (typeof generateMediaId === 'function')
+            ? generateMediaId()
+            : ('media_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
+        var item = {
+            id: generatedId,
+            path: path,
+            flags: flags,
+            timestamp: { day: timeSys.day, month: timeSys.month, year: timeSys.year, hour: timeSys.hour, minute: timeSys.minute },
+            quality: quality,
+            from: from
+        };
+        list.push(item);
+        if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+        return item;
     };
-    list.push(item);
-    if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
-    return item;
-};
+}
 
 window.phoneRenderCameraApp = phoneRenderCameraApp;
 window.getPhoneAssetUrl = getPhoneAssetUrl;

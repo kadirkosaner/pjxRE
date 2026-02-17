@@ -5,32 +5,4 @@
  */
 
 <<set setup.clothingData = setup.clothingData || {}>>
-<<set setup.clothingData.coats = [
-    /* ==========================================
-       FIFTH AVENUE WEAR (StoreClothingC)
-    ========================================== */
-    {
-        id: "coat_wool_blend_black",
-        name: "Wool Blend Coat",
-        brand: "Fifth Avenue",
-        desc: "Elegant black wool blend coat.",
-        image: "assets/content/clothing/coats/FifthAvenue/coatWoolBlendBlack.webp",
-        looks: 6, quality: "Premium", tags: ["formal", "elegant", "warm"], price: 140.00, shopAvailable: true, startOwned: false
-    },
-    {
-        id: "coat_soft_cream",
-        name: "Soft Cream Coat",
-        brand: "Fifth Avenue",
-        desc: "Luxuriously soft cream coat.",
-        image: "assets/content/clothing/coats/FifthAvenue/coatSoftCream.webp",
-        looks: 5, quality: "Premium", tags: ["elegant", "warm"], price: 125.00, shopAvailable: true, startOwned: false
-    },
-    {
-        id: "trench_coat_khaki",
-        name: "Classic Trench Coat",
-        brand: "Fifth Avenue",
-        desc: "Timeless khaki trench coat.",
-        image: "assets/content/clothing/coats/FifthAvenue/trenchCoatKhaki.webp",
-        looks: 5, quality: "Premium", tags: ["casual", "elegant"], price: 118.00, shopAvailable: true, startOwned: false
-    }
-]>>
+<<set setup.clothingData.coats = []>>

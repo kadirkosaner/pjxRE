@@ -1,5 +1,45 @@
 let RightbarAPI = null;
 
+function getUnreadConversationCount(vars) {
+    if (!vars || !vars.phoneConversations) return 0;
+    var conv = vars.phoneConversations;
+    var n = 0;
+    Object.keys(conv).forEach(function (charId) {
+        (conv[charId] || []).forEach(function (m) {
+            if (m && m.from !== 'player' && m.read === false) n++;
+        });
+    });
+    return n;
+}
+
+function getUnreadFotogramDmThreadsCount(vars) {
+    if (!vars || !Array.isArray(vars.phoneFotogramDMs)) return 0;
+    var dms = vars.phoneFotogramDMs;
+    var unread = 0;
+    for (var i = 0; i < dms.length; i++) {
+        var dm = dms[i];
+        if (!dm || dm.blocked || dm.promotedToCharId) continue;
+        var msgs = Array.isArray(dm.messages) ? dm.messages : [];
+        var hasUnread = false;
+        for (var mi = 0; mi < msgs.length; mi++) {
+            var m = msgs[mi];
+            if (m && m.from !== 'me' && m.read !== true) {
+                hasUnread = true;
+                break;
+            }
+        }
+        if (hasUnread) unread++;
+    }
+    return unread;
+}
+
+function getPhoneNotificationTotal(vars) {
+    var messages = getUnreadConversationCount(vars);
+    var fotogram = getUnreadFotogramDmThreadsCount(vars);
+    var finder = (vars && vars.phoneNotifications && Array.isArray(vars.phoneNotifications.finder)) ? vars.phoneNotifications.finder.length : 0;
+    return messages + fotogram + finder;
+}
+
 // Initialize
 window.RightbarInit = function (API) {
     RightbarAPI = API;
@@ -8,7 +48,8 @@ window.RightbarInit = function (API) {
 // Keep rightbar phone badge in sync with phone overlay (e.g. after closing phone or when badges change)
 $(document).on('phoneBadgesUpdated', function () {
     if (!RightbarAPI) return;
-    var total = (typeof window.phoneTotalBadge === 'function') ? window.phoneTotalBadge() : 0;
+    var vars = RightbarAPI.State && RightbarAPI.State.variables ? RightbarAPI.State.variables : {};
+    var total = getPhoneNotificationTotal(vars);
     var $preview = $('.right-bar .phone-preview');
     if ($preview.length) {
         var html = total > 0
@@ -42,7 +83,7 @@ $(document).on(':passagerender', function () {
     const gameVersion = RightbarAPI.setup?.gameVersion;
     const imageProfile = RightbarAPI.setup?.imageProfile;
     const imageMap = RightbarAPI.setup?.imageMap;
-    const notificationPhoneCount = (typeof window.phoneTotalBadge === 'function') ? window.phoneTotalBadge() : 0;
+    const notificationPhoneCount = getPhoneNotificationTotal(vars);
 
     // Calculate total money (cash + bank)
     const totalMoney = (vars.cashBalance || 0) + (vars.bankBalance || 0);

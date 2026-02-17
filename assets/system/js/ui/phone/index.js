@@ -9,6 +9,27 @@ window.PhoneInit = function (API) {
     PhoneAPI = API;
 };
 
+function getUnreadFotogramDmThreadsCount(vars) {
+    if (!vars || !Array.isArray(vars.phoneFotogramDMs)) return 0;
+    var dms = vars.phoneFotogramDMs;
+    var unread = 0;
+    for (var i = 0; i < dms.length; i++) {
+        var dm = dms[i];
+        if (!dm || dm.blocked || dm.promotedToCharId) continue;
+        var msgs = Array.isArray(dm.messages) ? dm.messages : [];
+        var hasUnread = false;
+        for (var mi = 0; mi < msgs.length; mi++) {
+            var m = msgs[mi];
+            if (m && m.from !== 'me' && m.read !== true) {
+                hasUnread = true;
+                break;
+            }
+        }
+        if (hasUnread) unread++;
+    }
+    return unread;
+}
+
 function getAppContent(action, vars) {
     if (action === 'camera' && typeof window.phoneRenderCameraApp === 'function') {
         var rawLoc = (vars && vars.location) || (PhoneAPI && PhoneAPI.State && (PhoneAPI.State.variables && PhoneAPI.State.variables.location || PhoneAPI.State.passage)) || '';
@@ -29,7 +50,7 @@ function updatePhoneBadges() {
     if (!PhoneAPI) return;
     var v = PhoneAPI.State.variables;
     var msgCount = (typeof window.phoneUnreadCount === 'function') ? window.phoneUnreadCount() : 0;
-    var fotogramCount = (v.phoneNotifications && v.phoneNotifications.fotogram) ? v.phoneNotifications.fotogram.length : 0;
+    var fotogramCount = getUnreadFotogramDmThreadsCount(v);
     var finderCount = (v.phoneNotifications && v.phoneNotifications.finder) ? v.phoneNotifications.finder.length : 0;
     var badges = { messages: msgCount, fotogram: fotogramCount, finder: finderCount };
     $('#phone-overlay .phone-app').each(function () {
@@ -43,7 +64,7 @@ function updatePhoneBadges() {
             $badge.remove();
         }
     });
-    var total = (typeof window.phoneTotalBadge === 'function') ? window.phoneTotalBadge() : 0;
+    var total = msgCount + fotogramCount + finderCount;
     var $preview = $('.right-bar .phone-preview');
     if ($preview.length) {
         var html = total > 0
@@ -69,42 +90,7 @@ function showAppView(action) {
         phoneViewState.fotogramDmThread = null;
         phoneViewState.fotogramSharePreview = null;
         phoneViewState.fotogramPostDetail = null;
-        var notifs = (vars.phoneNotifications && vars.phoneNotifications.fotogram) ? vars.phoneNotifications.fotogram : [];
-        for (var ni = notifs.length - 1; ni >= 0; ni--) {
-            var n = notifs[ni];
-            if (n.type === 'dm' && n.refId) {
-                var dms = vars.phoneFotogramDMs || [];
-                var dmExists = false;
-                for (var di = 0; di < dms.length; di++) {
-                    if (dms[di] && dms[di].id === n.refId) {
-                        dmExists = true;
-                        break;
-                    }
-                }
-                if (dmExists) {
-                    phoneViewState.fotogramSub = 'dm';
-                    phoneViewState.fotogramDmThread = n.refId;
-                    break;
-                }
-                continue;
-            }
-            if (n.type === 'comment' && n.refId) {
-                var posts = vars.phoneFotogramPosts || [];
-                var postExists = false;
-                for (var pi = 0; pi < posts.length; pi++) {
-                    if (posts[pi] && posts[pi].id === n.refId) {
-                        postExists = true;
-                        break;
-                    }
-                }
-                if (postExists) {
-                    phoneViewState.fotogramSub = 'feed';
-                    phoneViewState.fotogramPostDetail = n.refId;
-                    break;
-                }
-            }
-        }
-        if (typeof drainFotogramNotifications === 'function') drainFotogramNotifications(vars);
+        // Do not auto-clear Fotogram notifications on open.
     }
     var $view = $('#phone-app-view');
     var $title = $('#phone-app-view-title');
@@ -119,6 +105,9 @@ function showAppView(action) {
     }
     $content.html(getAppContent(action, vars));
     if (action === 'fotogram') initFotogramMediaPlayers(vars);
+    if (action === 'fotogram' && phoneViewState.fotogramSub === 'dm' && phoneViewState.fotogramDmThread) {
+        scrollPhoneThreadToBottom();
+    }
     $view.show();
     $('#phone-overlay .phone-home').hide();
     
@@ -134,9 +123,69 @@ function hideAppView() {
 }
 
 function scrollPhoneThreadToBottom() {
-    var el = document.getElementById('phone-app-view-content');
-    if (!el) return;
-    var run = function () { el.scrollTop = el.scrollHeight; };
+    var root = document.getElementById('phone-app-view-content');
+    if (!root) return;
+    var dmActions = root.querySelector('.phone-fotogram-dm-actions');
+    if (dmActions) {
+        var focusActions = function () {
+            if (typeof dmActions.scrollIntoView === 'function') {
+                dmActions.scrollIntoView({ block: 'end', inline: 'nearest' });
+            }
+        };
+        focusActions();
+        // Re-focus actions when media finishes loading and changes layout height.
+        var mediaNodes = root.querySelectorAll('.phone-fotogram-dm-attachment img, .phone-fotogram-dm-attachment video');
+        mediaNodes.forEach(function (el) {
+            if (!el || el.dataset.actionsFocusBound === '1') return;
+            el.dataset.actionsFocusBound = '1';
+            var onReady = function () { focusActions(); };
+            if (el.tagName && el.tagName.toLowerCase() === 'img') {
+                if (el.complete) focusActions();
+                else {
+                    el.addEventListener('load', onReady, { once: true });
+                    el.addEventListener('error', onReady, { once: true });
+                }
+            } else {
+                var rs = Number(el.readyState) || 0;
+                if (rs >= 1) focusActions();
+                else {
+                    el.addEventListener('loadedmetadata', onReady, { once: true });
+                    el.addEventListener('error', onReady, { once: true });
+                }
+            }
+        });
+        return;
+    }
+    var topicList = root.querySelector('.phone-topic-list');
+    if (topicList) {
+        topicList.scrollTop = 0;
+        var firstTopic = topicList.querySelector('.phone-topic-item');
+        if (firstTopic && typeof firstTopic.scrollIntoView === 'function') {
+            firstTopic.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        }
+        return;
+    }
+    var resolveTarget = function () {
+        var dmMessages = root.querySelector('.phone-fotogram-dm-messages');
+        var dmContent = root.querySelector('.phone-fotogram-content');
+        var threadBubbles = root.querySelector('.phone-thread-bubbles');
+        if (dmMessages && dmMessages.scrollHeight > dmMessages.clientHeight + 2) return dmMessages;
+        if (dmContent && dmContent.scrollHeight > dmContent.clientHeight + 2) return dmContent;
+        if (threadBubbles && threadBubbles.scrollHeight > threadBubbles.clientHeight + 2) return threadBubbles;
+        if (dmMessages) return dmMessages;
+        if (dmContent) return dmContent;
+        if (threadBubbles) return threadBubbles;
+        return root;
+    };
+    var run = function () {
+        var t = resolveTarget();
+        if (!t) return;
+        t.scrollTop = t.scrollHeight;
+        var lastThreadMsg = root.querySelector('.phone-thread-bubbles .phone-msg-bubble:last-child');
+        if (lastThreadMsg && typeof lastThreadMsg.scrollIntoView === 'function') {
+            lastThreadMsg.scrollIntoView({ block: 'end', inline: 'nearest' });
+        }
+    };
     if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(run);
     else run();
 }
@@ -187,7 +236,7 @@ function createPhoneOverlay() {
     var timeSysHour = timeSys.hour.toString().padStart(2, '0');
     var timeSysMinute = timeSys.minute.toString().padStart(2, '0');
     var notificationMessages = (typeof window.phoneUnreadCount === 'function') ? window.phoneUnreadCount() : 0;
-    var notificationFotogram = (vars.phoneNotifications && vars.phoneNotifications.fotogram) ? vars.phoneNotifications.fotogram.length : 0;
+    var notificationFotogram = getUnreadFotogramDmThreadsCount(vars);
     var notificationFinder = (vars.phoneNotifications && vars.phoneNotifications.finder) ? vars.phoneNotifications.finder.length : 0;
     var apps = [
         { name: 'Camera', icon: 'assets/content/phone/icons/icon_camera.webp', action: 'camera', badge: 0 },
@@ -769,7 +818,42 @@ function createPhoneOverlay() {
         phoneViewState.fotogramDmThread = dmId;
         $('#phone-app-view-title').text('Messages');
         $('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+        scrollPhoneThreadToBottom();
         if (typeof window.initTooltips === 'function') window.initTooltips();
+    });
+
+    $('#phone-overlay').on('click', '.phone-fotogram-dm-thread-delete', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!PhoneAPI) return;
+        var dmId = $(this).data('dm-id');
+        if (!dmId) return;
+        var vars = PhoneAPI.State.variables;
+        var dm = (typeof getFotogramDMById === 'function') ? getFotogramDMById(vars, dmId) : null;
+        var name = dm ? (dm.anonName || 'this thread') : 'this thread';
+        var msg = 'Delete this DM thread with ' + name + '? This cannot be undone.';
+        var done = function () {
+            if (typeof deleteFotogramDM === 'function') deleteFotogramDM(vars, dmId);
+            phoneViewState.fotogramDmThread = null;
+            $('#phone-app-view-title').text('Messages');
+            $('#phone-app-view-content').html(getAppContent('fotogram', vars));
+            if (typeof window.initTooltips === 'function') window.initTooltips();
+            if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+        };
+        if (typeof showPhoneInlineConfirm === 'function') {
+            showPhoneInlineConfirm({
+                title: 'Delete DM?',
+                message: msg,
+                iconClass: 'icon-delete',
+                confirmKind: 'danger',
+                confirmLabel: 'Delete',
+                onConfirm: done
+            });
+        } else if (typeof showBlockConfirmModal === 'function') {
+            showBlockConfirmModal('Delete DM', msg, done);
+        } else {
+            done();
+        }
     });
 
     var $phone = (PhoneAPI && PhoneAPI.$) ? PhoneAPI.$ : $;
@@ -815,8 +899,20 @@ function createPhoneOverlay() {
                 if (typeof window.initTooltips === 'function') window.initTooltips();
             }
         } else if (action === 'reply' && replyKey && typeof processFotogramDMReply === 'function') {
+            var dmBeforeReply = (typeof getFotogramDMById === 'function') ? getFotogramDMById(vars, dmId) : null;
+            var isSwapReply = (replyKey === 'swap_yes');
+            if (!isSwapReply && dmBeforeReply && dmBeforeReply.flowState && Array.isArray(dmBeforeReply.flowState.currentChoices)) {
+                for (var ci = 0; ci < dmBeforeReply.flowState.currentChoices.length; ci++) {
+                    var ch = dmBeforeReply.flowState.currentChoices[ci];
+                    if (!ch) continue;
+                    if (String(ch.key || '') === String(replyKey) && ch.requiresSwap === true) {
+                        isSwapReply = true;
+                        break;
+                    }
+                }
+            }
             processFotogramDMReply(vars, dmId, replyKey);
-            if (replyKey === 'swap_yes') {
+            if (isSwapReply) {
                 vars.phoneFotogramRandomSwapIds = Array.isArray(vars.phoneFotogramRandomSwapIds) ? vars.phoneFotogramRandomSwapIds : [];
                 var isActiveFotogramRandom = function (id) {
                     if (!id) return false;
@@ -847,7 +943,7 @@ function createPhoneOverlay() {
                 if (!promotedId && dmEntry) {
                     promotedId = dmEntry.promotedToCharId || dmEntry.generatedPromotedCharId || null;
                 }
-                /* Hard JS fallback so swap always creates a contact even if macro path fails. */
+                /* Hard JS path: create contact if macro did not produce one. */
                 if (!promotedId && dmEntry) {
                     if (dmEntry.charId) promotedId = dmEntry.charId;
                 }
@@ -859,30 +955,77 @@ function createPhoneOverlay() {
                         $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
                         return;
                     }
-                    var cfg = (typeof setup !== 'undefined' && setup.charGenerator) ? setup.charGenerator : {};
+                    var cfg = (typeof setup !== 'undefined' && setup.charGenerator) ? setup.charGenerator : null;
+                    if (!cfg) {
+                        if (typeof window.showNotification === 'function') {
+                            window.showNotification({ type: 'warning', message: 'Missing charGenerator setup.' });
+                        }
+                        $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        return;
+                    }
                     var stp = (typeof setup !== 'undefined' && setup) ? setup : (window.setup || null);
-                    var maleNames = cfg.maleFirstNames || ['Luca', 'Noah', 'Ethan', 'Leo', 'Mason'];
-                    var femaleNames = cfg.femaleFirstNames || ['Aria', 'Mila', 'Nora', 'Sofia', 'Lena'];
-                    var lastNames = cfg.lastNames || ['Carter', 'Hayes', 'Brooks', 'Reed', 'Morgan'];
-                    var colors = Array.isArray(cfg.colors) && cfg.colors.length ? cfg.colors : ['#a855f7', '#3b82f6', '#f97316', '#14b8a6', '#ec4899'];
-                    var pickOne = function (arr, fallback) { return (Array.isArray(arr) && arr.length) ? arr[Math.floor(Math.random() * arr.length)] : fallback; };
+                    var maleNames = Array.isArray(cfg.maleFirstNames) && cfg.maleFirstNames.length ? cfg.maleFirstNames : null;
+                    var femaleNames = Array.isArray(cfg.femaleFirstNames) && cfg.femaleFirstNames.length ? cfg.femaleFirstNames : null;
+                    var lastNames = Array.isArray(cfg.lastNames) && cfg.lastNames.length ? cfg.lastNames : null;
+                    var colors = Array.isArray(cfg.colors) && cfg.colors.length ? cfg.colors : null;
+                    if (!maleNames || !femaleNames || !lastNames || !colors) {
+                        if (typeof window.showNotification === 'function') {
+                            window.showNotification({ type: 'warning', message: 'Missing charGenerator pools.' });
+                        }
+                        $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        return;
+                    }
+                    var pickOne = function (arr) { return arr[Math.floor(Math.random() * arr.length)]; };
                     var currentYear = (vars.timeSys && Number(vars.timeSys.year)) || 2024;
                     var ageMin = Number(cfg.ageMin);
                     var ageMax = Number(cfg.ageMax);
-                    if (!Number.isFinite(ageMin)) ageMin = 18;
-                    if (!Number.isFinite(ageMax)) ageMax = 60;
+                    if (!Number.isFinite(ageMin) || !Number.isFinite(ageMax)) {
+                        ageMin = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmAgeMin)))
+                            ? Number(setup.fotogramDmAgeMin)
+                            : ageMin;
+                        ageMax = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmAgeMax)))
+                            ? Number(setup.fotogramDmAgeMax)
+                            : ageMax;
+                    }
+                    if (!Number.isFinite(ageMin) || !Number.isFinite(ageMax)) {
+                        if (typeof window.showNotification === 'function') {
+                            window.showNotification({ type: 'warning', message: 'Missing charGenerator age settings.' });
+                        }
+                        $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        return;
+                    }
                     if (ageMax < ageMin) { var tmpAge = ageMax; ageMax = ageMin; ageMin = tmpAge; }
-                    var maleW = Number(cfg.maleWeight != null ? cfg.maleWeight : 0.5);
-                    var femaleW = Number(cfg.femaleWeight != null ? cfg.femaleWeight : 0.5);
-                    if (!Number.isFinite(maleW) || maleW < 0) maleW = 0.5;
-                    if (!Number.isFinite(femaleW) || femaleW < 0) femaleW = 0.5;
+                    var maleW = Number(cfg.maleWeight);
+                    var femaleW = Number(cfg.femaleWeight);
+                    if (!Number.isFinite(maleW) || !Number.isFinite(femaleW)) {
+                        maleW = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmMaleWeight)))
+                            ? Number(setup.fotogramDmMaleWeight)
+                            : maleW;
+                        femaleW = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmFemaleWeight)))
+                            ? Number(setup.fotogramDmFemaleWeight)
+                            : femaleW;
+                    }
+                    if (!Number.isFinite(maleW) || maleW < 0 || !Number.isFinite(femaleW) || femaleW < 0) {
+                        if (typeof window.showNotification === 'function') {
+                            window.showNotification({ type: 'warning', message: 'Missing charGenerator gender weights.' });
+                        }
+                        $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        return;
+                    }
                     var totalW = maleW + femaleW;
                     var dmGender = String((dmEntry && dmEntry.profileGender) || '').toLowerCase();
                     var gender = (dmGender === 'male' || dmGender === 'female')
                         ? dmGender
-                        : ((totalW <= 0) ? (Math.random() < 0.5 ? 'male' : 'female') : (Math.random() < (maleW / totalW) ? 'male' : 'female'));
-                    var firstName = pickOne(gender === 'male' ? maleNames : femaleNames, 'Alex');
-                    var lastName = pickOne(lastNames, 'Taylor');
+                        : ((totalW <= 0) ? null : (Math.random() < (maleW / totalW) ? 'male' : 'female'));
+                    if (!gender) {
+                        if (typeof window.showNotification === 'function') {
+                            window.showNotification({ type: 'warning', message: 'Invalid charGenerator weights.' });
+                        }
+                        $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        return;
+                    }
+                    var firstName = pickOne(gender === 'male' ? maleNames : femaleNames);
+                    var lastName = pickOne(lastNames);
                     var dmAge = Number(dmEntry && dmEntry.profileAge);
                     var birthYear = (Number.isFinite(dmAge) && dmAge >= ageMin && dmAge <= ageMax)
                         ? (currentYear - dmAge)
@@ -905,7 +1048,7 @@ function createPhoneOverlay() {
                         location: 'Online',
                         avatar: dmEntry.avatar || '',
                         type: 'npc',
-                        color: pickOne(colors, '#a855f7'),
+                        color: pickOne(colors),
                         status: 'Online Contact',
                         gender: gender,
                         skinTone: dmEntry.skinTone || 'tan',
@@ -973,16 +1116,8 @@ function createPhoneOverlay() {
                             .replace(/\{age\}/g, String(age));
                     };
                     vars.phoneConversations[promotedId] = [];
-                    var msgs = dmEntry.messages || [];
-                    for (var mi = 0; mi < msgs.length; mi++) {
-                        var msg = msgs[mi];
-                        vars.phoneConversations[promotedId].push({
-                            from: msg.from === 'me' ? 'player' : promotedId,
-                            text: msg.text,
-                            time: msg.time || {},
-                            read: true
-                        });
-                    }
+                    // Do not migrate old Fotogram DM history into phone Messages.
+                    // Keep the Messages thread clean and start with swap intro only.
                     if (!dmEntry.swapIntroSent) {
                         var introText = buildSwapIntroMessage(promotedId);
                         if (introText) {
@@ -1004,6 +1139,7 @@ function createPhoneOverlay() {
                 if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
             } else {
                 $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                if (phoneViewState.fotogramDmThread) scrollPhoneThreadToBottom();
                 if (typeof window.initTooltips === 'function') window.initTooltips();
             }
         }

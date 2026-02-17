@@ -1,5 +1,9 @@
-<<nobr>><<set $location = "storeElectronics">><</nobr>>
+<<nobr>>
+<<set $location = "storeElectronics">>
+<<set _shopItems = [
+    "webcam",
+    "laptop"
+]>>
 <<updateCharacterLocations>>
-<<narrative "Electronics Store">>The latest gadgets and electronics on display. Phones, laptops, and gaming consoles line the shelves.<</narrative>>
-<<showLocationChars "storeElectronics">>
-<<navMenu>><<navCard "floorGround">><</navMenu>>
+<<shop "Tech World" "Electronics Store" _shopItems "floorGround">>
+<</nobr>>

@@ -42,7 +42,7 @@ window.phonePickRandomReply = function (replies) {
 
 /**
  * Pick one image path for a topic. Uses:
- * - topic.imagePool: key in setup.phoneSelfiePaths (e.g. "mother", "player") – variablesPhoneSelfiePaths.twee
+ * - topic.imagePool: key in setup.phonePhotos / setup.phoneSelfiePaths (e.g. "mother", "player") – variablesPhonePhotos.twee
  * - topic.images: fallback array of paths
  */
 window.phonePickRandomImage = function (imagesOrTopic) {
@@ -54,16 +54,16 @@ window.phonePickRandomImage = function (imagesOrTopic) {
   if (isTopic) {
     var topic = imagesOrTopic;
     var setupRef =
-      typeof PhoneAPI !== "undefined" && PhoneAPI.setup && PhoneAPI.setup.phoneSelfiePaths
+      typeof PhoneAPI !== "undefined" && PhoneAPI.setup && (PhoneAPI.setup.phonePhotos || PhoneAPI.setup.phoneSelfiePaths)
         ? PhoneAPI.setup
-        : typeof setup !== "undefined" && setup && setup.phoneSelfiePaths
+        : typeof setup !== "undefined" && setup && (setup.phonePhotos || setup.phoneSelfiePaths)
           ? setup
-          : typeof window !== "undefined" && window.setup && window.setup.phoneSelfiePaths
+          : typeof window !== "undefined" && window.setup && (window.setup.phonePhotos || window.setup.phoneSelfiePaths)
             ? window.setup
             : null;
     var pool =
-      setupRef && setupRef.phoneSelfiePaths && topic.imagePool
-        ? setupRef.phoneSelfiePaths[topic.imagePool]
+      setupRef && topic.imagePool
+        ? ((setupRef.phonePhotos && setupRef.phonePhotos[topic.imagePool]) || (setupRef.phoneSelfiePaths && setupRef.phoneSelfiePaths[topic.imagePool]))
         : null;
     if (pool && Array.isArray(pool) && pool.length > 0) paths = pool;
     else if (topic.images && Array.isArray(topic.images)) paths = topic.images;
