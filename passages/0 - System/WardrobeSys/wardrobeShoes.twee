@@ -12,7 +12,7 @@
        OWNED / STARTER ITEMS (shoes/Owned)
     ========================================== */
     {
-        id: "sneakers_white_owned",
+        id: "sneakers_flat_owned",
         name: "White Sneakers",
         brand: "StepUp Footwear",
         desc: "Comfortable white sneakers for daily use.",
@@ -20,7 +20,7 @@
         looks: 3, quality: "Common", tags: ["casual", "sporty"], price: 35.00, shopAvailable: false, startOwned: true
     },
     {
-        id: "sandals_strappy_owned",
+        id: "sandals_owned",
         name: "Strappy Sandals",
         brand: "StepUp Footwear",
         desc: "Simple strappy sandals perfect for summer.",
@@ -28,177 +28,956 @@
         looks: 3, quality: "Common", tags: ["casual", "summer"], price: 30.00, shopAvailable: false, startOwned: true
     },
 
+
     /* ==========================================
-       STEPUP FOOTWEAR (StoreShoeA - Casual)
+       STEPUP FOOTWEAR
     ========================================== */
     {
         id: "sneakers_white_lowtop",
-        name: "White Low-Tops",
+        name: "Sneakers White Lowtop",
         brand: "StepUp Footwear",
-        desc: "Classic white low-top sneakers.",
+        desc: "Footwear from StepUp Footwear.",
         image: "assets/content/clothing/shoes/StepUpFootwear/sneakersWhiteLowtop.webp",
-        looks: 3, quality: "Common", tags: ["casual"], price: 35.00, shopAvailable: true, startOwned: false
+        looks: 3, quality: "Common", tags: ["casual"], price: 34.00, shopAvailable: true, startOwned: false
     },
     {
         id: "sneakers_black_canvas",
-        name: "Black Canvas Sneakers",
+        name: "Sneakers Black Canvas",
         brand: "StepUp Footwear",
-        desc: "High-top black canvas sneakers.",
+        desc: "Footwear from StepUp Footwear.",
         image: "assets/content/clothing/shoes/StepUpFootwear/sneakersBlackCanvas.webp",
-        looks: 3, quality: "Common", tags: ["casual"], price: 32.00, shopAvailable: true, startOwned: false
+        looks: 3, quality: "Common", tags: ["casual"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sneakers_platform_white",
+        name: "Sneakers Platform White",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sneakersPlatformWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sneakers_gray_running",
+        name: "Sneakers Gray Running",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sneakersGrayRunning.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport"], price: 34.00, shopAvailable: true, startOwned: false
     },
     {
         id: "flats_ballet_black",
-        name: "Black Ballet Flats",
+        name: "Flats Ballet Black",
         brand: "StepUp Footwear",
-        desc: "Simple comfortable flats.",
+        desc: "Footwear from StepUp Footwear.",
         image: "assets/content/clothing/shoes/StepUpFootwear/flatsBalletBlack.webp",
-        looks: 3, quality: "Common", tags: ["casual"], price: 28.00, shopAvailable: true, startOwned: false
+        looks: 3, quality: "Common", tags: ["casual", "date"], price: 34.00, shopAvailable: true, startOwned: false
     },
     {
-        id: "boots_ankle_black",
-        name: "Black Ankle Boots",
+        id: "flats_ballet_nude",
+        name: "Flats Ballet Nude",
         brand: "StepUp Footwear",
-        desc: "Versatile black ankle boots.",
-        image: "assets/content/clothing/shoes/StepUpFootwear/bootsAnkleBlack.webp",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/flatsBalletNude.webp",
+        looks: 3, quality: "Common", tags: ["casual", "date"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "flats_pointed_black",
+        name: "Flats Pointed Black",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/flatsPointedBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "work", "date"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "flats_pointed_nude",
+        name: "Flats Pointed Nude",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/flatsPointedNude.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "work", "date"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "loafers_black_classic",
+        name: "Loafers Black Classic",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/loafersBlackClassic.webp",
+        looks: 3, quality: "Common", tags: ["casual", "work"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "loafers_brown_leather",
+        name: "Loafers Brown Leather",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/loafersBrownLeather.webp",
+        looks: 3, quality: "Common", tags: ["casual", "work"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "slipons_white_canvas",
+        name: "Slipons White Canvas",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sliponsWhiteCanvas.webp",
+        looks: 2, quality: "Common", tags: ["casual"], price: 30.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sandals_flat_strappy_black",
+        name: "Sandals Flat Strappy Black",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsFlatStrappyBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sandals_flat_slide_tan",
+        name: "Sandals Flat Slide Tan",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsFlatSlideTan.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sandals_flat_gladiator_brown",
+        name: "Sandals Flat Gladiator Brown",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsFlatGladiatorBrown.webp",
+        looks: 4, quality: "Common", tags: ["casual"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "boots_ankle_flat_black",
+        name: "Boots Ankle Flat Black",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/bootsAnkleFlatBlack.webp",
         looks: 4, quality: "Common", tags: ["casual"], price: 48.00, shopAvailable: true, startOwned: false
     },
     {
-        id: "loafers_black_basic",
-        name: "Basic Black Loafers",
+        id: "boots_chelsea_brown",
+        name: "Boots Chelsea Brown",
         brand: "StepUp Footwear",
-        desc: "Classic slip-on loafers.",
-        image: "assets/content/clothing/shoes/StepUpFootwear/loafersBlackBasic.webp",
-        looks: 3, quality: "Common", tags: ["casual", "professional"], price: 38.00, shopAvailable: true, startOwned: false
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/bootsChelseaBrown.webp",
+        looks: 4, quality: "Common", tags: ["casual"], price: 48.00, shopAvailable: true, startOwned: false
     },
     {
-        id: "sandals_flat_strap",
-        name: "Strappy Flat Sandals",
+        id: "boots_kneehigh_flat_black",
+        name: "Boots Kneehigh Flat Black",
         brand: "StepUp Footwear",
-        desc: "Summer sandals with multiple straps.",
-        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsFlatStrap.webp",
-        looks: 3, quality: "Common", tags: ["casual", "summer"], price: 25.00, shopAvailable: true, startOwned: false
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/bootsKneehighFlatBlack.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "work"], price: 60.00, shopAvailable: true, startOwned: false
     },
     {
-        id: "heels_block_nude",
-        name: "Nude Block Heels",
+        id: "loafers_kitten_black_leather",
+        name: "Loafers Kitten Black Leather",
         brand: "StepUp Footwear",
-        desc: "Comfortable nude heels with a block heel.",
-        image: "assets/content/clothing/shoes/StepUpFootwear/heelsBlockNude.webp",
-        looks: 4, quality: "Common", tags: ["casual", "elegant", "heels"], price: 45.00, shopAvailable: true, startOwned: false,
-        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
-    },
-
-    /* ==========================================
-       FASTBREAK ATHLETICS (StoreSports)
-    ========================================== */
-    {
-        id: "sneakers_platform_white",
-        name: "Platform Sneakers",
-        brand: "StepUp Footwear",
-        desc: "Trendy white platform sneakers.",
-        image: "assets/content/clothing/shoes/FastBreakAthletics/sneakersPlatformWhite.webp",
-        looks: 4, quality: "Common", tags: ["trendy", "sporty"], price: 42.00, shopAvailable: true, startOwned: false
-    },
-    {
-        id: "sneakers_trail_runners_gray_orange",
-        name: "Trail Runners",
-        brand: "FastBreak Athletics",
-        desc: "Rugged gray and orange trail running shoes.",
-        image: "assets/content/clothing/shoes/FastBreakAthletics/sneakersTrailRunnersGrayOrange.webp",
-        looks: 3, quality: "Common", tags: ["sporty", "durable"], price: 45.00, shopAvailable: true, startOwned: false
-    },
-
-    /* ==========================================
-       STILETTO STUDIO (StoreShoeB - Heels)
-    ========================================== */
-    {
-        id: "heels_stiletto_black",
-        name: "Black Stilettos",
-        brand: "Stiletto Studio",
-        desc: "Classic sexy black stilettos.",
-        image: "assets/content/clothing/shoes/StilettoStudio/heelsStilettoBlack.webp",
-        looks: 10, quality: "Rare", tags: ["formal", "elegant", "heels"], price: 75.00, shopAvailable: true, startOwned: false,
-        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
-    },
-    {
-        id: "heels_stiletto_nude",
-        name: "Nude Stilettos",
-        brand: "Stiletto Studio",
-        desc: "Leg-lengthening nude stilettos.",
-        image: "assets/content/clothing/shoes/StilettoStudio/heelsStilettoNude.webp",
-        looks: 10, quality: "Rare", tags: ["formal", "elegant", "heels"], price: 72.00, shopAvailable: true, startOwned: false,
-        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
-    },
-    {
-        id: "boots_knehigh_black",
-        name: "Black Knee-High Boots",
-        brand: "Stiletto Studio",
-        desc: "Elegant knee-high leather boots.",
-        image: "assets/content/clothing/shoes/StilettoStudio/bootsKnehighBlack.webp",
-        looks: 7, quality: "Rare", tags: ["elegant", "heels"], price: 85.00, shopAvailable: true, startOwned: false,
-        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
-    },
-    {
-        id: "pumps_satin_black",
-        name: "Satin Pumps",
-        brand: "Stiletto Studio",
-        desc: "Formal satin pumps.",
-        image: "assets/content/clothing/shoes/StilettoStudio/pumpsSatinBlack.webp",
-        looks: 10, quality: "Rare", tags: ["formal", "elegant", "heels"], price: 80.00, shopAvailable: true, startOwned: false,
-        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
-    },
-    {
-        id: "heels_block_metallic",
-        name: "Metallic Block Heels",
-        brand: "Stiletto Studio",
-        desc: "Eye-catching metallic heels.",
-        image: "assets/content/clothing/shoes/StilettoStudio/heelsBlockMetallic.webp",
-        looks: 4, quality: "Rare", tags: ["elegant", "heels"], price: 70.00, shopAvailable: true, startOwned: false,
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/loafersKittenBlackLeather.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels", "work"], price: 52.00, shopAvailable: true, startOwned: false,
         reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
     },
     {
-        id: "heels_maryjane_black",
-        name: "Black Mary Janes",
-        brand: "Stiletto Studio",
-        desc: "Glossy black heels with a strap.",
-        image: "assets/content/clothing/shoes/StilettoStudio/heelsMaryjaneBlack.webp",
-        looks: 7, quality: "Rare", tags: ["elegant", "heels"], price: 58.00, shopAvailable: true, startOwned: false,
+        id: "sandals_wedge_nude_espadrille",
+        name: "Sandals Wedge Nude Espadrille",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsWedgeNudeEspadrille.webp",
+        looks: 4, quality: "Common", tags: ["casual", "heels"], price: 48.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "sandals_wedge_tan_leather",
+        name: "Sandals Wedge Tan Leather",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsWedgeTanLeather.webp",
+        looks: 4, quality: "Common", tags: ["casual", "heels"], price: 48.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "sandals_low_block_nude",
+        name: "Sandals Low Block Nude",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsLowBlockNude.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "heels", "date"], price: 48.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "sandals_low_strappy_tan",
+        name: "Sandals Low Strappy Tan",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsLowStrappyTan.webp",
+        looks: 4, quality: "Common", tags: ["casual", "heels", "date"], price: 48.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "pumps_kitten_white_leather",
+        name: "Pumps Kitten White Leather",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/pumpsKittenWhiteLeather.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "heels", "work", "date"], price: 48.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "pumps_kitten_nude_pointed",
+        name: "Pumps Kitten Nude Pointed",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/pumpsKittenNudePointed.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels", "work", "date"], price: 52.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "pumps_low_block_black",
+        name: "Pumps Low Block Black",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/pumpsLowBlockBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "heels", "work"], price: 48.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "slingback_kitten_red",
+        name: "Slingback Kitten Red",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/slingbackKittenRed.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels", "date"], price: 52.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "slingback_kitten_nude",
+        name: "Slingback Kitten Nude",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/slingbackKittenNude.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels", "work", "date"], price: 52.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "maryjane_kitten_black",
+        name: "Maryjane Kitten Black",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/maryjaneKittenBlack.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels", "date"], price: 52.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "mules_kitten_burgundy",
+        name: "Mules Kitten Burgundy",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/mulesKittenBurgundy.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "heels"], price: 48.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "mules_kitten_tan_suede",
+        name: "Mules Kitten Tan Suede",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/mulesKittenTanSuede.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "heels"], price: 48.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "boots_ankle_low_block_black",
+        name: "Boots Ankle Low Block Black",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/bootsAnkleLowBlockBlack.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels"], price: 62.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "boots_ankle_low_tan_suede",
+        name: "Boots Ankle Low Tan Suede",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/bootsAnkleLowTanSuede.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels"], price: 62.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 20, reqHeelsSkill: 0, heelsSkillCap: 30
+    },
+    {
+        id: "sandals_wedge_mid_white",
+        name: "Sandals Wedge Mid White",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsWedgeMidWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "heels"], price: 58.00, shopAvailable: true, startOwned: false,
         reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
     },
     {
-        id: "ankle_boots_suede_tan",
-        name: "Tan Suede Boots",
-        brand: "Stiletto Studio",
-        desc: "Stylish tan suede ankle boots.",
-        image: "assets/content/clothing/shoes/StilettoStudio/ankleBootsSuedeTan.webp",
-        looks: 7, quality: "Rare", tags: ["casual", "elegant", "heels"], price: 72.00, shopAvailable: true, startOwned: false,
+        id: "sandals_wedge_mid_black",
+        name: "Sandals Wedge Mid Black",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsWedgeMidBlack.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels"], price: 62.00, shopAvailable: true, startOwned: false,
         reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
     },
     {
-        id: "boots_knehigh_brown",
-        name: "Brown Knee-High Boots",
-        brand: "Stiletto Studio",
-        desc: "Classic brown leather riding boots.",
-        image: "assets/content/clothing/shoes/StilettoStudio/bootsKnehighBrown.webp",
-        looks: 7, quality: "Rare", tags: ["elegant", "heels"], price: 82.00, shopAvailable: true, startOwned: false,
+        id: "sandals_mid_block_nude",
+        name: "Sandals Mid Block Nude",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/sandalsMidBlockNude.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels", "date"], price: 62.00, shopAvailable: true, startOwned: false,
         reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "pumps_mid_block_beige",
+        name: "Pumps Mid Block Beige",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/pumpsMidBlockBeige.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels", "work", "date"], price: 62.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "pumps_mid_block_black",
+        name: "Pumps Mid Block Black",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/pumpsMidBlockBlack.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels", "work"], price: 62.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "mules_mid_block_tan",
+        name: "Mules Mid Block Tan",
+        brand: "StepUp Footwear",
+        desc: "Footwear from StepUp Footwear.",
+        image: "assets/content/clothing/shoes/StepUpFootwear/mulesMidBlockTan.webp",
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "heels"], price: 62.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+
+    /* ==========================================
+       STILETTO STUDIO
+    ========================================== */
+    {
+        id: "flats_pointed_black_patent",
+        name: "Flats Pointed Black Patent",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/flatsPointedBlackPatent.webp",
+        looks: 5, quality: "Common", tags: ["elegant", "work", "date"], price: 90.00, shopAvailable: true, startOwned: false
     },
     {
         id: "loafers_leather_horsebit",
-        name: "Horsebit Loafers",
+        name: "Loafers Leather Horsebit",
         brand: "Stiletto Studio",
-        desc: "Premium leather loafers with metal detail.",
+        desc: "Footwear from Stiletto Studio.",
         image: "assets/content/clothing/shoes/StilettoStudio/loafersLeatherHorsebit.webp",
-        looks: 4, quality: "Rare", tags: ["casual", "elegant"], price: 65.00, shopAvailable: true, startOwned: false
+        looks: 5, quality: "Common", tags: ["casual", "elegant", "work"], price: 90.00, shopAvailable: true, startOwned: false
     },
     {
-        id: "sandals_stiletto_nude",
-        name: "Nude Stiletto Sandals",
+        id: "sandals_mid_block_red",
+        name: "Sandals Mid Block Red",
         brand: "Stiletto Studio",
-        desc: "Barely-there nude strappy heels.",
-        image: "assets/content/clothing/shoes/StilettoStudio/sandalsStilettoNude.webp",
-        looks: 10, quality: "Rare", tags: ["elegant", "heels"], price: 68.00, shopAvailable: true, startOwned: false,
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsMidBlockRed.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels", "date"], price: 117.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "sandals_mid_block_nude_leather",
+        name: "Sandals Mid Block Nude Leather",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsMidBlockNudeLeather.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "heels", "date"], price: 110.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "pumps_mid_burgundy_suede",
+        name: "Pumps Mid Burgundy Suede",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsMidBurgundySuede.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "heels", "work", "date"], price: 110.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "pumps_mid_block_black_leather",
+        name: "Pumps Mid Block Black Leather",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsMidBlockBlackLeather.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "heels", "work"], price: 110.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "slingback_mid_block_navy",
+        name: "Slingback Mid Block Navy",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/slingbackMidBlockNavy.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "heels", "work"], price: 110.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "maryjane_mid_block_black_patent",
+        name: "Maryjane Mid Block Black Patent",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/maryjaneMidBlockBlackPatent.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "heels", "work", "date"], price: 110.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "mules_platform_nude_opentoe",
+        name: "Mules Platform Nude Opentoe",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/mulesPlatformNudeOpentoe.webp",
+        looks: 6, quality: "Rare", tags: ["casual", "elegant", "heels"], price: 110.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "boots_ankle_mid_brown_leather",
+        name: "Boots Ankle Mid Brown Leather",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsAnkleMidBrownLeather.webp",
+        looks: 6, quality: "Rare", tags: ["casual", "elegant", "heels", "work"], price: 120.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "boots_ankle_mid_tan_suede",
+        name: "Boots Ankle Mid Tan Suede",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsAnkleMidTanSuede.webp",
+        looks: 6, quality: "Rare", tags: ["casual", "elegant", "heels", "work"], price: 120.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "boots_kneehigh_mid_brown_block",
+        name: "Boots Kneehigh Mid Brown Block",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsKneehighMidBrownBlock.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels"], price: 135.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "boots_kneehigh_mid_nude_block",
+        name: "Boots Kneehigh Mid Nude Block",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsKneehighMidNudeBlock.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels"], price: 135.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "boots_otk_mid_tan_block",
+        name: "Boots Otk Mid Tan Block",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsOtkMidTanBlock.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "date"], price: 149.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 40, reqHeelsSkill: 30, heelsSkillCap: 60
+    },
+    {
+        id: "sandals_high_stiletto_black_suede",
+        name: "Sandals High Stiletto Black Suede",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsHighStilettoBlackSuede.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party", "date"], price: 141.00, shopAvailable: true, startOwned: false,
         reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "sandals_high_stiletto_nude",
+        name: "Sandals High Stiletto Nude",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsHighStilettoNude.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party", "date"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "sandals_high_stiletto_white",
+        name: "Sandals High Stiletto White",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsHighStilettoWhite.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party", "date"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "sandals_platform_block_white",
+        name: "Sandals Platform Block White",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsPlatformBlockWhite.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels", "party"], price: 134.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_high_stiletto_black_leather",
+        name: "Pumps High Stiletto Black Leather",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsHighStilettoBlackLeather.webp",
+        looks: 8, quality: "Rare", tags: ["formal", "elegant", "heels", "work", "date", "party"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_high_stiletto_nude_patent",
+        name: "Pumps High Stiletto Nude Patent",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsHighStilettoNudePatent.webp",
+        looks: 8, quality: "Rare", tags: ["formal", "elegant", "heels", "work", "date", "party"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_high_stiletto_red_satin",
+        name: "Pumps High Stiletto Red Satin",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsHighStilettoRedSatin.webp",
+        looks: 9, quality: "Rare", tags: ["formal", "elegant", "heels", "party", "evening", "date"], price: 148.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_high_stiletto_black_velvet",
+        name: "Pumps High Stiletto Black Velvet",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsHighStilettoBlackVelvet.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party", "evening", "date"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_high_stiletto_emerald",
+        name: "Pumps High Stiletto Emerald",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsHighStilettoEmerald.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party", "evening", "date"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_high_block_gold_metallic",
+        name: "Pumps High Block Gold Metallic",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsHighBlockGoldMetallic.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_high_stiletto_nude_mesh",
+        name: "Pumps High Stiletto Nude Mesh",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsHighStilettoNudeMesh.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels", "party", "date"], price: 134.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_platform_nude",
+        name: "Pumps Platform Nude",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsPlatformNude.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels", "party", "date"], price: 134.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_peeptoe_high_stiletto_nude",
+        name: "Pumps Peeptoe High Stiletto Nude",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsPeeptoeHighStilettoNude.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels", "party", "date"], price: 134.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_dorsay_high_black_stiletto",
+        name: "Pumps Dorsay High Black Stiletto",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsDorsayHighBlackStiletto.webp",
+        looks: 8, quality: "Rare", tags: ["formal", "elegant", "heels", "work", "date", "party"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "slingback_high_stiletto_black_patent",
+        name: "Slingback High Stiletto Black Patent",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/slingbackHighStilettoBlackPatent.webp",
+        looks: 7, quality: "Rare", tags: ["formal", "elegant", "heels", "work", "date"], price: 134.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "slingback_high_stiletto_nude",
+        name: "Slingback High Stiletto Nude",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/slingbackHighStilettoNude.webp",
+        looks: 7, quality: "Rare", tags: ["formal", "elegant", "heels", "work", "date"], price: 134.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "maryjane_high_stiletto_nude",
+        name: "Maryjane High Stiletto Nude",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/maryjaneHighStilettoNude.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels", "date"], price: 134.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "maryjane_platform_red",
+        name: "Maryjane Platform Red",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/maryjanePlatformRed.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "mules_high_stiletto_red_leather",
+        name: "Mules High Stiletto Red Leather",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/mulesHighStilettoRedLeather.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party", "date"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "mules_high_stiletto_black_satin",
+        name: "Mules High Stiletto Black Satin",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/mulesHighStilettoBlackSatin.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 141.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "boots_ankle_high_stiletto_black_suede",
+        name: "Boots Ankle High Stiletto Black Suede",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsAnkleHighStilettoBlackSuede.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "date", "party"], price: 151.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "boots_ankle_high_stiletto_nude_suede",
+        name: "Boots Ankle High Stiletto Nude Suede",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsAnkleHighStilettoNudeSuede.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels", "date", "party"], price: 144.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "boots_ankle_high_block_white_leather",
+        name: "Boots Ankle High Block White Leather",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsAnkleHighBlockWhiteLeather.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "heels", "date"], price: 144.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "booties_high_block_nude_strap",
+        name: "Booties High Block Nude Strap",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootiesHighBlockNudeStrap.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "heels", "date"], price: 137.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "boots_kneehigh_high_stiletto_black_zip",
+        name: "Boots Kneehigh High Stiletto Black Zip",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsKneehighHighStilettoBlackZip.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "date", "party"], price: 166.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "boots_kneehigh_high_stiletto_black_patent",
+        name: "Boots Kneehigh High Stiletto Black Patent",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsKneehighHighStilettoBlackPatent.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 166.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "boots_kneehigh_high_stiletto_red",
+        name: "Boots Kneehigh High Stiletto Red",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsKneehighHighStilettoRed.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "date"], price: 166.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "boots_otk_high_stiletto_black",
+        name: "Boots Otk High Stiletto Black",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsOtkHighStilettoBlack.webp",
+        looks: 10, quality: "Rare", tags: ["elegant", "heels", "party", "date"], price: 180.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 60, reqHeelsSkill: 60, heelsSkillCap: 100
+    },
+    {
+        id: "sandals_veryhigh_stiletto_gold_metallic",
+        name: "Sandals Veryhigh Stiletto Gold Metallic",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsVeryhighStilettoGoldMetallic.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 173.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "sandals_veryhigh_stiletto_nude_strappy",
+        name: "Sandals Veryhigh Stiletto Nude Strappy",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsVeryhighStilettoNudeStrappy.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 173.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "sandals_platform_veryhigh_stiletto_black",
+        name: "Sandals Platform Veryhigh Stiletto Black",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/sandalsPlatformVeryhighStilettoBlack.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 173.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_veryhigh_stiletto_white",
+        name: "Pumps Veryhigh Stiletto White",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsVeryhighStilettoWhite.webp",
+        looks: 10, quality: "Rare", tags: ["formal", "elegant", "heels", "party", "evening"], price: 180.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_veryhigh_stiletto_silver_metallic",
+        name: "Pumps Veryhigh Stiletto Silver Metallic",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsVeryhighStilettoSilverMetallic.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 173.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_veryhigh_stiletto_burgundy_suede",
+        name: "Pumps Veryhigh Stiletto Burgundy Suede",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsVeryhighStilettoBurgundySuede.webp",
+        looks: 8, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 166.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_platform_veryhigh_stiletto_black",
+        name: "Pumps Platform Veryhigh Stiletto Black",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsPlatformVeryhighStilettoBlack.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 173.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_dorsay_veryhigh_black",
+        name: "Pumps Dorsay Veryhigh Black",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsDorsayVeryhighBlack.webp",
+        looks: 9, quality: "Rare", tags: ["formal", "elegant", "heels", "party", "evening"], price: 173.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "pumps_peeptoe_veryhigh_black_satin",
+        name: "Pumps Peeptoe Veryhigh Black Satin",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/pumpsPeeptoeVeryhighBlackSatin.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 173.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "slingback_veryhigh_stiletto_red",
+        name: "Slingback Veryhigh Stiletto Red",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/slingbackVeryhighStilettoRed.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 173.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "mules_veryhigh_stiletto_black_leather",
+        name: "Mules Veryhigh Stiletto Black Leather",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/mulesVeryhighStilettoBlackLeather.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 173.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "boots_ankle_veryhigh_stiletto_black",
+        name: "Boots Ankle Veryhigh Stiletto Black",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsAnkleVeryhighStilettoBlack.webp",
+        looks: 9, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 183.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "boots_kneehigh_veryhigh_stiletto_black",
+        name: "Boots Kneehigh Veryhigh Stiletto Black",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsKneehighVeryhighStilettoBlack.webp",
+        looks: 10, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 198.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "boots_kneehigh_platform_veryhigh_silver",
+        name: "Boots Kneehigh Platform Veryhigh Silver",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsKneehighPlatformVeryhighSilver.webp",
+        looks: 10, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 198.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+    {
+        id: "boots_otk_veryhigh_stiletto_black",
+        name: "Boots Otk Veryhigh Stiletto Black",
+        brand: "Stiletto Studio",
+        desc: "Footwear from Stiletto Studio.",
+        image: "assets/content/clothing/shoes/StilettoStudio/bootsOtkVeryhighStilettoBlack.webp",
+        looks: 10, quality: "Rare", tags: ["elegant", "heels", "party", "evening"], price: 205.00, shopAvailable: true, startOwned: false,
+        reqConfidence: 70, reqHeelsSkill: 80, heelsSkillCap: 100
+    },
+
+    /* ==========================================
+       FASTBREAK ATHLETICS
+    ========================================== */
+    {
+        id: "running_lightweight_white_mint",
+        name: "Running Lightweight White Mint",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/runningLightweightWhiteMint.webp",
+        looks: 3, quality: "Common", tags: ["sport"], price: 44.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "running_cushioned_black_pink",
+        name: "Running Cushioned Black Pink",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/runningCushionedBlackPink.webp",
+        looks: 3, quality: "Common", tags: ["sport"], price: 44.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "running_trail_gray_orange",
+        name: "Running Trail Gray Orange",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/runningTrailGrayOrange.webp",
+        looks: 3, quality: "Common", tags: ["sport"], price: 44.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "running_retro_pastel_pink",
+        name: "Running Retro Pastel Pink",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/runningRetroPastelPink.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport"], price: 48.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "training_crossfit_black_neon",
+        name: "Training Crossfit Black Neon",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/trainingCrossfitBlackNeon.webp",
+        looks: 3, quality: "Common", tags: ["sport"], price: 44.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "training_gym_white_gray",
+        name: "Training Gym White Gray",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/trainingGymWhiteGray.webp",
+        looks: 3, quality: "Common", tags: ["sport"], price: 44.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "training_hiit_navy_coral",
+        name: "Training Hiit Navy Coral",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/trainingHiitNavyCoral.webp",
+        looks: 4, quality: "Common", tags: ["sport"], price: 48.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sneakers_chunky_white_beige",
+        name: "Sneakers Chunky White Beige",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/sneakersChunkyWhiteBeige.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport"], price: 48.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sneakers_slipon_black_knit",
+        name: "Sneakers Slipon Black Knit",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/sneakersSlipOnBlackKnit.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport"], price: 44.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sneakers_retro_high_white_red",
+        name: "Sneakers Retro High White Red",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/sneakersRetroHighWhiteRed.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport"], price: 48.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "studio_barefoot_black",
+        name: "Studio Barefoot Black",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/studioBarefootBlack.webp",
+        looks: 2, quality: "Common", tags: ["sport"], price: 40.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "hiking_low_tan_waterproof",
+        name: "Hiking Low Tan Waterproof",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/hikingLowTanWaterproof.webp",
+        looks: 3, quality: "Common", tags: ["sport"], price: 44.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "hiking_mid_black_gray",
+        name: "Hiking Mid Black Gray",
+        brand: "FastBreak Athletics",
+        desc: "Footwear from FastBreak Athletics.",
+        image: "assets/content/clothing/shoes/FastBreakAthletics/hikingMidBlackGray.webp",
+        looks: 3, quality: "Common", tags: ["sport"], price: 44.00, shopAvailable: true, startOwned: false
     }
 ]>>

@@ -164,13 +164,13 @@ window.openGalleryPreview = function (id, kind, category, folder) {
     var item = findGalleryItem(gallery, id, kind, category, folder);
     if (!item) return;
     var path = (item.path && String(item.path).trim()) ? item.path : '';
-    var subtitleText;
+    var infoText;
     if (folder === 'received' && item.from && typeof getPhoneContactFullName === 'function') {
         var fromName = getPhoneContactFullName(item.from, vars) || item.from;
-        subtitleText = (typeof escapeHtml === 'function' ? escapeHtml('From: ' + fromName) : ('From: ' + fromName));
+        infoText = 'Type: ' + (kind === 'video' ? 'Video' : 'Photo') + '\nFrom: ' + fromName;
     } else {
         var quality = (item.quality != null) ? Number(item.quality) : 0;
-        subtitleText = 'Quality: ' + quality + '/100';
+        infoText = 'Type: ' + (kind === 'video' ? 'Video' : 'Photo') + '\nQuality: ' + quality + '/100';
     }
     var src = path ? getAssetUrl(path) : '';
     var safeSrc = (src || path).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -190,13 +190,16 @@ window.openGalleryPreview = function (id, kind, category, folder) {
             : '<div class="phone-camera-preview-placeholder">No image</div>';
     }
     var html = '<div class="phone-gallery-preview-overlay">' +
-        '<div class="phone-camera-preview-media">' + mediaHtml + '</div>' +
-        '<div class="phone-camera-preview-score">' + subtitleText + '</div>' +
+        '<div class="phone-camera-preview-media">' +
+        '<button type="button" class="phone-gallery-preview-info overlay" data-tooltip="' + (typeof escapeHtml === 'function' ? escapeHtml(infoText || '') : (infoText || '')) + '"><span class="icon icon-info icon-16"></span></button>' +
+        mediaHtml +
+        '</div>' +
         '</div>';
     var $view = typeof $ !== 'undefined' ? $('#phone-app-view') : null;
     if (!$view || !$view.length) return;
     $view.find('.phone-gallery-preview-overlay').remove();
     $view.append(html);
+    if (typeof window.initTooltips === 'function') window.initTooltips();
     if (kind === 'video') {
         var $container = $view.find('.phone-gallery-video-container').first();
         var $video = $container.find('video').first();
@@ -237,42 +240,46 @@ window.openGalleryPreview = function (id, kind, category, folder) {
     }
 };
 
-window.phoneGalleryAddItem = function(path, metadata) {
-    if (!path || typeof PhoneAPI === 'undefined' || !PhoneAPI.State || !PhoneAPI.State.variables) return;
-    var vars = PhoneAPI.State.variables;
-    if (!vars.phoneGallery) vars.phoneGallery = { photos: {}, videos: {} };
-    var gallery = vars.phoneGallery;
-    
-    // Ensure structure exists
-    if (!gallery.photos) gallery.photos = {};
-    if (!gallery.videos) gallery.videos = {};
-    if (!gallery.photos.received) gallery.photos.received = [];
-    if (!gallery.videos.received) gallery.videos.received = [];
-
-    // Check if valid image path (basic check)
-    var isVideo = path.endsWith('.mp4') || path.endsWith('.webm');
-    var targetList = isVideo ? gallery.videos.received : gallery.photos.received;
-
-    // Avoid duplicates
-    for (var i = 0; i < targetList.length; i++) {
-        if (targetList[i].path === path) return;
-    }
-
-    var item = {
-        id: 'received_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
-        path: path,
-        from: (metadata && metadata.from) ? metadata.from : 'unknown',
-        date: vars.timeSys ? { ...vars.timeSys } : null,
-        unlocked: true
+if (typeof window.phoneGalleryAddItem !== 'function') {
+    window.phoneGalleryAddItem = function (path, opts) {
+        if (!path || typeof path !== 'string') return null;
+        path = path.trim();
+        var vars = (typeof State !== 'undefined' && State.variables)
+            ? State.variables
+            : (typeof window.PhoneAPI !== 'undefined' && window.PhoneAPI.State && window.PhoneAPI.State.variables)
+                ? window.PhoneAPI.State.variables
+                : null;
+        if (!vars || !vars.phoneGallery) return null;
+        opts = opts || {};
+        var kind = (opts.kind === 'videos') ? 'videos' : 'photos';
+        var category = opts.category || 'received';
+        if (['normal', 'cute', 'hot', 'spicy', 'received'].indexOf(category) < 0) category = 'received';
+        var quality = (opts.quality != null && opts.quality >= 0 && opts.quality <= 100) ? parseInt(opts.quality, 10) : 50;
+        var from = (opts.from != null && opts.from !== '') ? opts.from : 'player';
+        var flags = Array.isArray(opts.flags) ? opts.flags : ['special'];
+        var list = vars.phoneGallery[kind][category];
+        if (!list) vars.phoneGallery[kind][category] = list = [];
+        if (category === 'received') {
+            var exists = list.some(function (el) { return el.path === path; });
+            if (exists) return null;
+        }
+        var timeSys = vars.timeSys || {};
+        var generatedId = (typeof generateMediaId === 'function')
+            ? generateMediaId()
+            : ('media_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
+        var item = {
+            id: generatedId,
+            path: path,
+            flags: flags,
+            timestamp: { day: timeSys.day, month: timeSys.month, year: timeSys.year, hour: timeSys.hour, minute: timeSys.minute },
+            quality: quality,
+            from: from
+        };
+        list.push(item);
+        if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+        return item;
     };
-
-    targetList.push(item);
-    
-    // Optional: Notification that new media was added
-    if (typeof window.showNotification === 'function') {
-        window.showNotification({ type: 'info', message: 'New photo received!' });
-    }
-};
+}
 
 window.phoneRenderGalleryApp = phoneRenderGalleryApp;
 window.PhoneApps = window.PhoneApps || {};

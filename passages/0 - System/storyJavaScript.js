@@ -167,6 +167,29 @@ window.phoneUnreadCount = function () {
     });
     return n;
 };
+
+/** Unread Fotogram DM thread count (comments excluded from badge logic). */
+window.phoneUnreadFotogramDmThreads = function (varsArg) {
+    var v = varsArg || (State && State.variables ? State.variables : null);
+    if (!v || !Array.isArray(v.phoneFotogramDMs)) return 0;
+    var dms = v.phoneFotogramDMs;
+    var unreadThreads = 0;
+    for (var i = 0; i < dms.length; i++) {
+        var dm = dms[i];
+        if (!dm || dm.blocked || dm.promotedToCharId) continue;
+        var msgs = Array.isArray(dm.messages) ? dm.messages : [];
+        var hasUnread = false;
+        for (var mi = 0; mi < msgs.length; mi++) {
+            var m = msgs[mi];
+            if (m && m.from !== 'me' && m.read !== true) {
+                hasUnread = true;
+                break;
+            }
+        }
+        if (hasUnread) unreadThreads++;
+    }
+    return unreadThreads;
+};
 /** Stats used for phone topics (must match topic-system.js). */
 var PHONE_TOPIC_STAT_KEYS = ["friendship", "love", "lust"];
 
@@ -239,7 +262,7 @@ window.phoneTotalBadge = function () {
     if (!State || !State.variables) return 0;
     const v = State.variables;
     const messages = window.phoneUnreadCount ? window.phoneUnreadCount() : 0;
-    const fotogram = (v.phoneNotifications && v.phoneNotifications.fotogram && v.phoneNotifications.fotogram.length) ? v.phoneNotifications.fotogram.length : 0;
+    const fotogram = window.phoneUnreadFotogramDmThreads ? window.phoneUnreadFotogramDmThreads(v) : 0;
     const finder = (v.phoneNotifications && v.phoneNotifications.finder && v.phoneNotifications.finder.length) ? v.phoneNotifications.finder.length : 0;
     return messages + fotogram + finder;
 };

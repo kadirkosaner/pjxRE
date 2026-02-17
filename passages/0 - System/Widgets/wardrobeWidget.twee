@@ -15,28 +15,29 @@
         
         /* Tag → Confidence scale (0-100). Item-specific reqConfidence overrides. */
         <<if _item.tags>>
-            <<if _item.tags.includes("crop")>>
+            <<if _item.tags.includes("mild")>>
                 <<set _reqConf to Math.max(_reqConf, 20)>>
-            <</if>>
-            <<if _item.tags.includes("short")>>
-                <<set _reqConf to Math.max(_reqConf, 30)>>
             <</if>>
             <<if _item.tags.includes("revealing")>>
                 <<set _reqConf to Math.max(_reqConf, 40)>>
             <</if>>
             <<if _item.tags.includes("daring")>>
                 <<set _reqConf to Math.max(_reqConf, 55)>>
+                <<set _reqCorr to Math.max(_reqCorr, 2)>>
             <</if>>
             <<if _item.tags.includes("bold")>>
                 <<set _reqConf to Math.max(_reqConf, 70)>>
+                <<set _reqCorr to Math.max(_reqCorr, 3)>>
             <</if>>
             <<if _item.tags.includes("erotic")>>
-                <<set _reqConf to Math.max(_reqConf, 75)>>
-                <<set _reqExh to Math.max(_reqExh, 10)>>
+                <<set _reqConf to Math.max(_reqConf, 80)>>
+                <<set _reqCorr to Math.max(_reqCorr, 6)>>
+                <<set _reqExh to Math.max(_reqExh, 20)>>
             <</if>>
             <<if _item.tags.includes("lewd")>>
-                <<set _reqConf to Math.max(_reqConf, 85)>>
-                <<set _reqExh to Math.max(_reqExh, 30)>>
+                <<set _reqConf to Math.max(_reqConf, 90)>>
+                <<set _reqCorr to Math.max(_reqCorr, 7)>>
+                <<set _reqExh to Math.max(_reqExh, 40)>>
             <</if>>
         <</if>>
         

@@ -190,13 +190,12 @@ function canWearClothingItem(item) {
     const S = getState();
     let reqConf = 0, reqExh = 0, reqCorr = 0;
     const tags = item.tags || [];
-    if (tags.includes('crop')) reqConf = Math.max(reqConf, 20);
-    if (tags.includes('short')) reqConf = Math.max(reqConf, 30);
+    if (tags.includes('mild')) reqConf = Math.max(reqConf, 20);
     if (tags.includes('revealing')) reqConf = Math.max(reqConf, 40);
-    if (tags.includes('daring')) reqConf = Math.max(reqConf, 55);
-    if (tags.includes('bold')) reqConf = Math.max(reqConf, 70);
-    if (tags.includes('erotic')) { reqConf = Math.max(reqConf, 75); reqExh = Math.max(reqExh, 10); }
-    if (tags.includes('lewd')) { reqConf = Math.max(reqConf, 85); reqExh = Math.max(reqExh, 30); }
+    if (tags.includes('daring')) { reqConf = Math.max(reqConf, 55); reqCorr = Math.max(reqCorr, 2); }
+    if (tags.includes('bold')) { reqConf = Math.max(reqConf, 70); reqCorr = Math.max(reqCorr, 3); }
+    if (tags.includes('erotic')) { reqConf = Math.max(reqConf, 80); reqCorr = Math.max(reqCorr, 6); reqExh = Math.max(reqExh, 20); }
+    if (tags.includes('lewd')) { reqConf = Math.max(reqConf, 90); reqCorr = Math.max(reqCorr, 7); reqExh = Math.max(reqExh, 40); }
     if (item.reqConfidence != null) reqConf = item.reqConfidence;
     if (item.reqExhibitionism != null) reqExh = item.reqExhibitionism;
     if (item.reqCorruption != null) reqCorr = item.reqCorruption;

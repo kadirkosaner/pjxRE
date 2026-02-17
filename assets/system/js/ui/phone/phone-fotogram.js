@@ -3,17 +3,92 @@
    Data: $phoneFotogramPosts, $phoneFollowers, $phoneLastFotogramPostDate
 ========================================== */
 
-var FOTOGRAM_POST_COOLDOWN_DAYS = 3;
-var FOTOGRAM_NOT_POSTABLE_FLAGS = ['topless', 'nude', 'explicit'];
-var FOTOGRAM_ANON_NAMES = ['Anonymous Fan', 'Secret Admirer', 'Curious Follower', 'Unknown User'];
-var FOTOGRAM_DM_FIRST_MSGS = ['Love your latest post!', 'Hey, nice photo!', 'You look amazing!', 'Great content!'];
-var FOTOGRAM_HOURLY_WINDOW_HOURS = 3;
-var FOTOGRAM_HOURLY_SHARE = 0.4;
-var FOTOGRAM_DAILY_SHARE = 0.6;
-var FOTOGRAM_ACTIVE_DAYS_MIN = 3;
-var FOTOGRAM_ACTIVE_DAYS_MAX = 5;
-var FOTOGRAM_COMMENT_NAMES_FALLBACK = ['moonvibe', 'wildpeach', 'nocturna'];
-var FOTOGRAM_COMMENT_TEMPLATES_FALLBACK = { default: ['Looking great!', 'Nice!'] };
+/* Ensure this script can read Twine setup in every runtime context. */
+if (typeof setup === 'undefined') {
+    var setup = (typeof window !== 'undefined' && window.setup)
+        ? window.setup
+        : (typeof window !== 'undefined' && window.SugarCube && window.SugarCube.setup)
+            ? window.SugarCube.setup
+            : (typeof window !== 'undefined' && window.parent && window.parent.setup)
+                ? window.parent.setup
+                : undefined;
+}
+
+function getFotogramSetupNumber(key) {
+    if (typeof setup === 'undefined') return null;
+    var raw = setup[key];
+    var num = Number(raw);
+    if (!Number.isFinite(num)) return null;
+    return num;
+}
+
+function getFotogramSetupArray(key) {
+    if (typeof setup === 'undefined') return null;
+    var arr = setup[key];
+    if (!Array.isArray(arr) || arr.length === 0) return null;
+    return arr;
+}
+
+function getMissingFotogramSetupKeys() {
+    var missing = [];
+    var requireNumber = function (key, mustBePositive) {
+        var n = getFotogramSetupNumber(key);
+        if (!Number.isFinite(n)) { missing.push(key); return; }
+        if (mustBePositive && n <= 0) missing.push(key);
+    };
+    var requireArray = function (key) {
+        if (!getFotogramSetupArray(key)) missing.push(key);
+    };
+    var requireObject = function (key) {
+        if (typeof setup === 'undefined' || !setup[key] || typeof setup[key] !== 'object') missing.push(key);
+    };
+
+    requireArray('fotogramNotPostableFlags');
+    requireNumber('fotogramCommentLikeRatio', true);
+    requireNumber('fotogramPostCooldownDefaultDays', true);
+    requireNumber('fotogramPostCooldownMinDays', true);
+    requireNumber('fotogramPostCooldownMaxDays', true);
+    requireNumber('fotogramHourlyWindowHours', true);
+    requireNumber('fotogramHourlyShare', true);
+    requireNumber('fotogramDailyShare', true);
+    requireNumber('fotogramActiveDaysMin', true);
+    requireNumber('fotogramActiveDaysMax', true);
+    requireArray('fotogramAnonNames');
+    requireArray('fotogramDMEncouragingMessages');
+    requireArray('fotogramDMEncouragingReplyMessages');
+    requireArray('fotogramCommentNames');
+    requireObject('fotogramCommentTemplates');
+    requireArray('fotogramAnonSkinTones');
+    requireNumber('fotogramDmAgeMin', true);
+    requireNumber('fotogramDmAgeMax', true);
+    requireNumber('fotogramDmMaleWeight', true);
+    requireNumber('fotogramDmFemaleWeight', true);
+    requireNumber('fotogramDmMinConfidenceInteractive', true);
+    requireNumber('fotogramDmMinCorruptionSwap', true);
+    requireArray('fotogramDMScenarioTypes');
+    requireObject('fotogramDMScenarioWeightsByFlag');
+    requireObject('fotogramDMScenarioOpeners');
+    requireObject('fotogramDMScenarioFlows');
+    requireArray('fotogramDMQuickReplies');
+    requireObject('fotogramDMPhotoPool');
+
+    return missing;
+}
+
+function validateFotogramSetup(vars, options) {
+    options = options || {};
+    var missing = getMissingFotogramSetupKeys();
+    var signature = missing.join('|');
+    if (options.logOnce && vars) {
+        if (vars._phoneFotogramSetupMissingSig !== signature) {
+            vars._phoneFotogramSetupMissingSig = signature;
+            if (missing.length) console.warn('[Fotogram setup] Missing keys:', missing);
+        }
+    } else if (options.logAlways && missing.length) {
+        console.warn('[Fotogram setup] Missing keys:', missing);
+    }
+    return { ok: missing.length === 0, missing: missing };
+}
 
 /**
  * Check if a gallery item can be posted to Fotogram (Instagram-style: no topless/nude).
@@ -23,9 +98,11 @@ var FOTOGRAM_COMMENT_TEMPLATES_FALLBACK = { default: ['Looking great!', 'Nice!']
 function isFotogramPostable(item) {
     if (!item) return false;
     if (item.from !== 'player') return false;
+    var notPostableFlags = getFotogramSetupArray('fotogramNotPostableFlags');
+    if (!notPostableFlags) return false;
     var flags = item.flags || [];
-    for (var i = 0; i < FOTOGRAM_NOT_POSTABLE_FLAGS.length; i++) {
-        if (flags.indexOf(FOTOGRAM_NOT_POSTABLE_FLAGS[i]) >= 0) return false;
+    for (var i = 0; i < notPostableFlags.length; i++) {
+        if (flags.indexOf(notPostableFlags[i]) >= 0) return false;
     }
     return true;
 }
@@ -78,8 +155,9 @@ function getFotogramPostCooldown(vars) {
     var last = vars.phoneLastFotogramPostDate;
     if (!last) return { canPost: true, daysLeft: 0 };
     if (!vars.phoneFotogramCooldownDays || vars.phoneFotogramCooldownDays < 1) {
-        var minCd = (typeof setup !== 'undefined' && setup.fotogramPostCooldownMinDays) ? Number(setup.fotogramPostCooldownMinDays) : 2;
-        var maxCd = (typeof setup !== 'undefined' && setup.fotogramPostCooldownMaxDays) ? Number(setup.fotogramPostCooldownMaxDays) : 4;
+        var minCd = getFotogramSetupNumber('fotogramPostCooldownMinDays');
+        var maxCd = getFotogramSetupNumber('fotogramPostCooldownMaxDays');
+        if (!Number.isFinite(minCd) || !Number.isFinite(maxCd)) return { canPost: true, daysLeft: 0 };
         if (maxCd < minCd) maxCd = minCd;
         vars.phoneFotogramCooldownDays = Math.floor(Math.random() * (maxCd - minCd + 1)) + minCd;
         if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
@@ -91,7 +169,11 @@ function getFotogramPostCooldown(vars) {
     var lastDate = new Date(y2, m2, d2).getTime();
     var daysSince = Math.floor((nowDate - lastDate) / (24 * 60 * 60 * 1000));
     if (daysSince < 0) daysSince = 0;
-    var cooldownDays = Number(vars.phoneFotogramCooldownDays) || FOTOGRAM_POST_COOLDOWN_DAYS;
+    var cooldownDays = Number(vars.phoneFotogramCooldownDays);
+    if (!Number.isFinite(cooldownDays) || cooldownDays < 1) {
+        cooldownDays = getFotogramSetupNumber('fotogramPostCooldownDefaultDays');
+        if (!Number.isFinite(cooldownDays) || cooldownDays < 1) return { canPost: true, daysLeft: 0 };
+    }
     var daysLeft = Math.max(0, cooldownDays - daysSince);
     return { canPost: daysLeft === 0, daysLeft: daysLeft };
 }
@@ -132,6 +214,21 @@ function getAssetUrl(path) {
     return (typeof window.getPhoneAssetUrl === 'function') ? window.getPhoneAssetUrl(path) : (path || '');
 }
 
+function getMediaKindFromPath(path) {
+    var p = String(path || '').toLowerCase();
+    if (p.endsWith('.mp4') || p.endsWith('.webm') || p.endsWith('.ogg')) return 'video';
+    return 'photo';
+}
+
+function isLikelyMediaPath(value) {
+    var p = String(value || '').trim().toLowerCase();
+    if (!p) return false;
+    return (
+        p.indexOf('assets/') === 0 &&
+        (p.endsWith('.webp') || p.endsWith('.png') || p.endsWith('.jpg') || p.endsWith('.jpeg') || p.endsWith('.gif') || p.endsWith('.mp4') || p.endsWith('.webm') || p.endsWith('.ogg'))
+    );
+}
+
 function getFotogramDateKey(timeObj) {
     if (!timeObj) return 0;
     return (Number(timeObj.year) || 0) * 10000 + (Number(timeObj.month) || 0) * 100 + (Number(timeObj.day) || 0);
@@ -153,9 +250,14 @@ function createEngagementPlanForQuality(quality, likesFloor, followersFloor) {
     var maxLikesTotal = Math.max(Number(likesFloor) || 0, likesBase);
     var followersBase = Math.floor(maxLikesTotal * (0.1 + Math.random() * 0.08));
     var maxFollowersTotal = Math.max(Number(followersFloor) || 0, followersBase);
-    var commentRatio = (typeof setup !== 'undefined' && Number(setup.fotogramCommentLikeRatio) > 0) ? Number(setup.fotogramCommentLikeRatio) : 0.08;
+    var commentRatio = getFotogramSetupNumber('fotogramCommentLikeRatio');
+    if (!Number.isFinite(commentRatio) || commentRatio <= 0) return null;
     var maxCommentsTotal = Math.max(1, Math.floor(maxLikesTotal * commentRatio));
-    var activeDays = Math.floor(Math.random() * (FOTOGRAM_ACTIVE_DAYS_MAX - FOTOGRAM_ACTIVE_DAYS_MIN + 1)) + FOTOGRAM_ACTIVE_DAYS_MIN;
+    var activeMin = getFotogramSetupNumber('fotogramActiveDaysMin');
+    var activeMax = getFotogramSetupNumber('fotogramActiveDaysMax');
+    if (!Number.isFinite(activeMin) || !Number.isFinite(activeMax)) return null;
+    if (activeMax < activeMin) activeMax = activeMin;
+    var activeDays = Math.floor(Math.random() * (activeMax - activeMin + 1)) + activeMin;
     return {
         maxLikesTotal: maxLikesTotal,
         maxFollowersTotal: maxFollowersTotal,
@@ -197,6 +299,7 @@ function createFotogramPostFromGallery(vars, itemId, replaceMode) {
     var time = { day: t.day, month: t.month, year: t.year, hour: t.hour, minute: t.minute };
     var postFlags = (item.flags && item.flags.length) ? item.flags.slice() : [];
     var plan = createEngagementPlanForQuality(quality, 0, 0);
+    if (!plan) return { ok: false, reason: 'MISSING_FOTOGRAM_SETUP' };
     posts.push({
         id: postId,
         galleryItemId: itemId,
@@ -213,8 +316,9 @@ function createFotogramPostFromGallery(vars, itemId, replaceMode) {
         engagementPlan: plan
     });
     vars.phoneLastFotogramPostDate = time;
-    var minCd = (typeof setup !== 'undefined' && setup.fotogramPostCooldownMinDays) ? Number(setup.fotogramPostCooldownMinDays) : 2;
-    var maxCd = (typeof setup !== 'undefined' && setup.fotogramPostCooldownMaxDays) ? Number(setup.fotogramPostCooldownMaxDays) : 4;
+    var minCd = getFotogramSetupNumber('fotogramPostCooldownMinDays');
+    var maxCd = getFotogramSetupNumber('fotogramPostCooldownMaxDays');
+    if (!Number.isFinite(minCd) || !Number.isFinite(maxCd)) return { ok: false, reason: 'MISSING_FOTOGRAM_SETUP' };
     if (maxCd < minCd) maxCd = minCd;
     vars.phoneFotogramCooldownDays = Math.floor(Math.random() * (maxCd - minCd + 1)) + minCd;
     if (posts.length > 50) posts.splice(0, posts.length - 50);
@@ -236,6 +340,7 @@ function phoneCreateFotogramPost(itemId, replaceMode) {
  * Render Fotogram app: My Posts + Share from Gallery
  */
 function phoneRenderFotogramApp(vars) {
+    var setupCheck = validateFotogramSetup(vars, { logOnce: true });
     var posts = vars.phoneFotogramPosts || [];
     var followers = vars.phoneFollowers || 0;
     var cooldown = getFotogramPostCooldown(vars);
@@ -248,6 +353,9 @@ function phoneRenderFotogramApp(vars) {
     }
 
     var html = '<div class="phone-fotogram-app">';
+    if (!setupCheck.ok) {
+        html += '<div class="phone-app-placeholder"><p class="phone-app-placeholder-text">Fotogram setup is incomplete</p><p class="phone-app-placeholder-sub">Missing: ' + escapeHtmlFg(setupCheck.missing.join(', ')) + '</p></div>';
+    }
     html += '<div class="phone-fotogram-content">';
 
     var fgView = (typeof phoneViewState !== 'undefined' && phoneViewState && phoneViewState.fotogramSub) ? phoneViewState : (window.phoneFotogramViewState = window.phoneFotogramViewState || { fotogramSub: 'feed', fotogramPostDetail: null });
@@ -482,7 +590,8 @@ function phoneRenderFotogramApp(vars) {
     var shareDisabled = false;
     html += '<button type="button" class="phone-fotogram-tab' + (sub === 'share' ? ' active' : '') + (shareDisabled ? ' disabled' : '') + '" id="phone-fotogram-share-btn" data-tab="share" aria-label="Share"' + (shareDisabled ? ' disabled' : '') + '><span class="icon icon-plus icon-22"></span></button>';
     html += '<button type="button" class="phone-fotogram-tab' + (sub === 'profile' ? ' active' : '') + '" data-tab="profile" aria-label="Profile"><span class="icon icon-user icon-22"></span></button>';
-    html += '<button type="button" class="phone-fotogram-tab' + (sub === 'dm' ? ' active' : '') + '" data-tab="dm" aria-label="Messages"><span class="icon icon-message icon-22"></span></button>';
+    var unreadDmCount = getUnreadFotogramDmCount(vars);
+    html += '<button type="button" class="phone-fotogram-tab' + (sub === 'dm' ? ' active' : '') + '" data-tab="dm" aria-label="Messages"><span class="icon icon-message icon-22"></span>' + (unreadDmCount > 0 ? '<span class="phone-fotogram-tab-badge">' + (unreadDmCount > 99 ? '99+' : unreadDmCount) + '</span>' : '') + '</button>';
     html += '</nav>';
 
     html += '</div>';
@@ -578,6 +687,7 @@ function ensureFotogramEngagementPlan(vars, post) {
     var followersNow = Number(post.followersGained) || 0;
     if (!post.engagementPlan || typeof post.engagementPlan !== 'object') {
         post.engagementPlan = createEngagementPlanForQuality(post.quality, likesNow + 5, followersNow + 1);
+        if (!post.engagementPlan) return null;
     }
     var plan = post.engagementPlan;
     if (plan.maxLikesTotal == null || plan.maxFollowersTotal == null || plan.maxCommentsTotal == null) {
@@ -590,11 +700,16 @@ function ensureFotogramEngagementPlan(vars, post) {
     if (plan.maxLikesTotal < likesNow) plan.maxLikesTotal = likesNow;
     if (plan.maxFollowersTotal < followersNow) plan.maxFollowersTotal = followersNow;
     if (plan.maxCommentsTotal == null || plan.maxCommentsTotal < 0) {
-        var cr = (typeof setup !== 'undefined' && Number(setup.fotogramCommentLikeRatio) > 0) ? Number(setup.fotogramCommentLikeRatio) : 0.08;
+        var cr = getFotogramSetupNumber('fotogramCommentLikeRatio');
+        if (!Number.isFinite(cr) || cr <= 0) return null;
         plan.maxCommentsTotal = Math.max(1, Math.floor((plan.maxLikesTotal || 0) * cr));
     }
     if (plan.activeDays == null || plan.activeDays < 1) {
-        plan.activeDays = Math.floor(Math.random() * (FOTOGRAM_ACTIVE_DAYS_MAX - FOTOGRAM_ACTIVE_DAYS_MIN + 1)) + FOTOGRAM_ACTIVE_DAYS_MIN;
+        var activeMin = getFotogramSetupNumber('fotogramActiveDaysMin');
+        var activeMax = getFotogramSetupNumber('fotogramActiveDaysMax');
+        if (!Number.isFinite(activeMin) || !Number.isFinite(activeMax)) return null;
+        if (activeMax < activeMin) activeMax = activeMin;
+        plan.activeDays = Math.floor(Math.random() * (activeMax - activeMin + 1)) + activeMin;
     }
     if (plan.hourlyHoursProcessed == null) plan.hourlyHoursProcessed = 0;
     if (plan.dailyDaysProcessed == null) plan.dailyDaysProcessed = 0;
@@ -627,19 +742,24 @@ function applyPostEngagementDelta(vars, post, likesAdd, followersAdd, phase) {
     var followersDelta = Math.max(0, Number(followersAdd) || 0);
     if (likesDelta <= 0 && followersDelta <= 0) return false;
     var plan = ensureFotogramEngagementPlan(vars, post);
+    if (!plan) return false;
     post.likes = (post.likes || 0) + likesDelta;
     post.followersGained = (post.followersGained || 0) + followersDelta;
     vars.phoneFollowers = (vars.phoneFollowers || 0) + followersDelta;
     if (!Array.isArray(post.comments)) post.comments = [];
     var commentsNow = post.comments.length;
-    var commentRatio = (typeof setup !== 'undefined' && Number(setup.fotogramCommentLikeRatio) > 0) ? Number(setup.fotogramCommentLikeRatio) : 0.08;
+    var commentRatio = getFotogramSetupNumber('fotogramCommentLikeRatio');
+    if (!Number.isFinite(commentRatio) || commentRatio <= 0) return false;
     var commentsCap = Math.max(commentsNow, Math.floor((post.likes || 0) * commentRatio), Number(plan.maxCommentsTotal) || 0);
     var commentsRemainingGlobal = Math.max(0, commentsCap - commentsNow);
-    var phaseShare = (phase === 'hourly') ? FOTOGRAM_HOURLY_SHARE : FOTOGRAM_DAILY_SHARE;
+    var hourlyShare = getFotogramSetupNumber('fotogramHourlyShare');
+    var dailyShare = getFotogramSetupNumber('fotogramDailyShare');
+    if (!Number.isFinite(hourlyShare) || !Number.isFinite(dailyShare)) return false;
+    var phaseShare = (phase === 'hourly') ? hourlyShare : dailyShare;
     var phaseCommentTarget = Math.floor(commentsCap * phaseShare);
     var phaseCommentsGiven = (phase === 'hourly')
         ? Math.min(commentsNow, phaseCommentTarget)
-        : Math.max(0, commentsNow - Math.floor(commentsCap * FOTOGRAM_HOURLY_SHARE));
+        : Math.max(0, commentsNow - Math.floor(commentsCap * hourlyShare));
     var phaseCommentsRemaining = Math.max(0, phaseCommentTarget - phaseCommentsGiven);
     var commentRollBase = likesDelta + (followersDelta * 2);
     var generatedComments = Math.max(0, Math.min(3, Math.floor(commentRollBase / 12)));
@@ -647,7 +767,8 @@ function applyPostEngagementDelta(vars, post, likesAdd, followersAdd, phase) {
     if (generatedComments > phaseCommentsRemaining) generatedComments = phaseCommentsRemaining;
     if (generatedComments > 0) {
         for (var c = 0; c < generatedComments; c++) {
-            post.comments.push(createFotogramCommentForPost(vars, post));
+            var createdComment = createFotogramCommentForPost(vars, post);
+            if (createdComment) post.comments.push(createdComment);
         }
         if (post.comments.length > 100) post.comments.splice(0, post.comments.length - 100);
         addFotogramNotification(vars, 'comment', post.id);
@@ -673,12 +794,16 @@ function updateFotogramEngagementHourly(vars, hoursPassed) {
     for (var i = 0; i < posts.length; i++) {
         var post = posts[i];
         var plan = ensureFotogramEngagementPlan(vars, post);
-        if (plan.hourlyHoursProcessed >= FOTOGRAM_HOURLY_WINDOW_HOURS) continue;
-        var hourlyLikesTarget = Math.floor(plan.maxLikesTotal * FOTOGRAM_HOURLY_SHARE);
-        var hourlyFollowersTarget = Math.floor(plan.maxFollowersTotal * FOTOGRAM_HOURLY_SHARE);
+        if (!plan) continue;
+        var hourlyWindowHours = getFotogramSetupNumber('fotogramHourlyWindowHours');
+        var hourlyShare = getFotogramSetupNumber('fotogramHourlyShare');
+        if (!Number.isFinite(hourlyWindowHours) || !Number.isFinite(hourlyShare)) continue;
+        if (plan.hourlyHoursProcessed >= hourlyWindowHours) continue;
+        var hourlyLikesTarget = Math.floor(plan.maxLikesTotal * hourlyShare);
+        var hourlyFollowersTarget = Math.floor(plan.maxFollowersTotal * hourlyShare);
         var likesGiven = Math.min(Number(post.likes) || 0, hourlyLikesTarget);
         var followersGiven = Math.min(Number(post.followersGained) || 0, hourlyFollowersTarget);
-        var hoursLeft = FOTOGRAM_HOURLY_WINDOW_HOURS - plan.hourlyHoursProcessed;
+        var hoursLeft = hourlyWindowHours - plan.hourlyHoursProcessed;
         var processNow = Math.min(countHours, hoursLeft);
         for (var h = 0; h < processNow; h++) {
             var step = plan.hourlyHoursProcessed;
@@ -688,7 +813,7 @@ function updateFotogramEngagementHourly(vars, hoursPassed) {
                 plan.hourlyHoursProcessed++;
                 continue;
             }
-            var isLastHour = step >= FOTOGRAM_HOURLY_WINDOW_HOURS - 1;
+            var isLastHour = step >= hourlyWindowHours - 1;
             var weight = hourWeights[step] || 0;
             var likesAdd = isLastHour ? likesRemaining : Math.max(0, Math.floor(hourlyLikesTarget * weight));
             var followersAdd = isLastHour ? followersRemaining : Math.max(0, Math.floor(hourlyFollowersTarget * weight));
@@ -716,11 +841,15 @@ function updateFotogramEngagement(vars) {
     for (var i = 0; i < posts.length; i++) {
         var post = posts[i];
         var plan = ensureFotogramEngagementPlan(vars, post);
+        if (!plan) continue;
+        var dailyShare = getFotogramSetupNumber('fotogramDailyShare');
+        var hourlyShare = getFotogramSetupNumber('fotogramHourlyShare');
+        if (!Number.isFinite(dailyShare) || !Number.isFinite(hourlyShare)) continue;
         if (plan.dailyDaysProcessed >= plan.activeDays) continue;
-        var dailyLikesTarget = Math.max(0, Math.floor(plan.maxLikesTotal * FOTOGRAM_DAILY_SHARE));
-        var dailyFollowersTarget = Math.max(0, Math.floor(plan.maxFollowersTotal * FOTOGRAM_DAILY_SHARE));
-        var dailyLikesGiven = Math.max(0, (Number(post.likes) || 0) - Math.floor(plan.maxLikesTotal * FOTOGRAM_HOURLY_SHARE));
-        var dailyFollowersGiven = Math.max(0, (Number(post.followersGained) || 0) - Math.floor(plan.maxFollowersTotal * FOTOGRAM_HOURLY_SHARE));
+        var dailyLikesTarget = Math.max(0, Math.floor(plan.maxLikesTotal * dailyShare));
+        var dailyFollowersTarget = Math.max(0, Math.floor(plan.maxFollowersTotal * dailyShare));
+        var dailyLikesGiven = Math.max(0, (Number(post.likes) || 0) - Math.floor(plan.maxLikesTotal * hourlyShare));
+        var dailyFollowersGiven = Math.max(0, (Number(post.followersGained) || 0) - Math.floor(plan.maxFollowersTotal * hourlyShare));
         var daysLeft = Math.max(1, plan.activeDays - plan.dailyDaysProcessed);
         var likesRemaining = Math.max(0, dailyLikesTarget - dailyLikesGiven);
         var followersRemaining = Math.max(0, dailyFollowersTarget - dailyFollowersGiven);
@@ -803,13 +932,17 @@ function pickFromPoolWithUnusedPreference(vars, storageKey, poolArray) {
 function createFotogramCommentForPost(vars, post) {
     var postFlags = (post && post.flags) ? post.flags : [];
     var flagKey = getBestFlagMatch(postFlags);
-    var templates = (typeof setup !== 'undefined' && setup.fotogramCommentTemplates) ? setup.fotogramCommentTemplates : FOTOGRAM_COMMENT_TEMPLATES_FALLBACK;
+    var templates = (typeof setup !== 'undefined' && setup.fotogramCommentTemplates && typeof setup.fotogramCommentTemplates === 'object')
+        ? setup.fotogramCommentTemplates
+        : null;
+    if (!templates) return null;
     var byFlag = templates[flagKey];
     if (!Array.isArray(byFlag) || byFlag.length === 0) byFlag = templates.default;
-    if (!Array.isArray(byFlag) || byFlag.length === 0) byFlag = FOTOGRAM_COMMENT_TEMPLATES_FALLBACK.default;
+    if (!Array.isArray(byFlag) || byFlag.length === 0) return null;
     var authorPool = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramCommentNames) && setup.fotogramCommentNames.length)
         ? setup.fotogramCommentNames
-        : FOTOGRAM_COMMENT_NAMES_FALLBACK;
+        : null;
+    if (!Array.isArray(authorPool) || authorPool.length === 0) return null;
     var author = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
         ? (pickFromPoolWithUnusedPreference(vars, 'phoneFotogramCommentUsedNameIndices', authorPool) || authorPool[Math.floor(Math.random() * authorPool.length)])
         : (authorPool[Math.floor(Math.random() * authorPool.length)]);
@@ -829,11 +962,9 @@ function createFotogramCommentForPost(vars, post) {
 }
 
 function getFotogramDmAgeRange() {
-    var cfg = (typeof setup !== 'undefined' && setup.charGenerator) ? setup.charGenerator : {};
-    var ageMin = Number(cfg.ageMin);
-    var ageMax = Number(cfg.ageMax);
-    if (!Number.isFinite(ageMin)) ageMin = 18;
-    if (!Number.isFinite(ageMax)) ageMax = 60;
+    var ageMin = getFotogramSetupNumber('fotogramDmAgeMin');
+    var ageMax = getFotogramSetupNumber('fotogramDmAgeMax');
+    if (!Number.isFinite(ageMin) || !Number.isFinite(ageMax)) return null;
     if (ageMax < ageMin) { var t = ageMax; ageMax = ageMin; ageMin = t; }
     return { min: ageMin, max: ageMax };
 }
@@ -841,10 +972,11 @@ function getFotogramDmAgeRange() {
 function getFotogramDmThresholds() {
     var minConfidence = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmMinConfidenceInteractive)))
         ? Number(setup.fotogramDmMinConfidenceInteractive)
-        : 30;
+        : null;
     var minCorruptionSwap = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmMinCorruptionSwap)))
         ? Number(setup.fotogramDmMinCorruptionSwap)
-        : 2;
+        : null;
+    if (!Number.isFinite(minConfidence) || !Number.isFinite(minCorruptionSwap)) return null;
     return {
         minConfidenceInteractive: Math.max(0, minConfidence),
         minCorruptionSwap: Math.max(0, minCorruptionSwap)
@@ -853,6 +985,7 @@ function getFotogramDmThresholds() {
 
 function canUseInteractiveFotogramDm(vars) {
     var thresholds = getFotogramDmThresholds();
+    if (!thresholds) return false;
     var confidence = Number(vars && vars.confidence);
     if (!Number.isFinite(confidence)) confidence = 0;
     return confidence >= thresholds.minConfidenceInteractive;
@@ -860,6 +993,7 @@ function canUseInteractiveFotogramDm(vars) {
 
 function canUseSwapInFotogramDm(vars) {
     var thresholds = getFotogramDmThresholds();
+    if (!thresholds) return false;
     var corruption = Number(vars && vars.corruption);
     if (!Number.isFinite(corruption)) corruption = 0;
     return corruption >= thresholds.minCorruptionSwap;
@@ -876,6 +1010,7 @@ function pickFotogramDmProfile(vars, charId) {
     var profile = { gender: 'Unknown', age: null };
     var currentYear = (vars && vars.timeSys && Number(vars.timeSys.year)) || 2024;
     var ageRange = getFotogramDmAgeRange();
+    if (!ageRange) return { gender: 'Unknown', age: null };
     var def = null;
     if (charId && typeof setup !== 'undefined' && setup.characterDefs && setup.characterDefs[charId]) {
         def = setup.characterDefs[charId];
@@ -886,17 +1021,17 @@ function pickFotogramDmProfile(vars, charId) {
         if (knownAge >= ageRange.min && knownAge <= ageRange.max) profile.age = knownAge;
     }
     if (profile.gender === 'Unknown') {
-        var cfg = (typeof setup !== 'undefined' && setup.charGenerator) ? setup.charGenerator : {};
         var maleW = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmMaleWeight)))
             ? Number(setup.fotogramDmMaleWeight)
-            : Number(cfg.maleWeight != null ? cfg.maleWeight : 0.7);
+            : null;
         var femaleW = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmFemaleWeight)))
             ? Number(setup.fotogramDmFemaleWeight)
-            : Number(cfg.femaleWeight != null ? cfg.femaleWeight : 0.3);
-        if (!Number.isFinite(maleW) || maleW < 0) maleW = 0.5;
-        if (!Number.isFinite(femaleW) || femaleW < 0) femaleW = 0.5;
+            : null;
+        if (!Number.isFinite(maleW) || maleW < 0) return { gender: 'Unknown', age: null };
+        if (!Number.isFinite(femaleW) || femaleW < 0) return { gender: 'Unknown', age: null };
         var totalW = maleW + femaleW;
-        var picked = (totalW <= 0) ? (Math.random() < 0.5 ? 'male' : 'female') : (Math.random() < (maleW / totalW) ? 'male' : 'female');
+        if (totalW <= 0) return { gender: 'Unknown', age: null };
+        var picked = Math.random() < (maleW / totalW) ? 'male' : 'female';
         profile.gender = normalizeGenderLabel(picked);
     }
     if (!Number.isFinite(Number(profile.age)) || Number(profile.age) < ageRange.min || Number(profile.age) > ageRange.max) {
@@ -905,18 +1040,123 @@ function pickFotogramDmProfile(vars, charId) {
     return { gender: profile.gender, age: Number(profile.age) };
 }
 
+function normalizeFotogramDmToneGender(rawGender) {
+    var g = String(rawGender || '').toLowerCase();
+    if (g === 'female' || g === 'f') return 'female';
+    if (g === 'male' || g === 'm') return 'male';
+    return null;
+}
+
+function getFotogramDmScenarioTypes() {
+    if (typeof setup !== 'undefined' && Array.isArray(setup.fotogramDMScenarioTypes) && setup.fotogramDMScenarioTypes.length) {
+        return setup.fotogramDMScenarioTypes.slice();
+    }
+    return [];
+}
+
+function getFotogramDmScenarioWeights(flagKey) {
+    var cfg = (typeof setup !== 'undefined' && setup.fotogramDMScenarioWeightsByFlag && typeof setup.fotogramDMScenarioWeightsByFlag === 'object')
+        ? setup.fotogramDMScenarioWeightsByFlag
+        : null;
+    var w = (cfg && cfg[flagKey] && typeof cfg[flagKey] === 'object')
+        ? cfg[flagKey]
+        : (cfg && cfg.default && typeof cfg.default === 'object')
+            ? cfg.default
+            : null;
+    if (w) return w;
+    return null;
+}
+
+function pickFotogramDmScenarioType(flagKey) {
+    var types = getFotogramDmScenarioTypes();
+    if (!types.length) return null;
+    var weights = getFotogramDmScenarioWeights(flagKey);
+    if (!weights || typeof weights !== 'object') return null;
+    var total = 0;
+    var rows = [];
+    for (var i = 0; i < types.length; i++) {
+        var key = types[i];
+        var weight = Number(weights && weights[key]);
+        if (!Number.isFinite(weight) || weight <= 0) continue;
+        total += weight;
+        rows.push({ key: key, weight: weight });
+    }
+    if (total <= 0 || rows.length === 0) {
+        return null;
+    }
+    var roll = Math.random() * total;
+    var acc = 0;
+    for (var r = 0; r < rows.length; r++) {
+        acc += rows[r].weight;
+        if (roll < acc) return rows[r].key;
+    }
+    return rows[rows.length - 1].key;
+}
+
+function getFotogramScenarioOpenerPool(flagKey, scenarioType, toneGender) {
+    var cfg = (typeof setup !== 'undefined' && setup.fotogramDMScenarioOpeners && typeof setup.fotogramDMScenarioOpeners === 'object')
+        ? setup.fotogramDMScenarioOpeners
+        : null;
+    if (!cfg) return null;
+    var byFlag = (cfg[flagKey] && typeof cfg[flagKey] === 'object') ? cfg[flagKey] : cfg.default;
+    if (!byFlag || typeof byFlag !== 'object') return null;
+    var byScenario = (byFlag[scenarioType] && typeof byFlag[scenarioType] === 'object') ? byFlag[scenarioType] : byFlag.default;
+    if (!byScenario) return null;
+    if (Array.isArray(byScenario) && byScenario.length) return byScenario;
+    if (typeof byScenario !== 'object') return null;
+    var toneKey = toneGender === 'female' ? 'female' : 'male';
+    var pool = (Array.isArray(byScenario[toneKey]) && byScenario[toneKey].length)
+        ? byScenario[toneKey]
+        : (Array.isArray(byScenario.default) && byScenario.default.length)
+            ? byScenario.default
+            : (Array.isArray(byScenario.any) && byScenario.any.length)
+                ? byScenario.any
+                : null;
+    return pool;
+}
+
+function pickFotogramScenarioFirstMessage(vars, flagKey, scenarioType, toneGender) {
+    var pool = getFotogramScenarioOpenerPool(flagKey, scenarioType, toneGender);
+    if (!Array.isArray(pool) || pool.length === 0) return null;
+    var useKey = 'phoneFotogramDMUsedScenarioFirstMsg_' + String(flagKey || 'default') + '_' + String(scenarioType || 'default') + '_' + String(toneGender || 'male');
+    return (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
+        ? (pickFromPoolWithUnusedPreference(vars, useKey, pool) || pool[Math.floor(Math.random() * pool.length)])
+        : pool[Math.floor(Math.random() * pool.length)];
+}
+
+function generateFotogramDmId(existingDms) {
+    var dms = Array.isArray(existingDms) ? existingDms : [];
+    var used = {};
+    for (var i = 0; i < dms.length; i++) {
+        if (dms[i] && dms[i].id) used[String(dms[i].id)] = true;
+    }
+    var candidate = null;
+    var tries = 0;
+    do {
+        candidate = 'fotodm_' + Date.now() + '_' + Math.floor(Math.random() * 1000000);
+        tries++;
+    } while (used[candidate] && tries < 20);
+    return candidate;
+}
+
 function createFotogramDM(vars, post, opts) {
     opts = opts || {};
     var isInteractive = opts.interactive !== false;
     var dms = vars.phoneFotogramDMs || [];
-    var anonNames = (typeof setup !== 'undefined' && setup.fotogramAnonNames) ? setup.fotogramAnonNames : FOTOGRAM_ANON_NAMES;
-    var byFlag = (typeof setup !== 'undefined' && setup.fotogramDMMessagesByFlag) ? setup.fotogramDMMessagesByFlag : null;
+    var anonNames = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramAnonNames) && setup.fotogramAnonNames.length)
+        ? setup.fotogramAnonNames
+        : null;
+    if (!Array.isArray(anonNames) || anonNames.length === 0) return null;
+    var byFlag = (typeof setup !== 'undefined' && setup.fotogramDMMessagesByFlag && typeof setup.fotogramDMMessagesByFlag === 'object')
+        ? setup.fotogramDMMessagesByFlag
+        : null;
     var charConfig = (typeof setup !== 'undefined' && setup.fotogramAnonCharConfig) ? setup.fotogramAnonCharConfig : {};
     var postFlags = post.flags || [];
     var flagKey = getBestFlagMatch(postFlags);
     var charId = null;
     var skinTone;
     var firstMsg;
+    var scenarioType = null;
     var pool = (typeof setup !== 'undefined' && setup.fotogramAnonCharPool) ? setup.fotogramAnonCharPool : [];
     if (Array.isArray(pool) && pool.length > 0) {
         charId = pool[Math.floor(Math.random() * pool.length)];
@@ -926,20 +1166,25 @@ function createFotogramDM(vars, post, opts) {
     }
     var cfg = charId && charConfig[charId] ? charConfig[charId] : null;
     var dmProfile = pickFotogramDmProfile(vars, charId);
+    var toneGender = normalizeFotogramDmToneGender(dmProfile.gender) || 'male';
     if (cfg && cfg.skinTone) {
         skinTone = cfg.skinTone;
     } else {
-        var skinTones = (typeof setup !== 'undefined' && setup.fotogramAnonSkinTones) ? setup.fotogramAnonSkinTones : ['white', 'black', 'tan'];
+        var skinTones = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramAnonSkinTones) && setup.fotogramAnonSkinTones.length)
+            ? setup.fotogramAnonSkinTones
+            : null;
+        if (!Array.isArray(skinTones) || skinTones.length === 0) return null;
         skinTone = skinTones[Math.floor(Math.random() * skinTones.length)];
     }
     if (!isInteractive) {
         var encouragingMsgs = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramDMEncouragingMessages) && setup.fotogramDMEncouragingMessages.length)
             ? setup.fotogramDMEncouragingMessages
-            : ['Keep it up!'];
+            : null;
+        if (!Array.isArray(encouragingMsgs) || encouragingMsgs.length === 0) return null;
         firstMsg = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
             ? (pickFromPoolWithUnusedPreference(vars, 'phoneFotogramDMUsedEncouragingIndices', encouragingMsgs) || encouragingMsgs[Math.floor(Math.random() * encouragingMsgs.length)])
             : (encouragingMsgs[Math.floor(Math.random() * encouragingMsgs.length)]);
-        firstMsg = firstMsg || 'Keep it up!';
+        if (!firstMsg) return null;
         charId = null;
     } else if (cfg && cfg.firstMessagesByFlag && cfg.firstMessagesByFlag[flagKey] && cfg.firstMessagesByFlag[flagKey].length) {
         var charPool = cfg.firstMessagesByFlag[flagKey];
@@ -947,23 +1192,29 @@ function createFotogramDM(vars, post, opts) {
         firstMsg = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
             ? (pickFromPoolWithUnusedPreference(vars, charMsgKey, charPool) || charPool[Math.floor(Math.random() * charPool.length)])
             : (charPool[Math.floor(Math.random() * charPool.length)]);
-    } else if (byFlag && byFlag[flagKey] && byFlag[flagKey].length) {
-        var globalMsgKey = 'phoneFotogramDMUsedFirstMsg_' + flagKey;
-        firstMsg = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
-            ? (pickFromPoolWithUnusedPreference(vars, globalMsgKey, byFlag[flagKey]) || byFlag[flagKey][Math.floor(Math.random() * byFlag[flagKey].length)])
-            : (byFlag[flagKey][Math.floor(Math.random() * byFlag[flagKey].length)]);
     } else {
-        firstMsg = 'Hey! Nice post!';
+        scenarioType = pickFotogramDmScenarioType(flagKey);
+        firstMsg = pickFotogramScenarioFirstMessage(vars, flagKey, scenarioType, toneGender);
+        if (!firstMsg && byFlag && Array.isArray(byFlag[flagKey]) && byFlag[flagKey].length) {
+            var globalMsgKey = 'phoneFotogramDMUsedFirstMsg_' + flagKey;
+            firstMsg = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
+                ? (pickFromPoolWithUnusedPreference(vars, globalMsgKey, byFlag[flagKey]) || byFlag[flagKey][Math.floor(Math.random() * byFlag[flagKey].length)])
+                : (byFlag[flagKey][Math.floor(Math.random() * byFlag[flagKey].length)]);
+        }
+        if (!firstMsg) return null;
     }
     var anonName = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
         ? (pickFromPoolWithUnusedPreference(vars, 'phoneFotogramDMUsedAnonNameIndices', anonNames) || anonNames[Math.floor(Math.random() * anonNames.length)])
         : (anonNames[Math.floor(Math.random() * anonNames.length)]);
-    var dmId = 'fotodm_' + Date.now();
+    var dmId = generateFotogramDmId(dms);
     var startReplyKeys = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramDMStartReplyKeys) && setup.fotogramDMStartReplyKeys.length)
         ? setup.fotogramDMStartReplyKeys.slice()
-        : ['hi', 'thanks', 'who'];
+        : [];
     var t = vars.timeSys || {};
     var time = { day: t.day, month: t.month, year: t.year, hour: t.hour, minute: t.minute };
+    var scenarioFlow = (isInteractive && scenarioType) ? getFotogramScenarioFlow(scenarioType) : null;
+    var startNode = scenarioFlow ? getFotogramScenarioNode(scenarioFlow, scenarioFlow.startNode) : null;
+    var startChoices = startNode ? normalizeFotogramScenarioChoices(startNode.choices || []) : [];
     var dm = {
         id: dmId,
         postId: post.id,
@@ -973,11 +1224,23 @@ function createFotogramDM(vars, post, opts) {
         charId: charId,
         blocked: false,
         messages: [{ from: dmId, text: firstMsg, time: time, read: false }],
-        availableReplyKeys: isInteractive ? startReplyKeys : [],
+        availableReplyKeys: isInteractive ? (startChoices.length ? startChoices.map(function (c) { return c.key; }) : startReplyKeys) : [],
         isInteractive: isInteractive,
         simpleThanksSent: false,
         profileGender: dmProfile.gender,
         profileAge: dmProfile.age,
+        toneGender: toneGender,
+        scenarioType: isInteractive ? (scenarioType || 'legacy') : null,
+        flowState: isInteractive ? {
+            heat: 1,
+            trust: 0,
+            control: 0,
+            ghostRisk: 0,
+            swapOpen: false,
+            turn: 0,
+            currentNode: scenarioFlow ? scenarioFlow.startNode : null,
+            currentChoices: startChoices
+        } : null,
         promotedToCharId: null
     };
     dms.push(dm);
@@ -1007,6 +1270,46 @@ function getActiveFotogramDMs(vars) {
     var dms = vars.phoneFotogramDMs || [];
     return dms.filter(function (dm) { return !dm.promotedToCharId && !dm.blocked; });
 }
+
+function countUnreadFotogramDmMessages(dm) {
+    if (!dm || !Array.isArray(dm.messages)) return 0;
+    var count = 0;
+    for (var i = 0; i < dm.messages.length; i++) {
+        var m = dm.messages[i];
+        if (!m) continue;
+        if (m.from !== 'me' && m.read !== true) count++;
+    }
+    return count;
+}
+
+function getUnreadFotogramDmCount(vars) {
+    var dms = getActiveFotogramDMs(vars);
+    var unreadThreads = 0;
+    for (var i = 0; i < dms.length; i++) {
+        if (countUnreadFotogramDmMessages(dms[i]) > 0) unreadThreads++;
+    }
+    return unreadThreads;
+}
+
+function markFotogramDmAsRead(dm) {
+    if (!dm || !Array.isArray(dm.messages)) return false;
+    var changed = false;
+    for (var i = 0; i < dm.messages.length; i++) {
+        var m = dm.messages[i];
+        if (!m) continue;
+        if (m.from !== 'me' && m.read !== true) {
+            m.read = true;
+            changed = true;
+        }
+    }
+    return changed;
+}
+
+window.markFotogramDmThreadAsRead = function (vars, dmId) {
+    var dm = getFotogramDMById(vars, dmId);
+    if (!dm) return false;
+    return markFotogramDmAsRead(dm);
+};
 
 function escapeHtmlFg(str) {
     if (!str) return '';
@@ -1043,63 +1346,19 @@ function renderFotogramAvatar(name, skinTone, extraClass) {
     return '<span class="phone-fotogram-avatar' + cls + '"' + toneAttr + ' style="--avatar-h:' + hue + ';"><span class="phone-fotogram-avatar-initial">' + escapeHtmlFg(initial) + '</span></span>';
 }
 
-var FOTOGRAM_DM_REPLIES_FALLBACK = [
-    {
-        key: 'hi',
-        playerText: 'Hi! Thanks for the message!',
-        anonReplies: { default: { text: 'Oh you actually replied! That made my day. What are you up to today?' } },
-        nextReplyKeys: ['vibe', 'busy']
-    },
-    {
-        key: 'thanks',
-        playerText: 'Thanks, that\'s sweet!',
-        anonReplies: { default: { text: 'Of course! Just being honest. I\'ll let you get back to it.' } },
-        endConversation: true
-    },
-    {
-        key: 'who',
-        playerText: 'Who is this?',
-        anonReplies: { default: { text: 'Just someone who appreciates your content. We can keep chatting if you want.' } },
-        nextReplyKeys: ['hi', 'vibe']
-    },
-    {
-        key: 'vibe',
-        playerText: 'Just chilling. You?',
-        anonReplies: { default: { text: 'Same here. Want to swap numbers?' } },
-        nextReplyKeys: ['swap_yes', 'swap_later']
-    },
-    {
-        key: 'busy',
-        playerText: 'Bit busy right now.',
-        anonReplies: { default: { text: 'No worries. Text me when you are free.' } },
-        endConversation: true
-    },
-    {
-        key: 'swap_yes',
-        playerText: 'Yeah, let\'s swap numbers.',
-        anonReplies: { default: { text: 'Perfect. Hit "Give number" and I\'ll add you.' } },
-        endConversation: true
-    },
-    {
-        key: 'swap_later',
-        playerText: 'Maybe later.',
-        anonReplies: { default: { text: 'All good. I\'ll be around.' } },
-        endConversation: true
-    }
-];
-
 function getFotogramQuickReplies() {
     if (typeof setup !== 'undefined' && Array.isArray(setup.fotogramDMQuickReplies) && setup.fotogramDMQuickReplies.length) {
         return setup.fotogramDMQuickReplies;
     }
-    return FOTOGRAM_DM_REPLIES_FALLBACK;
+    return [];
 }
 
 function getFotogramEncouragingReplyMessage() {
     var pool = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramDMEncouragingReplyMessages) && setup.fotogramDMEncouragingReplyMessages.length)
         ? setup.fotogramDMEncouragingReplyMessages
-        : ['Thanks! I appreciate the support.'];
-    return pool[Math.floor(Math.random() * pool.length)] || 'Thanks! I appreciate the support.';
+        : null;
+    if (!Array.isArray(pool) || pool.length === 0) return '';
+    return pool[Math.floor(Math.random() * pool.length)] || '';
 }
 
 function getNextFotogramReplyKeys(reply, flagKey) {
@@ -1113,20 +1372,275 @@ function getNextFotogramReplyKeys(reply, flagKey) {
     return null;
 }
 
+function getFotogramScenarioFlows() {
+    return (typeof setup !== 'undefined' && setup.fotogramDMScenarioFlows && typeof setup.fotogramDMScenarioFlows === 'object')
+        ? setup.fotogramDMScenarioFlows
+        : null;
+}
+
+function hasFotogramScenarioConfigLoaded() {
+    var flows = getFotogramScenarioFlows();
+    return !!(flows && typeof flows === 'object' && Object.keys(flows).length > 0);
+}
+
+function getFotogramScenarioFlow(scenarioType) {
+    var flows = getFotogramScenarioFlows();
+    if (!flows || !scenarioType || !flows[scenarioType]) return null;
+    return flows[scenarioType];
+}
+
+function getFotogramScenarioNode(flow, nodeId) {
+    if (!flow || !flow.nodes || !nodeId) return null;
+    return flow.nodes[nodeId] || null;
+}
+
+function getFotogramScenarioToneText(source, toneGender, flagKey) {
+    if (!source) return '';
+    var pickFromArray = function (arr) {
+        if (!Array.isArray(arr) || arr.length === 0) return '';
+        return arr[Math.floor(Math.random() * arr.length)] || '';
+    };
+    if (typeof source === 'string') return source;
+    if (Array.isArray(source)) return pickFromArray(source);
+    if (typeof source !== 'object') return '';
+    var byFlag = source[flagKey];
+    if (byFlag) return getFotogramScenarioToneText(byFlag, toneGender, flagKey);
+    if (source[toneGender]) return getFotogramScenarioToneText(source[toneGender], toneGender, flagKey);
+    if (source.default) return getFotogramScenarioToneText(source.default, toneGender, flagKey);
+    if (source.any) return getFotogramScenarioToneText(source.any, toneGender, flagKey);
+    return '';
+}
+
+function normalizeFotogramScenarioChoices(rawChoices) {
+    if (!Array.isArray(rawChoices)) return [];
+    return rawChoices.map(function (c, idx) {
+        if (!c || typeof c !== 'object') return null;
+        var key = c.key || c.id || ('choice_' + idx);
+        var text = c.playerText || c.text || c.label || key;
+        return {
+            key: String(key),
+            playerText: String(text),
+            next: c.next || null,
+            requiresSwap: c.requiresSwap === true,
+            effects: (c.effects && typeof c.effects === 'object') ? c.effects : null
+        };
+    }).filter(Boolean);
+}
+
+function applyFotogramFlowEffects(flowState, effects) {
+    if (!flowState || !effects || typeof effects !== 'object') return;
+    var keys = ['heat', 'trust', 'control', 'ghostRisk'];
+    for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        if (!Number.isFinite(Number(effects[k]))) continue;
+        var cur = Number(flowState[k]) || 0;
+        flowState[k] = cur + Number(effects[k]);
+    }
+    if (effects.swapOpen === true) flowState.swapOpen = true;
+}
+
+function attachFotogramDmPhotoToMessage(dm, cfg, flagKey, photoSpec, anonMsg) {
+    if (!photoSpec || !anonMsg) return;
+    var photoFrom = dm.charId || dm.anonId;
+    if (typeof photoSpec === 'string') photoSpec = { pool: photoSpec };
+    if (photoSpec.path) {
+        var mediaKindFromPath = getMediaKindFromPath(photoSpec.path);
+        anonMsg.attachment = { path: photoSpec.path, from: photoFrom, kind: mediaKindFromPath };
+        if (typeof window.phoneGalleryAddItem === 'function') {
+            window.phoneGalleryAddItem(photoSpec.path, { kind: mediaKindFromPath === 'video' ? 'videos' : 'photos', category: 'received', from: photoFrom, quality: 50 });
+        }
+        return;
+    }
+    var rawSkin = dm.skinTone || 'tan';
+    var skinMap = { light: 'white', medium: 'tan', dark: 'black', white: 'white', black: 'black', tan: 'tan' };
+    var skinKey = skinMap[rawSkin] || rawSkin;
+    var pool = (cfg && cfg.photoPool) ? cfg.photoPool : ((typeof setup !== 'undefined' && setup.fotogramDMPhotoPool) ? setup.fotogramDMPhotoPool : {});
+    var poolKey = photoSpec.pool || photoSpec.photoPool || flagKey || 'default';
+    var poolEntry = pool[poolKey] || pool[flagKey] || pool.default;
+    var paths = (poolEntry && poolEntry[skinKey]) ? poolEntry[skinKey] : (poolEntry && poolEntry.tan) ? poolEntry.tan : [];
+    if (!Array.isArray(paths) || paths.length === 0) return;
+    var rawPick = paths[Math.floor(Math.random() * paths.length)];
+    var pickedPath = '';
+    var pickedKind = null;
+    if (rawPick && typeof rawPick === 'object') {
+        pickedPath = rawPick.path || '';
+        pickedKind = rawPick.kind || null;
+    } else {
+        pickedPath = String(rawPick || '');
+    }
+    if (!pickedPath) return;
+    var mediaKind = pickedKind || getMediaKindFromPath(pickedPath);
+    anonMsg.attachment = { path: pickedPath, from: photoFrom, kind: mediaKind };
+    if (typeof window.phoneGalleryAddItem === 'function') {
+        window.phoneGalleryAddItem(pickedPath, { kind: mediaKind === 'video' ? 'videos' : 'photos', category: 'received', from: photoFrom, quality: 50 });
+    }
+}
+
+function pickFotogramRandomAttachmentSpec(randomAttachment) {
+    if (!randomAttachment || typeof randomAttachment !== 'object') return null;
+    var chance = Number(randomAttachment.chance);
+    if (!Number.isFinite(chance)) chance = 0;
+    chance = Math.max(0, Math.min(1, chance));
+    if (Math.random() > chance) return null;
+
+    if (randomAttachment.path || randomAttachment.pool || randomAttachment.photoPool) {
+        return randomAttachment;
+    }
+
+    if (Array.isArray(randomAttachment.options) && randomAttachment.options.length) {
+        return randomAttachment.options[Math.floor(Math.random() * randomAttachment.options.length)] || null;
+    }
+
+    if (Array.isArray(randomAttachment.pools) && randomAttachment.pools.length) {
+        var pool = randomAttachment.pools[Math.floor(Math.random() * randomAttachment.pools.length)];
+        if (pool) return { pool: pool };
+    }
+    return null;
+}
+
+function ensureFotogramScenarioBootstrap(vars, dm) {
+    if (!vars || !dm || dm.isInteractive === false || dm.blocked) return false;
+    var hasScenarioChoices = !!(dm.flowState && Array.isArray(dm.flowState.currentChoices) && dm.flowState.currentChoices.length);
+    if (hasScenarioChoices && dm.scenarioType && dm.scenarioType !== 'legacy') return false;
+
+    var keys = Array.isArray(dm.availableReplyKeys) ? dm.availableReplyKeys : [];
+    var legacyKeys = ['hi', 'thanks', 'who', 'vibe', 'busy', 'swap_yes', 'swap_later'];
+    var looksLegacy = keys.length > 0 && keys.every(function (k) { return legacyKeys.indexOf(String(k)) >= 0; });
+    var needsBootstrap = (!dm.flowState || !Array.isArray(dm.flowState.currentChoices) || dm.flowState.currentChoices.length === 0 || !dm.scenarioType || dm.scenarioType === 'legacy' || looksLegacy);
+    if (!needsBootstrap) return false;
+    if (keys.length === 0 && Array.isArray(dm.messages) && dm.messages.length > 2) return false; // likely a naturally finished old thread
+
+    var post = getPostById(vars, dm.postId);
+    var postFlags = (post && post.flags) ? post.flags : [];
+    var flagKey = getBestFlagMatch(postFlags);
+    var scenarioType = pickFotogramDmScenarioType(flagKey);
+    if (!scenarioType) {
+        var types = getFotogramDmScenarioTypes();
+        scenarioType = (types && types.length) ? types[0] : null;
+    }
+    var flow = getFotogramScenarioFlow(scenarioType);
+    if (!flow) return false;
+    var startNode = getFotogramScenarioNode(flow, flow.startNode);
+    var startChoices = normalizeFotogramScenarioChoices(startNode && startNode.choices ? startNode.choices : []);
+    if (!startChoices.length) return false;
+
+    var fs = (dm.flowState && typeof dm.flowState === 'object') ? dm.flowState : {};
+    fs.heat = Number.isFinite(Number(fs.heat)) ? Number(fs.heat) : 1;
+    fs.trust = Number.isFinite(Number(fs.trust)) ? Number(fs.trust) : 0;
+    fs.control = Number.isFinite(Number(fs.control)) ? Number(fs.control) : 0;
+    fs.ghostRisk = Number.isFinite(Number(fs.ghostRisk)) ? Number(fs.ghostRisk) : 0;
+    fs.swapOpen = fs.swapOpen === true;
+    fs.turn = Number.isFinite(Number(fs.turn)) ? Number(fs.turn) : 0;
+    fs.currentNode = flow.startNode;
+    fs.currentChoices = startChoices;
+    dm.flowState = fs;
+    dm.scenarioType = scenarioType;
+    dm.toneGender = normalizeFotogramDmToneGender(dm.toneGender || dm.profileGender || 'male');
+    dm.availableReplyKeys = startChoices.map(function (c) { return c.key; });
+    return true;
+}
+
+function processFotogramScenarioReply(vars, dm, replyKey) {
+    if (!dm || !dm.flowState || !dm.scenarioType) return false;
+    var flow = getFotogramScenarioFlow(dm.scenarioType);
+    if (!flow) return false;
+    var currentNodeId = dm.flowState.currentNode || flow.startNode;
+    var node = getFotogramScenarioNode(flow, currentNodeId);
+    if (!node) return false;
+    var choices = normalizeFotogramScenarioChoices(dm.flowState.currentChoices || node.choices || []);
+    if (!choices.length) return false;
+    var selected = null;
+    for (var i = 0; i < choices.length; i++) {
+        if (choices[i].key === replyKey) { selected = choices[i]; break; }
+    }
+    if (!selected) return false;
+    if (selected.requiresSwap && !canUseSwapInFotogramDm(vars)) return true;
+
+    var t = vars.timeSys || {};
+    var time = { day: t.day, month: t.month, year: t.year, hour: t.hour, minute: t.minute };
+    dm.messages = dm.messages || [];
+    dm.messages.push({ from: 'me', text: selected.playerText, time: time, read: true });
+    applyFotogramFlowEffects(dm.flowState, selected.effects);
+    dm.flowState.turn = (Number(dm.flowState.turn) || 0) + 1;
+
+    if (!selected.next) {
+        dm.flowState.currentChoices = [];
+        dm.availableReplyKeys = [];
+        if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+        if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+        return true;
+    }
+
+    var nextNode = getFotogramScenarioNode(flow, selected.next);
+    if (!nextNode) {
+        dm.flowState.currentChoices = [];
+        dm.availableReplyKeys = [];
+        if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+        if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+        return true;
+    }
+
+    var post = getPostById(vars, dm.postId);
+    var postFlags = (post && post.flags) ? post.flags : [];
+    var flagKey = getBestFlagMatch(postFlags);
+    var charConfig = (typeof setup !== 'undefined' && setup.fotogramAnonCharConfig) ? setup.fotogramAnonCharConfig : {};
+    var cfg = dm.charId && charConfig[dm.charId] ? charConfig[dm.charId] : null;
+    var tone = dm.toneGender || 'male';
+
+    var anonText = getFotogramScenarioToneText(nextNode.anon, tone, flagKey) || '...';
+    var anonMsg = { from: dm.anonId, text: anonText, time: time, read: false };
+    var attachmentSpec = nextNode.attachment || pickFotogramRandomAttachmentSpec(nextNode.randomAttachment);
+    if (!attachmentSpec && isLikelyMediaPath(anonText)) {
+        attachmentSpec = { path: anonText };
+        anonMsg.text = '';
+    }
+    if (attachmentSpec) attachFotogramDmPhotoToMessage(dm, cfg, flagKey, attachmentSpec, anonMsg);
+    dm.messages.push(anonMsg);
+
+    if (nextNode.flags && nextNode.flags.anonAskedSwap === true) dm.anonAskedSwap = true;
+    if (nextNode.flags && nextNode.flags.deletedMessage === true) {
+        dm.messages.push({ from: dm.anonId, text: '[Message deleted]', time: time, read: false });
+    }
+    if (nextNode.flags && nextNode.flags.ghosted === true) dm.flowState.ghosted = true;
+
+    dm.flowState.currentNode = selected.next;
+    dm.flowState.currentChoices = normalizeFotogramScenarioChoices(nextNode.choices || []);
+    dm.availableReplyKeys = (dm.flowState.currentChoices || []).map(function (c) { return c.key; });
+    if (nextNode.endConversation === true || dm.flowState.ghosted === true) {
+        dm.flowState.currentChoices = [];
+        dm.availableReplyKeys = [];
+    }
+
+    if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+    if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+    return true;
+}
+
 function processFotogramDMReply(vars, dmId, replyKey) {
     var dm = getFotogramDMById(vars, dmId);
     if (!dm || dm.blocked) return;
     if (dm.isInteractive === false) {
         if (replyKey !== 'thanks_auto' || dm.simpleThanksSent === true) return;
+        var simpleReplyText = getFotogramEncouragingReplyMessage();
+        if (!simpleReplyText) return;
         var tSimple = vars.timeSys || {};
         var timeSimple = { day: tSimple.day, month: tSimple.month, year: tSimple.year, hour: tSimple.hour, minute: tSimple.minute };
         dm.messages = dm.messages || [];
-        dm.messages.push({ from: 'me', text: getFotogramEncouragingReplyMessage(), time: timeSimple, read: true });
+        dm.messages.push({ from: 'me', text: simpleReplyText, time: timeSimple, read: true });
         dm.simpleThanksSent = true;
         if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
         return;
     }
-    if (!canUseInteractiveFotogramDm(vars)) return;
+    if (ensureFotogramScenarioBootstrap(vars, dm)) {
+        if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+    }
+    if (processFotogramScenarioReply(vars, dm, replyKey)) return;
+    if (hasFotogramScenarioConfigLoaded()) {
+        if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+        if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+        return;
+    }
+    // Interactive DMs must run only on scenario flows; disable legacy quick-reply fallback.
     if (replyKey === 'swap_yes' && !canUseSwapInFotogramDm(vars)) return;
     var replies = getFotogramQuickReplies();
     var reply = null;
@@ -1146,34 +1660,24 @@ function processFotogramDMReply(vars, dmId, replyKey) {
     } else {
         anonReply = (reply.anonReplies && reply.anonReplies[flagKey]) ? reply.anonReplies[flagKey] : (reply.anonReplies && reply.anonReplies.default) ? reply.anonReplies.default : { text: 'Thanks for replying!' };
     }
+    var anonTextResolved = (anonReply.textPool && Array.isArray(anonReply.textPool) && anonReply.textPool.length > 0)
+        ? anonReply.textPool[Math.floor(Math.random() * anonReply.textPool.length)]
+        : (anonReply.text || 'Thanks for replying!');
     var t = vars.timeSys || {};
     var time = { day: t.day, month: t.month, year: t.year, hour: t.hour, minute: t.minute };
     dm.messages = dm.messages || [];
     dm.messages.push({ from: 'me', text: reply.playerText, time: time, read: true });
-    var anonMsg = { from: dm.anonId, text: anonReply.text, time: time, read: false };
-    var photoFrom = dm.charId || dm.anonId;
+    var anonMsg = { from: dm.anonId, text: anonTextResolved, time: time, read: false };
     if (anonReply.photoPath) {
-        anonMsg.attachment = { path: anonReply.photoPath, from: photoFrom };
-        if (typeof window.phoneGalleryAddItem === 'function') {
-            window.phoneGalleryAddItem(anonReply.photoPath, { category: 'received', from: photoFrom, quality: 50 });
-        }
+        attachFotogramDmPhotoToMessage(dm, cfg, flagKey, { path: anonReply.photoPath }, anonMsg);
     } else if (anonReply.photoPool) {
-        var rawSkin = dm.skinTone || 'tan';
-        var skinMap = { light: 'white', medium: 'tan', dark: 'black', white: 'white', black: 'black', tan: 'tan' };
-        var skinKey = skinMap[rawSkin] || rawSkin;
-        var pool = (cfg && cfg.photoPool) ? cfg.photoPool : ((typeof setup !== 'undefined' && setup.fotogramDMPhotoPool) ? setup.fotogramDMPhotoPool : {});
-        var poolEntry = pool[flagKey] || pool.default;
-        var paths = (poolEntry && poolEntry[skinKey]) ? poolEntry[skinKey] : (poolEntry && poolEntry.tan) ? poolEntry.tan : [];
-        if (Array.isArray(paths) && paths.length > 0) {
-            var path = paths[Math.floor(Math.random() * paths.length)];
-            anonMsg.attachment = { path: path, from: photoFrom };
-            if (typeof window.phoneGalleryAddItem === 'function') {
-                window.phoneGalleryAddItem(path, { category: 'received', from: photoFrom, quality: 50 });
-            }
-        }
+        attachFotogramDmPhotoToMessage(dm, cfg, flagKey, { pool: anonReply.photoPool }, anonMsg);
+    } else if (isLikelyMediaPath(anonTextResolved)) {
+        attachFotogramDmPhotoToMessage(dm, cfg, flagKey, { path: anonTextResolved }, anonMsg);
+        anonMsg.text = '';
     }
     dm.messages.push(anonMsg);
-    var anonText = (anonReply.text || '').toLowerCase();
+    var anonText = (anonTextResolved || '').toLowerCase();
     if (anonText.indexOf('swap') >= 0 || anonText.indexOf('numara') >= 0) dm.anonAskedSwap = true;
     if (!Array.isArray(dm.availableReplyKeys) || dm.availableReplyKeys.length === 0) {
         dm.availableReplyKeys = replies.map(function (x) { return x && x.key; }).filter(Boolean);
@@ -1187,6 +1691,7 @@ function processFotogramDMReply(vars, dmId, replyKey) {
     }
     if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
     if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+    return;
 }
 
 function blockFotogramDM(vars, dmId) {
@@ -1195,6 +1700,23 @@ function blockFotogramDM(vars, dmId) {
     dm.blocked = true;
     if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
     if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+}
+
+function deleteFotogramDM(vars, dmId) {
+    if (!vars || !dmId) return false;
+    var dms = Array.isArray(vars.phoneFotogramDMs) ? vars.phoneFotogramDMs : [];
+    var before = dms.length;
+    vars.phoneFotogramDMs = dms.filter(function (dm) { return !(dm && dm.id === dmId); });
+    if (vars.phoneNotifications && Array.isArray(vars.phoneNotifications.fotogram)) {
+        vars.phoneNotifications.fotogram = vars.phoneNotifications.fotogram.filter(function (n) {
+            return !(n && n.type === 'dm' && n.refId === dmId);
+        });
+    }
+    var changed = vars.phoneFotogramDMs.length !== before;
+    if (!changed) return false;
+    if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+    if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+    return true;
 }
 
 function drainFotogramNotifications(vars) {
@@ -1246,11 +1768,24 @@ function phoneRenderFotogramDmThread(dmId) {
             : {};
     var dm = getFotogramDMById(vars, dmId);
     if (!dm) return typeof phoneRenderFotogramDmList === 'function' ? phoneRenderFotogramDmList() : '<div class="phone-fotogram-dm-thread">DM not found.</div>';
+    var readChanged = markFotogramDmAsRead(dm);
+    if (ensureFotogramScenarioBootstrap(vars, dm)) {
+        if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+    }
+    if (readChanged) {
+        if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+        if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+    }
     var infoGender = normalizeGenderLabel(dm.profileGender);
     var infoAge = Number(dm.profileAge);
     var infoAgeText = (Number.isFinite(infoAge) && infoAge >= 18 && infoAge <= 60) ? infoAge : 'Unknown';
     var infoText = 'Gender: ' + infoGender + '\nAge: ' + infoAgeText;
-    var html = '<div class="phone-fotogram-dm-thread"><div class="phone-fotogram-dm-thread-header">' + renderFotogramAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-thread') + '<span class="phone-fotogram-dm-thread-name">' + escapeHtmlFg(dm.anonName || 'Unknown') + '</span><button type="button" class="phone-fotogram-dm-thread-info" data-tooltip="' + escapeHtmlFg(infoText) + '" aria-label="Profile info"><span class="icon icon-info icon-16"></span></button></div><div class="phone-fotogram-dm-messages">';
+    var html = '<div class="phone-fotogram-dm-thread"><div class="phone-fotogram-dm-thread-header">' +
+        renderFotogramAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-thread') +
+        '<span class="phone-fotogram-dm-thread-name">' + escapeHtmlFg(dm.anonName || 'Unknown') + '</span>' +
+        '<button type="button" class="phone-fotogram-dm-thread-info" data-tooltip="' + escapeHtmlFg(infoText) + '" aria-label="Profile info"><span class="icon icon-info icon-16"></span></button>' +
+        '<button type="button" class="phone-fotogram-dm-thread-delete" data-dm-id="' + escapeHtmlFg(dm.id) + '" aria-label="Delete DM"><span class="icon icon-delete icon-16"></span></button>' +
+        '</div><div class="phone-fotogram-dm-messages">';
     (dm.messages || []).forEach(function (m) {
         var isMe = m.from === 'me';
         var bubble = '<div class="phone-fotogram-dm-message' + (isMe ? ' me' : '') + '">';
@@ -1258,9 +1793,22 @@ function phoneRenderFotogramDmThread(dmId) {
         bubble += '<div class="phone-fotogram-dm-bubble' + (isMe ? ' me' : '') + '">';
         if (m.attachment && m.attachment.path) {
             var src = (typeof getAssetUrl === 'function') ? getAssetUrl(m.attachment.path) : m.attachment.path;
-            bubble += '<div class="phone-fotogram-dm-attachment"><img src="' + escapeHtmlFg(src || m.attachment.path) + '" alt="" loading="lazy"></div>';
+            var attKind = m.attachment.kind || getMediaKindFromPath(m.attachment.path);
+            if (attKind === 'video') {
+                bubble += '<div class="phone-fotogram-dm-attachment"><video src="' + escapeHtmlFg(src || m.attachment.path) + '" controls playsinline preload="metadata"></video></div>';
+            } else {
+                bubble += '<div class="phone-fotogram-dm-attachment"><img src="' + escapeHtmlFg(src || m.attachment.path) + '" alt="" loading="lazy"></div>';
+            }
+        } else if (isLikelyMediaPath(m.text)) {
+            var autoSrc = (typeof getAssetUrl === 'function') ? getAssetUrl(m.text) : m.text;
+            var autoKind = getMediaKindFromPath(m.text);
+            if (autoKind === 'video') {
+                bubble += '<div class="phone-fotogram-dm-attachment"><video src="' + escapeHtmlFg(autoSrc || m.text) + '" controls playsinline preload="metadata"></video></div>';
+            } else {
+                bubble += '<div class="phone-fotogram-dm-attachment"><img src="' + escapeHtmlFg(autoSrc || m.text) + '" alt="" loading="lazy"></div>';
+            }
         }
-        bubble += '<span class="phone-fotogram-dm-bubble-text">' + escapeHtmlFg(m.text || '') + '</span></div></div>';
+        bubble += '<span class="phone-fotogram-dm-bubble-text">' + escapeHtmlFg(isLikelyMediaPath(m.text) ? '' : (m.text || '')) + '</span></div></div>';
         html += bubble;
     });
     var anonAskedSwap = dm.anonAskedSwap === true || (dm.messages || []).some(function (m) {
@@ -1275,30 +1823,41 @@ function phoneRenderFotogramDmThread(dmId) {
                 html += '<button type="button" class="phone-fotogram-dm-quick" data-action="reply" data-dm-id="' + escapeHtmlFg(dm.id) + '" data-reply-key="thanks_auto">Reply</button>';
             }
         } else {
-            if (!canUseInteractiveFotogramDm(vars)) {
-                html += '<div class="phone-fotogram-dm-locked-text">You are not open for that yet.</div>';
-                html += '<button type="button" class="phone-fotogram-dm-quick block-btn" data-action="block" data-dm-id="' + escapeHtmlFg(dm.id) + '">Block</button>';
-                html += '</div></div>';
-                return html;
+            var hasScenarioChoices = dm.flowState && Array.isArray(dm.flowState.currentChoices) && dm.flowState.currentChoices.length > 0;
+            if (hasScenarioChoices) {
+                var scenarioChoices = normalizeFotogramScenarioChoices(dm.flowState.currentChoices);
+                var hasSwapChoice = false;
+                scenarioChoices.forEach(function (c) {
+                    if (!c) return;
+                    if (c.requiresSwap && !canUseSwapInFotogramDm(vars)) return;
+                    if (c.requiresSwap) hasSwapChoice = true;
+                    html += '<button type="button" class="phone-fotogram-dm-quick" data-action="reply" data-dm-id="' + escapeHtmlFg(dm.id) + '" data-reply-key="' + escapeHtmlFg(c.key || '') + '">' + escapeHtmlFg(c.playerText || c.key) + '</button>';
+                });
+                if (anonAskedSwap && !hasSwapChoice && canUseSwapInFotogramDm(vars) && !dm.flowState.ghosted) {
+                    html += '<button type="button" class="phone-fotogram-dm-quick promote" data-action="promote" data-dm-id="' + escapeHtmlFg(dm.id) + '">Give number</button>';
+                }
+            } else if (!hasFotogramScenarioConfigLoaded()) {
+                var replies = getFotogramQuickReplies();
+                var byKey = {};
+                replies.forEach(function (r) { if (r && r.key) byKey[r.key] = r; });
+                var startKeys = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramDMStartReplyKeys) && setup.fotogramDMStartReplyKeys.length)
+                    ? setup.fotogramDMStartReplyKeys
+                    : ['hi', 'thanks', 'who'];
+                var keysToShow = Array.isArray(dm.availableReplyKeys) ? dm.availableReplyKeys : startKeys;
+                var activeReplies = keysToShow.map(function (k) { return byKey[k]; }).filter(function (r) {
+                    if (!r) return false;
+                    if (r.key === 'swap_yes' && !canUseSwapInFotogramDm(vars)) return false;
+                    return true;
+                });
+                var hasSwapYesChoice = false;
+                activeReplies.forEach(function (r) {
+                    if (r && r.key === 'swap_yes') hasSwapYesChoice = true;
+                    html += '<button type="button" class="phone-fotogram-dm-quick" data-action="reply" data-dm-id="' + escapeHtmlFg(dm.id) + '" data-reply-key="' + escapeHtmlFg(r.key || '') + '">' + escapeHtmlFg(r.playerText || r.key) + '</button>';
+                });
+                if (anonAskedSwap && !hasSwapYesChoice && canUseSwapInFotogramDm(vars)) html += '<button type="button" class="phone-fotogram-dm-quick promote" data-action="promote" data-dm-id="' + escapeHtmlFg(dm.id) + '">Give number</button>';
+            } else if (anonAskedSwap && canUseSwapInFotogramDm(vars) && !(dm.flowState && dm.flowState.ghosted)) {
+                html += '<button type="button" class="phone-fotogram-dm-quick promote" data-action="promote" data-dm-id="' + escapeHtmlFg(dm.id) + '">Give number</button>';
             }
-            var replies = getFotogramQuickReplies();
-            var byKey = {};
-            replies.forEach(function (r) { if (r && r.key) byKey[r.key] = r; });
-            var startKeys = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramDMStartReplyKeys) && setup.fotogramDMStartReplyKeys.length)
-                ? setup.fotogramDMStartReplyKeys
-                : ['hi', 'thanks', 'who'];
-            var keysToShow = Array.isArray(dm.availableReplyKeys) ? dm.availableReplyKeys : startKeys;
-            var activeReplies = keysToShow.map(function (k) { return byKey[k]; }).filter(function (r) {
-                if (!r) return false;
-                if (r.key === 'swap_yes' && !canUseSwapInFotogramDm(vars)) return false;
-                return true;
-            });
-            var hasSwapYesChoice = false;
-            activeReplies.forEach(function (r) {
-                if (r && r.key === 'swap_yes') hasSwapYesChoice = true;
-                html += '<button type="button" class="phone-fotogram-dm-quick" data-action="reply" data-dm-id="' + escapeHtmlFg(dm.id) + '" data-reply-key="' + escapeHtmlFg(r.key || '') + '">' + escapeHtmlFg(r.playerText || r.key) + '</button>';
-            });
-            if (anonAskedSwap && !hasSwapYesChoice && canUseSwapInFotogramDm(vars)) html += '<button type="button" class="phone-fotogram-dm-quick promote" data-action="promote" data-dm-id="' + escapeHtmlFg(dm.id) + '">Give number</button>';
         }
         html += '<button type="button" class="phone-fotogram-dm-quick block-btn" data-action="block" data-dm-id="' + escapeHtmlFg(dm.id) + '">Block</button>';
     }
@@ -1311,8 +1870,10 @@ window.updateFotogramEngagementHourly = updateFotogramEngagementHourly;
 window.drainFotogramNotifications = drainFotogramNotifications;
 window.processFotogramDMReply = processFotogramDMReply;
 window.blockFotogramDM = blockFotogramDM;
+window.deleteFotogramDM = deleteFotogramDM;
 window.getFotogramDMById = getFotogramDMById;
 window.isFotogramPostable = isFotogramPostable;
 window.getFotogramPostForPath = getFotogramPostForPath;
 window.phoneCreateFotogramPost = phoneCreateFotogramPost;
 window.phoneRenderFotogramApp = phoneRenderFotogramApp;
+window.phoneDebugFotogramSetup = function () { return validateFotogramSetup((typeof State !== 'undefined' && State.variables) ? State.variables : null, { logAlways: true }); };

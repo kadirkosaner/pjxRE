@@ -1,80 +1,41 @@
 :: variablesFotogram [init nobr]
 /* =============================================================================
-   FOTOGRAM – DM + COMMENT configuration
+   FOTOGRAM – GLOBAL SETTINGS
    =============================================================================
-   skinTone: white (beyaz), black (siyahi), tan (esmer/olive) – foto havuzu için.
-   Flag-based: post.flags → ilk mesaj + anon cevapları.
-   Quick replies: player seçer → anon geri cevap (text + opsiyonel foto).
-   Comment pool: post.flags → yorum metinleri (setup.fotogramCommentTemplates).
+   Bu dosya fallback kullanmadan calisan tum Fotogram ayarlarini tutar.
+   DM metin havuzlari ve flow node icerikleri ilgili DM dosyalarinda kalir.
    ============================================================================= */
 
+/* Post / feed */
+<<set setup.fotogramNotPostableFlags = ["topless", "nude", "explicit"]>>
+<<set setup.fotogramCommentLikeRatio = 0.08>>
+<<set setup.fotogramPostCooldownDefaultDays = 3>>
+<<set setup.fotogramPostCooldownMinDays = 2>>
+<<set setup.fotogramPostCooldownMaxDays = 4>>
+<<set setup.fotogramHourlyWindowHours = 3>>
+<<set setup.fotogramHourlyShare = 0.4>>
+<<set setup.fotogramDailyShare = 0.6>>
+<<set setup.fotogramActiveDaysMin = 3>>
+<<set setup.fotogramActiveDaysMax = 5>>
 
-
-<<set setup.fotogramAnonSkinTones = ["white", "black", "tan"]>>
+/* DM profile / thresholds */
+<<set setup.fotogramDmAgeMin = 18>>
+<<set setup.fotogramDmAgeMax = 60>>
 <<set setup.fotogramDmMaleWeight = 0.7>>
 <<set setup.fotogramDmFemaleWeight = 0.3>>
 <<set setup.fotogramDmMinConfidenceInteractive = 30>>
 <<set setup.fotogramDmMinCorruptionSwap = 2>>
-<<set setup.fotogramCommentLikeRatio = 0.08>>
-<<set setup.fotogramPostCooldownMinDays = 2>>
-<<set setup.fotogramPostCooldownMaxDays = 4>>
+<<set setup.fotogramAnonSkinTones = ["white", "black", "tan"]>>
 
+/* Interactive DM scenario selection settings */
+<<set setup.fotogramDMScenarioTypes = ["pickup_open", "praise_open", "dickpic_open"]>>
+<<run setup.fotogramDMScenarioWeightsByFlag = {
+  default: { pickup_open: 60, praise_open: 30, dickpic_open: 10 },
+  spicy: { pickup_open: 30, praise_open: 25, dickpic_open: 45 },
+  risky: { pickup_open: 35, praise_open: 30, dickpic_open: 35 },
+  teasing: { pickup_open: 25, praise_open: 45, dickpic_open: 30 }
+}>>
 
-<<run setup.fotogramDMQuickReplies = [
-  { key: "hi", playerText: "Hi! Thanks for the message!", anonReplies: {
-    default: { text: "Oh you actually replied! That made my day. What are you up to today?" },
-    spicy: { text: "Hey you ;) Glad you replied. What are you up to right now?" }
-  }, nextReplyKeys: ["vibe", "busy"]},
-  { key: "thanks", playerText: "Thanks, that's sweet!", anonReplies: {
-    default: { text: "Of course! Just being honest. I'll let you get back to it for now." },
-    spicy: { text: "Anytime. You can ping me whenever you want." }
-  }, endConversation: true},
-  { key: "who", playerText: "Who is this?", anonReplies: {
-    default: { text: "Just someone who appreciates your content. We could stay strangers or... we could get to know each other. Up to you." },
-    spicy: { text: "Someone who definitely appreciates what you're putting out there. Maybe we could trade pics sometime? No pressure, just saying." }
-  }, nextReplyKeys: ["hi", "vibe"]},
-  { key: "vibe", playerText: "Just chilling. You?", anonReplies: {
-    default: { text: "Same here. Want to swap numbers?" },
-    spicy: { text: "Same here. Want to swap numbers?" }
-  }, nextReplyKeys: ["swap_yes", "swap_later"]},
-  { key: "busy", playerText: "Bit busy right now.", anonReplies: {
-    default: { text: "No worries. Text me when you're free." },
-    spicy: { text: "No stress. Text me later then." }
-  }, endConversation: true},
-  { key: "swap_yes", playerText: "Yeah, let's swap numbers.", anonReplies: {
-    default: { text: "Perfect. Hit \"Give number\" and I'll add you." },
-    spicy: { text: "Perfect. Hit \"Give number\" and I'll add you." }
-  }, endConversation: true},
-  { key: "swap_later", playerText: "Maybe later.", anonReplies: {
-    default: { text: "All good. I'll be around." },
-    spicy: { text: "All good. I'll be around." }
-  }, endConversation: true}
-]>>
-
+/* Legacy quick-reply keys (only for explicit non-scenario fallback mode) */
 <<set setup.fotogramDMStartReplyKeys = ["hi", "thanks", "who"]>>
 
-<<run setup.fotogramDMPhotoPool = {
-  spicy: { white: [], black: [], tan: [] },
-  default: { white: [], black: [], tan: [] }
-}>>
-/* Add paths: setup.fotogramDMPhotoPool.spicy.white.push("assets/content/phone/dm/...webp") */
-
-<<set setup.fotogramAnonCharPool = []>>
-/* charId listesi – DM olarak görünebilecek karakterler. "numara ver" ile promote edilir. */
-
-<<run setup.fotogramAnonCharConfig = {}>>
-/* Karaktere özel config. fotogramAnonCharPool'a eklediğin charId'ler için:
-   setup.fotogramAnonCharConfig["lily"] = {
-     skinTone: "white",                    // bu anon beyaz
-     firstMessagesByFlag: {
-       default: ["Been watching your posts for a while..."],
-       spicy: ["That last photo... I couldn't help myself."]
-     },
-     quickReplies: {
-       hi: { default: { text: "Hey! Wasn't sure you'd reply." }, spicy: { text: "Hey you ;)", photoPool: true } },
-       who: { default: { text: "Maybe you'll find out someday." } }
-     },
-     photoPool: { spicy: { white: ["assets/content/phone/dm/lily_spicy.webp"] } }
-   };
-   Özel tanım yoksa global mesaj/foto havuzu kullanılır.
-*/

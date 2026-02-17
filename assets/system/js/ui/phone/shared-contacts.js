@@ -104,14 +104,61 @@ function blockPhoneContact(charId, vars) {
     persistPhoneChanges();
 }
 
-function showBlockConfirmModal(name, message, onConfirm) {
+function showPhoneInlineConfirm(options) {
     if (!PhoneAPI) return;
-    var title = 'Block ' + name + '?';
-    var content = '<div class="confirmation-content"><div class="confirmation-icon"><span class="icon icon-block icon-24"></span></div><div class="confirmation-message">' + escapeHtml(message) + '</div><div class="confirmation-actions"><button class="btn" id="block-confirm-no">No</button><button class="btn btn-danger" id="block-confirm-yes">Yes</button></div></div>';
-    var modalHTML = '<div class="overlay overlay-dark modal-overlay active" id="phone-block-confirm-overlay"><div class="modal" style="width: 500px; max-width: 90vw;"><div class="modal-header"><span class="modal-title">' + escapeHtml(title) + '</span><button class="close-btn" id="block-confirm-close"><span class="icon icon-close icon-18"></span></button></div><div class="modal-content">' + content + '</div></div></div>';
-    PhoneAPI.$('body').append(modalHTML);
-    var closeFn = function () { PhoneAPI.$('#phone-block-confirm-overlay').remove(); };
-    PhoneAPI.$('#block-confirm-yes').on('click', function () { if (onConfirm) onConfirm(); closeFn(); });
-    PhoneAPI.$('#block-confirm-no, #block-confirm-close').on('click', closeFn);
-    PhoneAPI.$('#phone-block-confirm-overlay').on('click', function (e) { if (e.target === this) closeFn(); });
+    var opts = options || {};
+    var $root = PhoneAPI.$('#phone-app-view-content');
+    if (!$root.length) return;
+
+    var title = opts.title || 'Confirm';
+    var message = opts.message || '';
+    var iconClass = opts.iconClass || 'icon-block';
+    var cancelLabel = opts.cancelLabel || 'No';
+    var confirmLabel = opts.confirmLabel || 'Yes';
+    var confirmKind = opts.confirmKind || 'danger';
+    var onConfirm = (typeof opts.onConfirm === 'function') ? opts.onConfirm : null;
+
+    $root.find('#phone-inline-confirm-overlay').remove();
+    var html = ''
+        + '<div class="phone-inline-confirm-overlay" id="phone-inline-confirm-overlay">'
+        +   '<div class="phone-inline-confirm-card">'
+        +     '<div class="phone-inline-confirm-header">'
+        +       '<span class="phone-inline-confirm-title">' + escapeHtml(title) + '</span>'
+        +       '<button type="button" class="phone-inline-confirm-close" id="phone-inline-confirm-close" aria-label="Close">'
+        +         '<span class="icon icon-close icon-18"></span>'
+        +       '</button>'
+        +     '</div>'
+        +     '<div class="phone-inline-confirm-content">'
+        +       '<div class="phone-inline-confirm-icon"><span class="icon ' + escapeHtml(iconClass) + ' icon-24"></span></div>'
+        +       '<div class="phone-inline-confirm-message">' + escapeHtml(message) + '</div>'
+        +     '</div>'
+        +     '<div class="phone-inline-confirm-actions">'
+        +       '<button type="button" class="phone-inline-confirm-btn" id="phone-inline-confirm-no">' + escapeHtml(cancelLabel) + '</button>'
+        +       '<button type="button" class="phone-inline-confirm-btn ' + (confirmKind === 'danger' ? 'danger' : 'primary') + '" id="phone-inline-confirm-yes">' + escapeHtml(confirmLabel) + '</button>'
+        +     '</div>'
+        +   '</div>'
+        + '</div>';
+    $root.append(html);
+
+    var closeFn = function () { PhoneAPI.$('#phone-inline-confirm-overlay').remove(); };
+    PhoneAPI.$('#phone-inline-confirm-yes').on('click', function () {
+        if (onConfirm) onConfirm();
+        closeFn();
+    });
+    PhoneAPI.$('#phone-inline-confirm-no, #phone-inline-confirm-close').on('click', closeFn);
+    PhoneAPI.$('#phone-inline-confirm-overlay').on('click', function (e) {
+        if (e.target === this) closeFn();
+    });
 }
+
+function showBlockConfirmModal(name, message, onConfirm) {
+    showPhoneInlineConfirm({
+        title: 'Block ' + name + '?',
+        message: message,
+        iconClass: 'icon-block',
+        confirmKind: 'danger',
+        onConfirm: onConfirm
+    });
+}
+
+window.showPhoneInlineConfirm = showPhoneInlineConfirm;

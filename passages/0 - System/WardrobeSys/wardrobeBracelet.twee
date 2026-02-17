@@ -5,24 +5,4 @@
  */
 
 <<set setup.clothingData = setup.clothingData || {}>>
-<<set setup.clothingData.bracelets = [
-    /* ==========================================
-       DIAMOND DREAMS (StoreJewelry)
-    ========================================== */
-    {
-        id: "bracelet_bangle_silver",
-        name: "Silver Bangle",
-        brand: "Diamond Dreams",
-        desc: "A sleek silver bangle bracelet.",
-        image: "assets/content/clothing/bracalet/DiamondDreams/braceletBangleSilver.webp",
-        looks: 3, quality: "Common", tags: ["casual"], price: 22.00, shopAvailable: true, startOwned: false
-    },
-    {
-        id: "bracelet_charm",
-        name: "Charm Bracelet",
-        brand: "Diamond Dreams",
-        desc: "Silver chain bracelet with various cute charms.",
-        image: "assets/content/clothing/bracalet/DiamondDreams/braceletCharm.webp",
-        looks: 3, quality: "Common", tags: ["casual"], price: 28.00, shopAvailable: true, startOwned: false
-    }
-]>>
+<<set setup.clothingData.bracelets = []>>
