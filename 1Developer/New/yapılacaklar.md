@@ -1,4 +1,4 @@
-
+tubeRuchedWhite @top-vera-mode kalındı
 
 - dinersRuby Check yap.
 - Mirror check.

@@ -221,6 +221,6 @@
 **KayıtID:** sportTankDeepRacerbackBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black deep racerback athletic tank with low back and sports-bra-like coverage paired with dark fitted jeans; rear three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; bold athletic. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous bust wearing a black deep racerback athletic tank with low back and sports-bra-like coverage paired with dark fitted jeans; rear three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; bold athletic. Studio lighting, isolated on pure white background, focus on the top.
 
 ---

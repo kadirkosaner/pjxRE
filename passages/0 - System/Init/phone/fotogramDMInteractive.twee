@@ -1,49 +1,20 @@
 :: fotogramDMInteractive [init nobr]
 /* =============================================================================
-   FOTOGRAM – INTERACTIVE DM CONFIG
+   FOTOGRAM – DM FLOW (from scratch)
+   English, realistic → flirty. Text-only. DAG (no loops).
+   Anon opens; we reply (chill/friendly/boundary); branches forward only.
    ============================================================================= */
-
-/* Scenario selection settings moved to variablesFotogram.twee */
 
 <<run setup.fotogramDMExplicitOverlayPools = {
   male: {
-    dickpic_open: {
-      direct: [
-        "Pants off, cock out, send that dick pic right fucking now.",
-        "I'm done with games. Show me that hard cock, full view, no excuses.",
-        "Stroke it until it's throbbing then snap a pic for me.",
-        "That's mine to look at now. Keep sending more angles.",
-        "You're gonna blue-ball me after getting me this wet? Send it.",
-        "I'm touching myself thinking about it… don't make me finish alone."
-      ],
-      euphemism: [
-        "Bet that dick's begging to be seen. Prove me right or I'm gone.",
-        "Bigger than I thought? Prove it. Dick pic or you're all talk.",
-        "Get that cock nice and hard and hit send, I'm waiting.",
-        "Fuck the mystery, show me that dick dripping already.",
-        "I want to see how hard you get just thinking of me.",
-        "Let me see it pulse for me… please, baby."
-      ]
-    }
+    dickpic_open: { direct: ["cock", "dick", "hard", "cum"], euphemism: ["it", "this", "something for you"] },
+    chat_open: { direct: ["cock", "dick", "cum", "hard"], euphemism: ["it", "this", "something special"] }
   },
   female: {
-    dickpic_open: {
-      direct: [
-        "Cock hard, camera ready. Send or I lose interest.",
-        "Show me every inch of that stiff dick. No mercy.",
-        "Get it up and prove you're worth my attention.",
-        "I'm literally soaked because of you. Don't you dare stop now."
-      ],
-      euphemism: [
-        "You started this fire between my legs. Finish it with your number.",
-        "That dick looks delicious. Gimme digits so I can drool in peace.",
-        "Fuck, that's a nice cock. Keep 'em coming, stud.",
-        "My pussy's throbbing looking at you… don't leave me like this."
-      ]
-    }
+    dickpic_open: { direct: ["pussy", "wet"], euphemism: ["it", "this"] },
+    chat_open: { direct: ["pussy", "wet"], euphemism: ["it", "this"] }
   }
 }>>
-
 <<run setup.fotogramDMRuntimeConfig = {
   text: {
     emptyAnonText: "...",
@@ -53,637 +24,731 @@
     giveNumberButtonText: "Give number",
     blockButtonText: "Block"
   },
-  legacyReplyKeys: ["hi", "thanks", "who", "vibe", "busy", "swap_yes", "swap_later"],
-  swapKeywordHints: ["swap", "number"],
-  explicitOverlayChanceByTone: { male: 0.35, female: 0.24 }
+  legacyReplyKeys: ["hi", "thanks", "who"],
+  swapKeywordHints: ["swap", "number"]
 }>>
 
 <<run setup.fotogramDMScenarioOpeners = {
   default: {
-    pickup_open: {
+    chat_open: {
       male: [
-        "Hey, hope this is not weird. You seem really fun to talk to.",
-        "I have seen your posts for a while and finally wanted to say hi."
+        "Hey, your profile came up and I had to say hi.",
+        "Hi, saw your posts – you seem really cool. Mind if I message?",
+        "Hello! Random message from a stranger, but your feed caught my eye.",
+        "Hey there, just wanted to say your profile stands out. What's your story?",
+        "Hi, was scrolling and your posts caught my attention. What's up?",
+        "Hey, your feed showed up and I got curious. Mind a quick chat?",
+        "Hello, your profile looks interesting. Thought I'd reach out.",
+        "Hi there, saw your content and had to say something. You seem fun."
       ],
       female: [
-        "Okay, I had to DM. Your vibe is honestly addictive.",
-        "Hi babe, your page is elite. Wanted to say that first."
-      ]
-    },
-    praise_open: {
-      male: [
-        "That latest post was gorgeous. You looked incredible there.",
-        "You have a way of making even simple photos feel special."
-      ],
-      female: [
-        "Girl, that post was so good. You looked amazing.",
-        "I love how confident your feed feels. That last one was fire."
-      ]
-    },
-    dickpic_open: {
-      male: [
-        "Not gonna lie, your post got me way too worked up.",
-        "That photo hit hard. I am not even pretending to stay calm."
-      ],
-      female: [
-        "Your post woke up a very bad side of me tonight.",
-        "I was trying to be normal, then I saw your post. Failed."
+        "Hey, your profile came up and I had to say hi.",
+        "Hi, saw your posts – you seem really cool. Mind if I message?",
+        "Hello! Random message from a stranger, but your feed caught my eye.",
+        "Hey there, just wanted to say your profile stands out. What's your story?",
+        "Hi, was scrolling and your posts caught my attention. What's up?",
+        "Hey, your feed showed up and I got curious. Mind a quick chat?",
+        "Hello, your profile looks interesting. Thought I'd reach out.",
+        "Hi there, saw your content and had to say something. You seem fun."
       ]
     }
   },
   spicy: {
-    pickup_open: {
+    chat_open: {
       male: [
-        "I know this is bold, but I really wanted to talk to you.",
-        "You are dangerously attractive. Had to message."
+        "Hey, your profile came up and I had to say hi.",
+        "Hi, saw your posts – you seem really cool. Mind if I message?",
+        "Hello, your feed caught my eye. You seem fun.",
+        "Hey there, your profile stands out. What's your story?",
+        "Hi, your posts got my attention. What's up?",
+        "Hey, had to reach out. You seem interesting."
       ],
       female: [
-        "You are giving troublemaker energy and I am into it.",
-        "This is me shooting my shot because wow."
+        "Hey, your profile came up and I had to say hi.",
+        "Hi, saw your posts – you seem really cool. Mind if I message?",
+        "Hello, your feed caught my eye. You seem fun.",
+        "Hey there, your profile stands out. What's your story?",
+        "Hi, your posts got my attention. What's up?",
+        "Hey, had to reach out. You seem interesting."
       ]
+    }
+  },
+  bikini: {
+    chat_open: {
+      male: [
+        "That bikini post caught my eye. Had to say hi.",
+        "Hi, saw your posts – you seem cool. Mind if I message?",
+        "Hey, your feed showed up. Thought I'd reach out.",
+        "Hello, your profile stands out. What's your story?"
+      ],
+      female: [
+        "That bikini post caught my eye. Had to say hi.",
+        "Hi, saw your posts – you seem cool. Mind if I message?",
+        "Hey, your feed showed up. Thought I'd reach out.",
+        "Hello, your profile stands out. What's your story?"
+      ]
+    }
+  },
+  risky: {
+    chat_open: {
+      male: [
+        "That post was bold. Had to message.",
+        "Hi, your feed caught my eye. You seem fun.",
+        "Hey, saw your content. Mind if I say hi?",
+        "Hello, your profile stands out. What's your story?"
+      ],
+      female: [
+        "That post was bold. Had to message.",
+        "Hi, your feed caught my eye. You seem fun.",
+        "Hey, saw your content. Mind if I say hi?",
+        "Hello, your profile stands out. What's your story?"
+      ]
+    }
+  },
+  hot: {
+    chat_open: {
+      male: [
+        "You're stunning. Had to say hi.",
+        "Hi, saw your posts. You seem really cool. Mind if I message?",
+        "Hey, your feed caught my eye. What's your story?",
+        "Hello, your profile stands out. Had to reach out."
+      ],
+      female: [
+        "You're stunning. Had to say hi.",
+        "Hi, saw your posts. You seem really cool. Mind if I message?",
+        "Hey, your feed caught my eye. What's your story?",
+        "Hello, your profile stands out. Had to reach out."
+      ]
+    }
+  },
+  teasing: {
+    chat_open: {
+      male: [
+        "That tease got me. Had to message.",
+        "Hi, saw your posts. You seem fun. Mind if I say hi?",
+        "Hey, your feed caught my eye. What's your story?",
+        "Hello, your profile stands out. Had to reach out."
+      ],
+      female: [
+        "That tease got me. Had to message.",
+        "Hi, saw your posts. You seem fun. Mind if I say hi?",
+        "Hey, your feed caught my eye. What's your story?",
+        "Hello, your profile stands out. Had to reach out."
+      ]
+    }
+  },
+  /* Anon types 1–6: 1=getoff, 2=objectifier, 3=number_hunter, 4=flirty, 5=praise_fan, 6=unsolicited_sender. Fallback: no byType → default above. */
+  byType: {
+    1: {
+      default: {
+        chat_open: {
+          male: ["Hey. Your feed got me curious. What are you into? Ever share pics?", "Saw your posts. You look like fun. You ever send photos? Wanna chat?", "Hi. Random but you're hot. Mind if I say hi? I'd love to see more of you.", "Your profile stood out. Had to message. What kind of stuff do you post?"],
+          female: ["Hey. Your feed got me curious. What are you into? Ever share pics?", "Saw your posts. You look like fun. You ever send photos? Wanna chat?", "Hi. Random but you're hot. Mind if I say hi? I'd love to see more of you.", "Your profile stood out. Had to message. What kind of stuff do you post?"]
+        }
+      }
     },
-    praise_open: {
-      male: [
-        "That spicy post was unreal. You looked incredible.",
-        "I cannot stop thinking about your last upload."
-      ],
-      female: [
-        "Bestie, that post was illegal levels of hot.",
-        "I literally gasped. You looked insane in that one."
-      ]
+    2: {
+      default: {
+        chat_open: {
+          male: ["You're stunning. Your pics are fire but I want more. Mind if I message?", "Your pics are something else. Got any you don't post? I'm curious.", "Hey. You're really attractive. Had to reach out. Would love to see more.", "Your feed is fire. Any chance you'd send something? What do you do when you're not posting?"],
+          female: ["You're stunning. Your pics are fire but I want more. Mind if I message?", "Your pics are something else. Got any you don't post? I'm curious.", "Hey. You're really attractive. Had to reach out. Would love to see more.", "Your feed is fire. Any chance you'd send something? What do you do when you're not posting?"]
+        }
+      }
     },
-    dickpic_open: {
-      male: [
-        "That post got me hard immediately. Could not stay quiet.",
-        "I am way too turned on after seeing that. Had to DM."
-      ],
-      female: [
-        "You posted that and expected people to behave? Impossible.",
-        "I am not even pretending to be normal after that upload."
-      ]
+    3: {
+      default: {
+        chat_open: {
+          male: ["Hey, your profile came up. Would be cool to chat properly sometime – maybe off here?", "Hi. Saw your posts. You seem fun. Do you ever give your number to people from here?", "Your feed caught my eye. Want to take this to text?", "Hey there. Would love to keep talking – maybe WhatsApp or something?"],
+          female: ["Hey, your profile came up. Would be cool to chat properly sometime – maybe off here?", "Hi. Saw your posts. You seem fun. Do you ever give your number to people from here?", "Your feed caught my eye. Want to take this to text?", "Hey there. Would love to keep talking – maybe WhatsApp or something?"]
+        }
+      }
+    },
+    4: {
+      default: {
+        chat_open: {
+          male: ["Hey. You seem fun. Flirty message incoming – hope that's okay.", "Hi! Your vibe is cute. Mind if I flirt a little?", "Saw your profile and had to say hi. You're my type.", "Hello. You look like you can take a compliment. So here goes – you're gorgeous."],
+          female: ["Hey. You seem fun. Flirty message incoming – hope that's okay.", "Hi! Your vibe is cute. Mind if I flirt a little?", "Saw your profile and had to say hi. You're my type.", "Hello. You look like you can take a compliment. So here goes – you're gorgeous."]
+        }
+      }
+    },
+    5: {
+      default: {
+        chat_open: {
+          male: ["Been following for a bit. Your content is amazing. Had to say hi.", "You're so pretty. I had to message. Hope that's okay.", "Your posts always make my feed better. Just wanted to tell you.", "Hey. Big fan of your vibe. Mind if I say hello?"],
+          female: ["Been following for a bit. Your content is amazing. Had to say hi.", "You're so pretty. I had to message. Hope that's okay.", "Your posts always make my feed better. Just wanted to tell you.", "Hey. Big fan of your vibe. Mind if I say hello?"]
+        }
+      }
+    },
+    6: {
+      default: {
+        chat_open: {
+          male: ["Bold move: I'm messaging you because you're hot. I showed you mine – your call if you want to show me yours.", "Hey. No small talk – you're attractive. Maybe you'll return the favor sometime?", "Your profile. My message. I sent you something – maybe you'll send me something back?", "Hi. Straight up – I'm into you. I showed you mine... your turn?", "There. That's me. Your move.", "Sent you something. No pressure. Your call."],
+          female: ["Bold move: I'm messaging you because you're hot. I showed you mine – your call if you want to show me yours.", "Hey. No small talk – you're attractive. Maybe you'll return the favor sometime?", "Your profile. My message. I sent you something – maybe you'll send me something back?", "Hi. Straight up – I'm into you. I showed you mine... your turn?", "There. That's me. Your move.", "Sent you something. No pressure. Your call."]
+        }
+      }
     }
   }
 }>>
 
 <<run setup.fotogramDMScenarioFlows = {
-  pickup_open: {
-    startNode: "pickup_start",
+  chat_open: {
+    startNode: "chat_start",
     nodes: {
-      pickup_start: {
+      chat_start: {
         choices: [
-          { key: "pickup_friendly", playerText: "Hey, let's keep it normal.", next: "pickup_friendly_1", effects: { trust: 1, control: 1 } },
-          { key: "pickup_flirty", playerText: "You started flirty, keep going.", next: "pickup_flirty_1", effects: { heat: 1 } },
-          { key: "pickup_cold", playerText: "Say your intention clearly.", next: "pickup_cold_1", effects: { control: 1 } }
-        ]
+          { key: "chat_chill", playerText: ["Hey, thanks. Yeah, just scrolling. What's up?", "Thanks! Just browsing. What's up?", "Hey, not much. Just scrolling. You?"], next: "chat_anon_2", effects: { trust: 1 } },
+          { key: "chat_friendly", playerText: ["Hi! Sure, always up for a chat. What made you message?", "Hi! Yeah, I don't mind. What's up?", "Sure, we can chat. What made you reach out?"], next: "chat_anon_2", effects: { trust: 1 } },
+          { key: "chat_boundary", playerText: ["Hi. I'm not really on here to chat much, but thanks.", "Hey. I don't chat much here, but thanks anyway.", "Hi. Not really looking to talk, but thanks."], next: "chat_boundary_exit", effects: { control: 1 } }
+        ],
+        choicesByContext: {
+          receivedDickPic: [
+            { key: "dp_shocked", playerText: ["Whoa okay. Wasn't expecting that.", "Okay that's... bold. First message?", "Um. That's one way to say hi."], next: "chat_anon_2", effects: { control: 1 } },
+            { key: "dp_amused", playerText: ["Haha okay. You don't waste time.", "Bold move. I'll give you that.", "Okay that's... something. You're confident."], next: "chat_anon_2", effects: { heat: 1 } },
+            { key: "dp_notcool", playerText: ["Not cool. I didn't ask for that.", "Yeah no. That's not okay.", "We don't know each other. Not cool."], next: "chat_boundary_exit", effects: { control: 2 } },
+            { key: "dp_block", playerText: ["Blocked.", "Nope. Bye.", "Not happening."], next: "chat_boundary_exit", effects: { control: 2 } },
+            { key: "dp_into_it", playerText: ["Okay. That's... actually not bad.", "Bold. I'm not mad at it.", "You're confident. I can respect that."], next: "chat_anon_2", effects: { heat: 2 } }
+          ]
+        }
       },
-      pickup_friendly_1: {
+      chat_anon_2: {
         anon: {
-          male: ["Fair. I can keep it chill. What are you up to tonight?", "No pressure then. I just wanted to talk to you for real."],
-          female: ["Deal, we keep it chill. But I still like your energy.", "Okay, normal talk first. You seem fun anyway."]
-        },
-        choices: [
-          { key: "pickup_keep_chat", playerText: "How was your day?", next: "pickup_chat_2", effects: { trust: 1 } },
-          { key: "pickup_soft_flirt", playerText: "Maybe a little flirting too.", next: "pickup_flirty_1", effects: { heat: 1, trust: 1 } },
-          { key: "pickup_exit_soft", playerText: "Let's leave it here for today.", next: "pickup_end_soft" }
-        ]
-      },
-      pickup_flirty_1: {
-        anon: {
-          male: ["Good. I was hoping you'd go that route.", "Now we're talking. You like dangerous chats?"],
-          female: ["Knew it. You can play this game too.", "I like this side of you already."]
-        },
-        randomAttachment: { chance: 0.2, pools: ["spicy", "default"] },
-        choices: [
-          { key: "pickup_push_heat", playerText: "Go on, I'm curious.", next: "pickup_heat_2", effects: { heat: 2 } },
-          { key: "pickup_request_pic", playerText: "If that's the case, send something.", next: "pickup_ask_pic", effects: { heat: 2, ghostRisk: 1 } },
-          { key: "pickup_tease_swap", playerText: "Forget this app, you'll see it live one day.", next: "pickup_swap_offer", effects: { trust: 1, swapOpen: true } }
-        ]
-      },
-      pickup_cold_1: {
-        anon: {
-          male: ["Let me be direct: I found you attractive and wanted to talk.", "Okay, honest truth: you really caught my attention."],
-          female: ["Straight answer: I liked you and took my shot.", "Honestly, you really caught my interest."]
-        },
-        choices: [
-          { key: "pickup_resume", playerText: "Alright, let's keep it measured.", next: "pickup_friendly_1", effects: { trust: 1 } },
-          { key: "pickup_hard_stop", playerText: "No, let's not continue.", next: "pickup_end_soft" }
-        ]
-      },
-      pickup_chat_2: {
-        anon: {
-          male: ["Long day, but this chat is improving it.", "Honestly, talking to you feels easy."],
-          female: ["A bit messy day, but this is fun now.", "I did not expect this to become this enjoyable."]
-        },
-        choices: [
-          { key: "pickup_escalate_from_chat", playerText: "If you want, we can heat this up.", next: "pickup_heat_2", effects: { heat: 1 } },
-          { key: "pickup_swap_from_chat", playerText: "If you want, we can move to numbers.", next: "pickup_swap_offer", effects: { trust: 1, swapOpen: true } },
-          { key: "pickup_safe_close", playerText: "That was sweet, we can talk later.", next: "pickup_end_soft" }
-        ]
-      },
-      pickup_heat_2: {
-        anon: {
+          byEffectControl: {
+            high: {
+              male: ["Sorry if that was too much. I'll dial it back. You seem cool though.", "My bad. Fair. Still want to chat?", "Got it. I'll keep it chill. What do you get up to?"],
+              female: ["Sorry if that was too much. I'll dial it back. You seem cool though.", "My bad. Fair. Still want to chat?", "Got it. I'll keep it chill. What do you get up to?"]
+            }
+          },
+          byEffectHeat: {
+            high: {
+              male: ["Glad you're into it. I like your vibe. What do you get up to?", "Nice. You're fun. What's your story?", "I had a feeling. You seem cool. What do you do?"],
+              female: ["Glad you're into it. I like your vibe. What do you get up to?", "Nice. You're fun. What's your story?", "I had a feeling. You seem cool. What do you do?"]
+            }
+          },
+          byPrevChoice: {
+            dp_shocked: {
+              male: ["Sorry, was that too much? I got carried away.", "My bad. I'll dial it back. You seem cool though.", "Fair. I jumped the gun. Still want to chat?"],
+              female: ["Sorry, was that too much? I got carried away.", "My bad. I'll dial it back. You seem cool though.", "Fair. I jumped the gun. Still want to chat?"]
+            },
+            dp_amused: {
+              male: ["Haha. I don't do subtle. You seem fun though. What do you get up to?", "Bold is my brand. You're into it? What's your story?", "I like to make an impression. You seem cool. What do you do?"],
+              female: ["Haha. I don't do subtle. You seem fun though. What do you get up to?", "Bold is my brand. You're into it? What's your story?", "I like to make an impression. You seem cool. What do you do?"]
+            },
+            dp_into_it: {
+              male: ["Glad you're not mad. I like your vibe. What do you get up to?", "Nice. You're fun. What's your story?", "I had a feeling. You seem cool. What do you do?"],
+              female: ["Glad you're not mad. I like your vibe. What do you get up to?", "Nice. You're fun. What's your story?", "I had a feeling. You seem cool. What do you do?"]
+            },
+            chat_chill: {
+              male: ["Cool, just vibes. I get it. You seem fun though. What do you get up to?", "Same energy. You post a lot – do you do that often? You seem chill.", "Fair. Just scrolling. You seem cool. What's your thing?"],
+              female: ["Cool, just vibes. I get it. You seem fun though. What do you get up to?", "Same energy. You post a lot – do you do that often? You seem chill.", "Fair. Just scrolling. You seem cool. What's your thing?"]
+            },
+            chat_friendly: {
+              male: ["Great, I'm glad you're up for it. Saw your feed and wanted to say hi. You seem cool. What do you get up to?", "Nice. I was curious about your profile. You seem fun. What's your story?", "Love that. Your feed caught my eye. You seem interesting. What do you do when you're not posting?"],
+              female: ["Great, I'm glad you're up for it. Saw your feed and wanted to say hi. You seem cool. What do you get up to?", "Nice. I was curious about your profile. You seem fun. What's your story?", "Love that. Your feed caught my eye. You seem interesting. What do you do when you're not posting?"]
+            }
+          },
           male: [
-            "You're making this harder to keep polite.",
-            "I am trying to behave, but you are not helping.",
-            "You keep nudging this into a much dirtier lane.",
-            "At this pace, I am one message away from dropping all filters.",
-            "Damn, you escalate fast 😈",
-            "You're playing with fire and acting innocent, hell no 😂"
+            "Nothing much, just thought you looked interesting. You post a lot – do you do that often? You seem fun.",
+            "Just chilling. Saw your feed and wanted to say hi. You seem cool. What do you get up to?",
+            "Not much. Your profile stood out and I got curious. You seem fun. What's your story?",
+            "Just browsing. Thought you looked interesting. You seem fun. What do you do when you're not posting?",
+            "Chillin. Your feed popped up. You seem cool. What's good?",
+            "Hey. Random but you caught my eye. What do you get up to?"
           ],
           female: [
-            "You're pushing me into dangerous territory.",
-            "At this point, you're asking for trouble.",
-            "You really know how to turn a normal chat into chaos.",
-            "You keep pulling me to the side of me that never behaves.",
-            "Girl, you're messy and I kinda love it 😏",
-            "You really said 'be good' and then sent that energy? wild 💀"
-          ]
-        },
-        randomAttachment: { chance: 0.25, pools: ["default", "spicy"] },
-        choices: [
-          { key: "pickup_more_heat", playerText: "Then don't behave.", next: "pickup_tension_3", effects: { heat: 2, ghostRisk: 1 } },
-          { key: "pickup_swap_now", playerText: "Let's swap numbers and continue there.", next: "pickup_swap_success", requiresSwap: true, effects: { swapOpen: true, trust: 1 } },
-          { key: "pickup_back_to_safe", playerText: "Slow down. Let's keep it chat.", next: "pickup_chat_2", effects: { control: 1 } }
-        ]
-      },
-      pickup_tension_3: {
-        anon: {
-          male: [
-            "You're actually dangerous. I respect it.",
-            "Damn, okay, now I'm fully in this 😮‍💨",
-            "You keep pushing and I'm not gonna pretend I'm calm anymore."
+            "Nothing much, just thought you looked interesting. You post a lot – do you do that often? You seem fun.",
+            "Just chilling. Saw your feed and wanted to say hi. You seem cool. What do you get up to?",
+            "Not much. Your profile stood out and I got curious. You seem fun. What's your story?",
+            "Just browsing. Thought you looked interesting. You seem fun. What do you do when you're not posting?",
+            "Chillin. Your feed popped up. You seem cool. What's good?",
+            "Hey. Random but you caught my eye. What do you get up to?"
           ],
-          female: [
-            "You really know how to drag this into chaos.",
-            "Okayyy, this got spicy real quick 😏",
-            "You're trouble and I walked straight into it."
-          ]
+          byType: {
+            1: { male: ["Just vibes. You seem fun though. What do you get up to? Ever send pics?", "Not much. Your feed got my attention. You into sharing photos or just chatting?", "Chillin. You're hot btw. You ever send stuff to people on here?", "Vibes. Lowkey wanna see more of you. What's your thing?"], female: ["Just vibes. You seem fun though. What do you get up to? Ever send pics?", "Not much. Your feed got my attention. You into sharing photos or just chatting?", "Chillin. You're hot btw. You ever send stuff to people on here?", "Vibes. Lowkey wanna see more of you. What's your thing?"] },
+            2: { male: ["You're really pretty. Your pics are nice but I'd love to see more. Tell me about yourself?", "Your pics are something else. Got any you haven't posted? I'm curious.", "Can't stop looking at your feed. You got anything... private?", "You're stunning. I need more. Seriously."], female: ["You're really pretty. Your pics are nice but I'd love to see more. Tell me about yourself?", "Your pics are something else. Got any you haven't posted? I'm curious.", "Can't stop looking at your feed. You got anything... private?", "You're stunning. I need more. Seriously."] },
+            3: { male: ["Nothing much. Would be cool to chat off here sometime. What do you do?", "Just browsing. You seem fun. You ever swap numbers with people from here?", "Not much. Would love to take this to text. You down?", "Chillin. You seem cool. We should swap numbers."], female: ["Nothing much. Would be cool to chat off here sometime. What do you do?", "Just browsing. You seem fun. You ever swap numbers with people from here?", "Not much. Would love to take this to text. You down?", "Chillin. You seem cool. We should swap numbers."] },
+            4: { male: ["Haha, just thought you looked fun. You seem like you can banter. What's your story?", "Flirty answer: you. What do you get up to?", "You're cute. I'm into it. What's your deal?", "Smooth? Maybe. You're making it easy."], female: ["Haha, just thought you looked fun. You seem like you can banter. What's your story?", "Flirty answer: you. What do you get up to?", "You're cute. I'm into it. What's your deal?", "Smooth? Maybe. You're making it easy."] },
+            5: { male: ["I've been following for a bit. Your content is great. You seem fun. What's your story?", "Just a fan saying hi. You're really pretty. What do you do?", "Big fan. Had to message. Hope that's okay!", "Your posts are amazing. Had to reach out."], female: ["I've been following for a bit. Your content is great. You seem fun. What's your story?", "Just a fan saying hi. You're really pretty. What do you do?", "Big fan. Had to message. Hope that's okay!", "Your posts are amazing. Had to reach out."] },
+            6: { male: ["Bold answer: you caught my eye. You seem interesting. Maybe you'll send me something back sometime?", "No filter – you're hot. I showed you mine... your call if you want to show me yours.", "Sent you something. Your move.", "There. Now you. Fair's fair."], female: ["Bold answer: you caught my eye. You seem interesting. Maybe you'll send me something back sometime?", "No filter – you're hot. I showed you mine... your call if you want to show me yours.", "Sent you something. Your move.", "There. Now you. Fair's fair."] }
+          }
         },
-        randomAttachment: { chance: 0.28, pools: ["spicy", "default"] },
         choices: [
-          { key: "pickup_tension_pic", playerText: "If it's real, show me.", next: "pickup_ask_pic", effects: { heat: 1, ghostRisk: 1 } },
-          { key: "pickup_tension_swap", playerText: "Move this to number.", next: "pickup_swap_offer", effects: { trust: 1, swapOpen: true } },
-          { key: "pickup_tension_cool", playerText: "Enough. Keep it chill.", next: "pickup_chat_2", effects: { control: 1 } }
-        ]
-      },
-      pickup_ask_pic: {
-        anon: {
-          male: [
-            "You asked for it.",
-            "Fine. You started this.",
-            "No taking this back now.",
-            "You wanted proof, so proof it is.",
-            "Say less. Sending 😏",
-            "You really asked for evidence, huh? alright then 📸"
-          ],
-          female: [
-            "You wanted bold, right?",
-            "Okay, no regrets then.",
-            "You asked in the worst possible way. I like that.",
-            "Say less. You get exactly what you asked for.",
-            "Fine, but don't panic after 😈",
-            "Ask and receive, babe 💅"
+          { key: "chat_stay_chill", playerText: ["Haha, I guess. Just here for the vibes. You?", "Same. Just vibes. What about you?", "I guess so. Just chilling. You?"], next: "chat_anon_3_chill", effects: { trust: 1 } },
+          { key: "chat_lean_in", playerText: ["You're sweet. I like a bit of banter. Keep going.", "You're cute. I'm into it. Keep going.", "I like it. A bit of banter is fun. Go on."], next: "chat_anon_3_flirty", effects: { heat: 1 } },
+          { key: "chat_boundary_2", playerText: ["I'm flattered but not really looking for anything. Thanks though.", "That's sweet but I'm not really looking. Thanks.", "Flattered, but I'll pass. Thanks anyway."], next: "chat_boundary_exit_2", effects: { control: 1 } }
+        ],
+        choicesByContext: {
+          receivedExplicitAttachment: [
+            { key: "ex_shocked", playerText: ["Whoa. Okay.", "That's... a lot.", "I wasn't expecting that."], next: "chat_anon_3_chill", effects: { control: 1 } },
+            { key: "ex_amused", playerText: ["Haha okay. You're bold.", "Bold. I'll give you that.", "Okay that's confident."], next: "chat_anon_3_flirty", effects: { heat: 1 } },
+            { key: "ex_notcool", playerText: ["Not cool. I didn't ask for that.", "Yeah no. That's not okay.", "We're not there. Chill."], next: "chat_boundary_exit_2", effects: { control: 2 } },
+            { key: "ex_into_it", playerText: ["Okay. I see you.", "Bold. I'm not mad at it.", "You're confident. I like it."], next: "chat_anon_3_flirty", effects: { heat: 2 } }
           ]
-        },
-        randomAttachment: { chance: 0.85, pools: ["spicy", "sexting"] },
-        choices: [
-          { key: "pickup_after_pic_praise", playerText: "Hmm... not bad.", next: "pickup_swap_offer", effects: { heat: 1, trust: 1 } },
-          { key: "pickup_after_pic_tease", playerText: "Forget the pic, I'll see it live one day.", next: "pickup_swap_offer", effects: { swapOpen: true, trust: 1 } },
-          { key: "pickup_after_pic_stop", playerText: "Okay, that's enough.", next: "pickup_ghost_delete", effects: { ghostRisk: 2 } }
-        ]
+        }
       },
-      pickup_swap_offer: {
+      chat_boundary_exit: {
         anon: {
-          male: [
-            "Then let's move this to phone. Give me your number.",
-            "Give number and we continue properly.",
-            "This app is limiting. Number and we continue with no brakes.",
-            "Let's move where I can text you directly. Drop your number."
-          ],
-          female: [
-            "Let's take this off-app. Give me your number.",
-            "Number swap and we keep this going.",
-            "This chat is too restricted here. We should move.",
-            "Give your number and I will keep this energy there."
-          ]
-        },
-        flags: { anonAskedSwap: true },
-        choices: [
-          { key: "pickup_swap_yes", playerText: "Okay, I'm giving my number.", next: "pickup_swap_success", requiresSwap: true, effects: { trust: 1, swapOpen: true } },
-          { key: "pickup_swap_later", playerText: "Maybe later.", next: "pickup_end_soft" },
-          { key: "pickup_swap_no", playerText: "No, let's keep it here.", next: "pickup_ghost_delete", effects: { ghostRisk: 2 } }
-        ]
-      },
-      pickup_swap_success: {
-        anon: {
-          male: ["Perfect. I will text you there.", "Good choice. Check your messages soon."],
-          female: ["Nice. I will text you in a minute.", "Perfect, moving there now."]
+          male: ["No worries. If you change your mind, I'm around. You've got a nice vibe, that's all.", "Totally get it. I'll leave you be. Take care.", "No problem. Take care."],
+          female: ["No worries. If you change your mind, I'm around. You've got a nice vibe, that's all.", "Totally get it. I'll leave you be. Take care.", "No problem. Take care."],
+          byType: {
+            1: { male: ["All good. Hit me up if you change your mind."], female: ["All good. Hit me up if you change your mind."] },
+            2: { male: ["No worries. Take care."], female: ["No worries. Take care."] },
+            3: { male: ["Sure. If you ever want to swap numbers, I'm around."], female: ["Sure. If you ever want to swap numbers, I'm around."] },
+            4: { male: ["No problem. You know where to find me if you want to flirt later."], female: ["No problem. You know where to find me if you want to flirt later."] },
+            5: { male: ["Totally get it. Still a fan. Take care."], female: ["Totally get it. Still a fan. Take care."] },
+            6: { male: ["Your loss. Take care."], female: ["Your loss. Take care."] }
+          }
         },
         endConversation: true
       },
-      pickup_ghost_delete: {
+      chat_anon_3_chill: {
         anon: {
-          male: ["Alright then.", "Okay, got it."],
-          female: ["Sure, your call.", "Fine, maybe another time."]
-        },
-        flags: { deletedMessage: true, ghosted: true },
-        endConversation: true
-      },
-      pickup_end_soft: {
-        anon: {
-          male: ["Fair enough. We can talk later.", "No pressure. Ping me when you want."],
-          female: ["All good. We can continue another time.", "No worries, later then."]
-        },
-        endConversation: true
-      }
-    }
-  },
-  praise_open: {
-    startNode: "praise_start",
-    nodes: {
-      praise_start: {
-        choices: [
-          { key: "praise_accept", playerText: "Thank you :)", next: "praise_accept_1", effects: { trust: 1 } },
-          { key: "praise_tease", playerText: "Then don't just look.", next: "praise_tease_1", effects: { heat: 1 } },
-          { key: "praise_bound", playerText: "Let's talk without overdoing it.", next: "praise_bound_1", effects: { control: 1 } }
-        ]
-      },
-      praise_accept_1: {
-        anon: {
-          male: ["You are welcome. You really have presence.", "I mean it. You stand out instantly."],
-          female: ["No joke, your style is magnetic.", "I said what I said. You looked incredible."]
-        },
-        choices: [
-          { key: "praise_keep", playerText: "How long have you been following?", next: "praise_keep_2", effects: { trust: 1 } },
-          { key: "praise_escalate", playerText: "So what else caught your attention?", next: "praise_heat_2", effects: { heat: 1 } },
-          { key: "praise_end", playerText: "You're sweet, talk later.", next: "praise_end_soft" }
-        ]
-      },
-      praise_tease_1: {
-        anon: {
-          male: ["Dangerous line. I like it.", "Now that is the answer I wanted."],
-          female: ["Okayyy, you know exactly what you're doing.", "You are bold. I respect it."]
-        },
-        randomAttachment: { chance: 0.2, pools: ["spicy", "default"] },
-        choices: [
-          { key: "praise_more", playerText: "Keep going, I like it.", next: "praise_heat_2", effects: { heat: 2 } },
-          { key: "praise_pic_req", playerText: "Leave some proof then.", next: "praise_pic_2", effects: { heat: 1, ghostRisk: 1 } },
-          { key: "praise_swap_path", playerText: "Not here, continue on number.", next: "praise_swap_offer", effects: { swapOpen: true, trust: 1 } }
-        ]
-      },
-      praise_bound_1: {
-        anon: {
-          male: ["Fair. I can keep it respectful.", "Understood. Your boundaries, your pace."],
-          female: ["Fair enough, we keep it clean.", "No problem. We can keep this classy."]
-        },
-        choices: [
-          { key: "praise_relax", playerText: "Alright, we can continue.", next: "praise_accept_1", effects: { trust: 1 } },
-          { key: "praise_stop_now", playerText: "Let's close it for today.", next: "praise_end_soft" }
-        ]
-      },
-      praise_keep_2: {
-        anon: {
-          male: ["A while. You always had this effect.", "Long enough to know your feed is addictive."],
-          female: ["Long enough to know when a post is iconic.", "I have been watching your growth for a while."]
-        },
-        choices: [
-          { key: "praise_heat_from_keep", playerText: "Explain the effect a bit more.", next: "praise_heat_2", effects: { heat: 1 } },
-          { key: "praise_swap_from_keep", playerText: "Shall we move to numbers?", next: "praise_swap_offer", effects: { trust: 1, swapOpen: true } },
-          { key: "praise_keep_end", playerText: "Nice chat.", next: "praise_end_soft" }
-        ]
-      },
-      praise_heat_2: {
-        anon: {
+          byPrevChoice: {
+            chat_stay_chill: {
+              male: ["Same, just vibes. Though I can't lie – you're really attractive. Anyway, what do you do when you're not posting?", "Haha, fair. You're really pretty though. What do you get up to normally?", "Vibes. I like it. You're cute though. What do you do for fun?"],
+              female: ["Same, just vibes. Though I can't lie – you're really attractive. Anyway, what do you do when you're not posting?", "Haha, fair. You're really pretty though. What do you get up to normally?", "Vibes. I like it. You're cute though. What do you do for fun?"]
+            }
+          },
           male: [
-            "You're making me lose composure, honestly.",
-            "At this pace, I will say very bad things.",
-            "You keep pushing and I keep dropping my restraint.",
-            "This is getting dirtier than I planned and I am not complaining.",
-            "Damn, your mouth is dangerous 😏",
-            "You're baiting me on purpose and it's working, hell."
+            "Same, just vibes. Though I can't lie – you're really attractive. Anyway, what do you do when you're not posting?",
+            "Haha, fair. You're really pretty though. What do you get up to normally?",
+            "Same here. You're cute though. What do you do for fun?",
+            "Just vibes. You're really attractive. What's your thing besides this?"
           ],
           female: [
-            "You're making this too tempting.",
-            "You are pushing this into dangerous fun.",
-            "You keep feeding the worst side of me.",
-            "At this point, this is one line away from full chaos.",
-            "Girl, you're shameless and I'm here for it 😂",
-            "You keep poking the beast and smiling, that's wild 😈"
-          ]
+            "Same, just vibes. Though I can't lie – you're really attractive. Anyway, what do you do when you're not posting?",
+            "Haha, fair. You're really pretty though. What do you get up to normally?",
+            "Same here. You're cute though. What do you do for fun?",
+            "Just vibes. You're really attractive. What's your thing besides this?"
+          ],
+          byType: {
+            1: { male: ["Same. You're hot though. Ever send pics? I'd love to see more of you."], female: ["Same. You're hot though. Ever send pics? I'd love to see more of you."] },
+            2: { male: ["Just vibes. You're really pretty. Your feed is fire but I want more. Got anything you don't post?"], female: ["Just vibes. You're really pretty. Your feed is fire but I want more. Got anything you don't post?"] },
+            3: { male: ["Same. Would be nice to text sometime. What do you do?"], female: ["Same. Would be nice to text sometime. What do you do?"] },
+            4: { male: ["Haha, same. You're cute. What do you get up to?"], female: ["Haha, same. You're cute. What do you get up to?"] },
+            5: { male: ["Same. You're so pretty though. What do you do when you're not posting?"], female: ["Same. You're so pretty though. What do you do when you're not posting?"] },
+            6: { male: ["Vibes. You're attractive. I showed you mine – maybe you'll return the favor sometime?"], female: ["Vibes. You're attractive. I showed you mine – maybe you'll return the favor sometime?"] }
+          }
         },
-        randomAttachment: { chance: 0.2, pools: ["default", "spicy"] },
         choices: [
-          { key: "praise_heat_pic", playerText: "Show it while you explain those bad things.", next: "praise_tension_3", effects: { heat: 2, ghostRisk: 1 } },
-          { key: "praise_heat_swap", playerText: "Give your number, talk there.", next: "praise_swap_offer", effects: { trust: 1, swapOpen: true } },
-          { key: "praise_heat_slow", playerText: "Slow down a little.", next: "praise_accept_1", effects: { control: 1 } }
-        ]
+          { key: "chat_lean_in_late", playerText: ["I'm down to keep talking. You're not bad yourself.", "Same. You're cute. Let's keep going.", "I'm in. You're not bad. Keep talking."], next: "chat_anon_4_flirty", effects: { heat: 1 } },
+          { key: "chat_cool_off", playerText: ["Let's keep it light for now. Just chatting.", "Let's keep it chill. Just chatting.", "Keeping it light. Just vibes."], next: "chat_anon_4_light", effects: { control: 1 } },
+          { key: "chat_exit_1", playerText: ["This was nice but I'm gonna go. Bye.", "Nice chatting. I'm gonna go. Bye.", "Was fun but I gotta go. Bye."], next: "chat_end_soft" }
+        ],
+        choicesByContext: {
+          receivedExplicitAttachment: [
+            { key: "ex_chill_shocked", playerText: ["Whoa. Okay. Let's... dial it back.", "That's a lot. Can we keep it light?", "I wasn't expecting that. Chill."], next: "chat_anon_4_light", effects: { control: 1 } },
+            { key: "ex_chill_amused", playerText: ["Haha okay. You're something.", "Bold. I see you.", "Okay that's confident. I'm into it."], next: "chat_anon_4_flirty", effects: { heat: 1 } },
+            { key: "ex_chill_notcool", playerText: ["Not cool. I'm out.", "Yeah no. Bye.", "We're not there."], next: "chat_end_soft", effects: { control: 2 } }
+          ]
+        }
       },
-      praise_tension_3: {
+      chat_anon_3_flirty: {
         anon: {
+          byPrevChoice: {
+            chat_lean_in: {
+              male: ["I'm glad you said that. I've been thinking about you since I saw your profile, not gonna lie. Would be fun to get to know you better.", "Love that. I've had my eye on your profile for a bit. Would be nice to talk more.", "You're making this easy. I like it. Let's keep this going."],
+              female: ["I'm glad you said that. I've been thinking about you since I saw your profile, not gonna lie. Would be fun to get to know you better.", "Love that. I've had my eye on your profile for a bit. Would be nice to talk more.", "You're making this easy. I like it. Let's keep this going."]
+            }
+          },
           male: [
-            "You keep this up and I'm done pretending to be decent.",
-            "Okay, wow. You're bold-bold 😮‍💨",
-            "You're pulling a worse side out of me, damn."
+            "I'm glad you said that. I've been thinking about you since I saw your profile, not gonna lie. Would be fun to get to know you better.",
+            "Love that. I've had my eye on your profile for a bit. Would be nice to talk more.",
+            "Glad you're into it. I've been curious about you. Let's keep this going.",
+            "Nice. I've been thinking about you. Would be fun to get to know you.",
+            "You're making this easy. I like it.",
+            "Okay I'm into this. Keep going."
           ],
           female: [
-            "You know exactly how to tease. It's honestly rude 😏",
-            "This is getting reckless and I love it.",
-            "You're giving chaos and confidence at the same time 💅"
-          ]
-        },
-        randomAttachment: { chance: 0.26, pools: ["spicy", "default"] },
-        choices: [
-          { key: "praise_tension_pic", playerText: "Then prove it now.", next: "praise_pic_2", effects: { heat: 1, ghostRisk: 1 } },
-          { key: "praise_tension_swap", playerText: "Take this off-app.", next: "praise_swap_offer", effects: { trust: 1, swapOpen: true } },
-          { key: "praise_tension_calm", playerText: "Keep it flirty, not crazy.", next: "praise_accept_1", effects: { control: 1 } }
-        ]
-      },
-      praise_pic_2: {
-        anon: {
-          male: [
-            "Say less.",
-            "You asked, I deliver.",
-            "No hesitation now.",
-            "You asked for receipts. Here.",
-            "There you go. Don't act shocked now 😏",
-            "Proof dropped. Your turn to talk big 📸"
+            "I'm glad you said that. I've been thinking about you since I saw your profile, not gonna lie. Would be fun to get to know you better.",
+            "Love that. I've had my eye on your profile for a bit. Would be nice to talk more.",
+            "Glad you're into it. I've been curious about you. Let's keep this going.",
+            "Nice. I've been thinking about you. Would be fun to get to know you.",
+            "You're making this easy. I like it.",
+            "Okay I'm into this. Keep going."
           ],
-          female: [
-            "You really wanted proof, huh?",
-            "Fine, but this stays between us.",
-            "You asked with that tone? You were getting it anyway.",
-            "Okay, proof delivered. Your move.",
-            "Sent. Try to behave now 😂",
-            "Don't start what you can't finish, babe 😈"
-          ]
+          byType: {
+            1: { male: ["Glad you're into it. I've been thinking about you. What kind of pics do you like to share? I'd love to see more.", "Nice. You're hot. Send me something when you're in the mood?", "Into it. Lowkey need more of you. You down?"], female: ["Glad you're into it. I've been thinking about you. What kind of pics do you like to share? I'd love to see more.", "Nice. You're hot. Send me something when you're in the mood?", "Into it. Lowkey need more of you. You down?"] },
+            2: { male: ["Love that. You're gorgeous. I can't stop looking at your pics. Send me something sometime?", "You're fire. I need more. Got anything just for me?", "Can't get enough. Seriously. Send me something."], female: ["Love that. You're gorgeous. I can't stop looking at your pics. Send me something sometime?", "You're fire. I need more. Got anything just for me?", "Can't get enough. Seriously. Send me something."] },
+            3: { male: ["Same. Would be cool to take this off here. Want to swap numbers sometime?", "Nice. Let's text. What's your number?", "Down for that. Swap digits?"], female: ["Same. Would be cool to take this off here. Want to swap numbers sometime?", "Nice. Let's text. What's your number?", "Down for that. Swap digits?"] },
+            4: { male: ["Haha, I'm glad you said that. I've had my eye on you. Let's keep flirting.", "You're cute. Keep it coming.", "I like where this is going."], female: ["Haha, I'm glad you said that. I've had my eye on you. Let's keep flirting.", "You're cute. Keep it coming.", "I like where this is going."] },
+            5: { male: ["So glad you replied. I'm a big fan. Would love to get to know you.", "Fan for life. This is great!", "Made my day. Seriously."], female: ["So glad you replied. I'm a big fan. Would love to get to know you.", "Fan for life. This is great!", "Made my day. Seriously."] },
+            6: { male: ["Bold of you. I like it. I showed you mine – your turn? I'm curious what you look like.", "Your move. I sent mine.", "Fair's fair. Send me something."], female: ["Bold of you. I like it. I showed you mine – your turn? I'm curious what you look like.", "Your move. I sent mine.", "Fair's fair. Send me something."] }
+          }
         },
-        randomAttachment: { chance: 0.8, pools: ["spicy", "sexting"] },
         choices: [
-          { key: "praise_pic_swap", playerText: "Alright, let's move to numbers.", next: "praise_swap_offer", effects: { swapOpen: true, trust: 1 } },
-          { key: "praise_pic_tease", playerText: "A pic is not enough, need live.", next: "praise_swap_offer", effects: { swapOpen: true } },
-          { key: "praise_pic_reject", playerText: "No, not my thing.", next: "praise_ghost_delete", effects: { ghostRisk: 2 } }
-        ]
-      },
-      praise_swap_offer: {
-        anon: {
-          male: [
-            "Give me your number and we continue there.",
-            "Off-app is better. Give number.",
-            "Let's move where this can actually breathe.",
-            "Drop your number and I will keep this same tone there."
-          ],
-          female: [
-            "Let's move this to number. Give it and I text you.",
-            "Number swap? This app is too limiting.",
-            "I'd rather continue this where it feels private.",
-            "Give number and I text you right away."
+          { key: "chat_match_flirty", playerText: ["I'm down to keep talking. You're not bad yourself.", "Same. You're cute. Let's keep going.", "I'm into it. You're fun. Keep going."], next: "chat_anon_4_flirty", effects: { heat: 2 } },
+          { key: "chat_playful", playerText: ["Haha, smooth. Okay, I'm curious. What do you want to know?", "Smooth. I'm curious. What do you want to know?", "Haha, okay. I'm curious. Your move."], next: "chat_anon_4_flirty", effects: { heat: 1 } },
+          { key: "chat_cool_off_2", playerText: ["Let's keep it light for now. Just chatting.", "Keeping it light. Just vibes.", "Let's keep it chill. Just chatting."], next: "chat_anon_4_light", effects: { control: 1 } },
+          { key: "chat_exit_2", playerText: ["This was nice but I'm gonna go. Bye.", "Nice chatting. Gonna go. Bye.", "Was fun. I'm gonna go. Bye."], next: "chat_end_soft" }
+        ],
+        choicesByContext: {
+          receivedExplicitAttachment: [
+            { key: "ex_flirty_wow", playerText: ["Okay. I see you. I'm not mad.", "Bold. I like it.", "That's... a lot. In a good way."], next: "chat_anon_4_flirty", effects: { heat: 2 } },
+            { key: "ex_flirty_tease", playerText: ["Haha. You don't hold back.", "Confident. I can respect that.", "Okay you're fun. Keep going."], next: "chat_anon_4_flirty", effects: { heat: 1 } },
+            { key: "ex_flirty_chill", playerText: ["Let's dial it back a bit.", "Okay okay. Slow down.", "That's a lot. Let's keep it light."], next: "chat_anon_4_light", effects: { control: 1 } }
           ]
-        },
-        flags: { anonAskedSwap: true },
-        choices: [
-          { key: "praise_swap_yes", playerText: "Okay, I'm giving my number.", next: "praise_swap_success", requiresSwap: true },
-          { key: "praise_swap_maybe", playerText: "Maybe later.", next: "praise_end_soft" },
-          { key: "praise_swap_refuse", playerText: "No, let's keep it here.", next: "praise_ghost_delete", effects: { ghostRisk: 2 } }
-        ]
+        }
       },
-      praise_swap_success: {
+      chat_boundary_exit_2: {
         anon: {
-          male: ["Done. Check your phone.", "Perfect. I am texting now."],
-          female: ["Perfect, I will text in a second.", "Nice. Moving over now."]
+          male: ["Totally get it. I'll leave you be. Take care.", "No worries. Take care.", "All good. Bye."],
+          female: ["Totally get it. I'll leave you be. Take care.", "No worries. Take care.", "All good. Bye."],
+          byType: {
+            1: { male: ["All good. Bye."], female: ["All good. Bye."] },
+            2: { male: ["No worries. Take care."], female: ["No worries. Take care."] },
+            3: { male: ["Sure. Offer stands if you want to swap numbers later."], female: ["Sure. Offer stands if you want to swap numbers later."] },
+            4: { male: ["No problem. Flirt later maybe."], female: ["No problem. Flirt later maybe."] },
+            5: { male: ["Totally get it. Still a fan. Bye."], female: ["Totally get it. Still a fan. Bye."] },
+            6: { male: ["Your call. Bye."], female: ["Your call. Bye."] }
+          }
         },
         endConversation: true
       },
-      praise_ghost_delete: {
+      chat_anon_4_flirty: {
         anon: {
-          male: ["Alright.", "As you wish."],
-          female: ["Okay then.", "Your choice."]
-        },
-        flags: { deletedMessage: true, ghosted: true },
-        endConversation: true
-      },
-      praise_end_soft: {
-        anon: {
-          male: ["All good. Talk later.", "No pressure, another time."],
-          female: ["Sure, later then.", "Fine, we continue another day."]
-        },
-        endConversation: true
-      }
-    }
-  },
-  dickpic_open: {
-    startNode: "dick_start",
-    nodes: {
-      dick_start: {
-        choices: [
-          { key: "dick_shock", playerText: "Are you serious?", next: "dick_shock_1", effects: { control: 1 } },
-          { key: "dick_play", playerText: "If you're this bold, keep going.", next: "dick_play_1", effects: { heat: 2 } },
-          { key: "dick_bound", playerText: "Know your boundaries when you talk.", next: "dick_bound_1", effects: { control: 2 } }
-        ]
-      },
-      dick_shock_1: {
-        anon: {
+          byPrevChoice: {
+            chat_lean_in_late: {
+              male: ["I'm really into this. You're not bad yourself – I mean it. We should keep talking.", "This is great. Glad you're down. Hope we can chat more soon.", "I'm glad we connected. Let's keep this going."],
+              female: ["I'm really into this. You're not bad yourself – I mean it. We should keep talking.", "This is great. Glad you're down. Hope we can chat more soon.", "I'm glad we connected. Let's keep this going."]
+            },
+            chat_match_flirty: {
+              male: ["Same. I'm really into this. We should keep talking.", "This is great. You're fun. Hope we can chat more soon.", "Really enjoying this. Let's talk again."],
+              female: ["Same. I'm really into this. We should keep talking.", "This is great. You're fun. Hope we can chat more soon.", "Really enjoying this. Let's talk again."]
+            },
+            chat_playful: {
+              male: ["Haha, okay. I'm curious about you. We should keep talking.", "Smooth? Maybe. You're making it easy. Hope we can chat more soon.", "I like where this is going. Let's keep this going."],
+              female: ["Haha, okay. I'm curious about you. We should keep talking.", "Smooth? Maybe. You're making it easy. Hope we can chat more soon.", "I like where this is going. Let's keep this going."]
+            }
+          },
           male: [
-            "Yeah. I wanted a real reaction from you.",
-            "I am blunt, no games.",
-            "I prefer raw honesty over fake polite lines.",
-            "You looked like you could handle blunt.",
-            "No fake polite act from me. I came in hot on purpose."
+            "I'm really into this. We should keep talking.",
+            "This is great. Hope we can chat more soon.",
+            "I'm glad we connected. Let's keep this going.",
+            "Really enjoying this. We should talk again."
           ],
           female: [
-            "I said what I said. You got my honest mood.",
-            "Bold opener, yes. Intentional.",
-            "I don't do soft intros when the vibe is like this.",
-            "You wanted direct? This is direct.",
-            "I don't flirt with brakes on. Never did."
-          ]
+            "I'm really into this. We should keep talking.",
+            "This is great. Hope we can chat more soon.",
+            "I'm glad we connected. Let's keep this going.",
+            "Really enjoying this. We should talk again."
+          ],
+          byType: {
+            1: { male: ["Send me something. I'm into you. I need to see more.", "I'm not gonna stop asking. Send me a pic. Just one."], female: ["Send me something. I'm into you. I need to see more.", "I'm not gonna stop asking. Send me a pic. Just one."] },
+            2: { male: ["You're amazing. Send me something. I need it. Just for me.", "I can't stop thinking about you. Send me a pic. Come on."], female: ["You're amazing. Send me something. I need it. Just for me.", "I can't stop thinking about you. Send me a pic. Come on."] },
+            3: { male: ["Give me your number. I want to talk properly. What is it?", "I need your number. Come on. Let's take this to text."], female: ["Give me your number. I want to talk properly. What is it?", "I need your number. Come on. Let's take this to text."] },
+            4: { male: ["I'm really into this. Keep flirting with me."], female: ["I'm really into this. Keep flirting with me."] },
+            5: { male: ["So glad we connected. I'm a fan. Let's keep talking."], female: ["So glad we connected. I'm a fan. Let's keep talking."] },
+            6: { male: ["I showed you mine. Your turn. Send me a pic. Now.", "Fair's fair. Don't make me beg. Send me something."], female: ["I showed you mine. Your turn. Send me a pic. Now.", "Fair's fair. Don't make me beg. Send me something."] }
+          }
         },
-        randomAttachment: { chance: 0.4, pools: ["default", "spicy", "sexting"] },
         choices: [
-          { key: "dick_shock_flirt", playerText: "If you got a reaction, convince me now.", next: "dick_play_1", effects: { heat: 1, trust: 1 } },
-          { key: "dick_shock_end", playerText: "That's too much for me.", next: "dick_end_soft" }
-        ]
+          { key: "chat_continue_flirty", playerText: ["Same. Talk soon?", "Yeah. Talk soon.", "Definitely. Talk later."], next: "chat_anon_5_more", effects: { heat: 1 } },
+          { key: "chat_deepen", playerText: ["I'm really enjoying this. Tell me more about you.", "Same. What do you do for fun?", "Me too. What's your story?"], next: "chat_anon_5_deepen", effects: { heat: 1, trust: 1 } },
+          { key: "chat_exit_flirty", playerText: ["This was fun. Bye for now.", "Fun chatting. Bye.", "Had fun. Bye for now."], next: "chat_end_soft" }
+        ],
+        choicesByContext: {
+          receivedExplicitAttachment: [
+            { key: "ex_hot_into", playerText: ["Okay. I'm into this.", "That's hot. Keep going.", "I see you. I like it."], next: "chat_anon_5_more", effects: { heat: 2 } },
+            { key: "ex_hot_tease", playerText: ["Bold. You're something else.", "Confident. I'm here for it.", "Okay you've got my attention."], next: "chat_anon_5_deepen", effects: { heat: 1 } },
+            { key: "ex_hot_chill", playerText: ["Let's slow down a bit.", "That's a lot. Dial it back?", "Okay okay. Easy."], next: "chat_end_soft", effects: { control: 1 } }
+          ]
+        }
       },
-      dick_play_1: {
+      chat_anon_5_deepen: {
         anon: {
           male: [
-            "Good. Tell me what you want next.",
-            "I can be worse if you want.",
-            "You're opening that door and I am stepping through it.",
-            "Say the word and I stop playing nice.",
-            "Damn, finally someone who can handle this vibe 😮‍💨",
-            "You keep talking like that and this gets messy fast.",
-            "You keep pushing buttons like you want trouble on purpose.",
-            "Bet it's already half-hard. Show me the proof.",
-            "Give it a few slow strokes then send the result.",
-            "You're not gonna leave me soaked and empty-handed, right?",
-            "I'm dying to see how you look when you're turned on."
+            "I work in tech, nothing exciting. But I love hiking and good food. You?",
+            "Nothing crazy – I'm into photography, travel when I can. What about you?",
+            "I'm pretty boring honestly – gym, movies, cooking. You seem more interesting."
           ],
           female: [
-            "Now we are talking.",
-            "Say one word and I push further.",
-            "This is the tone I wanted from you.",
-            "You keep feeding this and I keep escalating.",
-            "You really woke up and chose chaos today 😏",
-            "Talk slick again and I go full demon mode 😂",
-            "Keep that mouth going and I will drag this way past safe.",
-            "Show me how hard I can make you from text alone.",
-            "I'm getting so wet just imagining it. Let me see."
-          ]
+            "I work in tech, nothing exciting. But I love hiking and good food. You?",
+            "Nothing crazy – I'm into photography, travel when I can. What about you?",
+            "I'm pretty boring honestly – gym, movies, cooking. You seem more interesting."
+          ],
+          byType: {
+            1: { male: ["Not much. I like to have fun though. You?", "Work, gym, you know. You?"], female: ["Not much. I like to have fun though. You?", "Work, gym, you know. You?"] },
+            2: { male: ["I like beautiful things. You're one of them. What do you do?", "Nothing as interesting as your feed. You?"], female: ["I like beautiful things. You're one of them. What do you do?", "Nothing as interesting as your feed. You?"] },
+            3: { male: ["I'm in sales. Always on my phone. You?", "Busy life but I make time for people I like. You?"], female: ["I'm in sales. Always on my phone. You?", "Busy life but I make time for people I like. You?"] },
+            4: { male: ["I keep it fun. Music, nights out. You?", "I'm a bit of a flirt, I'll admit. You?"], female: ["I keep it fun. Music, nights out. You?", "I'm a bit of a flirt, I'll admit. You?"] },
+            5: { male: ["Just a regular guy who appreciates good content. You?", "I follow a lot of creators. You're one of my favorites. You?"], female: ["Just a regular guy who appreciates good content. You?", "I follow a lot of creators. You're one of my favorites. You?"] },
+            6: { male: ["I'm direct. You saw that. What about you?", "I don't do small talk well. You?"], female: ["I'm direct. You saw that. What about you?", "I don't do small talk well. You?"] }
+          }
         },
-        randomAttachment: { chance: 0.55, pools: ["default", "spicy", "sexting"] },
         choices: [
-          { key: "dick_pic_now", playerText: "Then send something.", next: "dick_tension_3", effects: { heat: 2, ghostRisk: 1 } },
-          { key: "dick_swap_tease", playerText: "Forget the pic, I'll see it live one day.", next: "dick_swap_offer", effects: { swapOpen: true, trust: 1 } },
-          { key: "dick_slow", playerText: "You're going too fast.", next: "dick_bound_1", effects: { control: 1 } }
+          { key: "chat_share_back", playerText: ["I'm into that too. We should talk more.", "Same vibe. I like that.", "Cool. Same here. We should talk more."], next: "chat_anon_6_more", effects: { trust: 1 } },
+          { key: "chat_keep_flirty", playerText: ["You sound fun. I like that.", "Nice. I'm into it.", "Okay I'm curious. Keep going."], next: "chat_anon_6_more", effects: { heat: 1 } },
+          { key: "chat_wrap_up", playerText: ["This was nice. Gotta go soon though.", "Fun chat. Maybe talk later?", "Good talking. I'll catch you later."], next: "chat_end_soft" }
         ]
       },
-      dick_tension_3: {
+      chat_anon_6_more: {
         anon: {
           male: [
-            "You're really asking for trouble now.",
-            "Hell, you're not shy at all 😈",
-            "You keep pushing, I keep escalating. That's the deal.",
-            "You're bold as hell. I respect that.",
-            "Get it rock hard and send that full, veiny shot.",
-            "You made me this wet, now finish what you started.",
-            "Is it leaking yet? Prove it with a pic.",
-            "Show me how it jumps when you read my messages."
+            "Yeah, we should. I'm glad we're talking.",
+            "Same. This has been great.",
+            "For sure. Really enjoying this."
           ],
           female: [
-            "You like danger, huh? same.",
-            "Damn, this got filthy quick 😂",
-            "You keep acting brave. I like brave.",
-            "You keep aiming between my thighs with that tone.",
-            "You're making me ache. Send the full hard shot.",
-            "Stroke until precum shows, then send that glistening dick."
-          ]
-        },
-        randomAttachment: { chance: 0.35, pools: ["spicy", "sexting"] },
-        choices: [
-          { key: "dick_tension_pic", playerText: "Stop talking. Send it.", next: "dick_pic_2", effects: { heat: 1, ghostRisk: 1 } },
-          { key: "dick_tension_swap", playerText: "Move to number now.", next: "dick_swap_offer", effects: { trust: 1, swapOpen: true } },
-          { key: "dick_tension_back", playerText: "Keep it under control.", next: "dick_bound_1", effects: { control: 1 } }
-        ]
-      },
-      dick_bound_1: {
-        anon: {
-          male: ["Fair. Your rules then.", "Alright, your pace."],
-          female: ["Okay, I can play by your rules.", "Fine. You lead then."]
-        },
-        choices: [
-          { key: "dick_bound_continue", playerText: "Then continue properly.", next: "dick_controlled_2", effects: { trust: 1 } },
-          { key: "dick_bound_stop", playerText: "That's enough for today.", next: "dick_end_soft" }
-        ]
-      },
-      dick_controlled_2: {
-        anon: {
-          male: [
-            "I can keep it clean-ish, but you're tempting.",
-            "Trying to behave here.",
-            "I can hold back, but only if you stop provoking me.",
-            "I'll be measured, but don't test me too hard."
+            "Yeah, we should. I'm glad we're talking.",
+            "Same. This has been great.",
+            "For sure. Really enjoying this."
           ],
-          female: [
-            "I can be nice... for now.",
-            "You are still dangerous though.",
-            "I'll keep it controlled if you keep it smart.",
-            "I can play calm, but I know where this can go."
-          ]
+          byType: {
+            1: { male: ["Send me something before you go. I'm not gonna let this go.", "Yeah. And send me a pic. I showed you mine. Fair's fair."], female: ["Send me something before you go. I'm not gonna let this go.", "Yeah. And send me a pic. I showed you mine. Fair's fair."] },
+            2: { male: ["Bye. But send me something. I need more of you.", "Hit me up. And send a pic. I'm serious."], female: ["Bye. But send me something. I need more of you.", "Hit me up. And send a pic. I'm serious."] },
+            3: { male: ["Give me your number first. I'm not letting you go without it.", "Text me when you're ready. But I want your number. Come on."], female: ["Give me your number first. I'm not letting you go without it.", "Text me when you're ready. But I want your number. Come on."] },
+            4: { male: ["Same. This was fun. Flirt later."], female: ["Same. This was fun. Flirt later."] },
+            5: { male: ["So glad we talked. Fan for life. Bye."], female: ["So glad we talked. Fan for life. Bye."] },
+            6: { male: ["Send me something. I showed you mine. Don't leave me hanging.", "Your turn. Send me a pic. Offer stands – and I'm not gonna stop asking."], female: ["Send me something. I showed you mine. Don't leave me hanging.", "Your turn. Send me a pic. Offer stands – and I'm not gonna stop asking."] }
+          }
         },
-        randomAttachment: { chance: 0.2, pools: ["default", "spicy"] },
         choices: [
-          { key: "dick_control_heat", playerText: "Make it a little dirtier.", next: "dick_pic_2", effects: { heat: 1 } },
-          { key: "dick_control_swap", playerText: "Let's move to numbers.", next: "dick_swap_offer", effects: { swapOpen: true, trust: 1 } },
-          { key: "dick_control_end", playerText: "That's enough.", next: "dick_end_soft" }
+          { key: "chat_continue_more", playerText: ["Let's keep talking.", "Tell me more.", "I'm still curious."], next: "chat_anon_6_extend", effects: { heat: 1 } },
+          { key: "chat_final_yes", playerText: ["Definitely. Talk soon.", "Yeah. Bye for now.", "Same. Take care."], next: "chat_anon_6b", effects: {} },
+          { key: "chat_final_bye", playerText: ["Bye.", "Take care.", "See you."], next: "chat_end_soft" }
+        ],
+        choicesByContext: {
+          anonPushingForPicsOrNumber: [
+            { key: "chat_push_no", playerText: ["No. Stop asking.", "I said no.", "Drop it."], next: "chat_anon_push_rejected", effects: { control: 1 } },
+            { key: "chat_push_deflect", playerText: ["Maybe later.", "Not now.", "If I want to, I will."], next: "chat_anon_6b", effects: { control: 1 } },
+            { key: "chat_continue_more", playerText: ["Let's keep talking.", "Tell me more.", "I'm still curious."], next: "chat_anon_6_extend", effects: { heat: 1 } }
+          ]
+        }
+      },
+      chat_anon_6_extend: {
+        anon: {
+          male: ["Yeah? What do you want to know?", "Okay. I'm into this too. What's your story?", "Sure. Ask me anything."],
+          female: ["Yeah? What do you want to know?", "Okay. I'm into this too. What's your story?", "Sure. Ask me anything."],
+          byType: {
+            1: { male: ["What do you want to know? And send me something when you're ready.", "Ask away. I'm into you. Show me you're into me too."], female: ["What do you want to know? And send me something when you're ready.", "Ask away. I'm into you. Show me you're into me too."] },
+            2: { male: ["Your turn. What do you want to know? And send me a pic sometime.", "Ask me anything. But I need more of you. Seriously."], female: ["Your turn. What do you want to know? And send me a pic sometime.", "Ask me anything. But I need more of you. Seriously."] },
+            3: { male: ["Sure. What's your number? We can talk properly.", "Ask away. But give me your number first. Come on."], female: ["Sure. What's your number? We can talk properly.", "Ask away. But give me your number first. Come on."] },
+            4: { male: ["Yeah? I like where this is going. What do you want to know?", "Ask me anything. I'm into this."], female: ["Yeah? I like where this is going. What do you want to know?", "Ask me anything. I'm into this."] },
+            5: { male: ["Sure! Fan for life. What do you want to know?", "Ask away. I'm glad we're talking."], female: ["Sure! Fan for life. What do you want to know?", "Ask away. I'm glad we're talking."] },
+            6: { male: ["What do you want to know? And send me something. Fair's fair.", "Ask me. But your turn to send a pic."], female: ["What do you want to know? And send me something. Fair's fair.", "Ask me. But your turn to send a pic."] }
+          }
+        },
+        choices: [
+          { key: "chat_ask_about", playerText: ["What do you do for fun?", "What's your deal?", "What are you into?"], next: "chat_anon_5_deepen", effects: { trust: 1 } },
+          { key: "chat_flirty_response", playerText: ["I like you. Keep going.", "You're fun. Tell me more.", "I'm into this. Your move."], next: "chat_anon_6_more", effects: { heat: 1 } },
+          { key: "chat_final_yes", playerText: ["Definitely. Talk soon.", "Yeah. Bye for now.", "Same. Take care."], next: "chat_anon_6b", effects: {} },
+          { key: "chat_final_bye", playerText: ["Bye.", "Take care.", "See you."], next: "chat_end_soft" }
         ]
       },
-      dick_pic_2: {
+      chat_anon_6b: {
         anon: {
-          male: [
-            "You asked.",
-            "There. Happy now?",
-            "You wanted bold, I gave bold.",
-            "No rewinding this now.",
-            "Boom. Now talk that same energy 😏",
-            "Sent. Don't freeze up now, come on.",
-            "There. Now own what you asked for.",
-            "Cock out, hand off, straight-on pic. Do it.",
-            "That dick belongs to my eyes now. More, closer.",
-            "Fuck yes, that's thick. Send the side view next.",
-            "God I can almost feel it… send another, please.",
-            "No more hiding. Full erection, balls included, now.",
-            "You got me this close… give me your number so I can finish.",
-            "Holy shit that's hot. Digits now or I riot.",
-            "My body's reacting so hard to this… keep feeding me."
-          ],
-          female: [
-            "Your turn to react.",
-            "No take-backs now.",
-            "You asked for fuel and I dropped it.",
-            "Let's see if your words match your reaction.",
-            "Delivered. You still acting tough? 😂",
-            "There. Keep that same mouth now 😈",
-            "I dropped it. Now tell me what that did to you.",
-            "That cock is under my command now. More pics, tighter grip.",
-            "I'm two fingers deep because of you. Number. Now.",
-            "Goddamn that's hot. Swap numbers so I can moan your name.",
-            "My clit's pulsing looking at this… don't stop sending."
-          ]
+          male: ["Same. Really enjoyed this. Take care.", "For sure. This was great. Bye.", "Yeah. Talk soon. Bye for now."],
+          female: ["Same. Really enjoyed this. Take care.", "For sure. This was great. Bye.", "Yeah. Talk soon. Bye for now."],
+          byType: {
+            1: { male: ["Yeah. Later. Maybe send something."], female: ["Yeah. Later. Maybe send something."] },
+            2: { male: ["Definitely. Hit me up if you want to share more."], female: ["Definitely. Hit me up if you want to share more."] },
+            3: { male: ["For sure. Text me when you're ready."], female: ["For sure. Text me when you're ready."] },
+            4: { male: ["Same. Flirt later."], female: ["Same. Flirt later."] },
+            5: { male: ["Fan for life. Bye."], female: ["Fan for life. Bye."] },
+            6: { male: ["Offer stands. Bye."], female: ["Offer stands. Bye."] }
+          }
         },
-        randomAttachment: { chance: 0.9, pools: ["sexting", "spicy"] },
         choices: [
-          { key: "dick_pic_like", playerText: "Hmm. Not bad.", next: "dick_swap_offer", effects: { heat: 1, trust: 1 } },
-          { key: "dick_pic_refuse", playerText: "I didn't actually want this.", next: "dick_ghost_delete", effects: { ghostRisk: 2 } },
-          { key: "dick_pic_tease_swap", playerText: "We'll talk better on number.", next: "dick_swap_offer", effects: { swapOpen: true } }
+          { key: "chat_ok", playerText: ["Bye.", "Take care.", "See you."], next: "chat_anon_7_final" }
         ]
       },
-      dick_swap_offer: {
+      chat_anon_7_final: {
         anon: {
-          male: [
-            "Give me your number. We continue there.",
-            "Off-app. Give number.",
-            "This app kills momentum. Number now.",
-            "Drop it and I text you right away.",
-            "Enough pics. Number. I want to own this dick live.",
-            "You made me drip. Give me your number so I can beg properly.",
-            "This cock deserves voice notes. Drop those digits.",
-            "I need to hear you groan while I look at this. Number?"
-          ],
-          female: [
-            "Let's move this to your number.",
-            "Number swap and we keep going.",
-            "I'd rather continue where this feels private.",
-            "Give number and we keep this exact energy.",
-            "I need that dick in my ear. Give me your fucking number.",
-            "This is too good for text. Drop digits, let's get filthy."
-          ]
-        },
-        flags: { anonAskedSwap: true },
-        choices: [
-          { key: "dick_swap_yes", playerText: "Okay, I'm giving it.", next: "dick_swap_success", requiresSwap: true },
-          { key: "dick_swap_no", playerText: "No.", next: "dick_ghost_delete", effects: { ghostRisk: 2 } },
-          { key: "dick_swap_later", playerText: "Maybe later.", next: "dick_end_soft" }
-        ]
-      },
-      dick_swap_success: {
-        anon: {
-          male: ["Good. I text you now.", "Perfect timing. Check your phone."],
-          female: ["Nice. I will text now.", "Done. Moving there."]
+          male: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
+          female: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
+          byType: {
+            1: { male: ["Yeah. Talk soon. Maybe send me something when you're in the mood."], female: ["Yeah. Talk soon. Maybe send me something when you're in the mood."] },
+            2: { male: ["Definitely. You're great. Hit me up if you ever want to share more."], female: ["Definitely. You're great. Hit me up if you ever want to share more."] },
+            3: { male: ["For sure. Text me when you're ready to swap numbers."], female: ["For sure. Text me when you're ready to swap numbers."] },
+            4: { male: ["Same. This was fun. Flirt later."], female: ["Same. This was fun. Flirt later."] },
+            5: { male: ["So glad we talked. Fan for life. Bye."], female: ["So glad we talked. Fan for life. Bye."] },
+            6: { male: ["Yeah. This was good. Offer stands – send me something if you want. Bye."], female: ["Yeah. This was good. Offer stands – send me something if you want. Bye."] }
+          }
         },
         endConversation: true
       },
-      dick_ghost_delete: {
+      chat_anon_4_light: {
         anon: {
-          male: ["Alright.", "Then we're done."],
-          female: ["Fine.", "Your loss."]
+          male: ["Cool, just vibes. Talk later maybe?", "All good. Maybe another time.", "Nice chatting. Take care."],
+          female: ["Cool, just vibes. Talk later maybe?", "All good. Maybe another time.", "Nice chatting. Take care."],
+          byType: {
+            1: { male: ["Come on. Just one pic? I showed you mine. Fair's fair.", "Don't be like that. Send me something. I'm not gonna stop asking."], female: ["Come on. Just one pic? I showed you mine. Fair's fair.", "Don't be like that. Send me something. I'm not gonna stop asking."] },
+            2: { male: ["You're really gonna leave me hanging? Send me something. Just one.", "Come on. I need more of you. Don't play hard to get."], female: ["You're really gonna leave me hanging? Send me something. Just one.", "Come on. I need more of you. Don't play hard to get."] },
+            3: { male: ["Give me your number. Come on. We can talk properly.", "What's your number? Just give it to me. I'm not gonna let this go."], female: ["Give me your number. Come on. We can talk properly.", "What's your number? Just give it to me. I'm not gonna let this go."] },
+            4: { male: ["Cool. Flirt later maybe."], female: ["Cool. Flirt later maybe."] },
+            5: { male: ["Nice chatting. Still a fan. Bye."], female: ["Nice chatting. Still a fan. Bye."] },
+            6: { male: ["Come on. I showed you mine. Your turn. Send me something.", "Fair's fair. Don't leave me hanging. Just one pic?"], female: ["Come on. I showed you mine. Your turn. Send me something.", "Fair's fair. Don't leave me hanging. Just one pic?"] }
+          }
         },
-        flags: { deletedMessage: true, ghosted: true },
+        choices: [
+          { key: "chat_talk_later", playerText: ["Yeah, maybe. Bye.", "Maybe. Bye.", "Sure. Bye."], next: "chat_end_soft" },
+          { key: "chat_exit_light", playerText: ["Bye.", "Bye for now.", "See you."], next: "chat_end_soft" }
+        ],
+        choicesByContext: {
+          anonPushingForPicsOrNumber: [
+            { key: "chat_push_no", playerText: ["No. I meant it.", "Stop asking.", "I said no."], next: "chat_anon_push_rejected" },
+            { key: "chat_push_deflect", playerText: ["Maybe later. Bye.", "Not now. Bye.", "I'll think about it. Bye."], next: "chat_end_soft" },
+            { key: "chat_talk_later", playerText: ["Yeah, maybe. Bye.", "Maybe. Bye.", "Sure. Bye."], next: "chat_end_soft" }
+          ]
+        }
+      },
+      chat_anon_push_rejected: {
+        anon: {
+          male: ["Alright. Your loss. Bye.", "Fine. Bye.", "Whatever. Take care."],
+          female: ["Alright. Your loss. Bye.", "Fine. Bye.", "Whatever. Take care."],
+          byType: {
+            1: { male: ["Your loss. Hit me up if you change your mind."], female: ["Your loss. Hit me up if you change your mind."] },
+            2: { male: ["Fine. Bye."], female: ["Fine. Bye."] },
+            3: { male: ["Your loss. Offer stands if you change your mind."], female: ["Your loss. Offer stands if you change your mind."] },
+            6: { male: ["Your call. Bye."], female: ["Your call. Bye."] }
+          }
+        },
         endConversation: true
       },
-      dick_end_soft: {
+      chat_anon_5_more: {
         anon: {
-          male: ["Okay, we end here for now.", "No problem. Maybe another night."],
-          female: ["Sure, later then.", "All good, maybe another time."]
+          byPrevChoice: {
+            chat_continue_flirty: {
+              male: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
+              female: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."]
+            }
+          },
+          male: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
+          female: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
+          byType: {
+            1: { male: ["Yeah. Talk soon. Maybe send me something when you're in the mood."], female: ["Yeah. Talk soon. Maybe send me something when you're in the mood."] },
+            2: { male: ["Definitely. You're great. Hit me up if you ever want to share more."], female: ["Definitely. You're great. Hit me up if you ever want to share more."] },
+            3: { male: ["For sure. Text me when you're ready to swap numbers."], female: ["For sure. Text me when you're ready to swap numbers."] },
+            4: { male: ["Same. This was fun. Flirt later."], female: ["Same. This was fun. Flirt later."] },
+            5: { male: ["So glad we talked. Fan for life. Bye."], female: ["So glad we talked. Fan for life. Bye."] },
+            6: { male: ["Yeah. This was good. Offer stands – send me something if you want. Bye."], female: ["Yeah. This was good. Offer stands – send me something if you want. Bye."] }
+          }
+        },
+        endConversation: true
+      },
+      chat_min_continuation: {
+        anon: {
+          male: ["Sure, one more thing – this was nice. What do you get up to when you're not on here?", "Alright. Before we go – you seem cool. What's your thing?", "Cool. Quick question – what do you do for fun?"],
+          female: ["Sure, one more thing – this was nice. What do you get up to when you're not on here?", "Alright. Before we go – you seem cool. What's your thing?", "Cool. Quick question – what do you do for fun?"],
+          byType: {
+            1: { male: ["Alright. Before we go – you ever send pics to people on here? Just curious.", "Quick one – do you ever share pics in DMs? No pressure."], female: ["Alright. Before we go – you ever send pics to people on here? Just curious.", "Quick one – do you ever share pics in DMs? No pressure."] },
+            2: { male: ["Sure. Got any pics you don't post? I'm curious.", "Before we wrap – you got anything you keep private?"], female: ["Sure. Got any pics you don't post? I'm curious.", "Before we wrap – you got anything you keep private?"] },
+            3: { male: ["Cool. Offer stands for numbers. What do you do when you're not on here?", "Same. If you ever want to swap, I'm around. What's your thing?"], female: ["Cool. Offer stands for numbers. What do you do when you're not on here?", "Same. If you ever want to swap, I'm around. What's your thing?"] },
+            4: { male: ["Same. What's your story? Work, hobbies?", "Before we go – you seem fun. What do you get up to?"], female: ["Same. What's your story? Work, hobbies?", "Before we go – you seem fun. What do you get up to?"] },
+            5: { male: ["Glad we talked. What do you do when you're not posting?", "Fan for life. Quick one – what's your thing?"], female: ["Glad we talked. What do you do when you're not posting?", "Fan for life. Quick one – what's your thing?"] },
+            6: { male: ["Your move still stands. What do you do for fun?", "Before we go – what's your story?"], female: ["Your move still stands. What do you do for fun?", "Before we go – what's your story?"] }
+          }
+        },
+        choices: [
+          { key: "chat_min_ok", playerText: ["Not much. Work, hobbies. You?", "Just the usual. You?", "Nothing crazy. What about you?"], next: "chat_min_continuation_2" }
+        ],
+        choicesByContext: {
+          askedAboutPics: [
+            { key: "chat_min_deflect", playerText: ["Nothing crazy. What about you?", "Not really. You?", "Just the usual. You?"], next: "chat_min_continuation_2" },
+            { key: "chat_min_tease", playerText: ["Sometimes. Maybe.", "Maybe. Depends who's asking.", "I could be persuaded. You?"], next: "chat_min_continuation_2" }
+          ],
+          askedAboutNumber: [
+            { key: "chat_min_number_deflect", playerText: ["Not giving my number yet.", "Too early for that.", "Maybe later, not now."], next: "chat_min_continuation_2", effects: { control: 1 } },
+            { key: "chat_min_number_soft", playerText: ["Maybe later if we vibe.", "Let's chat here a bit more first.", "Not yet. Keep talking."], next: "chat_min_continuation_2", effects: { trust: 1 } }
+          ]
+        }
+      },
+      chat_min_continuation_2: {
+        anon: {
+          byPrevChoice: {
+            chat_min_ok: {
+              male: ["Same. Work, gym, you know. You seem cool though. Talk later?", "Haha the usual. Nothing exciting. You seem fun. Take care.", "Same. I like to keep busy. You're cool. Catch you later.", "Alright. No pressure. You're cool though. Talk later maybe?"],
+              female: ["Same. Work, gym, you know. You seem cool though. Talk later?", "Haha the usual. Nothing exciting. You seem fun. Take care.", "Same. I like to keep busy. You're cool. Catch you later.", "Alright. No pressure. You're cool though. Talk later maybe?"],
+              byType: {
+                1: { male: ["Alright. No pressure. You're cool though. Talk later?", "Fair. You seem fun. Catch you later."], female: ["Alright. No pressure. You're cool though. Talk later?", "Fair. You seem fun. Catch you later."] },
+                2: { male: ["Fair. No pressure. You're cool. Take care.", "Alright. You seem fun. Talk later maybe?"], female: ["Fair. No pressure. You're cool. Take care.", "Alright. You seem fun. Talk later maybe?"] },
+                6: { male: ["Alright. Offer stands if you change your mind. Talk later.", "Fair. No pressure. You're cool. Bye."], female: ["Alright. Offer stands if you change your mind. Talk later.", "Fair. No pressure. You're cool. Bye."] }
+              }
+            },
+            chat_min_deflect: {
+              male: ["Fair. No pressure. You're cool though. Talk later?", "Alright. You seem fun. Catch you later."],
+              female: ["Fair. No pressure. You're cool though. Talk later?", "Alright. You seem fun. Catch you later."],
+              byType: {
+                1: { male: ["Come on. Just one? I showed you mine. Fair's fair.", "Don't be shy. Send me something. I'm not gonna stop asking."], female: ["Come on. Just one? I showed you mine. Fair's fair.", "Don't be shy. Send me something. I'm not gonna stop asking."] },
+                2: { male: ["You're really gonna leave me hanging? Just one pic.", "Come on. I need more of you. Don't play hard to get."], female: ["You're really gonna leave me hanging? Just one pic.", "Come on. I need more of you. Don't play hard to get."] },
+                6: { male: ["Offer stands if you change your mind. Bye."], female: ["Offer stands if you change your mind. Bye."] }
+              }
+            },
+            chat_min_tease: {
+              male: ["Ooh. I like that. Talk later maybe? Send me something if you're in the mood.", "Nice. I'm into it. Hit me up when you're ready."],
+              female: ["Ooh. I like that. Talk later maybe? Send me something if you're in the mood.", "Nice. I'm into it. Hit me up when you're ready."],
+              byType: {
+                1: { male: ["I like that. Send me something when you're in the mood. Talk soon."], female: ["I like that. Send me something when you're in the mood. Talk soon."] },
+                2: { male: ["You're fun. I'd love to see more. Talk later."], female: ["You're fun. I'd love to see more. Talk later."] },
+                6: { male: ["Offer stands. Send me something if you want. Bye."], female: ["Offer stands. Send me something if you want. Bye."] }
+              }
+            },
+            chat_min_number_deflect: {
+              male: ["Too early? Fair. But I still want your number later.", "Alright. No pressure for now. We can swap later if you want."],
+              female: ["Too early? Fair. But I still want your number later.", "Alright. No pressure for now. We can swap later if you want."],
+              byType: {
+                3: { male: ["Noted. But I still want your number later. Talk soon?", "Fine for now. We should swap when you're ready."], female: ["Noted. But I still want your number later. Talk soon?", "Fine for now. We should swap when you're ready."] }
+              }
+            },
+            chat_min_number_soft: {
+              male: ["Fair. Let's keep talking here for now.", "Okay. Keep talking to me then. We'll swap later."],
+              female: ["Fair. Let's keep talking here for now.", "Okay. Keep talking to me then. We'll swap later."],
+              byType: {
+                3: { male: ["Deal. Keep talking then. We'll swap numbers later.", "Works for me. But don't disappear - I still want your number."], female: ["Deal. Keep talking then. We'll swap numbers later.", "Works for me. But don't disappear - I still want your number."] }
+              }
+            }
+          },
+          male: ["Same. Well, this was nice. Talk later maybe?", "Cool. Good talking. Take care.", "Alright. Catch you around. Stay cool."],
+          female: ["Same. Well, this was nice. Talk later maybe?", "Cool. Good talking. Take care.", "Alright. Catch you around. Stay cool."],
+          byType: {
+            1: { male: ["Alright. Hit me up if you ever want to chat more. Later.", "Cool. No pressure. Talk later maybe."], female: ["Alright. Hit me up if you ever want to chat more. Later.", "Cool. No pressure. Talk later maybe."] },
+            2: { male: ["Sure. Take care. You're cool.", "Alright. Catch you later. Stay cute."], female: ["Sure. Take care. You're cool.", "Alright. Catch you later. Stay cute."] },
+            3: { male: ["Cool. Text me if you want to swap. Talk soon.", "Offer stands. Hit me up when you're ready. Bye."], female: ["Cool. Text me if you want to swap. Talk soon.", "Offer stands. Hit me up when you're ready. Bye."] },
+            4: { male: ["Same. Flirt later maybe. Bye.", "Cool. Catch you later. Stay fun."], female: ["Same. Flirt later maybe. Bye.", "Cool. Catch you later. Stay fun."] },
+            5: { male: ["Glad we talked. Fan for life. Talk later.", "Nice chatting. Still a fan. Take care."], female: ["Glad we talked. Fan for life. Talk later.", "Nice chatting. Still a fan. Take care."] },
+            6: { male: ["Offer stands if you change your mind. Bye.", "Your move. Take care."], female: ["Offer stands if you change your mind. Bye.", "Your move. Take care."] }
+          }
+        },
+        choices: [
+          { key: "chat_min_ok2", playerText: ["Yeah. Same. Talk later.", "Cool. Take care.", "Alright. See you around."], next: "chat_min_continuation_3" }
+        ],
+        choicesByContext: {
+          anonPushedOnPicsDeflect: [
+            { key: "chat_min_push_no", playerText: ["No. Stop asking.", "I said no.", "Stop."], next: "chat_anon_push_rejected" },
+            { key: "chat_min_push_maybe", playerText: ["Maybe later. Bye.", "Not now. Bye.", "I'll think about it. Bye."], next: "chat_end_soft" },
+            { key: "chat_min_ok2", playerText: ["Yeah. Same. Talk later.", "Cool. Take care.", "Alright. See you around."], next: "chat_min_continuation_3" }
+          ]
+        }
+      },
+      chat_min_continuation_3: {
+        anon: {
+          male: ["Take care. Talk soon maybe.", "Good talking. Catch you later.", "Alright. Bye for now. Stay awesome."],
+          female: ["Take care. Talk soon maybe.", "Good talking. Catch you later.", "Alright. Bye for now. Stay awesome."],
+          byType: {
+            1: { male: ["Later. Hit me up anytime.", "Cool. Bye for now."], female: ["Later. Hit me up anytime.", "Cool. Bye for now."] },
+            2: { male: ["Take care. You're great.", "Bye. Stay cute."], female: ["Take care. You're great.", "Bye. Stay cute."] },
+            3: { male: ["Offer stands. Text me when you're ready.", "Cool. Bye. Talk soon."], female: ["Offer stands. Text me when you're ready.", "Cool. Bye. Talk soon."] },
+            4: { male: ["Bye. Flirt later.", "Catch you. Stay fun."], female: ["Bye. Flirt later.", "Catch you. Stay fun."] },
+            5: { male: ["Bye. Still your fan.", "Talk later. Take care."], female: ["Bye. Still your fan.", "Talk later. Take care."] },
+            6: { male: ["Bye. Take care.", "Later. Your move stands."], female: ["Bye. Take care.", "Later. Your move stands."] }
+          }
+        },
+        choices: [
+          { key: "chat_min_ok3", playerText: ["Bye.", "Take care.", "See you."], next: "chat_end_soft" }
+        ]
+      },
+      chat_end_soft: {
+        anon: {
+          male: ["Maybe catch up another time. Take care.", "No rush, talk later perhaps. Have a good one.", "Bye for now. Stay awesome."],
+          female: ["Maybe catch up another time. Take care.", "No rush, talk later perhaps. Have a good one.", "Bye for now. Stay awesome."],
+          byType: {
+            1: { male: ["Later. Hit me up if you ever want to chat. Take care.", "Cool. No pressure. Talk later maybe."], female: ["Later. Hit me up if you ever want to chat. Take care.", "Cool. No pressure. Talk later maybe."] },
+            2: { male: ["Take care. You're great. Bye.", "Catch you later. Stay cute."], female: ["Take care. You're great. Bye.", "Catch you later. Stay cute."] },
+            3: { male: ["Maybe another time. Offer stands for swapping numbers. Bye.", "Text me when you're ready. Take care."], female: ["Maybe another time. Offer stands for swapping numbers. Bye.", "Text me when you're ready. Take care."] },
+            4: { male: ["Catch you later. Stay cute. Bye.", "Flirt later maybe. Take care."], female: ["Catch you later. Stay cute. Bye.", "Flirt later maybe. Take care."] },
+            5: { male: ["Talk later. Still your fan. Take care.", "Nice chatting. Fan for life. Bye."], female: ["Talk later. Still your fan. Take care.", "Nice chatting. Fan for life. Bye."] },
+            6: { male: ["Bye. Offer stands if you change your mind. Take care.", "Later. Your move. Take care."], female: ["Bye. Offer stands if you change your mind. Take care.", "Later. Your move. Take care."] }
+          }
         },
         endConversation: true
       }
@@ -692,757 +757,45 @@
 }>>
 
 <<run setup.fotogramDMQuickReplies = [
-  { key: "hi", playerText: "Hi! Thanks for the message!", anonReplies: {
-    default: { text: "Oh you actually replied! That made my day. What are you up to today?" },
-    spicy: { text: "Hey you ;) Glad you replied. What are you up to right now?" }
-  }, nextReplyKeys: ["vibe", "busy"]},
-  { key: "thanks", playerText: "Thanks, that's sweet!", anonReplies: {
-    default: { text: "Of course! Just being honest. I'll let you get back to it for now." },
-    spicy: { text: "Anytime. You can ping me whenever you want." }
-  }, endConversation: true},
-  { key: "who", playerText: "Who is this?", anonReplies: {
-    default: { text: "Just someone who appreciates your content. We could stay strangers or... we could get to know each other. Up to you." },
-    spicy: { text: "Someone who definitely appreciates what you're putting out there. Maybe we could trade pics sometime? No pressure, just saying." }
-  }, nextReplyKeys: ["hi", "vibe"]},
-  { key: "vibe", playerText: "Just chilling. You?", anonReplies: {
-    default: { text: "Same here. Want to swap numbers?" },
-    spicy: { text: "Same here. Want to swap numbers?" }
-  }, nextReplyKeys: ["swap_yes", "swap_later"]},
-  { key: "busy", playerText: "Bit busy right now.", anonReplies: {
-    default: { text: "No worries. Text me when you're free." },
-    spicy: { text: "No stress. Text me later then." }
-  }, endConversation: true},
-  { key: "swap_yes", playerText: "Yeah, let's swap numbers.", anonReplies: {
-    default: { text: "Perfect. Hit \"Give number\" and I'll add you." },
-    spicy: { text: "Perfect. Hit \"Give number\" and I'll add you." }
-  }, endConversation: true},
-  { key: "swap_later", playerText: "Maybe later.", anonReplies: {
-    default: { text: "All good. I'll be around." },
-    spicy: { text: "All good. I'll be around." }
-  }, endConversation: true}
+  { key: "hi", playerText: "Hi! Thanks for the message!", anonReplies: { default: { text: "You actually replied! What are you up to?" } }, nextReplyKeys: ["vibe", "busy"]},
+  { key: "thanks", playerText: "Thanks, that's sweet!", anonReplies: { default: { text: "Of course! I'll let you get back to it." } }, endConversation: true},
+  { key: "who", playerText: "Who is this?", anonReplies: { default: { text: "Someone who appreciates your content. We could stay strangers or get to know each other." } }, nextReplyKeys: ["hi", "vibe"]}
 ]>>
-
-/* setup.fotogramDMStartReplyKeys and setup.fotogramDMPhotoPool are defined in variablesFotogram/variablesPhonePhotos */
 
 <<set setup.fotogramAnonCharPool = []>>
 <<run setup.fotogramAnonCharConfig = {}>>
 
-/* ══════════════════════════════════════════════════════════════════════════════
-   INTERACTIVE DM FIRST MESSAGES (by post flag)
-   These are the opening DMs from anonymous followers after a quality post.
-   Player gets reply options (quick replies tree).
-   ══════════════════════════════════════════════════════════════════════════ */
 <<run setup.fotogramDMMessagesByFlag = {
-
-  /* ── DEFAULT ─────────────────────────────────────────────────────────── */
   default: [
-    "Been following for a while and had to reach out. You've got something special.",
-    "Saw your post and couldn't scroll past without saying something. Really nice.",
-    "Your feed keeps showing up and I keep liking. Figured I'd say hi properly.",
-    "Not usually one to DM strangers but you caught my eye. Hope that's okay.",
-    "Just wanted to let you know your content actually brightens my feed. Keep it up.",
-    "Random question – do you ever reply to DMs? Either way, had to tell you you're stunning.",
-    "I know you probably get tons of these but... had to try. You're gorgeous.",
-    "Hey, been a silent follower for a while. Just wanted to say you're really pretty.",
-    "Okay I've liked every single one of your posts. Figured it was time to actually say hi lol.",
-    "Not gonna lie, I made a whole account just to follow you. Worth it.",
-    "I never DM people but your feed is something else. Had to reach out.",
-    "Hey! Just a random admirer passing through. You look amazing btw.",
-    "Your page popped up on my explore and I've been hooked ever since.",
-    "I've been scrolling your feed for the last 20 minutes. No regrets. You're beautiful.",
-    "This is probably weird but I think about your posts way more than I should lol.",
-    "I don't know how to start this so... hi. You're really attractive. That's all.",
-    "Been going back and forth on whether to message you. Fuck it. Hi. You're gorgeous.",
-    "Your latest post made me finally hit that message button. No regrets.",
-    "Sorry if this is random but your content seriously stands out. You're stunning.",
-    "Took me like 3 days to build up the courage to DM you lol. Hi.",
-    "I'm usually just a lurker but something about your feed made me want to talk.",
-    "Hey stranger. Just wanted to say you have an amazing vibe. That's it. Unless you wanna chat 😊",
-    "I keep seeing your posts and every time I think 'I should message her.' So here I am.",
-    "Not sure if you read DMs but I had to shoot my shot. You're incredible.",
-    "Okay this is embarrassing but I've had your page bookmarked for weeks. Hi.",
-    "Something about you makes me want to actually know the person behind the posts.",
-    "I scroll past hundreds of accounts daily. Yours is the only one I stop for.",
-    "Hi! This is my first time DMing someone on here. You made me brave I guess lol.",
-    "I deleted and retyped this message like 5 times. You make me nervous even through a screen.",
-    "Your content is addicting and I mean that in the best way possible.",
-    "Not trying to be creepy, just honest – you're probably the prettiest person on this app.",
-    "Hey. I know this is out of nowhere but life's short and you're beautiful. So... hi.",
-    "I was gonna play it cool and just keep liking posts but nah. Had to say something.",
-    "Something tells me you're even more interesting than your photos. Am I right?",
-    "Your posts always make my day better. Figured you should know that.",
-    "I've been a fan since your first post. Took me this long to actually say it lol.",
-    "I could keep liking from the shadows or I could just tell you directly – you're stunning.",
-    "Real talk, your feed is my guilty pleasure. Had to come clean.",
-    "This is either the best or worst decision I've made today. Either way – hi, you're gorgeous.",
-    "I bet your DMs are flooded but I'm throwing my hat in the ring anyway. Hey beautiful.",
-    "Not gonna write you a whole essay. Just this: you're breathtaking. That's it.",
-    "Hey! Long time follower, first time messager. Is that a word? Anyway, hi 😂",
-    "I showed your page to my friend and he said 'just DM her already.' So here I am.",
-    "Your energy through these photos is magnetic. Had to reach out.",
-    "I wonder if you're as cool in person as you seem online. Something tells me yes.",
-    "Just a dude who thinks you're amazing and finally worked up the nerve to say it.",
-    "I could pretend I have a smooth opening line but honestly I just think you're gorgeous 🤷‍♂️",
-    "Your posts have a way of making me smile. Just wanted you to know.",
-    "I hope this doesn't get lost in your requests. You deserve to hear you're beautiful.",
-    "Hi. I'm bad at this. But you're really pretty. Okay bye. Unless you wanna talk?",
-    "Been debating this DM for a week. Your last post pushed me over the edge. Hi!",
-    "Girl your page is EVERYTHING. Had to tell you personally 💕",
-    "I don't know you but your vibe is immaculate. Wanna chat?",
-    "This is random af but you've been living rent free in my head since I found your page.",
-    "Your feed honestly makes this app worth opening. Just saying.",
-    "Okay I'm nervous lol but here goes – you're really beautiful and I wanted to say hi.",
-    "Not trying to be another random DM but... okay yeah I'm another random DM. But a sincere one.",
-    "I know you don't know me but I feel like I had to reach out. You're captivating.",
-    "I've never had a crush on someone I've never met before. First time for everything I guess.",
-    "Your profile is literally the highlight of my whole feed. Had to tell you.",
-    "Scrolled past your post 3 times and came back each time. That's when I knew I had to message.",
-    "Look, I'll be honest – I'm way too attracted to your content to stay silent anymore.",
-    "If I don't send this now I'll chicken out again so... HI. You're incredible. Okay done.",
-    "My friends would clown me for DMing you but I don't care. You're worth the embarrassment.",
-    "Hey! Just here to respectfully tell you that you occupy space in my brain now. Thanks for that.",
-    "This is probably message #847 in your inbox but I promise mine is the most genuine one 😂",
-    "I stared at your profile pic for way too long before typing this. Don't judge me.",
-    "Most beautiful girl on my timeline and it's not even close. Had to tell you.",
-    "I normally just double-tap and move on but you... you made me open the keyboard.",
-    "You probably won't see this but on the off chance you do – you're absolutely gorgeous.",
-    "Hey! No agenda, no game. Just a person who thinks you're amazing. Hope your day is great.",
-    "Idk what it is about you but I can't NOT message you. It'd be a crime against my heart lol.",
-    "First time I've ever felt compelled to DM someone. You should feel special because I'm terrified 😅",
-    "Sorry this is so random but your energy is so attractive I literally couldn't not say something.",
-    "I told myself I wouldn't simp in DMs this year. You made me break that promise on day 1.",
-    "Your content gives me butterflies and I'm a grown person so that's embarrassing. Hi.",
-    "Just dropping by to say you're stunning. I'll see myself out now. Unless... 😏",
-    "Not sure how to compete with all the other DMs you probably get but... I make great conversation?",
-    "Bestie I HAVE to tell you – your page is giving everything it needs to give. You're gorgeous 💕✨",
-    "Okay girl to girl, you are SO pretty and your feed is goals. Had to say it 💅"
+    "Hey, your profile came up and I had to say hi.",
+    "Hi, saw your posts. You seem really cool. Mind if I message?",
+    "Hello, your feed caught my eye. What's your story?",
+    "Hey there, just wanted to say your profile stands out."
   ],
-
-  /* ── SPICY ───────────────────────────────────────────────────────────── */
   spicy: [
-    "Okay I wasn't going to say anything but... that last one got me. You know exactly what you're doing.",
-    "Had to message. You're incredibly attractive and that post... wow.",
-    "Not gonna lie, I've been thinking about that photo. Had to reach out.",
-    "You're making it really hard to just scroll. Had to say hi.",
-    "That was bold. I like it. Had to message.",
-    "Fuck. That post. I can't get it out of my head.",
-    "I literally dropped everything when I saw that last upload. You're unreal.",
-    "This is your fault. I was minding my business and then YOU posted that.",
-    "I've seen a lot of content on here but yours just hits different. Way different.",
-    "You're dangerous and I think you know it. Had to tell you personally.",
-    "That last post should've come with a warning. I was NOT prepared.",
-    "I don't usually lose my cool over posts but... here I am. In your DMs. Like a fool.",
-    "You posted that and expected people to stay calm? Nah. Not happening.",
-    "I tried to keep scrolling. I really did. But you made it impossible.",
-    "I need you to know that post stopped me dead in my tracks.",
-    "My brain short-circuited when your post showed up. Still recovering tbh.",
-    "How are you even allowed to post stuff like that? Asking for my mental health.",
-    "I showed your post to my friend and he told me to DM you. So blame him. But also, damn.",
-    "That photo lives in my head rent free and I don't want it to move out.",
-    "You're single-handedly ruining my ability to function today. Thanks for that.",
-    "I'm going to be thinking about that post at 3am tonight. Guaranteed.",
-    "You really just wake up and decide to destroy people's composure huh.",
-    "That was the hottest thing I've seen all month. Had to tell you directly.",
-    "If looking at your posts is wrong, I don't wanna be right. Had to message you.",
-    "I tried writing something smooth but your post fried my brain so just... damn girl.",
-    "You've got this effect where every post makes me forget what I was doing.",
-    "I'm not proud of how fast I opened your DMs after that post but here we are.",
-    "My heart rate literally went up from that photo. That's not normal. You're not normal. 🥵",
-    "I keep telling myself 'don't DM her' and then you go and post THAT.",
-    "Respectfully, that post was disrespectful to my self-control.",
-    "I deleted this message 4 times trying to not sound crazy but... you're insanely hot.",
-    "That post just made my whole week. Possibly my whole month.",
-    "How does one person have this much power over a screen? Genuinely asking.",
-    "I was NOT ready to see that when I opened this app. My god.",
-    "You really said 'let me ruin everyone's productivity today' and hit post huh.",
-    "I've never DMed anyone this fast before. You literally broke my record.",
-    "The things going through my mind right now because of your post... I should probably keep to myself 😏",
-    "Okay I'll just say it – that post made me feel things. A lot of things.",
-    "I had to splash cold water on my face before messaging you. Not joking.",
-    "You post like you don't care what people think and it's the hottest thing ever.",
-    "My phone almost caught fire from that post. Not physically but emotionally? Definitely.",
-    "I opened your page to casually browse and now I've been here for 30 minutes. Help.",
-    "You have no idea what your posts do to people. Or maybe you do. Which makes it worse.",
-    "I was scrolling at work and your post almost got me fired. Worth it though.",
-    "That post hit me like a truck and I'm still lying in the road smiling about it.",
-    "I don't even know what to say. That post left me speechless and I still had to DM you.",
-    "Most people post content. You post weapons of mass distraction.",
-    "I'm typing this with one hand because the other one is covering my mouth from gasping.",
-    "Saw that post and immediately thought 'I need to talk to this girl.' So here I am.",
-    "You're not just hot. You're 'I can't focus on anything else for the rest of the day' hot.",
-    "This is probably the thirstiest DM I've ever sent but you literally caused this.",
-    "Every time I think your posts can't get better, you prove me wrong. Stop. Actually don't stop.",
-    "I'm convinced you post these specifically to torture your followers. And it's working.",
-    "I literally gasped. Out loud. In a quiet room. Because of your post. Thanks for that.",
-    "You're the reason I check this app 47 times a day. That's not healthy but I don't care.",
-    "That post is going to be burned into my memory forever. I can feel it.",
-    "I tried to be respectful and stay silent but that last post made it impossible. 🥵",
-    "Bro how do you just casually post shit like that and expect people to be NORMAL???",
-    "You wrecked my whole evening with that post and I'm not even mad about it.",
-    "I'm simping. I know I'm simping. I don't care. That post earned it.",
-    "I literally said 'oh my god' out loud when I saw that. My roommate thinks I'm crazy now.",
-    "If your goal was to make someone DM you within 2 seconds of posting... mission accomplished.",
-    "I can't tell if you're trying to kill me or bless me with these posts. Either way, don't stop.",
-    "That post just became my new religion. I'm a devoted follower now.",
-    "I need to ask – do you KNOW how crazy that post is? Because I need to talk about it.",
-    "I've been starting and deleting this message since you posted. Fuck it. You're incredible.",
-    "Okay I lost the battle. I'm in your DMs. Your post broke my willpower completely.",
-    "Not exaggerating when I say that post changed my brain chemistry.",
-    "I would've messaged sooner but I needed 10 minutes to recover from that photo first.",
-    "This is what they mean when they say a picture is worth a thousand words. All of mine are inappropriate.",
-    "I showed this to my girl and even SHE said I should message you. That's how good it was. 😂",
-    "You posted that knowing damn well what you were doing. Evil genius energy. I love it.",
-    "Bestie WHAT was that post??? I'm a girl and my jaw DROPPED 😩🔥",
-    "Girl to girl... that post was absolutely insane. You're so hot it's unfair 💕",
-    "I'm literally a straight woman and you still managed to make me double-take. QUEEN. 👑",
-    "Okay ma'am you need to RELAX with these posts because some of us are trying to function 😂🥵",
-    "Not me screenshotting your posts and sending them to my group chat like 'look at HER' 🔥💅",
-    "The AUDACITY of that post. Unbelievable. I'm both mad and amazed. Mostly amazed. 😏",
-    "I saw that and my exact words were 'holy shit.' Thought you should know.",
-    "Whoever gets to see this in person... I have never been more jealous of a stranger."
+    "Hey, your profile caught my eye. Had to message.",
+    "Hi, saw your posts. You seem fun. Mind if I say hi?",
+    "Your feed got me curious. What's up?",
+    "Had to reach out. You seem interesting."
   ],
-
-  /* ── BIKINI ──────────────────────────────────────────────────────────── */
   bikini: [
-    "That bikini shot is *chef's kiss*. You look incredible.",
-    "Beach vibes suit you. Had to drop a message.",
-    "You're glowing in that. Seriously stunning.",
-    "Okay that angle? Perfect. Had to say something.",
-    "I was having a normal day and then you posted that beach pic. Day improved by 1000%.",
-    "Is that a real beach or heaven? Hard to tell with you in it.",
-    "I've been staring at that bikini pic for way longer than I should admit.",
-    "That swimsuit was definitely designed with your body in mind.",
-    "I need a vacation but honestly just being on the same beach as you would be enough.",
-    "You in a bikini is genuinely unfair to the rest of the world.",
-    "I didn't think swimwear could break hearts but here we are.",
-    "I saw that beach pic and my brain just went blank. Still trying to recover.",
-    "That photo belongs in a magazine, not on my phone. But I'm glad it's on my phone.",
-    "You make water, sand and a bikini look like a whole damn art exhibit.",
-    "If I saw you at the beach I'd walk into the ocean and never come back. Out of pure shock.",
-    "I've seen a lot of bikini pics on this app. Yours is the one that made me DM someone for the first time.",
-    "You're the kind of person who makes everyone else at the pool feel underdressed.",
-    "That swimsuit is holding on tighter than my will to not DM you. Both are struggling.",
-    "Beach goddess. That's what you are. Not being dramatic, just stating facts.",
-    "How does someone look THAT good in a bikini? Like actually how?",
-    "That photo has me booking flights I can't afford just to find that beach.",
-    "I suddenly understand why people write poetry. That bikini pic is the reason.",
-    "Not trying to be weird but that beach photo literally stopped my heart for a second.",
-    "You in swimwear should be considered a public health hazard. I'm not well after that pic.",
-    "Every beach photo I see after yours is going to be disappointing. You ruined the category.",
-    "I've been trying to find the right words for 20 minutes. All I've got is: holy fucking shit.",
-    "That bikini + your body + that lighting = the most unfair combination ever created.",
-    "I should be working right now but instead I'm staring at your beach pic like an idiot.",
-    "You don't just wear a bikini. You make the bikini feel honored to be on your body.",
-    "If they ever make a 'hottest beach pic of all time' award, you're getting it.",
-    "I thought about being smooth but nah – that bikini photo is insane and you know it.",
-    "I was about to go to sleep and then your beach pic showed up. Sleep cancelled.",
-    "The ocean is right there and you're still the wettest thing in the photo. That sounded wrong. I meant... never mind. 😂",
-    "I keep zooming in on different parts of that photo and every angle is perfect.",
-    "That pic made me feel things I haven't felt since my first crush. Jesus.",
-    "You look like you were born in that bikini. Like nature intended it.",
-    "I don't know what's more breathtaking – the view or you. Wait, yes I do. It's you.",
-    "That swimsuit pic just made me a lifelong follower. Wherever your page goes, I go.",
-    "Most beach pics are boring. Yours just made me forget other beach pics exist.",
-    "I'd drown just for a chance at you giving me CPR. Too much? 😂",
-    "I need you to know that photo is the reason I believe in a higher power now.",
-    "The way the water hits your skin in that pic... I'm going to need a minute.",
-    "I was showing my friend your page and he asked me why I haven't DM'd you yet. Good question.",
-    "I'm seriously considering moving to whatever coastline you're at. Not joking.",
-    "That bikini pic hit so hard I actually put my phone down and said 'wow' to an empty room.",
-    "You could make a trash bag look good but that bikini? That's just unfair.",
-    "Beach content queen. That's the title. Accept it.",
-    "My summer plans just became 'find whatever beach she's at.' That's the whole plan.",
-    "That photo made me question every beach photo I've ever liked before. None of them compare.",
-    "I think the lifeguards would be too distracted to save anyone with you around.",
-    "You and the beach were made for each other. But mostly the beach was made for you.",
-    "I went through your whole feed but that bikini shot is the one that made me DM. You're stunning.",
-    "The amount of self-control it took to not DM you immediately after that post... and I still failed.",
-    "Okay I'm just gonna say it – that beach pic might be the hottest thing on the entire internet right now.",
-    "I bet the sun was jealous of you that day. You outshined it.",
-    "If your goal was to make someone lose their mind with a bikini pic... goal achieved.",
-    "I've drafted this message since that beach post and I've given up trying to be cool. You're insanely hot.",
-    "That bikini pic should be in a museum. The 'things that are too beautiful to exist' wing.",
-    "I was scrolling through bikini season content and yours stopped me dead. Nobody else comes close.",
-    "Girl that beach pic!! You look INCREDIBLE 🔥 I need your workout routine immediately 💪",
-    "Bestie the BIKINI BODY?? You're killing it and I'm so jealous in the best way 😩💕",
-    "Okay I'm a girl and I need to know where you got that swimsuit because it was MADE for you 👙✨",
-    "Beach queen vibes!! You literally look like a Victoria's Secret model and I'm not exaggerating 💅",
-    "OMG that beach pic!!! How are you even real??? You look like a goddess 🔱💕",
-    "I'm screaming at how good you look. SCREAMING. That bikini was designed for your body specifically.",
-    "Drop the diet and workout plan NOW because WHAT 😩🔥",
-    "Girl I gasped. GASPED. That beach photo is everything.",
-    "Not me showing this to all my friends like 'this is what I'm trying to look like' 😂💪",
-    "Bikini goals. Body goals. Everything goals. You're perfect.",
-    "That swimsuit pic just inspired me to go to the gym at 11pm. You're that motivating.",
-    "I've never been more jealous AND impressed at the same time. You ate that up.",
-    "I bet the water temperature went up when you got in. Just saying. 🌡️🔥",
-    "That pic made me feel single, motivated, and inadequate all at once. Impressive range.",
-    "Please never delete that beach pic. Some of us need it for... inspiration. Yeah. Inspiration. 👀",
-    "I was fine with my body until I saw this pic. Now I have goals. Thanks I think."
+    "That post caught my eye. Had to say hi.",
+    "Hi, saw your posts. You seem cool. Mind if I message?",
+    "Hey, your feed showed up. Thought I'd reach out."
   ],
-
-  /* ── RISKY ───────────────────────────────────────────────────────────── */
   risky: [
-    "You've got guts posting that. I'm here for it.",
-    "That's bold. I respect it. And... yeah, I'm into it.",
-    "Wasn't expecting to see that today. In a good way. Had to message.",
-    "That post took serious courage. You've got my attention. And my respect.",
-    "I love that you don't care what people think. That's the hottest thing about you.",
-    "You're braver than 99% of people on this app. And hotter too. Deadly combo.",
-    "That post hit different because most people would never have the nerve. But you did.",
-    "I've been scrolling for years and that's one of the boldest things I've seen. Had to DM you.",
-    "The confidence in that post... I'm not gonna lie, it's incredibly attractive.",
-    "I can tell you're the kind of person who doesn't let anyone tell them what to do. I respect that hard.",
-    "That was a power move and you know it. The whole app is shook. Including me.",
-    "You just set a bar that nobody else is going to reach. That post is legendary.",
-    "I bet half the people on here wish they had your confidence. I know I do.",
-    "That post is either genius or insane and honestly the line between those is what makes it hot.",
-    "You're playing a different game than everyone else on here. Had to acknowledge it.",
-    "Seriously, you posted that and expected me NOT to message you? Impossible.",
-    "I've never respected and been turned on by a post at the same time before. Today's full of firsts.",
-    "That level of boldness deserves a direct message at minimum. So here I am.",
-    "Most people play it safe. You clearly don't. That's why your page stands out.",
-    "I need you to know that post made at least one person audibly gasp today. That person was me.",
-    "Bravery is attractive. And that post? That was the bravest thing on my feed today.",
-    "I was about to close the app and then your post showed up and completely reset my evening.",
-    "You've got a 'fuck the rules' energy that I find genuinely irresistible.",
-    "I don't know if you realize how much courage that took but I see it and I'm impressed.",
-    "That post separated you from literally everyone else I follow. Bold move. Big respect.",
-    "I've been trying to decide if I should DM you since that post. The answer kept being yes.",
-    "You've got balls. Figuratively. And the rest of you is pretty incredible too.",
-    "That was a statement. And the statement was 'I'm not like everyone else.' Heard it loud and clear.",
-    "I scrolled past, came back, scrolled past again, came back again. Then DMed. Your fault.",
-    "People who post safe content bore me. You? You're the opposite of boring.",
-    "The way you just... don't give a fuck. It's the most attractive quality a person can have.",
-    "I think you just became my favorite account. That post sealed it. Permanently.",
-    "You posted that knowing the haters would come. You did it anyway. That's real.",
-    "I've seen plenty of bold content. None of it made me DM someone. Until now.",
-    "I'll be honest – the fact that you posted that without hesitation tells me everything about you. All good things.",
-    "I'm drawn to people who take risks. Your post was a risk. And it paid off. At least with me.",
-    "You've got this 'try and stop me' energy and I'm absolutely here for every second of it.",
-    "If confidence was currency, that post just made you a billionaire.",
-    "I saw that and thought 'that person is different.' I mean that as the highest compliment.",
-    "The guts it takes to post that... I'm genuinely in awe. And also in your DMs apparently.",
-    "You're the kind of person who walks into a room and nobody looks away. I can tell from your posts.",
-    "That was risky and you knew it and you pressed 'share' anyway. That's my kind of person.",
-    "Your feed is like a dare that I can't stop accepting. Keep pushing limits.",
-    "Honest moment – I find bravery way hotter than just looks. You've got both. That's not fair.",
-    "I watched that post divide the comment section and I picked my side. Your side.",
-    "You're turning heads and pissing people off at the same time. That's talent.",
-    "I need you to know that post gained you at least one ride-or-die follower today.",
-    "The people reporting that post are the same people who secretly saved it. You won.",
-    "Girl the BRAVERY 😩 I wish I had half your confidence. You are an icon.",
-    "Okay queen you really went THERE. The balls on this post!! I'm shook and impressed 💅🔥",
-    "I can't stop thinking about the courage it took to post that. You're literally my hero rn.",
-    "NOT everyone could pull this off. YOU can. And you did. And I'm still processing it.",
-    "The boldest person on this app just earned themselves a DM. That's you btw.",
-    "I've followed a lot of accounts but yours is the only one that makes my adrenaline spike. For real.",
-    "I told my friend about your post and she said 'DM HER RIGHT NOW.' So here I am.",
-    "If they delete that post I want you to know it was art and I witnessed it.",
-    "I clicked your profile expecting average. I found a fucking warrior. Respect.",
-    "You don't follow trends. You set them. And that post just set a new one.",
-    "I bet the people who don't like your posts are the ones who wish they had your courage.",
-    "Bold, beautiful, and clearly doesn't give a single fuck. You're the whole package.",
-    "I want to be the kind of person who takes risks like you do. Teach me.",
-    "That post was a middle finger to everyone who plays it safe and I love you for it.",
-    "The internet needs more people like you. Seriously. Unapologetic and real.",
-    "I saved that post before I even finished processing what I was looking at. That's the effect you have.",
-    "You just gained a lifelong follower. Not because of what you showed, but because of what you had the guts to share.",
-    "You're not just pushing boundaries. You're redrawing them. Major respect.",
-    "I normally never DM but that post demanded a response. My response is: you're incredible.",
-    "I was with my friends when your post dropped and we ALL stopped talking. THAT kind of impact.",
-    "You should know – that post is the bravest, hottest thing I've seen all year. Easily.",
-    "Absolute legend behavior. If you ever need someone in your corner, count me in.",
-    "I've been following you quietly but that post made silence impossible. Had to reach out.",
-    "Bestie that post was UNHINGED in the best way possible. I'm literally your biggest fan now 💕",
-    "Girl I'm OBSESSED with your energy. You really don't care and it's SO hot 🔥💅",
-    "The confidence radiating from that post could power a city. I'm genuinely in awe."
+    "That post was bold. Had to message.",
+    "Hi, your feed caught my eye. You seem fun.",
+    "Hey, saw your content. Mind if I say hi?"
   ],
-
-  /* ── HIPS ─────────────────────────────────────────────────────────────── */
-  hips: [
-    "Your curves are unreal. That's all. Had to tell you.",
-    "That angle is doing things. You know what you're doing.",
-    "Had to message about that post. You're stunning.",
-    "I can't stop looking at that photo. Your body is insane.",
-    "The way your hips look in that shot... I had to say something.",
-    "I've been thinking about that picture since I saw it and I couldn't just keep scrolling.",
-    "You have the kind of body that makes people stop mid-scroll. I'm people.",
-    "That waist-to-hip ratio is genuinely ridiculous. In the best way possible.",
-    "I need you to know that photo did something to my brain and it hasn't recovered.",
-    "Your curves just became the highlight of my entire week. Not exaggerating.",
-    "I don't know what filter or angle you used but your body in that shot is UNREAL.",
-    "The way that outfit hugs your hips... I had to DM you. I had no choice.",
-    "I showed that pic to my friend and he literally said 'that's not real.' It is. And I'm here for it.",
-    "You've got the kind of figure that artists used to sculpt statues of. Seriously.",
-    "I've been trying to find something to say that isn't just 'THOSE HIPS' for 10 minutes.",
-    "That silhouette is perfection. I don't use that word often but it applies here.",
-    "I'm usually pretty chill but that photo of your curves broke my composure completely.",
-    "How does a human being have that shape? I'm genuinely asking because it doesn't seem real.",
-    "I keep coming back to that pic. The curve from your waist to your hips is hypnotic.",
-    "If I could only look at one thing for the rest of my life, it would be that photo. No contest.",
-    "That pose was calculated. And it worked. On me. Obviously. Since I'm in your DMs now.",
-    "The hourglass thing isn't just a saying with you. It's a lifestyle. God damn.",
-    "Your hips in that photo could end careers. I'm not being dramatic. Well, maybe a little.",
-    "I was going to play it cool but your body makes playing it cool physically impossible.",
-    "You walk around looking like that every day? How does the world function?",
-    "I don't think you understand the power those curves have. Or maybe you do. That's scarier.",
-    "That photo hit me somewhere deep. Your body is incredible and I needed to tell you directly.",
-    "I've been in a trance since I saw that pic. Your figure is actually mesmerizing.",
-    "The way your body flows from waist to hips to thighs... it's like you were designed by a god who loved curves.",
-    "I know this is forward but I haven't been able to think straight since seeing that photo.",
-    "Your hips literally have gravitational pull. I was scrolling past and got pulled back. Twice.",
-    "I had to put my phone down, breathe, pick it up, and DM you. That's what your body does to people.",
-    "Most people have a 'type.' Mine just became 'your exact body shape.' Thanks for that.",
-    "That pic has been living in my head for 3 days. The curve of your hips is literally haunting me.",
-    "I've never DM'd someone because of their SHAPE before. There's a first time for everything.",
-    "I was fine. Then I saw your hips in that outfit. Now I'm not fine. Hope you're proud.",
-    "You have the kind of curves that make guys walk into poles on the street. Confirmed.",
-    "The way that fabric drapes over your hips... someone needs to have a serious talk with my heart rate.",
-    "I'm a curves person and your curves just became my personal standard. Everyone else is ruined.",
-    "That photo should come with a disclaimer: 'Warning – may cause inability to focus for 24+ hours.'",
-    "I tried to type 'nice photo' but what I actually mean is 'your hips are a religious experience.'",
-    "I'm convinced your body was designed specifically to break people's ability to function. Mission accomplished.",
-    "That outfit + those hips = the most dangerous combination on this entire app.",
-    "Your body does things to my brain that caffeine wishes it could do.",
-    "I'm normally good with words. Then I saw your hips and my vocabulary just... left.",
-    "The way your hips catch the light in that photo... that's not just a photo. That's art.",
-    "I'd write you a sonnet about those curves if I knew how to write sonnets. For now, just: WOW.",
-    "Girl your BODY 😩 the waist the hips the everything!! You are goals!!! 💕",
-    "Okay sis HOW?? That figure is absolutely insane and I need your secrets 💅🔥",
-    "I literally showed this to my boyfriend and told him 'this is what peak looks like' 😂",
-    "As a woman I just need to say – your body is absolutely incredible. Genetics won. 💕✨",
-    "The hourglass is HOURGLASS-ING. Queen behavior. 👑",
-    "I hate being jealous but girl your hips are making it REAL hard to not be 😩💕",
-    "Drop the workout. Drop the diet. Drop everything because I NEED that figure 😂🔥",
-    "I've been working out for months and your hips still make me feel like I haven't started.",
-    "That side profile just ended every other body pic on this app. It's over for everyone else.",
-    "Genuinely speechless. Your curves are something out of a fantasy.",
-    "I don't know how jeans work on your body because that waist-to-hip ratio is uncharted territory.",
-    "I stared at that photo so long my screen dimmed. Then I tapped it back to life. Repeat cycle.",
-    "Not gonna lie – I've gone back to that pic at least 7 times today. And the day isn't over.",
-    "You could literally model for anything. Those curves would sell anything to anyone.",
-    "I think I just developed a new type and it's you. Specifically you. No one else.",
-    "The curve in that photo is mathematically perfect. And I don't even like math.",
-    "I've seen a million posts. That hip photo is the one that finally made me hit 'message.' You win.",
-    "Every time I scroll past your posts I physically cannot keep going. Those hips lock me in.",
-    "I just need you to know... your body is a masterpiece and I respect you and also I'm losing my mind.",
-    "I've written and deleted like 8 messages trying to not sound insane. Just know: your figure is incredible.",
-    "My brain: be normal. My eyes: look at her hips. My fingers: open DMs. Here we are.",
-    "You posted that hip pic and shattered my ability to have a productive day. I blame you entirely.",
-    "If someone drew your figure in an anime, people would say it's unrealistic. But here you are.",
-    "That one photo just cost me 45 minutes of my life and I'd happily give 45 more.",
-    "Your body is a goddamn cheat code and I'm here for every post you make from now until forever.",
-    "I'll be thinking about those hips for the foreseeable future. Thought you should know. 🫠",
-    "That pic broke my feed algorithm because I've liked it so many times. No exaggeration."
-  ],
-
-  /* ── ASS ──────────────────────────────────────────────────────────────── */
-  ass: [
-    "Okay that shot. I had to say something. You're incredible.",
-    "Not even gonna pretend I'm not staring. Had to message.",
-    "That's a work of art. Had to tell you.",
-    "Alright, that ass. I can't not address it. You know what you have.",
-    "I'm in your DMs because of that photo and I'm not ashamed to admit it.",
-    "I stared at that photo way too long before DMing you. No regrets.",
-    "That post was unfair and you know it. My jaw is still on the floor.",
-    "I wasn't going to DM anyone today and then you posted THAT. Plans changed.",
-    "Your ass literally stopped my entire scrolling session. Everything after was a blur.",
-    "I need to be honest – I've looked at that photo about 15 times now.",
-    "I showed this to my friend and his phone almost fell out of his hand. That's the kind of power you have.",
-    "I'm trying to think of something respectful to say but my brain keeps going back to: that ASS though.",
-    "That angle + that lighting + that ass = the most dangerous combo on this whole app.",
-    "You knew exactly what you were doing when you posted that. And it worked. On everyone. Especially me.",
-    "I went through your whole feed but THAT photo is the one that broke me. Had to DM.",
-    "If I could frame a DM conversation this one would start with: your ass is absolutely unbelievable.",
-    "I was going to start with something clever but honestly I've got nothing. Your body is insane.",
-    "That photo has been playing on loop in my brain since I saw it. I should probably talk to you about it.",
-    "Not gonna lie, I zoomed in. Then I zoomed in more. Then I DMed you. It's been a journey.",
-    "I'm a simple person. I see a masterpiece, I DM the artist. That ass is the masterpiece.",
-    "That post should be in a museum. Not even joking. The composition. The subject. All of it.",
-    "How do you just... HAVE that? Like is it genetics? Squats? Witchcraft? Genuinely need to know.",
-    "I saved that photo and I'm not sorry about it. You posted it. I saved it. We both did our part.",
-    "That ass just became my phone wallpaper and I don't even care who sees.",
-    "I keep thinking about that photo at random moments throughout the day. It's a problem. A beautiful problem.",
-    "Respectfully, that ass has ruined my ability to appreciate any other ass ever. Thanks for that.",
-    "I don't usually DM people about their bodies but your ass demanded acknowledgment. It spoke to me.",
-    "My friend saw your post over my shoulder and said 'DM her or I will.' So I'm DMing you before he does.",
-    "I was about to go to sleep and then that photo burned itself into my eyelids. Sleep cancelled.",
-    "You have the kind of ass that makes traffic stop. Not metaphorically. Literally stop.",
-    "I tried writing something smooth but every version just came back to: THAT ASS. So yeah.",
-    "That's not a butt. That's a statement. And the statement is 'I win.' Because you do.",
-    "I need you to know – of all the posts on my entire timeline today, yours is the one that broke me.",
-    "I'm in your DMs at 2am because of that photo. This is where my life has led me. No complaints.",
-    "Your ass in that photo has more gravitational pull than a black hole. Science.",
-    "I've seen plenty of photos on this app. That one made me physically put my hand over my mouth.",
-    "I don't know what you eat or what you do in the gym but PLEASE never stop doing it.",
-    "That back angle just caused a spiritual awakening. I am a changed person.",
-    "I keep telling myself 'don't be that guy who DMs about her ass' but here I am. You made me this.",
-    "I should be doing literally anything else right now but instead I'm here telling you your ass is incredible.",
-    "Every pair of pants you own deserves a medal of honor for the service they provide.",
-    "I lost my train of thought, my composure, and my dignity looking at that pic. All worth it.",
-    "How does someone just casually have an ass like that? Explain. In detail. Please.",
-    "That peach emoji was literally invented for you. I'm convinced of it.",
-    "Your ass just became the gold standard. Everything else is silver at best.",
-    "I'm DMing you because that photo rewired my brain and the new wiring says 'message her immediately.'",
-    "I watched that photo load and each pixel made it worse. In the best possible way.",
-    "If your ass was a stock I'd invest my life savings. Blue chip energy right there.",
-    "That shot was so good I had to DM you AND follow you AND save it. Triple threat.",
-    "Girl that PEACH 🍑 I am SO jealous!! What's your workout?? Spill everything!! 💪",
-    "Okay bestie your booty is GOALS. Like actual literal goals that I'm setting right now 😩💕",
-    "I showed this to my girls and we're all dead. DEAD. You killed us with that photo 💀🔥",
-    "As a woman – your ass is perfection and I mean that with zero jealousy. Okay maybe a little jealousy. 😂",
-    "Queen of squats?? That booty didn't build itself and I NEED the routine 🍑💪",
-    "Girl HOW. Tell me the exercises. Tell me the diet. Tell me EVERYTHING. 😩",
-    "Not me zooming in and showing my gym buddy like 'THIS is what we're training for' 😂🔥",
-    "Your body is insane and that angle was PERFECT. You know what you have and I love it.",
-    "I literally said 'damn' out loud at a restaurant. The waiter looked at me funny. Worth it.",
-    "I've been doing squats for 2 years and I still don't look like that. Teach me your ways.",
-    "That ass is a full-time conversation topic in my friend group now. Congrats I guess? 😂",
-    "Thick in all the right places. I've never been more jealous of someone I've never met.",
-    "I need to know – born with it or built it? Because either way... DAMN.",
-    "Your booty just single-handedly convinced me to renew my gym membership.",
-    "I bet you break the internet every time you wear jeans. Just a guess.",
-    "Most people post ass pics. You posted THE ass pic. There's a difference.",
-    "I'm DMing you purely because my jaw won't close after that photo and I needed to tell someone.",
-    "If your ass was a landmark, it would have its own tourist season.",
-    "I've opened and closed this DM 6 times. But that ass keeps pulling me back in.",
-    "You posted that like it was casual. It was NOT casual. It was an EVENT.",
-    "I'm setting this as my gym motivation. Every squat brings me closer to your level. Maybe.",
-    "That photo is doing more for gym membership signups than any ad campaign ever could.",
-    "Respectfully: 🍑. That's the whole DM. That's all I've got. 🍑🍑🍑.",
-    "Your ass should be classified as a natural wonder. Eighth wonder of the world type shit."
-  ],
-
-  /* ── BOOBS ─────────────────────────────────────────────────────────────── */
-  boobs: [
-    "I tried not to stare at that photo. Failed completely. Had to message you.",
-    "That cleavage shot... I can't even pretend I didn't notice. You're stunning.",
-    "Okay so that top you're wearing is doing WORK. And so are you. Wow.",
-    "I don't know how to say this without being awkward so I'll just say it – you're stacked and beautiful.",
-    "That photo of you... I mean the WHOLE photo is amazing but my eyes keep going to the same place.",
-    "Had to DM you. That photo is living in my head and it's not paying rent.",
-    "I'm usually better at hiding the fact that I'm staring. That photo made it impossible.",
-    "You're beautiful from head to toe but I'd be lying if I said that specific area didn't catch my eye first.",
-    "I was going to say something intellectual about your photo's composition but honestly... your chest is incredible.",
-    "I need to be upfront – that photo made me forget my own name for a second. You're unreal.",
-    "I scrolled past like 50 photos today. Yours is the only one that made me stop AND message.",
-    "You've got the kind of body that makes people walk into lampposts. I'm one of those people now.",
-    "Trying to be respectful but also trying to be honest – your body in that photo is absolutely insane.",
-    "That top is fighting a war it can't win and I'm enjoying every second of the battle.",
-    "I don't usually message people about... specific body parts. But you've made an exception necessary.",
-    "I was NOT ready for that photo. My coffee went everywhere. You owe me a new shirt.",
-    "That photo is the reason I have trust issues with my self-control. You're too much.",
-    "I'm writing this DM while still recovering from that photo. My hands are literally shaking a bit.",
-    "If confidence was visible, yours would be glowing from that photo. Among other things.",
-    "I showed your photo to my buddy and he literally put his phone down and walked away to 'process.' Same.",
-    "Your genetics should win an award. Several awards. A whole ceremony.",
-    "I want to say something smooth but my brain melted about 3 seconds into that photo.",
-    "Not gonna lie, I've been going back to that photo every few hours. It's becoming a ritual.",
-    "That photo broke my ability to think clearly and I blame you entirely.",
-    "I was having a normal evening. Then your photo loaded. Now nothing is normal anymore.",
-    "I don't know what you did to deserve a body like that but thank you for sharing it with the world.",
-    "Your chest in that photo has more power than most world leaders. That's not a joke.",
-    "I stared at that photo so long my screen burned into my retinas. No regrets.",
-    "I need a cold drink, a dark room, and about 20 minutes to recover from that photo.",
-    "I tried to come up with 10 compliments about your personality first but my eyes won't cooperate.",
-    "You know what? I'm just gonna say it. Your tits are incredible. I'm sorry for being blunt but it's true.",
-    "That photo hit me like a punch to the chest. Ironic given what I was looking at.",
-    "I've never DMed someone because I couldn't stop looking at a specific part of a photo before. Firsts.",
-    "I'm convinced you posted that to test the limits of human composure. I failed the test.",
-    "My phone literally felt heavier after loading that photo. Must be the weight of my jaw dropping.",
-    "That top was not designed to contain what you've got. And thank god for that.",
-    "I keep trying to scroll past your photo and my thumb physically won't cooperate.",
-    "You didn't just post a photo. You deployed a weapon. And I'm a casualty.",
-    "I need therapy after that photo. The good kind of therapy. The kind where I just talk about your body.",
-    "I told myself I was going to be mature about this. Then I opened your photo. Maturity gone.",
-    "That photo just moved into first place on my 'posts that broke my brain' list. Congratulations.",
-    "I don't have the vocabulary for what that photo did to me. All words have left the building.",
-    "I'm DMing you at 1am because I can't sleep and it's 100% because of that photo.",
-    "If your body was a song it would be the #1 hit for 47 weeks straight.",
-    "I want to be clever but honestly? Your chest made my brain check out. Just... thank you.",
-    "That photo should have a viewer discretion warning. Not because it's bad. Because it's TOO good.",
-    "I tried to look at the background of your photo. My eyes refused. They know what they want.",
-    "You're built like a damn supermodel and the fact that you just casually post these is insane.",
-    "I showed your pic to my female friend and her exact words were 'those can't be real.' They are. And I'm amazed.",
-    "Girl you are SO blessed 😩 and that top??? PERFECT choice because WOW 🔥💕",
-    "Okay sis I need to know – what bra are you wearing because mine would NEVER hold up like that 😂",
-    "As a fellow woman... I am staring. Respectfully. Okay maybe not respectfully. But staring. 👀💕",
-    "Bestie your chest is INSANE. In the most complimentary way possible. I'm shook. 💅🔥",
-    "I literally said 'oh my god' and my roommate asked if I was okay. I showed her. She understood.",
-    "Girl HOW do you find tops that fit??? Because that one is hanging on by a PRAYER 😂🙏",
-    "Not gonna lie I zoomed in and I'm a girl and I don't even feel bad about it. Those are PERFECT.",
-    "Body goals doesn't even cover it. You're in a different league entirely.",
-    "The confidence to post that is just *chef's kiss*. And the body to back it up is *standing ovation*.",
-    "I'm not usually a DM person but that photo literally forced my hand. You're incredible.",
-    "If that photo doesn't break the internet then the internet is broken already.",
-    "I've gone through this DM 5 times making sure it doesn't sound insane. I give up. You're stunning and your body is unreal.",
-    "I think about that photo at random moments and it makes me smile every time.",
-    "You could literally monetize that body and live like a queen. Not that you should. But you COULD.",
-    "I need a support group for people who've been emotionally damaged by your photos.",
-    "That photo turned my bad day into a great day and I felt like you should know that.",
-    "Every time I think I've seen the best photo on this app, you post something like THAT.",
-    "I need you to understand – that photo has been viewed, saved, and revisited more times than I'll ever admit.",
-    "Girl I can't lie... that photo is fire and you KNOW what you're showing 😏🔥",
-    "Respectfully and disrespectfully at the same time... DAMN. 🥵",
-    "You really woke up and decided to attack all of our timelines with that photo huh.",
-    "My screen cracked from the weight of that photo. Emotionally. Maybe physically too.",
-    "I'm a grown adult and that photo just reduced me to a babbling mess. Congrats."
-  ],
-
-  /* ── HOT ──────────────────────────────────────────────────────────────── */
   hot: [
-    "I don't know how else to put this – you're the hottest person on my feed. Had to say it.",
-    "That photo raised the temperature of my entire apartment. I'm not joking.",
-    "You're gorgeous. Like genuinely, stop-what-you're-doing gorgeous. Had to DM.",
-    "I saw your post and just thought 'I need to message this person.' So here I am.",
-    "You're dangerously attractive and I think someone should tell you that daily.",
-    "If being hot was a job, you'd be CEO. With a corner office. And a raise.",
-    "I don't DM often but that photo made it feel like a legal obligation.",
-    "The amount of heat coming off your posts should be studied by scientists.",
-    "I showed your photo to my friend and he just stared at the screen in silence. That says everything.",
-    "I need to know – are you always this hot or did you put in extra effort for that photo? Because holy shit.",
-    "Most people are attractive in some photos. You're attractive in ALL of them. That's the difference.",
-    "That photo is so hot it could replace my heating system. I'd save thousands.",
-    "I tried to act casual about your post. Couldn't. You're too hot for casual reactions.",
-    "How do you just wake up and be that level of attractive? Genuinely asking.",
-    "You make every other person on this app look average. Sorry to them. Credit to you.",
-    "That photo hit me like a slap of hotness. I'm stunned. And in your DMs. Related events.",
-    "I don't believe in love at first sight but I believe in 'holy shit' at first post. Had one of those.",
-    "I've scrolled through thousands of profiles. Yours is the one that made me stop everything.",
-    "The hotness level of that photo should be measured on the Richter scale.",
-    "I was just trying to unwind and scroll but then YOUR post showed up and now I'm the opposite of relaxed.",
-    "You're not just hot. You're 'I forgot what I was doing before I saw your photo' hot.",
-    "I need to go outside and cool down after looking at your feed. Literally overheating.",
-    "How does one human contain this much attractiveness? Like how? What's the science?",
-    "I was fine before I found your page. Now I'm ruined. Can't look at anyone else the same.",
-    "If your goal was to set my screen on fire, mission accomplished. The smoke alarm went off. Metaphorically.",
-    "I've been meaning to DM you since the first photo I saw. Every new post makes me more sure.",
-    "That photo is so hot I felt it through my phone case.",
-    "You're the kind of attractive that makes other people just give up trying. Nuclear level.",
-    "I don't even know where to start. That photo. Your face. Your body. Everything. ALL of it. Hot.",
-    "I'm pretty sure looking at your photos counts as a workout because my heart rate SPIKES.",
-    "Not being dramatic but that photo changed my entire mood. For the much, much better.",
-    "You don't even have to try and you're still the hottest thing on my entire timeline.",
-    "I've been DM'ing people on this app for years and you're the first person who made me NERVOUS to type.",
-    "That level of hotness shouldn't be allowed on a free app. You should be premium content.",
-    "I tried to describe to my friend why I HAD to DM you and all I could say was 'just LOOK at her.'",
-    "I'm convinced the sun orbits around you because you're clearly the center of all heat.",
-    "I want to say something meaningful but my brain keeps short-circuiting from how hot you are.",
-    "Your attractiveness is aggressive. Like it physically assaults my ability to think.",
-    "I don't know what it is about you specifically but you're hotter than anyone else on here. ANYONE.",
-    "That photo should come with safety goggles. Looking directly at it is a hazard.",
-    "I turned my brightness down thinking it would help. It didn't. You're still blindingly hot.",
-    "I've liked every single one of your posts. Every. Single. One. And I'd do it again.",
-    "If hotness was a competition you wouldn't even have competitors. Just you, alone, on the podium.",
-    "I was debating whether to DM you and then you posted another fire photo. Decision made.",
-    "The temperature in my room literally went up when I opened your photo. Or at least it felt like it.",
-    "I need a support system for the emotional damage your photos cause. Is that a thing?",
-    "You don't just raise the bar. You ARE the bar. Everyone else is below it.",
-    "I'm typing this one-handed because my other hand is fanning my face. TRUE STORY.",
-    "Girl you are UNREAL 🔥 like actually the hottest person I've seen on this app. Period.",
-    "Bestie I need to tell you – you are GORGEOUS and your feed is literal fire 💕✨",
-    "Okay miss hot girl summer ALL YEAR ROUND. Save some heat for the rest of us 😩💅",
-    "I'm a straight woman and even I had to stop and stare. You're that level of hot. 🔥",
-    "As one girl to another – you're stunning and I hope you know that 💕",
-    "I literally showed your pic to my friend group and everyone went SILENT. That's how hot you are.",
-    "How does someone look this good?? Is it the genes? The water? What is it?? 😂🔥",
-    "Not me fanning myself while scrolling your feed. At work. In front of my boss. 😂",
-    "You give off 'hottest person in any room' energy and I'm absolutely here for it.",
-    "I've been thinking about messaging you for days. That latest photo sealed the deal.",
-    "I need you to know that your feed has personally victimized me with its hotness. Daily.",
-    "Most people are hot sometimes. You're hot ALWAYS. The consistency is terrifying.",
-    "I've run out of fire emojis. I've used them all on your posts. Send more emojis.",
-    "I had to DM you before someone else did and said what I'm thinking. You're SCORCHING.",
-    "If there's a 'too hot for this app' list, you're at the top. At the very, very top.",
-    "I can't have a productive day when you post. It's either work or stare at your photos. I chose wrong.",
-    "Somebody owes me damages for how hot your posts are. My productivity is GONE.",
-    "My brain has two modes: normal, and 'just saw her latest post.' They're very different modes.",
-    "You could post a photo of literally ANYTHING and it would still be the hottest thing on my feed.",
-    "I've been trying to DM you something cool for 30 minutes. Giving up. You're hot. That's all I've got.",
-    "I tried typing 'you're beautiful' but autocorrect kept changing it to 'you're insanely beautiful.' Even my phone knows.",
-    "If your photos were any hotter my phone would need a cooling fan.",
-    "Not to be dramatic but I would cross oceans for one reply from you. That's the level of hot we're at.",
-    "I don't have a smooth line. I don't have a clever opener. I just have: you're the hottest person alive. Bye.",
-    "Every new photo you post raises the bar higher. Nobody else can reach it. Not even close."
+    "You're stunning. Had to say hi.",
+    "Hi, saw your posts. You seem really cool. Mind if I message?",
+    "Hey, your feed caught my eye. What's your story?"
   ],
-
-  /* ── TEASING ─────────────────────────────────────────────────────────── */
   teasing: [
-    "That post left just enough to the imagination and now my imagination is RUNNING.",
-    "You're such a tease. And I mean that as the highest compliment. Had to DM you.",
-    "I've been staring at that photo trying to see more and hating you a little for not showing it.",
-    "You know exactly what you're doing with these teasing posts. And it's working. Obviously.",
-    "The way you show just enough to drive people crazy... it's an art form. You're an artist.",
-    "I opened that photo expecting more. Got exactly enough to lose my mind. Well played.",
-    "You left me wanting more and that's the most effective thing anyone has ever done to me online.",
-    "That little peek you gave in that photo... I haven't stopped thinking about it. Had to DM.",
-    "I hate being teased. I love being teased by you. These are conflicting emotions.",
-    "The way you hint without showing... it's worse than showing everything. And you know that. 😏",
-    "I've been going crazy since that photo. You showed just enough to destroy my ability to focus.",
-    "That tease of a post has me refreshing your page hoping for a follow-up. Please.",
-    "You're playing a game with your followers and somehow you're winning every round.",
-    "I've never been so frustrated and turned on by a single photo. Teach me your ways.",
-    "The way that strap was slipping... was it on purpose? Because if so, you're evil. Beautiful, but evil.",
-    "I keep imagining what's just outside the frame and it's ruining my productivity.",
-    "You posted that knowing EXACTLY what would happen in your DMs. Calculated evil genius.",
-    "I can see just enough in that photo to know I need to see more. Which is exactly your plan, isn't it?",
-    "The art of the tease is dead everywhere except your page. You're keeping it alive.",
-    "I zoomed in, panned around, and STILL didn't get what I was looking for. You win. I'm in your DMs.",
-    "That barely-there reveal is more effective than any explicit photo I've ever seen. No joke.",
-    "You gave us 10% and I'm here BEGGING for the other 90%. Like actually begging.",
-    "I've been looking at that photo for 20 minutes trying to decide if I can see what I think I see.",
-    "The way you use angles to suggest without showing... you should work in Hollywood.",
-    "My imagination has been working overtime since that photo and I need you to take responsibility.",
-    "You tease like a professional. And I mean that with awe, respect, and a little bit of frustration.",
-    "That post was basically a trailer for a movie I'd pay any price to watch.",
-    "I can't decide if I love you or hate you for that tease. Probably both. Definitely both.",
-    "You showed me just enough to know I'm in trouble. And then you stopped. EVIL.",
-    "That photo is the visual equivalent of someone whispering something dirty and then walking away.",
-    "I need the director's cut of that photo. The teaser version has me going insane.",
-    "You're a master of mystery and I'm a helpless victim of your craft.",
-    "Every tease you post makes me follow harder. I'm basically a hostage at this point.",
-    "The gap between what I see and what I imagine in that photo is torturing me. And you love it.",
-    "You didn't show too much. You didn't show too little. You showed EXACTLY enough to break me.",
-    "That photo is the meanest and nicest thing anyone has ever done to me at the same time.",
-    "I've replayed that photo in my head about 40 times and each time my brain adds a little more. Dangerous.",
-    "If teasing was a sport, you'd be a first-ballot hall of famer. Retired jersey number and everything.",
-    "I thought I was immune to tease posts. Then you came along and shattered that illusion.",
-    "The way you leave things to the imagination is genuinely cruel. Cruel and addicting.",
-    "I've been imagining the uncropped version of that photo and it's consuming my thoughts.",
-    "You posted a question mark and my brain filled in the answer. The answer was: I'm obsessed.",
-    "That tease hit harder than any reveal ever could. And I think you know that.",
-    "I keep going back to that photo hoping it'll show more if I look long enough. It won't. But I keep trying.",
-    "The way that towel was wrapped... the way that shirt was unbuttoned... CALCULATED. All of it.",
-    "I'm DMing you because I need answers. Specifically: what's behind the crop? This is important.",
-    "You just showed the world a trailer and now we all want the full movie. Pay-per-view. I'll pay.",
-    "That tiny flash of skin did more to me than most explicit content ever has. You're a witch.",
-    "My brain: 'it's just a tease, move on.' Also my brain: 'BUT WHAT IF SHE SHOWS MORE NEXT TIME.'",
-    "I've never been so invested in someone's 'almost showing' content. You've got me on a hook.",
-    "That photo was a promise. And I'm here in your DMs asking when you plan to deliver.",
-    "Girl you are EVIL for that tease and I respect the hell out of it 😩🔥",
-    "Bestie the way you left us hanging with that photo??? RUDE. But also brilliant. 💅",
-    "Okay sis how do you tease like that without driving yourself crazy?? Teach me your patience 😂",
-    "I'm a girl and even I'm like 'show more please?' 😂 You've got EVERYONE wrapped around your finger.",
-    "That peek was so calculated and so effective. You really said 'leave them wanting more' and MEANT it.",
-    "The mystery of that photo is going to keep me up tonight. That's a fact. Thanks for that. 😩💕",
-    "I've been staring at that tease trying to fill in the blanks and it's genuinely consuming my evening.",
-    "If you ever decide to show more, I need to be the first to know. Setting up alerts on your page rn.",
-    "You give us just a taste and then walk away. It's diabolical. And incredibly effective.",
-    "That photo is the definition of 'less is more' and I hate that it works so well.",
-    "I came to your DMs to complain about the tease. But also to thank you for the tease. It's complicated.",
-    "Not me zooming in 400% trying to see past the fabric. You made me this way. 🔍😂",
-    "That photo was strategic and I respect the strategy even though it's destroying me.",
-    "How do you consistently post the most frustratingly perfect teases? Is there a formula?",
-    "I've thought about that photo more than I've thought about my own life problems. That's on you.",
-    "The subtle skin flash in that photo... devastating. Absolutely devastating. Worth a DM.",
-    "You treat revealing content like a drug dealer treats supply. Small doses. Keep us addicted. Smart.",
-    "I didn't think 'almost showing something' could be this powerful. You've changed my understanding.",
-    "That tease post just created a lifelong follower. Because now I HAVE to stick around for what comes next.",
-    "My imagination was already vivid. After your photo, it's in IMAX. 🫠",
-    "I dreamt about that photo last night. Not even kidding. You've infiltrated my subconscious.",
-    "You've somehow made 'not showing' hotter than 'showing.' That's a superpower.",
-    "If patience is a virtue then I've lost all virtue because of your posts. Show more. PLEASE."
+    "That tease got me. Had to message.",
+    "Hi, saw your posts. You seem fun. Mind if I say hi?",
+    "Hey, your feed caught my eye. Had to reach out."
   ]
 }>>
-

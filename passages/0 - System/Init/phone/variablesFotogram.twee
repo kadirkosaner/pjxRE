@@ -25,18 +25,28 @@
 <<set setup.fotogramDmFemaleWeight = 0.3>>
 <<set setup.fotogramDmMinConfidenceInteractive = 30>>
 <<set setup.fotogramDmMinCorruptionSwap = 2>>
-<<set setup.fotogramAnonSkinTones = ["white", "black", "tan"]>>
+<<set setup.fotogramAnonSkinTones = ["white", "black"]>>
 
-/* Interactive DM scenario selection settings */
-<<set setup.fotogramDMScenarioTypes = ["pickup_open", "praise_open", "dickpic_open"]>>
+/* Interactive DM – anon type weights (1=getoff, 2=objectifier, 3=number_hunter, 4=flirty, 5=praise_fan, 6=unsolicited_sender) */
+<<run setup.fotogramDMAnonTypeWeights = { 1: 15, 2: 20, 3: 15, 4: 15, 5: 5, 6: 30 }>>
+/* Min/max total messages per chat (anon + player) */
+<<set setup.fotogramDMMinTotalMessages = 15>>
+<<set setup.fotogramDMMaxTotalMessages = 22>>
+
+/* Interactive DM scenario selection – single flow (realistic chat) */
+<<set setup.fotogramDMScenarioTypes = ["chat_open"]>>
 <<run setup.fotogramDMScenarioWeightsByFlag = {
-  default: { pickup_open: 60, praise_open: 30, dickpic_open: 10 },
-  spicy: { pickup_open: 30, praise_open: 25, dickpic_open: 45 },
-  risky: { pickup_open: 35, praise_open: 30, dickpic_open: 35 },
-  teasing: { pickup_open: 25, praise_open: 45, dickpic_open: 30 }
+  default: { chat_open: 100 },
+  spicy: { chat_open: 100 },
+  risky: { chat_open: 100 },
+  teasing: { chat_open: 100 },
+  bikini: { chat_open: 100 },
+  hot: { chat_open: 100 }
 }>>
 
 /* Interactive DM variety controls */
+<<set setup.fotogramDMAnonTypeRecentWindow = 5>>
+<<set setup.fotogramDMAnonTypeRecentPenalty = 0.25>>
 <<set setup.fotogramDmScenarioRecentWindow = 4>>
 <<set setup.fotogramDmScenarioRecentPenalty = 0.55>>
 <<set setup.fotogramDmNodeTextRecentWindow = 8>>
@@ -45,9 +55,9 @@
 <<set setup.fotogramDmAttachmentStageHeatMid = 3>>
 <<set setup.fotogramDmAttachmentStageHeatLate = 6>>
 <<set setup.fotogramDmAttachmentStageTrustLate = 3>>
-<<set setup.fotogramDMAttachmentPoolsEarly = ["default", "spicy"]>>
-<<set setup.fotogramDMAttachmentPoolsMid = ["spicy", "default", "sexting"]>>
-<<set setup.fotogramDMAttachmentPoolsLate = ["sexting", "spicy", "default"]>>
+<<set setup.fotogramDMAttachmentPoolsEarly = ["spicy"]>>
+<<set setup.fotogramDMAttachmentPoolsMid = ["spicy", "sexting", "cock", "cum", "female_masturbation"]>>
+<<set setup.fotogramDMAttachmentPoolsLate = ["sexting", "spicy", "cock", "cum", "female_masturbation"]>>
 <<set setup.fotogramDmDynamicAttachmentChanceEarly = 0.08>>
 <<set setup.fotogramDmDynamicAttachmentChanceMid = 0.18>>
 <<set setup.fotogramDmDynamicAttachmentChanceLate = 0.32>>

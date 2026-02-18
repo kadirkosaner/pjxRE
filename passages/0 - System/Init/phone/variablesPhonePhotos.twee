@@ -22,36 +22,22 @@
 
 <<run setup.fotogramDMPhotoPool = {
   spicy: {
-    white: [
-      "assets/content/phone/dm/spicy/white/spicy_w_01.webp",
-      { path: "assets/content/phone/gallery/videos/normal/normalVideo1.mp4", kind: "video" }
-    ],
-    black: [
-      "assets/content/phone/dm/spicy/black/spicy_b_01.webp",
-      { path: "assets/content/phone/gallery/videos/normal/normalVideo2.mp4", kind: "video" }
-    ],
-    tan: [
-      "assets/content/phone/dm/spicy/tan/spicy_t_01.webp",
-      { path: "assets/content/phone/gallery/videos/normal/normalVideo3.mp4", kind: "video" }
-    ]
+    male: {
+      white: ["assets/content/phone/dm/male/spicy/white/photoSpicyWhite1.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite2.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite3.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite4.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite5.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite6.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite7.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite8.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite9.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite10.webp"],
+      black: ["assets/content/phone/dm/male/spicy/black/photoSpicyBlack1.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack2.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack3.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack4.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack5.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack6.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack7.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack8.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack9.webp"]
+    },
+    female: { white: [], black: [] }
   },
   sexting: {
-    white: [
-      "assets/content/phone/dm/sexting/white/sext_w_01.webp",
-      { path: "assets/content/phone/gallery/videos/normal/normalVideo1.mp4", kind: "video" }
-    ],
-    black: [
-      "assets/content/phone/dm/sexting/black/sext_b_01.webp",
-      { path: "assets/content/phone/gallery/videos/normal/normalVideo2.mp4", kind: "video" }
-    ],
-    tan: [
-      "assets/content/phone/dm/sexting/tan/sext_t_01.webp",
-      { path: "assets/content/phone/gallery/videos/normal/normalVideo3.mp4", kind: "video" }
-    ]
+    female: { white: [], black: [] }
   },
-  default: {
-    white: ["assets/content/phone/dm/default/white/def_w_01.webp"],
-    black: ["assets/content/phone/dm/default/black/def_b_01.webp"],
-    tan: ["assets/content/phone/dm/default/tan/def_t_01.webp"]
-  }
+  cock: {
+    white: ["assets/content/phone/dm/male/cock/white/photoCockWhite1.webp","assets/content/phone/dm/male/cock/white/photoCockWhite2.webp","assets/content/phone/dm/male/cock/white/photoCockWhite3.webp","assets/content/phone/dm/male/cock/white/photoCockWhite4.webp","assets/content/phone/dm/male/cock/white/photoCockWhite5.webp","assets/content/phone/dm/male/cock/white/photoCockWhite6.webp","assets/content/phone/dm/male/cock/white/photoCockWhite7.webp","assets/content/phone/dm/male/cock/white/photoCockWhite8.webp","assets/content/phone/dm/male/cock/white/photoCockWhite9.jpeg","assets/content/phone/dm/male/cock/white/photoCockWhite10.jpg",{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite1.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite2.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite3.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite4.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite5.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite6.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite7.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite8.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite9.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite10.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite11.mp4", kind: "video" }],
+    black: ["assets/content/phone/dm/male/cock/black/photoCockBlack1.webp","assets/content/phone/dm/male/cock/black/photoCockBlack2.webp","assets/content/phone/dm/male/cock/black/photoCockBlack3.webp","assets/content/phone/dm/male/cock/black/photoCockBlack4.webp","assets/content/phone/dm/male/cock/black/photoCockBlack5.webp","assets/content/phone/dm/male/cock/black/photoCockBlack6.webp","assets/content/phone/dm/male/cock/black/photoCockBlack7.webp","assets/content/phone/dm/male/cock/black/photoCockBlack8.webp","assets/content/phone/dm/male/cock/black/photoCockBlack9.webp","assets/content/phone/dm/male/cock/black/photoCockBlack10.webp",{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack1.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack2.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack3.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack4.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack5.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack6.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack7.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack8.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack9.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack10.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack11.mp4", kind: "video" }]
+  },
+  cum: {
+    white: [{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite1.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite2.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite3.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite4.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite5.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite6.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite7.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite8.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite9.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite10.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite11.mp4", kind: "video" }],
+    black: [{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack1.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack2.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack3.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack4.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack5.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack6.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack7.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack8.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack9.mp4", kind: "video" }]
+  },
+  female_masturbation: { white: [], black: [] }
 }>>
