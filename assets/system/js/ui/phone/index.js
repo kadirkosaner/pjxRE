@@ -1051,7 +1051,7 @@ function createPhoneOverlay() {
                         color: pickOne(colors),
                         status: 'Online Contact',
                         gender: gender,
-                        skinTone: dmEntry.skinTone || 'tan',
+                        skinTone: dmEntry.skinTone || 'white',
                         hasSchedule: false,
                         scheduleType: 'none',
                         generatedFromPhone: true,

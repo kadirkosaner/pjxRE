@@ -577,7 +577,7 @@
 **KayıtID:** tankDeepscoopBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black deep scoop neck tank top showing generous cleavage paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; plunging neckline. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky and perky bust bust wearing a black deep scoop neck tank top showing generous cleavage paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; plunging neckline. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -588,7 +588,7 @@
 **KayıtID:** teeLowcutVneckWhite
 
 **Prompt:**
-1:1. A young fit woman wearing a white deep low-cut v-neck t-shirt showing décolletage paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; deep cut. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a white deep low-cut v-neck t-shirt showing décolletage paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; deep cut. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -599,7 +599,7 @@
 **KayıtID:** cropTiedMidriffOlive
 
 **Prompt:**
-1:1. A young fit woman wearing an olive green tied crop top exposing full midriff paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; bare waist. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing an olive green tied crop top exposing full midriff paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; bare waist. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -610,7 +610,7 @@
 **KayıtID:** topBacklessBasicBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black basic backless top with halter tie at neck, entire back exposed, paired with dark fitted jeans; rear three-quarter view showing exposed back, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; open back. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black basic backless top with halter tie at neck, entire back exposed, paired with dark fitted jeans; rear three-quarter view showing exposed back, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; open back. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -621,7 +621,7 @@
 **KayıtID:** camiLowcutBurgundy
 
 **Prompt:**
-1:1. A young fit woman wearing a burgundy low-cut camisole with thin straps and deep neckline paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; evening-ready. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a burgundy low-cut camisole with thin straps and deep neckline paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; evening-ready. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 ---
@@ -640,4 +640,4 @@
 **KayıtID:** teeExtremeCutoutBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black t-shirt with large cutout sections on sides and chest showing skin paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; edgy cutouts. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black t-shirt with large cutout sections on sides and chest showing skin paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; edgy cutouts. Studio lighting, isolated on pure white background, focus on the top.

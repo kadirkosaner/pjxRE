@@ -937,13 +937,13 @@ function getFotogramDmVarietyConfig() {
     };
     var earlyPools = Array.isArray(cfg.fotogramDMAttachmentPoolsEarly) && cfg.fotogramDMAttachmentPoolsEarly.length
         ? cfg.fotogramDMAttachmentPoolsEarly.slice()
-        : ['default', 'spicy'];
+        : ['spicy'];
     var midPools = Array.isArray(cfg.fotogramDMAttachmentPoolsMid) && cfg.fotogramDMAttachmentPoolsMid.length
         ? cfg.fotogramDMAttachmentPoolsMid.slice()
-        : ['spicy', 'default', 'sexting'];
+        : ['spicy', 'sexting', 'cock', 'cum', 'female_masturbation'];
     var latePools = Array.isArray(cfg.fotogramDMAttachmentPoolsLate) && cfg.fotogramDMAttachmentPoolsLate.length
         ? cfg.fotogramDMAttachmentPoolsLate.slice()
-        : ['sexting', 'spicy', 'default'];
+        : ['sexting', 'spicy', 'cock', 'cum', 'female_masturbation'];
     return {
         recentScenarioWindow: Math.max(1, Math.floor(num('fotogramDmScenarioRecentWindow', 4))),
         recentScenarioPenalty: Math.max(0, Math.min(0.95, num('fotogramDmScenarioRecentPenalty', 0.55))),
@@ -1229,12 +1229,13 @@ function pickFotogramDmScenarioType(flagKey, vars) {
     return chosen;
 }
 
-function getFotogramScenarioOpenerPool(flagKey, scenarioType, toneGender) {
+function getFotogramScenarioOpenerPool(flagKey, scenarioType, toneGender, anonType) {
     var cfg = (typeof setup !== 'undefined' && setup.fotogramDMScenarioOpeners && typeof setup.fotogramDMScenarioOpeners === 'object')
         ? setup.fotogramDMScenarioOpeners
         : null;
     if (!cfg) return null;
-    var byFlag = (cfg[flagKey] && typeof cfg[flagKey] === 'object') ? cfg[flagKey] : cfg.default;
+    var cfgLayer = (anonType && cfg.byType && typeof cfg.byType[anonType] === 'object') ? cfg.byType[anonType] : cfg;
+    var byFlag = (cfgLayer[flagKey] && typeof cfgLayer[flagKey] === 'object') ? cfgLayer[flagKey] : cfgLayer.default;
     if (!byFlag || typeof byFlag !== 'object') return null;
     var byScenario = (byFlag[scenarioType] && typeof byFlag[scenarioType] === 'object') ? byFlag[scenarioType] : byFlag.default;
     if (!byScenario) return null;
@@ -1251,10 +1252,10 @@ function getFotogramScenarioOpenerPool(flagKey, scenarioType, toneGender) {
     return pool;
 }
 
-function pickFotogramScenarioFirstMessage(vars, flagKey, scenarioType, toneGender) {
-    var pool = getFotogramScenarioOpenerPool(flagKey, scenarioType, toneGender);
+function pickFotogramScenarioFirstMessage(vars, flagKey, scenarioType, toneGender, anonType) {
+    var pool = getFotogramScenarioOpenerPool(flagKey, scenarioType, toneGender, anonType);
     if (!Array.isArray(pool) || pool.length === 0) return null;
-    var useKey = 'phoneFotogramDMUsedScenarioFirstMsg_' + String(flagKey || 'default') + '_' + String(scenarioType || 'default') + '_' + String(toneGender || 'male');
+    var useKey = 'phoneFotogramDMUsedScenarioFirstMsg_' + String(flagKey || 'default') + '_' + String(scenarioType || 'default') + '_' + String(toneGender || 'male') + '_' + String(anonType || '');
     return (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
         ? (pickFromPoolWithUnusedPreference(vars, useKey, pool) || pool[Math.floor(Math.random() * pool.length)])
         : pool[Math.floor(Math.random() * pool.length)];
@@ -1330,7 +1331,8 @@ function createFotogramDM(vars, post, opts) {
             : (charPool[Math.floor(Math.random() * charPool.length)]);
     } else {
         scenarioType = pickFotogramDmScenarioType(flagKey, vars);
-        firstMsg = pickFotogramScenarioFirstMessage(vars, flagKey, scenarioType, toneGender);
+        var anonType = pickFotogramAnonType(vars);
+        firstMsg = pickFotogramScenarioFirstMessage(vars, flagKey, scenarioType, toneGender, anonType);
         if (!firstMsg && byFlag && Array.isArray(byFlag[flagKey]) && byFlag[flagKey].length) {
             var globalMsgKey = 'phoneFotogramDMUsedFirstMsg_' + flagKey;
             firstMsg = (typeof pickFromPoolWithUnusedPreference === 'function' && vars)
@@ -1349,8 +1351,26 @@ function createFotogramDM(vars, post, opts) {
     var t = vars.timeSys || {};
     var time = { day: t.day, month: t.month, year: t.year, hour: t.hour, minute: t.minute };
     var scenarioFlow = (isInteractive && scenarioType) ? getFotogramScenarioFlow(scenarioType) : null;
+    if (!scenarioFlow && isInteractive) {
+        var fallbackTypes = getFotogramDmScenarioTypes();
+        for (var fti = 0; fti < (fallbackTypes || []).length; fti++) {
+            scenarioFlow = getFotogramScenarioFlow(fallbackTypes[fti]);
+            if (scenarioFlow) { scenarioType = fallbackTypes[fti]; break; }
+        }
+    }
     var startNode = scenarioFlow ? getFotogramScenarioNode(scenarioFlow, scenarioFlow.startNode) : null;
-    var startChoices = startNode ? normalizeFotogramScenarioChoices(startNode.choices || []) : [];
+    var startChoiceSource = startNode ? (startNode.choices || []) : [];
+    if (startNode && startNode.choicesByContext && startNode.choicesByContext.receivedDickPic && isInteractive && typeof anonType !== 'undefined' && anonType === 6 && toneGender === 'male') {
+        startChoiceSource = startNode.choicesByContext.receivedDickPic;
+    }
+    var startChoices = startNode ? normalizeFotogramScenarioChoices(startChoiceSource, vars, scenarioFlow ? scenarioFlow.startNode : null, scenarioType) : [];
+    var minMsgNew = (typeof setup !== 'undefined' && Number.isFinite(setup.fotogramDMMinTotalMessages)) ? setup.fotogramDMMinTotalMessages : 10;
+    if (startChoices.length && 1 + 2 < minMsgNew) {
+        startChoices = startChoices.filter(function (c) {
+            var n = c.next ? getFotogramScenarioNode(scenarioFlow, c.next) : null;
+            return !n || n.endConversation !== true;
+        });
+    }
     var personaType = isInteractive ? pickFotogramDmPersonaType() : null;
     var mediaBehavior = isInteractive ? pickFotogramDmMediaBehavior() : null;
     var dm = {
@@ -1370,6 +1390,7 @@ function createFotogramDM(vars, post, opts) {
         toneGender: toneGender,
         personaType: personaType,
         mediaBehavior: mediaBehavior,
+        anonType: isInteractive ? (typeof anonType !== 'undefined' ? anonType : pickFotogramAnonType(vars)) : null,
         scenarioType: isInteractive ? (scenarioType || 'legacy') : null,
         flowState: isInteractive ? {
             heat: 1,
@@ -1384,6 +1405,11 @@ function createFotogramDM(vars, post, opts) {
         } : null,
         promotedToCharId: null
     };
+    if (isInteractive && dm.anonType === 6 && toneGender === 'male' && dm.messages && dm.messages[0]) {
+        if (typeof attachFotogramDmPhotoToMessage === 'function') {
+            attachFotogramDmPhotoToMessage(dm, cfg, flagKey, { pool: 'cock' }, dm.messages[0], vars);
+        }
+    }
     dms.push(dm);
     if (dms.length > 50) dms.splice(0, dms.length - 50);
     vars.phoneFotogramDMs = dms;
@@ -1560,6 +1586,39 @@ function getFotogramScenarioNode(flow, nodeId) {
     return flow.nodes[nodeId] || null;
 }
 
+function pickFotogramAnonType(vars) {
+    var weights = (typeof setup !== 'undefined' && setup.fotogramDMAnonTypeWeights && typeof setup.fotogramDMAnonTypeWeights === 'object')
+        ? setup.fotogramDMAnonTypeWeights
+        : { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1 };
+    var recentWindow = (typeof setup !== 'undefined' && Number.isFinite(setup.fotogramDMAnonTypeRecentWindow)) ? Math.max(1, setup.fotogramDMAnonTypeRecentWindow) : 5;
+    var recentPenalty = (typeof setup !== 'undefined' && Number.isFinite(setup.fotogramDMAnonTypeRecentPenalty)) ? Math.max(0, Math.min(1, setup.fotogramDMAnonTypeRecentPenalty)) : 0.25;
+    var dms = (vars && Array.isArray(vars.phoneFotogramDMs)) ? vars.phoneFotogramDMs : [];
+    var recentTypes = [];
+    for (var ri = Math.max(0, dms.length - recentWindow); ri < dms.length; ri++) {
+        if (dms[ri] && dms[ri].anonType) recentTypes.push(Number(dms[ri].anonType));
+    }
+    var effectiveWeights = {};
+    var types = [1, 2, 3, 4, 5, 6];
+    for (var k = 0; k < types.length; k++) {
+        var base = Number(weights[types[k]]) || 0;
+        var penalty = 1;
+        for (var rj = 0; rj < recentTypes.length; rj++) {
+            if (recentTypes[rj] === types[k]) penalty *= recentPenalty;
+        }
+        effectiveWeights[types[k]] = base * penalty;
+    }
+    var total = 0;
+    for (var ti = 0; ti < types.length; ti++) total += effectiveWeights[types[ti]];
+    if (total <= 0) return types[Math.floor(Math.random() * types.length)];
+    var r = Math.random() * total;
+    for (var tj = 0; tj < types.length; tj++) {
+        var w = effectiveWeights[types[tj]];
+        if (r < w) return types[tj];
+        r -= w;
+    }
+    return types[types.length - 1];
+}
+
 function getFotogramScenarioToneText(source, toneGender, flagKey) {
     if (!source) return '';
     var pickFromArray = function (arr) {
@@ -1609,15 +1668,19 @@ function applyPersonaLanguageOverlay(vars, dm, text, nodeId) {
         ? addons[persona]
         : [];
 
-    var chance = (persona === 'dominant' || persona === 'manipulative') ? 0.45 : 0.22;
+    var skipPersonaAddon = (base.length < 45) || (typeof nodeId === 'string' && (
+        nodeId.indexOf('chat_min_continuation') >= 0 || nodeId === 'chat_end_soft'
+    ));
+    var chance = skipPersonaAddon ? 0 : ((persona === 'dominant' || persona === 'manipulative') ? 0.45 : 0.22);
     if (Math.random() < chance) {
         var addon = pickFromSimplePool(personaPool);
         if (addon) base += ' ' + addon;
     }
 
-    // Anatomy language mix for dickpic flow (male + female pools).
-    // Source is setup.fotogramDMExplicitOverlayPools from fotogramDMInteractive.twee.
-    if (scenario === 'dickpic_open') {
+    // Anatomy language mix: dickpic flow + chat_open types 1,2,6 (getoff, objectifier, unsolicited_sender).
+    var anonType = dm.anonType ? Number(dm.anonType) : 0;
+    var useExplicit = (scenario === 'dickpic_open') || (scenario === 'chat_open' && (anonType === 1 || anonType === 2 || anonType === 6));
+    if (useExplicit) {
         var toneKey = (tone === 'female') ? 'female' : 'male';
         var runtimeCfg = getFotogramDmRuntimeConfig();
         var chanceByTone = (runtimeCfg && runtimeCfg.explicitOverlayChanceByTone && typeof runtimeCfg.explicitOverlayChanceByTone === 'object')
@@ -1625,19 +1688,23 @@ function applyPersonaLanguageOverlay(vars, dm, text, nodeId) {
             : null;
         var explicitMixChance = Number(chanceByTone && chanceByTone[toneKey]);
         if (!Number.isFinite(explicitMixChance)) explicitMixChance = (toneKey === 'female') ? 0.24 : 0.35;
+        if (scenario === 'chat_open') explicitMixChance = Math.min(0.5, explicitMixChance * 1.2);
         if (Math.random() < explicitMixChance) {
             var explicitPools = (typeof setup !== 'undefined' && setup && setup.fotogramDMExplicitOverlayPools)
                 ? setup.fotogramDMExplicitOverlayPools
                 : null;
-            var tonePools = (explicitPools && explicitPools[toneKey] && explicitPools[toneKey].dickpic_open)
+            var scenarioKey = scenario === 'dickpic_open' ? 'dickpic_open' : 'chat_open';
+            var tonePools = (explicitPools && explicitPools[toneKey] && explicitPools[toneKey][scenarioKey])
+                ? explicitPools[toneKey][scenarioKey]
+                : (explicitPools && explicitPools[toneKey] && explicitPools[toneKey].dickpic_open)
                 ? explicitPools[toneKey].dickpic_open
                 : null;
             var directPool = (tonePools && Array.isArray(tonePools.direct))
                 ? tonePools.direct
-                : [];
+                : ['cock', 'dick', 'cum', 'hard'];
             var euphemismPool = (tonePools && Array.isArray(tonePools.euphemism))
                 ? tonePools.euphemism
-                : [];
+                : ['it', 'this', 'something for you'];
             var mixRoll = Math.random();
             var chosen = mixRoll < 0.45 ? pickFromSimplePool(directPool) : pickFromSimplePool(euphemismPool);
             if (chosen) base += ' ' + chosen;
@@ -1646,39 +1713,166 @@ function applyPersonaLanguageOverlay(vars, dm, text, nodeId) {
     return base;
 }
 
-function pickFotogramScenarioNodeAnonText(vars, dm, nodeId, anonSource, toneGender, flagKey) {
-    var pool = getFotogramScenarioTonePool(anonSource, toneGender, flagKey);
-    var emptyAnonText = getFotogramDmRuntimeText('emptyAnonText');
-    if (!pool.length) return emptyAnonText;
-    if (pool.length === 1) return String(pool[0] || emptyAnonText);
-    var cfg = getFotogramDmVarietyConfig();
-    var turn = Number(dm && dm.flowState && dm.flowState.turn) || 0;
-    var useStrict = turn <= cfg.textStrictTurns;
-    var scenarioKey = String((dm && dm.scenarioType) || 'default');
-    var nodeKey = String(nodeId || 'node');
-    var toneKey = String(toneGender || 'male');
-    if (useStrict) {
-        var strictKey = 'phoneFotogramScenarioNodeTextUsed_' + scenarioKey + '_' + nodeKey + '_' + toneKey;
-        return String(pickFromPoolWithUnusedPreference(vars, strictKey, pool) || pool[Math.floor(Math.random() * pool.length)] || emptyAnonText);
+function getFotogramIntentFromAnonMessage(dm, anonText, attachmentSpec) {
+    var text = String(anonText || '').toLowerCase();
+    var anonTypeNum = dm && dm.anonType ? Number(dm.anonType) : 0;
+    var poolName = attachmentSpec && attachmentSpec.pool ? String(attachmentSpec.pool).toLowerCase() : '';
+    var isExplicitAttachment = poolName === 'cock' || poolName === 'cum';
+    var hasExplicitWords = /(cock|dick|cum|nude|nudes|pic|pics|photo|photos|send me something|your turn|fair's fair)/.test(text);
+    var asksPics = /(send|share|show).*(pic|pics|photo|photos|nude|nudes)|got any pics|your turn|fair'?s fair|just one pic|send me something/.test(text);
+    var asksNumber = /(number|swap|digits|whatsapp|take this to text|text me)/.test(text);
+    var pushy = /(come on|not gonna stop|not letting you go|don't leave me hanging|just give it to me|don't be shy|i need more|your loss|your turn|now\.)/.test(text);
+    var asksPersonal = /(what do you do|what's your story|what are you into|what do you get up to|\byou\?$)/.test(text);
+    if (anonTypeNum === 3 && !asksNumber) asksNumber = /(talk properly|off here)/.test(text);
+    if ((anonTypeNum === 1 || anonTypeNum === 2 || anonTypeNum === 6) && !asksPics) {
+        asksPics = /(show me|send me|i need more|i showed you mine)/.test(text);
     }
-    var softKey = 'phoneFotogramScenarioNodeTextRecent_' + scenarioKey + '_' + nodeKey + '_' + toneKey;
-    return String(pickFromPoolWithRecentIndexCooldown(vars, softKey, pool, cfg.textRecentWindow) || pool[Math.floor(Math.random() * pool.length)] || emptyAnonText);
+    return {
+        explicit: isExplicitAttachment || hasExplicitWords,
+        asksPics: asksPics,
+        asksNumber: asksNumber,
+        pushy: pushy,
+        asksPersonal: asksPersonal
+    };
 }
 
-function normalizeFotogramScenarioChoices(rawChoices) {
+function resolveFotogramChoiceContextKeys(nodeId, intent, anonTypeNum, prevChoiceKey, flowState) {
+    var keys = [];
+    var heat = Number(flowState && flowState.heat) || 0;
+    var control = Number(flowState && flowState.control) || 0;
+    if (intent && intent.explicit) keys.push('receivedExplicitAttachment');
+    if (intent && intent.pushy && (intent.asksPics || intent.asksNumber)) keys.push('anonPushingForPicsOrNumber');
+    if (intent && intent.asksPics) keys.push('askedAboutPics');
+    if (intent && intent.asksNumber) keys.push('askedAboutNumber');
+    if (nodeId === 'chat_min_continuation_2' && prevChoiceKey === 'chat_min_deflect' && intent && intent.pushy) {
+        keys.push('anonPushedOnPicsDeflect');
+    }
+    if (control >= 2) keys.push('highControl');
+    if (heat >= 3) keys.push('highHeat');
+    var dedup = [];
+    for (var i = 0; i < keys.length; i++) {
+        if (dedup.indexOf(keys[i]) < 0) dedup.push(keys[i]);
+    }
+    return dedup;
+}
+
+function pickFotogramScenarioNodeAnonText(vars, dm, nodeId, anonSource, toneGender, flagKey, nodeForAttachmentPool, prevChoiceKey) {
+    var persona = String(dm && dm.personaType ? dm.personaType : 'playful');
+    var resolved = anonSource;
+    if (anonSource && anonSource.byPrevChoice && prevChoiceKey && anonSource.byPrevChoice[prevChoiceKey]) {
+        resolved = anonSource.byPrevChoice[prevChoiceKey];
+    }
+    if (resolved && resolved.byEffect && dm && dm.flowState) {
+        var ghostRisk = Number(dm.flowState.ghostRisk) || 0;
+        var effectBlock = ghostRisk >= 2 ? (resolved.byEffect && resolved.byEffect.high) : (resolved.byEffect && resolved.byEffect.low);
+        if (effectBlock) resolved = effectBlock;
+    }
+    var heat = Number(dm && dm.flowState && dm.flowState.heat) || 0;
+    var control = Number(dm && dm.flowState && dm.flowState.control) || 0;
+    if (resolved && resolved.byEffectControl && dm && dm.flowState && control >= 2) {
+        var controlBlock = resolved.byEffectControl.high;
+        if (controlBlock) resolved = controlBlock;
+    }
+    if (resolved && resolved.byEffectHeat && dm && dm.flowState && control < 2 && heat >= 2) {
+        var heatBlock = resolved.byEffectHeat.high;
+        if (heatBlock) resolved = heatBlock;
+    }
+    if (resolved && resolved.byType && dm && dm.anonType && resolved.byType[dm.anonType]) {
+        resolved = resolved.byType[dm.anonType];
+    }
+    var pool = [];
+    if (resolved && resolved.byPersona && resolved.byPersona[persona]) {
+        pool = getFotogramScenarioTonePool(resolved.byPersona[persona], toneGender, flagKey);
+    }
+    if (!pool.length) {
+        pool = getFotogramScenarioTonePool(resolved, toneGender, flagKey);
+    }
+    var emptyAnonText = getFotogramDmRuntimeText('emptyAnonText');
+    if (!pool.length) return emptyAnonText;
+    var needIndex = nodeForAttachmentPool && nodeForAttachmentPool.anonAttachmentPool && nodeForAttachmentPool.anonAttachmentPool[toneGender] && Array.isArray(nodeForAttachmentPool.anonAttachmentPool[toneGender]);
+    var poolIndices = [];
+    var i;
+    for (i = 0; i < pool.length; i++) poolIndices.push(i);
+    var pickedIndex = -1;
+    var pickedText = '';
+    if (pool.length === 1) {
+        pickedIndex = 0;
+        pickedText = String(pool[0] || emptyAnonText);
+    } else {
+        var cfg = getFotogramDmVarietyConfig();
+        var turn = Number(dm && dm.flowState && dm.flowState.turn) || 0;
+        var useStrict = turn <= cfg.textStrictTurns;
+        var scenarioKey = String((dm && dm.scenarioType) || 'default');
+        var nodeKey = String(nodeId || 'node');
+        var toneKey = String(toneGender || 'male');
+        var personaKey = String(persona || 'playful');
+        if (needIndex) {
+            var indexKeyStrict = 'phoneFotogramScenarioNodeTextIndexUsed_' + scenarioKey + '_' + nodeKey + '_' + toneKey + '_' + personaKey;
+            var indexKeyRecent = 'phoneFotogramScenarioNodeTextIndexRecent_' + scenarioKey + '_' + nodeKey + '_' + toneKey + '_' + personaKey;
+            if (useStrict) {
+                pickedIndex = pickFromPoolWithUnusedPreference(vars, indexKeyStrict, poolIndices);
+            } else {
+                pickedIndex = pickFromPoolWithRecentIndexCooldown(vars, indexKeyRecent, poolIndices, cfg.textRecentWindow);
+            }
+            if (pickedIndex === undefined || pickedIndex === null || pickedIndex < 0) pickedIndex = poolIndices[Math.floor(Math.random() * poolIndices.length)];
+            pickedText = String(pool[pickedIndex] || emptyAnonText);
+        } else {
+            if (useStrict) {
+                var strictKey = 'phoneFotogramScenarioNodeTextUsed_' + scenarioKey + '_' + nodeKey + '_' + toneKey + '_' + personaKey;
+                pickedText = String(pickFromPoolWithUnusedPreference(vars, strictKey, pool) || pool[Math.floor(Math.random() * pool.length)] || emptyAnonText);
+            } else {
+                var softKey = 'phoneFotogramScenarioNodeTextRecent_' + scenarioKey + '_' + nodeKey + '_' + toneKey + '_' + personaKey;
+                pickedText = String(pickFromPoolWithRecentIndexCooldown(vars, softKey, pool, cfg.textRecentWindow) || pool[Math.floor(Math.random() * pool.length)] || emptyAnonText);
+            }
+        }
+    }
+    if (needIndex && pickedIndex >= 0 && nodeForAttachmentPool.anonAttachmentPool[toneGender][pickedIndex]) {
+        return { text: pickedText, attachmentPool: String(nodeForAttachmentPool.anonAttachmentPool[toneGender][pickedIndex]) };
+    }
+    return pickedText || emptyAnonText;
+}
+
+function normalizeFotogramScenarioChoices(rawChoices, vars, nodeId, scenarioType) {
     if (!Array.isArray(rawChoices)) return [];
+    var varietyCfg = (typeof getFotogramDmVarietyConfig === 'function') ? getFotogramDmVarietyConfig() : {};
+    var phraseWindow = Math.max(2, varietyCfg.textRecentWindow || 6);
     return rawChoices.map(function (c, idx) {
         if (!c || typeof c !== 'object') return null;
         var key = c.key || c.id || ('choice_' + idx);
         var text = c.playerText || c.text || c.label || key;
-        return {
+        if (Array.isArray(text) && text.length > 0) {
+            if (vars && (nodeId || scenarioType)) {
+                var scKey = String(scenarioType || 'default');
+                var nKey = String(nodeId || 'node');
+                var phraseKey = 'phoneFotogramChoicePhrase_' + scKey + '_' + nKey + '_' + String(key);
+                text = (typeof pickFromPoolWithRecentIndexCooldown === 'function')
+                    ? (pickFromPoolWithRecentIndexCooldown(vars, phraseKey, text, phraseWindow) || text[Math.floor(Math.random() * text.length)])
+                    : text[Math.floor(Math.random() * text.length)];
+            } else {
+                text = text[Math.floor(Math.random() * text.length)];
+            }
+        }
+        var out = {
             key: String(key),
             playerText: String(text),
             next: c.next || null,
             requiresSwap: c.requiresSwap === true,
             effects: (c.effects && typeof c.effects === 'object') ? c.effects : null
         };
+        if (c.playerTextByPersona && typeof c.playerTextByPersona === 'object') {
+            out.playerTextByPersona = c.playerTextByPersona;
+        }
+        return out;
     }).filter(Boolean);
+}
+
+function getFotogramChoiceLabel(choice, dm) {
+    if (!choice) return '';
+    var persona = dm && dm.personaType ? String(dm.personaType) : '';
+    if (persona && choice.playerTextByPersona && choice.playerTextByPersona[persona]) {
+        return String(choice.playerTextByPersona[persona]).trim() || choice.playerText || choice.key || '';
+    }
+    return choice.playerText || choice.key || '';
 }
 
 function applyFotogramFlowEffects(flowState, effects) {
@@ -1705,10 +1899,19 @@ function getFotogramDmAttachmentStage(dm) {
 
 function getAllowedAttachmentPoolsForStage(dm) {
     var cfg = getFotogramDmVarietyConfig();
+    var tone = (dm && dm.toneGender) ? String(dm.toneGender) : 'male';
+    if (dm && dm.scenarioType === 'dickpic_open') {
+        if (tone === 'male') return ['cock', 'cum'];
+        if (tone === 'female') return ['sexting', 'female_masturbation'];
+    }
     var stage = getFotogramDmAttachmentStage(dm);
-    if (stage === 'late') return cfg.attachmentPoolsLate.slice();
-    if (stage === 'mid') return cfg.attachmentPoolsMid.slice();
-    return cfg.attachmentPoolsEarly.slice();
+    var list = (stage === 'late') ? ['spicy', 'sexting'] : (stage === 'mid') ? ['spicy', 'sexting'] : ['spicy'];
+    if (tone === 'male') list = list.filter(function (p) { return p !== 'sexting'; });
+    var explicitTypes = (dm && dm.anonType) ? [1, 2, 6] : [];
+    if (explicitTypes.indexOf(dm.anonType) >= 0 && tone === 'male' && (stage === 'mid' || stage === 'late')) {
+        list = list.concat(['cock', 'cum']);
+    }
+    return list;
 }
 
 function getDynamicAttachmentChanceForStage(dm) {
@@ -1737,13 +1940,16 @@ function attachFotogramDmPhotoToMessage(dm, cfg, flagKey, photoSpec, anonMsg, va
         }
         return;
     }
-    var rawSkin = dm.skinTone || 'tan';
-    var skinMap = { light: 'white', medium: 'tan', dark: 'black', white: 'white', black: 'black', tan: 'tan' };
+    var rawSkin = dm.skinTone || 'white';
+    var skinMap = { light: 'white', medium: 'white', dark: 'black', white: 'white', black: 'black' };
     var skinKey = skinMap[rawSkin] || rawSkin;
+    if (skinKey !== 'white' && skinKey !== 'black') skinKey = 'white';
+    var tone = (dm && dm.toneGender) ? String(dm.toneGender) : 'male';
     var pool = (cfg && cfg.photoPool) ? cfg.photoPool : ((typeof setup !== 'undefined' && setup.fotogramDMPhotoPool) ? setup.fotogramDMPhotoPool : {});
     var poolKey = photoSpec.pool || photoSpec.photoPool || flagKey || 'default';
     var poolEntry = pool[poolKey] || pool[flagKey] || pool.default;
-    var paths = (poolEntry && poolEntry[skinKey]) ? poolEntry[skinKey] : (poolEntry && poolEntry.tan) ? poolEntry.tan : [];
+    var genderEntry = (poolEntry && (poolEntry.male || poolEntry.female)) ? (poolEntry[tone] || poolEntry.male || poolEntry.female) : poolEntry;
+    var paths = (genderEntry && genderEntry[skinKey]) ? genderEntry[skinKey] : (genderEntry && genderEntry.white) ? genderEntry.white : [];
     if (!Array.isArray(paths) || paths.length === 0) return;
     var recentMediaKey = 'phoneFotogramDmRecentMedia_' + String(dm && dm.id ? dm.id : 'global');
     var rawPick = pickFromPoolWithRecentIndexCooldown(
@@ -1838,9 +2044,38 @@ function ensureFotogramScenarioBootstrap(vars, dm) {
         scenarioType = (types && types.length) ? types[0] : null;
     }
     var flow = getFotogramScenarioFlow(scenarioType);
+    if (!flow && scenarioType && scenarioType !== 'chat_open') {
+        scenarioType = 'chat_open';
+        flow = getFotogramScenarioFlow(scenarioType);
+    }
+    if (!flow) {
+        var allTypes = getFotogramDmScenarioTypes();
+        for (var ti = 0; ti < (allTypes || []).length; ti++) {
+            flow = getFotogramScenarioFlow(allTypes[ti]);
+            if (flow) { scenarioType = allTypes[ti]; break; }
+        }
+    }
     if (!flow) return false;
     var startNode = getFotogramScenarioNode(flow, flow.startNode);
-    var startChoices = normalizeFotogramScenarioChoices(startNode && startNode.choices ? startNode.choices : []);
+    var startChoiceSource = (startNode && startNode.choices) ? startNode.choices : [];
+    var firstMsg = (dm.messages && dm.messages.length) ? dm.messages[0] : null;
+    var firstHasExplicit = firstMsg && firstMsg.attachment && (String(firstMsg.attachment.pool || '').toLowerCase() === 'cock' || String(firstMsg.attachment.pool || '').toLowerCase() === 'cum' || String(firstMsg.attachment.path || '').indexOf('cock') >= 0 || String(firstMsg.attachment.path || '').indexOf('cum') >= 0);
+    var anonType6Male = (dm.anonType === 6 || dm.anonType === '6') && (String(dm.toneGender || dm.profileGender || '').toLowerCase() === 'male');
+    if (startNode && startNode.choicesByContext && startNode.choicesByContext.receivedDickPic && (firstHasExplicit || anonType6Male)) {
+        startChoiceSource = startNode.choicesByContext.receivedDickPic;
+    }
+    var startChoices = normalizeFotogramScenarioChoices(startChoiceSource, vars, flow.startNode, scenarioType);
+    if (startNode && startNode.choicesByFlag && startNode.choicesByFlag[flagKey] && !firstHasExplicit && !anonType6Male) {
+        startChoices = startChoices.concat(normalizeFotogramScenarioChoices(startNode.choicesByFlag[flagKey], vars, flow.startNode, scenarioType));
+    }
+    var minMsgBootstrap = (typeof setup !== 'undefined' && Number.isFinite(setup.fotogramDMMinTotalMessages)) ? setup.fotogramDMMinTotalMessages : 10;
+    var msgCount = (dm.messages && dm.messages.length) ? dm.messages.length : 0;
+    if (startChoices.length && msgCount + 2 < minMsgBootstrap) {
+        startChoices = startChoices.filter(function (c) {
+            var n = c.next ? getFotogramScenarioNode(flow, c.next) : null;
+            return !n || n.endConversation !== true;
+        });
+    }
     if (!startChoices.length) return false;
 
     var fs = (dm.flowState && typeof dm.flowState === 'object') ? dm.flowState : {};
@@ -1858,6 +2093,7 @@ function ensureFotogramScenarioBootstrap(vars, dm) {
     dm.toneGender = normalizeFotogramDmToneGender(dm.toneGender || dm.profileGender || 'male');
     dm.personaType = dm.personaType || pickFotogramDmPersonaType();
     dm.mediaBehavior = dm.mediaBehavior || pickFotogramDmMediaBehavior();
+    dm.anonType = dm.anonType || pickFotogramAnonType(vars);
     dm.availableReplyKeys = startChoices.map(function (c) { return c.key; });
     return true;
 }
@@ -1881,7 +2117,7 @@ function processFotogramScenarioReply(vars, dm, replyKey) {
     var t = vars.timeSys || {};
     var time = { day: t.day, month: t.month, year: t.year, hour: t.hour, minute: t.minute };
     dm.messages = dm.messages || [];
-    dm.messages.push({ from: 'me', text: selected.playerText, time: time, read: true });
+    dm.messages.push({ from: 'me', text: getFotogramChoiceLabel(selected, dm), time: time, read: true });
     applyFotogramFlowEffects(dm.flowState, selected.effects);
     dm.flowState.turn = (Number(dm.flowState.turn) || 0) + 1;
 
@@ -1902,6 +2138,17 @@ function processFotogramScenarioReply(vars, dm, replyKey) {
         return true;
     }
 
+    var effectiveNextId = selected.next;
+    var minMsg = (typeof setup !== 'undefined' && Number.isFinite(setup.fotogramDMMinTotalMessages)) ? setup.fotogramDMMinTotalMessages : 10;
+    var maxMsg = (typeof setup !== 'undefined' && Number.isFinite(setup.fotogramDMMaxTotalMessages)) ? setup.fotogramDMMaxTotalMessages : 22;
+    if (nextNode.endConversation === true && dm.messages.length < minMsg - 1) {
+        var contNode = getFotogramScenarioNode(flow, 'chat_min_continuation');
+        if (contNode) {
+            nextNode = contNode;
+            effectiveNextId = 'chat_min_continuation';
+        }
+    }
+
     var post = getPostById(vars, dm.postId);
     var postFlags = (post && post.flags) ? post.flags : [];
     var flagKey = getBestFlagMatch(postFlags);
@@ -1909,8 +2156,11 @@ function processFotogramScenarioReply(vars, dm, replyKey) {
     var cfg = dm.charId && charConfig[dm.charId] ? charConfig[dm.charId] : null;
     var tone = dm.toneGender || 'male';
 
-    var anonText = pickFotogramScenarioNodeAnonText(vars, dm, selected.next, nextNode.anon, tone, flagKey) || getFotogramDmRuntimeText('emptyAnonText');
-    anonText = applyPersonaLanguageOverlay(vars, dm, anonText, selected.next);
+    var prevChoiceKey = selected.key || null;
+    var anonResult = pickFotogramScenarioNodeAnonText(vars, dm, effectiveNextId, nextNode.anon, tone, flagKey, nextNode, prevChoiceKey);
+    var anonText = (typeof anonResult === 'object' && anonResult && anonResult.text != null) ? anonResult.text : String(anonResult || getFotogramDmRuntimeText('emptyAnonText'));
+    var attachmentPoolFromText = (typeof anonResult === 'object' && anonResult && anonResult.attachmentPool) ? anonResult.attachmentPool : null;
+    anonText = applyPersonaLanguageOverlay(vars, dm, anonText, effectiveNextId);
     var anonMsg = { from: dm.anonId, text: anonText, time: time, read: false };
     var attachmentSpec = nextNode.attachment || pickFotogramRandomAttachmentSpec(nextNode.randomAttachment, dm, vars);
     if (attachmentSpec && typeof attachmentSpec === 'object') {
@@ -1925,11 +2175,18 @@ function processFotogramScenarioReply(vars, dm, replyKey) {
         var dynChance = getDynamicAttachmentChanceForStage(dm);
         var behavior = String(dm.mediaBehavior || 'mixed');
         if (behavior === 'media_only') dynChance = Math.min(1, dynChance * 1.6);
+        var explicitType = dm.anonType && [1, 2, 6].indexOf(Number(dm.anonType)) >= 0;
+        if (explicitType) dynChance = Math.min(0.55, dynChance * 1.8);
         if (Math.random() < dynChance) {
-            var dynPools = getAllowedAttachmentPoolsForStage(dm);
-            var dynPool = dynPools[Math.floor(Math.random() * dynPools.length)];
+            var dynPool = attachmentPoolFromText || (function () {
+                var dynPools = getAllowedAttachmentPoolsForStage(dm);
+                return dynPools[Math.floor(Math.random() * dynPools.length)];
+            })();
             if (dynPool) attachmentSpec = { pool: dynPool };
         }
+    }
+    if (!attachmentSpec && attachmentPoolFromText) {
+        attachmentSpec = resolveMediaBehaviorAttachmentSpec(dm, { pool: attachmentPoolFromText });
     }
     if (!attachmentSpec && isLikelyMediaPath(anonText)) {
         attachmentSpec = { path: anonText };
@@ -1947,8 +2204,34 @@ function processFotogramScenarioReply(vars, dm, replyKey) {
     }
     if (nextNode.flags && nextNode.flags.ghosted === true) dm.flowState.ghosted = true;
 
-    dm.flowState.currentNode = selected.next;
-    dm.flowState.currentChoices = normalizeFotogramScenarioChoices(nextNode.choices || []);
+    dm.flowState.currentNode = effectiveNextId;
+    var nextChoiceSource = nextNode.choices || [];
+    var anonTypeNum = dm.anonType ? Number(dm.anonType) : 0;
+    var intent = getFotogramIntentFromAnonMessage(dm, anonMsg.text || anonText, attachmentSpec);
+    dm.flowState.lastAnonIntent = intent;
+    var contextKeys = resolveFotogramChoiceContextKeys(effectiveNextId, intent, anonTypeNum, prevChoiceKey, dm.flowState);
+    if (nextNode.choicesByContext && typeof nextNode.choicesByContext === 'object') {
+        for (var cix = 0; cix < contextKeys.length; cix++) {
+            var ck = contextKeys[cix];
+            var pool = nextNode.choicesByContext[ck];
+            if (Array.isArray(pool) && pool.length) {
+                nextChoiceSource = pool;
+                break;
+            }
+        }
+    }
+    if (anonTypeNum === 3) dm.anonAskedSwap = true;
+    var nextChoices = normalizeFotogramScenarioChoices(nextChoiceSource, vars, effectiveNextId, dm.scenarioType);
+    if (nextNode.choicesByFlag && nextNode.choicesByFlag[flagKey] && !(intent && intent.explicit)) {
+        nextChoices = nextChoices.concat(normalizeFotogramScenarioChoices(nextNode.choicesByFlag[flagKey], vars, effectiveNextId, dm.scenarioType));
+    }
+    if (dm.messages.length >= maxMsg - 2) {
+        nextChoices = nextChoices.filter(function (c) {
+            var n = c.next ? getFotogramScenarioNode(flow, c.next) : null;
+            return n && n.endConversation === true;
+        });
+    }
+    dm.flowState.currentChoices = nextChoices;
     dm.availableReplyKeys = (dm.flowState.currentChoices || []).map(function (c) { return c.key; });
     if (nextNode.endConversation === true || dm.flowState.ghosted === true) {
         dm.flowState.currentChoices = [];
@@ -2185,7 +2468,7 @@ function phoneRenderFotogramDmThread(dmId) {
                     if (!c) return;
                     if (c.requiresSwap && !canUseSwapInFotogramDm(vars)) return;
                     if (c.requiresSwap) hasSwapChoice = true;
-                    html += '<button type="button" class="phone-fotogram-dm-quick" data-action="reply" data-dm-id="' + escapeHtmlFg(dm.id) + '" data-reply-key="' + escapeHtmlFg(c.key || '') + '">' + escapeHtmlFg(c.playerText || c.key) + '</button>';
+                    html += '<button type="button" class="phone-fotogram-dm-quick" data-action="reply" data-dm-id="' + escapeHtmlFg(dm.id) + '" data-reply-key="' + escapeHtmlFg(c.key || '') + '">' + escapeHtmlFg(getFotogramChoiceLabel(c, dm)) + '</button>';
                 });
                 if (anonAskedSwap && !hasSwapChoice && canUseSwapInFotogramDm(vars) && !dm.flowState.ghosted) {
                     html += '<button type="button" class="phone-fotogram-dm-quick promote" data-action="promote" data-dm-id="' + escapeHtmlFg(dm.id) + '">' + escapeHtmlFg(getFotogramDmRuntimeText('giveNumberButtonText')) + '</button>';

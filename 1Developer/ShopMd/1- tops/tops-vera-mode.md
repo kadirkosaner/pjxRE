@@ -10,8 +10,8 @@
 - Tier 0 (serbest): 15
 - Tier 1 (mild): 15
 - Tier 2 (revealing): 14
-- Tier 3 (daring): 8
-- Tier 4 (bold): 3
+- Tier 3 (daring): 9
+- Tier 4 (bold): 2
 
 ---
 ---
@@ -455,7 +455,7 @@
 **KayıtID:** camiDeepvBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black deep V-neck camisole showing generous cleavage with thin straps paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; plunging. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black deep V-neck camisole showing generous cleavage with thin straps paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; plunging. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -467,7 +467,7 @@
 **KayıtID:** wrapDeepvBurgundy
 
 **Prompt:**
-1:1. A young fit woman wearing a burgundy deep V wrap top showing cleavage with long sleeves paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; sultry wrap. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a burgundy deep V wrap top showing cleavage with long sleeves paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; sultry wrap. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -483,7 +483,7 @@
 **KayıtID:** topOpenbackWhite
 
 **Prompt:**
-1:1. A young fit woman wearing a white open-back blouse with draped fabric exposing upper back paired with dark fitted jeans; rear three-quarter view showing exposed back, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; elegant back. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a white open-back blouse with draped fabric exposing upper back paired with dark fitted jeans; rear three-quarter view showing exposed back, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; elegant back. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -495,7 +495,7 @@
 **KayıtID:** knitBacklessBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black backless knit top with long sleeves and open back to lower waist paired with dark fitted jeans; rear three-quarter view showing exposed back, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; surprise back. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black backless knit top with long sleeves and open back to lower waist paired with dark fitted jeans; rear three-quarter view showing exposed back, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; surprise back. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -511,7 +511,7 @@
 **KayıtID:** topCutoutSideWhite
 
 **Prompt:**
-1:1. A young fit woman wearing a white top with large side cutouts showing waist skin paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; skin peek. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a white top with large side cutouts showing waist skin paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; skin peek. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -523,7 +523,7 @@
 **KayıtID:** topCutoutFrontBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black long-sleeve top with front keyhole cutout at chest paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; peek-a-boo chest. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black top with front keyhole cutout at chest paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; peek-a-boo chest. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -539,7 +539,7 @@
 **KayıtID:** halterHighneckBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black high-neck halter top with exposed shoulders and arms paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; sleek halter. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black high-neck halter top with exposed shoulders and arms paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; sleek halter. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -551,7 +551,7 @@
 **KayıtID:** halterCamiNude
 
 **Prompt:**
-1:1. A young fit woman wearing a nude halter camisole with deep neckline and neck tie paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; minimal halter. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a nude halter camisole with deep neckline and neck tie paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; minimal halter. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -567,7 +567,7 @@
 **KayıtID:** tubeBasicBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black strapless tube top with straight neckline showing shoulders and arms paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; strapless. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black strapless tube top with straight neckline showing shoulders and arms paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; strapless. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -579,7 +579,7 @@
 **KayıtID:** tubeRuchedWhite
 
 **Prompt:**
-1:1. A young fit woman wearing a white ruched strapless top with gathered fabric paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; textured strapless. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a white ruched strapless top with gathered fabric paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; textured strapless. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -595,7 +595,7 @@
 **KayıtID:** wrapSidetieRed
 
 **Prompt:**
-1:1. A young fit woman wearing a red tie-front wrap top showing midriff and cleavage with long sleeves paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; bold wrap. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a red tie-front wrap top showing midriff and cleavage with long sleeves paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; bold wrap. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -607,7 +607,7 @@
 **KayıtID:** surpliceLowcutCream
 
 **Prompt:**
-1:1. A young fit woman wearing a cream surplice low-cut top with crossover neckline and long sleeves paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; draped crossover. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a cream surplice low-cut top with crossover neckline and long sleeves paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; draped crossover. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -623,7 +623,7 @@
 **KayıtID:** topLaceOverlayBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black lace overlay long-sleeve top with visible bra outline underneath paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; romantic lace. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black lace overlay long-sleeve top with visible bra outline underneath paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; romantic lace. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -635,7 +635,7 @@
 **KayıtID:** topLacePanelWhite
 
 **Prompt:**
-1:1. A young fit woman wearing a white top with lace panel inserts at shoulders and neckline paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; lace detail. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a white top with lace panel inserts at shoulders and neckline paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; lace detail. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 ---
@@ -655,7 +655,7 @@
 **KayıtID:** halterBacklessBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black halter backless top with deep plunging neckline and fully exposed back paired with dark fitted jeans; rear three-quarter view showing exposed back, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; daring back. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous bust wearing a black halter top with neckline plunging to sternum, fully bare back from shoulders to waist, and fabric gathered barely covering the bust paired with dark fitted jeans; rear three-quarter view showing fully exposed back and sides, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; daring backless plunge. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -667,7 +667,7 @@
 **KayıtID:** topExtremeCutoutBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black top with extreme cutout panels at waist and sides showing significant skin paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; strategic cutouts. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous bust wearing a black top with extreme side and waist cutouts exposing ribs, waist and significant skin, very short cropped length paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; extreme cutouts. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -679,19 +679,7 @@
 **KayıtID:** topSheerHintBlush
 
 **Prompt:**
-1:1. A young fit woman wearing a blush pink semi-sheer top with bra faintly visible underneath paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; sheer hint. Studio lighting, isolated on pure white background, focus on the top.
-
----
-
-**Item ID:** crop_micro_black
-**Mağaza:** storeClothingB
-**Tags:** date, party, daring
-**Looks:** 5
-**Quality:** Rare
-**KayıtID:** cropMicroBlack
-
-**Prompt:**
-1:1. A young fit woman wearing a black micro crop top barely covering the chest showing full midriff paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; minimal coverage. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous bust wearing a blush pink fully sheer gauzy top with lace bra clearly visible underneath, fabric nearly transparent across the bust, paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; transparent sheer. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -703,7 +691,7 @@
 **KayıtID:** topKeyholeDeepBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black long-sleeve top with large deep keyhole cutout at chest showing significant cleavage paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; provocative keyhole. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous bust wearing a black long-sleeve top with oversized keyhole cutout from collarbone to underbust, fabric framing cleavage on either side, deep plunge exposing sternum and upper cleavage paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; extreme keyhole plunge. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -715,7 +703,7 @@
 **KayıtID:** topChainbackBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black top with open back connected by thin decorative chains instead of fabric paired with dark fitted jeans; rear three-quarter view showing chain-detail back, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; chain detail. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous bust wearing a black top with entire back missing, held together only by thin chain straps crisscrossing the bare skin from shoulders to waist, no fabric covering the back paired with dark fitted jeans; rear three-quarter view showing fully exposed back with chain straps, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; chain-strap backless. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -727,7 +715,7 @@
 **KayıtID:** cropFauxleatherBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black faux leather crop top with structured fit showing full midriff paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; edgy material. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous bust wearing a black faux leather bralette-style crop with structured cups pushing cleavage up, cut high under the bust with full ribcage and midriff exposed, bondage-inspired straps paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; bralette crop. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
@@ -739,7 +727,31 @@
 **KayıtID:** topExtremeDeepvRed
 
 **Prompt:**
-1:1. A young fit woman wearing a red extreme deep V-neck top plunging to navel with long sleeves paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; dramatic plunge. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous bust wearing a red top with neckline plunging to navel, fabric split open from throat to stomach exposing full sternum and deep cleavage, long sleeves, paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; navel plunge. Studio lighting, isolated on pure white background, focus on the top.
+
+---
+
+**Item ID:** corset_top_black
+**Mağaza:** storeClothingB
+**Tags:** date, party, daring
+**Looks:** 6
+**Quality:** Rare
+**KayıtID:** corsetTopBlack
+
+**Prompt:**
+1:1. A young fit woman with voluptuous bust wearing a black boned corset top with lace-up front and structured cups paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; structured corset. Studio lighting, isolated on pure white background, focus on the top.
+
+---
+
+**Item ID:** bustier_satin_black
+**Mağaza:** storeClothingB
+**Tags:** date, party, daring
+**Looks:** 6
+**Quality:** Rare
+**KayıtID:** bustierSatinBlack
+
+**Prompt:**
+1:1. A young fit woman with voluptuous bust wearing a black satin bustier top with boning and sweetheart neckline paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; lingerie-inspired. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 ---
@@ -751,6 +763,18 @@
 ---
 ---
 
+**Item ID:** crop_micro_black
+**Mağaza:** storeClothingB
+**Tags:** party, evening, bold
+**Looks:** 6
+**Quality:** Rare
+**KayıtID:** cropMicroBlack
+
+**Prompt:**
+1:1. A young fit woman with voluptuous bust wearing a black bandeau-style underboob crop that sits just under the bust line with underboob visible, full stomach and ribcage exposed, paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; underboob crop. Studio lighting, isolated on pure white background, focus on the top.
+
+---
+
 **Item ID:** top_mesh_black
 **Mağaza:** storeClothingB
 **Tags:** party, evening, bold
@@ -759,28 +783,5 @@
 **KayıtID:** topMeshBlack
 
 **Prompt:**
-1:1. A young fit woman wearing a black sheer mesh long-sleeve top with bra clearly visible underneath paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; see-through mesh. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black sheer mesh long-sleeve top with bra clearly visible underneath paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; see-through mesh. Studio lighting, isolated on pure white background, focus on the top.
 
----
-
-**Item ID:** corset_top_black
-**Mağaza:** storeClothingB
-**Tags:** party, evening, bold
-**Looks:** 6
-**Quality:** Rare
-**KayıtID:** corsetTopBlack
-
-**Prompt:**
-1:1. A young fit woman wearing a black boned corset top with lace-up front and structured cups paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; structured corset. Studio lighting, isolated on pure white background, focus on the top.
-
----
-
-**Item ID:** bustier_satin_black
-**Mağaza:** storeClothingB
-**Tags:** party, evening, bold
-**Looks:** 6
-**Quality:** Rare
-**KayıtID:** bustierSatinBlack
-
-**Prompt:**
-1:1. A young fit woman wearing a black satin bustier top with boning and sweetheart neckline paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; lingerie-inspired. Studio lighting, isolated on pure white background, focus on the top.
