@@ -895,6 +895,17 @@
   padding-bottom: 0.1em;
 }
 
+/* Cum reaction: emoji inline at end of text, not on a new line */
+.phone-fotogram-dm-bubble-cum {
+  /* style the whole bubble if needed */
+}
+.phone-fotogram-dm-cum-extra {
+  display: inline;
+  margin-left: 0.2em;
+  font-size: 1em;
+  opacity: 0.95;
+}
+
 .phone-fotogram-dm-actions {
   display: flex;
   gap: var(--spacing-sm, 0.5rem);

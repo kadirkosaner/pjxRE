@@ -740,7 +740,8 @@ function getFotogramDmPolicy(vars, post) {
     var interactiveMinQuality = getFotogramSetupNumber('fotogramDmInteractiveMinQuality');
     if (!Number.isFinite(interactiveMinFollowers)) interactiveMinFollowers = 100;
     if (!Number.isFinite(interactiveMinQuality)) interactiveMinQuality = 50;
-    var shouldUseInteractive = !(followersTotal < interactiveMinFollowers && quality < interactiveMinQuality);
+    /* İnteraktif DM için ikisi de şart: takipçi >= eşik VE quality >= eşik */
+    var shouldUseInteractive = (followersTotal >= interactiveMinFollowers && quality >= interactiveMinQuality);
     if (quality < 50) {
         if (followersTotal < 100) return { targetCount: 0, interactive: false };
         return { targetCount: resolveLowQualityDmTargetCount(post), interactive: shouldUseInteractive };

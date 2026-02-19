@@ -111,15 +111,31 @@ function fdmPersonaTextPool(persona, key) {
     return [];
 }
 
+/** Pick one player message from persona-based pool (setup.fdmPlayerTexts). Keys: photoSend, giveNumber, rejectPhoto, noPhotoAvailable. */
+function getPlayerText(persona, key) {
+    var conf = (typeof setup !== 'undefined' && setup.fdmPlayerTexts) ? setup.fdmPlayerTexts : null;
+    var arr = null;
+    if (conf && (persona || 'generic')) {
+        if (conf[persona] && Array.isArray(conf[persona][key]) && conf[persona][key].length) arr = conf[persona][key];
+        if (!arr && conf.generic && Array.isArray(conf.generic[key]) && conf.generic[key].length) arr = conf.generic[key];
+    }
+    if (arr && arr.length) return String(fdmPick(arr));
+    if (key === 'photoSend') return (setup.fdmPlayerPhotoSendTexts && setup.fdmPlayerPhotoSendTexts.length) ? String(fdmPick(setup.fdmPlayerPhotoSendTexts)) : 'I\'ll send a photo';
+    if (key === 'giveNumber') return (setup.fdmPlayerGiveNumberTexts && setup.fdmPlayerGiveNumberTexts.length) ? String(fdmPick(setup.fdmPlayerGiveNumberTexts)) : 'Sure, here\'s my number :)';
+    if (key === 'rejectPhoto') return 'no, not needed';
+    if (key === 'noPhotoAvailable') return 'I don\'t have a new one in this style.';
+    return '';
+}
+
+/* Neutral labels for [send photo] choice button only. Actual bubble text is from getPlayerText(persona, 'photoSend') when sending. */
+var FDM_CHOICE_SEND_PHOTO_LABELS = ['Send photo', 'I\'ll send one', 'Send one', 'Okay, I\'ll send one', 'Send a photo'];
+
 function fdmNormalizeChoiceText(text, persona) {
     var t = String(text || '').trim();
     if (!t) return '...';
     if (FDM_PHOTO_SEND_TAG_RE.test(t)) {
-        var playerSend = (typeof setup !== 'undefined' && setup.fdmPlayerPhotoSendTexts && setup.fdmPlayerPhotoSendTexts.length)
-            ? setup.fdmPlayerPhotoSendTexts : null;
-        if (playerSend && playerSend.length) return String(fdmPick(playerSend));
-        var sendPool = fdmPersonaTextPool(persona || 'generic', 'photo_send');
-        return String(fdmPick(sendPool) || 'I\'ll send a photo');
+        /* Button label only — neutral. Bubble text is chosen in processFotogramPhoto via getPlayerText. */
+        return String(fdmPick(FDM_CHOICE_SEND_PHOTO_LABELS) || 'Send photo');
     }
     return t;
 }
@@ -327,7 +343,9 @@ function fdmBuildMsgFromPoolEntry(entry, state, dm) {
     category = fdmNormalizeAttachmentCategory(category, state, obj);
     var progression = getProgression(state && state.persona);
     var progressionMode = !!(category && progressionCats[String(category || '')]);
-    if (progressionMode && state) {
+    /* Only force category from progression when the pool entry did not set one; otherwise "Send your pussy" (cock) would become cum and trigger session end. */
+    var entryHadCategory = !!(obj.attachmentCategory && progressionCats[String(obj.attachmentCategory || '')]);
+    if (progressionMode && state && !entryHadCategory) {
         if (state.mediaFlowCompleted === true) {
             category = '';
         } else {
@@ -392,11 +410,11 @@ function fdmBuildMsgFromPoolEntry(entry, state, dm) {
             state.lastPlayerPhotoCountForAnonMedia = pCountNow;
         }
     }
-    /* Commit category progression only after all guards pass and attachment survives. */
-    if (att && state && finalizedCategory) {
-        state.lastAnonAttachmentCategory = finalizedCategory;
+    /* Commit category progression: update state so cum-breaker logic is correct even when no media attached. */
+    if (state && category && progressionCats[String(category)]) {
+        state.lastAnonAttachmentCategory = String(category);
         if (progressionMode && progression && progression.length) {
-            var atIndex = progression.indexOf(finalizedCategory);
+            var atIndex = progression.indexOf(category);
             if (atIndex >= 0 && atIndex < progression.length - 1) {
                 state.mediaFlowIndex = atIndex + 1;
             } else if (atIndex === progression.length - 1) {
@@ -596,10 +614,12 @@ function fdmAddMsg(dm, from, text, att, vars) {
     if (!dm.messages) dm.messages = [];
     var msgText = text || '';
     var msgAtt = att || null;
-    dm.messages.push({
+    var msgObj = {
         from: from, text: msgText, time: fdmTime(vars),
         read: from === 'me', attachment: msgAtt
-    });
+    };
+    if (msgAtt && msgAtt.category) msgObj.attachmentCategory = msgAtt.category;
+    dm.messages.push(msgObj);
     if (dm.flowState && msgAtt && msgAtt.path) {
         var used = fdmEnsureUsedMediaMap(dm.flowState, dm);
         used[fdmMediaPathKey(msgAtt.path)] = true;
@@ -921,11 +941,12 @@ function fdmResolveChoices(state, forceResolve) {
             var hasDirectPhotoChoice = resolved.some(function (c) {
                 return !!(c && c.triggersPhoto === true);
             });
-            var hasSendAnother = resolved.some(function (c) {
-                return String((c && c.text) || '').toLowerCase() === 'send another';
+            var hasSendOneMore = resolved.some(function (c) {
+                var t = String((c && c.text) || '').toLowerCase();
+                return t === 'send another' || t === 'i\'ll send one more' || t === 'send one more' || (c && c.triggersPhoto === true);
             });
-            if (!flowClosed && !hasDirectPhotoChoice && !hasSendAnother) {
-                resolved.push({ text: "send another", delta: 2, triggersPhoto: true });
+            if (!flowClosed && !hasDirectPhotoChoice && !hasSendOneMore) {
+                resolved.push({ text: "I'll send one more", delta: 2, triggersPhoto: true });
             }
         }
     } else {
@@ -1193,13 +1214,14 @@ function processFotogramPhoto(vars, dmId, style) {
     s.currentChoices = null;   /* v2: clear cache */
 
     if (style === 'hayir') {
-        /* Player backed out */
-        fdmAddMsg(dm, 'me', 'no, not needed', null, vars);
+        /* Player backed out — text from persona pool */
+        fdmAddMsg(dm, 'me', getPlayerText(s.persona, 'rejectPhoto'), null, vars);
         s.heat = fdmClamp(s.heat - 20, 0, 100);
         s.lastPlayerDelta = -20;
         s.pushbackStreak = Number(s.pushbackStreak || 0) + 1;
         s.photoCooldownTurns = Math.max(Number(s.photoCooldownTurns || 0), 5);
         s.pressureDebt = Math.min(8, Number(s.pressureDebt || 0) + 3);
+        s.mildPhotoStreak = 0;
         s.persistence--;
         if (s.persistence <= 0) {
             var closePool = fdmGetMsgPool(s.persona, 'close');
@@ -1213,7 +1235,7 @@ function processFotogramPhoto(vars, dmId, style) {
             return { ok: true, ended: true };
         }
         /* v2: Reaction for photo rejection */
-        fdmSendReaction(vars, dm, s, -20, 'no, not needed');
+        fdmSendReaction(vars, dm, s, -20, getPlayerText(s.persona, 'rejectPhoto'));
         return fdmDoAnonTurn(vars, dm, s);
     }
 
@@ -1221,7 +1243,7 @@ function processFotogramPhoto(vars, dmId, style) {
     var pAtt = fdmGetPlayerPhoto(style, s, dm);
     if (style !== 'hayir') s.alreadySentStreak = 0;
     if (!pAtt || !pAtt.path) {
-        fdmAddMsg(dm, 'me', "I don't have a new one in this style.", null, vars);
+        fdmAddMsg(dm, 'me', getPlayerText(s.persona, 'noPhotoAvailable'), null, vars);
         s.awaitingPhoto = true;
         if (window.persistPhoneChanges) window.persistPhoneChanges();
         if (window.updatePhoneBadges) window.updatePhoneBadges();
@@ -1231,9 +1253,7 @@ function processFotogramPhoto(vars, dmId, style) {
             photoOptions: fdmPhotoOptions(vars)
         };
     }
-    var pSendPool = (typeof setup !== 'undefined' && setup.fdmPlayerPhotoSendTexts && setup.fdmPlayerPhotoSendTexts.length)
-        ? setup.fdmPlayerPhotoSendTexts : null;
-    var pText = (pSendPool && pSendPool.length) ? fdmPick(pSendPool) : 'al';
+    var pText = getPlayerText(s.persona, 'photoSend') || 'here you go';
     fdmAddMsg(dm, 'me', pText, pAtt, vars);
 
     /* Heat delta */
@@ -1244,6 +1264,36 @@ function processFotogramPhoto(vars, dmId, style) {
     s.photoCooldownTurns = 0;
     s.pressureDebt = Math.max(0, Number(s.pressureDebt || 0) - 2);
     s.playerPhotoCount = Number(s.playerPhotoCount || 0) + 1;
+    var mildPhoto = (style === 'normal' || style === 'sexy');
+    s.mildPhotoStreak = mildPhoto ? (Number(s.mildPhotoStreak || 0) + 1) : 0;
+    if (mildPhoto && Number(s.mildPhotoStreak || 0) >= 2) {
+        var failPool = fdmGetMsgPool(s.persona, 'react_photo_mild_fail');
+        if ((!failPool || !failPool.length) && typeof setup !== 'undefined' && setup.fdmMsgPools && setup.fdmMsgPools[s.persona]) {
+            failPool = setup.fdmMsgPools[s.persona].close || [];
+        }
+        if (failPool && failPool.length) {
+            var fp = fdmAPick(failPool, s.recentAnon);
+            if (fp) {
+                var builtFail = fdmBuildMsgFromPoolEntry(fp, s, dm);
+                if (builtFail) fdmAddMsg(dm, dm.id, builtFail.text, builtFail.attachment, vars);
+            }
+        } else {
+            fdmAddMsg(dm, dm.id, "Alright, enough. You're keeping it safe and this isn't going anywhere. I'm out.", null, vars);
+        }
+        s.ended = true;
+        s.currentChoices = null;
+        if (window.persistPhoneChanges) window.persistPhoneChanges();
+        if (window.updatePhoneBadges) window.updatePhoneBadges();
+        return { ok: true, ended: true };
+    }
+    if (mildPhoto) {
+        /* Normal/Sexy should never escalate to cock/cum lane. */
+        s.mediaFlowCompleted = false;
+        s.mediaFlowIndex = 0;
+        if (String(s.lastAnonAttachmentCategory || '') === 'cock' || String(s.lastAnonAttachmentCategory || '') === 'cum') {
+            s.lastAnonAttachmentCategory = 'spicy';
+        }
+    }
 
     function fdmRunCumBreaker() {
         var chances = (typeof setup !== 'undefined' && setup.fdmPhotoChances) ? setup.fdmPhotoChances : {};
@@ -1295,17 +1345,54 @@ function processFotogramPhoto(vars, dmId, style) {
     /* Style-based reaction: anon reacts to what kind of photo player sent (with matching media escalation). */
     var styleReactKey = 'react_photo_' + style;
     var styleReactPool = fdmGetMsgPool(s.persona, styleReactKey);
+    var styleReactionAdded = false;
     if (styleReactPool && styleReactPool.length) {
-        var sr = fdmAPick(styleReactPool, s.recentAnon);
+        /* Progression: spicy(0) → cock(1) → cum(2). After cock opener we're at 1: first nude+ = cock, second = cum. */
+        var progression = (s.persona === 'flirty' || s.persona === 'wild')
+            ? ['spicy', 'sexting', 'female_masturbation']
+            : ['spicy', 'cock', 'cum'];
+        var flowIdx = Math.max(0, Math.min(Number(s.mediaFlowIndex || 0), progression.length - 1));
+        var desiredCategory = mildPhoto ? 'spicy' : progression[flowIdx];
+        var filteredPool = styleReactPool.filter(function (e) {
+            var cat = e && e.attachmentCategory ? String(e.attachmentCategory) : '';
+            if (mildPhoto) return !cat || cat === 'spicy';
+            return cat === desiredCategory;
+        });
+        if (!filteredPool.length) {
+            if (mildPhoto) {
+                filteredPool = styleReactPool.filter(function (e) {
+                    var cat = e && e.attachmentCategory ? String(e.attachmentCategory) : '';
+                    return cat !== 'cock' && cat !== 'cum' && cat !== 'sexting' && cat !== 'female_masturbation';
+                });
+            } else {
+                filteredPool = styleReactPool;
+            }
+        }
+        var sr = fdmAPick(filteredPool, s.recentAnon);
         if (sr) {
             var builtSr = fdmBuildMsgFromPoolEntry(sr, s, dm);
-            if (builtSr) fdmAddMsg(dm, dm.id, builtSr.text, builtSr.attachment, vars);
+            if (builtSr) {
+                fdmAddMsg(dm, dm.id, builtSr.text, builtSr.attachment, vars);
+                styleReactionAdded = true;
+            }
         }
     }
 
     var cumReachedNow = s.mediaFlowCompleted === true || String(s.lastAnonAttachmentCategory || '') === 'cum';
     if (cumReachedNow) {
         return fdmRunCumBreaker();
+    }
+
+    /* If we already showed a style reaction (e.g. "Send your pussy" / "Send more"), don't add a second "want_more" message — one message per turn. */
+    if (styleReactionAdded) {
+        s.justReceivedPlayerPhoto = true;
+        return fdmDoAnonTurn(vars, dm, s);
+    }
+
+    if (mildPhoto) {
+        /* For normal/sexy, do not enter satisfied/cum path in this turn. */
+        s.justReceivedPlayerPhoto = true;
+        return fdmDoAnonTurn(vars, dm, s);
     }
 
     /* Random: satisfied vs want one more. Second photo = higher chance to be satisfied. */
@@ -1421,6 +1508,27 @@ function fdmEnsurePromotedFromDm(vars, dmId) {
             n++;
         }
 
+        /* Avatar: CharGenerateWidget ile aynı kaynak — setup.charGenerator.avatarPool (cinsiyet + skinTone) */
+        var skinTone = dm.skinTone || "white";
+        var avatarPool = cfg.avatarPool || { male: { white: [], black: [], tan: [] }, female: { white: [], black: [], tan: [] } };
+        var gp = avatarPool[gender] || {};
+        var tones = (Array.isArray(cfg.skinTones) && cfg.skinTones.length) ? cfg.skinTones : ["white", "black", "tan"];
+        var avatar = "";
+        var tonePool = Array.isArray(gp[skinTone]) ? gp[skinTone] : [];
+        if (tonePool.length > 0) {
+            avatar = pick(tonePool, "");
+        } else {
+            for (var tp = 0; tp < tones.length; tp++) {
+                var toneKey = tones[tp];
+                var altPool = Array.isArray(gp[toneKey]) ? gp[toneKey] : [];
+                if (altPool.length > 0) {
+                    avatar = pick(altPool, "");
+                    break;
+                }
+            }
+        }
+        if (!avatar) avatar = dm.avatar || "";
+
         var fullName = firstName + " " + lastName;
         var def = {
             id: candidate,
@@ -1429,7 +1537,7 @@ function fdmEnsurePromotedFromDm(vars, dmId) {
             lastName: lastName,
             birthYear: birthYear,
             location: "Online",
-            avatar: dm.avatar || "",
+            avatar: avatar,
             type: "npc",
             color: pick(colors, "#a855f7"),
             status: "Online Contact",
@@ -1522,10 +1630,8 @@ function processFotogramNumber(vars, dmId, give) {
     s.currentChoices = null;   /* v2: clear cache */
 
     if (give) {
-        /* Player message: give number (from pool) */
-        var giveTexts = (typeof setup !== 'undefined' && Array.isArray(setup.fdmPlayerGiveNumberTexts) && setup.fdmPlayerGiveNumberTexts.length)
-            ? setup.fdmPlayerGiveNumberTexts : ['Sure, here\'s my number :)'];
-        var playerGiveText = giveTexts[Math.floor(Math.random() * giveTexts.length)];
+        /* Player message: give number (persona pool) */
+        var playerGiveText = getPlayerText(s.persona, 'giveNumber') || 'Sure, here\'s my number :)';
         fdmAddMsg(dm, 'me', playerGiveText, null, vars);
         /* Anon happy reaction (react_number) */
         var hPool = fdmGetMsgPool(s.persona, 'react_number');
@@ -1649,9 +1755,10 @@ function fdmDoAnonTurn(vars, dm, s) {
         return { ok: true, ended: true };
     }
 
-    /* v2 FIX: Only trigger number UI when message type IS number_request */
-    /* REMOVED: || s.heat > 80   ← this was forcing number UI for ANY high-heat message */
-    if (msg.type === 'number_request') {
+    /* If message text mentions WhatsApp, treat as number request so "give number" (ge) UI is shown */
+    var isNumberRequest = (msg.type === 'number_request') || (String(text || '').toLowerCase().indexOf('whatsapp') >= 0);
+    if (isNumberRequest) {
+        s.numberAsked = true;
         return {
             ok: true,
             numberRequest: true,
@@ -1682,7 +1789,30 @@ function bootstrapFotogramDM(vars, dmId) {
 
     var pool = fdmGetMsgPool(s.persona, 'opener');
     if (!pool.length) return false;
-    var p = fdmAPick(pool, s.recentAnon);
+    /* Flow: spicy → cock → cum. First message must be spicy (not cock). */
+    var spicyOnly = pool.filter(function (e) {
+        var cat = e && e.attachmentCategory ? String(e.attachmentCategory) : '';
+        return cat === 'spicy';
+    });
+    var noCock = pool.filter(function (e) {
+        var cat = e && e.attachmentCategory ? String(e.attachmentCategory) : '';
+        var type = e && e.type ? String(e.type) : '';
+        return type !== 'cock_opener' && cat !== 'cock';
+    });
+    var openerPool = spicyOnly.length ? spicyOnly : noCock.length ? noCock : pool;
+    var p = fdmAPick(openerPool, s.recentAnon);
+    /* Hard guard: first opener must never be cock_opener. */
+    if (p && String(p.type || '') === 'cock_opener') {
+        var safePool = spicyOnly.length ? spicyOnly : noCock;
+        if (safePool && safePool.length) {
+            p = fdmAPick(safePool, s.recentAnon) || p;
+        } else {
+            p = Object.assign({}, p, {
+                type: 'opener',
+                attachmentCategory: 'spicy'
+            });
+        }
+    }
     if (!p) return false;
 
     var builtOpen = fdmBuildMsgFromPoolEntry(p, s, dm);
@@ -1698,6 +1828,14 @@ function bootstrapFotogramDM(vars, dmId) {
     /* Opener: always one bubble — attachment and text in same message */
     fdmAddMsg(dm, dm.id, String(text || '').trim(), att, vars);
     fdmMarkAnonMsgUsed(s, p);
+    /* Progression: spicy(0) → cock(1) → cum(2). Spicy opener = start at 0; cock opener = start at 1. */
+    if (String(p.type || '') === 'cock_opener' || (att && att.category === 'cock')) {
+        s.lastAnonAttachmentCategory = 'cock';
+        s.mediaFlowIndex = 1;
+    } else if (att && att.category === 'spicy') {
+        s.lastAnonAttachmentCategory = 'spicy';
+        s.mediaFlowIndex = 1;
+    }
     /* Register opener in recentAnon so we don't pick the same message again from cold pool later */
     var openText = String(text || '').trim();
     if (openText) {
@@ -1817,11 +1955,11 @@ function createFotogramDM(vars, post) {
     var gender = fdmPickGender();
     var persona = fdmPickPersona(gender);
 
-    /* Non-interactive fallback */
-    var useInteractive = true;
     var followers = Math.max(0, Number(vars && vars.phoneFollowers) || 0);
     var quality   = Math.max(0, Number(post && post.quality) || 0);
-    if (followers < 100 && quality < 30) useInteractive = false;
+    var interactiveMinFollowers = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmInteractiveMinFollowers))) ? Number(setup.fotogramDmInteractiveMinFollowers) : 1000;
+    var interactiveMinQuality   = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmInteractiveMinQuality)))   ? Number(setup.fotogramDmInteractiveMinQuality)   : 50;
+    var useInteractive = (followers >= interactiveMinFollowers && quality >= interactiveMinQuality);
 
     var dm = {
         id: dmId,
@@ -1887,8 +2025,10 @@ function canUseSwapInFotogramDm(vars) {
 function getFotogramDmThreadModeForPost(vars, post) {
     var followers = Math.max(0, Number(vars && vars.phoneFollowers) || 0);
     var quality   = Math.max(0, Number(post && post.quality) || 0);
-    if (followers < 100 && quality < 30) return 'non_interactive';
-    return 'interactive';
+    var interactiveMinFollowers = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmInteractiveMinFollowers))) ? Number(setup.fotogramDmInteractiveMinFollowers) : 1000;
+    var interactiveMinQuality   = (typeof setup !== 'undefined' && Number.isFinite(Number(setup.fotogramDmInteractiveMinQuality)))   ? Number(setup.fotogramDmInteractiveMinQuality)   : 50;
+    if (followers >= interactiveMinFollowers && quality >= interactiveMinQuality) return 'interactive';
+    return 'non_interactive';
 }
 
 /* ── UTILITY FUNCTIONS (used by phone-fotogram.js and UI) ────────────── */
@@ -2168,6 +2308,7 @@ function phoneRenderFotogramDmThread(dmId) {
         var isMe   = m.from === 'me';
         var mediaHtml = '';
         var textOnly = String(likelyMedia(m.text) ? '' : (m.text || ''));
+        var isCumReaction = !isMe && (m.attachmentCategory === 'cum' || (m.attachment && m.attachment.category === 'cum'));
 
         if (m.attachment && m.attachment.path) {
             var preferredKind = m.attachment.kind || getMediaKind(m.attachment.path);
@@ -2194,20 +2335,25 @@ function phoneRenderFotogramDmThread(dmId) {
         }
         var hasMedia = !!mediaHtml;
         var hasText = !!String(textOnly || '').trim();
+        var bubbleClass = (isMe ? ' me' : '') + (isCumReaction ? ' phone-fotogram-dm-bubble-cum' : '');
+        var cumExtraHtml = (typeof window.phoneFotogramCumExtraHtml === 'string' && window.phoneFotogramCumExtraHtml) ? window.phoneFotogramCumExtraHtml : '💦';
+        var cumExtraInline = isCumReaction ? ' <span class="phone-fotogram-dm-cum-extra" data-cum-reaction="1">' + esc(cumExtraHtml) + '</span>' : '';
         if (hasMedia && hasText) {
-            var mediaBubble = '<div class="phone-fotogram-dm-message' + (isMe ? ' me' : '') + '">';
-            if (!isMe) mediaBubble += renderAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-msg');
-            mediaBubble += '<div class="phone-fotogram-dm-bubble' + (isMe ? ' me' : '') + '">' + mediaHtml + '<span class="phone-fotogram-dm-bubble-text"></span></div></div>';
-            html += mediaBubble;
-
+            /* Text first, then photo/video (natural order: say it then show it) */
             var textBubble = '<div class="phone-fotogram-dm-message' + (isMe ? ' me' : '') + '">';
             if (!isMe) textBubble += renderAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-msg');
-            textBubble += '<div class="phone-fotogram-dm-bubble' + (isMe ? ' me' : '') + '"><span class="phone-fotogram-dm-bubble-text">' + esc(textOnly) + '</span></div></div>';
+            textBubble += '<div class="phone-fotogram-dm-bubble' + bubbleClass + '"><span class="phone-fotogram-dm-bubble-text">' + esc(textOnly) + cumExtraInline + '</span></div></div>';
             html += textBubble;
+
+            var mediaBubble = '<div class="phone-fotogram-dm-message' + (isMe ? ' me' : '') + '">';
+            if (!isMe) mediaBubble += renderAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-msg');
+            mediaBubble += '<div class="phone-fotogram-dm-bubble' + bubbleClass + '"><span class="phone-fotogram-dm-bubble-text"></span>' + mediaHtml + '</div></div>';
+            html += mediaBubble;
         } else {
+            /* Single bubble: text first, then media if both present */
             var bubble = '<div class="phone-fotogram-dm-message' + (isMe ? ' me' : '') + '">';
             if (!isMe) bubble += renderAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-msg');
-            bubble += '<div class="phone-fotogram-dm-bubble' + (isMe ? ' me' : '') + '">' + mediaHtml + '<span class="phone-fotogram-dm-bubble-text">' + esc(textOnly) + '</span></div></div>';
+            bubble += '<div class="phone-fotogram-dm-bubble' + bubbleClass + '"><span class="phone-fotogram-dm-bubble-text">' + esc(textOnly) + cumExtraInline + '</span>' + mediaHtml + '</div></div>';
             html += bubble;
         }
     });

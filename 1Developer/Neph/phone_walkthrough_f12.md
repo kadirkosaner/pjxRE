@@ -250,3 +250,29 @@ console.log("DMs cleared");
 - Eski thread mesajlari gecmiste kalir; yeni text degisiklikleri yeni DM'lerde net gorunur.
 - `setup` degisiklikleri icin save + reload tavsiye edilir.
 - Debug kodlari test amaclidir, release gameplay icin kullanilmaz.
+
+
+window.__phoneVars = function () {
+  return (typeof State !== "undefined" && State.variables)
+    ? State.variables
+    : (typeof SugarCube !== "undefined" && SugarCube.State && SugarCube.State.variables)
+      ? SugarCube.State.variables
+      : (window.PhoneAPI && PhoneAPI.State && PhoneAPI.State.variables)
+        ? PhoneAPI.State.variables
+        : null;
+};
+
+window.phoneGalleryAddItem?.("assets/content/phone/gallery/photos/normal/normalSelfie1.webp", {
+  kind: "photos",
+  category: "spicy",
+  quality: 100,
+  from: "player",
+  flags: ["spicy", "risky"]
+});
+
+const v = window.__phoneVars();
+v.phoneFollowers = (Number(v.phoneFollowers) || 0) + 5000;
+console.log("followers:", v.phoneFollowers);
+
+const v = window.__phoneVars();
+window.updateFotogramEngagementHourly?.(v, 3); // 3 saat
