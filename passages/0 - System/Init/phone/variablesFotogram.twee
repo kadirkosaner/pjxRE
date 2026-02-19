@@ -2,8 +2,8 @@
 /* =============================================================================
    FOTOGRAM – GLOBAL SETTINGS
    =============================================================================
-   Bu dosya fallback kullanmadan calisan tum Fotogram ayarlarini tutar.
-   DM metin havuzlari ve flow node icerikleri ilgili DM dosyalarinda kalir.
+   This file stores global Fotogram configuration values.
+   DM text pools and flow nodes are defined in dedicated DM data files.
    ============================================================================= */
 
 /* Post / feed */
@@ -23,53 +23,18 @@
 <<set setup.fotogramDmAgeMax = 60>>
 <<set setup.fotogramDmMaleWeight = 0.7>>
 <<set setup.fotogramDmFemaleWeight = 0.3>>
-<<set setup.fotogramDmMinConfidenceInteractive = 30>>
-<<set setup.fotogramDmMinCorruptionSwap = 2>>
 <<set setup.fotogramAnonSkinTones = ["white", "black"]>>
+<<set setup.fotogramDmInteractiveMinFollowers = 1000>>
+<<set setup.fotogramDmInteractiveMinQuality = 50>>
+<<set setup.fotogramDmMinConfidenceInteractive = 0>>
+<<set setup.fotogramDmMinCorruptionSwap = 0>>
 
-/* Interactive DM – anon type weights (1=getoff, 2=objectifier, 3=number_hunter, 4=flirty, 5=praise_fan, 6=unsolicited_sender) */
-<<run setup.fotogramDMAnonTypeWeights = { 1: 15, 2: 20, 3: 15, 4: 15, 5: 5, 6: 30 }>>
-/* Min/max total messages per chat (anon + player) */
-<<set setup.fotogramDMMinTotalMessages = 15>>
-<<set setup.fotogramDMMaxTotalMessages = 22>>
-
-/* Interactive DM scenario selection – single flow (realistic chat) */
-<<set setup.fotogramDMScenarioTypes = ["chat_open"]>>
-<<run setup.fotogramDMScenarioWeightsByFlag = {
-  default: { chat_open: 100 },
-  spicy: { chat_open: 100 },
-  risky: { chat_open: 100 },
-  teasing: { chat_open: 100 },
-  bikini: { chat_open: 100 },
-  hot: { chat_open: 100 }
+/* DM interactive – photo satisfied / want more / ask number chances (0–1) */
+<<run setup.fdmPhotoChances = {
+    satisfiedFirst: 0.35,   /* chance anon is satisfied (came) after first photo */
+    satisfiedSecond: 0.6,    /* chance anon is satisfied after second+ photo */
+    askNumberChance: 0.5    /* when satisfied, chance anon asks for number swap */
 }>>
 
-/* Interactive DM variety controls */
-<<set setup.fotogramDMAnonTypeRecentWindow = 5>>
-<<set setup.fotogramDMAnonTypeRecentPenalty = 0.25>>
-<<set setup.fotogramDmScenarioRecentWindow = 4>>
-<<set setup.fotogramDmScenarioRecentPenalty = 0.55>>
-<<set setup.fotogramDmNodeTextRecentWindow = 8>>
-<<set setup.fotogramDmNodeTextStrictTurns = 2>>
-<<set setup.fotogramDmAttachmentRecentWindow = 6>>
-<<set setup.fotogramDmAttachmentStageHeatMid = 3>>
-<<set setup.fotogramDmAttachmentStageHeatLate = 6>>
-<<set setup.fotogramDmAttachmentStageTrustLate = 3>>
-<<set setup.fotogramDMAttachmentPoolsEarly = ["spicy"]>>
-<<set setup.fotogramDMAttachmentPoolsMid = ["spicy", "sexting", "cock", "cum", "female_masturbation"]>>
-<<set setup.fotogramDMAttachmentPoolsLate = ["sexting", "spicy", "cock", "cum", "female_masturbation"]>>
-<<set setup.fotogramDmDynamicAttachmentChanceEarly = 0.08>>
-<<set setup.fotogramDmDynamicAttachmentChanceMid = 0.18>>
-<<set setup.fotogramDmDynamicAttachmentChanceLate = 0.32>>
-<<run setup.fotogramDMPersonaWeights = { dominant: 35, playful: 30, manipulative: 15, soft: 20 }>>
-<<run setup.fotogramDMMediaBehaviorWeights = { text_only: 35, media_only: 20, mixed: 45 }>>
-<<run setup.fotogramDMPersonaAddons = {
-  dominant: ["Don't play innocent now.", "Keep the same energy.", "You opened this door."],
-  manipulative: ["Don't switch up now.", "You wanted this vibe.", "Own what you started."],
-  playful: ["You are trouble 😏", "This chat is wild 😂", "You're really doing this, huh?"],
-  soft: ["Careful... this is getting intense.", "Slow and messy, I like it.", "You're pulling me in."]
-}>>
-
-/* Legacy quick-reply keys (only for explicit non-scenario fallback mode) */
-<<set setup.fotogramDMStartReplyKeys = ["hi", "thanks", "who"]>>
+/* DM behavior is configured in dedicated DM files. */
 

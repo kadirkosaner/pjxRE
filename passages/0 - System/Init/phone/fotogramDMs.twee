@@ -2,16 +2,34 @@
 /* =============================================================================
    FOTOGRAM – DM TEXT POOLS
    =============================================================================
-   Loaded by: createFotogramDM() & processFotogramDMReply() in phone-fotogram.js
+  Loaded by: createFotogramDM() & processFotogramDMReply() in phone-fotogram-dm.js
    Uses:
      setup.fotogramAnonNames              → random DM sender name
-    setup.fotogramDMMessagesByFlag       → first DM message (interactive, now in fotogramDMInteractive.twee)
-     setup.fotogramDMEncouragingMessages  → first DM message (non-interactive)
+    setup.fotogramDMEncouragingMessages  → first DM message
      setup.fotogramDMEncouragingReplyMessages → auto-reply after player thanks
-     setup.fotogramSwapIntroMessages      → after number swap intro text
+    setup.fotogramSwapIntroMessages      → optional contact intro text
    Flag priority: spicy > bikini > risky > hips > ass > boobs > hot > teasing > default
    Gender tone: ~70% male / ~30% female
    ============================================================================= */
+
+<<run setup.fotogramDMRuntimeConfig = {
+  text: {
+    emptyAnonText: "...",
+    deletedMessageText: "[Message deleted]",
+    legacyReplyFallbackText: "Thanks for replying!",
+    quickReplyButtonText: "Reply",
+    giveNumberButtonText: "Give number",
+    blockButtonText: "Block"
+  },
+  legacyReplyKeys: ["hi", "thanks", "who"],
+  swapKeywordHints: ["swap", "number"]
+}>>
+
+<<run setup.fotogramDMQuickReplies = [
+  { key: "hi", playerText: "Hi! Thanks for the message!", anonReplies: { default: { text: "You actually replied! What are you up to?" } }, nextReplyKeys: ["vibe", "busy"]},
+  { key: "thanks", playerText: "Thanks, that's sweet!", anonReplies: { default: { text: "Of course! I'll let you get back to it." } }, endConversation: true},
+  { key: "who", playerText: "Who is this?", anonReplies: { default: { text: "Someone who appreciates your content." } }, nextReplyKeys: ["hi", "vibe"]}
+]>>
 
 /* ── DM sender display names (~100) ──────────────────────────────────────── */
 <<set setup.fotogramAnonNames = [

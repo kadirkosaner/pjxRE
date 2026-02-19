@@ -920,11 +920,14 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
                 currentShopItems = [...questItems, ...currentShopItems];
             }
         } else if (itemIds && Array.isArray(itemIds)) {
-             // Fallback
+             // Fallback (e.g. empty shop like Luxe Leather with no items)
              console.warn('[Shopping] State load failed, re-initializing from args.');
              currentShopName = shopName || 'Shop';
+             currentShopType = shopType || 'Store';
              currentShopItems = getItemsByIds(itemIds);
+             returnPassage = backPassage || getState().variables.location || 'start';
              shopCurrentCategory = 'all';
+             saveShopState();
         } else {
             // Failed
             console.warn('[Shopping] No shop state found and no items args.');

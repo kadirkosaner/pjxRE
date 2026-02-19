@@ -1,801 +1,1572 @@
 :: fotogramDMInteractive [init nobr]
-/* =============================================================================
-   FOTOGRAM – DM FLOW (from scratch)
-   English, realistic → flirty. Text-only. DAG (no loops).
-   Anon opens; we reply (chill/friendly/boundary); branches forward only.
-   ============================================================================= */
+/* ============================================================================
+   FOTOGRAM DM DATA — Heat-based reactive system  (v2)
+   Each anon message has a choices array → options for that message.
+   Options are short, natural, lowercase, no prefix.
 
-<<run setup.fotogramDMExplicitOverlayPools = {
-  male: {
-    dickpic_open: { direct: ["cock", "dick", "hard", "cum"], euphemism: ["it", "this", "something for you"] },
-    chat_open: { direct: ["cock", "dick", "cum", "hard"], euphemism: ["it", "this", "something special"] }
-  },
-  female: {
-    dickpic_open: { direct: ["pussy", "wet"], euphemism: ["it", "this"] },
-    chat_open: { direct: ["pussy", "wet"], euphemism: ["it", "this"] }
-  }
-}>>
-<<run setup.fotogramDMRuntimeConfig = {
-  text: {
-    emptyAnonText: "...",
-    deletedMessageText: "[Message deleted]",
-    legacyReplyFallbackText: "Thanks for replying!",
-    quickReplyButtonText: "Reply",
-    giveNumberButtonText: "Give number",
-    blockButtonText: "Block"
-  },
-  legacyReplyKeys: ["hi", "thanks", "who"],
-  swapKeywordHints: ["swap", "number"]
+   delta: heat change (multiplied by heatMult)
+   triggersPhoto: true → photo submenu opens
+   isRejection: true → persistence decreases
+
+   v2 CHANGELOG:
+   - react_positive / react_negative / react_neutral added to each persona.
+     When player picks a choice, anon reacts from these pools FIRST, then
+     sends heat-based new message.
+   - Small pools expanded (2-3 → 4-6 entries).
+   - close pools expanded.
+============================================================================ */
+
+/* ── PERSONA CONFIG ──────────────────────────────────────────────────── */
+<<run setup.fdmPersonas = {
+    naive:  { startHeat:15, heatMult:0.8, persistence:2, maxTurns:10, boredHeat:30, boredTurn:7, gender:"male"   },
+    lustful:  { startHeat:35, heatMult:1.2, persistence:4, maxTurns:14, boredHeat:35, boredTurn:9, gender:"male"   },
+    pervy:  { startHeat:55, heatMult:1.5, persistence:5, maxTurns:16, boredHeat:40, boredTurn:10, gender:"male"   },
+    flirty: { startHeat:25, heatMult:1.0, persistence:3, maxTurns:12, boredHeat:30, boredTurn:8, gender:"female" },
+    wild:   { startHeat:60, heatMult:1.3, persistence:4, maxTurns:14, boredHeat:45, boredTurn:9, gender:"female" }
 }>>
 
-<<run setup.fotogramDMScenarioOpeners = {
-  default: {
-    chat_open: {
-      male: [
-        "Hey, your profile came up and I had to say hi.",
-        "Hi, saw your posts – you seem really cool. Mind if I message?",
-        "Hello! Random message from a stranger, but your feed caught my eye.",
-        "Hey there, just wanted to say your profile stands out. What's your story?",
-        "Hi, was scrolling and your posts caught my attention. What's up?",
-        "Hey, your feed showed up and I got curious. Mind a quick chat?",
-        "Hello, your profile looks interesting. Thought I'd reach out.",
-        "Hi there, saw your content and had to say something. You seem fun."
-      ],
-      female: [
-        "Hey, your profile came up and I had to say hi.",
-        "Hi, saw your posts – you seem really cool. Mind if I message?",
-        "Hello! Random message from a stranger, but your feed caught my eye.",
-        "Hey there, just wanted to say your profile stands out. What's your story?",
-        "Hi, was scrolling and your posts caught my attention. What's up?",
-        "Hey, your feed showed up and I got curious. Mind a quick chat?",
-        "Hello, your profile looks interesting. Thought I'd reach out.",
-        "Hi there, saw your content and had to say something. You seem fun."
-      ]
-    }
-  },
-  spicy: {
-    chat_open: {
-      male: [
-        "Hey, your profile came up and I had to say hi.",
-        "Hi, saw your posts – you seem really cool. Mind if I message?",
-        "Hello, your feed caught my eye. You seem fun.",
-        "Hey there, your profile stands out. What's your story?",
-        "Hi, your posts got my attention. What's up?",
-        "Hey, had to reach out. You seem interesting."
-      ],
-      female: [
-        "Hey, your profile came up and I had to say hi.",
-        "Hi, saw your posts – you seem really cool. Mind if I message?",
-        "Hello, your feed caught my eye. You seem fun.",
-        "Hey there, your profile stands out. What's your story?",
-        "Hi, your posts got my attention. What's up?",
-        "Hey, had to reach out. You seem interesting."
-      ]
-    }
-  },
-  bikini: {
-    chat_open: {
-      male: [
-        "That bikini post caught my eye. Had to say hi.",
-        "Hi, saw your posts – you seem cool. Mind if I message?",
-        "Hey, your feed showed up. Thought I'd reach out.",
-        "Hello, your profile stands out. What's your story?"
-      ],
-      female: [
-        "That bikini post caught my eye. Had to say hi.",
-        "Hi, saw your posts – you seem cool. Mind if I message?",
-        "Hey, your feed showed up. Thought I'd reach out.",
-        "Hello, your profile stands out. What's your story?"
-      ]
-    }
-  },
-  risky: {
-    chat_open: {
-      male: [
-        "That post was bold. Had to message.",
-        "Hi, your feed caught my eye. You seem fun.",
-        "Hey, saw your content. Mind if I say hi?",
-        "Hello, your profile stands out. What's your story?"
-      ],
-      female: [
-        "That post was bold. Had to message.",
-        "Hi, your feed caught my eye. You seem fun.",
-        "Hey, saw your content. Mind if I say hi?",
-        "Hello, your profile stands out. What's your story?"
-      ]
-    }
-  },
-  hot: {
-    chat_open: {
-      male: [
-        "You're stunning. Had to say hi.",
-        "Hi, saw your posts. You seem really cool. Mind if I message?",
-        "Hey, your feed caught my eye. What's your story?",
-        "Hello, your profile stands out. Had to reach out."
-      ],
-      female: [
-        "You're stunning. Had to say hi.",
-        "Hi, saw your posts. You seem really cool. Mind if I message?",
-        "Hey, your feed caught my eye. What's your story?",
-        "Hello, your profile stands out. Had to reach out."
-      ]
-    }
-  },
-  teasing: {
-    chat_open: {
-      male: [
-        "That tease got me. Had to message.",
-        "Hi, saw your posts. You seem fun. Mind if I say hi?",
-        "Hey, your feed caught my eye. What's your story?",
-        "Hello, your profile stands out. Had to reach out."
-      ],
-      female: [
-        "That tease got me. Had to message.",
-        "Hi, saw your posts. You seem fun. Mind if I say hi?",
-        "Hey, your feed caught my eye. What's your story?",
-        "Hello, your profile stands out. Had to reach out."
-      ]
-    }
-  },
-  /* Anon types 1–6: 1=getoff, 2=objectifier, 3=number_hunter, 4=flirty, 5=praise_fan, 6=unsolicited_sender. Fallback: no byType → default above. */
-  byType: {
-    1: {
-      default: {
-        chat_open: {
-          male: ["Hey. Your feed got me curious. What are you into? Ever share pics?", "Saw your posts. You look like fun. You ever send photos? Wanna chat?", "Hi. Random but you're hot. Mind if I say hi? I'd love to see more of you.", "Your profile stood out. Had to message. What kind of stuff do you post?"],
-          female: ["Hey. Your feed got me curious. What are you into? Ever share pics?", "Saw your posts. You look like fun. You ever send photos? Wanna chat?", "Hi. Random but you're hot. Mind if I say hi? I'd love to see more of you.", "Your profile stood out. Had to message. What kind of stuff do you post?"]
-        }
-      }
+/* ── RUNTIME TEXT POOLS (EXPLICIT TAG / FOTO TAG) — vulgar/explicit ───── */
+<<run setup.fdmRuntimeTextPools = {
+    naive: {
+        explicit: [
+            "I'd like to see something a bit more personal",
+            "I bet you have a bolder side",
+            "send me your tits or something, that'd be great"
+        ],
+        photo_send: [
+            "I'll send a photo",
+            "okay, sending one",
+            "here, sending something"
+        ]
     },
-    2: {
-      default: {
-        chat_open: {
-          male: ["You're stunning. Your pics are fire but I want more. Mind if I message?", "Your pics are something else. Got any you don't post? I'm curious.", "Hey. You're really attractive. Had to reach out. Would love to see more.", "Your feed is fire. Any chance you'd send something? What do you do when you're not posting?"],
-          female: ["You're stunning. Your pics are fire but I want more. Mind if I message?", "Your pics are something else. Got any you don't post? I'm curious.", "Hey. You're really attractive. Had to reach out. Would love to see more.", "Your feed is fire. Any chance you'd send something? What do you do when you're not posting?"]
-        }
-      }
+    lustful: {
+        explicit: [
+            "I'm hard just thinking about you. Send something.",
+            "I want to see your pussy and ass. Don't make me wait.",
+            "Your tits got me going. Now show me the rest.",
+            "Send something hotter. I want to see every inch of you.",
+            "You're so hot. One more — show me your pussy."
+        ],
+        photo_send: [
+            "Sending you one now. Your turn.",
+            "Here. Look what you do to me.",
+            "Sent. Now you."
+        ]
     },
-    3: {
-      default: {
-        chat_open: {
-          male: ["Hey, your profile came up. Would be cool to chat properly sometime – maybe off here?", "Hi. Saw your posts. You seem fun. Do you ever give your number to people from here?", "Your feed caught my eye. Want to take this to text?", "Hey there. Would love to keep talking – maybe WhatsApp or something?"],
-          female: ["Hey, your profile came up. Would be cool to chat properly sometime – maybe off here?", "Hi. Saw your posts. You seem fun. Do you ever give your number to people from here?", "Your feed caught my eye. Want to take this to text?", "Hey there. Would love to keep talking – maybe WhatsApp or something?"]
-        }
-      }
+    pervy: {
+        explicit: [
+            "I'm rock hard for you. Send your pussy.",
+            "My cock's ready. Your tits and ass. Send.",
+            "Exactly what I wanted. More. Now.",
+            "I need to see your pussy. Send it.",
+            "I'm so hard. Your turn. Don't tease."
+        ],
+        photo_send: [
+            "There. For you. Now you send.",
+            "Sending. Your go.",
+            "Done. Your turn."
+        ]
     },
-    4: {
-      default: {
-        chat_open: {
-          male: ["Hey. You seem fun. Flirty message incoming – hope that's okay.", "Hi! Your vibe is cute. Mind if I flirt a little?", "Saw your profile and had to say hi. You're my type.", "Hello. You look like you can take a compliment. So here goes – you're gorgeous."],
-          female: ["Hey. You seem fun. Flirty message incoming – hope that's okay.", "Hi! Your vibe is cute. Mind if I flirt a little?", "Saw your profile and had to say hi. You're my type.", "Hello. You look like you can take a compliment. So here goes – you're gorgeous."]
-        }
-      }
+    flirty: {
+        explicit: [
+            "You look incredible. Send another :)",
+            "Don't stop. One more :)",
+            "You're killing me. Send more :)"
+        ],
+        photo_send: [
+            "Sending you something :)",
+            "Here's one for you :)",
+            "Your turn :)"
+        ]
     },
-    5: {
-      default: {
-        chat_open: {
-          male: ["Been following for a bit. Your content is amazing. Had to say hi.", "You're so pretty. I had to message. Hope that's okay.", "Your posts always make my feed better. Just wanted to tell you.", "Hey. Big fan of your vibe. Mind if I say hello?"],
-          female: ["Been following for a bit. Your content is amazing. Had to say hi.", "You're so pretty. I had to message. Hope that's okay.", "Your posts always make my feed better. Just wanted to tell you.", "Hey. Big fan of your vibe. Mind if I say hello?"]
-        }
-      }
+    wild: {
+        explicit: [
+            "You're so hot. Send one more :)",
+            "Keep going. I want more :)",
+            "Wanna take this to WhatsApp? I need more :)"
+        ],
+        photo_send: [
+            "Sending :) You'll like this :)",
+            "Here you go :)",
+            "One for you :)"
+        ]
     },
-    6: {
-      default: {
-        chat_open: {
-          male: ["Bold move: I'm messaging you because you're hot. I showed you mine – your call if you want to show me yours.", "Hey. No small talk – you're attractive. Maybe you'll return the favor sometime?", "Your profile. My message. I sent you something – maybe you'll send me something back?", "Hi. Straight up – I'm into you. I showed you mine... your turn?", "There. That's me. Your move.", "Sent you something. No pressure. Your call."],
-          female: ["Bold move: I'm messaging you because you're hot. I showed you mine – your call if you want to show me yours.", "Hey. No small talk – you're attractive. Maybe you'll return the favor sometime?", "Your profile. My message. I sent you something – maybe you'll send me something back?", "Hi. Straight up – I'm into you. I showed you mine... your turn?", "There. That's me. Your move.", "Sent you something. No pressure. Your call."]
-        }
-      }
+    generic: {
+        explicit: [
+            "wasn't expecting that",
+            "that got really direct",
+            "this is moving a bit fast"
+        ],
+        photo_send: [
+            "I'll send a photo",
+            "okay, sending one",
+            "here, sending something"
+        ]
     }
-  }
 }>>
 
-<<run setup.fotogramDMScenarioFlows = {
-  chat_open: {
-    startNode: "chat_start",
-    nodes: {
-      chat_start: {
-        choices: [
-          { key: "chat_chill", playerText: ["Hey, thanks. Yeah, just scrolling. What's up?", "Thanks! Just browsing. What's up?", "Hey, not much. Just scrolling. You?"], next: "chat_anon_2", effects: { trust: 1 } },
-          { key: "chat_friendly", playerText: ["Hi! Sure, always up for a chat. What made you message?", "Hi! Yeah, I don't mind. What's up?", "Sure, we can chat. What made you reach out?"], next: "chat_anon_2", effects: { trust: 1 } },
-          { key: "chat_boundary", playerText: ["Hi. I'm not really on here to chat much, but thanks.", "Hey. I don't chat much here, but thanks anyway.", "Hi. Not really looking to talk, but thanks."], next: "chat_boundary_exit", effects: { control: 1 } }
-        ],
-        choicesByContext: {
-          receivedDickPic: [
-            { key: "dp_shocked", playerText: ["Whoa okay. Wasn't expecting that.", "Okay that's... bold. First message?", "Um. That's one way to say hi."], next: "chat_anon_2", effects: { control: 1 } },
-            { key: "dp_amused", playerText: ["Haha okay. You don't waste time.", "Bold move. I'll give you that.", "Okay that's... something. You're confident."], next: "chat_anon_2", effects: { heat: 1 } },
-            { key: "dp_notcool", playerText: ["Not cool. I didn't ask for that.", "Yeah no. That's not okay.", "We don't know each other. Not cool."], next: "chat_boundary_exit", effects: { control: 2 } },
-            { key: "dp_block", playerText: ["Blocked.", "Nope. Bye.", "Not happening."], next: "chat_boundary_exit", effects: { control: 2 } },
-            { key: "dp_into_it", playerText: ["Okay. That's... actually not bad.", "Bold. I'm not mad at it.", "You're confident. I can respect that."], next: "chat_anon_2", effects: { heat: 2 } }
-          ]
-        }
-      },
-      chat_anon_2: {
-        anon: {
-          byEffectControl: {
-            high: {
-              male: ["Sorry if that was too much. I'll dial it back. You seem cool though.", "My bad. Fair. Still want to chat?", "Got it. I'll keep it chill. What do you get up to?"],
-              female: ["Sorry if that was too much. I'll dial it back. You seem cool though.", "My bad. Fair. Still want to chat?", "Got it. I'll keep it chill. What do you get up to?"]
-            }
-          },
-          byEffectHeat: {
-            high: {
-              male: ["Glad you're into it. I like your vibe. What do you get up to?", "Nice. You're fun. What's your story?", "I had a feeling. You seem cool. What do you do?"],
-              female: ["Glad you're into it. I like your vibe. What do you get up to?", "Nice. You're fun. What's your story?", "I had a feeling. You seem cool. What do you do?"]
-            }
-          },
-          byPrevChoice: {
-            dp_shocked: {
-              male: ["Sorry, was that too much? I got carried away.", "My bad. I'll dial it back. You seem cool though.", "Fair. I jumped the gun. Still want to chat?"],
-              female: ["Sorry, was that too much? I got carried away.", "My bad. I'll dial it back. You seem cool though.", "Fair. I jumped the gun. Still want to chat?"]
-            },
-            dp_amused: {
-              male: ["Haha. I don't do subtle. You seem fun though. What do you get up to?", "Bold is my brand. You're into it? What's your story?", "I like to make an impression. You seem cool. What do you do?"],
-              female: ["Haha. I don't do subtle. You seem fun though. What do you get up to?", "Bold is my brand. You're into it? What's your story?", "I like to make an impression. You seem cool. What do you do?"]
-            },
-            dp_into_it: {
-              male: ["Glad you're not mad. I like your vibe. What do you get up to?", "Nice. You're fun. What's your story?", "I had a feeling. You seem cool. What do you do?"],
-              female: ["Glad you're not mad. I like your vibe. What do you get up to?", "Nice. You're fun. What's your story?", "I had a feeling. You seem cool. What do you do?"]
-            },
-            chat_chill: {
-              male: ["Cool, just vibes. I get it. You seem fun though. What do you get up to?", "Same energy. You post a lot – do you do that often? You seem chill.", "Fair. Just scrolling. You seem cool. What's your thing?"],
-              female: ["Cool, just vibes. I get it. You seem fun though. What do you get up to?", "Same energy. You post a lot – do you do that often? You seem chill.", "Fair. Just scrolling. You seem cool. What's your thing?"]
-            },
-            chat_friendly: {
-              male: ["Great, I'm glad you're up for it. Saw your feed and wanted to say hi. You seem cool. What do you get up to?", "Nice. I was curious about your profile. You seem fun. What's your story?", "Love that. Your feed caught my eye. You seem interesting. What do you do when you're not posting?"],
-              female: ["Great, I'm glad you're up for it. Saw your feed and wanted to say hi. You seem cool. What do you get up to?", "Nice. I was curious about your profile. You seem fun. What's your story?", "Love that. Your feed caught my eye. You seem interesting. What do you do when you're not posting?"]
-            }
-          },
-          male: [
-            "Nothing much, just thought you looked interesting. You post a lot – do you do that often? You seem fun.",
-            "Just chilling. Saw your feed and wanted to say hi. You seem cool. What do you get up to?",
-            "Not much. Your profile stood out and I got curious. You seem fun. What's your story?",
-            "Just browsing. Thought you looked interesting. You seem fun. What do you do when you're not posting?",
-            "Chillin. Your feed popped up. You seem cool. What's good?",
-            "Hey. Random but you caught my eye. What do you get up to?"
-          ],
-          female: [
-            "Nothing much, just thought you looked interesting. You post a lot – do you do that often? You seem fun.",
-            "Just chilling. Saw your feed and wanted to say hi. You seem cool. What do you get up to?",
-            "Not much. Your profile stood out and I got curious. You seem fun. What's your story?",
-            "Just browsing. Thought you looked interesting. You seem fun. What do you do when you're not posting?",
-            "Chillin. Your feed popped up. You seem cool. What's good?",
-            "Hey. Random but you caught my eye. What do you get up to?"
-          ],
-          byType: {
-            1: { male: ["Just vibes. You seem fun though. What do you get up to? Ever send pics?", "Not much. Your feed got my attention. You into sharing photos or just chatting?", "Chillin. You're hot btw. You ever send stuff to people on here?", "Vibes. Lowkey wanna see more of you. What's your thing?"], female: ["Just vibes. You seem fun though. What do you get up to? Ever send pics?", "Not much. Your feed got my attention. You into sharing photos or just chatting?", "Chillin. You're hot btw. You ever send stuff to people on here?", "Vibes. Lowkey wanna see more of you. What's your thing?"] },
-            2: { male: ["You're really pretty. Your pics are nice but I'd love to see more. Tell me about yourself?", "Your pics are something else. Got any you haven't posted? I'm curious.", "Can't stop looking at your feed. You got anything... private?", "You're stunning. I need more. Seriously."], female: ["You're really pretty. Your pics are nice but I'd love to see more. Tell me about yourself?", "Your pics are something else. Got any you haven't posted? I'm curious.", "Can't stop looking at your feed. You got anything... private?", "You're stunning. I need more. Seriously."] },
-            3: { male: ["Nothing much. Would be cool to chat off here sometime. What do you do?", "Just browsing. You seem fun. You ever swap numbers with people from here?", "Not much. Would love to take this to text. You down?", "Chillin. You seem cool. We should swap numbers."], female: ["Nothing much. Would be cool to chat off here sometime. What do you do?", "Just browsing. You seem fun. You ever swap numbers with people from here?", "Not much. Would love to take this to text. You down?", "Chillin. You seem cool. We should swap numbers."] },
-            4: { male: ["Haha, just thought you looked fun. You seem like you can banter. What's your story?", "Flirty answer: you. What do you get up to?", "You're cute. I'm into it. What's your deal?", "Smooth? Maybe. You're making it easy."], female: ["Haha, just thought you looked fun. You seem like you can banter. What's your story?", "Flirty answer: you. What do you get up to?", "You're cute. I'm into it. What's your deal?", "Smooth? Maybe. You're making it easy."] },
-            5: { male: ["I've been following for a bit. Your content is great. You seem fun. What's your story?", "Just a fan saying hi. You're really pretty. What do you do?", "Big fan. Had to message. Hope that's okay!", "Your posts are amazing. Had to reach out."], female: ["I've been following for a bit. Your content is great. You seem fun. What's your story?", "Just a fan saying hi. You're really pretty. What do you do?", "Big fan. Had to message. Hope that's okay!", "Your posts are amazing. Had to reach out."] },
-            6: { male: ["Bold answer: you caught my eye. You seem interesting. Maybe you'll send me something back sometime?", "No filter – you're hot. I showed you mine... your call if you want to show me yours.", "Sent you something. Your move.", "There. Now you. Fair's fair."], female: ["Bold answer: you caught my eye. You seem interesting. Maybe you'll send me something back sometime?", "No filter – you're hot. I showed you mine... your call if you want to show me yours.", "Sent you something. Your move.", "There. Now you. Fair's fair."] }
-          }
-        },
-        choices: [
-          { key: "chat_stay_chill", playerText: ["Haha, I guess. Just here for the vibes. You?", "Same. Just vibes. What about you?", "I guess so. Just chilling. You?"], next: "chat_anon_3_chill", effects: { trust: 1 } },
-          { key: "chat_lean_in", playerText: ["You're sweet. I like a bit of banter. Keep going.", "You're cute. I'm into it. Keep going.", "I like it. A bit of banter is fun. Go on."], next: "chat_anon_3_flirty", effects: { heat: 1 } },
-          { key: "chat_boundary_2", playerText: ["I'm flattered but not really looking for anything. Thanks though.", "That's sweet but I'm not really looking. Thanks.", "Flattered, but I'll pass. Thanks anyway."], next: "chat_boundary_exit_2", effects: { control: 1 } }
-        ],
-        choicesByContext: {
-          receivedExplicitAttachment: [
-            { key: "ex_shocked", playerText: ["Whoa. Okay.", "That's... a lot.", "I wasn't expecting that."], next: "chat_anon_3_chill", effects: { control: 1 } },
-            { key: "ex_amused", playerText: ["Haha okay. You're bold.", "Bold. I'll give you that.", "Okay that's confident."], next: "chat_anon_3_flirty", effects: { heat: 1 } },
-            { key: "ex_notcool", playerText: ["Not cool. I didn't ask for that.", "Yeah no. That's not okay.", "We're not there. Chill."], next: "chat_boundary_exit_2", effects: { control: 2 } },
-            { key: "ex_into_it", playerText: ["Okay. I see you.", "Bold. I'm not mad at it.", "You're confident. I like it."], next: "chat_anon_3_flirty", effects: { heat: 2 } }
-          ]
-        }
-      },
-      chat_boundary_exit: {
-        anon: {
-          male: ["No worries. If you change your mind, I'm around. You've got a nice vibe, that's all.", "Totally get it. I'll leave you be. Take care.", "No problem. Take care."],
-          female: ["No worries. If you change your mind, I'm around. You've got a nice vibe, that's all.", "Totally get it. I'll leave you be. Take care.", "No problem. Take care."],
-          byType: {
-            1: { male: ["All good. Hit me up if you change your mind."], female: ["All good. Hit me up if you change your mind."] },
-            2: { male: ["No worries. Take care."], female: ["No worries. Take care."] },
-            3: { male: ["Sure. If you ever want to swap numbers, I'm around."], female: ["Sure. If you ever want to swap numbers, I'm around."] },
-            4: { male: ["No problem. You know where to find me if you want to flirt later."], female: ["No problem. You know where to find me if you want to flirt later."] },
-            5: { male: ["Totally get it. Still a fan. Take care."], female: ["Totally get it. Still a fan. Take care."] },
-            6: { male: ["Your loss. Take care."], female: ["Your loss. Take care."] }
-          }
-        },
-        endConversation: true
-      },
-      chat_anon_3_chill: {
-        anon: {
-          byPrevChoice: {
-            chat_stay_chill: {
-              male: ["Same, just vibes. Though I can't lie – you're really attractive. Anyway, what do you do when you're not posting?", "Haha, fair. You're really pretty though. What do you get up to normally?", "Vibes. I like it. You're cute though. What do you do for fun?"],
-              female: ["Same, just vibes. Though I can't lie – you're really attractive. Anyway, what do you do when you're not posting?", "Haha, fair. You're really pretty though. What do you get up to normally?", "Vibes. I like it. You're cute though. What do you do for fun?"]
-            }
-          },
-          male: [
-            "Same, just vibes. Though I can't lie – you're really attractive. Anyway, what do you do when you're not posting?",
-            "Haha, fair. You're really pretty though. What do you get up to normally?",
-            "Same here. You're cute though. What do you do for fun?",
-            "Just vibes. You're really attractive. What's your thing besides this?"
-          ],
-          female: [
-            "Same, just vibes. Though I can't lie – you're really attractive. Anyway, what do you do when you're not posting?",
-            "Haha, fair. You're really pretty though. What do you get up to normally?",
-            "Same here. You're cute though. What do you do for fun?",
-            "Just vibes. You're really attractive. What's your thing besides this?"
-          ],
-          byType: {
-            1: { male: ["Same. You're hot though. Ever send pics? I'd love to see more of you."], female: ["Same. You're hot though. Ever send pics? I'd love to see more of you."] },
-            2: { male: ["Just vibes. You're really pretty. Your feed is fire but I want more. Got anything you don't post?"], female: ["Just vibes. You're really pretty. Your feed is fire but I want more. Got anything you don't post?"] },
-            3: { male: ["Same. Would be nice to text sometime. What do you do?"], female: ["Same. Would be nice to text sometime. What do you do?"] },
-            4: { male: ["Haha, same. You're cute. What do you get up to?"], female: ["Haha, same. You're cute. What do you get up to?"] },
-            5: { male: ["Same. You're so pretty though. What do you do when you're not posting?"], female: ["Same. You're so pretty though. What do you do when you're not posting?"] },
-            6: { male: ["Vibes. You're attractive. I showed you mine – maybe you'll return the favor sometime?"], female: ["Vibes. You're attractive. I showed you mine – maybe you'll return the favor sometime?"] }
-          }
-        },
-        choices: [
-          { key: "chat_lean_in_late", playerText: ["I'm down to keep talking. You're not bad yourself.", "Same. You're cute. Let's keep going.", "I'm in. You're not bad. Keep talking."], next: "chat_anon_4_flirty", effects: { heat: 1 } },
-          { key: "chat_cool_off", playerText: ["Let's keep it light for now. Just chatting.", "Let's keep it chill. Just chatting.", "Keeping it light. Just vibes."], next: "chat_anon_4_light", effects: { control: 1 } },
-          { key: "chat_exit_1", playerText: ["This was nice but I'm gonna go. Bye.", "Nice chatting. I'm gonna go. Bye.", "Was fun but I gotta go. Bye."], next: "chat_end_soft" }
-        ],
-        choicesByContext: {
-          receivedExplicitAttachment: [
-            { key: "ex_chill_shocked", playerText: ["Whoa. Okay. Let's... dial it back.", "That's a lot. Can we keep it light?", "I wasn't expecting that. Chill."], next: "chat_anon_4_light", effects: { control: 1 } },
-            { key: "ex_chill_amused", playerText: ["Haha okay. You're something.", "Bold. I see you.", "Okay that's confident. I'm into it."], next: "chat_anon_4_flirty", effects: { heat: 1 } },
-            { key: "ex_chill_notcool", playerText: ["Not cool. I'm out.", "Yeah no. Bye.", "We're not there."], next: "chat_end_soft", effects: { control: 2 } }
-          ]
-        }
-      },
-      chat_anon_3_flirty: {
-        anon: {
-          byPrevChoice: {
-            chat_lean_in: {
-              male: ["I'm glad you said that. I've been thinking about you since I saw your profile, not gonna lie. Would be fun to get to know you better.", "Love that. I've had my eye on your profile for a bit. Would be nice to talk more.", "You're making this easy. I like it. Let's keep this going."],
-              female: ["I'm glad you said that. I've been thinking about you since I saw your profile, not gonna lie. Would be fun to get to know you better.", "Love that. I've had my eye on your profile for a bit. Would be nice to talk more.", "You're making this easy. I like it. Let's keep this going."]
-            }
-          },
-          male: [
-            "I'm glad you said that. I've been thinking about you since I saw your profile, not gonna lie. Would be fun to get to know you better.",
-            "Love that. I've had my eye on your profile for a bit. Would be nice to talk more.",
-            "Glad you're into it. I've been curious about you. Let's keep this going.",
-            "Nice. I've been thinking about you. Would be fun to get to know you.",
-            "You're making this easy. I like it.",
-            "Okay I'm into this. Keep going."
-          ],
-          female: [
-            "I'm glad you said that. I've been thinking about you since I saw your profile, not gonna lie. Would be fun to get to know you better.",
-            "Love that. I've had my eye on your profile for a bit. Would be nice to talk more.",
-            "Glad you're into it. I've been curious about you. Let's keep this going.",
-            "Nice. I've been thinking about you. Would be fun to get to know you.",
-            "You're making this easy. I like it.",
-            "Okay I'm into this. Keep going."
-          ],
-          byType: {
-            1: { male: ["Glad you're into it. I've been thinking about you. What kind of pics do you like to share? I'd love to see more.", "Nice. You're hot. Send me something when you're in the mood?", "Into it. Lowkey need more of you. You down?"], female: ["Glad you're into it. I've been thinking about you. What kind of pics do you like to share? I'd love to see more.", "Nice. You're hot. Send me something when you're in the mood?", "Into it. Lowkey need more of you. You down?"] },
-            2: { male: ["Love that. You're gorgeous. I can't stop looking at your pics. Send me something sometime?", "You're fire. I need more. Got anything just for me?", "Can't get enough. Seriously. Send me something."], female: ["Love that. You're gorgeous. I can't stop looking at your pics. Send me something sometime?", "You're fire. I need more. Got anything just for me?", "Can't get enough. Seriously. Send me something."] },
-            3: { male: ["Same. Would be cool to take this off here. Want to swap numbers sometime?", "Nice. Let's text. What's your number?", "Down for that. Swap digits?"], female: ["Same. Would be cool to take this off here. Want to swap numbers sometime?", "Nice. Let's text. What's your number?", "Down for that. Swap digits?"] },
-            4: { male: ["Haha, I'm glad you said that. I've had my eye on you. Let's keep flirting.", "You're cute. Keep it coming.", "I like where this is going."], female: ["Haha, I'm glad you said that. I've had my eye on you. Let's keep flirting.", "You're cute. Keep it coming.", "I like where this is going."] },
-            5: { male: ["So glad you replied. I'm a big fan. Would love to get to know you.", "Fan for life. This is great!", "Made my day. Seriously."], female: ["So glad you replied. I'm a big fan. Would love to get to know you.", "Fan for life. This is great!", "Made my day. Seriously."] },
-            6: { male: ["Bold of you. I like it. I showed you mine – your turn? I'm curious what you look like.", "Your move. I sent mine.", "Fair's fair. Send me something."], female: ["Bold of you. I like it. I showed you mine – your turn? I'm curious what you look like.", "Your move. I sent mine.", "Fair's fair. Send me something."] }
-          }
-        },
-        choices: [
-          { key: "chat_match_flirty", playerText: ["I'm down to keep talking. You're not bad yourself.", "Same. You're cute. Let's keep going.", "I'm into it. You're fun. Keep going."], next: "chat_anon_4_flirty", effects: { heat: 2 } },
-          { key: "chat_playful", playerText: ["Haha, smooth. Okay, I'm curious. What do you want to know?", "Smooth. I'm curious. What do you want to know?", "Haha, okay. I'm curious. Your move."], next: "chat_anon_4_flirty", effects: { heat: 1 } },
-          { key: "chat_cool_off_2", playerText: ["Let's keep it light for now. Just chatting.", "Keeping it light. Just vibes.", "Let's keep it chill. Just chatting."], next: "chat_anon_4_light", effects: { control: 1 } },
-          { key: "chat_exit_2", playerText: ["This was nice but I'm gonna go. Bye.", "Nice chatting. Gonna go. Bye.", "Was fun. I'm gonna go. Bye."], next: "chat_end_soft" }
-        ],
-        choicesByContext: {
-          receivedExplicitAttachment: [
-            { key: "ex_flirty_wow", playerText: ["Okay. I see you. I'm not mad.", "Bold. I like it.", "That's... a lot. In a good way."], next: "chat_anon_4_flirty", effects: { heat: 2 } },
-            { key: "ex_flirty_tease", playerText: ["Haha. You don't hold back.", "Confident. I can respect that.", "Okay you're fun. Keep going."], next: "chat_anon_4_flirty", effects: { heat: 1 } },
-            { key: "ex_flirty_chill", playerText: ["Let's dial it back a bit.", "Okay okay. Slow down.", "That's a lot. Let's keep it light."], next: "chat_anon_4_light", effects: { control: 1 } }
-          ]
-        }
-      },
-      chat_boundary_exit_2: {
-        anon: {
-          male: ["Totally get it. I'll leave you be. Take care.", "No worries. Take care.", "All good. Bye."],
-          female: ["Totally get it. I'll leave you be. Take care.", "No worries. Take care.", "All good. Bye."],
-          byType: {
-            1: { male: ["All good. Bye."], female: ["All good. Bye."] },
-            2: { male: ["No worries. Take care."], female: ["No worries. Take care."] },
-            3: { male: ["Sure. Offer stands if you want to swap numbers later."], female: ["Sure. Offer stands if you want to swap numbers later."] },
-            4: { male: ["No problem. Flirt later maybe."], female: ["No problem. Flirt later maybe."] },
-            5: { male: ["Totally get it. Still a fan. Bye."], female: ["Totally get it. Still a fan. Bye."] },
-            6: { male: ["Your call. Bye."], female: ["Your call. Bye."] }
-          }
-        },
-        endConversation: true
-      },
-      chat_anon_4_flirty: {
-        anon: {
-          byPrevChoice: {
-            chat_lean_in_late: {
-              male: ["I'm really into this. You're not bad yourself – I mean it. We should keep talking.", "This is great. Glad you're down. Hope we can chat more soon.", "I'm glad we connected. Let's keep this going."],
-              female: ["I'm really into this. You're not bad yourself – I mean it. We should keep talking.", "This is great. Glad you're down. Hope we can chat more soon.", "I'm glad we connected. Let's keep this going."]
-            },
-            chat_match_flirty: {
-              male: ["Same. I'm really into this. We should keep talking.", "This is great. You're fun. Hope we can chat more soon.", "Really enjoying this. Let's talk again."],
-              female: ["Same. I'm really into this. We should keep talking.", "This is great. You're fun. Hope we can chat more soon.", "Really enjoying this. Let's talk again."]
-            },
-            chat_playful: {
-              male: ["Haha, okay. I'm curious about you. We should keep talking.", "Smooth? Maybe. You're making it easy. Hope we can chat more soon.", "I like where this is going. Let's keep this going."],
-              female: ["Haha, okay. I'm curious about you. We should keep talking.", "Smooth? Maybe. You're making it easy. Hope we can chat more soon.", "I like where this is going. Let's keep this going."]
-            }
-          },
-          male: [
-            "I'm really into this. We should keep talking.",
-            "This is great. Hope we can chat more soon.",
-            "I'm glad we connected. Let's keep this going.",
-            "Really enjoying this. We should talk again."
-          ],
-          female: [
-            "I'm really into this. We should keep talking.",
-            "This is great. Hope we can chat more soon.",
-            "I'm glad we connected. Let's keep this going.",
-            "Really enjoying this. We should talk again."
-          ],
-          byType: {
-            1: { male: ["Send me something. I'm into you. I need to see more.", "I'm not gonna stop asking. Send me a pic. Just one."], female: ["Send me something. I'm into you. I need to see more.", "I'm not gonna stop asking. Send me a pic. Just one."] },
-            2: { male: ["You're amazing. Send me something. I need it. Just for me.", "I can't stop thinking about you. Send me a pic. Come on."], female: ["You're amazing. Send me something. I need it. Just for me.", "I can't stop thinking about you. Send me a pic. Come on."] },
-            3: { male: ["Give me your number. I want to talk properly. What is it?", "I need your number. Come on. Let's take this to text."], female: ["Give me your number. I want to talk properly. What is it?", "I need your number. Come on. Let's take this to text."] },
-            4: { male: ["I'm really into this. Keep flirting with me."], female: ["I'm really into this. Keep flirting with me."] },
-            5: { male: ["So glad we connected. I'm a fan. Let's keep talking."], female: ["So glad we connected. I'm a fan. Let's keep talking."] },
-            6: { male: ["I showed you mine. Your turn. Send me a pic. Now.", "Fair's fair. Don't make me beg. Send me something."], female: ["I showed you mine. Your turn. Send me a pic. Now.", "Fair's fair. Don't make me beg. Send me something."] }
-          }
-        },
-        choices: [
-          { key: "chat_continue_flirty", playerText: ["Same. Talk soon?", "Yeah. Talk soon.", "Definitely. Talk later."], next: "chat_anon_5_more", effects: { heat: 1 } },
-          { key: "chat_deepen", playerText: ["I'm really enjoying this. Tell me more about you.", "Same. What do you do for fun?", "Me too. What's your story?"], next: "chat_anon_5_deepen", effects: { heat: 1, trust: 1 } },
-          { key: "chat_exit_flirty", playerText: ["This was fun. Bye for now.", "Fun chatting. Bye.", "Had fun. Bye for now."], next: "chat_end_soft" }
-        ],
-        choicesByContext: {
-          receivedExplicitAttachment: [
-            { key: "ex_hot_into", playerText: ["Okay. I'm into this.", "That's hot. Keep going.", "I see you. I like it."], next: "chat_anon_5_more", effects: { heat: 2 } },
-            { key: "ex_hot_tease", playerText: ["Bold. You're something else.", "Confident. I'm here for it.", "Okay you've got my attention."], next: "chat_anon_5_deepen", effects: { heat: 1 } },
-            { key: "ex_hot_chill", playerText: ["Let's slow down a bit.", "That's a lot. Dial it back?", "Okay okay. Easy."], next: "chat_end_soft", effects: { control: 1 } }
-          ]
-        }
-      },
-      chat_anon_5_deepen: {
-        anon: {
-          male: [
-            "I work in tech, nothing exciting. But I love hiking and good food. You?",
-            "Nothing crazy – I'm into photography, travel when I can. What about you?",
-            "I'm pretty boring honestly – gym, movies, cooking. You seem more interesting."
-          ],
-          female: [
-            "I work in tech, nothing exciting. But I love hiking and good food. You?",
-            "Nothing crazy – I'm into photography, travel when I can. What about you?",
-            "I'm pretty boring honestly – gym, movies, cooking. You seem more interesting."
-          ],
-          byType: {
-            1: { male: ["Not much. I like to have fun though. You?", "Work, gym, you know. You?"], female: ["Not much. I like to have fun though. You?", "Work, gym, you know. You?"] },
-            2: { male: ["I like beautiful things. You're one of them. What do you do?", "Nothing as interesting as your feed. You?"], female: ["I like beautiful things. You're one of them. What do you do?", "Nothing as interesting as your feed. You?"] },
-            3: { male: ["I'm in sales. Always on my phone. You?", "Busy life but I make time for people I like. You?"], female: ["I'm in sales. Always on my phone. You?", "Busy life but I make time for people I like. You?"] },
-            4: { male: ["I keep it fun. Music, nights out. You?", "I'm a bit of a flirt, I'll admit. You?"], female: ["I keep it fun. Music, nights out. You?", "I'm a bit of a flirt, I'll admit. You?"] },
-            5: { male: ["Just a regular guy who appreciates good content. You?", "I follow a lot of creators. You're one of my favorites. You?"], female: ["Just a regular guy who appreciates good content. You?", "I follow a lot of creators. You're one of my favorites. You?"] },
-            6: { male: ["I'm direct. You saw that. What about you?", "I don't do small talk well. You?"], female: ["I'm direct. You saw that. What about you?", "I don't do small talk well. You?"] }
-          }
-        },
-        choices: [
-          { key: "chat_share_back", playerText: ["I'm into that too. We should talk more.", "Same vibe. I like that.", "Cool. Same here. We should talk more."], next: "chat_anon_6_more", effects: { trust: 1 } },
-          { key: "chat_keep_flirty", playerText: ["You sound fun. I like that.", "Nice. I'm into it.", "Okay I'm curious. Keep going."], next: "chat_anon_6_more", effects: { heat: 1 } },
-          { key: "chat_wrap_up", playerText: ["This was nice. Gotta go soon though.", "Fun chat. Maybe talk later?", "Good talking. I'll catch you later."], next: "chat_end_soft" }
-        ]
-      },
-      chat_anon_6_more: {
-        anon: {
-          male: [
-            "Yeah, we should. I'm glad we're talking.",
-            "Same. This has been great.",
-            "For sure. Really enjoying this."
-          ],
-          female: [
-            "Yeah, we should. I'm glad we're talking.",
-            "Same. This has been great.",
-            "For sure. Really enjoying this."
-          ],
-          byType: {
-            1: { male: ["Send me something before you go. I'm not gonna let this go.", "Yeah. And send me a pic. I showed you mine. Fair's fair."], female: ["Send me something before you go. I'm not gonna let this go.", "Yeah. And send me a pic. I showed you mine. Fair's fair."] },
-            2: { male: ["Bye. But send me something. I need more of you.", "Hit me up. And send a pic. I'm serious."], female: ["Bye. But send me something. I need more of you.", "Hit me up. And send a pic. I'm serious."] },
-            3: { male: ["Give me your number first. I'm not letting you go without it.", "Text me when you're ready. But I want your number. Come on."], female: ["Give me your number first. I'm not letting you go without it.", "Text me when you're ready. But I want your number. Come on."] },
-            4: { male: ["Same. This was fun. Flirt later."], female: ["Same. This was fun. Flirt later."] },
-            5: { male: ["So glad we talked. Fan for life. Bye."], female: ["So glad we talked. Fan for life. Bye."] },
-            6: { male: ["Send me something. I showed you mine. Don't leave me hanging.", "Your turn. Send me a pic. Offer stands – and I'm not gonna stop asking."], female: ["Send me something. I showed you mine. Don't leave me hanging.", "Your turn. Send me a pic. Offer stands – and I'm not gonna stop asking."] }
-          }
-        },
-        choices: [
-          { key: "chat_continue_more", playerText: ["Let's keep talking.", "Tell me more.", "I'm still curious."], next: "chat_anon_6_extend", effects: { heat: 1 } },
-          { key: "chat_final_yes", playerText: ["Definitely. Talk soon.", "Yeah. Bye for now.", "Same. Take care."], next: "chat_anon_6b", effects: {} },
-          { key: "chat_final_bye", playerText: ["Bye.", "Take care.", "See you."], next: "chat_end_soft" }
-        ],
-        choicesByContext: {
-          anonPushingForPicsOrNumber: [
-            { key: "chat_push_no", playerText: ["No. Stop asking.", "I said no.", "Drop it."], next: "chat_anon_push_rejected", effects: { control: 1 } },
-            { key: "chat_push_deflect", playerText: ["Maybe later.", "Not now.", "If I want to, I will."], next: "chat_anon_6b", effects: { control: 1 } },
-            { key: "chat_continue_more", playerText: ["Let's keep talking.", "Tell me more.", "I'm still curious."], next: "chat_anon_6_extend", effects: { heat: 1 } }
-          ]
-        }
-      },
-      chat_anon_6_extend: {
-        anon: {
-          male: ["Yeah? What do you want to know?", "Okay. I'm into this too. What's your story?", "Sure. Ask me anything."],
-          female: ["Yeah? What do you want to know?", "Okay. I'm into this too. What's your story?", "Sure. Ask me anything."],
-          byType: {
-            1: { male: ["What do you want to know? And send me something when you're ready.", "Ask away. I'm into you. Show me you're into me too."], female: ["What do you want to know? And send me something when you're ready.", "Ask away. I'm into you. Show me you're into me too."] },
-            2: { male: ["Your turn. What do you want to know? And send me a pic sometime.", "Ask me anything. But I need more of you. Seriously."], female: ["Your turn. What do you want to know? And send me a pic sometime.", "Ask me anything. But I need more of you. Seriously."] },
-            3: { male: ["Sure. What's your number? We can talk properly.", "Ask away. But give me your number first. Come on."], female: ["Sure. What's your number? We can talk properly.", "Ask away. But give me your number first. Come on."] },
-            4: { male: ["Yeah? I like where this is going. What do you want to know?", "Ask me anything. I'm into this."], female: ["Yeah? I like where this is going. What do you want to know?", "Ask me anything. I'm into this."] },
-            5: { male: ["Sure! Fan for life. What do you want to know?", "Ask away. I'm glad we're talking."], female: ["Sure! Fan for life. What do you want to know?", "Ask away. I'm glad we're talking."] },
-            6: { male: ["What do you want to know? And send me something. Fair's fair.", "Ask me. But your turn to send a pic."], female: ["What do you want to know? And send me something. Fair's fair.", "Ask me. But your turn to send a pic."] }
-          }
-        },
-        choices: [
-          { key: "chat_ask_about", playerText: ["What do you do for fun?", "What's your deal?", "What are you into?"], next: "chat_anon_5_deepen", effects: { trust: 1 } },
-          { key: "chat_flirty_response", playerText: ["I like you. Keep going.", "You're fun. Tell me more.", "I'm into this. Your move."], next: "chat_anon_6_more", effects: { heat: 1 } },
-          { key: "chat_final_yes", playerText: ["Definitely. Talk soon.", "Yeah. Bye for now.", "Same. Take care."], next: "chat_anon_6b", effects: {} },
-          { key: "chat_final_bye", playerText: ["Bye.", "Take care.", "See you."], next: "chat_end_soft" }
-        ]
-      },
-      chat_anon_6b: {
-        anon: {
-          male: ["Same. Really enjoyed this. Take care.", "For sure. This was great. Bye.", "Yeah. Talk soon. Bye for now."],
-          female: ["Same. Really enjoyed this. Take care.", "For sure. This was great. Bye.", "Yeah. Talk soon. Bye for now."],
-          byType: {
-            1: { male: ["Yeah. Later. Maybe send something."], female: ["Yeah. Later. Maybe send something."] },
-            2: { male: ["Definitely. Hit me up if you want to share more."], female: ["Definitely. Hit me up if you want to share more."] },
-            3: { male: ["For sure. Text me when you're ready."], female: ["For sure. Text me when you're ready."] },
-            4: { male: ["Same. Flirt later."], female: ["Same. Flirt later."] },
-            5: { male: ["Fan for life. Bye."], female: ["Fan for life. Bye."] },
-            6: { male: ["Offer stands. Bye."], female: ["Offer stands. Bye."] }
-          }
-        },
-        choices: [
-          { key: "chat_ok", playerText: ["Bye.", "Take care.", "See you."], next: "chat_anon_7_final" }
-        ]
-      },
-      chat_anon_7_final: {
-        anon: {
-          male: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
-          female: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
-          byType: {
-            1: { male: ["Yeah. Talk soon. Maybe send me something when you're in the mood."], female: ["Yeah. Talk soon. Maybe send me something when you're in the mood."] },
-            2: { male: ["Definitely. You're great. Hit me up if you ever want to share more."], female: ["Definitely. You're great. Hit me up if you ever want to share more."] },
-            3: { male: ["For sure. Text me when you're ready to swap numbers."], female: ["For sure. Text me when you're ready to swap numbers."] },
-            4: { male: ["Same. This was fun. Flirt later."], female: ["Same. This was fun. Flirt later."] },
-            5: { male: ["So glad we talked. Fan for life. Bye."], female: ["So glad we talked. Fan for life. Bye."] },
-            6: { male: ["Yeah. This was good. Offer stands – send me something if you want. Bye."], female: ["Yeah. This was good. Offer stands – send me something if you want. Bye."] }
-          }
-        },
-        endConversation: true
-      },
-      chat_anon_4_light: {
-        anon: {
-          male: ["Cool, just vibes. Talk later maybe?", "All good. Maybe another time.", "Nice chatting. Take care."],
-          female: ["Cool, just vibes. Talk later maybe?", "All good. Maybe another time.", "Nice chatting. Take care."],
-          byType: {
-            1: { male: ["Come on. Just one pic? I showed you mine. Fair's fair.", "Don't be like that. Send me something. I'm not gonna stop asking."], female: ["Come on. Just one pic? I showed you mine. Fair's fair.", "Don't be like that. Send me something. I'm not gonna stop asking."] },
-            2: { male: ["You're really gonna leave me hanging? Send me something. Just one.", "Come on. I need more of you. Don't play hard to get."], female: ["You're really gonna leave me hanging? Send me something. Just one.", "Come on. I need more of you. Don't play hard to get."] },
-            3: { male: ["Give me your number. Come on. We can talk properly.", "What's your number? Just give it to me. I'm not gonna let this go."], female: ["Give me your number. Come on. We can talk properly.", "What's your number? Just give it to me. I'm not gonna let this go."] },
-            4: { male: ["Cool. Flirt later maybe."], female: ["Cool. Flirt later maybe."] },
-            5: { male: ["Nice chatting. Still a fan. Bye."], female: ["Nice chatting. Still a fan. Bye."] },
-            6: { male: ["Come on. I showed you mine. Your turn. Send me something.", "Fair's fair. Don't leave me hanging. Just one pic?"], female: ["Come on. I showed you mine. Your turn. Send me something.", "Fair's fair. Don't leave me hanging. Just one pic?"] }
-          }
-        },
-        choices: [
-          { key: "chat_talk_later", playerText: ["Yeah, maybe. Bye.", "Maybe. Bye.", "Sure. Bye."], next: "chat_end_soft" },
-          { key: "chat_exit_light", playerText: ["Bye.", "Bye for now.", "See you."], next: "chat_end_soft" }
-        ],
-        choicesByContext: {
-          anonPushingForPicsOrNumber: [
-            { key: "chat_push_no", playerText: ["No. I meant it.", "Stop asking.", "I said no."], next: "chat_anon_push_rejected" },
-            { key: "chat_push_deflect", playerText: ["Maybe later. Bye.", "Not now. Bye.", "I'll think about it. Bye."], next: "chat_end_soft" },
-            { key: "chat_talk_later", playerText: ["Yeah, maybe. Bye.", "Maybe. Bye.", "Sure. Bye."], next: "chat_end_soft" }
-          ]
-        }
-      },
-      chat_anon_push_rejected: {
-        anon: {
-          male: ["Alright. Your loss. Bye.", "Fine. Bye.", "Whatever. Take care."],
-          female: ["Alright. Your loss. Bye.", "Fine. Bye.", "Whatever. Take care."],
-          byType: {
-            1: { male: ["Your loss. Hit me up if you change your mind."], female: ["Your loss. Hit me up if you change your mind."] },
-            2: { male: ["Fine. Bye."], female: ["Fine. Bye."] },
-            3: { male: ["Your loss. Offer stands if you change your mind."], female: ["Your loss. Offer stands if you change your mind."] },
-            6: { male: ["Your call. Bye."], female: ["Your call. Bye."] }
-          }
-        },
-        endConversation: true
-      },
-      chat_anon_5_more: {
-        anon: {
-          byPrevChoice: {
-            chat_continue_flirty: {
-              male: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
-              female: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."]
-            }
-          },
-          male: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
-          female: ["Definitely. This was great. Talk soon.", "For sure. Really enjoyed this. Bye for now.", "Yeah, let's do that. Take care."],
-          byType: {
-            1: { male: ["Yeah. Talk soon. Maybe send me something when you're in the mood."], female: ["Yeah. Talk soon. Maybe send me something when you're in the mood."] },
-            2: { male: ["Definitely. You're great. Hit me up if you ever want to share more."], female: ["Definitely. You're great. Hit me up if you ever want to share more."] },
-            3: { male: ["For sure. Text me when you're ready to swap numbers."], female: ["For sure. Text me when you're ready to swap numbers."] },
-            4: { male: ["Same. This was fun. Flirt later."], female: ["Same. This was fun. Flirt later."] },
-            5: { male: ["So glad we talked. Fan for life. Bye."], female: ["So glad we talked. Fan for life. Bye."] },
-            6: { male: ["Yeah. This was good. Offer stands – send me something if you want. Bye."], female: ["Yeah. This was good. Offer stands – send me something if you want. Bye."] }
-          }
-        },
-        endConversation: true
-      },
-      chat_min_continuation: {
-        anon: {
-          male: ["Sure, one more thing – this was nice. What do you get up to when you're not on here?", "Alright. Before we go – you seem cool. What's your thing?", "Cool. Quick question – what do you do for fun?"],
-          female: ["Sure, one more thing – this was nice. What do you get up to when you're not on here?", "Alright. Before we go – you seem cool. What's your thing?", "Cool. Quick question – what do you do for fun?"],
-          byType: {
-            1: { male: ["Alright. Before we go – you ever send pics to people on here? Just curious.", "Quick one – do you ever share pics in DMs? No pressure."], female: ["Alright. Before we go – you ever send pics to people on here? Just curious.", "Quick one – do you ever share pics in DMs? No pressure."] },
-            2: { male: ["Sure. Got any pics you don't post? I'm curious.", "Before we wrap – you got anything you keep private?"], female: ["Sure. Got any pics you don't post? I'm curious.", "Before we wrap – you got anything you keep private?"] },
-            3: { male: ["Cool. Offer stands for numbers. What do you do when you're not on here?", "Same. If you ever want to swap, I'm around. What's your thing?"], female: ["Cool. Offer stands for numbers. What do you do when you're not on here?", "Same. If you ever want to swap, I'm around. What's your thing?"] },
-            4: { male: ["Same. What's your story? Work, hobbies?", "Before we go – you seem fun. What do you get up to?"], female: ["Same. What's your story? Work, hobbies?", "Before we go – you seem fun. What do you get up to?"] },
-            5: { male: ["Glad we talked. What do you do when you're not posting?", "Fan for life. Quick one – what's your thing?"], female: ["Glad we talked. What do you do when you're not posting?", "Fan for life. Quick one – what's your thing?"] },
-            6: { male: ["Your move still stands. What do you do for fun?", "Before we go – what's your story?"], female: ["Your move still stands. What do you do for fun?", "Before we go – what's your story?"] }
-          }
-        },
-        choices: [
-          { key: "chat_min_ok", playerText: ["Not much. Work, hobbies. You?", "Just the usual. You?", "Nothing crazy. What about you?"], next: "chat_min_continuation_2" }
-        ],
-        choicesByContext: {
-          askedAboutPics: [
-            { key: "chat_min_deflect", playerText: ["Nothing crazy. What about you?", "Not really. You?", "Just the usual. You?"], next: "chat_min_continuation_2" },
-            { key: "chat_min_tease", playerText: ["Sometimes. Maybe.", "Maybe. Depends who's asking.", "I could be persuaded. You?"], next: "chat_min_continuation_2" }
-          ],
-          askedAboutNumber: [
-            { key: "chat_min_number_deflect", playerText: ["Not giving my number yet.", "Too early for that.", "Maybe later, not now."], next: "chat_min_continuation_2", effects: { control: 1 } },
-            { key: "chat_min_number_soft", playerText: ["Maybe later if we vibe.", "Let's chat here a bit more first.", "Not yet. Keep talking."], next: "chat_min_continuation_2", effects: { trust: 1 } }
-          ]
-        }
-      },
-      chat_min_continuation_2: {
-        anon: {
-          byPrevChoice: {
-            chat_min_ok: {
-              male: ["Same. Work, gym, you know. You seem cool though. Talk later?", "Haha the usual. Nothing exciting. You seem fun. Take care.", "Same. I like to keep busy. You're cool. Catch you later.", "Alright. No pressure. You're cool though. Talk later maybe?"],
-              female: ["Same. Work, gym, you know. You seem cool though. Talk later?", "Haha the usual. Nothing exciting. You seem fun. Take care.", "Same. I like to keep busy. You're cool. Catch you later.", "Alright. No pressure. You're cool though. Talk later maybe?"],
-              byType: {
-                1: { male: ["Alright. No pressure. You're cool though. Talk later?", "Fair. You seem fun. Catch you later."], female: ["Alright. No pressure. You're cool though. Talk later?", "Fair. You seem fun. Catch you later."] },
-                2: { male: ["Fair. No pressure. You're cool. Take care.", "Alright. You seem fun. Talk later maybe?"], female: ["Fair. No pressure. You're cool. Take care.", "Alright. You seem fun. Talk later maybe?"] },
-                6: { male: ["Alright. Offer stands if you change your mind. Talk later.", "Fair. No pressure. You're cool. Bye."], female: ["Alright. Offer stands if you change your mind. Talk later.", "Fair. No pressure. You're cool. Bye."] }
-              }
-            },
-            chat_min_deflect: {
-              male: ["Fair. No pressure. You're cool though. Talk later?", "Alright. You seem fun. Catch you later."],
-              female: ["Fair. No pressure. You're cool though. Talk later?", "Alright. You seem fun. Catch you later."],
-              byType: {
-                1: { male: ["Come on. Just one? I showed you mine. Fair's fair.", "Don't be shy. Send me something. I'm not gonna stop asking."], female: ["Come on. Just one? I showed you mine. Fair's fair.", "Don't be shy. Send me something. I'm not gonna stop asking."] },
-                2: { male: ["You're really gonna leave me hanging? Just one pic.", "Come on. I need more of you. Don't play hard to get."], female: ["You're really gonna leave me hanging? Just one pic.", "Come on. I need more of you. Don't play hard to get."] },
-                6: { male: ["Offer stands if you change your mind. Bye."], female: ["Offer stands if you change your mind. Bye."] }
-              }
-            },
-            chat_min_tease: {
-              male: ["Ooh. I like that. Talk later maybe? Send me something if you're in the mood.", "Nice. I'm into it. Hit me up when you're ready."],
-              female: ["Ooh. I like that. Talk later maybe? Send me something if you're in the mood.", "Nice. I'm into it. Hit me up when you're ready."],
-              byType: {
-                1: { male: ["I like that. Send me something when you're in the mood. Talk soon."], female: ["I like that. Send me something when you're in the mood. Talk soon."] },
-                2: { male: ["You're fun. I'd love to see more. Talk later."], female: ["You're fun. I'd love to see more. Talk later."] },
-                6: { male: ["Offer stands. Send me something if you want. Bye."], female: ["Offer stands. Send me something if you want. Bye."] }
-              }
-            },
-            chat_min_number_deflect: {
-              male: ["Too early? Fair. But I still want your number later.", "Alright. No pressure for now. We can swap later if you want."],
-              female: ["Too early? Fair. But I still want your number later.", "Alright. No pressure for now. We can swap later if you want."],
-              byType: {
-                3: { male: ["Noted. But I still want your number later. Talk soon?", "Fine for now. We should swap when you're ready."], female: ["Noted. But I still want your number later. Talk soon?", "Fine for now. We should swap when you're ready."] }
-              }
-            },
-            chat_min_number_soft: {
-              male: ["Fair. Let's keep talking here for now.", "Okay. Keep talking to me then. We'll swap later."],
-              female: ["Fair. Let's keep talking here for now.", "Okay. Keep talking to me then. We'll swap later."],
-              byType: {
-                3: { male: ["Deal. Keep talking then. We'll swap numbers later.", "Works for me. But don't disappear - I still want your number."], female: ["Deal. Keep talking then. We'll swap numbers later.", "Works for me. But don't disappear - I still want your number."] }
-              }
-            }
-          },
-          male: ["Same. Well, this was nice. Talk later maybe?", "Cool. Good talking. Take care.", "Alright. Catch you around. Stay cool."],
-          female: ["Same. Well, this was nice. Talk later maybe?", "Cool. Good talking. Take care.", "Alright. Catch you around. Stay cool."],
-          byType: {
-            1: { male: ["Alright. Hit me up if you ever want to chat more. Later.", "Cool. No pressure. Talk later maybe."], female: ["Alright. Hit me up if you ever want to chat more. Later.", "Cool. No pressure. Talk later maybe."] },
-            2: { male: ["Sure. Take care. You're cool.", "Alright. Catch you later. Stay cute."], female: ["Sure. Take care. You're cool.", "Alright. Catch you later. Stay cute."] },
-            3: { male: ["Cool. Text me if you want to swap. Talk soon.", "Offer stands. Hit me up when you're ready. Bye."], female: ["Cool. Text me if you want to swap. Talk soon.", "Offer stands. Hit me up when you're ready. Bye."] },
-            4: { male: ["Same. Flirt later maybe. Bye.", "Cool. Catch you later. Stay fun."], female: ["Same. Flirt later maybe. Bye.", "Cool. Catch you later. Stay fun."] },
-            5: { male: ["Glad we talked. Fan for life. Talk later.", "Nice chatting. Still a fan. Take care."], female: ["Glad we talked. Fan for life. Talk later.", "Nice chatting. Still a fan. Take care."] },
-            6: { male: ["Offer stands if you change your mind. Bye.", "Your move. Take care."], female: ["Offer stands if you change your mind. Bye.", "Your move. Take care."] }
-          }
-        },
-        choices: [
-          { key: "chat_min_ok2", playerText: ["Yeah. Same. Talk later.", "Cool. Take care.", "Alright. See you around."], next: "chat_min_continuation_3" }
-        ],
-        choicesByContext: {
-          anonPushedOnPicsDeflect: [
-            { key: "chat_min_push_no", playerText: ["No. Stop asking.", "I said no.", "Stop."], next: "chat_anon_push_rejected" },
-            { key: "chat_min_push_maybe", playerText: ["Maybe later. Bye.", "Not now. Bye.", "I'll think about it. Bye."], next: "chat_end_soft" },
-            { key: "chat_min_ok2", playerText: ["Yeah. Same. Talk later.", "Cool. Take care.", "Alright. See you around."], next: "chat_min_continuation_3" }
-          ]
-        }
-      },
-      chat_min_continuation_3: {
-        anon: {
-          male: ["Take care. Talk soon maybe.", "Good talking. Catch you later.", "Alright. Bye for now. Stay awesome."],
-          female: ["Take care. Talk soon maybe.", "Good talking. Catch you later.", "Alright. Bye for now. Stay awesome."],
-          byType: {
-            1: { male: ["Later. Hit me up anytime.", "Cool. Bye for now."], female: ["Later. Hit me up anytime.", "Cool. Bye for now."] },
-            2: { male: ["Take care. You're great.", "Bye. Stay cute."], female: ["Take care. You're great.", "Bye. Stay cute."] },
-            3: { male: ["Offer stands. Text me when you're ready.", "Cool. Bye. Talk soon."], female: ["Offer stands. Text me when you're ready.", "Cool. Bye. Talk soon."] },
-            4: { male: ["Bye. Flirt later.", "Catch you. Stay fun."], female: ["Bye. Flirt later.", "Catch you. Stay fun."] },
-            5: { male: ["Bye. Still your fan.", "Talk later. Take care."], female: ["Bye. Still your fan.", "Talk later. Take care."] },
-            6: { male: ["Bye. Take care.", "Later. Your move stands."], female: ["Bye. Take care.", "Later. Your move stands."] }
-          }
-        },
-        choices: [
-          { key: "chat_min_ok3", playerText: ["Bye.", "Take care.", "See you."], next: "chat_end_soft" }
-        ]
-      },
-      chat_end_soft: {
-        anon: {
-          male: ["Maybe catch up another time. Take care.", "No rush, talk later perhaps. Have a good one.", "Bye for now. Stay awesome."],
-          female: ["Maybe catch up another time. Take care.", "No rush, talk later perhaps. Have a good one.", "Bye for now. Stay awesome."],
-          byType: {
-            1: { male: ["Later. Hit me up if you ever want to chat. Take care.", "Cool. No pressure. Talk later maybe."], female: ["Later. Hit me up if you ever want to chat. Take care.", "Cool. No pressure. Talk later maybe."] },
-            2: { male: ["Take care. You're great. Bye.", "Catch you later. Stay cute."], female: ["Take care. You're great. Bye.", "Catch you later. Stay cute."] },
-            3: { male: ["Maybe another time. Offer stands for swapping numbers. Bye.", "Text me when you're ready. Take care."], female: ["Maybe another time. Offer stands for swapping numbers. Bye.", "Text me when you're ready. Take care."] },
-            4: { male: ["Catch you later. Stay cute. Bye.", "Flirt later maybe. Take care."], female: ["Catch you later. Stay cute. Bye.", "Flirt later maybe. Take care."] },
-            5: { male: ["Talk later. Still your fan. Take care.", "Nice chatting. Fan for life. Bye."], female: ["Talk later. Still your fan. Take care.", "Nice chatting. Fan for life. Bye."] },
-            6: { male: ["Bye. Offer stands if you change your mind. Take care.", "Later. Your move. Take care."], female: ["Bye. Offer stands if you change your mind. Take care.", "Later. Your move. Take care."] }
-          }
-        },
-        endConversation: true
-      }
-    }
-  }
+/* ── MESSAGE TEXT POOLS (2–4 variants per slot; use [POOL:key]) ── */
+<<run setup.fdmMessagePools = {
+    /* NAIVE */
+    naive_w1: ["Do you have any photos besides what's on your page? Just curious.", "Anything besides what's on your feed?", "Got other photos besides what you've shared?"],
+    naive_w2: ["It'd be great if you sent one more photo.", "Could you send one more? I'd love that.", "One more would be awesome."],
+    naive_w3: ["I really liked that style, do you have more like that?", "Loved that style, got any more?", "Do you have more photos like that?", "Got more of that kind?", "Any similar ones?"],
+    naive_w4: ["Your page photos are great, I think you could be bolder.", "Photos are nice, you could be a bit bolder I think.", "Your feed's nice but you could send bolder stuff too."],
+    naive_h1: ["Would you consider sending a photo? I'm really curious.", "Could you send a photo? So curious.", "Would you send one photo?"],
+    naive_h2: ["Just one, wanted to see how you're doing.", "Just send one, I want to see how you are.", "One would be enough, curious how you're doing."],
+    naive_h3: ["Could you send something a bit more personal? Honestly curious.", "Would you send something more personal? Curious.", "Could you send something bolder?"],
+    naive_h4: ["I'd love a photo from you but I won't push.", "I'd really like you to send a photo, no pressure.", "I'd love one from you, but no pressure."],
+    naive_react_sexy: ["You look amazing, honestly. Thank you.", "That was really nice. Thanks.", "So pretty. I'm glad you sent that."],
+    naive_react_nude: ["Whoa. You're gorgeous. Thanks for trusting me with that.", "I wasn't expecting that. In a good way. Thanks.", "That's… really hot. Thank you."],
+    /* LUSTFUL — explicit/vulgar */
+    lustful_ex1: ["There's me. Your turn — show me something. Pussy, tits, whatever you're comfortable with.", "I sent you a pic. Fair's fair — send me something back. I'm not picky.", "You've seen what I'm working with. Now I want to see you."],
+    lustful_ex2: ["So? What do you think? Honest answer.", "Did that do anything for you? Tell me.", "I need to know — did you like it?"],
+    lustful_ex3: ["Don't stop now. One more — I want to see all of you.", "Keep going. I'm hard and I want more.", "Your turn. Tits, ass, pussy — I'll take whatever you send."],
+    lustful_ex4: ["Did it get you wet? Be honest.", "So did that work for you or what?", "Tell me you liked it."],
+    lustful_w1: ["Your turn. I showed you mine — show me yours. Pussy, tits, ass, I'm not fussy.", "Fair swap? You send something back. Whatever you're in the mood to share.", "I sent. Now you. Don't make me beg."],
+    lustful_w2: ["You've seen my dick. Your move.", "I put mine out there. Your turn to return the favour.", "I sent. Now you. Come on."],
+    lustful_w3: ["I want to see you. All of you. Send me something.", "Your turn to show off. I'm waiting.", "I've shown you what I've got. Now I want to see you — tits, ass, whatever."],
+    lustful_h1: ["Send something. I'm hard and I need to see you. Pussy, tits — just one.", "Your turn. I want to see your body. Don't keep me waiting.", "Come on. Send me something. I'm dying to see you."],
+    lustful_h2: ["That's me. Now you. Send something back.", "There you go — that's what you do to me. Your turn.", "You've seen it. Now show me yours."],
+    lustful_h3: ["One more. I need more. Pussy, tits, ass — send whatever.", "Don't stop. Send another one. I'm ready for it.", "Again. I'm still hard. Send more."],
+    /* PERVY — explicit/vulgar */
+    pervy_w1: ["I sent you my cock. You know the drill — you send something back. Pussy, tits, ass.", "Swap. I showed you mine. Now you show me yours.", "Dick pic delivered. Your turn. Don't leave me hanging."],
+    pervy_w2: ["I sent. You're up. Send something.", "Your turn. I showed you — now you show me.", "I sent my dick. Where's yours? I mean — you know what I mean. Send something."],
+    pervy_w3: ["That one was just for you. Hope you're enjoying the view.", "Special delivery — for your eyes only.", "Took that thinking about you. Your turn."],
+    pervy_h1: ["You can do better than that. Send something hotter. Pussy. Ass. Your turn.", "Level up. I want to see your pussy and ass. Send.", "More. I want more. Show me everything."],
+    pervy_h2: ["Something bolder. I'm already hard — give me something to really get off to.", "Send one that shows everything. I want to see your tits and ass.", "Bolder. I want to see what you're hiding."],
+    /* FLIRTY */
+    flirty_w1: ["Want to swap pics? I'll go first so you know I'm serious :)", "Photo swap? I'll send something first :)", "Let's trade — I'll send one, you send one :)"],
+    flirty_w2: ["I sent you something. Your turn :)", "Your move. I showed you mine :)", "I sent. Now you. Don't be shy :)"],
+    flirty_w3: ["That one was just for you :)", "Thought of you when I took that :)", "Something special for you :)"],
+    flirty_h1: ["Send me something better. I know you've got it :)", "Your turn to impress me :)", "I'm waiting for something good from you :)"],
+    flirty_h2: ["One more? Something a bit bolder? I'm curious :)", "Could you send one more — something sexier? :)", "Send another. I want to see more of you :)"],
+    flirty_react_sexy: ["God, you're hot. I love it :)", "You look incredible. Seriously :)", "So sexy. Keep them coming :)"],
+    flirty_react_nude: ["You're gorgeous. Thank you :)", "Your body is amazing. Thanks for sharing :)", "So hot. I'm glad you sent that :)"],
+    /* WILD — explicit/vulgar */
+    wild_ex1: ["I sent you something. Your turn — show me what you've got :)", "There's mine. Now yours. Send something :)", "I showed you a little. You show me back :)"],
+    wild_ex2: ["Want to take it up a notch? I'm down for whatever :)", "Let's get a bit wilder. I sent — you send :)", "More? I'm in. Your turn :)"],
+    wild_ex3: ["So? Did you like it? :)", "What did you think? Be honest :)", "Honest opinion? :)"],
+    wild_w1: ["Pic swap. I sent — you send :)", "Let's swap. I'll show you mine, you show me yours :)", "Trade? I already sent. Your go :)"],
+    wild_w2: ["I sent. Your turn :)", "Your move. I showed you mine :)", "I sent something. Now you :)"],
+    wild_w3: ["Want to get a bit naughtier? :)", "Ready to send something hotter? I am :)", "Feel like sending something bolder? :)"],
+    wild_h1: ["Your turn. Send something. I'm curious what you've got :)", "Send one more. I want to see :)", "Haha okay, you win. Now send one :)"],
+    wild_h2: ["Send another. I'm waiting :)", "One more. Come on :)", "Your turn. Send something. I'm ready for it :)", "Don't make me wait. Send one more :)"],
+    wild_react_normal: ["Nice. More please :)", "Send another :)", "Haha you're killing me. Send more :)"],
+    wild_react_open: ["Ohh I like that. More :)", "Mmm. Yes. More of that :)", "That's the stuff. Send more :)"],
+    wild_react_sexy: ["You're so hot. Don't stop :)", "God. Send another. Please :)", "You're incredible. More :)"],
+    wild_react_nude: ["You're gorgeous. Send more :)", "One more. I'm not done looking yet :)", "So hot. Wanna take this to WhatsApp? :)"]
 }>>
 
-<<run setup.fotogramDMQuickReplies = [
-  { key: "hi", playerText: "Hi! Thanks for the message!", anonReplies: { default: { text: "You actually replied! What are you up to?" } }, nextReplyKeys: ["vibe", "busy"]},
-  { key: "thanks", playerText: "Thanks, that's sweet!", anonReplies: { default: { text: "Of course! I'll let you get back to it." } }, endConversation: true},
-  { key: "who", playerText: "Who is this?", anonReplies: { default: { text: "Someone who appreciates your content. We could stay strangers or get to know each other." } }, nextReplyKeys: ["hi", "vibe"]}
+/* ── AFTER COCK OPENER REACTION (double message: this first, then "your turn send") ── */
+<<run setup.fdmAfterCockOpenerReaction = {
+    pervy: [
+        "That's what you do to me. Took one look at your profile and boom.",
+        "Hard for you. Think about what I could do with that.",
+        "See what I'm packing? All yours if you play nice.",
+        "That's me when I think about you. Your turn to show me something.",
+        "Rock hard. You did that. Now show me what I'm missing.",
+        "There it is. Want to see it in person? Send something first.",
+        "Couldn't help it. You got me going. Your move.",
+        "That's what thinking about your pussy does to me."
+    ],
+    lustful: [
+        "That's what you do to me. Couldn't help it.",
+        "I'm hard. You did that. Now I want to see you.",
+        "See? That's all for you. Your turn.",
+        "Got a little carried away thinking about you. Send me something back.",
+        "There you go. That's me when I imagine you. Fair's fair — show me yours.",
+        "You saw it. What do you think? Now send something.",
+        "Thinking about your tits and pussy got me like this. Don't leave me hanging.",
+        "I want to see your ass. Send me something."
+    ],
+    naive: [
+        "Sorry, I got a bit carried away. That's what you do to me.",
+        "That just… happened when I thought about you. Oops?",
+        "You can tell I'm into you, right?"
+    ],
+    flirty: [
+        "That's for you. Like what you see? :)",
+        "I got a little excited. Your fault :)",
+        "So? Do I get something back? :)"
+    ],
+    wild: [
+        "That's what I'm working with. Your turn :)",
+        "Got a bit excited. Send me something back :)",
+        "Like it? Show me what you've got :)"
+    ],
+    generic: [
+        "There. Your turn.",
+        "See what I mean?"
+    ]
+}>>
+/* Anon reply to "What did you send?" — says what they sent, your turn */
+<<run setup.fdmWhatDidYouSendReply = {
+    naive: ["I sent a photo of me. Your turn — I'd love to see one from you.", "Just something of me. Could you send one back?", "A little something. Now you :)"],
+    lustful: ["That was my dick. Your turn — show me something. Pussy, tits, whatever.", "I sent you a pic of what I've got. Now I want to see you.", "Dick pic, delivered. Fair's fair — you send something back."],
+    pervy: ["I sent you my cock. You know what I want in return.", "That was me. Now you. Send something.", "I showed you mine. Your move."],
+    flirty: ["I sent you something :) Your turn to show me :)", "That was me. Now you :)", "I sent. Your go :)"],
+    wild: ["I sent you a little something :) Your turn :)", "That was for you. Now send me one :)", "I showed you. You show me :)"],
+    generic: ["I sent a photo. Your turn.", "Something of me. You send one back."]
+}>>
+/* Anon reply to rejecting question like "Why should I send?" — flirty/seductive */
+<<run setup.fdmWhySendReply = {
+    naive: ["Because I'd love to see you. No pressure, but it would make my day.", "I'm just really curious what you look like. Please?", "It would mean a lot. I promise I'll appreciate it."],
+    lustful: ["Because I need to see you. I'm hard just thinking about it. Send one.", "So I can get off to you. Is that honest enough? Send.", "You'd make me so happy. And I'd return the favour. Send."],
+    pervy: ["So I can get off to you. Simple as that. Send.", "Because I'm dying to see you. One pic. That's all.", "You'd make me cum. That's why. Send."],
+    flirty: ["Because I want to see you :) It would make me really happy :)", "I'm curious. And I'll send you more if you do :)", "So we can keep this going :) Send one :)"],
+    wild: ["Because I want to see you :) One pic. I'll make it worth your while :)", "So I can see what I'm missing :) Send.", "You'd make my night. Send one :)"],
+    generic: ["I'd really like to see you. Please?", "Just one. I'll appreciate it.", "It would make my day."]
+}>>
+/* Anon reply when player says "I already sent. What more do you want?" (player has sent at least one photo) */
+<<run setup.fdmAlreadySentReply = {
+    naive: ["One more like that, if you can.", "Something a bit bolder? Or we can leave it.", "Just one more. Then I'm good."],
+    lustful: ["One more like the last one. Then we're even.", "Something bolder. One more.", "Okay, one more and I'll stop asking."],
+    pervy: ["One more. Same vibe.", "One more like that. Go on.", "One more and I'm good."],
+    flirty: ["One more like that :) Then we're good :)", "Something like the last one again :)", "Just one more :)"],
+    wild: ["One more like that :)", "Send one more like the last :)", "Same again, one more :)"],
+    generic: ["One more like that.", "Just one more. Then I'm good."]
+}>>
+<<set setup.fdmUseLegacyReactionPools = false>>
+<<set setup.fdmExplicitRenderMode = "full">>
+
+/* Player (female) photo send text — [send photo] button and message bubble */
+<<run setup.fdmPlayerPhotoSendTexts = [
+    "okay, sending one",
+    "here, look",
+    "sending one",
+    "here you go",
+    "there you go"
 ]>>
+/* Player message when agreeing to swap numbers (give number) */
+<<run setup.fdmPlayerGiveNumberTexts = [
+    "Sure, here's my number :)",
+    "Here you go",
+    "Okay, here it is",
+    "Here's my number",
+    "Sent you my number"
+]>>
+/* Player photo/video pool for interactive DM: setup.fdmPlayerPhotos in variablesPhonePhotos.twee */
 
-<<set setup.fotogramAnonCharPool = []>>
-<<run setup.fotogramAnonCharConfig = {}>>
+/* ── FALLBACK CHOICE POOLS ───────────────────────────────────────────── */
+<<run setup.fdmChoicePools = {
+    generic: {
+        default: [
+            { text:"Okay",                 delta: 3 },
+            { text:"I don't know",         delta:-2 },
+            { text:"What do you mean?",   delta: 0 }
+        ]
+    },
+    photo_request: {
+        default: [
+            { text:"Why do you want one?", delta:-3 },
+            { text:"Wait, slow down",      delta:-5 },
+            { text:"No need",              delta:-8, isRejection:true }
+        ]
+    },
+    number_request: {
+        default: [
+            { text:"No",                   delta:-15, isRejection:true },
+            { text:"Why?",                 delta:-5  },
+            { text:"I'll think about it",  delta: 0  }
+        ]
+    }
+}>>
 
-<<run setup.fotogramDMMessagesByFlag = {
-  default: [
-    "Hey, your profile came up and I had to say hi.",
-    "Hi, saw your posts. You seem really cool. Mind if I message?",
-    "Hello, your feed caught my eye. What's your story?",
-    "Hey there, just wanted to say your profile stands out."
-  ],
-  spicy: [
-    "Hey, your profile caught my eye. Had to message.",
-    "Hi, saw your posts. You seem fun. Mind if I say hi?",
-    "Your feed got me curious. What's up?",
-    "Had to reach out. You seem interesting."
-  ],
-  bikini: [
-    "That post caught my eye. Had to say hi.",
-    "Hi, saw your posts. You seem cool. Mind if I message?",
-    "Hey, your feed showed up. Thought I'd reach out."
-  ],
-  risky: [
-    "That post was bold. Had to message.",
-    "Hi, your feed caught my eye. You seem fun.",
-    "Hey, saw your content. Mind if I say hi?"
-  ],
-  hot: [
-    "You're stunning. Had to say hi.",
-    "Hi, saw your posts. You seem really cool. Mind if I message?",
-    "Hey, your feed caught my eye. What's your story?"
-  ],
-  teasing: [
-    "That tease got me. Had to message.",
-    "Hi, saw your posts. You seem fun. Mind if I say hi?",
-    "Hey, your feed caught my eye. Had to reach out."
-  ]
+/* ── ANON MESSAGE POOLS ──────────────────────────────────────────────── */
+<<run setup.fdmMsgPools = {
+
+/* ================================================================
+   NAIVE
+================================================================ */
+naive: {
+    opener: [
+        {
+            text:"I've been following your page, wanted to say hi.",
+            type:"opener",
+            choices:[
+                { text:"thanks",                            delta: 3 },
+                { text:"who are you",                       delta:-2 },
+                { text:"how long have you been following",  delta: 5 }
+            ]
+        },
+        {
+            text:"I've been looking for a while, finally messaged.",
+            type:"opener",
+            choices:[
+                { text:"why did you message",               delta: 3 },
+                { text:"okay",                              delta: 2 },
+                { text:"what were you looking at",          delta: 5 }
+            ]
+        },
+        {
+            text:"Your content was really nice, wanted to say congrats.",
+            type:"opener",
+            choices:[
+                { text:"thanks",                            delta: 4 },
+                { text:"which content do you mean",         delta: 6 },
+                { text:"didn't have to but okay",           delta: 2 }
+            ]
+        }
+    ],
+
+    /* v2: REACTION POOLS */
+    react_positive: [
+        { text:"haha nice" },
+        { text:"glad to hear that" },
+        { text:"you're so sweet" },
+        { text:"I liked that" },
+        { text:"aww thanks" }
+    ],
+    react_negative: [
+        { text:"okay okay" },
+        { text:"I get it" },
+        { text:"don't be mad" },
+        { text:"sorry, came out wrong" },
+        { text:"my bad" }
+    ],
+    react_neutral: [
+        { text:"hmm" },
+        { text:"got it" },
+        { text:"okay" },
+        { text:"hm okay" }
+    ],
+
+    cold: [
+        {
+            text:"Haha at least you replied. How long have you been posting?",
+            type:"chat",
+            firstReplyOnly: true,
+            choices:[
+                { text:"A while",                           delta: 3 },
+                { text:"Why do you ask?",                   delta: 2 },
+                { text:"None of your business",             delta:-8 }
+            ]
+        },
+        {
+            text:"Where did you take that photo? The lighting was really good.",
+            type:"chat",
+            choices:[
+                { text:"Just somewhere random",              delta: 4 },
+                { text:"Why do you want to know?",          delta: 3 },
+                { text:"At home",                           delta: 5 }
+            ]
+        },
+        {
+            text:"Just a follower, wanted to say hi.",
+            type:"chat",
+            firstReplyOnly: true,
+            choices:[
+                { text:"Thanks",                            delta: 3 },
+                { text:"Okay",                              delta: 2 },
+                { text:"Why did you message?",              delta: 4 }
+            ]
+        },
+        {
+            text:"Name doesn't matter, your page caught my eye.",
+            type:"chat",
+            firstReplyOnly: true,
+            choices:[
+                { text:"Thanks",                            delta: 4 },
+                { text:"What did you like?",                 delta: 5 },
+                { text:"Hmm",                               delta: 2 }
+            ]
+        },
+        {
+            text:"One of your followers, hi.",
+            type:"chat",
+            firstReplyOnly: true,
+            choices:[
+                { text:"Hi",                                delta: 3 },
+                { text:"Hello",                             delta: 3 },
+                { text:"What do you want?",                 delta: 2 }
+            ]
+        },
+        {
+            text:"Seriously, your content is really quality.",
+            type:"chat",
+            choices:[
+                { text:"Appreciate it",                     delta: 4 },
+                { text:"Thanks",                            delta: 3 },
+                { text:"Don't flatter me too much",          delta: 2 }
+            ]
+        },
+        {
+            text:"How long have you been into photography?",
+            type:"chat",
+            choices:[
+                { text:"Pretty new",                        delta: 3 },
+                { text:"Not photography, just sharing",      delta: 2 },
+                { text:"Why do you want to know?",           delta: 1 }
+            ]
+        },
+        {
+            text:"I like your page, you have a really genuine vibe.",
+            type:"chat",
+            choices:[
+                { text:"Thanks",                            delta: 4 },
+                { text:"Thanks, you think?",                 delta: 3 },
+                { text:"Okay",                              delta: 1 }
+            ]
+        },
+        {
+            text:"There's something about your posts, not everyone can do that.",
+            type:"chat",
+            choices:[
+                { text:"Like what?",                         delta: 5 },
+                { text:"Thanks",                            delta: 3 },
+                { text:"Whatever",                          delta: 1 }
+            ]
+        },
+        {
+            text:"My friends look at your page too, we talk about it.",
+            type:"chat",
+            choices:[
+                { text:"What do you talk about?",            delta: 6 },
+                { text:"Interesting",                       delta: 3 },
+                { text:"That bothers me",                   delta:-5 }
+            ]
+        },
+        {
+            text:"Have you ever had professional photos taken?",
+            type:"chat",
+            choices:[
+                { text:"No",                                delta: 2 },
+                { text:"Why do you ask?",                    delta: 3 },
+                { text:"Yes, once",                         delta: 4 }
+            ]
+        },
+        {
+            text:"The last photo on your page was really nice, I liked it.",
+            type:"chat",
+            choices:[
+                { text:"Which one do you mean?",            delta: 5 },
+                { text:"Thanks",                            delta: 3 },
+                { text:"Hmm",                               delta: 1 }
+            ]
+        },
+        {
+            text:"Which one do you think is your best photo?",
+            type:"chat",
+            choices:[
+                { text:"I don't know",                      delta: 2 },
+                { text:"Why do you want to know?",          delta: 3 },
+                { text:"I like them all",                    delta: 4 }
+            ]
+        },
+        {
+            text:"I think you should post more often, everyone likes it.",
+            type:"chat",
+            choices:[
+                { text:"I'll think about it",                delta: 4 },
+                { text:"I don't have time",                  delta: 2 },
+                { text:"Thanks but no need",                 delta: 1 }
+            ]
+        }
+    ],
+    warm: [
+        {
+            text:"[POOL:naive_w1]",
+            type:"photo_hint",
+            choices:[
+                { text:"Why do you want to know?",           delta:-3 },
+                { text:"Maybe yes maybe no",                 delta: 5 },
+                { text:"What kind of stuff do you want to see?", delta: 8 }
+            ]
+        },
+        {
+            text:"[POOL:naive_w2]",
+            type:"photo_hint",
+            choices:[
+                { text:"What kind of photo do you want?",    delta: 8 },
+                { text:"No need",                            delta:-10, isRejection:true },
+                { text:"Why do you want one?",               delta:-2 }
+            ]
+        },
+        {
+            text:"[POOL:naive_w3]",
+            type:"photo_hint",
+            choices:[
+                { text:"I have some but don't share",        delta:-5 },
+                { text:"What kind of stuff do you want?",    delta: 7 },
+                { text:"It's already on my page",            delta: 3 }
+            ]
+        },
+        {
+            text:"[POOL:naive_w4]",
+            type:"photo_hint",
+            choices:[
+                { text:"What do you mean bolder?",            delta: 5 },
+                { text:"This is fine",                       delta:-3 },
+                { text:"How do you mean?",                   delta: 4 }
+            ]
+        }
+    ],
+    hot: [
+        {
+            text:"[POOL:naive_h1]",
+            type:"photo_request",
+            choices:[
+                { text:"What kind of photo do you want?",   delta: 8 },
+                { text:"No",                                 delta:-15, isRejection:true },
+                { text:"Why should I send?",                 delta:-3 }
+            ]
+        },
+        {
+            text:"[POOL:naive_h2]",
+            type:"photo_request",
+            choices:[
+                { text:"Okay, I'll send one",                 delta:10, triggersPhoto:true },
+                { text:"No way",                             delta:-12, isRejection:true },
+                { text:"You don't ask for a photo by saying how are you", delta:-5 }
+            ]
+        },
+        {
+            text:"[POOL:naive_h3]",
+            type:"photo_request",
+            choices:[
+                { text:"Wait a second",                      delta:-3 },
+                { text:"What do you want exactly?",          delta: 5 },
+                { text:"No, that's enough",                  delta:-15, isRejection:true }
+            ]
+        },
+        {
+            text:"[POOL:naive_h4]",
+            type:"photo_request",
+            choices:[
+                { text:"What kind of photo?",                 delta: 7 },
+                { text:"No need",                            delta:-10, isRejection:true },
+                { text:"Why?",                               delta:-2 }
+            ]
+        }
+    ],
+    fire: [
+        {
+            text:"Can we talk outside Fotogram? Could I get your number?",
+            type:"number_request",
+            choices:[
+                { text:"Why?",                               delta:-5 },
+                { text:"No",                                 delta:-15, isRejection:true },
+                { text:"Can't we just talk here?",           delta:-3 }
+            ]
+        },
+        {
+            text:"It's hard to keep going here, do you have WhatsApp?",
+            type:"number_request",
+            choices:[
+                { text:"No",                                 delta:-10, isRejection:true },
+                { text:"I have it but I'm not giving it",    delta:-8, isRejection:true },
+                { text:"Why can't we stay here?",            delta:-3 }
+            ]
+        }
+    ],
+    number: [
+        {
+            text:"I want to talk to you outside Fotogram, could I get your number?",
+            type:"number_request",
+            choices:[
+                { text:"No",                                 delta:-15, isRejection:true },
+                { text:"Why?",                               delta:-5 },
+                { text:"I'll think about it",                delta: 0 }
+            ]
+        }
+    ],
+    react_photo_normal: [
+        { text:"That was nice but could you send something more personal?" },
+        { text:"Thanks. Could you send one bolder?" },
+        { text:"This? I'd be happy if you sent something a bit more open." }
+    ],
+    react_photo_open:  [{ text:"Okay, wasn't expecting that." }, { text:"Wow, that was nice too. Honestly wasn't expecting it." }],
+    react_photo_sexy:  [{ text:"[POOL:naive_react_sexy]" }],
+    react_photo_nude:  [{ text:"[POOL:naive_react_nude]", attachmentCategory:"cock" }],
+    react_photo_ass:   [{ text:"Your ass looks amazing. I want to see more." }, { text:"That ass. Thank you. More please." }],
+    react_photo_boobs: [{ text:"Your tits are gorgeous. Send more when you can." }, { text:"So hot. Thanks for that. More?" }],
+    react_photo_pussy: [{ text:"You're beautiful. Thanks for trusting me with that." }, { text:"That's so hot. You're incredible." }],
+    react_photo_video: [{ text:"Your video was great too, thanks.", attachmentCategory:"cock" }],
+    react_photo_satisfied_chat: [{ text:"Thanks. That was really nice. You're not bad." }, { text:"I'm glad you sent that. You're cute." }],
+    react_photo_satisfied_number: [{ text:"Thanks, I really liked that. Wanna swap numbers?" }, { text:"That was hot. I like you. Let's swap numbers?" }],
+    react_photo_want_more: [{ text:"Send one more. I want to see more of you." }, { text:"Don't stop. One more please." }],
+    react_number: [{ text:"Thanks, switching over now." }],
+    anon_send_number: [{ text:"Here's mine: {anonNumber}" }, { text:"Mine's {anonNumber}. Text me there." }],
+    waiting: [{ text:"I'm waiting." }, { text:"Okay waiting." }, { text:"No rush." }],
+    close: [
+        { text:"Okay, I get it. Maybe another time." },
+        { text:"Have a good one." },
+        { text:"No worries, have a good evening." },
+        { text:"Okay. Take care." },
+        { text:"You're so cold. Whatever." },
+        { text:"Didn't get what I wanted but it's fine. Bye." }
+    ],
+    finisher_bored_no_photo: [{ text:"Didn't get to see anything. Maybe another time. Bye." }, { text:"Okay, take care. Maybe we'll talk again." }],
+    finisher_bored_photo: [{ text:"That was nice. Gotta go. Bye." }, { text:"Thanks for the chat. Have a good one." }],
+    finisher_max_turns: [{ text:"I'm kinda busy now. Talk later maybe. Bye." }, { text:"Gotta run. Maybe another time." }]
+},
+
+/* ================================================================
+   LUSTFUL
+================================================================ */
+lustful: {
+    opener: [
+        {
+            text:"You posted that on purpose, I know it.",
+            type:"opener",
+            choices:[
+                { text:"what pose what purpose",             delta:-5 },
+                { text:"hmm",                               delta: 3 },
+                { text:"what do you mean",                   delta: 5 }
+            ]
+        },
+        {
+            text:"Saw your page and wanted to message, I'll be direct.",
+            type:"opener",
+            choices:[
+                { text:"what are you gonna say",            delta: 5 },
+                { text:"okay say it",                       delta: 4 },
+                { text:"was that necessary",                 delta:-3 }
+            ]
+        },
+        {
+            text:"You've got a seriously hot page.",
+            type:"opener",
+            choices:[
+                { text:"thanks",                            delta: 4 },
+                { text:"just photos",                       delta: 3 },
+                { text:"okay",                              delta: 2 }
+            ]
+        }
+    ],
+
+    /* v2: REACTION POOLS */
+    react_positive: [
+        { text:"hah that's more like it" },
+        { text:"wanted to hear that" },
+        { text:"nice nice" },
+        { text:"you're not bad either" },
+        { text:"liked that" }
+    ],
+    react_negative: [
+        { text:"okay okay calm down" },
+        { text:"whatever" },
+        { text:"don't overdo it" },
+        { text:"look we're just talking" },
+        { text:"whatever" }
+    ],
+    react_neutral: [
+        { text:"hmm" },
+        { text:"okay" },
+        { text:"got it" },
+        { text:"hm okay" },
+        { text:"go on" }
+    ],
+
+    cold: [
+        {
+            text:"Where did you take that photo?",
+            type:"chat",
+            choices:[
+                { text:"At home",                            delta: 5 },
+                { text:"Why do you want to know?",          delta: 2 },
+                { text:"None of your business",              delta:-8 }
+            ]
+        },
+        {
+            text:"Someone who posts that kind of content isn't shy for sure.",
+            type:"chat",
+            choices:[
+                { text:"What shy?",                          delta: 5 },
+                { text:"What do you mean?",                  delta: 3 },
+                { text:"What do you think?",                 delta:-3 }
+            ]
+        },
+        {
+            text:"How long have you been posting like this?",
+            type:"chat",
+            choices:[
+                { text:"A while",                            delta: 3 },
+                { text:"Why do you ask?",                    delta: 2 },
+                { text:"Don't remember",                     delta: 1 }
+            ]
+        },
+        {
+            text:"Your page caught my eye honestly.",
+            type:"chat",
+            choices:[
+                { text:"What caught your eye?",              delta: 5 },
+                { text:"Okay",                               delta: 2 },
+                { text:"Not interested",                     delta:-5 }
+            ]
+        },
+        {
+            text:"I like your photos, you've got a good eye.",
+            type:"chat",
+            choices:[
+                { text:"Thanks",                             delta: 4 },
+                { text:"Just phone camera",                  delta: 3 },
+                { text:"Hmm thanks",                         delta: 2 }
+            ]
+        },
+        {
+            text:"If you share a profile like this you've got confidence.",
+            type:"chat",
+            choices:[
+                { text:"You think?",                         delta: 4 },
+                { text:"Doesn't matter",                     delta: 1 },
+                { text:"What's that got to do with it?",    delta:-2 }
+            ]
+        },
+        {
+            text:"I wonder what your followers think, does everyone like it?",
+            type:"chat",
+            choices:[
+                { text:"I don't know",                       delta: 2 },
+                { text:"Why do you ask?",                    delta: 3 },
+                { text:"None of your business",              delta:-5 }
+            ]
+        },
+        {
+            text:"I've seen all the photos on your page, you do quality work.",
+            type:"chat",
+            choices:[
+                { text:"Thanks",                             delta: 4 },
+                { text:"All of them?",                       delta: 5 },
+                { text:"Okay",                               delta: 1 }
+            ]
+        },
+        {
+            text:"I wanted to talk to someone with your kind of style.",
+            type:"chat",
+            choices:[
+                { text:"What style do you mean?",            delta: 5 },
+                { text:"Okay",                               delta: 2 },
+                { text:"Hmm",                                delta: 1 }
+            ]
+        },
+        {
+            text:"Finding someone like you isn't easy, I'm serious.",
+            type:"chat",
+            choices:[
+                { text:"What do you mean?",                  delta: 4 },
+                { text:"Thanks",                             delta: 3 },
+                { text:"Don't overdo it",                    delta:-2 }
+            ]
+        }
+    ],
+    warm: [
+        {
+            text:"Would you consider sending a photo, a proper one?",
+            type:"photo_hint",
+            choices:[
+                { text:"How proper do you want?",            delta: 8 },
+                { text:"No",                                 delta:-12, isRejection:true },
+                { text:"What do you want to see?",           delta: 5 }
+            ]
+        },
+        {
+            text:"Wonder if you've got anything besides what's on your page.",
+            type:"photo_hint",
+            choices:[
+                { text:"I do, why?",                         delta: 6 },
+                { text:"No",                                 delta:-5, isRejection:true },
+                { text:"Why do you ask?",                    delta: 3 }
+            ]
+        },
+        {
+            text:"Wouldn't mind if you sent something more open, just saying.",
+            type:"photo_hint",
+            choices:[
+                { text:"Wait a minute",                      delta:-3 },
+                { text:"What do you want exactly?",          delta: 7 },
+                { text:"No way",                             delta:-12, isRejection:true }
+            ]
+        },
+        {
+            text:"Send a photo, something different from your page.",
+            type:"photo_hint",
+            choices:[
+                { text:"Why different?",                     delta: 4 },
+                { text:"No need",                            delta:-8, isRejection:true },
+                { text:"What kind of different?",            delta: 7 }
+            ]
+        },
+        {
+            text:"Just curious about the rest. Got anything more personal?",
+            type:"photo_hint",
+            choices:[
+                { text:"What do you mean personal?",        delta: 6 },
+                { text:"No, that's enough",                  delta:-8, isRejection:true },
+                { text:"I do, want me to send?",             delta: 8, triggersPhoto:true }
+            ]
+        },
+        {
+            text:"By proper I mean something nice. A selfie or something, I'd love it.",
+            type:"photo_hint",
+            choices:[
+                { text:"Okay, I'll send one",                delta: 9, triggersPhoto:true },
+                { text:"No",                                 delta:-10, isRejection:true },
+                { text:"What kind of thing do you want?",    delta: 6 }
+            ]
+        }
+    ],
+    hot: [
+        {
+            text:"I want to see you. Pussy, tits, ass — send me one. Whatever you're comfortable with.",
+            type:"photo_request",
+            choices:[
+                { text:"How open do you want?",              delta: 8 },
+                { text:"No",                                 delta:-15, isRejection:true },
+                { text:"Why should I send?",                 delta:-5 }
+            ]
+        },
+        {
+            text:"Send me something. Don't overthink it — just one pic. I need to see you.",
+            type:"photo_request",
+            vulgarRequest: true,
+            choices:[
+                { text:"What's wrong with you!",              delta:-20, isRejection:true },
+                { text:"Okay, sending one",                  delta:10, triggersPhoto:true },
+                { text:"No, that's enough",                   delta:-15, isRejection:true }
+            ]
+        },
+        {
+            text:"One more. I want to see your pussy and ass. Don't make me wait.",
+            type:"photo_request",
+            choices:[
+                { text:"Wait, slow down",                     delta:-5 },
+                { text:"[send photo]",                       delta:12, triggersPhoto:true },
+                { text:"No way, enough",                      delta:-18, isRejection:true }
+            ]
+        },
+        {
+            text:"I'm dying to see you. Your pussy, your tits — send me something.",
+            type:"photo_request",
+            choices:[
+                { text:"What do you want to see?",           delta: 7 },
+                { text:"No",                                 delta:-12, isRejection:true },
+                { text:"Why are you curious?",               delta:-2 }
+            ]
+        }
+    ],
+    fire: [
+        {
+            text:"Give me your number, this doesn't work here.",
+            type:"number_request",
+            choices:[
+                { text:"Why doesn't it work?",                delta:-3 },
+                { text:"No",                                 delta:-15, isRejection:true },
+                { text:"Can't we just talk here?",           delta:-5 }
+            ]
+        },
+        {
+            text:"Switch to WhatsApp. Serious.",
+            type:"number_request",
+            choices:[
+                { text:"Why?",                                delta:-3 },
+                { text:"No",                                  delta:-15, isRejection:true },
+                { text:"Can't we talk here?",                 delta:-5 }
+            ]
+        },
+        {
+            text:"This doesn't work anymore, give me your number. I'm serious.",
+            type:"number_request",
+            choices:[
+                { text:"Wait a second",                       delta:-5 },
+                { text:"No",                                 delta:-18, isRejection:true },
+                { text:"Okay I'll think about it",           delta: 0 }
+            ]
+        }
+    ],
+    number: [
+        {
+            text:"Give me your number, we can't keep going here.",
+            type:"number_request",
+            choices:[
+                { text:"No",                                 delta:-15, isRejection:true },
+                { text:"Why?",                               delta:-5 },
+                { text:"I'll think about it",                delta: 0 }
+            ]
+        }
+    ],
+    react_photo_normal: [
+        { text:"That's nice but I want more. Something a bit bolder. You've got more to show." },
+        { text:"Good start. Now send one that really shows off. Don't hold back." },
+        { text:"Not bad. But I know you can do hotter. Send something that gets me going." },
+        { text:"I need more. Tits, ass, pussy — give me something I can really enjoy." }
+    ],
+    react_photo_open:  [{ text:"That's more like it. Now send your tits and ass. I want to see everything." }],
+    react_photo_sexy:  [
+        { text:"Your tits are perfect. Now show me your pussy. I'm hard and I need more.", attachmentCategory:"cock" },
+        { text:"So hot. I'm rock hard. Send more — don't stop.", attachmentCategory:"cock" }
+    ],
+    react_photo_nude:  [
+        { text:"Your pussy and ass are incredible. I'm imagining what I'd do to you if you were here.", attachmentCategory:"cock" },
+        { text:"Fuck. I'd eat you out and then fuck you until you couldn't take it. Send more.", attachmentCategory:"cum" },
+        { text:"I want to see every angle. I'm hard and ready for more.", attachmentCategory:"cock" }
+    ],
+    react_photo_ass:   [
+        { text:"That ass. I'd bend you over and take you right there. Send more.", attachmentCategory:"cock" },
+        { text:"Perfect ass. I'm so hard. Send another one.", attachmentCategory:"cock" }
+    ],
+    react_photo_boobs: [
+        { text:"Your tits are amazing. I want to see them in person — and your pussy. Send more.", attachmentCategory:"cock" },
+        { text:"God. I'm hard. Send your pussy next. I need to see it.", attachmentCategory:"cock" }
+    ],
+    react_photo_pussy: [
+        { text:"Your pussy looks so good. I'm imagining my cock inside you. Send more.", attachmentCategory:"cock" },
+        { text:"Fuck. I'd love to taste you. And then fuck you. Send another.", attachmentCategory:"cum" }
+    ],
+    react_photo_video: [{ text:"That video got me so hard. Exactly what I needed. More.", attachmentCategory:"cum" }],
+    react_photo_satisfied_chat: [{ text:"Fuck, I came. You're hot. Thanks." }, { text:"That did it. You're not bad at all." }],
+    react_photo_satisfied_number: [{ text:"I came. You're hot. Wanna swap numbers?" }, { text:"That was good. I like you. Let's swap numbers?" }],
+    react_photo_want_more: [{ text:"Send one more. I need more of you." }, { text:"Don't stop. One more." }],
+    react_number: [{ text:"Perfect. Adding you now." }],
+    anon_send_number: [{ text:"Here's mine: {anonNumber}" }, { text:"Mine's {anonNumber}. Hit me there." }],
+    waiting: [{ text:"I'm waiting for you. Send something." }, { text:"Your turn. Don't keep me waiting." }, { text:"I'm hard. Send." }, { text:"Waiting. Come on." }, { text:"Send one. I need to see you." }],
+    close: [
+        { text:"Okay then." },
+        { text:"Got it." },
+        { text:"Whatever. Have a good one." },
+        { text:"Okay no worries." },
+        { text:"Damn you're so cold. Whatever, forget it." },
+        { text:"Okay bitch, I'm done with you." },
+        { text:"Forget it then." },
+        { text:"I'm done with you. Bye." },
+        { text:"Didn't get to see your pussy but whatever. Bye." },
+        { text:"If you don't want to then fine. No worries." },
+        { text:"You turned out cold. Okay, see you." }
+    ],
+    finisher_bored_no_photo: [{ text:"Didn't get anything. Whatever. Bye." }, { text:"You're too cold. I'm done. Bye." }],
+    finisher_bored_photo: [{ text:"That was good. Gotta go. Bye." }, { text:"Thanks for the pics. See you." }],
+    finisher_max_turns: [{ text:"I'm done for now. Maybe later. Bye." }, { text:"Gotta bounce. Later." }]
+},
+
+/* ================================================================
+   PERVY
+================================================================ */
+pervy: {
+    opener: [
+        {
+            text:"",
+            type:"cock_opener",
+            attachmentCategory:"cock",
+            choices:[
+                { text:"No, close this",                    delta:-20, isRejection:true },
+                { text:"Are you serious?",                  delta:-10 },
+                { text:"Wasn't expecting that",             delta: 5 }
+            ]
+        },
+        {
+            text:"Thought about it and sent it.",
+            type:"cock_opener",
+            attachmentCategory:"cock",
+            choices:[
+                { text:"Wait stop",                         delta:-15 },
+                { text:"What is this?",                     delta:-8 },
+                { text:"Hmm, I saw",                       delta: 5 }
+            ]
+        }
+    ],
+
+    /* v2: REACTION POOLS */
+    react_positive: [
+        { text:"heh there we go" },
+        { text:"nice" },
+        { text:"was waiting for that" },
+        { text:"keep going" },
+        { text:"hmm I like it" }
+    ],
+    react_negative: [
+        { text:"calm down" },
+        { text:"whatever" },
+        { text:"okay okay" },
+        { text:"whatever" },
+        { text:"don't overdo it" }
+    ],
+    react_neutral: [
+        { text:"hmm" },
+        { text:"okay" },
+        { text:"hm" },
+        { text:"okay" }
+    ],
+
+    cold: [
+        {
+            text:"[POOL:lustful_ex1]",
+            type:"explicit",
+            choices:[
+                { text:"No, I don't want to",               delta:-15, isRejection:true },
+                { text:"What do you want?",                 delta:-3 },
+                { text:"Wait a minute",                     delta: 2 }
+            ]
+        },
+        {
+            text:"[POOL:lustful_ex2]",
+            type:"explicit",
+            choices:[
+                { text:"Didn't like it at all",             delta:-10, isRejection:true },
+                { text:"I don't know",                      delta: 2 },
+                { text:"Wasn't impressive",                delta:-8 }
+            ]
+        },
+        {
+            text:"[POOL:lustful_ex3]",
+            type:"explicit",
+            choices:[
+                { text:"Stop, enough",                      delta:-12, isRejection:true },
+                { text:"What do you want?",                 delta:-2 },
+                { text:"Keep going",                        delta: 5 }
+            ]
+        },
+        {
+            text:"[POOL:lustful_ex4]",
+            type:"explicit",
+            choices:[
+                { text:"No, didn't like it",                delta:-10, isRejection:true },
+                { text:"I don't know",                      delta: 2 },
+                { text:"Doesn't matter",                    delta: 3 }
+            ]
+        }
+    ],
+    warm: [
+        {
+            text:"[POOL:lustful_w1]",
+            type:"photo_hint",
+            choices:[
+                { text:"No way",                            delta:-15, isRejection:true },
+                { text:"Why would I want to?",              delta:-5 },
+                { text:"What kind of photo do you want?",   delta: 8 }
+            ]
+        },
+        {
+            text:"[POOL:lustful_w2]",
+            type:"photo_hint",
+            choices:[
+                { text:"No need",                           delta:-12, isRejection:true },
+                { text:"What did you send?",                 delta: 5 },
+                { text:"No, enough",                        delta:-10, isRejection:true }
+            ]
+        },
+        {
+            text:"[POOL:lustful_w3]",
+            type:"photo_hint",
+            choices:[
+                { text:"What do you want exactly?",         delta: 5 },
+                { text:"No",                                delta:-10, isRejection:true },
+                { text:"Why should I send?",                delta:-3 }
+            ]
+        }
+    ],
+    hot: [
+        {
+            text:"[POOL:lustful_h1]",
+            type:"photo_request",
+            choices:[
+                { text:"No way, enough",                    delta:-18, isRejection:true },
+                { text:"Wait a second",                     delta:-3 },
+                { text:"[send photo]",                      delta:12, triggersPhoto:true }
+            ]
+        },
+        {
+            text:"[POOL:lustful_h2]",
+            type:"photo_request",
+            attachmentCategory:"cock",
+            choices:[
+                { text:"What's the point of sending that?", delta:-10, isRejection:true },
+                { text:"No",                                delta:-20, isRejection:true },
+                { text:"Okay I'll send one",                 delta:10, triggersPhoto:true }
+            ]
+        },
+        {
+            text:"[POOL:lustful_h3]",
+            type:"photo_request",
+            choices:[
+                { text:"No way",                            delta:-18, isRejection:true },
+                { text:"What do you want?",                 delta:-2 },
+                { text:"[send photo]",                      delta:12, triggersPhoto:true }
+            ]
+        }
+    ],
+    fire: [
+        {
+            text:"Give me your number. This doesn't work here.",
+            type:"number_request",
+            choices:[
+                { text:"No",                                delta:-18, isRejection:true },
+                { text:"No way",                            delta:-15, isRejection:true },
+                { text:"Wait I'll think about it",          delta:-5 }
+            ]
+        }
+    ],
+    number: [
+        {
+            text:"Send your number, let's talk outside. I'm bored of here.",
+            type:"number_request",
+            choices:[
+                { text:"No",                                delta:-15, isRejection:true },
+                { text:"No way",                            delta:-12, isRejection:true },
+                { text:"Why?",                              delta:-3 }
+            ]
+        }
+    ],
+    react_photo_normal: [
+        { text:"Good. Now send one that shows everything. Don't tease." },
+        { text:"That's a start. I want pussy, ass, tits. Something I can really use." },
+        { text:"Your tits are hot. Now show me your pussy and ass. Full package." }
+    ],
+    react_photo_open:   [{ text:"Better. Now send one with your pussy and tits. I want the full view.", attachmentCategory:"cock" }],
+    react_photo_sexy:   [
+        { text:"Your pussy gets me so hard. Keep sending. I'm not done yet.", attachmentCategory:"cum" },
+        { text:"More. I want your pussy and ass. Send." }
+    ],
+    react_photo_nude:   [
+        { text:"Your ass and pussy are perfect. I'd fuck you so hard if you were here.", attachmentCategory:"cum" },
+        { text:"I'd take you right now. Send more so I can get off to you.", attachmentCategory:"cum" }
+    ],
+    react_photo_ass:    [
+        { text:"That ass. I'd pound it. Send more.", attachmentCategory:"cock" },
+        { text:"Perfect. I'm hard. Send another.", attachmentCategory:"cum" }
+    ],
+    react_photo_boobs:  [
+        { text:"Your tits are incredible. I'd suck them and then move down. Send your pussy.", attachmentCategory:"cock" },
+        { text:"So hot. I'm rock hard. Send more.", attachmentCategory:"cum" }
+    ],
+    react_photo_pussy:  [
+        { text:"Your pussy looks so good. I'd eat it and then fuck you. Send more.", attachmentCategory:"cum" },
+        { text:"Fuck. I want to be inside you. Send another.", attachmentCategory:"cum" }
+    ],
+    react_photo_video:  [{ text:"That video. I'm hard. Now I want to see your pussy. Send.", attachmentCategory:"cum" }],
+    react_photo_satisfied_chat: [{ text:"Came. You're good. Thanks." }, { text:"That did it. Not bad." }],
+    react_photo_satisfied_number: [{ text:"I came. Wanna swap numbers?" }, { text:"Good. Let's swap numbers." }],
+    react_photo_want_more: [{ text:"One more. Send." }, { text:"Need one more. Don't stop." }],
+    react_number: [{ text:"Got it. Switching over. Talk there." }],
+    anon_send_number: [{ text:"Here's mine: {anonNumber}" }, { text:"Mine's {anonNumber}. Text there." }],
+    waiting: [{ text:"Waiting for your next pic. Send." }, { text:"My dick's waiting. Send something." }, { text:"I'm waiting." }, { text:"Send one. Now." }],
+    close: [
+        { text:"Okay, didn't work out. Have a good one." },
+        { text:"Okay." },
+        { text:"Whatever." },
+        { text:"Your loss." },
+        { text:"Okay bitch, I'm done with you." },
+        { text:"Forget it then." },
+        { text:"Couldn't even send a pussy pic. Forget it." },
+        { text:"So cold. Whatever, bye." },
+        { text:"Didn't get to see your ass. Whatever." }
+    ],
+    finisher_bored_no_photo: [{ text:"Didn't get anything. Your loss. Bye." }, { text:"Too cold. I'm out. Bye." }],
+    finisher_bored_photo: [{ text:"That was something. Gotta go. Bye." }, { text:"Thanks for the pics. Later." }],
+    finisher_max_turns: [{ text:"I'm done. Maybe later. Bye." }, { text:"Gotta run. Bye." }]
+},
+
+/* ================================================================
+   FLIRTY (female)
+================================================================ */
+flirty: {
+    opener: [
+        {
+            text:"Your page was really good, I wanted to message.",
+            type:"opener",
+            choices:[
+                { text:"thanks",                            delta: 4 },
+                { text:"which content do you mean",         delta: 6 },
+                { text:"who are you",                      delta:-2 }
+            ]
+        },
+        {
+            text:"I was following you, said hi.",
+            type:"opener",
+            choices:[
+                { text:"hello",                            delta: 3 },
+                { text:"for a long time?",                  delta: 5 },
+                { text:"okay",                              delta: 2 }
+            ]
+        },
+        {
+            text:"Hey, your page showed up in my explore, I liked it.",
+            type:"opener",
+            choices:[
+                { text:"thanks",                            delta: 4 },
+                { text:"what did you like",                 delta: 5 },
+                { text:"hmm",                               delta: 2 }
+            ]
+        }
+    ],
+
+    /* v2: REACTION POOLS */
+    react_positive: [
+        { text:"aww you're sweet" },
+        { text:"haha nice :)" },
+        { text:"I liked it" },
+        { text:"so cute" },
+        { text:"aww loved that" }
+    ],
+    react_negative: [
+        { text:"okay :(" },
+        { text:"I get it" },
+        { text:"you made me sad" },
+        { text:"whatever" },
+        { text:"okay :/" }
+    ],
+    react_neutral: [
+        { text:"hmm :)" },
+        { text:"okay" },
+        { text:"got it" },
+        { text:"okay" }
+    ],
+
+    cold: [
+        {
+            text:"You're really sweet.",
+            type:"chat",
+            choices:[
+                { text:"thanks",                            delta: 4 },
+                { text:"you too",                           delta: 6 },
+                { text:"okay okay",                         delta: 2 }
+            ]
+        },
+        {
+            text:"Your photos were really good, how do you take them?",
+            type:"chat",
+            choices:[
+                { text:"with my phone",                     delta: 4 },
+                { text:"why do you want to know",           delta: 3 },
+                { text:"random",                            delta: 2 }
+            ]
+        },
+        {
+            text:"I really like your style, where do you shop?",
+            type:"chat",
+            choices:[
+                { text:"different places",                  delta: 4 },
+                { text:"why do you ask",                    delta: 3 },
+                { text:"dunno",                             delta: 2 }
+            ]
+        },
+        {
+            text:"Your page feels really genuine, I like it.",
+            type:"chat",
+            choices:[
+                { text:"thanks",                            delta: 4 },
+                { text:"yours too?",                        delta: 5 },
+                { text:"thanks",                            delta: 3 }
+            ]
+        }
+    ],
+    warm: [
+        {
+            text:"[POOL:flirty_w1]",
+            type:"photo_hint",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"What are you gonna send?",          delta: 4 },
+                { text:"No need",                           delta:-10, isRejection:true },
+                { text:"I'll think about it",               delta:-1 }
+            ]
+        },
+        {
+            text:"[POOL:flirty_w2]",
+            type:"photo_request",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"[send photo]",                      delta:12, triggersPhoto:true },
+                { text:"No, enough",                        delta:-12, isRejection:true },
+                { text:"What did you send?",                delta:-2 }
+            ]
+        },
+        {
+            text:"[POOL:flirty_w3]",
+            type:"photo_hint",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"That was nice",                     delta: 6 },
+                { text:"Hmm why?",                          delta:-1 },
+                { text:"Didn't need to",                    delta:-5 }
+            ]
+        }
+    ],
+    hot: [
+        {
+            text:"Haha okay, look :)",
+            type:"chat",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"That was nice",                     delta: 8 },
+                { text:"Thanks",                            delta: 5 },
+                { text:"Hmm",                               delta: 3 }
+            ]
+        },
+        {
+            text:"[POOL:flirty_h1]",
+            type:"photo_request",
+            attachmentCategory:"spicy",
+            oneMoreRequest: true,
+            choices:[
+                { text:"[send photo]",                      delta:12, triggersPhoto:true },
+                { text:"No, enough",                        delta:-10, isRejection:true },
+                { text:"Okay I'll send one",                delta: 8, triggersPhoto:true }
+            ]
+        },
+        {
+            text:"[POOL:flirty_h2]",
+            type:"photo_request",
+            attachmentCategory:"spicy",
+            oneMoreRequest: true,
+            choices:[
+                { text:"Wait, slow down",                   delta:-5 },
+                { text:"[send photo]",                      delta:14, triggersPhoto:true },
+                { text:"No way, that's enough",              delta:-12, isRejection:true }
+            ]
+        }
+    ],
+    fire: [
+        {
+            text:"Wanna move to WhatsApp? Would be more fun.",
+            type:"number_request",
+            choices:[
+                { text:"Why?",                              delta:-3 },
+                { text:"No",                                delta:-12, isRejection:true },
+                { text:"We can stay here",                  delta:-2 }
+            ]
+        }
+    ],
+    number: [
+        {
+            text:"Wanna move to WhatsApp?",
+            type:"number_request",
+            choices:[
+                { text:"No",                                delta:-12, isRejection:true },
+                { text:"Why?",                               delta:-3 },
+                { text:"Okay",                              delta: 0 }
+            ]
+        }
+    ],
+    react_photo_normal: [{ text:"You look so good :) Send me something a bit bolder? I want to see more of you :)", attachmentCategory:"spicy" }],
+    react_photo_open:   [{ text:"Ohh.", attachmentCategory:"spicy" }, { text:"Mmm, I like that. Send another :)", attachmentCategory:"spicy" }],
+    react_photo_sexy:   [{ text:"[POOL:flirty_react_sexy]", attachmentCategory:"sexting" }],
+    react_photo_nude:   [{ text:"[POOL:flirty_react_nude]", attachmentCategory:"sexting" }],
+    react_photo_ass:    [{ text:"Your ass is gorgeous :) More please :)", attachmentCategory:"sexting" }],
+    react_photo_boobs:  [{ text:"Your tits are perfect :) I love them :)", attachmentCategory:"sexting" }],
+    react_photo_pussy:  [{ text:"You're so sexy :) Don't stop sending :)", attachmentCategory:"sexting" }],
+    react_photo_video:  [{ text:"That video was so hot :) I loved it :)", attachmentCategory:"female_masturbation" }],
+    react_photo_satisfied_chat: [{ text:"That was so good :) You're hot. Thanks :)" }, { text:"Loved it. You're not bad :)" }],
+    react_photo_satisfied_number: [{ text:"That was amazing :) Wanna swap numbers? :)" }, { text:"I really liked that. Let's swap numbers? :)" }],
+    react_photo_want_more: [{ text:"Send one more :) I want to see more :)" }, { text:"Don't stop. One more :)" }],
+    react_number: [{ text:"Great :) Switching over." }],
+    anon_send_number: [{ text:"Here's mine: {anonNumber} :)" }, { text:"Mine's {anonNumber}. Text me there :)" }],
+    waiting: [{ text:"I'm waiting :)" }, { text:"Come on :)" }, { text:"I'm curious" }],
+    close: [
+        { text:"Okay, maybe another time :)" },
+        { text:"Okay." },
+        { text:"Got it, no worries :)" },
+        { text:"Whatever, see you." },
+        { text:"You're so cold. Whatever :/" },
+        { text:"Couldn't send one but whatever. Bye." }
+    ],
+    finisher_bored_no_photo: [{ text:"Didn't get to see anything. Maybe another time :)" }, { text:"Okay, take care :)" }],
+    finisher_bored_photo: [{ text:"That was nice :) Gotta go. Bye :)" }, { text:"Thanks for the chat :) Bye :)" }],
+    finisher_max_turns: [{ text:"I'm kinda busy now :) Talk later maybe :)" }, { text:"Gotta run :) Bye :)" }]
+},
+
+/* ================================================================
+   WILD (female)
+================================================================ */
+wild: {
+    opener: [
+        {
+            text:"Hey.",
+            type:"opener",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"Hi",                                delta: 5 },
+                { text:"What is this?",                     delta:-5 },
+                { text:"Wow, bold",                         delta: 8 }
+            ]
+        },
+        {
+            text:"Hello :)",
+            type:"opener",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"Hello",                             delta: 4 },
+                { text:"What's this?",                      delta:-3 },
+                { text:"Interesting opener",                delta: 5 }
+            ]
+        },
+        {
+            text:"Hi, I wanted to send you something.",
+            type:"opener",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"What are you gonna send?",          delta: 3 },
+                { text:"Why?",                              delta:-3 },
+                { text:"Hmm you already sent",               delta: 6 }
+            ]
+        }
+    ],
+
+    /* v2: REACTION POOLS */
+    react_positive: [
+        { text:"hmm nice" },
+        { text:"I liked it" },
+        { text:"hah" },
+        { text:"that's more like it" },
+        { text:"keep going :)" }
+    ],
+    react_negative: [
+        { text:"okay" },
+        { text:"okay" },
+        { text:"whatever" },
+        { text:"got it" }
+    ],
+    react_neutral: [
+        { text:"hmm" },
+        { text:"okay" },
+        { text:"okay" }
+    ],
+
+    cold: [
+        {
+            text:"[POOL:wild_ex1]",
+            type:"explicit",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"wait a second",                     delta:-3 },
+                { text:"what do you want",                  delta: 3 },
+                { text:"no",                                delta:-15, isRejection:true }
+            ]
+        },
+        {
+            text:"[POOL:wild_ex2]",
+            type:"explicit",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"slow down",                         delta:-3 },
+                { text:"hmm",                               delta: 5 },
+                { text:"no",                                delta:-12, isRejection:true }
+            ]
+        },
+        {
+            text:"[POOL:wild_ex3]",
+            type:"explicit",
+            choices:[
+                { text:"I don't know",                      delta: 2 },
+                { text:"what do you want to ask",           delta: 5 },
+                { text:"no need",                           delta:-8, isRejection:true }
+            ]
+        }
+    ],
+    warm: [
+        {
+            text:"[POOL:wild_w1]",
+            type:"photo_hint",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"What did you send?",                 delta: 5 },
+                { text:"No need",                           delta:-10, isRejection:true },
+                { text:"[send photo]",                      delta:12, triggersPhoto:true }
+            ]
+        },
+        {
+            text:"[POOL:wild_w2]",
+            type:"photo_request",
+            attachmentCategory:"spicy",
+            oneMoreRequest: true,
+            choices:[
+                { text:"[send photo]",                      delta:12, triggersPhoto:true },
+                { text:"No, enough",                        delta:-12, isRejection:true },
+                { text:"You show first",                    delta: 5 }
+            ]
+        },
+        {
+            text:"[POOL:wild_w3]",
+            type:"photo_hint",
+            attachmentCategory:"sexting",
+            choices:[
+                { text:"Wait I'll think",                   delta:-5 },
+                { text:"Okay I'll send one",                 delta: 6, triggersPhoto:true },
+                { text:"No way",                            delta:-12, isRejection:true }
+            ]
+        }
+    ],
+    hot: [
+        {
+            text:"Haha okay you win. Look :)",
+            type:"chat",
+            attachmentCategory:"spicy",
+            choices:[
+                { text:"That was nice",                     delta: 8 },
+                { text:"Thanks",                            delta: 5 },
+                { text:"Hmm",                               delta: 3 }
+            ]
+        },
+        {
+            text:"[POOL:wild_h1]",
+            type:"photo_request",
+            attachmentCategory:"sexting",
+            oneMoreRequest: true,
+            choices:[
+                { text:"Wait, slow down",                   delta:-5 },
+                { text:"[send photo]",                      delta:14, triggersPhoto:true },
+                { text:"No way",                            delta:-15, isRejection:true }
+            ]
+        },
+        {
+            text:"[POOL:wild_h2]",
+            type:"photo_request",
+            attachmentCategory:"sexting",
+            oneMoreRequest: true,
+            choices:[
+                { text:"No way, enough",                    delta:-15, isRejection:true },
+                { text:"[send photo]",                      delta:14, triggersPhoto:true },
+                { text:"You show first",                    delta: 2 }
+            ]
+        }
+    ],
+    fire: [
+        {
+            text:"Wanna move to Messages? Would be more comfortable there.",
+            type:"number_request",
+            choices:[
+                { text:"No, let's stay here",                delta:-12, isRejection:true },
+                { text:"Why there?",                        delta:-3 },
+                { text:"Okay I'll think about it",          delta: 0 }
+            ]
+        }
+    ],
+    number: [
+        {
+            text:"Wanna move to WhatsApp? :)",
+            type:"number_request",
+            choices:[
+                { text:"No",                                delta:-12, isRejection:true },
+                { text:"Why?",                              delta:-3 },
+                { text:"Okay",                              delta: 0 }
+            ]
+        }
+    ],
+    react_photo_normal: [{ text:"[POOL:wild_react_normal]", attachmentCategory:"spicy" }],
+    react_photo_open:   [{ text:"[POOL:wild_react_open]", attachmentCategory:"sexting" }],
+    react_photo_sexy:   [{ text:"[POOL:wild_react_sexy]", attachmentCategory:"female_masturbation" }],
+    react_photo_nude:   [{ text:"[POOL:wild_react_nude]", attachmentCategory:"female_masturbation" }],
+    react_photo_ass:    [{ text:"Your ass is incredible :) Send another. I want more :)", attachmentCategory:"female_masturbation" }],
+    react_photo_boobs:  [{ text:"Your tits are perfect :) Keep them coming :)", attachmentCategory:"female_masturbation" }],
+    react_photo_pussy:  [{ text:"You're so hot :) Wanna take this to WhatsApp? I want more :)", attachmentCategory:"female_masturbation" }],
+    react_photo_video:  [{ text:"That video got me going :) Thanks. Send more :)", attachmentCategory:"female_masturbation" }],
+    react_photo_satisfied_chat: [{ text:"That was hot :) Thanks :)" }, { text:"You're good. I liked that :)" }],
+    react_photo_satisfied_number: [{ text:"So good :) Wanna swap numbers? :)" }, { text:"Loved it. Let's swap numbers? :)" }],
+    react_photo_want_more: [{ text:"One more :) Send :)" }, { text:"Don't stop. One more :)" }],
+    react_number: [{ text:"Switching over :)" }],
+    anon_send_number: [{ text:"Here's mine: {anonNumber} :)" }, { text:"Mine's {anonNumber}. Hit me there :)" }],
+    waiting: [{ text:"Okay I'm waiting.", attachmentCategory:"spicy" }, { text:"Come on :)" }, { text:"Waiting curiously" }],
+    close: [
+        { text:"Okay :)" },
+        { text:"Okay." },
+        { text:"Whatever, maybe another time." },
+        { text:"Whatever." },
+        { text:"You turned out cold. Whatever bye." },
+        { text:"Couldn't send one. Whatever." }
+    ],
+    finisher_bored_no_photo: [{ text:"Didn't get anything. Whatever :)" }, { text:"Too cold. Bye :)" }],
+    finisher_bored_photo: [{ text:"That was fun :) Gotta go. Bye :)" }, { text:"Thanks :) See you :)" }],
+    finisher_max_turns: [{ text:"I'm done for now :) Later :)" }, { text:"Gotta bounce :) Bye :)" }]
+}
+
 }>>

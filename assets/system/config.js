@@ -22,6 +22,7 @@ window.SystemModules = {
     "phone/phone-contacts",
     "phone/phone-calendar",
     "phone/phone-fotogram",
+    "phone/phone-fotogram-dm",
     "phone/phone-finder",
     "phone/topic-system",
     "phone/phone-camera",

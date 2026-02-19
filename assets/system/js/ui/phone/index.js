@@ -811,6 +811,24 @@ function createPhoneOverlay() {
         initFotogramMediaPlayers(PhoneAPI.State.variables);
     });
 
+    $('#phone-overlay').on('click', '.phone-fotogram-dm-create-test', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!PhoneAPI) return;
+        var vars = PhoneAPI.State.variables;
+        if (typeof createTestFotogramDM !== 'function') return;
+        var dm = createTestFotogramDM(vars);
+        if (dm) {
+            if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+            if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
+            phoneViewState.fotogramDmThread = dm.id;
+            $('#phone-app-view-title').text('Messages');
+            $('#phone-app-view-content').html(getAppContent('fotogram', vars));
+            scrollPhoneThreadToBottom();
+            if (typeof window.initTooltips === 'function') window.initTooltips();
+        }
+    });
+
     $('#phone-overlay').on('click', '.phone-fotogram-dm-row', function () {
         if (!PhoneAPI) return;
         var dmId = $(this).data('dm-id');
@@ -898,6 +916,20 @@ function createPhoneOverlay() {
                 $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
                 if (typeof window.initTooltips === 'function') window.initTooltips();
             }
+        } else if (action === 'photo') {
+            var style = String($phone(this).data('style') || '');
+            if (!style || typeof processFotogramPhoto !== 'function') return;
+            processFotogramPhoto(vars, dmId, style);
+            $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+            if (phoneViewState.fotogramDmThread) scrollPhoneThreadToBottom();
+            if (typeof window.initTooltips === 'function') window.initTooltips();
+        } else if (action === 'number') {
+            if (typeof processFotogramNumber !== 'function') return;
+            var give = String($phone(this).data('give')) === 'true';
+            processFotogramNumber(vars, dmId, give);
+            $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+            if (phoneViewState.fotogramDmThread) scrollPhoneThreadToBottom();
+            if (typeof window.initTooltips === 'function') window.initTooltips();
         } else if (action === 'reply' && replyKey && typeof processFotogramDMReply === 'function') {
             var dmBeforeReply = (typeof getFotogramDMById === 'function') ? getFotogramDMById(vars, dmId) : null;
             var isSwapReply = (replyKey === 'swap_yes');

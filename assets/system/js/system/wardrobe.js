@@ -41,7 +41,7 @@ const categoryToSlot = {
 // CONFIGURATION & CONSTANTS
 // ============================================
 
-const STYLE_TAGS = ['cute', 'elegant', 'professional', 'sexy', 'slutty', 'bimbo'];
+const STYLE_TAGS = ['casual', 'cute', 'elegant', 'professional', 'sexy', 'sporty', 'slutty', 'work'];
 
 
 // ============================================
@@ -177,12 +177,14 @@ function getOverallStyle() {
     });
 
     const colors = {
-        'cute': '#ec4899', 
-        'elegant': '#a855f7', 
-        'professional': '#3b82f6',
-        'sexy': '#f97316', 
-        'slutty': '#ef4444', 
-        'bimbo': '#ec4899'
+        casual: '#22c55e',
+        cute: '#ec4899',
+        elegant: '#a855f7',
+        professional: '#3b82f6',
+        sexy: '#f97316',
+        sporty: '#06b6d4',
+        slutty: '#ef4444',
+        work: '#3b82f6'
     };
     
     return { 

@@ -28,8 +28,7 @@
 
 **Item ID:** tshirt_crew_white
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** tshirtCrewWhite
 
 **Prompt:**
@@ -39,8 +38,7 @@
 
 **Item ID:** tshirt_crew_black
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** tshirtCrewBlack
 
 **Prompt:**
@@ -50,8 +48,7 @@
 
 **Item ID:** tshirt_vneck_gray
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** tshirtVneckGray
 
 **Prompt:**
@@ -61,8 +58,7 @@
 
 **Item ID:** tshirt_vneck_navy
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** tshirtVneckNavy
 
 **Prompt:**
@@ -72,8 +68,7 @@
 
 **Item ID:** tshirt_scoop_white
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** tshirtScoopWhite
 
 **Prompt:**
@@ -83,8 +78,7 @@
 
 **Item ID:** tshirt_fitted_black
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** tshirtFittedBlack
 
 **Prompt:**
@@ -94,8 +88,7 @@
 
 **Item ID:** tshirt_relaxed_olive
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 2
+**Tags:** casual**Looks:** 2
 **KayıtID:** tshirtRelaxedOlive
 
 **Prompt:**
@@ -105,8 +98,7 @@
 
 **Item ID:** tshirt_oversized_gray
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 2
+**Tags:** casual**Looks:** 2
 **KayıtID:** tshirtOversizedGray
 
 **Prompt:**
@@ -116,8 +108,7 @@
 
 **Item ID:** tshirt_longsleeve_white
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** tshirtLongsleeveWhite
 
 **Prompt:**
@@ -127,7 +118,7 @@
 
 **Item ID:** tshirt_striped_navywhite
 **Mağaza:** storeClothingA
-**Tags:** casual
+**Tags:** casual, professional
 **Looks:** 3
 **KayıtID:** tshirtStripedNavywhite
 
@@ -142,8 +133,7 @@
 
 **Item ID:** henley_burgundy
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** henleyBurgundy
 
 **Prompt:**
@@ -153,8 +143,7 @@
 
 **Item ID:** henley_gray
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** henleyGray
 
 **Prompt:**
@@ -168,7 +157,7 @@
 
 **Item ID:** shirt_oxford_white
 **Mağaza:** storeClothingA
-**Tags:** casual, work
+**Tags:** casual, work, professional
 **Looks:** 3
 **KayıtID:** shirtOxfordWhite
 
@@ -179,8 +168,7 @@
 
 **Item ID:** shirt_flannel_red
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** shirtFlannelRed
 
 **Prompt:**
@@ -190,8 +178,7 @@
 
 **Item ID:** shirt_denim_blue
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** shirtDenimBlue
 
 **Prompt:**
@@ -201,8 +188,7 @@
 
 **Item ID:** shirt_linen_white
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** shirtLinenWhite
 
 **Prompt:**
@@ -216,7 +202,7 @@
 
 **Item ID:** polo_white
 **Mağaza:** storeClothingA
-**Tags:** casual
+**Tags:** casual, sporty
 **Looks:** 3
 **KayıtID:** poloWhite
 
@@ -227,7 +213,7 @@
 
 **Item ID:** polo_navy
 **Mağaza:** storeClothingA
-**Tags:** casual
+**Tags:** casual, professional
 **Looks:** 3
 **KayıtID:** poloNavy
 
@@ -242,8 +228,7 @@
 
 **Item ID:** sweater_cable_cream
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 4
+**Tags:** casual**Looks:** 4
 **KayıtID:** sweaterCableCream
 
 **Prompt:**
@@ -253,8 +238,7 @@
 
 **Item ID:** sweater_pullover_gray
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** sweaterPulloverGray
 
 **Prompt:**
@@ -264,8 +248,7 @@
 
 **Item ID:** sweater_vneck_navy
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** sweaterVneckNavy
 
 **Prompt:**
@@ -275,8 +258,7 @@
 
 **Item ID:** sweater_mockneck_black
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 4
+**Tags:** casual**Looks:** 4
 **KayıtID:** sweaterMockneckBlack
 
 **Prompt:**
@@ -290,8 +272,7 @@
 
 **Item ID:** cardigan_button_beige
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** cardiganButtonBeige
 
 **Prompt:**
@@ -301,8 +282,7 @@
 
 **Item ID:** cardigan_openfront_gray
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** cardiganOpenfrontGray
 
 **Prompt:**
@@ -316,8 +296,7 @@
 
 **Item ID:** hoodie_pullover_gray
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 2
+**Tags:** casual**Looks:** 2
 **KayıtID:** hoodiePulloverGray
 
 **Prompt:**
@@ -327,7 +306,7 @@
 
 **Item ID:** hoodie_zipup_black
 **Mağaza:** storeClothingA
-**Tags:** casual
+**Tags:** casual, sporty
 **Looks:** 2
 **KayıtID:** hoodieZipupBlack
 
@@ -338,8 +317,7 @@
 
 **Item ID:** sweatshirt_crew_navy
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 2
+**Tags:** casual**Looks:** 2
 **KayıtID:** sweatshirtCrewNavy
 
 **Prompt:**
@@ -349,7 +327,7 @@
 
 **Item ID:** sweatshirt_quarterzip_olive
 **Mağaza:** storeClothingA
-**Tags:** casual
+**Tags:** casual, sporty
 **Looks:** 3
 **KayıtID:** sweatshirtQuarterzipOlive
 
@@ -364,8 +342,7 @@
 
 **Item ID:** tunic_basic_olive
 **Mağaza:** storeClothingA
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **KayıtID:** tunicBasicOlive
 
 **Prompt:**
@@ -375,7 +352,7 @@
 
 **Item ID:** tunic_belted_gray
 **Mağaza:** storeClothingA
-**Tags:** casual
+**Tags:** casual, elegant
 **Looks:** 3
 **KayıtID:** tunicBeltedGray
 
@@ -398,7 +375,7 @@
 
 **Item ID:** crop_basic_white
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
+**Tags:** casual, mild, cute
 **Looks:** 3
 **KayıtID:** cropBasicWhite
 
@@ -409,8 +386,7 @@
 
 **Item ID:** crop_ribbed_black
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
-**Looks:** 3
+**Tags:** casual, mild**Looks:** 3
 **KayıtID:** cropRibbedBlack
 
 **Prompt:**
@@ -420,7 +396,7 @@
 
 **Item ID:** crop_knotted_gray
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
+**Tags:** casual, mild, cute
 **Looks:** 4
 **KayıtID:** cropKnottedGray
 
@@ -431,7 +407,7 @@
 
 **Item ID:** crop_tee_striped
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
+**Tags:** casual, mild, cute
 **Looks:** 3
 **KayıtID:** cropTeeStriped
 
@@ -442,7 +418,7 @@
 
 **Item ID:** crop_fronttie_pink
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
+**Tags:** casual, mild, cute
 **Looks:** 4
 **KayıtID:** cropFronttiePink
 
@@ -457,8 +433,7 @@
 
 **Item ID:** tank_basic_white
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
-**Looks:** 3
+**Tags:** casual, mild**Looks:** 3
 **KayıtID:** tankBasicWhite
 
 **Prompt:**
@@ -468,7 +443,7 @@
 
 **Item ID:** tank_racerback_gray
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
+**Tags:** casual, mild, sporty
 **Looks:** 3
 **KayıtID:** tankRacerbackGray
 
@@ -479,7 +454,7 @@
 
 **Item ID:** tank_muscle_black
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
+**Tags:** casual, mild, sporty
 **Looks:** 3
 **KayıtID:** tankMuscleBlack
 
@@ -490,8 +465,7 @@
 
 **Item ID:** tank_scoop_olive
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
-**Looks:** 3
+**Tags:** casual, mild**Looks:** 3
 **KayıtID:** tankScoopOlive
 
 **Prompt:**
@@ -501,8 +475,7 @@
 
 **Item ID:** tank_ribbed_navy
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
-**Looks:** 3
+**Tags:** casual, mild**Looks:** 3
 **KayıtID:** tankRibbedNavy
 
 **Prompt:**
@@ -512,7 +485,7 @@
 
 **Item ID:** tank_flowy_white
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
+**Tags:** casual, mild, cute
 **Looks:** 3
 **KayıtID:** tankFlowyWhite
 
@@ -527,7 +500,7 @@
 
 **Item ID:** tee_offshoulder_white
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
+**Tags:** casual, mild, cute
 **Looks:** 4
 **KayıtID:** teeOffshoulderWhite
 
@@ -542,8 +515,7 @@
 
 **Item ID:** cami_basic_black
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
-**Looks:** 3
+**Tags:** casual, mild**Looks:** 3
 **KayıtID:** camiBasicBlack
 
 **Prompt:**
@@ -553,8 +525,7 @@
 
 **Item ID:** cami_adjustable_white
 **Mağaza:** storeClothingA
-**Tags:** casual, mild
-**Looks:** 3
+**Tags:** casual, mild**Looks:** 3
 **KayıtID:** camiAdjustableWhite
 
 **Prompt:**
@@ -572,18 +543,18 @@
 
 **Item ID:** tank_deepscoop_black
 **Mağaza:** storeClothingA
-**Tags:** casual, date, revealing
+**Tags:** casual, date, revealing, sexy
 **Looks:** 4
 **KayıtID:** tankDeepscoopBlack
 
 **Prompt:**
-1:1. A young fit woman with voluptuous and perky and perky bust bust wearing a black deep scoop neck tank top showing generous cleavage paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; plunging neckline. Studio lighting, isolated on pure white background, focus on the top.
+1:1. A young fit woman with voluptuous and perky bust wearing a black deep scoop neck tank top showing generous cleavage paired with dark fitted jeans; front three-quarter view, professional fashion photography angle; framed from hips to shoulders, full top visible, frame starts below nose, face cropped out; plunging neckline. Studio lighting, isolated on pure white background, focus on the top.
 
 ---
 
 **Item ID:** tee_lowcut_vneck_white
 **Mağaza:** storeClothingA
-**Tags:** casual, date, revealing
+**Tags:** casual, date, revealing, sexy
 **Looks:** 4
 **KayıtID:** teeLowcutVneckWhite
 
@@ -594,7 +565,7 @@
 
 **Item ID:** crop_tied_midriff_olive
 **Mağaza:** storeClothingA
-**Tags:** casual, revealing
+**Tags:** casual, revealing, cute
 **Looks:** 4
 **KayıtID:** cropTiedMidriffOlive
 
@@ -605,7 +576,7 @@
 
 **Item ID:** top_backless_basic_black
 **Mağaza:** storeClothingA
-**Tags:** casual, date, revealing
+**Tags:** casual, date, revealing, sexy
 **Looks:** 4
 **KayıtID:** topBacklessBasicBlack
 
@@ -616,7 +587,7 @@
 
 **Item ID:** cami_lowcut_burgundy
 **Mağaza:** storeClothingA
-**Tags:** casual, date, revealing
+**Tags:** casual, date, revealing, cute
 **Looks:** 4
 **KayıtID:** camiLowcutBurgundy
 
@@ -635,7 +606,7 @@
 
 **Item ID:** tee_extreme_cutout_black
 **Mağaza:** storeClothingA
-**Tags:** casual, date, daring
+**Tags:** casual, date, daring, sexy
 **Looks:** 4
 **KayıtID:** teeExtremeCutoutBlack
 

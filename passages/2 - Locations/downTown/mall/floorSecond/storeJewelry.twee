@@ -1,18 +1,6 @@
 <<nobr>>
 <<set $location = "storeJewelry">>
-<<set _shopItems = [
-    "earrings_hoop_gold",
-    "earrings_stud_pearl",
-    "earrings_dangle_crystal",
-    "necklace_choker_velvet_drop",
-    "necklace_choker_velvet_halfmoon",
-    "necklace_pendant_silver",
-    "necklace_layer_gold",
-    "bracelet_bangle_silver",
-    "bracelet_charm",
-    "ring_stack_gold",
-    "ring_statement_crystal"
-]>>
+<<set _shopItems = []>>
 <<updateCharacterLocations>>
 <<shop "Diamond Dreams" "Premium Jewelry Store" _shopItems "floorSecond">>
 <</nobr>>
