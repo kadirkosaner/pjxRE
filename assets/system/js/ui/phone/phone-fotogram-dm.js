@@ -184,7 +184,7 @@ function fdmFilterPoolByRecentResolved(pool, state) {
     var out = pool.filter(function(e) {
         var possible = fdmGetPossibleResolvedTexts(e);
         for (var pi = 0; pi < possible.length; pi++) {
-            if (set[possible[pi]]) return false;
+            if (set[String(possible[pi] || '').trim()]) return false;
         }
         return true;
     });
@@ -323,6 +323,16 @@ function fdmBuildMsgFromPoolEntry(entry, state, dm) {
         var opts = fdmGetAnonMedia(category, dm);
         if (opts.length) att = fdmPick(opts);
     }
+    /* Female path reciprocity: first media is free (opener/intro); after that wait for player's media before sending another. */
+    if (att && state && (state.persona === 'flirty' || state.persona === 'wild')) {
+        var anonPhotoCount = Number(state.anonPhotoCount || 0);
+        var playerPhotoCount = Number(state.playerPhotoCount || 0);
+        if (anonPhotoCount >= 1 && anonPhotoCount > playerPhotoCount) {
+            att = null;
+        } else {
+            state.anonPhotoCount = anonPhotoCount + 1;
+        }
+    }
     return { text: text, attachment: att };
 }
 
@@ -399,7 +409,23 @@ function fdmGetAnonMedia(cat, dm) {
 
 function fdmGetPlayerPhoto(style) {
     var pool = (typeof setup !== 'undefined' && setup.fdmPlayerPhotos) ? setup.fdmPlayerPhotos : {};
-    return Array.isArray(pool[style]) ? fdmNormAtt(fdmPick(pool[style])) : null;
+    if (!Array.isArray(pool[style]) || pool[style].length === 0) return null;
+    var att = fdmNormAtt(fdmPick(pool[style]));
+    if (!att || !att.path) return null;
+    /* Legacy: p_<style>_01.webp does not exist; use first pool entry with photoPlayer* name, else default path */
+    if (/[/\\]p_(normal|sexy|nude|ass|boobs|pussy)_\d+\.(webp|mp4)$/i.test(att.path)) {
+        var arr = pool[style];
+        for (var i = 0; i < arr.length; i++) {
+            var p = (typeof arr[i] === 'string') ? arr[i] : (arr[i] && arr[i].path) ? arr[i].path : '';
+            if (p && /photoPlayer/i.test(p)) {
+                att = fdmNormAtt(arr[i]);
+                return att;
+            }
+        }
+        var cap = (style.charAt(0).toUpperCase() + style.slice(1));
+        att = { path: 'assets/content/phone/dm/player/' + style + '/photoPlayer' + cap + '1.webp', kind: 'photo' };
+    }
+    return att;
 }
 
 /* ── STAT GATES ──────────────────────────────────────────────────────── */
@@ -453,7 +479,9 @@ function fdmMakeState(dm) {
         recentAnonTypes: [],
         recentAnon:     [],
         recentPlayer:   [],
-        playerPhotoCount: 0
+        recentlyOfferedChoiceTexts: [],  /* avoid offering same choices next turn */
+        playerPhotoCount: 0,
+        anonPhotoCount: 0
     };
 }
 
@@ -633,8 +661,31 @@ function fdmResolveAnonMsg(state, dm) {
         if (nonExplicitPool.length) pool = nonExplicitPool;
     }
 
-    /* Keep thread continuity: if possible, continue with same message type */
+    /* Female path: no back-to-back photo request — after photo_request/photo_hint, next message must not be photo request again. */
     var lastType = String(state.lastMsgType || '');
+    if ((state.persona === 'flirty' || state.persona === 'wild') && (lastType === 'photo_request' || lastType === 'photo_hint')) {
+        var noPhotoReqPool = pool.filter(function(e) {
+            var t = e && typeof e === 'object' ? String(e.type || '') : '';
+            return t !== 'photo_request' && t !== 'photo_hint';
+        });
+        if (noPhotoReqPool.length) pool = noPhotoReqPool;
+    }
+
+    /* Type diversity: if last 2 anon messages were same type, prefer a different type (avoids "photo compliments" or same vibe repeating). */
+    var rTypes = state.recentAnonTypes || [];
+    if (rTypes.length >= 2) {
+        var prevType = rTypes[rTypes.length - 2];
+        var lastAnonType = rTypes[rTypes.length - 1];
+        if (prevType === lastAnonType) {
+            var diversityPool = pool.filter(function(e) {
+                var t = e && typeof e === 'object' ? String(e.type || '') : '';
+                return t !== lastAnonType;
+            });
+            if (diversityPool.length) pool = diversityPool;
+        }
+    }
+
+    /* Keep thread continuity: if possible, continue with same message type */
     if (lastType && lastType !== 'opener') {
         var allowSameType = true;
         if (fdmIsPressureType(lastType) && Number(state.lastPlayerDelta || 0) <= 0) {
@@ -671,6 +722,7 @@ function fdmResolveAnonMsg(state, dm) {
         var nextRange = escalation[safeRange];
         if (nextRange) {
             var escPool = fdmGetMsgPool(state.persona, nextRange);
+            escPool = fdmFilterPoolByRecentResolved(escPool, state);
             escPool = fdmFilterPoolByUsage(escPool, state);
             if (escPool.length) {
                 return fdmPickNoImmediateRepeat(escPool, state.recentAnon, state.lastAnonText);
@@ -691,10 +743,19 @@ function fdmResolveChoices(state, forceResolve) {
     }
 
     var resolved;
+    var recentOffered = state.recentlyOfferedChoiceTexts || [];
+    var avoidRepeat = function(arr) {
+        if (!arr.length || !recentOffered.length) return arr;
+        var filtered = arr.filter(function(c) {
+            var norm = fdmNormalizeChoiceText(c && c.text != null ? c.text : c, state.persona);
+            return recentOffered.indexOf(norm) === -1;
+        });
+        return filtered.length >= 3 ? filtered : arr;
+    };
 
     /* Per-message choices take priority */
     if (state.lastMsgChoices && state.lastMsgChoices.length) {
-        var copy = state.lastMsgChoices.slice();
+        var copy = avoidRepeat(state.lastMsgChoices.slice());
         for (var i = copy.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1));
             var tmp = copy[i]; copy[i] = copy[j]; copy[j] = tmp;
@@ -711,7 +772,7 @@ function fdmResolveChoices(state, forceResolve) {
         if (!pool || !pool.length) {
             pool = fdmGetChoicePool('generic', state.heat) || [];
         }
-        var copy2 = pool.slice();
+        var copy2 = avoidRepeat(pool.slice());
         for (var i2 = copy2.length - 1; i2 > 0; i2--) {
             var j2 = Math.floor(Math.random() * (i2 + 1));
             var tmp2 = copy2[i2]; copy2[i2] = copy2[j2]; copy2[j2] = tmp2;
@@ -724,6 +785,14 @@ function fdmResolveChoices(state, forceResolve) {
         next.text = fdmNormalizeChoiceText(next.text, state.persona);
         return next;
     });
+
+    /* Remember offered choice texts so next turn we prefer different options */
+    state.recentlyOfferedChoiceTexts = state.recentlyOfferedChoiceTexts || [];
+    resolved.forEach(function(c) {
+        var t = String(c && c.text != null ? c.text : '').trim();
+        if (t && state.recentlyOfferedChoiceTexts.indexOf(t) === -1) state.recentlyOfferedChoiceTexts.push(t);
+    });
+    while (state.recentlyOfferedChoiceTexts.length > 9) state.recentlyOfferedChoiceTexts.shift();
 
     /* v2: Cache the resolved choices */
     state.currentChoices = resolved;
@@ -763,6 +832,17 @@ function fdmClassifyChoice(delta) {
 var FDM_WHY_SEND_RE = /why\s+should\s+I\s+send\s*\??/i;
 var FDM_WHAT_DID_YOU_SEND_RE = /what\s+did\s+you\s+send\s*\??/i;
 
+function fdmLastAnonHadAttachment(dm) {
+    if (!dm || !Array.isArray(dm.messages)) return false;
+    for (var i = dm.messages.length - 1; i >= 0; i--) {
+        var m = dm.messages[i];
+        if (m && m.from === dm.id) {
+            return !!(m.attachment && m.attachment.path);
+        }
+    }
+    return false;
+}
+
 function fdmSendReaction(vars, dm, state, delta, choiceText) {
     var bridge = fdmBuildBridgeReaction(choiceText, delta);
     if (bridge) {
@@ -770,10 +850,15 @@ function fdmSendReaction(vars, dm, state, delta, choiceText) {
         state.justSentBridge = true;
         return;
     }
-    /* "What did you send?" → answer (I sent my dick / a photo, your turn) */
+    /* "What did you send?" → answer depends on whether anon actually sent media. */
     if (choiceText && FDM_WHAT_DID_YOU_SEND_RE.test(String(choiceText).trim())) {
-        var whatPool = (typeof setup !== 'undefined' && setup.fdmWhatDidYouSendReply) ? setup.fdmWhatDidYouSendReply[state.persona] : null;
-        if (!whatPool && setup.fdmWhatDidYouSendReply) whatPool = setup.fdmWhatDidYouSendReply.generic;
+        var hadAttachment = fdmLastAnonHadAttachment(dm);
+        var whatReplyMap = null;
+        if (typeof setup !== 'undefined') {
+            whatReplyMap = hadAttachment ? setup.fdmWhatDidYouSendReply : setup.fdmWhatCouldISendReply;
+        }
+        var whatPool = whatReplyMap ? whatReplyMap[state.persona] : null;
+        if (!whatPool && whatReplyMap) whatPool = whatReplyMap.generic;
         if (Array.isArray(whatPool) && whatPool.length) {
             var line = fdmPick(whatPool);
             if (line) {
@@ -980,7 +1065,18 @@ function processFotogramPhoto(vars, dmId, style) {
     s.pressureDebt = Math.max(0, Number(s.pressureDebt || 0) - 2);
     s.playerPhotoCount = Number(s.playerPhotoCount || 0) + 1;
 
-    /* Random: satisfied (came) vs want one more. Second photo = higher chance to be satisfied. */
+    /* Style-based reaction: anon reacts to what kind of photo player sent (with matching media escalation). */
+    var styleReactKey = 'react_photo_' + style;
+    var styleReactPool = fdmGetMsgPool(s.persona, styleReactKey);
+    if (styleReactPool && styleReactPool.length) {
+        var sr = fdmAPick(styleReactPool, s.recentAnon);
+        if (sr) {
+            var builtSr = fdmBuildMsgFromPoolEntry(sr, s, dm);
+            if (builtSr) fdmAddMsg(dm, dm.id, builtSr.text, builtSr.attachment, vars);
+        }
+    }
+
+    /* Random: satisfied vs want one more. Second photo = higher chance to be satisfied. */
     var chances = (typeof setup !== 'undefined' && setup.fdmPhotoChances) ? setup.fdmPhotoChances : {};
     var satisfiedChance = s.playerPhotoCount >= 2
         ? (Number(chances.satisfiedSecond) >= 0 ? chances.satisfiedSecond : 0.6)
@@ -988,7 +1084,6 @@ function processFotogramPhoto(vars, dmId, style) {
     var satisfied = Math.random() < satisfiedChance;
 
     if (satisfied) {
-        /* Anon came — thank, say liked you. Random: ask for number or just chat. */
         var askNumberChance = Number(chances.askNumberChance) >= 0 ? chances.askNumberChance : 0.5;
         var askNumber = Math.random() < askNumberChance;
         var satPool = fdmGetMsgPool(s.persona, askNumber ? 'react_photo_satisfied_number' : 'react_photo_satisfied_chat');
@@ -1010,7 +1105,7 @@ function processFotogramPhoto(vars, dmId, style) {
         return fdmDoAnonTurn(vars, dm, s);
     }
 
-    /* Not satisfied — no dick pic, just push for one more (text only). */
+    /* Not satisfied — push for one more (text only). */
     var wantMorePool = fdmGetMsgPool(s.persona, 'react_photo_want_more');
     if (wantMorePool && wantMorePool.length) {
         var wm = fdmAPick(wantMorePool, s.recentAnon);
@@ -1019,8 +1114,168 @@ function processFotogramPhoto(vars, dmId, style) {
             if (builtWm) fdmAddMsg(dm, dm.id, builtWm.text, builtWm.attachment, vars);
         }
     }
-    /* Do not set justReceivedPlayerPhoto — next turn can be photo_request again. */
+    /* Next turn must be chat-only (no photo_request): avoids back-to-back photo submenu. */
+    s.justReceivedPlayerPhoto = true;
     return fdmDoAnonTurn(vars, dm, s);
+}
+
+function fdmEnsurePromotedFromDm(vars, dmId) {
+    if (!vars || !dmId) return null;
+    var dm = fdmGetDM(vars, dmId);
+    if (!dm) return null;
+
+    var maxSwap = (typeof window !== 'undefined' && Number.isFinite(window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX))
+        ? Number(window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX)
+        : 10;
+
+    vars.phoneFotogramRandomSwapIds = Array.isArray(vars.phoneFotogramRandomSwapIds) ? vars.phoneFotogramRandomSwapIds : [];
+    vars.phoneGeneratedContacts = vars.phoneGeneratedContacts || {};
+    vars.characters = vars.characters || {};
+    vars.phoneConversations = vars.phoneConversations || {};
+    vars.phoneContactPromoted = vars.phoneContactPromoted || {};
+    vars.phoneContactsUnlocked = vars.phoneContactsUnlocked || [];
+
+    var isActiveFotogramRandom = function(id) {
+        if (!id) return false;
+        var def = vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[id];
+        var st = vars.characters && vars.characters[id];
+        return !!(def && def.generatedFromPhone && st && st.firstMet);
+    };
+    vars.phoneFotogramRandomSwapIds = vars.phoneFotogramRandomSwapIds.filter(isActiveFotogramRandom).slice(0, maxSwap);
+
+    var promotedId = dm.promotedToCharId || dm.generatedPromotedCharId || dm.charId || null;
+    if (!promotedId && typeof setup !== 'undefined' && setup.fotogramAnonCharPool) {
+        promotedId = setup.fotogramAnonCharPool[dm.anonId] || null;
+    }
+
+    if (!promotedId) {
+        if (vars.phoneFotogramRandomSwapIds.length >= maxSwap) return null;
+
+        var cfg = (typeof setup !== 'undefined' && setup.charGenerator) ? setup.charGenerator : {};
+        var maleNames = cfg.maleFirstNames || ["Luca", "Noah", "Ethan", "Leo", "Mason"];
+        var femaleNames = cfg.femaleFirstNames || ["Aria", "Mila", "Nora", "Sofia", "Lena"];
+        var lastNames = cfg.lastNames || ["Carter", "Hayes", "Brooks", "Reed", "Morgan"];
+        var colors = Array.isArray(cfg.colors) && cfg.colors.length ? cfg.colors : ["#a855f7", "#3b82f6", "#f97316", "#14b8a6", "#ec4899"];
+        var pick = function(arr, fallback) { return (Array.isArray(arr) && arr.length) ? arr[Math.floor(Math.random() * arr.length)] : fallback; };
+
+        var currentYear = (vars.timeSys && Number(vars.timeSys.year)) || 2024;
+        var ageMin = Number(cfg.ageMin);
+        var ageMax = Number(cfg.ageMax);
+        if (!Number.isFinite(ageMin)) ageMin = 18;
+        if (!Number.isFinite(ageMax)) ageMax = 60;
+        if (ageMax < ageMin) { var ageTmp = ageMax; ageMax = ageMin; ageMin = ageTmp; }
+
+        var maleW = Number(cfg.maleWeight != null ? cfg.maleWeight : 0.5);
+        var femaleW = Number(cfg.femaleWeight != null ? cfg.femaleWeight : 0.5);
+        var totalW = (Number.isFinite(maleW) ? maleW : 0.5) + (Number.isFinite(femaleW) ? femaleW : 0.5);
+        var dmGender = String(dm.profileGender || "").toLowerCase();
+        var gender = (dmGender === "male" || dmGender === "female")
+            ? dmGender
+            : ((totalW <= 0) ? (Math.random() < 0.5 ? "male" : "female") : (Math.random() < ((maleW || 0.5) / totalW) ? "male" : "female"));
+
+        var firstName = pick(gender === "male" ? maleNames : femaleNames, "Alex");
+        var lastName = pick(lastNames, "Taylor");
+        var dmAge = Number(dm.profileAge);
+        var birthYear = (Number.isFinite(dmAge) && dmAge >= ageMin && dmAge <= ageMax)
+            ? (currentYear - dmAge)
+            : ((currentYear - ageMax) + Math.floor(Math.random() * ((currentYear - ageMin) - (currentYear - ageMax) + 1)));
+
+        var baseId = (firstName + "_" + lastName).toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+        if (!baseId) baseId = "generated_contact";
+        var candidate = baseId, n = 2;
+        while ((typeof setup !== 'undefined' && setup.characterDefs && setup.characterDefs[candidate]) || vars.characters[candidate]) {
+            candidate = baseId + "_" + n;
+            n++;
+        }
+
+        var fullName = firstName + " " + lastName;
+        var def = {
+            id: candidate,
+            name: fullName,
+            firstName: firstName,
+            lastName: lastName,
+            birthYear: birthYear,
+            location: "Online",
+            avatar: dm.avatar || "",
+            type: "npc",
+            color: pick(colors, "#a855f7"),
+            status: "Online Contact",
+            gender: gender,
+            skinTone: dm.skinTone || "white",
+            hasSchedule: false,
+            scheduleType: "none",
+            generatedFromPhone: true,
+            info: "<p>You met this person online and swapped numbers through DMs.</p>"
+        };
+
+        vars.phoneGeneratedContacts[candidate] = def;
+        if (!vars.characters[candidate]) {
+            vars.characters[candidate] = {
+                stats: { love: 0, friendship: 25, lust: 0, trust: 5 },
+                opinion: { awareness: 0, flags: [] },
+                firstMet: null,
+                known: true,
+                currentLocation: null,
+                currentStatus: null
+            };
+        }
+        if (typeof setup !== "undefined") {
+            setup.characterDefs = setup.characterDefs || {};
+            setup.characterDefs[candidate] = def;
+        }
+        dm.generatedPromotedCharId = candidate;
+        promotedId = candidate;
+    }
+
+    if (!promotedId) return null;
+
+    dm.promotedToCharId = promotedId;
+    vars.phoneContactPromoted[dmId] = promotedId;
+    if (vars.phoneContactsUnlocked.indexOf(promotedId) === -1) vars.phoneContactsUnlocked.push(promotedId);
+
+    if (vars.characters[promotedId] && !vars.characters[promotedId].firstMet) {
+        var ts = vars.timeSys || {};
+        vars.characters[promotedId].firstMet = (ts.day || 1) + '/' + (ts.month || 1) + '/' + (ts.year || 0);
+    }
+
+    var promotedDef = vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[promotedId];
+    if (promotedDef && promotedDef.generatedFromPhone && vars.phoneFotogramRandomSwapIds.indexOf(promotedId) === -1) {
+        if (vars.phoneFotogramRandomSwapIds.length < maxSwap) vars.phoneFotogramRandomSwapIds.push(promotedId);
+    }
+
+    if (!vars.phoneConversations[promotedId]) vars.phoneConversations[promotedId] = [];
+    if (!dm.swapIntroSent) {
+        var playerName = (vars.player && vars.player.firstName) ? vars.player.firstName : ((vars.characters && vars.characters.player && vars.characters.player.name) ? vars.characters.player.name : 'Player');
+        var defLocal = vars.phoneGeneratedContacts[promotedId] || ((typeof setup !== 'undefined' && setup.characterDefs) ? setup.characterDefs[promotedId] : null) || {};
+        var first = defLocal.firstName || '';
+        var last = defLocal.lastName || '';
+        var contactName = (first && last) ? (first + ' ' + last) : (defLocal.name || promotedId || 'Unknown');
+        var currYear = (vars.timeSys && Number(vars.timeSys.year)) || 2024;
+        var age = (defLocal.birthYear && Number.isFinite(Number(defLocal.birthYear))) ? (currYear - Number(defLocal.birthYear)) : 0;
+        if (!Number.isFinite(age) || age <= 0) age = 25;
+        var pool = (typeof setup !== 'undefined' && Array.isArray(setup.fotogramSwapIntroMessages) && setup.fotogramSwapIntroMessages.length)
+            ? setup.fotogramSwapIntroMessages
+            : [];
+        var introText = '';
+        if (pool.length) {
+            var tpl = pool[Math.floor(Math.random() * pool.length)] || '';
+            introText = String(tpl)
+                .replace(/\{playerName\}/g, playerName)
+                .replace(/\{contactName\}/g, contactName)
+                .replace(/\{age\}/g, String(age));
+        }
+        if (introText) {
+            var tNow = vars.timeSys || {};
+            vars.phoneConversations[promotedId].push({
+                from: promotedId,
+                text: introText,
+                time: { day: tNow.day, month: tNow.month, year: tNow.year, hour: tNow.hour, minute: tNow.minute },
+                read: false
+            });
+            dm.swapIntroSent = true;
+        }
+    }
+    return promotedId;
 }
 
 /* ── MAIN: process number choice ─────────────────────────────────────── */
@@ -1059,9 +1314,10 @@ function processFotogramNumber(vars, dmId, give) {
             fdmAddMsg(dm, dm.id, swapText, null, vars);
         }
         s.ended = true;
-        /* Promote to contact */
-        if (typeof Engine !== 'undefined' && Engine.wiki) {
-            Engine.wiki('<<phonePromoteContact "' + dmId + '">>');
+        var promotedId = fdmEnsurePromotedFromDm(vars, dmId);
+        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] phone-fotogram-dm JS promote dmId=" + dmId, "promotedId=" + promotedId);
+        if (!promotedId && typeof window !== 'undefined' && typeof window.showNotification === 'function') {
+            window.showNotification({ type: 'warning', message: 'Could not promote DM to contact. Try again.' });
         }
         if (window.persistPhoneChanges) window.persistPhoneChanges();
         return { ok: true, ended: true, promoted: true };
@@ -1214,6 +1470,19 @@ function bootstrapFotogramDM(vars, dmId) {
         fdmAddMsg(dm, dm.id, text, null, vars);
     }
     fdmMarkAnonMsgUsed(s, p);
+    /* Register opener in recentAnon so we don't pick the same message again from cold pool later */
+    var openText = String(text || '').trim();
+    if (openText) {
+        s.recentAnon = s.recentAnon || [];
+        s.recentAnon.push(openText);
+        if (s.recentAnon.length > 15) s.recentAnon.shift();
+        s.lastAnonText = openText;
+    }
+    if (p.type) {
+        s.recentAnonTypes = s.recentAnonTypes || [];
+        s.recentAnonTypes.push(String(p.type));
+        if (s.recentAnonTypes.length > 8) s.recentAnonTypes.shift();
+    }
     if (window.persistPhoneChanges) window.persistPhoneChanges();
     if (window.updatePhoneBadges) window.updatePhoneBadges();
     return true;
@@ -1617,6 +1886,18 @@ function phoneRenderFotogramDmThread(dmId) {
         return /\.(webp|jpg|jpeg|png|gif|mp4|webm)$/i.test(String(t || ''));
     };
     var getAsset = (typeof getAssetUrl === 'function') ? getAssetUrl : function(p) { return p; };
+    /* Resolve legacy p_<style>_01.webp paths to setup.fdmPlayerPhotos (variablesPhonePhotos uses photoPlayerSexy1.webp etc.) */
+    function resolvePlayerPhotoPath(path) {
+        if (!path || typeof path !== 'string') return path;
+        var match = path.match(/[/\\]p_(normal|sexy|nude|ass|boobs|pussy)_\d+\.(webp|mp4)$/i);
+        if (!match) return path;
+        var style = match[1].toLowerCase();
+        var pool = (typeof setup !== 'undefined' && setup.fdmPlayerPhotos) ? setup.fdmPlayerPhotos : {};
+        var arr = Array.isArray(pool[style]) ? pool[style] : [];
+        if (arr.length === 0) return path;
+        var picked = arr[Math.floor(Math.random() * arr.length)];
+        return (typeof picked === 'string') ? picked : (picked && picked.path) ? picked.path : path;
+    }
 
     if (!dm) return phoneRenderFotogramDmList();
 
@@ -1647,8 +1928,9 @@ function phoneRenderFotogramDmThread(dmId) {
         bubble += '<div class="phone-fotogram-dm-bubble' + (isMe ? ' me' : '') + '">';
 
         if (m.attachment && m.attachment.path) {
-            var src     = getAsset(m.attachment.path);
-            var attKind = m.attachment.kind || getMediaKind(m.attachment.path);
+            var resPath = resolvePlayerPhotoPath(m.attachment.path);
+            var src     = getAsset(resPath);
+            var attKind = m.attachment.kind || getMediaKind(resPath);
             if (attKind === 'video') {
                 bubble += '<div class="phone-fotogram-dm-attachment"><video src="' + esc(src) + '" controls playsinline preload="metadata"></video></div>';
             } else {
@@ -1684,6 +1966,7 @@ if (typeof window !== 'undefined') {
     window.processFotogramPhoto          = processFotogramPhoto;
     window.processFotogramNumber         = processFotogramNumber;
     window.processFotogramDMReply        = processFotogramDMReply;
+    window.fdmEnsurePromotedFromDm       = fdmEnsurePromotedFromDm;
     window.getActiveFotogramDMs          = getActiveFotogramDMs;
     window.getUnreadFotogramDmCount      = getUnreadFotogramDmCount;
     window.countUnreadFotogramDmMessages = countUnreadFotogramDmMessages;

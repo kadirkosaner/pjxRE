@@ -5,16 +5,18 @@
 <<widget "charGenerate">><<nobr>>
     <<set _dmId = $args[0]>>
     <<if !_dmId>><<return>><</if>>
-    <<run (function(){
-        var dmId = State.temporary._dmId;
+    <<run (function(dmId){
+        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] charGenerate widget run", "dmId=" + dmId);
         if (!dmId) return;
         var vars = State.variables;
         var dms = vars.phoneFotogramDMs || [];
         var dm = null;
         for (var i = 0; i < dms.length; i++) { if (dms[i].id === dmId) { dm = dms[i]; break; } }
+        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] charGenerate dm found=" + !!dm, "dms.length=" + (dms ? dms.length : 0));
         if (!dm) return;
         if (dm.generatedPromotedCharId) {
-            State.temporary._generatedCharId = dm.generatedPromotedCharId;
+            State.temporary["_generatedCharId"] = dm.generatedPromotedCharId;
+            if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] charGenerate using cached", dm.generatedPromotedCharId);
             return;
         }
 
@@ -225,6 +227,7 @@
         }
 
         dm.generatedPromotedCharId = generatedCharId;
-        State.temporary._generatedCharId = generatedCharId;
-    })()>>
+        State.temporary["_generatedCharId"] = generatedCharId;
+        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] charGenerate DONE generatedCharId=" + generatedCharId);
+    })($args[0])>>
 <</nobr>><</widget>>

@@ -193,8 +193,7 @@
     <<set _dmId = $args[0]>>
     <<set _text = $args[1] || "">>
     <<if !_dmId || !_text>><<return>><</if>>
-    <<run (function(){
-        var dmId = State.temporary._dmId, text = State.temporary._text || "";
+    <<run (function(dmId, text){
         if (!dmId || !text) return;
         var vars = State.variables;
         var dms = vars.phoneFotogramDMs || [];
@@ -208,7 +207,7 @@
                 return;
             }
         }
-    })()>>
+    })($args[0], $args[1] || "")>>
 <</nobr>><</widget>>
 
 /* Fotogram DM: Receive message from anon. Usage: <<phoneFotogramDMReceive dmId "text">> */
@@ -216,8 +215,7 @@
     <<set _dmId = $args[0]>>
     <<set _text = $args[1] || "">>
     <<if !_dmId || !_text>><<return>><</if>>
-    <<run (function(){
-        var dmId = State.temporary._dmId, text = State.temporary._text || "";
+    <<run (function(dmId, text){
         if (!dmId || !text) return;
         var vars = State.variables;
         var dms = vars.phoneFotogramDMs || [];
@@ -232,7 +230,7 @@
                 return;
             }
         }
-    })()>>
+    })($args[0], $args[1] || "")>>
 <</nobr>><</widget>>
 
 /* Fotogram: Promote anon DM to real contact. Usage: <<phonePromoteContact dmId charId>> */
@@ -241,10 +239,14 @@
     <<set _charId = $args[1]>>
     <<if !_dmId>><<return>><</if>>
     <<run (function(){
-        var dmId = State.temporary._dmId, charId = State.temporary._charId;
+        var dmId = State.temporary["_dmId"];
+        var charId = State.temporary["_charId"];
+        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] phonePromoteContact called", "dmId=" + dmId, "charId=" + charId);
         if (!dmId) return;
+        var maxSwap = (typeof window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX !== "undefined" && Number.isFinite(window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX)) ? window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX : 10;
         var vars = State.variables;
         var dms = vars.phoneFotogramDMs || [];
+        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] dms.length=" + (dms ? dms.length : 0), "State.temporary id=" + (typeof State !== "undefined" && State.temporary ? "ok" : "missing"));
         vars.phoneFotogramRandomSwapIds = Array.isArray(vars.phoneFotogramRandomSwapIds) ? vars.phoneFotogramRandomSwapIds : [];
         var isActiveFotogramRandom = function (id) {
             if (!id) return false;
@@ -252,9 +254,9 @@
             var st = vars.characters && vars.characters[id];
             return !!(def && def.generatedFromPhone && st && st.firstMet);
         };
-        vars.phoneFotogramRandomSwapIds = vars.phoneFotogramRandomSwapIds.filter(isActiveFotogramRandom).slice(0, 10);
+        vars.phoneFotogramRandomSwapIds = vars.phoneFotogramRandomSwapIds.filter(isActiveFotogramRandom).slice(0, maxSwap);
         var canCreateFotogramRandom = function () {
-            return vars.phoneFotogramRandomSwapIds.length < 10;
+            return vars.phoneFotogramRandomSwapIds.length < maxSwap;
         };
         var markFotogramFirstMet = function (id) {
             if (!id) return;
@@ -286,106 +288,43 @@
         };
         var dm = null;
         for (var i = 0; i < dms.length; i++) { if (dms[i].id === dmId) { dm = dms[i]; break; } }
+        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] dm found=" + !!dm, dm ? "dm.promotedToCharId=" + dm.promotedToCharId : "");
         if (!dm) return;
         var resolvedCharId = charId || null;
         if (!resolvedCharId) resolvedCharId = dm.charId || (typeof setup !== "undefined" && setup.fotogramAnonCharPool && setup.fotogramAnonCharPool[dm.anonId]) || null;
+        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] resolvedCharId before charGenerate=" + resolvedCharId);
         if (!resolvedCharId) {
             if (!canCreateFotogramRandom()) {
-                if (window.showNotification) window.showNotification({ type: 'warning', message: 'You can have at most 10 Fotogram swaps.' });
+                if (window.showNotification) window.showNotification({ type: 'warning', message: 'You can have at most ' + maxSwap + ' Fotogram swaps.' });
                 return;
             }
-            if (typeof Engine !== "undefined" && Engine.wiki) Engine.wiki('<<charGenerate "' + dmId + '">>');
-            resolvedCharId = State.temporary._generatedCharId || null;
-            /* Fallback: if charGenerate widget passage was not initialized yet, load it and retry once. */
+            if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] calling charGenerate for dmId=" + dmId, "Engine=" + (typeof Engine !== "undefined" ? "yes" : "no"), "Engine.wiki=" + (typeof Engine !== "undefined" && Engine.wiki ? "yes" : "no"));
+            if (typeof Engine !== "undefined" && Engine.wiki) Engine.wiki("\x3C\x3CcharGenerate \"" + dmId + "\"\x3E\x3E");
+            resolvedCharId = State.temporary["_generatedCharId"] || null;
+            if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] after charGenerate _generatedCharId=" + resolvedCharId);
+            /* If widget was not loaded yet (e.g. phone UI context), load passage and retry once. */
             if (!resolvedCharId && typeof Engine !== "undefined" && Engine.wiki) {
-                Engine.wiki('<<include "CharGenerateWidget">>');
-                Engine.wiki('<<charGenerate "' + dmId + '">>');
-                resolvedCharId = State.temporary._generatedCharId || null;
+                if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] retry: include CharGenerateWidget then charGenerate");
+                Engine.wiki("\x3C\x3Cinclude \"CharGenerateWidget\"\x3E\x3E");
+                Engine.wiki("\x3C\x3CcharGenerate \"" + dmId + "\"\x3E\x3E");
+                resolvedCharId = State.temporary["_generatedCharId"] || null;
+                if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] after retry _generatedCharId=" + resolvedCharId);
             }
         }
         if (!resolvedCharId) {
-            /* Hard fallback: generate a minimal random contact directly here. */
-            var cfg = (typeof setup !== "undefined" && setup.charGenerator) ? setup.charGenerator : {};
-            var maleNames = cfg.maleFirstNames || ["Luca", "Noah", "Ethan", "Leo", "Mason"];
-            var femaleNames = cfg.femaleFirstNames || ["Aria", "Mila", "Nora", "Sofia", "Lena"];
-            var lastNames = cfg.lastNames || ["Carter", "Hayes", "Brooks", "Reed", "Morgan"];
-            var colors = Array.isArray(cfg.colors) && cfg.colors.length ? cfg.colors : ["#a855f7", "#3b82f6", "#f97316", "#14b8a6", "#ec4899"];
-            var pick = function (arr, fallback) { return (Array.isArray(arr) && arr.length) ? arr[Math.floor(Math.random() * arr.length)] : fallback; };
-            var currentYear = (vars.timeSys && Number(vars.timeSys.year)) || 2024;
-            var ageMin = Number(cfg.ageMin);
-            var ageMax = Number(cfg.ageMax);
-            if (!Number.isFinite(ageMin)) ageMin = 18;
-            if (!Number.isFinite(ageMax)) ageMax = 60;
-            if (ageMax < ageMin) { var _tmpA = ageMax; ageMax = ageMin; ageMin = _tmpA; }
-            var maleW = Number(cfg.maleWeight != null ? cfg.maleWeight : 0.5);
-            var femaleW = Number(cfg.femaleWeight != null ? cfg.femaleWeight : 0.5);
-            var totalW = (Number.isFinite(maleW) ? maleW : 0.5) + (Number.isFinite(femaleW) ? femaleW : 0.5);
-            var dmGender = String(dm.profileGender || "").toLowerCase();
-            var gender = (dmGender === "male" || dmGender === "female")
-                ? dmGender
-                : ((totalW <= 0) ? (Math.random() < 0.5 ? "male" : "female") : (Math.random() < ((maleW || 0.5) / totalW) ? "male" : "female"));
-            var firstName = pick(gender === "male" ? maleNames : femaleNames, "Alex");
-            var lastName = pick(lastNames, "Taylor");
-            var dmAge = Number(dm.profileAge);
-            var birthYear = (Number.isFinite(dmAge) && dmAge >= ageMin && dmAge <= ageMax)
-                ? (currentYear - dmAge)
-                : ((currentYear - ageMax) + Math.floor(Math.random() * ((currentYear - ageMin) - (currentYear - ageMax) + 1)));
-            var baseId = (firstName + "_" + lastName).toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
-            if (!baseId) baseId = "generated_contact";
-            var candidate = baseId, n = 2;
-            while ((setup && setup.characterDefs && setup.characterDefs[candidate]) || (vars.characters && vars.characters[candidate])) {
-                candidate = baseId + "_" + n;
-                n++;
-            }
-            var fullName = firstName + " " + lastName;
-            var def = {
-                id: candidate,
-                name: fullName,
-                firstName: firstName,
-                lastName: lastName,
-                birthYear: birthYear,
-                location: "Online",
-                avatar: dm.avatar || "",
-                type: "npc",
-                color: pick(colors, "#a855f7"),
-                status: "Online Contact",
-                gender: gender,
-                skinTone: dm.skinTone || "white",
-                hasSchedule: false,
-                scheduleType: "none",
-                generatedFromPhone: true,
-                info: "<p>You met this person online and swapped numbers through DMs.</p>"
-            };
-            if (!vars.phoneGeneratedContacts) vars.phoneGeneratedContacts = {};
-            vars.phoneGeneratedContacts[candidate] = def;
-            if (!vars.characters) vars.characters = {};
-            if (!vars.characters[candidate]) {
-                vars.characters[candidate] = {
-                    stats: { love: 0, friendship: 25, lust: 0, trust: 5 },
-                    opinion: { awareness: 0, flags: [] },
-                    firstMet: (vars.timeSys.day || 1) + '/' + (vars.timeSys.month || 1) + '/' + (vars.timeSys.year || 0),
-                    known: true,
-                    currentLocation: null,
-                    currentStatus: null
-                };
-            }
-            if (typeof setup !== "undefined") {
-                if (!setup.characterDefs) setup.characterDefs = {};
-                setup.characterDefs[candidate] = def;
-            }
-            dm.generatedPromotedCharId = candidate;
-            State.temporary._generatedCharId = candidate;
-            resolvedCharId = candidate;
+            if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] FAIL: no resolvedCharId, showing error");
+            if (window.showNotification) window.showNotification({ type: 'error', message: 'Could not create contact. Please try again.' });
+            return;
         }
-        if (!resolvedCharId) return;
+        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] SUCCESS resolvedCharId=" + resolvedCharId, "calling phoneUnlockContact, moving messages, swapIntroSent=" + !!dm.swapIntroSent);
         markFotogramFirstMet(resolvedCharId);
         dm.promotedToCharId = resolvedCharId;
         if (!vars.phoneContactPromoted) vars.phoneContactPromoted = {};
         vars.phoneContactPromoted[dmId] = resolvedCharId;
-        if (typeof Engine !== "undefined" && Engine.wiki) Engine.wiki('<<phoneUnlockContact "' + resolvedCharId + '">>');
+        if (typeof Engine !== "undefined" && Engine.wiki) Engine.wiki("\x3C\x3CphoneUnlockContact \"" + resolvedCharId + "\"\x3E\x3E");
         var defResolved = vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[resolvedCharId];
         if (defResolved && defResolved.generatedFromPhone && vars.phoneFotogramRandomSwapIds.indexOf(resolvedCharId) === -1) {
-            if (vars.phoneFotogramRandomSwapIds.length < 10) vars.phoneFotogramRandomSwapIds.push(resolvedCharId);
+            if (vars.phoneFotogramRandomSwapIds.length < maxSwap) vars.phoneFotogramRandomSwapIds.push(resolvedCharId);
         }
         var conv = vars.phoneConversations || {};
         if (!conv[resolvedCharId]) conv[resolvedCharId] = [];

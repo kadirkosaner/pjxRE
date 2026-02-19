@@ -146,11 +146,12 @@ window.RelationsInit = function (API) {
 
             const unlocked = vars.phoneContactsUnlocked || [];
             const fgPool = Array.isArray(vars.phoneFotogramRandomSwapIds) ? vars.phoneFotogramRandomSwapIds : [];
+            const fgMax = (typeof window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX !== 'undefined' && Number.isFinite(window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX)) ? window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX : 10;
             const fotogramMembers = fgPool.filter(id => {
                 const def = vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[id];
                 const c = getChar(id);
                 return !!(def && def.generatedFromPhone && unlocked.indexOf(id) !== -1 && c && c.firstMet);
-            }).slice(0, 10);
+            }).slice(0, fgMax);
             if (fotogramMembers.length > 0) {
                 html += `
                     <div class="relations-group" id="relations-group-fotogram">
