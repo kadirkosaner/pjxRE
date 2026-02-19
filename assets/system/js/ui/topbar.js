@@ -147,19 +147,20 @@ function rebuildTopbar() {
         ]
     };
 
-    const STYLE_TAGS = ['cute', 'elegant', 'professional', 'sexy', 'slutty', 'bimbo'];
+    const STYLE_TAGS = ['casual', 'cute', 'elegant', 'professional', 'sexy', 'sporty', 'slutty', 'work'];
 
     const clothesConfig = {
         1: { icon: 'naked', tooltip: 'You are naked!', color: '#ef4444' },
         2: { icon: 'underwear', tooltip: 'You are only wearing underwear.', color: '#f97316' },
         3: { icon: 'commando', tooltip: 'You are going commando (no underwear).', color: '#f59e0b' },
-        // Style-based notifications (4+)
+        'casual': { icon: 'dress', tooltip: 'Casual look.', color: '#22c55e' },
         'cute': { icon: 'dress', tooltip: 'Looking cute today!', color: '#ec4899' },
         'elegant': { icon: 'dress', tooltip: 'Looking elegant.', color: '#a855f7' },
         'professional': { icon: 'dress', tooltip: 'Professional attire.', color: '#3b82f6' },
         'sexy': { icon: 'dress', tooltip: 'Wearing something sexy.', color: '#f97316' },
+        'sporty': { icon: 'dress', tooltip: 'Sporty outfit.', color: '#06b6d4' },
         'slutty': { icon: 'dress', tooltip: 'Wearing a slutty outfit.', color: '#ef4444' },
-        'bimbo': { icon: 'dress', tooltip: 'Full bimbo look!', color: '#ec4899' }
+        'work': { icon: 'dress', tooltip: 'Work-appropriate look.', color: '#3b82f6' }
     };
 
     // Calculate clothes notification dynamically from wardrobe state

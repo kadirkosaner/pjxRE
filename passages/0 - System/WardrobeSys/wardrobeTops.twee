@@ -1,7 +1,6 @@
 /* Tops - Crop tops, t-shirts, blouses, etc.
- * 
- * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
+ * Source: 1Developer/ShopMd/1- tops (Northline, VERA Mode, Fifth Avenue, FastBreak)
+ * Template: { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
  */
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.tops = [
@@ -34,5 +33,1412 @@
         desc: "Work top for the dishwashing station.",
         image: "assets/content/clothing/workclothes/rubysdiner/dishwashing/topRubysDishwash.webp",
         looks: 0, quality: "Common", tags: ["work"], price: 0, shopAvailable: false, startOwned: false, locationId: "rubysDiner"
+    },
+    /* ==========================================
+       NORTHLINE APPAREL / VERA MODE / FIFTH AVE / FASTBREAK (ShopMd)
+    ========================================== */
+    {
+        id: "tshirt_crew_white",
+        name: "Tshirt Crew White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtCrewWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tshirt_crew_black",
+        name: "Tshirt Crew Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtCrewBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tshirt_vneck_gray",
+        name: "Tshirt Vneck Gray",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtVneckGray.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tshirt_vneck_navy",
+        name: "Tshirt Vneck Navy",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtVneckNavy.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tshirt_scoop_white",
+        name: "Tshirt Scoop White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtScoopWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tshirt_fitted_black",
+        name: "Tshirt Fitted Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtFittedBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tshirt_relaxed_olive",
+        name: "Tshirt Relaxed Olive",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtRelaxedOlive.webp",
+        looks: 2, quality: "Common", tags: ["casual"], price: 20.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tshirt_oversized_gray",
+        name: "Tshirt Oversized Gray",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtOversizedGray.webp",
+        looks: 2, quality: "Common", tags: ["casual"], price: 20.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tshirt_longsleeve_white",
+        name: "Tshirt Longsleeve White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtLongsleeveWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tshirt_striped_navywhite",
+        name: "Tshirt Striped Navywhite",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tshirtStripedNavywhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "professional"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "henley_burgundy",
+        name: "Henley Burgundy",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/henleyBurgundy.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "henley_gray",
+        name: "Henley Gray",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/henleyGray.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "shirt_oxford_white",
+        name: "Shirt Oxford White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/shirtOxfordWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "work", "professional"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "shirt_flannel_red",
+        name: "Shirt Flannel Red",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/shirtFlannelRed.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "shirt_denim_blue",
+        name: "Shirt Denim Blue",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/shirtDenimBlue.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "shirt_linen_white",
+        name: "Shirt Linen White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/shirtLinenWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "polo_white",
+        name: "Polo White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/poloWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sporty"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "polo_navy",
+        name: "Polo Navy",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/poloNavy.webp",
+        looks: 3, quality: "Common", tags: ["casual", "professional"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweater_cable_cream",
+        name: "Sweater Cable Cream",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/sweaterCableCream.webp",
+        looks: 4, quality: "Common", tags: ["casual"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweater_pullover_gray",
+        name: "Sweater Pullover Gray",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/sweaterPulloverGray.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweater_vneck_navy",
+        name: "Sweater Vneck Navy",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/sweaterVneckNavy.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweater_mockneck_black",
+        name: "Sweater Mockneck Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/sweaterMockneckBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cardigan_button_beige",
+        name: "Cardigan Button Beige",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cardiganButtonBeige.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cardigan_openfront_gray",
+        name: "Cardigan Openfront Gray",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cardiganOpenfrontGray.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "hoodie_pullover_gray",
+        name: "Hoodie Pullover Gray",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/hoodiePulloverGray.webp",
+        looks: 2, quality: "Common", tags: ["casual"], price: 20.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "hoodie_zipup_black",
+        name: "Hoodie Zipup Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/hoodieZipupBlack.webp",
+        looks: 2, quality: "Common", tags: ["casual", "sporty"], price: 20.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweatshirt_crew_navy",
+        name: "Sweatshirt Crew Navy",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/sweatshirtCrewNavy.webp",
+        looks: 2, quality: "Common", tags: ["casual"], price: 20.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweatshirt_quarterzip_olive",
+        name: "Sweatshirt Quarterzip Olive",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/sweatshirtQuarterzipOlive.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sporty"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tunic_basic_olive",
+        name: "Tunic Basic Olive",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tunicBasicOlive.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tunic_belted_gray",
+        name: "Tunic Belted Gray",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tunicBeltedGray.webp",
+        looks: 3, quality: "Common", tags: ["casual", "elegant"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_basic_white",
+        name: "Crop Basic White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cropBasicWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild", "cute"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_ribbed_black",
+        name: "Crop Ribbed Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cropRibbedBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_knotted_gray",
+        name: "Crop Knotted Gray",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cropKnottedGray.webp",
+        looks: 4, quality: "Common", tags: ["casual", "mild", "cute"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_tee_striped",
+        name: "Crop Tee Striped",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cropTeeStriped.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild", "cute"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_fronttie_pink",
+        name: "Crop Fronttie Pink",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cropFronttiePink.webp",
+        looks: 4, quality: "Common", tags: ["casual", "mild", "cute"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tank_basic_white",
+        name: "Tank Basic White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tankBasicWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tank_racerback_gray",
+        name: "Tank Racerback Gray",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tankRacerbackGray.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild", "sporty"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tank_muscle_black",
+        name: "Tank Muscle Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tankMuscleBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild", "sporty"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tank_scoop_olive",
+        name: "Tank Scoop Olive",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tankScoopOlive.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tank_ribbed_navy",
+        name: "Tank Ribbed Navy",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tankRibbedNavy.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tank_flowy_white",
+        name: "Tank Flowy White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tankFlowyWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild", "cute"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tee_offshoulder_white",
+        name: "Tee Offshoulder White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/teeOffshoulderWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "mild", "cute"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_basic_black",
+        name: "Cami Basic Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/camiBasicBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_adjustable_white",
+        name: "Cami Adjustable White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/camiAdjustableWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "mild"], price: 24.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tank_deepscoop_black",
+        name: "Tank Deepscoop Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/tankDeepscoopBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "date", "revealing", "sexy"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tee_lowcut_vneck_white",
+        name: "Tee Lowcut Vneck White",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/teeLowcutVneckWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "date", "revealing", "sexy"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_tied_midriff_olive",
+        name: "Crop Tied Midriff Olive",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/cropTiedMidriffOlive.webp",
+        looks: 4, quality: "Common", tags: ["casual", "revealing", "cute"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_backless_basic_black",
+        name: "Top Backless Basic Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/topBacklessBasicBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "date", "revealing", "sexy"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_lowcut_burgundy",
+        name: "Cami Lowcut Burgundy",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/camiLowcutBurgundy.webp",
+        looks: 4, quality: "Common", tags: ["casual", "date", "revealing", "cute"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tee_extreme_cutout_black",
+        name: "Tee Extreme Cutout Black",
+        brand: "Northline Apparel",
+        desc: "Top from Northline Apparel.",
+        image: "assets/content/clothing/tops/NorthlineApparel/teeExtremeCutoutBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "date", "daring", "sexy"], price: 28.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "wrap_vneck_cream",
+        name: "Wrap Vneck Cream",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/wrapVneckCream.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_twistfront_black",
+        name: "Top Twistfront Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topTwistfrontBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweater_knit_oatmeal",
+        name: "Sweater Knit Oatmeal",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/sweaterKnitOatmeal.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweater_turtleneck_gray",
+        name: "Sweater Turtleneck Gray",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/sweaterTurtleneckGray.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweater_mockneck_cream",
+        name: "Sweater Mockneck Cream",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/sweaterMockneckCream.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cardigan_cropped_beige",
+        name: "Cardigan Cropped Beige",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cardiganCroppedBeige.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cardigan_belted_camel",
+        name: "Cardigan Belted Camel",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cardiganBeltedCamel.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blazer_cropped_black",
+        name: "Blazer Cropped Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/blazerCroppedBlack.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "work", "professional"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blazer_singlebreast_navy",
+        name: "Blazer Singlebreast Navy",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/blazerSinglebreastNavy.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "work", "professional"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blazer_oversized_gray",
+        name: "Blazer Oversized Gray",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/blazerOversizedGray.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_silky_cream",
+        name: "Blouse Silky Cream",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/blouseSilkyCream.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "cute"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_pintuck_white",
+        name: "Blouse Pintuck White",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/blousePintuckWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "work", "professional"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_collar_navy",
+        name: "Blouse Collar Navy",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/blouseCollarNavy.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "work", "professional"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweatshirt_dustypink",
+        name: "Sweatshirt Dustypink",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/sweatshirtDustypink.webp",
+        looks: 3, quality: "Common", tags: ["casual"], price: 47.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "vera_sweatshirt_quarterzip_olive",
+        name: "Sweatshirt Quarter-Zip Olive",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/veraSweatshirtQuarterzipOlive.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sporty"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_oneshoulder_white",
+        name: "Crop Oneshoulder White",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cropOneshoulderWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "mild", "cute"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_smocked_floral",
+        name: "Crop Smocked Floral",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cropSmockedFloral.webp",
+        looks: 4, quality: "Common", tags: ["casual", "mild", "cute"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_ruched_pink",
+        name: "Crop Ruched Pink",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cropRuchedPink.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "date", "mild", "cute"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_shoulder_olive",
+        name: "Crop Shoulder Olive",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cropShoulderOlive.webp",
+        looks: 4, quality: "Common", tags: ["casual", "mild", "cute"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_sweater_knit_cream",
+        name: "Crop Sweater Knit Cream",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cropSweaterKnitCream.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "mild"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_ribbed_longsleeve_black",
+        name: "Crop Ribbed Longsleeve Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cropRibbedLongsleeveBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "date", "mild", "sexy"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_silk_cream",
+        name: "Cami Silk Cream",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/camiSilkCream.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "mild", "cute"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_cowlneck_black",
+        name: "Cami Cowlneck Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/camiCowlneckBlack.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "date", "mild", "cute"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_lacetrim_nude",
+        name: "Cami Lacetrim Nude",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/camiLacetrimNude.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "mild", "cute"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_spaghetti_white",
+        name: "Cami Spaghetti White",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/camiSpaghettiWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "mild"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_bardot_white",
+        name: "Top Bardot White",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topBardotWhite.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "elegant", "mild", "cute"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_coldshoulder_black",
+        name: "Top Coldshoulder Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topColdshoulderBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "mild", "cute"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "vest_knit_cream",
+        name: "Vest Knit Cream",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/vestKnitCream.webp",
+        looks: 4, quality: "Common", tags: ["casual", "elegant", "mild", "professional"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "fitted_ribbed_black",
+        name: "Fitted Ribbed Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/fittedRibbedBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "date", "mild", "sexy"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "fitted_mockneck_gray",
+        name: "Fitted Mockneck Gray",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/fittedMockneckGray.webp",
+        looks: 4, quality: "Common", tags: ["casual", "mild"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_deepv_black",
+        name: "Cami Deepv Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/camiDeepvBlack.webp",
+        looks: 5, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "wrap_deepv_burgundy",
+        name: "Wrap Deepv Burgundy",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/wrapDeepvBurgundy.webp",
+        looks: 5, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_openback_white",
+        name: "Top Openback White",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topOpenbackWhite.webp",
+        looks: 5, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "knit_backless_black",
+        name: "Knit Backless Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/knitBacklessBlack.webp",
+        looks: 5, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_cutout_side_white",
+        name: "Top Cutout Side White",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topCutoutSideWhite.webp",
+        looks: 5, quality: "Rare", tags: ["casual", "date", "revealing", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_cutout_front_black",
+        name: "Top Cutout Front Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topCutoutFrontBlack.webp",
+        looks: 5, quality: "Rare", tags: ["date", "party", "revealing", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "halter_highneck_black",
+        name: "Halter Highneck Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/halterHighneckBlack.webp",
+        looks: 5, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "halter_cami_nude",
+        name: "Halter Cami Nude",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/halterCamiNude.webp",
+        looks: 5, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tube_basic_black",
+        name: "Tube Basic Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/tubeBasicBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "date", "revealing", "sexy"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "tube_ruched_white",
+        name: "Tube Ruched White",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/tubeRuchedWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "date", "revealing", "sexy"], price: 51.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "wrap_sidetie_red",
+        name: "Wrap Sidetie Red",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/wrapSidetieRed.webp",
+        looks: 5, quality: "Rare", tags: ["date", "party", "revealing", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "surplice_lowcut_cream",
+        name: "Surplice Lowcut Cream",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/surpliceLowcutCream.webp",
+        looks: 5, quality: "Rare", tags: ["elegant", "date", "revealing", "cute"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_lace_overlay_black",
+        name: "Top Lace Overlay Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topLaceOverlayBlack.webp",
+        looks: 5, quality: "Rare", tags: ["elegant", "date", "party", "revealing", "cute"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_lace_panel_white",
+        name: "Top Lace Panel White",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topLacePanelWhite.webp",
+        looks: 5, quality: "Rare", tags: ["elegant", "date", "revealing", "cute"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "halter_backless_black",
+        name: "Halter Backless Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/halterBacklessBlack.webp",
+        looks: 6, quality: "Rare", tags: ["date", "party", "daring", "sexy"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_extreme_cutout_black",
+        name: "Top Extreme Cutout Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topExtremeCutoutBlack.webp",
+        looks: 6, quality: "Rare", tags: ["date", "party", "daring", "sexy"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_sheer_hint_blush",
+        name: "Top Sheer Hint Blush",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topSheerHintBlush.webp",
+        looks: 5, quality: "Rare", tags: ["date", "party", "daring", "sexy"], price: 70.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_keyhole_deep_black",
+        name: "Top Keyhole Deep Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topKeyholeDeepBlack.webp",
+        looks: 6, quality: "Rare", tags: ["date", "party", "daring", "sexy"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_chainback_black",
+        name: "Top Chainback Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topChainbackBlack.webp",
+        looks: 6, quality: "Rare", tags: ["date", "party", "daring", "sexy"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_fauxleather_black",
+        name: "Crop Fauxleather Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cropFauxleatherBlack.webp",
+        looks: 6, quality: "Rare", tags: ["date", "party", "daring", "sexy"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_extreme_deepv_red",
+        name: "Top Extreme Deepv Red",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topExtremeDeepvRed.webp",
+        looks: 6, quality: "Rare", tags: ["date", "party", "daring", "sexy"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "corset_top_black",
+        name: "Corset Top Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/corsetTopBlack.webp",
+        looks: 6, quality: "Rare", tags: ["date", "party", "daring", "elegant"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "bustier_satin_black",
+        name: "Bustier Satin Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/bustierSatinBlack.webp",
+        looks: 6, quality: "Rare", tags: ["date", "party", "daring", "sexy"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_micro_black",
+        name: "Crop Micro Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/cropMicroBlack.webp",
+        looks: 6, quality: "Rare", tags: ["party", "evening", "bold", "slutty"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_mesh_black",
+        name: "Top Mesh Black",
+        brand: "VERA Mode",
+        desc: "Top from VERA Mode.",
+        image: "assets/content/clothing/tops/VERAMode/topMeshBlack.webp",
+        looks: 6, quality: "Rare", tags: ["party", "evening", "bold", "sexy"], price: 77.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blazer_structured_black",
+        name: "Blazer Structured Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/blazerStructuredBlack.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "work", "professional"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blazer_doublebreast_cream",
+        name: "Blazer Doublebreast Cream",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/blazerDoublebreastCream.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "work", "professional"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blazer_collarless_navy",
+        name: "Blazer Collarless Navy",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/blazerCollarlessNavy.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "work"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_silk_ivory",
+        name: "Blouse Silk Ivory",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/blouseSilkIvory.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "work", "professional"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_pussybow_black",
+        name: "Blouse Pussybow Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/blousePussybowBlack.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "work", "cute"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_ruffle_white",
+        name: "Blouse Ruffle White",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/blouseRuffleWhite.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "work", "cute"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_tieneck_dustyrose",
+        name: "Blouse Tieneck Dustyrose",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/blouseTieneckDustyrose.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "work", "cute"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweater_cashmere_gray",
+        name: "Sweater Cashmere Gray",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/sweaterCashmereGray.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "casual"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sweater_turtleneck_cream",
+        name: "Sweater Turtleneck Cream",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/sweaterTurtleneckCream.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "casual"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "knit_mockneck_camel",
+        name: "Knit Mockneck Camel",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/knitMockneckCamel.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "casual"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cardigan_cashmere_gray",
+        name: "Cardigan Cashmere Gray",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/cardiganCashmereGray.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "casual"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cardigan_oversized_cream",
+        name: "Cardigan Oversized Cream",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/cardiganOversizedCream.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "casual"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "waistcoat_tailored_black",
+        name: "Waistcoat Tailored Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/waistcoatTailoredBlack.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "work", "professional"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "waistcoat_pinstripe_gray",
+        name: "Waistcoat Pinstripe Gray",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/waistcoatPinstripeGray.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "work", "professional"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_silk_champagne",
+        name: "Cami Silk Champagne",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/camiSilkChampagne.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "date", "mild", "cute"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_cowlneck_ivory",
+        name: "Cami Cowlneck Ivory",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/camiCowlneckIvory.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "date", "mild", "cute"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_structured_white",
+        name: "Crop Structured White",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/cropStructuredWhite.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "mild"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_knit_beige",
+        name: "Crop Knit Beige",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/cropKnitBeige.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "casual", "mild"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_offshoulder_cashmere_gray",
+        name: "Top Offshoulder Cashmere Gray",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/topOffshoulderCashmereGray.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "mild", "cute"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_oneshoulder_knit_black",
+        name: "Top Oneshoulder Knit Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/topOneshoulderKnitBlack.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "date", "mild", "sexy"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "cami_deepv_silk_black",
+        name: "Cami Deepv Silk Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/camiDeepvSilkBlack.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_openback_silk_ivory",
+        name: "Blouse Openback Silk Ivory",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/blouseOpenbackSilkIvory.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "halter_silk_black",
+        name: "Halter Silk Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/halterSilkBlack.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "date", "evening", "revealing", "sexy"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "halter_draped_gold",
+        name: "Halter Draped Gold",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/halterDrapedGold.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "date", "evening", "party", "revealing", "elegant"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "wrap_silk_deepv_burgundy",
+        name: "Wrap Silk Deepv Burgundy",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/wrapSilkDeepvBurgundy.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_cutout_elegant_black",
+        name: "Top Cutout Elegant Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/topCutoutElegantBlack.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "date", "revealing"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "lace_overlay_cream",
+        name: "Lace Overlay Cream",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/laceOverlayCream.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "date", "revealing", "cute"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "lace_panel_black",
+        name: "Lace Panel Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/lacePanelBlack.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "date", "revealing", "cute"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "surplice_silk_emerald",
+        name: "Surplice Silk Emerald",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/surpliceSilkEmerald.webp",
+        looks: 7, quality: "Rare", tags: ["elegant", "date", "revealing", "sexy"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_peplum_structured_black",
+        name: "Top Peplum Structured Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/topPeplumStructuredBlack.webp",
+        looks: 6, quality: "Rare", tags: ["elegant", "work", "revealing", "professional"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "halter_plunge_backless_black",
+        name: "Halter Plunge Backless Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/halterPlungeBacklessBlack.webp",
+        looks: 7, quality: "Rare", tags: ["date", "evening", "daring", "sexy"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "blouse_sheer_silk_black",
+        name: "Blouse Sheer Silk Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/blouseSheerSilkBlack.webp",
+        looks: 7, quality: "Rare", tags: ["date", "evening", "daring", "sexy"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_lace_daring_black",
+        name: "Top Lace Daring Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/topLaceDaringBlack.webp",
+        looks: 7, quality: "Rare", tags: ["date", "evening", "daring", "cute"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_leather_shell_black",
+        name: "Top Leather Shell Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/topLeatherShellBlack.webp",
+        looks: 7, quality: "Rare", tags: ["date", "evening", "daring", "sexy"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "crop_underboob_white",
+        name: "Crop Underboob White",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/cropUnderboobWhite.webp",
+        looks: 6, quality: "Rare", tags: ["date", "party", "daring", "sexy"], price: 112.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_sheer_blouse_black",
+        name: "Top Sheer Blouse Black",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/topSheerBlouseBlack.webp",
+        looks: 7, quality: "Rare", tags: ["evening", "party", "bold", "sexy"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "bustier_silk_ivory",
+        name: "Bustier Silk Ivory",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/bustierSilkIvory.webp",
+        looks: 7, quality: "Rare", tags: ["evening", "party", "bold", "elegant"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "top_sequin_chainmail_gold",
+        name: "Top Sequin Chainmail Gold",
+        brand: "Fifth Avenue Wear",
+        desc: "Top from Fifth Avenue Wear.",
+        image: "assets/content/clothing/tops/FifthAvenue/topSequinChainmailGold.webp",
+        looks: 7, quality: "Rare", tags: ["evening", "party", "bold", "elegant"], price: 119.00, shopAvailable: true, startOwned: false
+    },
+    /* ==========================================
+       FASTBREAK ATHLETICS — tops-sport-store.md (32 items, MD order)
+       Tier 0: 15 | Tier 1 mild: 11 | Tier 2 revealing: 5 | Tier 3 bold: 1
+    ========================================== */
+    {
+        id: "sport_tee_dryfit_black",
+        name: "Sport Tee Dryfit Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTeeDryfitBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tee_dryfit_white",
+        name: "Sport Tee Dryfit White",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTeeDryfitWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tee_dryfit_gray",
+        name: "Sport Tee Dryfit Gray",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTeeDryfitGray.webp",
+        looks: 2, quality: "Common", tags: ["casual", "sport", "sporty"], price: 30.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tee_dryfit_navy",
+        name: "Sport Tee Dryfit Navy",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTeeDryfitNavy.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tee_dryfit_burgundy",
+        name: "Sport Tee Dryfit Burgundy",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTeeDryfitBurgundy.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tee_longsleeve_black",
+        name: "Sport Tee Longsleeve Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTeeLongsleeveBlack.webp",
+        looks: 2, quality: "Common", tags: ["casual", "sport", "sporty"], price: 30.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tee_longsleeve_white",
+        name: "Sport Tee Longsleeve White",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTeeLongsleeveWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_hoodie_zip_black",
+        name: "Sport Hoodie Zip Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportHoodieZipBlack.webp",
+        looks: 2, quality: "Common", tags: ["casual", "sport", "sporty"], price: 30.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_hoodie_zip_gray",
+        name: "Sport Hoodie Zip Gray",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportHoodieZipGray.webp",
+        looks: 2, quality: "Common", tags: ["casual", "sport", "sporty"], price: 30.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_hoodie_pullover_navy",
+        name: "Sport Hoodie Pullover Navy",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportHoodiePulloverNavy.webp",
+        looks: 2, quality: "Common", tags: ["casual", "sport", "sporty"], price: 30.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_quarterzip_black",
+        name: "Sport Quarterzip Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportQuarterzipBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_hoodie_zip_olive",
+        name: "Sport Hoodie Zip Olive",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportHoodieZipOlive.webp",
+        looks: 2, quality: "Common", tags: ["casual", "sport", "sporty"], price: 30.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_hoodie_pullover_black",
+        name: "Sport Hoodie Pullover Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportHoodiePulloverBlack.webp",
+        looks: 2, quality: "Common", tags: ["casual", "sport", "sporty"], price: 30.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_quarterzip_gray",
+        name: "Sport Quarterzip Gray",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportQuarterzipGray.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_quarterzip_navy",
+        name: "Sport Quarterzip Navy",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportQuarterzipNavy.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_racerback_black",
+        name: "Sport Tank Racerback Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankRacerbackBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_racerback_navy",
+        name: "Sport Tank Racerback Navy",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankRacerbackNavy.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_colorblock_pink",
+        name: "Sport Tank Colorblock Pink",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankColorblockPink.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_crop_racerback_black",
+        name: "Sport Crop Racerback Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportCropRacerbackBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_crop_racerback_white",
+        name: "Sport Crop Racerback White",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportCropRacerbackWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_cropped_gray",
+        name: "Sport Tank Cropped Gray",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankCroppedGray.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_racerback_red",
+        name: "Sport Tank Racerback Red",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankRacerbackRed.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_sleeveless_white",
+        name: "Sport Tank Sleeveless White",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankSleevelessWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_crew_black",
+        name: "Sport Tank Crew Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankCrewBlack.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_crew_navy",
+        name: "Sport Tank Crew Navy",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankCrewNavy.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_quarterzip_white",
+        name: "Sport Quarterzip White",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportQuarterzipWhite.webp",
+        looks: 3, quality: "Common", tags: ["casual", "sport", "sporty", "mild"], price: 34.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_deep_racerback_black",
+        name: "Sport Tank Deep Racerback Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankDeepRacerbackBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport", "sporty", "revealing"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_deep_racerback_navy",
+        name: "Sport Tank Deep Racerback Navy",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankDeepRacerbackNavy.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport", "sporty", "revealing"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_deep_racerback_white",
+        name: "Sport Tank Deep Racerback White",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankDeepRacerbackWhite.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport", "sporty", "revealing"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_deep_racerback_red",
+        name: "Sport Tank Deep Racerback Red",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankDeepRacerbackRed.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport", "sporty", "revealing"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_tank_deep_racerback_pink",
+        name: "Sport Tank Deep Racerback Pink",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportTankDeepRacerbackPink.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport", "sporty", "revealing"], price: 38.00, shopAvailable: true, startOwned: false
+    },
+    {
+        id: "sport_crop_sports_bra_black",
+        name: "Sport Crop Sports Bra Black",
+        brand: "FastBreak Athletics",
+        desc: "Top from FastBreak Athletics.",
+        image: "assets/content/clothing/tops/FastBreakAthletics/sportCropSportsBraBlack.webp",
+        looks: 4, quality: "Common", tags: ["casual", "sport", "sporty", "bold"], price: 42.00, shopAvailable: true, startOwned: false
     }
 ]>>

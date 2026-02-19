@@ -29,8 +29,7 @@
 
 **Item ID:** wrap_vneck_cream
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant
-**Looks:** 4
+**Tags:** casual, elegant**Looks:** 4
 **Quality:** Common
 **KayıtID:** wrapVneckCream
 
@@ -41,8 +40,7 @@
 
 **Item ID:** top_twistfront_black
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant
-**Looks:** 4
+**Tags:** casual, elegant**Looks:** 4
 **Quality:** Common
 **KayıtID:** topTwistfrontBlack
 
@@ -57,8 +55,7 @@
 
 **Item ID:** sweater_knit_oatmeal
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant
-**Looks:** 5
+**Tags:** casual, elegant**Looks:** 5
 **Quality:** Rare
 **KayıtID:** sweaterKnitOatmeal
 
@@ -69,8 +66,7 @@
 
 **Item ID:** sweater_turtleneck_gray
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant
-**Looks:** 5
+**Tags:** casual, elegant**Looks:** 5
 **Quality:** Rare
 **KayıtID:** sweaterTurtleneckGray
 
@@ -81,8 +77,7 @@
 
 **Item ID:** sweater_mockneck_cream
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant
-**Looks:** 4
+**Tags:** casual, elegant**Looks:** 4
 **Quality:** Common
 **KayıtID:** sweaterMockneckCream
 
@@ -97,8 +92,7 @@
 
 **Item ID:** cardigan_cropped_beige
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant
-**Looks:** 4
+**Tags:** casual, elegant**Looks:** 4
 **Quality:** Common
 **KayıtID:** cardiganCroppedBeige
 
@@ -109,8 +103,7 @@
 
 **Item ID:** cardigan_belted_camel
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant
-**Looks:** 5
+**Tags:** casual, elegant**Looks:** 5
 **Quality:** Rare
 **KayıtID:** cardiganBeltedCamel
 
@@ -125,7 +118,7 @@
 
 **Item ID:** blazer_cropped_black
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, work
+**Tags:** casual, elegant, work, professional
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** blazerCroppedBlack
@@ -137,7 +130,7 @@
 
 **Item ID:** blazer_singlebreast_navy
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, work
+**Tags:** casual, elegant, work, professional
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** blazerSinglebreastNavy
@@ -149,8 +142,7 @@
 
 **Item ID:** blazer_oversized_gray
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant
-**Looks:** 5
+**Tags:** casual, elegant**Looks:** 5
 **Quality:** Rare
 **KayıtID:** blazerOversizedGray
 
@@ -165,7 +157,7 @@
 
 **Item ID:** blouse_silky_cream
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant
+**Tags:** casual, elegant, cute
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** blouseSilkyCream
@@ -177,7 +169,7 @@
 
 **Item ID:** blouse_pintuck_white
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, work
+**Tags:** casual, elegant, work, professional
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** blousePintuckWhite
@@ -189,7 +181,7 @@
 
 **Item ID:** blouse_collar_navy
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, work
+**Tags:** casual, elegant, work, professional
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** blouseCollarNavy
@@ -205,8 +197,7 @@
 
 **Item ID:** sweatshirt_dustypink
 **Mağaza:** storeClothingB
-**Tags:** casual
-**Looks:** 3
+**Tags:** casual**Looks:** 3
 **Quality:** Common
 **KayıtID:** sweatshirtDustypink
 
@@ -217,7 +208,7 @@
 
 **Item ID:** sweatshirt_quarterzip_olive
 **Mağaza:** storeClothingB
-**Tags:** casual
+**Tags:** casual, sporty
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** veraSweatshirtQuarterzipOlive
@@ -241,7 +232,7 @@
 
 **Item ID:** crop_oneshoulder_white
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, mild
+**Tags:** casual, elegant, mild, cute
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** cropOneshoulderWhite
@@ -253,7 +244,7 @@
 
 **Item ID:** crop_smocked_floral
 **Mağaza:** storeClothingB
-**Tags:** casual, mild
+**Tags:** casual, mild, cute
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** cropSmockedFloral
@@ -265,7 +256,7 @@
 
 **Item ID:** crop_ruched_pink
 **Mağaza:** storeClothingB
-**Tags:** casual, date, mild
+**Tags:** casual, date, mild, cute
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** cropRuchedPink
@@ -277,7 +268,7 @@
 
 **Item ID:** crop_shoulder_olive
 **Mağaza:** storeClothingB
-**Tags:** casual, mild
+**Tags:** casual, mild, cute
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** cropShoulderOlive
@@ -289,8 +280,7 @@
 
 **Item ID:** crop_sweater_knit_cream
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, mild
-**Looks:** 5
+**Tags:** casual, elegant, mild**Looks:** 5
 **Quality:** Rare
 **KayıtID:** cropSweaterKnitCream
 
@@ -301,7 +291,7 @@
 
 **Item ID:** crop_ribbed_longsleeve_black
 **Mağaza:** storeClothingB
-**Tags:** casual, date, mild
+**Tags:** casual, date, mild, sexy
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** cropRibbedLongsleeveBlack
@@ -317,7 +307,7 @@
 
 **Item ID:** cami_silk_cream
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, mild
+**Tags:** casual, elegant, mild, cute
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** camiSilkCream
@@ -329,7 +319,7 @@
 
 **Item ID:** cami_cowlneck_black
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, date, mild
+**Tags:** casual, elegant, date, mild, cute
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** camiCowlneckBlack
@@ -341,7 +331,7 @@
 
 **Item ID:** cami_lacetrim_nude
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, mild
+**Tags:** casual, elegant, mild, cute
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** camiLacetrimNude
@@ -353,8 +343,7 @@
 
 **Item ID:** cami_spaghetti_white
 **Mağaza:** storeClothingB
-**Tags:** casual, mild
-**Looks:** 4
+**Tags:** casual, mild**Looks:** 4
 **Quality:** Common
 **KayıtID:** camiSpaghettiWhite
 
@@ -369,7 +358,7 @@
 
 **Item ID:** top_bardot_white
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, mild
+**Tags:** casual, elegant, mild, cute
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** topBardotWhite
@@ -381,7 +370,7 @@
 
 **Item ID:** top_coldshoulder_black
 **Mağaza:** storeClothingB
-**Tags:** casual, mild
+**Tags:** casual, mild, cute
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** topColdshoulderBlack
@@ -397,7 +386,7 @@
 
 **Item ID:** vest_knit_cream
 **Mağaza:** storeClothingB
-**Tags:** casual, elegant, mild
+**Tags:** casual, elegant, mild, professional
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** vestKnitCream
@@ -413,7 +402,7 @@
 
 **Item ID:** fitted_ribbed_black
 **Mağaza:** storeClothingB
-**Tags:** casual, date, mild
+**Tags:** casual, date, mild, sexy
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** fittedRibbedBlack
@@ -425,8 +414,7 @@
 
 **Item ID:** fitted_mockneck_gray
 **Mağaza:** storeClothingB
-**Tags:** casual, mild
-**Looks:** 4
+**Tags:** casual, mild**Looks:** 4
 **Quality:** Common
 **KayıtID:** fittedMockneckGray
 
@@ -449,7 +437,7 @@
 
 **Item ID:** cami_deepv_black
 **Mağaza:** storeClothingB
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** camiDeepvBlack
@@ -461,7 +449,7 @@
 
 **Item ID:** wrap_deepv_burgundy
 **Mağaza:** storeClothingB
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** wrapDeepvBurgundy
@@ -477,7 +465,7 @@
 
 **Item ID:** top_openback_white
 **Mağaza:** storeClothingB
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** topOpenbackWhite
@@ -489,7 +477,7 @@
 
 **Item ID:** knit_backless_black
 **Mağaza:** storeClothingB
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** knitBacklessBlack
@@ -505,7 +493,7 @@
 
 **Item ID:** top_cutout_side_white
 **Mağaza:** storeClothingB
-**Tags:** casual, date, revealing
+**Tags:** casual, date, revealing, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** topCutoutSideWhite
@@ -517,7 +505,7 @@
 
 **Item ID:** top_cutout_front_black
 **Mağaza:** storeClothingB
-**Tags:** date, party, revealing
+**Tags:** date, party, revealing, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** topCutoutFrontBlack
@@ -533,7 +521,7 @@
 
 **Item ID:** halter_highneck_black
 **Mağaza:** storeClothingB
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** halterHighneckBlack
@@ -545,7 +533,7 @@
 
 **Item ID:** halter_cami_nude
 **Mağaza:** storeClothingB
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** halterCamiNude
@@ -561,7 +549,7 @@
 
 **Item ID:** tube_basic_black
 **Mağaza:** storeClothingB
-**Tags:** casual, date, revealing
+**Tags:** casual, date, revealing, sexy
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** tubeBasicBlack
@@ -573,7 +561,7 @@
 
 **Item ID:** tube_ruched_white
 **Mağaza:** storeClothingB
-**Tags:** casual, date, revealing
+**Tags:** casual, date, revealing, sexy
 **Looks:** 4
 **Quality:** Common
 **KayıtID:** tubeRuchedWhite
@@ -589,7 +577,7 @@
 
 **Item ID:** wrap_sidetie_red
 **Mağaza:** storeClothingB
-**Tags:** date, party, revealing
+**Tags:** date, party, revealing, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** wrapSidetieRed
@@ -601,7 +589,7 @@
 
 **Item ID:** surplice_lowcut_cream
 **Mağaza:** storeClothingB
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, cute
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** surpliceLowcutCream
@@ -617,7 +605,7 @@
 
 **Item ID:** top_lace_overlay_black
 **Mağaza:** storeClothingB
-**Tags:** elegant, date, party, revealing
+**Tags:** elegant, date, party, revealing, cute
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** topLaceOverlayBlack
@@ -629,7 +617,7 @@
 
 **Item ID:** top_lace_panel_white
 **Mağaza:** storeClothingB
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, cute
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** topLacePanelWhite
@@ -649,7 +637,7 @@
 
 **Item ID:** halter_backless_black
 **Mağaza:** storeClothingB
-**Tags:** date, party, daring
+**Tags:** date, party, daring, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** halterBacklessBlack
@@ -661,7 +649,7 @@
 
 **Item ID:** top_extreme_cutout_black
 **Mağaza:** storeClothingB
-**Tags:** date, party, daring
+**Tags:** date, party, daring, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** topExtremeCutoutBlack
@@ -673,7 +661,7 @@
 
 **Item ID:** top_sheer_hint_blush
 **Mağaza:** storeClothingB
-**Tags:** date, party, daring
+**Tags:** date, party, daring, sexy
 **Looks:** 5
 **Quality:** Rare
 **KayıtID:** topSheerHintBlush
@@ -685,7 +673,7 @@
 
 **Item ID:** top_keyhole_deep_black
 **Mağaza:** storeClothingB
-**Tags:** date, party, daring
+**Tags:** date, party, daring, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** topKeyholeDeepBlack
@@ -697,7 +685,7 @@
 
 **Item ID:** top_chainback_black
 **Mağaza:** storeClothingB
-**Tags:** date, party, daring
+**Tags:** date, party, daring, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** topChainbackBlack
@@ -709,7 +697,7 @@
 
 **Item ID:** crop_fauxleather_black
 **Mağaza:** storeClothingB
-**Tags:** date, party, daring
+**Tags:** date, party, daring, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** cropFauxleatherBlack
@@ -721,7 +709,7 @@
 
 **Item ID:** top_extreme_deepv_red
 **Mağaza:** storeClothingB
-**Tags:** date, party, daring
+**Tags:** date, party, daring, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** topExtremeDeepvRed
@@ -733,7 +721,7 @@
 
 **Item ID:** corset_top_black
 **Mağaza:** storeClothingB
-**Tags:** date, party, daring
+**Tags:** date, party, daring, elegant
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** corsetTopBlack
@@ -745,7 +733,7 @@
 
 **Item ID:** bustier_satin_black
 **Mağaza:** storeClothingB
-**Tags:** date, party, daring
+**Tags:** date, party, daring, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** bustierSatinBlack
@@ -765,7 +753,7 @@
 
 **Item ID:** crop_micro_black
 **Mağaza:** storeClothingB
-**Tags:** party, evening, bold
+**Tags:** party, evening, bold, slutty
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** cropMicroBlack
@@ -777,7 +765,7 @@
 
 **Item ID:** top_mesh_black
 **Mağaza:** storeClothingB
-**Tags:** party, evening, bold
+**Tags:** party, evening, bold, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** topMeshBlack

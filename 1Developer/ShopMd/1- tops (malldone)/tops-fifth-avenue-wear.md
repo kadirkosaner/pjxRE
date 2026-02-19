@@ -29,7 +29,7 @@
 
 **Item ID:** blazer_structured_black
 **Mağaza:** storeClothingC
-**Tags:** elegant, work
+**Tags:** elegant, work, professional
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** blazerStructuredBlack
@@ -41,7 +41,7 @@
 
 **Item ID:** blazer_doublebreast_cream
 **Mağaza:** storeClothingC
-**Tags:** elegant, work
+**Tags:** elegant, work, professional
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** blazerDoublebreastCream
@@ -53,8 +53,7 @@
 
 **Item ID:** blazer_collarless_navy
 **Mağaza:** storeClothingC
-**Tags:** elegant, work
-**Looks:** 6
+**Tags:** elegant, work**Looks:** 6
 **Quality:** Rare
 **KayıtID:** blazerCollarlessNavy
 
@@ -69,7 +68,7 @@
 
 **Item ID:** blouse_silk_ivory
 **Mağaza:** storeClothingC
-**Tags:** elegant, work
+**Tags:** elegant, work, professional
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** blouseSilkIvory
@@ -81,7 +80,7 @@
 
 **Item ID:** blouse_pussybow_black
 **Mağaza:** storeClothingC
-**Tags:** elegant, work
+**Tags:** elegant, work, cute
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** blousePussybowBlack
@@ -93,7 +92,7 @@
 
 **Item ID:** blouse_ruffle_white
 **Mağaza:** storeClothingC
-**Tags:** elegant, work
+**Tags:** elegant, work, cute
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** blouseRuffleWhite
@@ -105,7 +104,7 @@
 
 **Item ID:** blouse_tieneck_dustyrose
 **Mağaza:** storeClothingC
-**Tags:** elegant, work
+**Tags:** elegant, work, cute
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** blouseTieneckDustyrose
@@ -121,8 +120,7 @@
 
 **Item ID:** sweater_cashmere_gray
 **Mağaza:** storeClothingC
-**Tags:** elegant, casual
-**Looks:** 6
+**Tags:** elegant, casual**Looks:** 6
 **Quality:** Rare
 **KayıtID:** sweaterCashmereGray
 
@@ -133,8 +131,7 @@
 
 **Item ID:** sweater_turtleneck_cream
 **Mağaza:** storeClothingC
-**Tags:** elegant, casual
-**Looks:** 6
+**Tags:** elegant, casual**Looks:** 6
 **Quality:** Rare
 **KayıtID:** sweaterTurtleneckCream
 
@@ -145,8 +142,7 @@
 
 **Item ID:** knit_mockneck_camel
 **Mağaza:** storeClothingC
-**Tags:** elegant, casual
-**Looks:** 6
+**Tags:** elegant, casual**Looks:** 6
 **Quality:** Rare
 **KayıtID:** knitMockneckCamel
 
@@ -161,8 +157,7 @@
 
 **Item ID:** cardigan_cashmere_gray
 **Mağaza:** storeClothingC
-**Tags:** elegant, casual
-**Looks:** 6
+**Tags:** elegant, casual**Looks:** 6
 **Quality:** Rare
 **KayıtID:** cardiganCashmereGray
 
@@ -173,8 +168,7 @@
 
 **Item ID:** cardigan_oversized_cream
 **Mağaza:** storeClothingC
-**Tags:** elegant, casual
-**Looks:** 6
+**Tags:** elegant, casual**Looks:** 6
 **Quality:** Rare
 **KayıtID:** cardiganOversizedCream
 
@@ -189,7 +183,7 @@
 
 **Item ID:** waistcoat_tailored_black
 **Mağaza:** storeClothingC
-**Tags:** elegant, work
+**Tags:** elegant, work, professional
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** waistcoatTailoredBlack
@@ -201,7 +195,7 @@
 
 **Item ID:** waistcoat_pinstripe_gray
 **Mağaza:** storeClothingC
-**Tags:** elegant, work
+**Tags:** elegant, work, professional
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** waistcoatPinstripeGray
@@ -221,7 +215,7 @@
 
 **Item ID:** cami_silk_champagne
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, mild
+**Tags:** elegant, date, mild, cute
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** camiSilkChampagne
@@ -233,7 +227,7 @@
 
 **Item ID:** cami_cowlneck_ivory
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, mild
+**Tags:** elegant, date, mild, cute
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** camiCowlneckIvory
@@ -245,8 +239,7 @@
 
 **Item ID:** crop_structured_white
 **Mağaza:** storeClothingC
-**Tags:** elegant, mild
-**Looks:** 6
+**Tags:** elegant, mild**Looks:** 6
 **Quality:** Rare
 **KayıtID:** cropStructuredWhite
 
@@ -257,8 +250,7 @@
 
 **Item ID:** crop_knit_beige
 **Mağaza:** storeClothingC
-**Tags:** elegant, casual, mild
-**Looks:** 6
+**Tags:** elegant, casual, mild**Looks:** 6
 **Quality:** Rare
 **KayıtID:** cropKnitBeige
 
@@ -269,7 +261,7 @@
 
 **Item ID:** top_offshoulder_cashmere_gray
 **Mağaza:** storeClothingC
-**Tags:** elegant, mild
+**Tags:** elegant, mild, cute
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** topOffshoulderCashmereGray
@@ -281,7 +273,7 @@
 
 **Item ID:** top_oneshoulder_knit_black
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, mild
+**Tags:** elegant, date, mild, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** topOneshoulderKnitBlack
@@ -301,7 +293,7 @@
 
 **Item ID:** cami_deepv_silk_black
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** camiDeepvSilkBlack
@@ -313,7 +305,7 @@
 
 **Item ID:** blouse_openback_silk_ivory
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** blouseOpenbackSilkIvory
@@ -325,7 +317,7 @@
 
 **Item ID:** halter_silk_black
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, evening, revealing
+**Tags:** elegant, date, evening, revealing, sexy
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** halterSilkBlack
@@ -337,7 +329,7 @@
 
 **Item ID:** halter_draped_gold
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, evening, party, revealing
+**Tags:** elegant, date, evening, party, revealing, elegant
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** halterDrapedGold
@@ -349,7 +341,7 @@
 
 **Item ID:** wrap_silk_deepv_burgundy
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** wrapSilkDeepvBurgundy
@@ -361,8 +353,7 @@
 
 **Item ID:** top_cutout_elegant_black
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, revealing
-**Looks:** 6
+**Tags:** elegant, date, revealing**Looks:** 6
 **Quality:** Rare
 **KayıtID:** topCutoutElegantBlack
 
@@ -373,7 +364,7 @@
 
 **Item ID:** lace_overlay_cream
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, cute
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** laceOverlayCream
@@ -385,7 +376,7 @@
 
 **Item ID:** lace_panel_black
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, cute
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** lacePanelBlack
@@ -397,7 +388,7 @@
 
 **Item ID:** surplice_silk_emerald
 **Mağaza:** storeClothingC
-**Tags:** elegant, date, revealing
+**Tags:** elegant, date, revealing, sexy
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** surpliceSilkEmerald
@@ -409,7 +400,7 @@
 
 **Item ID:** top_peplum_structured_black
 **Mağaza:** storeClothingC
-**Tags:** elegant, work, revealing
+**Tags:** elegant, work, revealing, professional
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** topPeplumStructuredBlack
@@ -429,7 +420,7 @@
 
 **Item ID:** halter_plunge_backless_black
 **Mağaza:** storeClothingC
-**Tags:** date, evening, daring
+**Tags:** date, evening, daring, sexy
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** halterPlungeBacklessBlack
@@ -441,7 +432,7 @@
 
 **Item ID:** blouse_sheer_silk_black
 **Mağaza:** storeClothingC
-**Tags:** date, evening, daring
+**Tags:** date, evening, daring, sexy
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** blouseSheerSilkBlack
@@ -453,7 +444,7 @@
 
 **Item ID:** top_lace_daring_black
 **Mağaza:** storeClothingC
-**Tags:** date, evening, daring
+**Tags:** date, evening, daring, cute
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** topLaceDaringBlack
@@ -465,7 +456,7 @@
 
 **Item ID:** top_leather_shell_black
 **Mağaza:** storeClothingC
-**Tags:** date, evening, daring
+**Tags:** date, evening, daring, sexy
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** topLeatherShellBlack
@@ -477,7 +468,7 @@
 
 **Item ID:** crop_underboob_white
 **Mağaza:** storeClothingC
-**Tags:** date, party, daring
+**Tags:** date, party, daring, sexy
 **Looks:** 6
 **Quality:** Rare
 **KayıtID:** cropUnderboobWhite
@@ -497,7 +488,7 @@
 
 **Item ID:** top_sheer_blouse_black
 **Mağaza:** storeClothingC
-**Tags:** evening, party, bold
+**Tags:** evening, party, bold, sexy
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** topSheerBlouseBlack
@@ -509,7 +500,7 @@
 
 **Item ID:** bustier_silk_ivory
 **Mağaza:** storeClothingC
-**Tags:** evening, party, bold
+**Tags:** evening, party, bold, elegant
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** bustierSilkIvory
@@ -521,7 +512,7 @@
 
 **Item ID:** top_sequin_chainmail_gold
 **Mağaza:** storeClothingC
-**Tags:** evening, party, bold
+**Tags:** evening, party, bold, elegant
 **Looks:** 7
 **Quality:** Rare
 **KayıtID:** topSequinChainmailGold

@@ -254,13 +254,9 @@ Each item gets tags from TWO categories:
 - An item can only have ONE tier tag.
 - The tier tag automatically sets reqConfidence, reqCorruption, and reqExhibitionism via the game's widget system. You do NOT need to set these manually.
 
-## B. Style/Descriptive Tags (multiple allowed)
+## B. Context Tags (occasion/setting — multiple allowed)
 
-These do NOT trigger any requirements. They are used for:
-- Shopping UI filtering
-- Outfit matching/scoring
-- NPC reactions
-- Quest requirements ("wear something elegant to the dinner")
+Used for filtering, outfit matching, and quests (e.g. "wear something elegant to the dinner"). These do NOT trigger requirements.
 
 | Tag | When to Use | Store Affinity |
 |---|---|---|
@@ -276,16 +272,32 @@ These do NOT trigger any requirements. They are used for:
 | `fetish` | Fetish/kink aesthetic | Eros Boutique only |
 | `costume` | Costume/roleplay | Eros Boutique only |
 
+## C. Style/Personality Tags (multiple allowed)
+
+These drive the **wardrobe "Overall Style"** in the UI (topbar). Use at least one per item when it fits.
+
+| Tag | When to Use |
+|---|---|
+| `casual` | Relaxed, everyday vibe |
+| `cute` | Sweet, playful, feminine |
+| `elegant` | Refined, polished |
+| `professional` | Office-appropriate, put-together |
+| `sexy` | Flattering, alluring |
+| `sporty` | Athletic, active |
+| `slutty` | Provocative, attention-seeking |
+| `work` | Work/office appropriate (context + style) |
+
 ### Tag Assignment Rules
 
-1. **Tier 0 items** usually get: `casual` and/or `work` and/or `elegant`
-2. **Tier 1-2 items** usually get: `casual`, `date`, sometimes `elegant`
-3. **Tier 3-4 items** usually get: `date`, `party`, sometimes `evening`
-4. **Tier 5-6 items** usually get: `party`, `evening`, `fetish`
-5. An item can have 1–3 style tags. Don't over-tag.
-6. `work` tag should ONLY appear on Tier 0 items (and very rarely Tier 1).
-7. `luxury` tag is ONLY for Hillcrest items.
-8. `fetish` and `costume` tags are ONLY for Eros Boutique items.
+1. **Every item must have a `**Tags:**` line** with at least one tag (tier tag and/or context/style tags).
+2. **Tier 0 items** usually get: `casual` and/or `work` and/or `elegant`, plus one style tag if it fits (`professional`, `cute`, etc.).
+3. **Tier 1-2 items** usually get: `casual`, `date`, sometimes `elegant`, plus style (`cute`, `sexy` as appropriate).
+4. **Tier 3-4 items** usually get: `date`, `party`, sometimes `evening`, plus style (`sexy`, `slutty` as appropriate).
+5. **Tier 5-6 items** usually get: `party`, `evening`, `fetish`, plus style (`slutty`, `sexy` as appropriate).
+6. An item typically has **2–4 tags** total (1 tier if not T0 + 1–2 context + 0–1 style). Don't over-tag.
+7. `work` tag should ONLY appear on Tier 0 items (and very rarely Tier 1).
+8. `luxury` tag is ONLY for Hillcrest items.
+9. `fetish` and `costume` tags are ONLY for Eros Boutique items.
 
 ---
 
@@ -296,7 +308,7 @@ Every item in the MD catalog must have these fields:
 ```
 **Item ID:** {category}_{descriptor}_{color/variant}
 **Mağaza:** {storeId}
-**Tags:** {comma-separated tags}
+**Tags:** {comma-separated: tier + context + style — see Section 5}
 **Looks:** {number}
 **Quality:** {Common|Rare|Premium}     ← Only if store has mixed quality
 **KayıtID:** {camelCase ID}
@@ -304,6 +316,8 @@ Every item in the MD catalog must have these fields:
 **Prompt:**
 {AI image generation prompt}
 ```
+
+**Tags:** Required. Use tier tag (if not Tier 0) + 1–2 context tags (e.g. `casual`, `work`, `date`) + 0–1 style tag (e.g. `cozy`, `minimalist`, `cute`) when it fits. Example: `**Tags:** casual, elegant, cozy`
 
 ### Item ID Convention
 
@@ -374,20 +388,40 @@ Every item needs a generation prompt. Follow this template:
 | Variable | Standard Value | When to Change |
 |---|---|---|
 | **Aspect ratio** | `1:1` | Always 1:1 |
-| **Model** | `A young fit woman` | Never change |
+| **Model / Body** | See "Body description by tier" below | **Tier 0:** `A young fit woman` — **Tier 1+ (reqConf 20+):** voluptuous body description |
 | **Bottom pairing** | `dark fitted jeans` | Change per category (see below) |
 | **Camera angle** | `front three-quarter view` | `rear three-quarter view` for backless/open-back items |
 | **Frame** | `framed from hips to shoulders` | `framed from thighs to shoulders` for long tops/tunics; `framed from knees to shoulders` for dresses |
-| **Face** | `frame starts below nose, face cropped out` | Never change |
+| **Face** | `frame starts below nose, face cropped out` | Omit for Bottoms (frame is feet to waist, face not in frame) |
 | **Background** | `isolated on pure white background` | Never change |
 | **Focus** | `focus on the top` | Change per category |
+
+### Body description by tier (confidence)
+
+**Tier 0 (reqConf 0):** Kıyafet “herkese uygun” hissi verdiği için model betimlemesi nötr kalır.
+
+- **Model:** `A young fit woman`
+
+**Tier 1 ve üzeri (reqConf 20+):** Daha açık / vurgulu parçalarda görselde kadın vücudu oranları belirgin (göğüs, kalça) olacak şekilde yazılır. Prompt’un başındaki model cümlesi buna göre değişir.
+
+- **Tops / üst beden vurgulu:** `A young fit woman with voluptuous and perky bust`
+- **Bottoms / kalça vurgulu:** `A young fit woman with full hips and rounded butt`
+- **Hem üst hem alt vurgulu (dress, bodysuit vb.):** `A young fit woman with voluptuous bust and full hips`
+
+Örnek (Tier 1 top):  
+`1:1. A young fit woman with voluptuous and perky bust wearing a black racerback tank...`
+
+Örnek (Tier 2 bottom):  
+`1:1. A young fit woman with full hips and rounded butt wearing high-waist shorts...`
+
+**Kural:** Item’da tier tag’i varsa (`mild`, `revealing`, `daring`, `bold`, `erotic`, `lewd`) veya reqConfidence 20+ ise prompt’ta yukarıdaki vücut betimlemelerinden uygun olanı kullan; Tier 0 item’larda sadece `A young fit woman` kullan.
 
 ### Prompt Pairing by Category
 
 | Category | Pairing | Focus | Frame |
 |---|---|---|---|
 | **Tops** | `paired with dark fitted jeans` | `focus on the top` | `hips to shoulders` |
-| **Bottoms** | `paired with a simple white fitted tee` | `focus on the bottom` | `feet to hips` or `knees to waist` |
+| **Bottoms** | `paired with a simple white fitted tee` | `focus on the bottom` | `framed from hips to feet, full bottom garment visible, frame cuts at waist` ← tops'taki `framed from hips to shoulders, full top visible, frame starts below nose` yapısının tam aynası |
 | **Dresses** | No pairing | `focus on the dress` | `knees to shoulders` or `thighs to shoulders` |
 | **Shoes** | `paired with dark fitted jeans` | `focus on the shoes` | `floor to mid-calf` |
 | **Coats** | `over a simple white tee and dark fitted jeans` | `focus on the coat` | `hips to shoulders` or `thighs to shoulders` |
@@ -419,13 +453,14 @@ Areas: `neck and collarbones` (necklaces), `ear` (earrings), `wrist` (bracelets)
 ### Prompt Rules
 
 1. **Describe the actual garment in detail**: material, color, cut, neckline, sleeve type, special features
-2. **One mood/style word at the end** before the period: `cozy`, `edgy`, `refined`, `dramatic`, `sleek`, `romantic`, `provocative`, `luxurious`, etc.
+2. **One mood/style word at the end** before the period: `cozy`, `edgy`, `refined`, etc. **Bottoms:** mood word yok; **11.png standard:** `standing still with hands at hips` + `framed from mid-torso to ankles, bottom garment dominates the frame` + `Studio lighting, isolated on pure white background, focus on the bottom garment.`
 3. **Never mention brand names** in prompts
 4. **Color must match** the item name/ID
-5. **For revealing items**, describe what's exposed: "showing cleavage", "exposing back", "showing midriff"
-6. **For layered items** (blazer over tee, cardigan over cami), describe both layers
-7. **For Hillcrest items**, emphasize quality materials and construction details
-8. **For Eros items**, emphasize the provocative/fetish aesthetic directly
+5. **Body description by tier:** Tier 0 → `A young fit woman`. Tier 1+ (confidence 20+) → vücut oranları belirgin: tops için `voluptuous and perky bust`, bottoms için `full hips and rounded butt`, dress/bodysuit için her ikisi. Bkz. "Body description by tier" yukarıda.
+6. **For revealing items**, describe what's exposed: "showing cleavage", "exposing back", "showing midriff"
+7. **For layered items** (blazer over tee, cardigan over cami), describe both layers
+8. **For Hillcrest items**, emphasize quality materials and construction details
+9. **For Eros items**, emphasize the provocative/fetish aesthetic directly
 
 ---
 
@@ -510,8 +545,8 @@ Each store file follows this exact structure:
 
 | Category | Total Target | Northline | VERA | Fifth Ave | FastBreak | Silk&Lace | Intimate | Luxe | Diamond | Other |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **Tops** | ~158 | 50 | 55 | 38 | 15 | — | — | — | — | — |
-| **Bottoms** | ~132-152 | 45-50 | 45-50 | 30-38 | 12 | — | — | — | — | — |
+| **Tops** | 175 | 50 | 55 | 38 | 32 | — | — | — | — | — |
+| **Bottoms** | 149 | 43 | 47 | 33 | 26 | — | — | — | — | — |
 | **Dresses** | ~40-50 | 15 | 18 | 15 | — | — | — | — | — | — |
 | **Coats** | ~15-20 | 6 | 7 | 7 | — | — | — | — | — | — |
 | **Shoes** | 110 ✅ | — | — | — | 15 | — | — | — | — | StepUp(38), Stiletto(57) |
@@ -523,6 +558,30 @@ Each store file follows this exact structure:
 | **Garter** | ~4-6 | — | — | — | — | — | 4-6 | — | — | — |
 | **Bags** | ~14-18 | — | — | — | — | — | — | 14-18 | — | — |
 | **Jewelry** | ~40-50 | — | — | — | — | — | — | — | 40-50 | — |
+
+### Tops DB Snapshot (Variant B — active)
+
+Kaynak: `1Developer/ShopMd/1- tops (malldone)`. FastBreak için kullanılan dosya: `tops-sport-store.md`.
+
+| Mağaza | Dosya | Toplam | T0 | T1 | T2 | T3 | T4 |
+|--------|-------|-------:|---:|---:|---:|---:|---:|
+| Northline Apparel | `tops-northline-apparel.md` | 50 | 30 | 14 | 5 | 1 | 0 |
+| VERA Mode | `tops-vera-mode.md` | 55 | 15 | 15 | 14 | 9 | 2 |
+| Fifth Avenue Wear | `tops-fifth-avenue-wear.md` | 38 | 14 | 6 | 10 | 5 | 3 |
+| FastBreak Athletics | `tops-sport-store.md` | 32 | 15 | 11 | 5 | 1 | 0 |
+| **TOPLAM** | | **175** | **74** | **46** | **34** | **16** | **5** |
+
+### Bottoms DB Snapshot (Mall — tamamlandı)
+
+Kaynak: `1Developer/ShopMd/2- bottoms (malldone)`.
+
+| Mağaza | Dosya | Toplam | T0 | T1 | T2 | T3 | T4 |
+|--------|-------|-------:|---:|---:|---:|---:|---:|
+| Northline Apparel | `bottoms-northline-apparel.md` | 43 | 26 | 9 | 6 | 2 | 0 |
+| VERA Mode | `bottoms-vera-mode.md` | 47 | 11 | 12 | 12 | 8 | 4 |
+| Fifth Avenue Wear | `bottoms-fifth-avenue-wear.md` | 33 | 12 | 4 | 9 | 5 | 3 |
+| FastBreak Athletics | `bottoms-fastbreak-athletics.md` | 26 | 8 | 6 | 5 | 5 | 2 |
+| **TOPLAM** | | **149** | **57** | **31** | **32** | **20** | **9** |
 
 ## Hillcrest Targets (Future)
 
@@ -601,7 +660,8 @@ Before finalizing any catalog file, verify:
 - [ ] **Quality field** included ONLY for mixed-quality stores (refer to Section 6)
 - [ ] **Each item has exactly ONE tier tag** (or none for Tier 0)
 - [ ] **No tier exceeds store's max tier** (refer to Section 3 tier limits)
-- [ ] **Style tags are appropriate** for the tier level (refer to Section 5)
+- [ ] **Every item has a `**Tags:**` line** (tier + context + style; Section 5)
+- [ ] **Style/personality tags** used where they fit (so wardrobe "Overall Style" shows correctly)
 - [ ] **`work` tag only on Tier 0** items (rarely Tier 1)
 - [ ] **`luxury` tag only on Hillcrest** items
 - [ ] **`fetish`/`costume` tag only on Eros** items

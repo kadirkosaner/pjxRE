@@ -1,20 +1,6 @@
 <<nobr>>
 <<set $location = "storeLingerieB">>
-<<set _shopItems = [
-    "bra_lace_black_matching",
-    "bra_lace_red_matching",
-    "bra_strappy_silver",
-    "panty_lace_black_matching",
-    "panty_lace_red_matching",
-    "panty_strappy_silver",
-    "babydoll_lace_black",
-    "chemise_silk_champagne",
-    "robe_sheer_lace_trim",
-    "garter_belt_black",
-    "bodysuit_lace_black",
-    "bodysuit_silk_cream",
-    "teddy_lace_black"
-]>>
+<<set _shopItems = []>>
 <<updateCharacterLocations>>
 <<shop "Intimate Secrets" "Premium Lingerie & Bodysuits" _shopItems "floorSecond">>
 <</nobr>>
