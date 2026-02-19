@@ -1,6 +1,8 @@
 /* ==========================================
    PHONE INDEX - Main entry, overlay, events
 ========================================== */
+/* Debug swap number flow: set window.DEBUG_PHONE_SWAP = true in console to see [PhoneSwap] logs */
+if (typeof window.DEBUG_PHONE_SWAP === 'undefined') window.DEBUG_PHONE_SWAP = true;
 
 var PhoneAPI = null;
 var phoneViewState = { app: null, sub: 'list', threadCharId: null, pickerFor: null, meetup: null, calendarOffset: 0, galleryFolder: null, fotogramSub: 'feed', fotogramDmThread: null, fotogramSharePreview: null, fotogramPostDetail: null, pendingTopicChoice: null, pendingTopicChoicePhotoPick: null };
@@ -887,10 +889,17 @@ function createPhoneOverlay() {
         if (action === 'promote') {
             var canSwap = (typeof canUseSwapInFotogramDm === 'function') ? canUseSwapInFotogramDm(vars) : true;
             if (!canSwap) {
-                if (typeof Engine !== 'undefined' && Engine.wiki) Engine.wiki('<<notify>>You are not ready to swap numbers yet.<</notify>>');
+                var notifEng = (typeof Engine !== 'undefined' && Engine.wiki) ? Engine : (window.parent && window.parent.Engine && window.parent.Engine.wiki ? window.parent.Engine : null);
+                if (notifEng && notifEng.wiki) notifEng.wiki('<<notify>>You are not ready to swap numbers yet.<</notify>>');
                 return;
             }
-            if (typeof Engine !== 'undefined' && Engine.wiki) Engine.wiki('<<phonePromoteContact "' + dmId + '">>');
+            var promoteEng = (typeof Engine !== 'undefined' && Engine.wiki) ? Engine : (window.parent && window.parent.Engine && window.parent.Engine.wiki ? window.parent.Engine : null);
+            if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] promote click dmId=" + dmId, "promoteEng=" + (promoteEng ? "yes" : "NO"));
+            if (typeof window.fdmEnsurePromotedFromDm === 'function') {
+                window.fdmEnsurePromotedFromDm(vars, dmId);
+            } else if (promoteEng && promoteEng.wiki) {
+                promoteEng.wiki('<<phonePromoteContact "' + dmId + '">>');
+            }
             phoneViewState.fotogramDmThread = null;
             $phone('#phone-app-view-title').text('Messages');
             $phone('#phone-app-view-content').html(getAppContent('fotogram', vars));
@@ -952,8 +961,9 @@ function createPhoneOverlay() {
                     var st = vars.characters && vars.characters[id];
                     return !!(def && def.generatedFromPhone && st && st.firstMet);
                 };
-                vars.phoneFotogramRandomSwapIds = vars.phoneFotogramRandomSwapIds.filter(isActiveFotogramRandom).slice(0, 10);
-                var canCreateFotogramRandom = function () { return vars.phoneFotogramRandomSwapIds.length < 10; };
+                var maxSwap = (typeof window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX !== 'undefined' && Number.isFinite(window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX)) ? window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX : 10;
+                vars.phoneFotogramRandomSwapIds = vars.phoneFotogramRandomSwapIds.filter(isActiveFotogramRandom).slice(0, maxSwap);
+                var canCreateFotogramRandom = function () { return vars.phoneFotogramRandomSwapIds.length < maxSwap; };
                 var markFotogramFirstMet = function (id) {
                     if (!id) return;
                     vars.characters = vars.characters || {};
@@ -964,7 +974,12 @@ function createPhoneOverlay() {
                     }
                 };
                 var eng = (typeof Engine !== 'undefined' && Engine.wiki) ? Engine : (window.parent && window.parent.Engine && window.parent.Engine.wiki ? window.parent.Engine : null);
-                if (eng && eng.wiki) eng.wiki('<<phonePromoteContact "' + dmId + '">>');
+                if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] reply isSwapReply path dmId=" + dmId, "eng=" + (eng ? "yes" : "NO"));
+                if (typeof window.fdmEnsurePromotedFromDm === 'function') {
+                    window.fdmEnsurePromotedFromDm(vars, dmId);
+                } else if (eng && eng.wiki) {
+                    eng.wiki('<<phonePromoteContact "' + dmId + '">>');
+                }
                 var promotedMap = (PhoneAPI.State && PhoneAPI.State.variables && PhoneAPI.State.variables.phoneContactPromoted) || {};
                 var promotedId = promotedMap ? promotedMap[dmId] : null;
                 var allDms = (PhoneAPI.State && PhoneAPI.State.variables && PhoneAPI.State.variables.phoneFotogramDMs) || [];
@@ -1123,8 +1138,9 @@ function createPhoneOverlay() {
                 if (vars.phoneContactsUnlocked.indexOf(promotedId) === -1) vars.phoneContactsUnlocked.push(promotedId);
                 markFotogramFirstMet(promotedId);
                 var promotedDef = vars.phoneGeneratedContacts && vars.phoneGeneratedContacts[promotedId];
+                var maxSwapIdx = (typeof window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX !== 'undefined' && Number.isFinite(window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX)) ? window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX : 10;
                 if (promotedDef && promotedDef.generatedFromPhone && vars.phoneFotogramRandomSwapIds.indexOf(promotedId) === -1) {
-                    if (vars.phoneFotogramRandomSwapIds.length < 10) vars.phoneFotogramRandomSwapIds.push(promotedId);
+                    if (vars.phoneFotogramRandomSwapIds.length < maxSwapIdx) vars.phoneFotogramRandomSwapIds.push(promotedId);
                 }
                 vars.phoneConversations = vars.phoneConversations || {};
                 if (!vars.phoneConversations[promotedId] && dmEntry) {

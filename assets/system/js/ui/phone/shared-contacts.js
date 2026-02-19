@@ -2,6 +2,9 @@
    PHONE SHARED CONTACTS - Contact list, block
 ========================================== */
 
+/** Max number of Fotogram random swap contacts (used in index.js, relations.js, PhoneWidgets.twee). */
+window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX = 10;
+
 function getPhoneContactName(charId, vars) {
     if (!charId) return '';
     return getPhoneContactFullName(charId, vars);

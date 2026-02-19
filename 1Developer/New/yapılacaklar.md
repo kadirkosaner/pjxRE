@@ -1,4 +1,3 @@
-topLacePanelWhite @top-vera-mode kalındı
 
 - dinersRuby Check yap.
 - Mirror check.
@@ -11,7 +10,6 @@ topLacePanelWhite @top-vera-mode kalındı
 - wardrobeye bikini swimsuit eklenecek
 - Fotogramdaki text düzenlemeleri.
 - comment ve dmlerdeki random karakterlere avatarlar gelecek.
-- Phone walktrou f12 incelenek
 - wardrobe revize tam hal !
 - Read system için bir kaç kitap ve dergi. Sonrasında brother pc için bir kaç aksiyon tuşu ardından evde randomize oluşan 2-3 event ve park alanına biraz giriş event olarak ve iş tarafına dishwashinge bir kaç event ve main yeni teasing sceneler koymayı düşünüyorum ve iş arkadaşları için talk eventleri koymayı düşünüyorum
 

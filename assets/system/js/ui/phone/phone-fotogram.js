@@ -591,32 +591,40 @@ function phoneRenderFotogramApp(vars) {
     return html;
 }
 
-window.initFotogramPreviewVideoPlayer = function (vars) {
-    if (typeof $ === 'undefined') return;
-    var $view = $('#phone-app-view-content');
-    if (!$view.length) return;
-    var $container = $view.find('.phone-fotogram-preview-video-container').first();
-    if (!$container.length) return;
+/**
+ * Shared video player init for Fotogram (preview + feed). Options: muted, volumeFromSettings, eventNamespace.
+ * @param {jQuery} $container - Container with data-loop, data-autoplay, child video and .play-overlay
+ * @param {Object} options - { muted: boolean, volumeFromSettings: boolean, eventNamespace: string }
+ * @param {Object} vars - State.variables for videoSettings when volumeFromSettings true
+ */
+function initPhoneFotogramVideoPlayer($container, options, vars) {
+    if (!$container || !$container.length) return;
     var $video = $container.find('video').first();
     var $overlay = $container.find('.play-overlay').first();
     if (!$video.length) return;
     var videoEl = $video[0];
+    var opts = options || {};
+    var ns = opts.eventNamespace || 'phoneFgVid';
     var loopEnabled = $container.attr('data-loop') === '1';
     var autoplayEnabled = $container.attr('data-autoplay') === '1';
     videoEl.loop = loopEnabled;
-    if (vars && vars.videoSettings) {
+    if (opts.muted) {
+        videoEl.muted = true;
+        videoEl.defaultMuted = true;
+        videoEl.volume = 0;
+    } else if (opts.volumeFromSettings && vars && vars.videoSettings) {
         var master = vars.videoSettings.masterVolume !== undefined ? Number(vars.videoSettings.masterVolume) : 100;
         var videoVol = vars.videoSettings.videoVolume !== undefined ? Number(vars.videoSettings.videoVolume) : 100;
         videoEl.volume = Math.max(0, Math.min(1, (master * videoVol) / 10000));
     }
-    $container.off('click.phoneVid').on('click.phoneVid', function () {
+    $container.off('click.' + ns).on('click.' + ns, function () {
         if (videoEl.paused) videoEl.play();
         else videoEl.pause();
     });
-    $video.off('play.phoneVid playing.phoneVid').on('play.phoneVid playing.phoneVid', function () {
+    $video.off('play.' + ns + ' playing.' + ns).on('play.' + ns + ' playing.' + ns, function () {
         $overlay.addClass('hidden');
     });
-    $video.off('pause.phoneVid ended.phoneVid').on('pause.phoneVid ended.phoneVid', function () {
+    $video.off('pause.' + ns + ' ended.' + ns).on('pause.' + ns + ' ended.' + ns, function () {
         if (!videoEl.ended || loopEnabled) $overlay.removeClass('hidden');
     });
     if (autoplayEnabled) {
@@ -627,6 +635,14 @@ window.initFotogramPreviewVideoPlayer = function (vars) {
     } else {
         $overlay.removeClass('hidden');
     }
+}
+
+window.initFotogramPreviewVideoPlayer = function (vars) {
+    if (typeof $ === 'undefined') return;
+    var $view = $('#phone-app-view-content');
+    if (!$view.length) return;
+    var $container = $view.find('.phone-fotogram-preview-video-container').first();
+    initPhoneFotogramVideoPlayer($container, { muted: false, volumeFromSettings: true, eventNamespace: 'phoneVid' }, vars);
 };
 
 window.initFotogramFeedVideoPlayers = function (vars) {
@@ -634,35 +650,7 @@ window.initFotogramFeedVideoPlayers = function (vars) {
     var $view = $('#phone-app-view-content');
     if (!$view.length) return;
     $view.find('.phone-fotogram-post-video-container').each(function () {
-        var $container = $(this);
-        var $video = $container.find('video').first();
-        var $overlay = $container.find('.play-overlay').first();
-        if (!$video.length) return;
-        var videoEl = $video[0];
-        var loopEnabled = $container.attr('data-loop') === '1';
-        var autoplayEnabled = $container.attr('data-autoplay') === '1';
-        videoEl.loop = loopEnabled;
-        videoEl.muted = true;
-        videoEl.defaultMuted = true;
-        videoEl.volume = 0;
-        $container.off('click.phoneFgFeed').on('click.phoneFgFeed', function () {
-            if (videoEl.paused) videoEl.play();
-            else videoEl.pause();
-        });
-        $video.off('play.phoneFgFeed playing.phoneFgFeed').on('play.phoneFgFeed playing.phoneFgFeed', function () {
-            $overlay.addClass('hidden');
-        });
-        $video.off('pause.phoneFgFeed ended.phoneFgFeed').on('pause.phoneFgFeed ended.phoneFgFeed', function () {
-            if (!videoEl.ended || loopEnabled) $overlay.removeClass('hidden');
-        });
-        if (autoplayEnabled) {
-            var playPromise = videoEl.play();
-            if (playPromise && typeof playPromise.catch === 'function') {
-                playPromise.catch(function () { $overlay.removeClass('hidden'); });
-            }
-        } else {
-            $overlay.removeClass('hidden');
-        }
+        initPhoneFotogramVideoPlayer($(this), { muted: true, volumeFromSettings: false, eventNamespace: 'phoneFgFeed' }, vars);
     });
 };
 

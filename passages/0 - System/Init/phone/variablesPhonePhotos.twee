@@ -5,10 +5,7 @@
    - setup.fdmPlayerPhotos for Fotogram DM player sends (interactive DM – below)
 
    PLAYER DM ASSETS – menu order: Normal | Sexy | Nude | Ass | Boobs | Pussy | no
-   - normal → p_normal_01.webp, p_normal_02.webp, p_normal_03.webp
-   - sexy   → p_sexy_01.webp, p_sexy_02.webp, p_sexy_01.mp4, p_sexy_02.mp4
-   - nude   → p_nude_01.webp, p_nude_02.webp, p_nude_01.mp4, p_nude_02.mp4
-   (ass, boobs, pussy reuse nude/sexy paths.) */
+   Actual paths below (e.g. photoPlayerSexy1.webp). Legacy p_<style>_01 names are resolved via fallback in phone-fotogram-dm.js. */
 
 <<set setup.phonePhotos = {
 	mother: [
@@ -28,22 +25,46 @@
 <<set setup.phoneSelfiePaths = setup.phonePhotos>>
 
 <<run setup.fotogramDMPhotoPool = {
-  /* spicy: erkek için yeterli; sexting sadece kadın (erkek sexting yok). */
   spicy: {
     male: {
       white: ["assets/content/phone/dm/male/spicy/white/photoSpicyWhite1.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite2.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite3.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite4.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite5.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite6.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite7.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite8.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite9.webp","assets/content/phone/dm/male/spicy/white/photoSpicyWhite10.webp"],
       black: ["assets/content/phone/dm/male/spicy/black/photoSpicyBlack1.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack2.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack3.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack4.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack5.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack6.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack7.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack8.webp","assets/content/phone/dm/male/spicy/black/photoSpicyBlack9.webp"]
     },
     female: {
-      white: ["assets/content/phone/dm/female/spicy/white/spicy_f_w_01.webp"]
+      white: ["assets/content/phone/dm/female/spicy/photoFemaleSpicy1.webp", 
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy2.webp", 
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy3.webp", 
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy4.webp", 
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy5.webp", 
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy6.webp", 
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy7.webp",
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy9.webp",
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy10.webp",
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy11.webp",
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy12.webp",
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy13.webp",
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy14.webp",
+              "assets/content/phone/dm/female/spicy/photoFemaleSpicy15.webp",
+      { path:"assets/content/phone/dm/female/spicy/videoFemaleSpicy1.mp4", kind:"video" },
+      { path:"assets/content/phone/dm/female/spicy/videoFemaleSpicy2.mp4", kind:"video" }
+      ]
     }
   },
   sexting: {
     female: {
-      white: ["assets/content/phone/dm/female/sexting/white/sext_f_w_01.webp", { path: "assets/content/phone/dm/female/sexting/white/sext_f_w_01.mp4", kind: "video" }]
+      white: ["assets/content/phone/dm/female/sexting/photoFemaleSexting1.webp", 
+              "assets/content/phone/dm/female/sexting/photoFemaleSexting2.webp", 
+              "assets/content/phone/dm/female/sexting/photoFemaleSexting3.webp", 
+              "assets/content/phone/dm/female/sexting/photoFemaleSexting4.webp", 
+              "assets/content/phone/dm/female/sexting/photoFemaleSexting5.webp", 
+              "assets/content/phone/dm/female/sexting/photoFemaleSexting6.webp", 
+      { path: "assets/content/phone/dm/female/sexting/videoFemaleSexting1.mp4", kind: "video" },
+      { path: "assets/content/phone/dm/female/sexting/videoFemaleSexting2.mp4", kind: "video" },
+      { path: "assets/content/phone/dm/female/sexting/videoFemaleSexting3.mp4", kind: "video" },
+      { path: "assets/content/phone/dm/female/sexting/videoFemaleSexting4.mp4", kind: "video" }
+      ]
     }
   },
-  /* Erkek anon – dickpic flow (cock = dick pic + masturbation video aynı pool). */
   cock: {
     white: ["assets/content/phone/dm/male/cock/white/photoCockWhite1.webp","assets/content/phone/dm/male/cock/white/photoCockWhite2.webp","assets/content/phone/dm/male/cock/white/photoCockWhite3.webp","assets/content/phone/dm/male/cock/white/photoCockWhite4.webp","assets/content/phone/dm/male/cock/white/photoCockWhite5.webp","assets/content/phone/dm/male/cock/white/photoCockWhite6.webp","assets/content/phone/dm/male/cock/white/photoCockWhite7.webp","assets/content/phone/dm/male/cock/white/photoCockWhite8.webp","assets/content/phone/dm/male/cock/white/photoCockWhite9.jpeg","assets/content/phone/dm/male/cock/white/photoCockWhite10.jpg",{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite1.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite2.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite3.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite4.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite5.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite6.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite7.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite8.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite9.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite10.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/white/videoCockWhite11.mp4", kind: "video" }],
     black: ["assets/content/phone/dm/male/cock/black/photoCockBlack1.webp","assets/content/phone/dm/male/cock/black/photoCockBlack2.webp","assets/content/phone/dm/male/cock/black/photoCockBlack3.webp","assets/content/phone/dm/male/cock/black/photoCockBlack4.webp","assets/content/phone/dm/male/cock/black/photoCockBlack5.webp","assets/content/phone/dm/male/cock/black/photoCockBlack6.webp","assets/content/phone/dm/male/cock/black/photoCockBlack7.webp","assets/content/phone/dm/male/cock/black/photoCockBlack8.webp","assets/content/phone/dm/male/cock/black/photoCockBlack9.webp","assets/content/phone/dm/male/cock/black/photoCockBlack10.webp",{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack1.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack2.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack3.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack4.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack5.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack6.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack7.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack8.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack9.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack10.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cock/black/videoCockBlack11.mp4", kind: "video" }]
@@ -52,47 +73,100 @@
     white: [{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite1.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite2.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite3.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite4.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite5.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite6.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite7.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite8.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite9.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite10.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/white/videoCumWhite11.mp4", kind: "video" }],
     black: [{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack1.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack2.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack3.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack4.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack5.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack6.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack7.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack8.mp4", kind: "video" },{ path: "assets/content/phone/dm/male/cum/black/videoCumBlack9.mp4", kind: "video" }]
   },
-  /* Kadın anon – sexting pool + masturbation (white only). */
   female_masturbation: {
-    white: [{ path: "assets/content/phone/dm/female/masturbation/white/fem_mast_w_01.mp4", kind: "video" }]
+    white: [{ path: "assets/content/phone/dm/female/masturbation/FemaleMasturbation1.mp4", kind: "video" },
+            { path: "assets/content/phone/dm/female/masturbation/FemaleMasturbation2.mp4", kind: "video" },
+            { path: "assets/content/phone/dm/female/masturbation/FemaleMasturbation3.mp4", kind: "video" },
+            { path: "assets/content/phone/dm/female/masturbation/FemaleMasturbation4.mp4", kind: "video" },
+            { path: "assets/content/phone/dm/female/masturbation/FemaleMasturbation5.mp4", kind: "video" },
+            { path: "assets/content/phone/dm/female/masturbation/FemaleMasturbation6.mp4", kind: "video" },
+            { path: "assets/content/phone/dm/female/masturbation/FemaleMasturbation7.mp4", kind: "video" },
+            { path: "assets/content/phone/dm/female/masturbation/FemaleMasturbation8.mp4", kind: "video" },
+            { path: "assets/content/phone/dm/female/masturbation/FemaleMasturbation9.mp4", kind: "video" }
+    ]
   }
 }>>
 
 /* Fotogram interactive DM – player (female protagonist) photo/video pool. Mix webp + video per category. */
 <<run setup.fdmPlayerPhotos = {
   normal: [
-    "assets/content/phone/dm/player/normal/p_normal_01.webp",
-    "assets/content/phone/dm/player/normal/p_normal_02.webp",
-    "assets/content/phone/dm/player/normal/p_normal_03.webp"
+    "assets/content/phone/dm/player/normal/photoPlayerNormal1.webp",
+    "assets/content/phone/dm/player/normal/photoPlayerNormal2.webp",
+    "assets/content/phone/dm/player/normal/photoPlayerNormal3.webp",
+    "assets/content/phone/dm/player/normal/photoPlayerNormal4.webp",
+    "assets/content/phone/dm/player/normal/photoPlayerNormal5.webp",
+    "assets/content/phone/dm/player/normal/photoPlayerNormal6.webp",
+    "assets/content/phone/dm/player/normal/photoPlayerNormal7.webp",
+    "assets/content/phone/dm/player/normal/photoPlayerNormal8.webp"
+
   ],
   sexy: [
-    "assets/content/phone/dm/player/sexy/p_sexy_01.webp",
-    "assets/content/phone/dm/player/sexy/p_sexy_02.webp",
-    { path:"assets/content/phone/dm/player/sexy/p_sexy_01.mp4", kind:"video" },
-    { path:"assets/content/phone/dm/player/sexy/p_sexy_02.mp4", kind:"video" }
+    "assets/content/phone/dm/player/sexy/photoPlayerSexy1.webp",
+    "assets/content/phone/dm/player/sexy/photoPlayerSexy2.webp",
+    "assets/content/phone/dm/player/sexy/photoPlayerSexy3.webp",
+    "assets/content/phone/dm/player/sexy/photoPlayerSexy4.webp",
+    "assets/content/phone/dm/player/sexy/photoPlayerSexy5.webp",
+    "assets/content/phone/dm/player/sexy/photoPlayerSexy6.webp",
+    "assets/content/phone/dm/player/sexy/photoPlayerSexy7.webp",
+    "assets/content/phone/dm/player/sexy/photoPlayerSexy8.webp",
+    "assets/content/phone/dm/player/sexy/photoPlayerSexy9.webp",
   ],
   nude: [
-    "assets/content/phone/dm/player/nude/p_nude_01.webp",
-    "assets/content/phone/dm/player/nude/p_nude_02.webp",
-    { path:"assets/content/phone/dm/player/nude/p_nude_01.mp4", kind:"video" },
-    { path:"assets/content/phone/dm/player/nude/p_nude_02.mp4", kind:"video" }
+    "assets/content/phone/dm/player/nude/photoPlayerNude1.webp",
+    "assets/content/phone/dm/player/nude/photoPlayerNude2.webp",
+    "assets/content/phone/dm/player/nude/photoPlayerNude3.webp",
+    "assets/content/phone/dm/player/nude/photoPlayerNude4.webp",
+    "assets/content/phone/dm/player/nude/photoPlayerNude5.webp",
+    "assets/content/phone/dm/player/nude/photoPlayerNude6.webp",
+    "assets/content/phone/dm/player/nude/photoPlayerNude7.webp",
+    { path:"assets/content/phone/dm/player/nude/videoPlayerNude1.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/nude/videoPlayerNude2.mp4", kind:"video" }
   ],
   ass: [
-    "assets/content/phone/dm/player/nude/p_nude_01.webp",
-    "assets/content/phone/dm/player/nude/p_nude_02.webp",
-    { path:"assets/content/phone/dm/player/nude/p_nude_01.mp4", kind:"video" },
-    { path:"assets/content/phone/dm/player/nude/p_nude_02.mp4", kind:"video" }
+    "assets/content/phone/dm/player/ass/photoPlayerAss1.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss2.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss3.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss4.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss5.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss6.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss7.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss8.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss9.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss10.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss11.webp",
+    "assets/content/phone/dm/player/ass/photoPlayerAss12.webp",
+    { path:"assets/content/phone/dm/player/ass/videoPlayerAss1.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/ass/videoPlayerAss2.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/ass/videoPlayerAss3.mp4", kind:"video" }
   ],
   boobs: [
-    "assets/content/phone/dm/player/nude/p_nude_01.webp",
-    "assets/content/phone/dm/player/sexy/p_sexy_01.webp",
-    { path:"assets/content/phone/dm/player/nude/p_nude_01.mp4", kind:"video" },
-    { path:"assets/content/phone/dm/player/sexy/p_sexy_01.mp4", kind:"video" }
+    "assets/content/phone/dm/player/boobs/photoPlayerBoobs1.webp",
+    "assets/content/phone/dm/player/boobs/photoPlayerBoobs2.webp",
+    "assets/content/phone/dm/player/boobs/photoPlayerBoobs3.webp",
+    "assets/content/phone/dm/player/boobs/photoPlayerBoobs4.webp",
+    "assets/content/phone/dm/player/boobs/photoPlayerBoobs5.webp",
+    { path:"assets/content/phone/dm/player/boobs/videoPlayerBoobs1.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/boobs/videoPlayerBoobs2.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/boobs/videoPlayerBoobs3.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/boobs/videoPlayerBoobs4.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/boobs/videoPlayerBoobs5.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/boobs/videoPlayerBoobs6.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/boobs/videoPlayerBoobs7.mp4", kind:"video" }
   ],
   pussy: [
-    "assets/content/phone/dm/player/nude/p_nude_01.webp",
-    "assets/content/phone/dm/player/nude/p_nude_02.webp",
-    { path:"assets/content/phone/dm/player/nude/p_nude_01.mp4", kind:"video" },
-    { path:"assets/content/phone/dm/player/nude/p_nude_02.mp4", kind:"video" }
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy1.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy2.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy3.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy4.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy5.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy6.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy7.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy8.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy9.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy10.webp",
+    "assets/content/phone/dm/player/pussy/photoPlayerPussy11.webp",
+    { path:"assets/content/phone/dm/player/pussy/videoPlayerPussy1.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/pussy/videoPlayerPussy2.mp4", kind:"video" },
+    { path:"assets/content/phone/dm/player/pussy/videoPlayerPussy3.mp4", kind:"video" },
   ]
 }>>
