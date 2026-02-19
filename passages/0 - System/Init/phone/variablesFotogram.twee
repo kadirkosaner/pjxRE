@@ -38,3 +38,57 @@
 
 /* DM behavior is configured in dedicated DM files. */
 
+/* DM interactive runtime state defaults (used by fdmMakeState in JS). */
+<<run setup.fdmStateDefaults = {
+    turn: 0,
+    lastMsgType: 'opener',
+    lastMsgChoices: null,
+    lastAnonText: '',
+    currentChoices: null,
+    awaitingPhoto: false,
+    ended: false,
+    numberAsked: false,
+    numberRejected: false,
+    photoCooldownTurns: 0,
+    lastPlayerDelta: 0,
+    pushbackStreak: 0,
+    pressureDebt: 0,
+    lastPressureTurn: -99,
+    anonMsgUseCount: {},
+    recentAnonTypes: [],
+    recentAnon: [],
+    recentPlayer: [],
+    recentlyOfferedChoiceTexts: [],
+    playerPhotoCount: 0,
+    anonPhotoCount: 0,
+    usedMediaPaths: {},
+    usedMediaPathsInit: false,
+    lastAnonAttachmentCategory: '',
+    alreadySentStreak: 0,
+    mediaFlowIndex: 0,
+    mediaFlowCompleted: false,
+    lastPlayerPhotoCountForAnonMedia: -1
+}>>
+
+<<script>>
+setup.fdmMakeState = function (dm) {
+    var persona = (dm && dm.interactiveProfile && dm.interactiveProfile.persona)
+        ? dm.interactiveProfile.persona
+        : "lustful";
+    var personas = (setup && setup.fdmPersonas) ? setup.fdmPersonas : {};
+    var cfg = personas[persona] || {};
+    var defaults = (setup && setup.fdmStateDefaults && typeof setup.fdmStateDefaults === "object")
+        ? JSON.parse(JSON.stringify(setup.fdmStateDefaults))
+        : {};
+    var state = Object.assign({}, defaults);
+    state.persona = persona;
+    state.gender = String(cfg.gender || "male");
+    state.heat = Number.isFinite(Number(cfg.startHeat)) ? Number(cfg.startHeat) : 20;
+    if (state.heat < 0) state.heat = 0;
+    if (state.heat > 100) state.heat = 100;
+    state.heatMult = Number(cfg.heatMult != null ? cfg.heatMult : 1.0);
+    state.persistence = Number(cfg.persistence != null ? cfg.persistence : 3);
+    return state;
+};
+<</script>>
+

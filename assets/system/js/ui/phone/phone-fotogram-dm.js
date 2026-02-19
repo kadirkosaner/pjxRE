@@ -314,14 +314,62 @@ function fdmBuildMsgFromPoolEntry(entry, state, dm) {
     var resolved = fdmResolveTaggedText(obj.text, state);
     var text = String(resolved.text || '...');
     var category = obj.attachmentCategory || null;
+    var progressionCats = { spicy: true, cock: true, cum: true, sexting: true, female_masturbation: true };
+    var getProgression = function (persona) {
+        var p = String(persona || '');
+        return (p === 'flirty' || p === 'wild')
+            ? ['spicy', 'sexting', 'female_masturbation']
+            : ['spicy', 'cock', 'cum'];
+    };
     if (!category && resolved.wasExplicitTag && fdmShouldInferAttachment(obj)) {
         category = fdmInferAttachmentCategory(state, resolved.explicitId);
     }
     category = fdmNormalizeAttachmentCategory(category, state, obj);
+    var progression = getProgression(state && state.persona);
+    var progressionMode = !!(category && progressionCats[String(category || '')]);
+    if (progressionMode && state) {
+        if (state.mediaFlowCompleted === true) {
+            category = '';
+        } else {
+            var flowIndex = Number(state.mediaFlowIndex || 0);
+            if (!Number.isFinite(flowIndex) || flowIndex < 0) flowIndex = 0;
+            if (flowIndex >= progression.length) flowIndex = progression.length - 1;
+            category = progression[flowIndex];
+        }
+    }
     var att = null;
     if (category) {
         var opts = fdmGetAnonMedia(category, dm);
-        if (opts.length) att = fdmPick(opts);
+        var freshOpts = fdmFilterUnusedMedia(opts, state, dm);
+        if (freshOpts.length) att = fdmPick(freshOpts);
+    }
+    /* Do not regress media escalation (e.g. cum -> cock) within same DM thread. */
+    function fdmAttachmentTier(persona, cat) {
+        var p = String(persona || '');
+        var c = String(cat || '');
+        if (p === 'pervy' || p === 'lustful' || p === 'naive') {
+            if (c === 'spicy') return 1;
+            if (c === 'cock') return 2;
+            if (c === 'cum') return 3;
+        } else if (p === 'flirty' || p === 'wild') {
+            if (c === 'spicy') return 1;
+            if (c === 'sexting') return 2;
+            if (c === 'female_masturbation') return 3;
+        }
+        return 0;
+    }
+    var finalizedCategory = '';
+    if (att && state) {
+        var lastCat = String(state.lastAnonAttachmentCategory || '');
+        var nextCat = String(category || '');
+        var lastTier = fdmAttachmentTier(state.persona, lastCat);
+        var nextTier = fdmAttachmentTier(state.persona, nextCat);
+        if (lastTier > 0 && nextTier > 0 && nextTier < lastTier) {
+            att = null;
+        } else {
+            att = { path: att.path, kind: att.kind, category: nextCat };
+            finalizedCategory = nextCat;
+        }
     }
     /* Female path reciprocity: first media is free (opener/intro); after that wait for player's media before sending another. */
     if (att && state && (state.persona === 'flirty' || state.persona === 'wild')) {
@@ -332,6 +380,32 @@ function fdmBuildMsgFromPoolEntry(entry, state, dm) {
         } else {
             state.anonPhotoCount = anonPhotoCount + 1;
         }
+    }
+    /* Global guard: for each player photo step, anon can send at most one media.
+       Prevents back-to-back anon media (e.g. cock then cum) without a new player send. */
+    if (att && state) {
+        var pCountNow = Number(state.playerPhotoCount || 0);
+        var lastMediaStep = Number(state.lastPlayerPhotoCountForAnonMedia);
+        if (Number.isFinite(lastMediaStep) && lastMediaStep === pCountNow) {
+            att = null;
+        } else {
+            state.lastPlayerPhotoCountForAnonMedia = pCountNow;
+        }
+    }
+    /* Commit category progression only after all guards pass and attachment survives. */
+    if (att && state && finalizedCategory) {
+        state.lastAnonAttachmentCategory = finalizedCategory;
+        if (progressionMode && progression && progression.length) {
+            var atIndex = progression.indexOf(finalizedCategory);
+            if (atIndex >= 0 && atIndex < progression.length - 1) {
+                state.mediaFlowIndex = atIndex + 1;
+            } else if (atIndex === progression.length - 1) {
+                state.mediaFlowCompleted = true;
+            }
+        }
+    }
+    if (att && !String(text || '').trim()) {
+        text = "There you go.";
     }
     return { text: text, attachment: att };
 }
@@ -407,14 +481,53 @@ function fdmGetAnonMedia(cat, dm) {
     return entries.map(fdmNormAtt).filter(function(x) { return x && x.path; });
 }
 
-function fdmGetPlayerPhoto(style) {
+function fdmMediaPathKey(path) {
+    return String(path || '').trim();
+}
+
+function fdmLikelyMediaPath(text) {
+    return /\.(webp|jpg|jpeg|png|gif|mp4|webm|mov|ogg)$/i.test(String(text || ''));
+}
+
+function fdmEnsureUsedMediaMap(state, dm) {
+    if (!state) return {};
+    if (!state.usedMediaPaths || typeof state.usedMediaPaths !== 'object') state.usedMediaPaths = {};
+    if (state.usedMediaPathsInit) return state.usedMediaPaths;
+    var msgs = dm && Array.isArray(dm.messages) ? dm.messages : [];
+    for (var i = 0; i < msgs.length; i++) {
+        var m = msgs[i];
+        if (!m) continue;
+        if (m.attachment && m.attachment.path) {
+            state.usedMediaPaths[fdmMediaPathKey(m.attachment.path)] = true;
+        } else if (fdmLikelyMediaPath(m.text)) {
+            state.usedMediaPaths[fdmMediaPathKey(m.text)] = true;
+        }
+    }
+    state.usedMediaPathsInit = true;
+    return state.usedMediaPaths;
+}
+
+function fdmFilterUnusedMedia(attList, state, dm) {
+    if (!Array.isArray(attList) || !attList.length) return [];
+    var used = fdmEnsureUsedMediaMap(state, dm);
+    var fresh = attList.filter(function (att) {
+        var p = att && att.path ? fdmMediaPathKey(att.path) : '';
+        return p && !used[p];
+    });
+    return fresh.length ? fresh : [];
+}
+
+function fdmGetPlayerPhoto(style, state, dm) {
     var pool = (typeof setup !== 'undefined' && setup.fdmPlayerPhotos) ? setup.fdmPlayerPhotos : {};
     if (!Array.isArray(pool[style]) || pool[style].length === 0) return null;
-    var att = fdmNormAtt(fdmPick(pool[style]));
+    var normalized = pool[style].map(fdmNormAtt).filter(function (x) { return x && x.path; });
+    var available = fdmFilterUnusedMedia(normalized, state, dm);
+    if (!available.length) return null;
+    var att = fdmNormAtt(fdmPick(available));
     if (!att || !att.path) return null;
     /* Legacy: p_<style>_01.webp does not exist; use first pool entry with photoPlayer* name, else default path */
     if (/[/\\]p_(normal|sexy|nude|ass|boobs|pussy)_\d+\.(webp|mp4)$/i.test(att.path)) {
-        var arr = pool[style];
+        var arr = available;
         for (var i = 0; i < arr.length; i++) {
             var p = (typeof arr[i] === 'string') ? arr[i] : (arr[i] && arr[i].path) ? arr[i].path : '';
             if (p && /photoPlayer/i.test(p)) {
@@ -452,37 +565,23 @@ function fdmNumberAllowed(vars) {
 /* ── STATE ───────────────────────────────────────────────────────────── */
 
 function fdmMakeState(dm) {
+    if (typeof setup !== 'undefined' && typeof setup.fdmMakeState === 'function') {
+        return setup.fdmMakeState(dm);
+    }
+    /* Minimal fallback only; full schema lives in variablesFotogram.twee */
+    var defaults = (typeof setup !== 'undefined' && setup.fdmStateDefaults && typeof setup.fdmStateDefaults === 'object')
+        ? JSON.parse(JSON.stringify(setup.fdmStateDefaults))
+        : {};
     var persona = (dm && dm.interactiveProfile && dm.interactiveProfile.persona)
-        ? dm.interactiveProfile.persona : 'lustful';
+        ? dm.interactiveProfile.persona
+        : 'lustful';
     var cfg = fdmPersonaCfg(persona);
-    return {
-        persona:        persona,
-        gender:         String(cfg.gender || 'male'),
-        heat:           fdmClamp(cfg.startHeat || 20, 0, 100),
-        heatMult:       Number(cfg.heatMult != null ? cfg.heatMult : 1.0),
-        persistence:    Number(cfg.persistence != null ? cfg.persistence : 3),
-        turn:           0,
-        lastMsgType:    'opener',
-        lastMsgChoices: null,
-        lastAnonText:   '',
-        currentChoices: null,    /* v2: cached resolved choices for UI consistency */
-        awaitingPhoto:  false,
-        ended:          false,
-        numberAsked:    false,
-        numberRejected: false,
-        photoCooldownTurns: 0,
-        lastPlayerDelta: 0,
-        pushbackStreak: 0,
-        pressureDebt:   0,
-        lastPressureTurn: -99,
-        anonMsgUseCount: {},
-        recentAnonTypes: [],
-        recentAnon:     [],
-        recentPlayer:   [],
-        recentlyOfferedChoiceTexts: [],  /* avoid offering same choices next turn */
-        playerPhotoCount: 0,
-        anonPhotoCount: 0
-    };
+    defaults.persona = persona;
+    defaults.gender = String(cfg.gender || 'male');
+    defaults.heat = fdmClamp(cfg.startHeat || 20, 0, 100);
+    defaults.heatMult = Number(cfg.heatMult != null ? cfg.heatMult : 1.0);
+    defaults.persistence = Number(cfg.persistence != null ? cfg.persistence : 3);
+    return defaults;
 }
 
 function fdmGetDM(vars, id) {
@@ -495,10 +594,28 @@ function fdmGetDM(vars, id) {
 
 function fdmAddMsg(dm, from, text, att, vars) {
     if (!dm.messages) dm.messages = [];
+    var msgText = text || '';
+    var msgAtt = att || null;
     dm.messages.push({
-        from: from, text: text || '', time: fdmTime(vars),
-        read: from === 'me', attachment: att || null
+        from: from, text: msgText, time: fdmTime(vars),
+        read: from === 'me', attachment: msgAtt
     });
+    if (dm.flowState && msgAtt && msgAtt.path) {
+        var used = fdmEnsureUsedMediaMap(dm.flowState, dm);
+        used[fdmMediaPathKey(msgAtt.path)] = true;
+    }
+    if (msgAtt && msgAtt.path && typeof window.phoneGalleryAddItem === 'function') {
+        var kind = String(msgAtt.kind || '').toLowerCase();
+        if (!kind) kind = /\.mp4$|\.webm$|\.mov$|\.ogg$/i.test(String(msgAtt.path || '')) ? 'video' : 'photo';
+        window.phoneGalleryAddItem(msgAtt.path, {
+            scope: 'fotogram',
+            direction: from === 'me' ? 'sended' : 'received',
+            kind: kind,
+            quality: 50,
+            from: from === 'me' ? 'player' : (dm.anonId || dm.id || 'anon'),
+            flags: ['fotogram', from === 'me' ? 'sended' : 'received']
+        });
+    }
     if (dm.messages.length > 100) dm.messages.splice(0, dm.messages.length - 100);
 }
 
@@ -530,6 +647,33 @@ function fdmResolveAnonMsg(state, dm) {
     if (state.numberRejected && safeRange === 'fire') safeRange = 'hot';
     var pool = fdmGetMsgPool(state.persona, safeRange);
     if (!pool.length) return null;
+
+    /* Final stage reached: stop asking for more media, continue as text/number/close only. */
+    if (state.mediaFlowCompleted === true) {
+        pool = pool.filter(function (e) {
+            var t = e && typeof e === 'object' ? String(e.type || '').toLowerCase() : '';
+            return t !== 'photo_request' && t !== 'photo_hint' && t !== 'cock_opener' && t !== 'explicit';
+        });
+        if (!pool.length) {
+            var cool = fdmGetMsgPool(state.persona, 'cold')
+                .concat(fdmGetMsgPool(state.persona, 'warm'))
+                .concat(fdmGetMsgPool(state.persona, 'hot'));
+            pool = cool.filter(function (e) {
+                var t = e && typeof e === 'object' ? String(e.type || '').toLowerCase() : '';
+                return t !== 'photo_request' && t !== 'photo_hint' && t !== 'cock_opener' && t !== 'explicit';
+            });
+            if (!pool.length) return fdmMakeForcedCloseMsg(state);
+        }
+    }
+
+    /* If player repeatedly says "already sent", hard-block photo ask loops for this phase. */
+    if (Number(state.alreadySentStreak || 0) > 0) {
+        var noAskPool = pool.filter(function (e) {
+            var t = e && typeof e === 'object' ? String(e.type || '') : '';
+            return t !== 'photo_request' && t !== 'photo_hint';
+        });
+        if (noAskPool.length) pool = noAskPool;
+    }
 
     /* Avoid repeating same (resolved) message — filter by recentAnon */
     pool = fdmFilterPoolByRecentResolved(pool, state);
@@ -571,7 +715,15 @@ function fdmResolveAnonMsg(state, dm) {
         }
     }
 
-    /* Female persona: "send one more" only after player has sent at least one photo */
+    /* Any persona: "send one more" only after player has sent at least one real media */
+    var anyPlayerPhotoCount = Number(state.playerPhotoCount || 0);
+    if (anyPlayerPhotoCount < 1) {
+        pool = pool.filter(function(e) { return !(e && e.oneMoreRequest === true); });
+        if (!pool.length) pool = fdmGetMsgPool(state.persona, safeRange).slice();
+        pool = fdmFilterPoolByRecentResolved(pool, state);
+    }
+
+    /* Female persona: additional protection before first player media */
     var pPhotoCount = Number(state.playerPhotoCount || 0);
     if ((state.persona === 'wild' || state.persona === 'flirty') && pPhotoCount < 1) {
         pool = pool.filter(function(e) { return !(e && e.oneMoreRequest === true); });
@@ -765,6 +917,16 @@ function fdmResolveChoices(state, forceResolve) {
         var lt = String(state.lastMsgType || '');
         if ((lt === 'photo_request' || lt === 'photo_hint') && Number(state.playerPhotoCount || 0) >= 1 && resolved.length >= 2) {
             resolved[1] = { text: "I already sent. What more do you want?", delta: -2, alreadySent: true };
+            var flowClosed = state.mediaFlowCompleted === true || String(state.lastAnonAttachmentCategory || '') === 'cum' || state.ended === true;
+            var hasDirectPhotoChoice = resolved.some(function (c) {
+                return !!(c && c.triggersPhoto === true);
+            });
+            var hasSendAnother = resolved.some(function (c) {
+                return String((c && c.text) || '').toLowerCase() === 'send another';
+            });
+            if (!flowClosed && !hasDirectPhotoChoice && !hasSendAnother) {
+                resolved.push({ text: "send another", delta: 2, triggersPhoto: true });
+            }
         }
     } else {
         /* Fallback to type pool */
@@ -830,7 +992,7 @@ function fdmClassifyChoice(delta) {
 }
 
 var FDM_WHY_SEND_RE = /why\s+should\s+I\s+send\s*\??/i;
-var FDM_WHAT_DID_YOU_SEND_RE = /what\s+did\s+you\s+send\s*\??/i;
+var FDM_WHAT_DID_YOU_SEND_RE = /(what\s+did\s+you\s+send|you\s+sent\s+something)\s*\??/i;
 
 function fdmLastAnonHadAttachment(dm) {
     if (!dm || !Array.isArray(dm.messages)) return false;
@@ -927,6 +1089,11 @@ function processFotogramChoice(vars, dmId, choiceIndex) {
 
     /* Player said "I already sent. What more do you want?" — anon replies without pushing, no dick pic next */
     if (choice.alreadySent) {
+        s.alreadySentStreak = Number(s.alreadySentStreak || 0) + 1;
+        s.lastPlayerDelta = -10;
+        s.pushbackStreak = Number(s.pushbackStreak || 0) + 1;
+        s.photoCooldownTurns = Math.max(Number(s.photoCooldownTurns || 0), 6);
+        s.pressureDebt = Math.min(8, Number(s.pressureDebt || 0) + 3);
         var alreadyPool = (typeof setup !== 'undefined' && setup.fdmAlreadySentReply) ? setup.fdmAlreadySentReply[s.persona] : null;
         if (!alreadyPool && setup.fdmAlreadySentReply) alreadyPool = setup.fdmAlreadySentReply.generic;
         if (Array.isArray(alreadyPool) && alreadyPool.length) {
@@ -941,6 +1108,7 @@ function processFotogramChoice(vars, dmId, choiceIndex) {
 
     /* Does this choice trigger photo submenu? */
     if (choice.triggersPhoto) {
+        s.alreadySentStreak = 0;
         s.awaitingPhoto = true;
         /* Queue anon "waiting" reaction */
         var waitPool = fdmGetMsgPool(s.persona, 'waiting');
@@ -1050,7 +1218,19 @@ function processFotogramPhoto(vars, dmId, style) {
     }
 
     /* Send player photo — text from player pool (female), not persona */
-    var pAtt = fdmGetPlayerPhoto(style);
+    var pAtt = fdmGetPlayerPhoto(style, s, dm);
+    if (style !== 'hayir') s.alreadySentStreak = 0;
+    if (!pAtt || !pAtt.path) {
+        fdmAddMsg(dm, 'me', "I don't have a new one in this style.", null, vars);
+        s.awaitingPhoto = true;
+        if (window.persistPhoneChanges) window.persistPhoneChanges();
+        if (window.updatePhoneBadges) window.updatePhoneBadges();
+        return {
+            ok: true,
+            awaitingPhoto: true,
+            photoOptions: fdmPhotoOptions(vars)
+        };
+    }
     var pSendPool = (typeof setup !== 'undefined' && setup.fdmPlayerPhotoSendTexts && setup.fdmPlayerPhotoSendTexts.length)
         ? setup.fdmPlayerPhotoSendTexts : null;
     var pText = (pSendPool && pSendPool.length) ? fdmPick(pSendPool) : 'al';
@@ -1065,6 +1245,53 @@ function processFotogramPhoto(vars, dmId, style) {
     s.pressureDebt = Math.max(0, Number(s.pressureDebt || 0) - 2);
     s.playerPhotoCount = Number(s.playerPhotoCount || 0) + 1;
 
+    function fdmRunCumBreaker() {
+        var chances = (typeof setup !== 'undefined' && setup.fdmPhotoChances) ? setup.fdmPhotoChances : {};
+        var askNumberChance = Number(chances.cumBreakerAskNumberChance);
+        if (!Number.isFinite(askNumberChance)) askNumberChance = 0.55;
+        var askNumber = Math.random() < askNumberChance;
+        if (askNumber) {
+            var numPool = fdmGetMsgPool(s.persona, 'react_photo_cum_break_number');
+            if ((!numPool || !numPool.length) && typeof setup !== 'undefined' && setup.fdmMsgPools && setup.fdmMsgPools[s.persona]) {
+                numPool = setup.fdmMsgPools[s.persona].react_photo_satisfied_number || [];
+            }
+            if (numPool && numPool.length) {
+                var np = fdmAPick(numPool, s.recentAnon);
+                if (np) {
+                    var builtNp = fdmBuildMsgFromPoolEntry(np, s, dm);
+                    if (builtNp) fdmAddMsg(dm, dm.id, builtNp.text, builtNp.attachment, vars);
+                }
+            }
+            s.numberAsked = true;
+            s.currentChoices = null;
+            if (window.persistPhoneChanges) window.persistPhoneChanges();
+            if (window.updatePhoneBadges) window.updatePhoneBadges();
+            return { ok: true, numberRequest: true, numberAllowed: fdmNumberAllowed(vars) };
+        }
+
+        var endPool = fdmGetMsgPool(s.persona, 'react_photo_cum_break_end');
+        if ((!endPool || !endPool.length) && typeof setup !== 'undefined' && setup.fdmMsgPools && setup.fdmMsgPools[s.persona]) {
+            endPool = setup.fdmMsgPools[s.persona].react_photo_satisfied_chat || [];
+        }
+        if (endPool && endPool.length) {
+            var ep = fdmAPick(endPool, s.recentAnon);
+            if (ep) {
+                var builtEp = fdmBuildMsgFromPoolEntry(ep, s, dm);
+                if (builtEp) fdmAddMsg(dm, dm.id, builtEp.text, builtEp.attachment, vars);
+            }
+        }
+        s.ended = true;
+        s.currentChoices = null;
+        if (window.persistPhoneChanges) window.persistPhoneChanges();
+        if (window.updatePhoneBadges) window.updatePhoneBadges();
+        return { ok: true, ended: true };
+    }
+
+    var cumAlreadyReached = s.mediaFlowCompleted === true || String(s.lastAnonAttachmentCategory || '') === 'cum';
+    if (cumAlreadyReached) {
+        return fdmRunCumBreaker();
+    }
+
     /* Style-based reaction: anon reacts to what kind of photo player sent (with matching media escalation). */
     var styleReactKey = 'react_photo_' + style;
     var styleReactPool = fdmGetMsgPool(s.persona, styleReactKey);
@@ -1074,6 +1301,11 @@ function processFotogramPhoto(vars, dmId, style) {
             var builtSr = fdmBuildMsgFromPoolEntry(sr, s, dm);
             if (builtSr) fdmAddMsg(dm, dm.id, builtSr.text, builtSr.attachment, vars);
         }
+    }
+
+    var cumReachedNow = s.mediaFlowCompleted === true || String(s.lastAnonAttachmentCategory || '') === 'cum';
+    if (cumReachedNow) {
+        return fdmRunCumBreaker();
     }
 
     /* Random: satisfied vs want one more. Second photo = higher chance to be satisfied. */
@@ -1107,7 +1339,8 @@ function processFotogramPhoto(vars, dmId, style) {
 
     /* Not satisfied — push for one more (text only). */
     var wantMorePool = fdmGetMsgPool(s.persona, 'react_photo_want_more');
-    if (wantMorePool && wantMorePool.length) {
+    var closedAfterCum = String(s.lastAnonAttachmentCategory || '') === 'cum';
+    if (!s.mediaFlowCompleted && !closedAfterCum && wantMorePool && wantMorePool.length) {
         var wm = fdmAPick(wantMorePool, s.recentAnon);
         if (wm) {
             var builtWm = fdmBuildMsgFromPoolEntry(wm, s, dm);
@@ -1462,13 +1695,8 @@ function bootstrapFotogramDM(vars, dmId) {
     s.currentChoices = null;
     fdmResolveChoices(s, true);
 
-    /* Photo opener: first photo as one message, then text as separate message (two bubbles) */
-    if (att) {
-        fdmAddMsg(dm, dm.id, '', att, vars);
-        if (String(text || '').trim()) fdmAddMsg(dm, dm.id, text.trim(), null, vars);
-    } else {
-        fdmAddMsg(dm, dm.id, text, null, vars);
-    }
+    /* Opener: always one bubble — attachment and text in same message */
+    fdmAddMsg(dm, dm.id, String(text || '').trim(), att, vars);
     fdmMarkAnonMsgUsed(s, p);
     /* Register opener in recentAnon so we don't pick the same message again from cold pool later */
     var openText = String(text || '').trim();
@@ -1886,8 +2114,9 @@ function phoneRenderFotogramDmThread(dmId) {
         return /\.(webp|jpg|jpeg|png|gif|mp4|webm)$/i.test(String(t || ''));
     };
     var getAsset = (typeof getAssetUrl === 'function') ? getAssetUrl : function(p) { return p; };
-    /* Resolve legacy p_<style>_01.webp paths to setup.fdmPlayerPhotos (variablesPhonePhotos uses photoPlayerSexy1.webp etc.) */
-    function resolvePlayerPhotoPath(path) {
+    /* Resolve legacy p_<style>_01.webp/.mp4 paths to setup.fdmPlayerPhotos.
+       Keep media kind stable (video -> video, photo -> photo) to avoid blank video tags. */
+    function resolvePlayerPhotoPath(path, preferredKind) {
         if (!path || typeof path !== 'string') return path;
         var match = path.match(/[/\\]p_(normal|sexy|nude|ass|boobs|pussy)_\d+\.(webp|mp4)$/i);
         if (!match) return path;
@@ -1895,7 +2124,18 @@ function phoneRenderFotogramDmThread(dmId) {
         var pool = (typeof setup !== 'undefined' && setup.fdmPlayerPhotos) ? setup.fdmPlayerPhotos : {};
         var arr = Array.isArray(pool[style]) ? pool[style] : [];
         if (arr.length === 0) return path;
-        var picked = arr[Math.floor(Math.random() * arr.length)];
+        var kindWanted = String(preferredKind || '').toLowerCase();
+        if (!kindWanted) {
+            kindWanted = /\.mp4$|\.webm$|\.mov$/i.test(path) ? 'video' : 'photo';
+        }
+        var sameKind = arr.filter(function (item) {
+            var p = (typeof item === 'string') ? item : (item && item.path) ? item.path : '';
+            var k = (item && typeof item === 'object' && item.kind) ? String(item.kind).toLowerCase()
+                : (/\.mp4$|\.webm$|\.mov$/i.test(String(p || '')) ? 'video' : 'photo');
+            return k === kindWanted;
+        });
+        var source = sameKind.length ? sameKind : arr;
+        var picked = source[Math.floor(Math.random() * source.length)];
         return (typeof picked === 'string') ? picked : (picked && picked.path) ? picked.path : path;
     }
 
@@ -1912,6 +2152,9 @@ function phoneRenderFotogramDmThread(dmId) {
     var infoAgeText = (Number.isFinite(infoAge) && infoAge >= 18 && infoAge <= 99) ? infoAge : 'Unknown';
     var modeLabel   = dm.interactive ? 'Interactive' : 'Simple';
     var infoText    = 'Gender: ' + infoGender + '\nAge: ' + infoAgeText + '\nMode: ' + modeLabel;
+    var dmAutoplaySet = !!(vars && vars.videoSettings && vars.videoSettings.autoplaySet !== undefined ? vars.videoSettings.autoplaySet : true);
+    /* DM videos should not auto-replay: always loop off. */
+    var dmLoopSet = false;
 
     var html = '<div class="phone-fotogram-dm-thread">' +
         '<div class="phone-fotogram-dm-thread-header">' +
@@ -1923,31 +2166,50 @@ function phoneRenderFotogramDmThread(dmId) {
 
     (dm.messages || []).forEach(function(m) {
         var isMe   = m.from === 'me';
-        var bubble = '<div class="phone-fotogram-dm-message' + (isMe ? ' me' : '') + '">';
-        if (!isMe) bubble += renderAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-msg');
-        bubble += '<div class="phone-fotogram-dm-bubble' + (isMe ? ' me' : '') + '">';
+        var mediaHtml = '';
+        var textOnly = String(likelyMedia(m.text) ? '' : (m.text || ''));
 
         if (m.attachment && m.attachment.path) {
-            var resPath = resolvePlayerPhotoPath(m.attachment.path);
+            var preferredKind = m.attachment.kind || getMediaKind(m.attachment.path);
+            var resPath = resolvePlayerPhotoPath(m.attachment.path, preferredKind);
             var src     = getAsset(resPath);
-            var attKind = m.attachment.kind || getMediaKind(resPath);
+            var attKind = getMediaKind(resPath);
             if (attKind === 'video') {
-                bubble += '<div class="phone-fotogram-dm-attachment"><video src="' + esc(src) + '" controls playsinline preload="metadata"></video></div>';
+                mediaHtml += '<div class="phone-fotogram-dm-attachment"><div class="video-container phone-fotogram-dm-video-container" data-autoplay="' + (dmAutoplaySet ? '1' : '0') + '" data-loop="' + (dmLoopSet ? '1' : '0') + '">' +
+                    '<video src="' + esc(src) + '" playsinline preload="metadata"></video>' +
+                    '<div class="play-overlay"><div class="video-play-btn"><span class="icon icon-play"></span></div></div></div></div>';
             } else {
-                bubble += '<div class="phone-fotogram-dm-attachment"><img src="' + esc(src) + '" alt="" loading="lazy"></div>';
+                mediaHtml += '<div class="phone-fotogram-dm-attachment"><img src="' + esc(src) + '" alt="" loading="lazy"></div>';
             }
         } else if (likelyMedia(m.text)) {
             var autoSrc  = getAsset(m.text);
             var autoKind = getMediaKind(m.text);
             if (autoKind === 'video') {
-                bubble += '<div class="phone-fotogram-dm-attachment"><video src="' + esc(autoSrc) + '" controls playsinline preload="metadata"></video></div>';
+                mediaHtml += '<div class="phone-fotogram-dm-attachment"><div class="video-container phone-fotogram-dm-video-container" data-autoplay="' + (dmAutoplaySet ? '1' : '0') + '" data-loop="' + (dmLoopSet ? '1' : '0') + '">' +
+                    '<video src="' + esc(autoSrc) + '" playsinline preload="metadata"></video>' +
+                    '<div class="play-overlay"><div class="video-play-btn"><span class="icon icon-play"></span></div></div></div></div>';
             } else {
-                bubble += '<div class="phone-fotogram-dm-attachment"><img src="' + esc(autoSrc) + '" alt="" loading="lazy"></div>';
+                mediaHtml += '<div class="phone-fotogram-dm-attachment"><img src="' + esc(autoSrc) + '" alt="" loading="lazy"></div>';
             }
         }
+        var hasMedia = !!mediaHtml;
+        var hasText = !!String(textOnly || '').trim();
+        if (hasMedia && hasText) {
+            var mediaBubble = '<div class="phone-fotogram-dm-message' + (isMe ? ' me' : '') + '">';
+            if (!isMe) mediaBubble += renderAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-msg');
+            mediaBubble += '<div class="phone-fotogram-dm-bubble' + (isMe ? ' me' : '') + '">' + mediaHtml + '<span class="phone-fotogram-dm-bubble-text"></span></div></div>';
+            html += mediaBubble;
 
-        bubble += '<span class="phone-fotogram-dm-bubble-text">' + esc(likelyMedia(m.text) ? '' : (m.text || '')) + '</span></div></div>';
-        html += bubble;
+            var textBubble = '<div class="phone-fotogram-dm-message' + (isMe ? ' me' : '') + '">';
+            if (!isMe) textBubble += renderAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-msg');
+            textBubble += '<div class="phone-fotogram-dm-bubble' + (isMe ? ' me' : '') + '"><span class="phone-fotogram-dm-bubble-text">' + esc(textOnly) + '</span></div></div>';
+            html += textBubble;
+        } else {
+            var bubble = '<div class="phone-fotogram-dm-message' + (isMe ? ' me' : '') + '">';
+            if (!isMe) bubble += renderAvatar(dm.anonName || 'Unknown', dm.skinTone, 'dm-msg');
+            bubble += '<div class="phone-fotogram-dm-bubble' + (isMe ? ' me' : '') + '">' + mediaHtml + '<span class="phone-fotogram-dm-bubble-text">' + esc(textOnly) + '</span></div></div>';
+            html += bubble;
+        }
     });
 
     html += '</div><div class="phone-fotogram-dm-actions">';

@@ -953,7 +953,15 @@
   margin-bottom: 4px;
   border-radius: 6px;
   overflow: hidden;
+  width: 180px;
   max-width: 180px;
+}
+
+.phone-fotogram-dm-attachment .video-container {
+  width: 100%;
+  margin: 0;
+  aspect-ratio: 9 / 16;
+  background: #000;
 }
 
 .phone-fotogram-dm-attachment img {
@@ -968,4 +976,8 @@
   height: auto;
   display: block;
   vertical-align: top;
+}
+
+.phone-fotogram-dm-bubble-text:empty {
+  display: none;
 }

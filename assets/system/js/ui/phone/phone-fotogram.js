@@ -608,11 +608,20 @@ function initPhoneFotogramVideoPlayer($container, options, vars) {
     var loopEnabled = $container.attr('data-loop') === '1';
     var autoplayEnabled = $container.attr('data-autoplay') === '1';
     videoEl.loop = loopEnabled;
+    /* Match <<vid>> macro behavior: size container by real video ratio (prevents blank/zero-height boxes). */
+    $video.off('loadedmetadata.' + ns).on('loadedmetadata.' + ns, function () {
+        var w = videoEl.videoWidth;
+        var h = videoEl.videoHeight;
+        if (w && h) {
+            $container.css('aspect-ratio', w + ' / ' + h);
+        }
+    });
     if (opts.muted) {
         videoEl.muted = true;
         videoEl.defaultMuted = true;
         videoEl.volume = 0;
     } else if (opts.volumeFromSettings && vars && vars.videoSettings) {
+        videoEl.muted = false;
         var master = vars.videoSettings.masterVolume !== undefined ? Number(vars.videoSettings.masterVolume) : 100;
         var videoVol = vars.videoSettings.videoVolume !== undefined ? Number(vars.videoSettings.videoVolume) : 100;
         videoEl.volume = Math.max(0, Math.min(1, (master * videoVol) / 10000));
@@ -651,6 +660,21 @@ window.initFotogramFeedVideoPlayers = function (vars) {
     if (!$view.length) return;
     $view.find('.phone-fotogram-post-video-container').each(function () {
         initPhoneFotogramVideoPlayer($(this), { muted: true, volumeFromSettings: false, eventNamespace: 'phoneFgFeed' }, vars);
+    });
+};
+
+/** Expose shared video player init for use by gallery and other phone UIs. */
+window.initPhoneFotogramVideoPlayer = initPhoneFotogramVideoPlayer;
+
+/** Init video players in Fotogram DM thread (same custom player as gallery/feed). */
+window.initFotogramDmThreadVideoPlayers = function (vars) {
+    var viewEl = document.getElementById('phone-app-view-content');
+    if (!viewEl) return;
+    var J = (typeof $ !== 'undefined') ? $ : (typeof PhoneAPI !== 'undefined' && PhoneAPI.$) ? PhoneAPI.$ : null;
+    if (!J) return;
+    var $view = J(viewEl);
+    $view.find('.phone-fotogram-dm-video-container').each(function () {
+        initPhoneFotogramVideoPlayer(J(this), { muted: false, volumeFromSettings: true, eventNamespace: 'phoneFgDm' }, vars);
     });
 };
 

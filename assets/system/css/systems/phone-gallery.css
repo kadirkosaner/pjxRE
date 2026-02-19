@@ -64,6 +64,7 @@
 }
 
 .phone-gallery-cell {
+  position: relative;
   aspect-ratio: 1;
   min-height: 0;
   background: rgba(0, 0, 0, 0.3);
@@ -71,6 +72,25 @@
   overflow: hidden;
   cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-gallery-repeat-badge {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  min-width: 20px;
+  height: 16px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 14px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }

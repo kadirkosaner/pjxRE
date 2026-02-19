@@ -749,6 +749,41 @@ if (typeof window.phoneGalleryAddItem !== 'function') {
                 : null;
         if (!vars || !vars.phoneGallery) return null;
         opts = opts || {};
+        if (!vars.phoneGallery.fotogram || typeof vars.phoneGallery.fotogram !== 'object') vars.phoneGallery.fotogram = {};
+        if (!Array.isArray(vars.phoneGallery.fotogram.received)) vars.phoneGallery.fotogram.received = [];
+        if (!Array.isArray(vars.phoneGallery.fotogram.sended)) vars.phoneGallery.fotogram.sended = [];
+        var scope = String(opts.scope || '').toLowerCase();
+        if (scope === 'fotogram') {
+            var direction = (String(opts.direction || '').toLowerCase() === 'sended') ? 'sended' : 'received';
+            var inferredKind = /\.mp4$|\.webm$|\.mov$|\.ogg$/i.test(String(path || '')) ? 'video' : 'photo';
+            var kindFg = (opts.kind === 'video' || opts.kind === 'videos' || inferredKind === 'video') ? 'video' : 'photo';
+            var fgList = vars.phoneGallery.fotogram[direction];
+            var existingFg = fgList.find(function (el) { return el && el.path === path; });
+            if (existingFg) {
+                existingFg.repeatCount = Number(existingFg.repeatCount || 1) + 1;
+                var now = vars.timeSys || {};
+                existingFg.lastSeenAt = { day: now.day, month: now.month, year: now.year, hour: now.hour, minute: now.minute };
+                if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+                return existingFg;
+            }
+            var fgTime = vars.timeSys || {};
+            var fgId = (typeof generateMediaId === 'function')
+                ? generateMediaId()
+                : ('media_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
+            var fgItem = {
+                id: fgId,
+                path: path,
+                kind: kindFg,
+                repeatCount: 1,
+                flags: Array.isArray(opts.flags) ? opts.flags : ['fotogram'],
+                timestamp: { day: fgTime.day, month: fgTime.month, year: fgTime.year, hour: fgTime.hour, minute: fgTime.minute },
+                quality: (opts.quality != null && opts.quality >= 0 && opts.quality <= 100) ? parseInt(opts.quality, 10) : 50,
+                from: (opts.from != null && opts.from !== '') ? opts.from : (direction === 'received' ? 'unknown' : 'player')
+            };
+            fgList.push(fgItem);
+            if (typeof persistPhoneChanges === 'function') persistPhoneChanges();
+            return fgItem;
+        }
         var kind = (opts.kind === 'videos') ? 'videos' : 'photos';
         var category = opts.category || 'received';
         if (['normal', 'cute', 'hot', 'spicy', 'received'].indexOf(category) < 0) category = 'received';

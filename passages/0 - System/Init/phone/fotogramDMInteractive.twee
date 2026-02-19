@@ -31,12 +31,16 @@
         explicit: [
             "I'd like to see something a bit more personal",
             "I bet you have a bolder side",
-            "send me your tits or something, that'd be great"
+            "send me your tits or something, that'd be great",
+            "Something a bit bolder would be nice",
+            "I'm curious what else you've got"
         ],
         photo_send: [
             "I'll send a photo",
             "okay, sending one",
-            "here, sending something"
+            "here, sending something",
+            "sending you one",
+            "here you go"
         ]
     },
     lustful: {
@@ -45,12 +49,16 @@
             "I want to see your pussy and ass. Don't make me wait.",
             "Your tits got me going. Now show me the rest.",
             "Send something hotter. I want to see every inch of you.",
-            "You're so hot. One more — show me your pussy."
+            "You're so hot. One more — show me your pussy.",
+            "I need to see you. Send. Now.",
+            "Your turn. Pussy, tits, ass — send whatever."
         ],
         photo_send: [
             "Sending you one now. Your turn.",
             "Here. Look what you do to me.",
-            "Sent. Now you."
+            "Sent. Now you.",
+            "There. Your go.",
+            "Done. Now you send."
         ]
     },
     pervy: {
@@ -59,36 +67,48 @@
             "My cock's ready. Your tits and ass. Send.",
             "Exactly what I wanted. More. Now.",
             "I need to see your pussy. Send it.",
-            "I'm so hard. Your turn. Don't tease."
+            "I'm so hard. Your turn. Don't tease.",
+            "Send. I want everything. Don't hold back.",
+            "Your pussy. Now. Send."
         ],
         photo_send: [
             "There. For you. Now you send.",
             "Sending. Your go.",
-            "Done. Your turn."
+            "Done. Your turn.",
+            "That's for you. Your move.",
+            "Sent. You're up."
         ]
     },
     flirty: {
         explicit: [
             "You look incredible. Send another :)",
             "Don't stop. One more :)",
-            "You're killing me. Send more :)"
+            "You're killing me. Send more :)",
+            "So hot. One more please :)",
+            "I need more of you :)"
         ],
         photo_send: [
             "Sending you something :)",
             "Here's one for you :)",
-            "Your turn :)"
+            "Your turn :)",
+            "This one's for you :)",
+            "Sent :) You're up :)"
         ]
     },
     wild: {
         explicit: [
             "You're so hot. Send one more :)",
             "Keep going. I want more :)",
-            "Wanna take this to WhatsApp? I need more :)"
+            "Wanna take this to WhatsApp? I need more :)",
+            "Don't stop. More please :)",
+            "You're so good. Send another :)"
         ],
         photo_send: [
             "Sending :) You'll like this :)",
             "Here you go :)",
-            "One for you :)"
+            "One for you :)",
+            "Sent :) Your go :)",
+            "There you go :)"
         ]
     },
     generic: {
@@ -108,54 +128,65 @@
 /* ── MESSAGE TEXT POOLS (2–4 variants per slot; use [POOL:key]) ── */
 <<run setup.fdmMessagePools = {
     /* NAIVE */
-    naive_w1: ["Do you have any photos besides what's on your page? Just curious.", "Anything besides what's on your feed?", "Got other photos besides what you've shared?"],
-    naive_w2: ["It'd be great if you sent one more photo.", "Could you send one more? I'd love that.", "One more would be awesome."],
-    naive_w3: ["I really liked that style, do you have more like that?", "Loved that style, got any more?", "Do you have more photos like that?", "Got more of that kind?", "Any similar ones?"],
-    naive_w4: ["Your page photos are great, I think you could be bolder.", "Photos are nice, you could be a bit bolder I think.", "Your feed's nice but you could send bolder stuff too."],
-    naive_h1: ["Would you consider sending a photo? I'm really curious.", "Could you send a photo? So curious.", "Would you send one photo?"],
-    naive_h2: ["Just one, wanted to see how you're doing.", "Just send one, I want to see how you are.", "One would be enough, curious how you're doing."],
-    naive_h3: ["Could you send something a bit more personal? Honestly curious.", "Would you send something more personal? Curious.", "Could you send something bolder?"],
-    naive_h4: ["I'd love a photo from you but I won't push.", "I'd really like you to send a photo, no pressure.", "I'd love one from you, but no pressure."],
-    naive_react_sexy: ["You look amazing, honestly. Thank you.", "That was really nice. Thanks.", "So pretty. I'm glad you sent that."],
-    naive_react_nude: ["Whoa. You're gorgeous. Thanks for trusting me with that.", "I wasn't expecting that. In a good way. Thanks.", "That's… really hot. Thank you."],
+    naive_w1: ["Do you have any photos besides what's on your page? Just curious.", "Anything besides what's on your feed?", "Got other photos besides what you've shared?", "Do you keep any photos that aren't on your page?", "Anything else you don't post publicly?"],
+    naive_w2: ["It'd be great if you sent one more photo.", "Could you send one more? I'd love that.", "One more would be awesome.", "I'd love another one if you're up for it.", "One more photo would make my day."],
+    naive_w3: ["I really liked that style, do you have more like that?", "Loved that style, got any more?", "Do you have more photos like that?", "Got more of that kind?", "Any similar ones?", "That kind of shot was really nice. Any others?", "Same vibe again would be great."],
+    naive_w4: ["Your page photos are great, I think you could be bolder.", "Photos are nice, you could be a bit bolder I think.", "Your feed's nice but you could send bolder stuff too.", "You've got a good eye — I bet you could go a bit bolder too.", "Lovely photos. Would love to see something a bit more daring sometime."],
+    naive_h1: ["Would you consider sending a photo? I'm really curious.", "Could you send a photo? So curious.", "Would you send one photo?", "I'd love to see a photo from you if you're okay with it.", "One photo would mean a lot. No pressure though."],
+    naive_h2: ["Just one, wanted to see how you're doing.", "Just send one, I want to see how you are.", "One would be enough, curious how you're doing.", "A single photo would be nice. Just to see you.", "One pic is enough. I'm just curious."],
+    naive_h3: ["Could you send something a bit more personal? Honestly curious.", "Would you send something more personal? Curious.", "Could you send something bolder?", "Something a bit more personal would be amazing.", "I'd love something a little bolder if you're comfortable."],
+    naive_h4: ["I'd love a photo from you but I won't push.", "I'd really like you to send a photo, no pressure.", "I'd love one from you, but no pressure.", "A photo would be great whenever you're ready. No rush.", "I won't push — but I'd really like one when you feel like it."],
+    naive_react_sexy: ["You look amazing, honestly. Thank you.", "That was really nice. Thanks.", "So pretty. I'm glad you sent that.", "You look great. Really appreciate it.", "That was lovely. Thank you."],
+    naive_react_nude: ["Whoa. You're gorgeous. Thanks for trusting me with that.", "I wasn't expecting that. In a good way. Thanks.", "That's… really hot. Thank you.", "You're beautiful. Thanks for sharing that with me.", "That meant a lot. You're stunning."],
     /* LUSTFUL — explicit/vulgar */
-    lustful_ex1: ["There's me. Your turn — show me something. Pussy, tits, whatever you're comfortable with.", "I sent you a pic. Fair's fair — send me something back. I'm not picky.", "You've seen what I'm working with. Now I want to see you."],
-    lustful_ex2: ["So? What do you think? Honest answer.", "Did that do anything for you? Tell me.", "I need to know — did you like it?"],
-    lustful_ex3: ["Don't stop now. One more — I want to see all of you.", "Keep going. I'm hard and I want more.", "Your turn. Tits, ass, pussy — I'll take whatever you send."],
-    lustful_ex4: ["Did it get you wet? Be honest.", "So did that work for you or what?", "Tell me you liked it."],
-    lustful_w1: ["Your turn. I showed you mine — show me yours. Pussy, tits, ass, I'm not fussy.", "Fair swap? You send something back. Whatever you're in the mood to share.", "I sent. Now you. Don't make me beg."],
-    lustful_w2: ["You've seen my dick. Your move.", "I put mine out there. Your turn to return the favour.", "I sent. Now you. Come on."],
-    lustful_w3: ["I want to see you. All of you. Send me something.", "Your turn to show off. I'm waiting.", "I've shown you what I've got. Now I want to see you — tits, ass, whatever."],
-    lustful_h1: ["Send something. I'm hard and I need to see you. Pussy, tits — just one.", "Your turn. I want to see your body. Don't keep me waiting.", "Come on. Send me something. I'm dying to see you."],
-    lustful_h2: ["That's me. Now you. Send something back.", "There you go — that's what you do to me. Your turn.", "You've seen it. Now show me yours."],
-    lustful_h3: ["One more. I need more. Pussy, tits, ass — send whatever.", "Don't stop. Send another one. I'm ready for it.", "Again. I'm still hard. Send more."],
+    lustful_ex1: ["There's me. Your turn — show me something. Pussy, tits, whatever you're comfortable with.", "I sent you a pic. Fair's fair — send me something back. I'm not picky.", "You've seen what I'm working with. Now I want to see you.", "That's me. Your move. Send me something back.", "I showed you. Now I want to see you. Your call what you send."],
+    lustful_ex2: ["So? What do you think? Honest answer.", "Did that do anything for you? Tell me.", "I need to know — did you like it?", "Your honest opinion?", "Did you like what you saw?"],
+    lustful_ex3: ["Don't stop now. One more — I want to see all of you.", "Keep going. I'm hard and I want more.", "Your turn. Tits, ass, pussy — I'll take whatever you send.", "One more. I want everything. Don't hold back.", "Again. I'm not done looking. Send more."],
+    lustful_ex4: ["Did it get you wet? Be honest.", "So did that work for you or what?", "Tell me you liked it.", "Did that do it for you?", "Your turn to be honest with me."],
+    lustful_w1: ["Your turn. I showed you mine — show me yours. Pussy, tits, ass, I'm not fussy.", "Fair swap? You send something back. Whatever you're in the mood to share.", "I sent. Now you. Don't make me beg.", "I put it out there. Your turn. I'll take anything you send.", "You've seen mine. Now show me yours. Deal?"],
+    lustful_w2: ["You've seen my dick. Your move.", "I put mine out there. Your turn to return the favour.", "I sent. Now you. Come on.", "That was me. Your go.", "I showed you. Fair's fair — you send something."],
+    lustful_w3: ["I want to see you. All of you. Send me something.", "Your turn to show off. I'm waiting.", "I've shown you what I've got. Now I want to see you — tits, ass, whatever.", "I need to see you. Send something. Whatever you're comfortable with.", "Your turn. I want to see your body. Don't make me wait."],
+    lustful_h1: ["Send something. I'm hard and I need to see you. Pussy, tits — just one.", "Your turn. I want to see your body. Don't keep me waiting.", "Come on. Send me something. I'm dying to see you.", "One pic. I need to see you. Your call what you send.", "Send me something. I'm ready for it."],
+    lustful_h2: ["That's me. Now you. Send something back.", "There you go — that's what you do to me. Your turn.", "You've seen it. Now show me yours.", "That's what I'm working with. Your move.", "I sent. Your turn. Don't leave me hanging."],
+    lustful_h3: ["One more. I need more. Pussy, tits, ass — send whatever.", "Don't stop. Send another one. I'm ready for it.", "Again. I'm still hard. Send more.", "More. I want another. Send.", "One more pic. I'm not done yet."],
     /* PERVY — explicit/vulgar */
-    pervy_w1: ["I sent you my cock. You know the drill — you send something back. Pussy, tits, ass.", "Swap. I showed you mine. Now you show me yours.", "Dick pic delivered. Your turn. Don't leave me hanging."],
-    pervy_w2: ["I sent. You're up. Send something.", "Your turn. I showed you — now you show me.", "I sent my dick. Where's yours? I mean — you know what I mean. Send something."],
-    pervy_w3: ["That one was just for you. Hope you're enjoying the view.", "Special delivery — for your eyes only.", "Took that thinking about you. Your turn."],
-    pervy_h1: ["You can do better than that. Send something hotter. Pussy. Ass. Your turn.", "Level up. I want to see your pussy and ass. Send.", "More. I want more. Show me everything."],
-    pervy_h2: ["Something bolder. I'm already hard — give me something to really get off to.", "Send one that shows everything. I want to see your tits and ass.", "Bolder. I want to see what you're hiding."],
+    pervy_w1: ["I sent you my cock. You know the drill — you send something back. Pussy, tits, ass.", "Swap. I showed you mine. Now you show me yours.", "Dick pic delivered. Your turn. Don't leave me hanging.", "That was me. Your turn. Pussy, tits, ass — send something.", "I sent. You're up. Don't tease."],
+    pervy_w2: ["I sent. You're up. Send something.", "Your turn. I showed you — now you show me.", "I sent my dick. Where's yours? I mean — you know what I mean. Send something.", "My turn's done. Yours. Send.", "I put it out there. Now you."],
+    pervy_w3: ["That one was just for you. Hope you're enjoying the view.", "Special delivery — for your eyes only.", "Took that thinking about you. Your turn.", "That was for you. Like it? Your go.", "Just for you. Now send something back."],
+    pervy_h1: ["You can do better than that. Send something hotter. Pussy. Ass. Your turn.", "Level up. I want to see your pussy and ass. Send.", "More. I want more. Show me everything.", "Step it up. I want pussy and ass. Send.", "That was weak. Send something that really shows off."],
+    pervy_h2: ["Something bolder. I'm already hard — give me something to really get off to.", "Send one that shows everything. I want to see your tits and ass.", "Bolder. I want to see what you're hiding.", "I need something hotter. Full view. Send.", "Give me something I can actually use. Tits, ass, pussy."],
+    /* PERVY – photo opener (başlangıçta foto atan) – vulgar/explicit */
+    pervy_opener_vulgar: [
+        "Hey slut, look what I've got here for you.",
+        "Thought of you and sent it. Your turn.",
+        "That's what you do to me. See? Now send yours.",
+        "Slut, I sent this thinking about what I'd do to you. Go on.",
+        "Look at that. That's for you. I'm ready. Your turn.",
+        "Hey, this is your fault. Now you send.",
+        "Thinking about your mouth on this. Keep going.",
+        "There it is. That's for your pussy. Send already."
+    ],
     /* FLIRTY */
-    flirty_w1: ["Your page has such a nice vibe. Do you shoot your own photos?", "I really like your style. Do you plan your shots or just go with the moment?", "Your profile feels very genuine. I like that :)"],
-    flirty_w2: ["Here, this one's for you :) Your turn now.", "I went first :) Now you.", "Sent you mine :) Fair's fair, your turn."],
-    flirty_w3: ["That one felt really personal, in a good way :)", "I liked that photo a lot, very natural :)", "You have a good eye, that shot was really nice :)"],
-    flirty_h1: ["If you're up for it, send one cute photo :)", "Your turn if you feel like it :)", "Only if you're comfortable - I'd like one from you :)"],
-    flirty_h2: ["We can keep chatting too, no pressure :)", "If you want to keep the vibe going, send one more :)", "Your call - we can chat or swap one more :)"],
-    flirty_react_sexy: ["God, you're hot. I love it :)", "You look incredible. Seriously :)", "So sexy. Keep them coming :)"],
-    flirty_react_nude: ["You're gorgeous. Thank you :)", "Your body is amazing. Thanks for sharing :)", "So hot. I'm glad you sent that :)"],
+    flirty_w1: ["Your page has such a nice vibe. Do you shoot your own photos?", "I really like your style. Do you plan your shots or just go with the moment?", "Your profile feels very genuine. I like that :)", "Your feed has such a good energy. Do you take your own pics?", "I like how your page feels. Very you :)"],
+    flirty_w2: ["Here, this one's for you :) Your turn now.", "I went first :) Now you.", "Sent you mine :) Fair's fair, your turn.", "This one's for you :) You're up :)", "I sent one :) Your go :)"],
+    flirty_w3: ["That one felt really personal, in a good way :)", "I liked that photo a lot, very natural :)", "You have a good eye, that shot was really nice :)", "That photo was so nice. Very you :)", "I really liked that one. Good vibe :)"],
+    flirty_h1: ["If you're up for it, send one cute photo :)", "Your turn if you feel like it :)", "Only if you're comfortable - I'd like one from you :)", "I'd love one from you when you're ready :)", "Your turn - only if you want to :)"],
+    flirty_h2: ["We can keep chatting too, no pressure :)", "If you want to keep the vibe going, send one more :)", "Your call - we can chat or swap one more :)", "No pressure - chat or one more pic, whatever you prefer :)", "We can take it slow or swap one more. You choose :)"],
+    flirty_react_sexy: ["God, you're hot. I love it :)", "You look incredible. Seriously :)", "So sexy. Keep them coming :)", "You're so good-looking :)", "That was hot. More please :)"],
+    flirty_react_nude: ["You're gorgeous. Thank you :)", "Your body is amazing. Thanks for sharing :)", "So hot. I'm glad you sent that :)", "You're stunning. Thanks for trusting me :)", "That was beautiful. Thank you :)"],
     /* WILD — explicit/vulgar */
-    wild_ex1: ["You have a bold vibe. I like it :)", "You're fun to talk to. I can tell :)", "Not gonna lie, you caught my attention :)"],
-    wild_ex2: ["Want to keep this playful? I'm in :)", "Your energy is good. I like where this is going :)", "We can keep it spicy or keep it chill, your call :)"],
-    wild_ex3: ["So what are you like off-camera? :)", "You seem confident. Is that always your vibe? :)", "What's your style when you're not posting? :)"],
-    wild_w1: ["If you're into it, we can do a fair photo swap :)", "We can trade one each if you want :)", "Only if you're comfortable - I can send one, then you :)"],
-    wild_w2: ["I showed you mine. Now it's your turn :)", "Sent you one. Fair's fair :)", "I went first. Your turn now :)"],
-    wild_w3: ["Want to keep this teasing a little? :)", "If you're in the mood, we can go a bit bolder :)", "Your call - chat more, or send one :)"],
-    wild_h1: ["If you're in the mood, send one photo :)", "One more if you want - no pressure :)", "Your turn if you're comfortable :)"],
-    wild_h2: ["I'm curious, but no stress - only if you want :)", "Could send one more if you're feeling it :)", "We can keep chatting too, no pressure :)"],
-    wild_react_normal: ["Nice :) I like your vibe.", "That was cute :)", "I liked that one :)"],
-    wild_react_open: ["Ohh, that was good :)", "Mmm, I liked that :)", "That's a good look on you :)"],
-    wild_react_sexy: ["You're really hot :)", "Okay wow, that looked amazing :)", "You definitely know your angles :)"],
-    wild_react_nude: ["You're stunning :)", "That was bold, I liked it :)", "You look incredible :)"]
+    wild_ex1: ["You have a bold vibe. I like it :)", "You're fun to talk to. I can tell :)", "Not gonna lie, you caught my attention :)", "Your energy is bold. I'm here for it :)", "You seem like fun. I like that :)"],
+    wild_ex2: ["Want to keep this playful? I'm in :)", "Your energy is good. I like where this is going :)", "We can keep it spicy or keep it chill, your call :)", "I'm down for whatever vibe you want :)", "Playful or chill - you lead :)"],
+    wild_ex3: ["So what are you like off-camera? :)", "You seem confident. Is that always your vibe? :)", "What's your style when you're not posting? :)", "You give off confident vibes. Is that the real you? :)", "What are you like when you're not on your feed? :)"],
+    wild_w1: ["If you're into it, we can do a fair photo swap :)", "We can trade one each if you want :)", "Only if you're comfortable - I can send one, then you :)", "Fair swap? I send one, you send one :)", "Up for a trade? One each :)"],
+    wild_w2: ["I showed you mine. Now it's your turn :)", "Sent you one. Fair's fair :)", "I went first. Your turn now :)", "That was me :) You're up :)", "I sent. Your go :)"],
+    wild_w3: ["Want to keep this teasing a little? :)", "If you're in the mood, we can go a bit bolder :)", "Your call - chat more, or send one :)", "We can keep teasing or you send one. Your choice :)", "Chat more or send a pic - I'm easy :)"],
+    wild_h1: ["If you're in the mood, send one photo :)", "One more if you want - no pressure :)", "Your turn if you're comfortable :)", "I'd love one from you when you're ready :)", "Your go - only if you feel like it :)"],
+    wild_h2: ["I'm curious, but no stress - only if you want :)", "Could send one more if you're feeling it :)", "We can keep chatting too, no pressure :)", "No pressure. One more pic or just chat - you choose :)", "Your call. One more or we keep talking :)"],
+    wild_react_normal: ["Nice :) I like your vibe.", "That was cute :)", "I liked that one :)", "Good one :)", "You're cute :)"],
+    wild_react_open: ["Ohh, that was good :)", "Mmm, I liked that :)", "That's a good look on you :)", "That hit different :)", "I liked that a lot :)"],
+    wild_react_sexy: ["You're really hot :)", "Okay wow, that looked amazing :)", "You definitely know your angles :)", "So hot :)", "You look amazing :)"],
+    wild_react_nude: ["You're stunning :)", "That was bold, I liked it :)", "You look incredible :)", "So good :)", "You're gorgeous :)"]
 }>>
 
 /* ── AFTER COCK OPENER REACTION (double message: this first, then "your turn send") ── */
@@ -168,7 +199,9 @@
         "Rock hard. You did that. Now show me what I'm missing.",
         "There it is. Want to see it in person? Send something first.",
         "Couldn't help it. You got me going. Your move.",
-        "That's what thinking about your pussy does to me."
+        "That's what thinking about your pussy does to me.",
+        "You did that to me. Now show me what you've got.",
+        "All for you. Your turn to send."
     ],
     lustful: [
         "That's what you do to me. Couldn't help it.",
@@ -178,36 +211,45 @@
         "There you go. That's me when I imagine you. Fair's fair — show me yours.",
         "You saw it. What do you think? Now send something.",
         "Thinking about your tits and pussy got me like this. Don't leave me hanging.",
-        "I want to see your ass. Send me something."
+        "I want to see your ass. Send me something.",
+        "That's me when I think about you. Your go.",
+        "Fair swap. I sent. Now you."
     ],
     naive: [
         "Sorry, I got a bit carried away. That's what you do to me.",
         "That just… happened when I thought about you. Oops?",
-        "You can tell I'm into you, right?"
+        "You can tell I'm into you, right?",
+        "I couldn't help it. You're really pretty.",
+        "That was a bit forward. But you're worth it."
     ],
     flirty: [
         "That's for you. Like what you see? :)",
         "I got a little excited. Your fault :)",
-        "So? Do I get something back? :)"
+        "So? Do I get something back? :)",
+        "Your turn :) I showed you mine :)",
+        "That's what you do to me :) Send me something :)"
     ],
     wild: [
         "That's what I'm working with. Your turn :)",
         "Got a bit excited. Send me something back :)",
-        "Like it? Show me what you've got :)"
+        "Like it? Show me what you've got :)",
+        "Fair's fair :) I sent. You send :)",
+        "That's for you :) Your go :)"
     ],
     generic: [
         "There. Your turn.",
-        "See what I mean?"
+        "See what I mean?",
+        "Your move."
     ]
 }>>
 /* Anon reply to "What did you send?" — says what they sent, your turn */
 <<run setup.fdmWhatDidYouSendReply = {
-    naive: ["I sent a photo of me. Your turn — I'd love to see one from you.", "Just something of me. Could you send one back?", "A little something. Now you :)"],
-    lustful: ["That was my dick. Your turn — show me something. Pussy, tits, whatever.", "I sent you a pic of what I've got. Now I want to see you.", "Dick pic, delivered. Fair's fair — you send something back."],
-    pervy: ["I sent you my cock. You know what I want in return.", "That was me. Now you. Send something.", "I showed you mine. Your move."],
-    flirty: ["I sent you something :) Your turn to show me :)", "That was me. Now you :)", "I sent. Your go :)"],
-    wild: ["I sent you a little something :) Your turn :)", "That was for you. Now send me one :)", "I showed you. You show me :)"],
-    generic: ["I sent a photo. Your turn.", "Something of me. You send one back."]
+    naive: ["I sent a photo of me. Your turn — I'd love to see one from you.", "Just something of me. Could you send one back?", "A little something. Now you :)", "A photo of me. I'd love one from you too.", "Something personal. Your turn when you're ready."],
+    lustful: ["That was my dick. Your turn — show me something. Pussy, tits, whatever.", "I sent you a pic of what I've got. Now I want to see you.", "Dick pic, delivered. Fair's fair — you send something back.", "That was me. Your go. Send something back.", "I showed you. Now show me yours."],
+    pervy: ["I sent you my cock. You know what I want in return.", "That was me. Now you. Send something.", "I showed you mine. Your move.", "My dick. Your turn. Don't keep me waiting.", "That was my cock. Send something back."],
+    flirty: ["I sent you something :) Your turn to show me :)", "That was me. Now you :)", "I sent. Your go :)", "A little something for you :) Your turn :)", "I showed you mine :) You show me yours :)"],
+    wild: ["I sent you a little something :) Your turn :)", "That was for you. Now send me one :)", "I showed you. You show me :)", "That was me :) Your go :)", "I sent one :) Fair's fair :)"],
+    generic: ["I sent a photo. Your turn.", "Something of me. You send one back.", "A photo. Your move."]
 }>>
 /* Anon reply to "What did you send?" when there was no actual attachment in last anon message */
 <<run setup.fdmWhatCouldISendReply = {
@@ -220,21 +262,21 @@
 }>>
 /* Anon reply to rejecting question like "Why should I send?" — flirty/seductive */
 <<run setup.fdmWhySendReply = {
-    naive: ["Because I'd love to see you. No pressure, but it would make my day.", "I'm just really curious what you look like. Please?", "It would mean a lot. I promise I'll appreciate it."],
-    lustful: ["Because I need to see you. I'm hard just thinking about it. Send one.", "So I can get off to you. Is that honest enough? Send.", "You'd make me so happy. And I'd return the favour. Send."],
-    pervy: ["So I can get off to you. Simple as that. Send.", "Because I'm dying to see you. One pic. That's all.", "You'd make me cum. That's why. Send."],
-    flirty: ["Because I want to see you :) It would make me really happy :)", "I'm curious. And I'll send you more if you do :)", "So we can keep this going :) Send one :)"],
-    wild: ["Because I want to see you :) One pic. I'll make it worth your while :)", "So I can see what I'm missing :) Send.", "You'd make my night. Send one :)"],
-    generic: ["I'd really like to see you. Please?", "Just one. I'll appreciate it.", "It would make my day."]
+    naive: ["Because I'd love to see you. No pressure, but it would make my day.", "I'm just really curious what you look like. Please?", "It would mean a lot. I promise I'll appreciate it.", "I'd really like to see you. No pressure.", "Just one. It would make me happy."],
+    lustful: ["Because I need to see you. I'm hard just thinking about it. Send one.", "So I can get off to you. Is that honest enough? Send.", "You'd make me so happy. And I'd return the favour. Send.", "I'm dying to see you. One pic. Send.", "Because I want to see every inch of you. Fair's fair."],
+    pervy: ["So I can get off to you. Simple as that. Send.", "Because I'm dying to see you. One pic. That's all.", "You'd make me cum. That's why. Send.", "I need to see your pussy. One pic. Send.", "So I can use it. Send."],
+    flirty: ["Because I want to see you :) It would make me really happy :)", "I'm curious. And I'll send you more if you do :)", "So we can keep this going :) Send one :)", "I'd love to see you :) Just one :)", "So we can keep the vibe :) Your turn :)"],
+    wild: ["Because I want to see you :) One pic. I'll make it worth your while :)", "So I can see what I'm missing :) Send.", "You'd make my night. Send one :)", "I'm curious about you :) One pic :)", "So we can keep playing :) Send one :)"],
+    generic: ["I'd really like to see you. Please?", "Just one. I'll appreciate it.", "It would make my day.", "Because I want to see you. One photo."]
 }>>
 /* Anon reply when player says "I already sent. What more do you want?" (player has sent at least one photo) */
 <<run setup.fdmAlreadySentReply = {
-    naive: ["One more like that, if you can.", "Something a bit bolder? Or we can leave it.", "Just one more. Then I'm good."],
-    lustful: ["One more like the last one. Then we're even.", "Something bolder. One more.", "Okay, one more and I'll stop asking."],
-    pervy: ["One more. Same vibe.", "One more like that. Go on.", "One more and I'm good."],
-    flirty: ["One more like that :) Then we're good :)", "Something like the last one again :)", "Just one more :)"],
-    wild: ["One more like that :)", "Send one more like the last :)", "Same again, one more :)"],
-    generic: ["One more like that.", "Just one more. Then I'm good."]
+    naive: ["One more like that, if you can.", "Something a bit bolder? Or we can leave it.", "Just one more. Then I'm good.", "Same kind again? Then I'm happy.", "One more when you're ready. No rush."],
+    lustful: ["One more like the last one. Then we're even.", "Something bolder. One more.", "Okay, one more and I'll stop asking.", "One more. Same level. Then I'm good.", "Just one more like that. Deal?"],
+    pervy: ["One more. Same vibe.", "One more like that. Go on.", "One more and I'm good.", "Same again. One more.", "One more. Don't stop."],
+    flirty: ["One more like that :) Then we're good :)", "Something like the last one again :)", "Just one more :)", "Same vibe again? One more :)", "One more when you feel like it :)"],
+    wild: ["One more like that :)", "Send one more like the last :)", "Same again, one more :)", "One more of that :)", "Again, same style :)"],
+    generic: ["One more like that.", "Just one more. Then I'm good.", "Same again. One more."]
 }>>
 <<set setup.fdmUseLegacyReactionPools = true>>
 <<set setup.fdmExplicitRenderMode = "full">>
@@ -583,15 +625,36 @@ naive: {
     react_photo_normal: [
         { text:"That was nice but could you send something more personal?" },
         { text:"Thanks. Could you send one bolder?" },
-        { text:"This? I'd be happy if you sent something a bit more open." }
+        { text:"This? I'd be happy if you sent something a bit more open." },
+        { text:"I liked that. Something a bit more personal next time?" },
+        { text:"Thanks. One a little bolder would be amazing." }
     ],
-    react_photo_open:  [{ text:"Okay, wasn't expecting that." }, { text:"Wow, that was nice too. Honestly wasn't expecting it." }],
+    react_photo_open:  [
+        { text:"Okay, wasn't expecting that." },
+        { text:"Wow, that was nice too. Honestly wasn't expecting it." },
+        { text:"That was a nice surprise. Thank you." }
+    ],
     react_photo_sexy:  [{ text:"[POOL:naive_react_sexy]", attachmentCategory:"spicy" }],
     react_photo_nude:  [{ text:"[POOL:naive_react_nude]", attachmentCategory:"cock" }],
-    react_photo_ass:   [{ text:"Your ass looks amazing. I want to see more.", attachmentCategory:"spicy" }, { text:"That ass. Thank you. More please.", attachmentCategory:"spicy" }],
-    react_photo_boobs: [{ text:"Your tits are gorgeous. Send more when you can.", attachmentCategory:"spicy" }, { text:"So hot. Thanks for that. More?", attachmentCategory:"spicy" }],
-    react_photo_pussy: [{ text:"You're beautiful. Thanks for trusting me with that.", attachmentCategory:"cock" }, { text:"That's so hot. You're incredible.", attachmentCategory:"cock" }],
-    react_photo_video: [{ text:"Your video was great too, thanks.", attachmentCategory:"cock" }],
+    react_photo_ass:   [
+        { text:"Your ass looks amazing. I want to see more.", attachmentCategory:"spicy" },
+        { text:"That ass. Thank you. More please.", attachmentCategory:"spicy" },
+        { text:"You have a great ass. Thanks for sharing.", attachmentCategory:"spicy" }
+    ],
+    react_photo_boobs: [
+        { text:"Your tits are gorgeous. Send more when you can.", attachmentCategory:"spicy" },
+        { text:"So hot. Thanks for that. More?", attachmentCategory:"spicy" },
+        { text:"Your tits are beautiful. More when you're ready.", attachmentCategory:"spicy" }
+    ],
+    react_photo_pussy: [
+        { text:"You're beautiful. Thanks for trusting me with that.", attachmentCategory:"cock" },
+        { text:"That's so hot. You're incredible.", attachmentCategory:"cock" },
+        { text:"You're gorgeous. Thank you for that.", attachmentCategory:"cock" }
+    ],
+    react_photo_video: [
+        { text:"Your video was great too, thanks.", attachmentCategory:"cock" },
+        { text:"Loved the video. Thank you.", attachmentCategory:"cock" }
+    ],
     react_photo_satisfied_chat: [{ text:"Thanks. That was really nice. You're not bad." }, { text:"I'm glad you sent that. You're cute." }],
     react_photo_satisfied_number: [{ text:"Thanks, I really liked that. Wanna swap numbers?" }, { text:"That was hot. I like you. Let's swap numbers?" }],
     react_photo_want_more: [{ text:"Send one more. I want to see more of you." }, { text:"Don't stop. One more please." }],
@@ -901,14 +964,19 @@ lustful: {
         { text:"Not bad. But I know you can do hotter. Send something that gets me going." },
         { text:"I need more. Tits, ass, pussy — give me something I can really enjoy." }
     ],
-    react_photo_open:  [{ text:"That's more like it. Now send your tits and ass. I want to see everything." }],
+    react_photo_open:  [
+        { text:"That's more like it. Now send your tits and ass. I want to see everything." },
+        { text:"Good. Now your tits and pussy. Full view. Send." },
+        { text:"Better. Now everything. Don't hold back." }
+    ],
     react_photo_sexy:  [
         { text:"Your tits are perfect. Now show me your pussy. I'm hard and I need more.", attachmentCategory:"cock" },
-        { text:"So hot. I'm rock hard. Send more — don't stop.", attachmentCategory:"cock" }
+        { text:"So hot. I'm rock hard. Send more — don't stop.", attachmentCategory:"cock" },
+        { text:"You're so hot. Send your pussy next. I need it.", attachmentCategory:"cock" }
     ],
     react_photo_nude:  [
         { text:"Your pussy and ass are incredible. I'm imagining what I'd do to you if you were here.", attachmentCategory:"cock" },
-        { text:"Fuck. I'd eat you out and then fuck you until you couldn't take it. Send more.", attachmentCategory:"cum" },
+        { text:"Fuck. I'd eat you out and then fuck you until you couldn't take it. I came hard.", attachmentCategory:"cum" },
         { text:"I want to see every angle. I'm hard and ready for more.", attachmentCategory:"cock" }
     ],
     react_photo_ass:   [
@@ -921,11 +989,19 @@ lustful: {
     ],
     react_photo_pussy: [
         { text:"Your pussy looks so good. I'm imagining my cock inside you. Send more.", attachmentCategory:"cock" },
-        { text:"Fuck. I'd love to taste you. And then fuck you. Send another.", attachmentCategory:"cum" }
+        { text:"Fuck. I'd love to taste you. And then fuck you. I came from that.", attachmentCategory:"cum" }
     ],
-    react_photo_video: [{ text:"That video got me so hard. Exactly what I needed. More.", attachmentCategory:"cum" }],
+    react_photo_video: [{ text:"That video got me so hard. Exactly what I needed. I came hard.", attachmentCategory:"cum" }],
     react_photo_satisfied_chat: [{ text:"Fuck, I came. You're hot. Thanks." }, { text:"That did it. You're not bad at all." }],
     react_photo_satisfied_number: [{ text:"I came. You're hot. Wanna swap numbers?" }, { text:"That was good. I like you. Let's swap numbers?" }],
+    react_photo_cum_break_end: [
+        { text:"Aferin orospu, görevini tamamladın ve beni boşalttın. Bir sonrakine görüşürüz." },
+        { text:"Good girl. You got me off. That's enough for tonight." }
+    ],
+    react_photo_cum_break_number: [
+        { text:"Hadi kaltak, şimdi o güzel numaranı ver de o amı dağıtayım." },
+        { text:"Now give me your number, baby. I wanna wreck that ass." }
+    ],
     react_photo_want_more: [{ text:"Send one more. I need more of you." }, { text:"Don't stop. One more." }],
     react_number: [{ text:"Perfect. Adding you now." }],
     anon_send_number: [{ text:"Here's mine: {anonNumber}" }, { text:"Mine's {anonNumber}. Hit me there." }],
@@ -952,9 +1028,10 @@ lustful: {
    PERVY
 ================================================================ */
 pervy: {
+    /* Başlangıçta foto atan – sadece bu opener'lar vulgar */
     opener: [
         {
-            text:"",
+            text:"[POOL:pervy_opener_vulgar]",
             type:"cock_opener",
             attachmentCategory:"cock",
             choices:[
@@ -964,12 +1041,12 @@ pervy: {
             ]
         },
         {
-            text:"Thought about it and sent it.",
+            text:"[POOL:pervy_opener_vulgar]",
             type:"cock_opener",
             attachmentCategory:"cock",
             choices:[
                 { text:"Wait stop",                         delta:-15 },
-                { text:"What is this?",                     delta:-8 },
+                { text:"What's this?",                      delta:-8 },
                 { text:"Hmm, I saw",                       delta: 5 }
             ]
         }
@@ -1050,7 +1127,7 @@ pervy: {
             type:"photo_hint",
             choices:[
                 { text:"No need",                           delta:-12, isRejection:true },
-                { text:"What did you send?",                 delta: 5 },
+                { text:"You sent something—what was it?",   delta: 5 },
                 { text:"No, enough",                        delta:-10, isRejection:true }
             ]
         },
@@ -1121,30 +1198,47 @@ pervy: {
         { text:"That's a start. I want pussy, ass, tits. Something I can really use." },
         { text:"Your tits are hot. Now show me your pussy and ass. Full package." }
     ],
-    react_photo_open:   [{ text:"Better. Now send one with your pussy and tits. I want the full view.", attachmentCategory:"cock" }],
+    react_photo_open:   [
+        { text:"Better. Now send one with your pussy and tits. I want the full view.", attachmentCategory:"cock" },
+        { text:"Good. Full view. Pussy and tits. Send.", attachmentCategory:"cock" },
+        { text:"Now the full package. Send everything.", attachmentCategory:"cock" }
+    ],
     react_photo_sexy:   [
-        { text:"Your pussy gets me so hard. Keep sending. I'm not done yet.", attachmentCategory:"cum" },
-        { text:"More. I want your pussy and ass. Send." }
+        { text:"Your pussy gets me so hard. I came from that.", attachmentCategory:"cum" },
+        { text:"More. I want your pussy and ass. Send.", attachmentCategory:"cock" },
+        { text:"So hard. That made me cum.", attachmentCategory:"cum" }
     ],
     react_photo_nude:   [
         { text:"Your ass and pussy are perfect. I'd fuck you so hard if you were here.", attachmentCategory:"cum" },
-        { text:"I'd take you right now. Send more so I can get off to you.", attachmentCategory:"cum" }
+        { text:"I'd take you right now. That made me cum hard.", attachmentCategory:"cum" }
     ],
     react_photo_ass:    [
         { text:"That ass. I'd pound it. Send more.", attachmentCategory:"cock" },
-        { text:"Perfect. I'm hard. Send another.", attachmentCategory:"cum" }
+        { text:"Perfect. I came hard. Give me your number now.", attachmentCategory:"cum" }
     ],
     react_photo_boobs:  [
         { text:"Your tits are incredible. I'd suck them and then move down. Send your pussy.", attachmentCategory:"cock" },
-        { text:"So hot. I'm rock hard. Send more.", attachmentCategory:"cum" }
+        { text:"So hot. I'm rock hard. I came to that.", attachmentCategory:"cum" }
     ],
     react_photo_pussy:  [
-        { text:"Your pussy looks so good. I'd eat it and then fuck you. Send more.", attachmentCategory:"cum" },
-        { text:"Fuck. I want to be inside you. Send another.", attachmentCategory:"cum" }
+        { text:"Your pussy looks so good. I'd eat it and then fuck you. I came hard.", attachmentCategory:"cum" },
+        { text:"Fuck. I want to be inside you. That made me cum.", attachmentCategory:"cum" }
     ],
-    react_photo_video:  [{ text:"That video. I'm hard. Now I want to see your pussy. Send.", attachmentCategory:"cum" }],
+    react_photo_video:  [{ text:"That video got me off. I came hard.", attachmentCategory:"cum" }],
     react_photo_satisfied_chat: [{ text:"Came. You're good. Thanks." }, { text:"That did it. Not bad." }],
-    react_photo_satisfied_number: [{ text:"I came. Wanna swap numbers?" }, { text:"Good. Let's swap numbers." }],
+    react_photo_satisfied_number: [
+        { text:"I came. Now give me your number, baby." },
+        { text:"Give me your number, baby - I wanna wreck that big ass." },
+        { text:"Send your number. I want to tear that pussy apart." }
+    ],
+    react_photo_cum_break_end: [
+        { text:"Aferin orospu, görevini tamamladın ve beni boşalttın. Bir sonrakine görüşürüz." },
+        { text:"You did your job and got me off. We'll continue next time." }
+    ],
+    react_photo_cum_break_number: [
+        { text:"Hadi kaltak, şimdi o güzel numaranı ver de o amı dağıtayım." },
+        { text:"Give me your number now, baby. I wanna tear that pussy apart." }
+    ],
     react_photo_want_more: [{ text:"One more. Send." }, { text:"Need one more. Don't stop." }],
     react_number: [{ text:"Got it. Switching over. Talk there." }],
     anon_send_number: [{ text:"Here's mine: {anonNumber}" }, { text:"Mine's {anonNumber}. Text there." }],
@@ -1394,13 +1488,29 @@ flirty: {
             ]
         }
     ],
-    react_photo_normal: [{ text:"You look so good :) Send me something a bit bolder? I want to see more of you :)", attachmentCategory:"spicy" }],
-    react_photo_open:   [{ text:"Ohh.", attachmentCategory:"spicy" }, { text:"Mmm, I like that. Send another :)", attachmentCategory:"spicy" }],
+    react_photo_normal: [
+        { text:"You look so good :) Send me something a bit bolder? I want to see more of you :)", attachmentCategory:"spicy" },
+        { text:"So cute :) One a bit bolder? I'd love to see more :)", attachmentCategory:"spicy" }
+    ],
+    react_photo_open:   [
+        { text:"Ohh.", attachmentCategory:"spicy" },
+        { text:"Mmm, I like that. Send another :)", attachmentCategory:"spicy" },
+        { text:"That was nice :) More please :)", attachmentCategory:"spicy" }
+    ],
     react_photo_sexy:   [{ text:"[POOL:flirty_react_sexy]", attachmentCategory:"sexting" }],
     react_photo_nude:   [{ text:"[POOL:flirty_react_nude]", attachmentCategory:"sexting" }],
-    react_photo_ass:    [{ text:"Your ass is gorgeous :) More please :)", attachmentCategory:"sexting" }],
-    react_photo_boobs:  [{ text:"Your tits are perfect :) I love them :)", attachmentCategory:"sexting" }],
-    react_photo_pussy:  [{ text:"You're so sexy :) Don't stop sending :)", attachmentCategory:"sexting" }],
+    react_photo_ass:    [
+        { text:"Your ass is gorgeous :) More please :)", attachmentCategory:"sexting" },
+        { text:"Love your ass :) Send more :)", attachmentCategory:"sexting" }
+    ],
+    react_photo_boobs:  [
+        { text:"Your tits are perfect :) I love them :)", attachmentCategory:"sexting" },
+        { text:"So pretty :) More please :)", attachmentCategory:"sexting" }
+    ],
+    react_photo_pussy:  [
+        { text:"You're so sexy :) Don't stop sending :)", attachmentCategory:"sexting" },
+        { text:"You're gorgeous :) More :)", attachmentCategory:"sexting" }
+    ],
     react_photo_video:  [{ text:"That video was so hot :) I loved it :)", attachmentCategory:"female_masturbation" }],
     react_photo_satisfied_chat: [{ text:"That was so good :) You're hot. Thanks :)" }, { text:"Loved it. You're not bad :)" }],
     react_photo_satisfied_number: [{ text:"That was amazing :) Wanna swap numbers? :)" }, { text:"I really liked that. Let's swap numbers? :)" }],
@@ -1641,14 +1751,32 @@ wild: {
             ]
         }
     ],
-    react_photo_normal: [{ text:"[POOL:wild_react_normal]", attachmentCategory:"spicy" }],
-    react_photo_open:   [{ text:"[POOL:wild_react_open]", attachmentCategory:"sexting" }],
+    react_photo_normal: [
+        { text:"[POOL:wild_react_normal]", attachmentCategory:"spicy" },
+        { text:"Nice :) I like that :)", attachmentCategory:"spicy" }
+    ],
+    react_photo_open:   [
+        { text:"[POOL:wild_react_open]", attachmentCategory:"sexting" },
+        { text:"That was good :) More? :)", attachmentCategory:"sexting" }
+    ],
     react_photo_sexy:   [{ text:"[POOL:wild_react_sexy]", attachmentCategory:"female_masturbation" }],
     react_photo_nude:   [{ text:"[POOL:wild_react_nude]", attachmentCategory:"female_masturbation" }],
-    react_photo_ass:    [{ text:"Your ass is incredible :) More? :)", attachmentCategory:"female_masturbation" }],
-    react_photo_boobs:  [{ text:"You look amazing :) Love that :)", attachmentCategory:"female_masturbation" }],
-    react_photo_pussy:  [{ text:"You're so hot :) I want more :)", attachmentCategory:"female_masturbation" }],
-    react_photo_video:  [{ text:"That video was so good :) Thanks :)", attachmentCategory:"female_masturbation" }],
+    react_photo_ass:    [
+        { text:"Your ass is incredible :) More? :)", attachmentCategory:"female_masturbation" },
+        { text:"Love it :) Send more :)", attachmentCategory:"female_masturbation" }
+    ],
+    react_photo_boobs:  [
+        { text:"You look amazing :) Love that :)", attachmentCategory:"female_masturbation" },
+        { text:"So hot :) More please :)", attachmentCategory:"female_masturbation" }
+    ],
+    react_photo_pussy:  [
+        { text:"You're so hot :) I want more :)", attachmentCategory:"female_masturbation" },
+        { text:"You're gorgeous :) More :)", attachmentCategory:"female_masturbation" }
+    ],
+    react_photo_video:  [
+        { text:"That video was so good :) Thanks :)", attachmentCategory:"female_masturbation" },
+        { text:"Loved that video :) More? :)", attachmentCategory:"female_masturbation" }
+    ],
     react_photo_satisfied_chat: [{ text:"That was hot :) Thanks :)" }, { text:"You're good. I liked that :)" }],
     react_photo_satisfied_number: [{ text:"So good :) Wanna swap numbers? :)" }, { text:"Loved it. Let's swap numbers? :)" }],
     react_photo_want_more: [{ text:"If you want, one more :)" }, { text:"Only if you're comfortable - one more? :)" }],

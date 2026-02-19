@@ -199,6 +199,9 @@ function initFotogramMediaPlayers(vars) {
     if (typeof window.initFotogramPreviewVideoPlayer === 'function') {
         window.initFotogramPreviewVideoPlayer(vars);
     }
+    if (typeof window.initFotogramDmThreadVideoPlayers === 'function') {
+        window.initFotogramDmThreadVideoPlayers(vars);
+    }
 }
 
 function handleAppClick(action) {
@@ -209,7 +212,14 @@ function handleAppClick(action) {
 window.openGalleryFolder = function (folder) {
     if (!PhoneAPI || !folder) return;
     phoneViewState.galleryFolder = folder;
-    var titles = { photos: 'Photos', videos: 'Videos', received: 'Received' };
+    var titles = {
+        photos: 'Photos',
+        videos: 'Videos',
+        received: 'Received',
+        fotogram: 'Fotogram',
+        fotogram_received: 'Fotogram Received',
+        fotogram_sended: 'Fotogram Sended'
+    };
     var $title = $('#phone-app-view-title');
     var $content = $('#phone-app-view-content');
     if ($title.length) $title.text(titles[folder] || folder);
@@ -284,13 +294,25 @@ function createPhoneOverlay() {
         }
         if (phoneViewState.app === 'gallery' && $('#phone-app-view').find('.phone-gallery-preview-overlay').length) {
             $('#phone-app-view').find('.phone-gallery-preview-overlay').remove();
-            var titles = { photos: 'Photos', videos: 'Videos', received: 'Received' };
+            var titles = {
+                photos: 'Photos',
+                videos: 'Videos',
+                received: 'Received',
+                fotogram: 'Fotogram',
+                fotogram_received: 'Fotogram Received',
+                fotogram_sended: 'Fotogram Sended'
+            };
             $('#phone-app-view-title').text(titles[phoneViewState.galleryFolder] || phoneViewState.galleryFolder || 'Gallery');
             return;
         }
         if (phoneViewState.app === 'gallery' && phoneViewState.galleryFolder) {
-            phoneViewState.galleryFolder = null;
-            $('#phone-app-view-title').text(PHONE_APP_NAMES.gallery || 'Gallery');
+            if (phoneViewState.galleryFolder === 'fotogram_received' || phoneViewState.galleryFolder === 'fotogram_sended') {
+                phoneViewState.galleryFolder = 'fotogram';
+                $('#phone-app-view-title').text('Fotogram');
+            } else {
+                phoneViewState.galleryFolder = null;
+                $('#phone-app-view-title').text(PHONE_APP_NAMES.gallery || 'Gallery');
+            }
             $('#phone-app-view-content').html(getAppContent('gallery', vars));
             return;
         }
@@ -782,7 +804,14 @@ function createPhoneOverlay() {
         var folder = $(this).data('folder') || (this.id ? this.id.replace('phone-gallery-folder-', '') : '');
         if (!folder) return;
         phoneViewState.galleryFolder = folder;
-        var titles = { photos: 'Photos', videos: 'Videos', received: 'Received' };
+        var titles = {
+            photos: 'Photos',
+            videos: 'Videos',
+            received: 'Received',
+            fotogram: 'Fotogram',
+            fotogram_received: 'Fotogram Received',
+            fotogram_sended: 'Fotogram Sended'
+        };
         $('#phone-app-view-title').text(titles[folder] || folder);
         $('#phone-app-view-content').html(getAppContent('gallery', PhoneAPI.State.variables));
     });
@@ -826,6 +855,7 @@ function createPhoneOverlay() {
             phoneViewState.fotogramDmThread = dm.id;
             $('#phone-app-view-title').text('Messages');
             $('#phone-app-view-content').html(getAppContent('fotogram', vars));
+            initFotogramMediaPlayers(vars);
             scrollPhoneThreadToBottom();
             if (typeof window.initTooltips === 'function') window.initTooltips();
         }
@@ -838,6 +868,7 @@ function createPhoneOverlay() {
         phoneViewState.fotogramDmThread = dmId;
         $('#phone-app-view-title').text('Messages');
         $('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+        initFotogramMediaPlayers(PhoneAPI.State.variables);
         scrollPhoneThreadToBottom();
         if (typeof window.initTooltips === 'function') window.initTooltips();
     });
@@ -903,6 +934,7 @@ function createPhoneOverlay() {
             phoneViewState.fotogramDmThread = null;
             $phone('#phone-app-view-title').text('Messages');
             $phone('#phone-app-view-content').html(getAppContent('fotogram', vars));
+            initFotogramMediaPlayers(vars);
             if (typeof window.initTooltips === 'function') window.initTooltips();
             if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
         } else if (action === 'block') {
@@ -915,6 +947,7 @@ function createPhoneOverlay() {
                     phoneViewState.fotogramDmThread = null;
                     $phone('#phone-app-view-title').text('Messages');
                     $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                    initFotogramMediaPlayers(PhoneAPI.State.variables);
                     if (typeof window.initTooltips === 'function') window.initTooltips();
                     if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
                     if (typeof showNotification === 'function') showNotification({ type: 'info', message: name + ' has been blocked.' });
@@ -923,6 +956,7 @@ function createPhoneOverlay() {
                 if (typeof blockFotogramDM === 'function') blockFotogramDM(vars, dmId);
                 phoneViewState.fotogramDmThread = null;
                 $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                initFotogramMediaPlayers(PhoneAPI.State.variables);
                 if (typeof window.initTooltips === 'function') window.initTooltips();
             }
         } else if (action === 'photo') {
@@ -930,6 +964,7 @@ function createPhoneOverlay() {
             if (!style || typeof processFotogramPhoto !== 'function') return;
             processFotogramPhoto(vars, dmId, style);
             $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+            initFotogramMediaPlayers(PhoneAPI.State.variables);
             if (phoneViewState.fotogramDmThread) scrollPhoneThreadToBottom();
             if (typeof window.initTooltips === 'function') window.initTooltips();
         } else if (action === 'number') {
@@ -937,6 +972,7 @@ function createPhoneOverlay() {
             var give = String($phone(this).data('give')) === 'true';
             processFotogramNumber(vars, dmId, give);
             $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+            initFotogramMediaPlayers(PhoneAPI.State.variables);
             if (phoneViewState.fotogramDmThread) scrollPhoneThreadToBottom();
             if (typeof window.initTooltips === 'function') window.initTooltips();
         } else if (action === 'reply' && replyKey && typeof processFotogramDMReply === 'function') {
@@ -1000,6 +1036,7 @@ function createPhoneOverlay() {
                             window.showNotification({ type: 'warning', message: 'You can have at most 10 Fotogram swaps.' });
                         }
                         $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        initFotogramMediaPlayers(PhoneAPI.State.variables);
                         return;
                     }
                     var cfg = (typeof setup !== 'undefined' && setup.charGenerator) ? setup.charGenerator : null;
@@ -1008,6 +1045,7 @@ function createPhoneOverlay() {
                             window.showNotification({ type: 'warning', message: 'Missing charGenerator setup.' });
                         }
                         $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        initFotogramMediaPlayers(PhoneAPI.State.variables);
                         return;
                     }
                     var stp = (typeof setup !== 'undefined' && setup) ? setup : (window.setup || null);
@@ -1020,6 +1058,7 @@ function createPhoneOverlay() {
                             window.showNotification({ type: 'warning', message: 'Missing charGenerator pools.' });
                         }
                         $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        initFotogramMediaPlayers(PhoneAPI.State.variables);
                         return;
                     }
                     var pickOne = function (arr) { return arr[Math.floor(Math.random() * arr.length)]; };
@@ -1039,6 +1078,7 @@ function createPhoneOverlay() {
                             window.showNotification({ type: 'warning', message: 'Missing charGenerator age settings.' });
                         }
                         $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        initFotogramMediaPlayers(PhoneAPI.State.variables);
                         return;
                     }
                     if (ageMax < ageMin) { var tmpAge = ageMax; ageMax = ageMin; ageMin = tmpAge; }
@@ -1057,6 +1097,7 @@ function createPhoneOverlay() {
                             window.showNotification({ type: 'warning', message: 'Missing charGenerator gender weights.' });
                         }
                         $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        initFotogramMediaPlayers(PhoneAPI.State.variables);
                         return;
                     }
                     var totalW = maleW + femaleW;
@@ -1069,6 +1110,7 @@ function createPhoneOverlay() {
                             window.showNotification({ type: 'warning', message: 'Invalid charGenerator weights.' });
                         }
                         $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                        initFotogramMediaPlayers(PhoneAPI.State.variables);
                         return;
                     }
                     var firstName = pickOne(gender === 'male' ? maleNames : femaleNames);
@@ -1130,6 +1172,7 @@ function createPhoneOverlay() {
                         window.showNotification({ type: 'warning', message: 'Swap failed. Please try again.' });
                     }
                     $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                    initFotogramMediaPlayers(PhoneAPI.State.variables);
                     return;
                 }
                 vars.phoneContactPromoted = vars.phoneContactPromoted || {};
@@ -1183,10 +1226,12 @@ function createPhoneOverlay() {
                 phoneViewState.fotogramDmThread = null;
                 $phone('#phone-app-view-title').text('Messages');
                 $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                initFotogramMediaPlayers(PhoneAPI.State.variables);
                 if (typeof window.initTooltips === 'function') window.initTooltips();
                 if (typeof updatePhoneBadges === 'function') updatePhoneBadges();
             } else {
                 $phone('#phone-app-view-content').html(getAppContent('fotogram', PhoneAPI.State.variables));
+                initFotogramMediaPlayers(PhoneAPI.State.variables);
                 if (phoneViewState.fotogramDmThread) scrollPhoneThreadToBottom();
                 if (typeof window.initTooltips === 'function') window.initTooltips();
             }
