@@ -1,9 +1,7 @@
-/* Global character generator config (phone/Fotogram and future systems). */
-
-<<set setup.charGeneratorMaleFirstNames = ["Luca", "Noah", "Ethan", "Leo", "Mason", "Liam", "Ezra", "Caleb"]>>
-<<set setup.charGeneratorFemaleFirstNames = ["Aria", "Mila", "Nora", "Sofia", "Lena", "Ivy", "Elena", "Maya"]>>
-<<set setup.charGeneratorUnisexFirstNames = ["Alex", "Sam", "Riley", "Taylor"]>>
-<<set setup.charGeneratorLastNames = ["Carter", "Hayes", "Brooks", "Reed", "Bennett", "Morris", "Parker", "Cole", "Morgan", "Hayden"]>>
+<<set setup.charGeneratorMaleFirstNames = ["Luca", "Noah", "Ethan", "Leo", "Mason", "Liam", "Ezra", "Caleb", "Owen", "Finn", "Jake", "Ryan", "Cole", "Blake", "Dylan", "Jordan", "Kai", "Max", "Reed", "Shane"]>>
+<<set setup.charGeneratorFemaleFirstNames = ["Aria", "Mila", "Nora", "Sofia", "Lena", "Ivy", "Elena", "Maya", "Zoe", "Chloe", "Emma", "Olivia", "Ava", "Luna", "Stella", "Violet", "Hazel", "Ruby", "Jade", "Iris"]>>
+<<set setup.charGeneratorUnisexFirstNames = ["Alex", "Sam", "Riley", "Taylor", "Jordan", "Morgan", "Casey", "Quinn", "Avery", "Skyler", "Jamie", "Cameron", "Dakota", "Parker", "Reese", "Sage", "River", "Phoenix", "Drew", "Blair"]>>
+<<set setup.charGeneratorLastNames = ["Carter", "Hayes", "Brooks", "Reed", "Bennett", "Morris", "Parker", "Cole", "Morgan", "Hayden", "Sullivan", "Gray", "Foster", "West", "Stone", "Cross", "Fox", "Hart", "Lane", "Shaw"]>>
 <<run setup.charGeneratorEthnicities = [
     { id: "white_western", label: "White/Western", weight: 30, preferredSkinTones: ["white", "tan"] },
     { id: "black_african_diaspora", label: "Black/African Diaspora", weight: 20, preferredSkinTones: ["black"] },
@@ -66,7 +64,13 @@
     ]
 }>>
 
-/* Avatar pool usage examples:
-   <<run setup.charGenerator.avatarPool.male.white.push("assets/content/people/generated/male_white_01.webp")>>
-   <<run setup.charGenerator.avatarPool.female.tan.push("assets/content/people/generated/female_tan_01.webp")>>
-*/
+<<run
+(function() {
+    var base = "assets/content/people/charGenerator/";
+    for (var i = 1; i <= 20; i++) {
+        setup.charGenerator.avatarPool.female.white.push(base + "female/w" + i + ".webp");
+        setup.charGenerator.avatarPool.male.white.push(base + "male/mw" + i + ".webp");
+        setup.charGenerator.avatarPool.male.black.push(base + "male/mb" + i + ".webp");
+    }
+})();
+>>

@@ -2,6 +2,7 @@
 <<nobr>>
 <<silently>>
 <<set $location = "floorGround">>
+<<advanceTime 8>>
 <<if ndef $flags>><<set $flags = {}>><</if>>
 <<set $flags.firstMallVisit = true>>
 <<completeQuest "go_to_mall">>

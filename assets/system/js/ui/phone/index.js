@@ -636,9 +636,15 @@ function createPhoneOverlay() {
                 for (var i = 0; i < turns.length; i++) {
                     var turn = turns[i];
                     if (turn && turn.type === 'choice' && turn.options && turn.options.length > 0) {
-                        phoneViewState.pendingTopicChoice = { charId: charId, topicId: topicId, topic: topic, choiceTurn: turn, topicImage: topicImage, topicImageType: topicImageType, photoPushed: photoPushed };
-                        choiceHit = true;
-                        break;
+                        var gallery = vars.phoneGallery;
+                        var hasSpicy = !!(gallery && gallery.photos && Array.isArray(gallery.photos.spicy) && gallery.photos.spicy.length > 0);
+                        var visible = turn.options.map(function (o, idx) { return { opt: o, idx: idx }; }).filter(function (x) {
+                            return !x.opt.requiresSpicyPhoto || hasSpicy;
+                        });
+                        var optIdx = visible.length > 0 ? visible[Math.floor(Math.random() * visible.length)].idx : 0;
+                        var pending = { charId: charId, topicId: topicId, topic: topic, choiceTurn: turn, topicImage: topicImage, topicImageType: topicImageType, photoPushed: photoPushed };
+                        applyTopicChoiceOption(pending, optIdx, null);
+                        return;
                     }
                     var from = (turn.from === 'player') ? 'player' : charId;
                     var text = turn.text || '';

@@ -63,6 +63,7 @@ Nice to meet you too.
 You walk out with a smile, brochure in hand.
 <</narrative>>
 <<silently>>
+<<advanceTime 5>>
 /* Mark character as met and known */
 <<set $characters.shopClerkMarcus.known = true>>
 <<set $characters.shopClerkMarcus.firstMet = `${$timeSys.day}/${$timeSys.month}/${$timeSys.year}`>>

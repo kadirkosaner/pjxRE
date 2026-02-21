@@ -4,10 +4,11 @@
    ======================================== */
 <<silently>>
 <<set $location = "dinerRubys">>
-<<advanceTime 25>>
+<<advanceTime 15>>
 <<advanceQuestStage "find_job">>
 <<set $characters.dinerManager.known = true>>
 <<if !$characters.dinerManager.firstMet>><<set $characters.dinerManager.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
+<<gainCharacterStat "dinerManager" "friendship" 2>>
 <</silently>>
 <<nobr>>
 <<narrative "Manager's office">>

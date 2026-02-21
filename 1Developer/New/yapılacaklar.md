@@ -1,10 +1,10 @@
 
+
 - dinersRuby Check yap.
 - Mirror check.
 
 - Kitap ve İtemlar.
 - phone için selfieler ve videoları tamamla.
-- lily morgan avatar photo
 - Numara silindiği zaman karakter tepkileri.
 
 - wardrobeye bikini swimsuit eklenecek

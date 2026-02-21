@@ -1,6 +1,7 @@
 <<nobr>>
 <<silently>>
 <<set $location = "downTown">>
+<<advanceTime 6>>
 <<if ndef $flags>><<set $flags = {}>><</if>>
 <<set $flags.firstDowntownVisit = true>>
 <<advanceQuestStage "go_to_mall">>

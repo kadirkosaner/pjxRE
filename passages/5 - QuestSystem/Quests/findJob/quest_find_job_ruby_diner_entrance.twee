@@ -7,6 +7,7 @@
 <<advanceTime 10>>
 <<set $characters.dinerClerk.known = true>>
 <<if !$characters.dinerClerk.firstMet>><<set $characters.dinerClerk.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>><</if>>
+<<gainCharacterStat "dinerClerk" "friendship" 2>>
 <</silently>>
 <<nobr>>
 <<narrative "Ruby's Diner">>

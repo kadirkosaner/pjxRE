@@ -57,7 +57,7 @@ shopMd/
 |---|---|---|---|---|---|---|---|---|
 | `storeClothingA` | **Northline Apparel** | Entry | H&M / Primark | Common | 2–4 | $8–30 | Basics queen. Every color, every cut. Cotton, jersey, denim. Wide color palette but simple. Largest selection, cheapest prices. | tops, bottoms, dresses, coats, panties |
 | `storeShoeA` | **StepUp Footwear** | Entry/Mid | Deichmann / Aldo | Common + Rare | 2–5 | $20–65 | Everyday footwear. Sneakers, flats, basic heels. | shoes |
-| `storeSports` | **FastBreak Athletics** | Performance | Nike / Adidas | Common | 2–4 | $15–50 | Performance gear. Sports bras, leggings, athletic shoes. | tops, bottoms, shoes, bras, socks |
+| `storeSports` | **FastBreak Athletics** | Performance | Nike / Adidas | Common | 2–4 | $15–50 | Performance gear. Sports bras, leggings, athletic shoes. Sporty outerwear: windbreaker, track jacket, running jacket. | tops, bottoms, shoes, bras, socks, coats |
 
 ## 2B. Mall — Metro Shopping Center (Second Floor)
 
@@ -154,6 +154,15 @@ This is the core progression system. Every clothing item gets ONE tier tag (or n
 | 4 bold | Micro mini dress, sheer/mesh dress, barely-there straps |
 | 5 erotic | Lingerie-dress, see-through dress, open-side |
 | 6 lewd | Barely a dress, strategic coverage only |
+
+**Coats (outerwear):**
+| Tier | Examples |
+|---|---|
+| 0 | Trench, pea coat, wool coat, parka, puffer, duffle, classic full-length — full coverage, nothing exposed. **Sporty:** windbreaker, track jacket, running jacket, lightweight hooded jacket (FastBreak). |
+| 1 mild | Fitted coat, cropped coat, open collar showing neck/chest when worn open |
+| 2 revealing | Belted coat hugging waist/hips, shorter coat showing more leg, wrap coat with deeper V when open |
+| 3 daring | Very fitted/cinched coat, cropped coat showing midriff when open, deep open front |
+| 4 bold | Cape-like, one-shoulder coat, very short bolero-style, statement open front (rare for coats) |
 
 **Lingerie (Bras/Panties/Bodysuits):**
 | Tier | Examples |
@@ -316,6 +325,7 @@ Every item in the MD catalog must have these fields:
 **Prompt:**
 {AI image generation prompt}
 ```
+**Coats:** Her coat item’da ek alan **Warmth:** 0–5 (sıcak tutma). Bkz. §10 Coats — Sıcak tutma (Warmth).
 
 **Tags:** Required. Use tier tag (if not Tier 0) + 1–2 context tags (e.g. `casual`, `work`, `date`) + 0–1 style tag (e.g. `cozy`, `minimalist`, `cute`) when it fits. Example: `**Tags:** casual, elegant, cozy`
 
@@ -365,6 +375,36 @@ Include the **Quality** field ONLY when the store sells mixed qualities. Omit wh
 | Bellucci Milano | Always Premium | **OMIT** |
 | Eros Boutique | Always Rare | **OMIT** |
 
+---
+
+# 6.5. VARIETY & DIFFERENTIATION — Avoid Similarity
+
+**Problem:** Yeni eklemelerde sürekli aynı tarz (aynı silüet, aynı kesim) veya aynı renkler (hep siyah, lacivert, bordo) tekrarlanırsa mağazalar ve itemlar birbirine çok benzer hale geliyor.
+
+**Kurallar (yeni item eklerken veya revize ederken):**
+
+1. **Aynı mağaza içinde çeşitlilik**
+   - Aynı tier'da **silüet/kesim tekrarından kaçın.** Örn: Zaten 3 "deep V bodycon" varsa dördüncüyü ekleme; farklı bir kesim seç (ör. halter, tek omuz, wrap, slip).
+   - **Renk dağıt:** Aynı dosyada siyah/lacivert/bordo sayısı fazlaysa yeni item'da farklı renk kullan (ör. camel, krem, yeşil, bordö, kırmızı, desen).
+   - Alt kategoride (örn. "short dress") benzer iki item varsa biri farklı kumaş/desen/aksesuar ile ayrışmalı.
+
+2. **Mağazalar arası ayrışma**
+   - **Northline:** Basics, geniş renk paleti, pamuk/jersey/denim; "her renk, her kesim" ama sade. VERA veya Fifth'teki gibi saten/silk yoğunluğu yapma.
+   - **VERA Mode:** Trend kesimler (cutout, one-shoulder, asymmetric), saten görünüm, faux leather, desen — ama her item "cutout + siyah" olmasın; renk ve kesim çeşitliliği koru.
+   - **Fifth Avenue:** Refined, minimal, kaliteli kumaş; daha az çeşit ama her parça "farklı" hissettirmeli. Sadece "midi pencil + siyah/lacivert" tekrarına düşme.
+   - Aynı kategoride (örn. dresses) **üç mağazada da aynı "formül"** (örn. hep short deep V black) olmasın; mağaza karakterine göre kesim/renk/fiyat farkı net olsun.
+
+3. **Yeni item öncesi kontrol**
+   - Aynı MD dosyasında **aynı tier + benzer tarz** kaç tane var? 2+ ise yeni ekleme farklı silüet/renk ile yapılsın.
+   - Diğer mağazaların aynı kategorideki MD'lerine bak: **aynı isimli/çok benzer** (örn. "backless mini navy") başka mağazada varsa bu mağazada farklı bir şey üret (farklı kesim veya farklı renk).
+
+4. **Renk paleti hatırlatması**
+   - Siyah/lacivert/bordo tek başına "elegant" demek değil; **camel, krem, beyaz, gri, kırmızı, yeşil, mavi, desen** de kullan. Her mağazada renk dağılımı o mağazanın karakterine uygun ama tek renge kaymasın.
+
+Bu bölüm ileride revize edilecek; şimdilik yeni eklemelerde **benzer çok olmayacak şekilde** çeşitliliğe dikkat et.
+
+---
+
 ### Price Field (Optional)
 
 Price is NOT included in the MD catalog by default — it's assigned during twee conversion based on the store's price range and the item's quality/looks. However, if you want to suggest a specific price, add:
@@ -372,6 +412,26 @@ Price is NOT included in the MD catalog by default — it's assigned during twee
 ```
 **Price:** $XX
 ```
+
+**Coats — kategoriye özel fiyat:** Montlar dış giyim olduğu için mağazanın genel fiyat aralığından **daha yüksek** kullanılır. Twee dönüşümünde veya MD'de coat için şu aralıklar referans alınır:
+
+| Mağaza | Genel aralık (tops/dresses/bottoms) | Coats fiyat aralığı |
+|--------|--------------------------------------|----------------------|
+| Northline Apparel | $8–30 | **$28–55** |
+| VERA Mode | $25–70 | **$45–95** |
+| Fifth Avenue Wear | $55–120 | **$85–155** |
+| FastBreak Athletics | $15–50 | **$35–65** |
+
+**Fiyat değeri atama kuralı (coats):** Looks düşük → aralığın altı, looks yüksek → aralığın üstü. VERA’da Common → daha düşük, Rare → daha yüksek. Örnek (item sırasına göre dağılım):
+
+| Mağaza | Item sayısı | Örnek fiyat değerleri ($) |
+|--------|-------------|---------------------------|
+| Northline | 6 | 28, 32, 36, 42, 48, 55 |
+| VERA | 7 | 45, 52, 58, 65, 72, 82, 95 |
+| Fifth Avenue | 7 | 85, 92, 100, 108, 118, 132, 155 |
+| FastBreak (sporty) | 4 | 35, 42, 52, 65 |
+
+MD’de **Price:** yazacaksan bu değerlerden seç veya aynı mantıkla looks’a göre hesapla. Twee dönüşümünde coat kategorisi bu aralık ve örnek değerlere göre atanacak.
 
 ---
 
@@ -388,10 +448,10 @@ Every item needs a generation prompt. Follow this template:
 | Variable | Standard Value | When to Change |
 |---|---|---|
 | **Aspect ratio** | `1:1` | Always 1:1 |
-| **Model / Body** | See "Body description by tier" below | **Tier 0:** `A young fit woman` — **Tier 1+ (reqConf 20+):** voluptuous body description |
+| **Model / Body** | See "Body description by tier" below | **Tier 0:** `A young fit woman` — **Tier 1+:** vücut vurgusu (aşağıda); **voluptuous kullanma** — görselde chubby çıkıyor |
 | **Bottom pairing** | `dark fitted jeans` | Change per category (see below) |
 | **Camera angle** | `front three-quarter view` | `rear three-quarter view` for backless/open-back items |
-| **Frame** | `framed from hips to shoulders` | `framed from thighs to shoulders` for long tops/tunics; `framed from knees to shoulders` for dresses |
+| **Frame** | `framed from hips to shoulders` | `framed from thighs to shoulders` for long tops/tunics; **Dresses:** `framed from below the chin to the feet` (çene altından ayaklara kadar — tam boy elbise + ayaklar) |
 | **Face** | `frame starts below nose, face cropped out` | Omit for Bottoms (frame is feet to waist, face not in frame) |
 | **Background** | `isolated on pure white background` | Never change |
 | **Focus** | `focus on the top` | Change per category |
@@ -404,17 +464,17 @@ Every item needs a generation prompt. Follow this template:
 
 **Tier 1 ve üzeri (reqConf 20+):** Daha açık / vurgulu parçalarda görselde kadın vücudu oranları belirgin (göğüs, kalça) olacak şekilde yazılır. Prompt’un başındaki model cümlesi buna göre değişir.
 
-- **Tops / üst beden vurgulu:** `A young fit woman with voluptuous and perky bust`
+- **Tops / üst beden vurgulu:** `A young fit woman with a perky bust` (voluptuous kullanma — chubby çıkıyor)
 - **Bottoms / kalça vurgulu:** `A young fit woman with full hips and rounded butt`
-- **Hem üst hem alt vurgulu (dress, bodysuit vb.):** `A young fit woman with voluptuous bust and full hips`
+- **Hem üst hem alt vurgulu (dress, bodysuit vb.):** `A young fit woman with a slim waist and feminine curves` (voluptuous kullanma — chubby çıkıyor)
 
 Örnek (Tier 1 top):  
-`1:1. A young fit woman with voluptuous and perky bust wearing a black racerback tank...`
+`1:1. A young fit woman with a perky bust wearing a black racerback tank...`
 
 Örnek (Tier 2 bottom):  
 `1:1. A young fit woman with full hips and rounded butt wearing high-waist shorts...`
 
-**Kural:** Item’da tier tag’i varsa (`mild`, `revealing`, `daring`, `bold`, `erotic`, `lewd`) veya reqConfidence 20+ ise prompt’ta yukarıdaki vücut betimlemelerinden uygun olanı kullan; Tier 0 item’larda sadece `A young fit woman` kullan.
+**Kural:** Item’da tier tag’i varsa (`mild`, `revealing`, `daring`, `bold`, `erotic`, `lewd`) veya reqConfidence 20+ ise prompt’ta yukarıdaki vücut betimlemelerinden uygun olanı kullan; Tier 0 item’larda sadece `A young fit woman` kullan. **Asla "voluptuous" yazma** — AI görselde chubby çıkarıyor; fit kalmalı.
 
 ### Prompt Pairing by Category
 
@@ -422,7 +482,7 @@ Every item needs a generation prompt. Follow this template:
 |---|---|---|---|
 | **Tops** | `paired with dark fitted jeans` | `focus on the top` | `hips to shoulders` |
 | **Bottoms** | `paired with a simple white fitted tee` | `focus on the bottom` | `framed from hips to feet, full bottom garment visible, frame cuts at waist` ← tops'taki `framed from hips to shoulders, full top visible, frame starts below nose` yapısının tam aynası |
-| **Dresses** | No pairing | `focus on the dress` | `knees to shoulders` or `thighs to shoulders` |
+| **Dresses** | No pairing | `focus on the dress` | `framed from below the chin to the feet, full dress visible, shoes/feet in frame` (çene altından ayaklara kadar) |
 | **Shoes** | `paired with dark fitted jeans` | `focus on the shoes` | `floor to mid-calf` |
 | **Coats** | `over a simple white tee and dark fitted jeans` | `focus on the coat` | `hips to shoulders` or `thighs to shoulders` |
 | **Bras** | No pairing or `with matching panty` | `focus on the bra` | `waist to shoulders` |
@@ -456,7 +516,7 @@ Areas: `neck and collarbones` (necklaces), `ear` (earrings), `wrist` (bracelets)
 2. **One mood/style word at the end** before the period: `cozy`, `edgy`, `refined`, etc. **Bottoms:** mood word yok; **11.png standard:** `standing still with hands at hips` + `framed from mid-torso to ankles, bottom garment dominates the frame` + `Studio lighting, isolated on pure white background, focus on the bottom garment.`
 3. **Never mention brand names** in prompts
 4. **Color must match** the item name/ID
-5. **Body description by tier:** Tier 0 → `A young fit woman`. Tier 1+ (confidence 20+) → vücut oranları belirgin: tops için `voluptuous and perky bust`, bottoms için `full hips and rounded butt`, dress/bodysuit için her ikisi. Bkz. "Body description by tier" yukarıda.
+5. **Body description by tier:** Tier 0 → `A young fit woman`. Tier 1+ (confidence 20+) → vücut oranları belirgin: tops için `perky bust`, bottoms için `full hips and rounded butt`, dress/bodysuit için `slim waist and feminine curves`. **Voluptuous kullanma** — AI görselde chubby çıkarıyor; fit kalmalı. Bkz. "Body description by tier" yukarıda.
 6. **For revealing items**, describe what's exposed: "showing cleavage", "exposing back", "showing midriff"
 7. **For layered items** (blazer over tee, cardigan over cami), describe both layers
 8. **For Hillcrest items**, emphasize quality materials and construction details
@@ -541,14 +601,28 @@ Each store file follows this exact structure:
 
 # 9. CATEGORY-SPECIFIC TARGET COUNTS
 
+## Wardrobe Twee — Güncel sayılar (oyun içi)
+
+Oyun içinde tanımlı item sayıları (`passages/0 - System/WardrobeSys/`):
+
+| Kategori | Dosya | Toplam item |
+|----------|-------|-------------|
+| **Tops** | `wardrobeTops.twee` | **178** |
+| **Bottoms** | `wardrobeBottoms.twee` | **159** |
+| **Shoes** | `wardrobeShoes.twee` | **110** |
+
+*Son güncelleme: sayılar wardrobe .twee dosyalarındaki `id:` kayıtlarına göredir.*
+
+---
+
 ## Mall Targets
 
 | Category | Total Target | Northline | VERA | Fifth Ave | FastBreak | Silk&Lace | Intimate | Luxe | Diamond | Other |
 |---|---|---|---|---|---|---|---|---|---|---|
 | **Tops** | 175 | 50 | 55 | 38 | 32 | — | — | — | — | — |
 | **Bottoms** | 149 | 43 | 47 | 33 | 26 | — | — | — | — | — |
-| **Dresses** | ~40-50 | 15 | 18 | 15 | — | — | — | — | — | — |
-| **Coats** | ~15-20 | 6 | 7 | 7 | — | — | — | — | — | — |
+| **Dresses** | **60** | 19 | 23 | 18 | — | — | — | — | — | — |
+| **Coats** | ~24 | 6 | 7 | 7 | 4 | — | — | — | — | — |
 | **Shoes** | 110 ✅ | — | — | — | 15 | — | — | — | — | StepUp(38), Stiletto(57) |
 | **Socks** | ~18 | — | — | — | 4 | 14 | — | — | — | — |
 | **Bras** | ~30-35 | — | — | — | 5 | 12-15 | 12-15 | — | — | — |
@@ -582,6 +656,38 @@ Kaynak: `1Developer/ShopMd/2- bottoms (malldone)`.
 | Fifth Avenue Wear | `bottoms-fifth-avenue-wear.md` | 33 | 12 | 4 | 9 | 5 | 3 |
 | FastBreak Athletics | `bottoms-fastbreak-athletics.md` | 26 | 8 | 6 | 5 | 5 | 2 |
 | **TOPLAM** | | **149** | **57** | **31** | **32** | **20** | **9** |
+
+### Dresses DB Snapshot (Mall — tamamlandı)
+
+Kaynak: `1Developer/1-Prompts/ShopMd/3- dresses`.
+
+| Mağaza | Dosya | Toplam | T0 | T1 | T2 | T3 | T4 |
+|--------|-------|-------:|---:|---:|---:|---:|---:|
+| Northline Apparel | `dresses-northline-apparel.md` | 19 | 11 | 5 | 2 | 1 | 0 |
+| VERA Mode | `dresses-vera-mode.md` | 23 | 6 | 6 | 6 | 3 | 2 |
+| Fifth Avenue Wear | `dresses-fifth-avenue-wear.md` | 18 | 7 | 3 | 5 | 2 | 1 |
+| **TOPLAM** | | **60** | **24** | **14** | **13** | **6** | **3** |
+
+FastBreak Athletics dress satmıyor (tops, bottoms, shoes, bras, socks).
+
+### Coats DB Snapshot (Mall — plan)
+
+Coats satan mağazalar: **Northline Apparel**, **VERA Mode**, **Fifth Avenue Wear**, **FastBreak Athletics** (sadece sportif dış giyim).
+
+| Mağaza | Dosya | Toplam | T0 | T1 | T2 | T3 | T4 | Fiyat aralığı (coats) |
+|--------|-------|-------:|---:|---:|---:|---:|---:|---|
+| Northline Apparel | `coats-northline-apparel.md` | **6** | 4 | 2 | 0 | 0 | 0 | **$28–55** |
+| VERA Mode | `coats-vera-mode.md` | **7** | 2 | 2 | 2 | 1 | 0 | **$45–95** |
+| Fifth Avenue Wear | `coats-fifth-avenue-wear.md` | **7** | 3 | 2 | 1 | 1 | 0 | **$85–155** |
+| FastBreak Athletics | `coats-fastbreak-athletics.md` | **4** | 4 | 0 | 0 | 0 | 0 | **$35–65** |
+| **TOPLAM** | | **24** | **13** | **6** | **3** | **2** | **0** | — |
+
+Coats, mağazanın genel fiyatından **yüksek** (dış giyim = daha fazla kumaş/maliyet). Bkz. §6 Price Field — Coats kategoriye özel fiyat.
+
+- **Northline:** Sadece T0–T1 (max tier 3 ama coat’ta 1–2 item ile sınırlı; basics ağırlık → T0/T1 yeterli). Klasik trenç, parka, puffer, duffle, cropped basic. Fiyat $28–55.
+- **VERA Mode:** T0–T3 yayılımı (max 4, “3 items only” üst tier’da). Trend kesimler: fitted, belted, cropped. Fiyat $45–95.
+- **Fifth Avenue Wear:** T0–T3. Refined, kaliteli kumaş; belted wrap, structured open coat. Fiyat $85–155.
+- **FastBreak Athletics:** Sadece **sportif dış giyim** (hepsi T0): windbreaker, track jacket, running jacket, lightweight hooded jacket. Fiyat $35–65.
 
 ## Hillcrest Targets (Future)
 
@@ -644,6 +750,25 @@ Both the bra and panty in a set should share the same set name. This enables the
 **Slot:** {day|evening|work}        ← bag usage context
 ```
 
+## Coats — Sıcak tutma (Warmth)
+
+**Future:** Oyun içinde hava/soğuk sistemi kullanılırsa coat’ın ne kadar sıcak tuttuğu bu değerle belirlenir. MD kataloğunda her coat için eklenir.
+
+```
+**Warmth:** {0-5}                   ← sıcak tutma değeri (0 = neredeyse yok, 5 = çok sıcak tutar)
+```
+
+| Değer | Anlam | Örnek |
+|-------|--------|--------|
+| 0 | Neredeyse sıcak tutmaz, ince / rüzgar geçirir | Windbreaker, ince track jacket, cropped open jacket |
+| 1 | Çok hafif ısı | İnce yağmurluk, lightweight hooded jacket |
+| 2 | Hafif ısı | İnce trenç, hafif parka, denim jacket |
+| 3 | Orta ısı | Klasik trenç, orta kalınlık pea coat, belted wool blend |
+| 4 | İyi sıcak tutar | Kalın wool coat, puffer (ince), duffle |
+| 5 | Çok sıcak tutar | Ağır puffer, kalın kürk görünümlü, uzun ağır winter coat |
+
+Sportif (FastBreak) coat’lar çoğunlukla 0–1; Northline/VERA/Fifth’te 1–5 arası dağılır. Twee dönüşümünde bu alan `warmth` veya `sıcakTutma` olarak oyun verisine aktarılacak.
+
 ---
 
 # 11. CHECKLIST BEFORE SUBMITTING
@@ -655,6 +780,7 @@ Before finalizing any catalog file, verify:
 - [ ] **Tier counts match** the tier distribution in header
 - [ ] **Tier distribution matches store character** (refer to Section 3 tier limits)
 - [ ] **No duplicate Item IDs** across ALL files globally
+- [ ] **Variety & differentiation (Section 6.5):** Aynı mağazada aynı tarz/renk tekrarı az; mağazalar birbirinden ayrışıyor; yeni item eklerken mevcut itemlara bakıldı.
 - [ ] **Looks values are within store range** (refer to Section 4)
 - [ ] **Average looks** sits in the middle of the store's range
 - [ ] **Quality field** included ONLY for mixed-quality stores (refer to Section 6)
@@ -671,7 +797,7 @@ Before finalizing any catalog file, verify:
 - [ ] **KayıtID is valid camelCase** of Item ID
 - [ ] **Higher tiers have fewer items** (pyramid shape within each store)
 - [ ] **No Premium quality in mall stores** — Premium is Hillcrest only
-- [ ] **Special properties included** if applicable (shoes: heelHeight; lingerie: set; bags: slot)
+- [ ] **Special properties included** if applicable (shoes: heelHeight; lingerie: set; bags: slot; **coats: warmth** 0–5)
 
 ---
 

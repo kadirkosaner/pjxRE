@@ -27,15 +27,37 @@ function markConversationReadInState(charId, vars) {
 function getMessagesThreadHtml(charId, vars) {
     cleanupExpiredMeetups(vars);
     var conv = (vars.phoneConversations && vars.phoneConversations[charId]) || [];
+    var contactAvatar = typeof getPhoneContactAvatar === 'function' ? getPhoneContactAvatar(charId, vars) : '';
+    var contactName = typeof getPhoneContactName === 'function' ? getPhoneContactName(charId, vars) : '';
+    var initial = (contactName && contactName.length) ? contactName.charAt(0).toUpperCase() : '?';
+    var avatarHtml = (contactAvatar && String(contactAvatar).trim())
+        ? '<img src="' + escapeHtml(contactAvatar) + '" alt="" class="phone-msg-avatar">'
+        : '<span class="phone-msg-avatar phone-msg-avatar-placeholder">' + escapeHtml(initial) + '</span>';
+    var playerAvatar = (vars.characters && vars.characters.player && vars.characters.player.avatar) ? String(vars.characters.player.avatar).trim() : '';
+    if (!playerAvatar && typeof setup !== 'undefined' && setup.imageProfile) playerAvatar = String(setup.imageProfile).trim();
+    var playerAvatarHtml = (playerAvatar)
+        ? '<img src="' + escapeHtml(playerAvatar) + '" alt="" class="phone-msg-avatar">'
+        : '<span class="phone-msg-avatar phone-msg-avatar-placeholder">P</span>';
     var bubbleList = [];
     conv.forEach(function (m) {
         var isPlayer = m.from === 'player';
-        var bubbleClass = 'phone-msg-bubble ' + (isPlayer ? 'phone-msg-sent' : 'phone-msg-received');
+        var rowClass = 'phone-msg-message' + (isPlayer ? ' me' : '');
+        var bubbleClass = 'phone-msg-bubble' + (isPlayer ? ' me' : '');
         if (m.image) {
-            bubbleList.push('<div class="' + bubbleClass + '"><div class="phone-msg-image"><img src="' + escapeHtml(m.image) + '" alt=""></div></div>');
+            var row = '<div class="' + rowClass + '">';
+            if (!isPlayer) row += avatarHtml;
+            row += '<div class="' + bubbleClass + '"><div class="phone-msg-bubble-text"><span class="phone-msg-image-wrap"><img src="' + escapeHtml(m.image) + '" alt=""></span></div></div>';
+            if (isPlayer) row += playerAvatarHtml;
+            row += '</div>';
+            bubbleList.push(row);
         }
         if (m.text) {
-            bubbleList.push('<div class="' + bubbleClass + '"><div class="phone-msg-text">' + escapeHtml(m.text) + '</div></div>');
+            var row = '<div class="' + rowClass + '">';
+            if (!isPlayer) row += avatarHtml;
+            row += '<div class="' + bubbleClass + '"><div class="phone-msg-bubble-text">' + escapeHtml(m.text) + '</div></div>';
+            if (isPlayer) row += playerAvatarHtml;
+            row += '</div>';
+            bubbleList.push(row);
         }
     });
     var bubbles = bubbleList.join('');
@@ -55,20 +77,7 @@ function getMessagesThreadHtml(charId, vars) {
         if (phoneViewState.meetup.step === 'pick_time') meetupInline = getMeetupInlineTimeOptionsHtml(charId, vars);
         else if (phoneViewState.meetup.step === 'pick_place') meetupInline = getMeetupInlinePlaceOptionsHtml(charId, vars);
     }
-    var choiceInline = '';
-    if (phoneViewState.pendingTopicChoice && phoneViewState.pendingTopicChoice.charId === charId && phoneViewState.pendingTopicChoice.choiceTurn && phoneViewState.pendingTopicChoice.choiceTurn.options) {
-        var opts = phoneViewState.pendingTopicChoice.choiceTurn.options;
-        var gallery = vars.phoneGallery;
-        var hasSpicy = !!(gallery && gallery.photos && Array.isArray(gallery.photos.spicy) && gallery.photos.spicy.length > 0);
-        var visible = opts.map(function (o, i) { return { opt: o, idx: i }; }).filter(function (x) {
-            return !x.opt.requiresSpicyPhoto || hasSpicy;
-        });
-        choiceInline = '<div class="phone-thread-choices">' + visible.map(function (x) {
-            var label = (x.opt.label != null && x.opt.label !== '') ? x.opt.label : ('Option ' + (x.idx + 1));
-            return '<button type="button" class="phone-topic-choice-btn" data-option-index="' + x.idx + '">' + escapeHtml(label) + '</button>';
-        }).join('') + '</div>';
-    }
-    return '<div class="phone-messages-thread" data-char-id="' + charId + '"><div class="phone-thread-bubbles">' + bubbles + '</div>' + meetupInline + choiceInline + compose + '</div>';
+    return '<div class="phone-messages-thread" data-char-id="' + charId + '"><div class="phone-thread-bubbles">' + bubbles + '</div>' + meetupInline + compose + '</div>';
 }
 
 function getSpicyPhotoPickerHtml(vars) {
