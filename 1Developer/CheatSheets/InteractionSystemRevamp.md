@@ -6,9 +6,9 @@
 
 ---
 
-## 1. Genel Vizyon
+## 1. Temel Kural
 
-Mevcut sistem karaktere yaklaşınca tek düz bir eylem listesi sunuyor. Hedef: ilişki derinliğine göre katmanlanan, her seviyede yeni kapılar açan, karakter başına özelleştirilebilir bir interaction sistemi.
+**Sistem global ve uniform.** Her NPC için aynı kurallar geçerlidir. Karakter bazlı istisna yoktur. Aile dahil tüm karakterler için love, friendship, lust, trust statları level'lanır. İçeriğin var olup olmadığı sistemi kısıtlamaz — o yazım meselesidir. Sistem sadece altyapıyı sağlar.
 
 ```
 Şu an:     [Talk] [Give Phone Number] [Leave]
@@ -17,21 +17,22 @@ Hedef:
   Lv.1     [Talk] [Leave]
   Lv.2     [Talk] [Flirt] [Leave]
   Lv.3     [Talk] [Flirt] [Touch] [Leave]
+  Lv.4+    [Talk] [Flirt] [Touch] [Intimate] [Leave]
 ```
 
 ---
 
 ## 2. Relationship Level Sistemi
 
-### 2.1 Veri Yapısı Değişikliği
+### 2.1 Veri Yapısı
 
-`$characters[charId].stats` objesine level alanları eklenir:
+`$characters[charId].stats` objesine level alanları eklenir. Tüm karakterler için aynı yapı:
 
 ```js
 // MEVCUT
 stats: { love: 0, friendship: 0, lust: 0, trust: 0 }
 
-// YENİ
+// YENİ — her stat için ayrı level, hepsi 1'den başlar
 stats: {
   love: 0,        loveLevel: 1,
   friendship: 0,  friendshipLevel: 1,
@@ -44,49 +45,29 @@ stats: {
 
 `gainCharacterStat` widget'ı güncellenir:
 
-- Stat 100'e ulaştığında → ilgili `Level` +1 artar
-- Stat sıfırlanır (bar yeniden dolmaya başlar)
-- Level-up notification gösterilir: `"Friendship with Tom → Level 2!"`
-- Karakter tanımındaki `maxLevels` değerine göre tavan uygulanır
+- Stat 100'e ulaştığında → ilgili Level +1 artar
+- Stat **0'a sıfırlanır**, bar yeniden dolmaya başlar
+- Level-up notification gösterilir
 
 ```
-friendship: 95 → gainCharacterStat +10 → friendship: 5, friendshipLevel: 2
+Örnek:
+  friendship: 95, friendshipLevel: 1
+  → gainCharacterStat "tom" "friendship" 10
+  → friendship: 5, friendshipLevel: 2
+  → Notification: "Tom ile Friendship → Level 2!"
 ```
 
-### 2.3 Karakter Başına Max Level
+Level'ın tavanı yoktur. Yazılmış içerik ne kadar derinse o kadar level var demektir.
 
-Her karakter tanımına `maxLevels` eklenir:
+### 2.3 Level Karşılıkları (Tüm NPC'ler için)
 
-```js
-// charTom tanımı örneği
-maxLevels: {
-  friendship: 3,   // Tom ile derin arkadaşlık olabilir
-  trust: 4,
-  lust: 0,         // 0 = bu path hiç açılmaz
-  love: 0
-}
-```
-
-| Karakter | Friendship Max | Lust Max | Love Max | Not |
+| Level | Friendship | Lust | Love | Trust |
 |---|---|---|---|---|
-| Lily | 5 | 4 | 5 | Tam romantik path |
-| Tom (Clerk) | 3 | 0 | 0 | Arkadaş/mentor, sex yok |
-| Sofia | 3 | 2 | 1 | Erkek arkadaş engeli var |
-| Emma | 4 | 4 | 2 | Açık kişilik, hızlı lust |
-| Mike (Dish) | 2 | 0 | 0 | Yüzeysel iş arkadaşı |
-| Vince | 1 | 0 | 0 | Friendship path yok, ayrı eksen |
-| Anne/Baba/Kardeş | 5 | 0 | 5 | Family love, lust path yok |
-
-### 2.4 Özel Eksenler
-
-Bazı karakterler standart friendship/lust yerine farklı eksenlerle ilerler:
-
-**Vince — Power Dynamic:**
-```
-trust → "compliance" eksenine dönüşür
-corruption gereksinimleri ön plana çıkar
-"friendship" yükseltmek mümkün değil, sadece trust/compliance
-```
+| 1 | Tanışma, yüzeysel konular | Yok | Sempati | Nötr |
+| 2 | Kişisel konular, flirt açılır | Çekim, hafif dokunuşlar | Sıcaklık | Güven |
+| 3 | Sırlar, derin konuşmalar | Arzu, daha fiziksel | Bağlılık | Sır ortaklığı |
+| 4 | Yakın arkadaşlık | Yoğun çekim | Aşk | Mutlak güven |
+| 5+ | İlerideki içerikler | ... | ... | ... |
 
 ---
 
@@ -95,30 +76,36 @@ corruption gereksinimleri ön plana çıkar
 ### 3.1 Action Kategorileri
 
 ```
-KATEGORI        UNLOCK KOŞULU           ÖRNEK EYLEMLER
-─────────────────────────────────────────────────────
-Talk            Hep açık                Chat, Ask about..., Discuss
-Flirt           friendshipLevel >= 2    Compliment, Tease, Playful comment
-Touch           lustLevel >= 2          Touch arm, Hug, ...
-Intimate        lustLevel >= 3          ... (karakter bağımlı)
-Special         Karakter özel flag      Vince: "Check his PC" (corruption 1)
+KATEGORI     UNLOCK KOŞULU            ÖRNEK EYLEMLER
+──────────────────────────────────────────────────────
+Talk         Hep açık                 Chat, Ask about..., Discuss
+Flirt        friendshipLevel >= 2     Compliment, Tease, Playful remark
+Touch        lustLevel >= 2           Touch arm, Hug, Hold hand
+Intimate     lustLevel >= 3           (içerik bağımlı)
+Special      flag + corruption/wp     Vince PC, gizli eylemler
 ```
 
-### 3.2 showActions Macro Güncellemesi
+Hangi kategorinin hangi interaction'ları içerdiği tamamen yazım sırasında belirlenir. Sistem sadece kategorinin görünüp görünmeyeceğine karar verir.
 
-`storyJavaScript.js` → `showActions` macro'suna yeni requirement tipleri eklenir:
+### 3.2 showActions Macro — Yeni Requirement Tipleri
+
+`storyJavaScript.js` → `showActions` macro'suna eklenir:
 
 ```js
-// MEVCUT requirements sadece karakter stat'larına bakıyor
-requirements: { friendship: 15 }   // raw stat check
+// MEVCUT — sadece karakter stat'ı
+requirements: { friendship: 15 }
 
-// YENİ - level check desteği
+// YENİ — desteklenen tüm tipler
 requirements: {
-  friendshipLevel: 2,              // level check
-  lustLevel: 1,                    // level check
-  corruption: 1,                   // player corruption check
-  willpower: 20,                   // player willpower check
-  flag: "vince_pc_seen"            // flag check
+  friendshipLevel: 2,     // karakter friendship level check
+  lustLevel: 2,           // karakter lust level check
+  loveLevel: 2,           // karakter love level check
+  trustLevel: 2,          // karakter trust level check
+  corruption: 1,          // player $corruption check
+  willpower: 20,          // player $willpower check
+  flag: "flagIsmi",       // $flags.flagIsmi === true check
+  friendship: 15,         // raw stat check (geriye dönük uyum korunur)
+  lust: 30,               // raw stat check
 }
 ```
 
@@ -127,60 +114,54 @@ Check sırası:
 2. `timeWindow` → saat uygun mu?
 3. `flag` → gerekli flag var mı?
 4. `corruption` / `willpower` → player stat yeterli mi?
-5. `friendshipLevel` / `lustLevel` → level yeterli mi?
-6. `friendship` / `lust` (raw) → raw stat yeterli mi?
+5. `friendshipLevel` / `lustLevel` / `loveLevel` / `trustLevel` → level yeterli mi?
+6. `friendship` / `lust` (raw) → geriye dönük uyum için
 7. `minPlayerEnergy` → enerji yeterli mi?
 
-### 3.3 Locked Buton Davranışı
-
-Mevcut sistem locked butonları gösteriyor (kilit ikonu + tooltip). Bu korunur ama level lock için farklı mesaj:
+### 3.3 Locked Buton Mesajları
 
 ```
-Kilitlerin mesajları:
-  "Requires: Friendship Level 2"     → level eksik
-  "Requires: Lust Level 2"           → level eksik
-  "Requires Corruption 1"            → corruption eksik
-  "Already done today"               → günlük limit
-  "Need 10 energy"                   → enerji eksik
+"Requires: Friendship Level 2"
+"Requires: Lust Level 2"
+"Requires Corruption 1"
+"Already done today"
+"Need 10 energy"
 ```
 
-Seçenek: Level-locked eylemler tamamen **gizlenebilir** (locked göstermek yerine). Karakter başına `showLockedActions: false` ile kontrol edilir.
+`showWhenLocked: false` olan action'lar tamamen gizlenir — kilit ikonu bile çıkmaz. Bu özellikle corruption/flag ile açılan gizli eylemler için kullanılır (Vince PC gibi).
 
 ---
 
-## 4. Talk Sistemi Entegrasyonu
+## 4. Talk Sistemi — Level Entegrasyonu
 
 ### 4.1 Mevcut Durum
 
-`brotherTalkLivingRoom.twee` gibi dosyalar friendship raw değerine göre tier belirliyor:
+`brotherTalkLivingRoom.twee` gibi dosyalar raw friendship değerine göre tier seçiyor:
 ```
-friendship < 40 → tier1
-friendship 40-70 → tier2
-friendship > 70 → tier3
-```
-
-### 4.2 Yeni Durum
-
-Raw tier sistemi kaldırılmaz, `friendshipLevel` ile **eşleştirilir**:
-
-```
-friendshipLevel 1 → tier1 (friendship 0-100 arası)
-friendshipLevel 2 → tier2 (daha kişisel konular)
-friendshipLevel 3 → tier3 (mahrem, derin konular)
+friendship < 40  → tier1
+friendship 40–70 → tier2
+friendship > 70  → tier3
 ```
 
-Bu sayede:
-- Eski talk dosyaları çalışmaya devam eder
-- Yeni dosyalar doğrudan level kontrolü yapar
-- Level atlamak anında yeni konuşma içeriği açar
+### 4.2 Yeni Yapı
 
-### 4.3 Talk Kazanım Hızları
+Mevcut raw tier sistemi kaldırılmaz. `friendshipLevel` ile **doğrudan eşleştirilir**:
+
+```
+friendshipLevel 1 → tier1
+friendshipLevel 2 → tier2
+friendshipLevel 3 → tier3
+```
+
+Yeni talk dosyaları doğrudan `$characters[charId].stats.friendshipLevel` kontrolü yapar. Eski dosyalar olduğu gibi çalışmaya devam eder — refactor gerekmez.
+
+### 4.3 Kazanım Hızları
 
 | Eylem | Friendship | Lust | Trust | Not |
 |---|---|---|---|---|
-| Normal talk (tier1) | +3–5 | 0 | +1 | Yavaş |
-| Personal topic (tier2) | +6–8 | 0 | +3 | Orta |
-| Deep topic (tier3) | +8–12 | +2 | +5 | Hızlı |
+| Normal talk (Lv.1) | +3–5 | 0 | +1 | Yavaş |
+| Personal topic (Lv.2) | +6–8 | 0 | +3 | Orta |
+| Deep topic (Lv.3) | +8–12 | +2 | +5 | Hızlı |
 | Flirt (kabul) | +2 | +8–12 | +1 | Lust odaklı |
 | Flirt (red) | −3 | +3 | −5 | Risk var |
 | Compliment görünüm | +1 | +5–8 | 0 | Lust odaklı |
@@ -189,131 +170,118 @@ Bu sayede:
 
 ---
 
-## 5. CharacterInteraction.twee Güncellemesi
+## 5. UI Güncellemeleri
 
-### 5.1 charInfoCard'a Level Gösterimi
+### 5.1 charInfoCard — Level Gösterimi
 
-Mevcut card: Love / Friendship / Lust / Trust (raw sayı)
+Mevcut: `Love: 12 | Friendship: 45 | Lust: 0 | Trust: 60` (düz sayı)
 
-Yeni card:
+Yeni:
 ```
 Friendship  ████████░░  Lv.2 · 45/100
-Love        ░░░░░░░░░░  Lv.1 · 12/100
+Love        ██░░░░░░░░  Lv.1 · 12/100
 Lust        ░░░░░░░░░░  Lv.1 · 0/100
 Trust       ██████░░░░  Lv.1 · 60/100
 ```
 
-Şu anki `charInfoCard` widget'ı güncellenir — aynı accordion yapısı korunur, stat kutuları genişletilir.
+`CharacterWidgets.twee` → `charInfoCard` widget güncellenir. Accordion yapısı korunur.
 
-### 5.2 Interaction Hub Yapısı
+### 5.2 Relations Modal
 
-`CharacterInteraction.twee` temelde değişmez, `showActions` zaten her şeyi handle ediyor. Tek değişiklik: `charInfoCard` widget'ının level bilgisini göstermesi.
+`assets/system/js/modal/relations.js` → bar render bölümü:
+
+```
+Şu an:   Friendship  [████████░░]  80 / 100
+Yeni:    Friendship  [████████░░]  Lv.2 · 80/100
+```
 
 ---
 
-## 6. Relations Modal Güncellemesi
+## 6. Örnek Action Tanımları
 
-`assets/system/js/modal/relations.js` → bar render kısmı güncellenir:
-
-```
-Şu an:   Friendship: [████████░░] 80 / 100
-
-Yeni:    Friendship Lv.2: [████████░░] 80 / 100
-                           ↑ sonraki level için
-```
-
-Level 0 (max'a ulaşmış, max level) → bar dolup "MAX" gösterir.
-
----
-
-## 7. Karakter Action Tanımları — Örnek Yapı
-
-`storyJavaScript.js` içinde `setup.characterActions` güncellemesi:
+`storyJavaScript.js` → `setup.characterActions`:
 
 ```js
-setup.characterActions = {
+// HERKES İÇİN AYNI YAPI
+// İçerik olmayan level'lar için passage placeholder kullanılır
 
-  // TOM (Clerk)
-  dinerClerk: {
-    dinerRubys: [
-      { id: "talk",    label: "Talk",    passage: "tomTalk",    minPlayerEnergy: 5 },
-      { id: "flirt",   label: "Flirt",   passage: "tomFlirt",
-        requirements: { friendshipLevel: 2 },
-        tags: ["flirt"] },
-      // Lust path yok — maxLevels.lust: 0
-    ]
-  },
+dinerClerk: {   // Tom
+  dinerRubys: [
+    { id: "talk",  label: "Talk",  passage: "tomTalk", minPlayerEnergy: 5 },
+    { id: "flirt", label: "Flirt", passage: "tomFlirt",
+      requirements: { friendshipLevel: 2 }, tags: ["flirt"] },
+    { id: "touch", label: "Touch", passage: "tomTouch",
+      requirements: { lustLevel: 2 }, tags: ["adult"] },
+  ]
+},
 
-  // LILY
-  lily: {
-    sunsetPark: [
-      { id: "talk",    label: "Talk",    passage: "lilyTalk",   minPlayerEnergy: 5 },
-      { id: "jog",     label: "Jog Together", passage: "lilyJog",
-        requirements: { friendshipLevel: 2 } },
-      { id: "flirt",   label: "Flirt",   passage: "lilyFlirt",
-        requirements: { friendshipLevel: 2 }, tags: ["flirt"] },
-      { id: "touch",   label: "...",     passage: "lilyTouch",
-        requirements: { lustLevel: 2 }, tags: ["adult"] },
-    ]
-  },
+lily: {
+  sunsetPark: [
+    { id: "talk",  label: "Talk",        passage: "lilyTalk", minPlayerEnergy: 5 },
+    { id: "jog",   label: "Jog Together",passage: "lilyJog",
+      requirements: { friendshipLevel: 2 } },
+    { id: "flirt", label: "Flirt",       passage: "lilyFlirt",
+      requirements: { friendshipLevel: 2 }, tags: ["flirt"] },
+    { id: "touch", label: "Touch",       passage: "lilyTouch",
+      requirements: { lustLevel: 2 }, tags: ["adult"] },
+  ]
+},
 
-  // VINCE — özel eksen, friendship yok
-  dinerManager: {
-    dinerRubys: [
-      { id: "report",  label: "Report to Vince", passage: "vinceReport" },
-      { id: "pcSnoop", label: "Check his PC",    passage: "vince_pc_snoop",
-        requirements: { flag: "vince_pc_seen", corruption: 1 },
-        showWhenLocked: false },   // gizli kalır, hint bile yok
-    ],
-    dinerOffice: [
-      { id: "pcSnoop", label: "Browse his PC",   passage: "vince_pc_snoop",
-        requirements: { flag: "vince_pc_seen", corruption: 1 },
-        showWhenLocked: false },
-    ]
-  }
-};
+dinerManager: {   // Vince — özel eylemler flag+corruption ile açılır
+  dinerRubys: [
+    { id: "report", label: "Report to Vince", passage: "vinceReport" },
+    { id: "pcSnoop", label: "Browse his PC",  passage: "vince_pc_snoop",
+      requirements: { flag: "vince_pc_seen", corruption: 1 },
+      showWhenLocked: false },
+  ],
+  dinerOffice: [
+    { id: "pcSnoop", label: "Browse his PC",  passage: "vince_pc_snoop",
+      requirements: { flag: "vince_pc_seen", corruption: 1 },
+      showWhenLocked: false },
+  ]
+},
+
+// AİLE — aynı sistem, içerik onlara göre yazılır
+mother: {
+  fhKitchen: [
+    { id: "talk",  label: "Talk",  passage: "motherTalkKitchen", minPlayerEnergy: 5 },
+    { id: "flirt", label: "Flirt", passage: "motherFlirt",
+      requirements: { friendshipLevel: 3 }, tags: ["flirt"] },
+  ]
+}
 ```
 
 ---
 
-## 8. Uygulama Sırası
+## 7. Uygulama Sırası
 
-### Faz 1 — Altyapı (önce bunlar)
-1. `gainCharacterStat` widget'ına level-up mantığı ekle
-2. Tüm karakter init dosyalarına `xLevel: 1` alanları ekle
-3. `showActions` macro'suna `friendshipLevel`, `lustLevel`, `corruption`, `flag` requirement desteği ekle
-4. `charInfoCard` widget'ına level gösterimi ekle
-5. `relations.js` modal'a level satırı ekle
+### Faz 1 — Altyapı
+1. `gainCharacterStat` widget → level-up mantığı (sıfırlama + level++ + notification)
+2. Tüm karakter init dosyaları → `loveLevel: 1, friendshipLevel: 1, lustLevel: 1, trustLevel: 1` ekle
+3. `showActions` macro → `friendshipLevel`, `lustLevel`, `loveLevel`, `trustLevel`, `corruption`, `willpower`, `flag` requirement desteği
+4. `charInfoCard` widget → level + progress bar gösterimi
+5. `relations.js` → level satırı
 
-### Faz 2 — Karakter Tanımları
-6. Tüm karakterlere `maxLevels` tanımla
-7. `setup.characterActions` içinde flirt/touch/intimate kategorilerini ekle (şimdilik passage'lar placeholder)
+### Faz 2 — Action Tanımları
+6. `setup.characterActions` → tüm karakterlere flirt/touch placeholder'ları ekle
+7. Locked mesajları güncelle
 
-### Faz 3 — İçerik (karakter odaklı yazım)
-8. Her karakter için flirt passage'ları yaz
-9. Talk topic'lerine level-bazlı içerik ekle
-10. Vince/özel karakter path'lerini yaz
-
----
-
-## 9. Önemli Kararlar
-
-| Konu | Karar | Sebep |
-|---|---|---|
-| Raw stat check'ler kaldırılsın mı? | **Hayır** | Geriye dönük uyum, eski içerik çalışmaya devam eder |
-| Locked buton gösterilsin mi? | **Karakter bazlı** | `showWhenLocked` flag ile kontrol |
-| Level sıfırlanıyor mu (Lv.1→100→Lv.2→0 mı)? | **Evet** | RPG tarzı, her level yeni bar |
-| Aile için lust level açılsın mı? | **Hayır** | maxLevels.lust: 0 |
-| Level-up anında event tetiklenebilir mi? | **Evet** | onLevelUp flag + notification, ileride event hook eklenebilir |
+### Faz 3 — İçerik (karakter odaklı)
+8. Diner NPC'leri için talk + flirt passage'ları
+9. Lily flirt/touch
+10. Aile interaction genişletmesi
+11. Vince özel path
 
 ---
 
-## 10. Glossary
+## 8. Kararlar
 
-| Terim | Açıklama |
+| Konu | Karar |
 |---|---|
-| `friendshipLevel` | Friendship stat'ının kaçıncı turunda olduğu (1'den başlar) |
-| `maxLevels` | Karakterin o stat'ta ulaşabileceği max level |
-| `showWhenLocked` | false → buton tamamen gizlenir; true → kilit ikonu ile gösterilir |
-| `onLevelUp` | Level atladığında tetiklenecek event/flag |
-| Power Dynamic | Friendship/Lust yerine trust+corruption ekseninde ilerleyen özel path (Vince) |
+| Her NPC için aynı sistem mi? | **Evet — global, uniform** |
+| Aile için lust level? | **Evet — sistem engel koymaz, içerik yazar** |
+| Raw stat check'ler kaldırılsın mı? | **Hayır — geriye dönük uyum korunur** |
+| Level tavanı var mı? | **Hayır — içerik ne kadar varsa o kadar** |
+| Level atlarken stat sıfırlanıyor mu? | **Evet — RPG tarzı, bar başa döner** |
+| Level-up event tetiklenebilir mi? | **Evet — notification + ileride hook** |
+| Gizli eylemler nasıl çalışır? | **showWhenLocked: false + flag/corruption gereksinimi** |
