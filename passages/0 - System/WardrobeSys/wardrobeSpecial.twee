@@ -1,25 +1,3 @@
-/* Special - Apron and other special/work items
- *
- * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned, locationId?, locations? }
- * locationId (string): single location for <<wardrobe "locationId">> filter (global, reusable).
- * locations (array): alternative - list of locationIds this item belongs to.
- */
-
+/* special/apron DB reset */
 <<set setup.clothingData = setup.clothingData || {}>>
-<<set setup.clothingData.apron = [
-    {
-        id: "apronRubysDishwash",
-        name: "Ruby's Dishwashing Apron",
-        brand: "Ruby's Diner",
-        desc: "Work apron for the dishwashing station.",
-        image: "assets/content/clothing/workclothes/rubysdiner/dishwashing/apronRubysDishwash.webp",
-        looks: 0,
-        quality: "Common",
-        tags: ["work"],
-        price: 0,
-        shopAvailable: false,
-        startOwned: false,
-        locationId: "rubysDiner"
-    }
-]>>
+<<set setup.clothingData.apron = []>>

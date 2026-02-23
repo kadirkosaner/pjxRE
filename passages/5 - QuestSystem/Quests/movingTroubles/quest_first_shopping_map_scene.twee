@@ -2,6 +2,7 @@
    NEWCOMER QUEST - FIRST SHOPPING
    Scene: Map discovery at Quick Mart
 ========================================== */
+<div class="divnobr">
 <<nobr>>
 <<set $location = "storeCorner">>
 <<updateCharacterLocations>>
@@ -71,4 +72,6 @@ You walk out with a smile, brochure in hand.
 <</silently>>
 <div class="btn-center">
 <<btn "Leave the Store" "maplewood">><</btn>>
+</div>
+
 </div>

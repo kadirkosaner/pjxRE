@@ -2,6 +2,7 @@
    SCENE: FIND JOB - RUBY'S DINER ENTRANCE
    Player enters with the address slip, goes to register
    ======================================== */
+<div class="divnobr">
 <<silently>>
 <<set $location = "dinerRubys">>
 <<advanceTime 10>>
@@ -42,4 +43,5 @@ He points down the hall, gives you an encouraging look, and heads back to the fr
 <</nobr>>
 <div class="btn-center">
 <<btn "Walk to the manager's office" "quest_find_job_ruby_diner_corridor">><</btn>>
+</div>
 </div>

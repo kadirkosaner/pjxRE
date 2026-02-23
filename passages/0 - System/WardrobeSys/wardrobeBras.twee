@@ -1,28 +1,6 @@
-/* Bras - Regular bras, sports bras, lingerie, etc.
- * 
- * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- */
-
+/* bras DB reset */
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.bras = [
-    /* ==========================================
-       OWNED / STARTER ITEMS (bra/Owned)
-    ========================================== */
-    {
-        id: "bra_sport_white_owned",
-        name: "Sports Bra",
-        brand: "FastBreak Athletics",
-        desc: "Comfortable white sports bra for everyday wear.",
-        image: "assets/content/clothing/bra/Owned/braSportWhiteOwned.webp",
-        looks: 2, quality: "Common", tags: ["casual", "sporty"], price: 15.00, shopAvailable: false, startOwned: true
-    },
-    {
-        id: "bra_black_owned",
-        name: "Black Bra",
-        brand: "Intimate Secrets",
-        desc: "Classic black everyday bra.",
-        image: "assets/content/clothing/bra/Owned/braBlackOwned.webp",
-        looks: 3, quality: "Common", tags: ["casual"], price: 18.00, shopAvailable: false, startOwned: true
-    }
+  { id: "bra_sport_white_owned", name: "White Everyday Bra", brand: "", desc: "Simple white everyday bra.", slot: "bra", silhouette: "basic bra", baseLooks: 1, price: 0, quality: "Common", warmth: 0, sexinessScore: 0, exposureLevel: 0, durability: 100, tags: ["casual", "basic", "mild"], npcAppeal: {}, shopAvailable: false, startOwned: true, reqConfidence: 0, image: "assets/content/clothing/bra/Starter/bra_sport_white_owned.webp" },
+  { id: "bra_black_owned", name: "Black Everyday Bra", brand: "", desc: "Simple black everyday bra.", slot: "bra", silhouette: "basic bra", baseLooks: 1, price: 0, quality: "Common", warmth: 0, sexinessScore: 0, exposureLevel: 0, durability: 100, tags: ["casual", "basic", "mild"], npcAppeal: {}, shopAvailable: false, startOwned: true, reqConfidence: 0, image: "assets/content/clothing/bra/Starter/bra_black_owned.webp" }
 ]>>

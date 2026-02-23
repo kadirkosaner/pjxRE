@@ -1,16 +1,22 @@
 /* Player Wardrobe State
  * This initializes the player's wardrobe state at game start
- * 
- * $wardrobe.equipped - Currently worn items { slot: itemId }
- * $wardrobe.outfits  - Saved outfit combinations
- * $wardrobe.owned    - Array of owned item IDs
+ *
+ * $wardrobe.equipped      - Currently worn items { slot: itemId }
+ * $wardrobe.outfits       - Saved outfit combinations
+ * $wardrobe.owned         - Array of owned item IDs
+ * $wardrobe.itemState     - Runtime item state { [id]: { durability, dirt } }
+ * $wardrobe.wornToday     - Minutes worn today by item { [id]: minutes }
+ * $wardrobe.laundryBasket - Array of item IDs ready for laundry
  */
 
 /* Initialize wardrobe state */
 <<set $wardrobe = {
     equipped: {},
     outfits: [null, null, null, null, null],
-    owned: []
+    owned: [],
+    itemState: {},
+    wornToday: {},
+    laundryBasket: []
 }>>
 
 /* Note: initialization logic is now handled lazily by the macro 

@@ -33,6 +33,7 @@
 <<widget "advanceTime">>
     <<set _minutes = parseInt($args[0], 10) || 30>>
     <<set $timeSys.minute = (parseInt($timeSys.minute, 10) || 0) + _minutes>>
+    <<updateWardrobeWear _minutes>>
     
     <<if $timeSys.minute >= 60>>
         <<set _hours = Math.floor($timeSys.minute / 60)>>
@@ -86,6 +87,83 @@
     <<recalculateStats>>
     /* Refresh topbar/rightbar after time & stat changes */
     <<run $(document).trigger(':passagerender')>>
+<</widget>>
+
+/* Track worn minutes + dirt for equipped clothing items. */
+<<widget "updateWardrobeWear">>
+    <<set _minutes = parseInt($args[0], 10) || 0>>
+    <<if _minutes <= 0>><<return>><</if>>
+    <<if ndef $wardrobe>><<set $wardrobe = { equipped: {}, itemState: {}, wornToday: {}, laundryBasket: [] } >><</if>>
+    <<if ndef $wardrobe.equipped>><<set $wardrobe.equipped = {}>><</if>>
+    <<if ndef $wardrobe.itemState>><<set $wardrobe.itemState = {}>><</if>>
+    <<if ndef $wardrobe.wornToday>><<set $wardrobe.wornToday = {}>><</if>>
+    <<if ndef $wardrobe.laundryBasket>><<set $wardrobe.laundryBasket = []>><</if>>
+    <<run
+        (function() {
+            const S = State.variables;
+            const mins = Number(State.temporary._minutes) || 0;
+            if (mins <= 0) return;
+            const w = S.wardrobe;
+            const equipped = w.equipped || {};
+            const seen = new Set();
+            Object.values(equipped).forEach(itemId => {
+                if (!itemId || seen.has(itemId)) return;
+                seen.add(itemId);
+                const item = setup.getClothingById ? setup.getClothingById(itemId) : null;
+                if (!item) return;
+                if (!w.wornToday[itemId]) w.wornToday[itemId] = 0;
+                w.wornToday[itemId] += mins;
+                if (!w.itemState[itemId]) {
+                    w.itemState[itemId] = {
+                        durability: (typeof item.durability === 'number' ? item.durability : 100),
+                        dirt: 0
+                    };
+                }
+                const st = w.itemState[itemId];
+                st.dirt = Math.max(0, Math.min(100, (typeof st.dirt === 'number' ? st.dirt : 0) + (mins * 0.02)));
+                if (st.dirt > 60 && !w.laundryBasket.includes(itemId)) {
+                    w.laundryBasket.push(itemId);
+                }
+            });
+        })();
+    >>
+<</widget>>
+
+/* Apply day-end durability and reset daily wear counters. */
+<<widget "processWardrobeDayEnd">>
+    <<set _days = parseInt($args[0], 10) || 1>>
+    <<if _days <= 0>><<return>><</if>>
+    <<if ndef $wardrobe or ndef $wardrobe.itemState or ndef $wardrobe.wornToday>><<return>><</if>>
+    <<run
+        (function() {
+            const w = State.variables.wardrobe;
+            const dayCount = Number(State.temporary._days) || 0;
+            for (let d = 0; d < dayCount; d++) {
+                const worn = w.wornToday || {};
+                Object.keys(worn).forEach(itemId => {
+                    const wornMinutes = worn[itemId] || 0;
+                    if (wornMinutes < 60) return;
+                    let loss = Math.floor(wornMinutes / 120);
+                    if (loss <= 0) return;
+                    const item = setup.getClothingById ? setup.getClothingById(itemId) : null;
+                    const isPremium = !!(item && (item.quality === 'Premium' || (Array.isArray(item.tags) && item.tags.includes('luxury'))));
+                    if (isPremium) {
+                        loss = Math.max(1, Math.round(loss * 0.7));
+                    }
+                    if (!w.itemState[itemId]) {
+                        w.itemState[itemId] = {
+                            durability: (item && typeof item.durability === 'number' ? item.durability : 100),
+                            dirt: 0
+                        };
+                    }
+                    const st = w.itemState[itemId];
+                    const currentDur = typeof st.durability === 'number' ? st.durability : 100;
+                    st.durability = Math.max(0, currentDur - loss);
+                });
+                w.wornToday = {};
+            }
+        })();
+    >>
 <</widget>>
 
 /* addHeelsTravelMinutes: when navigating or walking with heels on, add travel minutes.
@@ -143,6 +221,8 @@
             <<set $timeSysYear = $timeSys.year>>
         <</if>>
     <</if>>
+
+    <<processWardrobeDayEnd _days>>
     
     /* ==================== NEW SYSTEMS ==================== */
     

@@ -1,8 +1,3 @@
-/* Necklaces - Chains, pendants, chokers, etc.
- * 
- * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- */
-
+/* necklaces DB reset */
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.necklaces = []>>

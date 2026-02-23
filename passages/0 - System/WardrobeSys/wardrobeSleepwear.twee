@@ -1,20 +1,5 @@
-/* Sleepwear - Pyjamas, nightgowns, etc.
- * 
- * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- */
-
+/* sleepwear DB */
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.sleepwear = [
-    /* ==========================================
-       OWNED / STARTER ITEMS (sleepwear/Owned)
-    ========================================== */
-    {
-        id: "pajama_color_owned",
-        name: "Pajama Set",
-        brand: "VERA Mode",
-        desc: "Comfortable colorful floral pajama set.",
-        image: "assets/content/clothing/sleepwear/Owned/pyjamaColorOwned.webp",
-        looks: 4, quality: "Common", tags: ["sleepwear"], price: 22.00, shopAvailable: false, startOwned: true
-    }
+  { id: "pajama_color_owned", name: "Gray and Plaid Long Pajama Set", brand: "", desc: "Cozy long-sleeve dark gray top and long red-white-dark plaid pants, soft cotton, two-piece pajama set.", slot: "sleepwear", silhouette: "long sleeve plaid pajama set", baseLooks: 1, price: 0, quality: "Common", warmth: 1, sexinessScore: 0, exposureLevel: 0, durability: 100, tags: ["casual", "cozy", "basic"], npcAppeal: {}, shopAvailable: false, startOwned: true, reqConfidence: 0, image: "assets/content/clothing/sleepwear/Starter/pajama_color_owned.webp" }
 ]>>

@@ -42,7 +42,7 @@ Her iş `setup.jobs[jobId]` altında aşağıdaki yapıda. Skill isimleri `stats
             { start: 14, end: 18 },
             { start: 18, end: 22 }
         ]
-        */
+       */
     },
 
     // --- Minimum zorunluluk (haftalık) ---

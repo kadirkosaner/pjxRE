@@ -299,7 +299,7 @@ window.CharacterInit = function (API) {
                         if (item.tags?.includes('revealing') || item.tags?.includes('sexy')) {
                             revealingCount++;
                         }
-                        totalLooks += (item.looks || 0);
+                        totalLooks += (item.baseLooks ?? item.looks ?? 0);
                     }
                 });
             }
@@ -317,30 +317,29 @@ window.CharacterInit = function (API) {
             const equipped = wardrobe.equipped || {};
             const self = this;
             
-            // Define strict order as per reference image
-            const mainSlots = [
+            // Order matches setup.wardrobeCategories: Outerwear, Underwear, Accessories, Other
+            const outerwearSlots = [
                 { id: 'coat', label: 'Coat' },
                 { id: 'top', label: 'Top' },
                 { id: 'bottom', label: 'Bottom' },
                 { id: 'dress', label: 'Dress' },
                 { id: 'shoes', label: 'Shoes' },
-                { id: 'socks', label: 'Socks' },
-                { id: 'bag', label: 'Bag' }
+                { id: 'socks', label: 'Socks' }
             ];
-            
+
             const accessorySlots = [
                 { id: 'earrings', label: 'Earrings' },
                 { id: 'necklace', label: 'Necklace' },
                 { id: 'bracelet', label: 'Bracelet' },
                 { id: 'ring', label: 'Rings' }
             ];
-            
+
             /* When bodysuit equipped (bra===panty with bodysuit tag), show single Bodysuit slot */
             const braId = equipped.bra;
             const pantyId = equipped.panty;
             const braItem = braId ? self.getClothingItemById(braId) : null;
-            const isBodysuitOn = braId && braId === pantyId && braItem && braItem.tags && braItem.tags.includes('bodysuit');
-            const intimateSlots = isBodysuitOn
+            const isBodysuitOn = braId && pantyId && braId === pantyId && braItem && braItem.tags && braItem.tags.includes('bodysuit');
+            const underwearSlots = isBodysuitOn
                 ? [{ id: 'bra', label: 'Bodysuit' }, { id: 'sleepwear', label: 'Sleepwear' }, { id: 'garter', label: 'Garter' }]
                 : [
                     { id: 'bra', label: 'Bra' },
@@ -349,7 +348,8 @@ window.CharacterInit = function (API) {
                     { id: 'garter', label: 'Garter' }
                 ];
 
-            const specialSlots = [
+            const otherSlots = [
+                { id: 'bag', label: 'Bag' },
                 { id: 'apron', label: 'Apron' }
             ];
 
@@ -382,6 +382,13 @@ window.CharacterInit = function (API) {
                 slots.forEach(slot => {
                     const itemId = equipped[slot.id];
                     const item = self.getClothingItemById(itemId);
+                    const runtime = (item && wardrobe.itemState && wardrobe.itemState[item.id]) ? wardrobe.itemState[item.id] : {};
+                    const dirt = Math.max(0, Math.min(100, typeof runtime.dirt === 'number' ? runtime.dirt : 0));
+                    const durability = Math.max(0, Math.min(100, typeof runtime.durability === 'number'
+                        ? runtime.durability
+                        : (item && typeof item.durability === 'number' ? item.durability : 100)));
+                    const sexiness = item && typeof item.sexinessScore === 'number' ? item.sexinessScore : 0;
+                    const exposure = item && typeof item.exposureLevel === 'number' ? item.exposureLevel : 0;
                     
                     sectionHtml += `
                         <div class="outfit-card ${!item ? 'empty' : ''}">
@@ -405,7 +412,23 @@ window.CharacterInit = function (API) {
                                     </span>
                                     <span class="tooltip-stat-row">
                                         <span class="tooltip-stat-label">Looks:</span>
-                                        <span class="tooltip-stat-val" style="color: #ec4899;">+${item.looks}</span>
+                                        <span class="tooltip-stat-val" style="color: #ec4899;">+${(item.baseLooks ?? item.looks ?? 0)}</span>
+                                    </span>
+                                    <span class="tooltip-stat-row">
+                                        <span class="tooltip-stat-label">Sexiness:</span>
+                                        <span class="tooltip-stat-val">${sexiness}</span>
+                                    </span>
+                                    <span class="tooltip-stat-row">
+                                        <span class="tooltip-stat-label">Exposure:</span>
+                                        <span class="tooltip-stat-val">${exposure}</span>
+                                    </span>
+                                    <span class="tooltip-stat-row">
+                                        <span class="tooltip-stat-label">Dirtyness:</span>
+                                        <span class="tooltip-stat-val">${dirt.toFixed(1)}%</span>
+                                    </span>
+                                    <span class="tooltip-stat-row">
+                                        <span class="tooltip-stat-label">Durability:</span>
+                                        <span class="tooltip-stat-val">${durability.toFixed(0)}%</span>
                                     </span>
                                 </div>
                                 ${item.tags && item.tags.length > 0 ? 
@@ -420,21 +443,21 @@ window.CharacterInit = function (API) {
                 return sectionHtml;
             };
 
-            // Main Section
+            // Outerwear (same order as wardrobe: coats, tops, bottoms, dresses, shoes, socks)
             html += '<div class="outfit-section-header">Outerwear</div>';
-            html += renderSlots(mainSlots);
-            
-            // Accessories Header & Section
+            html += renderSlots(outerwearSlots);
+
+            // Underwear
+            html += '<div class="outfit-section-header">Underwear</div>';
+            html += renderSlots(underwearSlots);
+
+            // Accessories
             html += '<div class="outfit-section-header">Accessories</div>';
             html += renderSlots(accessorySlots);
-            
-            // Intimates Header & Section (Optional, keeping it for completeness)
-            html += '<div class="outfit-section-header">Intimates</div>';
-            html += renderSlots(intimateSlots);
 
-            // Special Header & Section (e.g. Apron)
-            html += '<div class="outfit-section-header">Special</div>';
-            html += renderSlots(specialSlots);
+            // Other (bags, apron – same as wardrobe "Other" group)
+            html += '<div class="outfit-section-header">Other</div>';
+            html += renderSlots(otherSlots);
 
             html += '</div>'; // End outfit-list
             

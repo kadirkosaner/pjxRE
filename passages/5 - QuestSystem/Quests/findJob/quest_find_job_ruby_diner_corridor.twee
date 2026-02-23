@@ -2,6 +2,7 @@
    SCENE: FIND JOB - CORRIDOR / MANAGER DOOR
    Player walks down the corridor and knocks
    ======================================== */
+<div class="divnobr">
 <<silently>>
 <<set $location = "dinerRubys">>
 <<advanceTime 5>>
@@ -27,4 +28,5 @@ Hi. I'm here to apply for the job. The waitress position.
 <</nobr>>
 <div class="btn-center">
 <<btn "Enter the office" "quest_find_job_ruby_diner_manager_room">><</btn>>
+</div>
 </div>

@@ -2,6 +2,7 @@
    SCENE: FIND JOB - CAREER SERVICES KIOSK
    Player speaks with the career services clerk
    ======================================== */
+<div class="divnobr">
 <<silently>>
 <<set $location = "townHall">>
 <<advanceTime 5>>
@@ -83,4 +84,5 @@ She clicks a few more times, then turns the monitor slightly so you can see.
 <</nobr>>
 <div class="btn-center">
 <<btn "Look at the screen" "quest_find_job_ruby_diner_offer">><</btn>>
+</div>
 </div>

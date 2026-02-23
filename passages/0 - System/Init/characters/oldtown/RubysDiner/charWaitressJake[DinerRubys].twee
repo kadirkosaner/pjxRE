@@ -15,7 +15,8 @@
     type: "npc",
     color: "#10b981",
     info: "<p>Waiter at Ruby's Diner. He works the floor with the other waitstaff.</p>",
-    status: "Waiter"
+    status: "Waiter",
+    relationship: { status: "single" }
 }>>
 <<set $characters.dinerWaitress3 = {
     stats: { love: 0, friendship: 0, lust: 0, trust: 0 },

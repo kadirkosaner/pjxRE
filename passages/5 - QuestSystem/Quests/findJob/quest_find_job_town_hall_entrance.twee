@@ -2,6 +2,7 @@
    SCENE: FIND JOB - TOWN HALL ENTRANCE
    Player enters Town Hall and looks for Career Services
    ======================================== */
+<div class="divnobr">
 <<silently>>
 <<set $location = "townHall">>
 <<updateCharacterLocations>>
@@ -28,4 +29,5 @@ That's probably a good place to start.
 <</nobr>>
 <div class="btn-center">
 <<btn "Approach the information desk" "quest_find_job_town_hall_information">><</btn>>
+</div>
 </div>

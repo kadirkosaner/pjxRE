@@ -42,7 +42,7 @@ window.ToggleInit = function (API) {
     /*
         Usage: <<uiToggle "$alarm.weekdayEnabled">>
                <<uiToggle "$someVar" "Label Text">>
-    */
+   */
     Macro.add('uiToggle', {
         handler: function () {
             if (this.args.length < 1) {

@@ -15,7 +15,8 @@
     type: "npc",
     color: "#8b5cf6",
     info: "<p>A businesslike career counselor who works at the Town Hall Career Services office. She's efficient but somewhat impersonal in her approach.</p>",
-    status: "Career Counselor"
+    status: "Career Counselor",
+    relationship: { status: "married", partnerLabel: "husband" }
 }>>
 <<set $characters.careerClerk = {
     stats: { love: 0, friendship: 0, lust: 0, trust: 0 },

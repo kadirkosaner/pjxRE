@@ -1,7 +1,7 @@
-:: quest_find_job_accept_entrance
 /* ========================================
    FIND JOB - Accept flow: Return to Ruby's, clerk at door
 ========================================== */
+<div class="divnobr">
 <<silently>>
 <<set $location = "dinerRubys">>
 <<advanceTime 10>>
@@ -35,4 +35,5 @@ He waves you toward the back. You pass the kitchen; a narrow corridor, dressing 
 
 <div class="btn-center">
 <<btn "Go to Vince's office" "quest_find_job_accept_manager">><</btn>>
+</div>
 </div>

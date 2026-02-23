@@ -61,6 +61,30 @@
 <</nobr>>
 <</widget>>
 
+/* Character Link – inline link that opens CharacterInteraction for this character
+   Usage: <<charLink "dinerChef">>        → shows "James" (firstName)
+          <<charLink "dinerChef" "the chef">>  → shows "the chef"
+   Only shows link if character is known (or always for family). Optional third arg: force show even if not known (e.g. for intro scenes).
+*/
+<<widget "charLink">>
+<<nobr>>
+<<set _charId = _args[0]>>
+<<set _char = setup.getCharacter(_charId)>>
+<<if !_char>>
+    <<print _charId>>
+<<else>>
+    <<set _label = _args[1] ? _args[1] : (_char.firstName || _char.name || _charId)>>
+    <<set _known = $characters[_charId].known === true || _charId === "player" || ["mother","father","brother"].includes(_charId)>>
+    <<set _forceShow = _args[2] === true>>
+    <<if _known || _forceShow>>
+        <<link _label>><<set $interactingChar = _charId>><<goto "CharacterInteraction">><</link>>
+    <<else>>
+        <<print _label>>
+    <</if>>
+<</if>>
+<</nobr>>
+<</widget>>
+
 /* Character Info Card Widget
    Usage: <<charInfoCard "mother">>
    Displays a compact info card with avatar, name, relationship, age, stats

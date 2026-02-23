@@ -175,6 +175,9 @@ const categoryLabels = {
     bras: 'Bras',
     panties: 'Panties',
     bodysuits: 'Bodysuits',
+    swimsuits: 'Swimsuits',
+    bikiniTops: 'Bikini Tops',
+    bikiniBottoms: 'Bikini Bottoms',
     sleepwear: 'Sleepwear',
     garter: 'Garter',
     special: 'Special',
@@ -182,7 +185,7 @@ const categoryLabels = {
 };
 
 // Display order for category tabs (only categories present in shop will show)
-const categoryTabOrder = ['coats', 'tops', 'bottoms', 'dresses', 'bags', 'shoes', 'socks', 'bodysuits', 'bras', 'panties', 'sleepwear', 'garter', 'earrings', 'necklaces', 'bracelets', 'rings', 'special', 'equipment'];
+const categoryTabOrder = ['coats', 'tops', 'bottoms', 'dresses', 'bags', 'shoes', 'socks', 'bodysuits', 'swimsuits', 'bikiniTops', 'bikiniBottoms', 'bras', 'panties', 'sleepwear', 'garter', 'earrings', 'necklaces', 'bracelets', 'rings', 'special', 'equipment'];
 
 // Check if player can wear a clothing item (stat requirements - mirrors wardrobe checkClothingRequirements)
 function canWearClothingItem(item) {
@@ -190,15 +193,32 @@ function canWearClothingItem(item) {
     const S = getState();
     let reqConf = 0, reqExh = 0, reqCorr = 0;
     const tags = item.tags || [];
-    if (tags.includes('mild')) reqConf = Math.max(reqConf, 20);
-    if (tags.includes('revealing')) reqConf = Math.max(reqConf, 40);
-    if (tags.includes('daring')) { reqConf = Math.max(reqConf, 55); reqCorr = Math.max(reqCorr, 2); }
-    if (tags.includes('bold')) { reqConf = Math.max(reqConf, 70); reqCorr = Math.max(reqCorr, 3); }
-    if (tags.includes('erotic')) { reqConf = Math.max(reqConf, 80); reqCorr = Math.max(reqCorr, 6); reqExh = Math.max(reqExh, 20); }
-    if (tags.includes('lewd')) { reqConf = Math.max(reqConf, 90); reqCorr = Math.max(reqCorr, 7); reqExh = Math.max(reqExh, 40); }
+
+    // Baseline from new scores, fallback to legacy tags if missing
+    let exposure = typeof item.exposureLevel === 'number' ? item.exposureLevel : null;
+    let sexiness = typeof item.sexinessScore === 'number' ? item.sexinessScore : null;
+    if (exposure == null || sexiness == null) {
+        let tagExposure = 0;
+        let tagSexiness = 0;
+        if (tags.includes('mild')) { tagExposure = Math.max(tagExposure, 2); tagSexiness = Math.max(tagSexiness, 2); }
+        if (tags.includes('revealing')) { tagExposure = Math.max(tagExposure, 4); tagSexiness = Math.max(tagSexiness, 4); }
+        if (tags.includes('daring')) { tagExposure = Math.max(tagExposure, 6); tagSexiness = Math.max(tagSexiness, 5); }
+        if (tags.includes('bold')) { tagExposure = Math.max(tagExposure, 8); tagSexiness = Math.max(tagSexiness, 7); }
+        if (tags.includes('erotic')) { tagExposure = Math.max(tagExposure, 9); tagSexiness = Math.max(tagSexiness, 8); }
+        if (tags.includes('lewd')) { tagExposure = Math.max(tagExposure, 10); tagSexiness = Math.max(tagSexiness, 9); }
+        if (exposure == null) exposure = tagExposure;
+        if (sexiness == null) sexiness = tagSexiness;
+    }
+
+    reqConf = Math.max(0, Math.min(100, (exposure * 7) + (sexiness * 3)));
+    reqExh = Math.max(0, (exposure - 3) * 6);
+    reqCorr = exposure >= 7 ? (exposure - 4) : 0;
+
+    // Item-specific overrides still win
     if (item.reqConfidence != null) reqConf = item.reqConfidence;
     if (item.reqExhibitionism != null) reqExh = item.reqExhibitionism;
     if (item.reqCorruption != null) reqCorr = item.reqCorruption;
+
     const conf = S.variables.confidence ?? 0;
     const exh = S.variables.exhibitionism ?? 0;
     const corr = S.variables.corruption ?? 0;
@@ -627,7 +647,7 @@ function renderProducts() {
     });
 
     if (itemsToShow.length === 0) {
-        grid.innerHTML = '<div class="empty-message">No items available in this category.</div>';
+        grid.innerHTML = '<div class="empty-message" style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; min-height: 200px; width: 100%; text-align: center; color: var(--color-text-tertiary); font-style: italic;">No items available in this category.</div>';
         return;
     }
 
@@ -638,6 +658,8 @@ function renderProducts() {
         const wearCheck = isClothing ? canWearClothingItem(item) : { allowed: true, reason: '' };
         const isLocked = isClothing && !wearCheck.allowed;
         const showTooltip = hasEffects || hasDesc || isClothing;
+        const sexiness = typeof item.sexinessScore === 'number' ? item.sexinessScore : 0;
+        const exposure = typeof item.exposureLevel === 'number' ? item.exposureLevel : 0;
         
         return `
         <div class="product-card${isLocked ? ' product-card-locked' : ''}" data-item-id="${item.id}">
@@ -651,7 +673,9 @@ function renderProducts() {
                         <div class="tooltip-divider"></div>
                         <div class="tooltip-stats">
                             ${item.quality ? `<div class="tooltip-row"><span class="label">Quality:</span> <span class="value quality-${item.quality.toLowerCase()}">${item.quality}</span></div>` : ''}
-                            ${item.looks ? `<div class="tooltip-row"><span class="label">Looks:</span> <span class="value looks-value">+${item.looks}</span></div>` : ''}
+                            ${typeof (item.baseLooks ?? item.looks) === 'number' ? `<div class="tooltip-row"><span class="label">Looks:</span> <span class="value looks-value">+${(item.baseLooks ?? item.looks)}</span></div>` : ''}
+                            <div class="tooltip-row"><span class="label">Sexiness:</span> <span class="value">${sexiness}</span></div>
+                            <div class="tooltip-row"><span class="label">Exposure:</span> <span class="value">${exposure}</span></div>
                             ${item.tags && item.tags.length ? (() => {
                                 const tagColors = {
                                     'naked': '#ef4444', 'underwear': '#f97316', 'revealing': '#f59e0b',
@@ -896,7 +920,7 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
         returnPassage = backPassage || getState().variables.location || 'start';
         shopCurrentCategory = 'all';
         shopShowPurchasableOnly = false;
-        
+
         // Add quest items for this location
         const locationId = S.variables.location || '';
         const questItems = getQuestItemsForLocation(locationId);
@@ -904,13 +928,14 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
             console.log('[Shopping] Adding quest items:', questItems.map(i => i.name));
             currentShopItems = [...questItems, ...currentShopItems]; // Quest items first
         }
-        
+
         saveShopState();
     } else {
-        // Reloading existing shop OR recovering from F5
-        if (loadShopState()) {
+        // Reloading same shop OR different shop with empty items
+        const sameShop = saved && (saved.name === (shopName || 'Shop'));
+        if (sameShop && loadShopState()) {
             console.log('[Shopping] Restored existing shop state:', currentShopName);
-            
+
             // Re-add quest items (they might have changed)
             const locationId = S.variables.location || '';
             const questItems = getQuestItemsForLocation(locationId);
@@ -919,20 +944,20 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
             if (questItems.length > 0) {
                 currentShopItems = [...questItems, ...currentShopItems];
             }
-        } else if (itemIds && Array.isArray(itemIds)) {
-             // Fallback (e.g. empty shop like Luxe Leather with no items)
-             console.warn('[Shopping] State load failed, re-initializing from args.');
-             currentShopName = shopName || 'Shop';
-             currentShopType = shopType || 'Store';
-             currentShopItems = getItemsByIds(itemIds);
-             returnPassage = backPassage || getState().variables.location || 'start';
-             shopCurrentCategory = 'all';
-             saveShopState();
         } else {
-            // Failed
-            console.warn('[Shopping] No shop state found and no items args.');
-            $(output).append('<div class="error">Shop session expired. Please return to the map.</div>');
-            return;
+            // Different shop or no saved state: init this shop (items may be empty)
+            currentShopName = shopName || 'Shop';
+            currentShopType = shopType || 'Store';
+            currentShopItems = (itemIds && Array.isArray(itemIds)) ? getItemsByIds(itemIds) : [];
+            returnPassage = backPassage || S.variables.location || 'start';
+            shopCurrentCategory = 'all';
+            shopShowPurchasableOnly = false;
+            const locationId = S.variables.location || '';
+            const questItems = getQuestItemsForLocation(locationId);
+            if (questItems.length > 0) {
+                currentShopItems = [...questItems, ...currentShopItems];
+            }
+            saveShopState();
         }
     }
     

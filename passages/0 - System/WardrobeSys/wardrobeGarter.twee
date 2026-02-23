@@ -1,8 +1,3 @@
-/* Garter - Garter belts (special underwear)
- *
- * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- */
-
+/* garter DB — reset (owned yok, shop sıfır) */
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.garter = []>>

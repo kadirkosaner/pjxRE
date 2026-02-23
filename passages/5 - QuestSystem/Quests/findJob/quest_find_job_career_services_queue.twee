@@ -2,6 +2,7 @@
    SCENE: FIND JOB - CAREER SERVICES QUEUE
    Player waits in a long line at Career Services
    ======================================== */
+<div class="divnobr">
 <<silently>>
 <<set $location = "townHall">>
 <<advanceTime 28>>
@@ -49,4 +50,5 @@ Here goes nothing.
 <</nobr>>
 <div class="btn-center">
 <<btn "Approach the kiosk" "quest_find_job_career_services_kiosk">><</btn>>
+</div>
 </div>

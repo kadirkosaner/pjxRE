@@ -15,7 +15,8 @@
     type: "npc",
     color: "#dc2626",
     info: "<p>Chef at Ruby's Diner. He runs the kitchen and keeps the place running during service.</p>",
-    status: "Chef"
+    status: "Chef",
+    relationship: { status: "married", partnerLabel: "wife", hasChildren: true }
 }>>
 <<set $characters.dinerChef = {
     stats: { love: 0, friendship: 0, lust: 0, trust: 0 },

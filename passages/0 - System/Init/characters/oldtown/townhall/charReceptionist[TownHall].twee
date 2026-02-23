@@ -15,7 +15,8 @@
     type: "npc",
     color: "#6b7280",
     info: "<p>A professional woman who works at the Town Hall information desk. She's been here for years and knows the building inside and out.</p>",
-    status: "Receptionist"
+    status: "Receptionist",
+    relationship: { status: "married", partnerLabel: "husband" }
 }>>
 <<set $characters.townHallReceptionist = {
     stats: { love: 0, friendship: 0, lust: 0, trust: 0 },

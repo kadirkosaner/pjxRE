@@ -1,28 +1,6 @@
-/* Panties - Regular panties, thongs, lingerie, etc.
- * 
- * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- */
-
+/* panties DB reset */
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.panties = [
-    /* ==========================================
-       OWNED / STARTER ITEMS (panties/Owned)
-    ========================================== */
-    {
-        id: "panties_white_owned",
-        name: "White Panties",
-        brand: "Silk & Lace",
-        desc: "Basic white cotton panties.",
-        image: "assets/content/clothing/panties/Owned/pantiesWhiteOwned.webp",
-        looks: 1, quality: "Common", tags: ["casual"], price: 5.00, shopAvailable: false, startOwned: true
-    },
-    {
-        id: "panties_pink_owned",
-        name: "Pink Panties",
-        brand: "Silk & Lace",
-        desc: "Basic pink cotton panties.",
-        image: "assets/content/clothing/panties/Owned/pantiesPinkOwned.webp",
-        looks: 2, quality: "Common", tags: ["casual"], price: 5.00, shopAvailable: false, startOwned: true
-    }
+  { id: "panties_white_owned", name: "White Everyday Panties", brand: "", desc: "Simple white everyday panties.", slot: "panty", silhouette: "basic panty", baseLooks: 1, price: 0, quality: "Common", warmth: 0, sexinessScore: 0, exposureLevel: 0, durability: 100, tags: ["casual", "basic", "mild"], npcAppeal: {}, shopAvailable: false, startOwned: true, reqConfidence: 0, image: "assets/content/clothing/panties/Starter/panties_white_owned.webp" },
+  { id: "panties_pink_owned", name: "Pink Everyday Panties", brand: "", desc: "Simple pink everyday panties.", slot: "panty", silhouette: "basic panty", baseLooks: 1, price: 0, quality: "Common", warmth: 0, sexinessScore: 0, exposureLevel: 0, durability: 100, tags: ["casual", "basic", "mild"], npcAppeal: {}, shopAvailable: false, startOwned: true, reqConfidence: 0, image: "assets/content/clothing/panties/Starter/panties_pink_owned.webp" }
 ]>>

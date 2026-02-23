@@ -40,7 +40,7 @@ window.DropdownInit = function (API) {
 
     /*
       Usage: <<uiDropdown "$alarm.weekdayHour" _hours>>
-    */
+   */
     Macro.add('uiDropdown', {
         handler: function () {
             if (this.args.length < 2) {

@@ -1,7 +1,7 @@
-:: quest_find_job_accept_manager
 /* ========================================
    FIND JOB - Accept flow: Manager room, say you want to start, accepted, start tomorrow
 ========================================== */
+<div class="divnobr">
 <<silently>>
 <<set $location = "dinerRubys">>
 <<advanceTime 5>>
@@ -61,4 +61,5 @@ You stand up. You leave the office, walk down the corridor to the front of the d
 
 <div class="btn-center">
 <<btn "Continue" "dinerRubys">><</btn>>
+</div>
 </div>

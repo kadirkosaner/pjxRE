@@ -8,37 +8,62 @@
     <<set _checkResult to { allowed: true, reason: "" }>>
     
     <<if _item>>
-        /* 1. Calculate Baseline Requirements from Tags */
-        <<set _reqConf to 0>>
-        <<set _reqExh to 0>>
-        <<set _reqCorr to 0>>
-        
-        /* Tag → Confidence scale (0-100). Item-specific reqConfidence overrides. */
-        <<if _item.tags>>
-            <<if _item.tags.includes("mild")>>
-                <<set _reqConf to Math.max(_reqConf, 20)>>
+        /* 1) Baseline from sexiness/exposure (new spec). Fallback to legacy tags if scores missing. */
+        <<set _exposure to null>>
+        <<set _sexiness to null>>
+        <<if def _item.exposureLevel>><<set _exposure to _item.exposureLevel>><</if>>
+        <<if def _item.sexinessScore>><<set _sexiness to _item.sexinessScore>><</if>>
+
+        <<if _exposure is null or _sexiness is null>>
+            <<set _tagExposure to 0>>
+            <<set _tagSexiness to 0>>
+            <<if _item.tags>>
+                <<if _item.tags.includes("mild")>>
+                    <<set _tagExposure to Math.max(_tagExposure, 2)>>
+                    <<set _tagSexiness to Math.max(_tagSexiness, 2)>>
+                <</if>>
+                <<if _item.tags.includes("revealing")>>
+                    <<set _tagExposure to Math.max(_tagExposure, 4)>>
+                    <<set _tagSexiness to Math.max(_tagSexiness, 4)>>
+                <</if>>
+                <<if _item.tags.includes("daring")>>
+                    <<set _tagExposure to Math.max(_tagExposure, 6)>>
+                    <<set _tagSexiness to Math.max(_tagSexiness, 5)>>
+                <</if>>
+                <<if _item.tags.includes("bold")>>
+                    <<set _tagExposure to Math.max(_tagExposure, 8)>>
+                    <<set _tagSexiness to Math.max(_tagSexiness, 7)>>
+                <</if>>
+                <<if _item.tags.includes("erotic")>>
+                    <<set _tagExposure to Math.max(_tagExposure, 9)>>
+                    <<set _tagSexiness to Math.max(_tagSexiness, 8)>>
+                <</if>>
+                <<if _item.tags.includes("lewd")>>
+                    <<set _tagExposure to Math.max(_tagExposure, 10)>>
+                    <<set _tagSexiness to Math.max(_tagSexiness, 9)>>
+                <</if>>
             <</if>>
-            <<if _item.tags.includes("revealing")>>
-                <<set _reqConf to Math.max(_reqConf, 40)>>
+            <<if _exposure is null>><<set _exposure to _tagExposure>><</if>>
+            <<if _sexiness is null>><<set _sexiness to _tagSexiness>><</if>>
+        <</if>>
+
+        <<set _reqConf to Math.max(0, Math.min(100, (_exposure * 7) + (_sexiness * 3)))>>
+        <<set _reqExh to Math.max(0, (_exposure - 3) * 6)>>
+        <<set _reqCorr to (_exposure >= 7 ? (_exposure - 4) : 0)>>
+
+        /* Condition penalties from runtime state */
+        <<set _runtimeItemState to null>>
+        <<if def $wardrobe.itemState and def _item.id and def $wardrobe.itemState[_item.id]>>
+            <<set _runtimeItemState to $wardrobe.itemState[_item.id]>>
+        <</if>>
+        <<if _runtimeItemState>>
+            <<if def _runtimeItemState.durability and _runtimeItemState.durability < 30>>
+                <<set _reqConf += 10>>
             <</if>>
-            <<if _item.tags.includes("daring")>>
-                <<set _reqConf to Math.max(_reqConf, 55)>>
-                <<set _reqCorr to Math.max(_reqCorr, 2)>>
+            <<if def _runtimeItemState.dirt and _runtimeItemState.dirt > 60>>
+                <<set _reqConf += 5>>
             <</if>>
-            <<if _item.tags.includes("bold")>>
-                <<set _reqConf to Math.max(_reqConf, 70)>>
-                <<set _reqCorr to Math.max(_reqCorr, 3)>>
-            <</if>>
-            <<if _item.tags.includes("erotic")>>
-                <<set _reqConf to Math.max(_reqConf, 80)>>
-                <<set _reqCorr to Math.max(_reqCorr, 6)>>
-                <<set _reqExh to Math.max(_reqExh, 20)>>
-            <</if>>
-            <<if _item.tags.includes("lewd")>>
-                <<set _reqConf to Math.max(_reqConf, 90)>>
-                <<set _reqCorr to Math.max(_reqCorr, 7)>>
-                <<set _reqExh to Math.max(_reqExh, 40)>>
-            <</if>>
+            <<set _reqConf = Math.max(0, Math.min(100, _reqConf))>>
         <</if>>
         
         /* 2. Apply Item-Specific Overrides (The Hybrid Part) */
@@ -190,9 +215,8 @@ setup.getClothingById = function(id) {
     - Corruption >= 5: Can leave Nude
 */
 <<widget "checkBedroomExit">>
-    /* When navigating backward in history, don't re-run exit guard loop. */
+    /* When navigating backward in history, don't re-run exit guard – just show the passage as-is so back button works. */
     <<if $_navigatingBackward>>
-        <<goto "fhBedroom">>
         <<return>>
     <</if>>
 
@@ -211,6 +235,11 @@ setup.getClothingById = function(id) {
     
     <<set _hasBra to ($wardrobe.equipped.bra and $wardrobe.equipped.bra !== "")>>
     <<set _hasPanty to ($wardrobe.equipped.panty and $wardrobe.equipped.panty !== "")>>
+    <<set _isFullBodyUnderwearItem to (_hasBra and _hasPanty and $wardrobe.equipped.bra === $wardrobe.equipped.panty)>>
+    <<set _fullBodyUnderwearItem to null>>
+    <<if _isFullBodyUnderwearItem>>
+        <<set _fullBodyUnderwearItem to setup.getClothingById($wardrobe.equipped.bra)>>
+    <</if>>
     
     /* Logic: Fully Dressed means covering Top AND Bottom (or Dress) */
     /* Note: Shoes are not required for this specific 'Decency' check */
@@ -218,10 +247,19 @@ setup.getClothingById = function(id) {
     <<set _isFullyDressed to (_hasDress or (_hasTop and _hasBottom))>>
     <<set _isUnderwearOnly to (!_isFullyDressed and (_hasBra or _hasPanty))>>
     <<set _isNude to (!_isFullyDressed and !_isUnderwearOnly)>>
+    <<set _isSwimwearOnly to false>>
+    <<if !_isFullyDressed and _fullBodyUnderwearItem and _fullBodyUnderwearItem.tags>>
+        <<if _fullBodyUnderwearItem.tags.includes("swimsuit") or _fullBodyUnderwearItem.tags.includes("bikini")>>
+            <<set _isSwimwearOnly to true>>
+        <</if>>
+    <</if>>
     
     /* Check Logic Loop */
     <<if _isFullyDressed>>
         <<set _canExit to true>>
+        
+    <<elseif _isSwimwearOnly>>
+        <<set _reason to "You can't go out in swimsuit/bikini from your bedroom. Change to regular clothes.">>
         
     <<elseif _isUnderwearOnly>>
         /* If wearing ANY underwear but not fully dressed */
@@ -247,7 +285,7 @@ setup.getClothingById = function(id) {
     
     /* Execute Navigation or Notify */
     <<if _canExit>>
-        <<run $gameDate.addMinutes(1)>>
+        <<advanceTime 1>>
         <<goto "fhUpperstairs">>
     <<else>>
         <<notify "warning" _reason>>

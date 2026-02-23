@@ -30,6 +30,9 @@ const categoryToSlot = {
     bracelets: 'bracelet',
     rings: 'ring',
     bodysuits: 'bodysuit',
+    swimsuits: 'swimsuit',
+    bikiniTops: 'bra',
+    bikiniBottoms: 'panty',
     bras: 'bra',
     panties: 'panty',
     sleepwear: 'sleepwear',
@@ -43,6 +46,14 @@ const categoryToSlot = {
 
 const STYLE_TAGS = ['casual', 'cute', 'elegant', 'professional', 'sexy', 'sporty', 'slutty', 'work'];
 
+/** Slot groups for weighted exposure/sexiness (WARDROBE-MASTER-AGENT-SPEC 3.2). Weights: top 0.4, bottom 0.4, underwear 0.6; sum 1.4 → normalize to 0–10. */
+const SLOT_GROUP_TOP = ['top', 'coat', 'dress'];
+const SLOT_GROUP_BOTTOM = ['bottom', 'dress'];
+const SLOT_GROUP_UNDERWEAR = ['bra', 'panty'];
+const SLOT_WEIGHT_TOP = 0.4;
+const SLOT_WEIGHT_BOTTOM = 0.4;
+const SLOT_WEIGHT_UNDERWEAR = 0.6;
+const SLOT_WEIGHT_SUM = SLOT_WEIGHT_TOP + SLOT_WEIGHT_BOTTOM + SLOT_WEIGHT_UNDERWEAR; // 1.4
 
 // ============================================
 // HELPER FUNCTIONS
@@ -92,20 +103,59 @@ function initializePlayerWardrobe() {
         });
     });
 
+    const validItemIds = new Set();
+    catKeys.forEach(category => {
+        const items = clothingData[category] || [];
+        items.forEach(item => {
+            if (item && item.id) validItemIds.add(item.id);
+        });
+    });
+
     // Only populate owned if it's truly empty
     if (!wardrobe.owned || wardrobe.owned.length === 0) {
         wardrobe.owned = owned;
         console.log('[Wardrobe] Owned was empty, populated with:', owned.length, 'items');
     } else {
-        console.log('[Wardrobe] Owned already set, preserving:', wardrobe.owned.length, 'items');
+        const beforeOwned = wardrobe.owned.length;
+        wardrobe.owned = wardrobe.owned.filter(id => validItemIds.has(id));
+        console.log('[Wardrobe] Owned preserved+cleaned:', beforeOwned, '->', wardrobe.owned.length);
     }
 
-    // NEVER touch equipped - it's set in CharacterInit
-    console.log('[Wardrobe] Equipped items preserved from init:', Object.keys(wardrobe.equipped).length, 'slots');
+    // Clean equipped/outfits from removed DB item IDs
+    wardrobe.equipped = wardrobe.equipped || {};
+    const equippedKeys = Object.keys(wardrobe.equipped);
+    equippedKeys.forEach(slot => {
+        const itemId = wardrobe.equipped[slot];
+        if (itemId && !validItemIds.has(itemId)) delete wardrobe.equipped[slot];
+    });
+    console.log('[Wardrobe] Equipped cleaned to valid IDs:', Object.keys(wardrobe.equipped).length, 'slots');
     
     if (!wardrobe.outfits || !Array.isArray(wardrobe.outfits)) {
         wardrobe.outfits = [null, null, null, null];
     }
+    wardrobe.outfits = wardrobe.outfits.map(outfit => {
+        if (!outfit || !outfit.equipped) return outfit;
+        const cleaned = {};
+        Object.keys(outfit.equipped).forEach(slot => {
+            const itemId = outfit.equipped[slot];
+            if (itemId && validItemIds.has(itemId)) cleaned[slot] = itemId;
+        });
+        return { ...outfit, equipped: cleaned };
+    });
+
+    // Runtime fields for new spec
+    if (!wardrobe.itemState || typeof wardrobe.itemState !== 'object') wardrobe.itemState = {};
+    if (!wardrobe.wornToday || typeof wardrobe.wornToday !== 'object') wardrobe.wornToday = {};
+    if (!Array.isArray(wardrobe.laundryBasket)) wardrobe.laundryBasket = [];
+
+    // Also clean runtime maps from removed IDs
+    Object.keys(wardrobe.itemState).forEach(id => {
+        if (!validItemIds.has(id)) delete wardrobe.itemState[id];
+    });
+    Object.keys(wardrobe.wornToday).forEach(id => {
+        if (!validItemIds.has(id)) delete wardrobe.wornToday[id];
+    });
+    wardrobe.laundryBasket = wardrobe.laundryBasket.filter(id => validItemIds.has(id));
     
     return owned.length;
 }
@@ -140,15 +190,106 @@ function getEquippedItem(slot) {
     return getClothingById(itemId);
 }
 
+/**
+ * Effective looks with dirt penalty.
+ * baseLooks fallback order: item.baseLooks -> item.looks -> 0
+ * dirt fallback: 0 (clean)
+ */
+function getEffectiveLooks(item, itemId) {
+    if (!item) return 0;
+    const S = WardrobeAPI ? WardrobeAPI.State : getState();
+    const itemState = S?.variables?.wardrobe?.itemState || {};
+    const state = itemId ? itemState[itemId] : null;
+    const dirtRaw = typeof state?.dirt === 'number' ? state.dirt : 0;
+    const dirt = Math.max(0, Math.min(100, dirtRaw));
+    const baseLooks = typeof item.baseLooks === 'number'
+        ? item.baseLooks
+        : (typeof item.looks === 'number' ? item.looks : 0);
+    return Math.max(0, baseLooks * (1 - (dirt / 150)));
+}
+
+/** Format looks for display: integer when .0, otherwise one decimal (e.g. "1" not "1.0", "1.5" stays "1.5"). */
+function formatLooks(value) {
+    const n = typeof value === 'number' ? value : 0;
+    const rounded = Math.round(n * 10) / 10;
+    return (rounded % 1 === 0) ? String(Math.round(rounded)) : rounded.toFixed(1);
+}
+
 function calculateTotalLooks() {
-    if (!WardrobeAPI) return 0;
-    const equipped = WardrobeAPI.State.variables.wardrobe?.equipped || {};
+    const S = WardrobeAPI ? WardrobeAPI.State : getState();
+    const equipped = S?.variables?.wardrobe?.equipped || {};
     let total = 0;
+    const seen = new Set();
     Object.values(equipped).forEach(itemId => {
+        if (!itemId || seen.has(itemId)) return;
+        seen.add(itemId);
         const item = getClothingById(itemId);
-        if (item) total += item.looks || 0;
+        if (item) total += getEffectiveLooks(item, itemId);
     });
     return total;
+}
+
+// --------------------------------------------
+// Slot-weighted exposure & sexiness (spec 3.2)
+// --------------------------------------------
+
+/**
+ * Get average exposure (or sexiness) for a slot group. Dress counts in both top and bottom.
+ * @param {'top'|'bottom'|'underwear'} slotGroup
+ * @param {'exposure'|'sexiness'} field - item.exposureLevel or item.sexinessScore
+ * @returns {number} 0–10
+ */
+function getSlotGroupValue(slotGroup, field) {
+    const S = WardrobeAPI ? WardrobeAPI.State : getState();
+    const equipped = S?.variables?.wardrobe?.equipped || {};
+    const slots = slotGroup === 'top' ? SLOT_GROUP_TOP : slotGroup === 'bottom' ? SLOT_GROUP_BOTTOM : SLOT_GROUP_UNDERWEAR;
+    const key = field === 'exposure' ? 'exposureLevel' : 'sexinessScore';
+    const seen = new Set(); // dress/body counted once per group; bra+panty same itemId = once
+    let sum = 0;
+    let count = 0;
+    slots.forEach(slot => {
+        const itemId = equipped[slot];
+        if (!itemId || seen.has(itemId)) return;
+        seen.add(itemId);
+        const item = getClothingById(itemId);
+        if (!item) return;
+        const v = item[key];
+        if (typeof v === 'number' && v >= 0) {
+            sum += v;
+            count++;
+        }
+    });
+    return count > 0 ? sum / count : 0;
+}
+
+/**
+ * Slot-weighted exposure 0–10 (spec 3.2). Used for reqConfidence, reqExhibitionism, reqCorruption, exposure state.
+ */
+function getWeightedExposure() {
+    const top = getSlotGroupValue('top', 'exposure');
+    const bottom = getSlotGroupValue('bottom', 'exposure');
+    const underwear = getSlotGroupValue('underwear', 'exposure');
+    const raw = (top * SLOT_WEIGHT_TOP + bottom * SLOT_WEIGHT_BOTTOM + underwear * SLOT_WEIGHT_UNDERWEAR) / SLOT_WEIGHT_SUM;
+    return Math.max(0, Math.min(10, raw));
+}
+
+/**
+ * Slot-weighted sexiness 0–10 (spec 3.2). Same weights as exposure.
+ */
+function getWeightedSexiness() {
+    const top = getSlotGroupValue('top', 'sexiness');
+    const bottom = getSlotGroupValue('bottom', 'sexiness');
+    const underwear = getSlotGroupValue('underwear', 'sexiness');
+    const raw = (top * SLOT_WEIGHT_TOP + bottom * SLOT_WEIGHT_BOTTOM + underwear * SLOT_WEIGHT_UNDERWEAR) / SLOT_WEIGHT_SUM;
+    return Math.max(0, Math.min(10, raw));
+}
+
+if (typeof getSetup !== 'undefined' && getSetup()) {
+    getSetup().getWeightedExposure = getWeightedExposure;
+    getSetup().getWeightedSexiness = getWeightedSexiness;
+    getSetup().getSlotGroupValue = getSlotGroupValue;
+    getSetup().getEffectiveLooks = getEffectiveLooks;
+    getSetup().calculateTotalLooks = calculateTotalLooks;
 }
 
 function getOverallStyle() {
@@ -325,6 +466,13 @@ function isBodysuitItem(item) {
     return item && item.tags && Array.isArray(item.tags) && item.tags.includes('bodysuit');
 }
 
+/** True if item is swimwear (swimsuit/bikini) and occupies swimsuit slot. */
+function isSwimwearItem(item) {
+    if (!item) return false;
+    const tags = Array.isArray(item.tags) ? item.tags : [];
+    return item.slot === 'swimsuit' || tags.includes('swimsuit') || tags.includes('bikini');
+}
+
 /** True if a bodysuit is currently equipped (bra === panty and that item is bodysuit). */
 function isBodysuitEquipped(wardrobe) {
     const bra = wardrobe?.equipped?.bra;
@@ -332,6 +480,15 @@ function isBodysuitEquipped(wardrobe) {
     if (!bra || bra !== panty) return false;
     const item = _w_getItemById(bra);
     return isBodysuitItem(item);
+}
+
+/** True if a swimsuit/bikini is currently equipped. */
+function isSwimwearEquipped(wardrobe) {
+    const bra = wardrobe?.equipped?.bra;
+    const panty = wardrobe?.equipped?.panty;
+    if (!bra || bra !== panty) return false;
+    const item = _w_getItemById(bra);
+    return isSwimwearItem(item);
 }
 
 /** When no location filter: all owned. When filter set: session snapshot (what was on when entering) + location-matching items. */
@@ -373,17 +530,29 @@ function equipItem(itemId) {
 
     /* Bodysuit: occupies both bra and panty */
     if (slot === 'bodysuit') {
+        delete wardrobe.equipped.swimsuit;
         delete wardrobe.equipped.bra;
         delete wardrobe.equipped.panty;
         wardrobe.equipped.bra = itemId;
         wardrobe.equipped.panty = itemId;
+    } else if (slot === 'swimsuit') {
+        /* Swimsuit occupies BOTH bra and panty slots (same as bodysuit-style occupancy) */
+        delete wardrobe.equipped.bra;
+        delete wardrobe.equipped.panty;
+        delete wardrobe.equipped.swimsuit; // legacy cleanup if old saves had this slot
+        wardrobe.equipped.bra = itemId;
+        wardrobe.equipped.panty = itemId;
     } else if (slot === 'bra' || slot === 'panty') {
-        /* Equipping bra or panty: if bodysuit is on, clear both first */
+        /* Equipping bra or panty: clear bodysuit/swimsuit full-body occupancy first */
+        delete wardrobe.equipped.swimsuit;
         const braId = wardrobe.equipped.bra;
         const pantyId = wardrobe.equipped.panty;
-        if (braId && braId === pantyId && isBodysuitItem(_w_getItemById(braId))) {
-            delete wardrobe.equipped.bra;
-            delete wardrobe.equipped.panty;
+        if (braId && braId === pantyId) {
+            const combined = _w_getItemById(braId);
+            if (isBodysuitItem(combined) || isSwimwearItem(combined)) {
+                delete wardrobe.equipped.bra;
+                delete wardrobe.equipped.panty;
+            }
         }
         wardrobe.equipped[slot] = itemId;
     } else {
@@ -406,10 +575,19 @@ function unequipSlot(slot) {
     if (!itemId) return;
     
     const item = _w_getItemById(itemId);
-    /* Bodysuit: clearing bra, panty, or bodysuit slot clears both */
-    if (slot === 'bodysuit' || ((slot === 'bra' || slot === 'panty') && isBodysuitItem(item) && wardrobe.equipped.bra === wardrobe.equipped.panty)) {
+    /* Bodysuit/swimsuit: clearing bra, panty, bodysuit or swimsuit clears both */
+    if (
+        slot === 'bodysuit' ||
+        slot === 'swimsuit' ||
+        (
+            (slot === 'bra' || slot === 'panty') &&
+            wardrobe.equipped.bra === wardrobe.equipped.panty &&
+            (isBodysuitItem(item) || isSwimwearItem(item))
+        )
+    ) {
         delete wardrobe.equipped.bra;
         delete wardrobe.equipped.panty;
+        delete wardrobe.equipped.swimsuit;
     } else {
         delete wardrobe.equipped[slot];
     }
@@ -436,8 +614,16 @@ const defaultCategories = [
         { id: "bottoms", name: "Bottoms", slot: "bottom" },
         { id: "dresses", name: "Dresses", slot: "dress" },
         { id: "shoes", name: "Shoes", slot: "shoes" },
-        { id: "socks", name: "Socks", slot: "socks" },
-        { id: "bags", name: "Bags", slot: "bag" }
+        { id: "socks", name: "Socks", slot: "socks" }
+    ]},
+    { group: "Underwear", items: [
+        { id: "bodysuits", name: "Bodysuits", slot: "bodysuit" },
+        { id: "bikiniTops", name: "Bikini Tops", slot: "bra" },
+        { id: "bikiniBottoms", name: "Bikini Bottoms", slot: "panty" },
+        { id: "bras", name: "Bras", slot: "bra" },
+        { id: "panties", name: "Panties", slot: "panty" },
+        { id: "sleepwear", name: "Sleepwear", slot: "sleepwear" },
+        { id: "garter", name: "Garter", slot: "garter" }
     ]},
     { group: "Accessories", items: [
         { id: "earrings", name: "Earrings", slot: "earrings" },
@@ -445,14 +631,8 @@ const defaultCategories = [
         { id: "bracelets", name: "Bracelets", slot: "bracelet" },
         { id: "rings", name: "Rings", slot: "ring" }
     ]},
-    { group: "Underwear", items: [
-        { id: "bodysuits", name: "Bodysuits", slot: "bodysuit" },
-        { id: "bras", name: "Bras", slot: "bra" },
-        { id: "panties", name: "Panties", slot: "panty" },
-        { id: "sleepwear", name: "Sleepwear", slot: "sleepwear" },
-        { id: "garter", name: "Garter", slot: "garter" }
-    ]},
-    { group: "Special", items: [
+    { group: "Other", items: [
+        { id: "bags", name: "Bags", slot: "bag" },
         { id: "apron", name: "Apron", slot: "apron" }
     ]}
 ];
@@ -555,7 +735,7 @@ function renderClothingGrid() {
              data-allowed="${req.allowed}"
              ${tooltipAttr}>
             <img class="clothing-img" src="${item.image}" alt="${item.name}">
-            <span class="clothing-looks">+${item.looks}</span>
+            <span class="clothing-looks">${formatLooks(getEffectiveLooks(item, item.id))}</span>
             <div class="clothing-quality ${item.quality.toLowerCase()}"></div>
             ${!req.allowed ? '<i class="icon icon-lock lock-icon"></i>' : ''}
         </div>
@@ -635,9 +815,22 @@ function renderSelectedInfo() {
         descEl.textContent = selectedItem.desc;
     }
     
+    const S = WardrobeAPI ? WardrobeAPI.State : getState();
+    const runtime = S?.variables?.wardrobe?.itemState?.[selectedItem.id] || {};
+    const dirt = Math.max(0, Math.min(100, typeof runtime.dirt === 'number' ? runtime.dirt : 0));
+    const durability = Math.max(0, Math.min(100, typeof runtime.durability === 'number'
+        ? runtime.durability
+        : (typeof selectedItem.durability === 'number' ? selectedItem.durability : 100)));
+    const sexiness = typeof selectedItem.sexinessScore === 'number' ? selectedItem.sexinessScore : 0;
+    const exposure = typeof selectedItem.exposureLevel === 'number' ? selectedItem.exposureLevel : 0;
+
     container.querySelector('.selected-brand').textContent = selectedItem.brand;
     container.querySelector('#selected-quality').textContent = selectedItem.quality;
-    container.querySelector('#selected-looks').textContent = '+' + selectedItem.looks;
+    container.querySelector('#selected-looks').textContent = formatLooks(getEffectiveLooks(selectedItem, selectedItem.id));
+    container.querySelector('#selected-sexiness').textContent = String(sexiness);
+    container.querySelector('#selected-exposure').textContent = String(exposure);
+    container.querySelector('#selected-dirt').textContent = dirt.toFixed(1) + '%';
+    container.querySelector('#selected-durability').textContent = durability.toFixed(0) + '%';
 }
 
 function renderWearingSlots() {
@@ -673,9 +866,7 @@ function renderWearingSlots() {
     }
 
     let html = '<div class="slots-section-title">Outerwear</div>';
-    html += ['coat', 'top', 'bottom', 'dress', 'shoes', 'socks', 'bag'].map(renderSlot).join('');
-    html += '<div class="slots-section-title">Accessories</div>';
-    html += ['earrings', 'necklace', 'bracelet', 'ring'].map(renderSlot).join('');
+    html += ['coat', 'top', 'bottom', 'dress', 'shoes', 'socks'].map(renderSlot).join('');
     html += '<div class="slots-section-title">Underwear</div>';
     /* When bodysuit equipped, show single Bodysuit slot instead of bra+panty */
     const wardrobe = WardrobeAPI.State.variables.wardrobe || {};
@@ -683,6 +874,11 @@ function renderWearingSlots() {
         if (isBodysuitEquipped(wardrobe)) {
             const braId = wardrobe.equipped.bra;
             const combinedSlot = { slot: 'bodysuit', itemId: braId };
+            return [combinedSlot, { slot: 'sleepwear' }, { slot: 'garter' }];
+        }
+        if (isSwimwearEquipped(wardrobe)) {
+            const braId = wardrobe.equipped.bra;
+            const combinedSlot = { slot: 'swimsuit', itemId: braId };
             return [combinedSlot, { slot: 'sleepwear' }, { slot: 'garter' }];
         }
         return [{ slot: 'bra' }, { slot: 'panty' }, { slot: 'sleepwear' }, { slot: 'garter' }];
@@ -702,8 +898,10 @@ function renderWearingSlots() {
             </div>
         `;
     }).join('');
-    html += '<div class="slots-section-title">Special</div>';
-    html += ['apron'].map(renderSlot).join('');
+    html += '<div class="slots-section-title">Accessories</div>';
+    html += ['earrings', 'necklace', 'bracelet', 'ring'].map(renderSlot).join('');
+    html += '<div class="slots-section-title">Other</div>';
+    html += ['bag', 'apron'].map(renderSlot).join('');
 
     container.innerHTML = html;
 
@@ -732,7 +930,7 @@ function renderStats() {
     const styleTextEl = wardrobeContainer?.querySelector('#style-text');
 
     if (totalLooksEl) {
-        totalLooksEl.textContent = '+' + calculateTotalLooks();
+        totalLooksEl.textContent = formatLooks(calculateTotalLooks());
     }
 
     if (styleTextEl) {
@@ -1017,6 +1215,10 @@ function createWardrobeHTML(backPassage, backLinkText, hideBackLink) {
                             <div class="selected-meta">
                                 <span>Quality: <span class="meta-value" id="selected-quality"></span></span>
                                 <span>Looks: <span class="meta-value" id="selected-looks"></span></span>
+                                <span>Sexiness: <span class="meta-value" id="selected-sexiness"></span></span>
+                                <span>Exposure: <span class="meta-value" id="selected-exposure"></span></span>
+                                <span>Dirtyness: <span class="meta-value" id="selected-dirt"></span></span>
+                                <span>Durability: <span class="meta-value" id="selected-durability"></span></span>
                             </div>
                         </div>
                     </div>
@@ -1033,7 +1235,7 @@ function createWardrobeHTML(backPassage, backLinkText, hideBackLink) {
                     <div class="stats-summary">
                         <div class="stat-item">
                             <div class="stat-label">Total Looks</div>
-                            <div class="stat-value looks" id="total-looks">+0</div>
+                            <div class="stat-value looks" id="total-looks">0</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-label">Style</div>

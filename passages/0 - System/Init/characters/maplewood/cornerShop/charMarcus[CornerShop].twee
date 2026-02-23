@@ -15,7 +15,8 @@
     type: "npc",
     color: "#f59e0b",
     info: "<p>A friendly young man who works at the Quick Mart convenience store. He's always helpful and welcoming to newcomers in the neighborhood.</p>",
-    status: "Shop Clerk"
+    status: "Shop Clerk",
+    relationship: { status: "single" }
 }>>
 <<set $characters.shopClerkMarcus = {
     stats: { love: 0, friendship: 0, lust: 0, trust: 0 },

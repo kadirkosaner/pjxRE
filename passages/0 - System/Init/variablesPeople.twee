@@ -4,7 +4,10 @@
    populated by CharacterInit_[Name][INIT] files
 ========================================== */
 
-/* Character definitions - populated by CharacterInit files */
+/* Character definitions - populated by CharacterInit files.
+   Optional relationship: put in setup.characterDefs[id].relationship or in $characters[id].relationship (e.g. family).
+   Schema: { status: "single"|"dating"|"serious"|"married"|"divorced", partnerLabel?: "wife"|"girlfriend"|"boyfriend"|"ex-wife" etc., hasChildren?: true }.
+   Helpers: setup.getCharacterRelationship(id), setup.hasRelationshipStatus(id, status), setup.relationshipLabel(id). */
 <<set $characters = {}>>
 
 /* Static NPC data (name, avatar, etc.) – not saved. Core (father, mother, brother, player) stay only in $characters. */

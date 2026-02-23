@@ -135,71 +135,29 @@
         <<set _styleCount = 0>>
         <<set _matchingStyles = []>>
 
-        /* Check each equipped slot */
+        /* Check ALL equipped slots, dedupe same itemId (bodysuit/swimsuit occupies bra+panty) */
         <<if $wardrobe && $wardrobe.equipped>>
-            /* Check top */
-            <<if $wardrobe.equipped.top>>
-                <<set _topItem = setup.getClothingById($wardrobe.equipped.top)>>
-                <<if _topItem && _topItem.tags>>
-                    <<for _reqStyle range _requiredStyles>>
-                        <<if _topItem.tags.includes(_reqStyle)>>
-                            <<set _styleCount += 1>>
-                            <<if !_matchingStyles.includes(_reqStyle)>>
-                                <<run _matchingStyles.push(_reqStyle)>>
+            <<set _seenStyleItemIds = []>>
+            <<for _slot, _itemId range $wardrobe.equipped>>
+                <<if _itemId && _itemId !== "" && !_seenStyleItemIds.includes(_itemId)>>
+                    <<run _seenStyleItemIds.push(_itemId)>>
+                    <<set _slotItem = setup.getClothingById(_itemId)>>
+                    <<if _slotItem && _slotItem.tags>>
+                        <<set _matchedThisItem = false>>
+                        <<for _reqStyle range _requiredStyles>>
+                            <<if _slotItem.tags.includes(_reqStyle)>>
+                                <<set _matchedThisItem = true>>
+                                <<if !_matchingStyles.includes(_reqStyle)>>
+                                    <<run _matchingStyles.push(_reqStyle)>>
+                                <</if>>
                             <</if>>
-                            <<break>>
-                        <</if>>
-                    <</for>>
-                <</if>>
-            <</if>>
-
-            /* Check bottom */
-            <<if $wardrobe.equipped.bottom>>
-                <<set _bottomItem = setup.getClothingById($wardrobe.equipped.bottom)>>
-                <<if _bottomItem && _bottomItem.tags>>
-                    <<for _reqStyle range _requiredStyles>>
-                        <<if _bottomItem.tags.includes(_reqStyle)>>
+                        <</for>>
+                        <<if _matchedThisItem>>
                             <<set _styleCount += 1>>
-                            <<if !_matchingStyles.includes(_reqStyle)>>
-                                <<run _matchingStyles.push(_reqStyle)>>
-                            <</if>>
-                            <<break>>
                         <</if>>
-                    <</for>>
+                    <</if>>
                 <</if>>
-            <</if>>
-
-            /* Check dress */
-            <<if $wardrobe.equipped.dress>>
-                <<set _dressItem = setup.getClothingById($wardrobe.equipped.dress)>>
-                <<if _dressItem && _dressItem.tags>>
-                    <<for _reqStyle range _requiredStyles>>
-                        <<if _dressItem.tags.includes(_reqStyle)>>
-                            <<set _styleCount += 1>>
-                            <<if !_matchingStyles.includes(_reqStyle)>>
-                                <<run _matchingStyles.push(_reqStyle)>>
-                            <</if>>
-                            <<break>>
-                        <</if>>
-                    <</for>>
-                <</if>>
-            <</if>>
-
-            /* Check shoes (optional but counts) */
-            <<if $wardrobe.equipped.shoes>>
-                <<set _shoesItem = setup.getClothingById($wardrobe.equipped.shoes)>>
-                <<if _shoesItem && _shoesItem.tags>>
-                    <<for _reqStyle range _requiredStyles>>
-                        <<if _shoesItem.tags.includes(_reqStyle)>>
-                            <<set _styleCount += 1>>
-                            <<if !_matchingStyles.includes(_reqStyle)>>
-                                <<run _matchingStyles.push(_reqStyle)>>
-                            <</if>>
-                            <<break>>
-                        <</if>>
-                    <</for>>
-                <</if>>
-            <</if>>
+            <</for>>
         <</if>>
 
         <<set _result.styleCount = _styleCount>>
@@ -216,13 +174,19 @@
     /* ========== LOOKS CHECK ========== */
     <<if _minLooks > 0>>
         <<set _totalLooks = 0>>
+        <<set _seenItemIds = []>>
 
         <<if $wardrobe && $wardrobe.equipped>>
             <<for _slot, _itemId range $wardrobe.equipped>>
-                <<if _itemId && _itemId !== "">>
+                <<if _itemId && _itemId !== "" && !_seenItemIds.includes(_itemId)>>
+                    <<run _seenItemIds.push(_itemId)>>
                     <<set _item = setup.getClothingById(_itemId)>>
-                    <<if _item && _item.looks>>
-                        <<set _totalLooks += _item.looks>>
+                    <<if _item>>
+                        <<if def setup.getEffectiveLooks>>
+                            <<set _totalLooks += setup.getEffectiveLooks(_item, _itemId)>>
+                        <<elseif _item.looks>>
+                            <<set _totalLooks += _item.looks>>
+                        <</if>>
                     <</if>>
                 <</if>>
             <</for>>
@@ -294,15 +258,19 @@
 <<silently>>
     <<set _styleCounts = {}>>
     <<set _totalLooks = 0>>
+    <<set _seenItemIds = []>>
 
     /* Count style occurrences in equipped items */
     <<if $wardrobe && $wardrobe.equipped>>
         <<for _slot, _itemId range $wardrobe.equipped>>
-            <<if _itemId && _itemId !== "">>
+            <<if _itemId && _itemId !== "" && !_seenItemIds.includes(_itemId)>>
+                <<run _seenItemIds.push(_itemId)>>
                 <<set _item = setup.getClothingById(_itemId)>>
                 <<if _item>>
-                    /* Count looks */
-                    <<if _item.looks>>
+                    /* Count looks (effective if available) */
+                    <<if def setup.getEffectiveLooks>>
+                        <<set _totalLooks += setup.getEffectiveLooks(_item, _itemId)>>
+                    <<elseif _item.looks>>
                         <<set _totalLooks += _item.looks>>
                     <</if>>
 

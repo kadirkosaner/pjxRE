@@ -15,7 +15,8 @@
     type: "npc",
     color: "#b45309",
     info: "<p>Owner and manager of Ruby's Diner. He runs the place with an iron hand and a habit of looking a little too long.</p>",
-    status: "Manager"
+    status: "Manager",
+    relationship: { status: "divorced", partnerLabel: "ex-wife" }
 }>>
 <<set $characters.dinerManager = {
     stats: { love: 0, friendship: 0, lust: 0, trust: 0 },

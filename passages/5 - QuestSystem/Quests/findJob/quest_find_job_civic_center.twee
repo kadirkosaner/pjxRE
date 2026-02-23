@@ -2,6 +2,7 @@
    SCENE: FIND JOB - CIVIC CENTER EXPLORATION
    Player explores Old Town and discovers key locations
    ======================================== */
+<div class="divnobr">
 <<silently>>
 <<set $location = "oldTown">>
 <<updateCharacterLocations>>
@@ -57,4 +58,5 @@ You know where to go now for the job search.
 <</nobr>>
 <div class="btn-center">
 <<btn "Step inside" "townHall">><</btn>>
+</div>
 </div>

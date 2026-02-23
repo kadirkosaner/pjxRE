@@ -1,6 +1,10 @@
 <<nobr>>
+<<updateCharacterLocations>>
 <<if ndef $flags>><<set $flags = {}>><</if>>
-<<if !$flags.parkBenchFirstEncounter>>
+<<set _alreadyDone = $flags.parkBenchFirstEncounter>>
+<<set _lilyAtPark = $characters.parkRunnerLily && $characters.parkRunnerLily.currentLocation === "sunsetPark">>
+<<set _triggerFirst = !_alreadyDone && _lilyAtPark>>
+<<if _triggerFirst>>
 <<include "parkBench_firstEncounter">>
 <<else>>
 <<include "parkBench_rest">>

@@ -222,7 +222,7 @@
           /* Ensure wardrobe is properly initialized */
           <<if !$wardrobe or !$wardrobe.owned or $wardrobe.owned.length === 0>>
             <<set $wardrobe = {
-              owned: ["tshirt_white_owned", "jeans_blue_owned", "sneakers_flat_owned", "socks_white_owned", "panties_white_owned", "bra_sport_white_owned", "leggings_black_owned", "bra_black_owned", "dress_summer_owned", "panties_pink_owned", "sandals_owned", "sneakers_girly_owned", "pajama_color_owned", "socks_black_owned", "tshirt_blue_owned"],
+              owned: ["tshirt_white_owned", "tshirt_blue_owned", "tshirt_gray_owned", "jeans_blue_owned", "leggings_black_owned", "dress_summer_owned", "socks_white_owned", "socks_black_owned", "sneakers_flat_owned", "sneakers_girly_owned", "bra_sport_white_owned", "bra_black_owned", "panties_white_owned", "panties_pink_owned", "pajama_color_owned"],
               outfits: [null, null, null, null],
               equipped: {
                 top: "tshirt_white_owned",

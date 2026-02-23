@@ -1,28 +1,6 @@
-/* Socks - Regular socks, stockings, etc.
- * 
- * Template:
- * { id, name, brand, desc, image, looks, quality, tags, price, shopAvailable, startOwned }
- */
-
+/* socks DB reset */
 <<set setup.clothingData = setup.clothingData || {}>>
 <<set setup.clothingData.socks = [
-    /* ==========================================
-       OWNED / STARTER ITEMS (socks/Owned)
-    ========================================== */
-    {
-        id: "socks_white_owned",
-        name: "White Socks",
-        brand: "StepUp Footwear",
-        desc: "Simple white ankle socks.",
-        image: "assets/content/clothing/socks/Owned/socksWhiteOwned.webp",
-        looks: 1, quality: "Common", tags: ["casual"], price: 3.00, shopAvailable: false, startOwned: true
-    },
-    {
-        id: "socks_black_owned",
-        name: "Black Socks",
-        brand: "StepUp Footwear",
-        desc: "Simple black ankle socks.",
-        image: "assets/content/clothing/socks/Owned/sockBlackOwned.webp",
-        looks: 1, quality: "Common", tags: ["casual"], price: 3.00, shopAvailable: false, startOwned: true
-    }
+  { id: "socks_white_owned", name: "White Everyday Socks", brand: "", desc: "Simple white ankle socks.", slot: "socks", silhouette: "ankle socks", baseLooks: 1, price: 0, quality: "Common", warmth: 0, sexinessScore: 0, exposureLevel: 0, durability: 100, tags: ["casual", "basic", "mild"], npcAppeal: {}, shopAvailable: false, startOwned: true, reqConfidence: 0, image: "assets/content/clothing/socks/Starter/socks_white_owned.webp" },
+  { id: "socks_black_owned", name: "Black Everyday Socks", brand: "", desc: "Simple black ankle socks.", slot: "socks", silhouette: "ankle socks", baseLooks: 1, price: 0, quality: "Common", warmth: 0, sexinessScore: 0, exposureLevel: 0, durability: 100, tags: ["casual", "basic", "mild"], npcAppeal: {}, shopAvailable: false, startOwned: true, reqConfidence: 0, image: "assets/content/clothing/socks/Starter/socks_black_owned.webp" }
 ]>>

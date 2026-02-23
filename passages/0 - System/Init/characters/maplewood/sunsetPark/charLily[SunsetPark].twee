@@ -16,7 +16,8 @@
     type: "npc",
     color: "#06b6d4",
     info: "<p>A friendly woman you met at Sunset Park. She runs there regularly and pointed you to the mall's sports store. Approachable and welcoming.</p>",
-    status: "Park Regular"
+    status: "Park Regular",
+    relationship: { status: "single" }
 }>>
 <<set $characters.parkRunnerLily = {
     stats: { love: 0, friendship: 0, lust: 0, trust: 0 },

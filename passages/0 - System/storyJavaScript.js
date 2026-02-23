@@ -154,6 +154,37 @@ setup.getCharacter = function (id) {
     return Object.assign({}, def || {}, state || {});
 };
 
+/* ================== Character relationship (setup.characterDefs[].relationship or $characters[].relationship) =================== */
+/** Returns relationship object for a character: { status, partnerLabel?, hasChildren? }. status: "single" | "dating" | "serious" | "married" | "divorced". Reads from defs or from $characters (e.g. family). */
+setup.getCharacterRelationship = function (charId) {
+    const def = setup.characterDefs && setup.characterDefs[charId];
+    const state = State.variables.characters && State.variables.characters[charId];
+    if (def && def.relationship) return def.relationship;
+    if (state && state.relationship) return state.relationship;
+    return {};
+};
+
+/** True if character has the given relationship status. */
+setup.hasRelationshipStatus = function (charId, status) {
+    const rel = setup.getCharacterRelationship(charId);
+    return rel.status === status;
+};
+
+/** Short label for UI/dialogue: "Married", "Single", "Has a girlfriend", "Divorced", etc. */
+setup.relationshipLabel = function (charId) {
+    const rel = setup.getCharacterRelationship(charId);
+    if (!rel || !rel.status) return "Single";
+    var s = rel.status;
+    if (s === "married") return "Married";
+    if (s === "divorced") return "Divorced";
+    if (s === "single") return "Single";
+    if (s === "serious" && rel.partnerLabel) return "Has a " + rel.partnerLabel;
+    if (s === "dating" && rel.partnerLabel) return "Has a " + rel.partnerLabel;
+    if (s === "serious") return "In a serious relationship";
+    if (s === "dating") return "Dating";
+    return "Single";
+};
+
 /* ================== Phone badge (derived – phone_system_data_and_technical.md §9) =================== */
 /** Unread message count; computed from $phoneConversations. */
 window.phoneUnreadCount = function () {
@@ -1899,6 +1930,12 @@ window.processNavCard = function (tag, $container, passedSetup) {
             /* Ensure stats are fresh before rendering new passage */
             if (Macro.has('recalculateStats')) {
                 $.wiki('<<recalculateStats>>');
+            }
+
+            // BedroomExitGuard: run widget in place so history stays fhBedroom -> fhUpperstairs (Back then returns to bedroom)
+            if (passageName === 'BedroomExitGuard') {
+                $.wiki('<<checkBedroomExit>>');
+                return;
             }
 
             Engine.play(passageName);

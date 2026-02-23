@@ -1,7 +1,8 @@
-:: quest_find_job_corner_shop
+
 /* ========================================
    SCENE: FIND JOB - CORNER SHOP, MARCUS (Redirecting to Civic Center)
    ======================================== */
+<div class="divnobr">
 <<silently>>
 <<set $location = "storeCorner">>
 <<updateCharacterLocations>>
@@ -102,4 +103,5 @@ You leave the shop. Marcus is right about where he reminded you - Civic Center, 
 
 <div class="btn-center">
 <<btn "Leave the shop" "maplewood">><</btn>>
+</div>
 </div>
