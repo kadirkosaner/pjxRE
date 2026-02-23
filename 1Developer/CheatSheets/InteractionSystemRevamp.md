@@ -57,7 +57,19 @@ stats: {
   → Notification: "Tom ile Friendship → Level 2!"
 ```
 
-Level'ın tavanı yoktur. Yazılmış içerik ne kadar derinse o kadar level var demektir.
+Her karakterin `maxLevels` değeri vardır — ilerleyen update'lerde karakter bazında güncellenir. Şu an tüm karakterler için varsayılan değer `5` olarak başlar.
+
+```js
+// Her karakter tanımına eklenir — update'lerle düzenlenir
+maxLevels: {
+  friendship: 5,   // varsayılan, update'lerle değişir
+  love: 5,
+  lust: 5,
+  trust: 5
+}
+```
+
+Bir stat `maxLevel`'ına ulaştığında bar dolup **MAX** gösterir, daha fazla kazanım o stata eklenmez.
 
 ### 2.3 Level Karşılıkları (Tüm NPC'ler için)
 
@@ -263,8 +275,9 @@ mother: {
 5. `relations.js` → level satırı
 
 ### Faz 2 — Action Tanımları
-6. `setup.characterActions` → tüm karakterlere flirt/touch placeholder'ları ekle
-7. Locked mesajları güncelle
+6. Tüm karakter init dosyalarına `maxLevels` ekle (varsayılan: hepsi 5)
+7. `setup.characterActions` → tüm karakterlere flirt/touch placeholder'ları ekle
+8. Locked mesajları güncelle
 
 ### Faz 3 — İçerik (karakter odaklı)
 8. Diner NPC'leri için talk + flirt passage'ları
@@ -281,7 +294,7 @@ mother: {
 | Her NPC için aynı sistem mi? | **Evet — global, uniform** |
 | Aile için lust level? | **Evet — sistem engel koymaz, içerik yazar** |
 | Raw stat check'ler kaldırılsın mı? | **Hayır — geriye dönük uyum korunur** |
-| Level tavanı var mı? | **Hayır — içerik ne kadar varsa o kadar** |
+| Level tavanı var mı? | **Evet — maxLevels ile karakter başına tanımlanır, varsayılan 5, update'lerle güncellenir** |
 | Level atlarken stat sıfırlanıyor mu? | **Evet — RPG tarzı, bar başa döner** |
 | Level-up event tetiklenebilir mi? | **Evet — notification + ileride hook** |
 | Gizli eylemler nasıl çalışır? | **showWhenLocked: false + flag/corruption gereksinimi** |
