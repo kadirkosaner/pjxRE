@@ -53,7 +53,7 @@ stats: {
 Örnek:
   friendship: 95, friendshipLevel: 1
   → gainCharacterStat "tom" "friendship" 10
-  → friendship: 5, friendshipLevel: 2
+  → friendship: 0, friendshipLevel: 2   ← overflow taşımaz, sıfırlanır
   → Notification: "Tom ile Friendship → Level 2!"
 ```
 
@@ -295,6 +295,6 @@ mother: {
 | Aile için lust level? | **Evet — sistem engel koymaz, içerik yazar** |
 | Raw stat check'ler kaldırılsın mı? | **Hayır — geriye dönük uyum korunur** |
 | Level tavanı var mı? | **Evet — maxLevels ile karakter başına tanımlanır, varsayılan 5, update'lerle güncellenir** |
-| Level atlarken stat sıfırlanıyor mu? | **Evet — RPG tarzı, bar başa döner** |
+| Level atlarken stat sıfırlanıyor mu? | **Evet — tam 0'a sıfırlanır, overflow taşımaz** |
 | Level-up event tetiklenebilir mi? | **Evet — notification + ileride hook** |
 | Gizli eylemler nasıl çalışır? | **showWhenLocked: false + flag/corruption gereksinimi** |
