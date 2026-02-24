@@ -52,16 +52,16 @@ stats: {
 **Threshold, karakter config'inden stat + level bazında okunur** (`levelUpThresholds`). Her level için ayrı eşik tanımlanır. Tanımlanmayan level için varsayılan `100` kullanılır.
 
 ```js
-// Her karakter tanımına eklenir — level index = mevcut level (1'den başlar)
+// Her karakter tanımına eklenir — key = mevcut level, value = o levelden atlamak için gereken puan
 levelUpThresholds: {
-  friendship: [30, 50, 75, 100],  // Lv1→2: 30, Lv2→3: 50, Lv3→4: 75, Lv4→5: 100
-  love:       [25, 40, 60, 100],
-  lust:       [20, 35, 55, 80],
-  trust:      [30, 50, 70, 100]
+  friendship: { 1: 30, 2: 50, 3: 75, 4: 100 },  // Lv1→2: 30, Lv2→3: 50, Lv3→4: 75, Lv4→5: 100
+  love:       { 1: 25, 2: 40, 3: 60, 4: 100 },
+  lust:       { 1: 20, 2: 35, 3: 55, 4: 80  },
+  trust:      { 1: 30, 2: 50, 3: 70, 4: 100 }
 }
 ```
 
-Mevcut threshold: `levelUpThresholds[stat][currentLevel - 1]` — index yoksa `100` varsayılan.
+Mevcut threshold: `levelUpThresholds[stat][currentLevel]` — key yoksa `100` varsayılan.
 
 ```
 Örnek — Tom (friendship thresholds: [30, 50, 75, 100]):
@@ -213,7 +213,7 @@ Lust        ░░░░░░░░░░  Lv.1 · 0/20     ← Lv1 için thres
 Trust       ██████░░░░  Lv.3 · 60/70    ← Lv3 için threshold 70
 ```
 
-Bar genişliği `stat / levelUpThresholds[stat][currentLevel - 1]` oranıyla hesaplanır.
+Bar genişliği `stat / levelUpThresholds[stat][currentLevel]` oranıyla hesaplanır.
 
 `CharacterWidgets.twee` → `charInfoCard` widget güncellenir. Accordion yapısı korunur.
 
