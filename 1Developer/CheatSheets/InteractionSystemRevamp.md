@@ -52,9 +52,9 @@ stats: {
 **Threshold, karakter config'inden stat + level bazında okunur** (`levelUpThresholds`). Her level için ayrı eşik tanımlanır. Tanımlanmayan level için varsayılan `100` kullanılır.
 
 ```js
-// Her karakter tanımına eklenir — key = mevcut level, value = o levelden atlamak için gereken puan
+// key = mevcut level, value = o levelden atlamak için gereken puan
 levelUpThresholds: {
-  friendship: { 1: 30, 2: 50, 3: 75, 4: 100 },  // Lv1→2: 30, Lv2→3: 50, Lv3→4: 75, Lv4→5: 100
+  friendship: { 1: 30, 2: 50, 3: 75, 4: 100 },
   love:       { 1: 25, 2: 40, 3: 60, 4: 100 },
   lust:       { 1: 20, 2: 35, 3: 55, 4: 80  },
   trust:      { 1: 30, 2: 50, 3: 70, 4: 100 }
@@ -64,7 +64,7 @@ levelUpThresholds: {
 Mevcut threshold: `levelUpThresholds[stat][currentLevel]` — key yoksa `100` varsayılan.
 
 ```
-Örnek — Tom (friendship thresholds: [30, 50, 75, 100]):
+Örnek — Tom (friendship thresholds: { 1: 30, 2: 50, 3: 75, 4: 100 }):
   friendship: 25, friendshipLevel: 1   → threshold: 30
   → gainCharacterStat "tom" "friendship" 10
   → friendship: 0, friendshipLevel: 2   ← 25+10=35 → 30'u geçti, sıfırla + level++
@@ -79,7 +79,7 @@ Her karakterin `maxLevels` değeri vardır — ilerleyen update'lerde karakter b
 
 ```js
 maxLevels: {
-  friendship: 5,   // varsayılan, update'lerle değişir
+  friendship: 5,
   love: 5,
   lust: 5,
   trust: 5
@@ -228,63 +228,7 @@ Yeni:    Friendship  [████████░░]  Lv.2 · 80/50   ← thres
 
 ---
 
-## 6. Örnek Action Tanımları
-
-`storyJavaScript.js` → `setup.characterActions`:
-
-```js
-// HERKES İÇİN AYNI YAPI
-// İçerik olmayan level'lar için passage placeholder kullanılır
-
-dinerClerk: {   // Tom
-  dinerRubys: [
-    { id: "talk",  label: "Talk",  passage: "tomTalk", minPlayerEnergy: 5 },
-    { id: "flirt", label: "Flirt", passage: "tomFlirt",
-      requirements: { friendshipLevel: 2 }, tags: ["flirt"] },
-    { id: "touch", label: "Touch", passage: "tomTouch",
-      requirements: { lustLevel: 2 }, tags: ["adult"] },
-  ]
-},
-
-lily: {
-  sunsetPark: [
-    { id: "talk",  label: "Talk",        passage: "lilyTalk", minPlayerEnergy: 5 },
-    { id: "jog",   label: "Jog Together",passage: "lilyJog",
-      requirements: { friendshipLevel: 2 } },
-    { id: "flirt", label: "Flirt",       passage: "lilyFlirt",
-      requirements: { friendshipLevel: 2 }, tags: ["flirt"] },
-    { id: "touch", label: "Touch",       passage: "lilyTouch",
-      requirements: { lustLevel: 2 }, tags: ["adult"] },
-  ]
-},
-
-dinerManager: {   // Vince — özel eylemler flag+corruption ile açılır
-  dinerRubys: [
-    { id: "report", label: "Report to Vince", passage: "vinceReport" },
-    { id: "pcSnoop", label: "Browse his PC",  passage: "vince_pc_snoop",
-      requirements: { flag: "vince_pc_seen", corruption: 1 },
-      showWhenLocked: false },
-  ],
-  dinerOffice: [
-    { id: "pcSnoop", label: "Browse his PC",  passage: "vince_pc_snoop",
-      requirements: { flag: "vince_pc_seen", corruption: 1 },
-      showWhenLocked: false },
-  ]
-},
-
-// AİLE — aynı sistem, içerik onlara göre yazılır
-mother: {
-  fhKitchen: [
-    { id: "talk",  label: "Talk",  passage: "motherTalkKitchen", minPlayerEnergy: 5 },
-    { id: "flirt", label: "Flirt", passage: "motherFlirt",
-      requirements: { friendshipLevel: 3 }, tags: ["flirt"] },
-  ]
-}
-```
-
----
-
-## 7. Uygulama Sırası
+## 6. Uygulama Sırası
 
 ### Faz 1 — Altyapı
 1. `gainCharacterStat` widget → level-up mantığı (sıfırlama + level++ + notification)
@@ -294,27 +238,27 @@ mother: {
 5. `relations.js` → level satırı
 
 ### Faz 2 — Action Tanımları
-6. Tüm karakter init dosyalarına `maxLevels` ekle (varsayılan: hepsi 5)
+6. Tüm karakter init dosyalarına `maxLevels` ve `levelUpThresholds` ekle
 7. `setup.characterActions` → tüm karakterlere flirt/touch placeholder'ları ekle
 8. Locked mesajları güncelle
 
 ### Faz 3 — İçerik (karakter odaklı)
-8. Diner NPC'leri için talk + flirt passage'ları
-9. Lily flirt/touch
-10. Aile interaction genişletmesi
-11. Vince özel path
+9. Diner NPC'leri için talk + flirt passage'ları
+10. Lily flirt/touch
+11. Aile interaction genişletmesi
+12. Vince özel path
 
 ---
 
-## 8. Kararlar
+## 7. Kararlar
 
 | Konu | Karar |
 |---|---|
 | Her NPC için aynı sistem mi? | **Evet — global, uniform** |
 | Aile için lust level? | **Evet — sistem engel koymaz, içerik yazar** |
 | Raw stat check'ler kaldırılsın mı? | **Hayır — geriye dönük uyum korunur** |
-| Level tavanı var mı? | **Evet — maxLevels ile karakter başına tanımlanır, varsayılan 5, update'lerle güncellenir** |
-| Level-up eşiği sabit mi? | **Hayır — `levelUpThresholds` ile karakter+stat+level bazında ayarlanır (dizi), varsayılan 100** |
+| Level tavanı var mı? | **Evet — maxLevels ile karakter başına tanımlanır, varsayılan 5** |
+| Level-up eşiği sabit mi? | **Hayır — `levelUpThresholds` ile karakter+stat+level bazında ayarlanır, varsayılan 100** |
 | Level atlarken stat sıfırlanıyor mu? | **Evet — tam 0'a sıfırlanır, overflow taşımaz** |
 | Level-up event tetiklenebilir mi? | **Evet — notification + ileride hook** |
 | Gizli eylemler nasıl çalışır? | **showWhenLocked: false + flag/corruption gereksinimi** |
