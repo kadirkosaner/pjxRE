@@ -45,22 +45,38 @@ stats: {
 
 `gainCharacterStat` widget'ı güncellenir:
 
-- Stat 100'e ulaştığında → ilgili Level +1 artar
-- Stat **0'a sıfırlanır**, bar yeniden dolmaya başlar
+- Stat `levelUpThreshold`'a ulaştığında → ilgili Level +1 artar
+- Stat **0'a sıfırlanır**, bar yeniden dolmaya başlar, overflow taşımaz
 - Level-up notification gösterilir
 
+**Threshold, karakter config'inden stat bazında okunur** (`levelUpThresholds`). Tanımlanmamış stat için varsayılan `100` kullanılır.
+
+```js
+// Her karakter tanımına eklenir — tüm statlar opsiyonel, eksik olanlar 100 varsayılan alır
+levelUpThresholds: {
+  friendship: 50,   // bu karakter için friendship her 50 puanda level atlar
+  love: 30,
+  lust: 55,
+  trust: 100        // belirtilmese de 100 olur, yazmak zorunlu değil
+}
 ```
-Örnek:
-  friendship: 95, friendshipLevel: 1
+
+```
+Örnek — Tom (friendship threshold: 50):
+  friendship: 45, friendshipLevel: 1
   → gainCharacterStat "tom" "friendship" 10
-  → friendship: 0, friendshipLevel: 2   ← overflow taşımaz, sıfırlanır
+  → friendship: 0, friendshipLevel: 2   ← 45+10=55 → 50'yi geçti, sıfırla + level++
   → Notification: "Tom ile Friendship → Level 2!"
+
+Örnek — Lily (friendship threshold: 100, default):
+  friendship: 95, friendshipLevel: 1
+  → gainCharacterStat "lily" "friendship" 10
+  → friendship: 0, friendshipLevel: 2   ← 95+10=105 → 100'ü geçti, sıfırla + level++
 ```
 
 Her karakterin `maxLevels` değeri vardır — ilerleyen update'lerde karakter bazında güncellenir. Şu an tüm karakterler için varsayılan değer `5` olarak başlar.
 
 ```js
-// Her karakter tanımına eklenir — update'lerle düzenlenir
 maxLevels: {
   friendship: 5,   // varsayılan, update'lerle değişir
   love: 5,
@@ -190,11 +206,13 @@ Mevcut: `Love: 12 | Friendship: 45 | Lust: 0 | Trust: 60` (düz sayı)
 
 Yeni:
 ```
-Friendship  ████████░░  Lv.2 · 45/100
-Love        ██░░░░░░░░  Lv.1 · 12/100
-Lust        ░░░░░░░░░░  Lv.1 · 0/100
+Friendship  ████████░░  Lv.2 · 45/50    ← threshold karaktere göre değişir
+Love        ██░░░░░░░░  Lv.1 · 12/30
+Lust        ░░░░░░░░░░  Lv.1 · 0/55
 Trust       ██████░░░░  Lv.1 · 60/100
 ```
+
+Bar genişliği `stat / levelUpThresholds[stat]` oranıyla hesaplanır.
 
 `CharacterWidgets.twee` → `charInfoCard` widget güncellenir. Accordion yapısı korunur.
 
@@ -204,7 +222,7 @@ Trust       ██████░░░░  Lv.1 · 60/100
 
 ```
 Şu an:   Friendship  [████████░░]  80 / 100
-Yeni:    Friendship  [████████░░]  Lv.2 · 80/100
+Yeni:    Friendship  [████████░░]  Lv.2 · 80/50   ← threshold'u gösterir
 ```
 
 ---
@@ -295,6 +313,7 @@ mother: {
 | Aile için lust level? | **Evet — sistem engel koymaz, içerik yazar** |
 | Raw stat check'ler kaldırılsın mı? | **Hayır — geriye dönük uyum korunur** |
 | Level tavanı var mı? | **Evet — maxLevels ile karakter başına tanımlanır, varsayılan 5, update'lerle güncellenir** |
+| Level-up eşiği sabit mi? | **Hayır — `levelUpThresholds` ile karakter+stat bazında ayarlanır, varsayılan 100** |
 | Level atlarken stat sıfırlanıyor mu? | **Evet — tam 0'a sıfırlanır, overflow taşımaz** |
 | Level-up event tetiklenebilir mi? | **Evet — notification + ileride hook** |
 | Gizli eylemler nasıl çalışır? | **showWhenLocked: false + flag/corruption gereksinimi** |
