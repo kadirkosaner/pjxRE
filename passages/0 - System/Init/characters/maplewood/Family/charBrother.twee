@@ -15,11 +15,12 @@
     type: "npc",
     color: "#10b981",
     stats: {
-        love: 20,
-        friendship: 45,
-        lust: 0,
-        trust: 50
+        love: 20,        loveLevel: 1,
+        friendship: 45,  friendshipLevel: 1,
+        lust: 0,         lustLevel: 1,
+        trust: 50,       trustLevel: 1
     },
+    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
     status: "Brother",
     firstMet: "Childhood",
     info: "<p>Your younger brother who goes to high school. He's usually gaming or hanging out in his room.</p>",

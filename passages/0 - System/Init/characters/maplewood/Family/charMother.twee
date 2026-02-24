@@ -16,11 +16,12 @@
     type: "npc",
     color: "#8b5cf6",
     stats: {
-        love: 30,
-        friendship: 50,
-        lust: 0,
-        trust: 50
+        love: 30,        loveLevel: 1,
+        friendship: 50,  friendshipLevel: 1,
+        lust: 0,         lustLevel: 1,
+        trust: 50,       trustLevel: 1
     },
+    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
     status: "Mother",
     firstMet: "Birth",
     info: "<p>Your loving mother who always cares about your well-being. She enjoys cooking, jogging, and reading romance novels.</p>",

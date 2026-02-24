@@ -19,7 +19,8 @@
     relationship: { status: "divorced", partnerLabel: "ex-wife" }
 }>>
 <<set $characters.dinerManager = {
-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
+    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
     firstMet: null,
     known: false,
     currentLocation: null,

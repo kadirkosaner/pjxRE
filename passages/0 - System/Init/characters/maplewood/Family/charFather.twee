@@ -15,11 +15,12 @@
     type: "npc",
     color: "#3b82f6",
     stats: {
-        love: 25,
-        friendship: 50,
-        lust: 0,
-        trust: 40
+        love: 25,        loveLevel: 1,
+        friendship: 50,  friendshipLevel: 1,
+        lust: 0,         lustLevel: 1,
+        trust: 40,       trustLevel: 1
     },
+    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
     status: "Father",
     firstMet: "Birth",
     info: "<p>Your father is a software engineer who works long hours. He enjoys working on cars in the garage (his escape from screens) and watching sports.</p>",

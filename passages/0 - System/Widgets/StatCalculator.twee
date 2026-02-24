@@ -394,6 +394,9 @@
 
 /* GAIN CHARACTER STAT */
 /* Usage: <<gainCharacterStat "mother" "friendship" 2>> */
+/* Level stats (love/friendship/lust/trust) automatically level up when threshold is reached. */
+/* Threshold config: $characters[charId].levelUpThresholds[stat][currentLevel] — default 100 */
+/* Max level config: $characters[charId].maxLevels[stat] — default 5 */
 <<widget "gainCharacterStat">><<nobr>>
     <<set _charId = $args[0]>>
     <<set _statName = $args[1]>>
@@ -401,7 +404,7 @@
 
     /* Safety checks */
     <<if !_charId>>
-        /* <<run console.warn("gainCharacterStat: No charId provided")>> */
+        /* silent */
     <<elseif !State.variables.characters>>
         <<run console.error("gainCharacterStat: $characters undefined")>>
     <<elseif !State.variables.characters[_charId]>>
@@ -409,17 +412,48 @@
     <<elseif !State.variables.characters[_charId].stats>>
         <<run console.error("gainCharacterStat: Character has no stats: " + _charId)>>
     <<elseif State.variables.characters[_charId].stats[_statName] === undefined>>
-        /* Stat does not exist on character, do nothing (or warn) */
-        /* <<run console.log("gainCharacterStat: Stat " + _statName + " not found on " + _charId)>> */
+        /* Stat does not exist on character, do nothing */
     <<else>>
-        /* Apply change */
-        <<set $characters[_charId].stats[_statName] = Math.min(100, Math.max(0, $characters[_charId].stats[_statName] + _baseAmount))>>
-        
-        /* Notification */
-        <<set _charName = $characters[_charId].firstName || $characters[_charId].name || _charId>>
+        <<set _charData = $characters[_charId]>>
+        <<set _stats = _charData.stats>>
+        <<set _levelKey = _statName + "Level">>
+        <<set _isLevelStat = ["love","friendship","lust","trust"].includes(_statName)>>
+        <<set _charName = _charData.firstName || _charData.name || _charId>>
         <<set _displayStat = _statName.charAt(0).toUpperCase() + _statName.slice(1)>>
-        <<set _sign = (_baseAmount > 0) ? "+" : "">>
-        <<run window.notifySuccess(_charName + " " + _displayStat + " " + _sign + _baseAmount)>>
+
+        <<if _isLevelStat && _stats[_levelKey] !== undefined>>
+            /* Level stat logic */
+            <<set _currentLevel = _stats[_levelKey]>>
+            <<set _maxLevel = (_charData.maxLevels && _charData.maxLevels[_statName] !== undefined) ? _charData.maxLevels[_statName] : 5>>
+            <<set _thresholds = (_charData.levelUpThresholds && _charData.levelUpThresholds[_statName]) ? _charData.levelUpThresholds[_statName] : {}>>
+            <<set _threshold = (_thresholds[_currentLevel] !== undefined) ? _thresholds[_currentLevel] : 100>>
+
+            <<if _currentLevel >= _maxLevel>>
+                /* At max level — cap at threshold, no further level-ups */
+                <<set $characters[_charId].stats[_statName] = Math.min(_threshold, Math.max(0, _stats[_statName] + _baseAmount))>>
+                <<if _baseAmount > 0>>
+                    <<run window.notifySuccess(_charName + " " + _displayStat + " MAX")>>
+                <</if>>
+            <<else>>
+                <<set _newVal = Math.max(0, _stats[_statName] + _baseAmount)>>
+                <<if _newVal >= _threshold>>
+                    /* Level up */
+                    <<set $characters[_charId].stats[_levelKey] = _currentLevel + 1>>
+                    <<set $characters[_charId].stats[_statName] = 0>>
+                    <<run window.notifySuccess(_charName + " " + _displayStat + " → Level " + (_currentLevel + 1) + "!")>>
+                <<else>>
+                    /* Normal gain */
+                    <<set $characters[_charId].stats[_statName] = _newVal>>
+                    <<set _sign = (_baseAmount > 0) ? "+" : "">>
+                    <<run window.notifySuccess(_charName + " " + _displayStat + " " + _sign + _baseAmount)>>
+                <</if>>
+            <</if>>
+        <<else>>
+            /* Non-level stat — clamp 0-100 */
+            <<set $characters[_charId].stats[_statName] = Math.min(100, Math.max(0, _stats[_statName] + _baseAmount))>>
+            <<set _sign = (_baseAmount > 0) ? "+" : "">>
+            <<run window.notifySuccess(_charName + " " + _displayStat + " " + _sign + _baseAmount)>>
+        <</if>>
     <</if>>
 <</nobr>><</widget>>
 

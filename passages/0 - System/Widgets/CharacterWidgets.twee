@@ -98,11 +98,13 @@
 <<else>>
     <<set _fullName = (_char.firstName || "") + " " + (_char.lastName || "")>>
     <<set _age = ($timeSysYear || 2024) - (_char.birthYear || 2000)>>
-    <<set _stats = _char.stats || { love: 0, friendship: 0, lust: 0, trust: 0 }>>
+    <<set _stats = _char.stats || { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 }>>
+    <<set _maxLvls = _char.maxLevels || { love: 5, friendship: 5, lust: 5, trust: 5 }>>
+    <<set _thresholds = _char.levelUpThresholds || {}>>
     <<set _opinion = _char.opinion || { awareness: 0, flags: [] }>>
     <<set _awareness = _opinion.awareness || 0>>
-    
-    /* Get awareness tier - using simple if/else */
+
+    /* Awareness tier */
     <<if _awareness <= 10>>
         <<set _tier = { name: "Innocent", color: "#4ade80" }>>
     <<elseif _awareness <= 25>>
@@ -117,6 +119,20 @@
         <<set _tier = { name: "Complicit", color: "#ef4444" }>>
     <</if>>
 
+    /* Stat bar calculations */
+    <<set _loveLevel = _stats.loveLevel || 1>>
+    <<set _friendLevel = _stats.friendshipLevel || 1>>
+    <<set _lustLevel = _stats.lustLevel || 1>>
+    <<set _trustLevel = _stats.trustLevel || 1>>
+    <<set _loveThr = ((_thresholds.love && _thresholds.love[_loveLevel] !== undefined) ? _thresholds.love[_loveLevel] : 100)>>
+    <<set _friendThr = ((_thresholds.friendship && _thresholds.friendship[_friendLevel] !== undefined) ? _thresholds.friendship[_friendLevel] : 100)>>
+    <<set _lustThr = ((_thresholds.lust && _thresholds.lust[_lustLevel] !== undefined) ? _thresholds.lust[_lustLevel] : 100)>>
+    <<set _trustThr = ((_thresholds.trust && _thresholds.trust[_trustLevel] !== undefined) ? _thresholds.trust[_trustLevel] : 100)>>
+    <<set _lovePct = Math.min(100, Math.round((_stats.love / _loveThr) * 100))>>
+    <<set _friendPct = Math.min(100, Math.round((_stats.friendship / _friendThr) * 100))>>
+    <<set _lustPct = Math.min(100, Math.round((_stats.lust / _lustThr) * 100))>>
+    <<set _trustPct = Math.min(100, Math.round((_stats.trust / _trustThr) * 100))>>
+
     <div class="char-info-accordion">
         <div class="char-info-header" onclick="this.parentElement.classList.toggle('expanded')">
             <div class="char-info-avatar">
@@ -128,11 +144,40 @@
             <span class="char-info-toggle">▼</span>
         </div>
         <div class="char-info-content">
-            <div class="char-info-stats-row">
-                <div class="char-stat-box">Love : <span class="stat-val-love"><<print _stats.love>></span></div>
-                <div class="char-stat-box">Friendship : <span class="stat-val-friend"><<print _stats.friendship>></span></div>
-                <div class="char-stat-box">Lust : <span class="stat-val-lust"><<print _stats.lust>></span></div>
-                <div class="char-stat-box">Trust : <span class="stat-val-trust"><<print _stats.trust>></span></div>
+            <div class="char-info-stats-bars">
+
+                <div class="char-stat-bar-row">
+                    <div class="char-stat-bar-label">
+                        <span>Love</span>
+                        <span class="char-stat-bar-meta">Lv.<<print _loveLevel>> · <<print _stats.love>>/<<if _loveLevel >= (_maxLvls.love || 5)>>MAX<<else>><<print _loveThr>><</if>></span>
+                    </div>
+                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lovePct + '%; background:#ec4899;'"></div></div>
+                </div>
+
+                <div class="char-stat-bar-row">
+                    <div class="char-stat-bar-label">
+                        <span>Friendship</span>
+                        <span class="char-stat-bar-meta">Lv.<<print _friendLevel>> · <<print _stats.friendship>>/<<if _friendLevel >= (_maxLvls.friendship || 5)>>MAX<<else>><<print _friendThr>><</if>></span>
+                    </div>
+                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _friendPct + '%; background:#3b82f6;'"></div></div>
+                </div>
+
+                <div class="char-stat-bar-row">
+                    <div class="char-stat-bar-label">
+                        <span>Lust</span>
+                        <span class="char-stat-bar-meta">Lv.<<print _lustLevel>> · <<print _stats.lust>>/<<if _lustLevel >= (_maxLvls.lust || 5)>>MAX<<else>><<print _lustThr>><</if>></span>
+                    </div>
+                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lustPct + '%; background:#ef4444;'"></div></div>
+                </div>
+
+                <div class="char-stat-bar-row">
+                    <div class="char-stat-bar-label">
+                        <span>Trust</span>
+                        <span class="char-stat-bar-meta">Lv.<<print _trustLevel>> · <<print _stats.trust>>/<<if _trustLevel >= (_maxLvls.trust || 5)>>MAX<<else>><<print _trustThr>><</if>></span>
+                    </div>
+                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _trustPct + '%; background:#10b981;'"></div></div>
+                </div>
+
             </div>
             <div class="char-info-awareness">
                 Thinks you're : <span @style="'color:' + _tier.color + '; font-weight: 600;'"><<print _tier.name>></span>
