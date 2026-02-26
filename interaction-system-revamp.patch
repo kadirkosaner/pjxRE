@@ -1,0 +1,576 @@
+diff --git a/assets/system/js/modal/relations.js b/assets/system/js/modal/relations.js
+index ea79db2..181ad33 100644
+--- a/assets/system/js/modal/relations.js
++++ b/assets/system/js/modal/relations.js
+@@ -240,46 +240,58 @@ window.RelationsInit = function (API) {
+                                         <span class="icon icon-heart icon-14"></span>
+                                         Love
+                                     </span>
+-                                    <span class="relations-stat-value"><span id="relations-love-value">0</span> / 100</span>
++                                    <span class="relations-stat-value">
++                                        <span id="relations-love-level" style="font-weight:600;">Lv.1</span>
++                                        · <span id="relations-love-value">0</span> / <span id="relations-love-max">100</span>
++                                    </span>
+                                 </div>
+                                 <div class="relations-stat-bar">
+                                     <div class="relations-stat-fill" id="relations-love-fill" style="width: 0%; background: #ec4899;"></div>
+                                 </div>
+                             </div>
+-                            
++
+                             <div class="relations-stat-item">
+                                 <div class="relations-stat-header">
+                                     <span class="relations-stat-label">
+                                         <span class="icon icon-handshake icon-14"></span>
+                                         Friendship
+                                     </span>
+-                                    <span class="relations-stat-value"><span id="relations-friendship-value">0</span> / 100</span>
++                                    <span class="relations-stat-value">
++                                        <span id="relations-friendship-level" style="font-weight:600;">Lv.1</span>
++                                        · <span id="relations-friendship-value">0</span> / <span id="relations-friendship-max">100</span>
++                                    </span>
+                                 </div>
+                                 <div class="relations-stat-bar">
+                                     <div class="relations-stat-fill" id="relations-friendship-fill" style="width: 0%; background: #3b82f6;"></div>
+                                 </div>
+                             </div>
+-                            
++
+                             <div class="relations-stat-item">
+                                 <div class="relations-stat-header">
+                                     <span class="relations-stat-label">
+                                         <span class="icon icon-arousal icon-14"></span>
+                                         Lust
+                                     </span>
+-                                    <span class="relations-stat-value"><span id="relations-lust-value">0</span> / 100</span>
++                                    <span class="relations-stat-value">
++                                        <span id="relations-lust-level" style="font-weight:600;">Lv.1</span>
++                                        · <span id="relations-lust-value">0</span> / <span id="relations-lust-max">100</span>
++                                    </span>
+                                 </div>
+                                 <div class="relations-stat-bar">
+                                     <div class="relations-stat-fill" id="relations-lust-fill" style="width: 0%; background: #ef4444;"></div>
+                                 </div>
+                             </div>
+-                            
++
+                             <div class="relations-stat-item">
+                                 <div class="relations-stat-header">
+                                     <span class="relations-stat-label">
+                                         <span class="icon icon-shield icon-14"></span>
+                                         Trust
+                                     </span>
+-                                    <span class="relations-stat-value"><span id="relations-trust-value">0</span> / 100</span>
++                                    <span class="relations-stat-value">
++                                        <span id="relations-trust-level" style="font-weight:600;">Lv.1</span>
++                                        · <span id="relations-trust-value">0</span> / <span id="relations-trust-max">100</span>
++                                    </span>
+                                 </div>
+                                 <div class="relations-stat-bar">
+                                     <div class="relations-stat-fill" id="relations-trust-fill" style="width: 0%; background: #10b981;"></div>
+@@ -381,20 +393,46 @@ window.RelationsInit = function (API) {
+             const infoContent = char.info || '<p>No additional information available.</p>';
+             this.API.$('#relations-info-content').html(infoContent);
+ 
+-            // Update stats
+-            const stats = char.stats || { love: 0, friendship: 0, lust: 0, trust: 0 };
++            // Update stats with level + threshold
++            const stats = char.stats || { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 };
++            const levelUpThresholds = char.levelUpThresholds || {};
++            const maxLevels = char.maxLevels || { love: 5, friendship: 5, lust: 5, trust: 5 };
++
++            const getThreshold = (statName, currentLevel) => {
++                const t = levelUpThresholds[statName];
++                return (t && t[currentLevel] !== undefined) ? t[currentLevel] : 100;
++            };
++            const isMaxLevel = (statName, currentLevel) => currentLevel >= (maxLevels[statName] || 5);
++
++            const loveLevel = stats.loveLevel || 1;
++            const friendLevel = stats.friendshipLevel || 1;
++            const lustLevel = stats.lustLevel || 1;
++            const trustLevel = stats.trustLevel || 1;
++
++            const loveThr = getThreshold('love', loveLevel);
++            const friendThr = getThreshold('friendship', friendLevel);
++            const lustThr = getThreshold('lust', lustLevel);
++            const trustThr = getThreshold('trust', trustLevel);
+ 
++            this.API.$('#relations-love-level').text('Lv.' + loveLevel);
+             this.API.$('#relations-love-value').text(stats.love || 0);
+-            this.API.$('#relations-love-fill').css('width', (stats.love || 0) + '%');
++            this.API.$('#relations-love-max').text(isMaxLevel('love', loveLevel) ? 'MAX' : loveThr);
++            this.API.$('#relations-love-fill').css('width', Math.min(100, Math.round(((stats.love || 0) / loveThr) * 100)) + '%');
+ 
++            this.API.$('#relations-friendship-level').text('Lv.' + friendLevel);
+             this.API.$('#relations-friendship-value').text(stats.friendship || 0);
+-            this.API.$('#relations-friendship-fill').css('width', (stats.friendship || 0) + '%');
++            this.API.$('#relations-friendship-max').text(isMaxLevel('friendship', friendLevel) ? 'MAX' : friendThr);
++            this.API.$('#relations-friendship-fill').css('width', Math.min(100, Math.round(((stats.friendship || 0) / friendThr) * 100)) + '%');
+ 
++            this.API.$('#relations-lust-level').text('Lv.' + lustLevel);
+             this.API.$('#relations-lust-value').text(stats.lust || 0);
+-            this.API.$('#relations-lust-fill').css('width', (stats.lust || 0) + '%');
++            this.API.$('#relations-lust-max').text(isMaxLevel('lust', lustLevel) ? 'MAX' : lustThr);
++            this.API.$('#relations-lust-fill').css('width', Math.min(100, Math.round(((stats.lust || 0) / lustThr) * 100)) + '%');
+ 
++            this.API.$('#relations-trust-level').text('Lv.' + trustLevel);
+             this.API.$('#relations-trust-value').text(stats.trust || 0);
+-            this.API.$('#relations-trust-fill').css('width', (stats.trust || 0) + '%');
++            this.API.$('#relations-trust-max').text(isMaxLevel('trust', trustLevel) ? 'MAX' : trustThr);
++            this.API.$('#relations-trust-fill').css('width', Math.min(100, Math.round(((stats.trust || 0) / trustThr) * 100)) + '%');
+ 
+             // Update perception/awareness
+             const opinion = char.opinion || { awareness: 0, flags: [] };
+diff --git a/passages/0 - System/Init/characters/maplewood/Family/charBrother.twee b/passages/0 - System/Init/characters/maplewood/Family/charBrother.twee
+index 0ac4b5e..10154a1 100644
+--- a/passages/0 - System/Init/characters/maplewood/Family/charBrother.twee	
++++ b/passages/0 - System/Init/characters/maplewood/Family/charBrother.twee	
+@@ -15,11 +15,12 @@
+     type: "npc",
+     color: "#10b981",
+     stats: {
+-        love: 20,
+-        friendship: 45,
+-        lust: 0,
+-        trust: 50
++        love: 20,        loveLevel: 1,
++        friendship: 45,  friendshipLevel: 1,
++        lust: 0,         lustLevel: 1,
++        trust: 50,       trustLevel: 1
+     },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     status: "Brother",
+     firstMet: "Childhood",
+     info: "<p>Your younger brother who goes to high school. He's usually gaming or hanging out in his room.</p>",
+diff --git a/passages/0 - System/Init/characters/maplewood/Family/charFather.twee b/passages/0 - System/Init/characters/maplewood/Family/charFather.twee
+index 3a1afad..ec55e03 100644
+--- a/passages/0 - System/Init/characters/maplewood/Family/charFather.twee	
++++ b/passages/0 - System/Init/characters/maplewood/Family/charFather.twee	
+@@ -15,11 +15,12 @@
+     type: "npc",
+     color: "#3b82f6",
+     stats: {
+-        love: 25,
+-        friendship: 50,
+-        lust: 0,
+-        trust: 40
++        love: 25,        loveLevel: 1,
++        friendship: 50,  friendshipLevel: 1,
++        lust: 0,         lustLevel: 1,
++        trust: 40,       trustLevel: 1
+     },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     status: "Father",
+     firstMet: "Birth",
+     info: "<p>Your father is a software engineer who works long hours. He enjoys working on cars in the garage (his escape from screens) and watching sports.</p>",
+diff --git a/passages/0 - System/Init/characters/maplewood/Family/charMother.twee b/passages/0 - System/Init/characters/maplewood/Family/charMother.twee
+index 4d1a913..8aab837 100644
+--- a/passages/0 - System/Init/characters/maplewood/Family/charMother.twee	
++++ b/passages/0 - System/Init/characters/maplewood/Family/charMother.twee	
+@@ -16,11 +16,12 @@
+     type: "npc",
+     color: "#8b5cf6",
+     stats: {
+-        love: 30,
+-        friendship: 50,
+-        lust: 0,
+-        trust: 50
++        love: 30,        loveLevel: 1,
++        friendship: 50,  friendshipLevel: 1,
++        lust: 0,         lustLevel: 1,
++        trust: 50,       trustLevel: 1
+     },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     status: "Mother",
+     firstMet: "Birth",
+     info: "<p>Your loving mother who always cares about your well-being. She enjoys cooking, jogging, and reading romance novels.</p>",
+diff --git a/passages/0 - System/Init/characters/maplewood/cornerShop/charMarcus[CornerShop].twee b/passages/0 - System/Init/characters/maplewood/cornerShop/charMarcus[CornerShop].twee
+index 3c0ac05..cb927aa 100644
+--- a/passages/0 - System/Init/characters/maplewood/cornerShop/charMarcus[CornerShop].twee	
++++ b/passages/0 - System/Init/characters/maplewood/cornerShop/charMarcus[CornerShop].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "single" }
+ }>>
+ <<set $characters.shopClerkMarcus = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/maplewood/sunsetPark/charLily[SunsetPark].twee b/passages/0 - System/Init/characters/maplewood/sunsetPark/charLily[SunsetPark].twee
+index eb7da90..1d320e0 100644
+--- a/passages/0 - System/Init/characters/maplewood/sunsetPark/charLily[SunsetPark].twee	
++++ b/passages/0 - System/Init/characters/maplewood/sunsetPark/charLily[SunsetPark].twee	
+@@ -20,7 +20,8 @@
+     relationship: { status: "single" }
+ }>>
+ <<set $characters.parkRunnerLily = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/oldtown/RubysDiner/charChefJames[DinerRubys].twee b/passages/0 - System/Init/characters/oldtown/RubysDiner/charChefJames[DinerRubys].twee
+index d8fe971..f6fcf95 100644
+--- a/passages/0 - System/Init/characters/oldtown/RubysDiner/charChefJames[DinerRubys].twee	
++++ b/passages/0 - System/Init/characters/oldtown/RubysDiner/charChefJames[DinerRubys].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "married", partnerLabel: "wife", hasChildren: true }
+ }>>
+ <<set $characters.dinerChef = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/oldtown/RubysDiner/charClerkTom[DinerRubys].twee b/passages/0 - System/Init/characters/oldtown/RubysDiner/charClerkTom[DinerRubys].twee
+index af2e712..bda1741 100644
+--- a/passages/0 - System/Init/characters/oldtown/RubysDiner/charClerkTom[DinerRubys].twee	
++++ b/passages/0 - System/Init/characters/oldtown/RubysDiner/charClerkTom[DinerRubys].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "serious", partnerLabel: "girlfriend" }
+ }>>
+ <<set $characters.dinerClerk = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/oldtown/RubysDiner/charDishMike[DinerRubys].twee b/passages/0 - System/Init/characters/oldtown/RubysDiner/charDishMike[DinerRubys].twee
+index 5dc6c18..a66637b 100644
+--- a/passages/0 - System/Init/characters/oldtown/RubysDiner/charDishMike[DinerRubys].twee	
++++ b/passages/0 - System/Init/characters/oldtown/RubysDiner/charDishMike[DinerRubys].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "single" }
+ }>>
+ <<set $characters.dinerDishwasher = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/oldtown/RubysDiner/charManagerVince[DinerRubys].twee b/passages/0 - System/Init/characters/oldtown/RubysDiner/charManagerVince[DinerRubys].twee
+index 41f6427..1ec9429 100644
+--- a/passages/0 - System/Init/characters/oldtown/RubysDiner/charManagerVince[DinerRubys].twee	
++++ b/passages/0 - System/Init/characters/oldtown/RubysDiner/charManagerVince[DinerRubys].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "divorced", partnerLabel: "ex-wife" }
+ }>>
+ <<set $characters.dinerManager = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressEmma[DinerRubys].twee b/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressEmma[DinerRubys].twee
+index 33caec5..eee531f 100644
+--- a/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressEmma[DinerRubys].twee	
++++ b/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressEmma[DinerRubys].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "single" }
+ }>>
+ <<set $characters.dinerWaitress1 = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressJake[DinerRubys].twee b/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressJake[DinerRubys].twee
+index 9b6b673..c359609 100644
+--- a/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressJake[DinerRubys].twee	
++++ b/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressJake[DinerRubys].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "single" }
+ }>>
+ <<set $characters.dinerWaitress3 = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressSofia[DinerRubys].twee b/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressSofia[DinerRubys].twee
+index 33c201d..5f9f777 100644
+--- a/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressSofia[DinerRubys].twee	
++++ b/passages/0 - System/Init/characters/oldtown/RubysDiner/charWaitressSofia[DinerRubys].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "dating", partnerLabel: "boyfriend" }
+ }>>
+ <<set $characters.dinerWaitress2 = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/oldtown/townhall/charCareerClerk[TownHall].twee b/passages/0 - System/Init/characters/oldtown/townhall/charCareerClerk[TownHall].twee
+index bd8a6da..19e48d0 100644
+--- a/passages/0 - System/Init/characters/oldtown/townhall/charCareerClerk[TownHall].twee	
++++ b/passages/0 - System/Init/characters/oldtown/townhall/charCareerClerk[TownHall].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "married", partnerLabel: "husband" }
+ }>>
+ <<set $characters.careerClerk = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Init/characters/oldtown/townhall/charReceptionist[TownHall].twee b/passages/0 - System/Init/characters/oldtown/townhall/charReceptionist[TownHall].twee
+index c910d99..087e0e8 100644
+--- a/passages/0 - System/Init/characters/oldtown/townhall/charReceptionist[TownHall].twee	
++++ b/passages/0 - System/Init/characters/oldtown/townhall/charReceptionist[TownHall].twee	
+@@ -19,7 +19,8 @@
+     relationship: { status: "married", partnerLabel: "husband" }
+ }>>
+ <<set $characters.townHallReceptionist = {
+-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
++    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
++    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+     firstMet: null,
+     known: false,
+     currentLocation: null,
+diff --git a/passages/0 - System/Widgets/CharacterWidgets.twee b/passages/0 - System/Widgets/CharacterWidgets.twee
+index d4cabb5..e527f07 100644
+--- a/passages/0 - System/Widgets/CharacterWidgets.twee	
++++ b/passages/0 - System/Widgets/CharacterWidgets.twee	
+@@ -98,11 +98,13 @@
+ <<else>>
+     <<set _fullName = (_char.firstName || "") + " " + (_char.lastName || "")>>
+     <<set _age = ($timeSysYear || 2024) - (_char.birthYear || 2000)>>
+-    <<set _stats = _char.stats || { love: 0, friendship: 0, lust: 0, trust: 0 }>>
++    <<set _stats = _char.stats || { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 }>>
++    <<set _maxLvls = _char.maxLevels || { love: 5, friendship: 5, lust: 5, trust: 5 }>>
++    <<set _thresholds = _char.levelUpThresholds || {}>>
+     <<set _opinion = _char.opinion || { awareness: 0, flags: [] }>>
+     <<set _awareness = _opinion.awareness || 0>>
+-    
+-    /* Get awareness tier - using simple if/else */
++
++    /* Awareness tier */
+     <<if _awareness <= 10>>
+         <<set _tier = { name: "Innocent", color: "#4ade80" }>>
+     <<elseif _awareness <= 25>>
+@@ -117,6 +119,20 @@
+         <<set _tier = { name: "Complicit", color: "#ef4444" }>>
+     <</if>>
+ 
++    /* Stat bar calculations */
++    <<set _loveLevel = _stats.loveLevel || 1>>
++    <<set _friendLevel = _stats.friendshipLevel || 1>>
++    <<set _lustLevel = _stats.lustLevel || 1>>
++    <<set _trustLevel = _stats.trustLevel || 1>>
++    <<set _loveThr = ((_thresholds.love && _thresholds.love[_loveLevel] !== undefined) ? _thresholds.love[_loveLevel] : 100)>>
++    <<set _friendThr = ((_thresholds.friendship && _thresholds.friendship[_friendLevel] !== undefined) ? _thresholds.friendship[_friendLevel] : 100)>>
++    <<set _lustThr = ((_thresholds.lust && _thresholds.lust[_lustLevel] !== undefined) ? _thresholds.lust[_lustLevel] : 100)>>
++    <<set _trustThr = ((_thresholds.trust && _thresholds.trust[_trustLevel] !== undefined) ? _thresholds.trust[_trustLevel] : 100)>>
++    <<set _lovePct = Math.min(100, Math.round((_stats.love / _loveThr) * 100))>>
++    <<set _friendPct = Math.min(100, Math.round((_stats.friendship / _friendThr) * 100))>>
++    <<set _lustPct = Math.min(100, Math.round((_stats.lust / _lustThr) * 100))>>
++    <<set _trustPct = Math.min(100, Math.round((_stats.trust / _trustThr) * 100))>>
++
+     <div class="char-info-accordion">
+         <div class="char-info-header" onclick="this.parentElement.classList.toggle('expanded')">
+             <div class="char-info-avatar">
+@@ -128,11 +144,40 @@
+             <span class="char-info-toggle">▼</span>
+         </div>
+         <div class="char-info-content">
+-            <div class="char-info-stats-row">
+-                <div class="char-stat-box">Love : <span class="stat-val-love"><<print _stats.love>></span></div>
+-                <div class="char-stat-box">Friendship : <span class="stat-val-friend"><<print _stats.friendship>></span></div>
+-                <div class="char-stat-box">Lust : <span class="stat-val-lust"><<print _stats.lust>></span></div>
+-                <div class="char-stat-box">Trust : <span class="stat-val-trust"><<print _stats.trust>></span></div>
++            <div class="char-info-stats-bars">
++
++                <div class="char-stat-bar-row">
++                    <div class="char-stat-bar-label">
++                        <span>Love</span>
++                        <span class="char-stat-bar-meta">Lv.<<print _loveLevel>> · <<print _stats.love>>/<<if _loveLevel >= (_maxLvls.love || 5)>>MAX<<else>><<print _loveThr>><</if>></span>
++                    </div>
++                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lovePct + '%; background:#ec4899;'"></div></div>
++                </div>
++
++                <div class="char-stat-bar-row">
++                    <div class="char-stat-bar-label">
++                        <span>Friendship</span>
++                        <span class="char-stat-bar-meta">Lv.<<print _friendLevel>> · <<print _stats.friendship>>/<<if _friendLevel >= (_maxLvls.friendship || 5)>>MAX<<else>><<print _friendThr>><</if>></span>
++                    </div>
++                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _friendPct + '%; background:#3b82f6;'"></div></div>
++                </div>
++
++                <div class="char-stat-bar-row">
++                    <div class="char-stat-bar-label">
++                        <span>Lust</span>
++                        <span class="char-stat-bar-meta">Lv.<<print _lustLevel>> · <<print _stats.lust>>/<<if _lustLevel >= (_maxLvls.lust || 5)>>MAX<<else>><<print _lustThr>><</if>></span>
++                    </div>
++                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lustPct + '%; background:#ef4444;'"></div></div>
++                </div>
++
++                <div class="char-stat-bar-row">
++                    <div class="char-stat-bar-label">
++                        <span>Trust</span>
++                        <span class="char-stat-bar-meta">Lv.<<print _trustLevel>> · <<print _stats.trust>>/<<if _trustLevel >= (_maxLvls.trust || 5)>>MAX<<else>><<print _trustThr>><</if>></span>
++                    </div>
++                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _trustPct + '%; background:#10b981;'"></div></div>
++                </div>
++
+             </div>
+             <div class="char-info-awareness">
+                 Thinks you're : <span @style="'color:' + _tier.color + '; font-weight: 600;'"><<print _tier.name>></span>
+diff --git a/passages/0 - System/Widgets/StatCalculator.twee b/passages/0 - System/Widgets/StatCalculator.twee
+index c19a8d9..d663e9b 100644
+--- a/passages/0 - System/Widgets/StatCalculator.twee	
++++ b/passages/0 - System/Widgets/StatCalculator.twee	
+@@ -394,6 +394,9 @@
+ 
+ /* GAIN CHARACTER STAT */
+ /* Usage: <<gainCharacterStat "mother" "friendship" 2>> */
++/* Level stats (love/friendship/lust/trust) automatically level up when threshold is reached. */
++/* Threshold config: $characters[charId].levelUpThresholds[stat][currentLevel] — default 100 */
++/* Max level config: $characters[charId].maxLevels[stat] — default 5 */
+ <<widget "gainCharacterStat">><<nobr>>
+     <<set _charId = $args[0]>>
+     <<set _statName = $args[1]>>
+@@ -401,7 +404,7 @@
+ 
+     /* Safety checks */
+     <<if !_charId>>
+-        /* <<run console.warn("gainCharacterStat: No charId provided")>> */
++        /* silent */
+     <<elseif !State.variables.characters>>
+         <<run console.error("gainCharacterStat: $characters undefined")>>
+     <<elseif !State.variables.characters[_charId]>>
+@@ -409,17 +412,48 @@
+     <<elseif !State.variables.characters[_charId].stats>>
+         <<run console.error("gainCharacterStat: Character has no stats: " + _charId)>>
+     <<elseif State.variables.characters[_charId].stats[_statName] === undefined>>
+-        /* Stat does not exist on character, do nothing (or warn) */
+-        /* <<run console.log("gainCharacterStat: Stat " + _statName + " not found on " + _charId)>> */
++        /* Stat does not exist on character, do nothing */
+     <<else>>
+-        /* Apply change */
+-        <<set $characters[_charId].stats[_statName] = Math.min(100, Math.max(0, $characters[_charId].stats[_statName] + _baseAmount))>>
+-        
+-        /* Notification */
+-        <<set _charName = $characters[_charId].firstName || $characters[_charId].name || _charId>>
++        <<set _charData = $characters[_charId]>>
++        <<set _stats = _charData.stats>>
++        <<set _levelKey = _statName + "Level">>
++        <<set _isLevelStat = ["love","friendship","lust","trust"].includes(_statName)>>
++        <<set _charName = _charData.firstName || _charData.name || _charId>>
+         <<set _displayStat = _statName.charAt(0).toUpperCase() + _statName.slice(1)>>
+-        <<set _sign = (_baseAmount > 0) ? "+" : "">>
+-        <<run window.notifySuccess(_charName + " " + _displayStat + " " + _sign + _baseAmount)>>
++
++        <<if _isLevelStat && _stats[_levelKey] !== undefined>>
++            /* Level stat logic */
++            <<set _currentLevel = _stats[_levelKey]>>
++            <<set _maxLevel = (_charData.maxLevels && _charData.maxLevels[_statName] !== undefined) ? _charData.maxLevels[_statName] : 5>>
++            <<set _thresholds = (_charData.levelUpThresholds && _charData.levelUpThresholds[_statName]) ? _charData.levelUpThresholds[_statName] : {}>>
++            <<set _threshold = (_thresholds[_currentLevel] !== undefined) ? _thresholds[_currentLevel] : 100>>
++
++            <<if _currentLevel >= _maxLevel>>
++                /* At max level — cap at threshold, no further level-ups */
++                <<set $characters[_charId].stats[_statName] = Math.min(_threshold, Math.max(0, _stats[_statName] + _baseAmount))>>
++                <<if _baseAmount > 0>>
++                    <<run window.notifySuccess(_charName + " " + _displayStat + " MAX")>>
++                <</if>>
++            <<else>>
++                <<set _newVal = Math.max(0, _stats[_statName] + _baseAmount)>>
++                <<if _newVal >= _threshold>>
++                    /* Level up */
++                    <<set $characters[_charId].stats[_levelKey] = _currentLevel + 1>>
++                    <<set $characters[_charId].stats[_statName] = 0>>
++                    <<run window.notifySuccess(_charName + " " + _displayStat + " → Level " + (_currentLevel + 1) + "!")>>
++                <<else>>
++                    /* Normal gain */
++                    <<set $characters[_charId].stats[_statName] = _newVal>>
++                    <<set _sign = (_baseAmount > 0) ? "+" : "">>
++                    <<run window.notifySuccess(_charName + " " + _displayStat + " " + _sign + _baseAmount)>>
++                <</if>>
++            <</if>>
++        <<else>>
++            /* Non-level stat — clamp 0-100 */
++            <<set $characters[_charId].stats[_statName] = Math.min(100, Math.max(0, _stats[_statName] + _baseAmount))>>
++            <<set _sign = (_baseAmount > 0) ? "+" : "">>
++            <<run window.notifySuccess(_charName + " " + _displayStat + " " + _sign + _baseAmount)>>
++        <</if>>
+     <</if>>
+ <</nobr>><</widget>>
+ 
+diff --git a/passages/0 - System/storyJavaScript.js b/passages/0 - System/storyJavaScript.js
+index 6ae2d31..0a983f3 100644
+--- a/passages/0 - System/storyJavaScript.js	
++++ b/passages/0 - System/storyJavaScript.js	
+@@ -1725,19 +1725,46 @@ Macro.add('showActions', {
+                 }
+             }
+ 
+-            // Check stat requirements (character stats)
++            // Check requirements
+             const reqs = action.requirements || {};
+             let meetsReqs = true;
+             let missingReqs = [];
+ 
+-            for (const [stat, value] of Object.entries(reqs)) {
+-                if ((charStats[stat] || 0) < value) {
+-                    meetsReqs = false;
+-                    missingReqs.push(`${stat.charAt(0).toUpperCase() + stat.slice(1)}: ${value}`);
++            for (const [req, value] of Object.entries(reqs)) {
++                if (req === 'friendshipLevel' || req === 'lustLevel' || req === 'loveLevel' || req === 'trustLevel') {
++                    // Level check — charStats.friendshipLevel etc.
++                    if ((charStats[req] || 1) < value) {
++                        meetsReqs = false;
++                        const statName = req.replace('Level', '');
++                        missingReqs.push(`${statName.charAt(0).toUpperCase() + statName.slice(1)} Level ${value}`);
++                    }
++                } else if (req === 'flag') {
++                    // Flag check — value is the flag name string
++                    const flags = vars.flags || {};
++                    if (!flags[value]) {
++                        meetsReqs = false;
++                        // Silent — flag failures are typically paired with showWhenLocked: false
++                    }
++                } else if (req === 'corruption') {
++                    if ((vars.corruption || 0) < value) {
++                        meetsReqs = false;
++                        missingReqs.push(`Corruption ${value}`);
++                    }
++                } else if (req === 'willpower') {
++                    if ((vars.willpower || 0) < value) {
++                        meetsReqs = false;
++                        missingReqs.push(`Willpower ${value}`);
++                    }
++                } else {
++                    // Raw stat check (legacy: friendship, lust, etc.)
++                    if ((charStats[req] || 0) < value) {
++                        meetsReqs = false;
++                        missingReqs.push(`${req.charAt(0).toUpperCase() + req.slice(1)}: ${value}`);
++                    }
+                 }
+             }
+ 
+-            // Check player energy (e.g. Talk costs 5)
++            // Check player energy
+             const minEnergy = action.minPlayerEnergy != null ? action.minPlayerEnergy : 0;
+             const playerEnergy = parseInt(vars.energy || 0, 10);
+             if (minEnergy > 0 && playerEnergy < minEnergy) {
+@@ -1745,6 +1772,9 @@ Macro.add('showActions', {
+                 missingReqs.push('Need ' + minEnergy + ' energy');
+             }
+ 
++            // Hide completely if locked and showWhenLocked is false
++            if (!meetsReqs && action.showWhenLocked === false) return;
++
+             const lockTooltip = missingReqs.length === 1 && missingReqs[0].startsWith('Need ') && missingReqs[0].endsWith(' energy')
+                 ? missingReqs[0]
+                 : (missingReqs.length ? 'Requires: ' + missingReqs.join(', ') : '');
