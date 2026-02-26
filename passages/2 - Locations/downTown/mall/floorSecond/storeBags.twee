@@ -1,6 +1,35 @@
 <<nobr>>
 <<set $location = "storeBags">>
-<<set _shopItems = []>>
+<<set _shopItems = [
+	"bag_ll_classic_tote_camel_t2",
+	"bag_ll_crossbody_chain_cherry_t2",
+	"bag_ll_bucket_suede_forest_t3",
+	"bag_ll_structured_top_handle_black_t3",
+	"bag_ll_quilted_shoulder_cream_t3",
+	"bag_ll_turn_lock_clutch_patent_red_t4",
+	"bag_ll_hobo_slouchy_taupe_t2",
+	"bag_ll_satchel_dome_navy_t3",
+	"bag_ll_backpack_mini_black_t2",
+	"bag_ll_minaudiere_crystal_silver_t4",
+	"bag_ll_camera_crossbody_mustard_t2",
+	"bag_ll_tote_canvas_leather_trim_t3",
+	"bag_ll_hobo_suede_tan_top_handle_t3",
+	"bag_ll_flap_chain_velvet_burgundy_t4",
+	"bag_ll_shopper_transparent_black_trim_t2",
+	"bag_ll_crossbody_saddle_tan_t3",
+	"bag_ll_top_handle_snake_print_t4",
+	"bag_ll_clutch_envelope_satin_navy_t3",
+	"bag_ll_slouchy_nylon_puffer_olive_t2",
+	"bag_ll_drawstring_leather_ivory_t3",
+	"bag_ll_top_handle_bamboo_woven_t3",
+	"bag_ll_clutch_acrylic_marbled_teal_t4",
+	"bag_ll_tote_perforated_leather_white_t3",
+	"bag_ll_backpack_convertible_olive_t3",
+	"bag_ll_clutch_foldover_croc_black_t4",
+	"bag_ll_shoulder_nylon_chain_black_t2",
+	"bag_ll_micro_chain_bag_silver_t4",
+	"bag_ll_crossbody_guitar_strap_tan_t3",
+]>>
 <<updateCharacterLocations>>
 <<shop "Luxe Leather" "Designer Bag Store" _shopItems "floorSecond">>
 <</nobr>>

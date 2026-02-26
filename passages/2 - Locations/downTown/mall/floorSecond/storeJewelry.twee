@@ -1,6 +1,48 @@
 <<nobr>>
 <<set $location = "storeJewelry">>
-<<set _shopItems = []>>
+<<set _shopItems = [
+	"jewel_nc_mini_initial_silver_t2",
+	"jewel_nc_pearl_drop_gold_t3",
+	"jewel_nc_chunky_layered_rose_gold_t3",
+	"jewel_nc_crystal_tennis_choker_t4",
+	"jewel_nc_moon_star_gold_t2",
+	"jewel_nc_emerald_cut_zirconia_silver_t4",
+	"jewel_nc_snake_chain_gold_t3",
+	"jewel_nc_halo_heart_silver_t3",
+	"jewel_nc_pendant_sapphire_gold_t4",
+	"jewel_nc_locket_rose_gold_t2",
+	"jewel_nc_toggle_bar_silver_t3",
+	"jewel_nc_drop_y_necklace_crystal_t4",
+	"jewel_er_studs_crystal_simple_t2",
+	"jewel_er_hoops_gold_chunky_t3",
+	"jewel_er_drop_pearl_gold_t4",
+	"jewel_er_threader_silver_star_t2",
+	"jewel_er_cuff_ear_climber_gold_t3",
+	"jewel_er_huggie_hoop_pave_silver_t2",
+	"jewel_er_tassel_fringe_rose_gold_t3",
+	"jewel_er_sapphire_halo_studs_silver_t4",
+	"jewel_er_irregular_resin_tortoise_t2",
+	"jewel_br_tennis_crystal_silver_t4",
+	"jewel_br_chunky_chain_gold_t3",
+	"jewel_br_bangle_set_stacked_silver_t2",
+	"jewel_br_cuff_minimal_rose_gold_t3",
+	"jewel_br_charm_flora_silver_t2",
+	"jewel_br_pearl_stretch_cream_t2",
+	"jewel_br_paperclip_link_gold_t3",
+	"jewel_br_mesh_crystal_knot_silver_t4",
+	"jewel_br_lever_hinge_diamond_gold_t4",
+	"jewel_br_ledger_id_tag_silver_t2",
+	"jewel_br_macrame_pull_cord_rose_t2",
+	"jewel_rg_solitaire_princess_crystal_t4",
+	"jewel_rg_stacking_bands_gold_t2",
+	"jewel_rg_signet_engraved_silver_t3",
+	"jewel_rg_cocktail_morganite_rose_t4",
+	"jewel_rg_eternity_band_crystal_silver_t3",
+	"jewel_rg_bypass_pearl_crystal_gold_t3",
+	"jewel_rg_mini_chain_link_silver_t2",
+	"jewel_rg_sapphire_trillion_gold_t4",
+	"jewel_rg_hammered_dome_rose_t3"
+]>>
 <<updateCharacterLocations>>
 <<shop "Diamond Dreams" "Premium Jewelry Store" _shopItems "floorSecond">>
 <</nobr>>

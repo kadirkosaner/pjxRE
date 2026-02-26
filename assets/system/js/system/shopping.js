@@ -223,27 +223,12 @@ function canWearClothingItem(item) {
     const exh = S.variables.exhibitionism ?? 0;
     const corr = S.variables.corruption ?? 0;
     const heelsSkill = (S.variables.skills && S.variables.skills.physical && S.variables.skills.physical.heels) ? S.variables.skills.physical.heels : 0;
-    let reason;
-    if (conf < reqConf) {
-        reason = `Requires ${reqConf} Confidence`;
-        if (item.reqHeelsSkill != null) reason += `, ${item.reqHeelsSkill} Heels skill`;
-        return { allowed: false, reason };
-    }
-    if (exh < reqExh) {
-        reason = `Requires ${reqExh} Exhibitionism`;
-        if (item.reqHeelsSkill != null) reason += `, ${item.reqHeelsSkill} Heels skill`;
-        return { allowed: false, reason };
-    }
-    if (corr < reqCorr) {
-        reason = `Requires ${reqCorr} Corruption`;
-        if (item.reqHeelsSkill != null) reason += `, ${item.reqHeelsSkill} Heels skill`;
-        return { allowed: false, reason };
-    }
-    if (item.reqHeelsSkill != null && heelsSkill < item.reqHeelsSkill) {
-        reason = `Requires ${item.reqHeelsSkill} Heels skill`;
-        if (reqConf > 0) reason += `, ${reqConf} Confidence`;
-        return { allowed: false, reason };
-    }
+    const missing = [];
+    if (conf < reqConf) missing.push(`${reqConf} Confidence`);
+    if (exh < reqExh) missing.push(`${reqExh} Exhibitionism`);
+    if (corr < reqCorr) missing.push(`${reqCorr} Corruption`);
+    if (item.reqHeelsSkill != null && heelsSkill < item.reqHeelsSkill) missing.push(`${item.reqHeelsSkill} Heels skill`);
+    if (missing.length) return { allowed: false, reason: 'Requires ' + missing.join(', ') };
     return { allowed: true, reason: '' };
 }
 

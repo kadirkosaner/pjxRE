@@ -1,3 +1,5 @@
+- Mağazalardaki değerler şuan dengesiz bir göz atıp yapılması gerekiyor.
+
 
 - dinersRuby Check yap.
 - Mirror check.
