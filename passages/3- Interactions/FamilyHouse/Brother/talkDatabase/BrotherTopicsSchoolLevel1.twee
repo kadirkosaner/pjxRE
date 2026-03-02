@@ -1,0 +1,744 @@
+/* ==========================================
+   BROTHER TALK TOPICS — SCHOOL PHASE, LEVEL 1
+   phase === "school" && friendshipLevel === 1
+
+   Structure: setup.brotherTopics.school.level1[locTimeKey][topicName] = [ {text, friendship, trust, love} ]
+
+   CHARACTER: Jake Taylor, 17, high school student
+   → Perpetually in a hoodie, headphones around neck
+   → Monosyllabic by default, defensive about everything
+   → Gaming is religion, school is survival
+   → Secretly wants connection, absolutely cannot show it
+   → New house, new school = extra stress he won't talk about
+
+   SCHOOL L1 TONE:
+   → Guarded, minimal, slightly annoyed to be interrupted
+   → Sarcastic but not mean — it's just how he talks
+   → Rare genuine moments feel like cracks in a wall
+   → Stat gains: friendship +1-2, trust +1
+
+   6 CONTEXTS:
+   fhKitchen_school_morning     fhKitchen_school_evening
+   fhBrotherRoom_school_afternoon  fhBrotherRoom_school_evening
+   fhLivingroom_school_afternoon   fhLivingroom_school_evening
+========================================== */
+
+<<set setup.brotherTopics = setup.brotherTopics || {}>>
+<<set setup.brotherTopics.school = setup.brotherTopics.school || {}>>
+<<set setup.brotherTopics.school.level1 = {
+
+    /* ==========================================
+       KITCHEN — SCHOOL MORNING
+       7am, pre-school, barely functional
+    ========================================== */
+    fhKitchen_school_morning: {
+
+        sluggish: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's at the counter eating cereal standing up, staring at nothing. Headphones on, one ear free.<</narrative>>
+<<dialog "player">>Morning.<</dialog>>
+<<dialog "brother">>(doesn't look up) Mm.<</dialog>>
+<<dialog "player">>Did you sleep?<</dialog>>
+<<dialog "brother">>Some.
+(spooning cereal)
+I'm fine.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's looking in the fridge blankly. Nothing appeals to him at 7am.<</narrative>>
+<<dialog "brother">>(still in the fridge) Did someone eat my yoghurt?<</dialog>>
+<<dialog "player">>I think Mom had it.<</dialog>>
+<<dialog "brother">>(closing the fridge, resigned) Cool. Great. Perfect.<</dialog>>
+<<narrative>>He grabs a piece of bread instead. This is apparently fine.<</narrative>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's almost out the door when you catch him. Bag half-zip, toast in hand.<</narrative>>
+<<dialog "player">>Hey — did you finish that thing for school?<</dialog>>
+<<dialog "brother">>(not stopping) ...Mostly.<</dialog>>
+<<dialog "player">>Jake.<</dialog>>
+<<dialog "brother">>(already in the hall) It's fine!<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        schoolDread: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's sitting at the table not eating, looking at his phone with the energy of someone awaiting sentencing.<</narrative>>
+<<dialog "player">>You okay?<</dialog>>
+<<dialog "brother">>(putting the phone face-down) Yeah. Why.<</dialog>>
+<<dialog "player">>You look like you'd rather be anywhere else.<</dialog>>
+<<dialog "brother">>(getting up) School exists. I have to go to it. It's fine.
+(picking up his bag)
+Bye.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's checking his backpack for the fourth time — classic pre-school anxiety tell.<</narrative>>
+<<dialog "player">>Forget something?<</dialog>>
+<<dialog "brother">>(still checking) No. Maybe. I don't know.<</dialog>>
+<<dialog "player">>What do you need?<</dialog>>
+<<dialog "brother">>(finding it) Nothing. Got it. Never mind.
+(zipping up, relieved)
+Forget it.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's at the window watching the bus stop with an expression that's hard to read.<</narrative>>
+<<dialog "player">>New school still weird?<</dialog>>
+<<dialog "brother">>(not turning) It's not weird. It's just... different.
+(a pause)
+Everyone already knows each other.<</dialog>>
+<<dialog "player">>That gets easier.<</dialog>>
+<<dialog "brother">>(collecting his bag) Yeah, whatever.
+(heading out, deflecting)
+You sound like Mom.<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        grumpy: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He walks past you without a word, pours the last of the orange juice, and puts the empty carton back.<</narrative>>
+<<dialog "player">>Jake. The carton.<</dialog>>
+<<dialog "brother">>(already leaving) I'll recycle it later.<</dialog>>
+<<dialog "player">>You put it back empty.<</dialog>>
+<<dialog "brother">>(from the hallway) Yeah, I'll sort it later!<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He comes in, gets water, stands there with it.<</narrative>>
+<<dialog "player">>You're going to be late.<</dialog>>
+<<dialog "brother">>(drinking) I have eight minutes.<</dialog>>
+<<dialog "player">>It's a twenty-minute walk.<</dialog>>
+<<dialog "brother">>(pause, doing the maths)
+...I walk fast.<</dialog>>
+<<narrative>>He leaves quickly, not admitting you were right.<</narrative>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's eating standing up, hoodie half-on, scrolling his phone. The picture of a teenager in transit.<</narrative>>
+<<dialog "player">>You should sit down and actually eat.<</dialog>>
+<<dialog "brother">>(still scrolling) I eat standing up. It's faster.<</dialog>>
+<<dialog "player">>That's not how digestion works.<</dialog>>
+<<dialog "brother">>(looks at you for the first time) I'll survive.
+(eating his last spoonful, putting the bowl in the sink)
+Bye.<</dialog>>`,
+                friendship: 1
+            }
+        ]
+    },
+
+    /* ==========================================
+       KITCHEN — SCHOOL EVENING
+       Dinner / after dinner, post-school debrief he won't give
+    ========================================== */
+    fhKitchen_school_evening: {
+
+        schoolDebrief: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's loading his plate, eyes down. School is over but he hasn't fully come back yet.<</narrative>>
+<<dialog "player">>How was school?<</dialog>>
+<<dialog "brother">>Fine.<</dialog>>
+<<dialog "player">>Anything happen?<</dialog>>
+<<dialog "brother">>Not really.
+(sitting)
+It was school. It happened. That's all I've got.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He drops his bag in the kitchen doorway and pours himself a huge glass of water.<</narrative>>
+<<dialog "brother">>(drinking) I hate PE.<</dialog>>
+<<dialog "player">>That bad?<</dialog>>
+<<dialog "brother">>(refilling the glass) We had to do relay races. I tripped. It was fine. It sucked.<</dialog>>
+<<dialog "player">>Did anyone say anything?<</dialog>>
+<<dialog "brother">>(a beat) No.
+(drinking)
+Just... annoying.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He comes to dinner and actually sits — no phone out, which is unusual.<</narrative>>
+<<dialog "player">>You're not on your phone.<</dialog>>
+<<dialog "brother">>(eating) Had to leave it in my bag all day. New rule.
+(flatly)
+I'm detoxing.<</dialog>>
+<<dialog "player">>How's that going?<</dialog>>
+<<dialog "brother">>Genuinely terrible.
+(takes a bread roll)
+This food's good though.<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        food: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's on his second plate before anyone else has finished their first.<</narrative>>
+<<dialog "player">>Slow down.<</dialog>>
+<<dialog "brother">>(not slowing down) I didn't eat lunch.<</dialog>>
+<<dialog "player">>Why not?<</dialog>>
+<<dialog "brother">>(vague) The lunch thing at school is kind of a whole situation.
+(still eating)
+I'll explain later. Maybe.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He opens the fridge and stands in it for thirty seconds before closing it.<</narrative>>
+<<dialog "brother">>(closing the fridge) Is there any of that pasta left?<</dialog>>
+<<dialog "player">>No, we finished it.<</dialog>>
+<<dialog "brother">>(deflating) Okay but that was the only thing I wanted. That specifically.<</dialog>>
+<<dialog "player">>I can make something else.<</dialog>>
+<<dialog "brother">>(perking up slightly) Like what.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's making toast at 8pm — his personal second dinner.<</narrative>>
+<<dialog "player">>Didn't you eat like two hours ago?<</dialog>>
+<<dialog "brother">>(watching the toaster) I'm a growing person. Biologically.
+(toast pops)
+This is science.<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        avoiding: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's in the kitchen but clearly just came to avoid something — not hungry, just here.<</narrative>>
+<<dialog "player">>You okay?<</dialog>>
+<<dialog "brother">>(getting water) Yeah.<</dialog>>
+<<dialog "player">>You're in the kitchen.<</dialog>>
+<<dialog "brother">>(a pause) I know where I am.
+(drinks the water)
+It's fine. Don't ask.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He sits across from you uncharacteristically — doesn't explain why.<</narrative>>
+<<dialog "player">>(glancing up) Hey.<</dialog>>
+<<dialog "brother">>Hey.
+(silence)
+What are you doing?<</dialog>>
+<<dialog "player">>Just this. You?<</dialog>>
+<<dialog "brother">>(shrugging) Nothing. Just. Sitting here I guess.
+(doesn't leave for a while)<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He comes in, looks like he's about to say something, gets water instead.<</narrative>>
+<<dialog "player">>Jake.<</dialog>>
+<<dialog "brother">>What.<</dialog>>
+<<dialog "player">>Nothing. I'm just saying your name.<</dialog>>
+<<dialog "brother">>(a beat) That's weird.
+(takes his water and goes, but... a little lighter than before)<</dialog>>`,
+                friendship: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       BROTHER'S ROOM — SCHOOL AFTERNOON
+       Just got home, decompressing, gaming
+    ========================================== */
+    fhBrotherRoom_school_afternoon: {
+
+        gaming: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's already at his desk, headset half-on, the game already loading. Zero transition time from school to gaming.<</narrative>>
+<<dialog "player">>(at his door) Hey.<</dialog>>
+<<dialog "brother">>(not looking) What.<</dialog>>
+<<dialog "player">>Nothing, just saying hey.<</dialog>>
+<<dialog "brother">>...Hey.
+(putting the headset on fully)<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's mid-game — something intense, judging by his posture. He notices you in the door but doesn't stop.<</narrative>>
+<<dialog "brother">>(to the screen) One second. One second.
+(dies)
+Okay. What.<</dialog>>
+<<dialog "player">>Do you want anything? I'm making tea.<</dialog>>
+<<dialog "brother">>(resuming the queue) Yeah. Whatever you put in it.
+(beat)
+Thanks.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's loading into a lobby, waiting — a rare still moment.<</narrative>>
+<<dialog "brother">>(looking at the loading screen) This game's been broken for two weeks and they haven't fixed it.<</dialog>>
+<<dialog "player">>Is that the one you were telling Dad about?<</dialog>>
+<<dialog "brother">>(surprised) You remembered that?<</dialog>>
+<<dialog "player">>Sort of.<</dialog>>
+<<dialog "brother">>(back to his screen, slightly warmer) Yeah. That one.<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        decompressing: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's lying on his bed face-up, not his phone, not gaming. Just staring at the ceiling.<</narrative>>
+<<dialog "player">>(from the door) You alive?<</dialog>>
+<<dialog "brother">>Barely.
+(still looking at ceiling)
+School is a lot.<</dialog>>
+<<dialog "player">>Yeah.<</dialog>>
+<<dialog "brother">>(a moment)
+Yeah.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's at his desk but not doing anything — phone face-down, monitor off.<</narrative>>
+<<dialog "player">>Not gaming?<</dialog>>
+<<dialog "brother">>(flatly) Taking a break from screens. My eyes hurt.<</dialog>>
+<<dialog "player">>Rare.<</dialog>>
+<<dialog "brother">>(turning his chair slightly) Shut up.
+(a pause — not hostile, just banter)
+What do people do without screens?<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's reading something — actual reading, a graphic novel. He closes it when you come in.<</narrative>>
+<<dialog "player">>What was that?<</dialog>>
+<<dialog "brother">>(sliding it under something) Nothing. A book.<</dialog>>
+<<dialog "player">>You read?<</dialog>>
+<<dialog "brother">>(defensive) Obviously I read. I'm not illiterate.
+(pause)
+It's a graphic novel. It doesn't count as reading-reading.<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        homework: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's at his desk with textbooks open. He looks miserable about it.<</narrative>>
+<<dialog "player">>Homework?<</dialog>>
+<<dialog "brother">>(flatly) What gave it away.<</dialog>>
+<<dialog "player">>How much?<</dialog>>
+<<dialog "brother">>(gesturing at three different books) All of it. They gave us all of it today.
+(staring at the textbook)
+I hate Mr. Henley.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's been staring at his screen for a while — homework tab open, but also three other tabs.<</narrative>>
+<<dialog "brother">>(noticing you noticing) I'm doing it. I'm multitasking.<</dialog>>
+<<dialog "player">>That's not multitasking, that's avoiding.<</dialog>>
+<<dialog "brother">>(brief pause) ...Both.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He spins his chair round and looks at you directly — unusual.<</narrative>>
+<<dialog "brother">>What do you know about photosynthesis?<</dialog>>
+<<dialog "player">>...Some things. Why?<</dialog>>
+<<dialog "brother">>(pushing his textbook across slightly) I've been looking at this for forty minutes and I don't understand a single word.
+(almost admitting defeat)
+Can you explain it like I'm five?<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    },
+
+    /* ==========================================
+       BROTHER'S ROOM — SCHOOL EVENING
+       Post-dinner, late gaming, harder to reach
+    ========================================== */
+    fhBrotherRoom_school_evening: {
+
+        lateGaming: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>His room glows blue in the dark. He's fully in the zone — headset on, mic active, talking quietly to someone online.<</narrative>>
+<<dialog "player">>(knocking) Jake?<</dialog>>
+<<dialog "brother">>(one hand up — hold on)
+(into mic) Yeah, okay, I'll push — one sec—
+(to you, pulling headset down)
+What?<</dialog>>
+<<dialog "player">>Just checking you're alive.<</dialog>>
+<<dialog "brother">>(back on headset) I'm fine. Close the door?<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's between games — a rare window where there's no noise from his setup.<</narrative>>
+<<dialog "brother">>(stretching loudly) Ugh.
+(noticing you at the door)
+How long have you been there?<</dialog>>
+<<dialog "player">>Two seconds. How long have you been gaming?<</dialog>>
+<<dialog "brother">>(checking the time, alarmed) Oh. That's...
+(quickly)
+I'm going to bed soon.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He gets killed in-game right as you come in — the worst timing. He pulls the headset off.<</narrative>>
+<<dialog "brother">>(exhausted) Today has been the worst day.<</dialog>>
+<<dialog "player">>School or the game?<</dialog>>
+<<dialog "brother">>(considering) Both. At the same time. Continuously.<</dialog>>
+<<dialog "player">>Do you want to talk about it?<</dialog>>
+<<dialog "brother">>(putting the headset back on) No. Maybe later.
+(pausing)
+Maybe.<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        nightMode: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's on his phone in bed, lamp off, just the screen glow.<</narrative>>
+<<dialog "player">>(quietly) Jake. It's late.<</dialog>>
+<<dialog "brother">>(not looking up) I know.<</dialog>>
+<<dialog "player">>School tomorrow.<</dialog>>
+<<dialog "brother">>(phone going face-down) I know. I'm just... winding down.
+(quiet)
+This is part of it.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>His light is still on when it shouldn't be. He looks slightly caught when you check.<</narrative>>
+<<dialog "brother">>I'm not asleep but I was going to be. Soon. That's the plan.<</dialog>>
+<<dialog "player">>It's midnight, Jake.<</dialog>>
+<<dialog "brother">>(defensively) I know what time it is.
+(a rueful beat)
+I got into something online. I'll go to sleep now.
+(not turning off the lamp yet)<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He actually looks a little rough — tired eyes, the particular tiredness of someone who hasn't been sleeping enough for weeks.<</narrative>>
+<<dialog "player">>You look tired.<</dialog>>
+<<dialog "brother">>(without energy to deflect) Yeah.
+(just sitting there for a moment)
+I'm okay though. It's just school. It's always just school.<</dialog>>
+<<dialog "player">>You can talk to me if you need to.<</dialog>>
+<<dialog "brother">>(quiet, softer than expected) I know.
+(picking up his phone)
+Thanks.<</dialog>>`,
+                friendship: 2, trust: 2
+            }
+        ],
+
+        procrastinating: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's clearly supposed to be doing something else. The textbook is open but facing the wrong direction.<</narrative>>
+<<dialog "player">>Finished your homework?<</dialog>>
+<<dialog "brother">>(pause) Define finished.<</dialog>>
+<<dialog "player">>Jake.<</dialog>>
+<<dialog "brother">>(defensive) I'll do the rest in the morning. I work better in the morning.<</dialog>>
+<<dialog "player">>You never work in the morning.<</dialog>>
+<<dialog "brother">>(weakly) I might start.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's watching YouTube, volume low, guilty expression when he sees you.<</narrative>>
+<<dialog "brother">>I did most of it.<</dialog>>
+<<dialog "player">>I didn't say anything.<</dialog>>
+<<dialog "brother">>(pointing at you) You were going to.
+(turning off his monitor)
+Fine. I'll do the last part.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He sighs loudly at whatever he's reading. You didn't ask.<</narrative>>
+<<dialog "brother">>I have to read forty pages of this book by Friday.
+(showing you a very thick book)
+It's about the economy in 1930. Nobody should have to read about the economy in 1930.<</dialog>>
+<<dialog "player">>I can help you if you need it.<</dialog>>
+<<dialog "brother">>(looking at you, considering) ...How much do you know about 1930?<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    },
+
+    /* ==========================================
+       LIVING ROOM — SCHOOL AFTERNOON
+       Brief window between school and room, reluctant socialising
+    ========================================== */
+    fhLivingroom_school_afternoon: {
+
+        tvZone: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's on the sofa watching something loud on his laptop, headphones in. Moved to the living room to be near people without talking to them.<</narrative>>
+<<dialog "player">>(sitting nearby) What are you watching?<</dialog>>
+<<dialog "brother">>(taking one earbud out) What?<</dialog>>
+<<dialog "player">>What are you watching?<</dialog>>
+<<dialog "brother">>(showing you two seconds of it) It's this guy. He does stupid stuff. It's funny.
+(earbud back in)<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He commandeered the TV before anyone else could. Something is on that he's pretending to watch while mostly on his phone.<</narrative>>
+<<dialog "player">>Are you watching this?<</dialog>>
+<<dialog "brother">>(not looking up from his phone) Yes.<</dialog>>
+<<dialog "player">>You haven't looked at the screen in seven minutes.<</dialog>>
+<<dialog "brother">>(glancing at the TV) I'm listening to it. That counts.
+(back to his phone)<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's on the sofa, legs up, and actually glances when you sit down.<</narrative>>
+<<dialog "brother">>You can put something on if you want. I'm not watching anything.<</dialog>>
+<<dialog "player">>Really?<</dialog>>
+<<dialog "brother">>(with effort) Yeah. Whatever.
+(not moving his legs off the sofa, though)<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        banter: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He says something slightly stupid, entirely confident.<</narrative>>
+<<dialog "brother">>I could beat you at any game. Any. You pick.<</dialog>>
+<<dialog "player">>Any game?<</dialog>>
+<<dialog "brother">>(immediately) Well — almost any.
+(backtracking)
+What were you thinking?<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He looks at what you're doing with mild disdain.<</narrative>>
+<<dialog "brother">>You know there's a faster way to do that, right?<</dialog>>
+<<dialog "player">>Is there?<</dialog>>
+<<dialog "brother">>(crossing the room to show you) Yeah, look—
+(explaining something very basic with complete confidence)<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's mid-snack, completely unbothered.<</narrative>>
+<<dialog "brother">>You know what? I'd be good on a game show.
+(eating)
+I'm quick under pressure.<</dialog>>
+<<dialog "player">>You froze when Dad asked you what you wanted for dinner last week.<</dialog>>
+<<dialog "brother">>(a beat) That's different. That's a high-stakes question.
+(eating more chips)<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        silence: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>You're both on the sofa, not talking, not watching anything — just coexisting.<</narrative>>
+<<dialog "brother">>(after a while) This is kind of nice actually.<</dialog>>
+<<dialog "player">>What is?<</dialog>>
+<<dialog "brother">>Just sitting here. Not having to do anything.
+(slight pause)
+Don't make it weird.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's sprawled on the sofa doing nothing, looking at the ceiling.<</narrative>>
+<<dialog "player">>You look like a crime scene.<</dialog>>
+<<dialog "brother">>(not moving) Thanks.
+(a long pause)
+The ceiling in this room is better than the ceiling in my room. More interesting.
+(genuinely philosophical)<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's in the room doing very little. He looks up briefly.<</narrative>>
+<<dialog "brother">>I'm not in a talking mood.<</dialog>>
+<<dialog "player">>Okay.<</dialog>>
+<<dialog "brother">>(a beat) But you can sit here if you want.
+(back to looking at nothing)<</dialog>>`,
+                friendship: 1
+            }
+        ]
+    },
+
+    /* ==========================================
+       LIVING ROOM — SCHOOL EVENING
+       After dinner, brief appearance before room retreat
+    ========================================== */
+    fhLivingroom_school_evening: {
+
+        tvNight: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He materialises from his room to watch something — unusual, but here he is.<</narrative>>
+<<dialog "brother">>(sitting) Is this a thing you've started watching?<</dialog>>
+<<dialog "player">>Yeah, a few episodes in. Want to catch up?<</dialog>>
+<<dialog "brother">>(considering) Just tell me what happened so far. I'll pick it up.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He comes down claiming he just wants a drink, but has been on the sofa for twenty minutes.<</narrative>>
+<<dialog "player">>You staying?<</dialog>>
+<<dialog "brother">>(not admitting it) I'm just sitting for a bit.
+(five minutes later, fully engaged in whatever is on)
+Wait — what happened to that character?<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's next to you on the sofa, relatively at peace. Something good is on.<</narrative>>
+<<dialog "brother">>(quietly) This is actually good.<</dialog>>
+<<dialog "player">>Told you.<</dialog>>
+<<dialog "brother">>(slightly grumpy) You didn't tell me anything. I just watched it and decided.
+(but he's not going anywhere)<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        familyMoment: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's near you but not quite with you — phone in hand, but not really using it.<</narrative>>
+<<dialog "brother">>(out of nowhere) Do you think we'll stay here? Like, for a long time?<</dialog>>
+<<dialog "player">>I don't know. Probably?<</dialog>>
+<<dialog "brother">>(quiet for a moment) Okay.
+(back to his phone)<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He observes the new living room with teenager-level existential energy.<</narrative>>
+<<dialog "brother">>It still doesn't feel like our house.<</dialog>>
+<<dialog "player">>It's getting there.<</dialog>>
+<<dialog "brother">>Yeah, I guess.
+(glancing at you)
+Does it feel like home to you yet?<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He laughs at something on his phone and shows you the screen automatically — before he thinks to stop himself.<</narrative>>
+<<dialog "brother">>Look at this.
+(shows you something chaotic online)<</dialog>>
+<<dialog "player">>(looking) That's chaotic.<</dialog>>
+<<dialog "brother">>(already putting his phone away, slightly embarrassed he shared) Yeah. It's stupid. Never mind.
+(but smiling)<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        restless: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He paces slightly, picking things up and putting them down — too wired from gaming to settle.<</narrative>>
+<<dialog "player">>You good?<</dialog>>
+<<dialog "brother">>(picking up a TV remote and pretending that's what he came for) Yeah. Fine. Just—
+(puts the remote down)
+I lost a really important match today. In the game.
+(like it matters because it does to him)<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's texting rapidly and muttering under his breath.<</narrative>>
+<<dialog "player">>Who are you texting?<</dialog>>
+<<dialog "brother">>(defensively) People.
+(realising that's not an answer)
+Friends. From school. Some of them.
+(texting continues)<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He comes in just to say goodnight — which he almost never does.<</narrative>>
+<<dialog "brother">>(in the doorway) I'm going to bed.<</dialog>>
+<<dialog "player">>Night.<</dialog>>
+<<dialog "brother">>(standing there a second longer than necessary)
+...Yeah.
+(going upstairs)<</dialog>>`,
+                friendship: 2, love: 1
+            }
+        ]
+    }
+
+}>>

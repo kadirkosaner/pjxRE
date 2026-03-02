@@ -1,102 +1,69 @@
+:: fatherTalkGarage
 <<silently>>
 <<set $location = "fhGarage">>
 <<logDailyActivity "father" "talk">>
-<<set _char = $characters.father>>
-<<set _friendship = _char.stats.friendship>>
+<<set _stats = $characters.father.stats>>
+<<set _level = _stats.friendshipLevel || 1>>
 
-/* Determine phase based on work status */
-<<if def $flags && $flags.fatherStartedWork>>
-    <<set _phase = "postWork">>
+/* Phase */
+<<set _phase = (def $flags && $flags.fatherStartedWork) ? "postWork" : "preWork">>
+
+/* Time slot */
+<<set _hour = $timeSys.hour>>
+<<if _hour >= 6 && _hour < 12>>
+    <<set _timeSlot = "morning">>
+<<elseif _hour >= 12 && _hour < 18>>
+    <<set _timeSlot = "afternoon">>
 <<else>>
-    <<set _phase = "preWork">>
+    <<set _timeSlot = "evening">>
 <</if>>
 
-/* Determine tier based on friendship */
-<<if _friendship < 40>>
-    <<set _tier = "tier1">>
-<<elseif _friendship < 70>>
-    <<set _tier = "tier2">>
-<<else>>
-    <<set _tier = "tier3">>
-<</if>>
+/*
+   Garage by phase:
+   preWork  → morning + afternoon
+   postWork → evening only (19:30 slot in schedule)
+   Fallback: postWork morning/afternoon → evening
+             preWork evening → afternoon → morning
+*/
+<<set _contextKey = "fhGarage_" + _phase + "_" + _timeSlot>>
+<<set _phasePool = setup.fatherTopics[_phase] && setup.fatherTopics[_phase]["level" + _level]>>
+<<set _context = (_phasePool && _phasePool[_contextKey]) ? _phasePool[_contextKey] : null>>
 
-/* 40% chance to show content from 1 or 2 tiers below */
-<<set _displayTier = _tier>>
-<<if _tier === "tier3">>
-    <<if random(1, 100) <= 40>>
-        <<set _displayTier = random(1, 100) <= 50 ? "tier2" : "tier1">>
+<<if !_context && _phasePool>>
+    <<if _phase === "postWork">>
+        /* postWork garage = evening only */
+        <<set _context = _phasePool["fhGarage_postWork_evening"]>>
+    <<else>>
+        /* preWork: evening → afternoon → morning */
+        <<set _context = _phasePool["fhGarage_preWork_afternoon"]>>
+        <<if !_context>>
+            <<set _context = _phasePool["fhGarage_preWork_morning"]>>
+        <</if>>
     <</if>>
-<<elseif _tier === "tier2">>
-    <<if random(1, 100) <= 40>>
-        <<set _displayTier = "tier1">>
-    <</if>>
 <</if>>
 
-/* Garage-specific topics - only topics that have Garage photos */
-<<set _garageTopics = []>>
-
-/* Add valid common topics for garage */
-<<set _garageTopics.push("car")>>  /* Garage T1-T2-T3 */
-<<if _tier === "tier1">>
-    <<set _garageTopics.push("hobbies")>>  /* Garage T1 */
-<</if>>
-
-/* Add valid phase-specific topics for garage */
-<<if _phase === "preWork">>
-    /* PreWork has no additional garage topics beyond common */
-<<else>>
-    /* PostWork garage topics */
-    <<if _tier === "tier2">>
-        <<set _garageTopics.push("finances")>>  /* Garage T2 (postwork) */
-        <<set _garageTopics.push("health")>>  /* Garage T2 (postwork) */
-        <<set _garageTopics.push("marriage")>>  /* Garage T2 (postwork) */
-    <</if>>
-    <<if _tier === "tier1">>
-        <<set _garageTopics.push("sports")>>  /* Garage T1 (postwork) */
-    <</if>>
-    <<set _garageTopics.push("work")>>  /* Garage T1-T2-T3 (postwork) */
-<</if>>
-
-/* Select random topic from available garage topics */
-<<set _randomKey = _garageTopics.random()>>
-
-/* Retrieve topic (use _displayTier – 40% lower tier content) */
-<<if setup.fatherTalkTopics.common[_randomKey]>>
-    <<set _topicArray = setup.fatherTalkTopics.common[_randomKey][_displayTier] || setup.fatherTalkTopics.common[_randomKey][_tier]>>
-<<else>>
-    <<set _topicArray = setup.fatherTalkTopics[_phase][_randomKey][_displayTier] || setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
-<</if>>
-
-/* Select random variation from the tier array */
-<<set _topic = _topicArray.random()>>
+/* Pick random topic → random variation */
+<<set _topicKeys = Object.keys(_context)>>
+<<set _topicKey  = _topicKeys.random()>>
+<<set _topic     = _context[_topicKey].random()>>
 
 /* Time and stats */
 <<advanceTime 15>>
 <<loseStat "energy" 5>>
-<<gainStat "mood" 3>> /* Garage bonding bonus */
+<<gainStat "mood" 3>>
 
-/* Apply stat gains from topic */
-<<if _topic.friendship>>
-    <<gainStat "friendship" _topic.friendship "father">>
-<</if>>
-<<if _topic.trust>>
-    <<gainStat "trust" _topic.trust "father">>
-<</if>>
-<<if _topic.love>>
-    <<gainStat "love" _topic.love "father">>
-<</if>>
-<<if _topic.lust>>
-    <<gainStat "lust" _topic.lust "father">>
-<</if>>
-
+/* Apply stat gains */
+<<if _topic.friendship>><<gainCharacterStat "father" "friendship" _topic.friendship>><</if>>
+<<if _topic.trust>><<gainCharacterStat "father" "trust" _topic.trust>><</if>>
+<<if _topic.love>><<gainCharacterStat "father" "love" _topic.love>><</if>>
 <<recalculateStats>>
 <</silently>>
 <div class="talk-interaction">
 <<narrative "Garage - Talk with Father">>
 <<if _phase === "preWork">>
-The garage smells of motor oil and sawdust. Your father is in his element here, tools spread out around him, a project waiting for his attention.
+The garage smells of engine oil and fresh wood. Your father's in his element — this space is his.
 <<else>>
-Your father escapes to the garage after work, the one place he can clear his head. He looks up as you enter, a genuine smile crossing his tired face.
+He's been in the garage for a while. The work day gets left at the door here.
 <</if>>
 <</narrative>>
 

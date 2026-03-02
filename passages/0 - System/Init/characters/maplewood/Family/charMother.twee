@@ -16,10 +16,17 @@
     type: "npc",
     color: "#8b5cf6",
     stats: {
-        love: 30,
-        friendship: 50,
-        lust: 0,
-        trust: 50
+        love: 0,         loveLevel: 1,
+        friendship: 0,   friendshipLevel: 1,
+        lust: 0,         lustLevel: 1,
+        trust: 0,        trustLevel: 1
+    },
+    maxLevels: { friendship: 2, love: 1, lust: 1, trust: 1 },
+    versionCaps: {
+        friendship: 100,
+        love:       30,
+        trust:      30,
+        lust:       20
     },
     status: "Mother",
     firstMet: "Birth",
@@ -85,7 +92,7 @@
     fhParentsRoom: [
         {
             id: "talk", label: "Talk", passage: "motherTalkParentsRoom",
-            tags: [], requirements: { fatherNotPresent: true }, dailyLimit: true, minPlayerEnergy: 5
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
         }
     ]
 }>>

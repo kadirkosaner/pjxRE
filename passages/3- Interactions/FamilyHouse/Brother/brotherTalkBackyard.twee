@@ -1,78 +1,80 @@
+:: brotherTalkBackyard
 <<silently>>
 <<set $location = "fhBackyard">>
 <<logDailyActivity "brother" "talk">>
 <<set _char = $characters.brother>>
-<<set _friendship = _char.stats.friendship>>
+<<set _stats = $characters.brother.stats>>
+<<set _level = _stats.friendshipLevel || 1>>
 
-/* Determine phase based on summer break */
+/* Determine phase */
 <<if def $flags && $flags.summerBreak>>
     <<set _phase = "vacation">>
 <<else>>
     <<set _phase = "school">>
 <</if>>
 
-/* Determine tier based on friendship */
-<<if _friendship < 40>>
-    <<set _tier = "tier1">>
-<<elseif _friendship < 70>>
-    <<set _tier = "tier2">>
+/* Determine time slot */
+<<set _hour = $timeSys.hour>>
+<<if _hour >= 6 && _hour < 12>>
+    <<set _timeSlot = "morning">>
+<<elseif _hour < 17>>
+    <<set _timeSlot = "afternoon">>
 <<else>>
-    <<set _tier = "tier3">>
+    <<set _timeSlot = "evening">>
 <</if>>
 
-/* 40% chance to show content from 1 or 2 tiers below */
-<<set _displayTier = _tier>>
-<<if _tier === "tier3">>
-    <<if random(1, 100) <= 40>>
-        <<set _displayTier = random(1, 100) <= 50 ? "tier2" : "tier1">>
+/* Build context key
+   Backyard only exists in vacation phase: afternoon, evening
+   School phase has no backyard content — fallback to vacation or livingroom */
+<<set _levelKey = "level" + _level>>
+<<set _topicPool = null>>
+
+<<if _phase === "vacation">>
+    <<if _timeSlot === "morning">>
+        /* Backyard morning → afternoon (he's barely outside in the morning) */
+        <<set _ctxKey = "fhBackyard_vacation_afternoon">>
+    <<else>>
+        <<set _ctxKey = "fhBackyard_" + _phase + "_" + _timeSlot>>
     <</if>>
-<<elseif _tier === "tier2">>
-    <<if random(1, 100) <= 40>>
-        <<set _displayTier = "tier1">>
+    <<if setup.brotherTopics.vacation && setup.brotherTopics.vacation[_levelKey] && setup.brotherTopics.vacation[_levelKey][_ctxKey]>>
+        <<set _topicPool = setup.brotherTopics.vacation[_levelKey][_ctxKey]>>
     <</if>>
 <</if>>
 
-/* Backyard: webp'lerde SADECE commonMemoriesBackyardTier1 var. qualityTime = Livingroom, sibling = Livingroom/Kitchen – Backyard'ta SADECE memories.tier1 kullan. */
-<<set _backyardTopics = ["memories"]>>
-
-<<set _randomKey = "memories">>
-<<set _topicArray = setup.brotherTalkTopics.common.memories.tier1>>
-
-/* Select random variation from the tier array */
-<<set _topic = _topicArray.random()>>
-
-/* Time and stats */
-<<advanceTime 15>>
-<<loseStat "energy" 5>>
-<<gainStat "mood" 3>>
-
-/* Apply stat gains from topic */
-<<if _topic.friendship>>
-    <<gainStat "friendship" _topic.friendship "brother">>
+/* School phase has no backyard — use vacation afternoon as fallback */
+<<if !_topicPool>>
+    <<if setup.brotherTopics.vacation && setup.brotherTopics.vacation[_levelKey] && setup.brotherTopics.vacation[_levelKey].fhBackyard_vacation_afternoon>>
+        <<set _topicPool = setup.brotherTopics.vacation[_levelKey].fhBackyard_vacation_afternoon>>
+    <</if>>
 <</if>>
-<<if _topic.trust>>
-    <<gainStat "trust" _topic.trust "brother">>
+
+/* Absolute last resort: living room school afternoon */
+<<if !_topicPool>>
+    <<set _topicPool = setup.brotherTopics.school.level1.fhLivingroom_school_afternoon>>
 <</if>>
-<<if _topic.love>>
-    <<gainStat "love" _topic.love "brother">>
-<</if>>
-<<if _topic.lust>>
-    <<gainStat "lust" _topic.lust "brother">>
-<</if>>
+
+/* Pick topic */
+<<set _topicKeys = Object.keys(_topicPool)>>
+<<set _randomKey = _topicKeys[Math.floor(Math.random() * _topicKeys.length)]>>
+<<set _topicArray = _topicPool[_randomKey]>>
+<<set _topic = _topicArray[Math.floor(Math.random() * _topicArray.length)]>>
+
+/* Time and base stats */
+<<advanceTime 20>>
+<<loseStat "energy" 8>>
+<<gainStat "mood" 4>>
+
+/* Apply topic stat gains */
+<<if _topic.friendship>><<gainCharacterStat "brother" "friendship" _topic.friendship>><</if>>
+<<if _topic.trust>><<gainCharacterStat "brother" "trust" _topic.trust>><</if>>
+<<if _topic.love>><<gainCharacterStat "brother" "love" _topic.love>><</if>>
+<<if _topic.lust>><<gainCharacterStat "brother" "lust" _topic.lust>><</if>>
 
 <<recalculateStats>>
 <</silently>>
 
 <<nobr>>
 <div class="talk-interaction">
-<<narrative "Backyard - Talk with Brother">>
-<<if _phase === "school">>
-Your brother is outside for once, probably needed some fresh air after being cooped up studying.
-<<else>>
-Warm summer evening. Your brother actually ventured outside, enjoying the break from his room.
-<</if>>
-<</narrative>>
-
 <<print _topic.text>>
 
 <div class="location-actions">

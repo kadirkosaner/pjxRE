@@ -1,4 +1,6 @@
 - Mağazalardaki değerler şuan dengesiz bir göz atıp yapılması gerekiyor.
+- Talk sistem düzenlemeleri
+  - **Level sistemine göre olmalı:** Şu an Family talk’ları ham puan (friendship < 40 → tier1, < 70 → tier2, else tier3) ile çalışıyor. Oyunun gerçek ilişki sistemi **friendshipLevel / loveLevel / trustLevel / lustLevel (1–5)** ve `levelUpThresholds`; talk içerikleri ve açılma koşulları bu **level** değerlerine göre olmalı (tier1/2/3 yerine level 1–5 veya level’a map edilmiş tek bir tier seti).
 
 
 - dinersRuby Check yap.

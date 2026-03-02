@@ -1,0 +1,1190 @@
+/* ==========================================
+   MOTHER TALK TOPICS — LEVEL 1
+   friendshipLevel === 1
+
+   Structure: setup.motherTopics.level1[locTimeKey][topicName] = [ {text, friendship, trust, love} ]
+   System: pick random topic → pick random variation from that topic
+
+   LEVEL 1 TONE:
+   → Family routine, warm but not yet personal
+   → Short everyday conversations, no physical contact
+   → Mom is caring but slightly reserved
+   → Stat gains are small (friendship +1 to +2)
+
+   10 CONTEXTS (location_timeSlot):
+   fhKitchen_morning    fhKitchen_afternoon    fhKitchen_evening
+   fhLivingroom_morning fhLivingroom_afternoon fhLivingroom_evening
+   fhBackyard_morning   fhBackyard_afternoon
+   fhParentsRoom_morning fhParentsRoom_evening
+========================================== */
+
+<<set setup.motherTopics = setup.motherTopics || {}>>
+<<set setup.motherTopics.level1 = {
+
+    /* ==========================================
+       KITCHEN — MORNING
+       Mom making breakfast, still waking up
+    ========================================== */
+    fhKitchen_morning: {
+
+        coffee: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>Mom's at the counter in her pajamas, staring at the coffee machine like it owes her something.<</narrative>>
+<<dialog "mother">>Coffee's almost ready. You want some?<</dialog>>
+<<dialog "player">>Please. You look exhausted.<</dialog>>
+<<dialog "mother">>(yawning) I'll be fine once this kicks in. Didn't sleep great.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's pouring herself a second cup before she's even finished the first.<</narrative>>
+<<dialog "mother">>Morning. Sleep okay?<</dialog>>
+<<dialog "player">>Yeah, not bad. You?<</dialog>>
+<<dialog "mother">>Passable. The house makes weird sounds at night. I keep waking up thinking someone left a tap on.<</dialog>>
+<<dialog "player">>It's just the pipes. Old houses do that.<</dialog>>
+<<dialog "mother">>(sighing) I know. Still unsettling.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's sitting at the table, both hands wrapped around her mug, staring at nothing in particular.<</narrative>>
+<<dialog "mother">>You're up early.<</dialog>>
+<<dialog "player">>Couldn't really sleep past seven.<</dialog>>
+<<dialog "mother">>That'll change. Takes a bit to adjust to a new place. Grab a mug if you want — coffee's there.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        breakfast: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's at the stove making eggs, spatula in hand, moving with the ease of someone who's done this ten thousand times.<</narrative>>
+<<dialog "mother">>Eggs?<</dialog>>
+<<dialog "player">>Sure, please.<</dialog>>
+<<dialog "mother">>(cracking another one) I was thinking of going to the market today. You need anything?<</dialog>>
+<<dialog "player">>I'll try to think of something.<</dialog>>
+<<dialog "mother">>Write it down or you'll forget. I always forget.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's slicing bread, the toaster already golden and warm on the counter.<</narrative>>
+<<dialog "mother">>Toast is ready. There's butter and jam if you want it.<</dialog>>
+<<dialog "player">>Thanks.<</dialog>>
+<<dialog "mother">>Do you eat breakfast normally? Back home you used to skip it.<</dialog>>
+<<dialog "player">>Sometimes. I'm trying to be better about it.<</dialog>>
+<<dialog "mother">>(approvingly) Good. It makes a difference.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's eating standing up, plate balanced in one hand, scrolling through her phone with the other.<</narrative>>
+<<dialog "mother">>Oh — there's oatmeal on the stove if you want some.<</dialog>>
+<<dialog "player">>You're eating standing again.<</dialog>>
+<<dialog "mother">>(looking down at herself) Hm. Habit.<</dialog>>
+<<dialog "player">>Sit with me.<</dialog>>
+<<dialog "mother">>(pausing, then moving to the table) Alright. Just for a minute.<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        smalltalk: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's reading a recipe on her tablet, propped against the fruit bowl.<</narrative>>
+<<dialog "mother">>Is it cold in your room? I keep meaning to check the heating.<</dialog>>
+<<dialog "player">>It's fine, honestly.<</dialog>>
+<<dialog "mother">>We're not made of money, but we're also not living in a freezer. Tell me if it gets worse.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She glances out the window at the sky — grey, uncertain.<</narrative>>
+<<dialog "mother">>Looks like rain. Do you have plans today?<</dialog>>
+<<dialog "player">>Not really. Maybe go out later if it clears.<</dialog>>
+<<dialog "mother">>Take an umbrella just in case. Third drawer.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's rinsing dishes, apparently working through something in her head.<</narrative>>
+<<dialog "mother">>Your father said the garage door makes a noise. You haven't heard anything, have you?<</dialog>>
+<<dialog "player">>I haven't really been out that way.<</dialog>>
+<<dialog "mother">>I'll get someone to look at it. These things don't fix themselves.
+(glancing at you)
+I hate calling repairmen. They always act like you should already know what's wrong.<</dialog>>`,
+                friendship: 1, trust: 1
+            }
+        ]
+    },
+
+    /* ==========================================
+       KITCHEN — AFTERNOON
+       After lunch, kitchen tidying up
+    ========================================== */
+    fhKitchen_afternoon: {
+
+        leftovers: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's putting food away in containers, labeling them with little sticky notes.<</narrative>>
+<<dialog "mother">>Did you eat lunch? There's leftovers in the fridge — top shelf.<</dialog>>
+<<dialog "player">>I grabbed something earlier.<</dialog>>
+<<dialog "mother">>(not quite convinced) Something as in real food, or something as in crackers?<</dialog>>
+<<dialog "player">>...Both.<</dialog>>
+<<dialog "mother">>There's soup. Heat it up properly — not just lukewarm. Actually hot.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's eating alone at the table, the remains of a simple lunch in front of her.<</narrative>>
+<<dialog "mother">>You're just in time. Sit.<</dialog>>
+<<dialog "player">>I don't want to interrupt.<</dialog>>
+<<dialog "mother">>You're not interrupting. I was just about to clear up anyway. There's enough for two.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's wrapping something in foil, frowning at the fridge like she's doing mental math.<</narrative>>
+<<dialog "mother">>I made too much again. I always make too much.<</dialog>>
+<<dialog "player">>We'll eat it tomorrow.<</dialog>>
+<<dialog "mother">>(dryly) That's what I said yesterday. Someone's going to have to actually eat this.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        chores: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's wiping down the counter with focused, rhythmic strokes.<</narrative>>
+<<dialog "mother">>(without looking up) You didn't leave the bathroom light on again, did you?<</dialog>>
+<<dialog "player">>I don't think so.<</dialog>>
+<<dialog "mother">>I keep finding it on. We're not made of electricity.<</dialog>>
+<<dialog "player">>I'll be more careful.<</dialog>>
+<<dialog "mother">>(looking up, softer) That's all I'm asking.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's reorganizing the pantry shelf, things shuffled in and out of place.<</narrative>>
+<<dialog "mother">>Can you hold this for a second?<</dialog>>
+<<dialog "player">>(grabbing the box) What are you doing?<</dialog>>
+<<dialog "mother">>This shelf wobbles. I keep meaning to fix it. Your father keeps saying he will and then he doesn't.<</dialog>>
+<<dialog "player">>I could take a look at it.<</dialog>>
+<<dialog "mother">>(genuinely) Could you? That would actually be helpful.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's going through the recycling, sorting with quiet efficiency.<</narrative>>
+<<dialog "mother">>We go through a lot of packaging. I'm trying to buy less of it but it's everywhere.<</dialog>>
+<<dialog "player">>It's nearly impossible to avoid.<</dialog>>
+<<dialog "mother">>I know. Still.
+(holding up a plastic bag)
+Would you mind taking this to the bin outside?<</dialog>>
+<<dialog "player">>Sure.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        errand: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's making tea, pulling out a second mug without being asked.<</narrative>>
+<<dialog "mother">>I went to the market this morning. They had good biscuits — blue tin, top cupboard.<</dialog>>
+<<dialog "player">>Nice.<</dialog>>
+<<dialog "mother">>Don't eat them all at once. They're supposed to last the week.<</dialog>>
+<<dialog "player">>No promises.<</dialog>>
+<<dialog "mother">>(a small smile) I figured as much.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's checking her phone against a handwritten shopping list, crossing things off.<</narrative>>
+<<dialog "mother">>I need to go out again later. Did you think of anything you need?<</dialog>>
+<<dialog "player">>Not really. Maybe face wash?<</dialog>>
+<<dialog "mother">>(writing it down) What kind?<</dialog>>
+<<dialog "player">>Any kind is fine.<</dialog>>
+<<dialog "mother">>(writing) I'll get the one I saw last time. You can tell me if it's wrong.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's putting away groceries, filling up the fridge methodically.<</narrative>>
+<<dialog "mother">>Your father wanted that cereal again. I got two boxes because he'll go through one in four days.<</dialog>>
+<<dialog "player">>He does love his cereal.<</dialog>>
+<<dialog "mother">>(flatly) At his age. Baffling.
+(stacking something)
+I got you a few extra things too. Just basics.<</dialog>>
+<<dialog "player">>You didn't have to do that.<</dialog>>
+<<dialog "mother">>I know.<</dialog>>`,
+                friendship: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       KITCHEN — EVENING
+       Dinner prep, end of the day
+    ========================================== */
+    fhKitchen_evening: {
+
+        dinner: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's stirring something on the stove, steam rising. The kitchen smells warm and familiar.<</narrative>>
+<<dialog "mother">>Perfect timing. Can you set the table?<</dialog>>
+<<dialog "player">>Sure.<</dialog>>
+<<dialog "mother">>Forks on the left. Your father always gets it wrong.<</dialog>>
+<<dialog "player">>(amused) I know, I know.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's tasting the sauce off a wooden spoon, brow furrowed in concentration.<</narrative>>
+<<dialog "mother">>Here — taste this. Tell me if it needs something.<</dialog>>
+<<dialog "player">>(tasting) Maybe a bit more salt?<</dialog>>
+<<dialog "mother">>(adding a pinch) You've always had a good palate. Must get it from my side.<</dialog>>
+<<dialog "player">>(smiling) Must.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's draining pasta into the sink, a cloud of steam rising up around her.<</narrative>>
+<<dialog "mother">>Can you grab the colander? Bottom left cabinet.<</dialog>>
+<<dialog "player">>(finding it) Here.<</dialog>>
+<<dialog "mother">>Thank you.
+(starting to drain)
+About twenty minutes. You hungry?<</dialog>>
+<<dialog "player">>Yeah, actually.<</dialog>>
+<<dialog "mother">>Good. Go wash up.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        family: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's setting plates out, glancing at the clock.<</narrative>>
+<<dialog "mother">>Your father called. He'll be a bit late again.<</dialog>>
+<<dialog "player">>Again?<</dialog>>
+<<dialog "mother">>(evenly) New job. It's an adjustment. It'll settle down.
+(to herself)
+It always settles down.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's putting together a salad, still dressed from earlier.<</narrative>>
+<<dialog "mother">>What did you do today?<</dialog>>
+<<dialog "player">>Not much. Settled in a bit more.<</dialog>>
+<<dialog "mother">>(looking up) That's fine. You don't have to fill every day with things right away.<</dialog>>
+<<dialog "player">>I know. Sometimes it just feels like I should.<</dialog>>
+<<dialog "mother">>That feeling goes away. Give it time.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>Jake wanders in and grabs something from the fridge, disappears again. Mom watches him go.<</narrative>>
+<<dialog "mother">>(quietly) Does he seem okay to you?<</dialog>>
+<<dialog "player">>Jake? Yeah, I think so. Why?<</dialog>>
+<<dialog "mother">>He's been in his room a lot. Adjusting to the new school, I suppose.
+(stirring)
+Keep an eye on him if you can. He listens to you.<</dialog>>`,
+                friendship: 2, trust: 2
+            }
+        ],
+
+        help: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's clearly in the middle of several things at once — oven, stove, and something in the sink.<</narrative>>
+<<dialog "mother">>Could you watch the pot? Just make sure it doesn't boil over. I'll be right back.<</dialog>>
+<<dialog "player">>Got it.<</dialog>>
+<<dialog "mother">>If it starts bubbling hard, just turn it down a little. Don't touch anything else.<</dialog>>
+<<dialog "player">>Just the one knob. I can manage.<</dialog>>
+<<dialog "mother">>(already heading out) I know. Thank you.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's washing up while things cook, hands deep in soapy water.<</narrative>>
+<<dialog "mother">>Can you dry?<</dialog>>
+<<dialog "player">>(picking up the towel) Sure.<</dialog>>
+<<dialog "mother">>Careful with the big pan — the handle gets hot even after it's been washed.<</dialog>>
+<<dialog "player">>Noted.<</dialog>>
+<<dialog "mother">>Your grandmother did this every night. Wash and dry together. I don't know why I keep doing it.<</dialog>>
+<<dialog "player">>Habit, probably.<</dialog>>
+<<dialog "mother">>(considering) Yes. I suppose.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's slicing bread at the counter, clearly tired but pushing through.<</narrative>>
+<<dialog "mother">>Could you check if there's more olive oil? The cupboard above the stove.<</dialog>>
+<<dialog "player">>(checking) There's one, almost full.<</dialog>>
+<<dialog "mother">>Good. I thought I used it up.
+(exhaling)
+Small victories.<</dialog>>`,
+                friendship: 1
+            }
+        ]
+    },
+
+    /* ==========================================
+       LIVING ROOM — MORNING
+       TV, laundry, the house still waking up
+    ========================================== */
+    fhLivingroom_morning: {
+
+        news: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's on the couch with her coffee, watching the morning news with a vaguely worried expression.<</narrative>>
+<<dialog "mother">>Morning. Do you need the TV?<</dialog>>
+<<dialog "player">>No, I'm just passing through.<</dialog>>
+<<dialog "mother">>(gesturing at the screen) They've been talking about the same story for twenty minutes. I can't tell if it's actually important or just slow news day.<</dialog>>
+<<dialog "player">>Probably both.<</dialog>>
+<<dialog "mother">>(dryly) That tracks.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She mutes the TV when you walk in, like she's been waiting for someone to talk to.<</narrative>>
+<<dialog "mother">>Apparently it's going to rain all week.<</dialog>>
+<<dialog "player">>Of course it is.<</dialog>>
+<<dialog "mother">>(sighing) I had plans for the garden. They'll have to wait.
+(picking up her mug)
+Do you have anything going on today?<</dialog>>
+<<dialog "player">>Not really. We'll see.<</dialog>>
+<<dialog "mother">>(nodding) Some days are like that.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's watching something but clearly not really following it anymore.<</narrative>>
+<<dialog "mother">>Come sit a minute.<</dialog>>
+<<dialog "player">>(sitting) What are you watching?<</dialog>>
+<<dialog "mother">>Honestly no idea. I turned it on for company.
+(glancing at you)
+How are you settling in? Really.<</dialog>>
+<<dialog "player">>Getting there. It just takes time.<</dialog>>
+<<dialog "mother">>(nodding slowly) It does.<</dialog>>`,
+                friendship: 1, trust: 1
+            }
+        ],
+
+        laundry: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's folding laundry on the couch, working through the pile with quiet efficiency.<</narrative>>
+<<dialog "mother">>Oh good, you're here. Can you hand me those towels?<</dialog>>
+<<dialog "player">>(handing them over) You know I can help with this, right?<</dialog>>
+<<dialog "mother">>I know. I just like doing it while it's quiet.
+(folding quickly)
+Your shirts are in that pile if you want them.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's matched all the socks and is now holding up one that has no pair.<</narrative>>
+<<dialog "mother">>Do you have odd socks upstairs? Because I've got one with no match and it's bothering me.<</dialog>>
+<<dialog "player">>(thinking) Possibly.<</dialog>>
+<<dialog "mother">>It's always one. It's never zero or two — always exactly one.<</dialog>>
+<<dialog "player">>That's just how it works.<</dialog>>
+<<dialog "mother">>(staring at the sock) Infuriating.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's just finished a big pile, things neatly stacked in separate rows.<</narrative>>
+<<dialog "mother">>Can you take these up? The top two piles are yours.<</dialog>>
+<<dialog "player">>(picking them up) Sure. Want me to put them away?<</dialog>>
+<<dialog "mother">>Just leave them on the bed. I'll sort them later.
+(looking at the remaining pile)
+Actually — yes, put them away. It'll just sit there otherwise.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        newHouse: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's looking out the window at the street, coffee in hand, quiet.<</narrative>>
+<<dialog "mother">>(without turning) The house makes sounds at night. Have you noticed?<</dialog>>
+<<dialog "player">>Yeah, a bit.<</dialog>>
+<<dialog "mother">>It's just settling. Old houses do that.
+(turning)
+Still. I keep waking up thinking someone's there.<</dialog>>
+<<dialog "player">>You'll get used to it. We all will.<</dialog>>
+<<dialog "mother">>(small smile) I know.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's looking at the room critically, like she's still mentally rearranging it.<</narrative>>
+<<dialog "mother">>I think the sofa should be over there. More light in the mornings.<</dialog>>
+<<dialog "player">>Want to move it?<</dialog>>
+<<dialog "mother">>Not right now. I just like to think about it.
+(sitting back down)
+Does the room feel small to you?<</dialog>>
+<<dialog "player">>No, I think it's fine.<</dialog>>
+<<dialog "mother">>(satisfied) Good. I worried it was smaller than the old one.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's putting up a framed photo on the wall — adjusting it slightly, stepping back, adjusting again.<</narrative>>
+<<dialog "mother">>Is this level?<</dialog>>
+<<dialog "player">>(looking) Almost. A tiny bit to the left.<</dialog>>
+<<dialog "mother">>(adjusting) Here?<</dialog>>
+<<dialog "player">>Perfect.<</dialog>>
+<<dialog "mother">>(stepping back, satisfied) Good. It was bothering me every morning.<</dialog>>`,
+                friendship: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       LIVING ROOM — AFTERNOON
+       Reading, quiet time, small tasks
+    ========================================== */
+    fhLivingroom_afternoon: {
+
+        reading: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's on the couch with a book, legs tucked under her. She dog-ears the page when she sees you.<</narrative>>
+<<dialog "mother">>Hey. What are you up to?<</dialog>>
+<<dialog "player">>Not much. What are you reading?<</dialog>>
+<<dialog "mother">>A book that I can't decide if I like.
+(showing the cover)
+People making bad decisions. Very relatable. Possibly too relatable.<</dialog>>
+<<dialog "player">>(sitting down) Sounds compelling.<</dialog>>
+<<dialog "mother">>That's the annoying part. It is.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's fallen asleep with her book open on her chest. She wakes up when you come in, a bit embarrassed.<</narrative>>
+<<dialog "mother">>(startled) Oh — I wasn't asleep.<</dialog>>
+<<dialog "player">>(kindly) Sure.<</dialog>>
+<<dialog "mother">>(straightening up) The book's very boring. It's the book's fault.<</dialog>>
+<<dialog "player">>Absolutely.<</dialog>>
+<<dialog "mother">>(smoothing her hair) Don't tell your father.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's finished her book and is sitting with it closed in her lap, looking vaguely satisfied.<</narrative>>
+<<dialog "mother">>I finished it.<</dialog>>
+<<dialog "player">>The book?<</dialog>>
+<<dialog "mother">>Mm. I'm not sure how I feel about the ending. I need a minute with it.
+(looking at you)
+Do you read much?<</dialog>>
+<<dialog "player">>Sometimes. Depends on the book.<</dialog>>
+<<dialog "mother">>That's the right answer.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        tv: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's watching something on TV but doesn't seem that into it. She turns the volume down when you come in.<</narrative>>
+<<dialog "mother">>How was your morning? Do anything interesting?<</dialog>>
+<<dialog "player">>Not really. Quiet day.<</dialog>>
+<<dialog "mother">>(nodding) Those are good sometimes. I should have more of them.
+(glancing back at the screen)
+This show is terrible. I can't stop watching it.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She pats the seat next to her — an invitation without words.<</narrative>>
+<<dialog "mother">>Come sit. I need someone to be annoyed at this with me.<</dialog>>
+<<dialog "player">>(sitting) What's happening?<</dialog>>
+<<dialog "mother">>This character is making the worst decision possible and everyone around her is just watching.
+(gesturing at the screen)
+Say something!<</dialog>>
+<<dialog "player">>(laughing) It's fiction, they can't hear you.<</dialog>>
+<<dialog "mother">>That has never stopped me.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>The TV's off. She's just sitting quietly with her tea.<</narrative>>
+<<dialog "mother">>I turned it off. Too much noise.<</dialog>>
+<<dialog "player">>Peaceful.<</dialog>>
+<<dialog "mother">>(agreeing) Mm. I forget how loud the default is sometimes.
+(looking at you)
+Are you doing okay? You seem a bit in your head.<</dialog>>
+<<dialog "player">>Just thinking.<</dialog>>
+<<dialog "mother">>(simply) That's okay too.<</dialog>>`,
+                friendship: 1, trust: 1
+            }
+        ],
+
+        task: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's writing in a small notebook — lists, by the look of it.<</narrative>>
+<<dialog "mother">>I'm making a list of things that still need doing in the house. The shelf, the hallway light, that gap in the kitchen skirting board...<</dialog>>
+<<dialog "player">>I didn't know about the gap.<</dialog>>
+<<dialog "mother">>(showing you) Back corner. It's been bothering me since we moved in. I keep stepping around it mentally.<</dialog>>
+<<dialog "player">>I could have a look at that.<</dialog>>
+<<dialog "mother">>(looking up) Really? That would help.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's dusting the bookshelves, methodical about it.<</narrative>>
+<<dialog "mother">>The dust collects so fast in a new house. No idea why.<</dialog>>
+<<dialog "player">>Something about the settling process probably.<</dialog>>
+<<dialog "mother">>(wiping) Could be.
+(glancing at you)
+Can you move that lamp while I get back here?<</dialog>>
+<<dialog "player">>(moving it) Sure. Here?<</dialog>>
+<<dialog "mother">>Perfect.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's trying to hang something on the wall, struggling slightly with the angle.<</narrative>>
+<<dialog "mother">>Hold this flat? I need both hands for the drill.<</dialog>>
+<<dialog "player">>(holding the frame) Are you sure about the height?<</dialog>>
+<<dialog "mother">>No. But if it's wrong, we fix it.
+(drilling carefully)
+Life philosophy.<</dialog>>`,
+                friendship: 2
+            }
+        ]
+    /* ==========================================
+       LIVING ROOM — EVENING
+       Family time, winding down, quiet check-ins
+    ========================================== */
+    fhLivingroom_evening: {
+
+        unwind: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>The living room is lit warmly, the TV on low. She's settled into her usual corner of the couch.<</narrative>>
+<<dialog "mother">>Come watch something with me. I can't decide what to put on.<</dialog>>
+<<dialog "player">>What are you in the mood for?<</dialog>>
+<<dialog "mother">>Something that doesn't require thinking. I've done enough of that today.<</dialog>>
+<<dialog "player">>(sitting beside her) I know a few options.<</dialog>>
+<<dialog "mother">>You pick. I trust you.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's putting away odds and ends around the room, tidying without really thinking about it.<</narrative>>
+<<dialog "mother">>Can you believe the day went that fast?<</dialog>>
+<<dialog "player">>It always does.<</dialog>>
+<<dialog "mother">>(sighing) I had a whole list. I did maybe two things on it.<</dialog>>
+<<dialog "player">>Two is something.<</dialog>>
+<<dialog "mother">>(smiling tiredly) That's very generous of you.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's on the couch with herbal tea, the house quieter than usual.<</narrative>>
+<<dialog "mother">>Do you want tea? I just made some.<</dialog>>
+<<dialog "player">>Sure.<</dialog>>
+<<dialog "mother">>(getting up) It's the chamomile one. It helps me wind down. I've been having it every night since we moved in.<</dialog>>
+<<dialog "player">>Good habit.<</dialog>>
+<<dialog "mother">>(from the kitchen) There are worse ones.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        checkIn: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>Dad's watching sports in the background. She's sitting with her phone, half-watching.<</narrative>>
+<<dialog "mother">>(quietly) How are you doing? Really.<</dialog>>
+<<dialog "player">>I'm good. Why?<</dialog>>
+<<dialog "mother">>Just checking. You've been a bit quiet lately.<</dialog>>
+<<dialog "player">>Just adjusting, I think.<</dialog>>
+<<dialog "mother">>(nodding) That's normal. We all are. Give it time.<</dialog>>`,
+                friendship: 2, trust: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's alone in the room for once, the house quiet around her.<</narrative>>
+<<dialog "mother">>There you are. Sit for a minute?<</dialog>>
+<<dialog "player">>(sitting) Everything okay?<</dialog>>
+<<dialog "mother">>Yes, just... I wanted to check in. We've all been so busy adjusting, I feel like I haven't actually talked to anyone in days.<</dialog>>
+<<dialog "player">>I know what you mean.<</dialog>>
+<<dialog "mother">>Good. Then just — sit with me for a bit. That's all.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She notices you standing in the doorway and waves you in.<</narrative>>
+<<dialog "mother">>Come in, don't hover. What's on your mind?<</dialog>>
+<<dialog "player">>Nothing specific. Just restless.<</dialog>>
+<<dialog "mother">>Sit then. Restless is fine. You don't always need a reason to be somewhere.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        endOfDay: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's turning off the side lamps, getting ready to head up for the night.<</narrative>>
+<<dialog "mother">>Going up soon. Don't stay up too late, okay?<</dialog>>
+<<dialog "player">>I won't.<</dialog>>
+<<dialog "mother">>(not entirely convinced) Mm. Goodnight, then.<</dialog>>
+<<dialog "player">>Night, Mom.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's about to head up but pauses when you come in.<</narrative>>
+<<dialog "mother">>Oh good, I wanted to ask — did you lock the back door?<</dialog>>
+<<dialog "player">>I think so. I'll check.<</dialog>>
+<<dialog "mother">>Thank you. Your father always forgets.
+(heading toward the stairs)
+Goodnight. Sleep well.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's collecting mugs and glasses from around the room, doing a last round before bed.<</narrative>>
+<<dialog "mother">>Can you grab that one? On the far side.<</dialog>>
+<<dialog "player">>(handing it over) Here.<</dialog>>
+<<dialog "mother">>Thank you. Okay — I think that's everything.
+(looking around one last time)
+Another day done.<</dialog>>
+<<dialog "player">>Another day done.<</dialog>>
+<<dialog "mother">>(quietly) Goodnight.<</dialog>>`,
+                friendship: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       BACKYARD — MORNING
+       Garden plans, morning coffee outside
+    ========================================== */
+    fhBackyard_morning: {
+
+        garden: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's standing with her coffee, studying the garden with the focused expression of someone who sees potential others don't.<</narrative>>
+<<dialog "mother">>I want to plant something along that wall. Something that comes back every year.<</dialog>>
+<<dialog "player">>Perennials?<</dialog>>
+<<dialog "mother">>(surprised) Yes, exactly. Do you garden?<</dialog>>
+<<dialog "player">>Not really. I just know the word.<</dialog>>
+<<dialog "mother">>(smiling) That's a start.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's crouched by one of the beds, pulling weeds with focused patience.<</narrative>>
+<<dialog "mother">>(looking up) There you are. Hand me that trowel?<</dialog>>
+<<dialog "player">>(handing it over) What are you planting?<</dialog>>
+<<dialog "mother">>Nothing yet. Just clearing. You have to make room before you can grow anything.<</dialog>>
+<<dialog "player">>Makes sense.<</dialog>>
+<<dialog "mother">>(back to working) Most things do, once you think about them.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's examining a small potted plant that doesn't look great, turning it slowly.<</narrative>>
+<<dialog "mother">>I think I over-watered this one. Or under-watered. I can never tell which.<</dialog>>
+<<dialog "player">>How do you tell?<</dialog>>
+<<dialog "mother">>You feel the soil. Dry means water, soggy means stop.
+(pressing a finger in)
+This one's... undecided.<</dialog>>
+<<dialog "player">>(looking) Could be a new variety. Confused plant.<</dialog>>
+<<dialog "mother">>(laughing softly) That's not comforting.<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        coffee: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's sitting in the garden chair, second coffee of the morning, looking more awake than earlier.<</narrative>>
+<<dialog "mother">>You want to sit a minute?<</dialog>>
+<<dialog "player">>Sure.<</dialog>>
+<<dialog "mother">>(looking at the yard) I love mornings out here. Before the day takes over.<</dialog>>
+<<dialog "player">>It's peaceful.<</dialog>>
+<<dialog "mother">>(quietly) Yes. It is.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She offers you a mug without you asking — she must have brought two out.<</narrative>>
+<<dialog "mother">>I thought you might come out. It's a nice morning.<</dialog>>
+<<dialog "player">>(taking the mug) Thanks.<</dialog>>
+<<dialog "mother">>The light is good today. I keep meaning to take photos of the garden but then I don't.<</dialog>>
+<<dialog "player">>For what?<</dialog>>
+<<dialog "mother">>Just to remember it. How things look before they change.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's leaning against the door frame with her mug, looking out at the yard without going in yet.<</narrative>>
+<<dialog "mother">>Do you hear that?<</dialog>>
+<<dialog "player">>(listening) Birds?<</dialog>>
+<<dialog "mother">>There's a pair of them in the back tree. I've seen them every morning this week.
+(sipping her coffee)
+I think they might be nesting.<</dialog>>
+<<dialog "player">>That's nice.<</dialog>>
+<<dialog "mother">>It is, actually.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        quietMoment: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's just standing in the middle of the backyard doing nothing — not often you see that.<</narrative>>
+<<dialog "player">>You okay?<</dialog>>
+<<dialog "mother">>(coming back to herself) Yes. Sorry. I was just... being here for a minute.<</dialog>>
+<<dialog "player">>Nothing wrong with that.<</dialog>>
+<<dialog "mother">>(lightly) No. There isn't.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's sitting perfectly still, eyes closed, face tilted toward the sun.<</narrative>>
+<<dialog "player">>(quietly) Should I come back?<</dialog>>
+<<dialog "mother">>(opening one eye) No, it's fine. I'm just storing up sunlight. For winter.<</dialog>>
+<<dialog "player">>(smiling) Does that work?<</dialog>>
+<<dialog "mother">>Probably not. But it feels like it might.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's sitting on the back step, not doing anything in particular, just being outside.<</narrative>>
+<<dialog "mother">>Come sit. I don't have anything to say — I just wanted company.<</dialog>>
+<<dialog "player">>(sitting beside her) I can do that.<</dialog>>
+<<dialog "mother">>Good.
+(a comfortable pause)
+It's a nice morning.<</dialog>>
+<<dialog "player">>Yeah. It is.<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    },
+
+    /* ==========================================
+       BACKYARD — AFTERNOON
+       Watering, resting, gentle observations
+    ========================================== */
+    fhBackyard_afternoon: {
+
+        watering: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's moving through the garden with the watering can, methodical, unhurried.<</narrative>>
+<<dialog "mother">>These need more water than I thought. The soil here drains faster than the old house.<</dialog>>
+<<dialog "player">>How can you tell?<</dialog>>
+<<dialog "mother">>You learn to read it. It's drier than it looks on top.
+(glancing at you)
+Do you garden at all?<</dialog>>
+<<dialog "player">>Not really. Never had a reason to.<</dialog>>
+<<dialog "mother">>It's easier than it looks. Patience and water, mostly.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She hands you the watering can without asking.<</narrative>>
+<<dialog "mother">>Start on the left side? I'll do the pots.<</dialog>>
+<<dialog "player">>(taking it) Sure. How much?<</dialog>>
+<<dialog "mother">>Until the water starts coming out the bottom. Then stop.<</dialog>>
+<<dialog "player">>Easy enough.<</dialog>>
+<<dialog "mother">>(moving to the pots) That's all gardening is, really. Pay attention and don't overdo it.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's refilling the watering can at the outdoor tap, waiting for it to fill.<</narrative>>
+<<dialog "mother">>I keep thinking I should get a bigger can. This one takes five trips.<</dialog>>
+<<dialog "player">>I could bring out a bucket.<</dialog>>
+<<dialog "mother">>(considering) That might actually work.
+(looking at you)
+You're surprisingly practical.<</dialog>>
+<<dialog "player">>Occasionally.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        resting: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's sitting in the shade with a book and a glass of water. She shifts to make room when she sees you.<</narrative>>
+<<dialog "mother">>Come sit. I could use the company.<</dialog>>
+<<dialog "player">>(sitting) What are you reading?<</dialog>>
+<<dialog "mother">>(showing the cover) Garden design. Very exciting stuff. I fell asleep twice already.<</dialog>>
+<<dialog "player">>(laughing) Good nap material.<</dialog>>
+<<dialog "mother">>The best kind.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's doing nothing, just sitting in the garden chair, face angled toward the light.<</narrative>>
+<<dialog "mother">>Don't have anywhere to be, do you?<</dialog>>
+<<dialog "player">>Not right now.<</dialog>>
+<<dialog "mother">>Good. Sit for a bit then. It's nice out.<</dialog>>
+<<dialog "player">>(sitting) It's warm for this time of year.<</dialog>>
+<<dialog "mother">>Mm. I'm not complaining.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's put her book down and is just watching a bee work its way through the flowers.<</narrative>>
+<<dialog "mother">>(quietly) Look at that.<</dialog>>
+<<dialog "player">>(looking) The bee?<</dialog>>
+<<dialog "mother">>It's been going back and forth for ten minutes. Very committed.<</dialog>>
+<<dialog "player">>Unlike some of us.<</dialog>>
+<<dialog "mother">>(amused) Speak for yourself.<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        observation: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's deadheading the flowers, working slowly and carefully.<</narrative>>
+<<dialog "mother">>You have to cut these back or they stop blooming. Sounds harsh but it's better.<</dialog>>
+<<dialog "player">>There's probably a life lesson in there somewhere.<</dialog>>
+<<dialog "mother">>(pause, then) Probably.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's looking at the neighboring yard over the fence, thoughtful.<</narrative>>
+<<dialog "mother">>The neighbors have lavender. Lots of it.<</dialog>>
+<<dialog "player">>Smells good.<</dialog>>
+<<dialog "mother">>I want some. I've always wanted lavender but never had the right spot for it.
+(looking at her own garden)
+Maybe over there.<</dialog>>
+<<dialog "player">>I think it would work.<</dialog>>
+<<dialog "mother">>(quietly pleased) Maybe.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's looking at something in the corner of the yard — a spot that doesn't get much sun.<</narrative>>
+<<dialog "mother">>What do you think goes in a shady corner?<</dialog>>
+<<dialog "player">>Ferns? Hostas?<</dialog>>
+<<dialog "mother">>(nodding slowly) Ferns. Yes. I hadn't thought of ferns.
+(looking at you)
+You do know gardening.<</dialog>>
+<<dialog "player">>I know words. It's different.<</dialog>>
+<<dialog "mother">>(smiling) Sometimes that's enough to start with.<</dialog>>`,
+                friendship: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       PARENTS ROOM — MORNING
+       Getting ready, brief moments before the day starts
+    ========================================== */
+    fhParentsRoom_morning: {
+
+        gettingReady: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's at the mirror, brushing her hair quickly. She sees you in the reflection.<</narrative>>
+<<dialog "mother">>Come in, it's fine. What do you need?<</dialog>>
+<<dialog "player">>Nothing. Just looking for you.<</dialog>>
+<<dialog "mother">>(still brushing) I'm almost done. Two minutes.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's choosing between two similar-looking blouses, holding them up in turn.<</narrative>>
+<<dialog "mother">>Which one?<</dialog>>
+<<dialog "player">>(looking) The left one.<</dialog>>
+<<dialog "mother">>Really?<</dialog>>
+<<dialog "player">>You asked.<</dialog>>
+<<dialog "mother">>(hanging the other one back) Fine. Left one.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's making the bed, smoothing the duvet with practiced precision.<</narrative>>
+<<dialog "mother">>(without stopping) Good morning. Sleep well?<</dialog>>
+<<dialog "player">>Not bad.<</dialog>>
+<<dialog "mother">>Good.
+(finishing)
+I don't know why but an unmade bed makes my whole morning feel wrong.<</dialog>>
+<<dialog "player">>I should probably make mine more.<</dialog>>
+<<dialog "mother">>(looking at you) You should. It helps. Trust me.<</dialog>>`,
+                friendship: 1, trust: 1
+            }
+        ],
+
+        lost: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's checking nightstands and dresser drawers, clearly looking for something.<</narrative>>
+<<dialog "mother">>Have you seen my reading glasses? Small, brown frames.<</dialog>>
+<<dialog "player">>I saw them on the kitchen counter last night.<</dialog>>
+<<dialog "mother">>(relieved) Of course. Thank you — I'd lose my head if it wasn't attached.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's hunting through her bag, increasingly frustrated.<</narrative>>
+<<dialog "mother">>I cannot find my— oh. There it is.
+(pulling out her phone)
+I was looking for this for ten minutes.<</dialog>>
+<<dialog "player">>It was in your bag the whole time?<</dialog>>
+<<dialog "mother">>(flatly) Apparently. Don't say it.<</dialog>>
+<<dialog "player">>Say what?<</dialog>>
+<<dialog "mother">>Whatever you're thinking.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's holding a key that she clearly doesn't recognize.<</narrative>>
+<<dialog "mother">>Do you know what this opens? I found it in the drawer.<</dialog>>
+<<dialog "player">>(looking) No idea. Old key?<</dialog>>
+<<dialog "mother">>(staring at it) It's been in my purse for years. I've moved it through three houses. I should probably throw it away.
+(pausing)
+I won't, though.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        bedMaking: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's making the bed and hands you the other side of the duvet without asking.<</narrative>>
+<<dialog "mother">>Grab that end?<</dialog>>
+<<dialog "player">>(taking it) Sure.<</dialog>>
+<<dialog "mother">>Pull it even — there.<</dialog>>
+<<dialog "player">>You're very precise about this.<</dialog>>
+<<dialog "mother">>Thirty years of habit.
+(smoothing her side)
+Thank you.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's arranging the pillows just so, repositioning them twice.<</narrative>>
+<<dialog "mother">>Do you make your bed in the morning?<</dialog>>
+<<dialog "player">>...Sometimes.<</dialog>>
+<<dialog "mother">>(giving you a look) Make it. Every morning, first thing. Even if nothing else goes right, at least that's done.<</dialog>>
+<<dialog "player">>That's oddly wise.<</dialog>>
+<<dialog "mother">>I've been saying it for years. Your father still doesn't listen.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's changing the pillowcases, working briskly.<</narrative>>
+<<dialog "mother">>Fresh sheets day. Best day of the week.<</dialog>>
+<<dialog "player">>Fresh sheets day?<</dialog>>
+<<dialog "mother">>Monday. Always Monday.
+(snapping a pillowcase)
+Some things have to stay the same when everything else changes.<</dialog>>`,
+                friendship: 1
+            }
+        ]
+    },
+
+    /* ==========================================
+       PARENTS ROOM — EVENING
+       End of day, quiet, sometimes reflective
+    ========================================== */
+    fhParentsRoom_evening: {
+
+        tired: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's sitting on the edge of the bed, shoes off, massaging one foot absently.<</narrative>>
+<<dialog "mother">>Come in. Long day?<</dialog>>
+<<dialog "player">>Should ask you that.<</dialog>>
+<<dialog "mother">>(shrugging) My feet think so. I keep forgetting that being home all day is still being on your feet all day.<</dialog>>
+<<dialog "player">>Sit for once. You don't have to keep moving.<</dialog>>
+<<dialog "mother">>(looking at you) I know. I'm trying.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's sitting at the small vanity, taking off jewelry slowly, like she's finally decompressing.<</narrative>>
+<<dialog "mother">>(without turning) Is everyone downstairs okay?<</dialog>>
+<<dialog "player">>Yeah, all fine. You okay up here?<</dialog>>
+<<dialog "mother">>Just tired. Good tired, I think. Not the bad kind.
+(setting down an earring)
+Is there anything you need?<</dialog>>
+<<dialog "player">>No. Just wanted to check in.<</dialog>>
+<<dialog "mother">>(softer) That's nice. Thank you.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's already in pajamas, sitting cross-legged on the bed going through her phone.<</narrative>>
+<<dialog "mother">>Oh — I was going to come down and say goodnight.<</dialog>>
+<<dialog "player">>I beat you to it. Goodnight.<</dialog>>
+<<dialog "mother">>(smiling) Goodnight. Sleep well.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        goodnight: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's reading in bed, lamp on, glasses on. She pulls them off when she hears you knock.<</narrative>>
+<<dialog "mother">>Hey. Did you need something?<</dialog>>
+<<dialog "player">>No, just saying goodnight.<</dialog>>
+<<dialog "mother">>(smiling) Goodnight, sweetheart. Sleep well.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's just turned off her lamp. You catch her before she falls asleep.<</narrative>>
+<<dialog "mother">>(tiredly) Mm?<</dialog>>
+<<dialog "player">>Just goodnight.<</dialog>>
+<<dialog "mother">>(quietly) Goodnight. Close the door on your way out?<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's about to turn off her light but pauses when she sees you in the doorway.<</narrative>>
+<<dialog "mother">>Come to say goodnight?<</dialog>>
+<<dialog "player">>Yeah.<</dialog>>
+<<dialog "mother">>Good.
+(a pause)
+I'm glad we're here. All of us, together. Even if it's an adjustment.<</dialog>>
+<<dialog "player">>Me too.<</dialog>>
+<<dialog "mother">>Goodnight.<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        reflection: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's at the window, looking out at the quiet street. She turns when she hears you.<</narrative>>
+<<dialog "mother">>I was thinking about the old neighborhood.<</dialog>>
+<<dialog "player">>Do you miss it?<</dialog>>
+<<dialog "mother">>(after a pause) Parts of it. The routine mostly. We'll build a new one here.
+(to you)
+You'll be okay, you know. We all will.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's sorting through a box that still hasn't been unpacked, picking things up and setting them down.<</narrative>>
+<<dialog "mother">>Every move, you find things you forgot you kept.<</dialog>>
+<<dialog "player">>(looking) What's in there?<</dialog>>
+<<dialog "mother">>Old things. Photos, mostly. A few things that don't have a place yet.
+(holding something up, considering)
+Some things take a while to find their place.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>She's sitting quietly on her side of the bed, not doing anything, just being still.<</narrative>>
+<<dialog "mother">>You know, mornings are the hardest still. When I wake up and for a second I forget we've moved.<</dialog>>
+<<dialog "player">>Does that go away?<</dialog>>
+<<dialog "mother">>(nodding) Gradually. One morning you wake up and you just — know where you are. And it feels like home.<</dialog>>
+<<dialog "player">>How long does that take?<</dialog>>
+<<dialog "mother">>(quietly) Different for everyone. But it happens.<</dialog>>`,
+                friendship: 2, trust: 2
+            }
+        ]
+    }
+
+}>>

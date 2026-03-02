@@ -1,109 +1,63 @@
+:: fatherTalkKitchen
 <<silently>>
 <<set $location = "fhKitchen">>
 <<logDailyActivity "father" "talk">>
-<<set _char = $characters.father>>
-<<set _friendship = _char.stats.friendship>>
+<<set _stats = $characters.father.stats>>
+<<set _level = _stats.friendshipLevel || 1>>
 
-/* Determine phase based on work status */
-<<if def $flags && $flags.fatherStartedWork>>
-    <<set _phase = "postWork">>
+/* Phase */
+<<set _phase = (def $flags && $flags.fatherStartedWork) ? "postWork" : "preWork">>
+
+/* Time slot */
+<<set _hour = $timeSys.hour>>
+<<if _hour >= 6 && _hour < 12>>
+    <<set _timeSlot = "morning">>
+<<elseif _hour >= 12 && _hour < 18>>
+    <<set _timeSlot = "afternoon">>
 <<else>>
-    <<set _phase = "preWork">>
+    <<set _timeSlot = "evening">>
 <</if>>
 
-/* Determine tier based on friendship */
-<<if _friendship < 40>>
-    <<set _tier = "tier1">>
-<<elseif _friendship < 70>>
-    <<set _tier = "tier2">>
-<<else>>
-    <<set _tier = "tier3">>
-<</if>>
+/* Context key */
+<<set _contextKey = "fhKitchen_" + _phase + "_" + _timeSlot>>
+<<set _phasePool = setup.fatherTopics[_phase] && setup.fatherTopics[_phase]["level" + _level]>>
+<<set _context = (_phasePool && _phasePool[_contextKey]) ? _phasePool[_contextKey] : null>>
 
-/* 40% chance to show content from 1 or 2 tiers below (location unchanged) */
-<<set _displayTier = _tier>>
-<<if _tier === "tier3">>
-    <<if random(1, 100) <= 40>>
-        <<set _displayTier = random(1, 100) <= 50 ? "tier2" : "tier1">>
+/* Fallback: postWork only has morning+evening — afternoon → evening */
+<<if !_context && _phasePool>>
+    <<if _timeSlot === "afternoon">>
+        <<set _context = _phasePool["fhKitchen_" + _phase + "_evening"]>>
     <</if>>
-<<elseif _tier === "tier2">>
-    <<if random(1, 100) <= 40>>
-        <<set _displayTier = "tier1">>
+    /* preWork has morning+evening — if still null try morning */
+    <<if !_context>>
+        <<set _context = _phasePool["fhKitchen_" + _phase + "_morning"]>>
     <</if>>
 <</if>>
 
-/* Kitchen-specific topics - only topics that have Kitchen photos */
-<<set _kitchenTopics = []>>
-
-/* Add valid common topics for kitchen */
-<<if _tier === "tier1" or _tier === "tier2" or _tier === "tier3">>
-    <<set _kitchenTopics.push("finance")>>  /* Kitchen T1-T2-T3 */
-<</if>>
-<<if _tier === "tier2">>
-    <<set _kitchenTopics.push("health")>>  /* Kitchen T2 */
-<</if>>
-<<if _tier === "tier1">>
-    <<set _kitchenTopics.push("marriage")>>  /* Kitchen T1 */
-<</if>>
-
-/* Add valid phase-specific topics for kitchen */
-<<if _phase === "preWork">>
-    <<if _tier === "tier2">>
-        <<set _kitchenTopics.push("work")>>  /* Kitchen T2 */
-    <</if>>
-<<else>>
-    /* PostWork kitchen topics */
-    <<if _tier === "tier1" or _tier === "tier3">>
-        <<set _kitchenTopics.push("finances")>>  /* Kitchen T1, T3 */
-    <</if>>
-    <<if _tier === "tier2">>
-        <<set _kitchenTopics.push("health")>>  /* Kitchen T2 (postwork) - marriage T2 is Livingroom only, not offered in Kitchen */
-    <</if>>
-    <<if _tier === "tier1" or _tier === "tier3">>
-        <<set _kitchenTopics.push("marriage")>>  /* Kitchen T1, T3 (postwork) */
-    <</if>>
-<</if>>
-
-/* Select random topic from available kitchen topics */
-<<set _randomKey = _kitchenTopics.random()>>
-
-/* Retrieve topic (use _displayTier – 40% lower tier content; location unchanged) */
-<<if setup.fatherTalkTopics.common[_randomKey]>>
-    <<set _topicArray = setup.fatherTalkTopics.common[_randomKey][_displayTier] || setup.fatherTalkTopics.common[_randomKey][_tier]>>
-<<else>>
-    <<set _topicArray = setup.fatherTalkTopics[_phase][_randomKey][_displayTier] || setup.fatherTalkTopics[_phase][_randomKey][_tier]>>
-<</if>>
-
-/* Select random variation from the tier array */
-<<set _topic = _topicArray.random()>>
+/* Pick random topic → random variation */
+<<set _topicKeys = Object.keys(_context)>>
+<<set _topicKey  = _topicKeys.random()>>
+<<set _topic     = _context[_topicKey].random()>>
 
 /* Time and stats */
 <<advanceTime 15>>
 <<loseStat "energy" 5>>
 <<gainStat "mood" 3>>
 
-/* Apply stat gains from topic */
-<<if _topic.friendship>>
-    <<gainStat "friendship" _topic.friendship "father">>
-<</if>>
-<<if _topic.trust>>
-    <<gainStat "trust" _topic.trust "father">>
-<</if>>
-<<if _topic.love>>
-    <<gainStat "love" _topic.love "father">>
-<</if>>
-<<if _topic.lust>>
-    <<gainStat "lust" _topic.lust "father">>
-<</if>>
-
+/* Apply stat gains */
+<<if _topic.friendship>><<gainCharacterStat "father" "friendship" _topic.friendship>><</if>>
+<<if _topic.trust>><<gainCharacterStat "father" "trust" _topic.trust>><</if>>
+<<if _topic.love>><<gainCharacterStat "father" "love" _topic.love>><</if>>
 <<recalculateStats>>
 <</silently>>
 <div class="talk-interaction">
 <<narrative "Kitchen - Talk with Father">>
 <<if _phase === "preWork">>
-The kitchen smells of fresh coffee. Your father is at the table, relaxed for once, enjoying the quiet morning.
+The kitchen has that early-morning feel — unhurried, still settling in. Your father's here too, fitting the new house into his routines.
+<<elseif _timeSlot === "morning">>
+He's moving with purpose — commute mode. The kitchen is a brief stop before his day starts.
 <<else>>
-Your father stands by the counter, still in his work clothes, decompressing from another long day.
+He's just come in from work. The kitchen is where he lands first — jacket off, winding down.
 <</if>>
 <</narrative>>
 

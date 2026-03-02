@@ -1,3 +1,5 @@
-/* special/apron DB reset */
+/* special/apron DB */
 <<set setup.clothingData = setup.clothingData || {}>>
-<<set setup.clothingData.apron = []>>
+<<set setup.clothingData.apron = [
+  {"id":"apronRubysDishwash","name":"Ruby's Diner Dishwasher Apron","brand":"","desc":"Work apron issued for dishwasher shifts at Ruby's Diner. Heavy fabric, ties at the back.","image":"assets/content/clothing/others/RubysDiner/apronRubysDishwash.webp","store":"","slot":"apron","silhouette":"apron","baseLooks":1,"price":0,"quality":"Common","warmth":1,"sexinessScore":0,"exposureLevel":0,"durability":100,"reqCorruption":0,"matchSet":null,"tags":["work","uniform"],"npcAppeal":{},"shopAvailable":false,"startOwned":false,"reqConfidence":0}
+]>>

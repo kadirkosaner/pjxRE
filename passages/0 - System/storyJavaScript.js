@@ -1725,25 +1725,55 @@ Macro.add('showActions', {
                 }
             }
 
-            // Check stat requirements (character stats)
+            // Check requirements
             const reqs = action.requirements || {};
             let meetsReqs = true;
             let missingReqs = [];
 
-            for (const [stat, value] of Object.entries(reqs)) {
-                if ((charStats[stat] || 0) < value) {
-                    meetsReqs = false;
-                    missingReqs.push(`${stat.charAt(0).toUpperCase() + stat.slice(1)}: ${value}`);
+            for (const [req, value] of Object.entries(reqs)) {
+                if (req === 'friendshipLevel' || req === 'lustLevel' || req === 'loveLevel' || req === 'trustLevel') {
+                    // Level check — charStats.friendshipLevel etc.
+                    if ((charStats[req] || 1) < value) {
+                        meetsReqs = false;
+                        const statName = req.replace('Level', '');
+                        missingReqs.push(`${statName.charAt(0).toUpperCase() + statName.slice(1)} Level ${value}`);
+                    }
+                } else if (req === 'flag') {
+                    // Flag check — value is the flag name string
+                    const flags = vars.flags || {};
+                    if (!flags[value]) {
+                        meetsReqs = false;
+                        // Silent — flag failures are typically paired with showWhenLocked: false
+                    }
+                } else if (req === 'corruption') {
+                    if ((vars.corruption || 0) < value) {
+                        meetsReqs = false;
+                        missingReqs.push(`Corruption ${value}`);
+                    }
+                } else if (req === 'willpower') {
+                    if ((vars.willpower || 0) < value) {
+                        meetsReqs = false;
+                        missingReqs.push(`Willpower ${value}`);
+                    }
+                } else {
+                    // Raw stat check (legacy: friendship, lust, etc.)
+                    if ((charStats[req] || 0) < value) {
+                        meetsReqs = false;
+                        missingReqs.push(`${req.charAt(0).toUpperCase() + req.slice(1)}: ${value}`);
+                    }
                 }
             }
 
-            // Check player energy (e.g. Talk costs 5)
+            // Check player energy
             const minEnergy = action.minPlayerEnergy != null ? action.minPlayerEnergy : 0;
             const playerEnergy = parseInt(vars.energy || 0, 10);
             if (minEnergy > 0 && playerEnergy < minEnergy) {
                 meetsReqs = false;
                 missingReqs.push('Need ' + minEnergy + ' energy');
             }
+
+            // Hide completely if locked and showWhenLocked is false
+            if (!meetsReqs && action.showWhenLocked === false) return;
 
             const lockTooltip = missingReqs.length === 1 && missingReqs[0].startsWith('Need ') && missingReqs[0].endsWith(' energy')
                 ? missingReqs[0]

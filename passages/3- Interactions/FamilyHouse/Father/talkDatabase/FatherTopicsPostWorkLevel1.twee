@@ -1,0 +1,522 @@
+/* ==========================================
+   FATHER TALK TOPICS — POST-WORK, LEVEL 1
+   phase === "postWork" && friendshipLevel === 1
+
+   Structure: setup.fatherTopics.postWork.level1[locTimeKey][topicName] = [ {text, friendship, trust} ]
+
+   POST-WORK L1 TONE:
+   → Father comes home tired from work — shorter sentences, lower energy
+   → Still reserved, practical. Work stress is plausible background noise
+   → Kitchen morning = 7am quick breakfast before commute
+   → Kitchen evening = dinner debrief, brief family check
+   → LivingRoom evening = decompressing, TV, minimal talk
+   → Garage evening = his sanctuary, unwinding through doing
+
+   4 CONTEXTS:
+   fhKitchen_postWork_morning    fhKitchen_postWork_evening
+   fhLivingroom_postWork_evening fhGarage_postWork_evening
+========================================== */
+
+<<set setup.fatherTopics.postWork = setup.fatherTopics.postWork || {}>>
+<<set setup.fatherTopics.postWork.level1 = {
+
+    /* ==========================================
+       KITCHEN — POST-WORK MORNING
+       Quick 7am before leaving — coffee, brief check-in
+    ========================================== */
+    fhKitchen_postWork_morning: {
+
+        coffee: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's already dressed and moving fast — commute mode. He glances up from his coffee as you come in.<</narrative>>
+<<dialog "father">>Morning. You're up early.<</dialog>>
+<<dialog "player">>Couldn't sleep.<</dialog>>
+<<dialog "father">>(pouring a second mug) Coffee's hot.<</dialog>>
+<<dialog "player">>Thanks. Long day ahead?<</dialog>>
+<<dialog "father">>(checking his watch) Always is.
+(draining his mug)
+Right. I'll see you tonight.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's toast and standing — proper sit-down breakfast is a thing of the past now.<</narrative>>
+<<dialog "father">>(eating over the counter) Meeting at nine. I need to leave in ten.
+(glancing at you)
+Did you need something?<</dialog>>
+<<dialog "player">>No, just getting coffee.<</dialog>>
+<<dialog "father">>(relaxing slightly) Right. Okay.
+(a pause)
+Good morning.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's running a few minutes early — unusual — and actually has a moment.<</narrative>>
+<<dialog "father">>I've got five minutes. Sit if you want.<</dialog>>
+<<dialog "player">>(sitting) Early start?<</dialog>>
+<<dialog "father">>Covering for someone. It's fine.
+(briefly human)
+How are you?<</dialog>>
+<<dialog "player">>Fine. Not bad.<</dialog>>
+<<dialog "father">>(nodding, finishing his coffee) Good.
+(standing)
+I'll see you tonight.<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        quickEat: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's trying to eat toast while finding his keys.<</narrative>>
+<<dialog "father">>Have you seen my — never mind.
+(finding them in his jacket)
+Right. Keys.<</dialog>>
+<<dialog "player">>Do you want me to make you something proper?<</dialog>>
+<<dialog "father">>No time.
+(toast in hand)
+This is fine.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He notices you've already put the kettle on. He looks briefly pleased.<</narrative>>
+<<dialog "father">>(quietly) Thanks for that.
+(pouring)
+I didn't ask you to do that.<</dialog>>
+<<dialog "player">>I was making mine anyway.<</dialog>>
+<<dialog "father">>Still.
+(a shorter pause than you'd expect)
+Appreciated.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He pauses at the door, bag in hand, and looks back into the kitchen.<</narrative>>
+<<dialog "father">>Don't wait on lunch for me. I'll eat at work.
+(meeting your eye briefly)
+Look after your mother.<</dialog>>
+<<dialog "player">>I always do.<</dialog>>
+<<dialog "father">>(a slight nod) I know.
+(going)<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        briefCheck: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He glances at the kitchen calendar as he passes — a habit now.<</narrative>>
+<<dialog "father">>Jake got the early bus?<</dialog>>
+<<dialog "player">>Think so. I heard the door.<</dialog>>
+<<dialog "father">>(satisfied) Good.
+(grabbing his bag)
+Your mother up?<</dialog>>
+<<dialog "player">>Not yet.<</dialog>>
+<<dialog "father">>(quieter) Let her sleep.
+(heading out)<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He pauses just before leaving, like he thought of something.<</narrative>>
+<<dialog "father">>If anything comes up today — anything the house needs — let me know. I'll sort it tonight.<</dialog>>
+<<dialog "player">>Will do.<</dialog>>
+<<dialog "father">>Good.
+(at the door now)
+See you later.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's at the counter with a rare unhurried moment — someone cancelled a meeting.<</narrative>>
+<<dialog "father">>First meeting's been moved. I've got fifteen minutes.
+(sitting down, actually)
+Tell me something that's happening here while I'm gone.<</dialog>>
+<<dialog "player">>(thinking) Mom found a good bakery nearby. Two streets down.<</dialog>>
+<<dialog "father">>Is it good?<</dialog>>
+<<dialog "player">>Really good, apparently.<</dialog>>
+<<dialog "father">>(nodding) Good. I'll try it at the weekend.
+(checking his watch)
+Right. I've got to go.<</dialog>>`,
+                friendship: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       KITCHEN — POST-WORK EVENING
+       Dinner debrief, checking in, brief moments
+    ========================================== */
+    fhKitchen_postWork_evening: {
+
+        dinner: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He comes in from work, tie loosened before he's even in the door. He goes straight to the sink.<</narrative>>
+<<dialog "father">>(washing his hands) Smells good.<</dialog>>
+<<dialog "player">>Mom made that pasta thing.<</dialog>>
+<<dialog "father">>(drying his hands) The one with the capers?<</dialog>>
+<<dialog "player">>Think so.<</dialog>>
+<<dialog "father">>(quietly pleased) Good.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He sets the table — something he's started doing without being asked since work started.<</narrative>>
+<<dialog "father">>(working) How was the day?<</dialog>>
+<<dialog "player">>Fine. You?<</dialog>>
+<<dialog "father">>Long.
+(folding a napkin precisely)
+Fine, though.
+(a pause)
+We had a decent result on the thing I've been working on.<</dialog>>
+<<dialog "player">>That's good.<</dialog>>
+<<dialog "father">>(briefly, genuinely) Yeah. It was.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He sits down to dinner looking hollowed out but functional.<</narrative>>
+<<dialog "father">>I forgot what traffic was like.
+(reaching for water)
+Forty-five minutes for twenty minutes of road.<</dialog>>
+<<dialog "player">>Every day?<</dialog>>
+<<dialog "father">>Most days. I'll figure out better timing.
+(taking a breath, letting it go)
+Anyway. This looks good.<</dialog>>`,
+                friendship: 1
+            }
+        ],
+
+        debrief: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He rinses his plate and leans on the counter for a moment — processing the day.<</narrative>>
+<<dialog "father">>New team's not bad. Bit slow to start. They'll get there.
+(to himself)
+They always do.<</dialog>>
+<<dialog "player">>Hard to settle in at first.<</dialog>>
+<<dialog "father">>(looking at you) Yeah. I know exactly what you mean.
+(a pause)
+Goes for all of us.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He pours water for both of them without thinking — the new evening habit.<</narrative>>
+<<dialog "father">>Ask me about my day.<</dialog>>
+<<dialog "player">>(raising an eyebrow) ...How was your day?<</dialog>>
+<<dialog "father">>(almost smiling) Productive.
+(handing you the glass)
+Thanks for asking.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He checks something on his phone, then puts it face-down — a conscious act.<</narrative>>
+<<dialog "father">>Done with that until tomorrow.
+(firmly)
+That's the rule. After six-thirty, it goes down.<</dialog>>
+<<dialog "player">>Good rule.<</dialog>>
+<<dialog "father">>It's a necessary rule.
+(looking at you)
+Your generation's better at that than mine, I think.<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        checkIn: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He does the washing up while you dry — the pattern they've settled into.<</narrative>>
+<<dialog "father">>Jake alright today?<</dialog>>
+<<dialog "player">>Seemed good. He watched a film with us in the afternoon.<</dialog>>
+<<dialog "father">>(quiet satisfaction) Good. Good.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's preparing tomorrow's lunch the night before — systematic.<</narrative>>
+<<dialog "father">>How's your mother been today?<</dialog>>
+<<dialog "player">>Good. She found a new thing she wants to do with the garden.<</dialog>>
+<<dialog "father">>(quietly) Good. She needs projects.
+(to himself)
+So do I.<</dialog>>`,
+                friendship: 1, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He pauses mid-task and looks at you properly — a rarity after a long day.<</narrative>>
+<<dialog "father">>You alright? Genuinely.<</dialog>>
+<<dialog "player">>Yeah. I'm fine.<</dialog>>
+<<dialog "father">>(studying you briefly) Okay. You'd say if you weren't?<</dialog>>
+<<dialog "player">>Probably.<</dialog>>
+<<dialog "father">>(going back to what he was doing) Close enough.<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    },
+
+    /* ==========================================
+       LIVING ROOM — POST-WORK EVENING
+       TV, unwinding, minimal energy
+    ========================================== */
+    fhLivingroom_postWork_evening: {
+
+        unwinding: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's in the armchair, jacket off, shoes off — the decompress ritual in full effect.<</narrative>>
+<<dialog "father">>(flatly) Don't talk to me for ten minutes.<</dialog>>
+<<dialog "player">>Okay.<</dialog>>
+<<narrative>>You sit quietly. After about eight minutes:<</narrative>>
+<<dialog "father">>Alright.
+(slightly better)
+Good day?<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's got his eyes closed, not sleeping — thinking, or not thinking. Hard to tell.<</narrative>>
+<<dialog "player">>Do you want anything? Tea?<</dialog>>
+<<dialog "father">>(without opening his eyes) That'd be good. Yes.
+(a beat)
+Thank you.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's switched on the TV but isn't watching it — it's just noise cover while he sits.<</narrative>>
+<<dialog "father">>I'm not tired. Just done.
+(without looking at you)
+There's a difference.<</dialog>>
+<<dialog "player">>I know the difference.<</dialog>>
+<<dialog "father">>(glancing over) Yeah. I thought you might.<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        tv: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>Something on TV catches him off guard — he actually laughs, short and genuine.<</narrative>>
+<<dialog "player">>What was that?<</dialog>>
+<<dialog "father">>(still smiling) I don't know. But it was the right thing at the right time.
+(gesturing to the couch)
+Sit down. This was good.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He mutes an advert and turns to you like he's been waiting for a quiet moment.<</narrative>>
+<<dialog "father">>Your mother mentioned you might need something. A thing for the room — shelving?<</dialog>>
+<<dialog "player">>It's not urgent.<</dialog>>
+<<dialog "father">>I'll sort it this weekend.
+(unmuting the TV)
+I've got the hardware anyway.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He turns the TV off unexpectedly. Just sits in the quiet.<</narrative>>
+<<dialog "father">>I've been watching screens all day. Can't face another one.
+(glancing at you)
+You don't have to sit here.<</dialog>>
+<<dialog "player">>I don't mind.<</dialog>>
+<<dialog "father">>(settling back) Okay then.<</dialog>>`,
+                friendship: 2
+            }
+        ],
+
+        quiet: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>You're sitting in the same room — him doing nothing, you reading or scrolling. It's comfortable.<</narrative>>
+<<dialog "father">>This is actually nice.
+(just)
+That.<</dialog>>
+<<dialog "player">>Yeah.<</dialog>>
+<<dialog "father">>(that's enough for him)<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He looks at the family photo on the shelf — the one he put up himself.<</narrative>>
+<<dialog "father">>That photo's been in three different houses now.
+(quietly)
+Good photo.<</dialog>>
+<<dialog "player">>Yeah.<</dialog>>
+<<dialog "father">>(back to doing nothing) Right.<</dialog>>`,
+                friendship: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He says goodnight before you do. Unusual — normally you head up first.<</narrative>>
+<<dialog "father">>Right. I'm going up.
+(passing you)
+Goodnight.<</dialog>>
+<<dialog "player">>Night.<</dialog>>
+<<dialog "father">>(pausing) You'll lock up?<</dialog>>
+<<dialog "player">>I've got it.<</dialog>>
+<<dialog "father">>(nodding) Good.
+(heading upstairs)<</dialog>>`,
+                friendship: 2
+            }
+        ]
+    },
+
+    /* ==========================================
+       GARAGE — POST-WORK EVENING
+       His decompression space — working with hands
+    ========================================== */
+    fhGarage_postWork_evening: {
+
+        carwork: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's under the bonnet — work clothes still on, or a t-shirt if he changed. He doesn't look up immediately.<</narrative>>
+<<dialog "father">>Hand me the long socket. Third drawer.<</dialog>>
+<<dialog "player">>(finding it) This?<</dialog>>
+<<dialog "father">>(taking it) Yeah. Thanks.
+(working)
+You don't have to stay.<</dialog>>
+<<dialog "player">>It's fine. I'll watch.<</dialog>>
+<<dialog "father">>(a small shift in posture — he doesn't mind) Suit yourself.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's checking the tyre pressure — methodical, slow. Not in a hurry to be anywhere.<</narrative>>
+<<dialog "father">>Know how to check these?<</dialog>>
+<<dialog "player">>Not really.<</dialog>>
+<<dialog "father">>Come here. I'll show you once. You'll want to know it eventually.
+(positioning the gauge)
+Basic thing. Should take thirty seconds.<</dialog>>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He steps back from the car and wipes his hands — done for the night, satisfied.<</narrative>>
+<<dialog "father">>That's the cooling system sorted. Took three evenings.
+(simply)
+Worth it though.<</dialog>>
+<<dialog "player">>Do you like this? The car stuff?<</dialog>>
+<<dialog "father">>(considering) Yeah. Yeah, I do.
+(a pause)
+It's the only thing I work on where I can actually see it's done.<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        tools: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's cleaning tools at the workbench — precise, habitual, clearly therapeutic.<</narrative>>
+<<dialog "father">>You can sit there if you want.
+(indicating a stool)
+I'm not going to talk much.<</dialog>>
+<<dialog "player">>(sitting) That's fine.<</dialog>>
+<<dialog "father">>(working quietly for a while) Good day for you?<</dialog>>
+<<dialog "player">>Yeah.<</dialog>>
+<<dialog "father">>(brief nod, back to the tools) Good.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He hands you a wire brush and nods at a part on the bench.<</narrative>>
+<<dialog "father">>Clean that up if you're just standing there.<</dialog>>
+<<dialog "player">>(taking it) What am I cleaning?<</dialog>>
+<<dialog "father">>Rust on the bracket. Circular motion.
+(going back to his own work)
+Not too hard.<</dialog>>
+<<narrative>>You work alongside him quietly. It's strangely easy.<</narrative>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He notices you looking at something on the wall — old tools, framed like display.<</narrative>>
+<<dialog "father">>My grandfather's. He was a machinist.
+(without stopping what he's doing)
+Good hands. Better than mine, probably.<</dialog>>
+<<dialog "player">>Do you wish you'd done something like that? With your hands?<</dialog>>
+<<dialog "father">>(thinking) Sometimes.
+(back to the task)
+Computers pay better.<</dialog>>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        radio: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He's got the radio on — same station as always. He doesn't talk over it.<</narrative>>
+<<dialog "player">>What is this?<</dialog>>
+<<dialog "father">>Late night radio. Talk show.
+(listening)
+Guy knows what he's talking about, for once.<</dialog>>
+<<dialog "player">>High praise.<</dialog>>
+<<dialog "father">>(a short exhale — almost a laugh) Very rare. Don't get used to me saying it.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>He turns it down when a song comes on that irritates him.<</narrative>>
+<<dialog "father">>(mildly) That's a bad song.<</dialog>>
+<<dialog "player">>It's not great.<</dialog>>
+<<dialog "father">>(satisfied to agree) No. It isn't.
+(turning it to background level)
+How does that get on the radio.<</dialog>>`,
+                friendship: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-" + random(1,3) + ".webp">>
+<<image _img "100%">>
+<<narrative>>Something plays that he actually knows — he drums once on the workbench, then stops.<</narrative>>
+<<dialog "player">>Was that — did you just?<</dialog>>
+<<dialog "father">>(returning to work, straight face) I don't know what you're talking about.<</dialog>>
+<<dialog "player">>(grinning) You drummed on the bench.<</dialog>>
+<<dialog "father">>(pause) I was checking the surface for resonance.<</dialog>>`,
+                friendship: 2
+            }
+        ]
+    }
+
+}>>

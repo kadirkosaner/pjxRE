@@ -16,10 +16,11 @@
     color: "#ec4899",
     info: "<p>Waitress at Ruby's Diner. She usually works the morning shift.</p>",
     status: "Waitress",
+    setup.maxLevels = {brother: { friendship: 2, love: 2, trust: 2, lust: 2 },
     relationship: { status: "dating", partnerLabel: "boyfriend" }
 }>>
 <<set $characters.dinerWaitress2 = {
-    stats: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
     firstMet: null,
     known: false,
     currentLocation: null,

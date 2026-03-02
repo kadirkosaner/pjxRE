@@ -549,6 +549,52 @@
   justify-content: center;
 }
 
+/* Stats bars (level + progress) */
+.char-info-stats-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.char-stat-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.char-stat-bar-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.char-stat-level {
+  font-weight: 600;
+  color: #e8dc9e;
+}
+
+.char-stat-bar-meta {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.char-stat-bar-track {
+  height: 6px;
+  background: var(--color-bg-tertiary);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-primary);
+}
+
+.char-stat-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
 .char-stat-box {
   background: var(--color-bg-tertiary);
   border: 1px solid var(--color-border-primary);

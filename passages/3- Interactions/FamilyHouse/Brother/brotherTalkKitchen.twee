@@ -1,121 +1,79 @@
+:: brotherTalkKitchen
 <<silently>>
 <<set $location = "fhKitchen">>
 <<logDailyActivity "brother" "talk">>
 <<set _char = $characters.brother>>
 <<set _friendship = _char.stats.friendship>>
 
-/* Determine phase based on summer break */
+/* Determine phase */
 <<if def $flags && $flags.summerBreak>>
     <<set _phase = "vacation">>
 <<else>>
     <<set _phase = "school">>
 <</if>>
 
-/* Determine tier based on friendship */
-<<if _friendship < 40>>
-    <<set _tier = "tier1">>
-<<elseif _friendship < 70>>
-    <<set _tier = "tier2">>
+/* Determine time slot */
+/* Determine time slot */
+<<set _hour = $timeSys.hour>>
+<<if _hour >= 6 && _hour < 12>>
+    <<set _timeSlot = "morning">>
+<<elseif _hour < 17>>
+    <<set _timeSlot = "afternoon">>
 <<else>>
-    <<set _tier = "tier3">>
+    <<set _timeSlot = "evening">>
 <</if>>
 
-/* 40% chance to show content from 1 or 2 tiers below (location unchanged) */
-<<set _displayTier = _tier>>
-<<if _tier === "tier3">>
-    <<if random(1, 100) <= 40>>
-        <<set _displayTier = random(1, 100) <= 50 ? "tier2" : "tier1">>
-    <</if>>
-<<elseif _tier === "tier2">>
-    <<if random(1, 100) <= 40>>
-        <<set _displayTier = "tier1">>
-    <</if>>
-<</if>>
+/* Build context key */
+<<set _ctxKey = "fhKitchen_" + _phase + "_" + _timeSlot>>
+<<set _levelKey = "level" + _level>>
 
-/* Kitchen-specific topics */
-<<set _kitchenTopics = []>>
+/* Resolve topic pool
+   Kitchen has: school_morning, school_evening
+                vacation_morning, vacation_evening
+   Afternoon falls back to evening (no afternoon kitchen context) */
+<<set _topicPool = null>>
 
-/* Common topics available in Kitchen */
-<<if _tier === "tier2">>
-    <<set _kitchenTopics.push("sibling")>>  /* Kitchen T2 */
-<</if>>
-<<if _tier === "tier1">>
-    <<set _kitchenTopics.push("future")>>  /* Kitchen T1 */
-<</if>>
-<<if _tier === "tier3">>
-    <<set _kitchenTopics.push("beingHome")>>  /* Kitchen T3 */
-<</if>>
-
-/* Phase-specific topics for kitchen */
-<<if _phase === "school">>
-    <<if _tier === "tier1">>
-        <<set _kitchenTopics.push("schoolLife")>>  /* Kitchen T1 - school only */
-    <</if>>
-    <<if _tier === "tier2">>
-        <<set _kitchenTopics.push("sleep")>>  /* Kitchen T2 - school only */
-    <</if>>
-    <<if _tier === "tier3">>
-        <<set _kitchenTopics.push("outsideFriends")>>  /* Kitchen T3 - school only */
-    <</if>>
+<<if setup.brotherTopics[_phase] && setup.brotherTopics[_phase][_levelKey] && setup.brotherTopics[_phase][_levelKey][_ctxKey]>>
+    <<set _topicPool = setup.brotherTopics[_phase][_levelKey][_ctxKey]>>
 <<else>>
-    /* Vacation kitchen topics */
-    <<if _tier === "tier1">>
-        <<set _kitchenTopics.push("summerPlans")>>  /* Kitchen T1 - vacation only */
+    /* Afternoon → evening fallback for kitchen */
+    <<if _timeSlot === "afternoon">>
+        <<set _ctxKey = "fhKitchen_" + _phase + "_evening">>
+    <<else>>
+        <<set _ctxKey = "fhKitchen_" + _phase + "_morning">>
+    <</if>>
+    <<if setup.brotherTopics[_phase] && setup.brotherTopics[_phase][_levelKey] && setup.brotherTopics[_phase][_levelKey][_ctxKey]>>
+        <<set _topicPool = setup.brotherTopics[_phase][_levelKey][_ctxKey]>>
     <</if>>
 <</if>>
 
-/* Ensure at least one topic is available */
-<<if _kitchenTopics.length === 0>>
-    <<set _kitchenTopics.push("sibling")>>
+/* Last resort */
+<<if !_topicPool>>
+    <<set _topicPool = setup.brotherTopics.school.level1.fhKitchen_school_evening>>
 <</if>>
 
-/* Select random topic from available kitchen topics */
-<<set _randomKey = _kitchenTopics.random()>>
+/* Pick topic */
+<<set _topicKeys = Object.keys(_topicPool)>>
+<<set _randomKey = _topicKeys[Math.floor(Math.random() * _topicKeys.length)]>>
+<<set _topicArray = _topicPool[_randomKey]>>
+<<set _topic = _topicArray[Math.floor(Math.random() * _topicArray.length)]>>
 
-/* Retrieve topic (use _displayTier – 40% lower tier content; location unchanged) */
-<<if setup.brotherTalkTopics.common[_randomKey]>>
-    <<set _topicArray = setup.brotherTalkTopics.common[_randomKey][_displayTier] || setup.brotherTalkTopics.common[_randomKey][_tier]>>
-<<elseif setup.brotherTalkTopics[_phase] and setup.brotherTalkTopics[_phase][_randomKey]>>
-    <<set _topicArray = setup.brotherTalkTopics[_phase][_randomKey][_displayTier] || setup.brotherTalkTopics[_phase][_randomKey][_tier]>>
-<<else>>
-    <<set _topicArray = setup.brotherTalkTopics.common.sibling[_displayTier] || setup.brotherTalkTopics.common.sibling[_tier]>>
-<</if>>
-
-/* Select random variation from the tier array */
-<<set _topic = _topicArray.random()>>
-
-/* Time and stats */
+/* Time and base stats */
 <<advanceTime 15>>
 <<loseStat "energy" 5>>
 <<gainStat "mood" 3>>
 
-/* Apply stat gains from topic */
-<<if _topic.friendship>>
-    <<gainStat "friendship" _topic.friendship "brother">>
-<</if>>
-<<if _topic.trust>>
-    <<gainStat "trust" _topic.trust "brother">>
-<</if>>
-<<if _topic.love>>
-    <<gainStat "love" _topic.love "brother">>
-<</if>>
-<<if _topic.lust>>
-    <<gainStat "lust" _topic.lust "brother">>
-<</if>>
+/* Apply topic stat gains */
+<<if _topic.friendship>><<gainCharacterStat "brother" "friendship" _topic.friendship>><</if>>
+<<if _topic.trust>><<gainCharacterStat "brother" "trust" _topic.trust>><</if>>
+<<if _topic.love>><<gainCharacterStat "brother" "love" _topic.love>><</if>>
+<<if _topic.lust>><<gainCharacterStat "brother" "lust" _topic.lust>><</if>>
 
 <<recalculateStats>>
 <</silently>>
 
 <<nobr>>
 <div class="talk-interaction">
-<<narrative "Kitchen - Talk with Brother">>
-<<if _phase === "school">>
-Your brother is grabbing a snack between study sessions. He looks like he could use a break.
-<<else>>
-Summer means constant kitchen raids. Your brother is here again, searching the fridge for something to eat.
-<</if>>
-<</narrative>>
-
 <<print _topic.text>>
 
 <div class="location-actions">
