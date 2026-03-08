@@ -50,6 +50,7 @@
 <<if _topic.love>><<gainCharacterStat "father" "love" _topic.love>><</if>>
 <<recalculateStats>>
 <</silently>>
+<<nobr>>
 <div class="talk-interaction">
 <<narrative "Kitchen - Talk with Father">>
 <<if _phase === "preWork">>
@@ -73,3 +74,4 @@ He's just come in from work. The kitchen is where he lands first — jacket off,
 <</if>>
 </div>
 </div>
+<</nobr>>

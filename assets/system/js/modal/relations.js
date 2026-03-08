@@ -393,46 +393,33 @@ window.RelationsInit = function (API) {
             const infoContent = char.info || '<p>No additional information available.</p>';
             this.API.$('#relations-info-content').html(infoContent);
 
-            // Update stats with level + threshold
+            // Update stats — always 0/100. versionCaps enforce gameplay limits elsewhere.
             const stats = char.stats || { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 };
-            const levelUpThresholds = char.levelUpThresholds || {};
-            const maxLevels = char.maxLevels || { love: 5, friendship: 5, lust: 5, trust: 5 };
 
-            const getThreshold = (statName, currentLevel) => {
-                const t = levelUpThresholds[statName];
-                return (t && t[currentLevel] !== undefined) ? t[currentLevel] : 100;
-            };
-            const isMaxLevel = (statName, currentLevel) => currentLevel >= (maxLevels[statName] || 5);
-
-            const loveLevel = stats.loveLevel || 1;
+            const loveLevel   = stats.loveLevel       || 1;
             const friendLevel = stats.friendshipLevel || 1;
-            const lustLevel = stats.lustLevel || 1;
-            const trustLevel = stats.trustLevel || 1;
-
-            const loveThr = getThreshold('love', loveLevel);
-            const friendThr = getThreshold('friendship', friendLevel);
-            const lustThr = getThreshold('lust', lustLevel);
-            const trustThr = getThreshold('trust', trustLevel);
+            const lustLevel   = stats.lustLevel       || 1;
+            const trustLevel  = stats.trustLevel      || 1;
 
             this.API.$('#relations-love-level').text('Level ' + loveLevel);
             this.API.$('#relations-love-value').text(stats.love || 0);
-            this.API.$('#relations-love-max').text(isMaxLevel('love', loveLevel) ? 'MAX' : loveThr);
-            this.API.$('#relations-love-fill').css('width', Math.min(100, Math.round(((stats.love || 0) / loveThr) * 100)) + '%');
+            this.API.$('#relations-love-max').text(100);
+            this.API.$('#relations-love-fill').css('width', Math.min(100, stats.love || 0) + '%');
 
             this.API.$('#relations-friendship-level').text('Level ' + friendLevel);
             this.API.$('#relations-friendship-value').text(stats.friendship || 0);
-            this.API.$('#relations-friendship-max').text(isMaxLevel('friendship', friendLevel) ? 'MAX' : friendThr);
-            this.API.$('#relations-friendship-fill').css('width', Math.min(100, Math.round(((stats.friendship || 0) / friendThr) * 100)) + '%');
+            this.API.$('#relations-friendship-max').text(100);
+            this.API.$('#relations-friendship-fill').css('width', Math.min(100, stats.friendship || 0) + '%');
 
             this.API.$('#relations-lust-level').text('Level ' + lustLevel);
             this.API.$('#relations-lust-value').text(stats.lust || 0);
-            this.API.$('#relations-lust-max').text(isMaxLevel('lust', lustLevel) ? 'MAX' : lustThr);
-            this.API.$('#relations-lust-fill').css('width', Math.min(100, Math.round(((stats.lust || 0) / lustThr) * 100)) + '%');
+            this.API.$('#relations-lust-max').text(100);
+            this.API.$('#relations-lust-fill').css('width', Math.min(100, stats.lust || 0) + '%');
 
             this.API.$('#relations-trust-level').text('Level ' + trustLevel);
             this.API.$('#relations-trust-value').text(stats.trust || 0);
-            this.API.$('#relations-trust-max').text(isMaxLevel('trust', trustLevel) ? 'MAX' : trustThr);
-            this.API.$('#relations-trust-fill').css('width', Math.min(100, Math.round(((stats.trust || 0) / trustThr) * 100)) + '%');
+            this.API.$('#relations-trust-max').text(100);
+            this.API.$('#relations-trust-fill').css('width', Math.min(100, stats.trust || 0) + '%');
 
             // Update perception/awareness
             const opinion = char.opinion || { awareness: 0, flags: [] };

@@ -20,15 +20,11 @@
 <<set setup.brotherTopics.vacation = setup.brotherTopics.vacation || {}>>
 <<set setup.brotherTopics.vacation.level1 = {
 
-    /* ==========================================
-       BROTHER'S ROOM — VACATION MORNING
-       He's awake which is rare — or barely awake
-    ========================================== */
     fhBrotherRoom_vacation_morning: {
 
         rarelyAwake: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's technically awake. The evidence: his eyes are partially open and there's a game loading on his screen.<</narrative>>
 <<dialog "player">>(at the door) You're up early?<</dialog>>
@@ -41,7 +37,7 @@ What time is it?<</dialog>>
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's in the world's most chaotic morning state — dishevelled hair, hoodie that might be yesterday's, surrounded by empty crisp packets.<</narrative>>
 <<dialog "player">>Jake.<</dialog>>
@@ -51,7 +47,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's been up long enough that he's actually functional. The room has a different energy — vacation mode settled in.<</narrative>>
 <<dialog "brother">>(from his desk, fairly awake) There's nothing to do.
@@ -65,7 +61,7 @@ On vacation. Nothing to do.<</dialog>>
 
         justUp: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He materialises, squinting, in his door frame — has been asleep and just woke up.<</narrative>>
 <<dialog "brother">>(croaky) Is there food?<</dialog>>
@@ -76,7 +72,7 @@ Thanks.<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's just woken up and is sitting on the edge of his bed looking at his phone with the energy of a computer still booting.<</narrative>>
 <<dialog "player">>You want anything?<</dialog>>
@@ -86,7 +82,7 @@ Water? Please.<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He opens his curtains — a historic event — and blinks at the daylight.<</narrative>>
 <<dialog "brother">>Is it always this bright?
@@ -101,7 +97,7 @@ Huh.<</dialog>>`,
 
         gaming: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's in a full vacation gaming lobby, music on, snacks nearby. The long version of this.<</narrative>>
 <<dialog "player">>(at the door) How long today?<</dialog>>
@@ -113,7 +109,7 @@ I don't know. It's vacation. What is time.<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's mid-game but not seriously — vacation mode means he can lose and not care.<</narrative>>
 <<dialog "brother">>(getting killed in-game) Whatever. I don't care.
@@ -124,7 +120,7 @@ Oh hey. What do you need?<</dialog>>
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He pauses his game — actually pauses — and stretches dramatically.<</narrative>>
 <<dialog "brother">>Okay I need to not look at a screen for five minutes or my eyes will fall out.
@@ -137,15 +133,11 @@ What's happening in the house today?<</dialog>>
         ]
     },
 
-    /* ==========================================
-       BROTHER'S ROOM — VACATION AFTERNOON
-       Full vacation mode, slow energy, more present
-    ========================================== */
     fhBrotherRoom_vacation_afternoon: {
 
         bored: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>He says it with the weight of the ages:<</narrative>>
 <<dialog "brother">>I'm bored.<</dialog>>
@@ -157,7 +149,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's horizontal on his bed, staring at the ceiling. The gaming setup is right there. He's not using it.<</narrative>>
 <<dialog "player">>(at the door) Okay?<</dialog>>
@@ -167,7 +159,7 @@ Is there cake or something?<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's done something different from gaming — has a sketchbook open, which he immediately closes when you see it.<</narrative>>
 <<dialog "brother">>(closing it fast) It's nothing. I was bored.
@@ -179,7 +171,7 @@ Don't ask.<</dialog>>`,
 
         gaming: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's in a long session — properly in the zone. You knock and he actually lets you in without irritation.<</narrative>>
 <<dialog "brother">>(to mic) Give me two minutes — (to you) Hey. What's up?<</dialog>>
@@ -190,7 +182,7 @@ Thanks.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's on a winning streak and it shows — more good energy than usual.<</narrative>>
 <<dialog "brother">>(grinning when you come in) I'm having the best session.
@@ -201,7 +193,7 @@ Five wins. In a row. Today is good.<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>He gestures at you to sit down with the spare controller in hand.<</narrative>>
 <<dialog "brother">>Come on. I'll teach you something new. One game.<</dialog>>
@@ -214,7 +206,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
 
         music: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>Music is on — actual speakers, not headphones. He doesn't turn it down when you appear.<</narrative>>
 <<dialog "player">>What is this?<</dialog>>
@@ -224,7 +216,7 @@ Dad's got similar stuff actually. Don't tell him I know that.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's listening to something on his headphones and not gaming — just listening. He pulls one side off when you come in.<</narrative>>
 <<dialog "brother">>(offering one earbud) Here. Just this track.<</dialog>>
@@ -233,7 +225,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's drumming quietly on his desk to something — actually rhythmically good. He stops when he notices you.<</narrative>>
 <<dialog "player">>Keep going.<</dialog>>
@@ -245,15 +237,11 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
         ]
     },
 
-    /* ==========================================
-       BROTHER'S ROOM — VACATION EVENING
-       Long day of nothing = oddly open
-    ========================================== */
     fhBrotherRoom_vacation_evening: {
 
         lateSession: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's in full vacation evening mode — the room is dark except the monitors, music low, snacks within reach.<</narrative>>
 <<dialog "player">>(from the door) You're not sleeping?<</dialog>>
@@ -266,7 +254,7 @@ You heading to bed?<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>The monitors are off — he's on his phone in the dark instead.<</narrative>>
 <<dialog "brother">>(scrolling) Have you seen that thing about—
@@ -279,7 +267,7 @@ Actually, never mind, you probably haven't.<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's winding down but not ready for sleep. He's just... sitting. And when you come in he doesn't make you leave.<</narrative>>
 <<dialog "brother">>(looking at the ceiling) Good day today. No reason. Just was.
@@ -293,7 +281,7 @@ Yeah.<</dialog>>`,
 
         youtube: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's deep in a YouTube rabbit hole — you can tell by the unfocused expression.<</narrative>>
 <<dialog "brother">>(hearing you) Don't judge me. I started watching a video about ancient Rome and somehow ended up watching fish tank tutorials.<</dialog>>
@@ -302,7 +290,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's watching something with the volume just audible — a video essay, something long-form.<</narrative>>
 <<dialog "player">>What's that one?<</dialog>>
@@ -312,7 +300,7 @@ I don't know if he's right but he's very convincing.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He shows you his phone — a genuinely bizarre video — and monitors your reaction.<</narrative>>
 <<dialog "brother">>Tell me what you think is happening in this video before I explain it.<</dialog>>
@@ -324,7 +312,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
 
         night: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's very clearly not going to sleep for another three hours. He's at peace with this.<</narrative>>
 <<dialog "brother">>(cheerful) I'm going to regret this tomorrow.
@@ -334,7 +322,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He calls out from his room as you walk past:<</narrative>>
 <<dialog "brother">>Hey. I heard you going past.
@@ -346,7 +334,7 @@ You can come in though. If you want. I'm not doing anything interesting but.<</d
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He says goodnight first — a vacation thing. He's more relaxed about it here.<</narrative>>
 <<dialog "brother">>I'm going to actually sleep tonight. Experiment.
@@ -359,15 +347,11 @@ Night.<</dialog>>
         ]
     },
 
-    /* ==========================================
-       KITCHEN — VACATION MORNING
-       Breakfast but slower — vacation pace
-    ========================================== */
     fhKitchen_vacation_morning: {
 
         slowBreakfast: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's at the kitchen table with a bowl of cereal and his phone — no rush, no school, no bag. The full vacation morning look.<</narrative>>
 <<dialog "brother">>(not looking up) Did you know a bear can run thirty miles per hour?<</dialog>>
@@ -378,7 +362,7 @@ I learned it yesterday. Still thinking about it.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's made proper breakfast — eggs, toast — with the energy of someone who has nothing to rush for.<</narrative>>
 <<dialog "player">>You cooked?<</dialog>>
@@ -388,7 +372,7 @@ There's more if you want.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He comes in, does not look like someone who slept great, makes toast in silence, sits across from you without comment.<</narrative>>
 <<dialog "player">>(eventually) Good morning.<</dialog>>
@@ -401,7 +385,7 @@ The toast is good though.<</dialog>>`,
 
         planless: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's standing in the kitchen with no particular direction.<</narrative>>
 <<dialog "brother">>What are you doing today?<</dialog>>
@@ -414,7 +398,7 @@ Whatever.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He has his phone out looking at things to do.<</narrative>>
 <<dialog "brother">>There's a gaming café thing in town. Or I could just stay here.
@@ -425,7 +409,7 @@ Do you like gaming cafés?<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's made no plans. He's happy about this.<</narrative>>
 <<dialog "brother">>(deeply content) Nothing to do today. Whole day. Nothing.
@@ -439,7 +423,7 @@ This is genuinely the best feeling.<</dialog>>
 
         actualChat: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's at the table and looks up when you come in — actually meets your eyes first thing.<</narrative>>
 <<dialog "brother">>Did you sleep okay?<</dialog>>
@@ -449,7 +433,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He pours you a glass of juice just because he was pouring one for himself.<</narrative>>
 <<dialog "brother">>(sliding it across) You were going to want some.<</dialog>>
@@ -458,7 +442,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He said something in his sleep apparently — you overhead him — and he looks mortified when you imply it.<</narrative>>
 <<dialog "player">>(innocently) You were talking in your sleep last night.<</dialog>>
@@ -470,15 +454,11 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
         ]
     },
 
-    /* ==========================================
-       KITCHEN — VACATION EVENING
-       Dinner without school stress
-    ========================================== */
     fhKitchen_vacation_evening: {
 
         dinner: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's at dinner and actually present — no tomorrow to worry about. He eats slower.<</narrative>>
 <<dialog "brother">>Today was alright.
@@ -488,7 +468,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's been in a good mood all day — vacation agrees with him. You can see it at dinner.<</narrative>>
 <<dialog "brother">>(loading his plate) I had the most insane gaming session today.
@@ -499,7 +479,7 @@ Top one percent. They give you a thing. I got the thing.<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He actually helps set the table — vacation energy means he's less defensive about being helpful.<</narrative>>
 <<dialog "brother">>(putting out plates) Where do these go over here?<</dialog>>
@@ -513,7 +493,7 @@ I like contained tasks.<</dialog>>`,
 
         lateKitchen: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He materialises at 10pm looking for snacks. This is his natural cycle.<</narrative>>
 <<dialog "brother">>(opening cupboards) We're out of crisps again.
@@ -523,7 +503,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's made himself something substantial at an unreasonable hour. No shame.<</narrative>>
 <<dialog "player">>It's eleven PM, Jake.<</dialog>>
@@ -533,7 +513,7 @@ This is documented.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He makes extra and brings you some without being asked. It's vague and casual and actually kind.<</narrative>>
 <<dialog "brother">>(setting something down near you) I made too much. Just leave it if you don't want it.<</dialog>>
@@ -545,7 +525,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
 
         chatting: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He sits at the kitchen table after dinner and doesn't immediately leave.<</narrative>>
 <<dialog "brother">>Can I ask you something?<</dialog>>
@@ -556,7 +536,7 @@ Mine's a supermarket. Which is a weird first memory.<</dialog>>`,
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's found a subject he actually wants to talk about — you can tell because he's using full sentences.<</narrative>>
 <<dialog "brother">>There's this game mechanic I've been thinking about designing. Like, professionally. Not now. Eventually.
@@ -565,7 +545,7 @@ Tell me if this is stupid: what if the whole point of the game was—<</dialog>>
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's at the counter and asks:<</narrative>>
 <<dialog "brother">>On a scale of one to ten how weird is it that I genuinely enjoy doing the dishes?
@@ -580,15 +560,11 @@ It's a ten isn't it.<</dialog>>
         ]
     },
 
-    /* ==========================================
-       LIVING ROOM — VACATION MORNING
-       Rare — he's actually downstairs early
-    ========================================== */
     fhLivingroom_vacation_morning: {
 
         morning: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's on the sofa with a blanket and his phone — migrated from his room to here for reasons he hasn't articulated.<</narrative>>
 <<dialog "player">>(surprised) You're down here?<</dialog>>
@@ -598,7 +574,7 @@ Don't make it weird.<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's watching something with the volume low — morning TV, some kind of nature documentary.<</narrative>>
 <<dialog "player">>When did you become a nature documentary person?<</dialog>>
@@ -608,7 +584,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's doing absolutely nothing — on the sofa, no phone, no TV. Just being there.<</narrative>>
 <<dialog "player">>You okay?<</dialog>>
@@ -621,7 +597,7 @@ Haven't done this in a while.<</dialog>>`,
 
         breakfast: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's got breakfast on the coffee table — technically Mom would not approve but she's not here.<</narrative>>
 <<dialog "brother">>(pre-empting) I'm going to clean this up. Before you say anything.
@@ -632,7 +608,7 @@ I always clean it up.<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's got cereal and the TV on. Moves his feet to make room for you without being asked.<</narrative>>
 <<dialog "brother">>(not looking from the TV) There's still milk if you want.<</dialog>>
@@ -641,7 +617,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's comfortable in a very particular morning-only way — relaxed before the day has any expectations.<</narrative>>
 <<dialog "brother">>(slowly) Vacation morning is a different kind of morning.
@@ -655,7 +631,7 @@ You should be allowed to sit in it.<</dialog>>
 
         laziness: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's been on the sofa for two hours and shows absolutely no sign of moving.<</narrative>>
 <<dialog "player">>Have you moved at all?<</dialog>>
@@ -665,7 +641,7 @@ That counts.<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's got the remote. There's nothing on. He just keeps clicking past things.<</narrative>>
 <<dialog "brother">>(clicking) There is nothing good on TV in the morning. This is a fact. And I know because I have to find out every vacation.
@@ -673,7 +649,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He looks at you with genuine morning bafflement:<</narrative>>
 <<dialog "brother">>What do people do in the morning? When they're not going to school and they're not a full adult yet?
@@ -686,15 +662,11 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
         ]
     },
 
-    /* ==========================================
-       LIVING ROOM — VACATION AFTERNOON
-       Peak do-nothing energy
-    ========================================== */
     fhLivingroom_vacation_afternoon: {
 
         lounging: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's on the sofa in the fully horizontal position, arm over his face. Not asleep.<</narrative>>
 <<dialog "player">>Dead?<</dialog>>
@@ -706,7 +678,7 @@ Everything's kind of at once.<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's invented a game where he tries to balance the TV remote on his knee.<</narrative>>
 <<dialog "player">>(watching) ...What are you doing?<</dialog>>
@@ -716,7 +688,7 @@ Okay but I almost had it that time.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's found the TV again, but this time something is actually on.<</narrative>>
 <<dialog "brother">>(without looking away) Come watch this. You'll hate it.
@@ -728,7 +700,7 @@ But you'll watch the whole thing anyway.<</dialog>>`,
 
         goofing: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's doing impressions of people he knows — teachers, Dad, himself — without an audience until you come in.<</narrative>>
 <<dialog "player">>(from the doorway) Who was that?<</dialog>>
@@ -739,7 +711,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's started a running commentary on the bad daytime TV.<</narrative>>
 <<dialog "brother">>(to the TV) That's not how kitchens work. Real kitchens don't have that much counter space.
@@ -750,7 +722,7 @@ Also that cabinet would fall, the mounting is wrong.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>He challenges you to something — a competition, a bet, something low-stakes and dumb.<</narrative>>
 <<dialog "brother">>Okay. I bet you fifty pence I can name more countries in sixty seconds than you can.
@@ -762,7 +734,7 @@ You don't have to bet. But you should.<</dialog>>`,
 
         sibling: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's watching something and laughs — actually laughs, properly — and it's easy to be in the same room.<</narrative>>
 <<dialog "player">>Good?<</dialog>>
@@ -772,7 +744,7 @@ Look at this.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>You're both on the sofa doing different things — parallel existence. Occasionally he'll show you something from his phone, you'll look, you'll both go back.<</narrative>>
 <<dialog "brother">>(at some point) This is alright.
@@ -780,7 +752,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>He falls asleep on the sofa briefly — properly asleep for about twenty minutes — and wakes up disoriented and slightly embarrassed.<</narrative>>
 <<dialog "brother">>(waking up, groggy) I wasn't — I wasn't asleep.<</dialog>>
@@ -792,15 +764,11 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
         ]
     },
 
-    /* ==========================================
-       LIVING ROOM — VACATION EVENING
-       Long vacation day winding down
-    ========================================== */
     fhLivingroom_vacation_evening: {
 
         filmNight: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's set up the living room for a proper film — blankets, snacks, lights off. Didn't ask anyone, just did it.<</narrative>>
 <<dialog "brother">>(when you come in) I'm putting something on. If you want to watch you can, if not I'm watching anyway.
@@ -809,14 +777,14 @@ I got the good crisps.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He passes you something from the snack bowl without you asking.<</narrative>>
 <<dialog "brother">>(eyes on the screen) You were going to want this part. Pay attention.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He picks up the remote and completely unconsciously moves over to give you more sofa space when you sit down.<</narrative>>
 <<dialog "player">>Thanks.<</dialog>>
@@ -828,7 +796,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
 
         chatty: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He turns the TV off and is just... talking. On occasion, on vacation evenings, this version of him appears.<</narrative>>
 <<dialog "brother">>Do you think I'd be good at something creative? Like, professionally?
@@ -840,7 +808,7 @@ Cool.<</dialog>>`,
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He says something uncharacteristically reflective:<</narrative>>
 <<dialog "brother">>I think I've been nicer lately. On vacation.
@@ -851,7 +819,7 @@ I think school makes me worse as a person.<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He mentions something he wouldn't normally:<</narrative>>
 <<dialog "brother">>I tried to draw something today. Like, actually draw. Not just doodle.
@@ -865,7 +833,7 @@ Do you ever do stuff just to see if you're good at it?<</dialog>>`,
 
         unwinding: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's fully horizontal, no devices, just existing.<</narrative>>
 <<dialog "brother">>(to the ceiling) Good vacation day today. I accomplished nothing and everything was fine.<</dialog>>
@@ -874,7 +842,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's about to head to bed but lingers a minute longer than he needs to.<</narrative>>
 <<dialog "brother">>I'm going to sleep at a normal time tonight.
@@ -886,7 +854,7 @@ Night.<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's on the sofa and reaches past you to get something — brushes your shoulder — and doesn't make it weird. It's just easy.<</narrative>>
 <<dialog "brother">>(getting what he needed) Sorry.
@@ -898,15 +866,11 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
         ]
     },
 
-    /* ==========================================
-       BACKYARD — VACATION AFTERNOON
-       Surprisingly present outdoors during vacation
-    ========================================== */
     fhBackyard_vacation_afternoon: {
 
         outside: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's sitting on the back step with his phone, sunglasses on — has managed to take the gaming lifestyle outside.<</narrative>>
 <<dialog "player">>(surprised) You're outside?<</dialog>>
@@ -916,7 +880,7 @@ It's not bad actually.<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's found something to kick around — a football, a stone — the particular aimlessness of a teenager with nowhere to be.<</narrative>>
 <<dialog "player">>(stepping out) Hey.<</dialog>>
@@ -926,7 +890,7 @@ You can sit on the step if you want. I'm not doing anything important.<</dialog>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's lying on the grass looking at the sky — sincerely.<</narrative>>
 <<dialog "player">>Jake.<</dialog>>
@@ -942,7 +906,7 @@ Sit down, it's actually good.<</dialog>>`,
 
         activities: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's bouncing a ball off the back fence — rhythmic, meditative, something he still does from years ago.<</narrative>>
 <<dialog "player">>Want company?<</dialog>>
@@ -952,7 +916,7 @@ I'm not talking. I do this to not think.<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's found the old badminton set from the move — is holding the racket like he's not sure if he wants to use it.<</narrative>>
 <<dialog "brother">>(to you) Do you play?<</dialog>>
@@ -963,7 +927,7 @@ Let's do it.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's helping with something in the garden — Dad asked him and he's doing it with minimal complaint.<</narrative>>
 <<dialog "brother">>(not looking up) I'm being helpful. Note it.
@@ -975,7 +939,7 @@ This is me helping. It's a thing I do now.<</dialog>>`,
 
         nature: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's noticed something in the garden and is crouching to look at it.<</narrative>>
 <<dialog "player">>What is it?<</dialog>>
@@ -986,7 +950,7 @@ Can you look this up.
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's looking at the neighbour's cat that's got into the garden — he's trying to be cool about how much he wants to pet it.<</narrative>>
 <<dialog "brother">>(very calm) Don't move. Don't make it weird.
@@ -997,7 +961,7 @@ Okay. That's fine. I didn't want to anyway.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's in the garden in the sun — genuinely comfortable, rare for someone who lives by screen glow.<</narrative>>
 <<dialog "brother">>(to the air) The sun's actually nice today.
@@ -1010,15 +974,11 @@ I think I'm slightly less pale than last week.<</dialog>>
         ]
     },
 
-    /* ==========================================
-       BACKYARD — VACATION EVENING
-       End-of-day outside energy
-    ========================================== */
     fhBackyard_vacation_evening: {
 
         sunset: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's on the back step as the light goes golden — has been out here for a while.<</narrative>>
 <<dialog "player">>(coming out) You've been out here a while.<</dialog>>
@@ -1030,7 +990,7 @@ It gets good around now. The light.<</dialog>>
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's sitting in the garden with nothing in his hands — no phone, no device, just there.<</narrative>>
 <<dialog "player">>(sitting near him) What are you thinking about?<</dialog>>
@@ -1042,7 +1002,7 @@ Do you do that?<</dialog>>
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's found a spot he likes in the garden — a particular corner. He goes there without explaining.<</narrative>>
 <<dialog "player">>(following him) You have a spot?<</dialog>>
@@ -1055,7 +1015,7 @@ It's just quieter here.<</dialog>>`,
 
         evening: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's on the grass looking up as the first stars come out — very much not something he'd do in public.<</narrative>>
 <<dialog "brother">>(not explaining himself) You can see three already.
@@ -1064,7 +1024,7 @@ That one first. Then two more.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's kicking about in the garden before coming in — a last bit of air before the evening routine.<</narrative>>
 <<dialog "brother">>(to you) Staying out a bit?<</dialog>>
@@ -1074,7 +1034,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He comes outside just as it's getting dark — has been inside all day and needed air.<</narrative>>
 <<dialog "brother">>(breathing it in) Okay. Yeah. That's better.
@@ -1090,7 +1050,7 @@ I forget to go outside sometimes.
 
         talking: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>The garden is quiet. He starts talking without making a thing of it:<</narrative>>
 <<dialog "brother">>I think I know what I want to do. With like — school and after.
@@ -1106,7 +1066,7 @@ Is that stupid?<</dialog>>
                 friendship: 2, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>Evening makes him say things he wouldn't in daylight:<</narrative>>
 <<dialog "brother">>Do you ever feel like you're still figuring out who you are?
@@ -1118,7 +1078,7 @@ Like, even now. Like you haven't finished yet.<</dialog>>
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He says it plainly, like it's obvious:<</narrative>>
 <<dialog "brother">>You're easy to be around. Like — you don't make things more complicated than they are.

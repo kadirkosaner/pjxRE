@@ -1,6 +1,16 @@
-# Mother Talk Scenes — Image Prompts
+﻿# Mother Talk Scenes — Image Prompts
 
 ## Nano Banana (Flux) | Aspect: 16:9 | Style: Photorealistic, Warm, Cinematic
+
+### Img2img kullanımı (önemli)
+
+**Referans resim kompozisyonu korunmalı; kadraja yeni obje eklenmemeli.**
+
+- **Yapma:** Promptta mekâna yeni obje/prop tarif etme (meyve sepeti, saksılar, ek masa, kitaplar, çerçeveler, vb.). Model bunları "eklenecek" sanıp referansı bozuyor.
+- **Yap:** Sadece stil (photorealistic, 16:9), kadraj (two-shot), karakter (45 yaş kadın, kahve vb.), ışık/hava ve **çok genel** mekân adı (örn. "kitchen morning"). Obje saymayı referans resme bırak. **Kamera:** Açı sabit kilitlenmesin — referansa uygun, doğal gözlemsel kadraj; "two-shot, natural observational framing, camera angle as in reference" yeterli. **Pozisyon:** Oturma/ duruş referanstaki gibi doğal; "natural relaxed sitting positions, as in reference" — yan/bozuk pozisyon olmasın. **Bakış:** Kim nereye bakıyor yaz (birbirine, ekrana, vb.); kameraya bakmasınlar.
+- **Kısa formül:** `[stil], [kadraj], [karakter + tek aksiyon], [ışık/mood], [genel mekân]. [Kim nereye bakıyor]. Doğal kadraj (açı referansa göre), doğal oturma/duruş. Referans kompozisyonu koru, yeni obje ekleme.`
+
+---
 
 ### Character Base
 
@@ -16,131 +26,131 @@
 
 #### 🍳 kitchenMorning
 
-**ID:** `kitchenMorning-1`
-**Prompt:** Photorealistic 16:9, warm morning light through a kitchen window, a 45-year-old woman with brown hair and grey temples standing at the kitchen counter in pajamas, staring at a coffee machine with tired but gentle eyes, steam rising, soft golden hour sunlight, lived-in family kitchen with fruit bowl and mismatched mugs, shallow depth of field, documentary style
+**ID:** `kitchenMorning-1`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman with brown hair and grey temples at the kitchen counter in pajamas, staring at a coffee machine, steam rising, soft morning light, documentary style, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `kitchenMorning-2`
-**Prompt:** Photorealistic 16:9, cozy family kitchen at 7am, a 45-year-old woman with brown hair pouring coffee into two mugs at the counter, she's still in a robe, morning light coming from the left, warm amber kitchen tones, slightly cluttered counter with a recipe tablet propped nearby, quiet domestic scene, cinematic grain
+**ID:** `kitchenMorning-2`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman with brown hair pouring coffee at the counter in a robe, morning light from the left, warm kitchen tones, quiet domestic scene, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `kitchenMorning-3`
-**Prompt:** Photorealistic 16:9, soft morning kitchen scene, a 45-year-old woman with warm brown hair sitting at a wooden kitchen table both hands wrapped around a large mug of coffee, looking out the window at a quiet street, early light, peaceful and slightly melancholy, empty chair across from her, photojournalistic style
+**ID:** `kitchenMorning-3`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman with warm brown hair at the kitchen table both hands around a mug of coffee, looking out the window, early light, peaceful, photojournalistic style, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🍳 kitchenAfternoon
 
-**ID:** `kitchenAfternoon-1`
-**Prompt:** Photorealistic 16:9, afternoon kitchen light, a 45-year-old woman with brown hair putting leftover food into labeled containers, focused expression, practical apron over casual clothes, clean but lived-in kitchen counter, natural window light from the right, shallow focus
+**ID:** `kitchenAfternoon-1`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman with brown hair putting food into containers, focused, apron over casual clothes, afternoon kitchen light, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `kitchenAfternoon-2`
-**Prompt:** Photorealistic 16:9, family kitchen at midday, a 45-year-old woman wiping down the counter with a cloth, looking up toward the camera with a mild no-nonsense expression, afternoon light, kitchen tidy but warm with a fruit bowl and flowers, domestic cinematic
+**ID:** `kitchenAfternoon-2`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman wiping down the counter with a cloth, mild no-nonsense expression, afternoon light, domestic cinematic, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `kitchenAfternoon-3`
-**Prompt:** Photorealistic 16:9, kitchen afternoon scene, a 45-year-old woman making tea, pulling a second mug from the cabinet without thinking, steam from the kettle, gentle afternoon light through sheer curtains, warm kitchen tones, documentary warmth
+**ID:** `kitchenAfternoon-3`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman making tea, steam from the kettle, gentle afternoon light, warm kitchen tones, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🍳 kitchenEvening
 
-**ID:** `kitchenEvening-1`
-**Prompt:** Photorealistic 16:9, warm kitchen evening light, a 45-year-old woman stirring a pot on the stove, steam rising, overhead pendant light casting golden warmth, comfortable clothes, relaxed and focused, family kitchen with a set table visible in the background, cinematic depth
+**ID:** `kitchenEvening-1`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman stirring a pot on the stove, steam rising, warm evening light, comfortable clothes, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `kitchenEvening-2`
-**Prompt:** Photorealistic 16:9, dinner prep scene in a family kitchen, a 45-year-old woman tasting sauce from a wooden spoon with a thoughtful expression, warm incandescent light, cluttered but homey counter, pots on stove, relaxed evening mood, photorealistic
+**ID:** `kitchenEvening-2`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman tasting sauce from a spoon, thoughtful expression, warm evening light, relaxed mood, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `kitchenEvening-3`
-**Prompt:** Photorealistic 16:9, evening kitchen scene, a 45-year-old woman draining pasta into a colander over the sink, a cloud of steam around her, soft overhead light, apron over casual clothes, small family kitchen, documentary warmth, slightly backlit
+**ID:** `kitchenEvening-3`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman at the sink with steam, soft overhead light, apron over casual clothes, documentary warmth, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🛋️ livingroomMorning
 
-**ID:** `livingroomMorning-1`
-**Prompt:** Photorealistic 16:9, morning living room, a 45-year-old woman on the couch with a coffee mug watching morning news with a mildly worried expression, natural morning light from side windows, casual pajamas, family living room with moving boxes still partially visible, warm but modest décor
+**ID:** `livingroomMorning-1`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman on the couch with coffee watching morning news, mildly worried expression, morning light, casual pajamas, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `livingroomMorning-2`
-**Prompt:** Photorealistic 16:9, bright morning living room, a 45-year-old woman folding laundry on the sofa, neatly sorted piles, comfortable home clothes, morning light from a large window, focused but peaceful, slightly messy background from an ongoing move, cinematic grain
+**ID:** `livingroomMorning-2`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman folding laundry on the sofa, comfortable home clothes, morning light, focused but peaceful, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `livingroomMorning-3`
-**Prompt:** Photorealistic 16:9, morning family room, a 45-year-old woman standing at the window looking out at the street with coffee in hand, soft morning backlight, relaxed posture but thoughtful expression, modest living room with half-unpacked shelves behind her, documentary warmth
+**ID:** `livingroomMorning-3`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman at the window with coffee, soft morning backlight, thoughtful expression, documentary warmth, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🛋️ livingroomAfternoon
 
-**ID:** `livingroomAfternoon-1`
-**Prompt:** Photorealistic 16:9, afternoon living room, a 45-year-old woman sitting on the couch with a book open on her lap and glasses on, afternoon light, soft expression, dog-eared pages, casual house clothes, warm but lived-in room, photorealistic documentary
+**ID:** `livingroomAfternoon-1`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman on the couch with a book and glasses, afternoon light, soft expression, casual house clothes, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `livingroomAfternoon-2`
-**Prompt:** Photorealistic 16:9, family living room in the afternoon, a 45-year-old woman sitting with the TV on but not really watching, turned slightly toward camera with a thoughtful expression, afternoon light, reading glasses on the table beside her, comfortable sofa, warm tones
+**ID:** `livingroomAfternoon-2`  
+**Prompt:** Photorealistic 16:9, two-shot framing, a 45-year-old woman on the sofa turned toward her daughter ( 18 years old ), thoughtful expression, afternoon light, warm tones, alongside her daughter ( 18 years old ). Preserve reference composition; do not add new objects.
 
-**ID:** `livingroomAfternoon-3`
-**Prompt:** Photorealistic 16:9, afternoon domestic scene, a 45-year-old woman dusting a bookshelf in the living room, methodical and focused, afternoon window light, casual home clothes, shelves being organized with books and framed photos, soft cinematic warmth
+**ID:** `livingroomAfternoon-3`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman dusting in living room, methodical, afternoon window light, casual home clothes. Daughter (18yo) seated, occasionally glancing at her mother. Preserve reference composition.
 
 ---
 
 #### 🛋️ livingroomEvening
 
-**ID:** `livingroomEvening-1`
-**Prompt:** Photorealistic 16:9, cozy evening living room, a 45-year-old woman settled into the corner of a sofa, warm lamp light, herbal tea mug in hands, TV on low in background, comfortable pajamas, quiet family room, warm amber tones, intimate and peaceful
+**ID:** `livingroomEvening-1`  
+**Prompt:** Photorealistic 16:9, two-shot, 45yo woman in corner of sofa with herbal tea, warm lamp light, comfortable pajamas. Daughter (18yo) on other end of sofa, Looking forward. Preserve reference composition.
 
-**ID:** `livingroomEvening-2`
-**Prompt:** Photorealistic 16:9, living room at night, a 45-year-old woman turning off a side lamp getting ready to head upstairs, one lamp still on, warm late-evening light, quietly tired but at peace, family photos on the wall, cinematic documentary
+**ID:** `livingroomEvening-2`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman turning off a lamp, warm late-evening light, quietly tired but at peace. Daughter (18yo) in doorway, looking at her mother. Preserve reference composition.
 
-**ID:** `livingroomEvening-3`
-**Prompt:** Photorealistic 16:9, evening family room, a 45-year-old woman collecting mugs and glasses from around the room, doing a final round before bed, low warm lamp light, comfortable robe, lived-in room, peaceful end-of-day mood, photorealistic
+**ID:** `livingroomEvening-3`  
+**Prompt:** Photorealistic 16:9, wide shot, 45yo woman collecting mugs before bed, low warm lamp light, comfortable robe. Daughter (18yo) on the sofa, looking at her mother. Preserve reference composition.
 
 ---
 
 #### 🌿 backyardMorning
 
-**ID:** `backyardMorning-1`
-**Prompt:** Photorealistic 16:9, suburban backyard at 8am, a 45-year-old woman standing with coffee mug studying the garden with quiet focus, soft morning sunlight, casual clothes, modest garden with flower beds, slight dew on the grass, peaceful and hopeful, documentary warmth
+**ID:** `backyardMorning-1`  
+**Prompt:** Photorealistic 16:9, two-shot, 45yo woman standing with coffee mug looking at the garden, soft morning sunlight, casual clothes. Daughter (18yo) beside her, looking toward the garden. Preserve reference composition.
 
-**ID:** `backyardMorning-2`
-**Prompt:** Photorealistic 16:9, garden morning scene, a 45-year-old woman crouched by a flower bed pulling weeds with focused patience, soft morning light, garden gloves, casual outdoor clothes, dew still on the ground, birds in background, photorealistic cinematic
+**ID:** `backyardMorning-2`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman crouched by the garden pulling weeds, soft morning light, garden gloves. Daughter (18yo) standing nearby, looking at her mother. Preserve reference composition.
 
-**ID:** `backyardMorning-3`
-**Prompt:** Photorealistic 16:9, suburban backyard morning, a 45-year-old woman sitting on back steps with both hands around a coffee mug looking at the garden, soft warm sunlight, relaxed posture, comfortable home clothes, small potted plants nearby, quiet and grounded
+**ID:** `backyardMorning-3`  
+**Prompt:** Photorealistic 16:9, wide shot, 45yo woman sitting with both hands around a coffee mug looking at the garden, soft warm sunlight, comfortable home clothes. Daughter (18yo) walking toward her, looking at her mother. Preserve reference composition.
 
 ---
 
 #### 🌿 backyardAfternoon
 
-**ID:** `backyardAfternoon-1`
-**Prompt:** Photorealistic 16:9, afternoon garden, a 45-year-old woman watering plants with a metal watering can, methodical and unhurried, afternoon sunlight, casual outdoor clothes, modest backyard garden with mixed plantings, warm natural light, documentary warmth
+**ID:** `backyardAfternoon-1`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman watering plants, methodical, afternoon sunlight, casual outdoor clothes. Daughter (18yo) in background, looking at her mother. Preserve reference composition.
 
-**ID:** `backyardAfternoon-2`
-**Prompt:** Photorealistic 16:9, suburban backyard afternoon, a 45-year-old woman sitting in a garden chair in the shade with a book and a glass of water, relaxed expression, afternoon dappled light, casual clothes, small garden table beside her, peaceful summer atmosphere
+**ID:** `backyardAfternoon-2`  
+**Prompt:** Photorealistic 16:9, two-shot, 45yo woman sitting outdoors, relaxed expression, afternoon dappled light. Daughter (18yo) beside her, looking toward the garden. Preserve reference composition.
 
-**ID:** `backyardAfternoon-3`
-**Prompt:** Photorealistic 16:9, garden afternoon, a 45-year-old woman deadheading flowers with careful deliberate snips, working slowly, afternoon light through trees, comfortable old gardening clothes, flower clippings in a small basket, focused and content, cinematic close depth of field
+**ID:** `backyardAfternoon-3`  
+**Prompt:** Photorealistic 16:9, close-up, 45yo woman deadheading flowers, careful snips, comfortable gardening clothes, afternoon light. Looking down at the flowers. Daughter (18yo) out of frame, implied presence. Preserve reference composition.
 
 ---
 
 #### 🛏️ parentsroomMorning
 
-**ID:** `parentsroomMorning-1`
-**Prompt:** Photorealistic 16:9, master bedroom morning, a 45-year-old woman at a vanity mirror brushing her hair, morning light from a side window, casual home clothes, modest bedroom with a neatly made bed behind her, unhurried morning routine, warm and domestic
+**ID:** `parentsroomMorning-1`  
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 45yo woman unhurried morning routine, morning light. Looking forward. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
-**ID:** `parentsroomMorning-2`
-**Prompt:** Photorealistic 16:9, master bedroom morning scene, a 45-year-old woman making the bed, smoothing the duvet with practiced precision, morning light, comfortable casual clothes, modest family bedroom, framed photos on the nightstand, methodical and calm
+**ID:** `parentsroomMorning-2`  
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter. 45yo woman focused on a morning task, morning light. Looking down. Preserve reference composition; do not add new objects.
 
-**ID:** `parentsroomMorning-3`
-**Prompt:** Photorealistic 16:9, family bedroom morning, a 45-year-old woman searching through a small bag looking for something with mild frustration, morning light, still partially in her robe, bedroom slightly lived-in, reading glasses on the nightstand, documentary warmth
+**ID:** `parentsroomMorning-3`  
+**Prompt:** Photorealistic 16:9, medium close-up, both women in frame. 45yo woman mild frustration, searching expression, morning light, partially in her robe. Looking down. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🛏️ parentsroomEvening
 
-**ID:** `parentsroomEvening-1`
-**Prompt:** Photorealistic 16:9, master bedroom evening, a 45-year-old woman sitting on the edge of the bed in pajamas, shoes off, massaging one foot with a tired but peaceful expression, bedside lamp on, warm low light, modest family bedroom, end-of-day decompression
+**ID:** `parentsroomEvening-1`  
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 45yo woman tired but peaceful, warm low lamp light, pajamas. Looking down. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
-**ID:** `parentsroomEvening-2`
-**Prompt:** Photorealistic 16:9, master bedroom at night, a 45-year-old woman at a small vanity slowly taking off jewelry, looking in the mirror with quiet contemplation, warm bedside lamp light, pajamas on, soft amber tones, intimate and personal, cinematic grain
+**ID:** `parentsroomEvening-2`  
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter. 45yo woman quiet contemplation, warm lamp light, pajamas. Looking forward. Preserve reference composition; do not add new objects.
 
-**ID:** `parentsroomEvening-3`
-**Prompt:** Photorealistic 16:9, bedroom nighttime scene, a 45-year-old woman sitting cross-legged on the bed in pajamas looking at her phone, reading glasses on, bedside lamp, warm and low light, modest bedroom, at ease and winding down, documentary warmth
+**ID:** `parentsroomEvening-3`  
+**Prompt:** Photorealistic 16:9, medium close-up, both women in frame. 45yo woman winding down, warm low lamp light, pajamas, reading glasses on. Looking down. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
 ---
 
@@ -150,134 +160,134 @@
 
 ### 📁 `assets/content/scenes/interactions/mother/level2/`
 
-> **Style difference from Level 1:** Slightly closer framing, warmer color grading, softer smiles, more eye contact toward camera, gentle personal atmosphere. Same locations, more intimate mood.
+> **Style difference from Level 1:** Slightly closer framing, warmer color grading, softer smiles, more eye contact toward her daughter ( 18 years old ), gentle personal atmosphere. Same locations, more intimate mood.
 
 ---
 
 #### 🍳 kitchenMorning
 
-**ID:** `kitchenMorning-1`
-**Prompt:** Photorealistic 16:9, warm morning kitchen, a 45-year-old woman with brown hair sliding a second mug of coffee across the counter with a quiet knowing smile, morning light, casual pajamas, small family kitchen with morning dishware, intimate and warm, shallow depth of field, cinematic
+**ID:** `kitchenMorning-1`  
+**Prompt:** Photorealistic 16:9, close-up, 45yo woman sliding a second mug of coffee across the counter with a quiet knowing smile, morning light, casual pajamas. Looking at the counter as she slides the mug. Daughter (18yo) receiving the mug, looking at her mother. Preserve reference composition.
 
-**ID:** `kitchenMorning-2`
-**Prompt:** Photorealistic 16:9, morning kitchen scene, a 45-year-old woman making oatmeal for two at the stove, turning back over her shoulder with a fond expression, soft morning light, family kitchen, warm yellow tones, comfortable home clothes, domestic intimacy
+**ID:** `kitchenMorning-2`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman at the stove turning back with a fond expression, soft morning light, comfortable home clothes. Looking back toward her daughter with warmth. Daughter (18yo) at the table, looking at her mother. Preserve reference composition.
 
-**ID:** `kitchenMorning-3`
-**Prompt:** Photorealistic 16:9, a 45-year-old woman humming while washing fruit at the kitchen sink, slightly startled and laughing as she turns, morning light, warm kitchen, casual pajamas, genuinely amused expression, candid moment, photorealistic warmth
+**ID:** `kitchenMorning-3`  
+**Prompt:** Photorealistic 16:9, two-shot, 45yo woman at the kitchen sink, slightly startled and laughing as she turns, morning light, casual pajamas. Looking toward her daughter mid-laugh. Daughter (18yo) nearby, smiling at her mother. Preserve reference composition.
 
 ---
 
 #### 🍳 kitchenAfternoon
 
-**ID:** `kitchenAfternoon-1`
-**Prompt:** Photorealistic 16:9, afternoon kitchen, a 45-year-old woman and younger person cooking together, she's demonstrating something at the stovetop with an animated expression, steam rising, warm afternoon light, family kitchen, engaged and happy, close framing
+**ID:** `kitchenAfternoon-1`  
+**Prompt:** Photorealistic 16:9, close-up, 45yo woman at the stovetop with animated expression, steam rising, warm afternoon light, engaged and happy. Looking down. Daughter (18yo) out of frame, implied interaction. Preserve reference composition.
 
-**ID:** `kitchenAfternoon-2`
-**Prompt:** Photorealistic 16:9, kitchen midday, a 45-year-old woman making tea and setting a second cup on the table, sitting down across from someone with a thoughtful caring expression, warm domestic light, modest kitchen, intimate conversation mood
+**ID:** `kitchenAfternoon-2`  
+**Prompt:** Photorealistic 16:9, two-shot, 45yo woman making tea, sitting with a thoughtful caring expression, warm domestic light. Looking down. Daughter (18yo) seated opposite, looking at her mother. Preserve reference composition.
 
-**ID:** `kitchenAfternoon-3`
-**Prompt:** Photorealistic 16:9, family kitchen afternoon, a 45-year-old woman pausing while putting food in the fridge, turning with a quietly genuine expression on her face, warm afternoon light, casual clothes, moment of emotional openness, photorealistic cinematic
+**ID:** `kitchenAfternoon-3`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman pausing at the fridge, turning with a quietly genuine expression, warm afternoon light. Looking toward her daughter with soft eyes. Daughter (18yo) in the kitchen, looking at her mother. Preserve reference composition.
 
 ---
 
 #### 🍳 kitchenEvening
 
-**ID:** `kitchenEvening-1`
-**Prompt:** Photorealistic 16:9, warm evening kitchen, a 45-year-old woman and a younger person working side by side at the counter preparing dinner, both relaxed, warm overhead pendant light, natural comfortable closeness, family kitchen, cinematic warmth
+**ID:** `kitchenEvening-1`  
+**Prompt:** Photorealistic 16:9, wide shot, 45yo woman at the counter preparing dinner, relaxed, warm evening light. Looking down at what she's preparing. Daughter (18yo) at the table, looking at her mother. Preserve reference composition.
 
-**ID:** `kitchenEvening-2`
-**Prompt:** Photorealistic 16:9, family kitchen at dusk, a 45-year-old woman laughing mid-stir at the stove, warm memory sparked by something, soft evening light, comfortable clothes, the kitchen glowing warmly around her, genuine and unguarded
+**ID:** `kitchenEvening-2`  
+**Prompt:** Photorealistic 16:9, close-up, 45yo woman laughing mid-stir at the stove, soft evening light, genuine and unguarded. Looking toward her daughter, laughing. Daughter (18yo) out of frame, implied interaction. Preserve reference composition.
 
-**ID:** `kitchenEvening-3`
-**Prompt:** Photorealistic 16:9, intimate kitchen evening scene, a 45-year-old woman reaching past someone to touch their arm briefly as she moves toward the stove, natural warm gesture, golden evening light, close domestic warmth, not posed — candid and real
+**ID:** `kitchenEvening-3`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman reaching to touch her daughter's arm briefly, natural warm gesture, golden evening light. Looking at her daughter's arm. Daughter (18yo) looking at her mother. Preserve reference composition.
 
 ---
 
 #### 🛋️ livingroomMorning
 
-**ID:** `livingroomMorning-1`
-**Prompt:** Photorealistic 16:9, morning living room, a 45-year-old woman on the sofa having turned the TV off to talk, leaning slightly forward with genuine interest, morning light, warm expression, casual home clothes, welcoming and open body language
+**ID:** `livingroomMorning-1`  
+**Prompt:** Photorealistic 16:9, two-shot, 45yo woman on the sofa leaning forward with genuine interest, morning light, warm expression. Looking directly at her daughter. Daughter (18yo) seated across, looking at her mother. Preserve reference composition.
 
-**ID:** `livingroomMorning-2`
-**Prompt:** Photorealistic 16:9, family living room morning, a 45-year-old woman holding an old holiday photo, smiling with quiet nostalgia, morning window light, cozy home clothes, a small pile of unpacked mementos beside her, warm and personal
+**ID:** `livingroomMorning-2`  
+**Prompt:** Photorealistic 16:9, close-up, 45yo woman holding a photo with quiet nostalgia, morning window light, warm and personal. Looking at the photo in her hand. Daughter (18yo) out of frame, implied shared memory. Preserve reference composition.
 
-**ID:** `livingroomMorning-3`
-**Prompt:** Photorealistic 16:9, living room morning, a 45-year-old woman leaning slightly toward someone beside her and briefly squeezing their hand with a soft reassuring expression, morning light, cozy sofa, warm domestic scene, tender and natural moment
+**ID:** `livingroomMorning-3`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman squeezing her daughter's hand with soft reassuring expression, morning light, tender moment. Looking at her daughter's hand. Daughter (18yo) looking at her mother. Preserve reference composition.
 
 ---
 
 #### 🛋️ livingroomAfternoon
 
-**ID:** `livingroomAfternoon-1`
-**Prompt:** Photorealistic 16:9, afternoon living room, a 45-year-old woman settled comfortably on the sofa talking, leaning in with open engaged expression, afternoon light, casual clothes, close framing, emotional and real conversation mood, warm tones
+**ID:** `livingroomAfternoon-1`  
+**Prompt:** Photorealistic 16:9, two-shot, 45yo woman on the sofa leaning in with open engaged expression, afternoon light. Looking at her daughter with genuine curiosity. Daughter (18yo) beside her, looking at her mother. Preserve reference composition.
 
-**ID:** `livingroomAfternoon-2`
-**Prompt:** Photorealistic 16:9, family living room afternoon, a 45-year-old woman laughing at something she's telling — genuinely, head tilted back slightly, afternoon light on her face, cozy sofa, warm domestic scene, relaxed and unguarded
+**ID:** `livingroomAfternoon-2`  
+**Prompt:** Photorealistic 16:9, close-up, 45yo woman laughing genuinely, head tilted back slightly, afternoon light, relaxed. Looking off to the side mid-laugh. Daughter (18yo) out of frame, implied shared humor. Preserve reference composition.
 
-**ID:** `livingroomAfternoon-3`
-**Prompt:** Photorealistic 16:9, afternoon living room, a 45-year-old woman speaking quietly with a personal confiding expression, sitting on the sofa, afternoon window light, calm and slightly vulnerable, warm and intimate domestic atmosphere
+**ID:** `livingroomAfternoon-3`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman on the sofa with a personal confiding expression, afternoon window light, calm and intimate. Looking toward her daughter. Daughter (18yo) listening intently, looking at her mother. Preserve reference composition.
 
 ---
 
 #### 🛋️ livingroomEvening
 
-**ID:** `livingroomEvening-1`
-**Prompt:** Photorealistic 16:9, cozy living room evening, a 45-year-old woman watching a film with someone beside her, laughing genuinely at the screen, warm lamp light, comfortable shared-sofa moment, blanket, tea mugs, intimate family warmth
+**ID:** `livingroomEvening-1`  
+**Prompt:** Photorealistic 16:9, two-shot, 45yo woman laughing, looking at the TV screen, warm lamp light, comfortable pajamas. Daughter (18yo) on the sofa, looking at her mother. Preserve reference composition.
 
-**ID:** `livingroomEvening-2`
-**Prompt:** Photorealistic 16:9, evening living room, a 45-year-old woman pausing on her way to the stairs, looking back with a warm genuine smile, lamp light, pajamas, natural unposed moment of quiet affection, cinematic warmth
+**ID:** `livingroomEvening-2`  
+**Prompt:** Photorealistic 16:9, close-up, 45yo woman pausing, looking at her daughter with a warm genuine smile, lamp light, pajamas. Daughter (18yo) looking at her mother. Preserve reference composition.
 
-**ID:** `livingroomEvening-3`
-**Prompt:** Photorealistic 16:9, warm evening living room, a 45-year-old woman giving a brief sincere hug before heading upstairs, warm lamp light, comfortable pajamas, not dramatic — real and natural, family warmth, close framing, soft amber tones
+**ID:** `livingroomEvening-3`  
+**Prompt:** Photorealistic 16:9, medium shot, 45yo woman giving a brief sincere hug, warm lamp light, comfortable pajamas. Daughter (18yo) hugging back, neither looking at camera; candid. Preserve reference composition.
 
 ---
 
 #### 🌿 backyardMorning
 
-**ID:** `backyardMorning-1`
-**Prompt:** Photorealistic 16:9, backyard morning, a 45-year-old woman showing a napkin sketch of garden plans with animated enthusiasm, morning light, casual outdoor clothes, small suburban garden, excited homemaker energy, close warm framing
+**ID:** `backyardMorning-1`  
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 45yo woman animated and enthusiastic, morning light, casual outdoor clothes. Looking toward her daughter. Daughter (18yo) looking at her mother engaged. Preserve reference composition; do not add new objects.
 
-**ID:** `backyardMorning-2`
-**Prompt:** Photorealistic 16:9, garden morning, a 45-year-old woman and younger person sitting on back steps with coffees, quiet comfortable companionship, shoulder-to-shoulder, soft morning sunlight, modest backyard, warm and grounded, documentary warmth
+**ID:** `backyardMorning-2`  
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter. 45yo woman quiet and comfortable, soft morning sunlight. Looking forward. Preserve reference composition; do not add new objects.
 
-**ID:** `backyardMorning-3`
-**Prompt:** Photorealistic 16:9, suburban garden morning, a 45-year-old woman grinning while holding up an old worn trowel like a prize, morning backlight, garden gloves, casual clothes, laughing at a private memory, genuine and warm
+**ID:** `backyardMorning-3`  
+**Prompt:** Photorealistic 16:9, medium close-up, both women in frame. 45yo woman grinning with pleased expression, morning backlight. Looking toward her daughter, amused. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🌿 backyardAfternoon
 
-**ID:** `backyardAfternoon-1`
-**Prompt:** Photorealistic 16:9, afternoon garden, a 45-year-old woman sitting beside someone on a garden bench talking with open calm expression, afternoon dappled light, casual outdoor clothes, modest suburban backyard, natural conversation warmth
+**ID:** `backyardAfternoon-1`  
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 45yo woman with open calm expression, afternoon dappled light. Looking toward her daughter. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
-**ID:** `backyardAfternoon-2`
-**Prompt:** Photorealistic 16:9, backyard afternoon, a 45-year-old woman laughing as she nearly drops several garden items, reaching to catch something, comic moment, afternoon light, casual garden clothes, genuinely amused, candid and real
+**ID:** `backyardAfternoon-2`  
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter. 45yo woman laughing, warm and unguarded, afternoon light. Looking toward her daughter mid-laugh. Preserve reference composition; do not add new objects.
 
-**ID:** `backyardAfternoon-3`
-**Prompt:** Photorealistic 16:9, garden afternoon, a 45-year-old woman looking at the sky with a quiet reflective expression, afternoon warm light, comfortable outdoor clothes, nostalgic and thoughtful, soft focus background with garden, personal and warm
+**ID:** `backyardAfternoon-3`  
+**Prompt:** Photorealistic 16:9, medium close-up, both women in frame. 45yo woman with quiet reflective expression, soft afternoon light. Looking to the side, thoughtful. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🛏️ parentsroomMorning
 
-**ID:** `parentsroomMorning-1`
-**Prompt:** Photorealistic 16:9, master bedroom morning, a 45-year-old woman at the vanity mirror looking back over her shoulder with a warm fond expression, morning light, casual clothes, framed family photo on the dresser, intimate domestic warmth
+**ID:** `parentsroomMorning-1`  
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 45yo woman warm fond expression, morning light. Looking back toward her daughter with affection. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
-**ID:** `parentsroomMorning-2`
-**Prompt:** Photorealistic 16:9, bedroom morning scene, a 45-year-old woman handing someone something small she picked up for them, warm unpretentious gesture, morning light, modest bedroom, genuine and lightly emotional, soft documentary warmth
+**ID:** `parentsroomMorning-2`  
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter. 45yo woman warm gentle gesture, morning light. Looking at her hands. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
-**ID:** `parentsroomMorning-3`
-**Prompt:** Photorealistic 16:9, family bedroom morning, a 45-year-old woman giving a brief natural hug on her way out, morning light, comfortable home clothes, normal everyday tenderness — not posed, just real, warm amber morning tones
+**ID:** `parentsroomMorning-3`  
+**Prompt:** Photorealistic 16:9, medium close-up, both women in frame. 45yo woman giving a brief natural hug, morning light. Both looking away from camera in the embrace; candid. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🛏️ parentsroomEvening
 
-**ID:** `parentsroomEvening-1`
-**Prompt:** Photorealistic 16:9, master bedroom evening, a 45-year-old woman sitting on the bed edge looking up with a tired but warm genuine smile, bedside lamp, pajamas, low warm light, someone at the door, intimate family warmth, cinematic grain
+**ID:** `parentsroomEvening-1`  
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 45yo woman tired but warm genuine smile, bedside lamp, pajamas, low warm light. Looking up toward her daughter. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.
 
-**ID:** `parentsroomEvening-2`
-**Prompt:** Photorealistic 16:9, bedroom at night, a 45-year-old woman giving a longer real hug in the bedroom, warm lamp light, pajamas, eyes closed, natural maternal tenderness, soft amber tones, close framing, photorealistic
+**ID:** `parentsroomEvening-2`  
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter. 45yo woman giving a longer real hug, warm lamp light, pajamas, natural tenderness. Both looking away from camera in the embrace; candid. Preserve reference composition; do not add new objects.
 
-**ID:** `parentsroomEvening-3`
-**Prompt:** Photorealistic 16:9, intimate bedroom night scene, a 45-year-old woman cupping someone's face briefly with a quiet knowing expression before letting go, warm bedside lamp, pajamas, deeply tender and understated, soft cinematic warmth
+**ID:** `parentsroomEvening-3`  
+**Prompt:** Photorealistic 16:9, medium close-up, both women in frame. 45yo woman quiet knowing expression, warm bedside lamp, pajamas. Looking at her daughter's face with tenderness. Daughter (18yo) looking at her mother. Preserve reference composition; do not add new objects.

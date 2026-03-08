@@ -55,6 +55,7 @@
 <<if _topic.love>><<gainCharacterStat "father" "love" _topic.love>><</if>>
 <<recalculateStats>>
 <</silently>>
+<<nobr>>
 <div class="talk-interaction">
 <<narrative "Backyard - Talk with Father">>
 <<if _phase === "preWork">>
@@ -76,3 +77,4 @@ He's rare in the backyard since work started, but here he is — making use of t
 <</if>>
 </div>
 </div>
+<</nobr>>

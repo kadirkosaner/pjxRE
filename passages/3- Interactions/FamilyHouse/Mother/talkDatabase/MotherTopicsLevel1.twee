@@ -1,35 +1,26 @@
 /* ==========================================
    MOTHER TALK TOPICS — LEVEL 1
-   friendshipLevel === 1
-
-   Structure: setup.motherTopics.level1[locTimeKey][topicName] = [ {text, friendship, trust, love} ]
-   System: pick random topic → pick random variation from that topic
-
-   LEVEL 1 TONE:
-   → Family routine, warm but not yet personal
-   → Short everyday conversations, no physical contact
-   → Mom is caring but slightly reserved
-   → Stat gains are small (friendship +1 to +2)
-
-   10 CONTEXTS (location_timeSlot):
-   fhKitchen_morning    fhKitchen_afternoon    fhKitchen_evening
-   fhLivingroom_morning fhLivingroom_afternoon fhLivingroom_evening
-   fhBackyard_morning   fhBackyard_afternoon
-   fhParentsRoom_morning fhParentsRoom_evening
+   IMG MAPPING:
+   kitchenMorning:      coffee=1, breakfast=2, smalltalk=3
+   kitchenAfternoon:    leftovers=1, chores=2, errand=3
+   kitchenEvening:      dinner=1, family=2, help=3
+   livingroomMorning:   news=1, laundry=2, newHouse=3
+   livingroomAfternoon: reading=1, tv=2, task=3
+   livingroomEvening:   unwind=1, checkIn=2, endOfDay=3
+   backyardMorning:     garden=1, coffee=2, quietMoment=3
+   backyardAfternoon:   watering=1, resting=2, observation=3
+   parentsRoomMorning:  gettingReady=1, lost=2, bedMaking=3
+   parentsRoomEvening:  tired=1, goodnight=2, reflection=3
 ========================================== */
 
 <<set setup.motherTopics = setup.motherTopics || {}>>
 <<set setup.motherTopics.level1 = {
 
-    /* ==========================================
-       KITCHEN — MORNING
-       Mom making breakfast, still waking up
-    ========================================== */
     fhKitchen_morning: {
 
         coffee: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>Mom's at the counter in her pajamas, staring at the coffee machine like it owes her something.<</narrative>>
 <<dialog "mother">>Coffee's almost ready. You want some?<</dialog>>
@@ -38,7 +29,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's pouring herself a second cup before she's even finished the first.<</narrative>>
 <<dialog "mother">>Morning. Sleep okay?<</dialog>>
@@ -49,7 +40,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's sitting at the table, both hands wrapped around her mug, staring at nothing in particular.<</narrative>>
 <<dialog "mother">>You're up early.<</dialog>>
@@ -61,7 +52,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
 
         breakfast: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's at the stove making eggs, spatula in hand, moving with the ease of someone who's done this ten thousand times.<</narrative>>
 <<dialog "mother">>Eggs?<</dialog>>
@@ -72,7 +63,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's slicing bread, the toaster already golden and warm on the counter.<</narrative>>
 <<dialog "mother">>Toast is ready. There's butter and jam if you want it.<</dialog>>
@@ -83,7 +74,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's eating standing up, plate balanced in one hand, scrolling through her phone with the other.<</narrative>>
 <<dialog "mother">>Oh — there's oatmeal on the stove if you want some.<</dialog>>
@@ -97,7 +88,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
 
         smalltalk: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's reading a recipe on her tablet, propped against the fruit bowl.<</narrative>>
 <<dialog "mother">>Is it cold in your room? I keep meaning to check the heating.<</dialog>>
@@ -106,7 +97,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She glances out the window at the sky — grey, uncertain.<</narrative>>
 <<dialog "mother">>Looks like rain. Do you have plans today?<</dialog>>
@@ -115,7 +106,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's rinsing dishes, apparently working through something in her head.<</narrative>>
 <<dialog "mother">>Your father said the garage door makes a noise. You haven't heard anything, have you?<</dialog>>
@@ -128,15 +119,11 @@ I hate calling repairmen. They always act like you should already know what's wr
         ]
     },
 
-    /* ==========================================
-       KITCHEN — AFTERNOON
-       After lunch, kitchen tidying up
-    ========================================== */
     fhKitchen_afternoon: {
 
         leftovers: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's putting food away in containers, labeling them with little sticky notes.<</narrative>>
 <<dialog "mother">>Did you eat lunch? There's leftovers in the fridge — top shelf.<</dialog>>
@@ -147,7 +134,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAft
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's eating alone at the table, the remains of a simple lunch in front of her.<</narrative>>
 <<dialog "mother">>You're just in time. Sit.<</dialog>>
@@ -156,7 +143,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAft
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's wrapping something in foil, frowning at the fridge like she's doing mental math.<</narrative>>
 <<dialog "mother">>I made too much again. I always make too much.<</dialog>>
@@ -168,7 +155,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAft
 
         chores: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's wiping down the counter with focused, rhythmic strokes.<</narrative>>
 <<dialog "mother">>(without looking up) You didn't leave the bathroom light on again, did you?<</dialog>>
@@ -179,7 +166,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAft
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's reorganizing the pantry shelf, things shuffled in and out of place.<</narrative>>
 <<dialog "mother">>Can you hold this for a second?<</dialog>>
@@ -190,7 +177,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAft
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's going through the recycling, sorting with quiet efficiency.<</narrative>>
 <<dialog "mother">>We go through a lot of packaging. I'm trying to buy less of it but it's everywhere.<</dialog>>
@@ -205,7 +192,7 @@ Would you mind taking this to the bin outside?<</dialog>>
 
         errand: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's making tea, pulling out a second mug without being asked.<</narrative>>
 <<dialog "mother">>I went to the market this morning. They had good biscuits — blue tin, top cupboard.<</dialog>>
@@ -216,7 +203,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAft
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's checking her phone against a handwritten shopping list, crossing things off.<</narrative>>
 <<dialog "mother">>I need to go out again later. Did you think of anything you need?<</dialog>>
@@ -227,7 +214,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAft
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's putting away groceries, filling up the fridge methodically.<</narrative>>
 <<dialog "mother">>Your father wanted that cereal again. I got two boxes because he'll go through one in four days.<</dialog>>
@@ -242,15 +229,11 @@ I got you a few extra things too. Just basics.<</dialog>>
         ]
     },
 
-    /* ==========================================
-       KITCHEN — EVENING
-       Dinner prep, end of the day
-    ========================================== */
     fhKitchen_evening: {
 
         dinner: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's stirring something on the stove, steam rising. The kitchen smells warm and familiar.<</narrative>>
 <<dialog "mother">>Perfect timing. Can you set the table?<</dialog>>
@@ -260,7 +243,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEve
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's tasting the sauce off a wooden spoon, brow furrowed in concentration.<</narrative>>
 <<dialog "mother">>Here — taste this. Tell me if it needs something.<</dialog>>
@@ -270,7 +253,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEve
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's draining pasta into the sink, a cloud of steam rising up around her.<</narrative>>
 <<dialog "mother">>Can you grab the colander? Bottom left cabinet.<</dialog>>
@@ -286,7 +269,7 @@ About twenty minutes. You hungry?<</dialog>>
 
         family: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's setting plates out, glancing at the clock.<</narrative>>
 <<dialog "mother">>Your father called. He'll be a bit late again.<</dialog>>
@@ -297,7 +280,7 @@ It always settles down.<</dialog>>`,
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's putting together a salad, still dressed from earlier.<</narrative>>
 <<dialog "mother">>What did you do today?<</dialog>>
@@ -308,7 +291,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEve
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>Jake wanders in and grabs something from the fridge, disappears again. Mom watches him go.<</narrative>>
 <<dialog "mother">>(quietly) Does he seem okay to you?<</dialog>>
@@ -322,7 +305,7 @@ Keep an eye on him if you can. He listens to you.<</dialog>>`,
 
         help: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's clearly in the middle of several things at once — oven, stove, and something in the sink.<</narrative>>
 <<dialog "mother">>Could you watch the pot? Just make sure it doesn't boil over. I'll be right back.<</dialog>>
@@ -333,7 +316,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEve
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's washing up while things cook, hands deep in soapy water.<</narrative>>
 <<dialog "mother">>Can you dry?<</dialog>>
@@ -346,7 +329,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEve
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's slicing bread at the counter, clearly tired but pushing through.<</narrative>>
 <<dialog "mother">>Could you check if there's more olive oil? The cupboard above the stove.<</dialog>>
@@ -359,15 +342,11 @@ Small victories.<</dialog>>`,
         ]
     },
 
-    /* ==========================================
-       LIVING ROOM — MORNING
-       TV, laundry, the house still waking up
-    ========================================== */
     fhLivingroom_morning: {
 
         news: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's on the couch with her coffee, watching the morning news with a vaguely worried expression.<</narrative>>
 <<dialog "mother">>Morning. Do you need the TV?<</dialog>>
@@ -378,7 +357,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She mutes the TV when you walk in, like she's been waiting for someone to talk to.<</narrative>>
 <<dialog "mother">>Apparently it's going to rain all week.<</dialog>>
@@ -391,7 +370,7 @@ Do you have anything going on today?<</dialog>>
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's watching something but clearly not really following it anymore.<</narrative>>
 <<dialog "mother">>Come sit a minute.<</dialog>>
@@ -407,7 +386,7 @@ How are you settling in? Really.<</dialog>>
 
         laundry: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's folding laundry on the couch, working through the pile with quiet efficiency.<</narrative>>
 <<dialog "mother">>Oh good, you're here. Can you hand me those towels?<</dialog>>
@@ -418,7 +397,7 @@ Your shirts are in that pile if you want them.<</dialog>>`,
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's matched all the socks and is now holding up one that has no pair.<</narrative>>
 <<dialog "mother">>Do you have odd socks upstairs? Because I've got one with no match and it's bothering me.<</dialog>>
@@ -429,7 +408,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's just finished a big pile, things neatly stacked in separate rows.<</narrative>>
 <<dialog "mother">>Can you take these up? The top two piles are yours.<</dialog>>
@@ -443,7 +422,7 @@ Actually — yes, put them away. It'll just sit there otherwise.<</dialog>>`,
 
         newHouse: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's looking out the window at the street, coffee in hand, quiet.<</narrative>>
 <<dialog "mother">>(without turning) The house makes sounds at night. Have you noticed?<</dialog>>
@@ -456,7 +435,7 @@ Still. I keep waking up thinking someone's there.<</dialog>>
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's looking at the room critically, like she's still mentally rearranging it.<</narrative>>
 <<dialog "mother">>I think the sofa should be over there. More light in the mornings.<</dialog>>
@@ -469,7 +448,7 @@ Does the room feel small to you?<</dialog>>
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's putting up a framed photo on the wall — adjusting it slightly, stepping back, adjusting again.<</narrative>>
 <<dialog "mother">>Is this level?<</dialog>>
@@ -482,15 +461,11 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
         ]
     },
 
-    /* ==========================================
-       LIVING ROOM — AFTERNOON
-       Reading, quiet time, small tasks
-    ========================================== */
     fhLivingroom_afternoon: {
 
         reading: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's on the couch with a book, legs tucked under her. She dog-ears the page when she sees you.<</narrative>>
 <<dialog "mother">>Hey. What are you up to?<</dialog>>
@@ -503,7 +478,7 @@ People making bad decisions. Very relatable. Possibly too relatable.<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's fallen asleep with her book open on her chest. She wakes up when you come in, a bit embarrassed.<</narrative>>
 <<dialog "mother">>(startled) Oh — I wasn't asleep.<</dialog>>
@@ -514,7 +489,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's finished her book and is sitting with it closed in her lap, looking vaguely satisfied.<</narrative>>
 <<dialog "mother">>I finished it.<</dialog>>
@@ -530,7 +505,7 @@ Do you read much?<</dialog>>
 
         tv: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's watching something on TV but doesn't seem that into it. She turns the volume down when you come in.<</narrative>>
 <<dialog "mother">>How was your morning? Do anything interesting?<</dialog>>
@@ -541,7 +516,7 @@ This show is terrible. I can't stop watching it.<</dialog>>`,
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>She pats the seat next to her — an invitation without words.<</narrative>>
 <<dialog "mother">>Come sit. I need someone to be annoyed at this with me.<</dialog>>
@@ -554,7 +529,7 @@ Say something!<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>The TV's off. She's just sitting quietly with her tea.<</narrative>>
 <<dialog "mother">>I turned it off. Too much noise.<</dialog>>
@@ -570,7 +545,7 @@ Are you doing okay? You seem a bit in your head.<</dialog>>
 
         task: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's writing in a small notebook — lists, by the look of it.<</narrative>>
 <<dialog "mother">>I'm making a list of things that still need doing in the house. The shelf, the hallway light, that gap in the kitchen skirting board...<</dialog>>
@@ -581,7 +556,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's dusting the bookshelves, methodical about it.<</narrative>>
 <<dialog "mother">>The dust collects so fast in a new house. No idea why.<</dialog>>
@@ -594,7 +569,7 @@ Can you move that lamp while I get back here?<</dialog>>
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's trying to hang something on the wall, struggling slightly with the angle.<</narrative>>
 <<dialog "mother">>Hold this flat? I need both hands for the drill.<</dialog>>
@@ -605,15 +580,13 @@ Life philosophy.<</dialog>>`,
                 friendship: 2
             }
         ]
-    /* ==========================================
-       LIVING ROOM — EVENING
-       Family time, winding down, quiet check-ins
-    ========================================== */
+    },
+
     fhLivingroom_evening: {
 
         unwind: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>The living room is lit warmly, the TV on low. She's settled into her usual corner of the couch.<</narrative>>
 <<dialog "mother">>Come watch something with me. I can't decide what to put on.<</dialog>>
@@ -624,7 +597,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's putting away odds and ends around the room, tidying without really thinking about it.<</narrative>>
 <<dialog "mother">>Can you believe the day went that fast?<</dialog>>
@@ -635,7 +608,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's on the couch with herbal tea, the house quieter than usual.<</narrative>>
 <<dialog "mother">>Do you want tea? I just made some.<</dialog>>
@@ -649,7 +622,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
 
         checkIn: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>Dad's watching sports in the background. She's sitting with her phone, half-watching.<</narrative>>
 <<dialog "mother">>(quietly) How are you doing? Really.<</dialog>>
@@ -660,7 +633,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
                 friendship: 2, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's alone in the room for once, the house quiet around her.<</narrative>>
 <<dialog "mother">>There you are. Sit for a minute?<</dialog>>
@@ -671,7 +644,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>She notices you standing in the doorway and waves you in.<</narrative>>
 <<dialog "mother">>Come in, don't hover. What's on your mind?<</dialog>>
@@ -683,7 +656,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
 
         endOfDay: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's turning off the side lamps, getting ready to head up for the night.<</narrative>>
 <<dialog "mother">>Going up soon. Don't stay up too late, okay?<</dialog>>
@@ -693,7 +666,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's about to head up but pauses when you come in.<</narrative>>
 <<dialog "mother">>Oh good, I wanted to ask — did you lock the back door?<</dialog>>
@@ -704,7 +677,7 @@ Goodnight. Sleep well.<</dialog>>`,
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's collecting mugs and glasses from around the room, doing a last round before bed.<</narrative>>
 <<dialog "mother">>Can you grab that one? On the far side.<</dialog>>
@@ -719,15 +692,11 @@ Another day done.<</dialog>>
         ]
     },
 
-    /* ==========================================
-       BACKYARD — MORNING
-       Garden plans, morning coffee outside
-    ========================================== */
     fhBackyard_morning: {
 
         garden: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's standing with her coffee, studying the garden with the focused expression of someone who sees potential others don't.<</narrative>>
 <<dialog "mother">>I want to plant something along that wall. Something that comes back every year.<</dialog>>
@@ -738,7 +707,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's crouched by one of the beds, pulling weeds with focused patience.<</narrative>>
 <<dialog "mother">>(looking up) There you are. Hand me that trowel?<</dialog>>
@@ -749,7 +718,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's examining a small potted plant that doesn't look great, turning it slowly.<</narrative>>
 <<dialog "mother">>I think I over-watered this one. Or under-watered. I can never tell which.<</dialog>>
@@ -765,7 +734,7 @@ This one's... undecided.<</dialog>>
 
         coffee: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's sitting in the garden chair, second coffee of the morning, looking more awake than earlier.<</narrative>>
 <<dialog "mother">>You want to sit a minute?<</dialog>>
@@ -776,7 +745,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She offers you a mug without you asking — she must have brought two out.<</narrative>>
 <<dialog "mother">>I thought you might come out. It's a nice morning.<</dialog>>
@@ -787,7 +756,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's leaning against the door frame with her mug, looking out at the yard without going in yet.<</narrative>>
 <<dialog "mother">>Do you hear that?<</dialog>>
@@ -803,7 +772,7 @@ I think they might be nesting.<</dialog>>
 
         quietMoment: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's just standing in the middle of the backyard doing nothing — not often you see that.<</narrative>>
 <<dialog "player">>You okay?<</dialog>>
@@ -813,7 +782,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's sitting perfectly still, eyes closed, face tilted toward the sun.<</narrative>>
 <<dialog "player">>(quietly) Should I come back?<</dialog>>
@@ -823,7 +792,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's sitting on the back step, not doing anything in particular, just being outside.<</narrative>>
 <<dialog "mother">>Come sit. I don't have anything to say — I just wanted company.<</dialog>>
@@ -837,15 +806,11 @@ It's a nice morning.<</dialog>>
         ]
     },
 
-    /* ==========================================
-       BACKYARD — AFTERNOON
-       Watering, resting, gentle observations
-    ========================================== */
     fhBackyard_afternoon: {
 
         watering: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's moving through the garden with the watering can, methodical, unhurried.<</narrative>>
 <<dialog "mother">>These need more water than I thought. The soil here drains faster than the old house.<</dialog>>
@@ -858,7 +823,7 @@ Do you garden at all?<</dialog>>
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She hands you the watering can without asking.<</narrative>>
 <<dialog "mother">>Start on the left side? I'll do the pots.<</dialog>>
@@ -869,7 +834,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAf
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's refilling the watering can at the outdoor tap, waiting for it to fill.<</narrative>>
 <<dialog "mother">>I keep thinking I should get a bigger can. This one takes five trips.<</dialog>>
@@ -884,7 +849,7 @@ You're surprisingly practical.<</dialog>>
 
         resting: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's sitting in the shade with a book and a glass of water. She shifts to make room when she sees you.<</narrative>>
 <<dialog "mother">>Come sit. I could use the company.<</dialog>>
@@ -895,7 +860,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAf
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's doing nothing, just sitting in the garden chair, face angled toward the light.<</narrative>>
 <<dialog "mother">>Don't have anywhere to be, do you?<</dialog>>
@@ -906,7 +871,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAf
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's put her book down and is just watching a bee work its way through the flowers.<</narrative>>
 <<dialog "mother">>(quietly) Look at that.<</dialog>>
@@ -920,7 +885,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAf
 
         observation: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's deadheading the flowers, working slowly and carefully.<</narrative>>
 <<dialog "mother">>You have to cut these back or they stop blooming. Sounds harsh but it's better.<</dialog>>
@@ -929,7 +894,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAf
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's looking at the neighboring yard over the fence, thoughtful.<</narrative>>
 <<dialog "mother">>The neighbors have lavender. Lots of it.<</dialog>>
@@ -942,7 +907,7 @@ Maybe over there.<</dialog>>
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's looking at something in the corner of the yard — a spot that doesn't get much sun.<</narrative>>
 <<dialog "mother">>What do you think goes in a shady corner?<</dialog>>
@@ -957,15 +922,11 @@ You do know gardening.<</dialog>>
         ]
     },
 
-    /* ==========================================
-       PARENTS ROOM — MORNING
-       Getting ready, brief moments before the day starts
-    ========================================== */
     fhParentsRoom_morning: {
 
         gettingReady: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's at the mirror, brushing her hair quickly. She sees you in the reflection.<</narrative>>
 <<dialog "mother">>Come in, it's fine. What do you need?<</dialog>>
@@ -974,7 +935,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's choosing between two similar-looking blouses, holding them up in turn.<</narrative>>
 <<dialog "mother">>Which one?<</dialog>>
@@ -985,7 +946,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's making the bed, smoothing the duvet with practiced precision.<</narrative>>
 <<dialog "mother">>(without stopping) Good morning. Sleep well?<</dialog>>
@@ -1001,7 +962,7 @@ I don't know why but an unmade bed makes my whole morning feel wrong.<</dialog>>
 
         lost: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's checking nightstands and dresser drawers, clearly looking for something.<</narrative>>
 <<dialog "mother">>Have you seen my reading glasses? Small, brown frames.<</dialog>>
@@ -1010,7 +971,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's hunting through her bag, increasingly frustrated.<</narrative>>
 <<dialog "mother">>I cannot find my— oh. There it is.
@@ -1023,7 +984,7 @@ I was looking for this for ten minutes.<</dialog>>
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's holding a key that she clearly doesn't recognize.<</narrative>>
 <<dialog "mother">>Do you know what this opens? I found it in the drawer.<</dialog>>
@@ -1037,7 +998,7 @@ I won't, though.<</dialog>>`,
 
         bedMaking: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's making the bed and hands you the other side of the duvet without asking.<</narrative>>
 <<dialog "mother">>Grab that end?<</dialog>>
@@ -1050,7 +1011,7 @@ Thank you.<</dialog>>`,
                 friendship: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's arranging the pillows just so, repositioning them twice.<</narrative>>
 <<dialog "mother">>Do you make your bed in the morning?<</dialog>>
@@ -1061,7 +1022,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's changing the pillowcases, working briskly.<</narrative>>
 <<dialog "mother">>Fresh sheets day. Best day of the week.<</dialog>>
@@ -1074,15 +1035,11 @@ Some things have to stay the same when everything else changes.<</dialog>>`,
         ]
     },
 
-    /* ==========================================
-       PARENTS ROOM — EVENING
-       End of day, quiet, sometimes reflective
-    ========================================== */
     fhParentsRoom_evening: {
 
         tired: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's sitting on the edge of the bed, shoes off, massaging one foot absently.<</narrative>>
 <<dialog "mother">>Come in. Long day?<</dialog>>
@@ -1093,7 +1050,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's sitting at the small vanity, taking off jewelry slowly, like she's finally decompressing.<</narrative>>
 <<dialog "mother">>(without turning) Is everyone downstairs okay?<</dialog>>
@@ -1106,7 +1063,7 @@ Is there anything you need?<</dialog>>
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's already in pajamas, sitting cross-legged on the bed going through her phone.<</narrative>>
 <<dialog "mother">>Oh — I was going to come down and say goodnight.<</dialog>>
@@ -1118,7 +1075,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
 
         goodnight: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's reading in bed, lamp on, glasses on. She pulls them off when she hears you knock.<</narrative>>
 <<dialog "mother">>Hey. Did you need something?<</dialog>>
@@ -1127,7 +1084,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's just turned off her lamp. You catch her before she falls asleep.<</narrative>>
 <<dialog "mother">>(tiredly) Mm?<</dialog>>
@@ -1136,7 +1093,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
                 friendship: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>She's about to turn off her light but pauses when she sees you in the doorway.<</narrative>>
 <<dialog "mother">>Come to say goodnight?<</dialog>>
@@ -1152,7 +1109,7 @@ I'm glad we're here. All of us, together. Even if it's an adjustment.<</dialog>>
 
         reflection: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's at the window, looking out at the quiet street. She turns when she hears you.<</narrative>>
 <<dialog "mother">>I was thinking about the old neighborhood.<</dialog>>
@@ -1163,7 +1120,7 @@ You'll be okay, you know. We all will.<</dialog>>`,
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's sorting through a box that still hasn't been unpacked, picking things up and setting them down.<</narrative>>
 <<dialog "mother">>Every move, you find things you forgot you kept.<</dialog>>
@@ -1174,7 +1131,7 @@ Some things take a while to find their place.<</dialog>>`,
                 friendship: 1, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's sitting quietly on her side of the bed, not doing anything, just being still.<</narrative>>
 <<dialog "mother">>You know, mornings are the hardest still. When I wake up and for a second I forget we've moved.<</dialog>>

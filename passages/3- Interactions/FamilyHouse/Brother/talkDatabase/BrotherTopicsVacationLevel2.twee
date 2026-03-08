@@ -19,1185 +19,1136 @@
 
 <<set setup.brotherTopics.vacation.level2 = {
 
-    /* ==========================================
-       BROTHER'S ROOM — VACATION MORNING (L2)
-    ========================================== */
     fhBrotherRoom_vacation_morning: {
 
         opening: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's awake and he's been waiting for someone to walk past — you can tell by how quickly he calls out.<</narrative>>
-<<dialog "brother">>(from his room) Hey. Come look at this.
-(when you come in)
-I've been working on this for two days. Tell me if it's good before I show anyone else.<</dialog>>
-<<dialog "player">>(looking at his screen) Jake, this is actually really good.<</dialog>>
-<<dialog "brother">>(with effort not to grin) It's rough. But thanks.
-(already wanting to show you more)<</dialog>>`,
-                friendship: 3, trust: 2
+<<narrative>>He calls from his room as you pass — not unusual now.<</narrative>>
+<<dialog "brother">>Hey. Come look at this.<</dialog>>
+<<dialog "player">>(at the door) What is it?<</dialog>>
+<<dialog "brother">>(turning his monitor toward you) I made this last night. When I couldn't sleep.
+(watching your face)
+Tell me honestly if it's bad.<</dialog>>
+<<dialog "player">>(looking) Jake. This is really good.<</dialog>>
+<<dialog "brother">>(trying not to show how much that matters) I might do more. I don't know.
+(turning the screen back)
+I just wanted a second opinion.<</dialog>>`,
+                friendship: 4, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's been awake for a while and has made actual plans — a list on his desk.<</narrative>>
-<<dialog "brother">>(showing you the list) Okay so I have things I want to do this vacation. Actually do.
-(reading)
-Finish a game I've been putting off. Draw something good. Try one new food — your suggestion, I'm open.
-(looking at you)
-What should the food be?<</dialog>>`,
-                friendship: 3
+<<narrative>>He's in a good mood when you pass — you can hear it before you see it.<</narrative>>
+<<dialog "brother">>(at his desk, something going right) Hey, good morning.
+(pointing at a chair)
+Sit for a second. I want to tell you something.<</dialog>>
+<<dialog "player">>(sitting) What?<</dialog>>
+<<dialog "brother">>That game design thing I was thinking about? I actually started writing it down. Like, properly. Plans and systems and stuff.
+(barely containing it)
+It might be something real.<</dialog>>`,
+                friendship: 4, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>He says it like it costs him nothing — but it does, a little.<</narrative>>
-<<dialog "brother">>I slept well last night. Good tired from actually doing stuff.
-(to you, directly)
-The backyard yesterday helped. Thanks for coming out.
-(back to his desk)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's already awake when you knock — unusual. Morning light fills his room.<</narrative>>
+<<dialog "brother">>(at his desk, sketchbook open) I've been up since seven. I don't know what happened.
+(looking at what he made)
+Good morning though.
+(a pause, easy)
+You want to see what I've been doing?<</dialog>>`,
+                friendship: 4
             }
         ],
 
         design: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>He's at his desk with his drawing stuff out among the gaming gear — not hiding it.<</narrative>>
-<<dialog "brother">>(not looking up) I'm drawing. You can come in.
-(a pause)
-I'm working on a character design. For a game concept I have.
-(showing you)
-What do you think the colour palette should be?<</dialog>>`,
-                friendship: 3, trust: 2
+<<narrative>>He holds out a printed page — something he made, something he designed, something from the sketchbook.<</narrative>>
+<<dialog "brother">>(handing it to you) I printed it. Just to see what it looked like on paper.
+(watching you hold it)
+You can keep it if you want.<</dialog>>
+<<dialog "player">>Jake, this is actually really good.<</dialog>>
+<<dialog "brother">>(very quietly) Yeah.
+(back to his desk, but settled and warm)
+Thanks.<</dialog>>`,
+                friendship: 4, trust: 2, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>He walks you through something he's made — actually walks you through it, explains his thinking.<</narrative>>
-<<dialog "brother">>Okay so the idea is there are two worlds and the mechanic switches between them, and the visual language has to tell you which world you're in without text.
-(pointing at his screen)
-So I'm using warm versus cool. What do you think of this?<</dialog>>
-<<dialog "player">>(looking) The warm one feels safer. That's interesting.<</dialog>>
-<<dialog "brother">>(lighting up) That's exactly what I want.
-(writing it down)
-Okay. Good. That tells me I'm on the right track.<</dialog>>`,
-                friendship: 3, trust: 2, love: 1
+<<narrative>>He explains what he's working on in more detail than he usually allows himself — the design, the system, the idea behind it.<</narrative>>
+<<dialog "brother">>So the mechanic is — okay, don't say anything until I finish explaining—
+(laying it all out, the fastest and most articulate you've heard him)
+Does that make sense? Like, does the logic track?<</dialog>>
+<<dialog "player">>Yeah. It does. It actually does.<</dialog>>
+<<dialog "brother">>(exhaling) Okay. Good. I thought I was going mad.<</dialog>>`,
+                friendship: 4, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>He puts something in your hands — a small printed thing, a design he actually printed out.<</narrative>>
-<<dialog "brother">>(braced) It's just a concept. It's not finished. Don't read into—<</dialog>>
-<<dialog "player">>(looking at it) Jake. When did you get this good?<</dialog>>
-<<dialog "brother">>(completely caught off guard) I— what?
-(quietly)
-You think it's good?<</dialog>>
-<<dialog "player">>I think it's really good.<</dialog>>
-<<dialog "brother">>(taking it back, processing)
-...Okay. Cool. Thank you.<</dialog>>`,
-                friendship: 3, trust: 2, love: 1
+<<narrative>>He's spent the morning refining something and wants someone to see it.<</narrative>>
+<<dialog "brother">>(showing you the screen) I changed the layout. Cleaner.
+(you look)
+Better, right?<</dialog>>
+<<dialog "player">>Definitely better.<</dialog>>
+<<dialog "brother">>(nodding, satisfied) Yeah. I thought so.
+(already refining it again)<</dialog>>`,
+                friendship: 4
             }
         ],
 
         morning: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>He asks you something out of nowhere, first thing:<</narrative>>
-<<dialog "brother">>If you could live anywhere, where would you go?
-(eating cereal at his desk, genuinely curious)<</dialog>>
-<<dialog "player">>(thinking) Somewhere with seasons. Somewhere walkable.<</dialog>>
-<<dialog "brother">>(nodding) Yeah. Me too, probably.
-(a beat)
-I'd want somewhere with good internet though. Non-negotiable.<</dialog>>`,
-                friendship: 3
+<<narrative>>He's already made two cups of tea. One is for you. He doesn't explain how he knew you'd be up.<</narrative>>
+<<dialog "brother">>(sliding one toward you when you appear in the door) I figured.
+(back to his sketchbook)<</dialog>>
+<<dialog "player">>Thanks.<</dialog>>
+<<dialog "brother">>(not looking up) You were going to come and bother me eventually. This way we both get tea first.<</dialog>>`,
+                friendship: 4, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>He's already up, sitting with his sketchbook open and a cup of tea — grown up somehow, in the morning light.<</narrative>>
-<<dialog "player">>(in the doorway) You look different this vacation.<</dialog>>
-<<dialog "brother">>(not offended, thinking about it) I feel kind of different. I don't know. Easier.
+<<narrative>>He's up early drawing — the sketchbook is out, pencil in hand, window light on the page.<</narrative>>
+<<dialog "player">>(at the door) You're drawing?<</dialog>>
+<<dialog "brother">>(not closing it) Yeah. I do it in the mornings now. When I can't sleep in.
 (shrugging)
-Maybe I needed the break more than I thought.<</dialog>>`,
-                friendship: 3, trust: 1
+It's actually pretty good. The morning thing.<</dialog>>`,
+                friendship: 4
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>He has two cups of tea ready when you come in.<</narrative>>
-<<dialog "brother">>(handing you one) I figured.
-(sitting back at his desk)
-I've been up for a while.<</dialog>>
-<<dialog "player">>What have you been doing?<</dialog>>
-<<dialog "brother">>(a look at his screen — something creative, clearly) Stuff. It's going well.
-(and that's all he'll say, but the energy is good)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He says good morning first — properly. Not the grunt. The actual words.<</narrative>>
+<<dialog "brother">>Morning.
+(looking up from whatever he's doing)
+Sleep okay?<</dialog>>
+<<dialog "player">>Yeah. You?<</dialog>>
+<<dialog "brother">>(back to his work) Good. Really good actually.
+(easy, content)<</dialog>>`,
+                friendship: 4, love: 1
             }
         ]
     },
 
-    /* ==========================================
-       BROTHER'S ROOM — VACATION AFTERNOON (L2)
-    ========================================== */
     fhBrotherRoom_vacation_afternoon: {
 
         gaming: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's mid-session and waves you in — has a second controller already charged.<</narrative>>
-<<dialog "brother">>(not stopping) Come on. I've been in a good lobby for an hour.
-(handing back the controller)
-You remember how from last time?<</dialog>>
-<<dialog "player">>Sort of.<</dialog>>
-<<dialog "brother">>(already moving to beside you to help) Okay, so the thing is—
-(teaching earnestly, not condescendingly)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's just won something and he turns around to tell you first — before anyone, before online friends, before checking the leaderboard.<</narrative>>
+<<dialog "brother">>(spinning his chair) I did it. I actually did it.
+(genuinely excited in a way he doesn't usually allow)
+I ranked up. Top five hundred.<</dialog>>
+<<dialog "player">>(matching the energy) That's actually massive.<</dialog>>
+<<dialog "brother">>(exhaling, finally letting it out) It took three weeks. Three weeks of ranked matches.
+(standing up to stretch)
+I wanted to tell you first for some reason. I don't know why.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>He loses something important and, instead of going quiet, tells you about it.<</narrative>>
-<<dialog "brother">>(pulling the headset off) I've been trying to get that for four hours.
-(leaning back, actually okay)
-You know what? I'm going to take a break and try later.
-(looking at you)
-Show me what you've been doing today instead.<</dialog>>`,
-                friendship: 3
+<<narrative>>He hands you a controller without asking.<</narrative>>
+<<dialog "brother">>Come on. I want to show you something.
+(already loading the mode)
+Trust me on this one.<</dialog>>
+<<dialog "player">>What is it?<</dialog>>
+<<dialog "brother">>(settling in) Just play. You'll see.
+(and it turns out to be something you're actually good at, and he's delighted by this)<</dialog>>`,
+                friendship: 4
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>He wins something significant — shows you before he even checks the scoreboard.<</narrative>>
-<<dialog "brother">>(turning to you first) Did you see that?<</dialog>>
-<<dialog "player">>Yeah! That was good.<</dialog>>
-<<dialog "brother">>(genuinely excited, letting it show briefly) Three months trying for that.
-(collecting himself)
-Cool. Okay. Cool.
-(still grinning)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He pauses the game when you come in — full stop, not just a hold-on.<</narrative>>
+<<dialog "brother">>Hey. Sit down a sec. I want to ask you something.
+(turning his chair)<</dialog>>
+<<dialog "player">>What's up?<</dialog>>
+<<dialog "brother">>Do you think you can be good at something without having any formal training? Like actually good?
+(it's about the game design. It's about him.)<</dialog>>`,
+                friendship: 4, trust: 2
             }
         ],
 
         talking: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>He swivels his chair round — game off, actual conversation mode.<</narrative>>
-<<dialog "brother">>Can I ask you something? Like, actually ask.
-(bracing himself)
-Do you think I'm—
-(struggling)
-Do you think I come across as... difficult? To people who don't know me?<</dialog>>
-<<dialog "player">>Not difficult. Guarded, maybe.<</dialog>>
-<<dialog "brother">>(sitting with this) Yeah.
-(quietly)
-That's accurate. I'm working on it.<</dialog>>`,
-                friendship: 3, trust: 2
+<<narrative>>His gaming setup is off. That's the first signal. He's just sitting at his desk.<</narrative>>
+<<dialog "brother">>(when you appear) Hey. You have a minute?<</dialog>>
+<<dialog "player">>Yeah. What's going on?<</dialog>>
+<<dialog "brother">>(a breath) I've been thinking about after school. Like seriously thinking. Not just avoiding it.
+(looking at his desk)
+I think I want to actually try to make something.<</dialog>>`,
+                friendship: 4, trust: 3
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>He brings up something he's been thinking about:<</narrative>>
-<<dialog "brother">>I've been looking up game design courses. Like, actual ones. For after school.
-(showing you his laptop, briefly)
-There are some good ones. I don't know if I'm good enough yet but.
-(closing the laptop slightly)
-I think I want to try.<</dialog>>`,
-                friendship: 3, trust: 2
+<<narrative>>He asks something he's been thinking about for a while:<</narrative>>
+<<dialog "brother">>How did you figure out what you were actually good at? Like, when?<</dialog>>
+<<dialog "player">>(thinking about it, answering honestly)<</dialog>>
+<<dialog "brother">>(listening properly, not performing listening)
+(after)
+Okay. Yeah. That's actually really helpful.
+(nodding)
+Thanks.<</dialog>>`,
+                friendship: 4, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>He asks for genuine advice — not gaming advice:<</narrative>>
-<<dialog "brother">>How do you know when you're actually good at something? Like — good enough that it's not just a hobby?<</dialog>>
-<<dialog "player">>(thinking about it) When you can't stop even when it's hard?<</dialog>>
-<<dialog "brother">>(immediately) That's me with the design stuff.
-(quietly)
-Okay. Yeah. I think I know then.<</dialog>>`,
-                friendship: 3, trust: 2, love: 1
+<<narrative>>He admits something without framing it as a joke first:<</narrative>>
+<<dialog "brother">>I get nervous around people I don't know. Like properly nervous. I freeze up.
+(looking at his hands)
+But I don't do that with you anymore.
+(not a big deal, just true)<</dialog>>
+<<dialog "player">>That's good.<</dialog>>
+<<dialog "brother">>(quietly) Yeah. It is.<</dialog>>`,
+                friendship: 4, trust: 3, love: 1
             }
         ],
 
         sibling: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>He puts on a playlist and doesn't use headphones — plays it for both of them.<</narrative>>
-<<dialog "brother">>(working on something) You can stay if you want. I'm just in here doing stuff.
-(easy)
-I don't need silence when it's you.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He shows you the notebook — the game design one. Not just the one thing. The whole notebook.<</narrative>>
+<<dialog "brother">>(handing it across) Don't read the early stuff. It's embarrassing.
+(you look anyway)
+Okay fine, you can read the early stuff. Just don't comment on it.<</dialog>>
+<<dialog "player">>(reading, genuinely interested) Jake, this is really thought through.<</dialog>>
+<<dialog "brother">>(watching your face page by page)
+Yeah. I've been working on it for a while.<</dialog>>`,
+                friendship: 4, trust: 3, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>He says something quietly real in the middle of doing something else:<</narrative>>
-<<dialog "brother">>(not looking up from his screen) When school's hard, I think about the fact that I come home to this house.
-(a pause)
-That's not nothing.<</dialog>>
-<<dialog "player">>No. It's not.<</dialog>>
-<<dialog "brother">>(back to what he's doing, that's all he needed to say)<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He does an impression of you — affectionate and slightly uncanny. You didn't know he watched you that closely.<</narrative>>
+<<dialog "brother">>(doing you) "Jake, it's late—" Jake, have you eaten—" "Jake—"
+(grinning)
+That's you. That's what you sound like.<</dialog>>
+<<dialog "player">>That's not what I sound like.<</dialog>>
+<<dialog "brother">>(completely confident) That is exactly what you sound like. I've been studying.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>He shows you something he's been doing in private — a world-building document, sketches, notes for his game idea. He's nervous about it.<</narrative>>
-<<dialog "brother">>(handing you the notebook) Don't read too much into it. It's just stuff.
-(watching your face as you look)
-Is it dumb?<</dialog>>
-<<dialog "player">>(properly looking) No, Jake. This is a real idea. This is something.<</dialog>>
-<<dialog "brother">>(a breath he didn't know he was holding)
-...Okay.
-(taking it back)
-I've been doing it for like six months. Haven't shown anyone.<</dialog>>`,
-                friendship: 3, trust: 2, love: 2
+<<narrative>>He's calm and comfortable with you in his room now — doesn't clean up, doesn't get defensive, just lets you be there.<</narrative>>
+<<dialog "brother">>(at his desk, drawing) You can sit wherever. I'm just doing this.
+(carrying on)
+Tell me about your day if you want. I'm listening.
+(and he is — in his way, he's listening)<</dialog>>`,
+                friendship: 4, love: 1
             }
         ]
     },
 
-    /* ==========================================
-       BROTHER'S ROOM — VACATION EVENING (L2)
-    ========================================== */
     fhBrotherRoom_vacation_evening: {
 
         honest: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's in bed with his light on — reading something. He doesn't close it when you come in.<</narrative>>
-<<dialog "brother">>(moving his legs to give you space on the end of the bed) Sit if you want.
-(still reading)
-I'm not going to sleep yet.<</dialog>>
-<<dialog "player">>What are you reading?<</dialog>>
-<<dialog "brother">>(showing you) About game theory. The actual maths of it. It's interesting.
-(a beat)
-It's also making me feel kind of smart, which is nice.<</dialog>>`,
-                friendship: 3, trust: 1
+<<narrative>>He's on his bed, lamp on — read earlier, put the book down, didn't pick anything else up. He looks okay.<</narrative>>
+<<dialog "brother">>(when you appear) Come in for a sec.
+(moving so there's room on the end of the bed)
+I wanted to say something.<</dialog>>
+<<dialog "player">>(sitting) What?<</dialog>>
+<<dialog "brother">>This vacation's been good. Like, actually good.
+(looking at his hands briefly)
+A lot of that's because of you.
+(pre-empting your reaction)
+Don't make it a whole thing.<</dialog>>`,
+                friendship: 4, love: 3, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's in a thoughtful mood — the rare evening version of himself that only comes out in summer.<</narrative>>
-<<dialog "brother">>Can I tell you something? And you won't make it a whole thing?<</dialog>>
-<<dialog "player">>Yeah.<</dialog>>
-<<dialog "brother">>(quietly) I'm actually happier here than I was at the last house.
-(not looking at you)
-I know we all said it would take time but I didn't think—
-(stopping)
-It took less time than I expected. For me.<</dialog>>`,
-                friendship: 3, trust: 2, love: 1
+<<narrative>>He says something honest without hiding it behind a joke first — a sign of how much things have changed.<</narrative>>
+<<dialog "brother">>I was kind of a mess at the start of the year. When we moved.
+(factual, not dramatic)
+I think I took it out on everyone.
+(looking at you)
+Including you. So. Sorry for that.<</dialog>>
+<<dialog "player">>You were adjusting.<</dialog>>
+<<dialog "brother">>(quiet)
+Still. I know I was difficult.
+(back to normal, quickly)
+Okay. That's it. I said it. Done.<</dialog>>`,
+                friendship: 4, trust: 3, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>He asks you to stay a bit — doesn't say it directly but:<</narrative>>
-<<dialog "brother">>(when you stand to go) Hey — no rush. If you're not tired.
-(casually)
-I was going to put something on. You can watch if you want.<</dialog>>
-<<dialog "player">>(sitting back) Okay.<</dialog>>
-<<dialog "brother">>(getting his laptop, easy in the company)
-Cool.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He asks you to sit down properly — pulls the spare chair out from under his desk.<</narrative>>
+<<dialog "brother">>I want to ask you something and I want a real answer, not just a nice one.
+(sitting on his bed, serious)
+Do you think I'm actually talented? At the design stuff. Or is it just... okay for a teenager?<</dialog>>
+<<dialog "player">>(honest answer)<</dialog>>
+<<dialog "brother">>(absorbing it properly, not deflecting)
+(nodding slowly)
+Okay. Thank you. That's what I needed to hear.<</dialog>>`,
+                friendship: 4, trust: 3
             }
         ],
 
         late: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>Late, monitors off, just him and the dark. He actually calls out to you:<</narrative>>
-<<dialog "brother">>(calling quietly) Hey. You awake?<</dialog>>
-<<dialog "player">>(from your room) Yeah, what's up?<</dialog>>
-<<dialog "brother">>Nothing. Just checking.
-(a pause)
-Night.<</dialog>>
-<<dialog "player">>Night, Jake.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He's drawing late — his desk lamp the only light, the house quiet around him.<</narrative>>
+<<dialog "player">>(at the door, quietly) Still up?<</dialog>>
+<<dialog "brother">>(not startled, expected you) Yeah. I'm in the middle of something.
+(not closing the sketchbook)
+You can look if you want.<</dialog>>
+<<dialog "player">>(looking over his shoulder at what he's drawing)<</dialog>>
+<<dialog "brother">>(carrying on drawing)
+It's for the game. The world map.<</dialog>>`,
+                friendship: 4, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>You pass his open door — he's at his desk but not gaming. Drawing. He doesn't close the notebook.<</narrative>>
-<<dialog "player">>(quietly) You're still up.<</dialog>>
-<<dialog "brother">>(still drawing) Yeah.
-(looking up briefly)
-I get better work done at night. My brain's quieter.
-(back to drawing)
-Night though.<</dialog>>`,
-                friendship: 3
+<<narrative>>He's been in here for hours and is clearly not sleeping soon. He looks up when you come in.<</narrative>>
+<<dialog "brother">>You're up late.<</dialog>>
+<<dialog "player">>So are you.<</dialog>>
+<<dialog "brother">>(fair point) I'm building something. It's different.
+(a beat)
+Come in if you want. I'll talk while I work.<</dialog>>`,
+                friendship: 4
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>He says goodnight and means it — properly, with eye contact, brief but real.<</narrative>>
-<<dialog "brother">>Night.
-(directly, genuinely)
-Good day today.<</dialog>>
-<<dialog "player">>Yeah. It was.<</dialog>>
-<<dialog "brother">>(going into his room, small smile)
-Yeah.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He's about to stop for the night and he looks up at you with the tired-but-good look of someone who made something today.<</narrative>>
+<<dialog "brother">>Good night. I mean actually — it was a good night. In here.
+(patting the sketchbook)
+Did a lot.<</dialog>>
+<<dialog "player">>Yeah?<</dialog>>
+<<dialog "brother">>(quietly content) Yeah. Night.
+(and means it)<</dialog>>`,
+                friendship: 4, love: 1
             }
         ],
 
         caring: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>He's heard something earlier that suggests you've had a hard day. He doesn't address it directly.<</narrative>>
-<<dialog "brother">>(when you pass) Hey. Come watch this thing. It's funny.
-(pulling up something deliberately light on his screen)
-You'll like it. Sit down.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He says goodnight from the hallway — proper, warm, not rushed.<</narrative>>
+<<dialog "brother">>Hey. Night.
+(making eye contact, not just calling from behind the door)
+You okay?<</dialog>>
+<<dialog "player">>Yeah. You?<</dialog>>
+<<dialog "brother">>(genuinely) Yeah. Really good today.
+(going into his room)
+Night.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>He looks at you more directly than usual:<</narrative>>
-<<dialog "brother">>You okay? Like actually.
-(no deflection, no joke — just the question)<</dialog>>
-<<dialog "player">>Yeah. I'm okay.<</dialog>>
-<<dialog "brother">>(studying your face briefly) Okay.
-(satisfied, back to his screen)
-Good.<</dialog>>`,
-                friendship: 3, love: 1, trust: 2
+<<narrative>>He notices you're tired before you say anything.<</narrative>>
+<<dialog "brother">>(looking at you) You look tired.<</dialog>>
+<<dialog "player">>Bit.<</dialog>>
+<<dialog "brother">>(standing up from his desk) Go to sleep. I'll be quiet.
+(and then actually turns his music down without you asking)<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>He does something entirely characteristic — leaves a snack outside your door and doesn't tell you it was him. But this time you know.<</narrative>>
-<<dialog "player">>(later, in the doorway) Jake.<</dialog>>
-<<dialog "brother">>(not looking up from his game) What.<</dialog>>
+<<narrative>>He left something outside your door at some point in the evening — a snack, a note, something small and deliberate. When you mention it he shrugs.<</narrative>>
+<<dialog "brother">>I had extra.
+(very firmly not making it a big thing)
+That's all it is.<</dialog>>
+<<dialog "player">>Jake.<</dialog>>
+<<dialog "brother">>(pre-empting) Don't.<</dialog>>
 <<dialog "player">>Thank you.<</dialog>>
-<<dialog "brother">>(a pause)
-I don't know what you're talking about.
-(beat — then, very quietly, back to his game)
-You're welcome.<</dialog>>`,
-                friendship: 3, love: 2
+<<dialog "brother">>(quiet for a moment, then going back to his desk)
+...Yeah.<</dialog>>`,
+                friendship: 4, love: 3
             }
         ]
     },
 
-    /* ==========================================
-       KITCHEN — VACATION MORNING (L2)
-    ========================================== */
     fhKitchen_vacation_morning: {
 
         morning: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's cooked breakfast — proper eggs, toast — and left a plate for you without being asked.<</narrative>>
-<<dialog "brother">>(at the counter when you come in) I figured you'd want some. Don't make it weird.
-(sitting down with his own plate)<</dialog>>
-<<dialog "player">>Thanks.<</dialog>>
-<<dialog "brother">>(eating) Yeah.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He made breakfast. Actual breakfast — eggs and toast, two plates, without being asked.<</narrative>>
+<<dialog "brother">>(when you come in) I was making it anyway. Sit down.
+(putting a plate in front of you, casual about it)<</dialog>>
+<<dialog "player">>Thanks, Jake.<</dialog>>
+<<dialog "brother">>(already eating his own) Don't thank me. I had extra eggs.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's in conversation mode — a morning rarity — and asks you something he's been sitting on.<</narrative>>
-<<dialog "brother">>If I showed you a game idea — like properly showed you, the whole pitch — would you be honest about whether it was good?<</dialog>>
-<<dialog "player">>Yes.<</dialog>>
-<<dialog "brother">>(nodding, decided) Okay. Later then. I'll show you later.
-(back to his cereal, satisfied he's committed)<</dialog>>`,
-                friendship: 3, trust: 2
+<<narrative>>He's at the table with good morning energy — rare, and slightly funny.<</narrative>>
+<<dialog "brother">>(looking up) Morning. I slept properly for once. Eight hours.
+(with the wonder of someone who discovered it's possible)
+I feel like a different person.<</dialog>>
+<<dialog "player">>You look human.<</dialog>>
+<<dialog "brother">>(pointing at you) There it is.
+(eating, grinning slightly)<</dialog>>`,
+                friendship: 4
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's been up early — unusual — and has started doing something with the kitchen plants Mom has been ignoring.<</narrative>>
-<<dialog "player">>(coming in) Why are you watering the plants?<</dialog>>
-<<dialog "brother">>(watering) Because nobody else was going to.
-(matter of fact)
-They'd have died.<</dialog>>
-<<dialog "player">>Since when do you care about plants?<</dialog>>
-<<dialog "brother">>(setting the watering can down) I care about everything. I just don't perform it.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He makes room at the table for you without any ceremony — just moves his stuff over.<</narrative>>
+<<dialog "brother">>(sliding across the juice) Sit. It's a good morning.
+(looking out the window)
+I don't know why. It just is.<</dialog>>`,
+                friendship: 4, love: 1
             }
         ],
 
         confession: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>He says something honest over breakfast — while looking at his cereal the whole time.<</narrative>>
-<<dialog "brother">>I think about what I want to do when I grow up more than I let on.
-(very quickly)
-Don't read into that. I just wanted to say it to someone.<</dialog>>
-<<dialog "player">>That's normal. That's everyone.<</dialog>>
-<<dialog "brother">>(relieved slowly) Yeah.
-(eating)
-Yeah, okay.<</dialog>>`,
-                friendship: 3, trust: 2
+<<narrative>>He says it while looking at his tea — the mug in his hands, not at you:<</narrative>>
+<<dialog "brother">>I drew something for you. Like, specifically for you. Not to show you — just made it.
+(a pause)
+It's of a thing you said once. About somewhere you wanted to go.
+(quickly)
+I don't know if I'll give it to you. I haven't decided.<</dialog>>`,
+                friendship: 4, love: 3, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>He's been quiet, and then:<</narrative>>
-<<dialog "brother">>I've been drawing every day this vacation.
-(as if this surprises him too)
-Like, genuinely. An hour or more. I thought I'd stop after three days but.
-(shrugging)
-I haven't.<</dialog>>
-<<dialog "player">>That's good, Jake. That's actually really good.<</dialog>>
-<<dialog "brother">>(a brief real smile — quick, gone) Yeah. It is, I think.<</dialog>>`,
-                friendship: 3, trust: 2, love: 1
+<<narrative>>He says something he's never said out loud before, and means every word of it:<</narrative>>
+<<dialog "brother">>I draw every day now. Started properly this vacation.
+(looking down at the table)
+I think it might be the thing I'm actually good at.
+(a beat, honest)
+I think it might be the first thing I've genuinely wanted to get better at.<</dialog>>`,
+                friendship: 4, trust: 3
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>He makes you both tea and sits across from you. He has something to say.<</narrative>>
-<<dialog "brother">>(after a moment) I know I was kind of difficult when we first moved here.<</dialog>>
-<<dialog "player">>Jake—<</dialog>>
-<<dialog "brother">>(not making it emotional) I'm not apologising, I'm just noting it. I know it wasn't easy.
-(wrapping his hands around his mug)
-I'm better now.<</dialog>>
-<<dialog "player">>I know you are.<</dialog>>
-<<dialog "brother">>(nodding, that's enough)
-Good.<</dialog>>`,
-                friendship: 3, trust: 2, love: 2
+<<narrative>>He says it simply:<</narrative>>
+<<dialog "brother">>You're the first person I showed the game design stuff to.
+(drinking his tea)
+I wanted you to see it before anyone else. I don't know why. It felt right.
+(shrugging, not requiring a response)<</dialog>>`,
+                friendship: 4, trust: 3, love: 1
             }
         ],
 
         easy: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>You're both in the kitchen, no agenda, slow morning. He starts doing something and you tidy something and it's just easy.<</narrative>>
-<<dialog "brother">>(after a while) Good morning, by the way.<</dialog>>
-<<dialog "player">>Good morning.<</dialog>>
-<<dialog "brother">>(nodding, back to what he's doing)
-Yeah.<</dialog>>`,
-                friendship: 3
+<<narrative>>He passes you the butter before you reach for it. Knows what you take in your toast. Small things.<</narrative>>
+<<dialog "player">>(noticing) Thanks.<</dialog>>
+<<dialog "brother">>(already on his own breakfast) You always have butter. You've had butter every morning for like two weeks. I noticed.
+(completely matter-of-fact)<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>He's discovered something good is on the radio — leaves it on while they both do different things in the kitchen.<</narrative>>
-<<dialog "brother">>(tapping the counter once to the beat, then catching himself)
-Don't.<</dialog>>
-<<dialog "player">>I didn't say anything.<</dialog>>
-<<dialog "brother">>(the music stays on)<</dialog>>`,
-                friendship: 3
+<<narrative>>He's made both your drinks before you got there. Knows how you take yours.<</narrative>>
+<<dialog "brother">>(when you come in) It's there.
+(pointing to the counter, back to the window)
+I've been watching the garden. A fox came through at like six AM. Proper fox.<</dialog>>
+<<dialog "player">>Were you up at six?<</dialog>>
+<<dialog "brother">>(peaceful) I stayed up until six. Different thing.<</dialog>>`,
+                friendship: 4, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>He passes you something from across the kitchen — just hands it before you ask. He's been watching, paying attention.<</narrative>>
-<<dialog "player">>(taking it) Thanks.<</dialog>>
-<<dialog "brother">>(already doing something else) You were going to need it.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He passes you something mid-sentence — whatever you needed — then keeps talking like it didn't happen. Just easy.<</narrative>>
+<<dialog "brother">>(handing it across, continuing his story) — and then the guy online says, no that's not a bug that's a feature, and I'm like—
+(you take it)
+— and I'm like, it clearly IS a bug because—<</dialog>>
+<<narrative>>He's still talking. You're both at the table. It's the easiest morning you've had in a while.<</narrative>>`,
+                friendship: 4, love: 2
             }
         ]
     },
 
-    /* ==========================================
-       KITCHEN — VACATION EVENING (L2)
-    ========================================== */
     fhKitchen_vacation_evening: {
 
         dinner: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's helping set the table — properly, without being asked, doing it right.<</narrative>>
-<<dialog "player">>You're helping.<</dialog>>
-<<dialog "brother">>(placing a fork) Yes.
-(without elaborating)
-I've decided to be more useful.<</dialog>>
-<<dialog "player">>Since when?<</dialog>>
-<<dialog "brother">>(setting down a plate) Since vacation made me realise I was doing basically nothing.
+<<narrative>>He sets the table. Both sides. Properly.<</narrative>>
+<<dialog "player">>(watching) When did you start doing that?<</dialog>>
+<<dialog "brother">>(putting down glasses) I always did it.
+(pause)
+I do it now. It's a new thing.
 (sitting down)
-That felt wrong.<</dialog>>`,
-                friendship: 3, love: 1
+Don't make a thing of it.<</dialog>>`,
+                friendship: 4, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>He stays after dinner — clearly has something to say, takes a while to get there.<</narrative>>
-<<dialog "brother">>(eventually) So. I've been thinking about talking to Dad. About the design stuff.
-(checking your reaction)
-Not a big conversation. Just... mentioning it.<</dialog>>
-<<dialog "player">>You should. He'll take it seriously.<</dialog>>
-<<dialog "brother">>(nodding slowly) Yeah. Maybe. He might — yeah.
-(decided)
-Maybe I will.<</dialog>>`,
-                friendship: 3, trust: 2
+<<narrative>>He's telling you about something at dinner and he's properly animated — the kind of story that has gestures.<</narrative>>
+<<dialog "brother">>Okay so the level I was designing — the whole ecosystem thing — I figured out how the food chain works. I worked it out on paper. It's like six pages.
+(spreading his hands)
+I know that sounds like nothing but it was really hard to—<</dialog>>
+<<dialog "player">>Show me after?<</dialog>>
+<<dialog "brother">>(stopping mid-word, delighted) Yeah. Yeah, definitely.<</dialog>>`,
+                friendship: 4, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>He makes extra food and hands you a bowl without ceremony — just does it.<</narrative>>
-<<dialog "brother">>It's good. I made too much.
-(sitting down with his own)
-Tell me if you hate it.<</dialog>>
-<<dialog "player">>(tasting) It's actually really good.<</dialog>>
-<<dialog "brother">>(quietly pleased) Yeah. I know. I looked it up.
-(eating)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He serves you first when he's dishing up — just does it, doesn't comment.<</narrative>>
+<<dialog "player">>Thanks.<</dialog>>
+<<dialog "brother">>(sitting) You always forget to serve yourself when you're talking. I've noticed.
+(completely calm about having noticed this)<</dialog>>`,
+                friendship: 4, love: 2
             }
         ],
 
         late: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>He's at the kitchen table late — actually sitting, not eating, just in the room.<</narrative>>
-<<dialog "player">>(coming in) Still up?<</dialog>>
-<<dialog "brother">>Yeah. Couldn't sleep.
-(lifting his head)
-You?<</dialog>>
-<<dialog "player">>Same.<</dialog>>
-<<dialog "brother">>(a pause — then, making room with his body language) Sit.
-(not an order, an offer)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's in the kitchen late and when you come down he immediately makes room.<</narrative>>
+<<dialog "brother">>(moving over) Hey. Can't sleep either?<</dialog>>
+<<dialog "player">>Not really.<</dialog>>
+<<dialog "brother">>(nodding) I made tea. There's more water in the kettle.
+(sitting back with his mug)
+Come sit. I wasn't going anywhere anyway.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>He's made late-night tea and brought you one already — left it by where you usually sit.<</narrative>>
-<<dialog "player">>(finding it) Did you—<</dialog>>
-<<dialog "brother">>(from across the kitchen, already leaving) I made too much.
-(already going back to his room)
-Night.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He says something late that feels like the beginning of a long conversation:<</narrative>>
+<<dialog "brother">>Do you ever think about what everything will look like in ten years? Like, the family. The house. All of it?<</dialog>>
+<<dialog "player">>Sometimes. You?<</dialog>>
+<<dialog "brother">>(looking at his mug) I think about it more now than I used to.
+(quietly)
+I think I used to not want to think about it.<</dialog>>`,
+                friendship: 4, trust: 3
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>They end up talking in the kitchen longer than either planned — the kind of late-night conversation that happens when everyone else is asleep.<</narrative>>
-<<dialog "brother">>(at some point) I don't usually talk this much.
-(not annoyed, just noting it)<</dialog>>
-<<dialog "player">>I know.<</dialog>>
-<<dialog "brother">>(quietly) It's okay with you though.
-(back to his tea, not making a big thing of it)<</dialog>>`,
-                friendship: 3, love: 2, trust: 2
+<<narrative>>It's past midnight and he's made both of you something to eat without being asked. You didn't say you were hungry.<</narrative>>
+<<dialog "brother">>(sliding a bowl across) You had that look.
+(sitting down with his own bowl)<</dialog>>
+<<dialog "player">>What look?<</dialog>>
+<<dialog "brother">>(eating) The hungry-but-won't-say-it look. I know it.
+(and just like that, it's easy again)<</dialog>>`,
+                friendship: 4, love: 3
             }
         ],
 
         sharing: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>He brings his sketchbook to the kitchen — sits across from you and opens it, just puts it there.<</narrative>>
-<<dialog "brother">>(not looking at you) I did a lot this week.
-(nudging it toward you slightly)
-You can look if you want.<</dialog>>
-<<narrative>>You look properly — all of it. He watches. Doesn't interrupt.<</narrative>>
-<<dialog "player">>(quietly) Jake, this is serious work.<</dialog>>
-<<dialog "brother">>(after a moment, taking it back)
-...Yeah. I think it might be.<</dialog>>`,
-                friendship: 3, trust: 2, love: 2
+<<narrative>>He puts the sketchbook on the table between you — open, at the beginning — and waits.<</narrative>>
+<<dialog "brother">>You can look through it. All of it. I don't mind anymore.
+(watching your hands, not your face)
+Tell me if any of it's bad. Honestly.<</dialog>>`,
+                friendship: 4, trust: 3, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>He tells you about a memory — just drops it in out of nowhere the way he sometimes does at night.<</narrative>>
-<<dialog "brother">>Do you remember the old kitchen? In the house before this one?
-(not sad, just thinking)<</dialog>>
-<<dialog "player">>Yeah.<</dialog>>
-<<dialog "brother">>I used to sit under that table when I was little. I don't know why. It just felt safe.
-(looking at this kitchen)
-This one's better though. More space.
-(back to his drink)
-More us.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He explains the game concept fully — the whole thing, not the sanitised version he gives everyone else.<</narrative>>
+<<dialog "brother">>Okay. The full version. Ready?
+(and then he tells you everything — the world, the characters, the mechanics, the ending)
+...That's it. That's the whole thing.
+(looking at you, vulnerable)
+What do you think?<</dialog>>`,
+                friendship: 4, trust: 3, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>He says it plainly at the end of the evening:<</narrative>>
-<<dialog "brother">>This vacation's been good.
-(simply)
-Because of stuff like this. Days like this.<</dialog>>
-<<dialog "player">>Yeah. Me too.<</dialog>>
-<<dialog "brother">>(getting up)
-Good.
-(going upstairs)
-Night.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He shows you a drawing he did of the family. You're in it. He hadn't planned to show you this one.<</narrative>>
+<<dialog "brother">>(seeing you see it, quickly) That one was just practice. Figures and stuff.
+(not taking it away)
+I draw what's around me. You were — it's not a thing.<</dialog>>
+<<dialog "player">>Jake. It's really good.<</dialog>>
+<<dialog "brother">>(very quietly) I know.
+(closing the sketchbook gently)
+Thanks.<</dialog>>`,
+                friendship: 4, love: 3, trust: 2
             }
         ]
     },
 
-    /* ==========================================
-       LIVING ROOM — VACATION MORNING (L2)
-    ========================================== */
     fhLivingroom_vacation_morning: {
 
         present: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's downstairs already, sketchbook on his lap, drawing. He looks up when you come in — easy, not startled.<</narrative>>
-<<dialog "brother">>Morning.
-(genuinely, without the usual morning flatness)<</dialog>>
-<<dialog "player">>Morning. You're drawing?<</dialog>>
-<<dialog "brother">>(back to his work) Yeah. Morning light's good for it.
-(shows you briefly)
-I'm doing the backgrounds today.<</dialog>>`,
-                friendship: 3
+<<narrative>>He's downstairs early — sketchbook on his lap, back door slightly open for air. Comfortable.<</narrative>>
+<<dialog "player">>(coming down) You're down here again.<</dialog>>
+<<dialog "brother">>(not looking up) It's better in the morning. The light's different.
+(turning a page)
+There's tea in the pot. I kept it warm.<</dialog>>`,
+                friendship: 4, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's got the back door open and is letting the morning in — something he's never done before.<</narrative>>
-<<dialog "player">>You like mornings now?<</dialog>>
-<<dialog "brother">>(looking at the garden) Just this vacation. I don't want to make a habit of it.
-(a small smile)
-Don't tell anyone.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's made himself at home in the living room — morning newspaper someone left, a cup of tea, the sofa configured for a morning stay.<</narrative>>
+<<dialog "brother">>(glancing up) There's a whole article in here about game design. I pulled it out.
+(holding up a torn page)
+Don't tell Dad I tore it. I'll recycle it after.<</dialog>>`,
+                friendship: 4
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's saved you the better cushion — you didn't ask, you didn't mention it. He just did.<</narrative>>
-<<dialog "brother">>(when you sit) I was going to sit there but you always like that one.
-(back to his phone, no big deal)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's just sitting. Sketchbook closed, tea nearby. You come in and he shifts over without being asked.<</narrative>>
+<<dialog "brother">>(when you sit) Good morning.
+(back to looking at nothing, content)
+It's a good one today.<</dialog>>`,
+                friendship: 4, love: 1
             }
         ],
 
         quiet: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>You're both in the room in comfortable silence. Not doing nothing — just doing separate things, together.<</narrative>>
-<<dialog "brother">>(after a while) This is actually the best way to spend a morning.
-(back to his sketchbook)<</dialog>>`,
-                friendship: 3
+<<narrative>>You're both doing your own things. Parallel morning. He glances over occasionally with nothing to say, and that's enough.<</narrative>>
+<<dialog "brother">>(eventually) This is good.
+(meaning: this, right now, the two of you just existing)<</dialog>>
+<<dialog "player">>Yeah.<</dialog>>
+<<dialog "brother">>(back to his sketchbook)<</dialog>>`,
+                friendship: 4, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>He says something small that's actually large:<</narrative>>
-<<dialog "brother">>I think I'm going to remember this vacation.
-(not elaborating)<</dialog>>
-<<dialog "player">>Yeah?<</dialog>>
-<<dialog "brother">>(back to what he's doing)
-Yeah. It's been good.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's drawing, you're doing something nearby. He occasionally narrates what he's working on without looking up — half to you, half to himself.<</narrative>>
+<<dialog "brother">>(sketching) I'm trying to do hands. Hands are the worst.
+(a beat)
+Actually no, feet are the worst. But hands are close.<</dialog>>`,
+                friendship: 4
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>He has tea ready when you come downstairs. It's become a habit, apparently.<</narrative>>
-<<dialog "brother">>(reading something) Yours is on the table.
-(not looking up, completely natural)<</dialog>>
-<<dialog "player">>Thanks.<</dialog>>
-<<dialog "brother">>(turning a page)
-Yeah.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He shows you something in the sketchbook without making it a presentation — just holds it up as you pass.<</narrative>>
+<<dialog "brother">>Tell me if the proportions are off.
+(holds up the page)
+I've been looking at it too long. I can't tell anymore.<</dialog>>`,
+                friendship: 4, trust: 2
             }
         ],
 
         talking: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>He asks you something properly curious, not deflecting:<</narrative>>
-<<dialog "brother">>What do you think makes something art versus just design?
-(genuinely asking, not testing you)<</dialog>>
-<<dialog "player">>(thinking) Whether it's trying to make you feel something?<</dialog>>
-<<dialog "brother">>(turning this over) Yeah... but good design does that too. Intentionally.
-(sitting back)
-I think they're the same thing at the top level.
-(to himself)
-I think they're the same.<</dialog>>`,
-                friendship: 3, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-<<narrative>>He's been quiet for a long time and then says:<</narrative>>
-<<dialog "brother">>Do you think I'm good enough to actually do something with it? The design stuff.
-(direct, no deflection)<</dialog>>
-<<dialog "player">>Yes. Genuinely yes.<</dialog>>
-<<dialog "brother">>(sitting with this for a moment — actually letting it land)
+<<narrative>>He sits across from you and asks something genuine:<</narrative>>
+<<dialog "brother">>What do you actually think of me? Like — honestly. As a person.
+(before you can answer)
+Not nice. Honest.<</dialog>>
+<<dialog "player">>(taking it seriously, answering honestly)<</dialog>>
+<<dialog "brother">>(listening to the whole thing)
+(quiet after)
 Okay.
-(back to his sketchbook)
-Okay. Good.<</dialog>>`,
-                friendship: 3, trust: 2, love: 1
+(sitting back)
+That's... actually pretty good.<</dialog>>`,
+                friendship: 4, trust: 3
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>He mentions something from the past — casually, like it's obvious:<</narrative>>
-<<dialog "brother">>You know you're the person I talk to most in this family?
-(reading something, not looking up)
-By a significant margin.<</dialog>>
-<<dialog "player">>Is that good?<</dialog>>
-<<dialog "brother">>(finally looking up) Yeah.
-(back to reading)
-Obviously.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He brings something up that he's been sitting on for a while:<</narrative>>
+<<dialog "brother">>I want to apply somewhere after school. Like a proper design course.
+(not looking at you)
+I haven't told Mom and Dad yet. I don't know how they'll take it.
+(a beat)
+What do you think I should say to them?<</dialog>>`,
+                friendship: 4, trust: 3
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>He says something that costs him but he says it anyway:<</narrative>>
+<<dialog "brother">>I think you're the person in this house who actually gets me.
+(not dramatic — just observational)
+Dad tries but he doesn't really. Mom does in her way.
+(looking at you)
+You just sort of... do. Without trying.<</dialog>>`,
+                friendship: 4, trust: 3, love: 3
             }
         ]
     },
 
-    /* ==========================================
-       LIVING ROOM — VACATION AFTERNOON (L2)
-    ========================================== */
     fhLivingroom_vacation_afternoon: {
 
         together: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's set up the living room with snacks and a film queued before you even came down.<</narrative>>
-<<dialog "brother">>(from the sofa) I picked something you'll actually like.
-(pointing at the screen)
-Don't ask how I knew. I just did.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He shows you the game document on his phone — the actual file, the organised version, the one he's been building for months.<</narrative>>
+<<dialog "brother">>(handing you the phone) Don't scroll too fast. The structure matters.
+(nervous in the way only something real can make you nervous)
+Tell me what you think of the first level.<</dialog>>`,
+                friendship: 4, trust: 3, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>He shares something he would've kept private last month:<</narrative>>
-<<dialog "brother">>(showing you his phone) Okay so I've been writing down ideas for the game for ages. I have a whole document.
-(nervous energy)
-It's messy. But it's all there.
-(waiting)<</dialog>>
-<<dialog "player">>(looking) Keep going. I want to read it.<</dialog>>
-<<dialog "brother">>(handing the phone over)
-...Yeah. Okay. Read it then.<</dialog>>`,
-                friendship: 3, trust: 2, love: 1
+<<narrative>>He's found something you'd like and put it on before you got there.<</narrative>>
+<<dialog "brother">>(when you come in) I found this one. I think you'll actually like it.
+(completely certain about this)
+Sit down. It starts slow but stay with it.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>He sits beside you rather than across from you — a small thing, a clear thing.<</narrative>>
-<<dialog "brother">>(putting on something to watch) I'm picking. You can override me if it's genuinely bad.
-(settling in beside you, easy)
-But I think you'll like it.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's settled on the sofa and reaches across to pass you the snacks when you sit — automatic now, easy.<</narrative>>
+<<dialog "brother">>(not looking away from the screen) Good afternoon.
+(completely deadpan)
+Nice of you to join me.<</dialog>>
+<<dialog "player">>It's my house too.<</dialog>>
+<<dialog "brother">>(taking some crisps) Technically. Technically your house too.<</dialog>>`,
+                friendship: 4, love: 2
             }
         ],
 
         honest: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>He turns the TV off mid-show — unusual — and just sits for a moment.<</narrative>>
-<<dialog "brother">>I'm nervous about going back to school.
-(direct, no build-up)
-Not in a panic way. Just. Normal nervous.
-(turning to you)
-Is that normal?<</dialog>>
-<<dialog "player">>Yeah. Very normal.<</dialog>>
-<<dialog "brother">>(nodding, accepting it simply)
-Okay. Good. Thanks.<</dialog>>`,
-                friendship: 3, trust: 2
+<<narrative>>He turns off the TV — just turns it off, middle of nothing, to say something:<</narrative>>
+<<dialog "brother">>I'm nervous about going back to school. Still. Even after everything.
+(matter of fact)
+I thought it would go away but it hasn't. I'm just better at managing it now.
+(pause)
+Is that normal for it to stay?<</dialog>>`,
+                friendship: 4, trust: 3
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>He looks at you for a second too long — like he's checking you're real, present, okay.<</narrative>>
-<<dialog "brother">>(quietly) You good?<</dialog>>
-<<dialog "player">>Yeah. You?<</dialog>>
-<<dialog "brother">>(back to the TV)
-Yeah. Good.
-(he meant it — it was a check, not a question)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He admits something he'd never have said earlier:<</narrative>>
+<<dialog "brother">>At the start of the year I wanted to go back to the old house so badly. Like, badly.
+(looking at the room)
+Now I don't. I think this one's actually better.
+(shrugging)
+Funny how that works.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>He teases you — the affectionate kind that only works between people who trust each other.<</narrative>>
-<<dialog "brother">>(slightly dramatic) Your taste in everything is a bit weird. You know that right?
-(before you respond)
-But so is mine. So we're compatible.
-(going back to his show, not taking it back)<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He says something plainly and then sits with it:<</narrative>>
+<<dialog "brother">>I think this was the best vacation I've had. I know that's a low bar.
+(looking at the window)
+But it actually is. I felt like myself.
+(quietly)
+I don't always feel like myself.<</dialog>>`,
+                friendship: 4, trust: 3, love: 2
             }
         ],
 
         goofy: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>He does an impression — a full one — and it's actually good. He does it for you specifically, not to an empty room.<</narrative>>
-<<dialog "brother">>(doing the impression) — and then he says—
-(breaking for a second)
-Wait, are you ready? Watch.<</dialog>>
-<<dialog "player">>(waiting)<</dialog>>
-<<dialog "brother">>(doing the whole thing — you both end up laughing properly)<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He does an impression so good you both lose it completely. The particular helpless laughter of people who know the same person.<</narrative>>
+<<dialog "brother">>(doing Dad) "Jake, have you thought about your future?"
+(switching)
+"Jake, are you eating enough?"
+(switching again)
+"Jake, what are your five-year plans?"
+(completely losing his own composure)<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>He challenges you to something competitive — and this time it's close, and he knows it, and he loves it.<</narrative>>
-<<dialog "brother">>(intense) You're actually good at this. I didn't expect that.
-(refocusing)
-Doesn't matter. I'm winning.<</dialog>>
-<<dialog "player">>You're not winning.<</dialog>>
-<<dialog "brother">>(genuinely engaged, grinning a little)
-...We'll see.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He challenges you to something stupid and is completely committed to winning.<</narrative>>
+<<dialog "brother">>Trivia. Right now. Best of three. I've been practising geography.
+(getting his phone out)
+Actually I've been accidentally practising geography because of the bear fact thing. But still. Ready?<</dialog>>`,
+                friendship: 4
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>He does something unexpectedly considerate — adjusts the blinds so the light isn't in your eyes, just notices and does it.<</narrative>>
-<<dialog "player">>(surprised) Thanks.<</dialog>>
-<<dialog "brother">>(back to the sofa) It was bothering me too.
-(this may or may not be true)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He says something absurd with complete sincerity and it sets you both off. There's an ease to it now that wasn't there before.<</narrative>>
+<<dialog "brother">>(very serious) I've been thinking about this and I genuinely believe I could win a reality TV show. The ones where you have to like build things and be strategic.
+(completely certain)
+I have a specific skill set.<</dialog>>
+<<dialog "player">>You got stressed when the wifi went down last week.<</dialog>>
+<<dialog "brother">>(long pause) That was different. That was structural pressure. Reality TV is competitive pressure. Different adrenaline.<</dialog>>`,
+                friendship: 4, love: 2
             }
         ]
     },
 
-    /* ==========================================
-       LIVING ROOM — VACATION EVENING (L2)
-    ========================================== */
     fhLivingroom_vacation_evening: {
 
         filmNight: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>He does the whole thing — good blanket, better snacks, actually good film choice — and doesn't take credit.<</narrative>>
-<<dialog "brother">>(when you come in) I set it up. It's ready.
-(completely casual about having done something nice)<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He's set everything up. Good blankets, actual snacks, the film you mentioned once already queued.<</narrative>>
+<<dialog "brother">>(when you come in) You said you wanted to watch this one. Three days ago. I remembered.
+(completely casual about having remembered)
+Sit down. I'll get more drinks.<</dialog>>`,
+                friendship: 4, love: 3
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>He picks something he knows you'll both like — makes an effort, gets it right.<</narrative>>
-<<dialog "brother">>(during the film, leaning slightly toward you) Wait for this part. It's actually good.
-(checking that you're watching)<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He passes you something from the snack bowl and doesn't take his eyes off the screen. It's completely automatic. Normal.<</narrative>>
+<<dialog "player">>(taking it) Thanks.<</dialog>>
+<<dialog "brother">>(watching the screen) You were going to want that part. Keep watching.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>Watching something good — they both got into it. He ends up laughing properly a few times, face open, unguarded.<</narrative>>
-<<dialog "brother">>(after a particularly good moment) Okay. That was actually a perfect scene.
-(to you, still half-laughing)
-Right?<</dialog>>
-<<dialog "player">>Yeah. That was good.<</dialog>>
-<<dialog "brother">>(settling back, pleased)
-Yeah. Good film. I was right.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's set up next to you — close enough that it's comfortable, far enough that it's not a thing. Just right.<</narrative>>
+<<dialog "brother">>(pressing play) Good choice tonight. I admit it.
+(settling in)
+You have better taste than I said you had.<</dialog>>
+<<dialog "player">>You said my taste was objectively bad.<</dialog>>
+<<dialog "brother">>(watching the screen) That was a different conversation. I've revised my position.<</dialog>>`,
+                friendship: 4, love: 2
             }
         ],
 
         end: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>At the end of the film, neither of them moves for a while.<</narrative>>
-<<dialog "brother">>(eventually) Good vacation day.
-(quietly)
-Really good.<</dialog>>
-<<dialog "player">>Yeah. Really good.<</dialog>>
-<<dialog "brother">>(getting up to go to bed, looking back once)
-Night.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>The film finishes and neither of you moves. He stares at the dark screen for a moment.<</narrative>>
+<<dialog "brother">>(quietly) That was actually really good.
+(not moving)
+I didn't expect that.<</dialog>>
+<<dialog "player">>I told you.<</dialog>>
+<<dialog "brother">>(small exhale, almost a laugh) Yeah.
+(staying put)
+I know. You did.<</dialog>>`,
+                friendship: 4, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>He says it on the way out — casual, but he means every word:<</narrative>>
-<<dialog "brother">>You're good company. Just so you know.
-(heading upstairs, not making it a moment)<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>Credits roll. He doesn't skip them. He looks at you instead.<</narrative>>
+<<dialog "brother">>That character at the end. The way he—
+(stops himself)
+Never mind. You know what I mean.<</dialog>>
+<<dialog "player">>Yeah. I know.<</dialog>>
+<<dialog "brother">>(nodding, satisfied)
+Good.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>He stays up later than he planned because he's comfortable here, in this room, with you. He doesn't say it that way.<</narrative>>
-<<dialog "brother">>(far later than expected) Okay. Now I actually have to sleep.
-(getting up with some effort)
-Night.
-(pausing)
-This was good.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He says something after the film that's real and small and true:<</narrative>>
+<<dialog "brother">>(to the dark screen) This is a good way to spend an evening.
+(a beat)
+With you. Specifically with you.
+(pre-empting his own embarrassment)
+Don't write it down.<</dialog>>`,
+                friendship: 4, love: 3
             }
         ],
 
         deep: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>The TV is off, the room is dim. He's talking more than usual.<</narrative>>
-<<dialog "brother">>I think about who I'm going to be a lot.
-(not dramatically)
-Like — what kind of person I'm becoming. Whether it's the right one.
-(glancing at you)
-Do you think about that?<</dialog>>
-<<dialog "player">>All the time.<</dialog>>
-<<dialog "brother">>(quietly)
-Good. I'm glad it's not just me.<</dialog>>`,
-                friendship: 3, trust: 2, love: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-<<narrative>>He says something that surprises even himself — plainly, no armour around it:<</narrative>>
-<<dialog "brother">>I love this family. I know that's a weird thing to just say.
+<<narrative>>The TV is off. The lamp is low. He says something he means completely:<</narrative>>
+<<dialog "brother">>I used to think I was going to be the kind of person who didn't need anyone. Like, independent to the point of not needing people.
 (looking at his hands)
-Just — for the record. I do.
-(getting up quickly)
-Night.<</dialog>>`,
-                friendship: 3, love: 2, trust: 1
+I don't think that anymore.
+(quiet)
+I think I was just scared of needing people.<</dialog>>`,
+                friendship: 4, trust: 3, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>The end of vacation is visible — school starts soon. He feels it without naming it.<</narrative>>
-<<dialog "brother">>(quiet, looking at the window) I don't want it to go back to how it was. School and just... routine.
-(turning to you)
-Is there a way to keep some of this?<</dialog>>
-<<dialog "player">>Yeah. We can keep it.<</dialog>>
-<<dialog "brother">>(sitting with this, deciding to believe it)
-...Yeah. Okay. Good.<</dialog>>`,
-                friendship: 3, trust: 2, love: 2
+<<narrative>>He sits in the dim room and says:<</narrative>>
+<<dialog "brother">>You know what I think is weird? You came into my life as a sister and you actually are one. Like genuinely are one.
+(not looking at you)
+I didn't know that was something that could happen. That fast.
+(quickly)
+Anyway. Night.<</dialog>>
+<<narrative>>He goes upstairs before you can say anything. You hear his door close, gently.<</narrative>>`,
+                friendship: 4, trust: 3, love: 3
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>He asks something quietly in the dark room:<</narrative>>
+<<dialog "brother">>Do you think we'll stay close? When everything changes? School ending, people moving, all of it?<</dialog>>
+<<dialog "player">>Yeah. I do.<</dialog>>
+<<dialog "brother">>(sitting with that for a long moment)
+(nodding)
+Me too.
+(a breath)
+Good.<</dialog>>`,
+                friendship: 4, trust: 3, love: 3
             }
         ]
     },
 
-    /* ==========================================
-       BACKYARD — VACATION AFTERNOON (L2)
-    ========================================== */
     fhBackyard_vacation_afternoon: {
 
         outside: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's actually initiated being outside — came out here on purpose, not just ended up here.<</narrative>>
-<<dialog "brother">>(on the grass, sketchbook in hand) I'm drawing the garden. Not in a weird way. Just — practising spaces.
-(showing you a page)
-What do you think?<</dialog>>`,
-                friendship: 3, trust: 2
+<<narrative>>He's in the garden with his sketchbook — actively chose to come outside with it.<</narrative>>
+<<dialog "player">>(coming out) Hey.<</dialog>>
+<<dialog "brother">>(not looking up from the page) Hey.
+(a beat)
+The light's good today. For drawing.
+(showing you what he's working on without being asked)
+I'm trying to do the garden. The actual garden.<</dialog>>`,
+                friendship: 4
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's found what he needed — a real activity that gets him out of his head.<</narrative>>
-<<dialog "brother">>(doing something physical — gardening, badminton, something) This is actually kind of good.
-(to you, surprised at himself)
-Why didn't I do this earlier in the vacation?<</dialog>>
-<<dialog "player">>Because you wouldn't have been ready.<</dialog>>
-<<dialog "brother">>(considering this) Huh. Yeah. Maybe.<</dialog>>`,
-                friendship: 3
+<<narrative>>He's found a spot that works for him — the same corner he always ends up in now. He looks up when you come out.<</narrative>>
+<<dialog "brother">>(making room) Sit here. The sun hits this spot right.
+(moving over, easy about it)<</dialog>>
+<<dialog "player">>Since when is this your spot?<</dialog>>
+<<dialog "brother">>(already back to his sketchbook) Since I claimed it. Laws of possession. It's mine.<</dialog>>`,
+                friendship: 4, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>He challenges you to something outside — badminton, keep-uppy, something dumb — and is fully committed.<</narrative>>
-<<dialog "brother">>(serving) Okay. Best of five.
-(with complete seriousness)
-Loser has to admit the winner is better at everything.<</dialog>>
-<<dialog "player">>That's a stupid rule.<</dialog>>
-<<dialog "brother">>(grinning) Best of five.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's on the step with a cold drink and his notebook, looking out at the garden.<</narrative>>
+<<dialog "brother">>(when you come out) Good timing. I wanted to run something past you.
+(opening the notebook)
+The last world in the game. I can't figure out the mood of it. What would you make it feel like?<</dialog>>`,
+                friendship: 4, trust: 2
             }
         ],
 
         mellow: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>He's been drawing on the step — shows you something without prompting when you come out.<</narrative>>
-<<dialog "brother">>(handing you the sketchbook, open) This one's the best I've done.
-(watching your face)<</dialog>>
-<<dialog "player">>(looking properly — it's good, genuinely) Jake. Yeah. This is the best one.<</dialog>>
-<<dialog "brother">>(taking it back, quiet for a second)
-...Thanks. I thought so too. Wanted to check.<</dialog>>`,
-                friendship: 3, trust: 2, love: 1
+<<narrative>>He shows you his best drawing from the vacation — holds it up in the afternoon light.<</narrative>>
+<<dialog "brother">>(holding it out) Best thing I've done.
+(watching your face as you look)
+I'm not being modest. It actually is.<</dialog>>
+<<dialog "player">>(genuinely) It's really good.<</dialog>>
+<<dialog "brother">>(putting it carefully back in the sketchbook) Yeah. I know.
+(pleased in a quiet way)<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>They're both outside, doing nothing in particular. He puts some music on from his phone and leans it against the step.<</narrative>>
-<<dialog "brother">>(not explaining) Good afternoon music.
-(sitting back)
-This is the playlist I work to.<</dialog>>`,
-                friendship: 3
+<<narrative>>He's leaning back with his face in the sun — no phone, no sketchbook, just there.<</narrative>>
+<<dialog "brother">>(eyes closed) This is a good afternoon.
+(very settled)
+Tell me something.<</dialog>>
+<<dialog "player">>What?<</dialog>>
+<<dialog "brother">>(still eyes closed) Anything. I just want background noise that's interesting.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>He says something that registers as important even in its simplicity:<</narrative>>
-<<dialog "brother">>(watching clouds or something equally nothing) I feel like myself this vacation.
-(not sure why he's saying it out loud)
-More than I do at school. Like, all the way myself.
-(glancing at you)
-Is that what home is supposed to feel like?<</dialog>>
-<<dialog "player">>Yeah. I think that's exactly what it's supposed to feel like.<</dialog>>
-<<dialog "brother">>(back to looking at the sky)
-Good. Okay.<</dialog>>`,
-                friendship: 3, trust: 2, love: 2
+<<narrative>>He asks you something while looking at the garden:<</narrative>>
+<<dialog "brother">>If you could draw something — anything, just for yourself, no one else — what would it be?<</dialog>>
+<<dialog "player">>(thinking, answering)<</dialog>>
+<<dialog "brother">>(nodding, considering this seriously) I could try to draw that.
+(opening his sketchbook)
+If you want. Just as a thing. No reason.<</dialog>>`,
+                friendship: 4, love: 2
             }
         ],
 
         real: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>He says something he's been thinking:<</narrative>>
-<<dialog "brother">>I want to show Dad my game stuff. Not yet. But at some point.
-(working up to something)
-Do you think he'd get it?<</dialog>>
-<<dialog "player">>I think he'd try. And he'd mean it.<</dialog>>
-<<dialog "brother">>(nodding slowly) Yeah. I think so too.
-(a pause)
-Maybe at the weekend.<</dialog>>`,
-                friendship: 3, trust: 2
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-<<narrative>>He tells you something real about school — not the surface version:<</narrative>>
-<<dialog "brother">>There's one friend I actually like at school. Really like. Like, properly.
-(picking at the grass)
-I don't know if they know that. I'm not great at showing it.<</dialog>>
-<<dialog "player">>You're getting better.<</dialog>>
+<<narrative>>He says it simply, like he's been deciding when to say it:<</narrative>>
+<<dialog "brother">>If something went badly wrong — like properly wrong — you'd be the person I'd call first.
+(not looking at you)
+Not Mom, not Dad. You.
+(a beat)
+That's probably a weird thing to say.<</dialog>>
+<<dialog "player">>It's not weird.<</dialog>>
 <<dialog "brother">>(quietly)
-Yeah. I think I am.<</dialog>>`,
-                friendship: 3, trust: 2
+Good.
+(back to looking at the garden)<</dialog>>`,
+                friendship: 4, trust: 3, love: 3
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>He says the thing plainly — the way he does when he's decided something:<</narrative>>
-<<dialog "brother">>You're the person I'd call if something went badly wrong.
-(simple, settled)
-Just so you know. If you ever wondered.<</dialog>>
-<<dialog "player">>(after a moment) Same.<</dialog>>
-<<dialog "brother">>(nodding once, that's done)
-Good.<</dialog>>`,
-                friendship: 3, trust: 2, love: 2
+<<narrative>>He names it directly for the first time:<</narrative>>
+<<dialog "brother">>I didn't think I'd like having an older sister. I thought it would be weird.
+(looking at you sideways)
+It's not weird. It's actually good.
+(goes back to his sketchbook immediately)
+Okay. Moving on. What do you want for dinner.<</dialog>>`,
+                friendship: 4, trust: 3, love: 3
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>He's in a real mood — expansive, open, the version of him that comes out in good light on good days.<</narrative>>
+<<dialog "brother">>I'm going to be okay.
+(not fishing, just stating it)
+Like, I genuinely think I'm going to be okay. The school stuff, the future stuff.
+(glancing at you)
+I didn't always think that.<</dialog>>
+<<dialog "player">>I know.<</dialog>>
+<<dialog "brother">>(nodding)
+Yeah. I know you know.<</dialog>>`,
+                friendship: 4, trust: 3, love: 2
             }
         ]
     },
 
-    /* ==========================================
-       BACKYARD — VACATION EVENING (L2)
-    ========================================== */
     fhBackyard_vacation_evening: {
 
         sunset: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>His spot in the garden — the corner he's claimed. He's there and he moves to make room when he sees you coming.<</narrative>>
-<<dialog "brother">>(quietly) Sit.
-(he's been here for a while — calm, settled)<</dialog>>
-<<dialog "player">>(sitting)
-Good evening?<</dialog>>
-<<dialog "brother">>(looking at the sky) Yeah. Really good.<</dialog>>`,
-                friendship: 3, love: 1
+<<narrative>>He's in his corner when you come out. Moves automatically to let you in.<</narrative>>
+<<dialog "brother">>(making room) Sit. It's about to get good.
+(watching the sky)<</dialog>>
+<<dialog "player">>(sitting beside him) What are we watching?<</dialog>>
+<<dialog "brother">>The light goes orange in about five minutes. Every evening this week. I've been tracking it.
+(small smile)
+It's good.<</dialog>>`,
+                friendship: 4, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>He's been out here a while and looks more himself than he's been all day.<</narrative>>
-<<dialog "brother">>(when you come out) You know what I've realised?
-(looking at the light)<</dialog>>
-<<dialog "player">>What?<</dialog>>
-<<dialog "brother">>The sky looks completely different depending on where you live.
-(not philosophical, just observing)
-This one's better than the last one. More dramatic at sunset.
-(pointing)
-Look at that.<</dialog>>`,
-                friendship: 3
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-" + random(1,3) + ".webp">>
-<<image _img "100%">>
-<<narrative>>He's sitting in the garden with a page of drawings in his hands — looking between them and the garden, comparing.<</narrative>>
-<<dialog "player">>(coming out) What are you doing?<</dialog>>
-<<dialog "brother">>(holding up the drawings) Checking my proportions against the actual thing.
+<<narrative>>He's been sketching the sunset. He shows you the page without you asking.<</narrative>>
+<<dialog "brother">>(holding it up against the actual sky) It's not as good as the real one but—
 (looking between them)
-I got that fence line wrong.
-(making a note)
-But the tree is good.<</dialog>>`,
-                friendship: 3, trust: 1
+The colour's close. I mixed three things to get that orange.<</dialog>>`,
+                friendship: 4, love: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>He's been out here a while when you come out. He says:<</narrative>>
+<<dialog "brother">>I've been thinking about what I want to do differently next year.
+(to the sky)
+More of this. Outside. Drawing. Talking to people who are worth talking to.
+(a beat)
+Less of just... surviving.<</dialog>>`,
+                friendship: 4, trust: 3, love: 2
             }
         ],
 
         stars: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>The stars are out. He's lying on the grass looking at them — knows the names of a few, quietly.<</narrative>>
-<<dialog "brother">>(pointing up) That cluster up there. I looked them up once.
-(naming one or two)
-Cassiopeia. That one I think.
-(glancing at you)
-Lie down. It's better flat.<</dialog>>`,
-                friendship: 3
+<<narrative>>He's on his back in the grass and points up when you come out.<</narrative>>
+<<dialog "brother">>(pointing) Okay. That cluster up there. Three stars in a triangle. That's Triangulum.
+(a pause)
+I learned that from a video. I've been watching videos.
+(slightly embarrassed)
+It's genuinely interesting though.<</dialog>>`,
+                friendship: 4
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>He says something after a long quiet:<</narrative>>
-<<dialog "brother">>I'm glad we moved here.
-(simple, no armour around it)
-Even though I wasn't at the time. I am now.
-(the stars)
-This garden especially.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He lies in the grass next to you and narrates quietly — things he's looked up, things he noticed, things he thought while you weren't here.<</narrative>>
+<<dialog "brother">>(pointing at a star) That one's been there every night this week. Same spot. 
+(a long pause)
+I never noticed stars before this vacation.
+(simply)
+Now I do.<</dialog>>`,
+                friendship: 4, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>He's on the grass, at ease, and asks you something that's been forming since the start of vacation:<</narrative>>
-<<dialog "brother">>If I actually did it — the game design thing — would you play it? Like, what I made?<</dialog>>
-<<dialog "player">>Yes. Obviously yes.<</dialog>>
-<<dialog "brother">>(a real smile — rare, brief, unmistakeable)
-...Okay.
-(back to the stars)
-Cool.<</dialog>>`,
-                friendship: 3, trust: 2, love: 2
+<<narrative>>He says something out of nowhere, looking up:<</narrative>>
+<<dialog "brother">>I want to draw the sky. Like, really draw it. Properly.
+(a pause)
+I don't think I'm good enough yet.
+(another pause)
+I will be though.<</dialog>>
+<<dialog "player">>I know you will.<</dialog>>
+<<dialog "brother">>(quietly, looking at the stars)
+Yeah. I think so too.<</dialog>>`,
+                friendship: 4, trust: 2, love: 1
             }
         ],
 
         closing: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>End of a vacation day. He gets up to go in but lingers at the back door.<</narrative>>
-<<dialog "brother">>(in the doorway, looking back) Good vacation.
-(quietly)
-Really good one.<</dialog>>
-<<dialog "player">>Yeah. One of the best.<</dialog>>
-<<dialog "brother">>(nodding, going in)
-Yeah.<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He goes inside and then turns back in the doorway — warm light behind him, garden dark now.<</narrative>>
+<<dialog "brother">>Hey.
+(just looking at you for a second)
+Glad you're my sister.
+(going inside immediately, door half-closed)
+Night.<</dialog>>
+<<narrative>>The door closes. You're in the garden alone. The porch light is still on.<</narrative>>`,
+                friendship: 4, love: 4, trust: 3
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>He says goodnight outside — first time he's done it in the garden.<</narrative>>
-<<dialog "brother">>Night.
-(genuinely, with eye contact)
-Come in when you're ready. Don't stay out too late.
-(going in — and that was concern, in his language)<</dialog>>`,
-                friendship: 3, love: 2
+<<narrative>>He's at the back door and says:<</narrative>>
+<<dialog "brother">>This was a good vacation.
+(looking back at the garden)
+I'll remember it.
+(and he means that — the sky, the drawings, the conversations, all of it)
+Come in when you're ready. I'll leave the light on.<</dialog>>`,
+                friendship: 4, love: 3, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>Before going in, he stops and says:<</narrative>>
-<<dialog "brother">>You know I'm — okay. This is—
-(starting again)
-I'm glad you're my sister.
-(immediately going inside)
-Night!<</dialog>>`,
-                friendship: 3, love: 2, trust: 1
+<<narrative>>He stands in the doorway for a moment — silhouette against the kitchen light — and says something simple:<</narrative>>
+<<dialog "brother">>Thanks.
+(not specifying for what)
+For being around.
+(going in, quietly)<</dialog>>
+<<narrative>>The door swings half-shut. Through the window you can see him put the kettle on — making tea for both of you without asking, one last time.<</narrative>>`,
+                friendship: 4, love: 4, trust: 3
             }
         ]
     }

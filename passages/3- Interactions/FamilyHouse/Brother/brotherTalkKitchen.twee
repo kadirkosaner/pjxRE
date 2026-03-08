@@ -3,7 +3,8 @@
 <<set $location = "fhKitchen">>
 <<logDailyActivity "brother" "talk">>
 <<set _char = $characters.brother>>
-<<set _friendship = _char.stats.friendship>>
+<<set _stats = $characters.brother.stats>>
+<<set _level = _stats.friendshipLevel || 1>>
 
 /* Determine phase */
 <<if def $flags && $flags.summerBreak>>
@@ -12,7 +13,6 @@
     <<set _phase = "school">>
 <</if>>
 
-/* Determine time slot */
 /* Determine time slot */
 <<set _hour = $timeSys.hour>>
 <<if _hour >= 6 && _hour < 12>>

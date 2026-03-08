@@ -1,36 +1,23 @@
 /* ==========================================
    FATHER TALK TOPICS — POST-WORK, LEVEL 2
-   phase === "postWork" && friendshipLevel === 2
-
-   Structure: setup.fatherTopics.postWork.level2[locTimeKey][topicName] = [ {text, friendship, trust, love} ]
-
-   POST-WORK L2 TONE:
-   → He trusts you more. The routine has normalised.
-   → He opens up briefly — about work pressure, past, what he values
-   → Dry humour more visible. Not cold — just how he's warm.
-   → Kitchen morning: he looks out for you before leaving
-   → Kitchen evening: the two of you process the day together, not just side-by-side
-   → LivingRoom evening: occasional personal sharing, easy company
-   → Garage evening: teaches you things, tells you stories, works alongside properly
-
-   Stat gains: friendship +2-3, trust +1-2, love +1 on heartfelt moments
-
-   4 CONTEXTS (same as Level 1):
-   fhKitchen_postWork_morning    fhKitchen_postWork_evening
-   fhLivingroom_postWork_evening fhGarage_postWork_evening
+   IMG MAPPING:
+   kitchenMorning:      lookingOut=1, morningChat=2, handoff=3
+   kitchenEvening:      openingUp=1, humour=2, memory=3
+   livingroomEvening:   bonding=1, advice=2, quiet=3
+   garageEvening:       teaching=1, stories=2, realTalk=3
+   parentsRoomMorning:  leaving=1, preparing=2, moment=3
+   parentsRoomEvening:  vulnerable=1, nightRoutine=2, closing=3
 ========================================== */
 
+<<set setup.fatherTopics = setup.fatherTopics || {}>>
+<<set setup.fatherTopics.postWork = setup.fatherTopics.postWork || {}>>
 <<set setup.fatherTopics.postWork.level2 = {
 
-    /* ==========================================
-       KITCHEN — POST-WORK MORNING (L2)
-       He actually notices you — brief but warmer
-    ========================================== */
     fhKitchen_postWork_morning: {
 
         lookingOut: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's already set a mug out for you — didn't say anything, just did it.<</narrative>>
 <<dialog "player">>Oh. Thanks.<</dialog>>
@@ -44,7 +31,7 @@ See you tonight.<</dialog>>`,
                 friendship: 3, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He catches you looking tired and doesn't comment on whatever he was about to say.<</narrative>>
 <<dialog "father">>(quieter than usual) Long night?<</dialog>>
@@ -55,7 +42,7 @@ The house makes noise in the night. You get used to it.<</dialog>>`,
                 friendship: 2, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He slides a folded note across the counter on his way out.<</narrative>>
 <<dialog "player">>What's this?<</dialog>>
@@ -68,7 +55,7 @@ I should've written it down sooner.<</dialog>>`,
 
         morningChat: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He has a few unexpected minutes and doesn't immediately fill them with his phone.<</narrative>>
 <<dialog "father">>(sitting) I used to hate mornings at work. Had to train myself out of it.
@@ -81,7 +68,7 @@ Me too. Still.<</dialog>>`,
                 friendship: 3, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's putting his lunch together — the now-familiar morning ritual.<</narrative>>
 <<dialog "father">>If you're going past the hardware place today — I left a list on the side. If not, no problem.<</dialog>>
@@ -94,7 +81,7 @@ I'll add the sizes I need.<</dialog>>`,
                 friendship: 3, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He pauses before leaving — eye contact, intentional.<</narrative>>
 <<dialog "father">>Have a good day.
@@ -108,7 +95,7 @@ Not just — automatically. I mean it.<</dialog>>
 
         handoff: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He passes you on the way out — shoulder barely touching yours — and keeps going.<</narrative>>
 <<dialog "father">>Heard you last night, by the way. Fixing the thing with the cupboard door.
@@ -119,19 +106,18 @@ Good fix.<</dialog>>
                 friendship: 3, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He drops his keys on the counter and picks them up — a thought caught mid-motion.<</narrative>>
 <<dialog "father">>I've cleared Saturday morning. We can finish the garage properly.
 (to you)
 If you're free.<</dialog>>
 <<dialog "player">>Yeah, I'm free.<</dialog>>
-<<dialog "father">>(that settled)
-Good. We'll do it properly.<</dialog>>`,
+<<dialog "father">>(that settled) Good. We'll do it properly.<</dialog>>`,
                 friendship: 2, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's halfway out when a thought catches him. He comes back in briefly.<</narrative>>
 <<dialog "father">>That book on the hallway shelf. I left it there for you.
@@ -144,15 +130,11 @@ You don't have to read it. But you'd find it interesting.<</dialog>>`,
         ]
     },
 
-    /* ==========================================
-       KITCHEN — POST-WORK EVENING (L2)
-       More candid — sharing work, listening properly
-    ========================================== */
     fhKitchen_postWork_evening: {
 
         openingUp: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He sits at the kitchen table before dinner's ready — unusual; he normally moves around.<</narrative>>
 <<dialog "father">>Kid started today. My team. Mid-twenties, just finished his degree.
@@ -167,7 +149,7 @@ I'll do better tomorrow.<</dialog>>`,
                 friendship: 3, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He talks while setting the table — the kind of talking where he's working something out.<</narrative>>
 <<dialog "father">>There's a project I've been asked to lead. Large one. More than I've done before.
@@ -182,7 +164,7 @@ I probably knew that already.<</dialog>>`,
                 friendship: 3, trust: 2, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He catches you mid-something and asks, genuinely curious.<</narrative>>
 <<dialog "father">>What are you working on?<</dialog>>
@@ -198,7 +180,7 @@ That's not a bad thing.<</dialog>>`,
 
         humour: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He tastes whatever's on the stove and makes a face — then immediately tastes it again.<</narrative>>
 <<dialog "player">>Is that good or bad?<</dialog>>
@@ -210,7 +192,7 @@ I'm thorough.<</dialog>>
                 friendship: 3
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's been quiet, then:<</narrative>>
 <<dialog "father">>I was in a meeting today. Very important, apparently.
@@ -223,7 +205,7 @@ I feel that I grew as a person today.<</dialog>>`,
                 friendship: 3, trust: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He walks into the kitchen and stops. Looks at the sink.<</narrative>>
 <<dialog "father">>Did you fix the tap?<</dialog>>
@@ -239,7 +221,7 @@ Good.<</dialog>>`,
 
         memory: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He sees something in the kitchen that triggers a memory — holds it a moment, then speaks.<</narrative>>
 <<dialog "father">>My mother used to make something that smelled like that. Same thing, probably.
@@ -253,7 +235,7 @@ This one did. Quickly.<</dialog>>
                 friendship: 3, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's at the counter and says something without warning:<</narrative>>
 <<dialog "father">>When you were very small — maybe three — you used to follow me around the kitchen and hand me things. Wrong things, usually.
@@ -266,7 +248,7 @@ That was good.<</dialog>>`,
                 friendship: 3, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He hands you a mug — deliberate, paired with something he wanted to say.<</narrative>>
 <<dialog "father">>We've moved three times since you were a child.
@@ -283,15 +265,11 @@ Fine. You've turned out fine.<</dialog>>
         ]
     },
 
-    /* ==========================================
-       LIVING ROOM — POST-WORK EVENING (L2)
-       Easier company, personal sharing, dry warmth
-    ========================================== */
     fhLivingroom_postWork_evening: {
 
         bonding: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's watching something and clearly enjoying it more because you're there — says nothing about this.<</narrative>>
 <<dialog "father">>(during a quiet bit) I almost didn't put this on. Glad I did.
@@ -302,7 +280,7 @@ Better with someone.<</dialog>>
                 friendship: 3, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He asks something out of nowhere:<</narrative>>
 <<dialog "father">>What's something you're good at that I don't know about?<</dialog>>
@@ -317,7 +295,7 @@ That's good.<</dialog>>`,
                 friendship: 3, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's sitting in his chair. You're nearby. He looks over at some point and says:<</narrative>>
 <<dialog "father">>You know I'm not great at — talking generally.
@@ -333,7 +311,7 @@ That's probably obvious. Just wanted to say it once.<</dialog>>
 
         advice: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He offers something — not preachy, more like a note he wanted to pass along.<</narrative>>
 <<dialog "father">>I've worked with a lot of people who were afraid to ask questions. Thought it made them look slow.
@@ -348,7 +326,7 @@ You're welcome.<</dialog>>`,
                 friendship: 3, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>You mention something you're worried about. He doesn't rush his answer.<</narrative>>
 <<dialog "father">>(after a beat) That's a real problem. And it's a solvable problem.
@@ -359,7 +337,7 @@ But the first step is probably just...<</dialog>>`,
                 friendship: 3, trust: 2, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He gives advice he clearly followed himself:<</narrative>>
 <<dialog "father">>Put the boring things on a list. Don't keep them in your head — they take up more space in your head than on paper.
@@ -373,7 +351,7 @@ This should be for the actual thinking, not for remembering what you need to do.
 
         quiet: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He falls asleep in the chair — actually, properly asleep midway through a documentary. Wakes up ten minutes later.<</narrative>>
 <<dialog "father">>(groggily) Where did it get to?<</dialog>>
@@ -385,7 +363,7 @@ Thank you.
                 friendship: 3, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's going to bed and pauses in the doorway.<</narrative>>
 <<dialog "father">>Good company tonight.
@@ -396,7 +374,7 @@ Goodnight.<</dialog>>
                 friendship: 3, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's in the middle of reading his book and lowers it to look at you.<</narrative>>
 <<dialog "father">>You should read this when I'm done. You'd like it.
@@ -411,15 +389,11 @@ Trust me.<</dialog>>`,
         ]
     },
 
-    /* ==========================================
-       GARAGE — POST-WORK EVENING (L2)
-       Teaching, sharing, the best version of himself
-    ========================================== */
     fhGarage_postWork_evening: {
 
         teaching: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He sets down what he's doing and turns — tonight, he came to teach, not just work.<</narrative>>
 <<dialog "father">>Right. I've been thinking about what's actually useful for you to know.
@@ -432,7 +406,7 @@ That's the lesson tonight. Diagnosis. Not fixing — just knowing what you're lo
                 friendship: 3, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He walks you through something — not impatient, actually taking time with it.<</narrative>>
 <<dialog "father">>The older I get the more I think teaching something is the best way to understand it yourself.
@@ -446,7 +420,7 @@ So for my benefit as much as yours — here's how this works.
                 friendship: 3, trust: 2, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>Something you did last time was right — and he says so.<</narrative>>
 <<dialog "father">>You did that part correctly last week. Without being told.
@@ -460,7 +434,7 @@ You've got good instincts for it.<</dialog>>
 
         stories: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's working on something and starts talking — not to the room, to you.<</narrative>>
 <<dialog "father">>My first job after university. I was terrible.
@@ -475,7 +449,7 @@ He was right. Eventually.<</dialog>>
                 friendship: 3, trust: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He picks up the old chisels and something surfaces — a memory he actually wants to share.<</narrative>>
 <<dialog "father">>My grandfather had a workshop. Smaller than this. Sawdust on everything.
@@ -490,7 +464,7 @@ You do the same, actually.<</dialog>>`,
                 friendship: 3, trust: 2, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He talks without preamble — a story that just surfaced.<</narrative>>
 <<dialog "father">>When your mother and I bought our first house, I didn't know what I was doing with anything. Plumbing, wiring — I was making it up.
@@ -509,7 +483,7 @@ That's worth a lot.<</dialog>>
 
         realTalk: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He's not doing anything — just standing in the garage with a mug of tea. Something's on his mind.<</narrative>>
 <<dialog "father">>Moving here — it was the right call. I know it didn't feel like it at first.
@@ -524,7 +498,7 @@ Thank you for not — for giving it a chance.<</dialog>>`,
                 friendship: 3, trust: 2, love: 2
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He asks something out of nowhere, like he's been sitting on it.<</narrative>>
 <<dialog "father">>Are you happy here? Genuinely. You don't have to say yes.
@@ -536,7 +510,7 @@ Tell me if that changes.<</dialog>>`,
                 friendship: 3, trust: 2, love: 1
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-" + random(1,3) + ".webp">>
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>He finishes for the night — wipes down the workbench, turns off the radio. The wind-down ritual.<</narrative>>
 <<dialog "father">>Good session tonight.
@@ -549,6 +523,273 @@ I mean that as the actual best thing I know how to say.<</dialog>>
 (heading inside)
 Come on.<</dialog>>`,
                 friendship: 3, love: 2, trust: 1
+            }
+        ]
+    },
+
+    fhParentsRoom_postWork_morning: {
+
+        leaving: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>He's almost ready — catches your reflection in the mirror as you appear in the doorway.<</narrative>>
+<<dialog "father">>(without stopping) You're up.<</dialog>>
+<<dialog "player">>Yeah. Have a good day.<</dialog>>
+<<dialog "father">>(pausing — something in the directness of it) Thanks.
+(turning briefly)
+You too.<</dialog>>`,
+                friendship: 3, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>He's grabbing his jacket when he spots something on the desk — the note you left.<</narrative>>
+<<dialog "father">>(reading it) What's this?<</dialog>>
+<<dialog "player">>The plumber's number. You mentioned the downstairs bathroom last week.<</dialog>>
+<<dialog "father">>(a beat — genuinely caught off guard by the thoughtfulness) I did.
+(pocketing it)
+Thank you. I'll call after nine.<</dialog>>`,
+                friendship: 3, trust: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>He's halfway out when he doubles back — remembered something.<</narrative>>
+<<dialog "father">>I've been thinking about what you said last night.
+(brief, not making it a moment)
+You were right. I'll deal with it differently.<</dialog>>
+<<dialog "player">>I wasn't sure if I overstepped.<</dialog>>
+<<dialog "father">>(firmly) You didn't.
+(going)
+See you tonight.<</dialog>>`,
+                friendship: 3, trust: 2, love: 1
+            }
+        ],
+
+        preparing: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>He's checking his bag — the new morning efficiency. He looks up when you appear.<</narrative>>
+<<dialog "father">>I've started leaving earlier. Twenty minutes changes the whole drive.
+(zipping his bag)
+Fifteen minutes of traffic, not forty-five.
+(to you)
+Small things.<</dialog>>
+<<dialog "player">>You seem less wound up in the mornings.<</dialog>>
+<<dialog "father">>(a beat — receiving that) Yeah. I think I am.
+(heading to the door)
+Good to know it shows.<</dialog>>`,
+                friendship: 3, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>He pauses at the dresser, looking at a photo there — the family one. A brief moment.<</narrative>>
+<<dialog "player">>(quietly) Good photo.<</dialog>>
+<<dialog "father">>(not turning) Yeah.
+(picking up his watch)
+I put it there so I see it before I go in the morning.
+(simply)
+Helps.<</dialog>>
+<<dialog "player">>Helps with what?<</dialog>>
+<<dialog "father">>(heading out, matter-of-fact) Perspective.<</dialog>>`,
+                friendship: 3, love: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>He's tying his tie and catches you watching in the mirror.<</narrative>>
+<<dialog "father">>(drily) Do you want to do it?<</dialog>>
+<<dialog "player">>I don't know how.<</dialog>>
+<<dialog "father">>(continuing) Four-in-hand. It's the only useful one. I'll show you sometime.
+(finishing the knot)
+Actually — come here.<</dialog>>
+<<narrative>>He undoes it and retties it slowly, talking you through it.<</narrative>>
+<<dialog "father">>There. Now you know.<</dialog>>`,
+                friendship: 3, trust: 1, love: 1
+            }
+        ],
+
+        moment: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>He's almost at the door when he turns back — not in a hurry for once.<</narrative>>
+<<dialog "father">>Can I ask you something?
+(not waiting long)
+Are you alright? Not — fine. Actually alright.<</dialog>>
+<<dialog "player">>(thinking) Yeah. I am.<</dialog>>
+<<dialog "father">>(searching your face briefly) Okay. Good.
+(going)
+See you tonight.<</dialog>>`,
+                friendship: 3, trust: 2, love: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>He passes you in the doorway and pauses — close, briefly.<</narrative>>
+<<dialog "father">>You've been good to your mother this week.
+(not looking at you, but meaning it fully)
+I see it.<</dialog>>
+<<dialog "player">>She's easy to be good to.<</dialog>>
+<<dialog "father">>(something in that — quiet) Yeah. She is.
+(heading downstairs)<</dialog>>`,
+                friendship: 3, love: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>He's turned to go and stops — looks back over his shoulder with a direct, real expression.<</narrative>>
+<<dialog "father">>I'm glad you're here.
+(simply, not making it a speech)
+That's all.<</dialog>>
+<<dialog "player">>(quietly) Me too.<</dialog>>
+<<dialog "father">>(nods once. Goes.)<</dialog>>`,
+                friendship: 3, love: 2, trust: 2
+            }
+        ]
+    },
+
+    fhParentsRoom_postWork_evening: {
+
+        vulnerable: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>He's sitting in the dim room — jacket off, door half-open. Not hiding, just decompressing in the quiet.<</narrative>>
+<<dialog "father">>(low) Come in if you want.<</dialog>>
+<<dialog "player">>(sitting in the chair) Rough day?<</dialog>>
+<<dialog "father">>(long pause) Not rough. Just — a lot.
+(looking at the ceiling)
+Some days the decisions feel heavier than others.<</dialog>>
+<<dialog "player">>You always look like you know what to do.<</dialog>>
+<<dialog "father">>(quietly) I know what I'd tell someone else to do.
+(back to the ceiling)
+Doesn't mean I find it easy.<</dialog>>`,
+                friendship: 3, trust: 2, love: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>He's putting out tomorrow's clothes — methodical, Sunday habit on a weeknight. He talks without turning.<</narrative>>
+<<dialog "father">>You know what I thought about today, out of nowhere?
+(not waiting)
+When you were maybe eleven. You fixed the chain on your bike yourself. Didn't ask, just did it.<</dialog>>
+<<dialog "player">>I remember that.<</dialog>>
+<<dialog "father">>(still not turning) I wasn't sure whether to say something or just let you get on with it.
+(a beat)
+I let you.
+(quietly)
+That was the right call.<</dialog>>`,
+                friendship: 3, love: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>He's at the end of the day — genuinely tired, genuinely himself.<</narrative>>
+<<dialog "father">>(sitting on the bed) I forget sometimes that you're — not a child anymore. I know that's obvious to say.
+(looking at you properly)
+You carry yourself differently than you used to here.
+(simply)
+It's good. You're good.<</dialog>>
+<<dialog "player">>(quietly) Thanks, Dad.<</dialog>>
+<<dialog "father">>(nodding, once. That word did something to him.)
+Goodnight.<</dialog>>`,
+                friendship: 3, love: 2, trust: 2
+            }
+        ],
+
+        nightRoutine: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>He's reading — actually reading now, not just holding the book. He pauses when you knock.<</narrative>>
+<<dialog "father">>(setting the page) You alright?<</dialog>>
+<<dialog "player">>Yeah. Just — goodnight.<</dialog>>
+<<dialog "father">>(studying you for a moment) Sit down a minute.
+(making room on the edge of the bed)
+Tell me something good that happened today. One thing.<</dialog>>
+<<dialog "player">>(thinking, then answering)<</dialog>>
+<<dialog "father">>(listening, nodding) Good.
+(back to the book)
+Goodnight.<</dialog>>`,
+                friendship: 3, love: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>He looks up from whatever he's reading and catches you in the doorway.<</narrative>>
+<<dialog "father">>(simply) You know I don't always say the right thing.
+(back to the book)
+But I mean well. With all of it. I want you to know that.<</dialog>>
+<<dialog "player">>I know.<</dialog>>
+<<dialog "father">>(a beat — he believed that) Good.
+(turning off the lamp)
+Goodnight.<</dialog>>`,
+                friendship: 3, love: 2, trust: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>He's almost asleep but not quite — that half-state where things come out more easily.<</narrative>>
+<<dialog "father">>(low, half to himself) You know what I keep thinking?
+(a pause)
+That I'd like to do this better. Be — more present.
+(opening his eyes briefly)
+I'm working on it. In case you hadn't noticed.<</dialog>>
+<<dialog "player">>I've noticed.<</dialog>>
+<<dialog "father">>(closing his eyes again, something settled) Good.
+(quietly)
+Goodnight.<</dialog>>`,
+                friendship: 3, love: 2, trust: 2
+            }
+        ],
+
+        closing: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>He's at the desk — not working, just sitting with a cup of tea in the quiet.<</narrative>>
+<<dialog "father">>(looking up) Come in.
+(gesturing to the chair)
+I was just thinking.<</dialog>>
+<<dialog "player">>(sitting) About what?<</dialog>>
+<<dialog "father">>About how I want the next few years to go. For all of us.
+(simply)
+I think it's going to be good.
+(sipping his tea)
+I just wanted to say that out loud to someone.<</dialog>>`,
+                friendship: 3, love: 2, trust: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>He's putting the room in order before bed — a quiet, settled energy about him tonight.<</narrative>>
+<<dialog "player">>You seem — I don't know. Good tonight.<</dialog>>
+<<dialog "father">>(pausing) I had a good day. And I came home to a good house.
+(back to what he's doing)
+That's enough. More than enough.<</dialog>>
+<<dialog "player">>(quietly) Yeah.<</dialog>>
+<<dialog "father">>(a brief, real look at you) Goodnight.<</dialog>>`,
+                friendship: 3, love: 2
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>He sits on the edge of the bed and looks at you in the doorway — fully present, guard completely gone.<</narrative>>
+<<dialog "father">>I know I'm not always easy.
+(direct)
+I know that. And I know it matters.
+(simply)
+I want you to know that I know.<</dialog>>
+<<dialog "player">>(after a moment) It's okay, Dad. Really.<</dialog>>
+<<dialog "father">>(holds your gaze a second — something completed there)
+Good.
+(turning off the lamp)
+Goodnight.<</dialog>>`,
+                friendship: 3, love: 3, trust: 2
             }
         ]
     }

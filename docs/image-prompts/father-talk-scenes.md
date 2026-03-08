@@ -1,10 +1,12 @@
-# Father Talk Scenes — Image Prompts
+﻿# Father Talk Scenes — Image Prompts
 
 ## Nano Banana (Flux) | Aspect: 16:9 | Style: Photorealistic, Warm, Cinematic
 
 ### Character Base
 
-> **Robert Taylor** — 47-year-old man, dark hair greying naturally at the temples, wire-rimmed glasses (worn sometimes), calm reserved expression, practical build, tall. **preWork**: casual home clothes (jeans, flannel shirt, old t-shirt). **postWork morning**: office clothes, tie loosened or still neat. **postWork evening**: work shirt with sleeves rolled, or changed to casual.
+> **Robert Taylor** — 47-year-old man, dark hair greying naturally at the temples, wire-rimmed glasses (worn sometimes), calm reserved expression, practical build, tall. **preWork**: casual home clothes (jeans, flannel shirt, old t-shirt). **postWork morning**: office clothes, tie loosened or still neat. **postWork evening**: work shirt with sleeves rolled, or changed to casual. Shot via img2img with character reference.
+
+> **Img2img notu:** Referans görsel çoğu zaman **boş oda** (bu dosyada örn. salon). Prompt’ta mutlaka: **Same room as reference. Do not add, remove, or change any furniture or objects.** Sonrasında sadece iki figürü nereye oturacağını ve ne yaptığını yaz (baba sectional’da, kız koltukta; bakış, kıyafet, ışık). Model “kompozisyonu koru” ile referanstaki boş kadrajı kopyalayıp saçma şeyler ekleyebiliyor; “room identical, add only two people” netliği saçmalığı azaltır.
 
 ---
 
@@ -17,106 +19,130 @@
 #### 🍳 kitchenMorning
 
 **ID:** `kitchenMorning-1`
-**Prompt:** Photorealistic 16:9, early morning family kitchen, a 47-year-old man with dark greying hair and wire-rimmed glasses standing at the coffee machine in a flannel shirt, waiting for it to brew, looking at the window with a quiet neutral expression, warm golden morning light, kitchen counter with a notepad and keys, documentary warmth
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man flannel shirt, quiet neutral expression, warm golden morning light. Looking out the window. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenMorning-2`
-**Prompt:** Photorealistic 16:9, morning kitchen scene, a 47-year-old man with dark greying hair seated at a wooden kitchen table with a coffee mug, tablet propped up with morning news, calm and unhurried, soft natural light from a side window, comfortable home clothes, lived-in family kitchen, photorealistic
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man calm unhurried expression, flannel shirt, soft natural side light. Looking down. Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenMorning-3`
-**Prompt:** Photorealistic 16:9, family kitchen morning, a 47-year-old man with greying temples pouring two mugs of coffee at the counter, practical motion, no eye contact with camera, warm morning light, old flannel shirt, a notepad open beside him, domestic and quiet, cinematic grain
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man practical motion, flannel shirt, warm golden morning light, steam rising. Looking down. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🍳 kitchenEvening
 
 **ID:** `kitchenEvening-1`
-**Prompt:** Photorealistic 16:9, family kitchen in the evening, a 47-year-old man with dark greying hair clearing dishes at the sink methodically, relaxed end-of-day posture, warm overhead light, casual home clothes, lived-in counters with a half-used recipe on the tablet, quiet and content, documentary warmth
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man methodical, relaxed posture, warm overhead light, casual home clothes. Looking down at the task. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenEvening-2`
-**Prompt:** Photorealistic 16:9, evening kitchen, a 47-year-old man with greying hair leaning on the kitchen counter with arms crossed in relaxed posture, looking toward someone off-frame with a mild expression, warm light, comfortable clothes, small family kitchen, photorealistic cinematic
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man arms loosely crossed, mild expression, warm overhead light, comfortable clothes. Looking toward his daughter (18yo). Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenEvening-3`
-**Prompt:** Photorealistic 16:9, night kitchen, a 47-year-old man looking at the kitchen wall calendar with a thoughtful expression, warm incandescent light, casual clothes, slight stubble, the kitchen winding down for the evening, documentary realism
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man thoughtful expression, slight stubble, warm incandescent overhead light, casual clothes. Looking to the side. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🛋️ livingroomMorning
 
 **ID:** `livingroomMorning-1`
-**Prompt:** Photorealistic 16:9, morning living room, a 47-year-old man with dark greying hair and glasses sitting in an armchair with a paperback, coffee mug on the side table, morning window light, comfortable home clothes, quiet and absorbed, family living room half-settled with books and moving boxes nearby, warm
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, quiet absorbed expression, glasses, comfortable home clothes, soft morning window light, looking down. Daughter (18yo) in frame looking at her father. Medium two-shot, angled slightly from the side.
 
 **ID:** `livingroomMorning-2`
-**Prompt:** Photorealistic 16:9, family living room morning, a 47-year-old man with greying hair watching morning news on a muted TV with a thoughtful expression, tablet in his lap, morning light from large windows, flannel shirt, modest family room, documentary warmth
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: daughter (18yo) in foreground (back to camera), 47yo man on sectional watching TV, thoughtful expression, flannel shirt, broad morning window light, looking forward. Over-the-shoulder from behind the daughter (18yo).
 
 **ID:** `livingroomMorning-3`
-**Prompt:** Photorealistic 16:9, bright morning living room, a 47-year-old man with dark greying hair getting up from the reading chair to go to the kitchen, looking back briefly over his shoulder, morning backlight, comfortable clothes, warm domestic scene, photorealistic
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, rising or half-standing, looking back over his shoulder, morning backlight rim. Daughter (18yo) in frame looking at her father. Both in frame, medium close-up.
 
 ---
 
 #### 🛋️ livingroomAfternoon
 
 **ID:** `livingroomAfternoon-1`
-**Prompt:** Photorealistic 16:9, afternoon family living room, a 47-year-old man with greying hair sorting through a cardboard moving box on the floor, focused and methodical, afternoon light, casual clothes, modest family room with partially settled shelves, documentary warmth
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, focused and methodical, casual clothes, afternoon window light, looking down at a task. Daughter (18yo) in frame looking at her father. Medium two-shot, angled slightly from the side.
 
 **ID:** `livingroomAfternoon-2`
-**Prompt:** Photorealistic 16:9, living room afternoon, a 47-year-old man watching a sports highlight on TV with mild but genuine interest, leaning forward slightly, afternoon light, casual shirt, family sofa, quiet focused energy, photorealistic cinematic
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: daughter (18yo) in foreground (back to camera), 47yo man on sectional leaning slightly forward, genuine mild interest, casual shirt, afternoon window light and TV glow, looking forward. Over-the-shoulder from behind the daughter (18yo).
 
 **ID:** `livingroomAfternoon-3`
-**Prompt:** Photorealistic 16:9, afternoon family room, a 47-year-old man with dark greying hair just sitting in the armchair with his hands on the armrests and nothing else — looking at the mid-distance, slightly unusual stillness, afternoon window light, plain home clothes, photojournalistic warmth
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, plain home clothes, sitting relaxed (arm on couch back or on knee), afternoon window light, looking to the side, thoughtful. Daughter (18yo) in frame looking at her father. Both in frame, natural two-shot.
 
 ---
 
 #### 🛋️ livingroomEvening
 
 **ID:** `livingroomEvening-1`
-**Prompt:** Photorealistic 16:9, family living room evening, a 47-year-old man with greying hair half-asleep in the armchair but denying it, chin slightly forward, TV still on in background, warm lamp light, comfortable home clothes, domestic and peaceful, cinematic grain
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, half-asleep, chin slightly forward, comfortable home clothes, warm floor lamp light, looking forward, eyes barely open. Daughter (18yo) in frame looking at her father. Medium two-shot, angled slightly from the side.
 
 **ID:** `livingroomEvening-2`
-**Prompt:** Photorealistic 16:9, late evening living room, a 47-year-old man with dark greying hair sitting on the sofa looking at a family photo on the new shelf, warm single-lamp light, relaxed but contemplative expression, home clothes, quiet end-of-day, documentary warmth
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: daughter (18yo) in foreground (back to camera), 47yo man on sectional, quiet contemplative expression, relaxed clothes, single warm floor lamp, looking to the side toward the shelf. Over-the-shoulder from behind the daughter (18yo).
 
 **ID:** `livingroomEvening-3`
-**Prompt:** Photorealistic 16:9, evening family room, a 47-year-old man clicking off the TV remote and sitting in the residual quiet, warm lamp on, practical face, comfortable clothes, slight tiredness, peaceful, photorealistic
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, practical neutral expression, comfortable clothes, warm lamp as only light source, residual TV glow on his face, looking forward, reflective. Daughter (18yo) in frame looking at her father. Both in frame, medium close-up.
 
 ---
 
 #### 🌿 backyardAfternoon
 
 **ID:** `backyardAfternoon-1`
-**Prompt:** Photorealistic 16:9, suburban backyard afternoon, a 47-year-old man with dark greying hair doing a slow walk around the perimeter of the garden with arms crossed in assessment mode, afternoon light, old jeans and a work shirt, modest garden needing attention, documentary warmth
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man arms crossed in assessment mode, old jeans and work shirt, afternoon side light. Looking forward. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `backyardAfternoon-2`
-**Prompt:** Photorealistic 16:9, afternoon garden, a 47-year-old man crouching to test the ground near the fence line, focused and practical, afternoon sunlight, garden work clothes, spade nearby, suburban backyard, photorealistic
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man crouching with focused practical expression, garden work clothes, afternoon sunlight. Looking down at the ground. Preserve reference composition; do not add new objects.
 
 **ID:** `backyardAfternoon-3`
-**Prompt:** Photorealistic 16:9, backyard afternoon, a 47-year-old man with greying hair sitting on the back step with a mug of tea, looking out at the garden with quiet ownership, warm afternoon light, casual clothes, peaceful and grounded, documentary cinematic
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man sitting with quiet ownership, mug in hands, casual clothes, warm afternoon sidelight. Looking forward. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🔧 garageMorning
 
 **ID:** `garageMorning-1`
-**Prompt:** Photorealistic 16:9, home garage morning, a 47-year-old man with dark greying hair standing in front of an organised pegboard hanging tools methodically, morning light through the garage door, old work clothes, focused and satisfied, lived-in garage with a car visible, cinematic warmth
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man methodical, focused satisfied expression, old work clothes, morning light through the garage door. Looking down. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `garageMorning-2`
-**Prompt:** Photorealistic 16:9, garage scene, a 47-year-old man with wire-rimmed glasses looking under the open bonnet of a car with a focused expression, morning light, work shirt, clear workspace beginning to take shape, engine oil on his hands, documentary realism
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man focused expression, work shirt, engine oil on hands, morning light from the garage door. Looking down at the engine. Preserve reference composition; do not add new objects.
 
 **ID:** `garageMorning-3`
-**Prompt:** Photorealistic 16:9, garage morning, a 47-year-old man with greying hair using a label maker on a storage box with concentrated precision, natural morning light, old jeans, workbench behind him, modest organised home garage, slightly amused at himself, photorealistic
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man amused concentrated precision, old jeans, natural morning garage-door light. Looking down with a slight smile. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🔧 garageAfternoon
 
 **ID:** `garageAfternoon-1`
-**Prompt:** Photorealistic 16:9, home garage afternoon, a 47-year-old man with dark greying hair working on the car engine, forearms resting on the open bonnet, afternoon light from the garage door, old work shirt, focused and content, tools spread out on a cloth, cinematic warmth
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man focused and content, old work shirt with rolled sleeves, afternoon light from the garage door. Looking down at the engine. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `garageAfternoon-2`
-**Prompt:** Photorealistic 16:9, garage afternoon, a 47-year-old man with greying temples listening to a small radio on the workbench while cleaning a tool with deliberate care, afternoon light, comfortable work clothes, modest suburban garage, low warm atmosphere, photorealistic
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man deliberate careful motion, comfortable work clothes, afternoon light. Looking down. Preserve reference composition; do not add new objects.
 
 **ID:** `garageAfternoon-3`
-**Prompt:** Photorealistic 16:9, home garage, a 47-year-old man leaning against the workbench with a thermos mug taking a deliberate break, afternoon light, work clothes, calm and satisfied expression, tools and parts organised behind him, domestic cinematic grain
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man calm satisfied expression, work clothes, afternoon light from the garage door. Looking forward with quiet contentment. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
+
+#### 🛏️ parentsRoomMorning
+
+**ID:** `parentsRoomMorning-1`
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man quiet unhurried morning expression, casual clothes, soft diffused natural light. Looking out the window. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomMorning-2`
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man focused pre-day expression, tie half-done, morning light through a curtain. Looking down at the dresser. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomMorning-3`
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man back slightly to camera, mug in both hands, soft curtain-filtered morning light, reflective stillness. Looking out the window. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+---
+
+#### 🛏️ parentsRoomEvening
+
+**ID:** `parentsRoomEvening-1`
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man calm slightly introspective expression, warm bedside lamp light, comfortable clothes. Looking to the side, thinking. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomEvening-2`
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man reading, glasses on, settled and calm, warm bedside lamp light. Looking up from the book toward his daughter (18yo). Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomEvening-3`
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man quiet focused expression, comfortable clothes, single warm bedside lamp. Looking down at his writing. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
@@ -131,54 +157,78 @@
 #### 🍳 kitchenMorning
 
 **ID:** `kitchenMorning-1`
-**Prompt:** Photorealistic 16:9, early morning kitchen, a 47-year-old man fully dressed for the office, standing at the counter eating toast over the sink in departure mode, 7am sharp light, work shirt and jacket, keys on the counter, commute energy, no time to sit, documentary warmth
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man work shirt and jacket, departure mode, commute tension in posture, sharp morning light. Looking down at the task. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenMorning-2`
-**Prompt:** Photorealistic 16:9, morning kitchen commute scene, a 47-year-old man in office clothes quickly checking his phone and draining his coffee mug standing up, morning light, work shirt and tie slightly loose, bag by the door, family kitchen behind him, photorealistic
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man office clothes checking his phone while standing, work shirt and loosened tie, morning window light. Looking down. Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenMorning-3`
-**Prompt:** Photorealistic 16:9, family kitchen morning, a 47-year-old man in work clothes sitting for once — rare unhurried moment, coffee in hand, morning light, slight surprise at having a few minutes, warm domestic kitchen, photorealistic documentary warmth
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man work clothes, sitting for a rare unhurried moment, slightly surprised to have time, morning window light. Looking toward his daughter (18yo). Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🍳 kitchenEvening
 
 **ID:** `kitchenEvening-1`
-**Prompt:** Photorealistic 16:9, evening kitchen, a 47-year-old man just home from work, shirtsleeves rolled up, washing his hands at the sink, first thing he does, warm kitchen light, tie gone, functional and tired but home, lived-in family kitchen, cinematic warmth
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man shirtsleeves rolled, functional and tired but settled, warm overhead light, tie gone. Looking down at the task. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenEvening-2`
-**Prompt:** Photorealistic 16:9, family dinner scene, a 47-year-old man with dark greying hair setting the kitchen table methodically, work clothes changed to casual, warm dinner light, quiet satisfaction at a household task done properly, kitchen behind him with steam from the stove, documentary
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man methodical task, work clothes changed to casual, warm dinner light. Looking down at what he's doing. Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenEvening-3`
-**Prompt:** Photorealistic 16:9, kitchen evening, a 47-year-old man sitting at the kitchen table with a glass of water and a phone face-down beside him, decompressing, warm overhead light, work shirt still on but collar open, somewhere between tired and okay, photorealistic
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man decompressing, work shirt with collar open, somewhere between tired and okay, warm overhead light. Looking forward, phone face-down beside him. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🛋️ livingroomEvening
 
 **ID:** `livingroomEvening-1`
-**Prompt:** Photorealistic 16:9, living room evening, a 47-year-old man with dark greying hair in the armchair, shoes off, jacket off, head tilted back slightly — not asleep but very close to switched off, warm lamp light, comfortable clothes, family room quiet around him, documentary warmth
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, shoes off, head tilted back, completely switched off, warm floor lamp light, comfortable post-work clothes, looking to the side, resting. Daughter (18yo) in frame looking at her father. Medium two-shot, angled slightly from the side.
 
 **ID:** `livingroomEvening-2`
-**Prompt:** Photorealistic 16:9, evening family room, a 47-year-old man watching something on TV with the volume low, casual post-work clothes, lamp on, mug of tea on the side table, genuinely relaxed for the first time today, cinematic warmth
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: daughter (18yo) in foreground (back to camera), 47yo man on sectional, genuinely relaxed watching TV, casual post-work clothes, warm lamp light from the side, looking forward. Over-the-shoulder from behind the daughter (18yo).
 
 **ID:** `livingroomEvening-3`
-**Prompt:** Photorealistic 16:9, living room at night, a 47-year-old man with greying hair with the TV off, just sitting in the quiet of the lamp-lit room, comfortable post-work clothes, processing the day, family photos on the wall, photorealistic stillness
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, sitting in the quiet, processing the day, comfortable post-work clothes, warm lamp as only light source, looking forward, reflective. Daughter (18yo) in frame looking at her father. Both in frame, medium close-up.
 
 ---
 
 #### 🔧 garageEvening
 
 **ID:** `garageEvening-1`
-**Prompt:** Photorealistic 16:9, home garage evening, a 47-year-old man with dark greying hair working under the car bonnet after work, garage light on, changed into old clothes, fully absorbed, the tension of the work day visibly leaving his shoulders, cinematic warmth
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man tension leaving his shoulders, old clothes, single overhead garage light. Looking down at the engine. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `garageEvening-2`
-**Prompt:** Photorealistic 16:9, garage evening light, a 47-year-old man with greying temples leaning on the car and talking to someone off-frame, relaxed posture, work clothes changed to casual, garage light and some natural dusk, comfortable and open, photorealistic documentary
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man leaning relaxed, work clothes changed to casual, overhead garage light and dusk light mixing. Looking toward his daughter (18yo). Preserve reference composition; do not add new objects.
 
 **ID:** `garageEvening-3`
-**Prompt:** Photorealistic 16:9, garage late evening, a 47-year-old man wiping down tools methodically before heading in for the night, satisfied expression, single overhead garage light, old t-shirt, the car behind him with completed work visible, end-of-evening quiet, cinematic grain
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man satisfied expression, old t-shirt, single overhead garage light. Looking down. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
+
+#### 🛏️ parentsRoomMorning
+
+**ID:** `parentsRoomMorning-1`
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man work shirt and tie, composed pre-departure focus, sharp morning window light. Looking forward. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomMorning-2`
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man office clothes, brief exasperated expression then softening, morning window light. Looking down. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomMorning-3`
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man work clothes, quiet meaningful look back, morning backlight from behind. Looking back toward his daughter (18yo). Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+---
+
+#### 🛏️ parentsRoomEvening
+
+**ID:** `parentsRoomEvening-1`
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man elbows on his knees, heavy and honest and quiet, work clothes half-changed, single warm bedside lamp. Looking at nothing, last decompression. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomEvening-2`
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man comfortable post-work clothes, unusually at ease, warm bedside lamp light. Looking toward his daughter (18yo) with mild approachable expression. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomEvening-3`
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man comfortable clothes, looking upward thinking, single warm bedside lamp casting sidelight. Looking up at the ceiling. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
@@ -186,56 +236,82 @@
 
 ### 📁 `assets/content/scenes/interactions/father/postwork/level2/`
 
-> **Style difference from Level 1:** Slightly warmer body language, more eye contact toward camera, moments of genuine warmth or rare humour. Same locations, less guarded mood.
+> **Style difference from Level 1:** Warmer body language, more genuine eye contact, moments of rare humour or personal warmth. Same locations, less guarded.
 
 ---
 
 #### 🍳 kitchenMorning
 
 **ID:** `kitchenMorning-1`
-**Prompt:** Photorealistic 16:9, morning kitchen, a 47-year-old man in work clothes sliding a second coffee mug across the counter before leaving, not looking up but clearly intentional, morning light, keys in hand, warm domestic act before the commute, photorealistic
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man work clothes, warm intentional domestic gesture, morning hard light. Not looking up — clearly intentional kindness. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenMorning-2`
-**Prompt:** Photorealistic 16:9, family kitchen morning, a 47-year-old man in office clothes pausing at the door, looking back into the kitchen with a brief warm expression before leaving, morning light, bag over shoulder, genuine unhurried moment, cinematic warmth
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man office clothes, pausing with a brief genuine warm expression, morning backlight creating rim on his figure. Looking back toward his daughter (18yo). Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenMorning-3`
-**Prompt:** Photorealistic 16:9, morning kitchen, a 47-year-old man with dark greying hair and wire-rimmed glasses sitting at the table with ten minutes to spare, looking across with genuine curiosity and attention, morning light, work shirt, first proper sit-down morning in a while, warm and real
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man glasses, work shirt, genuine curiosity and attention, morning window light. Looking toward his daughter (18yo). Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🍳 kitchenEvening
 
 **ID:** `kitchenEvening-1`
-**Prompt:** Photorealistic 16:9, evening kitchen, a 47-year-old man with greying hair sitting at the kitchen table with a mug, genuinely listening to someone off-frame, soft warm kitchen light, work shirt open at the collar, open and slightly vulnerable expression, documentary intimacy
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man work shirt open at the collar, genuinely listening, open and slightly vulnerable expression, warm overhead light. Looking toward his daughter (18yo). Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenEvening-2`
-**Prompt:** Photorealistic 16:9, family kitchen evening, a 47-year-old man mid-story, gesturing slightly with one hand and on the edge of a rare genuine smile, warm dinner light, casual evening clothes, kitchen behind him, relaxed and unguarded, photorealistic warmth
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man mid-story, gesturing with one hand, on the edge of a rare genuine smile, warm dinner pendant light, casual evening clothes. Looking toward his daughter (18yo). Preserve reference composition; do not add new objects.
 
 **ID:** `kitchenEvening-3`
-**Prompt:** Photorealistic 16:9, evening kitchen, a 47-year-old man with dark greying hair looking at something in the kitchen that triggered a memory — quiet, distant for a moment, then back, warm overhead light, comfortable post-work clothes, private and warm, cinematic grain
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man looking distantly at something that triggered a memory, quiet for a moment then coming back, comfortable post-work clothes, warm overhead light. Looking to the side. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 ---
 
 #### 🛋️ livingroomEvening
 
 **ID:** `livingroomEvening-1`
-**Prompt:** Photorealistic 16:9, family living room evening, a 47-year-old man in the armchair laughing quietly at something on TV — genuinely, unguarded, warm lamp light, comfortable home clothes, family room around him, rare to see this version of him, photorealistic warmth
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, laughing quietly and genuinely, rare and unguarded, comfortable home clothes, warm floor lamp light, looking forward. Daughter (18yo) in frame looking at her father. Medium two-shot, angled slightly from the side.
 
 **ID:** `livingroomEvening-2`
-**Prompt:** Photorealistic 16:9, evening living room, a 47-year-old man with dark greying hair saying goodnight at the doorway, looking back with a quiet sincere expression, warm lamp light behind him, comfortable home clothes, genuine and understated, documentary warmth
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: daughter (18yo) in foreground (back to camera), 47yo man on sectional, quiet sincere expression, comfortable home clothes, warm lamp light from behind, looking toward his daughter (18yo). Over-the-shoulder from behind the daughter (18yo).
 
 **ID:** `livingroomEvening-3`
-**Prompt:** Photorealistic 16:9, living room evening, a 47-year-old man leaning forward in his armchair with elbows on his knees, speaking quietly with a direct and open expression, warm lamp light, casual home clothes, rare moment of deliberate personal sharing, close framing, cinematic
+**Prompt:** Photorealistic 16:9. Same room as reference. Do not add, remove, or change any furniture or objects. Add only: 47yo man on sectional, elbows on his knees, rare open expression, speaking quietly and directly, warm lamp light from the side, looking toward his daughter (18yo). Daughter (18yo) in frame looking at her father. Both in frame, medium close-up.
 
 ---
 
 #### 🔧 garageEvening
 
 **ID:** `garageEvening-1`
-**Prompt:** Photorealistic 16:9, garage evening, a 47-year-old man with dark greying hair showing someone something under the car bonnet with engaged teaching energy — pointing, explaining, looking between the engine and the person, warm garage light, old work clothes, genuinely in his element, photorealistic
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man engaged teaching energy, pointing and explaining, old work clothes, warm overhead garage light. Looking toward his daughter (18yo). Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
 
 **ID:** `garageEvening-2`
-**Prompt:** Photorealistic 16:9, home garage late evening, a 47-year-old man with greying temples leaning on the workbench looking at old tools from his grandfather, quiet nostalgia, garage light, something far away in his expression, the kind of moment he doesn't often allow, cinematic warmth
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man quiet nostalgia, faraway expression, old t-shirt, warm overhead garage light. Looking at something on the workbench. Preserve reference composition; do not add new objects.
 
 **ID:** `garageEvening-3`
-**Prompt:** Photorealistic 16:9, garage evening, a 47-year-old man with dark greying hair after finishing for the night, turning with a rare real smile at someone who is leaving with him, garage light going off behind them, old work t-shirt, genuine warmth — the best version of himself, photorealistic
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man rare real genuine smile, old work t-shirt, warm last-light from inside the garage dimming behind him. Looking toward his daughter (18yo). Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+---
+
+#### 🛏️ parentsRoomMorning
+
+**ID:** `parentsRoomMorning-1`
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man work shirt, catching his reflection then looking toward his daughter (18yo) with quiet genuine attention, morning sidelight. Looking toward his daughter (18yo). Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomMorning-2`
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man office clothes, briefly moved by something, quiet satisfied expression, morning light. Looking down at his hands. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomMorning-3`
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man work clothes, turning back with a brief direct warm expression, morning backlight from behind. Looking toward his daughter (18yo). Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+---
+
+#### 🛏️ parentsRoomEvening
+
+**ID:** `parentsRoomEvening-1`
+**Prompt:** Photorealistic 16:9, medium two-shot, angled slightly from the side. 47yo man genuinely at ease and unguarded, jacket off, warm bedside lamp light. Looking to the side, open and honest. Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomEvening-2`
+**Prompt:** Photorealistic 16:9, over-the-shoulder from behind the daughter (18yo). 47yo man comfortable clothes, talking while doing a small task, not making eye contact but fully present, warm bedside lamp light. Looking down. Preserve reference composition; do not add new objects.
+
+**ID:** `parentsRoomEvening-3`
+**Prompt:** Photorealistic 16:9, medium close-up, both in frame. 47yo man sitting on the bed edge, looking up with a quiet full expression, guard completely down, warm bedside lamp soft light. Looking up toward his daughter (18yo). Daughter (18yo) looking at her father. Preserve reference composition; do not add new objects.

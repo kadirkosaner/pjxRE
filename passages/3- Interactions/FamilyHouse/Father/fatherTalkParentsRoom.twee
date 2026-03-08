@@ -1,6 +1,6 @@
-:: fatherTalkGarage
+:: fatherTalkParentsRoom
 <<silently>>
-<<set $location = "fhGarage">>
+<<set $location = "fhParentsRoom">>
 <<logDailyActivity "father" "talk">>
 <<set _stats = $characters.father.stats>>
 <<set _level = _stats.friendshipLevel || 1>>
@@ -18,27 +18,26 @@
     <<set _timeSlot = "evening">>
 <</if>>
 
-/*
-   Garage by phase:
-   preWork  → morning + afternoon
-   postWork → evening only (19:30 slot in schedule)
-   Fallback: postWork morning/afternoon → evening
-             preWork evening → afternoon → morning
-*/
-<<set _contextKey = "fhGarage_" + _phase + "_" + _timeSlot>>
+/* Context key — ParentsRoom */
+<<set _contextKey = "fhParentsRoom_" + _phase + "_" + _timeSlot>>
 <<set _phasePool = setup.fatherTopics[_phase] && setup.fatherTopics[_phase]["level" + _level]>>
 <<set _context = (_phasePool && _phasePool[_contextKey]) ? _phasePool[_contextKey] : null>>
 
+/* Fallback:
+   ParentsRoom preWork has morning + evening only
+   ParentsRoom postWork has evening only
+   afternoon → morning (preWork) or evening (postWork)
+*/
 <<if !_context && _phasePool>>
-    <<if _phase === "postWork">>
-        /* postWork garage = evening only */
-        <<set _context = _phasePool["fhGarage_postWork_evening"]>>
-    <<else>>
-        /* preWork: evening → afternoon → morning */
-        <<set _context = _phasePool["fhGarage_preWork_afternoon"]>>
-        <<if !_context>>
-            <<set _context = _phasePool["fhGarage_preWork_morning"]>>
+    <<if _phase === "preWork">>
+        <<if _timeSlot === "afternoon">>
+            <<set _context = _phasePool["fhParentsRoom_preWork_morning"]>>
         <</if>>
+        <<if !_context>>
+            <<set _context = _phasePool["fhParentsRoom_preWork_evening"]>>
+        <</if>>
+    <<else>>
+        <<set _context = _phasePool["fhParentsRoom_postWork_evening"]>>
     <</if>>
 <</if>>
 
@@ -60,14 +59,6 @@
 <</silently>>
 <<nobr>>
 <div class="talk-interaction">
-<<narrative "Garage - Talk with Father">>
-<<if _phase === "preWork">>
-The garage smells of engine oil and fresh wood. Your father's in his element — this space is his.
-<<else>>
-He's been in the garage for a while. The work day gets left at the door here.
-<</if>>
-<</narrative>>
-
 <<print _topic.text>>
 
 <div class="location-actions">
