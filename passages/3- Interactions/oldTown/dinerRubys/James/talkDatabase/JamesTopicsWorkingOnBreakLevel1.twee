@@ -1,0 +1,119 @@
+/* ==========================================
+   JAMES TALK TOPICS — ON BREAK PHASE, LEVEL 1
+   phase === "working.onBreak" && friendshipLevel === 1
+
+   CHARACTER: James Holt, Chef at Ruby's Diner
+   → Late 30s, married with kids. Runs the kitchen.
+   → Player is a coworker on break. 
+
+   CONTEXTS:
+   dinerRubys_workingOnBreak_morning
+   dinerRubys_workingOnBreak_afternoon
+   dinerRubys_workingOnBreak_evening
+========================================== */
+
+<<set setup.jamesTopics = setup.jamesTopics || {}>>
+<<set setup.jamesTopics.workingOnBreak = setup.jamesTopics.workingOnBreak || {}>>
+<<set setup.jamesTopics.workingOnBreak.level1 = {
+
+    dinerRubys_workingOnBreak_morning: {
+
+        break_talk: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>James pushes a plate of slightly misshapen pancakes toward you.<</narrative>>
+<<dialog "dinerChef">>They were ugly, so they can't go to a customer. Eat them or toss them.<</dialog>>
+<<dialog "player">>Thanks, James.<</dialog>>
+<<dialog "dinerChef">>Carbs will keep you moving. You'll need it when Vince gets cranky later.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>James is doing his own prep, ignoring you for the most part.<</narrative>>
+<<dialog "player">>Pretty quiet morning.<</dialog>>
+<<dialog "dinerChef">>Quiet is the calm before the lunch rush. Enjoy sitting down while you can.<</dialog>>
+<<dialog "player">>You don't take breaks?<</dialog>>
+<<dialog "dinerChef">>Kitchen never sleeps. Sit.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>James yells towards the front of the house before looking at you.<</narrative>>
+<<dialog "dinerChef">>Are they still out over there? Tell Emma to pick up her ticket.<</dialog>>
+<<dialog "player">>I'm on break, actually.<</dialog>>
+<<dialog "dinerChef">>Yeah, I can see that. I'm just venting. My eggs are getting cold. Typical.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_afternoon: {
+
+        kitchen_heat: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>James is downing an entire glass of ice water in one go.<</narrative>>
+<<dialog "dinerChef">>Lost about five pounds of sweat today. It's a furnace back here.<</dialog>>
+<<dialog "player">>It looks intense.<</dialog>>
+<<dialog "dinerChef">>It is. Stay in the front air conditioning as long as Vince lets you.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>James points a greasy spatula at you menacingly.<</narrative>>
+<<dialog "dinerChef">>If you see a table of eight coming in, you tell me before they sit down. Okay?<</dialog>>
+<<dialog "player">>I'll try.<</dialog>>
+<<dialog "dinerChef">>Don't try. Do. I need warning to prep the grill space.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>James checks the fridge briefly, clearly exhausted.<</narrative>>
+<<dialog "dinerChef">>I'm out of mayo. It's only 2 PM and I am out of mayo. This is a disaster.<</dialog>>
+<<dialog "player">>Can you buy more nearby?<</dialog>>
+<<dialog "dinerChef">>Vince would rather die than pay retail. We're scraping jars today.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_evening: {
+
+        almost_closing: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>James eyes the clock on the wall above the freezer.<</narrative>>
+<<dialog "dinerChef">>I shut the grill down in an hour. Anyone orders a burger after that, they get a cold sandwich.<</dialog>>
+<<dialog "player">>Vince won't like it.<</dialog>>
+<<dialog "dinerChef">>Vince doesn't cook it. I do. Go rest your feet.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>James tosses a towel at a bin but misses by a foot.<</narrative>>
+<<dialog "dinerChef">>My aim is gone. Brain is fried. Just like the chicken.<</dialog>>
+<<dialog "player">>You're almost done.<</dialog>>
+<<dialog "dinerChef">>Not soon enough. Don't fall asleep on your break, kid.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>James leans against the pass counter, arms crossed and staring nowhere.<</narrative>>
+<<dialog "player">>Just waiting it out?<</dialog>>
+<<dialog "dinerChef">>Yeah. The quiet before the cleanup. It's the worst part of the night.<</dialog>>
+<<dialog "player">>It'll be over soon.<</dialog>>
+<<dialog "dinerChef">>Let's hope so. See you out there.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ]
+    }
+}>>

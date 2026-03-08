@@ -39,3 +39,13 @@
         { hour: 22, location: null, status: "unavailable" }
     ]
 }>>
+
+/* ACTIONS */
+<<set setup.characterActions.dinerWaitress3 = {
+    dinerRubys: [
+        {
+            id: "talk", label: "Talk", passage: "jakeTalkDiner",
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        }
+    ]
+}>>

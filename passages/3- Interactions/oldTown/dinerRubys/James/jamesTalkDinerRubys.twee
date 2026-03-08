@@ -1,0 +1,86 @@
+:: jamesTalkDinerRubys
+<<silently>>
+<<set $location = "dinerRubys">>
+<<logDailyActivity "dinerChef" "talk">>
+<<set _char = $characters.dinerChef>>
+<<set _stats = $characters.dinerChef.stats>>
+<<set _level = _stats.friendshipLevel || 1>>
+
+/* Determine phase */
+<<set _phase = "common">>
+<<if $jobs && $jobs.diner && $jobs.diner.clockedIn>>
+    <<if $jobs.diner.onBreak>>
+         <<set _phase = "workingOnBreak">>
+    <<else>>
+         <<set _phase = "working">>
+    <</if>>
+<<elseif $jobs && $jobs.diner && $jobs.diner.shiftCompletedToday>>
+    <<set _phase = "workingDone">>
+<</if>>
+
+/* Determine time slot */
+<<set _hour = $timeSys.hour>>
+<<if _hour >= 6 && _hour < 12>>
+    <<set _timeSlot = "morning">>
+<<elseif _hour < 17>>
+    <<set _timeSlot = "afternoon">>
+<<else>>
+    <<set _timeSlot = "evening">>
+<</if>>
+
+/* Build context key */
+<<set _levelKey = "level" + _level>>
+<<set _topicPool = null>>
+
+<<set _ctxKey = "dinerRubys_" + _phase + "_" + _timeSlot>>
+
+<<if setup.jamesTopics && setup.jamesTopics[_phase] && setup.jamesTopics[_phase][_levelKey] && setup.jamesTopics[_phase][_levelKey][_ctxKey]>>
+    <<set _topicPool = setup.jamesTopics[_phase][_levelKey][_ctxKey]>>
+<</if>>
+
+/* Fallback to common afternoon if missing */
+<<if !_topicPool>>
+    <<if setup.jamesTopics && setup.jamesTopics.common && setup.jamesTopics.common[_levelKey] && setup.jamesTopics.common[_levelKey].dinerRubys_common_afternoon>>
+        <<set _topicPool = setup.jamesTopics.common[_levelKey].dinerRubys_common_afternoon>>
+    <</if>>
+<</if>>
+
+/* Pick topic if pool exists */
+<<if _topicPool>>
+    <<set _topicKeys = Object.keys(_topicPool)>>
+    <<set _randomKey = _topicKeys[Math.floor(Math.random() * _topicKeys.length)]>>
+    <<set _topicArray = _topicPool[_randomKey]>>
+    <<set _topic = _topicArray[Math.floor(Math.random() * _topicArray.length)]>>
+<<else>>
+    <<set _topic = { text: "James stares aggressively at an order ticket and ignores your presence completely.", friendship: 0, trust: 0, love: 0, lust: 0 }>>
+<</if>>
+
+/* Time and base stats */
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+<<gainStat "mood" 2>>
+
+/* Apply topic stat gains */
+<<if _topic.friendship>><<gainCharacterStat "dinerChef" "friendship" _topic.friendship>><</if>>
+<<if _topic.trust>><<gainCharacterStat "dinerChef" "trust" _topic.trust>><</if>>
+<<if _topic.love>><<gainCharacterStat "dinerChef" "love" _topic.love>><</if>>
+<<if _topic.lust>><<gainCharacterStat "dinerChef" "lust" _topic.lust>><</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<nobr>>
+<div class="talk-interaction">
+<<print _topic.text>>
+
+<div class="location-actions">
+<<set _currentCharLocation = $characters.dinerChef.currentLocation>>
+<<if _currentCharLocation === $location>>
+    <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<else>>
+    <<set _backPassage = $interactionEntryPassage || $location>>
+    <<btn "Back" _backPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+<</if>>
+</div>
+</div>
+<</nobr>>

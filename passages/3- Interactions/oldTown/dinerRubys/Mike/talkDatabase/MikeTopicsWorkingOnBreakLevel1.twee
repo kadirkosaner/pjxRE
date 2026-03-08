@@ -1,0 +1,119 @@
+/* ==========================================
+   MIKE TALK TOPICS — ON BREAK PHASE, LEVEL 1
+   phase === "working.onBreak" && friendshipLevel === 1
+
+   CHARACTER: Mike Torres, Dishwasher at Ruby's Diner
+   → Early 30s, single. Back-of-house, in his own zone.
+   → Player is a coworker on break. Mike is still working.
+
+   CONTEXTS:
+   dinerRubys_workingOnBreak_morning
+   dinerRubys_workingOnBreak_afternoon
+   dinerRubys_workingOnBreak_evening
+========================================== */
+
+<<set setup.mikeTopics = setup.mikeTopics || {}>>
+<<set setup.mikeTopics.workingOnBreak = setup.mikeTopics.workingOnBreak || {}>>
+<<set setup.mikeTopics.workingOnBreak.level1 = {
+
+    dinerRubys_workingOnBreak_morning: {
+
+        break_chat: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Mike slides a clean coffee mug down the counter toward you.<</narrative>>
+<<dialog "dinerDishwasher">>Look at you. Getting to sit down. Must be a nice feeling.<</dialog>>
+<<dialog "player">>My legs were killing me.<</dialog>>
+<<dialog "dinerDishwasher">>Yeah, my legs died three hours ago. Take your break, you earned it.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>Mike ignores you completely for a few seconds as he scrubs vigorously.<</narrative>>
+<<dialog "player">>...<</dialog>>
+<<dialog "dinerDishwasher">>Oh. Didn't see you sit down. Break time?<</dialog>>
+<<dialog "player">>Yeah, just fifteen minutes.<</dialog>>
+<<dialog "dinerDishwasher">>Don't blink. It goes by faster than you think.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>Mike kicks a stray piece of lettuce under the sink.<</narrative>>
+<<dialog "dinerDishwasher">>If Vince asks, that lettuce disappeared into the drain.<</dialog>>
+<<dialog "player">>My lips are sealed.<</dialog>>
+<<dialog "dinerDishwasher">>Good. Enjoy sitting. I'm gonna keep standing.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_afternoon: {
+
+        noise_complaints: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Mike looks annoyed at the sound of the bell ringing repeatedly for fresh orders.<</narrative>>
+<<dialog "dinerDishwasher">>Sofia needs to stop abusing that bell. It's drilling into my skull.<</dialog>>
+<<dialog "player">>She wants the food hot.<</dialog>>
+<<dialog "dinerDishwasher">>She wants to be annoying. But you're on break, ignore the bell. Later.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Mike casually sprays the sink walls, turning it into a misty fog.<</narrative>>
+<<dialog "dinerDishwasher">>Don't stand too close, the backsplash is gross. Used food and grease.<</dialog>>
+<<dialog "player">>I'll stay right here.<</dialog>>
+<<dialog "dinerDishwasher">>Smart move. Resting up?<</dialog>>
+<<dialog "player">>Trying to.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Mike grabs a clean towel and aggressively dries his hands.<</narrative>>
+<<dialog "dinerDishwasher">>My skin is peeling off. Too much hot water. Wish I could take a break too.<</dialog>>
+<<dialog "player">>Ask Vince for one.<</dialog>>
+<<dialog "dinerDishwasher">>Vince doesn't know what a break is for people who ain't him. Later.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_evening: {
+
+        almost_done: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Mike looks at the clock on the wall and SIGHS loudly.<</narrative>>
+<<dialog "dinerDishwasher">>Two hours left. It feels like time is frozen. Your break makes it feel longer.<</dialog>>
+<<dialog "player">>I'll be back on the floor soon.<</dialog>>
+<<dialog "dinerDishwasher">>Don't rush on my account. Rest while you can.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Mike points his chin towards a wet mop bucket.<</narrative>>
+<<dialog "dinerDishwasher">>You taking that bucket when you get back on? Or is that my job tonight?<</dialog>>
+<<dialog "player">>Probably mine.<</dialog>>
+<<dialog "dinerDishwasher">>Praise the heavens. I hate mopping. Enjoy the break.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Mike rubs the back of his neck with a damp wrist.<</narrative>>
+<<dialog "dinerDishwasher">>I'm so done with dishes. Honestly, paper plates. The diner needs paper plates.<</dialog>>
+<<dialog "player">>Vince would never allow it.<</dialog>>
+<<dialog "dinerDishwasher">>I know. Too 'cheap'. As if we aren't a diner. See ya.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    }
+}>>

@@ -1,0 +1,136 @@
+/* ==========================================
+   JAKE TALK TOPICS — WORKING ON BREAK PHASE, LEVEL 1
+   phase === "working.onBreak" && friendshipLevel === 1
+
+   CHARACTER: Jake Rivera, Waiter at Ruby's Diner
+   → Late 20s, relaxed, energetic but directionless.
+   → Player works there too, on break. Coworker solidarity.
+   → Treats player like a reliable buddy on shift.
+
+   CONTEXTS:
+   dinerRubys_workingOnBreak_morning
+   dinerRubys_workingOnBreak_afternoon
+   dinerRubys_workingOnBreak_evening
+========================================== */
+
+<<set setup.jakeTopics = setup.jakeTopics || {}>>
+<<set setup.jakeTopics.workingOnBreak = setup.jakeTopics.workingOnBreak || {}>>
+<<set setup.jakeTopics.workingOnBreak.level1 = {
+
+    dinerRubys_workingOnBreak_morning: {
+
+        morning_break: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Jake snags a stray fry from a passing plate and eats it quickly.<</narrative>>
+<<dialog "dinerWaitress3">>Break time already? Lucky. My stomach is screaming right now.<</dialog>>
+<<dialog "player">>Go get some food, then.<</dialog>>
+<<dialog "dinerWaitress3">>Vince will have my hide if I leave the floor empty. Have a coffee for me.<</dialog>>
+<<dialog "player">>Will do, man.<</dialog>>
+<<dialog "dinerWaitress3">>Enjoy it.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>Jake pauses halfway to the kitchen to stretch his back with a groan.<</narrative>>
+<<dialog "dinerWaitress3">>You look entirely too comfortable sitting there while we suffer.<</dialog>>
+<<dialog "player">>I earned this break.<</dialog>>
+<<dialog "dinerWaitress3">>Yeah, yeah. Just don't let Vince catch you relaxing too hard, he gets jealous.<</dialog>>
+<<dialog "player">>I'll be careful.<</dialog>>
+<<dialog "dinerWaitress3">>Good. See ya in a bit.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>Jake tosses his towel over his shoulder, looking exhausted.<</narrative>>
+<<dialog "dinerWaitress3">>Mike is slamming plates in the back. Try to avoid him on your break.<</dialog>>
+<<dialog "player">>Bad mood?<</dialog>>
+<<dialog "dinerWaitress3">>When is he in a good mood before 10 AM? Just lay low.<</dialog>>
+<<dialog "player">>Thanks for the warning.<</dialog>>
+<<dialog "dinerWaitress3">>No problem. Take it easy.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_afternoon: {
+
+        lunch_tired: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Jake stops by your table, deliberately sighing loudly.<</narrative>>
+<<dialog "dinerWaitress3">>Table four sent their eggs back. Twice. I'm gonna lose my mind.<</dialog>>
+<<dialog "player">>What was wrong with them?<</dialog>>
+<<dialog "dinerWaitress3">>'Too yellow', apparently. I didn't even know how to answer that.<</dialog>>
+<<dialog "player">>Just ignore them.<</dialog>>
+<<dialog "dinerWaitress3">>I wish. Enjoy the break, you don't have to deal with table four.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Jake casually steals a sugar packet from your table.<</narrative>>
+<<dialog "dinerWaitress3">>Need some sugar. The afternoon slump is hitting me hard today.<</dialog>>
+<<dialog "player">>There's coffee in the back.<</dialog>>
+<<dialog "dinerWaitress3">>Too hot for coffee. I'm just eating raw sugar. Don't look at me like that.<</dialog>>
+<<dialog "player">>I didn't say anything.<</dialog>>
+<<dialog "dinerWaitress3">>You judged me. It's fine.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Jake quickly ties his shoes near the counter, keeping an eye out for Vince.<</narrative>>
+<<dialog "dinerWaitress3">>My shoes are falling apart. The grease eats through the soles, I swear.<</dialog>>
+<<dialog "player">>Buy better shoes.<</dialog>>
+<<dialog "dinerWaitress3">>With my tips? Funny. I'll just wrap them in duct tape soon.<</dialog>>
+<<dialog "player">>Very stylish.<</dialog>>
+<<dialog "dinerWaitress3">>I start trends. Catch ya later.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_evening: {
+
+        shift_end: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Jake walks by slowly, practically dragging his feet on the tile.<</narrative>>
+<<dialog "dinerWaitress3">>It's dark outside. This is unnatural. We should be sleeping.<</dialog>>
+<<dialog "player">>You're barely standing.<</dialog>>
+<<dialog "dinerWaitress3">>I'm sleepwalking. If I take an order for a pizza, wake me up.<</dialog>>
+<<dialog "player">>I'll try.<</dialog>>
+<<dialog "dinerWaitress3">>Thanks, buddy. Enjoy the break.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Jake leans against the booth for a second, rubbing his eyes.<</narrative>>
+<<dialog "dinerWaitress3">>If Emma yells at me to wipe down the condiment bottles one more time, I'm quitting.<</dialog>>
+<<dialog "player">>She's just doing her job.<</dialog>>
+<<dialog "dinerWaitress3">>Yeah, but she likes it too much. It's creepy how much she cares about mustard crust.<</dialog>>
+<<dialog "player">>I guess so.<</dialog>>
+<<dialog "dinerWaitress3">>Back to the trenches for me. Rest up.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Jake pockets a handful of coins from a nearby table.<</narrative>>
+<<dialog "dinerWaitress3">>Three bucks. Not terrible for an evening tip. Could buy half a burger.<</dialog>>
+<<dialog "player">>Don't spend it all at once.<</dialog>>
+<<dialog "dinerWaitress3">>I'm investing it. In vending machine snacks. Have a good break out here.<</dialog>>
+<<dialog "player">>Thanks.<</dialog>>
+<<dialog "dinerWaitress3">>No problem.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    }
+}>>

@@ -1,0 +1,136 @@
+/* ==========================================
+   JAKE TALK TOPICS — WORKING DONE PHASE, LEVEL 1
+   phase === "working.done" && friendshipLevel === 1
+
+   CHARACTER: Jake Rivera, Waiter at Ruby's Diner
+   → Late 20s, relaxed, energetic but directionless.
+   → Player has finished their shift.
+   → Jake might still be working or also done. Relaxed coworker talk.
+
+   CONTEXTS:
+   dinerRubys_workingDone_morning
+   dinerRubys_workingDone_afternoon
+   dinerRubys_workingDone_evening
+========================================== */
+
+<<set setup.jakeTopics = setup.jakeTopics || {}>>
+<<set setup.jakeTopics.workingDone = setup.jakeTopics.workingDone || {}>>
+<<set setup.jakeTopics.workingDone.level1 = {
+
+    dinerRubys_workingDone_morning: {
+
+        heading_out: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeWorkingDoneMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Jake pauses with a tray full of dirty dishes to look at your fresh clothes.<</narrative>>
+<<dialog "dinerWaitress3">>Done for the day? Must be nice. I've got five more hours in this apron.<</dialog>>
+<<dialog "player">>It was a long shift.<</dialog>>
+<<dialog "dinerWaitress3">>Sure it was. Get out of here before Vince finds a reason to keep you longer.<</dialog>>
+<<dialog "player">>I am leaving right now.<</dialog>>
+<<dialog "dinerWaitress3">>Smart move. Later.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeWorkingDoneMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>Jake tosses his pen into his apron pocket with a sigh.<</narrative>>
+<<dialog "dinerWaitress3">>You smell like dish soap. The perfume of our people.<</dialog>>
+<<dialog "player">>I'll shower when I get home.<</dialog>>
+<<dialog "dinerWaitress3">>Take a long one. Wash the diner off you completely.<</dialog>>
+<<dialog "player">>I'll try.<</dialog>>
+<<dialog "dinerWaitress3">>See you tomorrow, man.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeWorkingDoneMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>Jake leans over the counter slightly as you head for the door.<</narrative>>
+<<dialog "dinerWaitress3">>Hey, since you're off the clock, can you bring me a coffee from across town?<</dialog>>
+<<dialog "player">>No, I'm going home.<</dialog>>
+<<dialog "dinerWaitress3">>Worth a shot. Only our coffee here tastes like misery. Enjoy the freedom.<</dialog>>
+<<dialog "player">>Thanks.<</dialog>>
+<<dialog "dinerWaitress3">>Peace.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingDone_afternoon: {
+
+        shift_over_talk: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeWorkingDoneAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Jake gives you a slight nod as he passes by with menus in hand.<</narrative>>
+<<dialog "dinerWaitress3">>You survived the lunch rush. Barely, from the look of you.<</dialog>>
+<<dialog "player">>It got busy.<</dialog>>
+<<dialog "dinerWaitress3">>Always does. Good job not breaking down in the back room.<</dialog>>
+<<dialog "player">>There's always tomorrow.<</dialog>>
+<<dialog "dinerWaitress3">>That's the spirit. Have a good afternoon.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeWorkingDoneAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Jake adjusts his apron, looking slightly jealous as you get ready to leave.<</narrative>>
+<<dialog "dinerWaitress3">>It's sunny out. Go do something fun. For both of us.<</dialog>>
+<<dialog "player">>I'm probably just going to sleep.<</dialog>>
+<<dialog "dinerWaitress3">>Boring. But respectable. I'll be here, serving pie to people who don't need it.<</dialog>>
+<<dialog "player">>Good luck.<</dialog>>
+<<dialog "dinerWaitress3">>I don't need luck, I need better tips. Bye.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeWorkingDoneAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Jake checks his reflection in the pie display.<</narrative>>
+<<dialog "dinerWaitress3">>You look less stressed already. Off-the-clock magic.<</dialog>>
+<<dialog "player">>It helps knowing I'm done.<</dialog>>
+<<dialog "dinerWaitress3">>Must be nice. Have a good rest of your day, alright?<</dialog>>
+<<dialog "player">>You too.<</dialog>>
+<<dialog "dinerWaitress3">>Yeah, yeah. Get out of here.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    },
+
+    dinerRubys_workingDone_evening: {
+
+        night_out: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeWorkingDoneEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Jake is unbuttoning the top of his uniform, looking relieved.<</narrative>>
+<<dialog "dinerWaitress3">>We made it. Another day, another few dollars. You going out?<</dialog>>
+<<dialog "player">>Maybe. It's late.<</dialog>>
+<<dialog "dinerWaitress3">>Late is when the fun starts. Don't be an old man. Go get a drink.<</dialog>>
+<<dialog "player">>I'll think about it.<</dialog>>
+<<dialog "dinerWaitress3">>Don't think, just do it. See you around.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeWorkingDoneEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Jake tosses his towel into the bin near the kitchen doors.<</narrative>>
+<<dialog "dinerWaitress3">>Best sound in the world is the lock clicking on that front door.<</dialog>>
+<<dialog "player">>Finally closed.<</dialog>>
+<<dialog "dinerWaitress3">>Yeah. Good work today. We didn't burn the place down.<</dialog>>
+<<dialog "player">>Always a plus.<</dialog>>
+<<dialog "dinerWaitress3">>Exactly. Have a good night.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeWorkingDoneEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Jake is already holding his jacket, ready to bolt out the door.<</narrative>>
+<<dialog "dinerWaitress3">>I'm out of here before Vince asks me to mop again. If he asks, you didn't see me.<</dialog>>
+<<dialog "player">>My lips are sealed.<</dialog>>
+<<dialog "dinerWaitress3">>You're the best. Catch you tomorrow.<</dialog>>
+<<dialog "player">>Take care, Jake.<</dialog>>
+<<dialog "dinerWaitress3">>Will do.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    }
+}>>

@@ -42,3 +42,13 @@
         { hour: 0, location: null, status: "unavailable" }
     ]
 }>>
+
+/* ACTIONS */
+<<set setup.characterActions.dinerManager = {
+    dinerRubys: [
+        {
+            id: "talk", label: "Talk", passage: "vinceTalkDinerRubys",
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        }
+    ]
+}>>

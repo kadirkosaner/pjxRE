@@ -1,0 +1,193 @@
+/* ==========================================
+   JAMES TALK TOPICS — COMMON PHASE, LEVEL 1
+   phase === "common" && friendshipLevel === 1
+
+   CHARACTER: James Holt, Chef at Ruby's Diner
+   → Late 30s, married with kids. Runs the kitchen.
+   → Tired, sometimes grumpy during a rush, but fair.
+   → Treats player like a regular kid stopping by.
+
+   COMMON L1 TONE:
+   → Player has no job, just dropped by.
+   → James chats from the kitchen pass or while prepping.
+
+   CONTEXTS:
+   dinerRubys_common_morning
+   dinerRubys_common_afternoon
+   dinerRubys_common_evening
+========================================== */
+
+<<set setup.jamesTopics = setup.jamesTopics || {}>>
+<<set setup.jamesTopics.common = setup.jamesTopics.common || {}>>
+<<set setup.jamesTopics.common.level1 = {
+
+    dinerRubys_common_morning: {
+
+        prep_work: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>James aggressively chops an onion, looking annoyed.<</narrative>>
+<<dialog "dinerChef">>Supplier brought the wrong onions again. I asked for yellow, I get white.<</dialog>>
+<<dialog "player">>Is there a difference?<</dialog>>
+<<dialog "dinerChef">>In a stew? Yes. But nobody here cares about the stew. They just eat it.<</dialog>>
+<<dialog "player">>That sucks.<</dialog>>
+<<dialog "dinerChef">>It is what it is. See ya.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>James eyes a clipboard hanging over the grill.<</narrative>>
+<<dialog "dinerChef">>Morning. Don't mind me, just counting how many eggs we have left.<</dialog>>
+<<dialog "player">>Not enough?<</dialog>>
+<<dialog "dinerChef">>Never enough. Saturday mornings wipe us out completely. It's a logistical nightmare.<</dialog>>
+<<dialog "player">>You'll figure it out.<</dialog>>
+<<dialog "dinerChef">>I always do. Have a good one.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>James scrubs a clean-looking spot on his apron with his thumb.<</narrative>>
+<<dialog "dinerChef">>My kid got jam on my work clothes this morning. I've washed it three times.<</dialog>>
+<<dialog "player">>It barely shows.<</dialog>>
+<<dialog "dinerChef">>I know it's there. Sticky. You don't have kids, you wouldn't get it.<</dialog>>
+<<dialog "player">>I guess not.<</dialog>>
+<<dialog "dinerChef">>Count your blessings.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        tired: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>James drinks black coffee from a chipped mug.<</narrative>>
+<<dialog "dinerChef">>This is my fourth cup today. The baby kept me up all night.<</dialog>>
+<<dialog "player">>You should get some sleep.<</dialog>>
+<<dialog "dinerChef">>Sleep is a luxury. I run a kitchen. Go enjoy your morning, kid.<</dialog>>
+<<dialog "player">>Will do, James.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>James stares off into space, holding a spatula like a weapon.<</narrative>>
+<<dialog "player">>You okay?<</dialog>>
+<<dialog "dinerChef">>Huh? Yeah. Just trying to remember if I turned off the stove at home.<</dialog>>
+<<dialog "player">>Did you?<</dialog>>
+<<dialog "dinerChef">>Probably not. Oh well. My wife is home anyway.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>James leans on the food pass window, glaring at Vince talking to a customer.<</narrative>>
+<<dialog "dinerChef">>If he promised that customer an off-menu item, I am walking out.<</dialog>>
+<<dialog "player">>He does that a lot?<</dialog>>
+<<dialog "dinerChef">>More than he should. Makes my life miserable. You want something, order from the menu.<</dialog>>
+<<dialog "player">>Makes sense.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_common_afternoon: {
+
+        lunch_rush: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>James flips three burgers in rapid succession, surrounded by smoke.<</narrative>>
+<<dialog "dinerChef">>Not now. It's too hot and I have sixteen orders of fries backed up.<</dialog>>
+<<dialog "player">>I can see that.<</dialog>>
+<<dialog "dinerChef">>Emma! Where is my runner?! Get out of the way, kid.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>James wipes sweat from his forehead with the back of his arm.<</narrative>>
+<<dialog "dinerChef">>It's a hundred degrees back here. Don't ever become a line cook.<</dialog>>
+<<dialog "player">>I wasn't planning on it.<</dialog>>
+<<dialog "dinerChef">>Smart. Stay in school or whatever it is you do. Order up!<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>James stares fiercely at an illegible order ticket.<</narrative>>
+<<dialog "dinerChef">>Sofia's handwriting looks like an angry doctor's. Does this say extra 'mayo' or extra 'bacon'?<</dialog>>
+<<dialog "player">>Looks like bacon.<</dialog>>
+<<dialog "dinerChef">>Bacon it is. If the customer complains, it's her fault. Goodbye.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        family: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>James looks at his phone and smiles faintly before locking it.<</narrative>>
+<<dialog "dinerChef">>My son learned how to tie his shoes today. Sent a video.<</dialog>>
+<<dialog "player">>That's pretty cool.<</dialog>>
+<<dialog "dinerChef">>It is. Small things keep you going during a double shift. See ya around.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>James throws a piece of burnt toast into the trash bin.<</narrative>>
+<<dialog "dinerChef">>If I served my kids burnt toast like this, they'd start a riot.<</dialog>>
+<<dialog "player">>They're picky eaters?<</dialog>>
+<<dialog "dinerChef">>Picky is an understatement. I fear my five-year-old more than Vince.<</dialog>>
+<<dialog "player">>Sounds rough.<</dialog>>
+<<dialog "dinerChef">>It's love. Take care.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>James rests against the fridge door for a brief cooling second.<</narrative>>
+<<dialog "dinerChef">>My wife asked what I wanted for dinner tonight. Irony.<</dialog>>
+<<dialog "player">>You're a chef who doesn't want to cook?<</dialog>>
+<<dialog "dinerChef">>When I get home, I want cereal. Just cereal. I'm tired of looking at fire.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_common_evening: {
+
+        dinner_rush: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>James is pouring old grease into a trap, looking completely done with the world.<</narrative>>
+<<dialog "dinerChef">>Evening crowd is mostly teenagers trying to split a five-dollar milkshake three ways.<</dialog>>
+<<dialog "player">>At least it's easy to make.<</dialog>>
+<<dialog "dinerChef">>Takes just as long to clean the blender either way. So, no.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>James points a pair of tongs at you over the pass.<</narrative>>
+<<dialog "dinerChef">>You aren't going to order a steak well-done ten minutes before close, right?<</dialog>>
+<<dialog "player">>I wasn't going to.<</dialog>>
+<<dialog "dinerChef">>Good man. You don't know the things I'd do to an end-of-night well-done steak.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesCommonEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>James rubs his temple as Mike drops something loud in the back.<</narrative>>
+<<dialog "dinerChef">>One day Mike is going to shatter every plate we own, and I'll finally be free.<</dialog>>
+<<dialog "player">>Probably just a spoon.<</dialog>>
+<<dialog "dinerChef">>It better be. I'm tired. I want to go home to my wife.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    }
+}>>

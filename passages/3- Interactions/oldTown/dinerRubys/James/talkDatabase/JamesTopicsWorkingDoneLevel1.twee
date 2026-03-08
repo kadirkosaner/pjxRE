@@ -1,0 +1,117 @@
+/* ==========================================
+   JAMES TALK TOPICS — WORKING DONE PHASE, LEVEL 1
+   phase === "working.done" && friendshipLevel === 1
+
+   CHARACTER: James Holt, Chef at Ruby's Diner
+   → Late 30s, married with kids. 
+   → Player has finished their shift.
+
+   CONTEXTS:
+   dinerRubys_workingDone_morning
+   dinerRubys_workingDone_afternoon
+   dinerRubys_workingDone_evening
+========================================== */
+
+<<set setup.jamesTopics = setup.jamesTopics || {}>>
+<<set setup.jamesTopics.workingDone = setup.jamesTopics.workingDone || {}>>
+<<set setup.jamesTopics.workingDone.level1 = {
+
+    dinerRubys_workingDone_morning: {
+
+        early_exit: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesWorkingDoneMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>James watches you walk by in street clothes, clearly envious.<</narrative>>
+<<dialog "dinerChef">>Shift over already? You kids got it easy.<</dialog>>
+<<dialog "player">>Just lucky scheduling.<</dialog>>
+<<dialog "dinerChef">>Next time I see Vince, I'm asking for half days. Get out of here.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesWorkingDoneMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>James gestures vaguely with a slotted spoon as you pack up.<</narrative>>
+<<dialog "dinerChef">>Go home, shower. Nothing worse than smelling like fried onions on your day off.<</dialog>>
+<<dialog "player">>I am heading straight right now.<</dialog>>
+<<dialog "dinerChef">>Smart. Have a good one.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesWorkingDoneMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>James pulls a fresh ticket off the line, ignoring you leaving.<</narrative>>
+<<dialog "dinerChef">>I still have twelve hours of this. See you tomorrow.<</dialog>>
+<<dialog "player">>I'll pray for you, James.<</dialog>>
+<<dialog "dinerChef">>Yeah, yeah. Keep walking.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingDone_afternoon: {
+
+        family_time: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesWorkingDoneAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>James checks the wall clock and nods at you.<</narrative>>
+<<dialog "dinerChef">>You're done. Kids are probably getting off the bus right about now back home.<</dialog>>
+<<dialog "player">>You miss them?<</dialog>>
+<<dialog "dinerChef">>Always. Be glad you have your afternoons free. Cherish it.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesWorkingDoneAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>James is aggressively cleaning the grill with a heavy brush.<</narrative>>
+<<dialog "dinerChef">>You get to leave, and I get the grease trap. Fair trade.<</dialog>>
+<<dialog "player">>I can help if you want.<</dialog>>
+<<dialog "dinerChef">>Nah, you're off the clock. Vince won't pay you. Go home.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesWorkingDoneAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>James takes a deep breath, trying to calm down after a busy hour.<</narrative>>
+<<dialog "dinerChef">>Good job today. You didn't slow me down entirely.<</dialog>>
+<<dialog "player">>Was that a compliment?<</dialog>>
+<<dialog "dinerChef">>High praise from me. Don't let it go to your head. Bye.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingDone_evening: {
+
+        closing_time: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesWorkingDoneEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>James is wiping down the stainless steel counter for the final time.<</narrative>>
+<<dialog "dinerChef">>We did it. Nobody died, food went out. Now I can sleep.<</dialog>>
+<<dialog "player">>Long day.<</dialog>>
+<<dialog "dinerChef">>Every day is a long day. Drive safe out there.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesWorkingDoneEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>James pulls his chef hat off, his hair a complete mess.<</narrative>>
+<<dialog "dinerChef">>A cold beer. That's all I want. One cold beer and a silent house.<</dialog>>
+<<dialog "player">>I hope you get it.<</dialog>>
+<<dialog "dinerChef">>With three kids? Fat chance. But a man can dream. See you.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesWorkingDoneEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>James locks the kitchen fridge with a sharp click.<</narrative>>
+<<dialog "dinerChef">>Everything is secured. Let Vince handle the front. I'm leaving.<</dialog>>
+<<dialog "player">>See you tomorrow, James.<</dialog>>
+<<dialog "dinerChef">>Take care, kid.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    }
+}>>
