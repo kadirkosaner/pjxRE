@@ -1,201 +1,302 @@
-# Ruby's Diner — Dialogue Generation Brief
+## Phase Sistemi
 
-## Instructions for the Agent
+Oyuncunun dinerla ilişkisi üç durumdan birine girer:
 
-Before generating any dialogue, you **must** determine two things:
+│
+├── Job YOK → common topics  
+│ (Tanıdık biri olarak uğramış, sadece sohbet)
 
-### Step 1: Which phase?
+└── Job VAR (dishwasher)  
+ │
+├── Günlük saat < 8 → working.onBreak topics  
+ │ (Shift devam ediyor, oyuncu molada)
 
-Ask or check:
+    └── Günlük saat = 8 → working.done topics
+        (Shift bitti, oyuncu ne müşteri ne işçi)
 
-> **Does the player currently have the dishwasher job at Ruby's Diner?**
-
-| Player job status                               | Phase to use |
-| ----------------------------------------------- | ------------ |
-| **No job / job ended** (visiting as a customer) | `common`     |
-| **Currently working as dishwasher**             | `working`    |
-
-> These are separate dialogue databases. Do not mix them.
-
----
-
-### Step 3: Natural, Slice-of-Life Conversational Style
-
-> **Are these generic AI "Greetings, adventurer!" style lines? NO.**
-
-- **Crucial Rule:** These must feel like **genuine, natural, everyday chit-chat (slice-of-life)**.
-- Do NOT use robotic or overly formal "Hello, how may I serve you today?" lines unless it's a specific performative choice by Vince.
-- Start conversations in the middle of a thought, a complaint about the diner, an observation about the weather, or a quick "Hey, how's it going."
-- The characters are human beings standing on their feet for 8 hours. Reflect their exhaustion, boredom, or sleaziness **naturally**.
-
-> **What is the current friendship level with this character?**
-
-Currently only **Level 1** dialogues are being written.
-
-Level 1 means:
-
-- The player and the character **know each other by face** but are **not friends**.
-- Interactions are short, standing (ayaküstü), and low-intimacy.
-- No personal secrets, no deep conversations, no free food or drinks.
+> **Bu üç database birbirinden tamamen ayrıdır. Karıştırma.**
 
 ---
 
-## Character Profiles
+# Diyalog Tonu — En Önemli Kural
 
-### 1. Emma (Waitress — `dinerWaitress1`)
+**Bunlar gerçek insanlar. Sahnede bekleyen NPC değil.**
 
-**Core Personality:** Competent, perpetually overworked, and professionally detached. Not unkind, just busy.
-**Tone:** Brisk, dry, efficient.
-
-#### Phase: `common` (Player is NOT working a shift)
-
-Emma treats the player as a regular customer. Her goal is to check if they need something and get back on the floor.
-
-| Time slot | Topic keys                                     |
-| --------- | ---------------------------------------------- |
-| Morning   | `prep_work`, `vince`, `observation`            |
-| Afternoon | `work_rush`, `sofia`, `advice`                 |
-| Evening   | `closing_up`, `trouble_customers`, `smalltalk` |
-
-**Rules:** Short, passing conversation. She ends every exchange by returning to work. **Never offers free food.**
-
-#### Phase: `working.onBreak` (Player is MID-SHIFT as dishwasher)
-
-Emma sees the player as a coworker who should probably be working.
-
-| Time slot | Topic keys                                            |
-| --------- | ----------------------------------------------------- |
-| Morning   | `dish_backlog`, `james_orders`, `her_section`         |
-| Afternoon | `lunch_rush_dishes`, `sofia_useless`, `stack_check`   |
-| Evening   | `closing_dishes`, `vince_complaining`, `end_of_shift` |
-
-**Rules:** She is brisk, hands off information, and expects the player to head back to the dish pit soon.
-
-#### Phase: `working.done` (Player has FINISHED 8-hour shift)
-
-Emma acknowledges the shift is over. She is slightly more relaxed but still distant (Level 1).
-
-| Time slot | Topic keys                                              |
-| --------- | ------------------------------------------------------- |
-| Morning   | `early_finish`, `morning_survivor`, `quiet_kitchen`     |
-| Afternoon | `post_rush_relief`, `leftover_mess`, `goodbye`          |
-| Evening   | `shared_exhaustion`, `closing_duties`, `tomorrow_shift` |
-
-**Rules:** A brief nod to surviving the shift. A bit of coworker solidarity, but no deep hanging out.
+Karakter oyuncuyu beklemiyordu. Zaten bir şey yapıyordu. Oyuncu onu böldü.
 
 ---
 
-### 2. Sofia (Waitress — `dinerWaitress2`)
+## YAPMA
 
-**Core Personality:** Self-absorbed, lazy, and mildly sardonic. The diner is an obstacle.
-**Tone:** Bored, vague, low-energy sarcasm.
-
-#### Phase: `common` (Player is NOT working a shift)
-
-Sofia sees the player as a customer (= potential work). She tries to avoid taking responsibility.
-
-| Time slot | Topic keys                               |
-| --------- | ---------------------------------------- |
-| Morning   | `distracted`, `complaints`, `gossip`     |
-| Afternoon | `lazy`, `lunch_drama`, `vince_annoyance` |
-| Evening   | `phone`, `vince`, `tips`                 |
-
-**Rules:** Her attention is elsewhere. She tries to redirect work to Emma. **No free food.**
-
-#### Phase: `working.onBreak` (Player is MID-SHIFT as dishwasher)
-
-Sofia sees the player as someone to dump tasks onto or hide with.
-
-| Time slot | Topic keys                                          |
-| --------- | --------------------------------------------------- |
-| Morning   | `task_dumping`, `vince_monitoring`, `fake_busy`     |
-| Afternoon | `hiding_from_rush`, `tip_gossip`, `section_swap`    |
-| Evening   | `early_exit_plan`, `end_shift_count`, `vince_drama` |
-
-**Rules:** She talks to the player only when she needs something or wants to avoid Vince.
-
-#### Phase: `working.done` (Player has FINISHED 8-hour shift)
-
-Sofia is jealous that the player gets to leave while she might still be stuck there.
-
-| Time slot | Topic keys                                      |
-| --------- | ----------------------------------------------- |
-| Morning   | `jealous_exit`, `stay_with_me`, `lucky_you`     |
-| Afternoon | `abandonment`, `vince_watch`, `freedom`         |
-| Evening   | `leaving_me_here`, `cleaning_complaints`, `bye` |
-
-**Rules:** Dismissive envy. She complains that the player gets to leave.
+❌ Uzun açıklamalar, punch line'a kurulu cümleler  
+❌ Her şeyi açıkça söylemek — "Seni takip ediyorum", "İyi bir işçisin"  
+❌ Her diyaloğu temiz bir kapanışla bitirmek  
+❌ Oyuncu repliklerini çok zekice yazmak — oyuncu sıradan konuşur  
+❌ `common` phase'de sipariş almak, masa göstermek, menüden bahsetmek
 
 ---
 
-### 3. Vince (Manager/Owner — `dinerManager`)
+## YAP
 
-**Core Personality:** Performative businessman. Always selling something with an unsettling undercurrent.
-**Tone:** Overly smooth, subtly patronizing. Words are deniable ("just good business"), but delivery creates discomfort.
-
-#### Phase: `common` (Player is NOT working a shift)
-
-Vince sees the player as a customer. Schmoozes with a slightly too attentive gaze.
-
-| Time slot | Topic keys                     |
-| --------- | ------------------------------ |
-| Morning   | `schmooze`, `staff`, `coffee`  |
-| Afternoon | `upsell`, `stress`, `regulars` |
-| Evening   | `money`, `flirting`, `closing` |
-
-**Rules:** Compliments feel a bit too personal. **Never genuinely offers free things**, always a pitch.
-
-#### Phase: `working.onBreak` (Player is MID-SHIFT as dishwasher)
-
-Vince is the boss checking in. He hovers and watches.
-
-| Time slot | Topic keys                                        |
-| --------- | ------------------------------------------------- |
-| Morning   | `break_timing`, `cost_lecture`, `watching`        |
-| Afternoon | `dish_speed`, `soap_cost`, `compliment_creep`     |
-| Evening   | `closing_count`, `alone_in_kitchen`, `time_check` |
-
-**Rules:** Uses his authority to hover near the player. Feedback is half about the job, half observation.
-
-#### Phase: `working.done` (Player has FINISHED 8-hour shift)
-
-The player is off the clock, giving Vince an excuse to treat them slightly more like a 'guest' again, but with creepy undertones.
-
-| Time slot | Topic keys                                    |
-| --------- | --------------------------------------------- |
-| Morning   | `off_the_clock`, `good_worker`, `stay_awhile` |
-| Afternoon | `sit_down`, `shift_review`, `drink_offer`     |
-| Evening   | `late_night`, `ride_offer`, `alone_time`      |
-
-**Rules:** Once the player is off the clock, his offers (to sit, a ride) become more pointed but still deniable.
+✅ Karakter zaten bir şey yapıyor, oyuncu onu bölüyor  
+✅ Konuşma yarım kalabilir, bitmeyebilir  
+✅ Spesifik detaylar: "kahve makinesi" değil, "o kahve makinesi yine sızdırıyor"  
+✅ Subtext: Vince'in rahatsızlığı kelimelerden değil, davranıştan gelir  
+✅ Sessizlik ve kısa cevaplar gerçekçidir
 
 ---
 
-## Dialogue Format (Twee / SugarCube)
+# Oyuncu Diyalog Kuralları (CRITICAL)
+
+Oyuncu **tek kelimelik cevap veren boş bir karakter gibi görünmemeli**, ama aynı zamanda konuşmayı domine etmemelidir.
+
+İyi denge:
+
+```
+
+NPC: 4–8 kelime
+Player: 5–10 kelime
+
+```
+
+Oyuncu genellikle:
+
+- kısa ama **tam bir cümle**
+- gündelik konuşma
+- bazen soru
+- nadiren iki cümle
+
+### İyi Player Replikleri
+
+```
+
+"Bunu değiştirmeyi hiç düşündüler mi?"
+"Geçerken içeri bakayım dedim."
+"Bugün baya yoğun görünüyor."
+"Bu makine çok eski duruyor."
+"Ben de öyle tahmin etmiştim."
+
+```
+
+### Çok Kötü (çok kısa)
+
+```
+
+"Hm."
+"Evet."
+"Belki."
+
+```
+
+### Çok Kötü (çok uzun)
+
+```
+
+"Ben aslında buradan geçerken içeride çalışan insanları
+görüp merak ettiğim için uğradım."
+
+```
+
+### En Doğal Uzunluk
+
+```
+
+5–10 kelime
+
+```
+
+---
+
+# Sessizlik Kullanımı
+
+Bazen oyuncu **hiç cevap vermez**.
+
+Bu çok doğal bir konuşma ritmidir.
+
+Örnek:
+
+Emma: Bir şeye mi uğradın?  
+Player: ...  
+Emma: Tamam. Yoğunum zaten.
+
+Sessizlik **nadiren kullanılmalı**, ama gerçekçilik yaratır.
+
+---
+
+# Phase Açıklamaları
+
+## `common`
+
+Oyuncunun işi yok. Tanıdığı insanlara uğramış, ayaküstü sohbet ediyor.  
+**Eski iş arkadaşı gibi düşün**.
+
+- Emma onu tanıdık biri olarak görür, ama işi var
+- Sofia onu dikkat dağıtıcı olarak görür
+- Vince onu tanıdık biri olarak görür, fazla ilgili davranır
+
+> CRITICAL: Sipariş yok, masa yok, menü yok.
+
+Sadece iki insan konuşuyor.
+
+---
+
+## `working.onBreak`
+
+Oyuncunun shifti devam ediyor, molada.  
+Karakterler onu **coworker** olarak görür.
+
+Emma  
+→ hızlı konuşur, iş bilgisini paylaşır
+
+Sofia  
+→ oyuncuya iş yıkmaya çalışır
+
+Vince  
+→ patron gibi hover eder
+
+---
+
+## `working.done`
+
+8 saat doldu.
+
+Oyuncu artık **off the clock**.
+
+Emma  
+→ coworker dayanışması
+
+Sofia  
+→ oyuncunun gidebilmesine imrenir
+
+Vince  
+→ daha kişisel davranır ama deniable
+
+---
+
+# Karakter Profilleri
+
+## Emma (`dinerWaitress1`)
+
+Kişilik  
+Yetkin, sürekli yorgun, profesyonel.
+
+Ton  
+Kısa, kuru, direkt.
+
+Emma konuşurken genellikle **aynı anda çalışır**.
+
+---
+
+## Sofia (`dinerWaitress2`)
+
+Kişilik  
+Kendine odaklı, tembel, hafif alaycı.
+
+Ton  
+Sıkılmış.
+
+Sofia çoğu zaman **telefonuna bakar veya bir şey yapmıyordur**.
+
+---
+
+## Vince (`dinerManager`)
+
+Kişilik  
+Performatif işadamı.
+
+Ton  
+Fazla düzgün, hafif küçümseyici.
+
+---
+
+### Vince'in creepiness kuralı
+
+Vince asla şunu söylemez:
+
+```
+
+"Senden hoşlanıyorum."
+
+```
+
+Onun yerine:
+
+- fazla yakın durur
+- biraz uzun bakar
+- gereksiz kişisel soru sorar
+
+Creepiness **davranıştan gelir**.
+
+---
+
+# Diyalog Formatı
 
 ```twee
 {
-    text: `<<set _img = "assets/content/scenes/interactions/[character]/level1/[character][TimeOfDay]-" + random(1,3) + ".webp">>
+    text: `<<set _img = "assets/content/scenes/interactions/[karakter]/level1/[karakter][Morning|Afternoon|Evening]-" + random(1,3) + ".webp">>
 <<image _img "100%">>
-<<narrative>>[Stage direction — short, present tense, what is the character physically doing when the player approaches]<</narrative>>
-<<dialog "[dialogTag]">>[Character's opening line]<</dialog>>
-<<dialog "player">>[Player's short, neutral response]<</dialog>>
-<<dialog "[dialogTag]">>[Character's closing line — ends the exchange, character moves on]<</dialog>>`,
-    friendship: [1 or 2],
-    trust: [0 or 1]
+<<narrative>>[Sahne yönü — kısa]<</narrative>>
+
+<<dialog "[dialogTag]">>[Karakter konuşur]<</dialog>>
+<<dialog "player">>[Oyuncu cevap verir]<</dialog>>
+<<dialog "[dialogTag]">>[Karakter]<</dialog>>
+<<dialog "player">>[Oyuncu]<</dialog>>
+<<dialog "[dialogTag]">>[Karakter kapanış]<</dialog>>`,
+
+    friendship: [1 veya 2],
+    trust: [0 veya 1]
 }
 ```
 
-**Dialog tags:** `"dinerWaitress1"` (Emma) · `"dinerWaitress2"` (Sofia) · `"dinerManager"` (Vince)
+Dialog tag'leri
 
-**Image path format:** `[character][Morning|Afternoon|Evening]-` + `random(1,3)` + `.webp`
+```
+dinerWaitress1
+dinerWaitress2
+dinerManager
+```
 
 ---
 
-## Variants per topic
+# Variant Kuralları
 
-Each topic key needs **3 dialogue variants** (different each time player clicks).
+Her topic için:
 
-Each variant = 3-turn exchange (character opens → player responds → character closes).
+```
+3 variant
+```
 
-Keep all exchanges under 4 lines total. Level 1 = short.
+Her variant:
+
+```
+minimum 4 exchange
+```
+
+Level 1 özellikleri:
+
+- kısa
+- ayaküstü
+- düşük intimacy
+
+---
+
+# Friendship / Trust — Level 1
+
+```
+friendship: 1 → tanıdık
+friendship: 2 → hafif pozitif
+
+trust: 0 → güven yok
+trust: 1 → küçük güven jesti
+```
+
+Level 1'de çoğu interaction:
+
+```
+friendship: 1
+trust: 0
+```
+
+```
+
+```

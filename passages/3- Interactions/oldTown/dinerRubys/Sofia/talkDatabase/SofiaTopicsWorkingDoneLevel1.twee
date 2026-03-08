@@ -1,0 +1,358 @@
+/* ==========================================
+   SOFIA TALK TOPICS — WORKING DONE PHASE, LEVEL 1
+   phase === "working.done" && friendshipLevel === 1
+
+   CHARACTER: Sofia Silva, Waitress at Ruby's Diner
+   → Envious of the player for finishing their shift.
+   → Makes the player feel guilty for leaving.
+   → Complains about having to stay behind.
+
+   WORKING DONE L1 TONE:
+   → Player finishes their 8 hours and is leaving.
+   → Sofia talks about how lucky the player is.
+   → CRITICAL: Resentful but casually so, lazy to the end.
+
+   CONTEXTS:
+   dinerRubys_workingDone_morning
+   dinerRubys_workingDone_afternoon
+   dinerRubys_workingDone_evening
+========================================== */
+
+<<set setup.sofiaTopics = setup.sofiaTopics || {}>>
+<<set setup.sofiaTopics.workingDone = setup.sofiaTopics.workingDone || {}>>
+<<set setup.sofiaTopics.workingDone.level1 = {
+
+    dinerRubys_workingDone_morning: {
+
+        jealous_exit: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia crosses her arms in front of her, staring down your jacket.<</narrative>>
+<<dialog "dinerWaitress2">>Are you actually leaving right now? Like, out the door?<</dialog>>
+<<dialog "player">>Shift's over.<</dialog>>
+<<dialog "dinerWaitress2">>I don't think that's fair. I've been standing here for an eternity.<</dialog>>
+<<dialog "player">>You've been here three hours.<</dialog>>
+<<dialog "dinerWaitress2">>That translates to fifty diner hours. Have fun in the sun without me.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia leans heavily on the register counter.<</narrative>>
+<<dialog "dinerWaitress2">>I'd pay you ten dollars to finish my shift. Deal?<</dialog>>
+<<dialog "player">>For two hours of work? Not worth it.<</dialog>>
+<<dialog "dinerWaitress2">>I thought we were friends. Look at me, I'm fading away into nothing.<</dialog>>
+<<dialog "player">>You'll live.<</dialog>>
+<<dialog "dinerWaitress2">>Only in a deeply tragic sense. Go.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia sighs loudly as you approach.<</narrative>>
+<<dialog "dinerWaitress2">>So you're putting on your civilian clothes to mock us in front of our faces.<</dialog>>
+<<dialog "player">>I'm just wearing my jacket to go home.<</dialog>>
+<<dialog "dinerWaitress2">>It's a metaphor for freedom. A very arrogant one.<</dialog>>
+<<dialog "player">>You're being dramatic.<</dialog>>
+<<dialog "dinerWaitress2">>And you're leaving. Goodbye, traitor.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ],
+
+        stay_with_me: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia grabs a menu and pokes you softly.<</narrative>>
+<<dialog "dinerWaitress2">>You don't really have to leave, do you? You could order coffee and keep me company.<</dialog>>
+<<dialog "player">>I'd rather be horizontal at home.<</dialog>>
+<<dialog "dinerWaitress2">>Selfish. You owe me entertainment after abandoning me.<</dialog>>
+<<dialog "player">>My entertaining hours are strictly paid.<</dialog>>
+<<dialog "dinerWaitress2">>Capitalist. Fine, I'll just stare at the wall until closing.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia leans forward against the edge of the booth.<</narrative>>
+<<dialog "dinerWaitress2">>If you sit at table four for twenty minutes, I'll pretend you're a complicated customer.<</dialog>>
+<<dialog "player">>What's the point of that?<</dialog>>
+<<dialog "dinerWaitress2">>It wastes time and looks professional to Vince.<</dialog>>
+<<dialog "player">>I'm clocking out.<</dialog>>
+<<dialog "dinerWaitress2">>Useless. I'm taking a coffee break instead.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia points significantly at the empty stool beside her.<</narrative>>
+<<dialog "dinerWaitress2">>Sit down for five minutes. If Vince complains, say you're a patron.<</dialog>>
+<<dialog "player">>I don't have money to buy anything.<</dialog>>
+<<dialog "dinerWaitress2">>Just ask for tap water and nurse it forever like everybody else. Don't leave me.<</dialog>>
+<<dialog "player">>Sorry, homeward bound.<</dialog>>
+<<dialog "dinerWaitress2">>Fine. Reject me. I'm used to it.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ],
+
+        lucky_you: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia looks you up and down.<</narrative>>
+<<dialog "dinerWaitress2">>If I had finished my morning shift half an hour ago, I'd already be in pajamas.<</dialog>>
+<<dialog "player">>That's the plan.<</dialog>>
+<<dialog "dinerWaitress2">>Don't smile like that, it's sickening. Just go.<</dialog>>
+<<dialog "player">>Later.<</dialog>>
+<<dialog "dinerWaitress2">>Don't rub it in.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia taps roughly on her tray. She's thoroughly unhappy you are leaving.<</narrative>>
+<<dialog "dinerWaitress2">>Do you have big plans, or are you just going to go sleep?<</dialog>>
+<<dialog "player">>Absolutely just sleeping.<</dialog>>
+<<dialog "dinerWaitress2">>Good. If you said you were going to a party, I'd be actually angry. Sleep is acceptable.<</dialog>>
+<<dialog "player">>See you tomorrow.<</dialog>>
+<<dialog "dinerWaitress2">>Try not to remind me about tomorrow.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia stares right at your bag.<</narrative>>
+<<dialog "dinerWaitress2">>I wish my bag was packed right now. You're living the dream.<</dialog>>
+<<dialog "player">>The dream is doing dishes back there?<</dialog>>
+<<dialog "dinerWaitress2">>The dream is walking through that front door and never turning around. Mostly.<</dialog>>
+<<dialog "player">>Hang in there.<</dialog>>
+<<dialog "dinerWaitress2">>I'm hanging on by a single thread.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingDone_afternoon: {
+
+        abandonment: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia looks like a wounded puppy as she holds a dirty plate.<</narrative>>
+<<dialog "dinerWaitress2">>Are you really letting me drown in the afternoon service alone?<</dialog>>
+<<dialog "player">>Emma's here. And James.<</dialog>>
+<<dialog "dinerWaitress2">>Emma expects me to work, James belongs in the kitchen. I needed you as a buffer.<</dialog>>
+<<dialog "player">>I did my eight hours.<</dialog>>
+<<dialog "dinerWaitress2">>Betrayal. Absolute betrayal.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia groans faintly at the sight of you leaving.<</narrative>>
+<<dialog "dinerWaitress2">>Who's gonna pretend to listen to me complain about Vince now?<</dialog>>
+<<dialog "player">>Talk to Emma.<</dialog>>
+<<dialog "dinerWaitress2">>She's too practical. She fixes problems. I just want to whine in peace.<</dialog>>
+<<dialog "player">>I'll be back another time.<</dialog>>
+<<dialog "dinerWaitress2">>Not soon enough. Leave.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia wipes a table with minimal enthusiasm while looking at you.<</narrative>>
+<<dialog "dinerWaitress2">>It's illegal to look that happy when your coworkers are suffering.<</dialog>>
+<<dialog "player">>I can't help what my face does.<</dialog>>
+<<dialog "dinerWaitress2">>Your aura is smiling too. Turn it off. It's deeply offensive.<</dialog>>
+<<dialog "player">>_(deadpans)_ Better?<</dialog>>
+<<dialog "dinerWaitress2">>Barely. Just leave before I throw a fork at you.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        vince_watch: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia whispers out the side of her mouth.<</narrative>>
+<<dialog "dinerWaitress2">>Vince just scheduled me for closing duty on Friday. Don't leave me alone in the diner.<</dialog>>
+<<dialog "player">>I might not be working.<</dialog>>
+<<dialog "dinerWaitress2">>Then come hang out at a booth for four hours. Free entertainment.<</dialog>>
+<<dialog "player">>I'll pass on that.<</dialog>>
+<<dialog "dinerWaitress2">>Rude. Just absolutely unsupportive.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia gestures toward Vince with her eyes alone.<</narrative>>
+<<dialog "dinerWaitress2">>Check out Vince giving you the 'off the clock' nod. So generous.<</dialog>>
+<<dialog "player">>It's just a nod.<</dialog>>
+<<dialog "dinerWaitress2">>It's a fake nod of benevolence. Don't look at it too long, it's cursed.<</dialog>>
+<<dialog "player">>Alright then. See you later.<</dialog>>
+<<dialog "dinerWaitress2">>Hurry outside before he changes his mind.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia steps out sideways to intercept you.<</narrative>>
+<<dialog "dinerWaitress2">>Since you're free, go knock loudly on Vince's office door and run away.<</dialog>>
+<<dialog "player">>I'm not doing that.<</dialog>>
+<<dialog "dinerWaitress2">>Why? You can't get fired twice today, your shift's already over.<</dialog>>
+<<dialog "player">>It's called basic maturity.<</dialog>>
+<<dialog "dinerWaitress2">>Boring. I'll do it later.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        freedom: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia leans heavily near the exit path.<</narrative>>
+<<dialog "dinerWaitress2">>The air outside must taste like pure freedom. How is it?<</dialog>>
+<<dialog "player">>Haven't reached the door yet.<</dialog>>
+<<dialog "dinerWaitress2">>Breathe it in deeply for me. This uniform absorbs my soul.<</dialog>>
+<<dialog "player">>You're very dramatic today.<</dialog>>
+<<dialog "dinerWaitress2">>I'm bored. Dramatic is all I have.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia is looking wistfully at the sun shining through the glass door.<</narrative>>
+<<dialog "dinerWaitress2">>You get to feel the sun. I get to feel the heat from the heat lamps.<</dialog>>
+<<dialog "player">>It's raining outside.<</dialog>>
+<<dialog "dinerWaitress2">>I don't care. It's real weather. Not recycled grease air. You're so lucky.<</dialog>>
+<<dialog "player">>Enjoy the grease.<</dialog>>
+<<dialog "dinerWaitress2">>Go away. Now.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia looks you back up into your civilian gear and sniffs.<</narrative>>
+<<dialog "dinerWaitress2">>Wow. No apron. Must be nice, living in the real world.<</dialog>>
+<<dialog "player">>I've ascended beyond the dish pit.<</dialog>>
+<<dialog "dinerWaitress2">>I asked for pity, not gloating. Turn around and go back in the kitchen.<</dialog>>
+<<dialog "player">>Too late, already walking out.<</dialog>>
+<<dialog "dinerWaitress2">>Watch your back in the parking lot. I might be driving.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingDone_evening: {
+
+        leaving_me_here: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia is slumped over the counter during the quiet evening.<</narrative>>
+<<dialog "dinerWaitress2">>You're leaving me here? Me? A fragile waitress in the dark night?<</dialog>>
+<<dialog "player">>I think you'll survive.<</dialog>>
+<<dialog "dinerWaitress2">>If a monster walks in, I'm just telling them you went that way.<</dialog>>
+<<dialog "player">>Thanks. Very loyal.<</dialog>>
+<<dialog "dinerWaitress2">>Survival of the fittest. Night.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia crosses her arms tightly.<</narrative>>
+<<dialog "dinerWaitress2">>Are you really going to walk out right before closing? That's coldblooded.<</dialog>>
+<<dialog "player">>The schedule is the schedule.<</dialog>>
+<<dialog "dinerWaitress2">>The schedule is a suggestion. Stay and help me mop.<</dialog>>
+<<dialog "player">>Not a chance.<</dialog>>
+<<dialog "dinerWaitress2">>I respect the boundary, but I resent you personally.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia is pointing dramatically toward the back room.<</narrative>>
+<<dialog "dinerWaitress2">>If you leave now, you're dead to me until tomorrow morning.<</dialog>>
+<<dialog "player">>I can live with that consequence.<</dialog>>
+<<dialog "dinerWaitress2">>Heartless. Truly. Get out of my sight before I change my mind and block the door.<</dialog>>
+<<dialog "player">>Don't trip on your way to block it.<</dialog>>
+<<dialog "dinerWaitress2">>_(glares)_ I hope you step in a puddle.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        cleaning_complaints: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia kicks a dirty napkin softly along the floor.<</narrative>>
+<<dialog "dinerWaitress2">>I have to sweep under all the booths now. Do you know what kind of horrors are under there?<</dialog>>
+<<dialog "player">>Probably enough fries to feed a small village.<</dialog>>
+<<dialog "dinerWaitress2">>I found a sticky dinosaur toy yesterday. Be grateful you're just doing dishes.<</dialog>>
+<<dialog "player">>I've washed mashed potatoes that felt like concrete.<</dialog>>
+<<dialog "dinerWaitress2">>At least your dirt is localized to a sink. Now go before I hand you the broom.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia looks at the Windex bottle like it's poison.<</narrative>>
+<<dialog "dinerWaitress2">>Vince wants me to clean the front glass. Which requires going outside. In the cold.<</dialog>>
+<<dialog "player">>Sounds like an actual task.<</dialog>>
+<<dialog "dinerWaitress2">>Oh great, let's both freeze. Nevermind, I'm just going to wipe the inside and say I did both.<</dialog>>
+<<dialog "player">>He'll see the streaks outside.<</dialog>>
+<<dialog "dinerWaitress2">>That sounds like a tomorrow-Sofia problem. Have a good night.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia is avoiding filling the ketchup bottles.<</narrative>>
+<<dialog "dinerWaitress2">>Marrying ketchups is the most depressing way to spend twenty minutes. Can I hire you to do this for me?<</dialog>>
+<<dialog "player">>I'm already off the clock.<</dialog>>
+<<dialog "dinerWaitress2">>I meant under the table. Like, two dollars.<</dialog>>
+<<dialog "player">>Keep your two dollars. Bye.<</dialog>>
+<<dialog "dinerWaitress2">>Everything has its price. I'll ask you tomorrow.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        bye: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia offers a very low-effort two-finger salute from the counter.<</narrative>>
+<<dialog "dinerWaitress2">>Look at you walking away. Tell the outside world I remember them.<</dialog>>
+<<dialog "player">>Will do.<</dialog>>
+<<dialog "dinerWaitress2">>And avoid eating anywhere with fluorescent lights. It kills the appetite.<</dialog>>
+<<dialog "player">>Good tip.<</dialog>>
+<<dialog "dinerWaitress2">>It's survival advice. Go.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia barely glances up from her phone.<</narrative>>
+<<dialog "dinerWaitress2">>Later. Try not to miss me too much tonight.<</dialog>>
+<<dialog "player">>I'll try my best to survive the separation.<</dialog>>
+<<dialog "dinerWaitress2">>Good. I won't miss you either. That makes us even.<</dialog>>
+<<dialog "player">>Perfectly balanced.<</dialog>>
+<<dialog "dinerWaitress2">>_(scrolling without looking)_ Unbelievably balanced. Bye.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaDoneEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia is practically sliding into a booth to sit down.<</narrative>>
+<<dialog "dinerWaitress2">>I'm taking my final ten while they clean the kitchen. Don't wake me if I fall asleep.<</dialog>>
+<<dialog "player">>Vince might.<</dialog>>
+<<dialog "dinerWaitress2">>If he does, tell him I died an honorable death by boredom. Get home safe.<</dialog>>
+<<dialog "player">>Night, Sofia.<</dialog>>
+<<dialog "dinerWaitress2">>_(already closing her eyes)_ Night.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ]
+    }
+
+}>>

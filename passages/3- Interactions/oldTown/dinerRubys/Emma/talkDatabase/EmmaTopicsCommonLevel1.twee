@@ -1,0 +1,358 @@
+/* ==========================================
+   EMMA TALK TOPICS — COMMON PHASE, LEVEL 1
+   phase === "common" && friendshipLevel === 1
+
+   CHARACTER: Emma Walsh, Waitress at Ruby's Diner
+   → Competent, always tired, professional distance.
+   → Not a bad person, just busy.
+   → Tone: Short, dry, direct.
+
+   COMMON L1 TONE:
+   → Player has no job, just dropped by.
+   → Like an old coworker — talks about work casually.
+   → CRITICAL: No orders, no tables, no menus. Just chatting.
+
+   CONTEXTS:
+   dinerRubys_common_morning
+   dinerRubys_common_afternoon
+   dinerRubys_common_evening
+========================================== */
+
+<<set setup.emmaTopics = setup.emmaTopics || {}>>
+<<set setup.emmaTopics.common = setup.emmaTopics.common || {}>>
+<<set setup.emmaTopics.common.level1 = {
+
+    dinerRubys_common_morning: {
+
+        prep_work: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma is refilling the salt shakers. Her focus is entirely on not spilling the salt.<</narrative>>
+<<dialog "dinerWaitress1">>Supplier sent the wrong salt again. Too fine.<</dialog>>
+<<dialog "player">>Usually nobody notices.<</dialog>>
+<<dialog "dinerWaitress1">>It pours too fast. They'll ruin the tables.<</dialog>>
+<<dialog "player">>And you'll have to clean it.<</dialog>>
+<<dialog "dinerWaitress1">>Like always.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma is wiping down menus. Her rag smells strongly of disinfectant.<</narrative>>
+<<dialog "dinerWaitress1">>Sometimes I don't want to know what exactly people smear on these menus.<</dialog>>
+<<dialog "player">>Families with kids.<</dialog>>
+<<dialog "dinerWaitress1">>This isn't jam. _(folds the rag)_ Whatever, it came off.<</dialog>>
+<<dialog "player">>Good luck with it.<</dialog>>
+<<dialog "dinerWaitress1">>Thanks. Got ten more to go.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma is checking the napkin dispensers, refilling the empty ones.<</narrative>>
+<<dialog "dinerWaitress1">>Entering coffee orders this early is exhausting the machines.<</dialog>>
+<<dialog "player">>Everyone's trying to wake up.<</dialog>>
+<<dialog "dinerWaitress1">>James yells at me from the back when the coffee runs out. Like I live inside the pot.<</dialog>>
+<<dialog "player">>He should brew it himself.<</dialog>>
+<<dialog "dinerWaitress1">>He won't leave the grill. _(puts the dispenser back)_ That's James for you.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        vince: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma watches Vince's office while lining up coffee cups.<</narrative>>
+<<dialog "dinerWaitress1">>Vince has been sitting in his office all morning, but his door is open.<</dialog>>
+<<dialog "player">>Watching you guys?<</dialog>>
+<<dialog "dinerWaitress1">>Not me. Watching who comes and goes. _(pushes the cups)_ Out of the corner of his eye.<</dialog>>
+<<dialog "player">>Creepy.<</dialog>>
+<<dialog "dinerWaitress1">>We're used to it. He's 'working'.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma rubs the back of her neck, staring at the order screen.<</narrative>>
+<<dialog "dinerWaitress1">>Did you notice Vince tied his tie really tight today?<</dialog>>
+<<dialog "player">>Didn't look.<</dialog>>
+<<dialog "dinerWaitress1">>If you did, don't show it. Whenever his tie is tight, he's looking for someone to blow up at.<</dialog>>
+<<dialog "player">>I'll keep my distance then.<</dialog>>
+<<dialog "dinerWaitress1">>That's my plan too. Gonna go check the ice machine in the back.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma adjusts the sugar bowls on the table. Her eyes are narrowed.<</narrative>>
+<<dialog "dinerWaitress1">>Vince praised Sofia for her evening shift yesterday. Even though she was half an hour late.<</dialog>>
+<<dialog "player">>That's not exactly fair to you.<</dialog>>
+<<dialog "dinerWaitress1">>I don't care about fair. I care about the annoyance of it. _(puts the sugar bowl down hard)_<</dialog>>
+<<dialog "player">>What did Sofia say?<</dialog>>
+<<dialog "dinerWaitress1">>She smiled like she actually did the work. Classic.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ],
+
+        observation: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma watches the traffic and people walking outside through the window.<</narrative>>
+<<dialog "dinerWaitress1">>The same guy walks his dog outside at the same time every morning. Exactly quarter past seven.<</dialog>>
+<<dialog "player">>Is he checking his watch or something?<</dialog>>
+<<dialog "dinerWaitress1">>I think the dog is the one with the schedule. The guy's just getting dragged along. _(smiles faintly)_<</dialog>>
+<<dialog "player">>Can't argue with a dog on a mission.<</dialog>>
+<<dialog "dinerWaitress1">>Now they're gonna turn the corner and disappear... and yep, right on cue.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma picks up a half-finished coffee from an empty table.<</narrative>>
+<<dialog "dinerWaitress1">>I never get why people leave their coffee half-drunk. You're paying for it.<</dialog>>
+<<dialog "player">>Maybe they're in a rush.<</dialog>>
+<<dialog "dinerWaitress1">>Or they just didn't like the taste. _(puts the cup on the tray)_ Still a waste.<</dialog>>
+<<dialog "player">>Don't you make the coffee?<</dialog>>
+<<dialog "dinerWaitress1">>If I do, it's at least drinkable. No idea what James stirs in there.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma turns down the volume on the radio slightly.<</narrative>>
+<<dialog "dinerWaitress1">>My brain is numb from listening to this same morning show. Always the exact same jokes.<</dialog>>
+<<dialog "player">>My brother listens to that station. He thinks it's hilarious.<</dialog>>
+<<dialog "dinerWaitress1">>Tell him to change the frequency. In an hour they're gonna give yesterday's weather report again.<</dialog>>
+<<dialog "player">>I'll let him know he's living in the past.<</dialog>>
+<<dialog "dinerWaitress1">>He'll survive. _(adjusts her apron pocket)_ Back to the grind.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_common_afternoon: {
+
+        work_rush: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma scribbles on an order pad with a pen, frowning.<</narrative>>
+<<dialog "dinerWaitress1">>Lunch rush just ended. Three tables are still waiting for the check.<</dialog>>
+<<dialog "player">>Was it busy?<</dialog>>
+<<dialog "dinerWaitress1">>Anyone who ordered a salad wanted extra dressing. We're almost out.<</dialog>>
+<<dialog "player">>Maybe there's some in the back.<</dialog>>
+<<dialog "dinerWaitress1">>I'm gonna go look now. _(tucks the pad into her apron)_<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma clears empty glasses from a table with one hand.<</narrative>>
+<<dialog "dinerWaitress1">>This time of day is the worst. Not too crowded, not too empty.<</dialog>>
+<<dialog "player">>Just enough customers to keep you trapped.<</dialog>>
+<<dialog "dinerWaitress1">>Exactly. Might start wiping the 'Specials' board just to look busy when Vince walks by.<</dialog>>
+<<dialog "player">>An excellent survival strategy.<</dialog>>
+<<dialog "dinerWaitress1">>It's kept me employed this long.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma changes the receipt roll in the register.<</narrative>>
+<<dialog "dinerWaitress1">>Does the roll really have to end right during peak rush? Figures.<</dialog>>
+<<dialog "player">>Bad timing.<</dialog>>
+<<dialog "dinerWaitress1">>At least I didn't have to calculate the bills in my head.<</dialog>>
+<<dialog "player">>Dodged a bullet.<</dialog>>
+<<dialog "dinerWaitress1">>Had to be fast, Vince was hovering right behind me.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        sofia: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma steps out from the back, looking a bit sweaty.<</narrative>>
+<<dialog "dinerWaitress1">>Sofia's been on her phone for ten minutes. She was supposed to be on the register.<</dialog>>
+<<dialog "player">>Is it busy inside?<</dialog>>
+<<dialog "dinerWaitress1">>Not really, but that's not the point. She keeps skipping her turn.<</dialog>>
+<<dialog "player">>Are you not telling her?<</dialog>>
+<<dialog "dinerWaitress1">>What would it change? She just smiles. Whatever, I'll do my job.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma drops the tray onto the counter loudly.<</narrative>>
+<<dialog "dinerWaitress1">>Sofia just confessed she called out table seven's order wrong.<</dialog>>
+<<dialog "player">>Let me guess, James is thrilled.<</dialog>>
+<<dialog "dinerWaitress1">>He's cursing non-stop in there. Saying 'no cheese' shouldn't require an advanced degree.<</dialog>>
+<<dialog "player">>Does he always throw a fit?<</dialog>>
+<<dialog "dinerWaitress1">>It's his primary form of communication. I'm going in.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma lines up coffee pots by the window.<</narrative>>
+<<dialog "dinerWaitress1">>I don't get why Sofia's tips are always higher than mine.<</dialog>>
+<<dialog "player">>Maybe she smiles more.<</dialog>>
+<<dialog "dinerWaitress1">>Smiling doesn't clean up spilled coffee though.<</dialog>>
+<<dialog "player">>Still, it probably works.<</dialog>>
+<<dialog "dinerWaitress1">>_(rolls eyes)_ Of course it works. Whatever.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        advice: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma stretches her shoulders backward.<</narrative>>
+<<dialog "dinerWaitress1">>Constant good posture makes my back ache.<</dialog>>
+<<dialog "player">>You should sit down for a bit.<</dialog>>
+<<dialog "dinerWaitress1">>The second I sit, the work piles up. Better to stay standing.<</dialog>>
+<<dialog "player">>You can rest when you get home.<</dialog>>
+<<dialog "dinerWaitress1">>I hope. Today refuses to end.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma bends down to tie her shoe.<</narrative>>
+<<dialog "dinerWaitress1">>Need new shoes. These are terrible for kitchen floors.<</dialog>>
+<<dialog "player">>Do you slip?<</dialog>>
+<<dialog "dinerWaitress1">>They slip, and the soles are too hard. A total disaster.<</dialog>>
+<<dialog "player">>Did you buy them cheap?<</dialog>>
+<<dialog "dinerWaitress1">>Yeah. Mistake. _(stands up)_ Order's up, I need to take it.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma fixes her hair behind the counter, putting her hair tie back in.<</narrative>>
+<<dialog "dinerWaitress1">>I'm really wondering who I should pick a fight with today. Everyone has an excuse.<</dialog>>
+<<dialog "player">>Rough day, I assume.<</dialog>>
+<<dialog "dinerWaitress1">>Every afternoon is like this. This weird sluggishness takes over the place.<</dialog>>
+<<dialog "player">>Get yourself some coffee.<</dialog>>
+<<dialog "dinerWaitress1">>Finished the last pot. Doesn't even affect me anymore. I'll just power through.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_common_evening: {
+
+        closing_up: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma gathers the receipt slips in her hand.<</narrative>>
+<<dialog "dinerWaitress1">>There's little else as exhausting as groups wanting split checks in the evening.<</dialog>>
+<<dialog "player">>Does the bill get mixed up?<</dialog>>
+<<dialog "dinerWaitress1">>Nobody remembers what they ate. Then everyone crowds the register.<</dialog>>
+<<dialog "player">>Sounds rough.<</dialog>>
+<<dialog "dinerWaitress1">>That's why people who pay all at once hold a special place in my heart.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma lines up condiment bottles under the counter.<</narrative>>
+<<dialog "dinerWaitress1">>Mustard barely gets used during dinner, but we fill it just as much as breakfast.<</dialog>>
+<<dialog "player">>Vince's rule?<</dialog>>
+<<dialog "dinerWaitress1">>Of course. Every table must look perfectly fully stocked.<</dialog>>
+<<dialog "player">>Obsession with order.<</dialog>>
+<<dialog "dinerWaitress1">>Or he just likes to waste our time. Could be both.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma grabs the broom from the corner to start sweeping.<</narrative>>
+<<dialog "dinerWaitress1">>Someone crammed five crumpled napkins down the side of this booth cushion.<</dialog>>
+<<dialog "player">>People are animals.<</dialog>>
+<<dialog "dinerWaitress1">>And my reward for finding them is carrying them to the trash. I should start keeping what I find in the cushions.<</dialog>>
+<<dialog "player">>Found any treasure yet?<</dialog>>
+<<dialog "dinerWaitress1">>_(scoffs)_ Two pennies and a very old french fry.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ],
+
+        trouble_customers: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma wipes down the window-side table extremely meticulously.<</narrative>>
+<<dialog "dinerWaitress1">>That guy sitting by the window has been drinking the same tea for five hours.<</dialog>>
+<<dialog "player">>Waiting for him to leave?<</dialog>>
+<<dialog "dinerWaitress1">>Not to close the place, just to clean the table. He got crumbs everywhere.<</dialog>>
+<<dialog "player">>He'll leave soon.<</dialog>>
+<<dialog "dinerWaitress1">>I hope so. Because I'm gonna politely kick him out very shortly.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma rubs her face.<</narrative>>
+<<dialog "dinerWaitress1">>The lights start hurting my eyes around this time. Specially the neon sign.<</dialog>>
+<<dialog "player">>Did you try turning it off?<</dialog>>
+<<dialog "dinerWaitress1">>Vince would turn it back on instantly. 'Spirit of the shop' or whatever.<</dialog>>
+<<dialog "player">>Spirit color is neon, then.<</dialog>>
+<<dialog "dinerWaitress1">>Exactly. A flickering, pink spirit.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma counts coins on the counter.<</narrative>>
+<<dialog "dinerWaitress1">>The loose change is always the most tedious part.<</dialog>>
+<<dialog "player">>Heavy, too.<</dialog>>
+<<dialog "dinerWaitress1">>Yeah, and they stink. It's why I wash my hands three times at closing.<</dialog>>
+<<dialog "player">>I understand.<</dialog>>
+<<dialog "dinerWaitress1">>Almost done, then I'm out of here. Two more dollars.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        smalltalk: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma glances toward the door.<</narrative>>
+<<dialog "dinerWaitress1">>If a new customer walks in at this hour, I am really not gonna deal with it.<</dialog>>
+<<dialog "player">>Does it look like anyone's coming?<</dialog>>
+<<dialog "dinerWaitress1">>It's dead outside, but sometimes someone just magically appears.<</dialog>>
+<<dialog "player">>Maybe you guys can close early.<</dialog>>
+<<dialog "dinerWaitress1">>Never happens. Nine means nine.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma folds the cleaning rag in her hands.<</narrative>>
+<<dialog "dinerWaitress1">>Tomorrow is my day off. I'm not setting an alarm.<</dialog>>
+<<dialog "player">>Sleeping until noon?<</dialog>>
+<<dialog "dinerWaitress1">>I'm gonna wake up normally and then forcefully go back to sleep just because I can.<</dialog>>
+<<dialog "player">>That is true luxury.<</dialog>>
+<<dialog "dinerWaitress1">>It's necessary. _(drops the rag)_ Going to change out of this uniform now.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaCommon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma does one final sweep of the room with her eyes.<</narrative>>
+<<dialog "dinerWaitress1">>Just checking if everything is in place makes me tired.<</dialog>>
+<<dialog "player">>At least you're leaving.<</dialog>>
+<<dialog "dinerWaitress1">>Yeah. Once James is done cleaning the back, I can head out.<</dialog>>
+<<dialog "player">>I should get going too.<</dialog>>
+<<dialog "dinerWaitress1">>Good evening then. Hope I don't see you tomorrow. I mean, since it's my day off.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    }
+
+}>>

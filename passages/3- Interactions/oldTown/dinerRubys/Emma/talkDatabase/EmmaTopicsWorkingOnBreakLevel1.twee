@@ -1,0 +1,352 @@
+/* ==========================================
+   EMMA TALK TOPICS — WORKING ON BREAK PHASE, LEVEL 1
+   phase === "working.onBreak" && friendshipLevel === 1
+
+   CHARACTER: Emma Walsh, Waitress at Ruby's Diner
+   → Talks fast, focuses on work.
+   → Player is dishwasher, currently on break. Emma expects them back to work soon.
+
+   CONTEXTS:
+   dinerRubys_workingOnBreak_morning
+   dinerRubys_workingOnBreak_afternoon
+   dinerRubys_workingOnBreak_evening
+========================================== */
+
+<<set setup.emmaTopics = setup.emmaTopics || {}>>
+<<set setup.emmaTopics.workingOnBreak = setup.emmaTopics.workingOnBreak || {}>>
+<<set setup.emmaTopics.workingOnBreak.level1 = {
+
+    dinerRubys_workingOnBreak_morning: {
+
+        dish_backlog: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma sets a tray down at the entrance of the dish pit and wipes her sweat.<</narrative>>
+<<dialog "dinerWaitress1">>The breakfast crowd is eating really messy today.<</dialog>>
+<<dialog "player">>Dishes piling up?<</dialog>>
+<<dialog "dinerWaitress1">>Couldn't fit all the plates. Make that your first priority when your break ends.<</dialog>>
+<<dialog "player">>I'll handle it.<</dialog>>
+<<dialog "dinerWaitress1">>Good. Don't forget to soak the silverware.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma walks briskly from the kitchen to the back area.<</narrative>>
+<<dialog "dinerWaitress1">>Looks like we're low on dish soap.<</dialog>>
+<<dialog "player">>I'll open a new one in a bit.<</dialog>>
+<<dialog "dinerWaitress1">>Do it when Vince isn't looking. Otherwise he makes us add water to the bottom of the bottle.<</dialog>>
+<<dialog "player">>Makes no sense.<</dialog>>
+<<dialog "dinerWaitress1">>Makes sense to him. Anyway, I'm heading back to the floor.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma leans against the counter, listening to the dishwasher running.<</narrative>>
+<<dialog "dinerWaitress1">>The machine sounds weird.<</dialog>>
+<<dialog "player">>How so?<</dialog>>
+<<dialog "dinerWaitress1">>It's rattling, like you left a fork in there. Check it when you get back.<</dialog>>
+<<dialog "player">>I'll look at it after my break.<</dialog>>
+<<dialog "dinerWaitress1">>Better look at it early, if it breaks you'll be washing by hand.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        james_orders: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma stands with her arms crossed, looking at James through the order window.<</narrative>>
+<<dialog "dinerWaitress1">>James is burning every single order today.<</dialog>>
+<<dialog "player">>Maybe the grill temp is off.<</dialog>>
+<<dialog "dinerWaitress1">>No, he's distracted by the radio. And he's dumping all the returned plates on you.<</dialog>>
+<<dialog "player">>So, extra dishes for me.<</dialog>>
+<<dialog "dinerWaitress1">>Pretty much. Good luck in advance.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma waves an order slip at James and steps back.<</narrative>>
+<<dialog "dinerWaitress1">>James always gets the sausage count wrong.<</dialog>>
+<<dialog "player">>Do people notice?<</dialog>>
+<<dialog "dinerWaitress1">>Customers do. Then the plate comes right back to the kitchen.<</dialog>>
+<<dialog "player">>More work for me.<</dialog>>
+<<dialog "dinerWaitress1">>Yep. Scrape it into the trash and toss it in the sink.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma sighs heavily as she pulls the coffee pots aside.<</narrative>>
+<<dialog "dinerWaitress1">>I don't wanna be in the kitchen today, James is giving me a headache.<</dialog>>
+<<dialog "player">>Come to the dish pit.<</dialog>>
+<<dialog "dinerWaitress1">>I'm leaving that swamp to you. The smell of dishwater is worse than the headache.<</dialog>>
+<<dialog "player">>It's not that bad.<</dialog>>
+<<dialog "dinerWaitress1">>Tell me about it. I'm going back out front.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        her_section: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma breathes quickly while counting napkins.<</narrative>>
+<<dialog "dinerWaitress1">>The tables in my section were endless today.<</dialog>>
+<<dialog "player">>Your side busy?<</dialog>>
+<<dialog "dinerWaitress1">>Extremely. And nobody's tipping. I bussed five tables by myself.<</dialog>>
+<<dialog "player">>Tough work.<</dialog>>
+<<dialog "dinerWaitress1">>I dumped all the glasses they left me into the sink. You'll see when your break ends.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma wipes down the tray in her hand.<</narrative>>
+<<dialog "dinerWaitress1">>The guy by the window spilled his food again.<</dialog>>
+<<dialog "player">>A regular?<</dialog>>
+<<dialog "dinerWaitress1">>Yeah, sits at the same table every morning. Takes all my energy just to scrub his plate.<</dialog>>
+<<dialog "player">>I'll handle it in the sink.<</dialog>>
+<<dialog "dinerWaitress1">>That's the plan. Soak it in hot water.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma counts the coins she pulled out of her pocket.<</narrative>>
+<<dialog "dinerWaitress1">>My section always draws the weirdest customers for breakfast.<</dialog>>
+<<dialog "player">>Weird like how?<</dialog>>
+<<dialog "dinerWaitress1">>Old ladies constantly asking for extra ketchup. They finish two bottles each.<</dialog>>
+<<dialog "player">>Makes my job harder when the sauce dries on the metal plates.<</dialog>>
+<<dialog "dinerWaitress1">>It's hard on both of us. _(drops the coins back in her pocket)_ I'm heading out.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_afternoon: {
+
+        lunch_rush_dishes: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma carries a massive stack of plates by herself and drops them by the sink.<</narrative>>
+<<dialog "dinerWaitress1">>Lunch service destroyed me. I carried all these plates myself.<</dialog>>
+<<dialog "player">>Looks like a lot.<</dialog>>
+<<dialog "dinerWaitress1">>Yeah. You might wanna start before they get crusty.<</dialog>>
+<<dialog "player">>I'll get to it when my break's over.<</dialog>>
+<<dialog "dinerWaitress1">>You'll be scraping them if they dry, your choice.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma catches a glass just before it topples off the dish rack.<</narrative>>
+<<dialog "dinerWaitress1">>I keep telling them not to stack these like this. Almost broke.<</dialog>>
+<<dialog "player">>Must've been James while I was on break.<</dialog>>
+<<dialog "dinerWaitress1">>Whoever it was. Better start separating the plates from the glasses.<</dialog>>
+<<dialog "player">>I'm coming now.<</dialog>>
+<<dialog "dinerWaitress1">>Good. They're waiting.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma wipes her hand on her apron and stares at the dishes.<</narrative>>
+<<dialog "dinerWaitress1">>No clean plates left on the line.<</dialog>>
+<<dialog "player">>There's like ten in the sink.<</dialog>>
+<<dialog "dinerWaitress1">>Those are dirty. I needed clean ones. When's your break over?<</dialog>>
+<<dialog "player">>My timer says four minutes.<</dialog>>
+<<dialog "dinerWaitress1">>I'll be standing here tapping my foot in exactly four minutes and one second.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        sofia_useless: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma breathes heavily, clenching her teeth.<</narrative>>
+<<dialog "dinerWaitress1">>Sofia just dropped her tray.<</dialog>>
+<<dialog "player">>Did it break?<</dialog>>
+<<dialog "dinerWaitress1">>And I had to clean the floor again. I swept the glass up carefully, but you need to throw it out.<</dialog>>
+<<dialog "player">>I'll take care of it.<</dialog>>
+<<dialog "dinerWaitress1">>Make sure it doesn't cut you. She doesn't care.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma grumbles while trying to shine the tray in her hands.<</narrative>>
+<<dialog "dinerWaitress1">>Sofia was supposed to cover the dish pit. There are teapots to wash.<</dialog>>
+<<dialog "player">>Why isn't she?<</dialog>>
+<<dialog "dinerWaitress1">>Said her hands are peeling. You'll be washing them instead, get ready.<</dialog>>
+<<dialog "player">>I'm not surprised.<</dialog>>
+<<dialog "dinerWaitress1">>Nobody is.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma rolls her eyes.<</narrative>>
+<<dialog "dinerWaitress1">>Sofia tossed the table-wiping rag into the sink. Mixed right in with the food scraps.<</dialog>>
+<<dialog "player">>I'll fish it out into the trash.<</dialog>>
+<<dialog "dinerWaitress1">>She ruins the sponges when she does that. You're gonna have to wash it separately.<</dialog>>
+<<dialog "player">>The work never stops.<</dialog>>
+<<dialog "dinerWaitress1">>As long as she's around, it won't.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ],
+
+        stack_check: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma leans over to look into the dishwasher.<</narrative>>
+<<dialog "dinerWaitress1">>Did you clean the filter today?<</dialog>>
+<<dialog "player">>Checked it before my break.<</dialog>>
+<<dialog "dinerWaitress1">>It's already half-full. Customers love leaving food on their plates.<</dialog>>
+<<dialog "player">>I'll clear it when I get back.<</dialog>>
+<<dialog "dinerWaitress1">>Good. If it clogs, Vince will dock the repairman's fee from our pay.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma points at a puddle forming near the washing station.<</narrative>>
+<<dialog "dinerWaitress1">>Guess the hose is leaking again.<</dialog>>
+<<dialog "player">>Yeah, there's a little drip.<</dialog>>
+<<dialog "dinerWaitress1">>Put a bucket under there when your break's done. I'm not looking to slip and fall walking past.<</dialog>>
+<<dialog "player">>I'll be careful.<</dialog>>
+<<dialog "dinerWaitress1">>Good. My knees are already shaking from standing, I don't need a fall on top of it.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma looks at the stack of drying plates.<</narrative>>
+<<dialog "dinerWaitress1">>The soup bowls are stuck on the bottom rack, it's hard for me to reach them.<</dialog>>
+<<dialog "player">>I'll move them up top in a bit.<</dialog>>
+<<dialog "dinerWaitress1">>Thanks. Every second counts when service picks up.<</dialog>>
+<<dialog "player">>You're right about that.<</dialog>>
+<<dialog "dinerWaitress1">>I'm always right. _(goes back to work without smiling)_<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_evening: {
+
+        closing_dishes: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma takes her apron off with an exhausted look and sets it on the counter.<</narrative>>
+<<dialog "dinerWaitress1">>Closing dishes are always the worst.<</dialog>>
+<<dialog "player">>Piled up again?<</dialog>>
+<<dialog "dinerWaitress1">>Can't you see the huge pile? Plus the pots.<</dialog>>
+<<dialog "player">>Sounds like a great night shift.<</dialog>>
+<<dialog "dinerWaitress1">>Have fun with that. I'm finishing up and heading out.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma tosses a large heavy tray into the sink with a loud clang.<</narrative>>
+<<dialog "dinerWaitress1">>That baking tray is James's handiwork. Look at the burn marks.<</dialog>>
+<<dialog "player">>Gonna have to scrub it with wire.<</dialog>>
+<<dialog "dinerWaitress1">>Scrub it hard too. Degreaser is in the cabinet.<</dialog>>
+<<dialog "player">>I'll take a look.<</dialog>>
+<<dialog "dinerWaitress1">>Like I said, I just bring them back here.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma kicks the mop on the floor into the corner.<</narrative>>
+<<dialog "dinerWaitress1">>I'm gonna start mopping the floor. Try not to overflow the dishwater.<</dialog>>
+<<dialog "player">>I won't splash, promise.<</dialog>>
+<<dialog "dinerWaitress1">>Trust me, you'll splash. If you do, you're wringing the mop, just so you know.<</dialog>>
+<<dialog "player">>Fair penalty.<</dialog>>
+<<dialog "dinerWaitress1">>Keep your elbows in when you wash. I just want to go home.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        vince_complaining: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma glares annoyed toward Vince's office.<</narrative>>
+<<dialog "dinerWaitress1">>Vince was complaining about the water bill again just now.<</dialog>>
+<<dialog "player">>It's a diner, we wash dishes.<</dialog>>
+<<dialog "dinerWaitress1">>If it was up to him, we'd be pouring cups of water on them. Told me not to run the machine too much.<</dialog>>
+<<dialog "player">>He'll make us wash by hand next.<</dialog>>
+<<dialog "dinerWaitress1">>You better finish up before he moves you to hand-washing duty.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma comes over from the register and puts her hands on her hips.<</narrative>>
+<<dialog "dinerWaitress1">>Boss is obsessed with the dried water stains next to the sink.<</dialog>>
+<<dialog "player">>He's checking that at midnight?<</dialog>>
+<<dialog "dinerWaitress1">>It's Vince, you never know what he'll fixate on. Just run a rag over it.<</dialog>>
+<<dialog "player">>I'll do it right now.<</dialog>>
+<<dialog "dinerWaitress1">>I'd appreciate it, instead of having to say 'my bad' when he blows up at me.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma speaks quietly, almost whispering.<</narrative>>
+<<dialog "dinerWaitress1">>Vince is staring at the dish pit from the back again.<</dialog>>
+<<dialog "player">>Is he hovering again?<</dialog>>
+<<dialog "dinerWaitress1">>Either that, or he just likes standing in the shadows. Don't look his way.<</dialog>>
+<<dialog "player">>I'm just going to pretend I'm blind.<</dialog>>
+<<dialog "dinerWaitress1">>Safest bet. I'm going to hand in my register count before he asks about it.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        end_of_shift: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-1.webp">>
+<<image _img "100%">>
+<<narrative>>Emma brushes herself off looking exhausted.<</narrative>>
+<<dialog "dinerWaitress1">>Shift's almost over.<</dialog>>
+<<dialog "player">>I still have a stack of ramekins in the sink.<</dialog>>
+<<dialog "dinerWaitress1">>Just knock them out quickly. People are waiting to go home.<</dialog>>
+<<dialog "player">>I'll turn the water pressure up.<</dialog>>
+<<dialog "dinerWaitress1">>Good. I have to hand over the keys to Vince, otherwise I wouldn't be standing here.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-2.webp">>
+<<image _img "100%">>
+<<narrative>>Emma puts on her coat and zips it up.<</narrative>>
+<<dialog "dinerWaitress1">>If you leave those pots for tomorrow, James will smash them over your head when he comes in.<</dialog>>
+<<dialog "player">>I'm finishing them today.<</dialog>>
+<<dialog "dinerWaitress1">>Finish them so I can settle in clean when I come in the morning.<</dialog>>
+<<dialog "player">>Don't worry.<</dialog>>
+<<dialog "dinerWaitress1">>See you around then.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/emma/level1/emmaOnBreak-3.webp">>
+<<image _img "100%">>
+<<narrative>>Emma takes one last look at the tables, then turns to you.<</narrative>>
+<<dialog "dinerWaitress1">>I think I'm done out front.<</dialog>>
+<<dialog "player">>Have a good night.<</dialog>>
+<<dialog "dinerWaitress1">>Not a good night until I come to the back and take out the trash.<</dialog>>
+<<dialog "player">>I'll toss the heavy bags out.<</dialog>>
+<<dialog "dinerWaitress1">>That works. Bring the bags outside in a minute.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ]
+    }
+
+}>>

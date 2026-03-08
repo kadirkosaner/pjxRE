@@ -1,0 +1,358 @@
+/* ==========================================
+   VINCE TALK TOPICS — WORKING ON BREAK PHASE, LEVEL 1
+   phase === "working.onBreak" && friendshipLevel === 1
+
+   CHARACTER: Vince Rossi, Manager at Ruby's Diner
+   → Patronizing, watching, counting money and time.
+   → Acts like a friend while enforcing strict rules.
+   → Hovers uncomfortably.
+
+   WORKING ON BREAK L1 TONE:
+   → Player is dishwasher on break.
+   → Vince reminds them they are on his clock.
+   → CRITICAL: Subtly manipulative, praising but pushing.
+
+   CONTEXTS:
+   dinerRubys_workingOnBreak_morning
+   dinerRubys_workingOnBreak_afternoon
+   dinerRubys_workingOnBreak_evening
+========================================== */
+
+<<set setup.vinceTopics = setup.vinceTopics || {}>>
+<<set setup.vinceTopics.workingOnBreak = setup.vinceTopics.workingOnBreak || {}>>
+<<set setup.vinceTopics.workingOnBreak.level1 = {
+
+    dinerRubys_workingOnBreak_morning: {
+
+        break_timing: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Vince checks his watch conspicuously as you step out of the kitchen.<</narrative>>
+<<dialog "dinerManager">>Taking a moment? You've earned it. Let's see... exactly a four minute break.<</dialog>>
+<<dialog "player">>I technically get fifteen.<</dialog>>
+<<dialog "dinerManager">>Legally, yes. But a hungry kitchen waits for no man. You know how much I value a hard worker, right?<</dialog>>
+<<dialog "player">>Message received.<</dialog>>
+<<dialog "dinerManager">>Good. See you in eleven minutes.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>Vince steps closely in your path near the break room.<</narrative>>
+<<dialog "dinerManager">>You look like you're heading for a break. Make it quick, we're expecting a large party soon.<</dialog>>
+<<dialog "player">>Just going to sit for a minute.<</dialog>>
+<<dialog "dinerManager">>I prefer people who take standing breaks. Keeps the blood rushing. You have good blood pressure, don't you?<</dialog>>
+<<dialog "player">>I guess.<</dialog>>
+<<dialog "dinerManager">>_(smiles, stepping back)_ Good. Very good.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>Vince is wiping the edge of his tie slowly.<</narrative>>
+<<dialog "dinerManager">>Breaks are important. They prevent burnout. But you're young, you shouldn't know what burnout feels like yet.<</dialog>>
+<<dialog "player">>I'm pretty tired.<</dialog>>
+<<dialog "dinerManager">>Tired is temporary. I'll buy you an espresso. Make you feel electric again.<</dialog>>
+<<dialog "player">>I'd rather rest my feet.<</dialog>>
+<<dialog "dinerManager">>As you wish. Go sit down.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        cost_lecture: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Vince is staring into the garbage can behind the line.<</narrative>>
+<<dialog "dinerManager">>Do you know how much a bottle of ketchup costs? Too much to be thrown away half-full. The staff here bleed my profits.<</dialog>>
+<<dialog "player">>Wasn't me. I wash plates.<</dialog>>
+<<dialog "dinerManager">>I know it wasn't you. You respect my bottom line. Keep an eye on the others for me, will you?<</dialog>>
+<<dialog "player">>I'm not a snitch, Vince.<</dialog>>
+<<dialog "dinerManager">>_(laughs quietly)_ I didn't say snitch. Just an observant friend.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>Vince places a hand firmly on your shoulder as you walk by.<</narrative>>
+<<dialog "dinerManager">>James broke two glasses this morning. Two. That's ten dollars in pure shattered margins.<</dialog>>
+<<dialog "player">>Accidents happen.<</dialog>>
+<<dialog "dinerManager">>Accidents are the excuse of the incompetent. I'm glad you don't drop plates.<</dialog>>
+<<dialog "player">>I try not to.<</dialog>>
+<<dialog "dinerManager">>Keep that up. I reward steady hands.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>Vince inspects a receipt with a frown.<</narrative>>
+<<dialog "dinerManager">>Someone gave out extra napkins. Napkins are not free. Trees died for those napkins. My money died.<</dialog>>
+<<dialog "player">>They're just napkins.<</dialog>>
+<<dialog "dinerManager">>A penny leaked is a dollar wasted. You need to understand this if you want to be successful like me.<</dialog>>
+<<dialog "player">>I'll remember.<</dialog>>
+<<dialog "dinerManager">>See you back in the pit.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        watching: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Vince is just standing in the doorway, watching you rest.<</narrative>>
+<<dialog "dinerManager">>Don't mind me. I just like to make sure my employees actually know how to relax.<</dialog>>
+<<dialog "player">>It would be easier without you staring.<</dialog>>
+<<dialog "dinerManager">>I'm a manager. Observation is in my job description. It's protective, really.<</dialog>>
+<<dialog "player">>If you say so.<</dialog>>
+<<dialog "dinerManager">>I do say so.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakMorning-2.webp">>
+<<image _img "100%">>
+<<narrative>>Vince watches you from the reflection of the glass door.<</narrative>>
+<<dialog "dinerManager">>Sofia thinks she's slick hiding in the back. But I see everything in this diner. Even you.<</dialog>>
+<<dialog "player">>I'm not doing anything wrong.<</dialog>>
+<<dialog "dinerManager">>I know. You're behaving perfectly. That's why I'm watching. I enjoy perfection.<</dialog>>
+<<dialog "player">>O-kay...<</dialog>>
+<<dialog "dinerManager">>Don't let me stop your break.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakMorning-3.webp">>
+<<image _img "100%">>
+<<narrative>>Vince is sitting at the table next to the break area.<</narrative>>
+<<dialog "dinerManager">>A lot of managers sit in their offices. Not me. I sit where my people are.<</dialog>>
+<<dialog "player">>It's a little crowded.<</dialog>>
+<<dialog "dinerManager">>The physical proximity builds trust. Do you trust me?<</dialog>>
+<<dialog "player">>You're my boss.<</dialog>>
+<<dialog "dinerManager">>_(smiles slowly)_ Indeed I am.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_afternoon: {
+
+        dish_speed: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Vince walks closely behind you, looking at the time.<</narrative>>
+<<dialog "dinerManager">>The plates were coming out a bit slow during the rush. You're not losing your edge, are you?<</dialog>>
+<<dialog "player">>It was seventy plates in twenty minutes.<</dialog>>
+<<dialog "dinerManager">>And I expect eighty. I believe in your potential. Let's aim higher, yes?<</dialog>>
+<<dialog "player">>I'll wash faster.<</dialog>>
+<<dialog "dinerManager">>Music to my ears.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Vince pulls a clean spoon from your area and holds it up to the light.<</narrative>>
+<<dialog "dinerManager">>Spotless. Your speed is decent, but your quality is unquestionable.<</dialog>>
+<<dialog "player">>I made sure to scrub the grease off completely.<</dialog>>
+<<dialog "dinerManager">>It shows. I appreciate someone who knows how to put their back into it. Keep it up, my young friend.<</dialog>>
+<<dialog "player">>I'll try.<</dialog>>
+<<dialog "dinerManager">>You make me proud today.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Vince rests an elbow on the dishwasher machine.<</narrative>>
+<<dialog "dinerManager">>If you wash dishes any faster, I won't have to hire a second guy for the weekends.<</dialog>>
+<<dialog "player">>Don't burn me out, Vince.<</dialog>>
+<<dialog "dinerManager">>I wouldn't dream of it. I know exactly how far to push my people before they break.<</dialog>>
+<<dialog "player">>Comforting.<</dialog>>
+<<dialog "dinerManager">>_(chuckles darkly)_ Back to work.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        soap_cost: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Vince is inspecting the chemical dispensing tubes.<</narrative>>
+<<dialog "dinerManager">>You used an incredible amount of degreaser today. Care to explain?<</dialog>>
+<<dialog "player">>The pans were burnt. It needed it.<</dialog>>
+<<dialog "dinerManager">>Soap is a luxury. Muscle is free. Try using more muscle next time. I want to see you sweat a little.<</dialog>>
+<<dialog "player">>I'm already sweating, Vince.<</dialog>>
+<<dialog "dinerManager">>_(smiles)_ I know. Enjoy your break.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Vince holds the soap bottle uncomfortably close to your face.<</narrative>>
+<<dialog "dinerManager">>Look at this bottle. Five dollars. And you're squeezing it like it's water.<</dialog>>
+<<dialog "player">>I can't clean grease with just water.<</dialog>>
+<<dialog "dinerManager">>It's about respect for the resources I provide you. When you waste my soap, you disrespect me personally.<</dialog>>
+<<dialog "player">>_(steps back slightly)_ That's a little dramatic.<</dialog>>
+<<dialog "dinerManager">>I call it being thorough.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Vince wipes a streak of water off the sink with a napkin.<</narrative>>
+<<dialog "dinerManager">>Water bills are high this month. Are you leaving the faucet running?<</dialog>>
+<<dialog "player">>Only when I'm actively rinsing.<</dialog>>
+<<dialog "dinerManager">>Just asking. I watch the meter closely. I watch everything in my diner closely. Remember that.<</dialog>>
+<<dialog "player">>Hard to forget.<</dialog>>
+<<dialog "dinerManager">>Good. I don't like forgetful people.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        compliment_creep: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Vince looks down at your damp apron and then up to your face.<</narrative>>
+<<dialog "dinerManager">>You work up quite a sweat back there. It's an honest look. Very... earthly.<</dialog>>
+<<dialog "player">>It's just dishwasher water. It's not glamorous.<</dialog>>
+<<dialog "dinerManager">>I didn't say it was glamorous. But I admire someone who isn't afraid to get completely dirty for me.<</dialog>>
+<<dialog "player">>_(shifts uncomfortably)_ I'm doing it for the paycheck.<</dialog>>
+<<dialog "dinerManager">>Of course you are. _(doesn't step back)_<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Vince stands extremely close, leaning over you to check a schedule.<</narrative>>
+<<dialog "dinerManager">>You have very steady hands. I watched you carry that stack of twelve plates.<</dialog>>
+<<dialog "player">>Just balance.<</dialog>>
+<<dialog "dinerManager">>Stability is a virtue. A young person with stable hands is... a valuable commodity.<</dialog>>
+<<dialog "player">>I'm just doing the job.<</dialog>>
+<<dialog "dinerManager">>I'll put you on the schedule more often.<</dialog>`,
+                friendship: 2, trust: 1
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Vince steps into your personal space to aggressively straighten a stack of clean cups near you.<</narrative>>
+<<dialog "dinerManager">>These need to be perfectly aligned. Presentation is everything, even in the back room.<</dialog>>
+<<dialog "player">>_(steps back slightly)_ I'll fix them.<</dialog>>
+<<dialog "dinerManager">>No, let me. I enjoy showing my team how things should look. Pay close attention to my hands.<</dialog>>
+<<dialog "player">>I'm watching the cups.<</dialog>>
+<<dialog "dinerManager">>_(smirks, stepping back slowly)_ Good focus. I like that.<</dialog>`,
+                friendship: 2, trust: 0
+            }
+        ]
+    },
+
+    dinerRubys_workingOnBreak_evening: {
+
+        closing_count: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Vince looks up from an adding machine with a pleased smile.<</narrative>>
+<<dialog "dinerManager">>We hit our numbers today. Barely. But we hit them.<</dialog>>
+<<dialog "player">>Congratulations.<</dialog>>
+<<dialog "dinerManager">>It's not just my victory, it's yours too. We're a family here. An underpaid, over-worked, completely loyal family.<</dialog>>
+<<dialog "player">>I don't know about loyal.<</dialog>>
+<<dialog "dinerManager">>Oh, you will be. Eventually.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Vince is closing the safe door slowly.<</narrative>>
+<<dialog "dinerManager">>Seeing the physical cash at the end of the night is the only thing that keeps my heart beating.<</dialog>>
+<<dialog "player">>We worked hard today.<</dialog>>
+<<dialog "dinerManager">>You scrubbed plates. I orchestrated a symphony of grease. We both did our part.<</dialog>>
+<<dialog "player">>Sure, Vince.<</dialog>>
+<<dialog "dinerManager">>Don't roll your eyes at the maestro.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Vince holds a hundred dollar bill to the light.<</narrative>>
+<<dialog "dinerManager">>Have you ever been handed an obviously fake bill?<</dialog>>
+<<dialog "player">>No. Have you?<</dialog>>
+<<dialog "dinerManager">>Many times. Sofia accepts them. I deduct them from her paycheck. It's the circle of accountability.<</dialog>>
+<<dialog "player">>That's kind of brutal.<</dialog>>
+<<dialog "dinerManager">>It's business. Rest up.<</dialog>`,
+                friendship: 2, trust: 1
+            }
+        ],
+
+        alone_in_kitchen: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Vince stands silently in the narrow doorway of the dish pit, blocking the exit.<</narrative>>
+<<dialog "dinerManager">>It's very quiet back here in the evenings. Just the hum of the machine. I find it very peaceful.<</dialog>>
+<<dialog "player">>It gets a little isolated.<</dialog>>
+<<dialog "dinerManager">>Isolated? I wouldn't let you feel isolated. I'll make sure to check on you more frequently.<</dialog>>
+<<dialog "player">>That's really not necessary.<</dialog>>
+<<dialog "dinerManager">>_(smiles slowly, not moving)_ I insist. It's my job as a manager.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Vince leans back against the wall, staring as you drink water.<</narrative>>
+<<dialog "dinerManager">>James is leaving early. Sofia is sweeping out front. It's just us in the back.<</dialog>>
+<<dialog "player">>You need me to close the kitchen down?<</dialog>>
+<<dialog "dinerManager">>No. I just want you to appreciate the atmosphere. Very peaceful without the other peasants.<</dialog>>
+<<dialog "player">>Peasants?<</dialog>>
+<<dialog "dinerManager">>Figure of speech. Finish your water.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Vince is hovering right over your shoulder, tracking an invisible smudge on the stainless steel counter.<</narrative>>
+<<dialog "dinerManager">>We have to make sure every surface is perfectly sterile before I allow you to go home.<</dialog>>
+<<dialog "player">>I already wiped this station down twice.<</dialog>>
+<<dialog "dinerManager">>I'll be the judge of what is clean. Do it again while I watch. I want to see your technique.<</dialog>>
+<<dialog "player">>It's just wiping a table, Vince.<</dialog>>
+<<dialog "dinerManager">>Humor me. Standards are standards, no matter how late it gets.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ],
+
+        time_check: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Vince taps his wristwatch forcefully.<</narrative>>
+<<dialog "dinerManager">>One hour left. My favorite part of the shift. Do you feel the anticipation?<</dialog>>
+<<dialog "player">>Just looking forward to sleeping.<</dialog>>
+<<dialog "dinerManager">>Sleep is the cousin of death. Look forward to waking up and coming right back here.<</dialog>>
+<<dialog "player">>That's a depressing thought.<</dialog>>
+<<dialog "dinerManager">>It's the reality of a paycheck. Back to the dishes, chop chop.<</dialog>`,
+                friendship: 1, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Vince stares at the front door.<</narrative>>
+<<dialog "dinerManager">>If anyone else walks in, lock the door on them. I'm legally closed in my mind.<</dialog>>
+<<dialog "player">>But the sign still says open.<</dialog>>
+<<dialog "dinerManager">>My heart says closed. Turn the sign around for me when you go back to the pit.<</dialog>>
+<<dialog "player">>I don't think I can reach it.<</dialog>>
+<<dialog "dinerManager">>I'll help you later.<</dialog>`,
+                friendship: 2, trust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/vince/level1/vinceOnBreakEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Vince signs a clipboard, handing it toward you without looking.<</narrative>>
+<<dialog "dinerManager">>Sign this. Just confirming you took your mandatory break, so the state doesn't fine me.<</dialog>>
+<<dialog "player">>Should I read it first?<</dialog>>
+<<dialog "dinerManager">>_(looks up with cold eyes)_ Do you not trust me? It's a break form. Sign it.<</dialog>>
+<<dialog "player">>Alright, signed.<</dialog>>
+<<dialog "dinerManager">>Good boy. Good girl. Good worker.<</dialog>`,
+                friendship: 1, trust: 0
+            }
+        ]
+    }
+
+}>>
