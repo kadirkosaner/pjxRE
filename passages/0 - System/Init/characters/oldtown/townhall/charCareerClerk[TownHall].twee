@@ -16,11 +16,12 @@
     color: "#8b5cf6",
     info: "<p>A businesslike career counselor who works at the Town Hall Career Services office. She's efficient but somewhat impersonal in her approach.</p>",
     status: "Career Counselor",
-    relationship: { status: "married", partnerLabel: "husband" }
+    relationship: { status: "married", partnerLabel: "husband" },
+    maxLevels: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    versionCaps: { friendship: 0, love: 0, trust: 0, lust: 0 }
 }>>
 <<set $characters.careerClerk = {
-    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
-    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+    stats: { love: 0, loveLevel: 0, friendship: 0, friendshipLevel: 0, lust: 0, lustLevel: 0, trust: 0, trustLevel: 0 },
     firstMet: null,
     known: false,
     currentLocation: null,

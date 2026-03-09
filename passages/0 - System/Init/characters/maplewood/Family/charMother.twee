@@ -3,6 +3,12 @@
    Complete Character Definition
 ========================================== */
 
+/* CHARACTER CONFIG (setup - survives version updates) */
+<<set setup.characterDefs.mother = {
+    maxLevels: { friendship: 2, love: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 100, love: 30, trust: 30, lust: 20 }
+}>>
+
 /* CHARACTER DATA */
 <<set $characters.mother = {
     name: "Sarah",
@@ -20,13 +26,6 @@
         friendship: 0,   friendshipLevel: 1,
         lust: 0,         lustLevel: 1,
         trust: 0,        trustLevel: 1
-    },
-    maxLevels: { friendship: 2, love: 1, lust: 1, trust: 1 },
-    versionCaps: {
-        friendship: 100,
-        love:       30,
-        trust:      30,
-        lust:       20
     },
     status: "Mother",
     firstMet: "Birth",

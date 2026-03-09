@@ -3,6 +3,12 @@
    Complete Character Definition
 ========================================== */
 
+/* CHARACTER CONFIG (setup - survives version updates) */
+<<set setup.characterDefs.brother = {
+    maxLevels: { friendship: 2, love: 1, trust: 1, lust: 1 },
+    versionCaps: { friendship: 100, love: 15, trust: 50, lust: 0 } 
+}>>
+
 /* CHARACTER DATA */
 <<set $characters.brother = {
     firstName: "Jake",
@@ -20,8 +26,6 @@
         lust: 0,         lustLevel: 1,
         trust: 0,       trustLevel: 1
     },
-    maxLevels: { love: 1, friendship: 2, lust: 1, trust: 1 },
-    versionCaps: { friendship: 100, love: 15, trust: 50, lust: 0 }, /* v0.1 caps */
     status: "Brother",
     firstMet: "Childhood",
     info: "<p>Your younger brother who goes to high school. He's usually gaming or hanging out in his room.</p>",

@@ -16,11 +16,17 @@
     color: "#dc2626",
     info: "<p>Chef at Ruby's Diner. He runs the kitchen and keeps the place running during service.</p>",
     status: "Chef",
-    relationship: { status: "married", partnerLabel: "wife", hasChildren: true }
+    relationship: { status: "married", partnerLabel: "wife", hasChildren: true },
+    maxLevels: { love: 1, friendship: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 100, love: 0, trust: 30, lust: 0 }
 }>>
 <<set $characters.dinerChef = {
-    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
-    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+    stats: { 
+            love: 0, loveLevel: 1, 
+            friendship: 0, friendshipLevel: 1, 
+            lust: 0, lustLevel: 1, 
+            trust: 0, trustLevel: 1 
+    },
     firstMet: null,
     known: false,
     currentLocation: null,
@@ -30,12 +36,20 @@
 <<set setup.schedules.dinerChef = {
     weekday: [
         { hour: 0, location: null, status: "unavailable" },
-        { hour: 11, location: "dinerRubys", status: "available" },
+        { hour: 11, location: "dinerRubysKitchen", status: "available" },
+        { hour: 14, location: "dinerRubysStorage", status: "available" },
+        { hour: 15, location: "dinerRubysKitchen", status: "available" },
+        { hour: 18, location: "dinerRubys", status: "available" },
+        { hour: 19, location: "dinerRubysKitchen", status: "available" },
         { hour: 21, location: null, status: "unavailable" }
     ],
     weekend: [
         { hour: 0, location: null, status: "unavailable" },
-        { hour: 11, location: "dinerRubys", status: "available" },
+        { hour: 11, location: "dinerRubysKitchen", status: "available" },
+        { hour: 14, location: "dinerRubysStorage", status: "available" },
+        { hour: 15, location: "dinerRubysKitchen", status: "available" },
+        { hour: 18, location: "dinerRubys", status: "available" },
+        { hour: 19, location: "dinerRubysKitchen", status: "available" },
         { hour: 21, location: null, status: "unavailable" }
     ]
 }>>
@@ -43,6 +57,18 @@
 /* ACTIONS */
 <<set setup.characterActions.dinerChef = {
     dinerRubys: [
+        {
+            id: "talk", label: "Talk", passage: "jamesTalkDinerRubys",
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        }
+    ],
+    dinerRubysKitchen: [
+        {
+            id: "talk", label: "Talk", passage: "jamesTalkDinerRubys",
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        }
+    ],
+    dinerRubysStorage: [
         {
             id: "talk", label: "Talk", passage: "jamesTalkDinerRubys",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5

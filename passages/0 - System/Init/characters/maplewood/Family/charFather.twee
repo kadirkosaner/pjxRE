@@ -3,6 +3,12 @@
    Complete Character Definition
 ========================================== */
 
+/* CHARACTER CONFIG (setup - survives version updates) */
+<<set setup.characterDefs.father = {
+    maxLevels: { friendship: 2, love: 1, trust: 1, lust: 1 },
+    versionCaps: { friendship: 100, love: 20, trust: 50, lust: 0 } 
+}>>
+
 /* CHARACTER DATA */
 <<set $characters.father = {
     firstName: "Robert",
@@ -20,8 +26,6 @@
         lust: 0,         lustLevel: 1,
         trust: 0,       trustLevel: 1
     },
-    maxLevels: { love: 1, friendship: 2, lust: 1, trust: 1 },
-    versionCaps: { friendship: 100, love: 20, trust: 30, lust: 0 }, /* v0.1 caps */
     status: "Father",
     firstMet: "Birth",
     info: "<p>Your father is a software engineer who works long hours. He enjoys working on cars in the garage (his escape from screens) and watching sports.</p>",

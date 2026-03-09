@@ -17,11 +17,12 @@
     color: "#06b6d4",
     info: "<p>A friendly woman you met at Sunset Park. She runs there regularly and pointed you to the mall's sports store. Approachable and welcoming.</p>",
     status: "Park Regular",
-    relationship: { status: "single" }
+    relationship: { status: "single" },
+    maxLevels: { love: 1, friendship: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 90, love: 0, trust: 0, lust: 0 }
 }>>
 <<set $characters.parkRunnerLily = {
     stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
-    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
     firstMet: null,
     known: false,
     currentLocation: null,

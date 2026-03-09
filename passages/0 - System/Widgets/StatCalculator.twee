@@ -396,7 +396,7 @@
 /* Usage: <<gainCharacterStat "mother" "friendship" 2>> */
 /* Level stats (love/friendship/lust/trust) automatically level up when threshold is reached. */
 /* Threshold config: $characters[charId].levelUpThresholds[stat][currentLevel] — default 100 */
-/* Max level config: $characters[charId].maxLevels[stat] — default 5 */
+/* Max level config: setup.characterDefs[charId].maxLevels[stat] — default 5 */
 <<widget "gainCharacterStat">><<nobr>>
     <<set _charId = $args[0]>>
     <<set _statName = $args[1]>>
@@ -415,22 +415,24 @@
         /* Stat does not exist on character, do nothing */
     <<else>>
         <<set _charData = $characters[_charId]>>
+        <<set _charDef = setup.characterDefs[_charId] || {}>>
         <<set _stats = _charData.stats>>
         <<set _levelKey = _statName + "Level">>
         <<set _isLevelStat = ["love","friendship","lust","trust"].includes(_statName)>>
-        <<set _charName = _charData.firstName || _charData.name || _charId>>
+        <<set _charName = _charDef.firstName || _charData.firstName || _charData.name || _charId>>
         <<set _displayStat = _statName.charAt(0).toUpperCase() + _statName.slice(1)>>
 
         <<if _isLevelStat && _stats[_levelKey] !== undefined>>
             /* Level stat logic */
             <<set _currentLevel = _stats[_levelKey]>>
-            <<set _maxLevel = (_charData.maxLevels && _charData.maxLevels[_statName] !== undefined) ? _charData.maxLevels[_statName] : 5>>
+            /* Read maxLevels from setup.characterDefs first (version-safe), fallback to $characters for old saves */
+            <<set _maxLevel = (_charDef.maxLevels && _charDef.maxLevels[_statName] !== undefined) ? _charDef.maxLevels[_statName] : ((_charData.maxLevels && _charData.maxLevels[_statName] !== undefined) ? _charData.maxLevels[_statName] : 5)>>
             <<set _thresholds = (_charData.levelUpThresholds && _charData.levelUpThresholds[_statName]) ? _charData.levelUpThresholds[_statName] : {}>>
             <<set _threshold = (_thresholds[_currentLevel] !== undefined) ? _thresholds[_currentLevel] : 100>>
 
             <<if _currentLevel >= _maxLevel>>
-                /* At max level — use versionCaps if defined, else threshold */
-                <<set _vCaps = (_charData.versionCaps && _charData.versionCaps[_statName] !== undefined) ? _charData.versionCaps[_statName] : _threshold>>
+                /* At max level — use versionCaps from setup.characterDefs first (version-safe), fallback to $characters */
+                <<set _vCaps = (_charDef.versionCaps && _charDef.versionCaps[_statName] !== undefined) ? _charDef.versionCaps[_statName] : ((_charData.versionCaps && _charData.versionCaps[_statName] !== undefined) ? _charData.versionCaps[_statName] : _threshold)>>
                 <<set $characters[_charId].stats[_statName] = Math.min(_vCaps, Math.max(0, _stats[_statName] + _baseAmount))>>
                 <<if _baseAmount > 0>>
                     <<run window.notifySuccess(_charName + " " + _displayStat + " +" + _baseAmount)>>

@@ -16,11 +16,17 @@
     color: "#10b981",
     info: "<p>Waiter at Ruby's Diner. He works the floor with the other waitstaff.</p>",
     status: "Waiter",
-    relationship: { status: "single" }
+    relationship: { status: "single" },
+    maxLevels: { love: 1, friendship: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 100, love: 0, trust: 30, lust: 0 }
 }>>
 <<set $characters.dinerWaitress3 = {
-    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
-    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+    stats: {
+            love: 0, loveLevel: 1,
+            friendship: 0, friendshipLevel: 1,
+            lust: 0, lustLevel: 1,
+            trust: 0, trustLevel: 1
+    },
     firstMet: null,
     known: false,
     currentLocation: null,
@@ -31,11 +37,15 @@
     weekday: [
         { hour: 0, location: null, status: "unavailable" },
         { hour: 14, location: "dinerRubys", status: "available" },
+        { hour: 17, location: "dinerRubysStorage", status: "available" },
+        { hour: 18, location: "dinerRubys", status: "available" },
         { hour: 22, location: null, status: "unavailable" }
     ],
     weekend: [
         { hour: 0, location: null, status: "unavailable" },
         { hour: 14, location: "dinerRubys", status: "available" },
+        { hour: 17, location: "dinerRubysStorage", status: "available" },
+        { hour: 18, location: "dinerRubys", status: "available" },
         { hour: 22, location: null, status: "unavailable" }
     ]
 }>>
@@ -43,6 +53,12 @@
 /* ACTIONS */
 <<set setup.characterActions.dinerWaitress3 = {
     dinerRubys: [
+        {
+            id: "talk", label: "Talk", passage: "jakeTalkDiner",
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        }
+    ],
+    dinerRubysStorage: [
         {
             id: "talk", label: "Talk", passage: "jakeTalkDiner",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5

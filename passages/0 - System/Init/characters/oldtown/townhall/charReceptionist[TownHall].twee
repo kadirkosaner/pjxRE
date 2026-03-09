@@ -16,11 +16,12 @@
     color: "#6b7280",
     info: "<p>A professional woman who works at the Town Hall information desk. She's been here for years and knows the building inside and out.</p>",
     status: "Receptionist",
-    relationship: { status: "married", partnerLabel: "husband" }
+    relationship: { status: "married", partnerLabel: "husband" },
+    maxLevels: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    versionCaps: { friendship: 0, love: 0, trust: 0, lust: 0 }
 }>>
 <<set $characters.townHallReceptionist = {
-    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
-    maxLevels: { love: 5, friendship: 5, lust: 5, trust: 5 },
+    stats: { love: 0, loveLevel: 0, friendship: 0, friendshipLevel: 0, lust: 0, lustLevel: 0, trust: 0, trustLevel: 0 },
     firstMet: null,
     known: false,
     currentLocation: null,
