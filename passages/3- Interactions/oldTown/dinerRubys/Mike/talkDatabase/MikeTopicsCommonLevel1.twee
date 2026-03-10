@@ -1,195 +1,137 @@
+:: MikeTopicsCommonLevel1
 /* ==========================================
    MIKE TALK TOPICS — COMMON PHASE, LEVEL 1
    phase === "common" && friendshipLevel === 1
 
-   CHARACTER: Mike Torres, Dishwasher at Ruby's Diner
-   → Early 30s, single. Back-of-house, in his own zone.
-   → Often listening to music or lost in thought.
-   → Ignores drama, just focuses on the sink.
-
-   COMMON L1 TONE:
-   → Player has no job, just dropped by.
-   → Mike chats briefly while scrubbing, hands wet.
-
-   CONTEXTS:
-   dinerRubys_common_morning
-   dinerRubys_common_afternoon
-   dinerRubys_common_evening
+   CHARACTER: Mike, Dishwasher (dinerDishwasher)
+   → Laid-back, young, easygoing, lazy-but-friendly.
+   → Rare at front (Front access is only during Common).
 ========================================== */
 
+<<nobr>>
 <<set setup.mikeTopics = setup.mikeTopics || {}>>
 <<set setup.mikeTopics.common = setup.mikeTopics.common || {}>>
 <<set setup.mikeTopics.common.level1 = {
 
     dinerRubys_common_morning: {
+        out_of_place_morning: [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontMorning-1.webp">>
+<<image _img "100%">>
+<<narrative>>Mike is blinking at the morning sun, holding a mop bucket like he's not quite sure what to do with it.<</narrative>>
 
-        morning_prep: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonMorning-1.webp">>
-<<image _img "100%">>
-<<narrative>>Mike turns off the sprayer for a moment, wiping his wet hands on his apron.<</narrative>>
-<<dialog "dinerDishwasher">>Loud out there today. I can hear the plates clinking from here.<</dialog>>
-<<dialog "player">>It's a full house.<</dialog>>
-<<dialog "dinerDishwasher">>Means a full sink for me. Better get back to it. Later.<</dialog>>
-<<dialog "player">>Take it easy, Mike.<</dialog>>
-<<dialog "dinerDishwasher">>Always.<</dialog>`,
-                friendship: 1, trust: 0
+<<dialog "dinerDishwasher">>Is it morning already? Felt like I just closed my eyes.<</dialog>>
+<<dialog "player">>Usually happens when you stay up too late, Mike.<</dialog>>
+<<dialog "dinerDishwasher">>Yeah. Found a documentary on deep-sea squids. Couldn't stop.<</dialog>>
+<<dialog "player">>Deep-sea squids. Riveting stuff.<</dialog>>
+<<dialog "dinerDishwasher">>You joke, but they're basically aliens, $player.firstName. Real aliens.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>Mike has one earbud in, aggressively scrubbing a burnt pan.<</narrative>>
-<<dialog "dinerDishwasher">>James burned the eggs again. Who burns eggs at 8 AM?<</dialog>>
-<<dialog "player">>Must have been distracted.<</dialog>>
-<<dialog "dinerDishwasher">>I'm the one paying the price. This crust is rock solid.<</dialog>>
-<<dialog "player">>Hope it comes off.<</dialog>>
-<<dialog "dinerDishwasher">>It will. I bring the muscle.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonMorning-3.webp">>
-<<image _img "100%">>
-<<narrative>>Mike stares absently at the soapy water running down the drain.<</narrative>>
-<<dialog "player">>You zone out a bit?<</dialog>>
-<<dialog "dinerDishwasher">>Huh? Oh. Yeah. The sound of the water, man. It's hypnotic.<</dialog>>
-<<dialog "player">>Better than the yelling.<</dialog>>
-<<dialog "dinerDishwasher">>A million times better. Catch you later.<</dialog>`,
-                friendship: 2, trust: 0
-            }
-        ],
+<<narrative>>Mike is leaning against the counter, staring at the fresh donuts in the case with a glazed expression.<</narrative>>
 
-        music: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonMorning-1.webp">>
-<<image _img "100%">>
-<<narrative>>Mike nods his head to a beat only he can hear through his earbuds.<</narrative>>
-<<dialog "dinerDishwasher">>You see Vince looking this way, tell me so I can hide the headphones.<</dialog>>
-<<dialog "player">>He's busy in the front.<</dialog>>
-<<dialog "dinerDishwasher">>Good. A man needs his tunes if he's gonna wash five hundred forks.<</dialog>>
-<<dialog "player">>What are you listening to?<</dialog>>
-<<dialog "dinerDishwasher">>Metal. It helps.<</dialog>`,
-                friendship: 2, trust: 1
+<<dialog "dinerDishwasher">>One of these days, I'm gonna eat the whole case.<</dialog>>
+<<dialog "player">>Vince would probably charge you triple.<</dialog>>
+<<dialog "dinerDishwasher">>He'd have to catch me first. I'm faster than I look.<</dialog>>
+<<dialog "player">>I've seen you walk to the kitchen, Mike. You're not fast.<</dialog>>
+<<dialog "dinerDishwasher">>Low-power mode. Saves energy for the donuts.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>Mike takes out an earbud as you walk up, looking annoyed for a second.<</narrative>>
-<<dialog "dinerDishwasher">>Oh, it's you. Thought it was Sofia coming to dump more mugs.<</dialog>>
-<<dialog "player">>Just me passing by.<</dialog>>
-<<dialog "dinerDishwasher">>Cool. Back to it, then.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonMorning-3.webp">>
-<<image _img "100%">>
-<<narrative>>Mike drops a stack of heavy plates, making a loud crash, but nothing breaks.<</narrative>>
-<<dialog "dinerDishwasher">>Hear that? They're practically indestructible. Vince bought the cheap ones.<</dialog>>
-<<dialog "player">>Good for you, I guess.<</dialog>>
-<<dialog "dinerDishwasher">>Yeah, means less sweeping. Alright, later.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Mike has one earbud in, swaying slightly as he slowly refills the sugar packets at a booth.<</narrative>>
+
+<<dialog "dinerDishwasher">>You catch the sunrise? Orange and purple. Pretty sick.<</dialog>>
+<<dialog "player">>I was asleep for that part of the day.<</dialog>>
+<<dialog "dinerDishwasher">>Missing out, man. Best part of the day before the noise starts.<</dialog>>
+<<dialog "player">>You're surprisingly poetic for a guy who sleeps through his shift.<</dialog>>
+<<dialog "dinerDishwasher">>I don't sleep. I meditate on the bubbles in the sink.<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
             }
         ]
     },
 
     dinerRubys_common_afternoon: {
+        out_of_place_afternoon: [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Mike stands near the counter, blinking at the sunlight coming through the front window.<</narrative>>
 
-        lunch_mess: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonAfternoon-1.webp">>
-<<image _img "100%">>
-<<narrative>>Mike gestures vaguely with a soapy sponge at a huge pile of dishes.<</narrative>>
-<<dialog "dinerDishwasher">>Lunch rush. The worst invention in human history.<</dialog>>
-<<dialog "player">>It looks like a nightmare.<</dialog>>
-<<dialog "dinerDishwasher">>It is. Everyone eats at exactly noon. Why not 1:30? Idiots.<</dialog>>
-<<dialog "player">>I'll let you work.<</dialog>>
-<<dialog "dinerDishwasher">>Good call.<</dialog>`,
-                friendship: 1, trust: 0
+<<dialog "dinerDishwasher">>Is it always this bright out here?<</dialog>>
+<<dialog "player">>It's just the afternoon sun, Mike.<</dialog>>
+<<dialog "dinerDishwasher">>Yeah. Makes the kitchen look like a cave.<</dialog>>
+<<dialog "player">>You should come out more often.<</dialog>>
+<<dialog "dinerDishwasher">>Maybe. But caves have better acoustics.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>Mike tosses an uneaten piece of toast straight into the trash without looking.<</narrative>>
-<<dialog "dinerDishwasher">>Waste. Too much waste. People order sides they don't even touch.<</dialog>>
-<<dialog "player">>At least you don't have to clean it.<</dialog>>
-<<dialog "dinerDishwasher">>Just throw it out. But it's still stupid. See ya.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Mike is leaning against the pastry case, staring at a pie.<</narrative>>
+
+<<dialog "dinerDishwasher">>You ever notice how symmetrical these pies are?<</dialog>>
+<<dialog "player">>They're just pies, Mike. James makes them.<</dialog>>
+<<dialog "dinerDishwasher">>James is an artist, man. A stressed-out artist.<</dialog>>
+<<dialog "player">>Don't let him hear you say that.<</dialog>>
+<<dialog "dinerDishwasher">>I don't. I just clean his canvases.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontAfternoon-4.webp">>
 <<image _img "100%">>
-<<narrative>>Mike takes a quick drink from a water bottle sitting dangerously close to the sink.<</narrative>>
-<<dialog "dinerDishwasher">>Steamy in here today. The dishwasher runs so hot it's basically a sauna.<</dialog>>
-<<dialog "player">>Drink plenty of water.<</dialog>>
-<<dialog "dinerDishwasher">>Trying. The steam's getting to my lungs though.<</dialog>
-<<dialog "player">>Don't pass out.<</dialog>>
-<<dialog "dinerDishwasher">>I'll try not to.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Mike is peeking through the order window from the front side.<</narrative>>
+
+<<dialog "dinerDishwasher">>They look so busy in there. Glad I'm on this side.<</dialog>>
+<<dialog "player">>You're supposed to be in there helping them, aren't you?<</dialog>>
+<<dialog "dinerDishwasher">>Spiritually, I am. Physically, I need a change of scenery.<</dialog>>
+<<dialog "player">>Vince won't like your change of scenery.<</dialog>>
+<<dialog "dinerDishwasher">>Vince is in his office. My scenery is safe for now.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ],
+        music_talk: [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Mike has one earbud in, tapping his fingers against his thigh.<</narrative>>
 
-        cleaning: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonAfternoon-1.webp">>
-<<image _img "100%">>
-<<narrative>>Mike is pouring bleach into a bucket, the smell hitting you instantly.<</narrative>>
-<<dialog "player">>That smells strong.<</dialog>>
-<<dialog "dinerDishwasher">>Kills everything. Best way to know it's clean.<</dialog>>
-<<dialog "player">>Be careful with that.<</dialog>>
-<<dialog "dinerDishwasher">>Don't worry, my hands are numb to it by now.<</dialog>`,
-                friendship: 1, trust: 0
+<<dialog "dinerDishwasher">>The music out here is too... diner-ish.<</dialog>>
+<<dialog "player">>Well, it is a diner. What do you expect?<</dialog>>
+<<dialog "dinerDishwasher">>Needs more bass. Something to vibe with.<</dialog>>
+<<dialog "player">>Vince probably likes the classics.<</dialog>>
+<<dialog "dinerDishwasher">>Vince likes whatever keeps people eating. I like whatever keeps me awake.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontAfternoon-5.webp">>
 <<image _img "100%">>
-<<narrative>>Mike points a wet finger at the floor near his station.<</narrative>>
-<<dialog "dinerDishwasher">>Watch your step. The drain backed up a little.<</dialog>>
-<<dialog "player">>I'll walk around it.<</dialog>>
-<<dialog "dinerDishwasher">>Yeah, slip and fall on my watch, Vince will have my head. Later.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonAfternoon-3.webp">>
-<<image _img "100%">>
-<<narrative>>Mike rubs his shoulder, pausing between wiping plates.<</narrative>>
-<<dialog "dinerDishwasher">>Repetitive motion. Kills your joints after a few years. My shoulder's shot.<</dialog>>
-<<dialog "player">>Maybe try a different angle.<</dialog>>
-<<dialog "dinerDishwasher">>A plate is a plate. Only one way to scrub it. See ya.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ]
-    },
+<<narrative>>Mike is humming a tune under his breath, eyes closed for a moment.<</narrative>>
 
-    dinerRubys_common_evening: {
+<<dialog "dinerDishwasher">>Sorry. Song got stuck in my head.<</dialog>>
+<<dialog "player">>Sounded like a lot of drums.<</dialog>>
+<<dialog "dinerDishwasher">>It's all drums. Drums are the heartbeat of the kitchen, you know?<</dialog>>
+<<dialog "player">>I thought the sizzling grill was the heartbeat.<</dialog>>
+<<dialog "dinerDishwasher">>That's just the noise. Drums are the soul.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontAfternoon-7.webp">>
+<<image _img "100%">>
+<<narrative>>Mike is staring at the old jukebox in the corner.<</narrative>>
 
-        tired_end: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonEvening-1.webp">>
-<<image _img "100%">>
-<<narrative>>Mike slowly drains the enormous sink, looking exhausted.<</narrative>>
-<<dialog "dinerDishwasher">>Water's going down. That means I'm almost out of here.<</dialog>>
-<<dialog "player">>Almost finished, huh?<</dialog>>
-<<dialog "dinerDishwasher">>Just gotta mop. Mop and go to bed. Have a good night.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonEvening-2.webp">>
-<<image _img "100%">>
-<<narrative>>Mike pulls off his rubber gloves, his hands looking pale and pruned.<</narrative>>
-<<dialog "dinerDishwasher">>I hate these gloves. Smell like old rubber and sweat.<</dialog>>
-<<dialog "player">>At least your hands are safe.<</dialog>>
-<<dialog "dinerDishwasher">>Barely. Have a good one.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeCommonEvening-3.webp">>
-<<image _img "100%">>
-<<narrative>>Mike leans his forehead against the cool tile wall for a few seconds.<</narrative>>
-<<dialog "player">>You okay, Mike?<</dialog>>
-<<dialog "dinerDishwasher">>Just tired, man. Real tired. The hum of the fridge is putting me to sleep.<</dialog>>
-<<dialog "player">>Don't fall asleep standing.<</dialog>>
-<<dialog "dinerDishwasher">>I might. Later.<</dialog>`,
-                friendship: 2, trust: 0
+<<dialog "dinerDishwasher">>Think this thing still works? Record-style?<</dialog>>
+<<dialog "player">>Probably. It's mostly for show though.<</dialog>>
+<<dialog "dinerDishwasher">>What a waste. I'd put some real heavy stuff in there.<</dialog>>
+<<dialog "player">>You'd clear the room in under a minute.<</dialog>>
+<<dialog "dinerDishwasher">>Yeah, but what a minute it would be.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     }
+
 }>>
+<</nobr>>

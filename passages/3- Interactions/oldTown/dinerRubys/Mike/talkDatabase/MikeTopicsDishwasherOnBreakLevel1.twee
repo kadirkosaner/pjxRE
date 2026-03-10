@@ -1,119 +1,170 @@
-/* ==========================================
-   MIKE TALK TOPICS — ON BREAK PHASE, LEVEL 1
-   phase === "working.onBreak" && friendshipLevel === 1
-
-   CHARACTER: Mike Torres, Dishwasher at Ruby's Diner
-   → Early 30s, single. Back-of-house, in his own zone.
-   → Player is a coworker on break. Mike is still working.
-
-   CONTEXTS:
-   dinerRubys_workingOnBreak_morning
-   dinerRubys_workingOnBreak_afternoon
-   dinerRubys_workingOnBreak_evening
-========================================== */
-
+:: MikeTopicsDishwasherOnBreakLevel1
+<<nobr>>
 <<set setup.mikeTopics = setup.mikeTopics || {}>>
-<<set setup.mikeTopics.workingOnBreak = setup.mikeTopics.workingOnBreak || {}>>
-<<set setup.mikeTopics.workingOnBreak.level1 = {
+<<set setup.mikeTopics.dishwasherOnBreak = setup.mikeTopics.dishwasherOnBreak || {}>>
+<<set setup.mikeTopics.dishwasherOnBreak.level1 = {
 
-    dinerRubys_workingOnBreak_morning: {
+    "dinerRubysKitchen_dishwasherOnBreak_morning": {
 
-        break_chat: [
+        "headphones_music": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>Mike slides a clean coffee mug down the counter toward you.<</narrative>>
-<<dialog "dinerDishwasher">>Look at you. Getting to sit down. Must be a nice feeling.<</dialog>>
-<<dialog "player">>My legs were killing me.<</dialog>>
-<<dialog "dinerDishwasher">>Yeah, my legs died three hours ago. Take your break, you earned it.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Mike stands at the sink, one earbud in, nodding along to something. He mouths a few words before noticing you.<</narrative>>
+
+<<dialog "dinerDishwasher">>Oh. Hey. Didn't hear you.<</dialog>>
+<<dialog "player">>What are you listening to?<</dialog>>
+<<dialog "dinerDishwasher">>Some playlist. All vibes, no lyrics.<</dialog>>
+<<dialog "player">>Sounds like a good way to zone out.<</dialog>>
+<<dialog "dinerDishwasher">>That's the whole point.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>Mike ignores you completely for a few seconds as he scrubs vigorously.<</narrative>>
-<<dialog "player">>...<</dialog>>
-<<dialog "dinerDishwasher">>Oh. Didn't see you sit down. Break time?<</dialog>>
-<<dialog "player">>Yeah, just fifteen minutes.<</dialog>>
-<<dialog "dinerDishwasher">>Don't blink. It goes by faster than you think.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Mike bobs his head gently while loading plates into the rack. The earbud cord swings with each movement.<</narrative>>
+
+<<dialog "dinerDishwasher">>This song's been stuck in my head all week.<</dialog>>
+<<dialog "player">>What song is it?<</dialog>>
+<<dialog "dinerDishwasher">>No idea. Found it on autoplay.<</dialog>>
+<<dialog "player">>You don't even know the name?<</dialog>>
+<<dialog "dinerDishwasher">>Nah. That's the best kind of music though.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>Mike kicks a stray piece of lettuce under the sink.<</narrative>>
-<<dialog "dinerDishwasher">>If Vince asks, that lettuce disappeared into the drain.<</dialog>>
-<<dialog "player">>My lips are sealed.<</dialog>>
-<<dialog "dinerDishwasher">>Good. Enjoy sitting. I'm gonna keep standing.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Mike pulls an earbud out and drapes it over his shoulder. The sink is half full of mugs.<</narrative>>
+
+<<dialog "dinerDishwasher">>Podcast ended. Now it's just me and these mugs.<</dialog>>
+<<dialog "player">>What podcast were you listening to?<</dialog>>
+<<dialog "dinerDishwasher">>True crime thing. Guy who robbed a pizza place.<</dialog>>
+<<dialog "player">>That sounds kind of amazing actually.<</dialog>>
+<<dialog "dinerDishwasher">>It was. He got caught by the delivery driver.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "morning_dishes": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-4.webp">>
+<<image _img "100%">>
+<<narrative>>Mike scrubs a pan with zero urgency, steam rising from the hot water. He glances over his shoulder at you.<</narrative>>
+
+<<dialog "dinerDishwasher">>Egg pans. Worst part of mornings.<</dialog>>
+<<dialog "player">>They really stick that bad?<</dialog>>
+<<dialog "dinerDishwasher">>Like cement if you wait too long.<</dialog>>
+<<dialog "player">>Sounds like nobody brings them fast enough.<</dialog>>
+<<dialog "dinerDishwasher">>Nobody ever does. Story of my life.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-5.webp">>
+<<image _img "100%">>
+<<narrative>>Mike stacks clean plates onto a shelf, moving slowly. A tower of dirty ones waits behind him.<</narrative>>
+
+<<dialog "dinerDishwasher">>One stack done. Twelve to go.<</dialog>>
+<<dialog "player">>You keeping count?<</dialog>>
+<<dialog "dinerDishwasher">>Nah. Makes it worse if I count.<</dialog>>
+<<dialog "player">>Fair. Ignorance is bliss, right?<</dialog>>
+<<dialog "dinerDishwasher">>Exactly. Don't tell me the real number.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-6.webp">>
+<<image _img "100%">>
+<<narrative>>Mike pushes a rack into the dishwasher and slams the door shut. He leans on it while it runs.<</narrative>>
+
+<<dialog "dinerDishwasher">>Machine does the hard part now.<</dialog>>
+<<dialog "player">>You just stand there while it runs?<</dialog>>
+<<dialog "dinerDishwasher">>Best two minutes of my shift.<</dialog>>
+<<dialog "player">>Living the dream, huh?<</dialog>>
+<<dialog "dinerDishwasher">>Closest I'll get today, yeah.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingOnBreak_afternoon: {
+    "dinerRubysStorage_dishwasherOnBreak_morning": {
 
-        noise_complaints: [
+        "phone_scrolling": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>Mike looks annoyed at the sound of the bell ringing repeatedly for fresh orders.<</narrative>>
-<<dialog "dinerDishwasher">>Sofia needs to stop abusing that bell. It's drilling into my skull.<</dialog>>
-<<dialog "player">>She wants the food hot.<</dialog>>
-<<dialog "dinerDishwasher">>She wants to be annoying. But you're on break, ignore the bell. Later.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Mike sits on a crate in the storage room, phone in hand, thumb barely moving. He looks up lazily.<</narrative>>
+
+<<dialog "dinerDishwasher">>Yo. Pull up a crate.<</dialog>>
+<<dialog "player">>What are you looking at?<</dialog>>
+<<dialog "dinerDishwasher">>Nothing. Literally nothing. Just scrolling.<</dialog>>
+<<dialog "player">>That's the most honest answer I've ever heard.<</dialog>>
+<<dialog "dinerDishwasher">>I'm an honest guy when I'm bored.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>Mike casually sprays the sink walls, turning it into a misty fog.<</narrative>>
-<<dialog "dinerDishwasher">>Don't stand too close, the backsplash is gross. Used food and grease.<</dialog>>
-<<dialog "player">>I'll stay right here.<</dialog>>
-<<dialog "dinerDishwasher">>Smart move. Resting up?<</dialog>>
-<<dialog "player">>Trying to.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Mike tilts his phone screen toward you. It's a video of a cat falling off a counter.<</narrative>>
+
+<<dialog "dinerDishwasher">>Look at this. Watch the landing.<</dialog>>
+<<dialog "player">>That cat did not land on its feet.<</dialog>>
+<<dialog "dinerDishwasher">>Right? Thought they always did.<</dialog>>
+<<dialog "player">>The internet lied to us.<</dialog>>
+<<dialog "dinerDishwasher">>Wouldn't be the first time.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>Mike grabs a clean towel and aggressively dries his hands.<</narrative>>
-<<dialog "dinerDishwasher">>My skin is peeling off. Too much hot water. Wish I could take a break too.<</dialog>>
-<<dialog "player">>Ask Vince for one.<</dialog>>
-<<dialog "dinerDishwasher">>Vince doesn't know what a break is for people who ain't him. Later.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Mike has his phone face-down on his knee, staring at the ceiling. He's doing absolutely nothing.<</narrative>>
+
+<<dialog "dinerDishwasher">>Battery's at four percent. Day's ruined.<</dialog>>
+<<dialog "player">>There's an outlet by the mop bucket.<</dialog>>
+<<dialog "dinerDishwasher">>Yeah but then I gotta stand up.<</dialog>>
+<<dialog "player">>It's like three steps away, Mike.<</dialog>>
+<<dialog "dinerDishwasher">>Three steps too many right now.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
-        ]
-    },
+        ],
 
-    dinerRubys_workingOnBreak_evening: {
-
-        almost_done: [
+        "break_vibes": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakEvening-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-4.webp">>
 <<image _img "100%">>
-<<narrative>>Mike looks at the clock on the wall and SIGHS loudly.<</narrative>>
-<<dialog "dinerDishwasher">>Two hours left. It feels like time is frozen. Your break makes it feel longer.<</dialog>>
-<<dialog "player">>I'll be back on the floor soon.<</dialog>>
-<<dialog "dinerDishwasher">>Don't rush on my account. Rest while you can.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Mike sips from a can of something, feet stretched out in front of him. He looks completely at peace.<</narrative>>
+
+<<dialog "dinerDishwasher">>This is the life right here.<</dialog>>
+<<dialog "player">>Sitting in a storage room drinking soda?<</dialog>>
+<<dialog "dinerDishwasher">>No dishes. No James yelling. Perfect.<</dialog>>
+<<dialog "player">>Your standards are impressively low.<</dialog>>
+<<dialog "dinerDishwasher">>Low standards, high satisfaction. That's the secret.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakEvening-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-5.webp">>
 <<image _img "100%">>
-<<narrative>>Mike points his chin towards a wet mop bucket.<</narrative>>
-<<dialog "dinerDishwasher">>You taking that bucket when you get back on? Or is that my job tonight?<</dialog>>
-<<dialog "player">>Probably mine.<</dialog>>
-<<dialog "dinerDishwasher">>Praise the heavens. I hate mopping. Enjoy the break.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Mike leans against a shelf of paper towel rolls, arms behind his head. He looks half asleep.<</narrative>>
+
+<<dialog "dinerDishwasher">>Almost fell asleep back here once.<</dialog>>
+<<dialog "player">>How long before someone noticed?<</dialog>>
+<<dialog "dinerDishwasher">>Nobody did. That's the scary part.<</dialog>>
+<<dialog "player">>Maybe nobody needed dishes for a while.<</dialog>>
+<<dialog "dinerDishwasher">>Or maybe nobody noticed I exist. Either way, win.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeOnBreakEvening-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-6.webp">>
 <<image _img "100%">>
-<<narrative>>Mike rubs the back of his neck with a damp wrist.<</narrative>>
-<<dialog "dinerDishwasher">>I'm so done with dishes. Honestly, paper plates. The diner needs paper plates.<</dialog>>
-<<dialog "player">>Vince would never allow it.<</dialog>>
-<<dialog "dinerDishwasher">>I know. Too 'cheap'. As if we aren't a diner. See ya.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Mike sits cross-legged on the floor, back against a stack of boxes. He's unwrapping a granola bar.<</narrative>>
+
+<<dialog "dinerDishwasher">>Want half? It's peanut butter.<</dialog>>
+<<dialog "player">>Sure, thanks. Didn't eat before my shift.<</dialog>>
+<<dialog "dinerDishwasher">>Rookie move. Always eat first.<</dialog>>
+<<dialog "player">>Noted. I'll remember that next time.<</dialog>>
+<<dialog "dinerDishwasher">>I keep extras in my bag. Just ask.<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
             }
         ]
     }
+
 }>>
+<</nobr>>

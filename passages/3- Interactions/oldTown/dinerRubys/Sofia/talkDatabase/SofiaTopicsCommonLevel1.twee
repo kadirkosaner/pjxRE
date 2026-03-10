@@ -1,358 +1,170 @@
-/* ==========================================
-   SOFIA TALK TOPICS — COMMON PHASE, LEVEL 1
-   phase === "common" && friendshipLevel === 1
-
-   CHARACTER: Sofia Silva, Waitress at Ruby's Diner
-   → Self-centered, lazy, slightly sarcastic.
-   → Looks at the diner as an obstacle.
-   → Tone: Bored, vague, low energy.
-
-   COMMON L1 TONE:
-   → Player has no job, just dropped by.
-   → Unprofessional chat.
-   → CRITICAL: No orders, no tables, no menus. Mostly complains or looks at phone.
-
-   CONTEXTS:
-   dinerRubys_common_morning
-   dinerRubys_common_afternoon
-   dinerRubys_common_evening
-========================================== */
-
+:: SofiaTopicsCommonLevel1
+<<nobr>>
 <<set setup.sofiaTopics = setup.sofiaTopics || {}>>
 <<set setup.sofiaTopics.common = setup.sofiaTopics.common || {}>>
 <<set setup.sofiaTopics.common.level1 = {
 
-    dinerRubys_common_morning: {
+    "dinerRubys_common_afternoon": {
 
-        distracted: [
+        "boyfriend_mention": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is leaning against the counter, staring completely blankly out the window.<</narrative>>
-<<dialog "dinerWaitress2">>I think that pigeon outside has been staring at me for five minutes.<</dialog>>
-<<dialog "player">>Pigeons don't stare.<</dialog>>
-<<dialog "dinerWaitress2">>This one does. It knows I don't want to be here, and it's judging me.<</dialog>>
-<<dialog "player">>Maybe it wants food.<</dialog>>
-<<dialog "dinerWaitress2">>I'm not feeding it. I don't even want to feed the customers.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia is leaning on the counter, scrolling through her phone with one hand. She hasn't looked up since you walked in.<</narrative>>
+
+<<dialog "dinerWaitress2">>My boyfriend just sent me the dumbest meme.<</dialog>>
+<<dialog "player">>Sounds like a slow afternoon.<</dialog>>
+<<dialog "dinerWaitress2">>It's always slow. He's the only thing keeping me sane.<</dialog>>
+<<dialog "player">>That's a lot of pressure on one guy.<</dialog>>
+<<dialog "dinerWaitress2">>He can handle it. He's cute like that.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is absentmindedly twirling a pen between her fingers.<</narrative>>
-<<dialog "dinerWaitress2">>Did you say something? I wasn't listening.<</dialog>>
-<<dialog "player">>I literally just walked in.<</dialog>>
-<<dialog "dinerWaitress2">>Oh, good. I thought I missed something important. Not that anything important happens here.<</dialog>>
-<<dialog "player">>Rough morning?<</dialog>>
-<<dialog "dinerWaitress2">>Every morning is rough if you have to wake up before noon.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia is texting rapidly under the counter, barely hiding her phone behind a stack of napkins.<</narrative>>
+
+<<dialog "dinerWaitress2">>Hold on. My boyfriend's having a crisis.<</dialog>>
+<<dialog "player">>Everything okay?<</dialog>>
+<<dialog "dinerWaitress2">>He can't find his car keys. Again. Third time this week.<</dialog>>
+<<dialog "player">>Maybe he needs a key hook.<</dialog>>
+<<dialog "dinerWaitress2">>I told him that. He doesn't listen to me about anything practical.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is adjusting her apron, looking at a smudge on her sleeve.<</narrative>>
-<<dialog "dinerWaitress2">>I spilled coffee on this shirt before I even left my house.<</dialog>>
-<<dialog "player">>Vince didn't notice?<</dialog>>
-<<dialog "dinerWaitress2">>He only looks closely if you're smiling. I'm not doing that today.<</dialog>>
-<<dialog "player">>Smart strategy.<</dialog>>
-<<dialog "dinerWaitress2">>It's the only strategy I have. Whatever.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia smiles at her phone screen, then puts it face-down on the counter when she notices you.<</narrative>>
+
+<<dialog "dinerWaitress2">>Sorry, what? I was reading something.<</dialog>>
+<<dialog "player">>I didn't say anything yet.<</dialog>>
+<<dialog "dinerWaitress2">>Oh. Well, my boyfriend just called me his sunshine. Unprompted.<</dialog>>
+<<dialog "player">>That's sweet, I guess.<</dialog>>
+<<dialog "dinerWaitress2">>It is sweet. This job could never.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ],
 
-        complaints: [
+        "boredom": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-4.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia sighs loudly into the empty room.<</narrative>>
-<<dialog "dinerWaitress2">>The music in here makes my brain melt. It's the same song from yesterday.<</dialog>>
-<<dialog "player">>It's a radio station.<</dialog>>
-<<dialog "dinerWaitress2">>It's psychological torture. I'm going to turn it off when Emma isn't looking.<</dialog>>
-<<dialog "player">>Emma likes the radio?<</dialog>>
-<<dialog "dinerWaitress2">>She hates it too, but she's afraid of silence. Me? I love silence.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonMorning-2.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia rubs her eyes slowly.<</narrative>>
-<<dialog "dinerWaitress2">>Sleeping for six hours should be illegal. Literally a human rights violation.<</dialog>>
-<<dialog "player">>Went to bed late?<</dialog>>
-<<dialog "dinerWaitress2">>Watching useless videos online. It wasn't even worth it.<</dialog>>
-<<dialog "player">>You'll crash early tonight.<</dialog>>
-<<dialog "dinerWaitress2">>Please don't talk about tonight. I haven't even survived this morning yet.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonMorning-3.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia taps her fingernails on the counter rhythmically.<</narrative>>
-<<dialog "dinerWaitress2">>This place smells like artificial maple syrup and despair.<</dialog>>
-<<dialog "player">>Smells like normal breakfast to me.<</dialog>>
-<<dialog "dinerWaitress2">>That's because you haven't been standing in it for three hours. It sticks to your skin.<</dialog>>
-<<dialog "player">>Could be worse.<</dialog>>
-<<dialog "dinerWaitress2">>I doubt it. I really do.<</dialog>`,
-                friendship: 1, trust: 0
-            }
-        ],
+<<narrative>>Sofia is staring at the clock on the wall, chin resting on both hands.<</narrative>>
 
-        gossip: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonMorning-1.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia leans in slightly, looking toward the kitchen door.<</narrative>>
-<<dialog "dinerWaitress2">>I think James is planning to quit. He brought his own lucky spatula home yesterday.<</dialog>>
-<<dialog "player">>Why don't you just ask him?<</dialog>>
-<<dialog "dinerWaitress2">>Why would I do that? Speculating is way more fun.<</dialog>>
-<<dialog "player">>Fair enough.<</dialog>>
-<<dialog "dinerWaitress2">>Besides, if he leaves, who's going to accidentally burn Vince's bacon?<</dialog>`,
-                friendship: 2, trust: 1
+<<dialog "dinerWaitress2">>I swear that clock is broken. It hasn't moved.<</dialog>>
+<<dialog "player">>It's only two thirty.<</dialog>>
+<<dialog "dinerWaitress2">>Exactly. I've been here since noon and nothing has happened.<</dialog>>
+<<dialog "player">>Isn't that a good thing?<</dialog>>
+<<dialog "dinerWaitress2">>No. Time goes slower when nothing happens. It's science.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-5.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia watches Emma wiping tables from afar.<</narrative>>
-<<dialog "dinerWaitress2">>Emma acts like she owns the place. She cleans even when it's already clean.<</dialog>>
-<<dialog "player">>Someone has to.<</dialog>>
-<<dialog "dinerWaitress2">>She's doing too much. Makes the rest of us look bad. It's aggressively considerate.<</dialog>>
-<<dialog "player">>You're just mad she sets the bar higher than the floor.<</dialog>>
-<<dialog "dinerWaitress2">>_(smirks)_ The floor is comfortable. Let me get back to doing nothing.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia is balancing a pen on her upper lip, staring at the ceiling.<</narrative>>
+
+<<dialog "dinerWaitress2">>Do you ever just stand somewhere and forget why you exist?<</dialog>>
+<<dialog "player">>That's a bit heavy for a Tuesday.<</dialog>>
+<<dialog "dinerWaitress2">>It's not deep. I'm just bored. My brain shuts off after an hour here.<</dialog>>
+<<dialog "player">>Maybe do some tables.<</dialog>>
+<<dialog "dinerWaitress2">>I did one. That's my quota.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-6.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia looks at her phone, then looks up at you.<</narrative>>
-<<dialog "dinerWaitress2">>There's some guy sitting at table four who's been taking selfies for twenty minutes.<</dialog>>
-<<dialog "player">>Maybe he has nice lighting over there.<</dialog>>
-<<dialog "dinerWaitress2">>He doesn't. And he hasn't ordered anything. I'm just watching him slowly realize his angle is awful.<</dialog>>
-<<dialog "player">>Very productive of you.<</dialog>>
-<<dialog "dinerWaitress2">>Highly. It's the highlight of my shift.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Sofia is wiping the same spot on the counter in slow circles, clearly not paying attention.<</narrative>>
+
+<<dialog "dinerWaitress2">>I've been wiping this spot for ten minutes. It's clean. I don't care.<</dialog>>
+<<dialog "player">>Looks like you're pretending to work.<</dialog>>
+<<dialog "dinerWaitress2">>That's literally what I'm doing. Vince walks by, I wipe. He leaves, I stop.<</dialog>>
+<<dialog "player">>Efficient system.<</dialog>>
+<<dialog "dinerWaitress2">>Thank you. I've perfected it.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_common_afternoon: {
+    "dinerRubys_common_evening": {
 
-        lazy: [
+        "wanting_to_leave": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is sitting on a stool by the register, hiding from view.<</narrative>>
-<<dialog "dinerWaitress2">>If I stay perfectly still, maybe Vince will forget I'm clocked in.<</dialog>>
-<<dialog "player">>Like a T-Rex vision strategy?<</dialog>>
-<<dialog "dinerWaitress2">>Exactly. My legs are officially on strike. Tell the world my story.<</dialog>>
-<<dialog "player">>I'll tell Vince you're over here.<</dialog>>
-<<dialog "dinerWaitress2">>_(glares)_ Try it, and I'll end you.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia has her bag already slung over one shoulder, checking her phone near the door.<</narrative>>
+
+<<dialog "dinerWaitress2">>I've got twenty minutes left. I'm counting.<</dialog>>
+<<dialog "player">>Somewhere to be?<</dialog>>
+<<dialog "dinerWaitress2">>Anywhere that isn't here. My couch, maybe. My boyfriend's couch. Any couch.<</dialog>>
+<<dialog "player">>Big plans.<</dialog>>
+<<dialog "dinerWaitress2">>The biggest. Horizontal plans.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia pushes a stray napkin across the counter with one finger.<</narrative>>
-<<dialog "dinerWaitress2">>Gravity feels stronger today. I can barely lift this tray.<</dialog>>
-<<dialog "player">>Take a nap in the breakroom.<</dialog>>
-<<dialog "dinerWaitress2">>Tried it. Emma found me. She's worse than an alarm clock.<</dialog>>
-<<dialog "player">>I guess you're stuck out here.<</dialog>>
-<<dialog "dinerWaitress2">>Tragically. Yes.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia leans against the register, eyes half-closed. The evening light makes her look even more checked out.<</narrative>>
+
+<<dialog "dinerWaitress2">>If one more person orders coffee, I'm walking out.<</dialog>>
+<<dialog "player">>It's a diner. People order coffee.<</dialog>>
+<<dialog "dinerWaitress2">>At this hour? Go home. Drink your own coffee. Leave me alone.<</dialog>>
+<<dialog "player">>You seem ready to clock out.<</dialog>>
+<<dialog "dinerWaitress2">>I was ready at noon.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is staring at the ceiling fan spinning.<</narrative>>
-<<dialog "dinerWaitress2">>I really wish time travel was real. I'd go skip this entire afternoon.<</dialog>>
-<<dialog "player">>Just fast forward?<</dialog>>
-<<dialog "dinerWaitress2">>Right to my couch. With my shoes off. It's a nice thought.<</dialog>>
-<<dialog "player">>Keep dreaming.<</dialog>>
-<<dialog "dinerWaitress2">>I am. Right now.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Sofia is stacking sugar packets into a tiny tower, knocking it over, then rebuilding it.<</narrative>>
+
+<<dialog "dinerWaitress2">>This is what I've been reduced to. Sugar architecture.<</dialog>>
+<<dialog "player">>Creative use of your shift.<</dialog>>
+<<dialog "dinerWaitress2">>I should be home watching something. Instead I'm here, building monuments to boredom.<</dialog>>
+<<dialog "player">>At least it's almost closing.<</dialog>>
+<<dialog "dinerWaitress2">>Almost isn't close enough.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ],
 
-        lunch_drama: [
+        "gossip": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-4.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia examines an ugly smudge on a menu.<</narrative>>
-<<dialog "dinerWaitress2">>I hate the lunch crowd. Everyone is in a rush and rude about it.<</dialog>>
-<<dialog "player">>Did someone yell at you?<</dialog>>
-<<dialog "dinerWaitress2">>No, they just aggressively point at their watches. Let them starve for all I care.<</dialog>>
+<<narrative>>Sofia glances toward the kitchen, then leans in slightly.<</narrative>>
+
+<<dialog "dinerWaitress2">>Jake's been texting someone all evening. He keeps smiling at his phone.<</dialog>>
+<<dialog "player">>Maybe he's just in a good mood.<</dialog>>
+<<dialog "dinerWaitress2">>Nobody's in a good mood here unless there's a reason. I bet it's a girl.<</dialog>>
+<<dialog "player">>Or a funny video.<</dialog>>
+<<dialog "dinerWaitress2">>No. That's a girl-smile. I know the difference. Trust me.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-5.webp">>
+<<image _img "100%">>
+<<narrative>>Sofia watches Emma pass with a tray, then rolls her eyes.<</narrative>>
+
+<<dialog "dinerWaitress2">>Emma acts like she runs this place. She doesn't even have keys.<</dialog>>
+<<dialog "player">>She seems pretty busy, at least.<</dialog>>
+<<dialog "dinerWaitress2">>Being busy isn't a personality. Some of us have actual lives outside this building.<</dialog>>
 <<dialog "player">>Harsh.<</dialog>>
-<<dialog "dinerWaitress2">>Honest. Same thing.<</dialog>`,
-                friendship: 1, trust: 0
+<<dialog "dinerWaitress2">>It's not harsh. It's an observation.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-6.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia fixes her hair, unconcerned by the chaos around her.<</narrative>>
-<<dialog "dinerWaitress2">>James dropped an entire tray of fries during the rush. It was beautiful.<</dialog>>
-<<dialog "player">>You didn't help him clean it up?<</dialog>>
-<<dialog "dinerWaitress2">>Are you kidding? I just watched Emma panic and sweep it up. Pure entertainment.<</dialog>>
-<<dialog "player">>You're terrible.<</dialog>>
-<<dialog "dinerWaitress2">>_(grins)_ I'm preserving my energy.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonAfternoon-3.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia crosses her arms, looking annoyed.<</narrative>>
-<<dialog "dinerWaitress2">>A kid just drew a monster on the table with ketchup. Why do parents let them do that?<</dialog>>
-<<dialog "player">>Kids will be kids.<</dialog>>
-<<dialog "dinerWaitress2">>And I will be the one pretending not to see it until Emma decides to clean it.<</dialog>>
-<<dialog "player">>She's not your maid.<</dialog>>
-<<dialog "dinerWaitress2">>She cleans because she has too much anxiety not to. I'm just supporting her coping mechanism.<</dialog>`,
-                friendship: 1, trust: 0
-            }
-        ],
+<<narrative>>Sofia picks at her nails, glancing at the couple sitting by the window.<</narrative>>
 
-        vince_annoyance: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonAfternoon-1.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia looks toward Vince's office with half-closed eyes.<</narrative>>
-<<dialog "dinerWaitress2">>Vince offered me an extra shift. Again.<</dialog>>
-<<dialog "player">>Did you take it?<</dialog>>
-<<dialog "dinerWaitress2">>I told him I had a family emergency. The emergency is me, needing to lay down.<</dialog>>
-<<dialog "player">>Hope he bought it.<</dialog>>
-<<dialog "dinerWaitress2">>He always does. Or he just doesn't care.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonAfternoon-2.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia leans forward against the counter, whispering exaggeratedly.<</narrative>>
-<<dialog "dinerWaitress2">>Vince has walked past me three times in the last ten minutes.<</dialog>>
-<<dialog "player">>Making sure you're working?<</dialog>>
-<<dialog "dinerWaitress2">>No, just micromanaging my existence. I'm literally doing exactly what I'm supposed to do. Which is nothing.<</dialog>>
-<<dialog "player">>You sure about that?<</dialog>>
-<<dialog "dinerWaitress2">>Very. Now shoo before he lectures both of us.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonAfternoon-3.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia rolls a coin back and forth on the counter.<</narrative>>
-<<dialog "dinerWaitress2">>If Vince tells me to \"smile more\" one more time, I might actually throw this coin at him.<</dialog>>
-<<dialog "player">>It's a diner. Smiling is part of the uniform.<</dialog>>
-<<dialog "dinerWaitress2">>Not at minimum wage. You get a neutral expression at best.<</dialog>>
-<<dialog "player">>Fair deal.<</dialog>>
-<<dialog "dinerWaitress2">>Thank you.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ]
-    },
-
-    dinerRubys_common_evening: {
-
-        phone: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonEvening-1.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia is scrolling on her phone, not looking up when you approach.<</narrative>>
-<<dialog "dinerWaitress2">>If I refresh my feed one more time, my brain might actually turn off.<</dialog>>
-<<dialog "player">>Bored?<</dialog>>
-<<dialog "dinerWaitress2">>Deadly. There hasn't been a new customer in thirty minutes.<</dialog>>
-<<dialog "player">>Enjoy the quiet.<</dialog>>
-<<dialog "dinerWaitress2">>Quiet means time moves slower. It's horrible.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonEvening-2.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia is quickly typing a message, a slight smirk on her face.<</narrative>>
-<<dialog "dinerWaitress2">>Hold on. I'm fighting with someone in the comments.<</dialog>>
-<<dialog "player">>Over what?<</dialog>>
-<<dialog "dinerWaitress2">>Doesn't matter. Just proving them wrong feels good.<</dialog>>
-<<dialog "player">>I'll leave you to it.<</dialog>>
-<<dialog "dinerWaitress2">>_(doesn't answer, just keeps typing)_<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonEvening-3.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia slides her phone into her pocket quickly as she hears a noise.<</narrative>>
-<<dialog "dinerWaitress2">>Ugh, false alarm. Someone just dropped a spoon.<</dialog>>
-<<dialog "player">>Thought it was Vince?<</dialog>>
-<<dialog "dinerWaitress2">>Always assume it's Vince. If he sees me on my phone, he'll actually invent a chore for me to do.<</dialog>>
-<<dialog "player">>Try actually working.<</dialog>>
-<<dialog "dinerWaitress2">>Don't be disgusting.<</dialog>`,
-                friendship: 2, trust: 0
-            }
-        ],
-
-        vince: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonEvening-1.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia is leaning over the counter, arms crossed.<</narrative>>
-<<dialog "dinerWaitress2">>Vince is letting some guys sit in the back corner without ordering anything but coffee.<</dialog>>
-<<dialog "player">>His friends?<</dialog>>
-<<dialog "dinerWaitress2">>If Vince has friends. Probably just guys he owes money to or something.<</dialog>>
-<<dialog "player">>Don't go near them then.<</dialog>>
-<<dialog "dinerWaitress2">>I wasn't planning on it. Emma can serve them.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonEvening-2.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia looks deeply unimpressed.<</narrative>>
-<<dialog "dinerWaitress2">>Vince gave me a \"pep talk\" about upselling desserts. I zoned out halfway through.<</dialog>>
-<<dialog "player">>Did he notice?<</dialog>>
-<<dialog "dinerWaitress2">>Of course not. He loves hearing his own voice too much.<</dialog>>
-<<dialog "player">>Just nod.<</dialog>>
-<<dialog "dinerWaitress2">>Exactly. Just nod and imagine being somewhere else.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonEvening-3.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia plays with a straw wrapper, tearing it into tiny pieces.<</narrative>>
-<<dialog "dinerWaitress2">>Vince has that look today. The 'I'm going to find a reason to yell at someone' look.<</dialog>>
-<<dialog "player">>Stay out of his way.<</dialog>>
-<<dialog "dinerWaitress2">>Oh, I am practically invisible. I'm a ghost. He can't yell at what he can't see.<</dialog>>
-<<dialog "player">>Good luck.<</dialog>>
-<<dialog "dinerWaitress2">>_(tears the paper again)_ Yep.<</dialog>`,
-                friendship: 1, trust: 0
-            }
-        ],
-
-        tips: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonEvening-1.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia is discretely counting crumpled bills under the counter.<</narrative>>
-<<dialog "dinerWaitress2">>This is brutal. Not even ten bucks in tips the whole night.<</dialog>>
-<<dialog "player">>Slow night?<</dialog>>
-<<dialog "dinerWaitress2">>Cheap customers. They sit for hours, use the free wifi, and leave me fifty cents.<</dialog>>
-<<dialog "player">>That sucks.<</dialog>>
-<<dialog "dinerWaitress2">>I'm taking an extra slice of pie home. Vince can write it off as an expense.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonEvening-2.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia looks at a shiny quarter on the edge of the table.<</narrative>>
-<<dialog "dinerWaitress2">>Some guy really left a single quarter as a tip. Should I throw it at him when he walks out?<</dialog>>
-<<dialog "player">>Might get you fired.<</dialog>>
-<<dialog "dinerWaitress2">>Might be worth it. I feel deeply insulted.<</dialog>>
-<<dialog "player">>It's just a quarter.<</dialog>>
-<<dialog "dinerWaitress2">>It's the principle. Whatever.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaCommonEvening-3.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia sighs, stuffing tips into her apron.<</narrative>>
-<<dialog "dinerWaitress2">>If this place just had a mandatory service charge, I wouldn't hate humanity so much.<</dialog>>
-<<dialog "player">>People like deciding what to give.<</dialog>>
-<<dialog "dinerWaitress2">>People like being stingy. Big difference. And I have to fake-smile through it.<</dialog>>
-<<dialog "player">>Almost over.<</dialog>>
-<<dialog "dinerWaitress2">>Thank god.<</dialog>`,
-                friendship: 2, trust: 0
+<<dialog "dinerWaitress2">>That couple's been here for an hour. They haven't talked once.<</dialog>>
+<<dialog "player">>Maybe they're comfortable with silence.<</dialog>>
+<<dialog "dinerWaitress2">>Or they hate each other. My boyfriend and I never shut up.<</dialog>>
+<<dialog "player">>That's one way to look at it.<</dialog>>
+<<dialog "dinerWaitress2">>The only way. Silence is suspicious.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     }
 
 }>>
+<</nobr>>

@@ -1,21 +1,22 @@
 :: mikeTalkDinerRubys
 <<silently>>
-<<set $location = "dinerRubys">>
 <<logDailyActivity "dinerDishwasher" "talk">>
 <<set _char = $characters.dinerDishwasher>>
 <<set _stats = $characters.dinerDishwasher.stats>>
 <<set _level = _stats.friendshipLevel || 1>>
 
-/* Determine phase */
+/* Determine phase — these topic databases are written for the dishwasher role */
 <<set _phase = "common">>
-<<if $jobs && $jobs.diner && $jobs.diner.clockedIn>>
-    <<if $jobs.diner.onBreak>>
-         <<set _phase = "workingOnBreak">>
-    <<else>>
-         <<set _phase = "working">>
+<<if $job && $job.id === "ruby_dishwasher">>
+    <<if $jobs && $jobs.diner && $jobs.diner.clockedIn>>
+        <<if $jobs.diner.onBreak>>
+             <<set _phase = "dishwasherOnBreak">>
+        <<else>>
+             <<set _phase = "working">>
+        <</if>>
+    <<elseif $jobs && $jobs.diner && $jobs.diner.shiftCompletedToday>>
+        <<set _phase = "dishwasherDone">>
     <</if>>
-<<elseif $jobs && $jobs.diner && $jobs.diner.shiftCompletedToday>>
-    <<set _phase = "workingDone">>
 <</if>>
 
 /* Determine time slot */
@@ -32,7 +33,7 @@
 <<set _levelKey = "level" + _level>>
 <<set _topicPool = null>>
 
-<<set _ctxKey = "dinerRubys_" + _phase + "_" + _timeSlot>>
+<<set _ctxKey = $location + "_" + _phase + "_" + _timeSlot>>
 
 <<if setup.mikeTopics && setup.mikeTopics[_phase] && setup.mikeTopics[_phase][_levelKey] && setup.mikeTopics[_phase][_levelKey][_ctxKey]>>
     <<set _topicPool = setup.mikeTopics[_phase][_levelKey][_ctxKey]>>
@@ -40,8 +41,9 @@
 
 /* Fallback to common afternoon if missing */
 <<if !_topicPool>>
-    <<if setup.mikeTopics && setup.mikeTopics.common && setup.mikeTopics.common[_levelKey] && setup.mikeTopics.common[_levelKey].dinerRubys_common_afternoon>>
-        <<set _topicPool = setup.mikeTopics.common[_levelKey].dinerRubys_common_afternoon>>
+    <<set _fallbackKey = $location + "_common_" + _timeSlot>>
+    <<if setup.mikeTopics && setup.mikeTopics.common && setup.mikeTopics.common[_levelKey] && setup.mikeTopics.common[_levelKey][_fallbackKey]>>
+        <<set _topicPool = setup.mikeTopics.common[_levelKey][_fallbackKey]>>
     <</if>>
 <</if>>
 

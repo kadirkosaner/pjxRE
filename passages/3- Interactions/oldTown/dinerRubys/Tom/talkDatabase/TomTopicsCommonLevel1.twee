@@ -1,357 +1,170 @@
-/* ==========================================
-   TOM TALK TOPICS — COMMON PHASE, LEVEL 1
-   phase === "common" && friendshipLevel === 1
-
-   CHARACTER: Tom Reese, Clerk at Ruby's Diner
-   → Friendly, energetic, warm.
-   → Busy but always has time for a quick smile or advice.
-   → Protective older-brother vibe.
-
-   COMMON L1 TONE:
-   → Player has no job, just dropped by.
-   → Tom is taking orders but makes time to chat nicely.
-
-   CONTEXTS:
-   dinerRubys_common_morning
-   dinerRubys_common_afternoon
-   dinerRubys_common_evening
-========================================== */
-
+:: TomTopicsCommonLevel1
+<<nobr>>
 <<set setup.tomTopics = setup.tomTopics || {}>>
 <<set setup.tomTopics.common = setup.tomTopics.common || {}>>
 <<set setup.tomTopics.common.level1 = {
 
-    dinerRubys_common_morning: {
+    "dinerRubys_common_morning": {
 
-        morning_greeting: [
+        "neighborhood_talk": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>Tom looks up from wiping the counter with a bright, genuine smile.<</narrative>>
-<<dialog "charClerkTom">>Morning! You're up early today. Grab a seat wherever, it's pretty open.<</dialog>>
-<<dialog "player">>Morning, Tom.<</dialog>>
-<<dialog "charClerkTom">>Need a coffee to jumpstart the engine? I'm brewing a fresh pot right now.<</dialog>>
-<<dialog "player">>Sounds good.<</dialog>>
-<<dialog "charClerkTom">>Coming right up. Make yourself comfortable.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom is sorting receipts behind the register, glancing up as you approach.<</narrative>>
+
+<<dialog "dinerClerk">>Morning. You from around here?<</dialog>>
+<<dialog "player">>Yeah, just down the road actually.<</dialog>>
+<<dialog "dinerClerk">>Thought I recognized you. Small neighborhood.<</dialog>>
+<<dialog "player">>Gets smaller every day.<</dialog>>
+<<dialog "dinerClerk">>That's the charm of it.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>Tom is quickly organizing a stack of menus as you walk in.<</narrative>>
-<<dialog "charClerkTom">>Hey there. Beat the morning rush, smart move.<</dialog>>
-<<dialog "player">>Is it about to get busy?<</dialog>>
-<<dialog "charClerkTom">>Any minute now the construction guys from down the street will flood in here. Enjoy the quiet while you can.<</dialog>>
-<<dialog "player">>Thanks for the warning.<</dialog>>
-<<dialog "charClerkTom">>Got your back.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Tom leans on the counter, watching the street through the front window.<</narrative>>
+
+<<dialog "dinerClerk">>They're fixing the sidewalk on Maple again.<</dialog>>
+<<dialog "player">>Didn't they just do that last year?<</dialog>>
+<<dialog "dinerClerk">>Yep. Cracked right through the winter.<</dialog>>
+<<dialog "player">>Tax dollars hard at work.<</dialog>>
+<<dialog "dinerClerk">>At least it gives us something to talk about.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>Tom leans over the register with a friendly nod.<</narrative>>
-<<dialog "charClerkTom">>Good to see you. You look like you need breakfast.<</dialog>>
-<<dialog "player">>I'm just stopping by.<</dialog>>
-<<dialog "charClerkTom">>Even if you're not eating, smelling the bacon is free. It's the best part of the morning.<</dialog>>
-<<dialog "player">>It does smell good.<</dialog>>
-<<dialog "charClerkTom">>Doesn't it? Let me know if you change your mind.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom straightens a stack of menus near the register, nodding to you.<</narrative>>
+
+<<dialog "dinerClerk">>New bakery opened two blocks down. Seen it?<</dialog>>
+<<dialog "player">>The one with the green awning?<</dialog>>
+<<dialog "dinerClerk">>That's the one. Haven't tried it yet.<</dialog>>
+<<dialog "player">>Might be worth checking out.<</dialog>>
+<<dialog "dinerClerk">>If their coffee's good, I'm in trouble.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ],
 
-        prep_work: [
+        "regulars_chat": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-4.webp">>
 <<image _img "100%">>
-<<narrative>>Tom is filling sugar dispensers rapidly.<</narrative>>
-<<dialog "charClerkTom">>Sorry if I'm a little scattered, I'm trying to outrun Vince's morning inspection.<</dialog>>
-<<dialog "player">>Is he strict about sugar?<</dialog>>
-<<dialog "charClerkTom">>He's strict about breathing. If these aren't full, he'll give me a twenty-minute speech on details.<</dialog>>
-<<dialog "player">>Good luck with that.<</dialog>>
-<<dialog "charClerkTom">>Thanks. I need it.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonMorning-2.webp">>
-<<image _img "100%">>
-<<narrative>>Tom drops a handful of silverware into a bin with a loud clatter.<</narrative>>
-<<dialog "charClerkTom">>Whoops. A little too much force there. Morning jitters.<</dialog>>
-<<dialog "player">>Too much coffee?<</dialog>>
-<<dialog "charClerkTom">>Four cups. It's the only way I survive James yelling from the kitchen.<</dialog>>
-<<dialog "player">>Pace yourself.<</dialog>>
-<<dialog "charClerkTom">>I'll sleep when my shift is over.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonMorning-3.webp">>
-<<image _img "100%">>
-<<narrative>>Tom points a wiping rag at you like a wand.<</narrative>>
-<<dialog "charClerkTom">>If you know anyone who likes rolling silverware in napkins, tell them I have a very exciting unpaid opportunity.<</dialog>>
-<<dialog "player">>I'll keep an ear out.<</dialog>>
-<<dialog "charClerkTom">>I have to do two hundred of these before noon. Wish me a miracle.<</dialog>>
-<<dialog "player">>You can do it.<</dialog>>
-<<dialog "charClerkTom">>_(grins)_ That's the positivity I needed.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ],
+<<narrative>>Tom tops off a coffee mug for the old man at the counter, then turns to you.<</narrative>>
 
-        menu_tip: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonMorning-1.webp">>
-<<image _img "100%">>
-<<narrative>>Tom slides a menu toward you and taps the corner.<</narrative>>
-<<dialog "charClerkTom">>Don't order the hashbrowns today. The fryer is acting weird. Get the home fries instead.<</dialog>>
-<<dialog "player">>Thanks for the heads up.<</dialog>>
-<<dialog "charClerkTom">>No problem. I can't officially say that, but I look out for my people.<</dialog>>
-<<dialog "player">>I'll keep it a secret.<</dialog>>
-<<dialog "charClerkTom">>My guy.<</dialog>`,
-                friendship: 2, trust: 1
+<<dialog "dinerClerk">>That guy's been coming here since before me.<</dialog>>
+<<dialog "player">>How long have you been here?<</dialog>>
+<<dialog "dinerClerk">>Going on five years now.<</dialog>>
+<<dialog "player">>That's a good run.<</dialog>>
+<<dialog "dinerClerk">>He's got me beat by about twenty.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-5.webp">>
 <<image _img "100%">>
-<<narrative>>Tom leans in slightly with a warm expression.<</narrative>>
-<<dialog "charClerkTom">>Hey, if you get pancakes, ask Emma to steal some extra strawberries from the back for you.<</dialog>>
-<<dialog "player">>Will she do it?<</dialog>>
-<<dialog "charClerkTom">>If you ask nicely, yeah. She acts tough but she's soft on polite customers.<</dialog>>
-<<dialog "player">>I'll try my luck.<</dialog>>
-<<dialog "charClerkTom">>It's a guaranteed win.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Tom slides a plate down the counter to a waiting customer, smooth and practiced.<</narrative>>
+
+<<dialog "dinerClerk">>Mornings are mostly regulars. Easier that way.<</dialog>>
+<<dialog "player">>You know everyone's order by heart?<</dialog>>
+<<dialog "dinerClerk">>The usuals, yeah. Saves time.<</dialog>>
+<<dialog "player">>That's kind of impressive.<</dialog>>
+<<dialog "dinerClerk">>It's just repetition. Nothing fancy.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-6.webp">>
 <<image _img "100%">>
-<<narrative>>Tom gestures to a small chalkboard sign.<</narrative>>
-<<dialog "charClerkTom">>Vince's 'morning special' is just yesterday's muffins heated up. Don't fall for it.<</dialog>>
-<<dialog "player">>Wow. Good to know.<</dialog>>
-<<dialog "charClerkTom">>I couldn't let you spend your money on a rock-hard blueberry muffin. I have a conscience.<</dialog>>
-<<dialog "player">>You're a lifesaver.<</dialog>>
-<<dialog "charClerkTom">>Just doing my civic duty.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom wipes the counter in a slow circle, watching the morning crowd settle in.<</narrative>>
+
+<<dialog "dinerClerk">>See the lady by the window? Comes every Tuesday.<</dialog>>
+<<dialog "player">>Always the same spot?<</dialog>>
+<<dialog "dinerClerk">>Same spot, same order. Pancakes and black coffee.<</dialog>>
+<<dialog "player">>Creature of habit.<</dialog>>
+<<dialog "dinerClerk">>Aren't we all.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_common_afternoon: {
+    "dinerRubys_common_afternoon": {
 
-        lunch_rush: [
+        "diner_history": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>Tom looks slightly flushed, juggling two plates and a notepad.<</narrative>>
-<<dialog "charClerkTom">>Hey! Give me one second, it's absolute madness in here right now.<</dialog>>
-<<dialog "player">>Take your time.<</dialog>>
-<<dialog "charClerkTom">>I'll be right with you. Just trying not to drop a burger on a baby.<</dialog>>
-<<dialog "player">>Important goal.<</dialog>>
-<<dialog "charClerkTom">>Very.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Tom is refilling the napkin dispensers, moving down the counter methodically.<</narrative>>
+
+<<dialog "dinerClerk">>This place has been here since the sixties.<</dialog>>
+<<dialog "player">>Really? It holds up pretty well.<</dialog>>
+<<dialog "dinerClerk">>Vince keeps it running. Won't let anything fall apart.<</dialog>>
+<<dialog "player">>He seems like that kind of guy.<</dialog>>
+<<dialog "dinerClerk">>You have no idea.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>Tom slides past a customer smoothly, giving you a quick nod.<</narrative>>
-<<dialog "charClerkTom">>We are slammed today. You might want to grab that corner booth before someone steals it.<</dialog>>
-<<dialog "player">>Will do.<</dialog>>
-<<dialog "charClerkTom">>I'll send Emma over with water soon as I can grab a pitcher. Hang tight.<</dialog>>
-<<dialog "player">>No rush.<</dialog>>
-<<dialog "charClerkTom">>Appreciate the patience.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom taps the old jukebox near the door as he passes it. It flickers but doesn't turn on.<</narrative>>
+
+<<dialog "dinerClerk">>That thing hasn't worked in years.<</dialog>>
+<<dialog "player">>Why keep it around then?<</dialog>>
+<<dialog "dinerClerk">>Vince says it's part of the character.<</dialog>>
+<<dialog "player">>Can't argue with that.<</dialog>>
+<<dialog "dinerClerk">>I've learned not to argue with Vince in general.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>Tom wipes a hand across his forehead with a small, exhausted smile.<</narrative>>
-<<dialog "charClerkTom">>If I ever decide to open a restaurant, please politely talk me out of it.<</dialog>>
-<<dialog "player">>It looks stressful.<</dialog>>
-<<dialog "charClerkTom">>It's like playing a sport but everyone is yelling at the referee. And the referee is making milkshakes.<</dialog>>
-<<dialog "player">>Keep your head up.<</dialog>>
-<<dialog "charClerkTom">>Trying to.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom leans against the register, arms loosely crossed, during a quiet spell.<</narrative>>
+
+<<dialog "dinerClerk">>Used to be a hardware store next door. Before my time.<</dialog>>
+<<dialog "player">>What happened to it?<</dialog>>
+<<dialog "dinerClerk">>Closed up. Now it's a laundromat.<</dialog>>
+<<dialog "player">>The neighborhood changes, huh.<</dialog>>
+<<dialog "dinerClerk">>Slowly. This place stays the same though.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ],
 
-        quick_breath: [
+        "small_talk": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-4.webp">>
 <<image _img "100%">>
-<<narrative>>Tom is leaning against the iced tea machine, eyes closed for a second.<</narrative>>
-<<dialog "charClerkTom">>Oh, hey. Just recharging my batteries for ten seconds.<</dialog>>
-<<dialog "player">>Don't let me stop you.<</dialog>>
-<<dialog "charClerkTom">>Ten seconds is all I get before Vince magically materializes to yell at me anyway. How are you doing?<</dialog>>
-<<dialog "player">>Better than you, apparently.<</dialog>>
-<<dialog "charClerkTom">>_(laughs)_ Yeah, definitely.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonAfternoon-2.webp">>
-<<image _img "100%">>
-<<narrative>>Tom takes a huge gulp of water from a plastic cup.<</narrative>>
-<<dialog "charClerkTom">>I've talked so much today my throat feels like sandpaper.<</dialog>>
-<<dialog "player">>Lots of customers?<</dialog>>
-<<dialog "charClerkTom">>Lots of very complicated orders. \"I want a cheeseburger but no cheese and no bun.\" It hurts my brain.<</dialog>>
-<<dialog "player">>People are weird.<</dialog>>
-<<dialog "charClerkTom">>You're telling me. Glad you're normal.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonAfternoon-3.webp">>
-<<image _img "100%">>
-<<narrative>>Tom leans on the counter, looking out the window for a moment.<</narrative>>
-<<dialog "charClerkTom">>Quiet moments in here are rare, but when they happen, they're nice.<</dialog>>
-<<dialog "player">>Looks peaceful.<</dialog>>
-<<dialog "charClerkTom">>It won't last. The high school kids get out in twenty minutes and then it's chaos again.<</dialog>>
-<<dialog "player">>Brace yourself.<</dialog>>
-<<dialog "charClerkTom">>I'm ready. I think.<</dialog>`,
-                friendship: 1, trust: 0
-            }
-        ],
+<<narrative>>Tom is wiping down the counter, working around a half-empty coffee pot.<</narrative>>
 
-        friendly_advice: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonAfternoon-1.webp">>
-<<image _img "100%">>
-<<narrative>>Tom turns to you with a slightly serious, older-brother expression.<</narrative>>
-<<dialog "charClerkTom">>You're in here a lot. You ever think about asking for a job or something?<</dialog>>
-<<dialog "player">>I don't know.<</dialog>>
-<<dialog "charClerkTom">>I mean, it's hard work, but the tips aren't completely awful. Think about it if you need cash.<</dialog>>
-<<dialog "player">>I might.<</dialog>>
-<<dialog "charClerkTom">>I can put in a good word. Or a warning. Depends on how you look at it.<</dialog>`,
-                friendship: 2, trust: 1
+<<dialog "dinerClerk">>Afternoon slump. Want some coffee?<</dialog>>
+<<dialog "player">>Is it fresh or has it been sitting?<</dialog>>
+<<dialog "dinerClerk">>Honest answer? It's been a while.<</dialog>>
+<<dialog "player">>I'll take my chances.<</dialog>>
+<<dialog "dinerClerk">>Brave. I respect that.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-5.webp">>
 <<image _img "100%">>
-<<narrative>>Tom motions for you to step a bit to the side.<</narrative>>
-<<dialog "charClerkTom">>Watch your step right here, somebody spilled iced tea and Sofia did a terrible job mopping it.<</dialog>>
-<<dialog "player">>Thanks.<</dialog>>
-<<dialog "charClerkTom">>Don't want you slipping in the middle of the dining room. Very embarrassing.<</dialog>>
-<<dialog "player">>Very.<</dialog>>
-<<dialog "charClerkTom">>Just looking out.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonAfternoon-3.webp">>
-<<image _img "100%">>
-<<narrative>>Tom gives you an encouraging nod.<</narrative>>
-<<dialog "charClerkTom">>You look a little tired. Everything alright out there in the real world?<</dialog>>
-<<dialog "player">>Just keeping busy.<</dialog>>
-<<dialog "charClerkTom">>Don't burn yourself out. Have a milkshake. Sit down. You rush around too much.<</dialog>>
-<<dialog "player">>Easier said than done.<</dialog>>
-<<dialog "charClerkTom">>I know. But someone has to say it to you.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ]
-    },
+<<narrative>>Tom adjusts the specials board behind him, erasing a smudged word.<</narrative>>
 
-    dinerRubys_common_evening: {
+<<dialog "dinerClerk">>Quiet afternoon. I'm not complaining.<</dialog>>
+<<dialog "player">>Enjoy it while it lasts?<</dialog>>
+<<dialog "dinerClerk">>Exactly. Dinner rush hits and it's chaos.<</dialog>>
+<<dialog "player">>Sounds like a different place entirely.<</dialog>>
+<<dialog "dinerClerk">>Same place, different speed.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-6.webp">>
+<<image _img "100%">>
+<<narrative>>Tom sorts through a handful of coins from the tip jar, stacking them neatly.<</narrative>>
 
-        evening_lull: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonEvening-1.webp">>
-<<image _img "100%">>
-<<narrative>>Tom is slowly wiping a coffee mug with a towel.<</narrative>>
-<<dialog "charClerkTom">>Evenings are completely different here. It's almost relaxing. Almost.<</dialog>>
-<<dialog "player">>It definitely feels slower.<</dialog>>
-<<dialog "charClerkTom">>The lighting gets warmer, nobody is screaming about hashbrowns... it's the best shift.<</dialog>>
-<<dialog "player">>I can see why you like it.<</dialog>>
-<<dialog "charClerkTom">>Yeah. Good vibes.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonEvening-2.webp">>
-<<image _img "100%">>
-<<narrative>>Tom leans onto his elbows behind the counter.<</narrative>>
-<<dialog "charClerkTom">>I love when it rains in the evening. Gives everyone an excuse to just sit and stare out the window.<</dialog>>
-<<dialog "player">>It's very relaxing.<</dialog>>
-<<dialog "charClerkTom">>Makes me feel like I'm in a movie playing a wise bartender. Except I serve milkshakes.<</dialog>>
-<<dialog "player">>Still wise.<</dialog>>
-<<dialog "charClerkTom">>I try.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonEvening-3.webp">>
-<<image _img "100%">>
-<<narrative>>Tom stretches his arms above his head quietly.<</narrative>>
-<<dialog "charClerkTom">>Three hours to go. Time starts crawling right around now.<</dialog>>
-<<dialog "player">>Need some entertainment?<</dialog>>
-<<dialog "charClerkTom">>Having you drop by helps. Breaks the monotony. Talk to me about something completely unrelated to food.<</dialog>>
-<<dialog "player">>The weather?<</dialog>>
-<<dialog "charClerkTom">>_(laughs)_ Perfect. Very exciting.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ],
-
-        manager_warning: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonEvening-1.webp">>
-<<image _img "100%">>
-<<narrative>>Tom leans in close, checking his surroundings.<</narrative>>
-<<dialog "charClerkTom">>Just a heads up, Vince is in a foul mood tonight. Stay out of his eyeline.<</dialog>>
-<<dialog "player">>Is he usually angry?<</dialog>>
-<<dialog "charClerkTom">>He's always something. Tonight he's stressed about numbers. Just keep your head down.<</dialog>>
-<<dialog "player">>Got it.<</dialog>>
-<<dialog "charClerkTom">>Good. Keep yourself safe.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonEvening-2.webp">>
-<<image _img "100%">>
-<<narrative>>Tom points discreetly at the office cracked door.<</narrative>>
-<<dialog "charClerkTom">>If Vince comes out and tries to talk to you, just nod and agree with whatever he says. Don't argue.<</dialog>>
-<<dialog "player">>Why?<</dialog>>
-<<dialog "charClerkTom">>He sees an argument as a challenge. You don't want to be a challenge to him. Trust me.<</dialog>>
-<<dialog "player">>Okay.<</dialog>>
-<<dialog "charClerkTom">>I've seen it end badly for employees. Just friendly advice.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonEvening-3.webp">>
-<<image _img "100%">>
-<<narrative>>Tom wipes a table with a tight expression.<</narrative>>
-<<dialog "charClerkTom">>Vince has been watching the tables like a hawk tonight. Try to buy at least a coffee if you sit.<</dialog>>
-<<dialog "player">>Does he care that much?<</dialog>>
-<<dialog "charClerkTom">>He cares about every single seat in this diner. I can grab you an old receipt if he asks.<</dialog>>
-<<dialog "player">>Thanks, Tom.<</dialog>>
-<<dialog "charClerkTom">>Anytime.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ],
-
-        closing_time: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonEvening-1.webp">>
-<<image _img "100%">>
-<<narrative>>Tom turns around a 'Closed' sign behind the counter.<</narrative>>
-<<dialog "charClerkTom">>We are officially locking down in twenty. So if you crave a burger, speak now or forever hold your peace.<</dialog>>
-<<dialog "player">>I'm full.<</dialog>>
-<<dialog "charClerkTom">>Awesome. Because the grill is already off and James was gonna cry if I fired it back up.<</dialog>>
-<<dialog "player">>I saved his night.<</dialog>>
-<<dialog "charClerkTom">>You're a hero.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonEvening-2.webp">>
-<<image _img "100%">>
-<<narrative>>Tom shakes a large ring of keys.<</narrative>>
-<<dialog "charClerkTom">>Hear that sound? Sounds like freedom. Music to my tired ears.<</dialog>>
-<<dialog "player">>You locking up?<</dialog>>
-<<dialog "charClerkTom">>Me and Vince. But mostly me while Vince watches to make sure I do it right.<</dialog>>
-<<dialog "player">>Have a good night.<</dialog>>
-<<dialog "charClerkTom">>You too. Be safe walking.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomCommonEvening-3.webp">>
-<<image _img "100%">>
-<<narrative>>Tom has his jacket already slung over his shoulder.<</narrative>>
-<<dialog "charClerkTom">>I am walking straight to my bed and collapsing face-first into the mattress.<</dialog>>
-<<dialog "player">>Sounds like an incredible plan.<</dialog>>
-<<dialog "charClerkTom">>It's the only plan. Rest up yourself. See you next time.<</dialog>>
-<<dialog "player">>Take care, Tom.<</dialog>>
-<<dialog "charClerkTom">>Always.<</dialog>`,
-                friendship: 2, trust: 0
+<<dialog "dinerClerk">>Weather's supposed to be nice this weekend.<</dialog>>
+<<dialog "player">>Yeah? Got any plans for it?<</dialog>>
+<<dialog "dinerClerk">>Maybe. Nothing locked in yet.<</dialog>>
+<<dialog "player">>Keeping your options open.<</dialog>>
+<<dialog "dinerClerk">>That's the smart move.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     }
 
 }>>
+<</nobr>>

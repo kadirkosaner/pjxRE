@@ -1,357 +1,251 @@
-/* ==========================================
-   TOM TALK TOPICS — WORKING ON BREAK PHASE, LEVEL 1
-   phase === "working.onBreak" && friendshipLevel === 1
-
-   CHARACTER: Tom Reese, Clerk at Ruby's Diner
-   → Friendly coworker, supportive.
-   → Looks out for you, gives you breaks from the dish pit.
-   → Hides you from Vince's wrath.
-
-   WORKING ON BREAK L1 TONE:
-   → Player is dishwasher on break.
-   → Tom treats them like a teammate in the trenches.
-
-   CONTEXTS:
-   dinerRubys_workingOnBreak_morning
-   dinerRubys_workingOnBreak_afternoon
-   dinerRubys_workingOnBreak_evening
-========================================== */
-
+:: TomTopicsDishwasherOnBreakLevel1
+<<nobr>>
 <<set setup.tomTopics = setup.tomTopics || {}>>
-<<set setup.tomTopics.workingOnBreak = setup.tomTopics.workingOnBreak || {}>>
-<<set setup.tomTopics.workingOnBreak.level1 = {
+<<set setup.tomTopics.dishwasherOnBreak = setup.tomTopics.dishwasherOnBreak || {}>>
+<<set setup.tomTopics.dishwasherOnBreak.level1 = {
 
-    dinerRubys_workingOnBreak_morning: {
+    "dinerRubys_dishwasherOnBreak_morning": {
 
-        dish_check: [
+        "girlfriend_mention": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>Tom glances nervously toward the back kitchen.<</narrative>>
-<<dialog "charClerkTom">>Are the prep plates caught up? James was throwing a fit about bowls earlier.<</dialog>>
-<<dialog "player">>I scrubbed them all.<</dialog>>
-<<dialog "charClerkTom">>You're a lifesaver. He yelled at me twice for not finding him a green bowl fast enough.<</dialog>>
-<<dialog "player">>Take a breath.<</dialog>>
-<<dialog "charClerkTom">>Trying to.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom leans on the register, checking his phone for a second before putting it away.<</narrative>>
+
+<<dialog "dinerClerk">>My girlfriend texted. Wants dinner plans.<</dialog>>
+<<dialog "player">>Already thinking about dinner at nine AM?<</dialog>>
+<<dialog "dinerClerk">>She's a planner. I just go along with it.<</dialog>>
+<<dialog "player">>Smart strategy.<</dialog>>
+<<dialog "dinerClerk">>Years of practice.<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>Tom is holding a handful of wet silverware he just pulled from the rack.<</narrative>>
-<<dialog "charClerkTom">>Sorry, had to steal these directly from the drying rack. We're completely out of forks out here.<</dialog>>
-<<dialog "player">>They're burning hot.<</dialog>>
-<<dialog "charClerkTom">>I know, I feel like I'm carrying coals. Thanks for washing them fast though.<</dialog>>
-<<dialog "player">>No problem.<</dialog>>
-<<dialog "charClerkTom">>I owe you.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom is organizing sugar packets in the caddy, sorting by color.<</narrative>>
+
+<<dialog "dinerClerk">>My girlfriend tried making waffles yesterday. Smoke alarm went off.<</dialog>>
+<<dialog "player">>Was she okay?<</dialog>>
+<<dialog "dinerClerk">>Fine. The waffles weren't though.<</dialog>>
+<<dialog "player">>At least she tried.<</dialog>>
+<<dialog "dinerClerk">>That's what I told her. She didn't buy it.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>Tom nods toward the front counter with a sympathetic look.<</narrative>>
-<<dialog "charClerkTom">>I see you dealing with that mountain of grease back there. You surviving?<</dialog>>
-<<dialog "player">>Barely.<</dialog>>
-<<dialog "charClerkTom">>Take your full break. If Emma asks where you are, I'll tell her you're taking out trash.<</dialog>>
-<<dialog "player">>I appreciate the cover.<</dialog>>
-<<dialog "charClerkTom">>Teammates gotta look out for each other.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom refills a ketchup bottle, squeezing one into another with practiced ease.<</narrative>>
+
+<<dialog "dinerClerk">>Promised I'd pick up groceries after shift.<</dialog>>
+<<dialog "player">>Big shopping trip?<</dialog>>
+<<dialog "dinerClerk">>She sent a list. It's long.<</dialog>>
+<<dialog "player">>Good luck with that.<</dialog>>
+<<dialog "dinerClerk">>I'll need it. She's very specific about brands.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             }
         ],
 
-        water_break: [
+        "coffee_talk": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-4.webp">>
 <<image _img "100%">>
-<<narrative>>Tom hands you a large plastic cup full of ice water before you even ask.<</narrative>>
-<<dialog "charClerkTom">>Drink. You look like you just walked out of a sauna back there.<</dialog>>
-<<dialog "player">>The dishwasher is basically a sauna.<</dialog>>
-<<dialog "charClerkTom">>I figured. Hydrate before Vince finds you sitting still.<</dialog>>
-<<dialog "player">>Good looking out.<</dialog>>
-<<dialog "charClerkTom">>Gotta keep my dishwasher alive.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakMorning-2.webp">>
-<<image _img "100%">>
-<<narrative>>Tom is wiping the ice machine with a damp towel.<</narrative>>
-<<dialog "charClerkTom">>If you want a soda instead of water, just fill it in a dark cup. Vince assumes it's iced tea.<</dialog>>
-<<dialog "player">>Is that allowed?<</dialog>>
-<<dialog "charClerkTom">>Allowed? No. Necessary for survival at minimum wage? Absolutely.<</dialog>>
-<<dialog "player">>I won't tell.<</dialog>>
-<<dialog "charClerkTom">>Knew I could trust you.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakMorning-3.webp">>
-<<image _img "100%">>
-<<narrative>>Tom is taking a quick sip from his own water bottle hidden under the counter.<</narrative>>
-<<dialog "charClerkTom">>The heat up front is bad, but the kitchen gets brutal. Make sure you don't lock your knees standing there.<</dialog>>
-<<dialog "player">>I'm used to standing.<</dialog>>
-<<dialog "charClerkTom">>Just remind yourself to stretch. I forgot my first week and I felt it for a month.<</dialog>>
-<<dialog "player">>Thanks, Tom.<</dialog>>
-<<dialog "charClerkTom">>Anytime.<</dialog>`,
-                friendship: 2, trust: 0
-            }
-        ],
+<<narrative>>Tom pours himself a quick half-cup of coffee behind the counter.<</narrative>>
 
-        vince_alert: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakMorning-1.webp">>
-<<image _img "100%">>
-<<narrative>>Tom kicks the side of your foot lightly under the counter to get your attention.<</narrative>>
-<<dialog "charClerkTom">>Heads up, Vince is walking up and down the aisles looking for something to yell about.<</dialog>>
-<<dialog "player">>I'm just resting.<</dialog>>
-<<dialog "charClerkTom">>Grab a towel anyway. If you have a towel in your hand, he thinks you're returning to work. Works every time.<</dialog>>
-<<dialog "player">>Good trick.<</dialog>>
-<<dialog "charClerkTom">>It's a seasoned veteran move.<</dialog>`,
-                friendship: 2, trust: 1
+<<dialog "dinerClerk">>Third cup today. Might be a record.<</dialog>>
+<<dialog "player">>It's not even ten yet.<</dialog>>
+<<dialog "dinerClerk">>Mornings hit different when you're up at five.<</dialog>>
+<<dialog "player">>Five? That's brutal.<</dialog>>
+<<dialog "dinerClerk">>You get used to it. Mostly.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-5.webp">>
 <<image _img "100%">>
-<<narrative>>Tom subtly points with a pen over his shoulder toward the office.<</narrative>>
-<<dialog "charClerkTom">>He's doing inventory right now. You're safe to sit in the blind spot near the coffee machine.<</dialog>>
-<<dialog "player">>You've memorized his patterns.<</dialog>>
-<<dialog "charClerkTom">>It is a primary survival skill in this diner. I can map his steps with my eyes closed.<</dialog>>
-<<dialog "player">>Impressive.<</dialog>>
-<<dialog "charClerkTom">>Mostly tragic. Get resting.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom holds his coffee mug with both hands, warming his fingers.<</narrative>>
+
+<<dialog "dinerClerk">>You a coffee person or tea?<</dialog>>
+<<dialog "player">>Coffee, definitely. Can't function without it.<</dialog>>
+<<dialog "dinerClerk">>Same here. We go through pots fast around here.<</dialog>>
+<<dialog "player">>I believe it.<</dialog>>
+<<dialog "dinerClerk">>Help yourself anytime. Perk of the job.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-6.webp">>
 <<image _img "100%">>
-<<narrative>>Tom acts very busy folding napkins as Vince walks by in the background.<</narrative>>
-<<dialog "charClerkTom">>_(whispering quietly)_ Don't turn around. Just act like we're discussing napkin architecture.<</dialog>>
-<<dialog "player">>What about it?<</dialog>>
-<<dialog "charClerkTom">>The structural integrity of paper. Very serious. Keep looking down.<</dialog>>
-<<dialog "player">>Alright, architect.<</dialog>>
-<<dialog "charClerkTom">>He's gone. See? Flawless execution.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom takes a sip of coffee and winces slightly.<</narrative>>
+
+<<dialog "dinerClerk">>I let that sit too long. It's bitter.<</dialog>>
+<<dialog "player">>Pour it out and make a new one?<</dialog>>
+<<dialog "dinerClerk">>Can't waste it. That's a Vince rule.<</dialog>>
+<<dialog "player">>He has a rule about coffee?<</dialog>>
+<<dialog "dinerClerk">>He has a rule about everything.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingOnBreak_afternoon: {
+    "dinerRubys_dishwasherOnBreak_afternoon": {
 
-        surviving_rush: [
+        "weekend_plans": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>Tom leans back, taking a deep, shuddering breath.<</narrative>>
-<<dialog "charClerkTom">>We did it. We survived the rush. Honestly didn't think we'd make it around one o'clock.<</dialog>>
-<<dialog "player">>It was insane.<</dialog>>
-<<dialog "charClerkTom">>I had three people yelling at me about mayonnaise at the same time. The psychological damage is real.<</dialog>>
-<<dialog "player">>I'll wash an extra plate for your trauma.<</dialog>>
-<<dialog "charClerkTom">>You're a true friend.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom wipes his hands on his apron, leaning back against the counter during a lull.<</narrative>>
+
+<<dialog "dinerClerk">>Got any weekend plans?<</dialog>>
+<<dialog "player">>Not really. Maybe just hang around.<</dialog>>
+<<dialog "dinerClerk">>Same. Low-key weekends are underrated.<</dialog>>
+<<dialog "player">>Agreed. No pressure that way.<</dialog>>
+<<dialog "dinerClerk">>Exactly how I like it.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>Tom holds up a completely filled notepad page.<</narrative>>
-<<dialog "charClerkTom">>Look at this. Not a single error in forty orders. I feel like a god of fast food today.<</dialog>>
-<<dialog "player">>James didn't complain?<</dialog>>
-<<dialog "charClerkTom">>He complained, but about general existence. Not about me. That's a huge victory.<</dialog>>
-<<dialog "player">>Take the win.<</dialog>>
-<<dialog "charClerkTom">>I'm taking it straight to the bank. Or my mattress.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom glances at the clock above the door, then back at you.<</narrative>>
+
+<<dialog "dinerClerk">>Thinking about catching a movie this weekend.<</dialog>>
+<<dialog "player">>Anything good out right now?<</dialog>>
+<<dialog "dinerClerk">>No idea. That's half the fun though.<</dialog>>
+<<dialog "player">>Just pick whatever's playing?<</dialog>>
+<<dialog "dinerClerk">>Works every time. Low expectations, high reward.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>Tom looks at you with a shared understanding of exhaustion.<</narrative>>
-<<dialog "charClerkTom">>Your entire shirt is soaked from the washers. You held the line well today.<</dialog>>
-<<dialog "player">>I haven't stopped moving for two hours.<</dialog>>
-<<dialog "charClerkTom">>Sit down for five minutes. I'll cover if anyone asks. You earned it the hard way.<</dialog>>
-<<dialog "player">>I appreciate that, Tom.<</dialog>>
-<<dialog "charClerkTom">>I mean it.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom stretches his arms above his head, rolling his neck.<</narrative>>
+
+<<dialog "dinerClerk">>My girlfriend wants to do a farmers market Saturday.<</dialog>>
+<<dialog "player">>Those can be pretty nice actually.<</dialog>>
+<<dialog "dinerClerk">>I mostly go for the food samples.<</dialog>>
+<<dialog "player">>Honest man.<</dialog>>
+<<dialog "dinerClerk">>Free cheese is free cheese.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             }
         ],
 
-        snack_sneak: [
+        "something_he_read": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-4.webp">>
 <<image _img "100%">>
-<<narrative>>Tom quickly slides a small saucer with two fries on it across the counter.<</narrative>>
-<<dialog "charClerkTom">>Eat it quick before someone sees. Kitchen made an extra portion and James 'dropped' them near me.<</dialog>>
-<<dialog "player">>You're sure?<</dialog>>
-<<dialog "charClerkTom">>It's illegal diner-contraband. The best kind. Go on, you need the energy.<</dialog>>
-<<dialog "player">>Thanks, Tom.<</dialog>>
-<<dialog "charClerkTom">>Don't chew too loud.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakAfternoon-2.webp">>
-<<image _img "100%">>
-<<narrative>>Tom pulls a wrapped mint from his pocket and tosses it to you.<</narrative>>
-<<dialog "charClerkTom">>Here. From the front bowl. Technically for customers, but I count you as an honorary one.<</dialog>>
-<<dialog "player">>I appreciate the sugar.<</dialog>>
-<<dialog "charClerkTom">>It's sugar and aggressively strong peppermint. Wakes the brain up when you're midway through a shift.<</dialog>>
-<<dialog "player">>Good strategy.<</dialog>>
-<<dialog "charClerkTom">>We do what we must.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakAfternoon-3.webp">>
-<<image _img "100%">>
-<<narrative>>Tom is casually chewing on something small as he talks.<</narrative>>
-<<dialog "charClerkTom">>Emma keeps a stash of crackers in the second drawer under the register. If you ever need one, she gave me permission to distribute.<</dialog>>
-<<dialog "player">>Really?<</dialog>>
-<<dialog "charClerkTom">>Yeah. She's the diner mom. Just discreetly grab one when Vince is blind.<</dialog>>
-<<dialog "player">>I'll remember that.<</dialog>>
-<<dialog "charClerkTom">>Use the power wisely.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ],
+<<narrative>>Tom taps the counter absently, like he's thinking about something.<</narrative>>
 
-        pep_talk: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakAfternoon-1.webp">>
-<<image _img "100%">>
-<<narrative>>Tom taps you on the shoulder lightly.<</narrative>>
-<<dialog "charClerkTom">>Hey, you're doing great back there. Don't let James' yelling get to you, he yells at the spoons too.<</dialog>>
-<<dialog "player">>It's loud back there.<</dialog>>
-<<dialog "charClerkTom">>I know. It's a warzone. But you're handling it better than the last guy did.<</dialog>>
-<<dialog "player">>What happened to him?<</dialog>>
-<<dialog "charClerkTom">>He cried and walked out on a Tuesday. So, you're officially beating the record.<</dialog>`,
-                friendship: 2, trust: 1
+<<dialog "dinerClerk">>Read this thing about how diners are disappearing.<</dialog>>
+<<dialog "player">>Like closing down across the country?<</dialog>>
+<<dialog "dinerClerk">>Yeah. Chains are pushing them out, they said.<</dialog>>
+<<dialog "player">>This place seems pretty solid though.<</dialog>>
+<<dialog "dinerClerk">>Hope so. Vince would go down swinging.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-5.webp">>
 <<image _img "100%">>
-<<narrative>>Tom leans back against the counter, smiling supportively.<</narrative>>
-<<dialog "charClerkTom">>Almost halfway through the shift. From here on out, it's a downhill slide to freedom.<</dialog>>
-<<dialog "player">>It still feels like a long time.<</dialog>>
-<<dialog "charClerkTom">>Don't think about the hours. Think about the next ten minutes. Break it down. It's a mental game.<</dialog>>
-<<dialog "player">>That actually helps.<</dialog>>
-<<dialog "charClerkTom">>We all learn the hard way. Hang in there.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom leans on his elbows at the counter, looking relaxed for once.<</narrative>>
+
+<<dialog "dinerClerk">>Saw this article about people who quit office jobs for food trucks.<</dialog>>
+<<dialog "player">>Tempting thought?<</dialog>>
+<<dialog "dinerClerk">>Nah. I like having walls and a roof.<</dialog>>
+<<dialog "player">>Fair point. Rain would be rough.<</dialog>>
+<<dialog "dinerClerk">>Plus I'd miss the regulars.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-6.webp">>
 <<image _img "100%">>
-<<narrative>>Tom watches you rub your arms after carrying a heavy tray.<</narrative>>
-<<dialog "charClerkTom">>Building some serious muscle carrying those bus tubs, huh? You're gonna be shredded by next month.<</dialog>>
-<<dialog "player">>Just feel sore right now.<</dialog>>
-<<dialog "charClerkTom">>Sore means growth. Or it means we need better equipment. Let's pretend it's the first one. It's more motivating.<</dialog>>
-<<dialog "player">>Whatever you say.<</dialog>>
-<<dialog "charClerkTom">>You got this.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom flips through a folded newspaper someone left on the counter.<</narrative>>
+
+<<dialog "dinerClerk">>Somebody left the crossword half finished.<</dialog>>
+<<dialog "player">>You gonna finish it?<</dialog>>
+<<dialog "dinerClerk">>Tried. Got stuck on seven across.<</dialog>>
+<<dialog "player">>What's the clue?<</dialog>>
+<<dialog "dinerClerk">>Something about a Greek island. Not my thing.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingOnBreak_evening: {
+    "dinerRubysStorage_dishwasherOnBreak_afternoon": {
 
-        almost_done: [
+        "break_room_chill": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakEvening-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomStorageAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>Tom points significantly at the wall clock.<</narrative>>
-<<dialog "charClerkTom">>Look at her. The beautiful, beautiful clock. She says we are out of here soon.<</dialog>>
-<<dialog "player">>We still have to close.<</dialog>>
-<<dialog "charClerkTom">>Closing is the easy part. The customers stop arriving. The peace descends. It's magical.<</dialog>>
-<<dialog "player">>I still have to mop the pit.<</dialog>>
-<<dialog "charClerkTom">>I'll put some good music on the speakers while you do it. Fair trade?<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom is sitting on the stool in the storage room, coffee in hand, feet up on a crate.<</narrative>>
+
+<<dialog "dinerClerk">>Best part of the day right here.<</dialog>>
+<<dialog "player">>The storage room? Really?<</dialog>>
+<<dialog "dinerClerk">>Nobody bugs you back here. It's the principle.<</dialog>>
+<<dialog "player">>I get that. Peace and quiet.<</dialog>>
+<<dialog "dinerClerk">>Exactly. Pull up a crate if you want.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakEvening-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomStorageAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>Tom stretches widely, popping a knot in his neck.<</narrative>>
-<<dialog "charClerkTom">>I am starting to enter my sleep-walking phase of the shift. If I hand someone a fork instead of a pen, stop me.<</dialog>>
-<<dialog "player">>I'll tackle you.<</dialog>>
-<<dialog "charClerkTom">>I appreciate the dedication to stopping my mistakes. We're almost out of the dark woods.<</dialog>>
-<<dialog "player">>Hold the line, Tom.<</dialog>>
-<<dialog "charClerkTom">>Holding tight.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom sips his coffee slowly, leaning against the shelves stacked with supplies.<</narrative>>
+
+<<dialog "dinerClerk">>You ever just sit and do nothing? Like on purpose?<</dialog>>
+<<dialog "player">>More often than I probably should.<</dialog>>
+<<dialog "dinerClerk">>My girlfriend calls it recharging. I call it lazy.<</dialog>>
+<<dialog "player">>Recharging sounds better.<</dialog>>
+<<dialog "dinerClerk">>She's good at rebranding my bad habits.<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakEvening-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomStorageAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>Tom is carefully collecting loose change from the counter.<</narrative>>
-<<dialog "charClerkTom">>The moment I hit the pavement outside tonight, all my diner problems disappear. You getting excited?<</dialog>>
-<<dialog "player">>Just want my bed.<</dialog>>
-<<dialog "charClerkTom">>Same feeling. Nothing beats knowing you don't have to smell frying oil for another fourteen hours.<</dialog>>
-<<dialog "player">>Cheers to that.<</dialog>>
-<<dialog "charClerkTom">>Cheers.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom holds his coffee close, eyes half-closed in the quiet of the back room.<</narrative>>
+
+<<dialog "dinerClerk">>Five more minutes and I'm back out there.<</dialog>>
+<<dialog "player">>Counting down already?<</dialog>>
+<<dialog "dinerClerk">>Always. Breaks go fast when you need them.<</dialog>>
+<<dialog "player">>That's how it works, unfortunately.<</dialog>>
+<<dialog "dinerClerk">>Universal law of break rooms.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ],
 
-        trash_duty: [
+        "normal_life_stuff": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakEvening-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomStorageAfternoon-4.webp">>
 <<image _img "100%">>
-<<narrative>>Tom leans against the hallway wall with a heavy trash bag near his feet.<</narrative>>
-<<dialog "charClerkTom">>Vince thinks making me haul the heavy bags builds character. It really just builds back pain.<</dialog>>
-<<dialog "player">>I can take one out for you.<</dialog>>
-<<dialog "charClerkTom">>No way, you do the dishes all day. This is my burden. Rest up.<</dialog>>
-<<dialog "player">>Sure you don't mind?<</dialog>>
-<<dialog "charClerkTom">>A hero never minds hauling garbage. Or something like that.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakEvening-2.webp">>
-<<image _img "100%">>
-<<narrative>>Tom rubs his hands together cleanly after coming in from the back door.<</narrative>>
-<<dialog "charClerkTom">>Word of advice. Don't step near the back dumpster tonight. The raccoons are having a meeting.<</dialog>>
-<<dialog "player">>Noted.<</dialog>>
-<<dialog "charClerkTom">>I threw a bag in and one hissed at me like I insulted its mother. Proceed with caution.<</dialog>>
-<<dialog "player">>I'll avoid the area.<</dialog>>
-<<dialog "charClerkTom">>Very wise of you.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakEvening-3.webp">>
-<<image _img "100%">>
-<<narrative>>Tom holds his nose slightly as he walks past you.<</narrative>>
-<<dialog "charClerkTom">>Whatever was in table twelve's bus tub smelled absolutely toxic. I threw it straight in the outdoor bin.<</dialog>>
-<<dialog "player">>I missed that one?<</dialog>>
-<<dialog "charClerkTom">>I intercepted it before it reached your pit. You owe me big time for keeping you alive.<</dialog>>
-<<dialog "player">>My savior.<</dialog>>
-<<dialog "charClerkTom">>Don't forget it.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ],
+<<narrative>>Tom scrolls through his phone, then sets it face-down on his knee.<</narrative>>
 
-        tired_feet: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakEvening-1.webp">>
-<<image _img "100%">>
-<<narrative>>Tom is resting one foot on a lower ledge, rubbing his ankle.<</narrative>>
-<<dialog "charClerkTom">>I need better shoes. Vince mandated these black slip-resistant bricks, and I'm suffering for his aesthetic.<</dialog>>
-<<dialog "player">>Get some good insoles.<</dialog>>
-<<dialog "charClerkTom">>That's actually brilliant. Why didn't I think of that? See, you're the brains of this operation.<</dialog>>
-<<dialog "player">>Obviously.<</dialog>>
-<<dialog "charClerkTom">>Keep it up.<</dialog>`,
-                friendship: 2, trust: 0
+<<dialog "dinerClerk">>My apartment's AC broke again last night.<</dialog>>
+<<dialog "player">>In this heat? That's rough.<</dialog>>
+<<dialog "dinerClerk">>Landlord says Thursday. I'm counting on it.<</dialog>>
+<<dialog "player">>Fingers crossed for you.<</dialog>>
+<<dialog "dinerClerk">>Might sleep at the diner if it doesn't happen.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakEvening-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomStorageAfternoon-5.webp">>
 <<image _img "100%">>
-<<narrative>>Tom groans slightly when he stands back up from crouching.<</narrative>>
-<<dialog "charClerkTom">>My knees just made a sound like tearing paper. That shouldn't happen at my age.<</dialog>>
-<<dialog "player">>Diner life ages you.<</dialog>>
-<<dialog "charClerkTom">>At twelve times normal speed, apparently. I'm going to be eighty next week.<</dialog>>
-<<dialog "player">>I'll bring you a cane.<</dialog>>
-<<dialog "charClerkTom">>A very stylish one, please.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Tom picks at the label on his coffee cup, peeling it in a long strip.<</narrative>>
+
+<<dialog "dinerClerk">>Need to get my car inspected. Keep putting it off.<</dialog>>
+<<dialog "player">>Those things sneak up on you.<</dialog>>
+<<dialog "dinerClerk">>It expired two months ago. I'm living dangerously.<</dialog>>
+<<dialog "player">>That's one way to put it.<</dialog>>
+<<dialog "dinerClerk">>Girlfriend's gonna kill me if I get a ticket.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomOnBreakEvening-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomStorageAfternoon-6.webp">>
 <<image _img "100%">>
-<<narrative>>Tom is leaning heavily against the wall behind the counter.<</narrative>>
-<<dialog "charClerkTom">>I'm officially running on exactly zero percent energy. Only sheer willpower is keeping me upright.<</dialog>>
-<<dialog "player">>You're almost there.<</dialog>>
-<<dialog "charClerkTom">>If I collapse, drag me to my car. Leave the keys in my hand.<</dialog>>
-<<dialog "player">>I'll just roll you.<</dialog>>
-<<dialog "charClerkTom">>That works too. Less friction.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Tom yawns, covering his mouth with the back of his hand.<</narrative>>
+
+<<dialog "dinerClerk">>Stayed up too late watching a show. Bad idea.<</dialog>>
+<<dialog "player">>What show?<</dialog>>
+<<dialog "dinerClerk">>Some crime thing. Got hooked and couldn't stop.<</dialog>>
+<<dialog "player">>Been there. One more episode turns into five.<</dialog>>
+<<dialog "dinerClerk">>Every single time.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     }
 
 }>>
+<</nobr>>

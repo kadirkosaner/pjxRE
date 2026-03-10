@@ -1,358 +1,251 @@
-/* ==========================================
-   SOFIA TALK TOPICS — WORKING ON BREAK PHASE, LEVEL 1
-   phase === "working.onBreak" && friendshipLevel === 1
-
-   CHARACTER: Sofia Silva, Waitress at Ruby's Diner
-   → Uses the player to avoid work or as an excuse to hide.
-   → Looks at work as something to be dodged.
-   → Complains about management from a safe distance.
-
-   WORKING ON BREAK L1 TONE:
-   → Player is dishwasher on break.
-   → Sofia talks down but also tries to dump tasks on them.
-   → CRITICAL: Dialogue feels lazy and reluctant.
-
-   CONTEXTS:
-   dinerRubys_workingOnBreak_morning
-   dinerRubys_workingOnBreak_afternoon
-   dinerRubys_workingOnBreak_evening
-========================================== */
-
+:: SofiaTopicsDishwasherOnBreakLevel1
+<<nobr>>
 <<set setup.sofiaTopics = setup.sofiaTopics || {}>>
-<<set setup.sofiaTopics.workingOnBreak = setup.sofiaTopics.workingOnBreak || {}>>
-<<set setup.sofiaTopics.workingOnBreak.level1 = {
+<<set setup.sofiaTopics.dishwasherOnBreak = setup.sofiaTopics.dishwasherOnBreak || {}>>
+<<set setup.sofiaTopics.dishwasherOnBreak.level1 = {
 
-    dinerRubys_workingOnBreak_morning: {
+    "dinerRubys_dishwasherOnBreak_afternoon": {
 
-        task_dumping: [
+        "boyfriend_drama": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia spots you returning from your break and immediately stands up straighter.<</narrative>>
-<<dialog "dinerWaitress2">>Oh good, you're back. Can you wipe down table five? I can't reach the corner.<</dialog>>
-<<dialog "player">>I'm washing dishes, not clearing tables.<</dialog>>
-<<dialog "dinerWaitress2">>It's practically the same thing. Just use your dish rag, I won't tell Vince.<</dialog>>
-<<dialog "player">>No thanks, talk to Emma.<</dialog>>
-<<dialog "dinerWaitress2">>Ugh. You two are so rigid.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia is typing furiously on her phone, her expression shifting between annoyed and amused.<</narrative>>
+
+<<dialog "dinerWaitress2">>My boyfriend just liked some girl's photo. From two years ago.<</dialog>>
+<<dialog "player">>That's a deep scroll.<</dialog>>
+<<dialog "dinerWaitress2">>Exactly. Who does that accidentally? Nobody. It's intentional archaeology.<</dialog>>
+<<dialog "player">>Maybe he was just bored.<</dialog>>
+<<dialog "dinerWaitress2">>He better be. I'm sending him a very passive-aggressive heart emoji right now.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia points vaguely to a stack of heavy pots near the kitchen door.<</narrative>>
-<<dialog "dinerWaitress2">>Those pots there. They're heavy. You should carry them into the back before someone trips on them.<</dialog>>
-<<dialog "player">>My break has two minutes left.<</dialog>>
-<<dialog "dinerWaitress2">>And I have frail wrists. Come on, look at my arms. I can't lift those. It's a safety hazard.<</dialog>>
-<<dialog "player">>I'll get them when my timer rings.<</dialog>>
-<<dialog "dinerWaitress2">>_(sighs dramatically)_ Fine, let a poor girl suffer.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia sighs and puts her phone face-down, then immediately picks it up again.<</narrative>>
+
+<<dialog "dinerWaitress2">>He left me on read. For forty minutes.<</dialog>>
+<<dialog "player">>Maybe he's busy.<</dialog>>
+<<dialog "dinerWaitress2">>He's never busy. He works from home. He's sitting right there.<</dialog>>
+<<dialog "player">>Could be in the bathroom.<</dialog>>
+<<dialog "dinerWaitress2">>For forty minutes? I'm going to text him again. Just a question mark.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia slides a dirty tray over toward you.<</narrative>>
-<<dialog "dinerWaitress2">>Look, this has coffee spilled all over it. Can you just take it now?<</dialog>>
-<<dialog "player">>I'm not clocked in right now.<</dialog>>
-<<dialog "dinerWaitress2">>It's literally right there. Save me the trip to the sink.<</dialog>>
-<<dialog "player">>Fine. I'll take it.<</dialog>>
-<<dialog "dinerWaitress2">>See? We make a great team. You're my favorite.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Sofia shows you her phone screen from a distance. You can't really read it.<</narrative>>
+
+<<dialog "dinerWaitress2">>Look at this. He wants to go to his friend's thing on Saturday. Our Saturday.<</dialog>>
+<<dialog "player">>You had plans?<</dialog>>
+<<dialog "dinerWaitress2">>We always have plans. Even if we don't plan them. Saturday is ours.<</dialog>>
+<<dialog "player">>You could go with him.<</dialog>>
+<<dialog "dinerWaitress2">>To watch guys play video games? I'd rather be here. Almost.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ],
 
-        vince_monitoring: [
+        "social_media": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-4.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia whispers behind a menu.<</narrative>>
-<<dialog "dinerWaitress2">>Don't look now, but Vince is watching us. Look like you're talking about something important.<</dialog>>
-<<dialog "player">>Like what? Dish soap?<</dialog>>
-<<dialog "dinerWaitress2">>Yes, dish soap. Passionately complain about the brand of dish soap, quickly.<</dialog>>
-<<dialog "player">>This is ridiculous.<</dialog>>
-<<dialog "dinerWaitress2">>If I get yelled at, I'm blaming you for distracting me. Smile.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakMorning-2.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia is peering around the corner into the dining area.<</narrative>>
-<<dialog "dinerWaitress2">>Is he still standing by the register?<</dialog>>
-<<dialog "player">>Yeah, he's just checking the receipts.<</dialog>>
-<<dialog "dinerWaitress2">>He's not checking receipts, he's checking to see if I'm slacking off. Which I am, but he doesn't need to know that.<</dialog>>
-<<dialog "player">>You're really bad at hiding it.<</dialog>>
-<<dialog "dinerWaitress2">>I'm preserving my youth. Tell me when he moves.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakMorning-3.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia nervously taps the counter.<</narrative>>
-<<dialog "dinerWaitress2">>Vince just walked by with a clip-board. Have you ever seen him use a clip-board?<</dialog>>
-<<dialog "player">>Maybe he's checking inventory.<</dialog>>
-<<dialog "dinerWaitress2">>He doesn't check inventory. He's evaluating us. I know he is.<</dialog>>
-<<dialog "player">>If you say so.<</dialog>>
-<<dialog "dinerWaitress2">>He totally is. Act naturally.<</dialog>`,
-                friendship: 1, trust: 0
-            }
-        ],
+<<narrative>>Sofia angles her phone camera toward the window, trying to get the light right.<</narrative>>
 
-        fake_busy: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakMorning-1.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia is furiously wiping the same perfectly clean spot on the counter.<</narrative>>
-<<dialog "dinerWaitress2">>If I look busy, nobody gives me new tables. Keep wiping the air, it works.<</dialog>>
-<<dialog "player">>That counter is already spotless.<</dialog>>
-<<dialog "dinerWaitress2">>I'm buffing it. It's an art. Stop questioning my methods.<</dialog>>
-<<dialog "player">>Whatever works for you.<</dialog>>
-<<dialog "dinerWaitress2">>Exactly. It works perfectly.<</dialog>`,
-                friendship: 1, trust: 0
+<<dialog "dinerWaitress2">>The lighting in here is terrible for selfies. Always.<</dialog>>
+<<dialog "player">>You're taking selfies at work?<</dialog>>
+<<dialog "dinerWaitress2">>I'm taking selfies everywhere. That's called consistency. Branding.<</dialog>>
+<<dialog "player">>Vince would love that explanation.<</dialog>>
+<<dialog "dinerWaitress2">>Vince doesn't know what branding is. He still uses a flip phone.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-5.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is holding a coffee pot but not pouring it anywhere.<</narrative>>
-<<dialog "dinerWaitress2">>I've been holding this empty pot for ten minutes. Nobody has asked me for coffee.<</dialog>>
-<<dialog "player">>Why don't you just put it down?<</dialog>>
-<<dialog "dinerWaitress2">>If I put it down, Emma will realize I'm not doing anything. This is my shield.<</dialog>>
-<<dialog "player">>You're gonna drop that shield.<</dialog>>
-<<dialog "dinerWaitress2">>It's plastic, I don't care. Leave me to my pretending.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Sofia scrolls through her feed, occasionally double-tapping the screen.<</narrative>>
+
+<<dialog "dinerWaitress2">>This girl I went to school with is in Bali right now. Must be nice.<</dialog>>
+<<dialog "player">>Bali's expensive.<</dialog>>
+<<dialog "dinerWaitress2">>She's got a rich boyfriend. That's the real career path nobody talks about.<</dialog>>
+<<dialog "player">>Thought you had a boyfriend.<</dialog>>
+<<dialog "dinerWaitress2">>I do. He's sweet but he's not Bali-sweet. Yet.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-6.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is rearranging the salt and pepper shakers very slowly.<</narrative>>
-<<dialog "dinerWaitress2">>Salt goes on the right. No, the left. Wait, does it matter?<</dialog>>
-<<dialog "player">>Nobody notices.<</dialog>>
-<<dialog "dinerWaitress2">>Good point. But arranging them looks like real work. It burns time.<</dialog>>
-<<dialog "player">>You put more effort into avoiding work than actually working.<</dialog>>
-<<dialog "dinerWaitress2">>It's called efficiency. You should try it.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia frowns at her phone, then aggressively taps the screen.<</narrative>>
+
+<<dialog "dinerWaitress2">>Someone unfollowed me. I can feel it. The number went down.<</dialog>>
+<<dialog "player">>Does one follower really matter?<</dialog>>
+<<dialog "dinerWaitress2">>It matters when I was at a nice round number. Now it's uneven.<</dialog>>
+<<dialog "player">>You'll survive.<</dialog>>
+<<dialog "dinerWaitress2">>Barely. This is the worst part of my day. Including work.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingOnBreak_afternoon: {
+    "dinerRubys_dishwasherOnBreak_evening": {
 
-        hiding_from_rush: [
+        "after_work_plans": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia slips into the narrow hallway next to the kitchen with you.<</narrative>>
-<<dialog "dinerWaitress2">>The lunch rush is starting. I am officially on strike until the large group of tourists leaves.<</dialog>>
-<<dialog "player">>Emma can't handle them all by herself.<</dialog>>
-<<dialog "dinerWaitress2">>Emma thrives in chaos. It builds her character. I'm just supporting her growth.<</dialog>>
-<<dialog "player">>By hiding in the hallway.<</dialog>>
-<<dialog "dinerWaitress2">>Exactly. By out-surviving. Don't blow my cover.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Sofia is leaning on the counter, chin in her hand, staring at the door like she's willing it to be closing time.<</narrative>>
+
+<<dialog "dinerWaitress2">>My boyfriend's picking me up after this. We're getting takeout.<</dialog>>
+<<dialog "player">>From here?<</dialog>>
+<<dialog "dinerWaitress2">>Absolutely not. I can't eat here after working here. That's psychological damage.<</dialog>>
+<<dialog "player">>Fair point.<</dialog>>
+<<dialog "dinerWaitress2">>We're thinking Thai. Or whatever's closest to his car.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is kneeling behind the counter, fixing her shoe for far too long.<</narrative>>
-<<dialog "dinerWaitress2">>If I stay down here, the customers won't see me and they'll call Emma instead.<</dialog>>
-<<dialog "player">>That's kind of messed up.<</dialog>>
-<<dialog "dinerWaitress2">>She likes the tips. I don't need the stress. It's a mutual exchange.<</dialog>>
-<<dialog "player">>Does she know about this exchange?<</dialog>>
-<<dialog "dinerWaitress2">>Probably. Now hush, someone's looking this way.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia stretches her arms above her head with an exaggerated groan.<</narrative>>
+
+<<dialog "dinerWaitress2">>After this I'm taking the longest shower of my life. I smell like fries.<</dialog>>
+<<dialog "player">>Could be worse smells.<</dialog>>
+<<dialog "dinerWaitress2">>Not when you're trying to look cute for your boyfriend. Fry grease isn't a perfume.<</dialog>>
+<<dialog "player">>He probably doesn't care.<</dialog>>
+<<dialog "dinerWaitress2">>He doesn't. But I do. Standards.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia ducks visibly as a loud group of teenagers walks in.<</narrative>>
-<<dialog "dinerWaitress2">>No way. I'm not dealing with teenagers today. They order five milkshakes and leave weird tips.<</dialog>>
-<<dialog "player">>It's just milkshakes.<</dialog>>
-<<dialog "dinerWaitress2">>Milkshakes require the blender. The blender is loud and sticky. Hard pass.<</dialog>>
-<<dialog "player">>I guess you're stuck hiding.<</dialog>>
-<<dialog "dinerWaitress2">>And perfectly happy about it.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia checks the time on her phone and does a small fist pump to herself.<</narrative>>
+
+<<dialog "dinerWaitress2">>One hour left. Then freedom. Then Netflix.<</dialog>>
+<<dialog "player">>Watching anything good?<</dialog>>
+<<dialog "dinerWaitress2">>Some reality show my boyfriend hates. Which makes it even better.<</dialog>>
+<<dialog "player">>You watch it to annoy him?<</dialog>>
+<<dialog "dinerWaitress2">>Partly. Mostly I just like watching people worse off than me.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             }
         ],
 
-        tip_gossip: [
+        "complaining": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-4.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia pulls a crumpled ten-dollar bill out of her apron pocket.<</narrative>>
-<<dialog "dinerWaitress2">>See this? Some businessman gave me this just for laughing at his terrible joke.<</dialog>>
-<<dialog "player">>Was it really terrible?<</dialog>>
-<<dialog "dinerWaitress2">>Horrible. Something about a golf course. But for ten bucks, I'll laugh like it's comedy gold.<</dialog>>
-<<dialog "player">>Pays off.<</dialog>>
-<<dialog "dinerWaitress2">>Sure does. Emma would've rolled her eyes and got fifty cents. Amateurs.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakAfternoon-2.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia scowls while flipping through her notepad.<</narrative>>
-<<dialog "dinerWaitress2">>Table seven didn't tip at all. Left me a note on a napkin saying 'smile more.'<</dialog>>
-<<dialog "player">>That's irritating.<</dialog>>
-<<dialog "dinerWaitress2">>If I wanted to smile, I'd get a job as a clown, not serving grilled cheese. Freaks.<</dialog>>
-<<dialog "player">>Don't let it ruin your day.<</dialog>>
-<<dialog "dinerWaitress2">>It won't. I'm just gonna give them decaf if they ever come back.<</dialog>`,
-                friendship: 2, trust: 1
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakAfternoon-3.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia leans in close.<</narrative>>
-<<dialog "dinerWaitress2">>Vince says we're pooling tips today because it's 'busy'. Meaning my good tips go to everyone else.<</dialog>>
-<<dialog "player">>Is that allowed?<</dialog>>
-<<dialog "dinerWaitress2">>He makes the rules. So I'm just slipping cash tips right into my pocket. Don't say a word.<</dialog>>
-<<dialog "player">>Your secret is safe.<</dialog>>
-<<dialog "dinerWaitress2">>It better be. I earned this money.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ],
+<<narrative>>Sofia rubs the small of her back, wincing slightly.<</narrative>>
 
-        section_swap: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakAfternoon-1.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia points toward the tables by the window.<</narrative>>
-<<dialog "dinerWaitress2">>I traded sections with Emma. She got the window, I got the back corner.<</dialog>>
-<<dialog "player">>Why the corner?<</dialog>>
-<<dialog "dinerWaitress2">>Because nobody wants to sit by the bathrooms. Which means I get less tables.<</dialog>>
-<<dialog "player">>Genius.<</dialog>>
-<<dialog "dinerWaitress2">>I know. She thinks she won because of the sunlight, but I'm the real winner here.<</dialog>`,
-                friendship: 1, trust: 0
+<<dialog "dinerWaitress2">>My feet are done. Completely done. They've filed for divorce from my body.<</dialog>>
+<<dialog "player">>Long shift?<</dialog>>
+<<dialog "dinerWaitress2">>Every shift is long when you're standing on concrete in bad shoes.<</dialog>>
+<<dialog "player">>Get better shoes.<</dialog>>
+<<dialog "dinerWaitress2">>They don't make cute ones with arch support. I've looked.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-5.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is looking miserable rubbing her shoulder.<</narrative>>
-<<dialog "dinerWaitress2">>I tried swapping sections with the new girl, but Vince caught me.<</dialog>>
-<<dialog "player">>He put you back?<</dialog>>
-<<dialog "dinerWaitress2">>He gave me the biggest booth section as punishment. Now I'm carrying giant trays.<</dialog>>
-<<dialog "player">>Tough luck.<</dialog>>
-<<dialog "dinerWaitress2">>I hate him. I truly do.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia glares at a table of empty cups nobody's cleared.<</narrative>>
+
+<<dialog "dinerWaitress2">>That table's been empty for twenty minutes. I'm not touching it.<</dialog>>
+<<dialog "player">>Isn't that your section?<</dialog>>
+<<dialog "dinerWaitress2">>Technically. But I'm on break. Technically.<</dialog>>
+<<dialog "player">>Are you actually on break?<</dialog>>
+<<dialog "dinerWaitress2">>I'm always spiritually on break.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaFrontEvening-6.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is hiding near the kitchen pass.<</narrative>>
-<<dialog "dinerWaitress2">>If anyone asks, I'm waiting for food for table twelve.<</dialog>>
-<<dialog "player">>There is no someone at table twelve.<</dialog>>
-<<dialog "dinerWaitress2">>Exactly. An invisible table requires infinite waiting time. I'm on a break now.<</dialog>>
-<<dialog "player">>You're unbelievable.<</dialog>>
-<<dialog "dinerWaitress2">>Don't judge me when you're technically on break too. Let me rest.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Sofia watches Vince walk past and immediately pretends to straighten a menu stand.<</narrative>>
+
+<<dialog "dinerWaitress2">>He just did the walk-by. The silent inspection one.<</dialog>>
+<<dialog "player">>Did he say anything?<</dialog>>
+<<dialog "dinerWaitress2">>He never says anything. He just looks. That's worse.<</dialog>>
+<<dialog "player">>At least you weren't on your phone.<</dialog>>
+<<dialog "dinerWaitress2">>I hid it so fast. Olympic-level reflexes. That's my real talent.<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingOnBreak_evening: {
+    "dinerRubysStorage_dishwasherOnBreak_afternoon": {
 
-        early_exit_plan: [
+        "texting_boyfriend": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakEvening-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaStorageAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia checks the wall clock very intently.<</narrative>>
-<<dialog "dinerWaitress2">>If I say I have a migraine, Vince usually lets me leave an hour early.<</dialog>>
-<<dialog "player">>Are you gonna use it tonight?<</dialog>>
-<<dialog "dinerWaitress2">>I'm laying the groundwork now. Look at my face, do I look pale?<</dialog>>
-<<dialog "player">>You look perfectly fine.<</dialog>>
-<<dialog "dinerWaitress2">>Ugh. You're useless. I'll just squint a lot.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia is sitting on a crate in the storage room, phone in both hands, typing fast. She barely glances up.<</narrative>>
+
+<<dialog "dinerWaitress2">>Oh. Hey. I'm in the middle of something important.<</dialog>>
+<<dialog "player">>Important like work important?<</dialog>>
+<<dialog "dinerWaitress2">>Important like my boyfriend's planning dinner and I need to pick the restaurant before he picks wrong.<</dialog>>
+<<dialog "player">>High stakes.<</dialog>>
+<<dialog "dinerWaitress2">>You have no idea. Last time he chose a burger place. I can't eat burgers after working here.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakEvening-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaStorageAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia has her coat already halfway unzipped beside the lockers.<</narrative>>
-<<dialog "dinerWaitress2">>I'm leaving ten minutes early. If anyone asks, I was sick in the bathroom.<</dialog>>
-<<dialog "player">>What if Vince checks the bathroom?<</dialog>>
-<<dialog "dinerWaitress2">>He won't walk into the ladies' room. Even he isn't that bold.<</dialog>>
-<<dialog "player">>It's a bold strategy.<</dialog>>
-<<dialog "dinerWaitress2">>It's survival. Cover for me if you have to.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Sofia is grinning at her phone, sitting cross-legged on a supply box. A coffee sits untouched beside her.<</narrative>>
+
+<<dialog "dinerWaitress2">>He sent me a voice message. Want to hear it?<</dialog>>
+<<dialog "player">>I'm good, thanks.<</dialog>>
+<<dialog "dinerWaitress2">>Your loss. He has a really nice voice. Everyone says so.<</dialog>>
+<<dialog "player">>I'll take your word for it.<</dialog>>
+<<dialog "dinerWaitress2">>You should. I have great taste.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakEvening-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaStorageAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is leaning over the counter, trying to calculate something.<</narrative>>
-<<dialog "dinerWaitress2">>If I skip cleaning the coffee machines, I can leave twelve minutes faster.<</dialog>>
-<<dialog "player">>Emma will rat you out.<</dialog>>
-<<dialog "dinerWaitress2">>Emma will sigh heavily and clean it herself just so she can feel martyred. It's a win-win.<</dialog>>
-<<dialog "player">>You're terrible to her.<</dialog>>
-<<dialog "dinerWaitress2">>I provide her life with structure. See ya later.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia holds her phone above her head, trying to find a signal in the storage room.<</narrative>>
+
+<<dialog "dinerWaitress2">>The signal in here is garbage. I can't send anything.<</dialog>>
+<<dialog "player">>It's a storage room. Concrete walls.<</dialog>>
+<<dialog "dinerWaitress2">>They should install a router back here. It's inhumane.<</dialog>>
+<<dialog "player">>You could just go outside.<</dialog>>
+<<dialog "dinerWaitress2">>And risk Vince seeing me? No. I'll suffer in silence. With no bars.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ],
 
-        end_shift_count: [
+        "work_complaints": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakEvening-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaStorageAfternoon-4.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is glaring at the receipt machine.<</narrative>>
-<<dialog "dinerWaitress2">>Why do the rolls always finish right when I need to print my closing summary?<</dialog>>
-<<dialog "player">>I can grab a new roll from the back.<</dialog>>
-<<dialog "dinerWaitress2">>No, don't. That means I have to stay and fix it. Let the next shift deal with a broken machine.<</dialog>>
-<<dialog "player">>Won't you get in trouble?<</dialog>>
-<<dialog "dinerWaitress2">>Only if they can prove it was me. Let's just walk away slowly.<</dialog>`,
-                friendship: 2, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakEvening-2.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia tosses a pen on the counter loudly.<</narrative>>
-<<dialog "dinerWaitress2">>Counting the register is the worst part of the day. The coins smell awful.<</dialog>>
-<<dialog "player">>Wash your hands.<</dialog>>
-<<dialog "dinerWaitress2">>It lingers. I smell like cheap metal and grease. This job strips you of all dignity.<</dialog>>
-<<dialog "player">>At least your shift's almost done.<</dialog>>
-<<dialog "dinerWaitress2">>Not done enough. Almost done isn't done.<</dialog>`,
-                friendship: 1, trust: 0
-            },
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakEvening-3.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia is shoving loose change into her pockets.<</narrative>>
-<<dialog "dinerWaitress2">>I'm pretty sure my register is short by two dollars. I'm pretending I didn't see it.<</dialog>>
-<<dialog "player">>Vince checks everything.<</dialog>>
-<<dialog "dinerWaitress2">>If he asks, a customer walked out. Plausible deniability.<</dialog>>
-<<dialog "player">>Sounds risky.<</dialog>>
-<<dialog "dinerWaitress2">>Life is risky. Serving pancakes shouldn't be, but here we are.<</dialog>`,
-                friendship: 2, trust: 1
-            }
-        ],
+<<narrative>>Sofia is leaning against the shelves, arms crossed, staring at nothing in particular.<</narrative>>
 
-        vince_drama: [
-            {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakEvening-1.webp">>
-<<image _img "100%">>
-<<narrative>>Sofia leans back against the lockers, arms crossed.<</narrative>>
-<<dialog "dinerWaitress2">>Vince just asked me if I wanted to stay later to 'review my numbers'.<</dialog>>
-<<dialog "player">>Are you going to?<</dialog>>
-<<dialog "dinerWaitress2">>I'd rather review the bottom of a trash can. I suddenly remembered I have to wash my hair tonight.<</dialog>>
-<<dialog "player">>Good excuse.<</dialog>>
-<<dialog "dinerWaitress2">>It's fail-proof. A man never questions complicated hair maintenance.<</dialog>`,
-                friendship: 2, trust: 1
+<<dialog "dinerWaitress2">>Emma told me I need to smile more at customers. Like I'm a greeting card.<</dialog>>
+<<dialog "player">>She's probably just trying to help.<</dialog>>
+<<dialog "dinerWaitress2">>She's trying to manage me. She's not my manager. Vince is, and even he gave up.<</dialog>>
+<<dialog "player">>That's not really a win.<</dialog>>
+<<dialog "dinerWaitress2">>It feels like one. Less people telling me what to do.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakEvening-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaStorageAfternoon-5.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia looks directly toward the manager's office with disgust.<</narrative>>
-<<dialog "dinerWaitress2">>He always calls me into the office to 'discuss my attitude'. The door is always cracked just enough to be annoying.<</dialog>>
-<<dialog "player">>Are you hiding from him?<</dialog>>
-<<dialog "dinerWaitress2">>I'm protecting my peace. If he catches my eye, I'll be folding napkins for an hour.<</dialog>>
-<<dialog "player">>Good luck staying invisible.<</dialog>>
-<<dialog "dinerWaitress2">>I'm practically a ghost. A very tired ghost.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Sofia picks at a loose thread on her apron, not looking at you.<</narrative>>
+
+<<dialog "dinerWaitress2">>I was supposed to get off at four today. Now it's six. Nobody asked me.<</dialog>>
+<<dialog "player">>Did Vince change the schedule?<</dialog>>
+<<dialog "dinerWaitress2">>He always does. Then acts like it was always the plan. Gaslighting, basically.<</dialog>>
+<<dialog "player">>That's frustrating.<</dialog>>
+<<dialog "dinerWaitress2">>It's my life. Frustrating is the default setting.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaOnBreakEvening-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/sofia/level1/sofiaStorageAfternoon-6.webp">>
 <<image _img "100%">>
-<<narrative>>Sofia is rolling her eyes hard.<</narrative>>
-<<dialog "dinerWaitress2">>Vince threatened to write me up because I checked my phone by the coffee machine.<</dialog>>
-<<dialog "player">>Did he actually do it?<</dialog>>
-<<dialog "dinerWaitress2">>If he wrote people up for slacking, he wouldn't have any staff left. It's just a power trip.<</dialog>>
-<<dialog "player">>Just out of sight from now on.<</dialog>>
-<<dialog "dinerWaitress2">>Yeah, to the bathroom I go. Permanent residency.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Sofia holds up her hands, showing chipped nail polish.<</narrative>>
+
+<<dialog "dinerWaitress2">>Look at my nails. This job ruins everything pretty about me.<</dialog>>
+<<dialog "player">>You could wear gloves.<</dialog>>
+<<dialog "dinerWaitress2">>Latex gloves with this outfit? I'd rather chip. At least I suffer with style.<</dialog>>
+<<dialog "player">>That's one way to look at it.<</dialog>>
+<<dialog "dinerWaitress2">>The only way. Survival through aesthetics.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     }
 
 }>>
+<</nobr>>

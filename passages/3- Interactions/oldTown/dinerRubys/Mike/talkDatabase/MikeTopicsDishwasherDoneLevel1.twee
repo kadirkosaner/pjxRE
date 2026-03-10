@@ -1,117 +1,251 @@
-/* ==========================================
-   MIKE TALK TOPICS — WORKING DONE PHASE, LEVEL 1
-   phase === "working.done" && friendshipLevel === 1
-
-   CHARACTER: Mike Torres, Dishwasher at Ruby's Diner
-   → Early 30s, single. Back-of-house, in his own zone.
-   → Player shift is finished. Mike usually still has closing tasks or finished at 15:00.
-
-   CONTEXTS:
-   dinerRubys_workingDone_morning
-   dinerRubys_workingDone_afternoon
-   dinerRubys_workingDone_evening
-========================================== */
-
+:: MikeTopicsDishwasherDoneLevel1
+<<nobr>>
 <<set setup.mikeTopics = setup.mikeTopics || {}>>
-<<set setup.mikeTopics.workingDone = setup.mikeTopics.workingDone || {}>>
-<<set setup.mikeTopics.workingDone.level1 = {
+<<set setup.mikeTopics.dishwasherDone = setup.mikeTopics.dishwasherDone || {}>>
+<<set setup.mikeTopics.dishwasherDone.level1 = {
 
-    dinerRubys_workingDone_morning: {
+    "dinerRubysKitchen_dishwasherDone_morning": {
 
-        early_leave: [
+        "shift_envy": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeWorkingDoneMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-7.webp">>
 <<image _img "100%">>
-<<narrative>>Mike notices you changed into regular clothes and squints.<</narrative>>
-<<dialog "dinerDishwasher">>You finished? It's barely lunch time. That's a scam.<</dialog>>
-<<dialog "player">>My shift was short today.<</dialog>>
-<<dialog "dinerDishwasher">>Must be nice. I've got a whole pile waiting for me. Get out of here.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Mike glances over from the sink as you pass through in street clothes. He shakes his head slowly.<</narrative>>
+
+<<dialog "dinerDishwasher">>Done already? That's not even fair.<</dialog>>
+<<dialog "player">>Short shift today. Got lucky.<</dialog>>
+<<dialog "dinerDishwasher">>I don't get lucky. I get pots.<</dialog>>
+<<dialog "player">>Hang in there, Mike.<</dialog>>
+<<dialog "dinerDishwasher">>Yeah. I'll try. Go be free.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeWorkingDoneMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-8.webp">>
 <<image _img "100%">>
-<<narrative>>Mike wrings out a sponge, watching you walk toward the door.<</narrative>>
-<<dialog "dinerDishwasher">>Lucky. Go home and sleep. I have to smell fried onions all day.<</dialog>>
-<<dialog "player">>Good luck with that, Mike.<</dialog>>
-<<dialog "dinerDishwasher">>Yeah, yeah. Bye.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Mike leans on the edge of the sink, watching you grab your stuff. Suds drip from his rubber gloves.<</narrative>>
+
+<<dialog "dinerDishwasher">>Must be nice. Walking out while the sun's still up.<</dialog>>
+<<dialog "player">>You'll be done eventually too.<</dialog>>
+<<dialog "dinerDishwasher">>Eventually is doing a lot of heavy lifting there.<</dialog>>
+<<dialog "player">>Want me to bring you back a coffee or something?<</dialog>>
+<<dialog "dinerDishwasher">>Nah. I'll survive. Probably. See you.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeWorkingDoneMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-9.webp">>
 <<image _img "100%">>
-<<narrative>>Mike turns around and leans backward against the stainless steel sink.<</narrative>>
-<<dialog "dinerDishwasher">>Off the clock. You have that 'free' glow about you.<</dialog>>
-<<dialog "player">>Feels good to be done.<</dialog>>
-<<dialog "dinerDishwasher">>I bet. See you tomorrow, man.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Mike rinses a tray without looking at it, eyes on you heading for the door.<</narrative>>
+
+<<dialog "dinerDishwasher">>Leaving me alone with the dishes. Cold.<</dialog>>
+<<dialog "player">>They were your dishes before I got here.<</dialog>>
+<<dialog "dinerDishwasher">>True. But misery loves company.<</dialog>>
+<<dialog "player">>You'll be fine. See you tomorrow.<</dialog>>
+<<dialog "dinerDishwasher">>Yeah yeah. Later.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "winding_down": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-10.webp">>
+<<image _img "100%">>
+<<narrative>>Mike slowly wipes down the counter next to the sink. He's moving even slower than usual.<</narrative>>
+
+<<dialog "dinerDishwasher">>Morning's almost over. Thank god.<</dialog>>
+<<dialog "player">>You heading out soon too?<</dialog>>
+<<dialog "dinerDishwasher">>Couple more hours. Lunch rush dishes.<</dialog>>
+<<dialog "player">>That sounds rough after a full morning.<</dialog>>
+<<dialog "dinerDishwasher">>I just stop thinking about it. Works great.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-11.webp">>
+<<image _img "100%">>
+<<narrative>>Mike stretches his arms and shakes water off his hands. He yawns wide enough to hear it.<</narrative>>
+
+<<dialog "dinerDishwasher">>I've washed like two hundred plates today.<</dialog>>
+<<dialog "player">>You actually counted?<</dialog>>
+<<dialog "dinerDishwasher">>Nah. But it feels like two hundred.<</dialog>>
+<<dialog "player">>Impressive either way.<</dialog>>
+<<dialog "dinerDishwasher">>Put it on my resume. Plate guy.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-12.webp">>
+<<image _img "100%">>
+<<narrative>>Mike peels off one rubber glove and flexes his pruney fingers with a grimace.<</narrative>>
+
+<<dialog "dinerDishwasher">>Look at my hands. I'm aging in fast forward.<</dialog>>
+<<dialog "player">>Dishpan hands. Classic.<</dialog>>
+<<dialog "dinerDishwasher">>My grandma used to say that. Thanks.<</dialog>>
+<<dialog "player">>At least you're done for the morning, right?<</dialog>>
+<<dialog "dinerDishwasher">>Close enough. I'm mentally done. That counts.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingDone_afternoon: {
+    "dinerRubysKitchen_dishwasherDone_afternoon": {
 
-        clocking_out: [
+        "almost_free": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeWorkingDoneAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>Mike is practically throwing his apron into the laundry bin as he sees you.<</narrative>>
-<<dialog "dinerDishwasher">>Done. We are both done. I'm leaving. Never coming back. Until tomorrow.<</dialog>>
-<<dialog "player">>Rough shift?<</dialog>>
-<<dialog "dinerDishwasher">>The worst. See you outside.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Mike stacks the last few clean pans on the shelf, moving like he's already checked out mentally.<</narrative>>
+
+<<dialog "dinerDishwasher">>Afternoon shift's the worst. Drags forever.<</dialog>>
+<<dialog "player">>At least it's almost over now.<</dialog>>
+<<dialog "dinerDishwasher">>Almost is the most dangerous word. Jinx it and more plates show up.<</dialog>>
+<<dialog "player">>I'll keep quiet then.<</dialog>>
+<<dialog "dinerDishwasher">>Smart. Very smart.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeWorkingDoneAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>Mike rolls up his damp sleeves, completely ignoring the floor he just mopped.<</narrative>>
-<<dialog "dinerDishwasher">>I am not getting paid enough to care about that muddy footprint over there.<</dialog>>
-<<dialog "player">>Leave it for Jake.<</dialog>>
-<<dialog "dinerDishwasher">>Exactly. It's his shift now anyway. Have a good one.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Mike drains the sink and watches the water spiral down. He stares at it like it's a meditation exercise.<</narrative>>
+
+<<dialog "dinerDishwasher">>Last drain of the day. Beautiful sight.<</dialog>>
+<<dialog "player">>You're weirdly poetic about dishwater.<</dialog>>
+<<dialog "dinerDishwasher">>When it's going down, it means I'm going home.<</dialog>>
+<<dialog "player">>Got any plans for tonight?<</dialog>>
+<<dialog "dinerDishwasher">>Couch. TV. Maybe food. Big night.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeWorkingDoneAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>Mike grabs his jacket off the hook and pats his pockets.<</narrative>>
-<<dialog "dinerDishwasher">>Keys, wallet... sanity. Left the last one in the sink. Oh well. Let's head out.<</dialog>>
-<<dialog "player">>See you tomorrow, Mike.<</dialog>>
-<<dialog "dinerDishwasher">>See ya.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Mike pulls his apron over his head and folds it loosely. He tosses it toward the hook. Misses.<</narrative>>
+
+<<dialog "dinerDishwasher">>Close enough. I'm off the clock mentally.<</dialog>>
+<<dialog "player">>Your aim says the same thing.<</dialog>>
+<<dialog "dinerDishwasher">>Hey, I hit it like forty percent of the time.<</dialog>>
+<<dialog "player">>Those are not great odds.<</dialog>>
+<<dialog "dinerDishwasher">>Good enough for dishwasher work.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "after_work_plans": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenAfternoon-4.webp">>
+<<image _img "100%">>
+<<narrative>>Mike checks his phone quickly while drying his hands on a rag. He smirks at something on the screen.<</narrative>>
+
+<<dialog "dinerDishwasher">>Buddy wants to play games tonight. I'm in.<</dialog>>
+<<dialog "player">>What do you guys play?<</dialog>>
+<<dialog "dinerDishwasher">>Whatever's free. We're not fancy.<</dialog>>
+<<dialog "player">>Sounds like a solid night honestly.<</dialog>>
+<<dialog "dinerDishwasher">>Better than scrubbing pans. Low bar though.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenAfternoon-5.webp">>
+<<image _img "100%">>
+<<narrative>>Mike leans against the counter, arms crossed, watching the clock on the wall. His shift's winding down.<</narrative>>
+
+<<dialog "dinerDishwasher">>Gonna go home and do absolutely nothing.<</dialog>>
+<<dialog "player">>No plans at all?<</dialog>>
+<<dialog "dinerDishwasher">>That IS the plan. Nothing. On purpose.<</dialog>>
+<<dialog "player">>Intentional nothing. I respect that.<</dialog>>
+<<dialog "dinerDishwasher">>It's an art form. I've been practicing.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenAfternoon-6.webp">>
+<<image _img "100%">>
+<<narrative>>Mike hangs up his rubber gloves on the faucet and shakes out his hands one last time.<</narrative>>
+
+<<dialog "dinerDishwasher">>Freedom in like twenty minutes. I can smell it.<</dialog>>
+<<dialog "player">>That might just be the bleach.<</dialog>>
+<<dialog "dinerDishwasher">>Nah, freedom smells different. More like pizza.<</dialog>>
+<<dialog "player">>Stopping somewhere on the way home?<</dialog>>
+<<dialog "dinerDishwasher">>There's a place on the way. Two slices and I'm good.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingDone_evening: {
+    "dinerRubysStorage_dishwasherDone_morning": {
 
-        late_finish: [
+        "done_for_now": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeWorkingDoneEvening-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-7.webp">>
 <<image _img "100%">>
-<<narrative>>Mike waves a tired hand at you as you pass by the kitchen doors.<</narrative>>
-<<dialog "dinerDishwasher">>You survived. Barely. Go get some rest in a real bed.<</dialog>>
-<<dialog "player">>You getting off soon?<</dialog>>
-<<dialog "dinerDishwasher">>Half hour. Just gotta sanitize the back traps. It's disgusting. Bye.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Mike sits on an upturned bucket in the storage room, earbuds around his neck. He looks completely decompressed.<</narrative>>
+
+<<dialog "dinerDishwasher">>Made it. Morning's done.<</dialog>>
+<<dialog "player">>You look like you just survived something.<</dialog>>
+<<dialog "dinerDishwasher">>Breakfast rush dishes. Basically a war zone.<</dialog>>
+<<dialog "player">>That dramatic, huh?<</dialog>>
+<<dialog "dinerDishwasher">>You weren't back there. You don't know.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeWorkingDoneEvening-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-8.webp">>
 <<image _img "100%">>
-<<narrative>>Mike looks completely drained, staring at the ceiling for a moment.<</narrative>>
-<<dialog "dinerDishwasher">>Freedom. You've earned it today. Go on.<</dialog>>
-<<dialog "player">>I am heading straight home.<</dialog>>
-<<dialog "dinerDishwasher">>Best plan. Take care man.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Mike leans against the shelves, sipping something from a paper cup. He's in no rush to move.<</narrative>>
+
+<<dialog "dinerDishwasher">>Hiding back here till Vince forgets I exist.<</dialog>>
+<<dialog "player">>Think that'll work?<</dialog>>
+<<dialog "dinerDishwasher">>Worked last Tuesday. I'm optimistic.<</dialog>>
+<<dialog "player">>Bold strategy. Good luck with that.<</dialog>>
+<<dialog "dinerDishwasher">>Thanks. I'll need it.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeWorkingDoneEvening-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-9.webp">>
 <<image _img "100%">>
-<<narrative>>Mike checks his phone screen quietly, avoiding eye contact with the floor.<</narrative>>
-<<dialog "dinerDishwasher">>Finally done. Going to bury myself in video games until the sun comes up.<</dialog>>
-<<dialog "player">>Have fun with that.<</dialog>>
-<<dialog "dinerDishwasher">>I will. See ya.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Mike has his jacket on already, sitting on a stack of flour bags. He's ready to leave ten minutes early.<</narrative>>
+
+<<dialog "dinerDishwasher">>I'm basically already gone. Spiritually.<</dialog>>
+<<dialog "player">>Your body's still here though.<</dialog>>
+<<dialog "dinerDishwasher">>Minor detail. My soul left at like nine.<</dialog>>
+<<dialog "player">>That early?<</dialog>>
+<<dialog "dinerDishwasher">>Didn't even clock in all the way mentally. Happens.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "chill_goodbye": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-10.webp">>
+<<image _img "100%">>
+<<narrative>>Mike scrolls his phone with one hand, the other resting on his knee. He barely looks up.<</narrative>>
+
+<<dialog "dinerDishwasher">>You leaving too? Nice.<</dialog>>
+<<dialog "player">>Yeah, shift's over. Heading out.<</dialog>>
+<<dialog "dinerDishwasher">>Walk slow. Savor it.<</dialog>>
+<<dialog "player">>You say that like it's a big deal.<</dialog>>
+<<dialog "dinerDishwasher">>Leaving work is always a big deal.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-11.webp">>
+<<image _img "100%">>
+<<narrative>>Mike gives a lazy two-finger wave from his spot on the crate. He doesn't stand up.<</narrative>>
+
+<<dialog "dinerDishwasher">>Later. Good shift. Didn't break anything.<</dialog>>
+<<dialog "player">>Is that the bar? Not breaking things?<</dialog>>
+<<dialog "dinerDishwasher">>Around here? Yeah. That's a win.<</dialog>>
+<<dialog "player">>Alright then. See you next time, Mike.<</dialog>>
+<<dialog "dinerDishwasher">>See you. Don't come back too early.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-12.webp">>
+<<image _img "100%">>
+<<narrative>>Mike stretches long and slow, then settles back into the same position. Like a cat that moved just to get comfortable again.<</narrative>>
+
+<<dialog "dinerDishwasher">>Whole day ahead of you. What's the move?<</dialog>>
+<<dialog "player">>Not sure yet. Maybe just relax.<</dialog>>
+<<dialog "dinerDishwasher">>Good answer. Don't overthink it.<</dialog>>
+<<dialog "player">>Spoken like a true expert.<</dialog>>
+<<dialog "dinerDishwasher">>Relaxing is the one thing I'm actually good at.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     }
+
 }>>
+<</nobr>>

@@ -13,9 +13,32 @@
 <<set _targetLocation = _args[0]>>
 <<set _hasCharacter = false>>
 
+/* Build list of locations to show characters from.
+   If this is a workplace mainLocation and player is NOT employed there,
+   aggregate characters from all subLocations (except excluded ones). */
+<<set _showLocations = [_targetLocation]>>
+<<set _excludeChars = []>>
+<<set _wpGroup = null>>
+<<for _wpKey, _wp range setup.workplaceGroups>>
+    <<if _wp.mainLocation === _targetLocation>>
+        <<set _wpGroup = _wp>>
+    <</if>>
+<</for>>
+<<if _wpGroup !== null>>
+    /* Check if player is employed at this workplace */
+    <<set _isEmployed = false>>
+    <<if $job && $job.id && setup.jobs[$job.id] && setup.jobs[$job.id].workplace === _wpGroup.mainLocation>>
+        <<set _isEmployed = true>>
+    <</if>>
+    <<if !_isEmployed>>
+        <<set _showLocations = _showLocations.concat(_wpGroup.subLocations)>>
+        <<set _excludeChars = _wpGroup.excludeFromAggregation || []>>
+    <</if>>
+<</if>>
+
 <div class="location-characters">
 <<for _charId, _char range $characters>>
-    <<if _charId !== "player" && _char.currentLocation === _targetLocation && _char.known === true>>
+    <<if _charId !== "player" && _showLocations.includes(_char.currentLocation) && _char.known === true && !_excludeChars.includes(_charId)>>
         <<set _hasCharacter = true>>
         <<capture _charId>>
         <<set _charMerged = setup.getCharacter(_charId)>>

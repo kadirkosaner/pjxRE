@@ -1,119 +1,327 @@
-/* ==========================================
-   JAMES TALK TOPICS — ON BREAK PHASE, LEVEL 1
-   phase === "working.onBreak" && friendshipLevel === 1
-
-   CHARACTER: James Holt, Chef at Ruby's Diner
-   → Late 30s, married with kids. Runs the kitchen.
-   → Player is a coworker on break. 
-
-   CONTEXTS:
-   dinerRubys_workingOnBreak_morning
-   dinerRubys_workingOnBreak_afternoon
-   dinerRubys_workingOnBreak_evening
-========================================== */
-
+:: JamesTopicsDishwasherOnBreakLevel1
+<<nobr>>
 <<set setup.jamesTopics = setup.jamesTopics || {}>>
-<<set setup.jamesTopics.workingOnBreak = setup.jamesTopics.workingOnBreak || {}>>
-<<set setup.jamesTopics.workingOnBreak.level1 = {
+<<set setup.jamesTopics.dishwasherOnBreak = setup.jamesTopics.dishwasherOnBreak || {}>>
+<<set setup.jamesTopics.dishwasherOnBreak.level1 = {
 
-    dinerRubys_workingOnBreak_morning: {
+    "dinerRubysKitchen_dishwasherOnBreak_morning": {
 
-        break_talk: [
+        "tired_back": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenMorning-1.webp">>
 <<image _img "100%">>
-<<narrative>>James pushes a plate of slightly misshapen pancakes toward you.<</narrative>>
-<<dialog "dinerChef">>They were ugly, so they can't go to a customer. Eat them or toss them.<</dialog>>
-<<dialog "player">>Thanks, James.<</dialog>>
-<<dialog "dinerChef">>Carbs will keep you moving. You'll need it when Vince gets cranky later.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>James leans against the prep counter, pressing a fist into his lower back. The morning rush left a mess of pans behind him.<</narrative>>
+
+<<dialog "dinerChef">>Back's already killing me.<</dialog>>
+<<dialog "player">>It's not even ten yet.<</dialog>>
+<<dialog "dinerChef">>Yeah, thanks for the reminder.<</dialog>>
+<<dialog "player">>You stretch before shifts?<</dialog>>
+<<dialog "dinerChef">>I stretch getting out of bed. Doesn't help.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>James is doing his own prep, ignoring you for the most part.<</narrative>>
-<<dialog "player">>Pretty quiet morning.<</dialog>>
-<<dialog "dinerChef">>Quiet is the calm before the lunch rush. Enjoy sitting down while you can.<</dialog>>
-<<dialog "player">>You don't take breaks?<</dialog>>
-<<dialog "dinerChef">>Kitchen never sleeps. Sit.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>James rolls his neck slowly, one hand braced on the stovetop edge. A half-eaten granola bar sits on the counter beside him.<</narrative>>
+
+<<dialog "dinerChef">>Slept wrong. Neck's all jammed up.<</dialog>>
+<<dialog "player">>You should get one of those pillows.<</dialog>>
+<<dialog "dinerChef">>Got three. Wife keeps buying them.<</dialog>>
+<<dialog "player">>And they don't work?<</dialog>>
+<<dialog "dinerChef">>I sleep face down. Nothing works.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>James yells towards the front of the house before looking at you.<</narrative>>
-<<dialog "dinerChef">>Are they still out over there? Tell Emma to pick up her ticket.<</dialog>>
-<<dialog "player">>I'm on break, actually.<</dialog>>
-<<dialog "dinerChef">>Yeah, I can see that. I'm just venting. My eggs are getting cold. Typical.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>James twists at the waist, hands on his hips. Something pops audibly.<</narrative>>
+
+<<dialog "dinerChef">>That one's been stuck all morning.<</dialog>>
+<<dialog "player">>That sounded awful.<</dialog>>
+<<dialog "dinerChef">>Felt great though.<</dialog>>
+<<dialog "player">>Whatever works, I guess.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "morning_rush": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenMorning-4.webp">>
+<<image _img "100%">>
+<<narrative>>James wipes his hands on his apron, surveying the pile of tickets still clipped to the rail.<</narrative>>
+
+<<dialog "dinerChef">>Breakfast crowd doesn't quit.<</dialog>>
+<<dialog "player">>Felt like nonstop out front too.<</dialog>>
+<<dialog "dinerChef">>Eggs. Always eggs. Everybody wants eggs a different way.<</dialog>>
+<<dialog "player">>Over easy's the popular one, right?<</dialog>>
+<<dialog "dinerChef">>Scrambled. Always scrambled. Easiest thing on the menu.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenMorning-5.webp">>
+<<image _img "100%">>
+<<narrative>>James takes a long drink of water from a plastic cup, leaning against the walk-in cooler door.<</narrative>>
+
+<<dialog "dinerChef">>Morning rush hit different today.<</dialog>>
+<<dialog "player">>Yeah, we were slammed.<</dialog>>
+<<dialog "dinerChef">>Some guy sent back his toast. Twice.<</dialog>>
+<<dialog "player">>What was wrong with it?<</dialog>>
+<<dialog "dinerChef">>Too toasted. Then not toasted enough. Pick a lane.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenMorning-6.webp">>
+<<image _img "100%">>
+<<narrative>>James rests both hands flat on the counter, head dipped forward. He exhales slowly.<</narrative>>
+
+<<dialog "dinerChef">>Fifteen omelets. Fifteen.<</dialog>>
+<<dialog "player">>Is that a lot for a morning?<</dialog>>
+<<dialog "dinerChef">>It's a lot for one guy with two burners.<</dialog>>
+<<dialog "player">>Fair point.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingOnBreak_afternoon: {
+    "dinerRubysKitchen_dishwasherOnBreak_afternoon": {
 
-        kitchen_heat: [
+        "quick_smoke": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>James is downing an entire glass of ice water in one go.<</narrative>>
-<<dialog "dinerChef">>Lost about five pounds of sweat today. It's a furnace back here.<</dialog>>
-<<dialog "player">>It looks intense.<</dialog>>
-<<dialog "dinerChef">>It is. Stay in the front air conditioning as long as Vince lets you.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>James fidgets with an unlit cigarette, tucking it behind his ear. He checks the clock on the wall.<</narrative>>
+
+<<dialog "dinerChef">>Five minutes. That's all I need.<</dialog>>
+<<dialog "player">>Sneaking out back?<</dialog>>
+<<dialog "dinerChef">>Not sneaking. Just... going quickly.<</dialog>>
+<<dialog "player">>Ruby doesn't mind?<</dialog>>
+<<dialog "dinerChef">>Ruby doesn't need to know everything.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>James points a greasy spatula at you menacingly.<</narrative>>
-<<dialog "dinerChef">>If you see a table of eight coming in, you tell me before they sit down. Okay?<</dialog>>
-<<dialog "player">>I'll try.<</dialog>>
-<<dialog "dinerChef">>Don't try. Do. I need warning to prep the grill space.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>James leans on the prep table, drumming his fingers. The afternoon lull has the kitchen quieter than usual.<</narrative>>
+
+<<dialog "dinerChef">>Trying to cut back. Down to three a day.<</dialog>>
+<<dialog "player">>That's progress, right?<</dialog>>
+<<dialog "dinerChef">>Was ten last year. So yeah.<</dialog>>
+<<dialog "player">>Keep at it.<</dialog>>
+<<dialog "dinerChef">>Wife says the same thing. Less nice about it though.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>James checks the fridge briefly, clearly exhausted.<</narrative>>
-<<dialog "dinerChef">>I'm out of mayo. It's only 2 PM and I am out of mayo. This is a disaster.<</dialog>>
-<<dialog "player">>Can you buy more nearby?<</dialog>>
-<<dialog "dinerChef">>Vince would rather die than pay retail. We're scraping jars today.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>James pats his apron pocket, then stops himself. He sighs and grabs a toothpick instead.<</narrative>>
+
+<<dialog "dinerChef">>Toothpick instead. Doctor's orders.<</dialog>>
+<<dialog "player">>Does that actually help?<</dialog>>
+<<dialog "dinerChef">>Keeps my mouth busy. That's half the habit.<</dialog>>
+<<dialog "player">>Smart approach, honestly.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "afternoon_lull": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenAfternoon-4.webp">>
+<<image _img "100%">>
+<<narrative>>James slowly sharpens a knife, the rhythm steady and practiced. The kitchen is calm between services.<</narrative>>
+
+<<dialog "dinerChef">>This part's almost nice. The quiet.<</dialog>>
+<<dialog "player">>Enjoy it while it lasts?<</dialog>>
+<<dialog "dinerChef">>Dinner rush'll fix that real quick.<</dialog>>
+<<dialog "player">>Anything big on the menu tonight?<</dialog>>
+<<dialog "dinerChef">>Same as always. People don't come here for surprises.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenAfternoon-5.webp">>
+<<image _img "100%">>
+<<narrative>>James wipes down the flattop grill with long, even strokes. He's unhurried for once.<</narrative>>
+
+<<dialog "dinerChef">>Afternoon's the only sane part of this job.<</dialog>>
+<<dialog "player">>Mornings and evenings that bad?<</dialog>>
+<<dialog "dinerChef">>Mornings are chaos. Evenings are loud chaos.<</dialog>>
+<<dialog "player">>And afternoons?<</dialog>>
+<<dialog "dinerChef">>Quiet chaos. I'll take it.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesKitchenAfternoon-6.webp">>
+<<image _img "100%">>
+<<narrative>>James refills the squeeze bottles methodically — ketchup, mustard, hot sauce. Muscle memory.<</narrative>>
+
+<<dialog "dinerChef">>Prep work. Most boring part.<</dialog>>
+<<dialog "player">>At least it's easy though.<</dialog>>
+<<dialog "dinerChef">>Easy and boring aren't the same thing.<</dialog>>
+<<dialog "player">>Guess not.<</dialog>>
+<<dialog "dinerChef">>But yeah. Beats the rush.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingOnBreak_evening: {
+    "dinerRubysStorage_dishwasherOnBreak_afternoon": {
 
-        almost_closing: [
+        "kids_talk": [
             {
-text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakEvening-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesStorageAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>James eyes the clock on the wall above the freezer.<</narrative>>
-<<dialog "dinerChef">>I shut the grill down in an hour. Anyone orders a burger after that, they get a cold sandwich.<</dialog>>
-<<dialog "player">>Vince won't like it.<</dialog>>
-<<dialog "dinerChef">>Vince doesn't cook it. I do. Go rest your feet.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>James sits on a crate in the storage room, eating a sandwich he brought from home. He looks up when you walk in.<</narrative>>
+
+<<dialog "dinerChef">>Kid's got a soccer game Saturday.<</dialog>>
+<<dialog "player">>You gonna make it this time?<</dialog>>
+<<dialog "dinerChef">>Swapped shifts. Better be worth it.<</dialog>>
+<<dialog "player">>He'll be happy you're there.<</dialog>>
+<<dialog "dinerChef">>She. And yeah. She better score.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakEvening-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesStorageAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>James tosses a towel at a bin but misses by a foot.<</narrative>>
-<<dialog "dinerChef">>My aim is gone. Brain is fried. Just like the chicken.<</dialog>>
-<<dialog "player">>You're almost done.<</dialog>>
-<<dialog "dinerChef">>Not soon enough. Don't fall asleep on your break, kid.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>James scrolls through his phone, a half smile on his face. He tilts the screen slightly as you approach.<</narrative>>
+
+<<dialog "dinerChef">>Look at this. Youngest one tried to make a sandwich.<</dialog>>
+<<dialog "player">>How'd that go?<</dialog>>
+<<dialog "dinerChef">>Peanut butter on the outside. Bread in the middle.<</dialog>>
+<<dialog "player">>Creative approach.<</dialog>>
+<<dialog "dinerChef">>That's one word for it.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesOnBreakEvening-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesStorageAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>James leans against the pass counter, arms crossed and staring nowhere.<</narrative>>
-<<dialog "player">>Just waiting it out?<</dialog>>
-<<dialog "dinerChef">>Yeah. The quiet before the cleanup. It's the worst part of the night.<</dialog>>
-<<dialog "player">>It'll be over soon.<</dialog>>
-<<dialog "dinerChef">>Let's hope so. See you out there.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>James leans against a shelf of canned goods, arms crossed. He looks like he's thinking about something far from the diner.<</narrative>>
+
+<<dialog "dinerChef">>My oldest wants to be a chef now.<</dialog>>
+<<dialog "player">>Following in your footsteps?<</dialog>>
+<<dialog "dinerChef">>Told her to pick something easier.<</dialog>>
+<<dialog "player">>She didn't listen, did she?<</dialog>>
+<<dialog "dinerChef">>She's eight. Eight-year-olds don't listen.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "the_quiet": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesStorageAfternoon-4.webp">>
+<<image _img "100%">>
+<<narrative>>James stands in the dim storage room, eyes closed, just breathing. He opens them when the door creaks.<</narrative>>
+
+<<dialog "dinerChef">>Two minutes of silence. That's all I wanted.<</dialog>>
+<<dialog "player">>Sorry, I can go—<</dialog>>
+<<dialog "dinerChef">>Nah. You're quiet enough. Stay.<</dialog>>
+<<dialog "player">>High praise from you.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesStorageAfternoon-5.webp">>
+<<image _img "100%">>
+<<narrative>>James stretches his arms overhead, nearly touching the low ceiling. He drops them with a sigh.<</narrative>>
+
+<<dialog "dinerChef">>Storage room's the only cool spot in this place.<</dialog>>
+<<dialog "player">>Kitchen that hot today?<</dialog>>
+<<dialog "dinerChef">>Grill, fryer, oven. All going at once.<</dialog>>
+<<dialog "player">>Sounds like a sauna.<</dialog>>
+<<dialog "dinerChef">>Sauna without the relaxation part.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesStorageAfternoon-6.webp">>
+<<image _img "100%">>
+<<narrative>>James is leaning against the wall, coffee in hand, staring at nothing. He looks almost peaceful.<</narrative>>
+
+<<dialog "dinerChef">>You ever just stand somewhere and think about nothing?<</dialog>>
+<<dialog "player">>All the time, honestly.<</dialog>>
+<<dialog "dinerChef">>Good. That's healthy. I read that somewhere.<</dialog>>
+<<dialog "player">>Didn't take you for a reader.<</dialog>>
+<<dialog "dinerChef">>Wife left the article on the counter. I read while I eat.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ]
+    },
+
+    "dinerRubys_dishwasherOnBreak_evening": {
+
+        "end_of_day": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesFrontEvening-7.webp">>
+<<image _img "100%">>
+<<narrative>>James stands near the front counter, apron loosened. He watches the last few customers through the window.<</narrative>>
+
+<<dialog "dinerChef">>Almost through. Just the closing push left.<</dialog>>
+<<dialog "player">>Feels like today dragged, right?<</dialog>>
+<<dialog "dinerChef">>Every day drags. Some just drag more.<</dialog>>
+<<dialog "player">>Cheerful as always.<</dialog>>
+<<dialog "dinerChef">>I save the cheer for my kids.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesFrontEvening-8.webp">>
+<<image _img "100%">>
+<<narrative>>James stands by the register, arms folded. He's out of the kitchen — unusual for him.<</narrative>>
+
+<<dialog "dinerChef">>Needed a change of scenery. Even if it's just ten feet.<</dialog>>
+<<dialog "player">>The front's almost exotic for you.<</dialog>>
+<<dialog "dinerChef">>Don't push it.<</dialog>>
+<<dialog "player">>You look lost without the grill.<</dialog>>
+<<dialog "dinerChef">>I look fine. Mind your business.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesFrontEvening-9.webp">>
+<<image _img "100%">>
+<<narrative>>James leans on the door frame between the kitchen and the front, half in both worlds.<</narrative>>
+
+<<dialog "dinerChef">>Evening crowd's thinning out. Thank god.<</dialog>>
+<<dialog "player">>Rough night on the line?<</dialog>>
+<<dialog "dinerChef">>Nothing I can't handle. Just long.<</dialog>>
+<<dialog "player">>You say that every shift.<</dialog>>
+<<dialog "dinerChef">>Because it's true every shift.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "quick_breather": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesFrontEvening-10.webp">>
+<<image _img "100%">>
+<<narrative>>James holds a glass of water, drinking it in steady gulps. He finishes and sets it down with a thud.<</narrative>>
+
+<<dialog "dinerChef">>Forgot to drink water for three hours.<</dialog>>
+<<dialog "player">>That can't be good for you.<</dialog>>
+<<dialog "dinerChef">>Probably not. Do it every day though.<</dialog>>
+<<dialog "player">>Set an alarm or something.<</dialog>>
+<<dialog "dinerChef">>Yeah, I'll just check my phone mid-service. Great plan.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesFrontEvening-11.webp">>
+<<image _img "100%">>
+<<narrative>>James cracks his knuckles one at a time, staring out the front windows at the dark street.<</narrative>>
+
+<<dialog "dinerChef">>Hands cramp up by evening. Every time.<</dialog>>
+<<dialog "player">>From the cooking?<</dialog>>
+<<dialog "dinerChef">>From everything. Gripping, lifting, chopping.<</dialog>>
+<<dialog "player">>You should soak them or something.<</dialog>>
+<<dialog "dinerChef">>I run them under hot water when I do dishes. Close enough.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/james/level1/jamesFrontEvening-12.webp">>
+<<image _img "100%">>
+<<narrative>>James stands near the door, arms at his sides, just breathing the cooler air from outside.<</narrative>>
+
+<<dialog "dinerChef">>Fresh air. Forgot what it smelled like.<</dialog>>
+<<dialog "player">>Better than fryer grease?<</dialog>>
+<<dialog "dinerChef">>Anything's better than fryer grease at hour eight.<</dialog>>
+<<dialog "player">>Can't argue with that.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     }
+
 }>>
+<</nobr>>

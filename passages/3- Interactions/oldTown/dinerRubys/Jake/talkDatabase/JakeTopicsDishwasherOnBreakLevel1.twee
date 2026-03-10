@@ -1,136 +1,272 @@
+:: JakeTopicsDishwasherOnBreakLevel1
 /* ==========================================
    JAKE TALK TOPICS — WORKING ON BREAK PHASE, LEVEL 1
    phase === "working.onBreak" && friendshipLevel === 1
 
-   CHARACTER: Jake Rivera, Waiter at Ruby's Diner
-   → Late 20s, relaxed, energetic but directionless.
-   → Player works there too, on break. Coworker solidarity.
-   → Treats player like a reliable buddy on shift.
+   CHARACTER: Jake, Waiter at Ruby's Diner (dinerWaitress3)
+   → Easygoing, social, younger energy. Single.
+   → Coworker mode — casual, friendly, no tension.
+   → Tone: Friendly, casual, sometimes joking.
+
+   WORKING ON BREAK L1 TONE:
+   → Player is dishwasher, currently on break.
+   → Jake is either still on the floor or also chilling.
+   → Break topics: gym, dating, food, plans for later.
+   → CRITICAL: Light coworker banter, not deep.
 
    CONTEXTS:
-   dinerRubys_workingOnBreak_morning
-   dinerRubys_workingOnBreak_afternoon
-   dinerRubys_workingOnBreak_evening
+   dinerRubys_dishwasherOnBreak_afternoon
+   dinerRubys_dishwasherOnBreak_evening
+   dinerRubysStorage_dishwasherOnBreak_evening
 ========================================== */
 
+<<nobr>>
 <<set setup.jakeTopics = setup.jakeTopics || {}>>
-<<set setup.jakeTopics.workingOnBreak = setup.jakeTopics.workingOnBreak || {}>>
-<<set setup.jakeTopics.workingOnBreak.level1 = {
+<<set setup.jakeTopics.dishwasherOnBreak = setup.jakeTopics.dishwasherOnBreak || {}>>
+<<set setup.jakeTopics.dishwasherOnBreak.level1 = {
 
-    dinerRubys_workingOnBreak_morning: {
+    dinerRubys_dishwasherOnBreak_afternoon: {
 
-        morning_break: [
+        gym_talk: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakMorning-1.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-1.webp">>
 <<image _img "100%">>
-<<narrative>>Jake snags a stray fry from a passing plate and eats it quickly.<</narrative>>
-<<dialog "dinerWaitress3">>Break time already? Lucky. My stomach is screaming right now.<</dialog>>
-<<dialog "player">>Go get some food, then.<</dialog>>
-<<dialog "dinerWaitress3">>Vince will have my hide if I leave the floor empty. Have a coffee for me.<</dialog>>
-<<dialog "player">>Will do, man.<</dialog>>
-<<dialog "dinerWaitress3">>Enjoy it.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Jake rolls his shoulder while carrying a bus tub past you.<</narrative>>
+
+<<dialog "dinerWaitress3">>Hit the gym before my shift. Still feeling it.<</dialog>>
+<<dialog "player">>What were you working on? Arms? Legs?<</dialog>>
+<<dialog "dinerWaitress3">>Chest and back. Went a little too hard on rows.<</dialog>>
+<<dialog "player">>That explains the shoulder rolling thing you're doing.<</dialog>>
+<<dialog "dinerWaitress3">>Worth it though. Gains don't come free.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakMorning-2.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>Jake pauses halfway to the kitchen to stretch his back with a groan.<</narrative>>
-<<dialog "dinerWaitress3">>You look entirely too comfortable sitting there while we suffer.<</dialog>>
-<<dialog "player">>I earned this break.<</dialog>>
-<<dialog "dinerWaitress3">>Yeah, yeah. Just don't let Vince catch you relaxing too hard, he gets jealous.<</dialog>>
-<<dialog "player">>I'll be careful.<</dialog>>
-<<dialog "dinerWaitress3">>Good. See ya in a bit.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Jake flexes his forearm while wiping down the counter, grinning to himself.<</narrative>>
+
+<<dialog "dinerWaitress3">>Do you work out or just wash dishes?<</dialog>>
+<<dialog "player">>Dishes are my cardio at this point honestly.<</dialog>>
+<<dialog "dinerWaitress3">>Bro, scrubbing pots is basically arm day. You're set.<</dialog>>
+<<dialog "player">>I'll put that on my fitness app. 'Pot scrubs.'<</dialog>>
+<<dialog "dinerWaitress3">>Patent that before someone else does. Seriously.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakMorning-3.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>Jake tosses his towel over his shoulder, looking exhausted.<</narrative>>
-<<dialog "dinerWaitress3">>Mike is slamming plates in the back. Try to avoid him on your break.<</dialog>>
-<<dialog "player">>Bad mood?<</dialog>>
-<<dialog "dinerWaitress3">>When is he in a good mood before 10 AM? Just lay low.<</dialog>>
-<<dialog "player">>Thanks for the warning.<</dialog>>
-<<dialog "dinerWaitress3">>No problem. Take it easy.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Jake stretches his neck side to side, taking a brief pause near the register.<</narrative>>
+
+<<dialog "dinerWaitress3">>My gym buddy bailed on me this morning. Again.<</dialog>>
+<<dialog "player">>That's the problem with gym buddies, they flake.<</dialog>>
+<<dialog "dinerWaitress3">>He said his alarm didn't go off. Classic excuse.<</dialog>>
+<<dialog "player">>At least you still went on your own.<</dialog>>
+<<dialog "dinerWaitress3">>Always do. Can't let someone else ruin my streak.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        food_cravings: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-1.webp">>
+<<image _img "100%">>
+<<narrative>>Jake eyes the specials board while wiping a nearby table.<</narrative>>
+
+<<dialog "dinerWaitress3">>I've been craving tacos all day. This menu mocks me.<</dialog>>
+<<dialog "player">>There's a truck down the block that's pretty good.<</dialog>>
+<<dialog "dinerWaitress3">>The blue one? Their salsa is unreal.<</dialog>>
+<<dialog "player">>That's the one. Get some after your shift.<</dialog>>
+<<dialog "dinerWaitress3">>Already planning on it. You read my mind.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-2.webp">>
+<<image _img "100%">>
+<<narrative>>Jake sniffs the air coming from the kitchen and makes a face.<</narrative>>
+
+<<dialog "dinerWaitress3">>James is burning something again. Can you smell that?<</dialog>>
+<<dialog "player">>Yeah, getting some smoky vibes back by the sink too.<</dialog>>
+<<dialog "dinerWaitress3">>That's either the grill or someone's lunch. Pray for me.<</dialog>>
+<<dialog "player">>If it's the grill, customers are going to notice.<</dialog>>
+<<dialog "dinerWaitress3">>I'll tell them it's 'artisan char.' Fancy stuff.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-3.webp">>
+<<image _img "100%">>
+<<narrative>>Jake pops a leftover fry into his mouth when nobody's looking.<</narrative>>
+
+<<dialog "dinerWaitress3">>You didn't see that. That fry was already dead.<</dialog>>
+<<dialog "player">>I saw nothing. Enjoy your stolen fry in peace.<</dialog>>
+<<dialog "dinerWaitress3">>It's not stealing if it was heading to the trash anyway.<</dialog>>
+<<dialog "player">>That's some solid moral reasoning right there.<</dialog>>
+<<dialog "dinerWaitress3">>I've had time to think it through. Many fries ago.<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingOnBreak_afternoon: {
+    dinerRubys_dishwasherOnBreak_evening: {
 
-        lunch_tired: [
+        dating_stories: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakAfternoon-1.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>Jake stops by your table, deliberately sighing loudly.<</narrative>>
-<<dialog "dinerWaitress3">>Table four sent their eggs back. Twice. I'm gonna lose my mind.<</dialog>>
-<<dialog "player">>What was wrong with them?<</dialog>>
-<<dialog "dinerWaitress3">>'Too yellow', apparently. I didn't even know how to answer that.<</dialog>>
-<<dialog "player">>Just ignore them.<</dialog>>
-<<dialog "dinerWaitress3">>I wish. Enjoy the break, you don't have to deal with table four.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Jake leans on the counter, looking at his phone between customers.<</narrative>>
+
+<<dialog "dinerWaitress3">>Got a match on that dating app. No idea what to say.<</dialog>>
+<<dialog "player">>Just say something normal. Ask about their day.<</dialog>>
+<<dialog "dinerWaitress3">>That's boring though. I need an opener.<</dialog>>
+<<dialog "player">>Boring is safe. Safe gets replies back usually.<</dialog>>
+<<dialog "dinerWaitress3">>Fine. 'Hey, how's your Tuesday.' Riveting stuff.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakAfternoon-2.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>Jake casually steals a sugar packet from your table.<</narrative>>
-<<dialog "dinerWaitress3">>Need some sugar. The afternoon slump is hitting me hard today.<</dialog>>
-<<dialog "player">>There's coffee in the back.<</dialog>>
-<<dialog "dinerWaitress3">>Too hot for coffee. I'm just eating raw sugar. Don't look at me like that.<</dialog>>
-<<dialog "player">>I didn't say anything.<</dialog>>
-<<dialog "dinerWaitress3">>You judged me. It's fine.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Jake shakes his head while refilling the sugar dispensers.<</narrative>>
+
+<<dialog "dinerWaitress3">>Went on a date last week. Total disaster.<</dialog>>
+<<dialog "player">>What happened? Bad conversation or bad food?<</dialog>>
+<<dialog "dinerWaitress3">>Both. She ordered for me. Without asking.<</dialog>>
+<<dialog "player">>That's a bold move from a stranger honestly.<</dialog>>
+<<dialog "dinerWaitress3">>Bold is one word for it. I got a salad. A salad.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakAfternoon-3.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>Jake quickly ties his shoes near the counter, keeping an eye out for Vince.<</narrative>>
-<<dialog "dinerWaitress3">>My shoes are falling apart. The grease eats through the soles, I swear.<</dialog>>
-<<dialog "player">>Buy better shoes.<</dialog>>
-<<dialog "dinerWaitress3">>With my tips? Funny. I'll just wrap them in duct tape soon.<</dialog>>
-<<dialog "player">>Very stylish.<</dialog>>
-<<dialog "dinerWaitress3">>I start trends. Catch ya later.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Jake straightens his collar in the reflection of the glass pie case.<</narrative>>
+
+<<dialog "dinerWaitress3">>Do I look approachable or just tired right now?<</dialog>>
+<<dialog "player">>Somewhere in between. Leaning toward tired honestly.<</dialog>>
+<<dialog "dinerWaitress3">>That's not what I wanted to hear at all.<</dialog>>
+<<dialog "player">>You asked for honesty. I delivered on that one.<</dialog>>
+<<dialog "dinerWaitress3">>Fair enough. I'll splash some water on my face later.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        after_work_plans: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Jake checks the time on his phone and slides it back into his apron pocket.<</narrative>>
+
+<<dialog "dinerWaitress3">>Couple more hours and I'm free. Can't wait.<</dialog>>
+<<dialog "player">>Got something planned or just heading home after?<</dialog>>
+<<dialog "dinerWaitress3">>Probably meet up with some guys from school.<</dialog>>
+<<dialog "player">>Sounds like a good way to end the night.<</dialog>>
+<<dialog "dinerWaitress3">>Anything beats standing here, honestly. No offense to you.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Jake drums his fingers on the counter, already mentally checked out.<</narrative>>
+
+<<dialog "dinerWaitress3">>I'm thinking wings and a movie tonight. Thoughts?<</dialog>>
+<<dialog "player">>Solid combo. What movie are you thinking about?<</dialog>>
+<<dialog "dinerWaitress3">>Whatever's loudest. I need my brain to stop working.<</dialog>>
+<<dialog "player">>Action movie it is then. Turn the brain off completely.<</dialog>>
+<<dialog "dinerWaitress3">>Exactly. Pure explosions. Zero thinking required.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Jake yawns but catches himself, turning it into a grin.<</narrative>>
+
+<<dialog "dinerWaitress3">>Man, this shift is dragging. You feel that too?<</dialog>>
+<<dialog "player">>The last hour always feels like three somehow.<</dialog>>
+<<dialog "dinerWaitress3">>Time is broken in this building. I'm convinced of that.<</dialog>>
+<<dialog "player">>There's definitely something wrong with that clock up there.<</dialog>>
+<<dialog "dinerWaitress3">>It's not the clock. It's the diner. It eats time.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
             }
         ]
     },
 
-    dinerRubys_workingOnBreak_evening: {
+    dinerRubysStorage_dishwasherOnBreak_evening: {
 
-        shift_end: [
+        break_room_vibes: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakEvening-1.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeStorageEvening-1.webp">>
 <<image _img "100%">>
-<<narrative>>Jake walks by slowly, practically dragging his feet on the tile.<</narrative>>
-<<dialog "dinerWaitress3">>It's dark outside. This is unnatural. We should be sleeping.<</dialog>>
-<<dialog "player">>You're barely standing.<</dialog>>
-<<dialog "dinerWaitress3">>I'm sleepwalking. If I take an order for a pizza, wake me up.<</dialog>>
-<<dialog "player">>I'll try.<</dialog>>
-<<dialog "dinerWaitress3">>Thanks, buddy. Enjoy the break.<</dialog>`,
-                friendship: 2, trust: 0
+<<narrative>>Jake sits on a crate in the storage room, eating chips out of a bag.<</narrative>>
+
+<<dialog "dinerWaitress3">>Best part of the shift right here. Chips and silence.<</dialog>>
+<<dialog "player">>Where'd you even find those? The vending machine's broken.<</dialog>>
+<<dialog "dinerWaitress3">>Stashed them behind the paper towels last week. Planning ahead.<</dialog>>
+<<dialog "player">>That's either genius or deeply concerning behavior.<</dialog>>
+<<dialog "dinerWaitress3">>Genius. Definitely genius. Want some?<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakEvening-2.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeStorageEvening-2.webp">>
 <<image _img "100%">>
-<<narrative>>Jake leans against the booth for a second, rubbing his eyes.<</narrative>>
-<<dialog "dinerWaitress3">>If Emma yells at me to wipe down the condiment bottles one more time, I'm quitting.<</dialog>>
-<<dialog "player">>She's just doing her job.<</dialog>>
-<<dialog "dinerWaitress3">>Yeah, but she likes it too much. It's creepy how much she cares about mustard crust.<</dialog>>
-<<dialog "player">>I guess so.<</dialog>>
-<<dialog "dinerWaitress3">>Back to the trenches for me. Rest up.<</dialog>`,
-                friendship: 1, trust: 0
+<<narrative>>Jake leans back against the shelves, scrolling through his phone lazily.<</narrative>>
+
+<<dialog "dinerWaitress3">>This back room smells like bleach and regret.<</dialog>>
+<<dialog "player">>It's definitely seen better days. Or maybe not.<</dialog>>
+<<dialog "dinerWaitress3">>Still better than being out there with Vince hovering.<</dialog>>
+<<dialog "player">>He's been watching everyone pretty closely tonight.<</dialog>>
+<<dialog "dinerWaitress3">>That's his hobby. We're the entertainment. Stay hidden.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeOnBreakEvening-3.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeStorageEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>Jake pockets a handful of coins from a nearby table.<</narrative>>
-<<dialog "dinerWaitress3">>Three bucks. Not terrible for an evening tip. Could buy half a burger.<</dialog>>
-<<dialog "player">>Don't spend it all at once.<</dialog>>
-<<dialog "dinerWaitress3">>I'm investing it. In vending machine snacks. Have a good break out here.<</dialog>>
-<<dialog "player">>Thanks.<</dialog>>
-<<dialog "dinerWaitress3">>No problem.<</dialog>`,
-                friendship: 2, trust: 1
+<<narrative>>Jake stretches his legs across a stack of supply boxes, arms behind his head.<</narrative>>
+
+<<dialog "dinerWaitress3">>I could fall asleep back here. Seriously considering it.<</dialog>>
+<<dialog "player">>Vince would lose his mind if he found you napping.<</dialog>>
+<<dialog "dinerWaitress3">>That's the thrill though. Living on the edge every break.<</dialog>>
+<<dialog "player">>Your definition of 'the edge' is pretty mild honestly.<</dialog>>
+<<dialog "dinerWaitress3">>For a diner, this is extreme sports. Trust the process.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        coworker_gossip: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeStorageEvening-1.webp">>
+<<image _img "100%">>
+<<narrative>>Jake speaks quietly, glancing toward the storage room door.<</narrative>>
+
+<<dialog "dinerWaitress3">>Emma almost snapped at a customer earlier. Close call.<</dialog>>
+<<dialog "player">>What set her off? She's usually just quietly annoyed.<</dialog>>
+<<dialog "dinerWaitress3">>Guy asked for a refill four times in ten minutes.<</dialog>>
+<<dialog "player">>Okay, that would test anyone's patience honestly.<</dialog>>
+<<dialog "dinerWaitress3">>She held it together. Barely. It was impressive.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeStorageEvening-2.webp">>
+<<image _img "100%">>
+<<narrative>>Jake peels the label off a water bottle, looking amused about something.<</narrative>>
+
+<<dialog "dinerWaitress3">>Sofia convinced a customer his soup was 'artisan style.'<</dialog>>
+<<dialog "player">>Was it not? What does that even mean here?<</dialog>>
+<<dialog "dinerWaitress3">>It means James forgot to stir it. Had chunks floating in it.<</dialog>>
+<<dialog "player">>And the customer actually bought that explanation. Wow.<</dialog>>
+<<dialog "dinerWaitress3">>She's got a gift. I can't even be mad about it.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeStorageEvening-3.webp">>
+<<image _img "100%">>
+<<narrative>>Jake crumples up a napkin and tries to toss it into a trash can across the room. Misses.<</narrative>>
+
+<<dialog "dinerWaitress3">>Tom's been in a weird mood all evening. You notice?<</dialog>>
+<<dialog "player">>He seemed quieter than usual out there, maybe.<</dialog>>
+<<dialog "dinerWaitress3">>Probably his car again. That thing breaks down weekly.<</dialog>>
+<<dialog "player">>That would put anyone in a mood for sure.<</dialog>>
+<<dialog "dinerWaitress3">>I'd offer him a ride but last time he talked the whole way. Never again.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             }
         ]
     }
+
 }>>
+<</nobr>>

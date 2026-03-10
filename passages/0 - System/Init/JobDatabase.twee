@@ -69,3 +69,17 @@
 
     /* Later: ruby_waitress, barista, cashier etc. follow same schema. */
 }>>
+
+/* ==========================================
+   WORKPLACE GROUPS
+   Defines parent-child room relationships for workplaces.
+   When player is NOT employed at a workplace, characters from
+   all subLocations are aggregated to mainLocation (except excluded ones).
+========================================== */
+<<set setup.workplaceGroups = {
+    dinerRubys: {
+        mainLocation: "dinerRubys",
+        subLocations: ["dinerRubysKitchen", "dinerRubysStorage", "dinerRubysManagerOffice"],
+        excludeFromAggregation: ["dinerManager"]
+    }
+}>>
