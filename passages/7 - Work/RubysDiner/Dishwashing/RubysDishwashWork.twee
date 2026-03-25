@@ -1,0 +1,129 @@
+<div class="divnobr">
+<<jobExecuteShift $selectedDuration>>
+<<if !$jobShiftSuccess>>
+<<goto "jobWorkSelect">>
+<<else>>
+<<set $location = "dinerRubys">>
+<<updateCharacterLocations>>
+
+<<silently>>
+<<set _energyTier = ($energy > 60) ? "high" : ($energy > 30) ? "mid" : "low">>
+<<set _h = $timeSys.hour>>
+<<set _timeSlot = ((_h >= 12 && _h <= 14) || (_h >= 17 && _h <= 20)) ? "rush" : "quiet">>
+<<set _n = random(1, 2)>>
+<<set _key = _energyTier + "_" + _timeSlot + "_" + _n>>
+<</silently>>
+
+<<switch _key>>
+<<case "high_rush_1">>
+<<narrative "Shift">>
+The lunch rush hit hard. Plates stacked up fast, you cleared them faster. Hands moving before your brain caught up. The station stayed clean the whole way through.
+<</narrative>>
+
+<<case "high_rush_2">>
+<<narrative "Shift">>
+Dinner crowd kept the plates coming. You found a rhythm early and didn't lose it. Steam, soap, stack, repeat. By the time it slowed you were still ahead.
+<</narrative>>
+
+<<case "high_quiet_1">>
+<<narrative "Shift">>
+Slow shift. You took your time. Got into the corners of the pans, rinsed everything twice. The station is cleaner than it needs to be. You're okay with that.
+<</narrative>>
+
+<<case "high_quiet_2">>
+<<narrative "Shift">>
+Not much came through. You stayed busy anyway — reorganized the rack, restacked the trays. Shift done, everything in its place.
+<</narrative>>
+
+<<case "mid_rush_1">>
+<<narrative "Shift">>
+Rush came in waves. You kept up but not easily. By the last batch your arms were going through the motions. Plates clean. That's what matters.
+<</narrative>>
+
+<<case "mid_rush_2">>
+<<narrative "Shift">>
+Kitchen didn't stop. Neither did you. Head down, work through it. At some point you stopped thinking and just moved. Shift's done. You made it.
+<</narrative>>
+
+<<case "mid_quiet_1">>
+<<narrative "Shift">>
+Steady pace. Nothing dramatic. You washed, stacked, wiped. Somewhere in the middle your mind went somewhere else. Station's clear. You're done.
+<</narrative>>
+
+<<case "mid_quiet_2">>
+<<narrative "Shift">>
+Slow but long. The kind of shift where time moves differently. You kept working. Your hands knew what to do even when you weren't paying attention.
+<</narrative>>
+
+<<case "low_rush_1">>
+<<narrative "Shift">>
+The rush didn't care that you were running low. You didn't stop — you just slowed down. Arms heavy. Back tight. You got through it anyway.
+<</narrative>>
+
+<<case "low_rush_2">>
+<<narrative "Shift">>
+Hard push through the dinner crowd. Your body had less to give than the shift asked for. You gave it anyway. Station's clear. You feel it in your shoulders.
+<</narrative>>
+
+<<case "low_quiet_1">>
+<<narrative "Shift">>
+Slow shift but your body didn't feel it that way. You kept going on something close to habit. At some point you leaned on the edge of the sink and stayed there longer than you needed to. Your back keeps reminding you the storage stool exists.
+<</narrative>>
+
+<<case "low_quiet_2">>
+<<narrative "Shift">>
+Not much came through, which helped. You moved at whatever pace your body allowed. The last rack came out and you just stood there a second before you turned it off. Done.
+<</narrative>>
+
+<<default>>
+<<narrative "Shift">>
+Another shift at the sink. Hands raw, stacks cleared. Time to head out front.
+<</narrative>>
+
+<</switch>>
+
+<<set _vidNum = random(1, 3)>>
+<<set _dishVid = "assets/content/scenes/oldtown/rubysDiner/work/dishwash/vids/dinerDishwash" + _vidNum + ".mp4">>
+<<vid _dishVid "100%">>
+
+/* Mini event check */
+<<silently>>
+<<set _dishSkill = ($skills && $skills.practical && $skills.practical.dishwashing) ? $skills.practical.dishwashing : 0>>
+<<set _accidentChance = (_dishSkill <= 10) ? 40 : (_dishSkill <= 25) ? 20 : 5>>
+<<set _accidentRoll = random(1, 100)>>
+<<set _eventFired = false>>
+<<set _eventType = "">>
+
+<<if _accidentRoll <= _accidentChance>>
+    <<set _eventType = "broken">>
+    <<set _eventFired = true>>
+<<else>>
+    <<set _positivePool = []>>
+    <<if $characters.dinerWaitress1.stats.friendship >= 35 && $energy <= 35>>
+        <<run _positivePool.push("emmaWater")>>
+    <</if>>
+    <<if $characters.dinerChef.stats.friendship >= 35 && $energy <= 35>>
+        <<run _positivePool.push("jamesSnack")>>
+    <</if>>
+    <<if _positivePool.length > 0>>
+        <<set _eventType = _positivePool[Math.floor(Math.random() * _positivePool.length)]>>
+        <<set _eventFired = true>>
+    <</if>>
+<</if>>
+<</silently>>
+
+<<if _eventFired>>
+    <<if _eventType === "broken">>
+        <<include "dinerWork_event_broken">>
+    <<elseif _eventType === "emmaWater">>
+        <<include "dinerWork_event_emmaWater">>
+    <<elseif _eventType === "jamesSnack">>
+        <<include "dinerWork_event_jamesSnack">>
+    <</if>>
+<</if>>
+
+<div class="location-actions">
+<<btn "Finish shift" "dinerRubys">><</btn>>
+</div>
+<</if>>
+</div>

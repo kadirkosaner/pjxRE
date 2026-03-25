@@ -166,6 +166,33 @@
   opacity: 1;
 }
 
+/* Separate item image preview panel (appears to the left of the info tooltip) */
+#outfit-item-img-preview {
+  position: fixed;
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+}
+
+#outfit-item-img-preview.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#outfit-item-img-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .tooltip-header {
   font-size: 0.85rem;
   font-weight: 700;

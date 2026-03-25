@@ -1,0 +1,41 @@
+:: dinerWork_event_emmaWater
+<<silently>><<set _v = random(1, 3)>><</silently>>
+
+<<if _v === 1>>
+<<narrative>>
+Emma comes in to drop off a tray. On her way back out she sets a glass of water on the counter next to you without looking up.
+<</narrative>>
+<<dialog "dinerWaitress1">>
+Drink something.
+<</dialog>>
+<<narrative>>
+She's already gone.
+<</narrative>>
+
+<<elseif _v === 2>>
+<<narrative>>
+Emma passes through between tables. She stops beside you, fills a glass from the tap, and puts it down by the sink.
+<</narrative>>
+<<dialog "dinerWaitress1">>
+You look like you need it.
+<</dialog>>
+<<narrative>>
+She doesn't wait for a response.
+<</narrative>>
+
+<<else>>
+<<narrative>>
+A glass appears on the corner of your station. You didn't see who left it. Emma is already back on the floor, pen out, notepad up.
+
+Cold water. You drink it.
+<</narrative>>
+<</if>>
+
+<<silently>>
+<<if $gameSettings.trackThirst>>
+    <<set $thirst = Math.max(0, $thirst - 25)>>
+    <<queueStatChange "thirst" -25>>
+<</if>>
+<<gainCharacterStat "dinerWaitress1" "friendship" 1>>
+<<recalculateStats>>
+<</silently>>

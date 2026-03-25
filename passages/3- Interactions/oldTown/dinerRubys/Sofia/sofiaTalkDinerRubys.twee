@@ -5,17 +5,15 @@
 <<set _stats = $characters.dinerWaitress2.stats>>
 <<set _level = _stats.friendshipLevel || 1>>
 
-/* Determine phase — these topic databases are written for the dishwasher role */
+/* Determine phase — dishwasherOnBreak: worked >0h but <8h today; dishwasherDone: full 8h done within last 3h */
 <<set _phase = "common">>
-<<if $job && $job.id === "ruby_dishwasher">>
-    <<if $jobs && $jobs.diner && $jobs.diner.clockedIn>>
-        <<if $jobs.diner.onBreak>>
-             <<set _phase = "dishwasherOnBreak">>
-        <<else>>
-             <<set _phase = "working">>
+<<if $job && $job.id === "ruby_dishwasher" && def $jobState>>
+    <<if $jobState.hoursToday >= 8>>
+        <<if $jobState.lastShiftEndHour !== null && ($timeSys.hour - $jobState.lastShiftEndHour) <= 3>>
+            <<set _phase = "dishwasherDone">>
         <</if>>
-    <<elseif $jobs && $jobs.diner && $jobs.diner.shiftCompletedToday>>
-        <<set _phase = "dishwasherDone">>
+    <<elseif $jobState.hoursToday > 0>>
+        <<set _phase = "dishwasherOnBreak">>
     <</if>>
 <</if>>
 

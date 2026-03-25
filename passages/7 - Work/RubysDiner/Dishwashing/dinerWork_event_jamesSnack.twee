@@ -1,0 +1,39 @@
+:: dinerWork_event_jamesSnack
+<<silently>><<set _v = random(1, 3)>><</silently>>
+
+<<if _v === 1>>
+<<narrative>>
+James slides a small bowl of fries onto the edge of your station. Doesn't stop moving.
+<</narrative>>
+<<dialog "dinerChef">>
+Eat.
+<</dialog>>
+<<narrative>>
+That's it. He's back at the grill before you can say anything.
+<</narrative>>
+
+<<elseif _v === 2>>
+<<narrative>>
+A napkin lands next to the sink. You look over. James has already turned back to the stove. There's a piece of grilled chicken on it — small, trimmed off something larger.
+
+You eat it standing up.
+<</narrative>>
+
+<<else>>
+<<narrative>>
+James comes by with a small plate of bread ends — leftover from kitchen prep, no use to anyone now.
+<</narrative>>
+<<dialog "dinerChef">>
+It's just scraps. Don't make it weird.
+<</dialog>>
+<<narrative>>
+He sets it down and walks off.
+<</narrative>>
+<</if>>
+
+<<silently>>
+<<eatFood 200 20>>
+<<gainStat "energy" 5>>
+<<gainCharacterStat "dinerChef" "friendship" 1>>
+<<recalculateStats>>
+<</silently>>

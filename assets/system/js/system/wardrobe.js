@@ -5,7 +5,6 @@
 
 let WardrobeAPI = null;
 let currentCategory = 'tops';
-let selectedItem = null;
 let wardrobeContainer = null;
 /** When set (e.g. "rubysDiner"), only show session snapshot + items with matching locationId. */
 let wardrobeLocationFilter = null;
@@ -15,6 +14,99 @@ let wardrobeSessionEquipped = null;
 let wardrobeReturnPassage = null;
 /** When set (e.g. "ruby_dishwasher"), Wear this outfit only allowed if equipped matches job's requiredOutfit. */
 let wardrobeRequiredJobId = null;
+
+function _w_escapeHtml(str) {
+    return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function _w_escapeAttr(str) {
+    return String(str ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+/** Hidden markup inside each .clothing-item; cloned to fixed tooltips on hover (same pattern as Character Appearance). */
+function buildWardrobeItemTooltipHtml(item) {
+    if (!item) return '';
+    const req = checkRequirements(item);
+    const S = WardrobeAPI ? WardrobeAPI.State : getState();
+    const runtime = S?.variables?.wardrobe?.itemState?.[item.id] || {};
+    const dirt = Math.max(0, Math.min(100, typeof runtime.dirt === 'number' ? runtime.dirt : 0));
+    const durability = Math.max(0, Math.min(100, typeof runtime.durability === 'number'
+        ? runtime.durability
+        : (typeof item.durability === 'number' ? item.durability : 100)));
+    const sexiness = typeof item.sexinessScore === 'number' ? item.sexinessScore : 0;
+    const exposure = typeof item.exposureLevel === 'number' ? item.exposureLevel : 0;
+    const q = (item.quality ? String(item.quality) : 'Common').toLowerCase();
+    const looksVal = formatLooks(getEffectiveLooks(item, item.id));
+
+    /* Same as Character → Appearance outfit tooltip: show every tag (mild, comfortable, crop, etc.), not only STYLE_TAGS */
+    const tagsHtml = (item.tags && item.tags.length > 0)
+        ? `<div class="tooltip-tags">${item.tags.map(tag => {
+            const t = String(tag);
+            const cls = t.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9_-]/g, '') || 'tag';
+            return `<span class="tooltip-tag-pill ${cls}">${_w_escapeHtml(t)}</span>`;
+        }).join('')}</div>`
+        : '';
+
+    const descInner = !req.allowed
+        ? `<span style="color: #ef4444; font-weight: bold;">${_w_escapeHtml(req.reason)}</span><br>${_w_escapeHtml(item.desc || 'No description.')}`
+        : _w_escapeHtml(item.desc || 'No description.');
+
+    const brandHtml = item.brand
+        ? `<div class="wardrobe-tooltip-brand">${_w_escapeHtml(item.brand)}</div>`
+        : '';
+
+    return `
+    <div class="wardrobe-item-tooltip outfit-tooltip" data-item-img="${_w_escapeAttr(item.image)}" data-item-name="${_w_escapeAttr(item.name)}">
+      <div class="tooltip-header">${_w_escapeHtml(item.name)}</div>
+      ${brandHtml}
+      <div class="tooltip-desc">${descInner}</div>
+      <div class="tooltip-stats">
+        <span class="tooltip-stat-row">
+          <span class="tooltip-stat-label">Quality:</span>
+          <span class="tooltip-stat-val quality-${q}">${_w_escapeHtml(item.quality || 'Common')}</span>
+        </span>
+        <span class="tooltip-stat-row">
+          <span class="tooltip-stat-label">Looks:</span>
+          <span class="tooltip-stat-val" style="color: #ec4899;">+${_w_escapeHtml(String(looksVal))}</span>
+        </span>
+        <span class="tooltip-stat-row">
+          <span class="tooltip-stat-label">Sexiness:</span>
+          <span class="tooltip-stat-val">${sexiness}</span>
+        </span>
+        <span class="tooltip-stat-row">
+          <span class="tooltip-stat-label">Exposure:</span>
+          <span class="tooltip-stat-val">${exposure}</span>
+        </span>
+        <span class="tooltip-stat-row">
+          <span class="tooltip-stat-label">Dirtyness:</span>
+          <span class="tooltip-stat-val">${dirt.toFixed(1)}%</span>
+        </span>
+        <span class="tooltip-stat-row">
+          <span class="tooltip-stat-label">Durability:</span>
+          <span class="tooltip-stat-val">${durability.toFixed(0)}%</span>
+        </span>
+      </div>
+      ${tagsHtml}
+    </div>`;
+}
+
+function removeWardrobeGlobalTooltips() {
+    const t = document.getElementById('global-wardrobe-item-tooltip');
+    const i = document.getElementById('wardrobe-item-img-preview');
+    if (t) t.remove();
+    if (i) i.remove();
+}
+
+function hideWardrobeHoverFloaters() {
+    const t = document.getElementById('global-wardrobe-item-tooltip');
+    const i = document.getElementById('wardrobe-item-img-preview');
+    if (t) {
+        t.classList.remove('visible');
+        t.style.visibility = 'hidden';
+        t.style.opacity = '0';
+    }
+    if (i) i.classList.remove('visible');
+}
 
 // Category to slot mapping
 const categoryToSlot = {
@@ -558,7 +650,6 @@ function equipItem(itemId) {
     } else {
         wardrobe.equipped[slot] = itemId;
     }
-    selectedItem = item;
     showToast(`Equipped: ${item.name}`);
     
     if (window.Wikifier) new Wikifier(null, "<<recalculateStats>><<updateCaption>><<updateClothesNotification>>");
@@ -657,13 +748,7 @@ function _w_renderCategories() {
         console.warn('[Wardrobe] Categories missing in setup, using defaults');
         categories = defaultCategories;
     }
-    // Ensure Special (apron) is always present in the left menu
-    const hasSpecial = categories.some(g => g.group === 'Special');
-    if (!hasSpecial) {
-        categories = categories.concat([
-            { group: 'Special', items: [{ id: 'apron', name: 'Apron', slot: 'apron' }] }
-        ]);
-    }
+    // Apron is already in the "Other" group via wardrobeConfig — no auto-injection needed.
 
     let html = '';
 
@@ -689,7 +774,6 @@ function _w_renderCategories() {
     container.querySelectorAll('.category-item').forEach(el => {
         el.addEventListener('click', () => {
             currentCategory = el.dataset.category;
-            selectedItem = null;
             _w_renderAll();
         });
     });
@@ -728,7 +812,8 @@ function renderClothingGrid() {
         const req = checkRequirements(item);
         const lockedClass = req.allowed ? '' : 'locked';
         const tooltipAttr = req.allowed ? '' : `data-tooltip="${req.reason}"`;
-        
+        const qClass = (item.quality ? String(item.quality) : 'common').toLowerCase();
+
         return `
         <div class="clothing-item ${equippedId === item.id ? 'equipped' : ''} ${lockedClass}" 
              data-id="${item.id}" 
@@ -736,32 +821,30 @@ function renderClothingGrid() {
              ${tooltipAttr}>
             <img class="clothing-img" src="${item.image}" alt="${item.name}">
             <span class="clothing-looks">${formatLooks(getEffectiveLooks(item, item.id))}</span>
-            <div class="clothing-quality ${item.quality.toLowerCase()}"></div>
+            <div class="clothing-quality ${qClass}"></div>
             ${!req.allowed ? '<i class="icon icon-lock lock-icon"></i>' : ''}
+            ${buildWardrobeItemTooltipHtml(item)}
         </div>
     `}).join('');
 
     const elements = container.querySelectorAll('.clothing-item');
 
     elements.forEach(el => {
+        const itemId = el.dataset.id;
+
         el.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
-            const itemId = el.dataset.id;
+
             const allowed = el.dataset.allowed === 'true';
-            
+
             console.log(`[Wardrobe] CLICK on item: ${itemId}, allowed: ${allowed}`);
-            
-            // Locked items: prevent all action
+
             if (!allowed) {
                 console.log('[Wardrobe] Item is LOCKED, action blocked');
                 return;
             }
-            
-            selectedItem = _w_getItemById(itemId);
-            renderSelectedInfo();
-            
+
             if (equippedId === itemId) {
                 console.log('[Wardrobe] Action: Unequip');
                 unequipSlot(slot);
@@ -776,61 +859,6 @@ function renderClothingGrid() {
     if (window.initTooltips) {
         window.initTooltips();
     }
-}
-
-function renderSelectedInfo() {
-    const container = wardrobeContainer?.querySelector('.selected-info');
-    if (!container) return;
-
-    if (!selectedItem) {
-        container.classList.remove('visible');
-        return;
-    }
-
-    container.classList.add('visible');
-    container.querySelector('.selected-img').src = selectedItem.image;
-    container.querySelector('.selected-name').textContent = selectedItem.name;
-    
-    const itemStyles = selectedItem.tags ? selectedItem.tags.filter(t => STYLE_TAGS.includes(t)) : [];
-    const itemTags = selectedItem.tags || [];
-    const tagsToShow = itemStyles.length > 0 ? itemStyles : itemTags;
-    const styleWrap = container.querySelector('#selected-style');
-    if (tagsToShow.length > 0) {
-        styleWrap.innerHTML = tagsToShow.map(tag => {
-            const label = tag.charAt(0).toUpperCase() + tag.slice(1);
-            const cls = 'style-tag ' + tag.toLowerCase();
-            return `<span class="${cls}">${label}</span>`;
-        }).join(' ');
-        styleWrap.className = 'selected-style-tags';
-    } else {
-        styleWrap.innerHTML = '<span class="style-tag normal">Normal</span>';
-        styleWrap.className = 'selected-style-tags';
-    }
-
-    const req = checkRequirements(selectedItem);
-    const descEl = container.querySelector('.selected-desc');
-    if (!req.allowed) {
-        descEl.innerHTML = `<span style="color: #ef4444; font-weight: bold;">${req.reason}</span><br>${selectedItem.desc}`;
-    } else {
-        descEl.textContent = selectedItem.desc;
-    }
-    
-    const S = WardrobeAPI ? WardrobeAPI.State : getState();
-    const runtime = S?.variables?.wardrobe?.itemState?.[selectedItem.id] || {};
-    const dirt = Math.max(0, Math.min(100, typeof runtime.dirt === 'number' ? runtime.dirt : 0));
-    const durability = Math.max(0, Math.min(100, typeof runtime.durability === 'number'
-        ? runtime.durability
-        : (typeof selectedItem.durability === 'number' ? selectedItem.durability : 100)));
-    const sexiness = typeof selectedItem.sexinessScore === 'number' ? selectedItem.sexinessScore : 0;
-    const exposure = typeof selectedItem.exposureLevel === 'number' ? selectedItem.exposureLevel : 0;
-
-    container.querySelector('.selected-brand').textContent = selectedItem.brand;
-    container.querySelector('#selected-quality').textContent = selectedItem.quality;
-    container.querySelector('#selected-looks').textContent = formatLooks(getEffectiveLooks(selectedItem, selectedItem.id));
-    container.querySelector('#selected-sexiness').textContent = String(sexiness);
-    container.querySelector('#selected-exposure').textContent = String(exposure);
-    container.querySelector('#selected-dirt').textContent = dirt.toFixed(1) + '%';
-    container.querySelector('#selected-durability').textContent = durability.toFixed(0) + '%';
 }
 
 function renderWearingSlots() {
@@ -1162,7 +1190,7 @@ function _w_renderAll() {
     if (window.hideTooltip) window.hideTooltip();
     _w_renderCategories();
     renderClothingGrid();
-    renderSelectedInfo();
+    hideWardrobeHoverFloaters();
     renderWearingSlots();
     renderStats();
     renderOutfits();
@@ -1200,27 +1228,6 @@ function createWardrobeHTML(backPassage, backLinkText, hideBackLink) {
                             <span class="panel-title">Tops</span>
                         </div>
                         <div class="clothing-grid" id="clothing-grid"></div>
-                        <div class="selected-info">
-                            <div class="selected-header">
-                                <div class="selected-thumb"><img class="selected-img" src="" alt=""></div>
-                                <div class="selected-details">
-                                    <div class="selected-name-row">
-                                        <span class="selected-name"></span>
-                                        <span class="style-tag" id="selected-style"></span>
-                                    </div>
-                                    <div class="selected-brand"></div>
-                                    <div class="selected-desc"></div>
-                                </div>
-                            </div>
-                            <div class="selected-meta">
-                                <span>Quality: <span class="meta-value" id="selected-quality"></span></span>
-                                <span>Looks: <span class="meta-value" id="selected-looks"></span></span>
-                                <span>Sexiness: <span class="meta-value" id="selected-sexiness"></span></span>
-                                <span>Exposure: <span class="meta-value" id="selected-exposure"></span></span>
-                                <span>Dirtyness: <span class="meta-value" id="selected-dirt"></span></span>
-                                <span>Durability: <span class="meta-value" id="selected-durability"></span></span>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="outfits-section">
@@ -1280,11 +1287,74 @@ function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack,
 
     // Force cleanup of any lingering tooltips on load
     $('.tooltip-popup').removeClass('active');
+
+    removeWardrobeGlobalTooltips();
+    const $wTooltip = $('<div id="global-wardrobe-item-tooltip" class="outfit-tooltip"></div>').appendTo('body');
+    const $wImgPreview = $('<div id="wardrobe-item-img-preview"><img src="" alt=""></div>').appendTo('body');
+
+    $wrapper.off('mouseenter.wardrobeTT mouseleave.wardrobeTT');
+    $wrapper.on('mouseenter.wardrobeTT', '.clothing-item', function () {
+        const $inner = $(this).find('.wardrobe-item-tooltip');
+        if (!$inner.length) return;
+
+        const rect = this.getBoundingClientRect();
+
+        $wTooltip.html($inner.html());
+        $wTooltip.addClass('visible');
+
+        const tipH = $wTooltip.outerHeight();
+        const tipW = $wTooltip.outerWidth();
+        const gap = 10;
+
+        let top = rect.top + (rect.height / 2) - (tipH / 2);
+        if (top < 8) top = 8;
+        if (top + tipH > window.innerHeight - 8) top = window.innerHeight - tipH - 8;
+
+        const imgSrc = $inner.attr('data-item-img') || '';
+        const imgAlt = $inner.attr('data-item-name') || '';
+        let tooltipLeft;
+        let previewLeft = null;
+
+        if (imgSrc) {
+            const imgSize = tipH;
+            const stackW = imgSize + gap + tipW;
+            const fitsRight = rect.right + stackW <= window.innerWidth - 8;
+            const fitsLeft = rect.left - stackW >= 8;
+
+            if (fitsRight) {
+                previewLeft = rect.right + gap;
+                tooltipLeft = previewLeft + imgSize + gap;
+            } else if (fitsLeft) {
+                tooltipLeft = rect.left - tipW - gap;
+                previewLeft = tooltipLeft - imgSize - gap;
+            } else {
+                tooltipLeft = Math.min(rect.right + gap, window.innerWidth - tipW - 8);
+                previewLeft = Math.max(8, tooltipLeft - imgSize - gap);
+            }
+
+            $wImgPreview.find('img').attr({ src: imgSrc, alt: imgAlt });
+            $wImgPreview.css({ width: imgSize + 'px', height: imgSize + 'px', top: top + 'px', left: previewLeft + 'px' });
+            $wImgPreview.addClass('visible');
+        } else {
+            tooltipLeft = rect.right + gap;
+            if (tooltipLeft + tipW > window.innerWidth - 8) {
+                tooltipLeft = rect.left - tipW - gap;
+            }
+            if (tooltipLeft < 8) tooltipLeft = 8;
+        }
+
+        $wTooltip.css({ top: top + 'px', left: tooltipLeft + 'px', visibility: 'visible', opacity: 1, transform: 'none' });
+    });
+    $wrapper.on('mouseleave.wardrobeTT', '.clothing-item', function () {
+        $wTooltip.removeClass('visible').css({ visibility: 'hidden', opacity: 0 });
+        $wImgPreview.removeClass('visible');
+    });
     
     // Robust cleanup on navigation (removes itself after triggering once)
     $(document).one(':passageinit', function() {
         $('.tooltip-popup').removeClass('active');
         document.body.classList.remove('wardrobe-active');
+        removeWardrobeGlobalTooltips();
     });
 
     const wardrobe = S.variables.wardrobe;
@@ -1305,6 +1375,8 @@ function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack,
         e.preventDefault();
         
         console.log('[Wardrobe] Back clicked. Reverting changes...');
+
+        removeWardrobeGlobalTooltips();
 
         // Revert to initial state
         const S = getState();
@@ -1361,6 +1433,7 @@ function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack,
         
         if (window.Wikifier) new Wikifier(null, "<<recalculateStats>>");
         
+        removeWardrobeGlobalTooltips();
         document.body.classList.remove('wardrobe-active');
         if (WardrobeAPI) {
             const target = wardrobeReturnPassage || 'fhBedroom';

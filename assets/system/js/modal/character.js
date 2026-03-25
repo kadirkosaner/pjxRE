@@ -334,19 +334,23 @@ window.CharacterInit = function (API) {
                 { id: 'ring', label: 'Rings' }
             ];
 
-            /* When bodysuit equipped (bra===panty with bodysuit tag), show single Bodysuit slot */
+            /* When bodysuit or swimsuit equipped (bra===panty), show single slot */
             const braId = equipped.bra;
             const pantyId = equipped.panty;
             const braItem = braId ? self.getClothingItemById(braId) : null;
-            const isBodysuitOn = braId && pantyId && braId === pantyId && braItem && braItem.tags && braItem.tags.includes('bodysuit');
-            const underwearSlots = isBodysuitOn
-                ? [{ id: 'bra', label: 'Bodysuit' }, { id: 'sleepwear', label: 'Sleepwear' }, { id: 'garter', label: 'Garter' }]
-                : [
-                    { id: 'bra', label: 'Bra' },
-                    { id: 'panty', label: 'Panties' },
-                    { id: 'sleepwear', label: 'Sleepwear' },
-                    { id: 'garter', label: 'Garter' }
-                ];
+            const isFullBody = braId && pantyId && braId === pantyId && braItem;
+            const isSwimsuitOn = isFullBody && braItem.slot === 'swimsuit';
+            const isBodysuitOn = isFullBody && !isSwimsuitOn && braItem.tags && braItem.tags.includes('bodysuit');
+            const underwearSlots = isSwimsuitOn
+                ? [{ id: 'bra', label: 'Swimsuit' }, { id: 'sleepwear', label: 'Sleepwear' }, { id: 'garter', label: 'Garter' }]
+                : isBodysuitOn
+                    ? [{ id: 'bra', label: 'Bodysuit' }, { id: 'sleepwear', label: 'Sleepwear' }, { id: 'garter', label: 'Garter' }]
+                    : [
+                        { id: 'bra', label: 'Bra' },
+                        { id: 'panty', label: 'Panties' },
+                        { id: 'sleepwear', label: 'Sleepwear' },
+                        { id: 'garter', label: 'Garter' }
+                    ];
 
             const otherSlots = [
                 { id: 'bag', label: 'Bag' },
@@ -402,7 +406,7 @@ window.CharacterInit = function (API) {
                             ${item ? '<div class="outfit-status-icon"></div>' : ''}
                             
                             ${item ? `
-                             <div class="outfit-tooltip">
+                             <div class="outfit-tooltip" data-item-img="${item.image}" data-item-name="${item.name}">
                                 <div class="tooltip-header">${item.name}</div>
                                 <div class="tooltip-desc">${item.desc || 'No description.'}</div>
                                 <div class="tooltip-stats">
@@ -847,43 +851,55 @@ window.CharacterInit = function (API) {
                     }
                 );
 
-                // Outfit Tooltip Logic (Global Fixed Tooltip)
+                // Outfit Tooltip Logic (Global Fixed Tooltip + Separate Image Preview)
                 const $tooltip = $('<div id="global-outfit-tooltip" class="outfit-tooltip"></div>').appendTo('body');
+                const $imgPreview = $('<div id="outfit-item-img-preview"><img src="" alt=""></div>').appendTo('body');
                 
                 $('.outfit-card').hover(
-                    function(e) {
-                        const content = $(this).data('tooltip-content');
-                        const card = $(this).closest('.outfit-card');
-                        const rect = this.getBoundingClientRect();
-                        
-                        // If it's a data-tooltip-content (simple) or needs complex structure?
-                        // The generateOutfitHtml is now putting html structures, let's grab the hidden tooltip from inside if specific
-                        
-                        // Actually, let's use the hidden .outfit-tooltip inside the slot if it exists, clone it, and show it fixed.
+                    function() {
                         const innerTooltip = $(this).find('.outfit-tooltip');
-                        
-                        if (innerTooltip.length > 0) {
-                            $tooltip.html(innerTooltip.html());
-                            $tooltip.addClass('visible');
-                            
-                            // Position it to the left of the element
-                            const tipHeight = $tooltip.outerHeight();
-                            const tipWidth = $tooltip.outerWidth();
-                            
-                            let top = rect.top + (rect.height / 2) - (tipHeight / 2);
-                            let left = rect.left - tipWidth - 10;
-                            
-                            $tooltip.css({
-                                top: top + 'px',
-                                left: left + 'px',
-                                visibility: 'visible',
-                                opacity: 1,
-                                transform: 'none' // remove CSS transform since we calculate exact pos
-                            });
+                        if (innerTooltip.length === 0) return;
+
+                        const rect = this.getBoundingClientRect();
+
+                        // --- Info tooltip (right side) ---
+                        $tooltip.html(innerTooltip.html());
+                        $tooltip.addClass('visible');
+
+                        const tipHeight = $tooltip.outerHeight();
+                        const tipWidth = $tooltip.outerWidth();
+
+                        let top = rect.top + (rect.height / 2) - (tipHeight / 2);
+                        let left = rect.left - tipWidth - 10;
+
+                        if (top < 8) top = 8;
+                        if (top + tipHeight > window.innerHeight - 8) top = window.innerHeight - tipHeight - 8;
+                        if (left < 8) left = rect.right + 10;
+
+                        $tooltip.css({ top: top + 'px', left: left + 'px', visibility: 'visible', opacity: 1, transform: 'none' });
+
+                        // --- Image preview (separate div, same height as tooltip, 1:1 ratio) ---
+                        const imgSrc = innerTooltip.data('item-img') || '';
+                        const imgAlt = innerTooltip.data('item-name') || '';
+                        if (imgSrc) {
+                            $imgPreview.find('img').attr({ src: imgSrc, alt: imgAlt });
+                            // Match tooltip height exactly; width = height for 1:1
+                            $imgPreview.css({ width: tipHeight + 'px', height: tipHeight + 'px' });
+                            $imgPreview.addClass('visible');
+
+                            let previewLeft = left - tipHeight - 8;
+                            let previewTop = top;
+
+                            if (previewLeft < 8) previewLeft = 8;
+                            if (previewTop < 8) previewTop = 8;
+                            if (previewTop + tipHeight > window.innerHeight - 8) previewTop = window.innerHeight - tipHeight - 8;
+
+                            $imgPreview.css({ top: previewTop + 'px', left: previewLeft + 'px' });
                         }
                     },
                     function() {
-                        $tooltip.removeClass('visible').css({visibility: 'hidden', opacity: 0});
+                        $tooltip.removeClass('visible').css({ visibility: 'hidden', opacity: 0 });
+                        $imgPreview.removeClass('visible');
                     }
                 );
                 

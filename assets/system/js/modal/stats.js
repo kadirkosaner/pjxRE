@@ -297,6 +297,7 @@ window.StatsInit = function (API) {
                                 ${this.createAccordion('practical_skills', 'Practical Skills', 'check-circle', `
                                     ${this.createStatRow('Cooking', vars.skills.practical?.cooking || 0, 100, '#f97316', 'Meal preparation quality.')}
                                     ${this.createStatRow('Cleaning', vars.skills.practical?.cleaning || 0, 100, '#f97316', 'Housekeeping efficiency.')}
+                                    ${this.createStatRow('Dishwashing', vars.skills.practical?.dishwashing || 0, 100, '#f97316', 'Professional dish and kitchenware washing.')}
                                     ${this.createStatRow('Driving', vars.skills.practical?.driving || 0, 100, '#f97316', 'Vehicle control.')}
                                     ${this.createStatRow('Finance', vars.skills.practical?.finance || 0, 100, '#f97316', 'Money management.')}
                                     ${this.createStatRow('Mechanics', vars.skills.practical?.mechanics || 0, 100, '#f97316', 'Vehicle and machine repair.')}
