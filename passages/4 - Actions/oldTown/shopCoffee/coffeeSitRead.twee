@@ -1,0 +1,29 @@
+::coffeeSitRead
+<<silently>>
+    <<set $location = "shopCoffeeOldtown">>
+    <<set $daily.studyDone = true>>
+    <<advanceTime 60>>
+    <<loseStat "stress" 20>>
+    <<gainStat "mood" 10>>
+    <<loseStat "energy" 8>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "You order a coffee, find a corner table, and open whatever you brought with you. An hour disappears easily. The background noise of the café - low music, muffled conversation, the hiss of the espresso machine - turns out to be exactly the right kind of company. You look up eventually, slightly surprised that so much time has passed.">>
+        <<case 2>>
+            <<set _sceneText = "There's something about sitting in a café that makes reading feel more intentional. You nurse your drink slowly, turning pages without hurrying. A couple argues quietly at a nearby table. Someone's phone keeps buzzing. None of it really breaks through. You're somewhere else entirely.">>
+        <<case 3>>
+            <<set _sceneText = "You settle in with your coffee and let the words do what words do when you give them enough time. The afternoon light shifts gradually across the table. By the time your cup is empty, you feel slow in a good way - the kind of slow that comes from being genuinely absorbed in something.">>
+    <</switch>>
+<</silently>>
+
+<<narrative "The Daily Grind - Read & Relax">>
+<<print _sceneText>>
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Head Out" "shopCoffeeOldtown">><</btn>>
+</div>

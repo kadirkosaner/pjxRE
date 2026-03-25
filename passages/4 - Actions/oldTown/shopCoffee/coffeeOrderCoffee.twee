@@ -1,0 +1,30 @@
+::coffeeOrderCoffee
+<<silently>>
+    <<set $location = "shopCoffeeOldtown">>
+    <<advanceTime 15>>
+    <<gainStat "energy" 12>>
+    <<loseStat "stress" 8>>
+    <<loseStat "hunger" 50>>
+    <<loseStat "thirst" 150>>
+    <<set $player.money -= 4>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "The barista takes your order with a practiced smile and has your coffee ready in minutes. You wrap both hands around the warm cup and find a spot by the window. Outside, Old Town moves at its usual unhurried pace. The first sip is exactly what you needed.">>
+        <<case 2>>
+            <<set _sceneText = "The Daily Grind smells like roasted beans and something sweet baking in the back. You order your usual and wait at the end of the counter. When the cup slides across to you, the first taste cuts through the fog of the day. Not bad for four dollars.">>
+        <<case 3>>
+            <<set _sceneText = "You order at the counter and take the coffee to one of the small tables near the door. A few other people are scattered around, each absorbed in their own world. You sip slowly and let the caffeine do its quiet work.">>
+    <</switch>>
+<</silently>>
+
+<<narrative "The Daily Grind - Coffee">>
+<<print _sceneText>>
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Finish" "shopCoffeeOldtown">><</btn>>
+</div>

@@ -9,9 +9,13 @@ An old-fashioned barber shop with a spinning pole. Cuts, shaves, and neighborhoo
 <<showLocationChars "shopBarber">>
 
 <div class="location-actions">
-<span class="link-internal btn-style btn-default locked" data-tooltip="W.I.P"><i class="icon icon-lock icon-12"></i> Shop</span>
-<span class="link-internal btn-style btn-default locked" data-tooltip="W.I.P"><i class="icon icon-lock icon-12"></i> Dye Hair</span>
-<span class="link-internal btn-style btn-default locked" data-tooltip="W.I.P"><i class="icon icon-lock icon-12"></i> Cut Hair</span>
+    <<if $daily.haircutDone>>
+        <span class="link-internal btn-style btn-default locked" data-tooltip="Already done today"><i class="icon icon-lock icon-12"></i> Get a Haircut</span>
+    <<else>>
+        <<btn "Get a Haircut" "barberHaircut">><</btn>>
+    <</if>>
+    <span class="link-internal btn-style btn-default locked" data-tooltip="W.I.P"><i class="icon icon-lock icon-12"></i> Dye Hair</span>
+    <span class="link-internal btn-style btn-default locked" data-tooltip="W.I.P"><i class="icon icon-lock icon-12"></i> Shop</span>
 </div>
 
 <<navMenu>>

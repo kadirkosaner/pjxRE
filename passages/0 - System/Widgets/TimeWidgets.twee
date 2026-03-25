@@ -257,6 +257,8 @@
     <<set $daily.hairCreamUsed = false>>
     <<set $daily.faceCreamUsed = false>>
     <<set $daily.dentalCareUsed = false>>
+    <<set $daily.studyDone = false>>
+    <<set $daily.haircutDone = false>>
 
     /* Job: record insufficient days before reset (hoursToday from day we're leaving) */
     <<jobRecordInsufficientDay _days>>

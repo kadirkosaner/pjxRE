@@ -2,4 +2,10 @@
 <<updateCharacterLocations>>
 <<narrative "Carnegie Public Library">>A grand old library with towering bookshelves. The smell of old books and quiet study spaces.<</narrative>>
 <<showLocationChars "libraryOldtown">>
+
+<<questPrompts>>
+<div class="location-actions">
+    <<activityButton "Study" "libraryStudy" "minStat:energy 15" $daily.studyDone>>
+</div>
+
 <<navMenu>><<navCard "civicCenter">><</navMenu>>

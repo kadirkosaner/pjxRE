@@ -1,0 +1,41 @@
+::barberHaircut
+<<silently>>
+    <<set $location = "shopBarber">>
+<</silently>>
+
+<<if $player.money < 25>>
+<<narrative "The Clipper Shop">>
+You ask about a haircut. The barber glances up from his work and names his price. Twenty-five dollars. You check your wallet and come up short. He shrugs, not unkindly. //Next time.//
+<</narrative>>
+<div class="location-actions">
+    <<btn "Leave" "shopBarber">><</btn>>
+</div>
+<<else>>
+<<silently>>
+    <<set $daily.haircutDone = true>>
+    <<advanceTime 45>>
+    <<gainStat "mood" 15>>
+    <<loseStat "stress" 10>>
+    <<set $player.money -= 25>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "The barber drapes a cape around your shoulders and studies your hair in the mirror with the calm assessment of someone who has done this ten thousand times. You describe what you want. He nods, makes a sound like he's heard worse ideas, and gets to work. The scissors find a rhythm. By the time he unclips the cape and hands you the mirror, you look noticeably more put together. You didn't realize how much you needed it.">>
+        <<case 2>>
+            <<set _sceneText = "The Clipper Shop is unhurried. There's an old radio on the shelf playing something soft, and the barber has the easy manner of someone who genuinely enjoys his work. He asks a few questions, listens carefully, and then just does it - no checking back in, no hovering. When it's done, you sit up straighter looking at yourself in the mirror.">>
+        <<case 3>>
+            <<set _sceneText = "You take a seat in the big leather chair and explain what you want to the barber. He listens, tilts your head slightly with two fingers on your chin, and starts. There's something oddly relaxing about it - someone else being in charge of something for a little while. You leave feeling cleaner, lighter, more like yourself.">>
+    <</switch>>
+<</silently>>
+
+<<narrative "The Clipper Shop - Haircut">>
+<<print _sceneText>>
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Pay & Leave" "shopBarber">><</btn>>
+</div>
+<</if>>

@@ -84,13 +84,15 @@
 /* ==========================================
    DAILY TRACKING
 ========================================== */
-<<set $daily = { 
-    yogaDone: false, 
+<<set $daily = {
+    yogaDone: false,
     danceDone: false,
     jogDone: false,
     hairCreamUsed: false,
     faceCreamUsed: false,
-    dentalCareUsed: false
+    dentalCareUsed: false,
+    studyDone: false,
+    haircutDone: false
 }>>
 
 /* Makeup (state/style/quality; makeup score computed in recalculateStats) */
