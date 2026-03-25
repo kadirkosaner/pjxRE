@@ -8,7 +8,7 @@
 
         "neighborhood_talk": [
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-common-1.webp">>
 <<image _img "100%">>
 <<narrative>>Tom is sorting receipts behind the register, glancing up as you approach.<</narrative>>
 
@@ -20,7 +20,7 @@
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-common-2.webp">>
 <<image _img "100%">>
 <<narrative>>Tom leans on the counter, watching the street through the front window.<</narrative>>
 
@@ -32,7 +32,7 @@
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-common-3.webp">>
 <<image _img "100%">>
 <<narrative>>Tom straightens a stack of menus near the register, nodding to you.<</narrative>>
 
@@ -47,7 +47,7 @@
 
         "regulars_chat": [
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-4.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-common-4.webp">>
 <<image _img "100%">>
 <<narrative>>Tom tops off a coffee mug for the old man at the counter, then turns to you.<</narrative>>
 
@@ -59,7 +59,7 @@
                 friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-5.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-common-5.webp">>
 <<image _img "100%">>
 <<narrative>>Tom slides a plate down the counter to a waiting customer, smooth and practiced.<</narrative>>
 
@@ -71,7 +71,7 @@
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-6.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontMorning-common-6.webp">>
 <<image _img "100%">>
 <<narrative>>Tom wipes the counter in a slow circle, watching the morning crowd settle in.<</narrative>>
 
@@ -89,7 +89,7 @@
 
         "diner_history": [
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-1.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-common-1.webp">>
 <<image _img "100%">>
 <<narrative>>Tom is refilling the napkin dispensers, moving down the counter methodically.<</narrative>>
 
@@ -101,7 +101,7 @@
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-2.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-common-2.webp">>
 <<image _img "100%">>
 <<narrative>>Tom taps the old jukebox near the door as he passes it. It flickers but doesn't turn on.<</narrative>>
 
@@ -113,7 +113,7 @@
                 friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-3.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-common-3.webp">>
 <<image _img "100%">>
 <<narrative>>Tom leans against the register, arms loosely crossed, during a quiet spell.<</narrative>>
 
@@ -128,7 +128,7 @@
 
         "small_talk": [
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-4.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-common-4.webp">>
 <<image _img "100%">>
 <<narrative>>Tom is wiping down the counter, working around a half-empty coffee pot.<</narrative>>
 
@@ -140,7 +140,7 @@
                 friendship: 1, trust: 1, love: 0, lust: 0
             },
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-5.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-common-5.webp">>
 <<image _img "100%">>
 <<narrative>>Tom adjusts the specials board behind him, erasing a smudged word.<</narrative>>
 
@@ -152,7 +152,7 @@
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-6.webp">>
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-common-6.webp">>
 <<image _img "100%">>
 <<narrative>>Tom sorts through a handful of coins from the tip jar, stacking them neatly.<</narrative>>
 
@@ -162,6 +162,45 @@
 <<dialog "player">>Keeping your options open.<</dialog>>
 <<dialog "dinerClerk">>That's the smart move.<</dialog>>`,
                 friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "counter_stories": [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-common-7.webp">>
+<<image _img "100%">>
+<<narrative>>Tom refills a customer's water glass, then leans against the counter once they leave.<<narrative>>
+
+<<dialog "dinerClerk">>Had a guy last week try to pay with a foreign coin. Genuine article.<<dialog>>
+<<dialog "player">>What did you do with it?<<dialog>>
+<<dialog "dinerClerk">>Kept it. Kind of cool actually.<<dialog>>
+<<dialog "player">>That's a generous way to look at it.<<dialog>>
+<<dialog "dinerClerk">>People are strange. Makes the shift interesting.<<dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-common-8.webp">>
+<<image _img "100%">>
+<<narrative>>Tom wipes the counter as a group of customers filters out, leaving the place quiet again.<<narrative>>
+
+<<dialog "dinerClerk">>Rush lasted exactly forty minutes. Like clockwork.<<dialog>>
+<<dialog "player">>You time these things?<<dialog>>
+<<dialog "dinerClerk">>After five years you just know.<<dialog>>
+<<dialog "player">>What happens in the next forty?<<dialog>>
+<<dialog "dinerClerk">>Nothing. That's the good part.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/tom/level1/tomFrontAfternoon-common-9.webp">>
+<<image _img "100%">>
+<<narrative>>Tom props his elbow on the counter, watching the door lazily between tasks.<<narrative>>
+
+<<dialog "dinerClerk">>Kid came in asking for a job today. Couldn't have been more than sixteen.<<dialog>>
+<<dialog "player">>Did Vince talk to him?<<dialog>>
+<<dialog "dinerClerk">>Sent him home with a slice of pie instead. Said come back when you're eighteen.<<dialog>>
+<<dialog "player">>That's surprisingly decent of him.<<dialog>>
+<<dialog "dinerClerk">>He has his moments.<<dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
             }
         ]
     }

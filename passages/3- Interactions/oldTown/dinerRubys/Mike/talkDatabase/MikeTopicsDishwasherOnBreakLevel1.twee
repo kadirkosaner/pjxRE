@@ -82,6 +82,45 @@
 <<dialog "dinerDishwasher">>Closest I'll get today, yeah.<</dialog>>`,
                 friendship: 1, trust: 0, love: 0, lust: 0
             }
+        ],
+
+        kitchen_zone_out: [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-13.webp">>
+<<image _img "100%">>
+<<narrative>>Mike pauses mid-scrub and stares at the wall for a few seconds. He blinks slowly.<<narrative>>
+
+<<dialog "dinerDishwasher">>Ever just stare at something and forget where you are?<<dialog>>
+<<dialog "player">>Usually when I'm very tired.<<dialog>>
+<<dialog "dinerDishwasher">>I'm at a five out of ten tired. Just coasting.<<dialog>>
+<<dialog "player">>That's a very specific rating system.<<dialog>>
+<<dialog "dinerDishwasher">>I have a lot of time to develop it.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-14.webp">>
+<<image _img "100%">>
+<<narrative>>Mike rinses a stack of glasses, watching the bubbles disappear one by one.<<narrative>>
+
+<<dialog "dinerDishwasher">>Watching bubbles pop is weirdly satisfying.<<dialog>>
+<<dialog "player">>I see why you like this job.<<dialog>>
+<<dialog "dinerDishwasher">>There are worse perks.<<dialog>>
+<<dialog "player">>That's the most positive thing you've said all shift.<<dialog>>
+<<dialog "dinerDishwasher">>Don't push it.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeKitchenMorning-15.webp">>
+<<image _img "100%">>
+<<narrative>>Mike leans against the sink between loads, looking comfortable doing nothing.<<narrative>>
+
+<<dialog "dinerDishwasher">>James yelled three times today. Personal record.<<dialog>>
+<<dialog "player">>Yours or his?<<dialog>>
+<<dialog "dinerDishwasher">>Mine for surviving it.<<dialog>>
+<<dialog "player">>You're adapting.<<dialog>>
+<<dialog "dinerDishwasher">>Like water, $player.firstName. Like water.<<dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
+            }
         ]
     },
 
@@ -161,6 +200,45 @@
 <<dialog "dinerDishwasher">>Rookie move. Always eat first.<</dialog>>
 <<dialog "player">>Noted. I'll remember that next time.<</dialog>>
 <<dialog "dinerDishwasher">>I keep extras in my bag. Just ask.<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        storage_inventory: [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-13.webp">>
+<<image _img "100%">>
+<<narrative>>Mike is halfheartedly counting cans on a shelf. He loses track twice.<<narrative>>
+
+<<dialog "dinerDishwasher">>I'm supposed to do inventory. I hate inventory.<<dialog>>
+<<dialog "player">>Isn't it just counting?<<dialog>>
+<<dialog "dinerDishwasher">>It's counting AND caring. Too much to ask.<<dialog>>
+<<dialog "player">>Fair point.<<dialog>>
+<<dialog "dinerDishwasher">>I'm gonna say forty-two and call it done.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-14.webp">>
+<<image _img "100%">>
+<<narrative>>Mike picks up a can and reads the label with extreme focus, like it might be interesting.<<narrative>>
+
+<<dialog "dinerDishwasher">>Beans. We have so many beans.<<dialog>>
+<<dialog "player">>It's a diner. Beans make sense.<<dialog>>
+<<dialog "dinerDishwasher">>So many beans. Like, more than needed.<<dialog>>
+<<dialog "player">>Maybe Vince bulk-buys?<<dialog>>
+<<dialog "dinerDishwasher">>I'm going to think about this for the rest of the shift.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeStorageMorning-15.webp">>
+<<image _img "100%">>
+<<narrative>>Mike balances a can on his head, staying very still. He looks up to check it's still there.<<narrative>>
+
+<<dialog "dinerDishwasher">>Personal best: thirty-two seconds.<<dialog>>
+<<dialog "player">>That's not a record anyone cares about.<<dialog>>
+<<dialog "dinerDishwasher">>I care. That's enough.<<dialog>>
+<<dialog "player">>You need more hobbies.<<dialog>>
+<<dialog "dinerDishwasher">>This IS my hobby.<<dialog>>`,
                 friendship: 2, trust: 1, love: 0, lust: 0
             }
         ]

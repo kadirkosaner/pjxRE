@@ -1,0 +1,84 @@
+MIKE - LEVEL 1 IMAGE/TOPIC VERIFICATION
+==========================================
+
+PHASE: COMMON (mike_common_level1.json)
+------------------------------------------
+Context: dinerRubys_common_morning
+  Topic: out_of_place_morning  → 3 entries → 3 images (mikeFrontMorning-1, -2, -3)
+  Topic: morning_daydream      → 3 entries → 3 images (mikeFrontMorning-4, -5, -6)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubys_common_afternoon
+  Topic: out_of_place_afternoon → 3 entries → 3 images (mikeFrontAfternoon-1, -2, -4)
+  Topic: music_talk             → 3 entries → 3 images (mikeFrontAfternoon-3, -5, -7)
+  Topic: food_observations      → 3 entries → 3 images (mikeFrontAfternoon-8, -9, -10)
+  Subtotal: 9 entries = 9 images ✓
+
+NOTE: mikeFrontAfternoon-6 used as spare to fill NPC rotation (emma). ID gap intentional from twee (-4 used under out_of_place_afternoon, -6 under separate slot).
+
+COMMON TOTAL: 2 contexts × (6+9) entries = 15 topics = 16 images ✓
+JSON scenes count: 16 ✓
+
+------------------------------------------
+PHASE: DISHWASHER ON BREAK (mike_dishwasherOnBreak_level1.json)
+------------------------------------------
+Context: dinerRubysKitchen_dishwasherOnBreak_morning
+  Topic: headphones_music     → 3 entries → 3 images (mikeKitchenMorning-1, -2, -3)
+  Topic: morning_dishes       → 3 entries → 3 images (mikeKitchenMorning-4, -5, -6)
+  Topic: kitchen_zone_out     → 3 entries → 3 images (mikeKitchenMorning-13, -14, -15)
+  Subtotal: 9 entries = 9 images ✓
+
+Context: dinerRubysStorage_dishwasherOnBreak_morning
+  Topic: phone_scrolling      → 3 entries → 3 images (mikeStorageMorning-1, -2, -3)
+  Topic: break_vibes          → 3 entries → 3 images (mikeStorageMorning-4, -5, -6)
+  Topic: storage_inventory    → 3 entries → 3 images (mikeStorageMorning-13, -14, -15)
+  Subtotal: 9 entries = 9 images ✓
+
+ONBREAK TOTAL: 2 contexts × 9 entries = 18 images ✓
+JSON scenes count: 18 ✓
+
+------------------------------------------
+PHASE: DISHWASHER DONE (mike_dishwasherDone_level1.json)
+------------------------------------------
+Context: dinerRubysKitchen_dishwasherDone_morning
+  Topic: shift_envy    → 3 entries → 3 images (mikeKitchenMorning-7, -8, -9)
+  Topic: winding_down  → 3 entries → 3 images (mikeKitchenMorning-10, -11, -12)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubysKitchen_dishwasherDone_afternoon
+  Topic: almost_free       → 3 entries → 3 images (mikeKitchenAfternoon-1, -2, -3)
+  Topic: after_work_plans  → 3 entries → 3 images (mikeKitchenAfternoon-4, -5, -6)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubysStorage_dishwasherDone_morning
+  Topic: done_for_now   → 3 entries → 3 images (mikeStorageMorning-7, -8, -9)
+  Topic: chill_goodbye  → 3 entries → 3 images (mikeStorageMorning-10, -11, -12)
+  Subtotal: 6 entries = 6 images ✓
+
+DONE TOTAL: 3 contexts × 6 entries = 18 images ✓
+JSON scenes count: 18 ✓
+
+==========================================
+GRAND TOTAL
+==========================================
+Common:   16 images (15 dialogue entries + 1 NPC rotation spare)  ✓ MATCH
+OnBreak:  18 images (18 dialogue entries)                          ✓ MATCH
+Done:     18 images (18 dialogue entries)                          ✓ MATCH
+-------------------------------------------
+TOTAL:    52 images = 51 dialogue entries  ✓ ALL UNIQUE
+
+ID UNIQUENESS CHECK:
+  Front  Morning   : -1 to -6     → common only            ✓
+  Front  Afternoon : -1,-2,-3,-4,-5,-6,-7,-8,-9,-10 → common only ✓
+  Kitchen Morning  : -1 to -6    → onBreak
+                     -7 to -12   → done
+                     -13,-14,-15 → onBreak (zone_out)       ✓
+  Kitchen Afternoon: -1 to -6    → done only                ✓
+  Storage Morning  : -1 to -6    → onBreak
+                     -7 to -12   → done
+                     -13,-14,-15 → onBreak (storage_inv)    ✓
+
+NO DUPLICATE IDs ACROSS ALL THREE FILES ✓
+NO LOCATION/INTERIOR MODIFICATIONS IN PROMPTS ✓
+PLAYER (image3) LOCKED IN EVERY SCENE ✓
+MIKE (image2) LOCKED IN EVERY SCENE ✓

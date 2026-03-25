@@ -1,0 +1,92 @@
+{
+  "project_path": "c:/Users/devne/projects/pjx",
+  "base_dir": "Automation/ReplicateBulk",
+  "input_dir": "input",
+  "output_dir": "output",
+  "prompt_file": "prompts.md",
+  "reference_mapping": {
+    "locations": {
+      "dinerInterior": "dinerInterior.jpg",
+      "dinerKitchen": "dinerKitchen.jpg",
+      "dinerStorage": "dinerStorage.jpg",
+      "dinerBathroom": "dinerBathroom.jpg",
+      "dinerCorridor": "dinerCorridor.jpg",
+      "dinerDressingRoom": "dinerDressingRoom.jpg",
+      "dinerManager": "dinerManager.jpg"
+    },
+    "characters": {
+      "player": {
+        "file": "player.png",
+        "role": "dishwasher",
+        "gender": "female",
+        "features": "brunette, green eyes",
+        "costume": "faded black t-shirt, black pants, black bib apron with red Ruby's Diner script"
+      },
+      "emma": {
+        "file": "emmaWalsh.jpg",
+        "role": "waitress",
+        "gender": "female",
+        "features": "blonde wavy hair, blue eyes",
+        "costume": "ruby red short-sleeve fitted blouse, black pencil skirt above the knee, white waist apron"
+      },
+      "sofia": {
+        "file": "sofiaChen.jpg",
+        "role": "waitress",
+        "gender": "female",
+        "costume": "ruby red short-sleeve fitted blouse, black pencil skirt above the knee, white waist apron"
+      },
+      "jake": {
+        "file": "jakeRivera.jpg",
+        "role": "waitress",
+        "gender": "male",
+        "costume": "ruby red short-sleeve fitted blouse, black pants, white waist apron"
+      },
+      "vince": {
+        "file": "vinceRuby.jpg",
+        "role": "boss",
+        "gender": "male"
+      },
+      "tom": {
+        "file": "tomReese.jpg",
+        "role": "clerk",
+        "gender": "male",
+        "costume": "white button-up shirt with rolled sleeves, black pants"
+      },
+      "james": {
+        "file": "jamesHolt.jpg",
+        "role": "chef",
+        "gender": "male",
+        "costume": "white double-breasted chef coat, black-and-white checkered pants, white chef hat"
+      },
+      "mike": {
+        "file": "mikeTorres.jpg",
+        "role": "dishwasher",
+        "gender": "male",
+        "costume": "faded black t-shirt, black pants, black bib apron with red Ruby's Diner script"
+      }
+    },
+    "scene_character": "emma",
+    "location_npcs": {
+      "dinerInterior": ["tom"],
+      "dinerKitchen": ["james"]
+    },
+    "npc_keywords": {
+      "waitress": ["sofia", "jake"],
+      "waiter": ["jake"],
+      "cook": ["james"],
+      "chef": ["james"],
+      "dishwasher": ["mike"],
+      "clerk": ["tom"]
+    }
+  },
+  "provider": "fal",
+  "fal_config": {
+    "model": "fal-ai/nano-banana-2/edit",
+    "parameters": {
+      "aspect_ratio": "16:9",
+      "resolution": "2K",
+      "num_images": 1,
+      "enable_web_search": false
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "project_path": "c:/Users/devne/projects/pjx",
+  "base_dir": "Automation/ReplicateBulk",
+  "input_dir": "input",
+  "output_dir": "output",
+  "prompt_file": "prompts.md",
+  "reference_mapping": {
+    "locations": {
+      "dinerInterior": {
+        "file": "dinerInterior.jpg",
+        "promptName": "an American diner interior"
+      },
+      "dinerKitchen": {
+        "file": "dinerKitchen.jpg",
+        "promptName": "an American diner kitchen"
+      },
+      "dinerStorage": {
+        "file": "dinerStorage.jpg",
+        "promptName": "an American diner storage room"
+      },
+      "dinerBathroom": {
+        "file": "dinerBathroom.jpg",
+        "promptName": "an American diner bathroom"
+      },
+      "dinerCorridor": {
+        "file": "dinerCorridor.jpg",
+        "promptName": "an American diner corridor"
+      },
+      "dinerDressingRoom": {
+        "file": "dinerDressingRoom.jpg",
+        "promptName": "an American diner dressing room"
+      },
+      "dinerManager": {
+        "file": "dinerManager.jpg",
+        "promptName": "an American diner manager office"
+      }
+    },
+    "characters": {
+      "player": {
+        "file": "player.png",
+        "role": "dishwasher",
+        "gender": "female",
+        "promptDesc": "brunette young woman",
+        "costume": "faded black t-shirt, black pants, and black bib apron with red Ruby's Diner script"
+      },
+      "emma": {
+        "file": "emmaWalsh.jpg",
+        "role": "waitress",
+        "gender": "female",
+        "promptDesc": "Young blonde Caucasian female waitress",
+        "promptDescAsNpc": "blonde Caucasian female waitress",
+        "costume": "ruby red blouse, black pencil skirt, and white waist apron"
+      },
+      "sofia": {
+        "file": "sofiaChen.jpg",
+        "role": "waitress",
+        "gender": "female",
+        "promptDesc": "Young Asian female waitress with dark hair",
+        "promptDescAsNpc": "Asian female waitress",
+        "costume": "ruby red blouse, black pencil skirt, and white waist apron"
+      },
+      "jake": {
+        "file": "jakeRivera.jpg",
+        "role": "waiter",
+        "gender": "male",
+        "promptDesc": "Male waiter",
+        "promptDescAsNpc": "male waiter",
+        "costume": "ruby red blouse, black pants, and white waist apron"
+      },
+      "vince": {
+        "file": "vinceRuby.jpg",
+        "role": "owner",
+        "gender": "male",
+        "promptDesc": "Middle-aged male owner",
+        "promptDescAsNpc": "middle-aged male owner",
+        "costume": "dark charcoal blazer over a dark dress shirt, dark slacks"
+      },
+      "tom": {
+        "file": "tomReese.jpg",
+        "role": "clerk",
+        "gender": "male",
+        "promptDesc": "Male clerk",
+        "promptDescAsNpc": "male clerk",
+        "costume": "white button-up shirt and black pants"
+      },
+      "james": {
+        "file": "jamesHolt.jpg",
+        "role": "chef",
+        "gender": "male",
+        "promptDesc": "Male chef",
+        "promptDescAsNpc": "male chef",
+        "costume": "white double-breasted chef coat, black-and-white checkered pants, and white chef hat"
+      },
+      "mike": {
+        "file": "mikeTorres.jpg",
+        "role": "dishwasher",
+        "gender": "male",
+        "promptDesc": "Dark-complexioned Latino male dishwasher",
+        "promptDescAsNpc": "Dark-complexioned Latino male dishwasher",
+        "costume": "faded black t-shirt, black pants, and black bib apron with red Ruby's Diner script"
+      }
+    },
+    "scene_character": "emma"
+  },
+  "provider": "fal",
+  "fal_config": {
+    "model": "fal-ai/nano-banana-2/edit",
+    "parameters": {
+      "aspect_ratio": "16:9",
+      "resolution": "2K",
+      "num_images": 1,
+      "enable_web_search": false
+    }
+  }
+}

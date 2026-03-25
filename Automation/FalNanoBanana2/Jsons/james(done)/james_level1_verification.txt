@@ -1,0 +1,109 @@
+JAMES - LEVEL 1 IMAGE/TOPIC VERIFICATION
+==========================================
+
+PHASE: COMMON (james_common_level1.json)
+------------------------------------------
+Context: dinerRubys_common_morning
+  Topic: morning_prep     → 3 entries → 3 images (jamesFrontMorning-1, -2, -3)
+  Topic: equipment_talk   → 3 entries → 3 images (jamesFrontMorning-4, -5, -6)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubys_common_afternoon
+  Topic: lunch_rush        → 3 entries → 3 images (jamesFrontAfternoon-1, -2, -3)
+  Topic: cooking_pride     → 3 entries → 3 images (jamesFrontAfternoon-4, -5, -6)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubys_common_evening
+  Topic: stretching_legs   → 3 entries → 3 images (jamesFrontEvening-1, -2, -3)
+  Topic: family_mention    → 3 entries → 3 images (jamesFrontEvening-4, -5, -6)
+  Subtotal: 6 entries = 6 images ✓
+
+COMMON TOTAL: 3 contexts × 2 topics × 3 entries = 18 topics = 18 images ✓
+JSON scenes count: 18 ✓
+
+
+PHASE: DISHWASHER ON BREAK (james_dishwasherOnBreak_level1.json)
+-----------------------------------------------------------------
+Context: dinerRubysKitchen_dishwasherOnBreak_morning
+  Topic: tired_back        → 3 entries → 3 images (jamesKitchenMorning-1, -2, -3)
+  Topic: morning_rush      → 3 entries → 3 images (jamesKitchenMorning-4, -5, -6)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubysKitchen_dishwasherOnBreak_afternoon
+  Topic: quick_smoke       → 3 entries → 3 images (jamesKitchenAfternoon-1, -2, -3)
+  Topic: afternoon_lull    → 3 entries → 3 images (jamesKitchenAfternoon-4, -5, -6)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubysStorage_dishwasherOnBreak_afternoon
+  Topic: kids_talk         → 3 entries → 3 images (jamesStorageAfternoon-1, -2, -3)
+  Topic: the_quiet         → 3 entries → 3 images (jamesStorageAfternoon-4, -5, -6)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubys_dishwasherOnBreak_evening
+  Topic: end_of_day        → 3 entries → 3 images (jamesFrontEvening-7, -8, -9)
+  Topic: quick_breather    → 3 entries → 3 images (jamesFrontEvening-10, -11, -12)
+  Subtotal: 6 entries = 6 images ✓
+
+ON BREAK TOTAL: 4 contexts × 2 topics × 3 entries = 24 topics = 24 images ✓
+JSON scenes count: 24 ✓
+
+
+PHASE: DISHWASHER DONE (james_dishwasherDone_level1.json)
+----------------------------------------------------------
+Context: dinerRubysKitchen_dishwasherDone_morning
+  Topic: winding_down      → 3 entries → 3 images (jamesKitchenMorning-7, -8, -9)
+  Topic: going_home        → 3 entries → 3 images (jamesKitchenMorning-10, -11, -12)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubysKitchen_dishwasherDone_afternoon
+  Topic: day_recap         → 3 entries → 3 images (jamesKitchenAfternoon-7, -8, -9)
+  Topic: heading_out       → 3 entries → 3 images (jamesKitchenAfternoon-10, -11, -12)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubysKitchen_dishwasherDone_evening
+  Topic: long_day          → 3 entries → 3 images (jamesKitchenEvening-1, -2, -3)
+  Topic: evening_family    → 3 entries → 3 images (jamesKitchenEvening-4, -5, -6)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubysStorage_dishwasherDone_afternoon
+  Topic: off_the_clock     → 3 entries → 3 images (jamesStorageAfternoon-7, -8, -9)
+  Topic: shift_reflection  → 3 entries → 3 images (jamesStorageAfternoon-10, -11, -12)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubys_dishwasherDone_evening
+  Topic: closing_time      → 3 entries → 3 images (jamesFrontEvening-13, -14, -15)
+  Topic: night_drive       → 3 entries → 3 images (jamesFrontEvening-16, -17, -18)
+  Subtotal: 6 entries = 6 images ✓
+
+DONE TOTAL: 5 contexts × 2 topics × 3 entries = 30 topics = 30 images ✓
+JSON scenes count: 30 ✓
+
+
+GRAND TOTAL
+===========
+Common:   18 images (18 dialogue entries)  ✓ MATCH
+OnBreak:  24 images (24 dialogue entries)  ✓ MATCH
+Done:     30 images (30 dialogue entries)  ✓ MATCH
+-------------------------------------------
+TOTAL:    72 images = 72 dialogue entries  ✓ ALL UNIQUE
+
+All image IDs are unique across all phases (verified by location prefix + number range).
+No shared images between dialogue entries.
+
+
+PLAYER OUTFIT BREAKDOWN (Done phase)
+=====================================
+Work clothes (apron): 18 scenes
+Casual clothes:       12 scenes
+Ratio: ~60% work / ~40% casual
+
+
+LOCATION BREAKDOWN
+==================
+dinerInterior (front):  18 common + 6 onBreak + 6 done = 30 scenes
+dinerKitchen:           12 onBreak + 12 done = 24 scenes
+dinerStorage:           6 onBreak + 6 done = 12 scenes
+NPC usage:
+  - dinerInterior scenes include tom (clerk) + emma (waitress) as NPCs
+  - dinerKitchen scenes: no NPCs (just James + player)
+  - dinerStorage scenes: no NPCs (just James + player)

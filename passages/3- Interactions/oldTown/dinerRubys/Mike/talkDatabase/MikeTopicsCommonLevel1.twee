@@ -51,6 +51,45 @@
 <<dialog "dinerDishwasher">>I don't sleep. I meditate on the bubbles in the sink.<</dialog>>`,
                 friendship: 2, trust: 1, love: 0, lust: 0
             }
+        ],
+
+        morning_daydream: [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontMorning-4.webp">>
+<<image _img "100%">>
+<<narrative>>Mike stands near the register with a distant look, holding a half-full coffee cup he never seems to drink.<<narrative>>
+
+<<dialog "dinerDishwasher">>You ever wonder what fish think about?<<dialog>>
+<<dialog "player">>Can't say I have.<<dialog>>
+<<dialog "dinerDishwasher">>Like, they're just in there. Swimming. No bills.<<dialog>>
+<<dialog "player">>That's the dream, apparently.<<dialog>>
+<<dialog "dinerDishwasher">>Exactly. I get it.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontMorning-5.webp">>
+<<image _img "100%">>
+<<narrative>>Mike is staring at a coffee stain on the ceiling. He doesn't acknowledge you right away.<<narrative>>
+
+<<dialog "dinerDishwasher">>That stain has been there since I started.<<dialog>>
+<<dialog "player">>Nobody cleaned it?<<dialog>>
+<<dialog "dinerDishwasher">>Nah. It's kind of like a landmark now.<<dialog>>
+<<dialog "player">>A ceiling landmark.<<dialog>>
+<<dialog "dinerDishwasher">>My ceiling landmark. I feel responsible for it.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontMorning-6.webp">>
+<<image _img "100%">>
+<<narrative>>Mike slouches against the counter, watching a fly circle a table. He tracks it slowly with his eyes.<<narrative>>
+
+<<dialog "dinerDishwasher">>That fly's been in here all week.<<dialog>>
+<<dialog "player">>Seriously? Same fly?<<dialog>>
+<<dialog "dinerDishwasher">>I think so. He's got a pattern.<<dialog>>
+<<dialog "player">>You've been watching a fly's patterns.<<dialog>>
+<<dialog "dinerDishwasher">>Slow morning. He's more interesting than the menu.<<dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
+            }
         ]
     },
 
@@ -129,6 +168,45 @@
 <<dialog "player">>You'd clear the room in under a minute.<</dialog>>
 <<dialog "dinerDishwasher">>Yeah, but what a minute it would be.<</dialog>>`,
                 friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        food_observations: [
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontAfternoon-8.webp">>
+<<image _img "100%">>
+<<narrative>>Mike squints at the daily special board, tilting his head slightly.<<narrative>>
+
+<<dialog "dinerDishwasher">>The meatloaf special looks different today.<<dialog>>
+<<dialog "player">>Different how?<<dialog>>
+<<dialog "dinerDishwasher">>Smaller. James is having a mood.<<dialog>>
+<<dialog "player">>Does meatloaf size reflect his moods?<<dialog>>
+<<dialog "dinerDishwasher">>Every time. It's a system.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontAfternoon-9.webp">>
+<<image _img "100%">>
+<<narrative>>Mike stares at a slice of pie in the display case, arms folded.<<narrative>>
+
+<<dialog "dinerDishwasher">>That pie has been there all day. Nobody's ordered it.<<dialog>>
+<<dialog "player">>Maybe people prefer the burgers today.<<dialog>>
+<<dialog "dinerDishwasher">>It's starting to feel personal.<<dialog>>
+<<dialog "player">>The pie isn't taking it personally.<<dialog>>
+<<dialog "dinerDishwasher">>I'm taking it personally. I wash those pie plates.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<set _img = "assets/content/scenes/interactions/mike/level1/mikeFrontAfternoon-10.webp">>
+<<image _img "100%">>
+<<narrative>>Mike carries a tray of clean mugs and sets them down with zero urgency.<<narrative>>
+
+<<dialog "dinerDishwasher">>Coffee mug count today: forty-three.<<dialog>>
+<<dialog "player">>You counted the mugs?<<dialog>>
+<<dialog "dinerDishwasher">>Lost count twice. Third time I committed.<<dialog>>
+<<dialog "player">>Why?<<dialog>>
+<<dialog "dinerDishwasher">>Needed a goal for the afternoon.<<dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
             }
         ]
     }

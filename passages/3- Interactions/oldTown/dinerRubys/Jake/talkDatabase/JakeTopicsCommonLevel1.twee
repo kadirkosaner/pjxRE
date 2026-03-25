@@ -28,7 +28,7 @@
 
         sports_talk: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-1.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-common-1.webp">>
 <<image _img "100%">>
 <<narrative>>Jake leans against the counter, glancing at the TV mounted in the corner.<</narrative>>
 
@@ -40,7 +40,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAft
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-2.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-common-2.webp">>
 <<image _img "100%">>
 <<narrative>>Jake wipes a table while sneaking glances at the muted sports highlights on TV.<</narrative>>
 
@@ -52,7 +52,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAft
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-3.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-common-3.webp">>
 <<image _img "100%">>
 <<narrative>>Jake taps the edge of the counter like a drumroll, grinning at nobody in particular.<</narrative>>
 
@@ -67,7 +67,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAft
 
         people_watching: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-1.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-common-4.webp">>
 <<image _img "100%">>
 <<narrative>>Jake nods toward a couple sitting by the window, speaking low.<</narrative>>
 
@@ -79,7 +79,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAft
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-2.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-common-5.webp">>
 <<image _img "100%">>
 <<narrative>>Jake pauses mid-step, balancing a tray on one hand, watching the door.<</narrative>>
 
@@ -91,7 +91,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAft
                 friendship: 2, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-3.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-common-6.webp">>
 <<image _img "100%">>
 <<narrative>>Jake slides into the booth across from you for a second, pretending to check the table.<</narrative>>
 
@@ -105,11 +105,51 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAft
         ]
     },
 
+    food_chat: [
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-common-7.webp">>
+<<image _img "100%">>
+<<narrative>>Jake glances at the specials board, then back at you with a half-grin.<<narrative>>
+
+<<dialog "dinerWaitress3">>James made a new soup today. I already had two bowls.<<dialog>>
+<<dialog "player">>Is it actually good or are you just bored?<<dialog>>
+<<dialog "dinerWaitress3">>Both. But mostly good. You should try it.<<dialog>>
+<<dialog "player">>Maybe I will. What kind is it?<<dialog>>
+<<dialog "dinerWaitress3">>No idea. Just tastes like warmth. Profound, right?<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-common-8.webp">>
+<<image _img "100%">>
+<<narrative>>Jake leans over the counter and steals a fry off a plate someone left too close to the edge.<<narrative>>
+
+<<dialog "dinerWaitress3">>That table left half their fries. Criminal.<<dialog>>
+<<dialog "player">>You just took evidence from a crime scene.<<dialog>>
+<<dialog "dinerWaitress3">>I'm performing a cleanup. Totally different.<<dialog>>
+<<dialog "player">>Sure. Very professional.<<dialog>>
+<<dialog "dinerWaitress3">>I'll write it up in my report. One fry, consumed, no survivors.<<dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontAfternoon-common-9.webp">>
+<<image _img "100%">>
+<<narrative>>Jake is cutting a slice of pie with unnecessary precision, tongue slightly out in concentration.<<narrative>>
+
+<<dialog "dinerWaitress3">>The pie slices have to be even. Vince counts them.<<dialog>>
+<<dialog "player">>He actually counts pie slices?<<dialog>>
+<<dialog "dinerWaitress3">>Every night. Found out the hard way.<<dialog>>
+<<dialog "player">>What happened?<<dialog>>
+<<dialog "dinerWaitress3">>Let's just say I owe the diner three slices of pie and move on.<<dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
+            }
+        ]
+    },
+
     dinerRubys_common_evening: {
 
         weekend_plans: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-1.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-common-1.webp">>
 <<image _img "100%">>
 <<narrative>>Jake stretches his arms overhead while walking between tables.<</narrative>>
 
@@ -121,7 +161,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEve
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-2.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-common-2.webp">>
 <<image _img "100%">>
 <<narrative>>Jake checks his phone quickly behind the counter, then pockets it.<</narrative>>
 
@@ -133,7 +173,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEve
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-3.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-common-3.webp">>
 <<image _img "100%">>
 <<narrative>>Jake refills a napkin holder but keeps glancing toward the clock on the wall.<</narrative>>
 
@@ -148,7 +188,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEve
 
         light_humor: [
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-1.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-common-4.webp">>
 <<image _img "100%">>
 <<narrative>>Jake slides a ketchup bottle across the counter like a hockey puck, catching it at the edge.<</narrative>>
 
@@ -160,7 +200,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEve
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-2.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-common-5.webp">>
 <<image _img "100%">>
 <<narrative>>Jake holds up a receipt and squints at it dramatically.<</narrative>>
 
@@ -172,7 +212,7 @@ text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEve
                 friendship: 1, trust: 0, love: 0, lust: 0
             },
             {
-text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-3.webp">>
+text: `<<set _img = "assets/content/scenes/interactions/jake/level1/jakeFrontEvening-common-6.webp">>
 <<image _img "100%">>
 <<narrative>>Jake pretends to take an invisible order from an empty booth, talking to nobody.<</narrative>>
 

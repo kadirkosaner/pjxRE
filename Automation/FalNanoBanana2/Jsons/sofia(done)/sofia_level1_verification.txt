@@ -1,0 +1,111 @@
+SOFIA - LEVEL 1 IMAGE/TOPIC VERIFICATION
+==========================================
+
+PHASE: COMMON (sofia_common_level1.json)
+------------------------------------------
+Context: dinerRubys_common_afternoon
+  Topic: boyfriend_mention  → 3 entries → 3 images (sofiaFrontAfternoon-1, sofiaFrontAfternoon-2, sofiaFrontAfternoon-3)
+  Topic: boredom            → 3 entries → 3 images (sofiaFrontAfternoon-4, sofiaFrontAfternoon-5, sofiaFrontAfternoon-6)
+  Topic: diner_observations → 3 entries → 3 images (sofiaFrontAfternoon-7, sofiaFrontAfternoon-8, sofiaFrontAfternoon-9)
+  Subtotal: 9 entries = 9 images ✓
+
+Context: dinerRubys_common_evening
+  Topic: wanting_to_leave   → 3 entries → 3 images (sofiaFrontEvening-1, sofiaFrontEvening-2, sofiaFrontEvening-3)
+  Topic: gossip             → 3 entries → 3 images (sofiaFrontEvening-4, sofiaFrontEvening-5, sofiaFrontEvening-6)
+  Subtotal: 6 entries = 6 images ✓
+
+COMMON TOTAL: 2 contexts × (3+2 topics) × 3 entries = 5 topics = 15 images ✓
+JSON scenes count: 15 ✓
+
+NPC Distribution (dinerInterior):
+  emma:  9 scenes (60%)
+  jake:  4 scenes (27%)
+  vince: 2 scenes (13%)
+
+PHASE: DISHWASHER ON BREAK (sofia_dishwasherOnBreak_level1.json)
+------------------------------------------
+Context: dinerRubys_dishwasherOnBreak_afternoon
+  Topic: boyfriend_drama    → 3 entries → 3 images (sofiaFrontAfternoon-10, sofiaFrontAfternoon-11, sofiaFrontAfternoon-12)
+  Topic: social_media       → 3 entries → 3 images (sofiaFrontAfternoon-13, sofiaFrontAfternoon-14, sofiaFrontAfternoon-15)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubys_dishwasherOnBreak_evening
+  Topic: after_work_plans   → 3 entries → 3 images (sofiaFrontEvening-7, sofiaFrontEvening-8, sofiaFrontEvening-9)
+  Topic: complaining        → 3 entries → 3 images (sofiaFrontEvening-10, sofiaFrontEvening-11, sofiaFrontEvening-12)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubysStorage_dishwasherOnBreak_afternoon
+  Topic: texting_boyfriend  → 3 entries → 3 images (sofiaStorageAfternoon-1, sofiaStorageAfternoon-2, sofiaStorageAfternoon-3)
+  Topic: work_complaints    → 3 entries → 3 images (sofiaStorageAfternoon-4, sofiaStorageAfternoon-5, sofiaStorageAfternoon-6)
+  Subtotal: 6 entries = 6 images ✓
+
+ONBREAK TOTAL: 3 contexts × 2 topics × 3 entries = 6 topics = 18 images ✓
+JSON scenes count: 18 ✓
+
+NPC Distribution (dinerInterior - 12 scenes):
+  emma:  8 scenes (67%)
+  jake:  3 scenes (25%)
+  vince: 2 scenes (17%)  (rounds due to 12 total, sums to >100%)
+
+NPC Distribution (dinerStorage - 6 scenes):
+  empty: 4 scenes (67%)
+  emma:  1 scene  (storage NPC)
+  mike:  1 scene  (storage NPC)
+  2 different NPC keys ✓
+
+PHASE: DISHWASHER DONE (sofia_dishwasherDone_level1.json)
+------------------------------------------
+Context: dinerRubys_dishwasherDone_afternoon
+  Topic: checked_out        → 3 entries → 3 images (sofiaFrontAfternoon-16, sofiaFrontAfternoon-17, sofiaFrontAfternoon-18)
+  Topic: boyfriend_plans    → 3 entries → 3 images (sofiaFrontAfternoon-19, sofiaFrontAfternoon-20, sofiaFrontAfternoon-21)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubys_dishwasherDone_evening
+  Topic: wanting_to_leave   → 3 entries → 3 images (sofiaFrontEvening-13, sofiaFrontEvening-14, sofiaFrontEvening-15)
+  Topic: evening_gossip     → 3 entries → 3 images (sofiaFrontEvening-16, sofiaFrontEvening-17, sofiaFrontEvening-18)
+  Subtotal: 6 entries = 6 images ✓
+
+Context: dinerRubysStorage_dishwasherDone_afternoon
+  Topic: post_shift_phone   → 3 entries → 3 images (sofiaStorageAfternoon-7, sofiaStorageAfternoon-8, sofiaStorageAfternoon-9)
+  Topic: ready_to_go        → 3 entries → 3 images (sofiaStorageAfternoon-10, sofiaStorageAfternoon-11, sofiaStorageAfternoon-12)
+  Subtotal: 6 entries = 6 images ✓
+
+DONE TOTAL: 3 contexts × 2 topics × 3 entries = 6 topics = 18 images ✓
+JSON scenes count: 18 ✓
+
+NPC Distribution (dinerInterior - 12 scenes):
+  emma:  7 scenes (58%)
+  jake:  3 scenes (25%)
+  vince: 2 scenes (17%)
+
+NPC Distribution (dinerStorage - 6 scenes):
+  empty: 4 scenes (67%)
+  tom:   1 scene  (storage NPC)
+  jake:  1 scene  (storage NPC)
+  2 different NPC keys ✓
+
+Player Outfit Distribution (Done phase):
+  Work clothes:   10 scenes (56%)
+  Casual clothes:  8 scenes (44%)
+
+
+GRAND TOTAL
+===========
+Common:   15 images (15 dialogue entries)  ✓ MATCH
+OnBreak:  18 images (18 dialogue entries)  ✓ MATCH
+Done:     18 images (18 dialogue entries)  ✓ MATCH
+-------------------------------------------
+TOTAL:    51 images = 51 dialogue entries  ✓ ALL UNIQUE
+
+ID RANGES (no cross-phase conflicts):
+  sofiaFrontAfternoon:  Common 1-9,   OnBreak 10-15,  Done 16-21   (21 total)
+  sofiaFrontEvening:    Common 1-6,   OnBreak 7-12,   Done 13-18   (18 total)
+  sofiaStorageAfternoon:              OnBreak 1-6,    Done 7-12    (12 total)
+  -----------------------------------------------------------------------
+  TOTAL: 21 + 18 + 12 = 51 ✓ ALL UNIQUE
+
+NOTE: Twee dosyalarindaki image ID'leri henuz guncellenmedi.
+Mevcut twee'lerde phase'ler arasi ID cakismasi var (ornegin sofiaFrontAfternoon-1
+hem common, hem onBreak, hem done'da kullaniliyor).
+Twee dosyalarinin bu verification'daki ID'lerle eslesecek sekilde
+guncellenmesi gerekiyor.

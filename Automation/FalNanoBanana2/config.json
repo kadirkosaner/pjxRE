@@ -1,0 +1,108 @@
+{
+  "project_path": "c:/Users/devne/projects/pjx",
+  "base_dir": "Automation/ReplicateBulk",
+  "input_dir": "input",
+  "output_dir": "output",
+  "prompt_file": "prompts.md",
+  "reference_mapping": {
+    "locations": {
+      "dinerInterior": { "file": "dinerInterior.jpg", "promptName": "an American diner interior" },
+      "dinerKitchen": { "file": "dinerKitchen.jpg", "promptName": "an American diner kitchen" },
+      "dinerStorage": { "file": "dinerStorage.jpg", "promptName": "an American diner storage room" },
+      "dinerBathroom": { "file": "dinerBathroom.jpg", "promptName": "an American diner bathroom" },
+      "dinerCorridor": { "file": "dinerCorridor.jpg", "promptName": "an American diner corridor" },
+      "dinerDressingRoom": { "file": "dinerDressingRoom.jpg", "promptName": "an American diner dressing room" },
+      "dinerManager": { "file": "dinerManager.jpg", "promptName": "an American diner manager office" }
+    },
+    "characters": {
+      "player": {
+        "name": "Player",
+        "file": "player.png",
+        "role": "dishwasher",
+        "gender": "female",
+        "promptDesc": "(image3)",
+        "costume": "faded black t-shirt, black pants, and black bib apron with red Ruby's Diner script"
+      },
+      "emma": {
+        "name": "Emma Walsh",
+        "file": "emmaWalsh.jpg",
+        "role": "waitress",
+        "gender": "female",
+        "promptDesc": "(image2)",
+        "promptDescAsNpc": "waitress",
+        "costume": "ruby red blouse, black pencil skirt, and white waist apron"
+      },
+      "sofia": {
+        "name": "Sofia Chen",
+        "file": "sofiaChen.jpg",
+        "role": "waitress",
+        "gender": "female",
+        "promptDesc": "(image2)",
+        "promptDescAsNpc": "waitress",
+        "costume": "ruby red blouse, black pencil skirt, and white waist apron"
+      },
+      "jake": {
+        "name": "Jake Rivera",
+        "file": "jakeRivera.jpg",
+        "role": "waiter",
+        "gender": "male",
+        "promptDesc": "(image2)",
+        "promptDescAsNpc": "waiter",
+        "costume": "ruby red button-up shirt, black pants, and white waist apron"
+      },
+      "vince": {
+        "name": "Vince",
+        "file": "vinceRuby.jpg",
+        "role": "owner",
+        "gender": "male",
+        "promptDesc": "(image2)",
+        "promptDescAsNpc": "the owner",
+        "costume": "dark charcoal blazer over a dark dress shirt, dark slacks (The Boss)"
+      },
+      "tom": {
+        "name": "Tom Reese",
+        "file": "tomReese.jpg",
+        "role": "clerk",
+        "gender": "male",
+        "promptDesc": "(image2)",
+        "promptDescAsNpc": "the clerk",
+        "costume": "white button-up shirt and black pants"
+      },
+      "james": {
+        "name": "James Holt",
+        "file": "jamesHolt.jpg",
+        "role": "chef",
+        "gender": "male",
+        "promptDesc": "(image2)",
+        "promptDescAsNpc": "the chef",
+        "costume": "white double-breasted chef coat, black-and-white checkered pants, and white chef hat"
+      },
+      "mike": {
+        "name": "Mike Torres",
+        "file": "mikeTorres.jpg",
+        "role": "dishwasher",
+        "gender": "male",
+        "promptDesc": "(image2)",
+        "promptDescAsNpc": "the dishwasher",
+        "costume": "faded black t-shirt, black pants, and black bib apron with red Ruby's Diner script"
+      }
+    },
+    "scene_character": "emma"
+  },
+  "provider": "fal",
+  "fal_config": {
+    "model": "fal-ai/nano-banana-2/edit",
+    "parameters": {
+      "aspect_ratio": "16:9",
+      "resolution": "2K",
+      "num_images": 1
+    }
+  },
+  "gemini_config": {
+    "model": "gemini-3.1-flash-image-preview",
+    "parameters": {
+      "aspect_ratio": "16:9",
+      "resolution": "2K"
+    }
+  }
+}
