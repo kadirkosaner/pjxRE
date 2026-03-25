@@ -8,14 +8,14 @@
 /* Determine phase — these topic databases are written for the dishwasher role */
 <<set _phase = "common">>
 <<if $job && $job.id === "ruby_dishwasher">>
-    <<if $jobs && $jobs.diner && $jobs.diner.clockedIn>>
-        <<if $jobs.diner.onBreak>>
-             <<set _phase = "dishwasherOnBreak">>
-        <<else>>
-             <<set _phase = "working">>
+    <<set _hoursToday = $jobState.hoursToday || 0>>
+    <<if _hoursToday > 0 && _hoursToday < 8>>
+        <<set _phase = "dishwasherOnBreak">>
+    <<elseif _hoursToday >= 8>>
+        <<set _lastEnd = $jobState.lastShiftEndHour>>
+        <<if _lastEnd !== null && ($timeSys.hour - _lastEnd) <= 3>>
+            <<set _phase = "dishwasherDone">>
         <</if>>
-    <<elseif $jobs && $jobs.diner && $jobs.diner.shiftCompletedToday>>
-        <<set _phase = "dishwasherDone">>
     <</if>>
 <</if>>
 

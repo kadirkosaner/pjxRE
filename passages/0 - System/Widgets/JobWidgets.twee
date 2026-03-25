@@ -111,6 +111,7 @@
 
     /* Advance time */
     <<advanceTime _shiftMinutes>>
+    <<set $jobState.lastShiftEndHour = $timeSys.hour>>
 
     /* Skill gains (per 4h, scaled) */
     <<set _gains = _job.skillGainsPer4Hours || []>>
@@ -282,6 +283,7 @@
         weeklyEarnings: 0,
         weeklyDeductions: 0,
         lastPayWeek: null,
+        lastShiftEndHour: null,
         minHoursWarningCount: 0,
         firstWorkDayEventShown: false,
         insufficientDaysThisWeek: 0,
@@ -297,6 +299,7 @@
         <<set $jobState.shiftsToday = 0>>
         <<set $jobState.hoursToday = 0>>
         <<set $jobState.freeMealUsedToday = false>>
+        <<set $jobState.lastShiftEndHour = null>>
     <</if>>
 <</widget>>
 
