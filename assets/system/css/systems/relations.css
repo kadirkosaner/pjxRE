@@ -34,8 +34,8 @@
   gap: 16px;
 }
 
-/* --- RELATIONS: Açık/kapalı net olsun – accent sadece "açık" olanda --- */
-/* Location: kapalı = sade gri; açık = sol çizgi + arka plan */
+/* --- RELATIONS: Expanded/collapsed states should be distinct – accent only on expanded --- */
+/* Location: collapsed = plain grey; expanded = left border + background */
 .relations-group {
   background: #0d0d0d;
   border: 1px solid #2a2a2a;
@@ -103,7 +103,7 @@
   display: inline-block;
 }
 
-/* Sadece AÇIK location'da ok pembe ve dönük */
+/* Arrow is pink and rotated only when location is expanded */
 .relations-group.expanded > .relations-group-header .relations-collapse-icon {
   transform: rotate(180deg);
   color: #f472b6;
@@ -115,7 +115,7 @@
   padding: 0;
 }
 
-/* Place'ler location içinde sağdan soldan içeride; ilk grup üstten boşluk alır */
+/* Places are indented within location; first group gets top spacing */
 .relations-group.expanded .relations-group-places {
   max-height: 2000px;
   padding: 12px 16px 16px 16px;
@@ -184,7 +184,7 @@
   display: inline-block;
 }
 
-/* Sadece AÇIK place'de ok pastel mavi ve dönük */
+/* Arrow is pastel blue and rotated only when place is expanded */
 .relations-place.expanded > .relations-place-header .relations-place-icon {
   transform: rotate(180deg);
   color: #93c5fd;

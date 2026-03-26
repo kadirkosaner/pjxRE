@@ -29,7 +29,7 @@
   position: relative;
 }
 
-/* Cooldown overlay görünürken scroll kapalı – backdrop tam kaplar */
+/* Scroll locked while cooldown overlay is visible – backdrop covers full area */
 .phone-fotogram-content:has(.phone-fotogram-share-overlay) {
   overflow: hidden;
 }
@@ -314,7 +314,7 @@
   min-width: 0;
 }
 
-/* Sol/sağ padding = görselinkiyle aynı (content zaten var(--spacing-md) veriyor) */
+/* Left/right padding matches the image panel (content already provides var(--spacing-md)) */
 .phone-fotogram-detail-comments-panel {
   padding: 12px 0 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);

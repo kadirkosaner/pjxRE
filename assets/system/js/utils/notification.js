@@ -82,6 +82,10 @@ window.showNotification = function (options) {
 
   if (!NotificationAPI || !NotificationAPI.$) return null;
 
+  // If actions provided, force persistent (no auto-dismiss)
+  const hasActions = Array.isArray(config.actions) && config.actions.length > 0;
+  if (hasActions) config.duration = 0;
+
   const id = 'notif-' + Date.now();
   const $el = NotificationAPI.$(`
     <div class="notification notification-${config.type}" id="${id}"
@@ -89,6 +93,21 @@ window.showNotification = function (options) {
       <span class="notification-text">${config.message}</span>
     </div>
   `);
+
+  // Render action buttons
+  if (hasActions) {
+    const $actions = NotificationAPI.$('<div class="notification-actions"></div>');
+    config.actions.forEach(action => {
+      const $btn = NotificationAPI.$(`<button class="notif-action-btn">${action.label}</button>`);
+      $btn.on('click', function () {
+        closeNotification($el);
+        if (action.fn) action.fn();
+        if (action.passage && typeof Engine !== 'undefined') Engine.play(action.passage);
+      });
+      $actions.append($btn);
+    });
+    $el.append($actions);
+  }
 
   NotificationAPI.$('body').append($el);
 
@@ -102,7 +121,7 @@ window.showNotification = function (options) {
     $el.addClass('active');
   }, 10);
 
-  // Auto close
+  // Auto close (skipped if actions present)
   const closeAfter = Math.max(0, Number(config.duration) || 0);
   if (closeAfter > 0) {
     setTimeout(() => closeNotification($el), closeAfter);

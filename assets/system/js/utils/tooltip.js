@@ -53,18 +53,26 @@ window.initTooltips = function() {
             // Handle success (green) tooltip
             if ($el.attr('data-tooltip-type') === 'success') {
                 $globalTooltip.addClass('success-tooltip').removeClass('locked-tooltip');
-            } else if ($el.hasClass('locked') || $el.hasClass('disabled') || $el.attr('data-allowed') === 'false') {
+            } else if ($el.hasClass('locked') || $el.hasClass('disabled') || $el.hasClass('location-closed') || $el.attr('data-allowed') === 'false') {
                 $globalTooltip.addClass('locked-tooltip').removeClass('success-tooltip');
             } else {
                 $globalTooltip.removeClass('locked-tooltip success-tooltip');
             }
             
+            // Default: below element
+            $globalTooltip.removeClass('above');
             $globalTooltip.css({
-                'top': (rect.bottom + 8) + 'px',
-                'left': (rect.left + rect.width / 2) + 'px'
+                top:  (rect.bottom + 8) + 'px',
+                left: (rect.left + rect.width / 2) + 'px'
             });
-            
             $globalTooltip.addClass('active');
+
+            // Flip above if tooltip overflows viewport bottom
+            const tipRect = $globalTooltip[0].getBoundingClientRect();
+            if (tipRect.bottom > window.innerHeight - 8) {
+                $globalTooltip.addClass('above');
+                $globalTooltip.css('top', (rect.top - tipRect.height - 8) + 'px');
+            }
         });
         
         $el.on('mouseleave.tooltip', function() {

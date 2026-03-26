@@ -54,7 +54,7 @@ setup.navCards = {
     "fhLivingroom": { name: "Living Room", cameraLoc: "public" },
     "fhUpperBath": { name: "Upstairs Bathroom", cameraLoc: "public" },
     "fhDownbath": { name: "Downstairs Bathroom", cameraLoc: "public" },
-    "fhUpperstairs": { name: "Upstairs", cameraLoc: "public" },
+    "fhUpperstairs": { name: "Upstairs", cameraLoc: "public", outfitContext: "indoor" },
     "fhDownstairs": { name: "Downstairs", cameraLoc: "public" },
     "fhParentsRoom": { name: "Parents Room", cameraLoc: "public" },
     "fhParentsBath": { name: "Parents Bathroom", cameraLoc: "public" },
@@ -64,7 +64,7 @@ setup.navCards = {
     /* ==========================================
        MAPLEWOOD - NEIGHBORHOOD
        ========================================== */
-    "maplewood": { name: "Maplewood", cameraLoc: "public" },
+    "maplewood": { name: "Maplewood", cameraLoc: "public", outfitContext: "outdoor" },
     "mapleChurch": { name: "St. Mary's Chapel", cameraLoc: "forbidden", cameraExhibitionismMin: 60 },
     "storeCorner": { name: "Quick Mart", cameraLoc: "public" },
     "sunsetPark": { name: "Sunset Park", meetup: true, cameraLoc: "public" },

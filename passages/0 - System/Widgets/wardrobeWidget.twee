@@ -142,14 +142,14 @@
         <</if>>
         
         /* Define Thresholds */
-        <<if _coverLevel is "safe" and $exhibitionism < 20>>
-            <<set _checkResult = { allowed: false, reason: "Requires 20 Exhibitionism for commando (hidden)." }>>
-        <<elseif _coverLevel is "risky" and $exhibitionism < 40>>
-            <<set _checkResult = { allowed: false, reason: "Requires 40 Exhibitionism for commando (skirt/dress)." }>>
-        <<elseif _coverLevel is "exposed" and $exhibitionism < 60>>
-            <<set _checkResult = { allowed: false, reason: "Requires 60 Exhibitionism for commando (visible)." }>>
-        <<elseif _coverLevel is "nude" and $exhibitionism < 80>>
-            <<set _checkResult = { allowed: false, reason: "Requires 80 Exhibitionism for full exposure." }>>
+        <<if _coverLevel is "safe" and $exhibitionism < 5>>
+            <<set _checkResult = { allowed: false, reason: "Requires 5 Exhibitionism to go commando (hidden)." }>>
+        <<elseif _coverLevel is "risky" and $exhibitionism < 10>>
+            <<set _checkResult = { allowed: false, reason: "Requires 10 Exhibitionism to go commando (skirt/dress)." }>>
+        <<elseif _coverLevel is "exposed" and $exhibitionism < 15>>
+            <<set _checkResult = { allowed: false, reason: "Requires 15 Exhibitionism to go commando (visible)." }>>
+        <<elseif _coverLevel is "nude" and $exhibitionism < 20>>
+            <<set _checkResult = { allowed: false, reason: "Requires 20 Exhibitionism to go commando (no cover)." }>>
         <</if>>
         
     <<elseif _slot is "bra">>
@@ -180,14 +180,14 @@
         <</if>>
         
         /* Define Thresholds */
-        <<if _coverLevel is "safe" and $exhibitionism < 15>>
-            <<set _checkResult = { allowed: false, reason: "Requires 15 Exhibitionism to go braless (hidden)." }>>
-        <<elseif _coverLevel is "risky" and $exhibitionism < 35>>
-            <<set _checkResult = { allowed: false, reason: "Requires 35 Exhibitionism to go braless (risky)." }>>
-        <<elseif _coverLevel is "exposed" and $exhibitionism < 55>>
-            <<set _checkResult = { allowed: false, reason: "Requires 55 Exhibitionism to go braless (visible)." }>>
-        <<elseif _coverLevel is "nude" and $exhibitionism < 75>>
-            <<set _checkResult = { allowed: false, reason: "Requires 75 Exhibitionism for full exposure." }>>
+        <<if _coverLevel is "safe" and $exhibitionism < 3>>
+            <<set _checkResult = { allowed: false, reason: "Requires 3 Exhibitionism to go braless (hidden)." }>>
+        <<elseif _coverLevel is "risky" and $exhibitionism < 7>>
+            <<set _checkResult = { allowed: false, reason: "Requires 7 Exhibitionism to go braless (crop/tank)." }>>
+        <<elseif _coverLevel is "exposed" and $exhibitionism < 12>>
+            <<set _checkResult = { allowed: false, reason: "Requires 12 Exhibitionism to go braless (visible)." }>>
+        <<elseif _coverLevel is "nude" and $exhibitionism < 18>>
+            <<set _checkResult = { allowed: false, reason: "Requires 18 Exhibitionism to go braless (no cover)." }>>
         <</if>>
         
     <</if>>
@@ -209,87 +209,183 @@ setup.getClothingById = function(id) {
 
 /* 
     WIDGET: checkBedroomExit
-    Logic:
-    - Default: Must be fully dressed (Top + Bottom OR Dress)
-    - Corruption >= 2: Can leave in Underwear (Bra + Panty)
-    - Corruption >= 5: Can leave Nude
+    Bedroom → Upstairs (within house)
+    - Fully dressed              : free
+    - Sleepwear (non-sexy <=2)   : free
+    - Sleepwear (sexy >=3)       : Corruption 3+
+    - Underwear only             : Corruption 4+
+    - Naked                      : Corruption 5+ AND Exhibitionism 10+
 */
 <<widget "checkBedroomExit">>
-    /* When navigating backward in history, don't re-run exit guard – just show the passage as-is so back button works. */
-    <<if $_navigatingBackward>>
-        <<return>>
-    <</if>>
+    <<if $_navigatingBackward>><<return>><</if>>
 
     <<set _canExit to false>>
     <<set _reason to "">>
-    
-    /* Variable Safeguards */
+
+    /* Safeguards */
     <<if !$wardrobe>><<set $wardrobe = { equipped: {} }>><</if>>
     <<if !$wardrobe.equipped>><<set $wardrobe.equipped = {} >><</if>>
-    <<if !$corruption>><<set $corruption = 0>><</if>>
-    
-    /* Calculate Coverage */
-    <<set _hasTop to ($wardrobe.equipped.top and $wardrobe.equipped.top !== "")>>
+    <<if ndef $corruption>><<set $corruption = 0>><</if>>
+    <<if ndef $exhibitionism>><<set $exhibitionism = 0>><</if>>
+
+    /* Coverage flags */
+    <<set _hasTop    to ($wardrobe.equipped.top    and $wardrobe.equipped.top    !== "")>>
     <<set _hasBottom to ($wardrobe.equipped.bottom and $wardrobe.equipped.bottom !== "")>>
-    <<set _hasDress to ($wardrobe.equipped.dress and $wardrobe.equipped.dress !== "")>>
-    
-    <<set _hasBra to ($wardrobe.equipped.bra and $wardrobe.equipped.bra !== "")>>
-    <<set _hasPanty to ($wardrobe.equipped.panty and $wardrobe.equipped.panty !== "")>>
-    <<set _isFullBodyUnderwearItem to (_hasBra and _hasPanty and $wardrobe.equipped.bra === $wardrobe.equipped.panty)>>
-    <<set _fullBodyUnderwearItem to null>>
-    <<if _isFullBodyUnderwearItem>>
-        <<set _fullBodyUnderwearItem to setup.getClothingById($wardrobe.equipped.bra)>>
+    <<set _hasDress  to ($wardrobe.equipped.dress  and $wardrobe.equipped.dress  !== "")>>
+    <<set _hasBra    to ($wardrobe.equipped.bra    and $wardrobe.equipped.bra    !== "")>>
+    <<set _hasPanty  to ($wardrobe.equipped.panty  and $wardrobe.equipped.panty  !== "")>>
+    <<set _hasSleepwear to ($wardrobe.equipped.sleepwear and $wardrobe.equipped.sleepwear !== "")>>
+
+    /* Categories */
+    <<set _isFullyDressed  to (_hasDress or (_hasTop and _hasBottom))>>
+    <<set _isInSleepwear   to (_hasSleepwear and !_isFullyDressed)>>
+    <<set _isUnderwearOnly to (!_isFullyDressed and !_hasSleepwear and (_hasBra or _hasPanty))>>
+    <<set _isNaked         to (!_isFullyDressed and !_hasSleepwear and !_hasBra and !_hasPanty)>>
+
+    /* Sleepwear sexiness */
+    <<set _sleepwearSexiness to 0>>
+    <<if _isInSleepwear>>
+        <<set _swItem to setup.getClothingById($wardrobe.equipped.sleepwear)>>
+        <<if _swItem>><<set _sleepwearSexiness to (_swItem.sexinessScore || 0)>><</if>>
     <</if>>
-    
-    /* Logic: Fully Dressed means covering Top AND Bottom (or Dress) */
-    /* Note: Shoes are not required for this specific 'Decency' check */
-    
-    <<set _isFullyDressed to (_hasDress or (_hasTop and _hasBottom))>>
-    <<set _isUnderwearOnly to (!_isFullyDressed and (_hasBra or _hasPanty))>>
-    <<set _isNude to (!_isFullyDressed and !_isUnderwearOnly)>>
-    <<set _isSwimwearOnly to false>>
-    <<if !_isFullyDressed and _fullBodyUnderwearItem and _fullBodyUnderwearItem.tags>>
-        <<if _fullBodyUnderwearItem.tags.includes("swimsuit") or _fullBodyUnderwearItem.tags.includes("bikini")>>
-            <<set _isSwimwearOnly to true>>
-        <</if>>
-    <</if>>
-    
-    /* Check Logic Loop */
+
+    /* Decision */
     <<if _isFullyDressed>>
         <<set _canExit to true>>
-        
-    <<elseif _isSwimwearOnly>>
-        <<set _reason to "You can't go out in swimsuit/bikini from your bedroom. Change to regular clothes.">>
-        
-    <<elseif _isUnderwearOnly>>
-        /* If wearing ANY underwear but not fully dressed */
-        /* Must have corruption >= 2 */
-        /* Note: If topless (Panty only), it's still 'Underwear' category for simplified exit logic or should it be stricter? */
-        /* User request: "Level 2: Bra and panties". Implicitly, partial underwear might require higher? */
-        /* Let's stick to: If not fully dressed, but has underwear -> Cor 2. */
-        
-        <<if $corruption >= 2>>
-            <<set _canExit to true>>
+
+    <<elseif _isInSleepwear>>
+        <<if _sleepwearSexiness >= 3>>
+            <<if $corruption >= 3>>
+                <<set _canExit to true>>
+            <<else>>
+                <<set _reason to "That sleepwear is too revealing to walk out in. (Corruption 3 required)">>
+            <</if>>
         <<else>>
-            <<set _reason to "You can't go out in just your underwear! (Requires Corruption 2)">>
+            <<set _canExit to true>>
         <</if>>
-        
-    <<else>> 
-        /* Nude (No Top, No Bottom, No Dress, No Bra, No Panty) */
-        <<if $corruption >= 5>>
+
+    <<elseif _isUnderwearOnly>>
+        <<if $corruption >= 4>>
             <<set _canExit to true>>
         <<else>>
-            <<set _reason to "You can't go out naked! (Requires Corruption 5)">>
+            <<set _reason to "You can't walk out in just your underwear. (Corruption 4 required)">>
+        <</if>>
+
+    <<elseif _isNaked>>
+        <<if $corruption >= 5 and $exhibitionism >= 10>>
+            <<set _canExit to true>>
+        <<elseif $corruption < 5>>
+            <<set _reason to "You can't walk out naked. (Corruption 5 + Exhibitionism 10 required)">>
+        <<else>>
+            <<set _reason to "You need more exhibitionism to walk out naked. (Exhibitionism 10 required)">>
         <</if>>
     <</if>>
-    
-    /* Execute Navigation or Notify */
+
+    /* Navigate */
     <<if _canExit>>
         <<advanceTime 1>>
         <<goto "fhUpperstairs">>
     <<else>>
         <<notify "warning" _reason>>
         <<goto "fhBedroom">>
+    <</if>>
+<</widget>>
+
+/* 
+    WIDGET: outfitGateLockCheck
+    Evaluates whether the player's current outfit is allowed for the given exit context.
+    Args[0] : context string — "indoor" or "outdoor" (matches keys in setup.outfitExitRules)
+    Output  : Sets _outfitLockMsg to "" (allowed) or a reason string (blocked).
+              Callers pass _outfitLockMsg as args[3] to <<navCard>> to lock the card.
+*/
+<<widget "outfitGateLockCheck">>
+    /* Safeguards */
+    <<if !$wardrobe>><<set $wardrobe = { equipped: {} }>><</if>>
+    <<if !$wardrobe.equipped>><<set $wardrobe.equipped = {}>><</if>>
+    <<if ndef $corruption>><<set $corruption = 0>><</if>>
+    <<if ndef $exhibitionism>><<set $exhibitionism = 0>><</if>>
+
+    /* Read rules for the requested context */
+    <<set _ogCtx   = (_args[0] || "indoor")>>
+    <<set _ogRules = (setup.outfitExitRules && setup.outfitExitRules[_ogCtx]) ? setup.outfitExitRules[_ogCtx] : {}>>
+
+    /* Always initialise outputs first */
+    <<set _outfitLockMsg    = "">>
+    <<set _outfitConfirmMsg = "">>
+
+    /* Shoes check — blocks all other evaluation if failed */
+    <<set _ogHasShoes = ($wardrobe.equipped.shoes && $wardrobe.equipped.shoes !== "")>>
+    <<if _ogRules.shoesRequired && !_ogHasShoes>>
+        <<set _outfitLockMsg = "You need to put on shoes before going outside.">>
+        <<return>>
+    <</if>>
+
+    /* Coverage flags */
+    <<set _ogHasTop       = ($wardrobe.equipped.top       && $wardrobe.equipped.top       !== "")>>
+    <<set _ogHasBottom    = ($wardrobe.equipped.bottom    && $wardrobe.equipped.bottom    !== "")>>
+    <<set _ogHasDress     = ($wardrobe.equipped.dress     && $wardrobe.equipped.dress     !== "")>>
+    <<set _ogHasBra       = ($wardrobe.equipped.bra       && $wardrobe.equipped.bra       !== "")>>
+    <<set _ogHasPanty     = ($wardrobe.equipped.panty     && $wardrobe.equipped.panty     !== "")>>
+    <<set _ogHasSleepwear = ($wardrobe.equipped.sleepwear && $wardrobe.equipped.sleepwear !== "")>>
+
+    /* Outfit categories */
+    <<set _ogFullyDressed  = (_ogHasDress || (_ogHasTop && _ogHasBottom))>>
+    <<set _ogInSleepwear   = (_ogHasSleepwear && !_ogFullyDressed)>>
+    <<set _ogUnderwearOnly = (!_ogFullyDressed && !_ogHasSleepwear && (_ogHasBra || _ogHasPanty))>>
+    <<set _ogNaked         = (!_ogFullyDressed && !_ogHasSleepwear && !_ogHasBra && !_ogHasPanty)>>
+
+    /* Sleepwear sexiness */
+    <<set _ogSwSexiness = 0>>
+    <<if _ogInSleepwear>>
+        <<set _ogSwItem = setup.getClothingById($wardrobe.equipped.sleepwear)>>
+        <<if _ogSwItem>><<set _ogSwSexiness = (_ogSwItem.sexinessScore || 0)>><</if>>
+    <</if>>
+
+    /* Evaluate */
+
+    <<if _ogFullyDressed>>
+        /* Fully dressed — always free, no confirmation needed */
+
+    <<elseif _ogInSleepwear>>
+        <<set _ogSexyThreshold = (_ogRules.sleepwearSexinessThreshold || 3)>>
+        <<if _ogSwSexiness >= _ogSexyThreshold>>
+            <<set _ogReq = (_ogRules.sleepwearSexyMinCorr || 3)>>
+            <<if $corruption < _ogReq>>
+                <<set _outfitLockMsg = "Sexy sleepwear — Corruption " + _ogReq + " required.">>
+            <<else>>
+                <<set _outfitConfirmMsg = "You're wearing revealing sleepwear. Are you sure you want to leave like this?">>
+            <</if>>
+        <<else>>
+            <<if _ogCtx is "outdoor">>
+                <<set _ogReq = (_ogRules.sleepwearNormalMinCorr || 2)>>
+                <<if $corruption < _ogReq>>
+                    <<set _outfitLockMsg = "Going outside in sleepwear requires Corruption " + _ogReq + ".">>
+                <<else>>
+                    <<set _outfitConfirmMsg = "You're still in your sleepwear. Are you sure you want to go outside like this?">>
+                <</if>>
+            <</if>>
+            /* Non-sexy sleepwear indoors — completely free, no confirmation needed */
+        <</if>>
+
+    <<elseif _ogUnderwearOnly>>
+        <<set _ogReqCorr = (_ogRules.underwearMinCorr || 4)>>
+        <<set _ogReqExh  = (_ogRules.underwearMinExh  || 0)>>
+        <<if $corruption < _ogReqCorr>>
+            <<set _outfitLockMsg = "Underwear only — Corruption " + _ogReqCorr + " required.">>
+        <<elseif _ogReqExh > 0 && $exhibitionism < _ogReqExh>>
+            <<set _outfitLockMsg = "Underwear only — Exhibitionism " + _ogReqExh + " required.">>
+        <<else>>
+            <<set _outfitConfirmMsg = "You're only wearing underwear. Are you sure you want to leave like this?">>
+        <</if>>
+
+    <<elseif _ogNaked>>
+        <<set _ogReqCorr = (_ogRules.nakedMinCorr || 5)>>
+        <<set _ogReqExh  = (_ogRules.nakedMinExh  || 10)>>
+        <<if $corruption < _ogReqCorr || $exhibitionism < _ogReqExh>>
+            <<set _outfitLockMsg = "Naked — Corruption " + _ogReqCorr + " and Exhibitionism " + _ogReqExh + " required.">>
+        <<else>>
+            <<set _outfitConfirmMsg = "You're completely naked. Are you sure you want to leave like this?">>
+        <</if>>
     <</if>>
 <</widget>>
 

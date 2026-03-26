@@ -1,4 +1,4 @@
-<<nobr>>
+﻿<<nobr>>
 <<widget "getPeriod">>
     <<set _hour = $timeSys.hour>>
     <<if _hour >= 6 and _hour < 12>>
@@ -353,7 +353,7 @@
     <</if>>
 
     /* 2. Quest Events – only when quest has mealType (manual opt-in)
-       Use cases: toplu yemekler, “X kişiyle şurada şu saatte buluş”, “şu saatte işte ol”.
+       Use cases: group meals, "meet X at place Y at time Z", "be at work by time T".
        Add mealType (e.g. "dinner") or use <<setTimedEvent "…">> for custom text. */
     <<if !_shouldShowIcon and $questState and $questState.active>>
         <<for _qid, _state range $questState.active>>

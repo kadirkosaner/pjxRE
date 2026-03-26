@@ -3,10 +3,14 @@
 <<silently>>
     <<set $location = "fhBedroom">>
 
-    /* 1. ENERGY CHECK */
-    <<set _energyMax = $energyMax || 100>>
-    <<set _energyCurrent = parseInt($energy || 0)>>
+    /* 1. TIME + ENERGY */
+    <<set _energyMax      = $energyMax || 100>>
+    <<set _energyCurrent  = parseInt($energy || 0)>>
     <<set _energyThreshold = Math.round(_energyMax * 0.85)>>
+    <<set _currentHour    = $timeSys.hour>>
+    <<set _isEvening      = (_currentHour >= 20)>>
+    /* Energy block only applies before 20:00 */
+    <<set _tooEnergized   = (!_isEvening && _energyCurrent >= _energyThreshold)>>
 
     /* 2. SAVE CURRENT OUTFIT FOR POST-SLEEP RESTORATION */
     <<if $wardrobe && $wardrobe.equipped>>
@@ -29,18 +33,20 @@
     )>>
 <</silently>>
 
-/* === TOO ENERGIZED TO SLEEP === */
-<<if _energyCurrent >= _energyThreshold>>
-<<silently>><<run window.notifyWarning("You're not tired enough to sleep yet.")>><</silently>>
+/* === TOO ENERGIZED TO SLEEP (only before 20:00) === */
+<<if _tooEnergized>>
+<<silently>><<run window.notifyWarning("Still too much energy to sleep.")>><</silently>>
 
-<<narrative "Can't Sleep">>
-You climb into bed and pull the blanket over yourself, closing your eyes...
+<<narrative "Not Tired Yet">>
+You start getting changed for bed, but halfway through you catch yourself in the mirror and pause.
 
-But sleep won't come. Your mind is still running, your body still alert. After a few minutes of staring at the ceiling, you admit defeat and throw the covers off.
+It's only <<print $timeSys.hour + ":00">>, and your body is still buzzing. Your mind keeps drifting to things left undone — places to be, people to see. You're just not tired enough to call it a night yet.
+
+You toss your clothes back on and admit it: the day isn't over.
 <</narrative>>
 
 <div class="location-actions">
-    <<btn "Get Out of Bed" "fhBed">><</btn>>
+    <<btn "Get Up" "fhBed">><</btn>>
 </div>
 
 /* === READY TO SLEEP === */
@@ -52,7 +58,7 @@ You move through your room, winding down for the night.
 
 <div class="location-actions">
 
-    /* --- Change into Pajamas (sleepwear slot + bra/panty altında kalır) --- */
+    /* --- Change into Pajamas (sleepwear slot — bra/panty stay on underneath) --- */
     <<if _sleepwearEquipped>>
         <<btn "Change into Pajamas" "sleep">>
             <<set _sw = $wardrobe.equipped.sleepwear>>
@@ -69,7 +75,7 @@ You move through your room, winding down for the night.
         <<btn "Change into Pajamas" "" "locked" "Select sleepwear from your wardrobe first.">><</btn>>
     <</if>>
 
-    /* --- Sleep in Underwear (Corruption 3+ ve iç çamaşırı olmalı) --- */
+    /* --- Sleep in Underwear (requires Corruption 3+ and underwear equipped) --- */
     <<if $corruption >= 3 && _hasUnderwear>>
         <<btn "Sleep in Underwear" "sleep">>
             <<set _bra = $wardrobe.equipped.bra>>
@@ -96,9 +102,9 @@ You move through your room, winding down for the night.
     <<else>>
         <<btn "Sleep Naked" "" "locked" "Requires Corruption 5.">><</btn>>
     <</if>>
-
-    <<btn "Back" "fhBed">><</btn>>
-
 </div>
+    <div class="location-actions">
+        <<btn "Back" "fhBed">><</btn>>
+    </div>
 <</if>>
 <</nobr>>

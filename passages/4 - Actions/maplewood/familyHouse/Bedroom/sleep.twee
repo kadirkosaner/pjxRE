@@ -169,7 +169,7 @@ You wake up naturally, feeling completely refreshed. The room looks the same, bu
         <</if>>
     <</btn>>
 
-    /* Go to Bathroom: corruption eşiklerine göre onay veya engel */
+    /* Go to Bathroom: gate or confirm based on corruption thresholds */
     <<if _isNakedAtWakeup && $corruption < 5>>
         <<btn "Go to Bathroom" "sleep_naked_bathroom_confirm">><</btn>>
     <<elseif _isUnderwearOnlyAtWakeup && $corruption < 3>>

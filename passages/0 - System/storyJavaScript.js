@@ -1865,6 +1865,33 @@ window.isLocationOpen = function (locationId) {
     return currentHour >= open && currentHour < close;
 };
 
+/* ── Outfit Exit Rules ─────────────────────────────────────────────────────
+ * Centralised thresholds for leaving zones in different states of dress.
+ * 'indoor'  = moving between rooms inside the house.
+ * 'outdoor' = leaving the house into a public area.
+ * Add new keys (e.g. 'gym', 'workplace') as needed in the future.
+ * ───────────────────────────────────────────────────────────────────────── */
+setup.outfitExitRules = {
+    indoor: {
+        shoesRequired              : false, // no shoes needed inside
+        sleepwearSexinessThreshold : 3,   // sexinessScore >= this → "sexy" sleepwear
+        sleepwearSexyMinCorr       : 3,   // sexy sleepwear needs corruption ≥ this
+        underwearMinCorr           : 4,   // underwear-only needs corruption ≥ this
+        nakedMinCorr               : 5,   // naked needs corruption ≥ this
+        nakedMinExh                : 25   // naked also needs exhibitionism ≥ this
+    },
+    outdoor: {
+        shoesRequired              : true,  // must have shoes equipped to go outside
+        sleepwearSexinessThreshold : 3,
+        sleepwearNormalMinCorr     : 2,   // non-sexy sleepwear needs corruption ≥ this
+        sleepwearSexyMinCorr       : 4,
+        underwearMinCorr           : 5,
+        underwearMinExh            : 15,  // underwear-only outside also needs exhibitionism ≥ this
+        nakedMinCorr               : 6,
+        nakedMinExh                : 50   // naked outside needs exhibitionism ≥ this
+    }
+};
+
 window.processNavCard = function (tag, $container, passedSetup) {
     const navSetup = passedSetup || window.setup || {};
 
@@ -1902,6 +1929,36 @@ window.processNavCard = function (tag, $container, passedSetup) {
         }
     }
     if (!imagePath) imagePath = "assets/system/images/placeholder_nav.png";
+
+    /* args[3] = lock message   → card is blocked, greyed out, not clickable */
+    /* args[4] = confirm message → card looks normal but asks "are you sure?" before navigating */
+    let lockMessage    = (args[3] && typeof args[3] === 'string' && args[3].trim()) ? args[3].trim() : '';
+    let confirmMessage = (args[4] && typeof args[4] === 'string' && args[4].trim()) ? args[4].trim() : '';
+
+    /* Auto outfit gate: if navCard has outfitContext defined in setup.navCards,
+       run the widget in place and read its output from State.temporary */
+    if (!lockMessage && !confirmMessage) {
+        const dbCard = navSetup.navCards && navSetup.navCards[cardId];
+        const outfitCtx = dbCard && dbCard.outfitContext;
+        if (outfitCtx) {
+            $.wiki(`<<outfitGateLockCheck "${outfitCtx}">>`);
+            lockMessage    = (State.temporary.outfitLockMsg    || '').trim();
+            confirmMessage = (State.temporary.outfitConfirmMsg || '').trim();
+        }
+    }
+
+    if (lockMessage) {
+        const $locked = $(`
+            <div class="nav-card location-closed" data-tooltip="${lockMessage}" style="cursor:not-allowed;">
+                <img src="${imagePath}" class="card-bg">
+                <div class="gradient-overlay"></div>
+                <div class="nav-card-name"><span class="icon icon-lock icon-12"></span> ${displayName}</div>
+            </div>
+        `);
+        $container.append($locked);
+        return;
+    }
+
     const hours = setup.locationHours?.[cardId];
     const hasHours = !!hours;
     const isOpen = window.isLocationOpen(cardId);
@@ -1928,6 +1985,25 @@ window.processNavCard = function (tag, $container, passedSetup) {
                     message: `${displayName} is closed. Opens at ${openHour}:00`
                 });
             }
+            return;
+        }
+
+        /* Outfit confirmation gate — show Yes/No before navigating */
+        if (confirmMessage && window.showNotification) {
+            window.showNotification({
+                type: 'warning',
+                message: confirmMessage,
+                actions: [
+                    {
+                        label: 'Yes, leave',
+                        passage: passageName
+                    },
+                    {
+                        label: 'Cancel',
+                        fn: function () { /* just closes */ }
+                    }
+                ]
+            });
             return;
         }
 
@@ -1960,12 +2036,6 @@ window.processNavCard = function (tag, $container, passedSetup) {
             /* Ensure stats are fresh before rendering new passage */
             if (Macro.has('recalculateStats')) {
                 $.wiki('<<recalculateStats>>');
-            }
-
-            // BedroomExitGuard: run widget in place so history stays fhBedroom -> fhUpperstairs (Back then returns to bedroom)
-            if (passageName === 'BedroomExitGuard') {
-                $.wiki('<<checkBedroomExit>>');
-                return;
             }
 
             Engine.play(passageName);

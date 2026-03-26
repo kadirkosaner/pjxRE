@@ -1508,7 +1508,7 @@ function fdmEnsurePromotedFromDm(vars, dmId) {
             n++;
         }
 
-        /* Avatar: CharGenerateWidget ile aynı kaynak — setup.charGenerator.avatarPool (cinsiyet + skinTone) */
+        /* Avatar: same source as CharGenerateWidget — setup.charGenerator.avatarPool (gender + skinTone) */
         var skinTone = dm.skinTone || "white";
         var avatarPool = cfg.avatarPool || { male: { white: [], black: [], tan: [] }, female: { white: [], black: [], tan: [] } };
         var gp = avatarPool[gender] || {};
