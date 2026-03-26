@@ -1,0 +1,15 @@
+:: sleep_naked_bathroom_confirm
+<<set $location = "fhBedroom">>
+
+<<narrative "Wait...">>
+You start to get up, then stop.
+
+You're not wearing anything. The hallway outside isn't exactly private — there's a chance someone could be up.
+
+(//Do you really want to walk out like this?//)
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Go Anyway" "fhUpperBath">><</btn>>
+    <<btn "Back to Bed" "fhBedroom">><</btn>>
+</div>

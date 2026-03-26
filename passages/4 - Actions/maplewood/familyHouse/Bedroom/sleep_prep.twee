@@ -1,0 +1,104 @@
+:: sleep_prep
+<<nobr>>
+<<silently>>
+    <<set $location = "fhBedroom">>
+
+    /* 1. ENERGY CHECK */
+    <<set _energyMax = $energyMax || 100>>
+    <<set _energyCurrent = parseInt($energy || 0)>>
+    <<set _energyThreshold = Math.round(_energyMax * 0.85)>>
+
+    /* 2. SAVE CURRENT OUTFIT FOR POST-SLEEP RESTORATION */
+    <<if $wardrobe && $wardrobe.equipped>>
+        <<set $preSleepOutfit = clone($wardrobe.equipped)>>
+    <<else>>
+        <<set $preSleepOutfit = null>>
+    <</if>>
+
+    /* 3. CHECK SLOTS */
+    <<set _sleepwearEquipped = (
+        $wardrobe &&
+        $wardrobe.equipped &&
+        $wardrobe.equipped.sleepwear &&
+        $wardrobe.equipped.sleepwear !== ""
+    )>>
+    <<set _hasUnderwear = (
+        $wardrobe &&
+        $wardrobe.equipped &&
+        ($wardrobe.equipped.bra || $wardrobe.equipped.panty)
+    )>>
+<</silently>>
+
+/* === TOO ENERGIZED TO SLEEP === */
+<<if _energyCurrent >= _energyThreshold>>
+<<silently>><<run window.notifyWarning("You're not tired enough to sleep yet.")>><</silently>>
+
+<<narrative "Can't Sleep">>
+You climb into bed and pull the blanket over yourself, closing your eyes...
+
+But sleep won't come. Your mind is still running, your body still alert. After a few minutes of staring at the ceiling, you admit defeat and throw the covers off.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Get Out of Bed" "fhBed">><</btn>>
+</div>
+
+/* === READY TO SLEEP === */
+<<else>>
+
+<<narrative "Getting Ready for Bed">>
+You move through your room, winding down for the night.
+<</narrative>>
+
+<div class="location-actions">
+
+    /* --- Change into Pajamas (sleepwear slot + bra/panty altında kalır) --- */
+    <<if _sleepwearEquipped>>
+        <<btn "Change into Pajamas" "sleep">>
+            <<set _sw = $wardrobe.equipped.sleepwear>>
+            <<set _bra = $wardrobe.equipped.bra>>
+            <<set _panty = $wardrobe.equipped.panty>>
+            <<set $wardrobe.equipped = {}>>
+            <<set $wardrobe.equipped.sleepwear = _sw>>
+            <<if _bra>><<set $wardrobe.equipped.bra = _bra>><</if>>
+            <<if _panty>><<set $wardrobe.equipped.panty = _panty>><</if>>
+            <<recalculateStats>>
+            <<updateClothesNotification>>
+        <</btn>>
+    <<else>>
+        <<btn "Change into Pajamas" "" "locked" "Select sleepwear from your wardrobe first.">><</btn>>
+    <</if>>
+
+    /* --- Sleep in Underwear (Corruption 3+ ve iç çamaşırı olmalı) --- */
+    <<if $corruption >= 3 && _hasUnderwear>>
+        <<btn "Sleep in Underwear" "sleep">>
+            <<set _bra = $wardrobe.equipped.bra>>
+            <<set _panty = $wardrobe.equipped.panty>>
+            <<set $wardrobe.equipped = {}>>
+            <<if _bra>><<set $wardrobe.equipped.bra = _bra>><</if>>
+            <<if _panty>><<set $wardrobe.equipped.panty = _panty>><</if>>
+            <<recalculateStats>>
+            <<updateClothesNotification>>
+        <</btn>>
+    <<elseif $corruption < 3>>
+        <<btn "Sleep in Underwear" "" "locked" "Requires Corruption 3.">><</btn>>
+    <<else>>
+        <<btn "Sleep in Underwear" "" "locked" "No underwear equipped.">><</btn>>
+    <</if>>
+
+    /* --- Sleep Naked (Corruption 5+) --- */
+    <<if $corruption >= 5>>
+        <<btn "Sleep Naked" "sleep">>
+            <<set $wardrobe.equipped = {}>>
+            <<recalculateStats>>
+            <<updateClothesNotification>>
+        <</btn>>
+    <<else>>
+        <<btn "Sleep Naked" "" "locked" "Requires Corruption 5.">><</btn>>
+    <</if>>
+
+    <<btn "Back" "fhBed">><</btn>>
+
+</div>
+<</if>>
+<</nobr>>

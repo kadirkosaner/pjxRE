@@ -1,21 +1,28 @@
-
-<<if $energy > 30>>
-    <<run window.notifyWarning("You are not tired enough to sleep yet.")>>
-    <<goto "fhBed">>
-<<else>>
+<div class="divnobr">
 <<silently>>
     <<set $location = "fhBedroom">>
-
     <<set $isSleeping = true>>
 
-    /* 2. ALARM CALCULATION CHECK */
-    /* Check for alarm based on TOMORROW */
+    /* 1. REQUESTED DURATION (from btnPicker → sleep_prep → here) */
+    <<set _requestedDuration = 480>>
+    <<if def $pickerMemory and def $pickerMemory.sleepDuration>>
+        <<set _requestedDuration = $pickerMemory.sleepDuration>>
+    <</if>>
+
+    /* 2. ENERGY-BASED EARLY WAKE CALCULATION */
+    /* Rate: 480 min of ideal sleep = +energyMax gain */
+    /* So: 1 energy unit recovered per (480 / energyMax) minutes */
+    <<set _energyCurrent = parseInt($energy || 0)>>
+    <<set _energyMax = $energyMax || 100>>
+    <<set _energyToFill = Math.max(0, _energyMax - _energyCurrent)>>
+    <<set _minsPerEnergyUnit = 480 / _energyMax>>
+    <<set _minutesToFillEnergy = Math.round(_energyToFill * _minsPerEnergyUnit)>>
+
+    /* 3. ALARM CALCULATION */
     <<set _currentDay = $timeSys.weekday>>
     <<set _nextDay = (_currentDay + 1) % 7>>
     <<set _isNextDayWeekend = (_nextDay == 0 || _nextDay == 6)>>
-    
     <<set _alarmActive = false>>
-    
     <<if _isNextDayWeekend && $alarm.weekendEnabled>>
         <<set _alarmActive = true>>
         <<set _alarmHour = $alarm.weekendHour>>
@@ -26,62 +33,92 @@
         <<set _alarmMinute = $alarm.weekdayMinute>>
     <</if>>
 
-    /* 3. DURATION CALCULATION */
-    <<set _sleepDuration = 480>> /* Default Ideal Sleep: 8 hours */
     <<set _alarmWakeup = false>>
-
+    <<set _alarmSleepDuration = _requestedDuration>>
     <<if _alarmActive>>
-        /* Calculate current time in minutes since midnight */
         <<set _currentMinutes = ($timeSys.hour * 60) + $timeSys.minute>>
-
-        /* Calculate alarm time in minutes since midnight */
         <<set _alarmMinutes = (_alarmHour * 60) + _alarmMinute>>
-
-        /* Alarm is for tomorrow logic */
-        /* Distance to next instance of that time */
         <<if _alarmMinutes <= _currentMinutes>>
-             <<set _alarmMinutes += 1440>> 
+            <<set _alarmMinutes += 1440>>
         <</if>>
-        
         <<set _timeUntilAlarm = _alarmMinutes - _currentMinutes>>
-
-        /* If alarm rings BEFORE our natural 8 hours are up, we wake up early */
-        /* But only if it's a reasonable future alarm (e.g. within 24 hours, practically < 16h) */
-        <<if _timeUntilAlarm > 0 && _timeUntilAlarm < 480>>
-            <<set _sleepDuration = _timeUntilAlarm>>
+        <<if _timeUntilAlarm > 0 && _timeUntilAlarm < _requestedDuration>>
+            <<set _alarmSleepDuration = _timeUntilAlarm>>
             <<set _alarmWakeup = true>>
         <</if>>
     <</if>>
 
-    /* 4. RECOVERY CALCULATION */
-    /* Base recovery is proportional to sleep duration against ideal 8 hours (480 mins) */
-    /* Ratio 0.0 to 1.0 */
-    <<set _recoveryRatio = _sleepDuration / 480>>
-    
-    /* Energy Gain: Full sleep = 100, Partial = Ratio * 100 */
-    /* We ensure it adds to current, capped at max via gainStat widget logic usually, or manually here */
-    <<set _energyGain = Math.round(100 * _recoveryRatio)>>
-    
-    /* Stress Reduction: Full sleep = -50, Partial = Ratio * -50 */
-    <<set _stressLoss = Math.round(50 * _recoveryRatio)>>
+    /* 4. DETERMINE FINAL DURATION + WAKE TYPE */
+    /* Priority: alarm first, then energy fill, then full requested duration */
+    <<if _alarmWakeup && _alarmSleepDuration <= _minutesToFillEnergy>>
+        /* Alarm rings before energy fills */
+        <<set _sleepDuration = _alarmSleepDuration>>
+        <<set _wakeType = "alarm">>
+    <<elseif _minutesToFillEnergy < _requestedDuration && !_alarmWakeup>>
+        /* Energy fills before requested duration ends */
+        <<set _sleepDuration = _minutesToFillEnergy>>
+        <<set _wakeType = "energy">>
+    <<elseif _alarmWakeup>>
+        /* Alarm rings (energy fills first or at same time) */
+        <<set _sleepDuration = _alarmSleepDuration>>
+        <<set _wakeType = "alarm">>
+    <<else>>
+        /* Slept the full requested amount */
+        <<set _sleepDuration = _requestedDuration>>
+        <<set _wakeType = "natural">>
+    <</if>>
 
-    /* Apply changes */
+    /* Safety clamps */
+    <<if _sleepDuration < 30>><<set _sleepDuration = 30>><</if>>
+    <<if _sleepDuration > 600>><<set _sleepDuration = 600>><</if>>
+
+    /* 5. RECOVERY CALCULATION (scaled against ideal 8h = 480 min) */
+    <<set _recoveryRatio = _sleepDuration / 480>>
+    /* Energy: scale with energyMax, cap at actual deficit to prevent overflow */
+    <<set _energyGain = Math.min(Math.round(_energyMax * _recoveryRatio), _energyToFill)>>
+    <<set _stressLoss = Math.round(50 * _recoveryRatio)>>
+    <<set _healthGain = Math.round(20 * _recoveryRatio)>>
+
+    /* 6. APPLY CHANGES */
     <<advanceTime _sleepDuration>>
     <<set $isSleeping = false>>
     <<set $appearance.hairCombed = 0>>
-    
     <<gainStat "energy" _energyGain>>
     <<loseStat "stress" _stressLoss>>
+    <<gainStat "health" _healthGain>>
 
-    /* Notifications */
-    <<if _alarmWakeup>>
-        <<run window.notifySuccess("Woken by Alarm (" + Math.floor(_sleepDuration/60) + "h " + (_sleepDuration%60) + "m)")>>
+    /* 7. NOTIFICATIONS */
+    <<set _sleepHours = Math.floor(_sleepDuration / 60)>>
+    <<set _sleepMins = _sleepDuration % 60>>
+    <<if _wakeType == "alarm">>
+        <<run window.notifySuccess("Alarm — " + _sleepHours + "h " + _sleepMins + "m sleep")>>
+    <<elseif _wakeType == "energy">>
+        <<run window.notifySuccess("Rested — " + _sleepHours + "h " + _sleepMins + "m (energy full)")>>
     <<else>>
-        <<run window.notifySuccess("Rested Well (8h)")>>
+        <<run window.notifySuccess("Slept " + _sleepHours + "h " + _sleepMins + "m — Fully Rested")>>
+    <</if>>
+
+    /* 8. CLOTHING STATE CHECK FOR WAKE-UP OPTIONS */
+    <<set _isNakedAtWakeup = false>>
+    <<set _isUnderwearOnlyAtWakeup = false>>
+    <<if $wardrobe && $wardrobe.equipped>>
+        <<set _hasOuterCovering = (
+            ($wardrobe.equipped.sleepwear && $wardrobe.equipped.sleepwear !== "") ||
+            ($wardrobe.equipped.top       && $wardrobe.equipped.top !== "")       ||
+            ($wardrobe.equipped.dress     && $wardrobe.equipped.dress !== "")     ||
+            ($wardrobe.equipped.bottom    && $wardrobe.equipped.bottom !== "")
+        )>>
+        <<set _hasUnderwear = (
+            ($wardrobe.equipped.bra   && $wardrobe.equipped.bra !== "") ||
+            ($wardrobe.equipped.panty && $wardrobe.equipped.panty !== "")
+        )>>
+        <<set _isNakedAtWakeup = (!_hasOuterCovering && !_hasUnderwear)>>
+        <<set _isUnderwearOnlyAtWakeup = (!_hasOuterCovering && _hasUnderwear)>>
     <</if>>
 
     <<set _sceneIndex = random(1, 3)>>
 <</silently>>
+/* ==================== SLEEP NARRATIVE ==================== */
 
 <<narrative "Sleep">>
 You curl up under the covers, the softness of the bed inviting you to let go of the day's worries. You close your eyes, letting your breathing slow.
@@ -104,15 +141,44 @@ You curl up under the covers, the softness of the bed inviting you to let go of 
     <<vid "assets/content/scenes/maplewood/familyHouse/bedroom/sleep/sleep3.mp4" "60%">>
 <</if>>
 
-<<narrative>>
-<<if _alarmWakeup>>
-    The shrill sound of your alarm cuts through your sleep! You jolt awake, feeling groggy but ready to start the day.
-<<else>>
-    You wake up naturally, feeling completely refreshed and re-energized.
-<</if>>
-<</narrative>>
+/* ==================== WAKE-UP NARRATIVE ==================== */
 
-<div class="location-actions">
-    <<btn "Wake Up" "fhBedroom">><</btn>>
-</div>
+<<if _wakeType == "alarm">>
+<<narrative>>
+The shrill sound of your alarm cuts through your sleep. You jolt awake, groggy and blinking. You silence it and lie there for a moment, then force yourself upright.
+<</narrative>>
+<<elseif _wakeType == "energy">>
+<<narrative>>
+Your eyes open on their own — no alarm, no noise. You just feel //done//. Rested. Clear-headed. Your body decided it had what it needed and simply woke up.
+<</narrative>>
+<<else>>
+<<narrative>>
+You wake up naturally, feeling completely refreshed. The room looks the same, but everything feels a little lighter.
+<</narrative>>
 <</if>>
+</div>
+/* ==================== WAKE-UP OPTIONS ==================== */
+<div class="location-actions">
+
+    /* Get Dressed: restores the outfit worn before sleep */
+    <<btn "Get Dressed" "fhBedroom">>
+        <<if $preSleepOutfit>>
+            <<set $wardrobe.equipped = clone($preSleepOutfit)>>
+            <<recalculateStats>>
+            <<updateClothesNotification>>
+        <</if>>
+    <</btn>>
+
+    /* Go to Bathroom: corruption eşiklerine göre onay veya engel */
+    <<if _isNakedAtWakeup && $corruption < 5>>
+        <<btn "Go to Bathroom" "sleep_naked_bathroom_confirm">><</btn>>
+    <<elseif _isUnderwearOnlyAtWakeup && $corruption < 3>>
+        <<btn "Go to Bathroom" "sleep_naked_bathroom_confirm">><</btn>>
+    <<else>>
+        <<btn "Go to Bathroom" "fhUpperBath">><</btn>>
+    <</if>>
+
+    /* Get Out of Bed: stay in current outfit (sleepwear/naked), go to room */
+    <<btn "Get Out of Bed" "fhBedroom">><</btn>>
+
+</div>

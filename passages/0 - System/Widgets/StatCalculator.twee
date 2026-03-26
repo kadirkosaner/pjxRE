@@ -9,8 +9,14 @@
     <<set _min = typeof $args[0] !== "undefined" ? parseInt($args[0]) : 1>>
     <<set _returnPassage = $args[1] || $location || "fhLivingroom">>
     <<if (parseInt($energy || 0)) < _min>>
-        <<run window.notifyWarning("Not enough energy.")>>
-        <<goto _returnPassage>>
+        /* If energy is completely depleted, trigger collapse */
+        <<if (parseInt($energy || 0)) <= 0>>
+            <<set $collapseReturnTo = _returnPassage>>
+            <<goto "energy_collapse">>
+        <<else>>
+            <<run window.notifyWarning("Not enough energy.")>>
+            <<goto _returnPassage>>
+        <</if>>
     <</if>>
 <</nobr>><</widget>>
 
@@ -35,6 +41,12 @@
     /* Health decreases via penalties in NeedsSystem when vitals are critical */
     /* Here we just clamp it to valid range */
     <<set $health = Math.max(0, Math.min(100, $health))>>
+
+    /* HEALTH FAINT CHECK — trigger collapse if critically low */
+    /* Skip during sleep, and skip if already on the faint passage to avoid loops */
+    <<if $health <= 20 and !$isSleeping and passage() !== "health_faint" and passage() !== "energy_collapse" and passage() !== "energy_collapse_nap">>
+        <<goto "health_faint">>
+    <</if>>
     
     /* Energy Max = base + fitness bonus */
     <<set $energyMax = Math.round(Math.min(150, Math.max(80, 80 + ($fitness * 0.2))))>>

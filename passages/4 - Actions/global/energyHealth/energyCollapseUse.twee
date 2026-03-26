@@ -1,0 +1,59 @@
+:: energy_collapse_use
+<<silently>>
+/* Apply the selected item's energy effect */
+<<set _usedItem = null>>
+<<set _energyGain = 0>>
+<<for _cat range Object.keys(setup.items)>>
+    <<if !_usedItem>>
+        <<set _found = setup.items[_cat].find(function(i) { return i.id === $collapseUseItemId; })>>
+        <<if _found>><<set _usedItem = _found>><</if>>
+    <</if>>
+<</for>>
+
+<<if _usedItem and _usedItem.effects>>
+    <<for _effect range _usedItem.effects>>
+        <<if _effect.stat === "energy" and _effect.value > 0>>
+            <<set _energyGain = _effect.value>>
+            <<gainStat "energy" _energyGain>>
+        <</if>>
+        /* Apply other effects too (mood, focus, hunger etc.) */
+        <<if _effect.stat !== "energy" and _effect.type === "instant">>
+            <<if _effect.value > 0>>
+                <<gainStat _effect.stat _effect.value>>
+            <<else>>
+                <<loseStat _effect.stat (0 - _effect.value)>>
+            <</if>>
+        <</if>>
+    <</for>>
+    /* Remove one use from inventory */
+    <<set _invIdx = $inventory.findIndex(function(i) { return i.id === $collapseUseItemId; })>>
+    <<if _invIdx >= 0>>
+        <<if $inventory[_invIdx].quantity > 1>>
+            <<set $inventory[_invIdx].quantity -= 1>>
+        <<else>>
+            <<run $inventory.splice(_invIdx, 1)>>
+        <</if>>
+    <</if>>
+<</if>>
+
+<<set _returnTo = $collapseReturnTo || "fhBedroom">>
+<<set $collapseReturnTo = null>>
+<<set $collapseUseItemId = null>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "That's Better">>
+<<if _usedItem>>
+You pull out the <<print _usedItem.name>> and consume it right there. The effect isn't instant, but it's enough — the dizziness starts to lift, the world stops tilting.
+
+(''Okay. Okay. I'm still standing.'')
+
+You take a breath. Slow and deliberate. Your legs are still heavy, but you can move.
+<<else>>
+The item doesn't seem to help as much as you hoped. But at least you're still on your feet.
+<</if>>
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Keep Going" _returnTo>><</btn>>
+</div>

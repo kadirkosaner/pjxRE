@@ -1,6 +1,8 @@
 - Mağazalardaki değerler şuan dengesiz bir göz atıp yapılması gerekiyor.
 
-- Görevler eğer chain ise bitişte tüm saat geçmeleri yapılmalı. ve şuanki iş bulmada sıkıntı oluyor
+- Görevler eğer chain ise bitişte tüm saat geçmeleri yapılmalı. ve şuanki iş bulmada sıkıntı oluyor.
+
+- evden ve odadan çıkarken kıyafet check. **********
 
 - dinersRuby Check yap.
 - Mirror check.
@@ -10,12 +12,13 @@
 - Numara silindiği zaman karakter tepkileri.
 
 - wardrobe revize tam hal !
-- Read system için bir kaç kitap ve dergi. Sonrasında brother pc için bir kaç aksiyon tuşu ardından evde randomize oluşan 2-3 event ve park alanına biraz giriş event olarak ve iş tarafına dishwashinge bir kaç event ve main yeni teasing sceneler koymayı düşünüyorum ve iş arkadaşları için talk eventleri koymayı düşünüyorum
+- Read system için bir kaç kitap ve dergi. Sonrasında brother pc için bir kaç aksiyon tuşu ardından evde randomize oluşan 2-3 event ve park alanına biraz giriş event olarak ve iş tarafına dishwashinge bir kaç event ve main yeni teasing sceneler koymayı düşünüyorum
 
 ############################################################################################################################
 
-- sleep ayarlarına bakılabilinir energy'ye göre uyuma gibi yada uyuma saatini zorunlu yapmak gibi.
 - Read book kısımlarına yeni düzenlemeler gelebilir üzerine geldiğinde kitabın hoverı içerikte ne olduğu vs vs. ve resimler videolar.
 - Profile Pictureyi saçın şekline ve rengine göre yapmak.
 - Settings Help sayfası yapılacak.
 - Settings Bug Report sayfası yapılacak.
+
+

@@ -1,0 +1,49 @@
+:: energy_collapse
+<<silently>>
+/* Save return location before anything changes */
+<<if ndef $collapseReturnTo>><<set $collapseReturnTo = $location || "fhBedroom">><</if>>
+
+/* Check inventory for any item that restores energy */
+<<set _hasEnergyItem = false>>
+<<if $inventory and $inventory.length > 0>>
+    <<for _invEntry range $inventory>>
+        <<if _invEntry and _invEntry.id>>
+            /* Search all item categories */
+            <<set _itemData = null>>
+            <<for _cat range Object.keys(setup.items)>>
+                <<if !_itemData>>
+                    <<set _found = setup.items[_cat].find(function(i) { return i.id === _invEntry.id; })>>
+                    <<if _found>><<set _itemData = _found>><</if>>
+                <</if>>
+            <</for>>
+            <<if _itemData and _itemData.effects>>
+                <<set _energyEffect = _itemData.effects.find(function(e) { return e.stat === "energy" && e.value > 0; })>>
+                <<if _energyEffect>><<set _hasEnergyItem = true>><</if>>
+            <</if>>
+        <</if>>
+    <</for>>
+<</if>>
+<</silently>>
+
+<<narrative "Exhausted">>
+Your vision blurs at the edges. Your legs feel like lead, each step more uncertain than the last.
+
+(''I can't keep going like this...'')
+
+The world tilts slightly. You reach for the nearest wall, steadying yourself. Your heart is pounding, though you haven't done anything to earn it.
+<</narrative>>
+
+<<narrative>>
+You need to do something — now.
+<</narrative>>
+
+<div class="location-actions">
+    <<if _hasEnergyItem>>
+        <<btn "Use an Item" "energy_collapse_items">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style btn-default locked" data-tooltip="Nothing in your bag to help right now">
+            <span class="icon icon-lock icon-12"></span> Use an Item
+        </span>
+    <</if>>
+    <<btn "Go Home" "energy_collapse_nap">><</btn>>
+</div>

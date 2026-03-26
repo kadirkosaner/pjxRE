@@ -1,0 +1,36 @@
+:: energy_collapse_nap
+<<silently>>
+<<set $location = "fhBedroom">>
+<<set $isSleeping = true>>
+<<advanceTime 90>>
+<<set $isSleeping = false>>
+<<gainStat "energy" 20>>
+<<loseStat "health" 10>>
+<<gainStat "stress" 15>>
+<<set $appearance.hairCombed = 0>>
+<<set _returnTo = $collapseReturnTo || "fhBedroom">>
+<<set $collapseReturnTo = null>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Barely Made It Home">>
+You don't remember much of the walk back. One foot in front of the other, keeping your eyes on the pavement, willing your body to keep moving.
+
+The front door. The stairs. Your room.
+
+You don't even change. You drop onto the bed fully dressed, and the moment your head hits the pillow, everything goes dark.
+<</narrative>>
+
+<<narrative "90 Minutes Later">>
+You come back slowly. The ceiling. The familiar smell of your room. Your mouth is dry and your body aches, but you're conscious.
+
+(''That was stupid. I pushed too far.'')
+
+You sit up carefully. The world doesn't tilt this time. A small improvement.
+
+(''I need to be more careful.'')
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Get Up" "fhBedroom">><</btn>>
+</div>

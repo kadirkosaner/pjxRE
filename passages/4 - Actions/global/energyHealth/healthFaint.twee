@@ -1,0 +1,37 @@
+:: health_faint
+<<silently>>
+<<set $isSleeping = true>>
+<<set $location = "fhBedroom">>
+<<advanceTime 180>>
+<<set $isSleeping = false>>
+<<gainStat "energy" 30>>
+<<loseStat "stress" 20>>
+<<set $appearance.hairCombed = 0>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Everything Goes Black">>
+It happens fast.
+
+One moment you're upright. The next, the edges of your vision close in — a slow, grey curtain drawing itself shut from all sides. Your legs don't give warning. They just stop.
+
+The floor comes up to meet you.
+<</narrative>>
+
+<<narrative "Three Hours Later">>
+Light. Ceiling. The sound of the house.
+
+You blink, once, twice. You're in your bed. You don't know how you got here — your body must have known where to go even when your mind didn't.
+
+(''How long was I out?'')
+
+Your whole body feels wrung out and hollow. Your head is heavy, there's a dull ache behind your eyes, and every muscle protests when you try to move.
+
+(''This is a warning. I've been ignoring things I shouldn't ignore.'')
+
+You sit up slowly. You're still here. That's something.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Get Up" "fhBedroom">><</btn>>
+</div>

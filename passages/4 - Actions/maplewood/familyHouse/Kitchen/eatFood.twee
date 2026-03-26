@@ -6,6 +6,7 @@
     <<run window.notifySuccess("Hunger & Thirst Restored")>>
     <<gainStat "energy" 30>>
     <<gainStat "mood" 10>>
+    <<gainStat "health" 2>>
     <<loseStat "stress" 5>>
     <<flushNotifications>>
     <<recalculateStats>>
