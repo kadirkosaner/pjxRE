@@ -1876,19 +1876,19 @@ setup.outfitExitRules = {
         shoesRequired              : false, // no shoes needed inside
         sleepwearSexinessThreshold : 3,   // sexinessScore >= this → "sexy" sleepwear
         sleepwearSexyMinCorr       : 3,   // sexy sleepwear needs corruption ≥ this
-        underwearMinCorr           : 4,   // underwear-only needs corruption ≥ this
-        nakedMinCorr               : 5,   // naked needs corruption ≥ this
-        nakedMinExh                : 25   // naked also needs exhibitionism ≥ this
+        underwearMinCorr           : 3,   // underwear-only needs corruption ≥ this
+        nakedMinCorr               : 4,   // naked needs corruption ≥ this
+        nakedMinExh                : 0    // no exhibitionism requirement indoors
     },
     outdoor: {
         shoesRequired              : true,  // must have shoes equipped to go outside
         sleepwearSexinessThreshold : 3,
         sleepwearNormalMinCorr     : 2,   // non-sexy sleepwear needs corruption ≥ this
         sleepwearSexyMinCorr       : 4,
-        underwearMinCorr           : 5,
-        underwearMinExh            : 15,  // underwear-only outside also needs exhibitionism ≥ this
-        nakedMinCorr               : 6,
-        nakedMinExh                : 50   // naked outside needs exhibitionism ≥ this
+        underwearMinCorr           : 4,
+        underwearMinExh            : 0,   // no exhibitionism requirement outdoors (underwear)
+        nakedMinCorr               : 5,
+        nakedMinExh                : 0    // no exhibitionism requirement outdoors (naked)
     }
 };
 

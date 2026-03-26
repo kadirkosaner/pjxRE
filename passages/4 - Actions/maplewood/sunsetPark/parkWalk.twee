@@ -7,16 +7,90 @@
     <<flushNotifications>>
     <<recalculateStats>>
     <<run $(document).trigger(':passagerender')>>
-    <<set _vidNum = random(1, 2)>>
-    <<set _walkVid = "assets/content/scenes/maplewood/park/walk/walkingPark" + _vidNum + ".mp4">>
+    <<set _hour = $timeSys.hour>>
+    <<if _hour >= 6 and _hour < 12>>
+        <<set _timeSlot = "morning">>
+    <<elseif _hour >= 12 and _hour < 18>>
+        <<set _timeSlot = "afternoon">>
+    <<else>>
+        <<set _timeSlot = "evening">>
+    <</if>>
+
+    <<set _sceneMode = random(1, 2)>>
+
+    <<if _sceneMode is 1>>
+        <<set _baseRoll = random(1, 4)>>
+        <<if _baseRoll is 1>>
+            <<set _walkVid = "assets/content/scenes/maplewood/park/walk/walkingPark1.mp4">>
+            <<set _walkText = "You take a leisurely walk along the paths. Not a workout-just moving, taking in the trees and the light. Your steps settle into a steady rhythm and your head clears a little.">>
+        <<elseif _baseRoll is 2>>
+            <<set _walkVid = "assets/content/scenes/maplewood/park/walk/walkingPark2.mp4">>
+            <<set _walkText = "You keep a comfortable pace and let your mind wander while the rustle of leaves and distant chatter blend into a calming rhythm.">>
+        <<elseif _baseRoll is 3>>
+            <<set _walkVid = "assets/content/scenes/maplewood/park/walk/walkingPark3.mp4">>
+            <<set _walkText = "You follow the winding trail without rushing, taking in the greenery and giving yourself a few quiet minutes away from everything else.">>
+        <<else>>
+            <<set _walkVid = "assets/content/scenes/maplewood/park/walk/birdScene1.mp4">>
+            <<set _walkText = "For a moment, your eyes drift upward to two birds perched in the branches. It is a small, peaceful detail, but it slows your thoughts in the best way.">>
+        <</if>>
+    <<else>>
+        <<if _timeSlot is "morning">>
+            <<set _sceneRoll = random(1, 2)>>
+            <<if _sceneRoll is 1>>
+                <<set _walkVid = "assets/content/scenes/maplewood/park/walk/morningScene1.mp4">>
+                <<set _walkText = "A sporty couple moves through their routine near the trail, focused and full of energy. The cool morning air and steady pace make the whole park feel fresh and alive.">>
+            <<else>>
+                <<set _walkVid = "assets/content/scenes/maplewood/park/walk/morningScene2.mp4">>
+                <<set _walkText = "A couple rests after training, catching their breath on the side of the path. You keep walking at an easy pace, letting the quiet morning calm settle in.">>
+            <</if>>
+        <<elseif _timeSlot is "afternoon">>
+            <<set _sceneRoll = random(1, 4)>>
+            <<if _sceneRoll is 1>>
+                <<set _walkVid = "assets/content/scenes/maplewood/park/walk/afternoonScene1-1.mp4">>
+                <<set _walkText = "Two women sit on the grass sharing a picnic and easy conversation. Around them, the park carries that bright midday buzz of people making the most of the day.">>
+            <<elseif _sceneRoll is 2>>
+                <<set _walkVid = "assets/content/scenes/maplewood/park/walk/afternoonScene1-2.mp4">>
+                <<set _walkText = "The same picnic now feels more celebratory, with laughter and raised glasses in the sun. You pass by with a smile, carried along by the warm social energy.">>
+            <<elseif _sceneRoll is 3>>
+                <<set _walkVid = "assets/content/scenes/maplewood/park/walk/afternoonScene2.mp4">>
+                <<set _walkText = "Four students walk past in animated conversation-two women, two men, all talking over each other in bursts of laughter. The path feels lively and full of motion.">>
+            <<else>>
+                <<set _walkVid = "assets/content/scenes/maplewood/park/walk/afternoonScene3.mp4">>
+                <<set _walkText = "A couple has claimed a quiet patch of grass for their own little picnic. In the middle of the crowd, they still look like they found a private world.">>
+            <</if>>
+        <<else>>
+            <<set _sceneRoll = random(1, 3)>>
+            <<if _sceneRoll is 1>>
+                <<set _walkVid = "assets/content/scenes/maplewood/park/walk/eveningScene1-1.mp4">>
+                <<set _walkText = "A couple walking ahead of you pauses for a kiss, unhurried and completely in their own world. The late-day light softens everything around the path.">>
+            <<elseif _sceneRoll is 2>>
+                <<set _walkVid = "assets/content/scenes/maplewood/park/walk/eveningScene1-2.mp4">>
+                <<set _walkText = "The same pair drifts into a quiet embrace while the evening crowd thins out. You keep moving, but the slower atmosphere settles into your pace.">>
+            <<else>>
+                <<set _walkVid = "assets/content/scenes/maplewood/park/walk/eveningScene2.mp4">>
+                <<set _walkText = "On the grass, a couple huddles over a phone, sharing something that makes them both smile. Around them, the park feels calm and comfortably winding down.">>
+            <</if>>
+        <</if>>
+    <</if>>
+
+    <<set _bushEncounter = false>>
+    <<if _timeSlot is "evening">>
+        <<if random(1, 3) is 1>>
+            <<set _bushEncounter = true>>
+        <</if>>
+    <</if>>
 <</silently>>
 
 <<narrative "Park Walk">>
-You take a leisurely walk along the paths. Not a workout—just moving, taking in the trees and the light. Your steps find a steady rhythm and your head clears a little.
+<<print _walkText>>
 <</narrative>>
 
 <<vid _walkVid "100%">>
 
-<div class="location-actions">
-    <<btn "Finish" $location>><</btn>>
-</div>
+<<if _bushEncounter>>
+    <<include "parkWalk_bushEncounter">>
+<<else>>
+    <div class="location-actions">
+        <<btn "Finish" $location>><</btn>>
+    </div>
+<</if>>

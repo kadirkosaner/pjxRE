@@ -7,12 +7,61 @@
 <<gainStat "mood" 5>>
 <<flushNotifications>>
 <<recalculateStats>>
-<<set _vidNum = random(1, 2)>>
-<<set _benchVid = "assets/content/scenes/maplewood/park/bench/sittingBenchPark" + _vidNum + ".mp4">>
+
+<<set _hour = $timeSys.hour>>
+<<if _hour >= 6 and _hour < 12>>
+    <<set _timeSlot = "morning">>
+<<elseif _hour >= 12 and _hour < 18>>
+    <<set _timeSlot = "afternoon">>
+<<else>>
+    <<set _timeSlot = "evening">>
+<</if>>
+
+<<set _sceneMode = random(1, 2)>>
+
+<<if _sceneMode is 1>>
+    <<set _baseRoll = random(1, 2)>>
+    <<if _baseRoll is 1>>
+        <<set _benchVid = "assets/content/scenes/maplewood/park/bench/sittingBenchPark1.mp4">>
+        <<set _benchText = "You find a quiet bench overlooking the pond and settle in. People pass by - joggers, dog walkers, families with children. The park has its own rhythm. Sometimes it's nice to just sit and watch life go by.">>
+    <<else>>
+        <<set _benchVid = "assets/content/scenes/maplewood/park/bench/sittingBenchPark2.mp4">>
+        <<set _benchText = "You take a seat and let yourself go still for a while. The sounds of the park fill in around you - distant footsteps, a dog barking somewhere, leaves shifting in the breeze.">>
+    <</if>>
+<<else>>
+    <<if _timeSlot is "morning">>
+        <<set _sceneRoll = random(1, 2)>>
+        <<if _sceneRoll is 1>>
+            <<set _benchVid = "assets/content/scenes/maplewood/park/bench/morningScene1.mp4">>
+            <<set _benchText = "A couple sits close on a nearby bench, laughing softly at something between them. The morning is still quiet enough that their warmth feels like part of the atmosphere.">>
+        <<else>>
+            <<set _benchVid = "assets/content/scenes/maplewood/park/bench/morningScene2.mp4">>
+            <<set _benchText = "Not far away, a man leans in toward the woman beside him, talking in a low voice with a grin that says he's trying his luck. She looks amused. You look away, smiling to yourself.">>
+        <</if>>
+    <<elseif _timeSlot is "afternoon">>
+        <<set _sceneRoll = random(1, 2)>>
+        <<if _sceneRoll is 1>>
+            <<set _benchVid = "assets/content/scenes/maplewood/park/bench/afternoonScene1.mp4">>
+            <<set _benchText = "A couple on the grass nearby pulls each other close for a kiss, completely at ease in the middle of the busy afternoon park. You glance over and then back to the pond.">>
+        <<else>>
+            <<set _benchVid = "assets/content/scenes/maplewood/park/bench/afternoonScene2.mp4">>
+            <<set _benchText = "Two people hold each other on the grass, not saying much. Around them the park hums with midday activity, but they seem content in their own quiet corner of it.">>
+        <</if>>
+    <<else>>
+        <<set _sceneRoll = random(1, 2)>>
+        <<if _sceneRoll is 1>>
+            <<set _benchVid = "assets/content/scenes/maplewood/park/bench/eveningScene1.mp4">>
+            <<set _benchText = "An older couple sits together on the bench across the path, leaning into each other without a word. They look like people who stopped needing to explain themselves a long time ago.">>
+        <<else>>
+            <<set _benchVid = "assets/content/scenes/maplewood/park/bench/eveningScene2.mp4">>
+            <<set _benchText = "A couple nearby sits close, arms around each other as the evening light softens everything. The park is winding down and the moment feels unhurried and easy.">>
+        <</if>>
+    <</if>>
+<</if>>
 <</silently>>
 
 <<narrative "Park Bench">>
-You find a quiet bench overlooking the pond and settle in. People pass by - joggers, dog walkers, families with children. The park has its own rhythm. Sometimes it's nice to just sit and watch life go by.
+<<print _benchText>>
 <</narrative>>
 
 <<vid _benchVid "100%">>
