@@ -1,5 +1,9 @@
-<<nobr>><<set $location = "storeBook">><</nobr>>
+<<nobr>>
+<<set $location = "storeBook">>
+<<set _shopItems = ["mag_think_quick", "mag_home_flavors", "mag_social_edge", "mag_green_corner", "mag_creative_pulse", "mag_inner_drive"]>>
+<<set _shopBack = "oldTown">>
 <<updateCharacterLocations>>
+<</nobr>>
 <<narrative "Bookworm's Corner">>A used book store with hidden treasures. Every shelf holds a new adventure.<</narrative>>
 <<showLocationChars "storeBook">>
-<<navMenu>><<navCard "oldTown">><</navMenu>>
+<<shop "Bookworm's Corner" "Books & Magazines" _shopItems _shopBack>>

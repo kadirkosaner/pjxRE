@@ -100,7 +100,7 @@ body.no-rightbar .right-bar {
   display: none !important;
 }
 
-/* FULLWIDTH ACTIVE - Wardrobe, shop, restaurant, or any full-width overlay (DRY) */
+/* FULLWIDTH ACTIVE - Wardrobe, shop, restaurant, reading, or any full-width overlay (DRY) */
 body.wardrobe-active #story,
 body.wardrobe-active #passages,
 body.wardrobe-active .passage,
@@ -110,6 +110,9 @@ body.shop-active .passage,
 body.restaurant-active #story,
 body.restaurant-active #passages,
 body.restaurant-active .passage,
+body.reading-active #story,
+body.reading-active #passages,
+body.reading-active .passage,
 body.fullwidth-active #story,
 body.fullwidth-active #passages,
 body.fullwidth-active .passage {
@@ -122,6 +125,7 @@ body.fullwidth-active .passage {
 body.wardrobe-active #passages,
 body.shop-active #passages,
 body.restaurant-active #passages,
+body.reading-active #passages,
 body.fullwidth-active #passages {
   padding: 0 !important;
   padding-top: 50px !important;
@@ -132,6 +136,7 @@ body.fullwidth-active #passages {
 body.wardrobe-active .passage,
 body.shop-active .passage,
 body.restaurant-active .passage,
+body.reading-active .passage,
 body.fullwidth-active .passage {
   padding: 0 !important;
   background: transparent !important;

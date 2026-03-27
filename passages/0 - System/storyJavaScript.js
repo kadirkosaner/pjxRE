@@ -1298,6 +1298,45 @@ Macro.add('shop', {
     }
 });
 
+/* ================== READING SCREEN MACRO =================== */
+// Usage: <<readingScreen "backPassage">>
+Macro.add('readingScreen', {
+    handler: function () {
+        const backPassage = (this.args && this.args.length > 0) ? this.args[0] : null;
+        const output = this.output;
+
+        // Direct access if already loaded
+        if (window.readingModule && window.readingModule.macroHandler) {
+            window.readingModule.macroHandler(output, backPassage);
+            return;
+        }
+
+        // Async wait/retry – anchor strategy (same as shop/wardrobe)
+        const $anchor = $('<div class="reading-anchor"><div class="system-loader">Loading Reading...</div></div>');
+        $(output).append($anchor);
+
+        let attempts = 0;
+        const maxAttempts = 50;
+
+        const checkInterval = setInterval(function () {
+            attempts++;
+            if (window.readingModule && window.readingModule.macroHandler) {
+                clearInterval(checkInterval);
+                $anchor.empty();
+                try {
+                    window.readingModule.macroHandler($anchor, backPassage);
+                } catch (e) {
+                    console.error('[Reading Macro] Handler CRASH:', e);
+                    $anchor.html('<div class="error-view">Reading system crashed: ' + e.message + '</div>');
+                }
+            } else if (attempts >= maxAttempts) {
+                clearInterval(checkInterval);
+                $anchor.html('<div class="error-msg">Error: Reading module failed to load. Please refresh.</div>');
+            }
+        }, 100);
+    }
+});
+
 /* ================== RESTAURANT MACRO =================== */
 // Usage: <<restaurant "menuId">> or <<restaurant "menuId" "backPassage">>
 Macro.add('restaurant', {

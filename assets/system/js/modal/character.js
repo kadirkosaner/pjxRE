@@ -103,16 +103,57 @@ window.CharacterInit = function (API) {
             return `${sign}${effect.value} ${name}${suffix}`;
         },
 
-        // Helper to generate inventory HTML (exclude reading items – books/magazines – they are used from Read screen)
-        generateInventoryHtml: function(vars) {
+        // Helper to generate inventory HTML — shows all items with sub-tab filtering
+        generateInventoryHtml: function(vars, activeSubTab) {
+            activeSubTab = activeSubTab || 'all';
             const inventory = vars.inventory || [];
+            const readFinished = vars.readFinished || [];
+            const readProgress = vars.readProgress || {};
             const self = this;
-            const filtered = inventory.filter(invItem => {
+            const setupObj = window.setup || {};
+
+            // Build enriched list — sorted: consumables → cosmetics → tools → equipment → reading
+            const categoryOrder = { consumable: 0, cosmetic: 1, tool: 2, equipment: 3, reading: 4 };
+            const enriched = inventory.map(function(invItem) {
                 const item = self.getItemById(invItem.id);
-                return item && item.category !== 'reading';
+                if (!item) return null;
+                return { invItem: invItem, item: item };
+            }).filter(Boolean).sort(function(a, b) {
+                const oa = categoryOrder[a.item.category] != null ? categoryOrder[a.item.category] : 99;
+                const ob = categoryOrder[b.item.category] != null ? categoryOrder[b.item.category] : 99;
+                return oa - ob;
             });
 
-            if (filtered.length === 0) {
+            // Tab definitions and filter logic
+            const tabDefs = [
+                { id: 'all',        label: 'All' },
+                { id: 'consumables', label: 'Consumables' },
+                { id: 'tools',      label: 'Tools' },
+                { id: 'reading',    label: 'Books & Mags' }
+            ];
+
+            function filterForTab(tab) {
+                return enriched.filter(function(e) {
+                    const cat = e.item.category;
+                    if (tab === 'all') return true;
+                    if (tab === 'consumables') return cat === 'consumable' || cat === 'cosmetic';
+                    if (tab === 'tools') return cat === 'tool' || cat === 'equipment';
+                    if (tab === 'reading') return cat === 'reading';
+                    return true;
+                });
+            }
+
+            const activeItems = filterForTab(activeSubTab);
+
+            // Sub-tabs HTML
+            const tabsHtml = tabDefs.map(function(t) {
+                const count = filterForTab(t.id).length;
+                const active = activeSubTab === t.id ? ' active' : '';
+                return `<button class="inv-subtab${active}" data-subtab="${t.id}">${t.label} <span class="inv-subtab-count">${count}</span></button>`;
+            }).join('');
+
+            // Empty state
+            if (enriched.length === 0) {
                 return `
                     <div class="tab-content-inner inventory-container">
                         <div class="inventory-empty">
@@ -123,51 +164,93 @@ window.CharacterInit = function (API) {
                 `;
             }
 
-            const itemsHtml = filtered.map(invItem => {
-                const item = self.getItemById(invItem.id);
-                if (!item) return '';
-                
-                // Generate effects tooltip content
-                let effectsHtml = '';
-                if (item.effects && item.effects.length > 0) {
-                    effectsHtml = item.effects.map(e => `<div class="effect-line">${self.formatEffect(e)}</div>`).join('');
-                } else {
-                    effectsHtml = '<div class="effect-line" style="opacity: 0.5;">No effects</div>';
-                }
-                
-                // Show use button only for direct usage items
-                const showUseBtn = item.usageType === 'direct';
-                
-                const safeId = String(item.id).replace(/"/g, '&quot;');
-                return `
-                    <div class="inventory-item" data-item-id="${safeId}">
-                        <div class="item-info-icon">i</div>
-                        <div class="item-effects-tooltip">
-                            <div class="tooltip-title">${item.name}</div>
-                            <div class="tooltip-desc">${item.desc || ''}</div>
-                            <div class="tooltip-effects">${effectsHtml}</div>
+            // Items HTML
+            let itemsHtml = '';
+            if (activeItems.length === 0) {
+                itemsHtml = `
+                    <div class="inventory-empty" style="grid-column:1/-1">
+                        <div class="inventory-empty-icon" style="font-size:1.5rem">📦</div>
+                        <div class="inventory-empty-text">Nothing in this category</div>
+                    </div>`;
+            } else {
+                itemsHtml = activeItems.map(function(e) {
+                    const invItem = e.invItem;
+                    const item = e.item;
+                    const isReading = item.category === 'reading';
+                    const meta = isReading && setupObj.getReadingItem ? setupObj.getReadingItem(item.id) : null;
+                    const safeId = String(item.id).replace(/"/g, '&quot;');
+
+                    // Effects tooltip lines + reading status inside tooltip
+                    let effectsHtml = '';
+                    if (isReading && meta) {
+                        const typeLabel = meta.type === 'book' ? 'Book' : 'Magazine';
+                        // Status line in tooltip
+                        if (meta.type === 'book') {
+                            const isFinished = readFinished.indexOf(item.id) >= 0;
+                            const pagesRead = readProgress[item.id] || 0;
+                            const statusText = isFinished ? '✓ Finished' : `${pagesRead}/${meta.pages} pages read`;
+                            effectsHtml += `<div class="effect-line" style="opacity:0.7">${typeLabel} &mdash; ${statusText}</div>`;
+                        } else {
+                            const qty = invItem.quantity || 1;
+                            const statusText = qty > 1 ? `${qty}× unread` : 'Unread';
+                            effectsHtml += `<div class="effect-line" style="opacity:0.7">${typeLabel} &mdash; ${statusText}</div>`;
+                        }
+                        effectsHtml += '<div class="effect-line">Mood +5 / Stress &minus;5</div>';
+                        if (meta.gainOnComplete && (meta.gainType || (meta.gainTypeOptions && meta.gainTypeOptions.length))) {
+                            const sl = (meta.gainTypeOptions && meta.gainTypeOptions.length) ? meta.gainTypeOptions.join('/') : meta.gainType;
+                            effectsHtml += `<div class="effect-line">+${meta.gainOnComplete} ${sl}</div>`;
+                        }
+                        if (meta.skillOnComplete && meta.skillOnComplete.skill) {
+                            effectsHtml += `<div class="effect-line">+${meta.skillOnComplete.amount} ${meta.skillOnComplete.skill} skill</div>`;
+                        }
+                    } else if (item.effects && item.effects.length > 0) {
+                        effectsHtml = item.effects.map(function(ef) {
+                            return `<div class="effect-line">${self.formatEffect(ef)}</div>`;
+                        }).join('');
+                    } else {
+                        effectsHtml = '<div class="effect-line" style="opacity:0.5">No effects</div>';
+                    }
+
+                    // No badge or status below card title anymore
+                    const readingStatusHtml = '';
+
+                    const showUseBtn = !isReading && item.usageType === 'direct';
+                    const qtyBadge = !isReading && invItem.quantity > 1
+                        ? `<span class="inventory-item-qty">${invItem.quantity}</span>` : '';
+
+                    return `
+                        <div class="inventory-item${isReading ? ' inv-reading-item' : ''}" data-item-id="${safeId}">
+                            <div class="inventory-item-image${isReading ? ' inv-reading-img' : ''}">
+                                <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'">
+                                ${qtyBadge}
+                                <div class="item-info-icon">i</div>
+                                <div class="item-effects-tooltip">
+                                    <div class="tooltip-title">${item.name}</div>
+                                    <div class="tooltip-desc">${item.desc || ''}</div>
+                                    <div class="tooltip-effects">${effectsHtml}</div>
+                                </div>
+                            </div>
+                            <div class="inventory-item-info">
+                                <div class="inventory-item-name">${item.name}</div>
+                                ${readingStatusHtml}
+                            </div>
+                            ${showUseBtn
+                                ? `<button type="button" class="item-use-btn" data-item-id="${safeId}">Use</button>`
+                                : '<div class="item-use-placeholder"></div>'
+                            }
                         </div>
-                        <div class="inventory-item-image">
-                            <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'">
-                            ${invItem.quantity > 1 ? `<span class="inventory-item-qty">${invItem.quantity}</span>` : ''}
-                        </div>
-                        <div class="inventory-item-info">
-                            <div class="inventory-item-name">${item.name}</div>
-                        </div>
-                        ${showUseBtn ? `<button type="button" class="item-use-btn" data-item-id="${safeId}">Use</button>` : ''}
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
+            }
 
             return `
                 <div class="tab-content-inner inventory-container">
                     <div class="inventory-tab-header">
                         <span class="inventory-tab-title">Inventory</span>
-                        <span class="inventory-tab-count">${filtered.length} item${filtered.length !== 1 ? 's' : ''}</span>
+                        <span class="inventory-tab-count">${enriched.length} item${enriched.length !== 1 ? 's' : ''}</span>
                     </div>
-                    <div class="inventory-grid">
-                        ${itemsHtml}
-                    </div>
+                    <div class="inv-subtabs">${tabsHtml}</div>
+                    <div class="inventory-grid">${itemsHtml}</div>
                 </div>
             `;
         },
@@ -252,11 +335,14 @@ window.CharacterInit = function (API) {
             console.log('[Inventory] Refreshing tab (jQuery)...');
             const self = window.CharacterSystem;
             
+            // Preserve active sub-tab
+            const activeSubTab = $('.modal-overlay[data-modal="character-modal"] .inv-subtab.active').data('subtab') || 'all';
+            
             // Ensure we are getting the latest state
             const vars = self.API.State.variables;
             
             // Generate new HTML
-            const newHtml = self.generateInventoryHtml(vars);
+            const newHtml = self.generateInventoryHtml(vars, activeSubTab);
             
             // Use character modal-scoped selector first to avoid cross-view collisions.
             const $container = $('.modal-overlay[data-modal="character-modal"] .inventory-container');
@@ -904,6 +990,19 @@ window.CharacterInit = function (API) {
                 );
                 
             }, 100);
+
+            // Delegated click for inventory sub-tabs
+            $(document).off('click.characterInventorySubTab', '.modal-overlay[data-modal="character-modal"] .inv-subtab');
+            $(document).on('click.characterInventorySubTab', '.modal-overlay[data-modal="character-modal"] .inv-subtab', function (e) {
+                e.preventDefault();
+                const tab = $(this).data('subtab');
+                const vars = window.CharacterSystem.API.State.variables;
+                const html = window.CharacterSystem.generateInventoryHtml(vars, tab);
+                const $container = $('.modal-overlay[data-modal="character-modal"] .inventory-container');
+                if ($container.length) {
+                    $container.replaceWith(html);
+                }
+            });
 
             // Delegated click for Use button (works after refreshInventoryTab)
             $(document).off('click.characterInventory', '.modal-overlay[data-modal="character-modal"] .item-use-btn');

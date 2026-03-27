@@ -16,8 +16,10 @@
 <<silently>>
     <<if ndef $daily.magazineStatUsedToday>><<set $daily.magazineStatUsedToday = false>><</if>>
 
-    /* Duration from btnPicker */
-    <<if def $pickerMemory and def $pickerMemory.readingDuration>>
+    /* Duration from Read UI (manual picker) or fallback to btnPicker memory */
+    <<if def $readDurationChoice>>
+        <<set $selectedDuration = $readDurationChoice>>
+    <<elseif def $pickerMemory and def $pickerMemory.readingDuration>>
         <<set $selectedDuration = $pickerMemory.readingDuration>>
     <<else>>
         <<set $selectedDuration = 15>>
@@ -42,12 +44,27 @@
     <</if>>
 
     <<set _magSkim = false>>
-    <<if _meta.type === "magazine" && $daily.magazineStatUsedToday>>
+    <<set _magCapSkim = false>>
+    <<if _meta.type === "magazine">>
+        <<set _sgMeta = _meta.skillOnComplete>>
+        <<if _sgMeta && _sgMeta.category && _sgMeta.skill>>
+            <<set _skillCapMeta = _meta.skillMaxCap || 30>>
+            <<set _curSkillMeta = 0>>
+            <<if $skills && $skills[_sgMeta.category] && def $skills[_sgMeta.category][_sgMeta.skill]>>
+                <<set _curSkillMeta = $skills[_sgMeta.category][_sgMeta.skill]>>
+            <</if>>
+            <<if _curSkillMeta >= _skillCapMeta>>
+                <<set _magCapSkim = true>>
+            <</if>>
+        <</if>>
+    <</if>>
+    <<if _meta.type === "magazine" && ($daily.magazineStatUsedToday || _magCapSkim)>>
         <<set _magSkim = true>>
     <</if>>
 
     <<set _totalGain = 0>>
     <<set _focusGain = 0>>
+    <<set _gainTypeAwarded = "">>
 
     <<if _meta.type === "book">>
         <<set _perPageGain = _meta.gainValue / _meta.pages>>
@@ -60,19 +77,46 @@
             <<gainStat "focus" _focusGain>>
         <</if>>
     <<else>>
+        /* Base magazine effects: always apply on read */
+        <<gainStat "mood" 5>>
+        <<loseStat "stress" 5>>
         /* Magazine: first issue of the day — optional gainStat + optional skillOnComplete (gainSkill); skim after */
         <<set _magRewarded = false>>
         <<if !_magSkim>>
             <<set _gc = _meta.gainOnComplete || 0>>
-            <<if _gc > 0 && _meta.gainType>>
-                <<gainStat _meta.gainType _gc>>
-                <<set _totalGain = _gc>>
-                <<set _magRewarded = true>>
+            <<set _magGainType = _meta.gainType || "">>
+            <<if _meta.gainTypeOptions && _meta.gainTypeOptions.length > 0>>
+                <<set _idx = random(1, _meta.gainTypeOptions.length) - 1>>
+                <<set _magGainType = _meta.gainTypeOptions[_idx]>>
+            <</if>>
+            <<if _gc > 0 && _magGainType>>
+                <<set _applyGain = _gc>>
+                /* Cap only applies to core stats (not vitals like mood/stress/energy/health) */
+                <<set _cappedStats = ["intelligence", "focus", "creativity", "willpower"]>>
+                <<if _cappedStats.includes(_magGainType)>>
+                    <<set _currentMagStat = State.variables[_magGainType] || 0>>
+                    <<if _currentMagStat >= 20>>
+                        <<set _applyGain = 0>>
+                    <</if>>
+                <</if>>
+                <<if _applyGain > 0>>
+                    <<gainStat _magGainType _applyGain>>
+                    <<set _totalGain = _applyGain>>
+                    <<set _gainTypeAwarded = _magGainType>>
+                    <<set _magRewarded = true>>
+                <</if>>
             <</if>>
             <<set _sg = _meta.skillOnComplete>>
             <<if _sg && _sg.category && _sg.skill && (_sg.amount || 0) > 0>>
-                <<gainSkill _sg.category _sg.skill _sg.amount>>
-                <<set _magRewarded = true>>
+                <<set _skillCap = _meta.skillMaxCap || 30>>
+                <<set _curSkill = 0>>
+                <<if $skills && $skills[_sg.category] && def $skills[_sg.category][_sg.skill]>>
+                    <<set _curSkill = $skills[_sg.category][_sg.skill]>>
+                <</if>>
+                <<if _curSkill < _skillCap>>
+                    <<gainSkill _sg.category _sg.skill _sg.amount _skillCap>>
+                    <<set _magRewarded = true>>
+                <</if>>
             <</if>>
             <<if _magRewarded>>
                 <<set $daily.magazineStatUsedToday = true>>
@@ -136,9 +180,9 @@ You read for <<print $selectedDuration>> minutes — mostly skimming, not really
 <<elseif _meta.type === "magazine">>
 <<narrative>>
 You read for <<print $selectedDuration>> minutes and get through the issue. Done — you toss it in the recycling.
-<<if _totalGain > 0>>
+<<if _totalGain > 0 && _gainTypeAwarded>>
 <br>
-<<print _meta.gainType.charAt(0).toUpperCase() + _meta.gainType.slice(1)>> +<<print Number(_totalGain).toFixed(1)>>.
+<<print _gainTypeAwarded.charAt(0).toUpperCase() + _gainTypeAwarded.slice(1)>> +<<print Number(_totalGain).toFixed(1)>>.
 <</if>>
 <</narrative>>
 <<else>>

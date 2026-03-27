@@ -52,6 +52,7 @@ window.SystemModules = {
     "location", // Location background handler
     "shopping", // Shop cart/checkout handler
     "restaurant", // Restaurant menu (food + drink, pay, effects)
+    "reading", // Reading system (item picker + duration)
   ],
 };
 
@@ -114,6 +115,7 @@ window.SystemCSS = {
     "character-outfit", // Character modal – Outfit display (outfit list, cards, tooltips)
     "saveload", // Save/load modal
     "alarm", // Alarm clock system
+    "read", // Read system
   ],
 
   // Utils - Helpers (load last)

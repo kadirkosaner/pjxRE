@@ -8,7 +8,148 @@
 
 setup.readingItems = {
     books: [],
-    magazines: []
+    magazines: [
+        {
+            id: "mag_think_quick",
+            name: "Think Quick",
+            pages: 36,
+            gainOnComplete: 1,
+            gainTypeOptions: ["intelligence", "focus"],
+            skillMaxCap: 30,
+            skillOnComplete: { category: "mental", skill: "problemSolving", amount: 1 },
+            narratives: [
+                "You work through puzzle-style scenarios and compare multiple solutions.",
+                "A short problem-solving framework actually helps you break things down.",
+                "You read case examples and try to predict outcomes before the page does."
+            ],
+            skimNarratives: [
+                "You flip through challenge pages without solving much.",
+                "You skim the diagrams and move on.",
+                "You browse quickly, mostly passing time."
+            ]
+        },
+        {
+            id: "mag_small_talk",
+            name: "Small Talk Weekly",
+            pages: 34,
+            skillMaxCap: 30,
+            skillOnComplete: { category: "social", skill: "conversation", amount: 1 },
+            narratives: [
+                "You read practical examples for smoother everyday conversations.",
+                "A section on listening and follow-up questions gives you new ideas.",
+                "You review common awkward moments and how to handle them naturally."
+            ],
+            skimNarratives: [
+                "You skim the tips without really taking notes.",
+                "You glance at conversation examples and move on.",
+                "You read headlines only and let the pages pass."
+            ]
+        },
+        {
+            id: "mag_home_flavors",
+            name: "Home Flavors",
+            pages: 40,
+            skillMaxCap: 30,
+            skillOnComplete: { category: "practical", skill: "cooking", amount: 1 },
+            narratives: [
+                "You read simple recipe techniques and timing tricks.",
+                "A prep guide teaches you how to avoid common kitchen mistakes.",
+                "You compare seasoning notes and cooking order for better results."
+            ],
+            skimNarratives: [
+                "You flip through food photos more than instructions.",
+                "You skim recipe titles and skip the details.",
+                "You browse quickly without learning much."
+            ]
+        },
+        {
+            id: "mag_social_edge",
+            name: "Social Edge",
+            pages: 32,
+            skillMaxCap: 30,
+            skillOnComplete: { category: "social", skill: "persuasion", amount: 1 },
+            narratives: [
+                "You read examples about framing ideas more convincingly.",
+                "A section on tone and timing makes your arguments feel cleaner.",
+                "You study negotiation snippets and pick up useful patterns."
+            ],
+            skimNarratives: [
+                "You skim the advice columns without focusing deeply.",
+                "You glance at negotiation examples and move along.",
+                "You read just enough to pass time."
+            ]
+        },
+        {
+            id: "mag_green_corner",
+            name: "Green Corner",
+            pages: 38,
+            skillMaxCap: 30,
+            skillOnComplete: { category: "practical", skill: "gardening", amount: 1 },
+            narratives: [
+                "You read beginner guides on soil, light, and watering balance.",
+                "A plant care chart helps you understand seasonal routines.",
+                "You pick up practical tips on keeping small plants healthy."
+            ],
+            skimNarratives: [
+                "You flip through plant photos and short captions.",
+                "You skim care charts without memorizing much.",
+                "You browse quickly, mostly for visuals."
+            ]
+        },
+        {
+            id: "mag_makeup_studio",
+            name: "Makeup Studio",
+            pages: 35,
+            gainType: "mood",
+            gainOnComplete: 1,
+            skillMaxCap: 30,
+            skillOnComplete: { category: "practical", skill: "makeup", amount: 1 },
+            narratives: [
+                "You read blending and shade-matching tips step by step.",
+                "A lookbook explains fast everyday makeup routines.",
+                "You compare product order and finish styles for cleaner results."
+            ],
+            skimNarratives: [
+                "You skim the looks without trying to learn the techniques.",
+                "You flip pages for inspiration more than instruction.",
+                "You browse quickly and close the issue."
+            ]
+        },
+        {
+            id: "mag_creative_pulse",
+            name: "Creative Pulse",
+            pages: 34,
+            gainType: "creativity",
+            gainOnComplete: 1,
+            narratives: [
+                "You study bold layouts and color choices that spark new ideas.",
+                "A short feature on visual style gives you fresh inspiration.",
+                "You read a creative breakdown and start seeing patterns differently."
+            ],
+            skimNarratives: [
+                "You flip through visuals without really processing them.",
+                "You skim headlines and move on quickly.",
+                "You browse for a moment, then lose focus."
+            ]
+        },
+        {
+            id: "mag_inner_drive",
+            name: "Inner Drive",
+            pages: 33,
+            gainType: "willpower",
+            gainOnComplete: 1,
+            narratives: [
+                "You read habit-building tips and feel more grounded.",
+                "A discipline-focused article helps you frame your goals clearly.",
+                "You go through practical routines for staying consistent."
+            ],
+            skimNarratives: [
+                "You skim motivation quotes without reflecting much.",
+                "You read a few lines, then drift away.",
+                "You flip pages quickly and close it."
+            ]
+        }
+    ]
 };
 
 <</script>>

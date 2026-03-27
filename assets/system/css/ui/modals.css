@@ -272,15 +272,21 @@ body.fullscreen-centered .modal-overlay {
 .modal-overlay[data-modal="character-modal"] .modal {
   max-width: 1200px;
   width: 95%;
+  height: 80vh;
   overflow: visible;
   border-radius: var(--radius-lg) !important;
 }
 /* Match inner corners to modal radius (needed when overflow: visible) */
 .modal-overlay[data-modal="character-modal"] .modal .modal-header {
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  flex-shrink: 0;
 }
 .modal-overlay[data-modal="character-modal"] .modal .modal-content {
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .modal-overlay[data-modal="stats-modal"] .modal,
 .modal-overlay[data-modal="journal-modal"] .modal,

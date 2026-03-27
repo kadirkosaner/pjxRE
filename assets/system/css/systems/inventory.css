@@ -14,8 +14,9 @@
     max-width: 900px;
     width: 100%;
     margin: 0 auto;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
 }
+
 
 .inventory-tab-header {
     display: flex;
@@ -105,6 +106,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: var(--spacing-md);
+    align-items: start;
 }
 
 /* Inventory Item Card */
@@ -114,14 +116,17 @@
     border-radius: var(--radius-md);
     padding: var(--spacing-sm);
     position: relative;
-    cursor: pointer;
-    transition: all var(--transition-fast);
+    cursor: default;
+    transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
     overflow: visible;
+    outline: none;
+    display: flex;
+    flex-direction: column;
 }
 
 .inventory-item:hover {
     background: var(--white-alpha-03);
-    border-color: var(--color-border-secondary);
+    border-color: var(--color-accent);
     transform: translateY(-2px);
     z-index: 100;
 }
@@ -294,11 +299,11 @@
     opacity: 1;
 }
 
-/* Info Icon - Top Right Corner (matches shopping) */
+/* Info Icon — inside image, top-right corner (mirrors .product-info-icon in shopping.css) */
 .item-info-icon {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 6px;
+    right: 6px;
     width: 20px;
     height: 20px;
     background: rgba(0, 0, 0, 0.7);
@@ -312,7 +317,10 @@
     align-items: center;
     justify-content: center;
     cursor: help;
-    z-index: 5;
+    z-index: 6;
+    outline: none;
+    user-select: none;
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
 .item-info-icon:hover {
@@ -321,7 +329,13 @@
     color: white;
 }
 
-/* Effects Tooltip (appears to the RIGHT of the item) */
+.item-info-icon:focus,
+.item-info-icon:focus-visible {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Effects Tooltip (appears to the RIGHT of the image) */
 .item-effects-tooltip {
     position: absolute;
     top: 0;
@@ -337,10 +351,10 @@
     transform: translateX(-5px);
     transition: all 0.15s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
 }
 
-.item-info-icon:hover + .item-effects-tooltip,
-.item-effects-tooltip:hover {
+.item-info-icon:hover ~ .item-effects-tooltip {
     opacity: 1;
     visibility: visible;
     transform: translateX(0);
@@ -375,50 +389,68 @@
     margin-bottom: 0;
 }
 
+/* Placeholder — keeps card height equal when no USE button */
+.item-use-placeholder {
+    height: 26px;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
 /* Use Button */
 .item-use-btn {
     width: 100%;
     margin-top: 6px;
-    padding: 5px 8px;
-    background: var(--color-accent);
+    padding: 4px 8px;
+    background: transparent;
     border: 1px solid var(--color-accent);
     border-radius: var(--radius-sm);
-    color: var(--color-text-primary);
-    font-size: 0.7rem;
+    color: var(--color-accent);
+    font-size: 0.68rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    -webkit-appearance: none;
+    appearance: none;
+    transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    outline: 0 !important;
+    box-shadow: none !important;
 }
 
-.item-use-btn:hover {
-    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-darken));
-    color: white;
-    border: 1px solid var(--color-accent-darken);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(var(--color-accent), 0.3);
+.item-use-btn:hover,
+.item-use-btn:focus,
+.item-use-btn:focus-visible {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+    outline: 0 !important;
+    box-shadow: none !important;
 }
 
 .item-use-btn:active {
-    transform: translateY(0);
+    opacity: 0.85;
+    outline: 0 !important;
+    box-shadow: none !important;
 }
 
 /* Inventory Item Image Container */
 .inventory-item-image {
     position: relative;
     width: 100%;
-    aspect-ratio: 1;
+    height: 120px;
     background: var(--color-bg-secondary);
     border-radius: 6px;
-    margin-bottom: 8px;
-    overflow: hidden;
+    margin-bottom: 12px;
+    overflow: visible;
+    flex-shrink: 0;
 }
 
 .inventory-item-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
+    border-radius: 6px;
 }
 
 .inventory-item-qty {
@@ -437,15 +469,127 @@
 
 .inventory-item-info {
     text-align: center;
+    flex: 1;
+    margin-bottom: 6px;
 }
 
 .inventory-item-name {
     font-size: 0.75rem;
     font-weight: 500;
     color: var(--color-text-primary);
-    white-space: nowrap;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
+}
+
+/* ── Inventory Sub-tabs ─────────────────────────────────────── */
+.inv-subtabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-md);
+}
+
+.inv-subtab {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: 0 !important;
+    box-shadow: none !important;
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.inv-subtab:hover {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.inv-subtab:focus,
+.inv-subtab:focus-visible,
+.inv-subtab:active {
+    background: var(--color-bg-secondary);
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.inv-subtab.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+}
+
+.inv-subtab.active:hover,
+.inv-subtab.active:focus {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.inv-subtab-count {
+    font-size: 0.72rem;
+    opacity: 0.75;
+}
+
+.inv-subtab.active .inv-subtab-count {
+    opacity: 0.9;
+}
+
+/* ── Reading items: same fixed height as other items ── */
+.inv-reading-item .inventory-item-image,
+.inv-reading-img {
+    height: 120px;
+}
+
+/* ── Type badge (Book / Magazine) ────────────────────────────── */
+.inv-type-badge {
+    display: inline-block;
+    margin-top: 3px;
+    padding: 1px 5px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    border-radius: 3px;
+}
+
+.inv-badge-mag {
+    background: rgba(139, 92, 246, 0.2);
+    color: #a78bfa;
+    border: 1px solid rgba(139, 92, 246, 0.35);
+}
+
+.inv-badge-book {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+/* ── Reading status line ─────────────────────────────────────── */
+.inv-reading-status {
+    font-size: 0.68rem;
+    color: var(--color-text-tertiary);
+    margin-top: 2px;
+}
+
+.inv-status-done {
+    color: #22c55e;
+    font-weight: 600;
 }
 
 /*#endregion */

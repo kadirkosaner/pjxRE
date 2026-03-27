@@ -1,87 +1,231 @@
-/* ==================================================
-   READ SYSTEM - Books & Magazines
-   Two-column layout, checkbox/radio rows
-================================================== */
+/* ============================================
+   SYSTEMS/READ.CSS
+   Reading module – extends shopping.css.
+   Uses .shop-wrapper, .shop-header, .shop-main,
+   .products-section, .products-grid, .product-card,
+   .cart-panel, .category-tab, etc. from shopping.css.
+   Only reading-specific overrides are here.
+============================================ */
 
-.read-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin: 1rem 0;
+/* ── passage-content reset (structure.css handles the rest) ── */
+body.reading-active .passage-content {
+  max-width: none !important;
+  padding: 0 !important;
 }
 
-.read-column {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+/* ── Panel body: no scroll cut-off (override cart-items) ─────── */
+.reading-panel-body.cart-items {
+  max-height: none !important;
+  overflow-y: visible !important;
 }
 
-.read-column-title {
-    margin: 0 0 0.5rem 0;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--color-text-secondary, #666);
+/* ── Tabs: left-aligned (override shop-tabs-row spacing) ─────── */
+.reading-tabs.shop-tabs-row {
+  justify-content: flex-start !important;
 }
 
-.read-empty {
-    color: var(--color-text-muted, #999);
-    font-style: italic;
-    margin: 0.5rem 0;
+/* ── Card: portrait image ratio for books/magazines ─────────── */
+.reading-image {
+  aspect-ratio: 3 / 4 !important;
 }
 
-.read-checkbox-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    padding: 0.35rem 0;
+/* ── Card: selected state ────────────────────────────────────── */
+.reading-card.reading-selected {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.3) !important;
 }
 
-/* Radio/checkbox – theme: unchecked gray, checked pink */
-.read-checkbox-row input[type="radio"] {
-    margin: 0;
-    flex-shrink: 0;
-    width: 1.125rem;
-    height: 1.125rem;
-    appearance: none;
-    -webkit-appearance: none;
-    border: 2px solid var(--color-border-secondary);
-    border-radius: 50%;
-    background: var(--color-bg-tertiary);
-    cursor: pointer;
-    transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+.reading-card.reading-selected::before {
+  content: '✓';
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+  line-height: 20px;
+  text-align: center;
 }
 
-.read-checkbox-row input[type="radio"]:hover {
-    border-color: var(--color-text-tertiary);
+/* ── Card: meta & type labels ────────────────────────────────── */
+.reading-card-meta {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
 }
 
-.read-checkbox-row input[type="radio"]:checked {
-    border-color: var(--color-accent);
-    background: var(--color-accent);
+.reading-card-type {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-accent);
+  opacity: 0.75;
+  margin-top: 2px;
 }
 
-.read-checkbox-row input[type="radio"]:focus {
-    outline: none;
+/* ── Panel body (replaces cart-items scroll) ─────────────────── */
+.reading-panel-body {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 }
 
-.read-checkbox-row input[type="radio"]:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-accent-alpha-30);
+/* ── Selected item preview ───────────────────────────────────── */
+.reading-selected-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
 
-.read-actions {
-    margin-top: 1rem;
+.reading-selected-img {
+  width: 50px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  border: 1px solid var(--color-border-primary);
 }
 
-.read-finished-list {
-    margin: 0.5rem 0;
-    padding-left: 1.5rem;
+.reading-selected-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
 }
 
-.read-finished-list li {
-    margin: 0.25rem 0;
+.reading-selected-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.read-finished-item {
-    cursor: help;
+.reading-selected-type {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-accent);
+}
+
+.reading-selected-progress {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+.reading-empty-hint {
+  font-size: 0.82rem;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+/* ── Duration section ────────────────────────────────────────── */
+.reading-dur-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.reading-dur-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--color-text-tertiary);
+}
+
+.reading-dur-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.reading-dur-btn {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.reading-dur-btn:hover {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.reading-dur-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.reading-dur-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+/* ── Action buttons (Start) ──────────────────────────────────── */
+.reading-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.reading-start-btn {
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.reading-start-btn:hover:not(.disabled):not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.reading-start-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.reading-start-btn.disabled,
+.reading-start-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .reading-main.shop-main {
+    grid-template-columns: 1fr !important;
+  }
+
+  .reading-panel.cart-panel {
+    position: static !important;
+  }
 }
