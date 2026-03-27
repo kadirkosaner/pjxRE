@@ -184,31 +184,32 @@ window.CharacterInit = function (API) {
                     let effectsHtml = '';
                     if (isReading && meta) {
                         const typeLabel = meta.type === 'book' ? 'Book' : 'Magazine';
-                        // Status line in tooltip
+                        // Status line
                         if (meta.type === 'book') {
                             const isFinished = readFinished.indexOf(item.id) >= 0;
                             const pagesRead = readProgress[item.id] || 0;
                             const statusText = isFinished ? '✓ Finished' : `${pagesRead}/${meta.pages} pages read`;
-                            effectsHtml += `<div class="effect-line" style="opacity:0.7">${typeLabel} &mdash; ${statusText}</div>`;
+                            effectsHtml += `<div class="effect-line effect-meta">${typeLabel} &mdash; ${statusText}</div>`;
                         } else {
                             const qty = invItem.quantity || 1;
                             const statusText = qty > 1 ? `${qty}× unread` : 'Unread';
-                            effectsHtml += `<div class="effect-line" style="opacity:0.7">${typeLabel} &mdash; ${statusText}</div>`;
+                            effectsHtml += `<div class="effect-line effect-meta">${typeLabel} &mdash; ${statusText}</div>`;
                         }
-                        effectsHtml += '<div class="effect-line">Mood +5 / Stress &minus;5</div>';
+                        // Stat gain
                         if (meta.gainOnComplete && (meta.gainType || (meta.gainTypeOptions && meta.gainTypeOptions.length))) {
-                            const sl = (meta.gainTypeOptions && meta.gainTypeOptions.length) ? meta.gainTypeOptions.join('/') : meta.gainType;
-                            effectsHtml += `<div class="effect-line">+${meta.gainOnComplete} ${sl}</div>`;
+                            const sl = (meta.gainTypeOptions && meta.gainTypeOptions.length) ? meta.gainTypeOptions.join(' / ') : meta.gainType;
+                            effectsHtml += `<div class="effect-line effect-stat">+${meta.gainOnComplete} ${sl}</div>`;
                         }
+                        // Skill gain
                         if (meta.skillOnComplete && meta.skillOnComplete.skill) {
-                            effectsHtml += `<div class="effect-line">+${meta.skillOnComplete.amount} ${meta.skillOnComplete.skill} skill</div>`;
+                            effectsHtml += `<div class="effect-line effect-skill">+${meta.skillOnComplete.amount} ${meta.skillOnComplete.skill} skill</div>`;
                         }
                     } else if (item.effects && item.effects.length > 0) {
                         effectsHtml = item.effects.map(function(ef) {
-                            return `<div class="effect-line">${self.formatEffect(ef)}</div>`;
+                            return `<div class="effect-line effect-stat">${self.formatEffect(ef)}</div>`;
                         }).join('');
                     } else {
-                        effectsHtml = '<div class="effect-line" style="opacity:0.5">No effects</div>';
+                        effectsHtml = '<div class="effect-line effect-meta">No effects</div>';
                     }
 
                     // No badge or status below card title anymore
