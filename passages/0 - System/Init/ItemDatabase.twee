@@ -289,47 +289,12 @@
        BOOKS
        One-time read, progress saved, 10 total gain ÷ pages
     ========================================== */
-    books: [
-        {
-            id: "book_math_basics",
-            name: "Math Basics",
-            category: "reading",
-            usageType: "passage",
-            desc: "A beginner-friendly math textbook. Use at Read passage.",
-            price: 15.00,
-            image: "assets/content/items/books/mathBasics.webp",
-            effects: [],
-            hasTooltip: true
-        },
-        {
-            id: "book_intro_psychology",
-            name: "Introduction to Psychology",
-            category: "reading",
-            usageType: "passage",
-            desc: "Introduction to psychology. Use at Read passage.",
-            price: 18.00,
-            image: "assets/content/items/books/psychology.webp",
-            effects: [],
-            hasTooltip: true
-        }
-    ],
+    books: [],
 
     /* ==========================================
        MAGAZINES
-       Consumable - disappears when finished
+       Single use: one Read session consumes the copy. Content: ReadingDatabase.
     ========================================== */
-    magazines: [
-        {
-            id: "mag_fashion_weekly",
-            name: "Fashion Weekly",
-            category: "reading",
-            usageType: "passage",
-            desc: "Fashion and style magazine. Use at Read passage. Consumed when finished.",
-            price: 3.50,
-            image: "assets/content/items/magazines/fashionWeekly.webp",
-            effects: [],
-            hasTooltip: true
-        }
-    ]
+    magazines: []
 }>>
 

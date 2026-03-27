@@ -31,8 +31,8 @@ Choose a book or magazine to read. Select one, pick how long you want to read, t
                 pagesRead: readProgress[item.id] || 0
             });
         } else if (meta.type === "magazine") {
-            var magPagesRead = readProgress[item.id] || 0;
-            ownedMags.push({ id: item.id, name: meta.name, pages: meta.pages, pagesRead: magPagesRead });
+            /* Single-use issues — no saved progress on list */
+            ownedMags.push({ id: item.id, name: meta.name, pages: meta.pages });
         }
     }
     State.temporary.ownedBooks = ownedBooks;
@@ -63,7 +63,7 @@ Choose a book or magazine to read. Select one, pick how long you want to read, t
             <p class="read-empty">No magazines in inventory.</p>
         <<else>>
             <<for _m range _ownedMags>>
-                <<set _mLabel = _m.pagesRead > 0 ? _m.name + " " + _m.pagesRead + "/" + _m.pages : _m.name>>
+                <<set _mLabel = _m.name>>
                 <label class="read-checkbox-row">
                     <<radiobutton "$readSelectedItem" _m.id autocheck>>
                     <<print _mLabel>>

@@ -1,4 +1,4 @@
-﻿<<nobr>>
+<<nobr>>
 <<widget "getPeriod">>
     <<set _hour = $timeSys.hour>>
     <<if _hour >= 6 and _hour < 12>>
@@ -257,6 +257,7 @@
     <<set $daily.hairCreamUsed = false>>
     <<set $daily.faceCreamUsed = false>>
     <<set $daily.dentalCareUsed = false>>
+    <<set $daily.magazineStatUsedToday = false>>
 
     /* Job: record insufficient days before reset (hoursToday from day we're leaving) */
     <<jobRecordInsufficientDay _days>>
