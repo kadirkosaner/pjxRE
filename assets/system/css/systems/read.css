@@ -19,12 +19,32 @@ body.reading-active .passage-content {
   overflow-y: visible !important;
 }
 
-/* ── Tabs: left-aligned (override shop-tabs-row spacing) ─────── */
+/* ── Tabs: All / Books / Magazines left; Finished pinned to the far right ─ */
 .reading-tabs.shop-tabs-row {
   justify-content: flex-start !important;
+  width: 100%;
 }
 
-/* ── Card: portrait image ratio for books/magazines ─────────── */
+.reading-tabs.shop-tabs-row .category-tab:last-child {
+  margin-left: auto;
+}
+
+/* ── Card: full corner radius (shop .product-card only rounds bottom) ─ */
+.reading-card.product-card {
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+}
+
+/* ── Card: portrait image ratio + top corners match card ─────── */
+.reading-card .product-image.reading-image {
+  border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+  overflow: hidden;
+}
+
+.reading-card .reading-image img {
+  border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+}
+
 .reading-image {
   aspect-ratio: 3 / 4 !important;
 }
@@ -152,24 +172,28 @@ body.reading-active .passage-content {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
-  border-radius: 6px;
+  border-radius: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-}
-
-.reading-lock-icon {
-  font-size: 1.2rem;
+  padding: 8px;
 }
 
 .reading-lock-req {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   color: #fbbf24;
   font-weight: 600;
   text-align: center;
-  padding: 0 4px;
+  line-height: 1.35;
+  padding: 0 6px;
+}
+
+.reading-finished-hint {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  margin-top: 4px;
 }
 
 .reading-empty-hint {
@@ -210,6 +234,10 @@ body.reading-active .passage-content {
   cursor: pointer;
   text-align: center;
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
@@ -243,6 +271,23 @@ body.reading-active .passage-content {
   color: var(--color-text-secondary);
 }
 
+/* Beyond-finish: durations longer than needed to finish the book */
+.reading-dur-btn.dur-beyond-finish {
+  opacity: 0.3;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.reading-dur-btn.dur-beyond-finish:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-primary);
+  color: var(--color-text-secondary);
+}
+
+.reading-dur-btn.dur-beyond-finish:hover .dur-energy-tooltip {
+  display: block;
+}
+
 .dur-energy-tooltip {
   display: none;
   position: absolute;
@@ -271,6 +316,60 @@ body.reading-active .passage-content {
   margin-top: 4px;
 }
 
+/* Soft daily-limit note (not a hard block) */
+.reading-daily-limit-note {
+  font-size: 0.73rem;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* "This session will finish the book!" note */
+.reading-finish-note {
+  font-size: 0.73rem;
+  color: #34d399;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Duration button: marks the option that finishes the book */
+.reading-dur-btn.dur-finish {
+  border-color: #34d399;
+  color: #34d399;
+  position: relative;
+}
+
+.reading-dur-btn.dur-finish.active {
+  background: #059669;
+  border-color: #059669;
+  color: #fff;
+}
+
+.reading-dur-btn.dur-finish:hover:not(:disabled) {
+  background: rgba(52, 211, 153, 0.12);
+  border-color: #34d399;
+  color: #34d399;
+}
+
+/* "Finish" badge inside duration button */
+.dur-finish-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: #34d399;
+  color: #fff;
+  border-radius: 3px;
+  padding: 2px 5px;
+  line-height: 1;
+}
+
+.reading-dur-btn.dur-finish.active .dur-finish-badge {
+  background: rgba(255,255,255,0.3);
+}
+
 /* ── Action buttons (Start) ──────────────────────────────────── */
 .reading-actions {
   display: flex;
@@ -281,25 +380,45 @@ body.reading-active .passage-content {
 .reading-start-btn {
   width: 100%;
   padding: 0.7rem;
-  border: none;
+  border: 1px solid var(--color-accent);
   border-radius: var(--radius-sm);
   background: var(--color-accent);
   color: #fff;
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
-  outline: none;
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .reading-start-btn:hover:not(.disabled):not(:disabled) {
-  opacity: 0.9;
+  background: var(--color-accent-hover) !important;
+  border-color: var(--color-accent-hover) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35) !important;
   transform: translateY(-1px);
+  opacity: 1;
+}
+
+.reading-start-btn:active:not(.disabled):not(:disabled) {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.25) !important;
 }
 
 .reading-start-btn:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-accent) !important;
   outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.25) !important;
 }
 
 .reading-start-btn.disabled,
@@ -307,6 +426,10 @@ body.reading-active .passage-content {
   opacity: 0.35;
   cursor: not-allowed;
   transform: none;
+  background: var(--color-bg-tertiary) !important;
+  border-color: var(--color-border-primary) !important;
+  color: var(--color-text-tertiary) !important;
+  box-shadow: none !important;
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */

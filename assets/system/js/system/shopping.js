@@ -12,6 +12,7 @@ let returnPassage = null;
 let shopCurrentCategory = 'all';  // For clothing category filter
 let shopShowPurchasableOnly = false;  // Toggle: show only items player can buy (meets confidence etc.)
 let isClothingShop = false;   // True if any item is clothing
+let isReadingShop = false;    // Bookstore: reading items from both books + magazines arrays → Books / Mags tabs
 let shopCategories = [];      // Available categories in this shop
 
 // ============================================
@@ -30,6 +31,77 @@ function getState() {
     if (typeof SugarCube !== 'undefined' && SugarCube.State) return SugarCube.State;
     if (typeof State !== 'undefined') return State;
     return { variables: {} };
+}
+
+/** Prerequisite line for book tooltips (full stat names, no abbreviations). */
+function buildShopReadingRequiresLabel(meta) {
+    if (!meta || !meta.requires) return '';
+    const parts = [];
+    if (meta.requires.intelligence) parts.push('Intelligence ' + meta.requires.intelligence);
+    if (meta.requires.focus) parts.push('Focus ' + meta.requires.focus);
+    return parts.join(', ');
+}
+
+function meetsShopReadingBookRequirements(meta) {
+    if (!meta || meta.type !== 'book' || !meta.requires) return true;
+    const vars = getState().variables;
+    const req = meta.requires;
+    if (req.intelligence && (vars.intelligence || 0) < req.intelligence) return false;
+    if (req.focus && (vars.focus || 0) < req.focus) return false;
+    return true;
+}
+
+/**
+ * Full product-tooltip inner HTML for books/magazines — same info as Read screen (ReadingDatabase).
+ * @param {{ lockedBook?: boolean }} [opts]
+ */
+function buildShopReadingTooltipHTML(item, meta, opts) {
+    if (!item || !meta) return '';
+    opts = opts || {};
+    const lines = [];
+    if (meta.type === 'book') {
+        if (meta.pages) {
+            lines.push('<div class="tooltip-reading-meta">' + meta.pages + ' pages</div>');
+        }
+        const reqLabel = buildShopReadingRequiresLabel(meta);
+        if (reqLabel) {
+            lines.push('<div class="tooltip-reading-req">Requires ' + reqLabel + '</div>');
+        }
+        if (meta.statPool && meta.statPool.length > 0) {
+            const poolLabel = meta.statPool.map(function(s) {
+                return s.charAt(0).toUpperCase() + s.slice(1);
+            }).join(', ');
+            lines.push('<div class="tooltip-effect tooltip-reading-stat">' + poolLabel + '</div>');
+        }
+        if (meta.skillOnRead && meta.skillOnRead.length > 0) {
+            const skillLabel = meta.skillOnRead.map(function(sr) {
+                return sr.skill.charAt(0).toUpperCase() + sr.skill.slice(1);
+            }).join(', ');
+            lines.push('<div class="tooltip-effect tooltip-reading-skill">' + skillLabel + '</div>');
+        }
+    } else if (meta.type === 'magazine') {
+        lines.push('<div class="tooltip-reading-meta tooltip-reading-single">Single use</div>');
+        if (meta.gainOnComplete && (meta.gainType || (meta.gainTypeOptions && meta.gainTypeOptions.length))) {
+            const statLabel = (meta.gainTypeOptions && meta.gainTypeOptions.length)
+                ? meta.gainTypeOptions.join(' / ')
+                : meta.gainType;
+            lines.push('<div class="tooltip-effect tooltip-reading-stat">+' + meta.gainOnComplete + ' ' + statLabel + '</div>');
+        }
+        if (meta.skillOnComplete && meta.skillOnComplete.skill) {
+            const sc = meta.skillOnComplete;
+            lines.push('<div class="tooltip-effect tooltip-reading-skill">+' + sc.amount + ' ' + sc.skill + ' skill</div>');
+        }
+    }
+    if (lines.length === 0) return '';
+    if (meta.type === 'book' && opts.lockedBook && meta.requires) {
+        lines.push('<div class="tooltip-requirement">Your stats are not high enough to purchase this book yet.</div>');
+    }
+    return [
+        '<div class="tooltip-title">' + item.name + '</div>',
+        item.desc ? '<div class="tooltip-desc">' + item.desc + '</div>' : '',
+        '<div class="tooltip-divider"></div>',
+        lines.join('')
+    ].join('');
 }
 
 // Get item from setup.items OR setup.clothingData by ID
@@ -250,6 +322,17 @@ function addToCart(itemId) {
     if (!item) {
         console.warn('[Shopping] Item not found:', itemId);
         return;
+    }
+
+    if (item.category === 'reading') {
+        const setupObj = getSetup();
+        if (typeof setupObj.getReadingItem === 'function') {
+            const rMeta = setupObj.getReadingItem(itemId);
+            if (rMeta && !meetsShopReadingBookRequirements(rMeta)) {
+                showToast('Your stats are not high enough to purchase this book yet.');
+                return;
+            }
+        }
     }
 
     // Ensure cart exists
@@ -562,27 +645,46 @@ function renderCategoryTabs() {
     const tabsRow = shopContainer?.querySelector('.shop-tabs-row');
     const tabsContainer = shopContainer?.querySelector('.category-tabs');
     if (!tabsRow || !tabsContainer) return;
-    
-    if (!isClothingShop) {
+
+    const toggleBtn = tabsRow.querySelector('.shop-owned-toggle');
+
+    if (!isClothingShop && !isReadingShop) {
         tabsRow.style.display = 'none';
+        if (toggleBtn) toggleBtn.style.display = '';
         return;
     }
-    
+
     tabsRow.style.display = 'flex';
     tabsContainer.style.display = 'flex';
-    
-    // Build tabs HTML - "All" + each category
-    let html = `<button class="category-tab ${shopCurrentCategory === 'all' ? 'active' : ''}" data-category="all">All</button>`;
-    
-    shopCategories.forEach(cat => {
-        const label = categoryLabels[cat] || cat;
-        const active = shopCurrentCategory === cat ? 'active' : '';
-        html += `<button class="category-tab ${active}" data-category="${cat}">${label}</button>`;
-    });
-    
+
+    if (isReadingShop && toggleBtn) {
+        toggleBtn.style.display = 'none';
+    } else if (toggleBtn) {
+        toggleBtn.style.display = '';
+    }
+
+    let html = '';
+    if (isClothingShop) {
+        html = `<button type="button" class="category-tab ${shopCurrentCategory === 'all' ? 'active' : ''}" data-category="all">All</button>`;
+        shopCategories.forEach(cat => {
+            const label = categoryLabels[cat] || cat;
+            const active = shopCurrentCategory === cat ? 'active' : '';
+            html += `<button type="button" class="category-tab ${active}" data-category="${cat}">${label}</button>`;
+        });
+    } else if (isReadingShop) {
+        const readingTabs = [
+            { id: 'all', label: 'All' },
+            { id: 'books', label: 'Books' },
+            { id: 'magazines', label: 'Magazines' }
+        ];
+        readingTabs.forEach(t => {
+            const active = shopCurrentCategory === t.id ? 'active' : '';
+            html += `<button type="button" class="category-tab ${active}" data-category="${t.id}">${t.label}</button>`;
+        });
+    }
+
     tabsContainer.innerHTML = html;
-    
-    // Bind tab click events
+
     tabsContainer.querySelectorAll('.category-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             shopCurrentCategory = tab.dataset.category;
@@ -591,13 +693,11 @@ function renderCategoryTabs() {
             renderProducts();
         });
     });
-    
-    // Update and bind purchasable-only toggle
-    const toggleBtn = tabsRow.querySelector('.shop-owned-toggle');
-    if (toggleBtn) {
+
+    if (isClothingShop && toggleBtn) {
         toggleBtn.classList.toggle('active', shopShowPurchasableOnly);
         toggleBtn.setAttribute('aria-pressed', shopShowPurchasableOnly);
-        toggleBtn.replaceWith(toggleBtn.cloneNode(true)); // Remove old listeners
+        toggleBtn.replaceWith(toggleBtn.cloneNode(true));
         const newToggle = tabsRow.querySelector('.shop-owned-toggle');
         newToggle.addEventListener('click', () => {
             shopShowPurchasableOnly = !shopShowPurchasableOnly;
@@ -631,6 +731,28 @@ function renderProducts() {
         return true;
     });
 
+    /* Bookstore: purchasable books & magazines first, stat-locked books last (stable within each group). */
+    if (isReadingShop && itemsToShow.length > 1) {
+        const setupObj = getSetup();
+        const idxMap = new Map();
+        currentShopItems.forEach((it, i) => idxMap.set(it.id, i));
+
+        function readingBookLockedForSort(item) {
+            if (item.category !== 'reading') return false;
+            if (typeof setupObj.getReadingItem !== 'function') return false;
+            const m = setupObj.getReadingItem(item.id);
+            if (!m || m.type !== 'book' || !m.requires) return false;
+            return !meetsShopReadingBookRequirements(m);
+        }
+
+        itemsToShow.sort((a, b) => {
+            const la = readingBookLockedForSort(a) ? 1 : 0;
+            const lb = readingBookLockedForSort(b) ? 1 : 0;
+            if (la !== lb) return la - lb;
+            return (idxMap.get(a.id) ?? 0) - (idxMap.get(b.id) ?? 0);
+        });
+    }
+
     if (itemsToShow.length === 0) {
         grid.innerHTML = '<div class="empty-message" style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; min-height: 200px; width: 100%; text-align: center; color: var(--color-text-tertiary); font-style: italic;">No items available in this category.</div>';
         return;
@@ -641,19 +763,21 @@ function renderProducts() {
         const hasDesc = item.desc && item.desc.length > 0;
         const isClothing = item._isClothing;
         const wearCheck = isClothing ? canWearClothingItem(item) : { allowed: true, reason: '' };
-        const isLocked = isClothing && !wearCheck.allowed;
-        const showTooltip = hasEffects || hasDesc || isClothing;
+        const setupObj = getSetup();
+        const readMeta = item.category === 'reading' && typeof setupObj.getReadingItem === 'function'
+            ? setupObj.getReadingItem(item.id)
+            : null;
+        const readingBookLocked = !!(readMeta && readMeta.type === 'book' && readMeta.requires && !meetsShopReadingBookRequirements(readMeta));
+        const isLocked = (isClothing && !wearCheck.allowed) || readingBookLocked;
+        const readingTooltipInner = readMeta ? buildShopReadingTooltipHTML(item, readMeta, { lockedBook: readingBookLocked }) : '';
+        const showTooltip = !!readingTooltipInner || hasEffects || hasDesc || isClothing;
         const sexiness = typeof item.sexinessScore === 'number' ? item.sexinessScore : 0;
         const exposure = typeof item.exposureLevel === 'number' ? item.exposureLevel : 0;
-        
-        return `
-        <div class="product-card${isLocked ? ' product-card-locked' : ''}" data-item-id="${item.id}">
-            ${showTooltip ? `
-                <div class="product-info-icon">i</div>
-                <div class="product-tooltip">
+
+        const standardTooltipBody = `
                     <div class="tooltip-title">${item.name}</div>
                     ${hasDesc ? `<div class="tooltip-desc">${item.desc}</div>` : ''}
-                    ${isLocked ? `<div class="tooltip-requirement">${wearCheck.reason}</div>` : ''}
+                    ${isLocked && isClothing ? `<div class="tooltip-requirement">${wearCheck.reason}</div>` : ''}
                     ${isClothing ? `
                         <div class="tooltip-divider"></div>
                         <div class="tooltip-stats">
@@ -675,7 +799,14 @@ function renderProducts() {
                             })() : ''}
                         </div>
                     ` : ''}
-                    ${hasEffects ? item.effects.map(e => `<div class="tooltip-effect">${e.value > 0 ? '+' : ''}${e.value} ${e.stat}</div>`).join('') : ''}
+                    ${hasEffects ? item.effects.map(e => `<div class="tooltip-effect">${e.value > 0 ? '+' : ''}${e.value} ${e.stat}</div>`).join('') : ''}`;
+
+        return `
+        <div class="product-card${isLocked ? ' product-card-locked' : ''}" data-item-id="${item.id}">
+            ${showTooltip ? `
+                <div class="product-info-icon">i</div>
+                <div class="product-tooltip${readingTooltipInner ? ' product-tooltip-reading' : ''}">
+                    ${readingTooltipInner || standardTooltipBody}
                 </div>
             ` : ''}
             <div class="product-image">
@@ -686,7 +817,7 @@ function renderProducts() {
                 <div class="product-price">$${item.price}</div>
             </div>
             ${isLocked ? `
-                <div class="product-locked-tooltip">This clothing is too much for you. ${wearCheck.reason}</div>
+                <div class="product-locked-tooltip">${readingBookLocked ? ('This book is too heavy for you to read.' ) : ('This clothing is too much for you. ' + wearCheck.reason)}</div>
             ` : `
                 <button class="product-add-btn" data-action="add" data-item="${item.id}">
                     <span class="icon icon-plus"></span>
@@ -951,7 +1082,8 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
     
     // Detect if this is a clothing shop and extract categories
     isClothingShop = currentShopItems.some(item => item._isClothing);
-    
+    isReadingShop = false;
+
     if (isClothingShop) {
         // Extract unique categories from items, sorted by display order
         const cats = new Set();
@@ -968,6 +1100,22 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
         console.log('[Shopping] Clothing shop detected. Categories:', shopCategories);
     } else {
         shopCategories = [];
+        const stock = currentShopItems.filter(item => !item._isQuestItem && item.category === 'reading');
+        if (stock.length > 0 && stock.length === currentShopItems.filter(i => !i._isQuestItem).length) {
+            const hasBooks = stock.some(i => i._category === 'books');
+            const hasMags = stock.some(i => i._category === 'magazines');
+            isReadingShop = hasBooks && hasMags;
+        }
+        if (isReadingShop) {
+            console.log('[Shopping] Reading shop (books + magazines tabs)');
+        }
+    }
+
+    if (isReadingShop && !['all', 'books', 'magazines'].includes(shopCurrentCategory)) {
+        shopCurrentCategory = 'all';
+    }
+    if (!isReadingShop && (shopCurrentCategory === 'books' || shopCurrentCategory === 'magazines')) {
+        shopCurrentCategory = 'all';
     }
 
     // Create wrapper
@@ -977,6 +1125,9 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
     $wrapper.appendTo(output);
 
     shopContainer = $wrapper.find('.shop-container')[0];
+    if (shopContainer) {
+        shopContainer.classList.toggle('shop-has-reading-tabs', !!isReadingShop);
+    }
 
     // Add body class for full-width layout (like wardrobe)
     document.body.classList.add('shop-active');

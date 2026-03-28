@@ -5,37 +5,48 @@
    Data: setup.readingItems from ReadingDatabase[init].
    ===================================================================== */
 
-/* Location-based reading: intro + book.media / magazine.media per passage. */
+/* Sub-passages that share the same reading spot as a parent room (intro + videos). */
+setup.resolveReadingLocationId = function (passageId) {
+    var map = {
+        fhCouch: "fhLivingroom",
+        fhBed: "fhBedroom"
+    };
+    return map[passageId] || passageId;
+};
+
+/* Location-based reading: intro + book.media / magazine.media per passage id (must match $readReturnPassage / passage name). */
+var _livingRoomReading = {
+    intro: "You curl up on the couch and open your book.",
+    book: {
+        media: [
+            { type: "vid", path: "assets/content/scenes/global/read/readBookLivingroom1.mp4", size: "100%" },
+            { type: "vid", path: "assets/content/scenes/global/read/readBookLivingroom2.mp4", size: "100%" }
+        ]
+    },
+    magazine: {
+        media: [
+            { type: "vid", path: "assets/content/scenes/global/read/readMagazineLivingroom1.mp4", size: "100%" }
+        ]
+    }
+};
+
 setup.readingLocations = {
     fhBedroom: {
         intro: "You sit on the bed and get comfortable with your book.",
         book: {
             media: [
-                { type: "vid", path: "assets/content/scenes/global/read/readBookBed1.mp4", size: "100%" },
-                /*{ type: "image", path: "assets/content/scenes/global/read/bed_book.webp", size: "100%" }*/
+                { type: "vid", path: "assets/content/scenes/global/read/readBookBed1.mp4", size: "100%" }
             ]
         },
         magazine: {
             media: [
-                { type: "vid", path: "assets/content/scenes/global/read/readMagazineBed1.mp4", size: "100%" },
-                { type: "vid", path: "assets/content/scenes/global/read/readMagazineBed2.mp4", size: "100%" },
+                { type: "vid", path: "assets/content/scenes/global/read/readMagazinebed1.mp4", size: "100%" },
+                { type: "vid", path: "assets/content/scenes/global/read/readMagazinebed2.mp4", size: "100%" }
             ]
         }
     },
-    fhLivingRoom: {
-        intro: "You curl up on the couch and open your book.",
-        book: {
-            media: [
-                { type: "vid", path: "assets/content/scenes/global/read/readBookLivingroom1.mp4", size: "100%" },
-                { type: "vid", path: "assets/content/scenes/global/read/readbookLivingroom2.mp4", size: "100%" },
-            ]
-        },
-        magazine: {
-            media: [
-                { type: "vid", path: "assets/content/scenes/global/read/readMagazineLivingroom1.mp4", size: "100%" },
-            ]
-        }
-    },
+    fhLivingroom: _livingRoomReading,
+    fhLivingRoom: _livingRoomReading,
     default: {
         intro: "You find a quiet spot and start reading.",
         book: { media: [] },
@@ -64,13 +75,15 @@ setup.calcReadingSpeed = function(intelligence, focus, willpower) {
 };
 
 setup.getReadingLocationIntro = function(passageId) {
-    var loc = setup.readingLocations[passageId] || setup.readingLocations.default;
+    var id = setup.resolveReadingLocationId(passageId);
+    var loc = setup.readingLocations[id] || setup.readingLocations.default;
     return (typeof loc === "string") ? loc : loc.intro;
 };
 
 /* Returns one random media item for the location and item type (book/magazine), or null if none. */
 setup.getReadingLocationMediaRandom = function(passageId, itemType) {
-    var loc = setup.readingLocations[passageId] || setup.readingLocations.default;
+    var id = setup.resolveReadingLocationId(passageId);
+    var loc = setup.readingLocations[id] || setup.readingLocations.default;
     if (typeof loc === "string") return null;
     var media = [];
     if (itemType === "book" && loc.book && loc.book.media && loc.book.media.length) media = loc.book.media;

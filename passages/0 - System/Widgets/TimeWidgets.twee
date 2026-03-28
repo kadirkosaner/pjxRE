@@ -258,6 +258,7 @@
     <<set $daily.faceCreamUsed = false>>
     <<set $daily.dentalCareUsed = false>>
     <<set $daily.magazineStatUsedToday = false>>
+    <<set $daily.bookMinutesRead = 0>>
 
     /* Job: record insufficient days before reset (hoursToday from day we're leaving) */
     <<jobRecordInsufficientDay _days>>

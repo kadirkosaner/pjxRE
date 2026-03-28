@@ -1,4 +1,4 @@
-<<nobr>>
+<div class="divnobr">
 <<set _backTo = $readReturnPassage || "Read">>
 <<set $location = $readReturnPassage>>
 
@@ -26,6 +26,7 @@
 
 <<silently>>
     <<if ndef $daily.magazineStatUsedToday>><<set $daily.magazineStatUsedToday = false>><</if>>
+    <<if ndef $daily.bookMinutesRead>><<set $daily.bookMinutesRead = 0>><</if>>
 
     /* Duration from Read UI (manual picker) or fallback to btnPicker memory */
     <<if def $readDurationChoice>>
@@ -55,6 +56,10 @@
         <<set _newPage = _pagesRead>>
     <</if>>
 
+    /* Book daily limit: 2 hours (120 minutes) */
+    <<set _bookDailyLimit = 120>>
+    <<set _bookLimitReached = (_meta.type === "book" && ($daily.bookMinutesRead || 0) >= _bookDailyLimit)>>
+
     <<set _magSkim = false>>
     <<set _magCapSkim = false>>
     <<if _meta.type === "magazine">>
@@ -79,59 +84,62 @@
     <<set _gainTypeAwarded = "">>
 
     <<if _meta.type === "book">>
-        /* Raw gain from pages read this session */
-        <<set _gainPerPage = _meta.statGainPerPage || 0.02>>
-        <<set _rawGain = _pagesRead * _gainPerPage>>
+        <<if !_bookLimitReached>>
+            /* Raw gain from pages read this session */
+            <<set _gainPerPage = _meta.statGainPerPage || 0.02>>
+            <<set _rawGain = _pagesRead * _gainPerPage>>
 
-        /* Pick 1 or 2 stats randomly from statPool */
-        <<set _pool = (_meta.statPool && _meta.statPool.length > 0) ? _meta.statPool : ["intelligence"]>>
-        <<set _numStats = Math.min(random(1, 2), _pool.length)>>
-        <<set _shuffled = _pool.slice().sort(function(){ return Math.random() - 0.5; })>>
-        <<set _selectedStats = _shuffled.slice(0, _numStats)>>
+            /* Pick 1 or 2 stats randomly from statPool */
+            <<set _pool = (_meta.statPool && _meta.statPool.length > 0) ? _meta.statPool : ["intelligence"]>>
+            <<set _numStats = Math.min(random(1, 2), _pool.length)>>
+            <<set _shuffled = _pool.slice().sort(function(){ return Math.random() - 0.5; })>>
+            <<set _selectedStats = _shuffled.slice(0, _numStats)>>
 
-        /* Distribute gain across selected stats */
-        <<set _gainTypeAwarded = _selectedStats.join("+")>>
-        <<set _totalGain = 0>>
-        <<if _numStats === 1>>
-            <<if _rawGain > 0>>
-                <<gainStat _selectedStats[0] _rawGain>>
+            /* Distribute gain across selected stats */
+            <<set _gainTypeAwarded = _selectedStats.join("+")>>
+            <<set _totalGain = 0>>
+            <<if _numStats === 1>>
+                <<if _rawGain > 0>>
+                    <<gainStat _selectedStats[0] _rawGain>>
+                    <<set _totalGain = _rawGain>>
+                <</if>>
+            <<else>>
+                /* Random 40–60 split between the two */
+                <<set _splitRatio = 0.4 + (Math.random() * 0.2)>>
+                <<set _gainA = _rawGain * _splitRatio>>
+                <<set _gainB = _rawGain - _gainA>>
+                <<if _gainA > 0>><<gainStat _selectedStats[0] _gainA>><</if>>
+                <<if _gainB > 0>><<gainStat _selectedStats[1] _gainB>><</if>>
                 <<set _totalGain = _rawGain>>
             <</if>>
-        <<else>>
-            /* Random 40–60 split between the two */
-            <<set _splitRatio = 0.4 + (Math.random() * 0.2)>>
-            <<set _gainA = _rawGain * _splitRatio>>
-            <<set _gainB = _rawGain - _gainA>>
-            <<if _gainA > 0>><<gainStat _selectedStats[0] _gainA>><</if>>
-            <<if _gainB > 0>><<gainStat _selectedStats[1] _gainB>><</if>>
-            <<set _totalGain = _rawGain>>
-        <</if>>
 
-        /* Focus bonus: concentration from reading any book */
-        <<set _focusGain = _pagesRead * 0.03>>
-        <<if _focusGain > 0>>
-            <<gainStat "focus" _focusGain>>
-        <</if>>
+            /* Focus bonus: concentration from reading any book */
+            <<set _focusGain = _pagesRead * 0.03>>
+            <<if _focusGain > 0>>
+                <<gainStat "focus" _focusGain>>
+            <</if>>
 
-        /* Skill gain: per page, no cap; skillOnRead is an array */
-        <<set _bookSkillLines = []>>
-        <<if _meta.skillOnRead && _meta.skillOnRead.length > 0>>
-            <<for _sr range _meta.skillOnRead>>
-                <<set _srGain = _pagesRead * (_sr.gainPerPage || 0.025)>>
-                <<if _srGain > 0>>
-                    <<gainSkill _sr.category _sr.skill _srGain 9999>>
-                    <<run _bookSkillLines.push(_sr.skill.charAt(0).toUpperCase() + _sr.skill.slice(1) + ' skill +' + _srGain.toFixed(2))>>
-                <</if>>
-            <</for>>
-        <</if>>
+            /* Skill gain: per page, no cap; skillOnRead is an array */
+            <<if _meta.skillOnRead && _meta.skillOnRead.length > 0>>
+                <<for _sr range _meta.skillOnRead>>
+                    <<set _srGain = _pagesRead * (_sr.gainPerPage || 0.025)>>
+                    <<if _srGain > 0>>
+                        <<gainSkill _sr.category _sr.skill _srGain 9999>>
+                    <</if>>
+                <</for>>
+            <</if>>
 
-        /* Passive book effects: mood up, stress down, energy cost (floor: 10) */
-        <<set _bookMoodGain  = Math.round(_minutes * 0.12)>>
-        <<set _bookStressLoss = Math.round(_minutes * 0.1)>>
-        <<set _bookEnergyCost = Math.round(_minutes * 0.2)>>
-        <<if _bookMoodGain > 0>><<gainStat "mood" _bookMoodGain>><</if>>
-        <<if _bookStressLoss > 0>><<loseStat "stress" _bookStressLoss>><</if>>
-        <<set $energy = Math.max(10, ($energy || 0) - _bookEnergyCost)>>
+            /* Passive book effects: mood up, stress down, energy cost (floor: 10) */
+            <<set _bookMoodGain  = Math.round(_minutes * 0.12)>>
+            <<set _bookStressLoss = Math.round(_minutes * 0.1)>>
+            <<set _bookEnergyCost = Math.round(_minutes * 0.2)>>
+            <<if _bookMoodGain > 0>><<gainStat "mood" _bookMoodGain>><</if>>
+            <<if _bookStressLoss > 0>><<loseStat "stress" _bookStressLoss>><</if>>
+            <<set $energy = Math.max(10, ($energy || 0) - _bookEnergyCost)>>
+
+            /* Track today's reading minutes */
+            <<set $daily.bookMinutesRead = ($daily.bookMinutesRead || 0) + _minutes>>
+        <</if>>
     <<else>>
         /* Base magazine effects: always apply on read */
         <<gainStat "mood" 5>>
@@ -180,21 +188,22 @@
         <</if>>
     <</if>>
 
-    <<advanceTime $selectedDuration>>
+    <<if !_bookLimitReached>>
+        <<advanceTime $selectedDuration>>
+    <</if>>
 
     <<set State.temporary.newPage = _newPage>>
-    <<if _meta.type === "book">>
+    <<if _meta.type === "book" && !_bookLimitReached>>
         <<if _newPage >= _meta.pages>>
             <<run (function(){ var sv=State.variables,rp=sv.readProgress,id=sv.readSelectedItem; if(rp&&rp[id]!==undefined)delete rp[id]; if(!sv.readFinished)sv.readFinished=[]; sv.readFinished.push(id); })()>>
         <<else>>
             <<run (function(){ var sv=State.variables,rp=sv.readProgress,id=sv.readSelectedItem,np=State.temporary.newPage; if(!rp)sv.readProgress={}; rp[id]=np; })()>>
         <</if>>
-    <<else>>
+    <<elseif _meta.type === "magazine">>
         <<removeFromInventory $readSelectedItem 1>>
         <<run (function(){ var rp=State.variables.readProgress, id=State.variables.readSelectedItem; if(rp&&rp[id]!==undefined)delete rp[id]; })()>>
     <</if>>
 
-    <<set _locationIntro = setup.getReadingLocationIntro($readReturnPassage)>>
     <<if _meta.type === "magazine" && _magSkim>>
         <<set _skimPool = _meta.skimNarratives>>
         <<if !_skimPool || _skimPool.length === 0>>
@@ -203,30 +212,50 @@
         <<set _narrIdx = random(1, _skimPool.length) - 1>>
         <<set _narrText = _skimPool[_narrIdx]>>
     <<elseif _meta.type === "book">>
-        /* Position-based narrative: ratio of pages read BEFORE this session */
-        <<set _readRatio = _meta.pages > 0 ? (_startPage / _meta.pages) : 0>>
-        <<if _readRatio < 0.33>>
-            <<set _narrPool = _meta.earlyNarratives>>
-        <<elseif _readRatio < 0.66>>
-            <<set _narrPool = _meta.midNarratives>>
+        <<if _bookLimitReached>>
+            /* Already hit 2-hour daily limit — pick a "had enough for today" line */
+            <<set _limitPool = [
+                "You reach for the book and flip it open, but something stops you. Two hours of reading is probably enough for one day — your eyes need a rest.",
+                "You pick up the book with the best of intentions, then set it back down. You've already put in a solid stretch today. Tomorrow.",
+                "The page is right where you left it. You almost sit down to keep going, but decide you've absorbed enough for today. The words would start blurring anyway.",
+                "You glance at the book, genuinely tempted. But you've been reading for hours already — your brain isn't really taking it in anymore. You close it before you even start.",
+                "You open to your bookmarked page and stare at it for a moment. Then you slowly close the cover. You've done enough reading for today."
+            ]>>
+            <<set _narrIdx = random(1, _limitPool.length) - 1>>
+            <<set _narrText = _limitPool[_narrIdx]>>
         <<else>>
-            <<set _narrPool = _meta.lateNarratives>>
+            /* Position-based narrative: ratio of pages read BEFORE this session */
+            <<set _readRatio = _meta.pages > 0 ? (_startPage / _meta.pages) : 0>>
+            <<if _readRatio < 0.33>>
+                <<set _narrPool = _meta.earlyNarratives>>
+            <<elseif _readRatio < 0.66>>
+                <<set _narrPool = _meta.midNarratives>>
+            <<else>>
+                <<set _narrPool = _meta.lateNarratives>>
+            <</if>>
+            <<if !_narrPool || _narrPool.length === 0>>
+                <<set _narrPool = ["You read quietly, turning pages steadily."]>>
+            <</if>>
+            <<set _narrIdx = random(1, _narrPool.length) - 1>>
+            <<set _narrText = _narrPool[_narrIdx]>>
         <</if>>
-        <<if !_narrPool || _narrPool.length === 0>>
-            <<set _narrPool = ["You read quietly, turning pages steadily."]>>
-        <</if>>
-        <<set _narrIdx = random(1, _narrPool.length) - 1>>
-        <<set _narrText = _narrPool[_narrIdx]>>
     <<else>>
         <<set _narratives = _meta.narratives || ["You read quietly for a while."]>>
         <<set _narrIdx = random(1, _narratives.length) - 1>>
         <<set _narrText = _narratives[_narrIdx]>>
     <</if>>
-    <<set _media = setup.getReadingLocationMediaRandom($readReturnPassage, _meta.type)>>
-    <<if _media>>
-        <<set _mediaType = _media.type>>
-        <<set _mediaPath = _media.path>>
-        <<set _mediaSize = _media.size || "100%">>
+    <<if !_bookLimitReached>>
+        <<set _locationIntro = setup.getReadingLocationIntro($readReturnPassage)>>
+        <<set _media = setup.getReadingLocationMediaRandom($readReturnPassage, _meta.type)>>
+        <<if _media>>
+            <<set _mediaType = _media.type>>
+            <<set _mediaPath = _media.path>>
+            <<set _mediaSize = _media.size || "100%">>
+        <<else>>
+            <<set _mediaType = "">>
+            <<set _mediaPath = "">>
+            <<set _mediaSize = "100%">>
+        <</if>>
     <<else>>
         <<set _mediaType = "">>
         <<set _mediaPath = "">>
@@ -234,47 +263,48 @@
     <</if>>
 <</silently>>
 
+<<flushNotifications>>
+
+<<if _bookLimitReached>>
 <<narrative "Reading">>
-<<print _locationIntro>> <<print _narrText>>
+<<print _narrText>>
+<</narrative>>
+<<else>>
+<<narrative "Reading">>
+<<print _locationIntro>>
 <</narrative>>
 
-<<if _mediaType === "vid">>
-<<vid _mediaPath _mediaSize>>
-<<elseif _mediaType === "image">>
-<<image _mediaPath _mediaSize>>
-<</if>>
+<<if _mediaType === "vid">><<vid _mediaPath _mediaSize>><</if>>
+<<if _mediaType === "image">><<image _mediaPath _mediaSize>><</if>>
 
 <<if _meta.type === "magazine" && _magSkim>>
+<<narrative _meta.name>>
+<<print _narrText>>
+<</narrative>>
+
 <<narrative>>
 You read for <<print $selectedDuration>> minutes — mostly skimming, not really paying attention. When you're done, you toss the issue aside.
 <</narrative>>
 <<elseif _meta.type === "magazine">>
+<<narrative _meta.name>>
+<<print _narrText>>
+<</narrative>>
+
 <<narrative>>
 You read for <<print $selectedDuration>> minutes and get through the issue. Done — you toss it in the recycling.
-<<if _totalGain > 0 && _gainTypeAwarded>>
-<br>
-<<print _gainTypeAwarded.charAt(0).toUpperCase() + _gainTypeAwarded.slice(1)>> +<<print Number(_totalGain).toFixed(1)>>.
-<</if>>
 <</narrative>>
 <<else>>
+<<narrative _meta.name>>
+<<print _narrText>>
+<</narrative>>
+
 <<narrative>>
 You read for <<print $selectedDuration>> minutes and get through <<print _pagesRead>> pages.
-<<if _totalGain > 0>>
-<br>
-<<print _selectedStats.map(function(s){ return s.charAt(0).toUpperCase() + s.slice(1); }).join(", ")>> +<<print Number(_totalGain).toFixed(1)>>.
-<</if>>
-<<if _focusGain > 0>>
-<br>
-Focus +<<print Number(_focusGain).toFixed(1)>>.
-<</if>>
-<<if _bookSkillLines && _bookSkillLines.length > 0>>
-<br>
-<<print _bookSkillLines.join('. ')>>.
-<</if>>
 <</narrative>>
+<</if>>
 <</if>>
 
 <div class="location-actions">
     <<btn "Back" _backTo>><</btn>>
 </div>
-<</nobr>>
+</div>

@@ -41,7 +41,6 @@
         <<set _change = Number(_totalChange)>>
         <<if _change !== 0 && !isNaN(_change)>>
             <<set _displayName = _stat.charAt(0).toUpperCase() + _stat.slice(1)>>
-            <<set _sign = (_change > 0) ? "+" : "">>
             
             /* Determine notification type based on stat and direction */
             /* Positive changes for "good" stats = success, negative = warning */
@@ -51,23 +50,23 @@
             <<if _stat === "health">>
                 /* Health is special - always show as error when dropping */
                 <<if _change < 0>>
-                    <<run window.notifyError(_displayName + " " + _sign + _change)>>
+                    <<run window.notifyError(_displayName + " " + window.formatNotifyDelta(_change))>>
                 <<else>>
-                    <<run window.notifySuccess(_displayName + " " + _sign + _change)>>
+                    <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_change))>>
                 <</if>>
             <<elseif _badStats.includes(_stat)>>
                 /* Bad stats - increasing is bad, decreasing is good */
                 <<if _change > 0>>
-                    <<run window.notifyWarning(_displayName + " " + _sign + _change)>>
+                    <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_change))>>
                 <<else>>
-                    <<run window.notifySuccess(_displayName + " " + _change)>>
+                    <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_change))>>
                 <</if>>
             <<else>>
                 /* Good stats - increasing is good, decreasing is bad */
                 <<if _change > 0>>
-                    <<run window.notifySuccess(_displayName + " " + _sign + _change)>>
+                    <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_change))>>
                 <<else>>
-                    <<run window.notifyWarning(_displayName + " " + _change)>>
+                    <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_change))>>
                 <</if>>
             <</if>>
         <</if>>
@@ -93,21 +92,21 @@
     
     <<if _statName === "health">>
         <<if _amount < 0>>
-            <<run window.notifyError(_displayName + " " + _sign + _amount)>>
+            <<run window.notifyError(_displayName + " " + window.formatNotifyDelta(_amount))>>
         <<else>>
-            <<run window.notifySuccess(_displayName + " " + _sign + _amount)>>
+            <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_amount))>>
         <</if>>
     <<elseif _badStats.includes(_statName)>>
         <<if _amount > 0>>
-            <<run window.notifyWarning(_displayName + " " + _sign + _amount)>>
+            <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_amount))>>
         <<else>>
-            <<run window.notifySuccess(_displayName + " " + _amount)>>
+            <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_amount))>>
         <</if>>
     <<else>>
         <<if _amount > 0>>
-            <<run window.notifySuccess(_displayName + " " + _sign + _amount)>>
+            <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_amount))>>
         <<else>>
-            <<run window.notifyWarning(_displayName + " " + _amount)>>
+            <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_amount))>>
         <</if>>
     <</if>>
 <</widget>>
@@ -118,11 +117,10 @@
     <<set _skillName = $args[0]>>
     <<set _amount = $args[1]>>
     <<set _displayName = _skillName.charAt(0).toUpperCase() + _skillName.slice(1)>>
-    <<set _sign = (_amount > 0) ? "+" : "">>
     
     <<if _amount > 0>>
-        <<run window.notifySuccess(_displayName + " " + _sign + _amount)>>
+        <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_amount))>>
     <<else>>
-        <<run window.notifyWarning(_displayName + " " + _amount)>>
+        <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_amount))>>
     <</if>>
 <</widget>>

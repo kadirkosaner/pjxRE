@@ -66,6 +66,18 @@ window.NotificationInit = function (API) {
   NotificationAPI = API;
 };
 
+/** Format stat/skill deltas for toast text: integers plain, decimals max 2 places */
+window.formatNotifyDelta = function (n) {
+  const x = Number(n);
+  if (!isFinite(x)) return String(n);
+  const sign = x > 0 ? '+' : (x < 0 ? '-' : '');
+  const a = Math.abs(x);
+  let body;
+  if (Math.abs(a - Math.round(a)) < 1e-9) body = String(Math.round(a));
+  else body = (Math.round(a * 100) / 100).toFixed(2);
+  return sign + body;
+};
+
 // Public API
 window.showNotification = function (options) {
   const defaults = {
