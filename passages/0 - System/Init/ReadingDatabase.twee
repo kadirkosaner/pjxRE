@@ -2,12 +2,606 @@
 <<script>>
 /* =====================================================================
    READING DATABASE
-   Books: gainValue spread across pages (readExecute).
-   Magazines: single use; first issue of the day: gainOnComplete and/or skillOnComplete.
+
+   BOOK SCHEMA:
+   {
+     id:               "book_example",        // unique key, must match ItemDatabase id
+     name:             "Example Title",
+     pages:            180,                   // 120–350
+     statPool:         ["intelligence","focus","willpower"],
+                       // stats this book can award; readExecute picks 1–2 per session
+     statGainPerPage:  0.02,                  // raw gain = pagesRead × statGainPerPage
+                       // split randomly between 1–2 stats from statPool; no cap
+     requires: {                              // optional; omit for beginner books (no lock)
+       intelligence: 15,                      // minimum INT to read
+       focus:        10                       // minimum FOC to read
+     },
+     skillOnRead: [                           // optional array; omit for everyday/stat-only books
+       { category: "social",  skill: "persuasion", gainPerPage: 0.025 },   // primary
+       { category: "social",  skill: "networking", gainPerPage: 0.012 }    // secondary (large books only)
+     ],
+     earlyNarratives:  [   // pages 0–33% — opening, setting, introduction (3–4 entries)
+       "...",
+     ],
+     midNarratives:    [   // pages 33–66% — rising action, deeper themes (3–4 entries)
+       "...",
+     ],
+     lateNarratives:   [   // pages 66–100% — resolution, reflection, closing (3–4 entries)
+       "...",
+     ]
+   }
+
+   MAGAZINE SCHEMA:
+   single use; first issue of the day: gainOnComplete and/or skillOnComplete.
    ===================================================================== */
 
 setup.readingItems = {
-    books: [],
+    books: [
+
+        // ═══════════════════════════════════════════════════
+        // PERSUASION SERIES
+        // ═══════════════════════════════════════════════════
+        {
+            id: "book_quiet_pitch",
+            name: "The Quiet Pitch",
+            pages: 185,
+            statPool: ["charisma", "intelligence"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "social", skill: "persuasion", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The opening chapters reframe persuasion as listening, not talking. You make a note to stop arguing and start asking.",
+                "A simple framework about framing your ask around the other person's interests actually clicks for you.",
+                "The first exercise asks you to recall a failed conversation and spot where you lost the thread. You find it easily."
+            ],
+            midNarratives: [
+                "Case studies show how small word choices shift outcomes. You start noticing the same patterns in your own conversations.",
+                "The book introduces the 'quiet pitch' — making people feel like the choice was theirs. It feels almost too simple.",
+                "A chapter on timing makes you rethink when you bring things up, not just how."
+            ],
+            lateNarratives: [
+                "The final chapters bring it together: confidence isn't loudness, it's clarity. You feel more prepared.",
+                "You finish a worked example and realize you've already started using these techniques without noticing.",
+                "The last section is about knowing when not to push. That part sticks with you most."
+            ]
+        },
+        {
+            id: "book_never_back_down",
+            name: "Never Back Down",
+            pages: 275,
+            requires: { intelligence: 15, focus: 10 },
+            statPool: ["charisma", "intelligence", "willpower"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "social", skill: "persuasion", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The opening dives straight into high-stakes negotiation — salaries, contracts, difficult conversations. The examples feel real.",
+                "A chapter on anchoring makes you realize how often you've undersold yourself by speaking first.",
+                "The book distinguishes negotiation from conflict. That distinction alone reframes how you think about disagreement."
+            ],
+            midNarratives: [
+                "The pressure scenarios are uncomfortable to read because you recognize your own patterns in them.",
+                "A section on reading body language during negotiation gives you specific cues to watch for.",
+                "You work through a sample negotiation exercise. You're better at this than you expected."
+            ],
+            lateNarratives: [
+                "The chapter on walking away — knowing your exit point — might be the most powerful thing in the book.",
+                "Advanced positioning techniques feel almost tactical. You start mapping them onto situations you've already been in.",
+                "The final case study follows a negotiation from start to finish. You follow every move and understand why each worked."
+            ]
+        },
+        {
+            id: "book_power_of_words",
+            name: "The Power of Words",
+            pages: 400,
+            requires: { intelligence: 25, focus: 20 },
+            statPool: ["charisma", "intelligence", "willpower"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "social", skill: "persuasion", gainPerPage: 0.025 },
+                { category: "social", skill: "conversation", gainPerPage: 0.012 }
+            ],
+            earlyNarratives: [
+                "The introduction reframes language as architecture — building spaces people want to enter. Dense, but worth it.",
+                "Linguistic pattern analysis in the first section is slower going than expected, but the examples from speeches are fascinating.",
+                "A breakdown of how charismatic speakers structure their sentences makes you read your own messages differently."
+            ],
+            midNarratives: [
+                "Corporate and political case studies show how the same techniques play out at scale. The parallels to everyday life are useful.",
+                "A chapter on subtext — what's not said — is the most interesting thing you've read in weeks.",
+                "The book introduces persuasion and conversation as one continuous skill. You start to see how they bleed together."
+            ],
+            lateNarratives: [
+                "Synthesizing everything feels overwhelming at first, then suddenly clear. You stop thinking of persuasion as a trick.",
+                "The final chapters walk through authentic influence — leading without manipulating. It requires a lot of self-awareness.",
+                "You close the last page having filled the margins with more notes than any book in a while."
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════
+        // CONVERSATION SERIES
+        // ═══════════════════════════════════════════════════
+        {
+            id: "book_just_talk",
+            name: "Just Talk",
+            pages: 175,
+            statPool: ["charisma", "focus"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "social", skill: "conversation", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The first chapters cover the basics — how to open, how to keep going, how to exit. Obvious in theory, harder in practice.",
+                "A list of genuine questions for small talk feels almost too practical. You memorize three of them.",
+                "The book's core idea: most people are waiting to talk, not listening to respond. You catch yourself doing it immediately."
+            ],
+            midNarratives: [
+                "A section on follow-up questions — using what someone just said to ask the next — changes how you listen.",
+                "The chapter on silences reframes awkward pauses as moments of trust, not failure. That shifts something for you.",
+                "Case dialogues show the difference between surface talk and actual connection. The gap is smaller than you thought."
+            ],
+            lateNarratives: [
+                "Wrapping up conversations well turns out to be its own skill. You hadn't thought about exits before.",
+                "The last section covers lasting impressions — how people remember how you made them feel, not what you said.",
+                "You finish the book and have three conversations the same day. All of them feel a little smoother."
+            ]
+        },
+        {
+            id: "book_social_blueprint",
+            name: "The Social Blueprint",
+            pages: 260,
+            requires: { intelligence: 15, focus: 10 },
+            statPool: ["charisma", "intelligence", "focus"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "social", skill: "conversation", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The book opens on group dynamics — how conversations shift when there are three people instead of two. Immediately more complex.",
+                "A breakdown of social hierarchies in casual settings is uncomfortably accurate.",
+                "The first chapters cover reading energy in a room — knowing when to speak and when to wait."
+            ],
+            midNarratives: [
+                "Adapting your style to different people — not performing, just adjusting — clicks into place here.",
+                "Examples of social navigation in professional settings feel directly applicable. You take notes.",
+                "A chapter on what undermines trust — filler words, hedging, over-explaining — makes you cringe at your own habits."
+            ],
+            lateNarratives: [
+                "Long-term relationship building turns out to be a different skill from initial conversation. The book explains both.",
+                "A section on consistency — being the same person in different rooms — is harder than it sounds.",
+                "You finish with a clearer picture of how you show up socially. Some of it's good. Some isn't."
+            ]
+        },
+        {
+            id: "book_mastering_connection",
+            name: "Mastering Connection",
+            pages: 380,
+            requires: { intelligence: 25, focus: 20 },
+            statPool: ["charisma", "intelligence", "focus"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "social", skill: "conversation", gainPerPage: 0.025 },
+                { category: "social", skill: "networking", gainPerPage: 0.012 }
+            ],
+            earlyNarratives: [
+                "The opening reframes connection as a practice, not a talent. That's both relieving and demanding.",
+                "Deep listening — not waiting for your turn — is harder to describe than to do. The book shows how.",
+                "A chapter on vulnerability in conversation. Not oversharing, but being genuinely present. A fine line."
+            ],
+            midNarratives: [
+                "Cross-cultural communication takes up an entire section — how context, silence, and eye contact mean different things.",
+                "The book introduces conversational investment — what you bring to an exchange, not just what you take.",
+                "A case study follows two conversations — one transactional, one genuine — and dissects exactly where they diverged."
+            ],
+            lateNarratives: [
+                "Authentic self-expression comes up in the final chapters. Not performance — actual presence. That's harder work.",
+                "Charisma, the book argues, is what happens when you stop trying to be interesting and start being interested.",
+                "You close the last chapter feeling like the book asked more of you than expected. That's probably the point."
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════
+        // RESEARCH SERIES
+        // ═══════════════════════════════════════════════════
+        {
+            id: "book_how_to_find_anything",
+            name: "How to Find Anything",
+            pages: 180,
+            statPool: ["intelligence", "focus"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "mental", skill: "research", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The first chapters cover source evaluation — how to tell reliable from unreliable. Simpler criteria than expected.",
+                "A breakdown of search strategies beyond keyword matching changes how you approach finding information.",
+                "The book opens with a challenge: trace a common belief back to its actual source. It takes longer than you thought."
+            ],
+            midNarratives: [
+                "Organizing information — not just collecting it — turns out to be where most people fall apart. You recognize that in yourself.",
+                "A section on tracking your research trail so you can rebuild your thinking later. You start doing it immediately.",
+                "The chapter on primary vs. secondary sources makes you rethink half the things you already think you know."
+            ],
+            lateNarratives: [
+                "Presenting findings clearly — knowing what to include and what to cut — is its own discipline. The book covers it well.",
+                "A worked example traces a full research process from question to conclusion. Watching it unfold is satisfying.",
+                "You finish with a clearer method for approaching any topic you don't understand yet."
+            ]
+        },
+        {
+            id: "book_source_and_truth",
+            name: "Source & Truth",
+            pages: 290,
+            requires: { intelligence: 15, focus: 12 },
+            statPool: ["intelligence", "focus"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "mental", skill: "research", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The media literacy section opens with examples that should be obvious but aren't. Bias hides in structure, not just content.",
+                "A chapter on how misinformation spreads — not through lies but through selective truth — is uncomfortable to read.",
+                "The book introduces triangulating sources. Cross-referencing becomes second nature by chapter four."
+            ],
+            midNarratives: [
+                "An entire section on confirmation bias in research. You read it twice because the first time you were agreeing too easily.",
+                "A framework for evaluating expert consensus vs. fringe opinion. More nuanced than 'trust the majority.'",
+                "A chapter on building a research system — personal notes, source tracking — makes you rethink how you organize things."
+            ],
+            lateNarratives: [
+                "The final section builds a personal research philosophy. Less method, more mindset.",
+                "A case study tracks a false story from origin to widespread acceptance. Reading it is clarifying and alarming.",
+                "You finish with a sharper instinct for what to trust and why. More importantly, what to question."
+            ]
+        },
+        {
+            id: "book_information_age",
+            name: "The Information Age",
+            pages: 420,
+            requires: { intelligence: 25, focus: 20 },
+            statPool: ["intelligence", "focus", "willpower"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "mental", skill: "research", gainPerPage: 0.025 },
+                { category: "mental", skill: "analysis", gainPerPage: 0.012 }
+            ],
+            earlyNarratives: [
+                "Information architecture — how knowledge is structured — is the opening thesis. It reframes what research actually is.",
+                "A section on data patterns and what they reveal versus what they obscure. Heavy going, but worth it.",
+                "The book traces how information systems have evolved over time. History as methodology."
+            ],
+            midNarratives: [
+                "Advanced analytical frameworks show up mid-book. Comparing models, stress-testing assumptions, identifying gaps.",
+                "A chapter on synthesizing contradictory data — not choosing a side, but holding both — is genuinely difficult.",
+                "The reading slows down here. The material is dense. You take breaks and come back."
+            ],
+            lateNarratives: [
+                "Synthesizing complex topics — not summarizing, actually integrating — takes a different kind of attention.",
+                "The final chapters feel academic. That's a compliment. Your notes are three pages long by the end.",
+                "You close the book less certain than when you started, but with a much better understanding of why."
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════
+        // PROBLEM SOLVING SERIES
+        // ═══════════════════════════════════════════════════
+        {
+            id: "book_think_it_through",
+            name: "Think It Through",
+            pages: 195,
+            statPool: ["intelligence", "focus"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "mental", skill: "problemSolving", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The first exercise asks you to write down a problem you're avoiding. Then define it in one sentence. Harder than expected.",
+                "Root cause analysis — asking 'why' five times — feels simple until you try it on something real.",
+                "A framework for separating symptoms from causes changes how you look at frustrating situations."
+            ],
+            midNarratives: [
+                "Brainstorming frameworks — not just listing ideas, but structured generation — make the process feel less random.",
+                "A section on constraint identification: knowing what's actually fixed versus what just feels fixed.",
+                "You work through a sample problem with the book's method. It takes longer than improvising, but the result is cleaner."
+            ],
+            lateNarratives: [
+                "Decision matrices for evaluating options. More useful than pros-and-cons lists. You've already started using one.",
+                "Testing solutions before committing — minimal versions, quick feedback — is obvious in hindsight.",
+                "The final chapter reframes failure as data. Not new, but the way it's explained here actually lands."
+            ]
+        },
+        {
+            id: "book_lateral_mind",
+            name: "The Lateral Mind",
+            pages: 265,
+            requires: { intelligence: 15, focus: 12 },
+            statPool: ["intelligence", "focus", "willpower"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "mental", skill: "problemSolving", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "Lateral thinking — approaching problems from an unexpected angle — is harder to practice than to understand.",
+                "The opening chapters challenge assumptions you didn't know you were making. Each one stings a little.",
+                "A section on reframing problems: describing them differently until a new solution becomes visible."
+            ],
+            midNarratives: [
+                "A series of lateral thinking exercises. Some feel like tricks. Some feel like genuine insight.",
+                "A chapter on challenging constraints — questioning every 'must' and 'can't' in a problem statement.",
+                "The examples of lateral solutions to classic problems make you want to try the method on something difficult."
+            ],
+            lateNarratives: [
+                "Innovative solution patterns — categories of non-obvious answers — give you a vocabulary for new ideas.",
+                "The book argues that creativity in problem-solving is a practice, not a talent. Reassuring and demanding.",
+                "You finish with a few techniques you plan to actually use. That's more than most books."
+            ]
+        },
+        {
+            id: "book_mind_unlocked",
+            name: "Mind Unlocked",
+            pages: 390,
+            requires: { intelligence: 25, focus: 20 },
+            statPool: ["intelligence", "focus", "willpower"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "mental", skill: "problemSolving", gainPerPage: 0.025 },
+                { category: "mental", skill: "research", gainPerPage: 0.012 }
+            ],
+            earlyNarratives: [
+                "Systems thinking — seeing problems as networks of causes, not isolated events — is the opening framework. Dense from page one.",
+                "Complex problem mapping requires drawing diagrams. You actually do it. The mess on paper is clarifying.",
+                "A section on feedback loops and unintended consequences. Problems don't exist in isolation."
+            ],
+            midNarratives: [
+                "Multi-variable analysis: holding more than one cause in mind without collapsing to the simplest explanation.",
+                "A chapter on uncertainty — making good decisions without enough information. The book is honest that there's no formula.",
+                "The reading is slow here. You reread sections. That's probably the point."
+            ],
+            lateNarratives: [
+                "Integrating intuition with logic — when to trust your instinct and when to override it — is the most honest part.",
+                "The final case studies involve messy, real-world problems. No clean answers. Just better thinking.",
+                "You close the book with a different relationship to hard problems. Less dread, more process."
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════
+        // GAMING SERIES
+        // ═══════════════════════════════════════════════════
+        {
+            id: "book_level_up",
+            name: "Level Up",
+            pages: 190,
+            statPool: ["focus", "intelligence"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "technical", skill: "gaming", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The book opens with game theory basics — zero-sum vs. positive-sum, dominant strategies. Surprisingly applicable outside games.",
+                "A breakdown of what separates skilled from lucky play. More systematic than you expected.",
+                "The meta-game concept — playing to the current environment, not some ideal — makes you rethink your approach."
+            ],
+            midNarratives: [
+                "A section on decision-making under time pressure. The book calls it 'fast good' versus 'slow perfect.'",
+                "Resource management principles apply across genres. You start thinking about them outside games too.",
+                "Positioning — controlling space and options — is a whole chapter. Abstract enough to be useful anywhere."
+            ],
+            lateNarratives: [
+                "The final chapters cover adaptability — reading shifts in the game state and adjusting rather than committing.",
+                "A section on tilt — emotional interference with performance. The book is specific about how to manage it.",
+                "You finish the book having made a few connections to situations outside gaming. That feels right."
+            ]
+        },
+        {
+            id: "book_pro_gamer_mindset",
+            name: "Pro Gamer Mindset",
+            pages: 280,
+            requires: { intelligence: 15, focus: 15 },
+            statPool: ["focus", "intelligence", "willpower"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "technical", skill: "gaming", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "Competitive psychology opens the book. The difference between players who peak early and those who improve steadily.",
+                "Tilt control — maintaining performance when things go wrong — is framed as a skill, not a personality trait. That helps.",
+                "A section on reading opponents: pattern recognition across matches, not just reactions in the moment."
+            ],
+            midNarratives: [
+                "Adaptation mid-match — updating your strategy when your plan fails — requires a kind of real-time humility.",
+                "A chapter on the difference between mechanics and game sense. High execution skill doesn't automatically transfer to decision-making.",
+                "Pattern recognition across multiple sessions. The book teaches a way of reviewing your own play without ego."
+            ],
+            lateNarratives: [
+                "Team dynamics — communication, roles, trust under pressure — take up the final third of the book.",
+                "Shotcalling: making decisions for a group when information is incomplete. High-stakes version of everyday leadership.",
+                "You finish thinking about competitive play differently. The mental game is deeper than you assumed."
+            ]
+        },
+        {
+            id: "book_competitive_edge",
+            name: "The Competitive Edge",
+            pages: 350,
+            requires: { intelligence: 25, focus: 25 },
+            statPool: ["focus", "intelligence", "willpower"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "technical", skill: "gaming", gainPerPage: 0.025 },
+                { category: "mental", skill: "problemSolving", gainPerPage: 0.012 }
+            ],
+            earlyNarratives: [
+                "High-level strategy — reading your opponent's read on you — is the opening thesis. It goes several layers deep quickly.",
+                "A section on game states and how to identify turning points in real time. Theoretical but very precise.",
+                "The book assumes you've already built the basics. It doesn't re-explain them. You appreciate the respect."
+            ],
+            midNarratives: [
+                "Mental fortitude in extended competitive play — maintaining quality when fatigue and frustration compound.",
+                "A chapter on opponent modeling: building a mental picture of how someone thinks, then finding the gaps.",
+                "The reading is dense mid-book. You take it slower. The examples reward the attention."
+            ],
+            lateNarratives: [
+                "Mastery mindset — the relationship between practice, plateau, and breakthrough — is the most interesting section.",
+                "Continuous improvement as a system: review, adjust, test. Structured but not mechanical.",
+                "You close the book feeling like the gap between where you are and high-level play is clearer. That's useful."
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════
+        // COOKING SERIES
+        // ═══════════════════════════════════════════════════
+        {
+            id: "book_from_scratch",
+            name: "From Scratch",
+            pages: 200,
+            statPool: ["creativity", "focus"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "practical", skill: "cooking", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The opening chapters cover kitchen setup and mise en place — having everything ready before you start. Simple, but transformative.",
+                "Knife skills get more attention than expected. Precision in prep makes cooking less stressful, apparently.",
+                "A section on heat management. High heat isn't always better. Understanding the difference changes everything."
+            ],
+            midNarratives: [
+                "Basic techniques: sauté, roast, boil, simmer. The book explains why each works, not just how.",
+                "A chapter on seasoning at different stages of cooking. Salt at the end is a myth this book dispels.",
+                "You follow along mentally with a recipe and realize you're starting to understand the logic behind each step."
+            ],
+            lateNarratives: [
+                "Building flavors — layering acid, fat, salt, heat — comes together in the final chapters. It's actually coherent now.",
+                "Simple plating principles. You don't need to make it beautiful, just considered.",
+                "You close the book with a list of things you actually want to try cooking. That feels like success."
+            ]
+        },
+        {
+            id: "book_kitchen_manual",
+            name: "The Kitchen Manual",
+            pages: 285,
+            requires: { intelligence: 12, focus: 10 },
+            statPool: ["creativity", "focus", "intelligence"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "practical", skill: "cooking", gainPerPage: 0.025 }
+            ],
+            earlyNarratives: [
+                "The book opens on ingredients — understanding their properties deeply, not just how they taste.",
+                "A section on the Maillard reaction and caramelization. Why things brown. Why it matters. Suddenly cooking has chemistry.",
+                "Flavor profiles and how to balance them: sweet, sour, salty, bitter, umami. Each has a role."
+            ],
+            midNarratives: [
+                "Complex techniques: braising, emulsification, reduction. The book walks through each with enough detail to actually follow.",
+                "A chapter on pan sauces — building a sauce from the fond left in the pan. You didn't know this was something you could do.",
+                "Resting meat, blooming spices, deglazing — small habits that accumulate into better cooking."
+            ],
+            lateNarratives: [
+                "Menu planning — how to design a meal so everything finishes at the same time. Harder to learn from a book than from practice, but the logic starts to click.",
+                "Timing multiple dishes without panic. The book calls it 'sequencing.' You call it useful.",
+                "You finish with enough theory to start improvising. That feels like the actual goal."
+            ]
+        },
+        {
+            id: "book_mastery_kitchen",
+            name: "Mastery in the Kitchen",
+            pages: 410,
+            requires: { intelligence: 20, focus: 18 },
+            statPool: ["creativity", "focus", "intelligence"],
+            statGainPerPage: 0.02,
+            skillOnRead: [
+                { category: "practical", skill: "cooking", gainPerPage: 0.025 },
+                { category: "practical", skill: "finance", gainPerPage: 0.010 }
+            ],
+            earlyNarratives: [
+                "Flavor science takes up the first section — why certain combinations work at a chemical level. The most technical cooking book you've read.",
+                "A chapter on texture contrast, temperature variation, and how the senses interact while eating.",
+                "The opening sets an ambitious standard: cooking as craft, not just sustenance."
+            ],
+            midNarratives: [
+                "Restaurant-quality execution at home requires different habits more than different equipment.",
+                "A section on food costing and waste reduction. Cooking well and cooking economically aren't opposites.",
+                "The book covers building a signature style — returning to certain flavors and techniques that feel like yours."
+            ],
+            lateNarratives: [
+                "Creating original recipes — starting from an idea rather than a template — requires all the theory the book has built to this point.",
+                "A chapter on teaching others: explaining techniques, common mistakes, how to troubleshoot.",
+                "You finish the book with a sense that cooking has become something else. Not a task — a practice."
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════
+        // EVERYDAY BOOKS (stat-only)
+        // ═══════════════════════════════════════════════════
+        {
+            id: "book_stillwater",
+            name: "Stillwater",
+            pages: 180,
+            statPool: ["willpower", "focus", "intelligence"],
+            statGainPerPage: 0.02,
+            earlyNarratives: [
+                "The opening chapters introduce stoic principles through small, practical examples. It reads like a conversation, not a lecture.",
+                "A section on the dichotomy of control — distinguishing what you influence from what you don't. You underline most of it.",
+                "Present-moment thinking isn't meditation, the book argues. It's just paying attention. Simple to say."
+            ],
+            midNarratives: [
+                "Applying philosophy to daily stressors: traffic, small failures, people who frustrate you. The exercises are quiet but effective.",
+                "A chapter on equanimity — not suppressing emotions but not being controlled by them. The line is narrow.",
+                "The middle section addresses ambition: how to want things without being ruled by wanting them."
+            ],
+            lateNarratives: [
+                "Living with intention is the final theme. Not rigid planning — just knowing why you're doing what you're doing.",
+                "A section on peace of mind as something practiced, not achieved. That reframing is genuinely helpful.",
+                "You close the book slowly. It seems to reward that."
+            ]
+        },
+        {
+            id: "book_letters_never_sent",
+            name: "Letters Never Sent",
+            pages: 195,
+            statPool: ["creativity", "willpower"],
+            statGainPerPage: 0.02,
+            earlyNarratives: [
+                "The protagonist's first letters are careful, restrained — you sense what's being held back more than what's written.",
+                "The writing style is quiet and precise. It takes a few chapters to settle into.",
+                "Early relationships are sketched in light strokes. You're curious where they're going."
+            ],
+            midNarratives: [
+                "The conflicts deepen mid-book. What started as a quiet correspondence becomes something more complicated.",
+                "A relationship you thought you understood shifts. You go back and reread an earlier letter.",
+                "The protagonist starts withholding more. The unsent letters become the most revealing part."
+            ],
+            lateNarratives: [
+                "Resolution comes slowly. Not everything is resolved. That feels honest.",
+                "The final letters are shorter. More certain. Something has settled, even if it's not happiness.",
+                "You finish and sit with it for a moment. A good book asks something of you. This one did."
+            ]
+        },
+        {
+            id: "book_curious_mind",
+            name: "The Curious Mind",
+            pages: 250,
+            requires: { intelligence: 15 },
+            statPool: ["intelligence", "focus"],
+            statGainPerPage: 0.02,
+            earlyNarratives: [
+                "The opening covers everyday physics — why things fall, float, or stay still. You've never thought about them this way.",
+                "A chapter on probability and how poorly human intuition handles it. Uncomfortable but clarifying.",
+                "The book's premise: wonder isn't childish. Not knowing is a starting point, not a failure."
+            ],
+            midNarratives: [
+                "The biology of habits and decision-making. Why you do things you don't mean to, and how that can change.",
+                "A section on how the brain builds models of the world, and what happens when those models are wrong.",
+                "The reading gets denser mid-book. You slow down and take notes."
+            ],
+            lateNarratives: [
+                "The final section covers where the interesting scientific questions are now. The edge of what's known.",
+                "A chapter on not knowing: the value of holding questions open rather than forcing answers.",
+                "You finish the book more curious than when you started. That seems like the whole point."
+            ]
+        }
+
+    ],
     magazines: [
         {
             id: "mag_think_quick",
@@ -32,6 +626,8 @@ setup.readingItems = {
             id: "mag_small_talk",
             name: "Small Talk Weekly",
             pages: 34,
+            gainType: "charisma",
+            gainOnComplete: 1,
             skillMaxCap: 30,
             skillOnComplete: { category: "social", skill: "conversation", amount: 1 },
             narratives: [

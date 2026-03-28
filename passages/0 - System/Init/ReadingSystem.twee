@@ -54,12 +54,13 @@ setup.getReadingItem = function(id) {
     return null;
 };
 
-/* Helper: ~1 pg/min base, 100/100 int+focus => ~100-120 pg/hour */
-setup.calcReadingSpeed = function(intelligence, focus) {
-    const base = 1; /* 1 page/min = 60/hour at 0/0 */
-    const intMult = 1 + (intelligence || 0) / 250;   /* +40% at 100 int */
-    const focusMult = 1 + (focus || 0) / 250;       /* +40% at 100 focus */
-    return base * intMult * focusMult;
+/* Helper: base 1 pg/min. Stats additively raise speed.
+   INT +0.4%/pt, FOCUS +0.3%/pt, WIL +0.2%/pt → max ~1.9x at 100/100/100 */
+setup.calcReadingSpeed = function(intelligence, focus, willpower) {
+    return 1
+        + (intelligence || 0) * 0.004
+        + (focus       || 0) * 0.003
+        + (willpower   || 0) * 0.002;
 };
 
 setup.getReadingLocationIntro = function(passageId) {

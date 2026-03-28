@@ -13,6 +13,17 @@
     <<goto "Read">>
 <</if>>
 
+/* Hard lock: check stat requirements before allowing read */
+<<if _meta.requires>>
+    <<set _reqFail = false>>
+    <<if _meta.requires.intelligence && ($intelligence || 0) < _meta.requires.intelligence>><<set _reqFail = true>><</if>>
+    <<if _meta.requires.focus && ($focus || 0) < _meta.requires.focus>><<set _reqFail = true>><</if>>
+    <<if _reqFail>>
+        <<run window.notifyWarning("Your stats are too low to read this book.")>>
+        <<goto "Read">>
+    <</if>>
+<</if>>
+
 <<silently>>
     <<if ndef $daily.magazineStatUsedToday>><<set $daily.magazineStatUsedToday = false>><</if>>
 
@@ -24,11 +35,12 @@
     <<else>>
         <<set $selectedDuration = 15>>
     <</if>>
-    <<set $selectedDuration = Math.min(120, Math.max(15, parseInt($selectedDuration) || 15))>>
+    <<set $selectedDuration = Math.min(60, Math.max(15, parseInt($selectedDuration) || 15))>>
 
     <<set _int = $intelligence || 0>>
     <<set _foc = $focus || 0>>
-    <<set _pagesPerMin = setup.calcReadingSpeed(_int, _foc)>>
+    <<set _wil = $willpower || 0>>
+    <<set _pagesPerMin = setup.calcReadingSpeed(_int, _foc, _wil)>>
     <<set _minutes = $selectedDuration>>
     <<set _rawPages = Math.floor(_pagesPerMin * _minutes)>>
 
@@ -67,15 +79,59 @@
     <<set _gainTypeAwarded = "">>
 
     <<if _meta.type === "book">>
-        <<set _perPageGain = _meta.gainValue / _meta.pages>>
-        <<set _totalGain = _pagesRead * _perPageGain>>
-        <<if _totalGain > 0>>
-            <<gainStat _meta.gainType _totalGain>>
+        /* Raw gain from pages read this session */
+        <<set _gainPerPage = _meta.statGainPerPage || 0.02>>
+        <<set _rawGain = _pagesRead * _gainPerPage>>
+
+        /* Pick 1 or 2 stats randomly from statPool */
+        <<set _pool = (_meta.statPool && _meta.statPool.length > 0) ? _meta.statPool : ["intelligence"]>>
+        <<set _numStats = Math.min(random(1, 2), _pool.length)>>
+        <<set _shuffled = _pool.slice().sort(function(){ return Math.random() - 0.5; })>>
+        <<set _selectedStats = _shuffled.slice(0, _numStats)>>
+
+        /* Distribute gain across selected stats */
+        <<set _gainTypeAwarded = _selectedStats.join("+")>>
+        <<set _totalGain = 0>>
+        <<if _numStats === 1>>
+            <<if _rawGain > 0>>
+                <<gainStat _selectedStats[0] _rawGain>>
+                <<set _totalGain = _rawGain>>
+            <</if>>
+        <<else>>
+            /* Random 40–60 split between the two */
+            <<set _splitRatio = 0.4 + (Math.random() * 0.2)>>
+            <<set _gainA = _rawGain * _splitRatio>>
+            <<set _gainB = _rawGain - _gainA>>
+            <<if _gainA > 0>><<gainStat _selectedStats[0] _gainA>><</if>>
+            <<if _gainB > 0>><<gainStat _selectedStats[1] _gainB>><</if>>
+            <<set _totalGain = _rawGain>>
         <</if>>
-        <<set _focusGain = _pagesRead * 0.05>>
+
+        /* Focus bonus: concentration from reading any book */
+        <<set _focusGain = _pagesRead * 0.03>>
         <<if _focusGain > 0>>
             <<gainStat "focus" _focusGain>>
         <</if>>
+
+        /* Skill gain: per page, no cap; skillOnRead is an array */
+        <<set _bookSkillLines = []>>
+        <<if _meta.skillOnRead && _meta.skillOnRead.length > 0>>
+            <<for _sr range _meta.skillOnRead>>
+                <<set _srGain = _pagesRead * (_sr.gainPerPage || 0.025)>>
+                <<if _srGain > 0>>
+                    <<gainSkill _sr.category _sr.skill _srGain 9999>>
+                    <<run _bookSkillLines.push(_sr.skill.charAt(0).toUpperCase() + _sr.skill.slice(1) + ' skill +' + _srGain.toFixed(2))>>
+                <</if>>
+            <</for>>
+        <</if>>
+
+        /* Passive book effects: mood up, stress down, energy cost (floor: 10) */
+        <<set _bookMoodGain  = Math.round(_minutes * 0.12)>>
+        <<set _bookStressLoss = Math.round(_minutes * 0.1)>>
+        <<set _bookEnergyCost = Math.round(_minutes * 0.2)>>
+        <<if _bookMoodGain > 0>><<gainStat "mood" _bookMoodGain>><</if>>
+        <<if _bookStressLoss > 0>><<loseStat "stress" _bookStressLoss>><</if>>
+        <<set $energy = Math.max(10, ($energy || 0) - _bookEnergyCost)>>
     <<else>>
         /* Base magazine effects: always apply on read */
         <<gainStat "mood" 5>>
@@ -92,7 +148,7 @@
             <<if _gc > 0 && _magGainType>>
                 <<set _applyGain = _gc>>
                 /* Cap only applies to core stats (not vitals like mood/stress/energy/health) */
-                <<set _cappedStats = ["intelligence", "focus", "creativity", "willpower"]>>
+                <<set _cappedStats = ["intelligence", "focus", "creativity", "willpower", "charisma"]>>
                 <<if _cappedStats.includes(_magGainType)>>
                     <<set _currentMagStat = State.variables[_magGainType] || 0>>
                     <<if _currentMagStat >= 20>>
@@ -146,6 +202,21 @@
         <</if>>
         <<set _narrIdx = random(1, _skimPool.length) - 1>>
         <<set _narrText = _skimPool[_narrIdx]>>
+    <<elseif _meta.type === "book">>
+        /* Position-based narrative: ratio of pages read BEFORE this session */
+        <<set _readRatio = _meta.pages > 0 ? (_startPage / _meta.pages) : 0>>
+        <<if _readRatio < 0.33>>
+            <<set _narrPool = _meta.earlyNarratives>>
+        <<elseif _readRatio < 0.66>>
+            <<set _narrPool = _meta.midNarratives>>
+        <<else>>
+            <<set _narrPool = _meta.lateNarratives>>
+        <</if>>
+        <<if !_narrPool || _narrPool.length === 0>>
+            <<set _narrPool = ["You read quietly, turning pages steadily."]>>
+        <</if>>
+        <<set _narrIdx = random(1, _narrPool.length) - 1>>
+        <<set _narrText = _narrPool[_narrIdx]>>
     <<else>>
         <<set _narratives = _meta.narratives || ["You read quietly for a while."]>>
         <<set _narrIdx = random(1, _narratives.length) - 1>>
@@ -187,14 +258,18 @@ You read for <<print $selectedDuration>> minutes and get through the issue. Done
 <</narrative>>
 <<else>>
 <<narrative>>
-You read for <<print $selectedDuration>> minutes and finished <<print _pagesRead>> pages.
+You read for <<print $selectedDuration>> minutes and get through <<print _pagesRead>> pages.
 <<if _totalGain > 0>>
 <br>
-<<print _meta.gainType.charAt(0).toUpperCase() + _meta.gainType.slice(1)>> +<<print Number(_totalGain).toFixed(1)>>.
+<<print _selectedStats.map(function(s){ return s.charAt(0).toUpperCase() + s.slice(1); }).join(", ")>> +<<print Number(_totalGain).toFixed(1)>>.
 <</if>>
 <<if _focusGain > 0>>
 <br>
-Focus +<<print _focusGain.toFixed(1)>>.
+Focus +<<print Number(_focusGain).toFixed(1)>>.
+<</if>>
+<<if _bookSkillLines && _bookSkillLines.length > 0>>
+<br>
+<<print _bookSkillLines.join('. ')>>.
 <</if>>
 <</narrative>>
 <</if>>

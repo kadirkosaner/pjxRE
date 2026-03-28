@@ -287,9 +287,256 @@
 
     /* ==========================================
        BOOKS
-       One-time read, progress saved, 10 total gain ÷ pages
+       One-time read, progress saved. Content: ReadingDatabase.
     ========================================== */
-    books: [],
+    books: [
+
+        // ── PERSUASION SERIES ──
+        {
+            id: "book_quiet_pitch",
+            name: "The Quiet Pitch",
+            category: "reading",
+            usageType: "passage",
+            desc: "A beginner's guide to persuasion through listening and framing. Grants Persuasion skill.",
+            price: 14.99,
+            image: "assets/content/items/books/book_quiet_pitch.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_never_back_down",
+            name: "Never Back Down",
+            category: "reading",
+            usageType: "passage",
+            desc: "Intermediate negotiation and high-stakes persuasion. Requires INT 15, FOC 10.",
+            price: 22.99,
+            image: "assets/content/items/books/book_never_back_down.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_power_of_words",
+            name: "The Power of Words",
+            category: "reading",
+            usageType: "passage",
+            desc: "Advanced linguistic strategy and authentic influence. Grants Persuasion + Conversation. Requires INT 25, FOC 20.",
+            price: 38.99,
+            image: "assets/content/items/books/book_power_of_words.webp",
+            effects: [],
+            hasTooltip: true
+        },
+
+        // ── CONVERSATION SERIES ──
+        {
+            id: "book_just_talk",
+            name: "Just Talk",
+            category: "reading",
+            usageType: "passage",
+            desc: "Foundational small talk and conversation skills for everyday social situations.",
+            price: 12.99,
+            image: "assets/content/items/books/book_just_talk.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_social_blueprint",
+            name: "The Social Blueprint",
+            category: "reading",
+            usageType: "passage",
+            desc: "Intermediate guide to group dynamics and social navigation. Requires INT 15, FOC 10.",
+            price: 21.99,
+            image: "assets/content/items/books/book_social_blueprint.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_mastering_connection",
+            name: "Mastering Connection",
+            category: "reading",
+            usageType: "passage",
+            desc: "Deep listening, authentic presence, and cross-cultural communication. Grants Conversation + Networking. Requires INT 25, FOC 20.",
+            price: 36.99,
+            image: "assets/content/items/books/book_mastering_connection.webp",
+            effects: [],
+            hasTooltip: true
+        },
+
+        // ── RESEARCH SERIES ──
+        {
+            id: "book_how_to_find_anything",
+            name: "How to Find Anything",
+            category: "reading",
+            usageType: "passage",
+            desc: "A beginner's guide to source evaluation, search strategy, and organizing information.",
+            price: 13.99,
+            image: "assets/content/items/books/book_how_to_find_anything.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_source_and_truth",
+            name: "Source & Truth",
+            category: "reading",
+            usageType: "passage",
+            desc: "Media literacy, bias detection, and building a personal research system. Requires INT 15, FOC 12.",
+            price: 24.99,
+            image: "assets/content/items/books/book_source_and_truth.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_information_age",
+            name: "The Information Age",
+            category: "reading",
+            usageType: "passage",
+            desc: "Advanced information architecture and analytical frameworks. Grants Research + Analysis. Requires INT 25, FOC 20.",
+            price: 42.99,
+            image: "assets/content/items/books/book_information_age.webp",
+            effects: [],
+            hasTooltip: true
+        },
+
+        // ── PROBLEM SOLVING SERIES ──
+        {
+            id: "book_think_it_through",
+            name: "Think It Through",
+            category: "reading",
+            usageType: "passage",
+            desc: "Root cause analysis, brainstorming frameworks, and decision-making for everyday problems.",
+            price: 13.99,
+            image: "assets/content/items/books/book_think_it_through.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_lateral_mind",
+            name: "The Lateral Mind",
+            category: "reading",
+            usageType: "passage",
+            desc: "Reframing problems and lateral thinking techniques. Requires INT 15, FOC 12.",
+            price: 22.99,
+            image: "assets/content/items/books/book_lateral_mind.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_mind_unlocked",
+            name: "Mind Unlocked",
+            category: "reading",
+            usageType: "passage",
+            desc: "Systems thinking and multi-variable analysis for complex problems. Grants Problem Solving + Research. Requires INT 25, FOC 20.",
+            price: 39.99,
+            image: "assets/content/items/books/book_mind_unlocked.webp",
+            effects: [],
+            hasTooltip: true
+        },
+
+        // ── GAMING SERIES ──
+        {
+            id: "book_level_up",
+            name: "Level Up",
+            category: "reading",
+            usageType: "passage",
+            desc: "Game theory basics, resource management, and decision-making under pressure.",
+            price: 14.99,
+            image: "assets/content/items/books/book_level_up.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_pro_gamer_mindset",
+            name: "Pro Gamer Mindset",
+            category: "reading",
+            usageType: "passage",
+            desc: "Competitive psychology, tilt control, and team dynamics. Requires INT 15, FOC 15.",
+            price: 23.99,
+            image: "assets/content/items/books/book_pro_gamer_mindset.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_competitive_edge",
+            name: "The Competitive Edge",
+            category: "reading",
+            usageType: "passage",
+            desc: "High-level strategy, opponent modeling, and mastery mindset. Grants Gaming + Problem Solving. Requires INT 25, FOC 25.",
+            price: 34.99,
+            image: "assets/content/items/books/book_competitive_edge.webp",
+            effects: [],
+            hasTooltip: true
+        },
+
+        // ── COOKING SERIES ──
+        {
+            id: "book_from_scratch",
+            name: "From Scratch",
+            category: "reading",
+            usageType: "passage",
+            desc: "Kitchen basics, knife skills, and fundamental cooking techniques.",
+            price: 16.99,
+            image: "assets/content/items/books/book_from_scratch.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_kitchen_manual",
+            name: "The Kitchen Manual",
+            category: "reading",
+            usageType: "passage",
+            desc: "Intermediate techniques: braising, emulsification, pan sauces. Requires INT 12, FOC 10.",
+            price: 24.99,
+            image: "assets/content/items/books/book_kitchen_manual.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_mastery_kitchen",
+            name: "Mastery in the Kitchen",
+            category: "reading",
+            usageType: "passage",
+            desc: "Flavor science, restaurant-quality execution, and original recipe creation. Grants Cooking + Finance. Requires INT 20, FOC 18.",
+            price: 44.99,
+            image: "assets/content/items/books/book_mastery_kitchen.webp",
+            effects: [],
+            hasTooltip: true
+        },
+
+        // ── EVERYDAY BOOKS ──
+        {
+            id: "book_stillwater",
+            name: "Stillwater",
+            category: "reading",
+            usageType: "passage",
+            desc: "A quiet guide to stoic living and present-moment thinking. Grants Willpower, Focus, Intelligence.",
+            price: 11.99,
+            image: "assets/content/items/books/book_stillwater.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_letters_never_sent",
+            name: "Letters Never Sent",
+            category: "reading",
+            usageType: "passage",
+            desc: "A literary fiction about unsent letters and unspoken feelings. Grants Creativity, Willpower.",
+            price: 10.99,
+            image: "assets/content/items/books/book_letters_never_sent.webp",
+            effects: [],
+            hasTooltip: true
+        },
+        {
+            id: "book_curious_mind",
+            name: "The Curious Mind",
+            category: "reading",
+            usageType: "passage",
+            desc: "Pop science exploring everyday physics, habits, and the edges of knowledge. Requires INT 15.",
+            price: 15.99,
+            image: "assets/content/items/books/book_curious_mind.webp",
+            effects: [],
+            hasTooltip: true
+        }
+
+    ],
 
     /* ==========================================
        MAGAZINES

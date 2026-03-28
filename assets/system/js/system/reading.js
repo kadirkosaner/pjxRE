@@ -46,14 +46,37 @@ function findReadingItemDef(id) {
     return null;
 }
 
+// ============================================
+// READING SPEED HELPERS  (mirrors setup.calcReadingSpeed)
+// ============================================
+
+function calcReadingSpeed() {
+    var vars = getState().variables;
+    var INT  = vars.intelligence || 0;
+    var FOCUS = vars.focus       || 0;
+    var WIL  = vars.willpower   || 0;
+    return 1 + (INT * 0.004) + (FOCUS * 0.003) + (WIL * 0.002);
+}
+
+/** Returns estimated reading time in minutes (rounded to nearest 15, min 15) */
+function calcEstimatedTime(pages) {
+    var speed = calcReadingSpeed();
+    return Math.max(15, Math.round((pages / speed) / 15) * 15);
+}
+
+/** Returns estimated pages read in a given duration (minutes) */
+function calcEstimatedPages(durationMinutes) {
+    return Math.max(1, Math.floor(durationMinutes * calcReadingSpeed()));
+}
+
 function buildReadingTooltipHTML(entry) {
     var lines = [];
     var meta = entry.meta;
     if (meta.type === 'magazine') {
-        lines.push('<div class="tooltip-effect">Mood +5 / Stress &minus;5</div>');
+        lines.push('<div class="tooltip-effect" style="opacity:0.6;font-size:0.72rem">Single Use</div>');
         if (meta.gainOnComplete && (meta.gainType || (meta.gainTypeOptions && meta.gainTypeOptions.length))) {
             var statLabel = (meta.gainTypeOptions && meta.gainTypeOptions.length)
-                ? meta.gainTypeOptions.join('/')
+                ? meta.gainTypeOptions.join(' / ')
                 : meta.gainType;
             lines.push('<div class="tooltip-effect">+' + meta.gainOnComplete + ' ' + statLabel + '</div>');
         }
@@ -62,10 +85,19 @@ function buildReadingTooltipHTML(entry) {
             lines.push('<div class="tooltip-effect">+' + sc.amount + ' ' + sc.skill + ' skill</div>');
         }
     } else {
-        if (meta.gainType && meta.gainValue) {
-            lines.push('<div class="tooltip-effect">' + meta.gainType.charAt(0).toUpperCase() + meta.gainType.slice(1) + ' +' + meta.gainValue + ' total</div>');
+        // Stat pool
+        if (meta.statPool && meta.statPool.length > 0) {
+            var poolLabel = meta.statPool.map(function(s) {
+                return s.charAt(0).toUpperCase() + s.slice(1);
+            }).join(' / ');
+            lines.push('<div class="tooltip-effect">' + poolLabel + ' (1–2 per session)</div>');
         }
-        lines.push('<div class="tooltip-effect">Focus +0.05 per page</div>');
+        // Skill gain (skillOnRead is an array)
+        if (meta.skillOnRead && meta.skillOnRead.length > 0) {
+            meta.skillOnRead.forEach(function(sr) {
+                lines.push('<div class="tooltip-effect">' + sr.skill.charAt(0).toUpperCase() + sr.skill.slice(1) + ' skill per page</div>');
+            });
+        }
     }
 
     return [
@@ -186,22 +218,48 @@ function renderReadingCards() {
         return;
     }
 
+    var vars = getState().variables;
+
+    function meetsRequirements(meta) {
+        if (!meta.requires) return true;
+        var req = meta.requires;
+        if (req.intelligence && (vars.intelligence || 0) < req.intelligence) return false;
+        if (req.focus && (vars.focus || 0) < req.focus) return false;
+        return true;
+    }
+
+    function buildRequiresLabel(meta) {
+        if (!meta.requires) return '';
+        var parts = [];
+        if (meta.requires.intelligence) parts.push('INT ' + meta.requires.intelligence);
+        if (meta.requires.focus) parts.push('FOC ' + meta.requires.focus);
+        return parts.join(', ');
+    }
+
     grid.innerHTML = pool.map(function(entry) {
         var isSelected = entry.id === readingSelectedId;
+        var locked = entry.type === 'book' && !meetsRequirements(entry.meta);
         var tooltipHtml = buildReadingTooltipHTML(entry);
         var progressLabel = entry.type === 'book'
             ? (entry.pagesRead + ' / ' + entry.pages + ' pages')
             : 'Single-use issue';
         var typeLabel = entry.type === 'book' ? 'Book' : 'Magazine';
 
+        var lockOverlay = '';
+        if (locked) {
+            var reqLabel = buildRequiresLabel(entry.meta);
+            lockOverlay = '<div class="reading-lock-overlay"><span class="reading-lock-icon">&#128274;</span><span class="reading-lock-req">Requires ' + reqLabel + '</span></div>';
+        }
+
         return [
-            '<div class="product-card reading-card' + (isSelected ? ' reading-selected' : '') + '" data-item-id="' + entry.id + '">',
+            '<div class="product-card reading-card' + (isSelected && !locked ? ' reading-selected' : '') + (locked ? ' reading-locked' : '') + '" data-item-id="' + entry.id + '" data-locked="' + (locked ? '1' : '0') + '">',
                 '<div class="product-info-icon">i</div>',
                 '<div class="product-tooltip">' + tooltipHtml + '</div>',
                 '<div class="product-image reading-image">',
                     entry.image
                         ? '<img src="' + entry.image + '" alt="' + entry.name + '" onerror="this.style.display=\'none\'">'
                         : '',
+                    lockOverlay,
                 '</div>',
                 '<div class="product-info">',
                     '<div class="product-name">' + entry.name + '</div>',
@@ -214,6 +272,7 @@ function renderReadingCards() {
 
     grid.querySelectorAll('.reading-card').forEach(function(card) {
         card.addEventListener('click', function() {
+            if (card.dataset.locked === '1') return;
             var id = card.dataset.itemId;
             readingSelectedId = readingSelectedId === id ? null : id;
             saveReadingState();
@@ -228,26 +287,53 @@ function renderReadingPanel() {
     if (!panel) return;
 
     var durOptions = [
-        { value: 15,  label: '15 min' },
-        { value: 30,  label: '30 min' },
-        { value: 60,  label: '1 hour' },
-        { value: 120, label: '2 hours' }
+        { value: 15, label: '15 min' },
+        { value: 30, label: '30 min' },
+        { value: 45, label: '45 min' },
+        { value: 60, label: '1 hour' }
     ];
 
+    // Energy helpers — declared first so they're available throughout
+    var currentEnergy = getState().variables.energy || 0;
+    function energyCostFor(mins) { return Math.round(mins * 0.2); }
+    function canAffordDuration(mins) { return currentEnergy - energyCostFor(mins) >= 10; }
+
+    var canRead = !!readingSelectedId;
     var selectionHtml = '';
+    var isMagazine = false;
+    var estimatedTime = 0;
+
     if (readingSelectedId) {
         var entries = getReadingEntries();
         var entry = entries.all.find(function(e) { return e.id === readingSelectedId; });
         if (entry) {
+            isMagazine = entry.type === 'magazine';
+            if (isMagazine) {
+                estimatedTime = calcEstimatedTime(entry.pages || 36);
+            }
+
+            var progressLine = '';
+            if (isMagazine) {
+                var magEnergyCost = energyCostFor(estimatedTime);
+                var magEnergyOk = canAffordDuration(estimatedTime);
+                var magEnergyNote = magEnergyOk ? '' : '<div class="reading-selected-progress reading-energy-warn">Not enough energy</div>';
+                progressLine = '<div class="reading-selected-progress reading-single-use">Single use</div>' +
+                    '<div class="reading-selected-progress reading-est-time">Estimated ' + estimatedTime + ' minutes to read</div>' +
+                    magEnergyNote;
+            } else {
+                var estPages = calcEstimatedPages(readingDurationChoice);
+                var remaining = (entry.pages || 0) - (entry.pagesRead || 0);
+                estPages = Math.min(estPages, remaining);
+                progressLine = '<div class="reading-selected-progress">' + entry.pagesRead + ' / ' + entry.pages + ' pages &mdash; ~' + estPages + ' pages this session</div>';
+            }
+
             selectionHtml = [
                 '<div class="reading-selected-item">',
                     entry.image ? '<img class="reading-selected-img" src="' + entry.image + '" alt="' + entry.name + '" onerror="this.style.display=\'none\'">' : '',
                     '<div class="reading-selected-info">',
                         '<div class="reading-selected-name">' + entry.name + '</div>',
-                        '<div class="reading-selected-type">' + (entry.type === 'book' ? 'Book' : 'Magazine') + '</div>',
-                        entry.type === 'book'
-                            ? '<div class="reading-selected-progress">' + entry.pagesRead + ' / ' + entry.pages + ' pages</div>'
-                            : '<div class="reading-selected-progress">Single-use</div>',
+                        '<div class="reading-selected-type">' + (isMagazine ? 'Magazine' : 'Book') + '</div>',
+                        progressLine,
                     '</div>',
                 '</div>'
             ].join('');
@@ -256,18 +342,33 @@ function renderReadingPanel() {
         selectionHtml = '<div class="reading-empty-hint">Select a book or magazine to begin reading.</div>';
     }
 
-    var durHtml = durOptions.map(function(opt) {
-        return '<button class="reading-dur-btn' + (readingDurationChoice === opt.value ? ' active' : '') + '" data-dur="' + opt.value + '">' + opt.label + '</button>';
-    }).join('');
+    // Duration section: only shown for books
+    var durSectionHtml = '';
+    if (!isMagazine) {
+        var durHtml = durOptions.map(function(opt) {
+            var affordable = canAffordDuration(opt.value);
+            var activeClass = (!affordable && readingDurationChoice === opt.value) ? '' : (readingDurationChoice === opt.value ? ' active' : '');
+            var lockedClass = affordable ? '' : ' dur-energy-locked';
+            var disabledAttr = affordable ? '' : ' disabled';
+            var tooltip = affordable ? '' : '<span class="dur-energy-tooltip">Not enough energy</span>';
+            return '<button class="reading-dur-btn' + activeClass + lockedClass + '"' + disabledAttr + ' data-dur="' + opt.value + '">' + opt.label + tooltip + '</button>';
+        }).join('');
+        durSectionHtml = [
+            '<div class="reading-dur-section">',
+                '<div class="reading-dur-label">DURATION</div>',
+                '<div class="reading-dur-options">' + durHtml + '</div>',
+            '</div>'
+        ].join('');
+    }
 
-    var canRead = !!readingSelectedId;
+    // For magazine: check estimated time energy cost
+    if (isMagazine && estimatedTime > 0 && !canAffordDuration(estimatedTime)) {
+        canRead = false;
+    }
 
     panel.innerHTML = [
         selectionHtml,
-        '<div class="reading-dur-section">',
-            '<div class="reading-dur-label">DURATION</div>',
-            '<div class="reading-dur-options">' + durHtml + '</div>',
-        '</div>',
+        durSectionHtml,
         '<div class="reading-actions">',
             '<button class="reading-start-btn' + (canRead ? '' : ' disabled') + '"' + (canRead ? '' : ' disabled') + '>Start Reading</button>',
         '</div>'
@@ -279,6 +380,8 @@ function renderReadingPanel() {
             saveReadingState();
             panel.querySelectorAll('.reading-dur-btn').forEach(function(b) { b.classList.remove('active'); });
             btn.classList.add('active');
+            // Re-render to update estimated pages
+            renderReadingPanel();
         });
     });
 
@@ -287,7 +390,8 @@ function renderReadingPanel() {
         startBtn.addEventListener('click', function() {
             var S = getState();
             S.variables.readSelectedItem = readingSelectedId;
-            S.variables.readDurationChoice = readingDurationChoice;
+            // Magazine: use calculated estimated time; Book: use chosen duration
+            S.variables.readDurationChoice = isMagazine ? estimatedTime : readingDurationChoice;
             document.body.classList.remove('reading-active');
             cleanupReadingSession();
             var eng = getEngine();

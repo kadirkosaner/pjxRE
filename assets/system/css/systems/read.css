@@ -123,6 +123,55 @@ body.reading-active .passage-content {
   color: var(--color-text-tertiary);
 }
 
+.reading-single-use {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+}
+
+.reading-est-time {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+/* ── Locked book card ────────────────────────────────────────── */
+.reading-card.reading-locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.reading-card.reading-locked:hover {
+  border-color: var(--color-border-primary);
+  transform: none;
+}
+
+.reading-lock-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.reading-lock-icon {
+  font-size: 1.2rem;
+}
+
+.reading-lock-req {
+  font-size: 0.65rem;
+  color: #fbbf24;
+  font-weight: 600;
+  text-align: center;
+  padding: 0 4px;
+}
+
 .reading-empty-hint {
   font-size: 0.82rem;
   color: var(--color-text-tertiary);
@@ -179,6 +228,47 @@ body.reading-active .passage-content {
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: #fff;
+}
+
+/* Energy-locked duration button */
+.reading-dur-btn.dur-energy-locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.reading-dur-btn.dur-energy-locked:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-primary);
+  color: var(--color-text-secondary);
+}
+
+.dur-energy-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-danger, #ef4444);
+  border-radius: var(--radius-sm);
+  color: var(--color-danger, #ef4444);
+  font-size: 0.7rem;
+  white-space: nowrap;
+  padding: 3px 8px;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.reading-dur-btn.dur-energy-locked:hover .dur-energy-tooltip {
+  display: block;
+}
+
+/* Energy warning in magazine panel */
+.reading-energy-warn {
+  font-size: 0.75rem;
+  color: var(--color-danger, #ef4444);
+  margin-top: 4px;
 }
 
 /* ── Action buttons (Start) ──────────────────────────────────── */
