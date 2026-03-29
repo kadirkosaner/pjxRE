@@ -39,6 +39,7 @@
         <<goto "fhBedroom">> /* Safe fallback */
     <</if>>
 <<else>>
+<<nobr>>
     /* SUCCESS: Execute Nap */
     <<silently>>
         /* Get Duration from Picker Memory (set by btnPicker) */
@@ -78,11 +79,12 @@
             <<vid "assets/content/scenes/maplewood/familyHouse/livingroom/nap/napLivingroom3.mp4" "1000%">>
         <</if>>
     <</if>>
-    <<narrative "Taking a Nap">>
+    <<narrative>>
     <<print _resultText>>
     <</narrative>>
     
     <div class="location-actions">
         <<btn "Wake Up" _returnBtn>><</btn>>
     </div>
+    <</nobr>>
 <</if>>

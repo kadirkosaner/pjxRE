@@ -1,0 +1,30 @@
+:: brotherComputerWatchVideo
+<<nobr>>
+<<requireMinEnergy 5 "brotherComputerMenu">>
+<<silently>>
+<<set $location = "fhBrotherRoom">>
+<<set _v = random(1, 4)>>
+<<switch _v>>
+<<case 1>>
+    <<set _sceneText = "You queue up a long video—someone's playthrough with commentary, or a rambling essay about a thing you half-know. The tab stays open. The world shrinks to the screen.">>
+<<case 2>>
+    <<set _sceneText = "You let a playlist run: music, live sessions, grainy concert footage. Your shoulders drop. The messy desk fades into the background.">>
+<<case 3>>
+    <<set _sceneText = "One episode turns into another. The show isn't even that good, but the rhythm of it—intro, problem, resolution—pulls you along until the credits roll again.">>
+<<case 4>>
+    <<set _sceneText = "A documentary about weather, or food, or some niche history plays. Calm voiceover, pretty shots. You learn three facts you'll forget and still feel better.">>
+<</switch>>
+<<gainStat "mood" 15>>
+<<loseStat "stress" 12>>
+<<loseStat "energy" 5>>
+<<advanceTime 45>>
+<</silently>>
+
+<<narrative "Watching Video">>
+_sceneText
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Step Away" "fhBrotherRoom">><</btn>>
+</div>
+<</nobr>>

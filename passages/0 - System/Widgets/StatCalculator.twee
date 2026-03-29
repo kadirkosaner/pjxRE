@@ -87,6 +87,15 @@
     
     /* GLOBAL CLAMPING - Ensure stats stay within bounds */
     <<set $energy = Math.max(0, Math.min($energyMax, $energy))>>
+    /* ENERGY COLLAPSE — depleted after clamp (any loseStat / time / needs path that calls recalculateStats) */
+    <<set _collapsePass = passage()>>
+    <<if $energy <= 0 && !$isSleeping &&
+        _collapsePass !== "energy_collapse" && _collapsePass !== "energy_collapse_nap" &&
+        _collapsePass !== "energy_collapse_items" && _collapsePass !== "energy_collapse_use" &&
+        _collapsePass !== "health_faint">>
+        <<if !$collapseReturnTo>><<set $collapseReturnTo = $location || "fhBedroom">><</if>>
+        <<goto "energy_collapse">>
+    <</if>>
     <<set $stress = Math.max(0, Math.min(100, $stress))>>
     <<set $arousal = Math.max(0, Math.min(100, $arousal))>> /* 100 cap per user request */
     

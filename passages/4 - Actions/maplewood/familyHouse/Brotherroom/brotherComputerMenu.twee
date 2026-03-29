@@ -1,0 +1,20 @@
+:: brotherComputerMenu
+/* Brother's PC only — post-quest casual use (v0.1) */
+<<nobr>>
+<<silently>>
+<<set $location = "fhBrotherRoomPC">>
+<</silently>>
+
+<<narrative "Brother's Computer">>
+You sit at your brother's messy desk. The machine whirs to life and his anime wallpaper fills the screen—icons everywhere, half of them games.
+
+What do you want to do?
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Browse / Surf" "brotherComputerBrowse">><</btn>>
+<<btn "Watch Video" "brotherComputerWatchVideo">><</btn>>
+<<btn "Play Game" "brotherComputerPlayGame">><</btn>>
+<<btn "Close Computer" "fhBrotherRoom">><</btn>>
+</div>
+<</nobr>>

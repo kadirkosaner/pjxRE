@@ -1,6 +1,5 @@
-:: Read
 <<nobr>>
 <<set _backTo = $readReturnPassage || "fhUpperBath">>
-<<set $location = $readReturnPassage>>
+<<set $location = setup.resolveReadingLocationId(_backTo)>>
 <<readingScreen _backTo>>
 <</nobr>>

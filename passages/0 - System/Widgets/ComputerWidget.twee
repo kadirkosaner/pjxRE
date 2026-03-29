@@ -3,7 +3,7 @@
    Handles brother's computer interaction
    - Quest prompts when quest is active
    - Availability check (brother presence)
-   - Computer usage menu
+   - Brother PC menu (`brotherComputerMenu`)
 ========================================== */
 
 <<widget "useComputerWidget">><<nobr>>
@@ -19,7 +19,7 @@
 <<if _computerQuestDone && _brotherOnPC>>
     <span class="link-internal btn-style btn-default locked" data-tooltip="Your brother is on the PC right now."><span class="icon icon-lock icon-12"></span> Use Computer</span>
 <<elseif _computerQuestDone>>
-    <<btn "Use Computer" "computerMenu">><</btn>>
+    <<btn "Use Computer" "brotherComputerMenu">><</btn>>
 <</if>>
 
 <</nobr>><</widget>>

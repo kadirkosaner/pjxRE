@@ -13,6 +13,7 @@
 
     <div class="location-actions">
         <<set $activityOrigin = "fhLivingroom">>
+		<<readBtn>>
         <<btnPicker "Nap" "runNap" "napDuration">>
         
         <<if _presentFamily.length === 0>>

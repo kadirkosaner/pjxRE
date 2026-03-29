@@ -1,4 +1,4 @@
-:: energy_collapse
+<<nobr>>
 <<silently>>
 /* Save return location before anything changes */
 <<if ndef $collapseReturnTo>><<set $collapseReturnTo = $location || "fhBedroom">><</if>>
@@ -24,19 +24,19 @@
     <</for>>
 <</if>>
 <</silently>>
-
+<</nobr>>
 <<narrative "Exhausted">>
 Your vision blurs at the edges. Your legs feel like lead, each step more uncertain than the last.
-
-(''I can't keep going like this...'')
-
+<</narrative>>
+<<thought>>
+I can't keep going like this...
+<</thought>>
+<<narrative>>
 The world tilts slightly. You reach for the nearest wall, steadying yourself. Your heart is pounding, though you haven't done anything to earn it.
 <</narrative>>
-
 <<narrative>>
 You need to do something — now.
 <</narrative>>
-
 <div class="location-actions">
     <<if _hasEnergyItem>>
         <<btn "Use an Item" "energy_collapse_items">><</btn>>

@@ -1,6 +1,6 @@
 <div class="divnobr">
 <<set _backTo = $readReturnPassage || "Read">>
-<<set $location = $readReturnPassage>>
+<<set $location = setup.resolveReadingLocationId(_backTo)>>
 
 <<if !$readSelectedItem>>
     <<run window.notifyWarning("Please select a book or magazine first.")>>

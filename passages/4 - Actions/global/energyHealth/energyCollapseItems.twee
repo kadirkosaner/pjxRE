@@ -1,4 +1,4 @@
-:: energy_collapse_items
+<<nobr>>
 <<silently>>
 /* Build list of energy-restoring items from inventory */
 <<set _energyItems = []>>
@@ -15,25 +15,25 @@
             <<if _itemData and _itemData.effects>>
                 <<set _energyEffect = _itemData.effects.find(function(e) { return e.stat === "energy" && e.value > 0; })>>
                 <<if _energyEffect>>
-                    <<run _energyItems.push({ id: _invEntry.id, name: _itemData.name, gain: _energyEffect.value, qty: _invEntry.quantity || 1 })>>
+                    <<run _energyItems.push({ id: _invEntry.id, name: _itemData.name, qty: _invEntry.quantity || 1 })>>
                 <</if>>
             <</if>>
         <</if>>
     <</for>>
 <</if>>
 <</silently>>
-
+<</nobr>>
 <<narrative "What's in Your Bag">>
 You dig through your bag with unsteady hands. Your fingers are slow, clumsy. Every second matters.
-
-(''Come on, there has to be something...'')
 <</narrative>>
-
+<<thought>>
+Come on, there has to be something...
+<</thought>>
 <<if _energyItems.length > 0>>
 <div class="location-actions">
     <<for _item range _energyItems>>
         <<capture _item>>
-        <<btn _item.name + " (+" + _item.gain + " Energy)" "energy_collapse_use">>
+        <<btn _item.name "energy_collapse_use">>
             <<set $collapseUseItemId = _item.id>>
         <</btn>>
         <</capture>>
@@ -43,9 +43,10 @@ You dig through your bag with unsteady hands. Your fingers are slow, clumsy. Eve
 <<else>>
 <<narrative>>
 There's nothing useful. Your bag is empty of anything that could help.
-
-(''Of course...'')
 <</narrative>>
+<<thought>>
+Of course...
+<</thought>>
 <div class="location-actions">
     <<btn "Go Home" "energy_collapse_nap">><</btn>>
 </div>

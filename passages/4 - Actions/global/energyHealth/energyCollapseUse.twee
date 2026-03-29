@@ -1,4 +1,3 @@
-:: energy_collapse_use
 <<silently>>
 /* Apply the selected item's energy effect */
 <<set _usedItem = null>>
@@ -41,18 +40,21 @@
 <<set $collapseUseItemId = null>>
 <<recalculateStats>>
 <</silently>>
-
-<<narrative "That's Better">>
 <<if _usedItem>>
+<<narrative "That's Better">>
 You pull out the <<print _usedItem.name>> and consume it right there. The effect isn't instant, but it's enough — the dizziness starts to lift, the world stops tilting.
-
-(''Okay. Okay. I'm still standing.'')
-
-You take a breath. Slow and deliberate. Your legs are still heavy, but you can move.
-<<else>>
-The item doesn't seem to help as much as you hoped. But at least you're still on your feet.
-<</if>>
 <</narrative>>
+<<thought>>
+Okay. Okay. I'm still standing.
+<</thought>>
+<<narrative>>
+You take a breath. Slow and deliberate. Your legs are still heavy, but you can move.
+<</narrative>>
+<<else>>
+<<narrative "That's Better">>
+The item doesn't seem to help as much as you hoped. But at least you're still on your feet.
+<</narrative>>
+<</if>>
 
 <div class="location-actions">
     <<btn "Keep Going" _returnTo>><</btn>>
