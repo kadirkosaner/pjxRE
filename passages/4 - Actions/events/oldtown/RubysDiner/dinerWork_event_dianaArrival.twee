@@ -1,0 +1,106 @@
+/* ==========================================
+   EVENT - Diana Arrival
+   Triggers after day 3 of dishwasher work,
+   end of shift. Player witnesses from hallway.
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<set $location = "dinerRubys">>
+<<set $flags.dianaGossipUnlocked = false>>
+<</silently>>
+
+<<narrative "Hallway">>
+You're heading out. End of the hallway, one step from the floor.
+<</narrative>>
+
+<<dialog "dinerWaitress1">>
+(passing by, plates in hand, half to herself)
+...her again.
+<</dialog>>
+
+<<narrative "Hallway">>
+Emma doesn't stop. Doesn't look at you.
+
+You reach the end of the corridor. Before you step onto the floor, the front door opens.
+
+You stop.
+<</narrative>>
+
+<<narrative "Dining Room">>
+Red dress. Shoulders bare. The perfume reaches you before she does.
+
+Tom looks up from behind the counter, by the register:
+<</narrative>>
+
+<<dialog "dinerClerk">>
+Diana! Welcome—
+<</dialog>>
+
+<<dialog "dianaRuby">>
+Good to be here.
+<</dialog>>
+
+<<dialog "dinerClerk">>
+Let me get Vince for you—
+<</dialog>>
+
+<<narrative "Dining Room">>
+He reaches for the phone. Just as his hand touches it, the kitchen door swings open.
+
+Vince.
+
+His eyes land on Diana immediately. He smiles.
+<</narrative>>
+
+<<dialog "dinerManager">>
+Hey, babe. Did I keep you waiting?
+<</dialog>>
+
+<<dialog "dianaRuby">>
+Not at all.
+<</dialog>>
+
+<<narrative "Dining Room">>
+Vince crosses the floor toward her. He presses a kiss to her cheek — and his hand slides down. Settled at her hip, then lower. She adjusts her bag on her shoulder. Doesn't flinch.
+<</narrative>>
+
+<<dialog "dianaRuby">>
+Where are we going?
+<</dialog>>
+
+<<dialog "dinerManager">>
+Surprise.
+<</dialog>>
+
+<<narrative "Dining Room">>
+Somewhere to your left, Emma is wiping down a booth. Fast, tight movements. She isn't looking at them — but she's listening.
+<</narrative>>
+
+<<thought>>
+You're standing at the end of the corridor. Look at Vince.
+<</thought>>
+
+<<dialog "dinerManager">>
+Text me if anything comes up, Tom. I'm not coming in for closing.
+<</dialog>>
+
+<<dialog "dinerClerk">>
+Sure thing, boss.
+<</dialog>>
+
+<<narrative "Dining Room">>
+Diana walked toward the door. Just as she passed, Emma looked up — for the first time. Their eyes met.
+
+Diana smiled. Polite. Shallow.
+
+Emma didn't smile back.
+
+The door closed.
+
+Emma wiped her hands on her apron and watched them go. Then she turned around and went back to work.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Head back to the kitchen" "dinerWork_event_dianaKitchen">><</btn>>
+</div>
+</div>
