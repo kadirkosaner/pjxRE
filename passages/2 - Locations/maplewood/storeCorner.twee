@@ -3,8 +3,8 @@
 <<set _shopItems = ["energy_drink", "coffee", "sandwich", "water_bottle", "chocolate_bar", "apple", "mag_small_talk", "mag_makeup_studio"]>>
 <<set _shopBack = "maplewood">>
 <<updateCharacterLocations>>
-<<questPrompts>>
 <</nobr>>
 <<narrative "Quick Mart">><</narrative>>
 <<showLocationChars "storeCorner">>
+<<questPrompts>>
 <<shop "Quick Mart" "Convenience Store" _shopItems _shopBack>>

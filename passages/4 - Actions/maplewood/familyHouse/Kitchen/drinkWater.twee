@@ -2,6 +2,7 @@
     <<set $location = "fhKitchen">>
     <<advanceTime 5>>
     <<loseStat "thirst" 100>>
+    <<flushNotifications>>
     <<run window.notifySuccess("Thirst Quenched")>>
 <</silently>>
 

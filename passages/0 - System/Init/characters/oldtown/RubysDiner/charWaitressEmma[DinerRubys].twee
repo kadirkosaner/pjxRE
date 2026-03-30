@@ -60,18 +60,33 @@
         {
             id: "talk", label: "Talk", passage: "emmaTalkDinerRubys",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        },
+        {
+            id: "gossipDiana", label: "Vince's girlfriend", passage: "emmaTalkDinerRubys_dianaGossip",
+            tags: [], requirements: { flag: "dianaGossipUnlocked", flagNot: "emmaGossipDone" },
+            dailyLimit: false, minPlayerEnergy: 5, showWhenLocked: false
         }
     ],
     dinerRubysKitchen: [
         {
             id: "talk", label: "Talk", passage: "emmaTalkDinerRubys",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        },
+        {
+            id: "gossipDiana", label: "Vince's girlfriend", passage: "emmaTalkDinerRubys_dianaGossip",
+            tags: [], requirements: { flag: "dianaGossipUnlocked", flagNot: "emmaGossipDone" },
+            dailyLimit: false, minPlayerEnergy: 5, showWhenLocked: false
         }
     ],
     dinerRubysStorage: [
         {
             id: "talk", label: "Talk", passage: "emmaTalkDinerRubys",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        },
+        {
+            id: "gossipDiana", label: "Vince's girlfriend", passage: "emmaTalkDinerRubys_dianaGossip",
+            tags: [], requirements: { flag: "dianaGossipUnlocked", flagNot: "emmaGossipDone" },
+            dailyLimit: false, minPlayerEnergy: 5, showWhenLocked: false
         }
     ]
 }>>

@@ -26,9 +26,10 @@
 <<narrative "What's in Your Bag">>
 You dig through your bag with unsteady hands. Your fingers are slow, clumsy. Every second matters.
 <</narrative>>
-<<thought>>
+<<dialog "player">>
+(Inner voice)
 Come on, there has to be something...
-<</thought>>
+<</dialog>>
 <<if _energyItems.length > 0>>
 <div class="location-actions">
     <<for _item range _energyItems>>
@@ -44,9 +45,10 @@ Come on, there has to be something...
 <<narrative>>
 There's nothing useful. Your bag is empty of anything that could help.
 <</narrative>>
-<<thought>>
+<<dialog "player">>
+(Inner voice)
 Of course...
-<</thought>>
+<</dialog>>
 <div class="location-actions">
     <<btn "Go Home" "energy_collapse_nap">><</btn>>
 </div>

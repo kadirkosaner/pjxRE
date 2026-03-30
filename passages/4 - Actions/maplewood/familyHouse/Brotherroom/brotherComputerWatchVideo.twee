@@ -1,4 +1,3 @@
-:: brotherComputerWatchVideo
 <<nobr>>
 <<requireMinEnergy 5 "brotherComputerMenu">>
 <<silently>>
@@ -18,10 +17,11 @@
 <<loseStat "stress" 12>>
 <<loseStat "energy" 5>>
 <<advanceTime 45>>
+<<flushNotifications>>
 <</silently>>
 
 <<narrative "Watching Video">>
-_sceneText
+<<print _sceneText>>
 <</narrative>>
 
 <div class="location-actions">

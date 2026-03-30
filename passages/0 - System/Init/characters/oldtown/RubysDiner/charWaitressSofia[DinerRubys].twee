@@ -56,12 +56,22 @@
         {
             id: "talk", label: "Talk", passage: "sofiaTalkDinerRubys",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        },
+        {
+            id: "gossipDiana", label: "Vince's girlfriend", passage: "sofiaTalkDinerRubys_dianaGossip",
+            tags: [], requirements: { flag: "sofiaGossipUnlocked", flagNot: "sofiaGossipDone" },
+            dailyLimit: false, minPlayerEnergy: 5, showWhenLocked: false
         }
     ],
     dinerRubysStorage: [
         {
             id: "talk", label: "Talk", passage: "sofiaTalkDinerRubys",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        },
+        {
+            id: "gossipDiana", label: "Vince's girlfriend", passage: "sofiaTalkDinerRubys_dianaGossip",
+            tags: [], requirements: { flag: "sofiaGossipUnlocked", flagNot: "sofiaGossipDone" },
+            dailyLimit: false, minPlayerEnergy: 5, showWhenLocked: false
         }
     ]
 }>>

@@ -1,4 +1,8 @@
 <<nobr>>
+<<if $flags.dianaEventShown && !$flags.dianaThoughtsShown>>
+<<set $flags.dianaThoughtsShown = true>>
+<<goto "dinerWork_event_nightThoughts">>
+<</if>>
 <<set $location = "fhBedroom">>
 <<updateCharacterLocations>>
 

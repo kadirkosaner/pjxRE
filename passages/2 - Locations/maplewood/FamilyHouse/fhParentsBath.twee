@@ -13,10 +13,10 @@
 
     <<showLocationChars "fhParentsBath">>
 
-    /* Shower only on own floor (fhUpperBath) – no shower in parents' bathroom */
-    <div class="location-actions">
-        <<bathroomActions>>
-    </div>
+<div class="location-actions">
+    <<bathroomActions>>
+    <<mirrorBtn>>
+</div>
 
     <<navMenu>>
         <<navCard "fhParentsRoom">>

@@ -1,4 +1,3 @@
-:: brotherComputerPlayGame
 <<nobr>>
 <<requireMinEnergy 10 "brotherComputerMenu">>
 <<silently>>
@@ -25,10 +24,11 @@
 <<loseStat "energy" 10>>
 <<gainSkill "technical" "gaming" 2>>
 <<advanceTime 60>>
+<<flushNotifications>>
 <</silently>>
 
 <<narrative "Gaming">>
-_sceneText
+<<print _sceneText>>
 <</narrative>>
 
 <<if _sceneVid !== "">><<vid _sceneVid "100%">><</if>>

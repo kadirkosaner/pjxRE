@@ -63,6 +63,7 @@
 <<advanceTime 20>>
 <<loseStat "energy" 8>>
 <<gainStat "mood" 4>>
+<<flushNotifications>>
 
 /* Apply topic stat gains */
 <<if _topic.friendship>><<gainCharacterStat "brother" "friendship" _topic.friendship>><</if>>

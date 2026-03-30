@@ -1,0 +1,109 @@
+/* ==========================================
+   SOFIA TALK - Diana Gossip (one-time)
+   Unlocks after emmaGossipDone.
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<logDailyActivity "Talked to Sofia">>
+<<gainCharacterStat "dinerWaitress2" "friendship" 2>>
+<</silently>>
+
+<<dialog "player">>
+There was someone here yesterday. The woman with Vince.
+<</dialog>>
+
+<<dialog "dinerWaitress2">>
+Diana? I saw her.
+<</dialog>>
+
+<<dialog "player">>
+What did you think?
+<</dialog>>
+
+<<dialog "dinerWaitress2">>
+(thinking)
+Look — that woman has a body and she knows how to use it. If I looked like that I'd do the same thing. Why wouldn't I?
+<</dialog>>
+
+<<narrative>>
+She said it straight. No apology.
+<</narrative>>
+
+<<dialog "player">>
+The guys in the kitchen were talking about her...
+<</dialog>>
+
+<<dialog "dinerWaitress2">>
+(laughing)
+Of course they were. They always talk like that. If you were someone they wanted like that, you'd want it too — I know I would.
+<</dialog>>
+
+<<dialog "player">>
+(quietly)
+Maybe.
+<</dialog>>
+
+<<dialog "player">>
+So just... give men what they want?
+<</dialog>>
+
+<<dialog "dinerWaitress2">>
+If that's what they want, why not? Especially if you're getting something back. Vince gives her nice dinners, gifts, money — she gives Vince what he wants. Nobody's fooling anybody. Everyone knows what they want, nobody's lying.
+<</dialog>>
+
+<<narrative>>
+She shrugged.
+<</narrative>>
+
+<<dialog "dinerWaitress2">>
+We're the ones who make it complicated.
+<</dialog>>
+
+<<dialog "player">>
+Emma got really upset.
+<</dialog>>
+
+<<narrative>>
+Sofia paused. For a moment it looked like she was going to say something.
+<</narrative>>
+
+<<dialog "dinerWaitress2">>
+Emma has... her own reasons.
+<</dialog>>
+
+<<narrative>>
+She moved on. Didn't go further.
+<</narrative>>
+
+<<dialog "player">>
+What do you mean?
+<</dialog>>
+
+<<dialog "dinerWaitress2">>
+(lightly)
+Nothing. We were talking about Diana.
+<</dialog>>
+
+<<narrative>>
+She paused as she turned away.
+<</narrative>>
+
+<<dialog "dinerWaitress2">>
+One more thing... About Vince. Just be careful. He's the boss, but — just be careful.
+<</dialog>>
+
+<<narrative>>
+She didn't explain. Didn't continue.
+<</narrative>>
+
+<<thought>>
+Emma's "her own reasons" stuck with you.
+
+Sofia knows something.
+<</thought>>
+
+<<nobr>>
+<<set $flags.sofiaGossipDone = true>>
+<</nobr>>
+
+</div>

@@ -137,11 +137,6 @@
     <<if $hygiene <= 10>>
         <<set $mood = Math.max(0, $mood - 10)>>
         <<queueStatChange "mood" -10>>
-        <<set $charisma = Math.max(0, $charisma - 10)>>
-        <<queueStatChange "charisma" -10>>
-    <<elseif $hygiene <= 30>>
-        <<set $charisma = Math.max(0, $charisma - 5)>>
-        <<queueStatChange "charisma" -5>>
     <</if>>
     <</if>>
 <</widget>>

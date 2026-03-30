@@ -1,5 +1,4 @@
+:: foodCourtMall
 <<nobr>><<set $location = "foodCourtMall">><</nobr>>
 <<updateCharacterLocations>>
-<<narrative "Food Court">>Various restaurants surrounding a shared seating area. The smell of different cuisines mingles in the air.<</narrative>>
-<<showLocationChars "foodCourtMall">>
-<<navMenu>><<navCard "floorThird">><</navMenu>>
+<<restaurant "foodCourtMall" "floorThird">>

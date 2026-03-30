@@ -1784,6 +1784,12 @@ Macro.add('showActions', {
                         meetsReqs = false;
                         // Silent — flag failures are typically paired with showWhenLocked: false
                     }
+                } else if (req === 'flagNot') {
+                    // flagNot check — hides action when flag is true
+                    const flags = vars.flags || {};
+                    if (flags[value]) {
+                        meetsReqs = false;
+                    }
                 } else if (req === 'corruption') {
                     if ((vars.corruption || 0) < value) {
                         meetsReqs = false;

@@ -44,12 +44,15 @@
         <<initNotificationQueue>>
         
         /* Increase hunger, thirst, bladder and decrease energy, hygiene for each hour passed */
+        /* Skip passive energy drain while asleep — sleep passages apply their own recovery after time advances */
         <<for _i = 0; _i < _hours; _i++>>
             <<increaseHunger 5>>
             <<increaseThirst 5>>
             <<increaseBladder 8>>
             <<decreaseHygiene 5>>
-            <<loseStat "energy" 5>>
+            <<if !$isSleeping>>
+                <<loseStat "energy" 5>>
+            <</if>>
         <</for>>
 
         /* Fotogram – first-hours engagement spike */

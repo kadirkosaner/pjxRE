@@ -5,23 +5,40 @@
    - setup.restaurantMenus[menuId]: { name, foods, drinks, back? }
      back = return passage (else $location)
    - Dish: id, name, price, desc?, image?, calories?, effects: [{ stat, value, type }]
-   calories = added to $dailyCalorieIntake when $gameSettings.trackCalories (foods & drinks).
+   calories = added to $dailyCalorieIntake when $gameMenutings.trackCalories (foods & drinks).
    NOT related to setup.items (shopping). Used only by restaurant system.
 
    EFFECTS BY ITEM (value = change: negative = reduce, positive = gain)
    -----------------------------------------------------------------------
-   FOODS:
+   FOODS (Ruby's Diner):
    - House Salad         hunger -25, energy +5
    - Soup of the Day     hunger -20, mood +3
+   - Chili               hunger -30, energy +8, mood +3
    - Ruby's Classic Burger  hunger -45, energy +15
+   - BLT Sandwich        hunger -38, energy +10
    - Grilled Cheese      hunger -35, mood +3
-   - Short Stack Pancakes   hunger -40, energy +12
+   - Reuben Sandwich     hunger -42, energy +12
+   - Fried Chicken Plate hunger -52, energy +18
+   - Meatloaf            hunger -48, energy +15, mood +5
    - Club Sandwich       hunger -48, energy +14
    - Mac & Cheese        hunger -38, mood +4
+   - Short Stack Pancakes   hunger -40, energy +12
+   - French Toast        hunger -35, energy +10, mood +4
+   - Waffles             hunger -38, energy +10, mood +3
    - Eggs & Bacon        hunger -42, energy +18
+   - Omelette            hunger -40, energy +15
    - Pasta Carbonara     hunger -45, energy +12
    - Grilled Salmon      hunger -50, energy +15, mood +5
    - Steak & Frites      hunger -55, energy +20
+   - Apple Pie           hunger -20, mood +8, stress -5
+
+   FOOD COURT SETS (main + fries + drink included):
+   - Smash Burger Menu    hunger -60, thirst -35, energy +20
+   - Crispy Chicken Menu  hunger -58, thirst -35, energy +20
+   - Pizza Menu           hunger -55, thirst -35, energy +18, mood +3
+   - Burrito Bowl Menu    hunger -58, thirst -38, energy +18
+   - Hot Dog Menu         hunger -50, thirst -35, energy +15
+   - Veggie Wrap Menu     hunger -48, thirst -35, energy +15, mood +4
 
    DRINKS:
    - Water               thirst -40
@@ -29,6 +46,9 @@
    - Iced Tea            thirst -35, energy +5
    - Soda                thirst -25
    - Fresh Juice         thirst -30, energy +8
+   - Lemonade            thirst -35, mood +3
+   - Hot Chocolate       thirst -20, mood +6, stress -5
+   - Milkshake           thirst -40, mood +5
    ===================================================================== */
 
 setup.restaurantDishes = {
@@ -39,7 +59,7 @@ setup.restaurantDishes = {
             price: 8,
             calories: 150,
             desc: "Fresh greens with vinaigrette.",
-            image: "assets/content/items/restaurants/house_salad.png",
+            image: "assets/content/items/restaurants/house_salad.webp",
             effects: [
                 { stat: "hunger", value: -25, type: "instant" },
                 { stat: "energy", value: 5, type: "instant" }
@@ -51,7 +71,7 @@ setup.restaurantDishes = {
             price: 8,
             calories: 120,
             desc: "Chef's daily selection.",
-            image: "assets/content/items/restaurants/soup_of_day.png",
+            image: "assets/content/items/restaurants/soup_of_day.webp",
             effects: [
                 { stat: "hunger", value: -20, type: "instant" },
                 { stat: "mood", value: 3, type: "instant" }
@@ -63,7 +83,7 @@ setup.restaurantDishes = {
             price: 10,
             calories: 550,
             desc: "Beef patty, lettuce, tomato, fries on the side.",
-            image: "assets/content/items/restaurants/diner_burger.png",
+            image: "assets/content/items/restaurants/diner_burger.webp",
             effects: [
                 { stat: "hunger", value: -45, type: "instant" },
                 { stat: "energy", value: 15, type: "instant" }
@@ -75,7 +95,7 @@ setup.restaurantDishes = {
             price: 8,
             calories: 400,
             desc: "Toasted cheese sandwich, side of tomato soup.",
-            image: "assets/content/items/restaurants/grilled_cheese.png",
+            image: "assets/content/items/restaurants/grilled_cheese.webp",
             effects: [
                 { stat: "hunger", value: -35, type: "instant" },
                 { stat: "mood", value: 3, type: "instant" }
@@ -87,7 +107,7 @@ setup.restaurantDishes = {
             price: 9,
             calories: 450,
             desc: "Fluffy pancakes with butter and syrup.",
-            image: "assets/content/items/restaurants/pancakes.png",
+            image: "assets/content/items/restaurants/pancakes.webp",
             effects: [
                 { stat: "hunger", value: -40, type: "instant" },
                 { stat: "energy", value: 12, type: "instant" }
@@ -99,7 +119,7 @@ setup.restaurantDishes = {
             price: 11,
             calories: 550,
             desc: "Triple-decker, turkey, bacon, lettuce, tomato.",
-            image: "assets/content/items/restaurants/club_sandwich.png",
+            image: "assets/content/items/restaurants/club_sandwich.webp",
             effects: [
                 { stat: "hunger", value: -48, type: "instant" },
                 { stat: "energy", value: 14, type: "instant" }
@@ -111,7 +131,7 @@ setup.restaurantDishes = {
             price: 8,
             calories: 450,
             desc: "Creamy macaroni and cheese, comfort classic.",
-            image: "assets/content/items/restaurants/mac_cheese.png",
+            image: "assets/content/items/restaurants/mac_cheese.webp",
             effects: [
                 { stat: "hunger", value: -38, type: "instant" },
                 { stat: "mood", value: 4, type: "instant" }
@@ -123,7 +143,7 @@ setup.restaurantDishes = {
             price: 9,
             calories: 400,
             desc: "Two eggs any style, crispy bacon, toast.",
-            image: "assets/content/items/restaurants/eggs_bacon.png",
+            image: "assets/content/items/restaurants/eggs_bacon.webp",
             effects: [
                 { stat: "hunger", value: -42, type: "instant" },
                 { stat: "energy", value: 18, type: "instant" }
@@ -135,7 +155,7 @@ setup.restaurantDishes = {
             price: 12,
             calories: 650,
             desc: "Creamy bacon and parmesan.",
-            image: "assets/content/items/restaurants/pasta_carbonara.png",
+            image: "assets/content/items/restaurants/pasta_carbonara.webp",
             effects: [
                 { stat: "hunger", value: -45, type: "instant" },
                 { stat: "energy", value: 12, type: "instant" }
@@ -147,7 +167,7 @@ setup.restaurantDishes = {
             price: 14,
             calories: 450,
             desc: "Atlantic salmon with herbs.",
-            image: "assets/content/items/restaurants/grilled_salmon.png",
+            image: "assets/content/items/restaurants/grilled_salmon.webp",
             effects: [
                 { stat: "hunger", value: -50, type: "instant" },
                 { stat: "energy", value: 15, type: "instant" },
@@ -160,10 +180,205 @@ setup.restaurantDishes = {
             price: 15,
             calories: 750,
             desc: "Grilled ribeye with fries.",
-            image: "assets/content/items/restaurants/steak_frites.png",
+            image: "assets/content/items/restaurants/steak_frites.webp",
             effects: [
                 { stat: "hunger", value: -55, type: "instant" },
                 { stat: "energy", value: 20, type: "instant" }
+            ]
+        },
+        /* ── RUBY'S DINER NEW ITEMS ── */
+        {
+            id: "chili",
+            name: "Chili",
+            price: 7,
+            calories: 300,
+            desc: "Slow-cooked beef chili with cornbread on the side.",
+            image: "assets/content/items/restaurants/chili.webp",
+            effects: [
+                { stat: "hunger", value: -30, type: "instant" },
+                { stat: "energy", value: 8, type: "instant" },
+                { stat: "mood", value: 3, type: "instant" }
+            ]
+        },
+        {
+            id: "blt_sandwich",
+            name: "BLT Sandwich",
+            price: 9,
+            calories: 420,
+            desc: "Bacon, lettuce, tomato on toasted white bread.",
+            image: "assets/content/items/restaurants/blt_sandwich.webp",
+            effects: [
+                { stat: "hunger", value: -38, type: "instant" },
+                { stat: "energy", value: 10, type: "instant" }
+            ]
+        },
+        {
+            id: "reuben_sandwich",
+            name: "Reuben Sandwich",
+            price: 11,
+            calories: 550,
+            desc: "Corned beef, sauerkraut, swiss cheese, thousand island on rye.",
+            image: "assets/content/items/restaurants/reuben_sandwich.webp",
+            effects: [
+                { stat: "hunger", value: -42, type: "instant" },
+                { stat: "energy", value: 12, type: "instant" }
+            ]
+        },
+        {
+            id: "fried_chicken_plate",
+            name: "Fried Chicken Plate",
+            price: 13,
+            calories: 650,
+            desc: "Crispy Southern fried chicken with mashed potatoes and gravy.",
+            image: "assets/content/items/restaurants/fried_chicken_plate.webp",
+            effects: [
+                { stat: "hunger", value: -52, type: "instant" },
+                { stat: "energy", value: 18, type: "instant" }
+            ]
+        },
+        {
+            id: "meatloaf",
+            name: "Meatloaf",
+            price: 11,
+            calories: 500,
+            desc: "Classic meatloaf with mashed potatoes and green beans.",
+            image: "assets/content/items/restaurants/meatloaf.webp",
+            effects: [
+                { stat: "hunger", value: -48, type: "instant" },
+                { stat: "energy", value: 15, type: "instant" },
+                { stat: "mood", value: 5, type: "instant" }
+            ]
+        },
+        {
+            id: "french_toast",
+            name: "French Toast",
+            price: 9,
+            calories: 420,
+            desc: "Thick-cut brioche, powdered sugar, maple syrup.",
+            image: "assets/content/items/restaurants/french_toast.webp",
+            effects: [
+                { stat: "hunger", value: -35, type: "instant" },
+                { stat: "energy", value: 10, type: "instant" },
+                { stat: "mood", value: 4, type: "instant" }
+            ]
+        },
+        {
+            id: "waffles",
+            name: "Waffles",
+            price: 9,
+            calories: 480,
+            desc: "Golden Belgian waffles with fresh berries and whipped cream.",
+            image: "assets/content/items/restaurants/waffles.webp",
+            effects: [
+                { stat: "hunger", value: -38, type: "instant" },
+                { stat: "energy", value: 10, type: "instant" },
+                { stat: "mood", value: 3, type: "instant" }
+            ]
+        },
+        {
+            id: "omelette",
+            name: "Omelette",
+            price: 10,
+            calories: 350,
+            desc: "Three-egg omelette with cheese, peppers, and onions.",
+            image: "assets/content/items/restaurants/omelette.webp",
+            effects: [
+                { stat: "hunger", value: -40, type: "instant" },
+                { stat: "energy", value: 15, type: "instant" }
+            ]
+        },
+        {
+            id: "apple_pie",
+            name: "Apple Pie",
+            price: 6,
+            calories: 400,
+            desc: "Warm slice with a scoop of vanilla ice cream.",
+            image: "assets/content/items/restaurants/apple_pie.webp",
+            effects: [
+                { stat: "hunger", value: -20, type: "instant" },
+                { stat: "mood", value: 8, type: "instant" },
+                { stat: "stress", value: -5, type: "instant" }
+            ]
+        },
+        /* ── FOOD COURT SETS ── */
+        {
+            id: "fc_smash_burger_menu",
+            name: "Smash Burger Menu",
+            price: 13,
+            calories: 900,
+            desc: "Double smash patty, fries, and a fountain drink.",
+            image: "assets/content/items/restaurants/fc_smash_burger_menu.webp",
+            effects: [
+                { stat: "hunger", value: -60, type: "instant" },
+                { stat: "thirst", value: -35, type: "instant" },
+                { stat: "energy", value: 20, type: "instant" }
+            ]
+        },
+        {
+            id: "fc_chicken_basket_menu",
+            name: "Crispy Chicken Menu",
+            price: 14,
+            calories: 950,
+            desc: "Crispy fried chicken tenders, waffle fries, and a drink.",
+            image: "assets/content/items/restaurants/fc_chicken_basket_menu.webp",
+            effects: [
+                { stat: "hunger", value: -58, type: "instant" },
+                { stat: "thirst", value: -35, type: "instant" },
+                { stat: "energy", value: 20, type: "instant" }
+            ]
+        },
+        {
+            id: "fc_pizza_menu",
+            name: "Pizza Menu",
+            price: 12,
+            calories: 820,
+            desc: "Two slices of cheesy pizza, fries, and a drink.",
+            image: "assets/content/items/restaurants/fc_pizza_menu.webp",
+            effects: [
+                { stat: "hunger", value: -55, type: "instant" },
+                { stat: "thirst", value: -35, type: "instant" },
+                { stat: "energy", value: 18, type: "instant" },
+                { stat: "mood", value: 3, type: "instant" }
+            ]
+        },
+        {
+            id: "fc_burrito_bowl_menu",
+            name: "Burrito Bowl Menu",
+            price: 13,
+            calories: 880,
+            desc: "Rice, beans, grilled chicken, salsa, and a drink.",
+            image: "assets/content/items/restaurants/fc_burrito_bowl_menu.webp",
+            effects: [
+                { stat: "hunger", value: -58, type: "instant" },
+                { stat: "thirst", value: -38, type: "instant" },
+                { stat: "energy", value: 18, type: "instant" }
+            ]
+        },
+        {
+            id: "fc_hot_dog_menu",
+            name: "Hot Dog Menu",
+            price: 11,
+            calories: 720,
+            desc: "Loaded hot dog with mustard and onions, fries, and a drink.",
+            image: "assets/content/items/restaurants/fc_hot_dog_menu.webp",
+            effects: [
+                { stat: "hunger", value: -50, type: "instant" },
+                { stat: "thirst", value: -35, type: "instant" },
+                { stat: "energy", value: 15, type: "instant" }
+            ]
+        },
+        {
+            id: "fc_veggie_wrap_menu",
+            name: "Veggie Wrap Menu",
+            price: 12,
+            calories: 680,
+            desc: "Grilled veggies and hummus in a flatbread, side salad, and a drink.",
+            image: "assets/content/items/restaurants/fc_veggie_wrap_menu.webp",
+            effects: [
+                { stat: "hunger", value: -48, type: "instant" },
+                { stat: "thirst", value: -35, type: "instant" },
+                { stat: "energy", value: 15, type: "instant" },
+                { stat: "mood", value: 4, type: "instant" }
             ]
         }
     ],
@@ -174,7 +389,7 @@ setup.restaurantDishes = {
             price: 0,
             calories: 0,
             desc: "Still or sparkling. Complimentary.",
-            image: "assets/content/items/restaurants/water.png",
+            image: "assets/content/items/restaurants/water.webp",
             effects: [
                 { stat: "thirst", value: -40, type: "instant" }
             ]
@@ -185,7 +400,7 @@ setup.restaurantDishes = {
             price: 2.5,
             calories: 5,
             desc: "Freshly brewed.",
-            image: "assets/content/items/restaurants/coffee.png",
+            image: "assets/content/items/restaurants/coffee.webp",
             effects: [
                 { stat: "energy", value: 15, type: "instant" }
             ]
@@ -196,7 +411,7 @@ setup.restaurantDishes = {
             price: 3.5,
             calories: 80,
             desc: "Refreshing and cold.",
-            image: "assets/content/items/restaurants/iced_tea.png",
+            image: "assets/content/items/restaurants/iced_tea.webp",
             effects: [
                 { stat: "thirst", value: -35, type: "instant" },
                 { stat: "energy", value: 5, type: "instant" }
@@ -208,7 +423,7 @@ setup.restaurantDishes = {
             price: 2.5,
             calories: 100,
             desc: "Cola, lemon-lime, or root beer.",
-            image: "assets/content/items/restaurants/soda.png",
+            image: "assets/content/items/restaurants/soda.webp",
             effects: [
                 { stat: "thirst", value: -25, type: "instant" }
             ]
@@ -219,10 +434,94 @@ setup.restaurantDishes = {
             price: 5,
             calories: 120,
             desc: "Seasonal fruit juice.",
-            image: "assets/content/items/restaurants/fresh_juice.png",
+            image: "assets/content/items/restaurants/fresh_juice.webp",
             effects: [
                 { stat: "thirst", value: -30, type: "instant" },
                 { stat: "energy", value: 8, type: "instant" }
+            ]
+        },
+        {
+            id: "milkshake",
+            name: "Milkshake",
+            price: 6,
+            calories: 450,
+            desc: "Thick shake — vanilla, chocolate, or strawberry.",
+            image: "assets/content/items/restaurants/milkshake.webp",
+            effects: [
+                { stat: "thirst", value: -40, type: "instant" },
+                { stat: "mood", value: 5, type: "instant" }
+            ]
+        },
+        {
+            id: "lemonade",
+            name: "Lemonade",
+            price: 3,
+            calories: 100,
+            desc: "Fresh-squeezed, sweetened just right.",
+            image: "assets/content/items/restaurants/lemonade.webp",
+            effects: [
+                { stat: "thirst", value: -35, type: "instant" },
+                { stat: "mood", value: 3, type: "instant" }
+            ]
+        },
+        {
+            id: "hot_chocolate",
+            name: "Hot Chocolate",
+            price: 3.5,
+            calories: 180,
+            desc: "Rich and creamy, topped with mini marshmallows.",
+            image: "assets/content/items/restaurants/hot_chocolate.webp",
+            effects: [
+                { stat: "thirst", value: -20, type: "instant" },
+                { stat: "mood", value: 6, type: "instant" },
+                { stat: "stress", value: -5, type: "instant" }
+            ]
+        },
+        /* Food court: same stats as diner drinks, takeaway cup art only */
+        {
+            id: "fc_soda_cup",
+            name: "Soda",
+            price: 2.5,
+            calories: 100,
+            desc: "Fountain soda in a to-go cup.",
+            image: "assets/content/items/restaurants/fc_soda_cup.webp",
+            effects: [
+                { stat: "thirst", value: -25, type: "instant" }
+            ]
+        },
+        {
+            id: "fc_coffee_cup",
+            name: "Coffee",
+            price: 2.5,
+            calories: 5,
+            desc: "Hot coffee in a to-go cup.",
+            image: "assets/content/items/restaurants/fc_coffee_cup.webp",
+            effects: [
+                { stat: "energy", value: 15, type: "instant" }
+            ]
+        },
+        {
+            id: "fc_iced_tea_cup",
+            name: "Iced Tea",
+            price: 3.5,
+            calories: 80,
+            desc: "Iced tea in a to-go cup.",
+            image: "assets/content/items/restaurants/fc_iced_tea_cup.webp",
+            effects: [
+                { stat: "thirst", value: -35, type: "instant" },
+                { stat: "energy", value: 5, type: "instant" }
+            ]
+        },
+        {
+            id: "fc_milkshake_cup",
+            name: "Milkshake",
+            price: 6,
+            calories: 450,
+            desc: "Thick shake in a to-go cup.",
+            image: "assets/content/items/restaurants/fc_milkshake_cup.webp",
+            effects: [
+                { stat: "thirst", value: -40, type: "instant" },
+                { stat: "mood", value: 5, type: "instant" }
             ]
         }
     ]
@@ -231,9 +530,22 @@ setup.restaurantDishes = {
 setup.restaurantMenus = {
     dinerRubys: {
         name: "Ruby's Diner",
-        foods: ["house_salad", "soup_of_day", "diner_burger", "grilled_cheese", "pancakes", "club_sandwich", "mac_cheese", "eggs_bacon", "pasta_carbonara", "grilled_salmon", "steak_frites"],
-        drinks: ["water", "coffee", "iced_tea", "soda", "fresh_juice"],
+        foods: [
+            "house_salad", "soup_of_day", "chili",
+            "diner_burger", "blt_sandwich", "reuben_sandwich", "grilled_cheese", "club_sandwich",
+            "fried_chicken_plate", "meatloaf",
+            "mac_cheese", "pasta_carbonara", "grilled_salmon", "steak_frites",
+            "pancakes", "french_toast", "waffles", "eggs_bacon", "omelette",
+            "apple_pie"
+        ],
+        drinks: ["water", "coffee", "iced_tea", "soda", "lemonade", "fresh_juice", "hot_chocolate", "milkshake"],
         back: "dinerRubys"
+    },
+    foodCourtMall: {
+        name: "Food Court",
+        foods: ["fc_smash_burger_menu", "fc_chicken_basket_menu", "fc_pizza_menu", "fc_burrito_bowl_menu", "fc_hot_dog_menu", "fc_veggie_wrap_menu"],
+        drinks: ["water", "fc_soda_cup", "fc_coffee_cup", "fc_iced_tea_cup", "fc_milkshake_cup"],
+        back: "floorThird"
     }
 };
 <</script>>

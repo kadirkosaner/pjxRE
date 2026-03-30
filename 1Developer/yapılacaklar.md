@@ -7,14 +7,28 @@
 - phone için selfieler ve videoları tamamla.
 - Numara silindiği zaman karakter tepkileri.
 
+- tom ile talk before the work.
 
-- Read system için bir kaç kitap ve dergi. Sonrasında brother pc için bir kaç aksiyon tuşu ardından evde randomize oluşan 2-3 event ve park alanına biraz giriş event olarak ve iş tarafına dishwashinge bir kaç event ve main yeni teasing sceneler koymayı düşünüyorum
 
 ############################################################################################################################
 
-- Read book kısımlarına yeni düzenlemeler gelebilir üzerine geldiğinde kitabın hoverı içerikte ne olduğu vs vs. ve resimler videolar.
 - Profile Pictureyi saçın şekline ve rengine göre yapmak.
 - Settings Help sayfası yapılacak.
 - Settings Bug Report sayfası yapılacak.
 
 
+- aile bireylerini duşta blurlu görmek
+- bir aile bireyine yakından bakma (belli bir quest sonrası yada event sonrası)
+- babadan para çalmak ( belki bir laptop için yada bir şey için ihtiyaca göre yada ilk pay check sonrası para az geldiği ve zaten hali hazırda görünüş olarak kötü durduğumuz için dinerda emmanın ya sofianın popülerliği yada bir kadının güzelliği erkek elemanların kadın hakkındaki konuşmalarını duymak ve bu yüzden güzellik için karakterin herşeyi yapma adımları)
+- ilk masturbasyon sahnesi
+- bir gün diner'da vince'nin gün sonunda çıkarken toplantı olacak odayı toparla dediğinde pc'yi açık görüp merak edip pcyi incelerken güvenlik kameralarına yakalanan ve vincenin sapık tarafının keşfi
+- Belki aileyi eve geç geldiğinde seks yaparken yakalaması odadan gelen seslere kulak verip.
+
+Bence şu sırayla git:
+
+Güzellik kıskançlığı → motivasyon kurulsun
+İlk mastürbasyon → corruption başlangıcı
+Babadan para çalmak
+Vince kamera sahnesi
+Duşta görme / yakından bakma
+Aileyi yakalamak

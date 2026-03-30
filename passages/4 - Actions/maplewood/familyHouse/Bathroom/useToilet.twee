@@ -1,3 +1,4 @@
+<<nobr>>
 <<silently>>
     <<if ndef $returnAfterToilet>>
         <<set $returnAfterToilet = "fhUpperBath">>
@@ -7,6 +8,7 @@
     <<run window.notifySuccess("Bladder Emptied")>>
     <<loseStat "hygiene" 5>>
     <<advanceTime 5>>
+    <<flushNotifications>>
 <</silently>>
 
 <<if $contentPreferences.watersports>>
@@ -31,3 +33,4 @@ You step over to the sink and wash your hands thoroughly with soap and water.
 <div class="location-actions">
     <<btn "Finish" $returnAfterToilet>><</btn>>
 </div>
+<</nobr>>

@@ -1,0 +1,66 @@
+/* ==========================================
+   EVENT - Night Thoughts (Diana Arc)
+   Auto-triggers from fhBedroom after
+   dianaEventShown and before dianaThoughtsShown
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<set $location = "fhBedroom">>
+<<advanceTime 45>>
+<</silently>>
+
+<<narrative "Bedroom">>
+You closed the door behind you.
+
+You didn't sit down. You just fell onto the bed and stared at the ceiling.
+<</narrative>>
+
+<<thought>>
+The perfume stuck with you. And that voice — "Hey, babe."
+
+Vince's face. The way it changed when he saw her.
+
+Then his hand.
+
+The men saw it too. All of them. "You could never get enough of that." "I wonder what she's like in bed." "I'd go all night..." Nobody stopped it. Nobody flinched. Like it was the only thing worth talking about.
+
+You wondered if they talk like that when you walk by.
+
+You paused on that thought.
+
+You're a woman too. You work in that kitchen every day. They see you too.
+
+What do they say.
+
+You weren't sure you wanted to know.
+<</thought>>
+
+<<thought>>
+Then Emma came to mind.
+
+That look on her face. Not just anger — something older than that. The way she wiped that booth, how she dropped the plates on the counter, how she didn't smile back at Diana.
+
+Jealous? Maybe. But it felt like more than that.
+
+Does she know Diana? Is there something between them? Or is it Vince?
+
+You didn't know. But you wanted to.
+
+You should talk to her.
+<</thought>>
+
+<<narrative "Bedroom">>
+Enough.
+
+You sat up.
+<</narrative>>
+
+<<nobr>>
+<<set $flags.dianaGossipUnlocked = true>>
+<<set $flags.dianaThoughtsShown = true>>
+<</nobr>>
+
+<div class="location-actions">
+<<btn "Get up" "fhBedroom">><</btn>>
+</div>
+</div>

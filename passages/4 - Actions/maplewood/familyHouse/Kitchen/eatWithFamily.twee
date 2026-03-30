@@ -48,6 +48,7 @@
     <<set $characters[_member].stats.love += 1>>
 <</for>>
 
+<<flushNotifications>>
 <<run window.notifySuccess("Enjoyed a meal with family!")>>
 <</silently>>
 

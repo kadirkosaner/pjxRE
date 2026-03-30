@@ -1,0 +1,167 @@
+/* ==========================================
+   EMMA TALK - Diana Gossip (one-time)
+   Unlocks after dianaThoughtsShown.
+   Opens Sofia gossip when complete.
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<logDailyActivity "Talked to Emma">>
+<<gainCharacterStat "dinerWaitress1" "friendship" 2>>
+<</silently>>
+
+<<dialog "player">>
+Hey Emma. How are you?
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+Fine. Why are you asking?
+<</dialog>>
+
+<<dialog "player">>
+You seemed pretty annoyed yesterday. You okay?
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+(laughs)
+I'm always annoyed. Just now noticing?
+<</dialog>>
+
+<<dialog "player">>
+The way you looked when Diana left... Did something happen between you and Vince? Work thing?
+<</dialog>>
+
+<<narrative>>
+Emma stopped. She set the rag down on the counter.
+<</narrative>>
+
+<<dialog "dinerWaitress1">>
+What does that have to do with anything.
+<</dialog>>
+
+<<dialog "player">>
+Looked like it did.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+Vince is our boss. Sometimes you get along, sometimes you don't. That's it.
+<</dialog>>
+
+<<dialog "player">>
+Because of Diana?
+<</dialog>>
+
+<<narrative>>
+A short silence.
+<</narrative>>
+
+<<dialog "dinerWaitress1">>
+When women like that show up, Vince becomes someone else. Loses focus, changes his mind about things. There was this one time... forget it. It's done.
+<</dialog>>
+
+<<dialog "player">>
+What happened that time?
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+(sharp)
+I said forget it.
+<</dialog>>
+
+<<narrative>>
+She picked up the rag. Turned around. But kept talking.
+<</narrative>>
+
+<<dialog "dinerWaitress1">>
+You know what gets me? He's a smart guy. Could be a good boss. But when someone like that walks in, brain shuts off. Like every man.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+Why? Because she's pretty. Because she knows how to dress, how to wear perfume, how to walk. She's decoration for Vince. He puts her on his arm, grabs her ass, shows her off to everyone. And she knows her role — she's there for the money, the comfort. They both know the game.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+But men only see that walk. That perfume. The rest is gone.
+<</dialog>>
+
+<<dialog "player">>
+So what's Diana's fault in all this?
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+(pausing)
+She doesn't have one. She knows the game. Like every woman.
+<</dialog>>
+
+<<narrative>>
+A short silence.
+
+Her voice changed.
+<</narrative>>
+
+<<dialog "dinerWaitress1">>
+I used to take care of myself. Back then.
+<</dialog>>
+
+<<narrative>>
+She said it and moved on. Didn't dwell on it.
+<</narrative>>
+
+<<dialog "dinerWaitress1">>
+You're young. Right now it feels like it doesn't matter. I get it. Everyone thinks that at your age — you've got time, everything's ahead of you.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+But then you look up and five years are gone. Ten years are gone. And someone like Diana walks through that door — and everyone looks up.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+Nobody tells you this. But I'm telling you: be consistent. Every day. Your skin, your hair, how you carry yourself — small things, but they add up.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+Ten years from now you've either built something — or you're watching the woman who just walked through that door.
+<</dialog>>
+
+<<dialog "player">>
+I never thought about it like that, honestly.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+(looking at you)
+It shows.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+Do you use moisturizer?
+<</dialog>>
+
+<<dialog "player">>
+Not really.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+Every night. Neck too.
+<</dialog>>
+
+<<narrative>>
+She turned around and went back to work.
+<</narrative>>
+
+<<thought>>
+Emma's "back then" stuck with you.
+
+Was she jealous of Diana — or of Vince. You couldn't tell.
+
+"There was this one time... forget it."
+
+What happened that time.
+
+Maybe Sofia knows.
+<</thought>>
+
+<<nobr>>
+<<set $flags.emmaGossipDone = true>>
+<<set $flags.sofiaGossipUnlocked = true>>
+<</nobr>>
+
+</div>
