@@ -2,16 +2,14 @@
    EVENT - Beauty Search (Something Different arc)
    Player researches skincare at brother's PC.
    Cinematic, single passage, no menu.
-   Triggers from brotherComputerMenu when
-   mirrorEventShown && !beautySearchDone.
-   Voice: narrative = external (you), present = in the moment;
-   inner voice = first-person self-talk.
+   Triggers from quest: something_different stage 2
+   Voice: <<narrative>> = narrator to player (second person *you* is fine); present in-scene;
+   inner voice = <<dialog "player">> + (Inner voice), first person (*I*).
 ========================================== */
 <div class="divnobr">
 <<silently>>
 <<set $location = "fhBrotherRoomPC">>
 <<advanceTime 45>>
-<<set $flags.beautySearchDone = true>>
 <<advanceQuestStage "something_different">>
 <</silently>>
 

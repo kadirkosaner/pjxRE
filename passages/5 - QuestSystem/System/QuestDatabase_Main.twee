@@ -420,11 +420,13 @@
                 id: "talk_mom",
                 title: "Talk to Mom",
                 desc: "Go talk to your mother.",
-                buttonText: "Talk to mom",
+                buttonText: "Ask mom about skincare",
                 triggers: {
                     location: "fhParentsRoom",
+                    character: { id: "mother" },
                     timeRange: { min: 23, max: 24 }
                 },
+                lockedText: "Come back later tonight.",
                 forceScene: true,
                 passage: "fhParentsRoom_event_motherTalk"
             },

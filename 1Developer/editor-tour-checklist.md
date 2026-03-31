@@ -13,7 +13,7 @@
 
 | # | Klasör | Dosya ~sayısı | Not | Durum |
 |---|--------|----------------|-----|--------|
-| 1 | `passages/1 - Prologue` | 18 | Oyuncunun ilk temas; yüksek öncelik | 🔄 **devam** |
+| 1 | `passages/1 - Prologue` | 18 | Oyuncunun ilk temas; yüksek öncelik | 🔄 **6–10 spot check yapıldı** |
 | 2 | `passages/2 - Locations` | ~136 | Çoğunlukla 1 paragraf hub metni; hızlı ama çok dosya | 🔄 **FamilyHouse turu yapıldı** |
 | 3 | `passages/5 - QuestSystem/Quests` | ~27 | Görev metinleri bir arada | ☐ |
 | 4 | `passages/4 - Actions` | ~78 | Olaylar, ayna, uyku, park… alt klasörlerle | ☐ |
@@ -34,7 +34,7 @@ Durum: `☐` bekliyor · `☑` bitti · yarım bırakıldıysa not düş.
 ### Tur 1b — `FamilyHouse` (14 dosya)
 
 **Yapı / makro**
-- **`fhParentsRoom`:** Bozuk `</if>` kaldırıldı; `<<set $location>>` + quest `<<goto fhParentsRoom_event_motherTalk>>` geri yüklendi. Başlık: `Parents' Room`.
+- **`fhParentsRoom`:** Bozuk `</if>` / `nobr` düzeltmeleri; başlık `Parents' Room`. **Something Different** için `<<questPrompts>>` eklendi (eksik passage’lar ayrıca yazıldı).
 - **`fhCouch`, `fhUpperstairs`:** `<<nobr>>` erken kapanıyordu; passage tek `nobr` içinde toplandı.
 - **`fhWardrobe`:** Aynı `nobr` düzeltmesi.
 - **`fhUpperBath`:** `</nobr>` yanlışlıkla `<<if>>` içindeydi; dosya sonuna alındı.
@@ -73,7 +73,7 @@ Bir sonraki turda **hangi alt klasör** (A/B/C) seçeceğini işaretle.
 | Dosya | Not |
 |--------|-----|
 | `3 - settingsPage.twee` | Çok uzun; UI + açıklama metinleri — ayrı oturum |
-| `6`–`10` | Flashback kartları; çoğunlukla zaten `you` — spot check |
+| `6`–`10` | Flashback kartları — **spot check:** hepsi `<<narrative>>` + *you*; `<<thought>>` yok; metin değişikliği gerekmedi |
 | `11` newhomeEnter, `12` newHome | Okundu; `I` sadece diyalog içinde |
 | `13–18` | Daha önce cilalandı; tekrar göz gezdirilebilir |
 
