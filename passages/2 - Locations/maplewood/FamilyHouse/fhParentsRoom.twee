@@ -1,10 +1,11 @@
 <<nobr>>
 <<set $location = "fhParentsRoom">>
-<</nobr>>
-
+<<if $questState.active.something_different?.stage === 3>>
+<<goto "fhParentsRoom_event_motherTalk">>
+<</if>>
 <<updateCharacterLocations>>
 
-<<narrative "Parents Room">>
+<<narrative "Parents' Room">>
 The master bedroom is elegant and well-kept. A large bed dominates the room, and soft curtains filter the light.
 <</narrative>>
 
@@ -14,3 +15,4 @@ The master bedroom is elegant and well-kept. A large bed dominates the room, and
 	<<navCard "fhParentsBath">>
 	<<navCard "fhDownstairs">>
 <</navMenu>>
+<</nobr>>

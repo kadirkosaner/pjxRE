@@ -2,6 +2,7 @@
    EMMA TALK - Diana Gossip (one-time)
    Unlocks after dianaThoughtsShown.
    Opens Sofia gossip when complete.
+   Voice: narrative = external (you); inner voice = first-person self-talk.
 ========================================== */
 <div class="divnobr">
 <<silently>>
@@ -148,21 +149,26 @@ Every night. Neck too.
 She turned around and went back to work.
 <</narrative>>
 
-<<thought>>
-Emma's "back then" stuck with you.
+<<narrative>>
+Emma's "back then" stuck with you long after she went back to work.
+<</narrative>>
 
-Was she jealous of Diana — or of Vince. You couldn't tell.
+<<dialog "player">>
+(Inner voice)
+Was she jealous of Diana — or of Vince? I couldn't tell.
 
 "There was this one time... forget it."
 
-What happened that time.
+What happened that time?
 
 Maybe Sofia knows.
-<</thought>>
+<</dialog>>
 
 <<nobr>>
 <<set $flags.emmaGossipDone = true>>
 <<set $flags.sofiaGossipUnlocked = true>>
+<<completeObjective "something_different" "talkEmma">>
+
 <</nobr>>
 
 </div>

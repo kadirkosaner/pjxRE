@@ -1,0 +1,132 @@
+/* ==========================================
+   EVENT - Beauty Search (Something Different arc)
+   Player researches skincare at brother's PC.
+   Cinematic, single passage, no menu.
+   Triggers from brotherComputerMenu when
+   mirrorEventShown && !beautySearchDone.
+   Voice: narrative = external (you), present = in the moment;
+   inner voice = first-person self-talk.
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<set $location = "fhBrotherRoomPC">>
+<<advanceTime 45>>
+<<set $flags.beautySearchDone = true>>
+<<advanceQuestStage "something_different">>
+<</silently>>
+
+<<narrative "Brother's Room">>
+You sit down slowly in his chair. The room is completely dark.
+Only the cold blue light of the screen lights up your face.
+
+You stare at the search bar for a moment.
+<</narrative>>
+
+<<narrative "Brother's Room">>
+<em>skincare routine for beginners</em>
+
+You press Enter.
+
+The page fills instantly.
+Videos, sponsored content, "beginner skincare" headlines...
+
+You click the first one.
+<</narrative>>
+
+<<narrative "Brother's Room">>
+A woman. Looking directly at the camera. Her face bare, her hair pulled back.
+Her voice is calm.
+
+<em>"I didn't know anything either. Really."</em>
+
+You watch.
+Morning routine, evening routine, which product does what... step by step.
+
+When the prices appear in the corner of the screen, your throat tightens.
+<</narrative>>
+
+<<narrative "Brother's Room">>
+You scroll to the comments.
+
+<em>"Wish someone told me this at 18."</em>
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Nobody told me either.
+<</dialog>>
+
+<<narrative "Brother's Room">>
+A suggestion catches your eye on the right: the same woman, two photos side by side.
+
+You open it.
+
+The one on the left feels familiar. You look at the one on the right longer.
+
+There is no dramatic change.
+But there is a difference.
+Her face looks more at ease. Like she's finally started to resemble herself.
+<</narrative>>
+
+<<narrative "Brother's Room">>
+You click a link. Then another. Forum, another video, a product page...
+
+Click. Stop. Go back. Click again.
+
+At some point you look at the top of the browser.
+The tabs have multiplied so much that the titles are gone — only small icons remain.
+
+A sentence catches your eye:
+
+<em>"You can tell when someone puts in effort and when they don't."</em>
+
+Vince's voice echoes in your head.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+"Do you ever look at yourself in the mirror?"
+<</dialog>>
+
+<<narrative "Brother's Room">>
+Without realizing when it happened, you're on a store page.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Look at these prices...
+
+Every month?
+
+I haven't even gotten to the clothes yet.
+<</dialog>>
+
+<<narrative "Brother's Room">>
+Your mother comes to mind.
+
+What does she do in the mornings? How long does she look in the mirror? Creams, products — are those things even in the house?
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+I don't actually know. I never looked.
+<</dialog>>
+
+<<narrative "Brother's Room">>
+Outside, a car door slams.
+
+You flinch. Your shoulders tense.
+
+You turn back to the screen.
+The tabs are still open. The prices are still the same.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+I have money. Just not enough for all of this.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Close and leave" "fhBrotherRoom">><</btn>>
+</div>
+</div>

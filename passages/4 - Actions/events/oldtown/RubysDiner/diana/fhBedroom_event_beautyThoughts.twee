@@ -1,0 +1,112 @@
+/* ==========================================
+   EVENT - Mirror Moment
+   Triggers from fhBedroom after emmaGossipDone.
+   Leads player to brother's PC.
+   Voice: narrative = external (you); inner voice = first-person self-talk.
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<set $location = "fhBedroom">>
+<<advanceTime 20>>
+<<advanceQuestStage "something_different">>
+<</silently>>
+
+<<narrative "Bedroom">>
+You closed the door behind you.
+
+You didn't sit down. You walked straight to the window and leaned against the glass.
+<</narrative>>
+
+<<narrative>>
+The street below was the same as yesterday. Same houses. Same trees.
+<</narrative>>
+
+<<narrative>>
+There was someone you liked in high school. Quietly. From a distance. You never said a word.
+
+You waited for him to notice. Days. Weeks. Like one morning he'd just look up and see you.
+
+He didn't.
+<</narrative>>
+
+<<narrative>>
+Then a new girl walked into class. The room changed the day she arrived — you felt it. Everyone did.
+
+You watched. They talked. Then they were always together.
+
+You were still in the same seat. Same corner.
+<</narrative>>
+
+<<narrative>>
+She wasn't prettier. Wasn't smarter. But when she walked in, you felt her there. Like she knew how to be seen.
+
+You'd always waited. For someone else to make the first move.
+
+Nobody had.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+What did she have that I didn't?
+<</dialog>>
+
+<<narrative "Bedroom">>
+You picked up the hand mirror from the desk.
+
+You looked.
+<</narrative>>
+
+<<narrative>>
+Vince's voice came back, clear as if he were standing in the room.
+
+"Do you ever look at yourself in the mirror?"
+<</narrative>>
+
+<<narrative>>
+You'd frozen that day. Your face had burned. You hadn't said a word.
+<</narrative>>
+
+<<narrative>>
+Now you looked. Really looked.
+
+Dry skin. Shadows under your eyes. Your hair just... there. Had it always looked like that.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+One look at me back there — dishwasher, kitchen — and he already knew.
+
+"No one has to see you there."
+
+He didn't even need to say it twice.
+<</dialog>>
+
+<<narrative>>
+Then Diana came to mind — like someone stepping into light that was already waiting for her.
+
+You'd never walked into a room like that. Not once.
+<</narrative>>
+
+<<narrative>>
+Vince's voice again, flat: "It shows."
+<</narrative>>
+
+<<narrative>>
+You held the mirror a long time.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Is this my life now — for good?
+<</dialog>>
+
+<<narrative "Bedroom">>
+You set the mirror down.
+
+Your brother's room came to mind — his desk. His computer.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Go to your brother's room" "fhBrotherRoomPC">><</btn>>
+</div>
+</div>

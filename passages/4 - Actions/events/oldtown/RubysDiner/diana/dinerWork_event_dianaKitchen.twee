@@ -2,6 +2,7 @@
    EVENT - Diana Kitchen
    Follows dianaArrival. Player eavesdrops
    from the kitchen door.
+   Voice: narrative = external (you); inner voice = first-person self-talk.
 ========================================== */
 <div class="divnobr">
 <<silently>>
@@ -16,7 +17,7 @@ You stop.
 <</narrative>>
 
 <<dialog "dinerWaitress3">>
-Who is that? She new?
+Who is that? Is she new?
 <</dialog>>
 
 <<dialog "dinerChef">>
@@ -56,19 +57,30 @@ Yeah right, you couldn't handle it.
 They laughed.
 <</narrative>>
 
-<<thought>>
-You swallowed.
+<<narrative "Kitchen Door">>
+You swallow.
+<</narrative>>
 
+<<narrative>>
 Men talk like this. Among themselves, when no one's around.
 
-She got to all of them that much. Why? What did she have...
+She got to all of them that much. Why? What did she have?
 
-The red dress? The perfume? That walk, that way she didn't seem to care about any of it?
+The red dress? The perfume? That walk — that way she didn't seem to care about any of it?
+<</narrative>>
 
-You should have gone in. You should have left.
+<<dialog "player">>
+(Inner voice)
+I shouldn't be listening to this.
 
-You did neither.
-<</thought>>
+But I can't walk away. I can't make myself go in either.
+
+What the hell am I even doing here?
+<</dialog>>
+
+<<narrative "Kitchen Door">>
+You do neither.
+<</narrative>>
 
 <<narrative "Kitchen Door">>
 Hard steps in the corridor. Emma — two empty plates in her hands, face like stone.
@@ -91,7 +103,7 @@ Emma sets the plates on the counter. Back to you. Doesn't say a word.
 <</narrative>>
 
 <<narrative "Kitchen">>
-You turned to Mike.
+You turn to Mike.
 <</narrative>>
 
 <<dialog "player">>
@@ -104,9 +116,9 @@ Okay.
 <</dialog>>
 
 <<narrative "Kitchen">>
-You took off your apron. Hung it up.
+You take off your apron. Hang it up.
 
-Walked out.
+You walk out.
 <</narrative>>
 
 <div class="location-actions">

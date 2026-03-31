@@ -2,6 +2,7 @@
    EVENT - Diana Arrival
    Triggers after day 3 of dishwasher work,
    end of shift. Player witnesses from hallway.
+   Voice: narrative = external (you); inner voice = first-person self-talk.
 ========================================== */
 <div class="divnobr">
 <<silently>>
@@ -11,7 +12,7 @@
 <</silently>>
 
 <<narrative "Hallway">>
-You're heading out. End of the hallway, one step from the floor.
+You're on your way out — end of the hallway, one step from the dining floor.
 <</narrative>>
 
 <<dialog "dinerWaitress1">>
@@ -83,9 +84,16 @@ Surprise.
 Somewhere to your left, Emma is wiping down a booth. Fast, tight movements. She isn't looking at them — but she's listening.
 <</narrative>>
 
-<<thought>>
-You're standing at the end of the corridor. Look at Vince.
-<</thought>>
+<<narrative "Hallway">>
+You're still at the end of the corridor. Watching.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+I'm right here and he still doesn't care who sees.
+
+Like this is the most normal thing in the world.
+<</dialog>>
 
 <<dialog "dinerManager">>
 Text me if anything comes up, Tom. I'm not coming in for closing.
@@ -96,15 +104,15 @@ Sure thing, boss.
 <</dialog>>
 
 <<narrative "Dining Room">>
-Diana walked toward the door. Just as she passed, Emma looked up — for the first time. Their eyes met.
+Diana walks toward the door. As she passes, Emma looks up — for the first time. Their eyes meet.
 
-Diana smiled. Polite. Shallow.
+Diana smiles. Polite. Shallow.
 
-Emma didn't smile back.
+Emma doesn't smile back.
 
-The door closed.
+The door closes.
 
-Emma wiped her hands on her apron and watched them go. Then she turned around and went back to work.
+Emma wipes her hands on her apron and watches them go. Then she turns around and goes back to work.
 <</narrative>>
 
 <div class="location-actions">

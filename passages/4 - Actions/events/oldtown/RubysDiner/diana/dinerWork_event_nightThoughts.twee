@@ -2,6 +2,7 @@
    EVENT - Night Thoughts (Diana Arc)
    Auto-triggers from fhBedroom after
    dianaEventShown and before dianaThoughtsShown
+   Voice: narrative = external (you); inner voice = first-person self-talk.
 ========================================== */
 <div class="divnobr">
 <<silently>>
@@ -15,39 +16,56 @@ You closed the door behind you.
 You didn't sit down. You just fell onto the bed and stared at the ceiling.
 <</narrative>>
 
-<<thought>>
+<<narrative>>
 The perfume stuck with you. And that voice — "Hey, babe."
 
 Vince's face. The way it changed when he saw her.
 
 Then his hand.
+<</narrative>>
 
-The men saw it too. All of them. "You could never get enough of that." "I wonder what she's like in bed." "I'd go all night..." Nobody stopped it. Nobody flinched. Like it was the only thing worth talking about.
+<<narrative>>
+The men saw it too. All of them.
 
-You wondered if they talk like that when you walk by.
+"You could never get enough of that." "I wonder what she's like in bed." "I'd go all night..."
 
-You paused on that thought.
+Nobody stopped it. Nobody flinched. Like it was the only thing worth talking about.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+When I walk by, do they talk about me like that?
+<</dialog>>
+
+<<narrative>>
+You pause on that thought.
 
 You're a woman too. You work in that kitchen every day. They see you too.
+<</narrative>>
 
-What do they say.
+<<dialog "player">>
+(Inner voice)
+What do they say about me?
 
-You weren't sure you wanted to know.
-<</thought>>
+Maybe I don't want to know.
+<</dialog>>
 
-<<thought>>
-Then Emma came to mind.
+<<narrative>>
+Emma's face comes to mind.
 
 That look on her face. Not just anger — something older than that. The way she wiped that booth, how she dropped the plates on the counter, how she didn't smile back at Diana.
+<</narrative>>
 
-Jealous? Maybe. But it felt like more than that.
+<<dialog "player">>
+(Inner voice)
+Jealous? Maybe. Not just that.
 
-Does she know Diana? Is there something between them? Or is it Vince?
+Does she know Diana? Or is it all because of Vince?
 
-You didn't know. But you wanted to.
+I need to know.
 
-You should talk to her.
-<</thought>>
+I need to talk to Emma.
+<</dialog>>
 
 <<narrative "Bedroom">>
 Enough.

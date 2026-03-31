@@ -2,13 +2,11 @@
 <<set $location = "fhBackyard">>
 <<set $activityOrigin = "fhBackyard">>
 <<updateCharacterLocations>>
-<</nobr>>
 
 <<narrative "Backyard">>
 A peaceful garden with a well-maintained lawn. A small patio offers shade, and flower beds add color to the scene.
 <</narrative>>
 
-<<nobr>>
 <<showLocationChars "fhBackyard">>
 <div class="location-actions">
 	<<btnPicker "Rest" "backyardRest" "mediumActivity">>

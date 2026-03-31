@@ -376,5 +376,89 @@
         onComplete: {
             notification: "Quest Complete: Check Old Town"
         }
+    },
+
+    /* ========== SOMETHING DIFFERENT - DIANA / BEAUTY ARC ========== */
+    something_different: {
+        id: "something_different",
+        title: "Something Different",
+        category: "main",
+        character: "player",
+
+        requirements: {
+            flags: ["dianaGossipUnlocked"]
+        },
+
+        stages: [
+            {
+                id: "talk_to_girls",
+                title: "Talk to the Girls",
+                desc: "Emma and Sofia seemed to know something. Talk to both of them at the diner.",
+                triggers: { location: "dinerRubys" },
+                objectives: [
+                    { id: "talkEmma", text: "Talk to Emma about Diana" },
+                    { id: "talkSofia", text: "Talk to Sofia about Diana" }
+                ],
+                completeWhen: "allObjectives"
+            },
+            {
+                id: "mirror_moment",
+                title: "Think About It",
+                desc: "Go home.",
+                triggers: { location: "fhBedroom" },
+            },
+            {
+                id: "research",
+                title: "Do Some Research",
+                desc: "Use your brother's computer.",
+                buttonText: "Search online",
+                triggers: { location: "fhBrotherRoomPC" },
+                forceScene: true,
+                passage: "brotherComputer_beautySearch"
+            },
+            {
+                id: "talk_mom",
+                title: "Talk to Mom",
+                desc: "Go talk to your mother.",
+                buttonText: "Talk to mom",
+                triggers: {
+                    location: "fhParentsRoom",
+                    timeRange: { min: 23, max: 24 }
+                },
+                forceScene: true,
+                passage: "fhParentsRoom_event_motherTalk"
+            },
+            {
+                id: "ask_dad",
+                title: "Ask Dad for Money",
+                desc: "You'll need money. Maybe dad can help.",
+                buttonText: "Talk to dad",
+                triggers: { location: "fhLivingRoom" },
+                forceScene: true,
+                passage: "fhLivingRoom_event_askDadMoney"
+            },
+            {
+                id: "visit_mall",
+                title: "Check the Mall",
+                desc: "See what's available.",
+                buttonText: "Go to the mall",
+                triggers: { location: "mall" },
+                forceScene: true,
+                passage: "mall_event_beautyVisit"
+            },
+            {
+                id: "find_money",
+                title: "Find a Way",
+                desc: "You need the money. One way or another.",
+                triggers: { location: "fhLivingRoom" },
+                forceScene: true,
+                passage: "fhLivingRoom_event_stealDad"
+            }
+        ],
+
+        onComplete: {
+            flags: ["something_different_done"],
+            notification: "Quest Complete: Something Different"
+        }
     }
 })>>

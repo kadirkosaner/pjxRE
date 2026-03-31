@@ -1,6 +1,7 @@
 /* ==========================================
    SOFIA TALK - Diana Gossip (one-time)
    Unlocks after emmaGossipDone.
+   Voice: narrative = external (you); inner voice = first-person self-talk.
 ========================================== */
 <div class="divnobr">
 <<silently>>
@@ -97,14 +98,18 @@ One more thing... About Vince. Just be careful. He's the boss, but — just be c
 She didn't explain. Didn't continue.
 <</narrative>>
 
-<<thought>>
-Emma's "her own reasons" stuck with you.
+<<narrative>>
+Emma's "her own reasons" stuck with you as Sofia walked away.
+<</narrative>>
 
-Sofia knows something.
-<</thought>>
+<<dialog "player">>
+(Inner voice)
+She knows something she's not saying.
+<</dialog>>
 
 <<nobr>>
 <<set $flags.sofiaGossipDone = true>>
+<<completeObjective "something_different" "talkSofia">>
 <</nobr>>
 
 </div>
