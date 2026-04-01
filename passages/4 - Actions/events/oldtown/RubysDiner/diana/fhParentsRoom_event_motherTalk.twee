@@ -1,0 +1,168 @@
+/* ==========================================
+   EVENT - Talk to Mom (Something Different arc)
+   After research at brother's PC. Warm, practical, a little advice.
+   Voice: <<narrative>> to player (*you* ok); <<dialog>> for speech.
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<set $location = "fhParentsRoom">>
+<<advanceTime 25>>
+<<advanceQuestStage "something_different">>
+<</silently>>
+
+<<narrative "Parents' Room">>
+She's lying back on the bed, book open in her lap, glasses perched on her nose. When she sees you, she marks the page and smiles.
+<</narrative>>
+
+<<dialog "player">>
+Mom, are you busy? Am I interrupting?
+<</dialog>>
+
+<<dialog "mother">>
+No, honey, you're not interrupting. Come here—I'm glad you came.
+<</dialog>>
+
+<<dialog "player">>
+What were you doing?
+<</dialog>>
+
+<<dialog "mother">>
+(She sets the book aside and sighs.)
+Reading, really. I've been on house stuff all day, baby—laundry, your things, the kitchen… I needed to clear my head. We haven't seen much of each other lately. Sit here.
+(She taps the edge of the bed.)
+<</dialog>>
+
+<<narrative "Parents' Room">>
+You sit beside her.
+<</narrative>>
+
+<<dialog "player">>
+Long day?
+<</dialog>>
+
+<<dialog "mother">>
+(Soft, wry.)
+Very. But I'm all right. How are you? How's work? You look a little worn out, sweetie—your face seems pale.
+<</dialog>>
+
+<<dialog "player">>
+Not terrible. I'm still getting used to it.
+<</dialog>>
+
+<<dialog "mother">>
+Good. Don't forget to rest, okay?
+<</dialog>>
+
+<<narrative "Parents' Room">>
+A short silence. Then your voice comes out smaller than you meant.
+<</narrative>>
+
+<<dialog "player">>
+Mom… do you think I'm pretty?
+<</dialog>>
+
+<<dialog "mother">>
+(She puts the book down completely, surprised.)
+What? Where did that come from?
+<</dialog>>
+
+<<dialog "player">>
+I just… felt it.
+<</dialog>>
+
+<<narrative "Parents' Room">>
+A beat. Her expression softens.
+<</narrative>>
+
+<<dialog "mother">>
+Come here.
+
+(She cups your face in her hands and tilts it gently.)
+Of course you're pretty. What kind of question is that?
+<</dialog>>
+
+<<dialog "player">>
+Actually… more than being pretty, I want to feel like I'm taking care of myself. Lately my face almost feels foreign—my skin, the way I look… And it tightens something inside.
+<</dialog>>
+
+<<dialog "mother">>
+(She studies you, thumb brushing your jaw—not judging.)
+You don't look foreign, sweetie. That's tiredness, maybe a little dryness. It's not "you're not pretty." It's neglect, maybe. People do it without noticing.
+<</dialog>>
+
+<<dialog "player">>
+What am I supposed to do? I looked things up online and only got more confused—every video says something different, ten steps here, "just drink water" there… I didn't know who to trust. I told myself my mom would know best.
+<</dialog>>
+
+<<dialog "mother">>
+(She laughs.)
+The internet? Of course it confused you.
+
+You're lucky. In my day we didn't have all this information—we figured things out by word of mouth, whatever worked.
+
+(She thinks for a moment.)
+Start simple. I've got creams in the bathroom—moisturizer, sunscreen in the morning… You can use mine if you want, but I'll be honest: they're not really picked for skin your age; they're for what I need. For now, a light moisturizer and sunscreen in the morning are enough. Start there—we'll talk about the rest when you're ready, no rush.
+<</dialog>>
+
+<<dialog "player">>
+Okay…
+<</dialog>>
+
+<<dialog "mother">>
+(She tucks your hair behind your ear.)
+Drink water. Sleep. That counts as care too, don't forget. You're such a beautiful girl.
+<</dialog>>
+
+<<dialog "player">>
+You always look like you have it together. How do you do it? Dad still looks at you like that.
+<</dialog>>
+
+<<dialog "mother">>
+(Her eyes soften; she smiles, far away for a second.)
+Your father… he's such a goofball. I mean that in the best way.
+
+In college it was a friend's birthday. I'd done my hair, a little makeup… He barely talked to me all night. Just watched.
+<</dialog>>
+
+<<dialog "player">>
+And then?
+<</dialog>>
+
+<<dialog "mother">>
+(She pauses, smiling but holding something back.)
+That's not really tonight's topic, sweetie—but in short, life sped up. Home, work, you kids… That's a long story for another night, or we'll be here till morning.
+<</dialog>>
+
+<<dialog "player">>
+So… love at first sight, huh?
+<</dialog>>
+
+<<narrative "Parents' Room">>
+You both laugh—light, easy.
+<</narrative>>
+
+<<dialog "mother">>
+But I'll say this clearly: someone who truly values you doesn't only look at your face—they look at you inside. Beauty gets attention, yes. But it doesn't hold anyone on its own.
+<</dialog>>
+
+<<dialog "player">>
+What about wanting attention?
+<</dialog>>
+
+<<dialog "mother">>
+(Smiling, but serious underneath.)
+That's not a bad thing either, honey. People want to be seen sometimes. Just be careful who you're pulling in—what you settle for, where you draw the line. Don't shrink yourself. Don't put yourself at risk either. Okay?
+<</dialog>>
+
+<<dialog "player">>
+Okay.
+<</dialog>>
+
+<<dialog "mother">>
+Good. Now come here and give me a hug.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Step out" "fhParentsHall_afterMotherTalk">><</btn>>
+</div>
+</div>

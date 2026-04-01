@@ -1,0 +1,109 @@
+/* ==========================================
+   EVENT - Take Money from Dad's Wallet (Something Different arc)
+   You take a bill and rush back upstairs.
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<set $location = "fhBedroom">>
+<<advanceTime 3>>
+<<earnMoney 100 "You took $100 from Dad's wallet">>
+<<advanceQuestStage "something_different">>
+<</silently>>
+
+<<narrative "Living Room">>
+You pull one of the bills free.
+
+Fast. Before you can think too hard about it.
+<</narrative>>
+
+<<narrative>>
+You snap the wallet shut and put it back where it was.
+
+The bill disappears into your pocket.
+
+Your heart is pounding so hard it feels loud enough to fill the whole room.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Okay. Okay. Just get out.
+<</dialog>>
+
+<<narrative "Stairs">>
+You head for the stairs without looking back.
+
+You try to keep your steps quiet, but every one of them sounds too loud.
+
+Your hand keeps drifting to your pocket, checking that the money is still there.
+<</narrative>>
+
+<<narrative "Upstairs">>
+Just as you reach the top of the stairs, your brother's door swings open.
+
+You flinch.
+
+He steps into the hall, clearly on his way to the bathroom.
+<</narrative>>
+
+<<dialog "brother">>
+Sis? You okay?
+<</dialog>>
+
+<<dialog "player">>
+Uh... kitchen. Couldn't sleep. Heading back to my room. You?
+<</dialog>>
+
+<<dialog "brother">>
+Bathroom.
+<</dialog>>
+
+<<dialog "player">>
+Right... yeah. Me too.
+<</dialog>>
+
+<<narrative>>
+You hear it as soon as it leaves your mouth.
+
+Too fast. Too eager.
+<</narrative>>
+
+<<narrative>>
+Your brother gives you a short look.
+<</narrative>>
+
+<<dialog "brother">>
+Okay...
+<</dialog>>
+
+<<narrative>>
+He keeps looking at you for another second.
+<</narrative>>
+
+<<dialog "brother">>
+Weird.
+<</dialog>>
+
+<<narrative>>
+He doesn't say anything else and walks past you toward the bathroom.
+
+You don't linger.
+<</narrative>>
+
+<<narrative "Bedroom">>
+The second you close the door behind you, you finally let out a breath.
+
+Your hand goes straight to your pocket.
+
+The bill is still there.
+
+Your stomach twists.
+
+But you don't pull your hand away.
+
+Now it feels real.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "fhBedroom">><</btn>>
+</div>
+</div>

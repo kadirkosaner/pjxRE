@@ -1,4 +1,8 @@
 <<nobr>>
+<<set _sdQuest = $questState.active.something_different>>
+<<if _sdQuest && setup.quests.something_different.stages[_sdQuest.stage].id === "find_money" && $timeSys.hour >= 23 && $timeSys.hour < 24>>
+<<goto "fhUpperstairs_event_walletChance">>
+<</if>>
 <<set $location = "fhUpperstairs">>
 <<updateCharacterLocations>>
 

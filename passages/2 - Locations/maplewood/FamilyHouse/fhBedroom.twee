@@ -3,6 +3,10 @@
 <<set $flags.dianaThoughtsShown = true>>
 <<goto "dinerWork_event_nightThoughts">>
 <</if>>
+<<set _sdQuest = $questState.active.something_different>>
+<<if _sdQuest && setup.quests.something_different.stages[_sdQuest.stage].id === "after_mall">>
+<<goto "fhBedroom_event_mallAftermath">>
+<</if>>
 <<set $location = "fhBedroom">>
 <<updateCharacterLocations>>
 

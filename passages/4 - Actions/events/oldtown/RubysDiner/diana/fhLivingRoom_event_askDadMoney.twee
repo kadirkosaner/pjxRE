@@ -1,0 +1,140 @@
+/* ==========================================
+   EVENT - Ask Dad for Money (Something Different arc)
+   Dad scene after mom-talk hallway bridge.
+   Dad is warm, but says no; wallet remains.
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<set $location = "fhLivingroom">>
+<<advanceTime 15>>
+<<advanceQuestStage "something_different">>
+<</silently>>
+
+<<narrative "Living Room">>
+You're about to head upstairs when the sound from the living room stops you.
+
+The TV cuts out. Then comes your father's rough cough, the soft click of the remote hitting the coffee table.
+
+You turn toward the room instead.
+<</narrative>>
+
+<<narrative "Living Room">>
+He's still sitting on the couch, half-turned. The TV is off now; the screen has gone dark. When he sees you, he looks up.
+<</narrative>>
+
+<<dialog "father">>
+Hey, sweetheart. Couldn't sleep?
+<</dialog>>
+
+<<dialog "player">>
+No... um.
+<</dialog>>
+
+<<narrative "Living Room">>
+You stay there at the doorway for a second too long. He notices immediately. His face shifts - softer, more attentive.
+<</narrative>>
+
+<<dialog "father">>
+What's wrong, honey?
+<</dialog>>
+
+<<dialog "player">>
+I wanted to ask you for something... I just didn't know how to say it.
+<</dialog>>
+
+<<dialog "father">>
+Come here. Tell me.
+<</dialog>>
+
+<<narrative "Living Room">>
+You take a couple of steps closer, but you don't fully sit down. Your hands stay clasped together.
+<</narrative>>
+
+<<dialog "player">>
+It's a little embarrassing.
+
+We just moved. Everything costs money. I know that.
+
+But I need a little too. For myself... personal stuff. I talked to Mom. I kind of know where to start now, but... what I have isn't enough.
+<</dialog>>
+
+<<dialog "father">>
+(After a short pause, still gentle.)
+How much do you need?
+<</dialog>>
+
+<<dialog "player">>
+Not that much, really. It's just that I barely have anything.
+
+Cream, stuff for my face... things like that.
+<</dialog>>
+
+<<narrative "Living Room">>
+He doesn't answer right away. His fingers tap the edge of the coffee table once. There's no anger in him - just tiredness, and the look of someone doing numbers in his head.
+<</narrative>>
+
+<<dialog "father">>
+Ah, sweetheart...
+
+We're really tight right now.
+
+The move, the missing things, the payments... it all landed at once. So I can't give you money right now.
+<</dialog>>
+
+<<narrative "Living Room">>
+He says it softly. Maybe he would if he could. Maybe he really can't.
+
+It still sinks into you.
+<</narrative>>
+
+<<dialog "player">>
+(Your voice hardens a little, but doesn't rise.)
+Okay, but everything keeps turning into "later."
+
+The suitcase is later. The missing things are later. What I need is later too.
+<</dialog>>
+
+<<dialog "father">>
+Don't say that.
+<</dialog>>
+
+<<dialog "player">>
+But that's what it feels like.
+<</dialog>>
+
+<<dialog "father">>
+(He dips his head slightly, tired but calm.)
+I know. I know it feels bad.
+
+But that doesn't mean we're brushing you aside, okay? It just means... we can't keep up with everything all at once right now.
+<</dialog>>
+
+<<narrative "Living Room">>
+There's a brief silence.
+
+Then your father stands. As he passes you, he rests a hand on your shoulder.
+<</narrative>>
+
+<<dialog "father">>
+We'll deal with this too. Maybe not immediately... but we will, honey.
+<</dialog>>
+
+<<narrative "Living Room">>
+Then he leans down and kisses the top of your head.
+
+Without saying anything else, he heads down the hall and disappears into his room.
+<</narrative>>
+
+<<narrative "Living Room">>
+The living room goes quiet.
+
+His wallet is still on the coffee table.
+
+Thin. Dark leather. Right there in front of you.
+<</narrative>>
+
+<div class="location-actions">
+<span class="link-internal btn-style btn-default locked" data-tooltip="You can't do that."><i class="icon icon-lock icon-12"></i> Take money from the wallet</span>
+<<btn "Leave it alone" "fhLivingroom">><</btn>>
+</div>
+</div>

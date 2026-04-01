@@ -405,7 +405,10 @@
                 id: "mirror_moment",
                 title: "Think About It",
                 desc: "Go home.",
+                buttonText: "Be alone for a minute",
                 triggers: { location: "fhBedroom" },
+                forceScene: true,
+                passage: "fhBedroom_event_beautyThoughts"
             },
             {
                 id: "research",
@@ -433,11 +436,7 @@
             {
                 id: "ask_dad",
                 title: "Ask Dad for Money",
-                desc: "You'll need money. Maybe dad can help.",
-                buttonText: "Talk to dad",
-                triggers: { location: "fhLivingRoom" },
-                forceScene: true,
-                passage: "fhLivingRoom_event_askDadMoney"
+                desc: "Dad's still awake downstairs. Talk to him."
             },
             {
                 id: "visit_mall",
@@ -449,12 +448,24 @@
                 passage: "mall_event_beautyVisit"
             },
             {
+                id: "after_mall",
+                title: "Sit With It",
+                desc: "Go back to your room.",
+                triggers: { location: "fhBedroom" },
+                forceScene: true,
+                passage: "fhBedroom_event_mallAftermath"
+            },
+            {
                 id: "find_money",
                 title: "Find a Way",
-                desc: "You need the money. One way or another.",
-                triggers: { location: "fhLivingRoom" },
+                desc: "Late at night, you might get a chance.",
+                triggers: {
+                    location: "fhUpperstairs",
+                    timeRange: { min: 23, max: 24 }
+                },
+                lockedText: "Wait until the house settles down tonight.",
                 forceScene: true,
-                passage: "fhLivingRoom_event_stealDad"
+                passage: "fhUpperstairs_event_walletChance"
             }
         ],
 

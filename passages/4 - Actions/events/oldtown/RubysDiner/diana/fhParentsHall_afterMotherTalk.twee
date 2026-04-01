@@ -1,0 +1,79 @@
+/* ==========================================
+   EVENT - Hallway after mom talk (Something Different arc)
+   Bridge: parents' room → stairs / living room sounds → dad.
+   No quest advance (mother scene already advanced).
+========================================== */
+<div class="divnobr">
+<<silently>>
+<<set $location = "fhUpperstairs">>
+<<advanceTime 5>>
+<</silently>>
+
+<<narrative "Upstairs">>
+You close the door gently behind you.
+
+The hallway feels cooler at once. A moment ago the room was warm—her voice, the bed, her hands on your face—and now it's a few steps behind you.
+<</narrative>>
+
+<<narrative>>
+As you walk, your fingers drift to your cheek without thinking.
+
+"Keep it simple."
+"Moisturizer."
+"Sunscreen in the morning."
+
+What she said still rings clear. For the first time, this doesn't feel completely out of reach.
+
+Then the cost comes back.
+
+The feeling breaks apart.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Moisturizer. Sunscreen. That's still money.
+
+And right now even small things feel bigger than they should.
+<</dialog>>
+
+<<narrative>>
+You slow near the stairs.
+
+Talking to your dad shouldn't feel this heavy.
+
+Tonight it does.
+<</narrative>>
+
+<<narrative>>
+You're about to head for the stairs when the TV downstairs cuts out.
+
+Then your father's rough cough. The remote clicks onto the coffee table. The couch shifts with a soft creak.
+<</narrative>>
+
+<<narrative>>
+You stop.
+
+He's still down there.
+
+Footsteps creak toward the hallway—slow, like he's about to head for bed.
+
+If he crosses that threshold before you do, the opening closes.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+If I don't speak now, I'll put it off again.
+<</dialog>>
+
+<<narrative>>
+Your hand finds the banister.
+
+You take a breath.
+
+Then you start down the stairs.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Say hi to Dad" "fhLivingRoom_event_askDadMoney">><</btn>>
+</div>
+</div>
