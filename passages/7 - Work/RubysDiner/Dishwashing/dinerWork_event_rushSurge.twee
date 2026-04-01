@@ -1,0 +1,27 @@
+:: dinerWork_event_rushSurge
+<<silently>><<set _v = random(1, 2)>><</silently>>
+
+<<if _v === 1>>
+<<narrative "Rush">>
+Three bus tubs hit your station at once. The kitchen is loud, everyone's moving, and your sink is already full. Plates stacked on plates.
+
+You look at the pile. This is going to take everything you've got — or you could call Mike over.
+<</narrative>>
+
+<<else>>
+<<narrative "Rush">>
+A party of twelve just left. All at once. The entire table's worth of dishes lands on your counter in two loads. The stack is taller than the tap.
+
+You've got two options — dig in and power through, or wave Mike over before it gets worse.
+<</narrative>>
+<</if>>
+
+<div class="location-actions">
+<<if _v === 1>>
+<<btn "Push through it alone" "dinerWork_event_rushSurge_pushThrough">><</btn>>
+<<btn "Signal Mike for help" "dinerWork_event_rushSurge_askHelp">><</btn>>
+<<else>>
+<<btn "Handle it yourself" "dinerWork_event_rushSurge_pushThrough">><</btn>>
+<<btn "Get Mike's attention" "dinerWork_event_rushSurge_askHelp">><</btn>>
+<</if>>
+</div>

@@ -1,0 +1,15 @@
+:: dinerWork_event_rushSurge_pushThrough
+<<narrative>>
+You don't look up. Hands in the water, one plate at a time. The pile doesn't shrink for a while. Then it does.
+
+Your arms are heavy by the end. But you did it.
+<</narrative>>
+
+<<silently>>
+<<loseStat "energy" 8>>
+<<gainStat "stress" 5>>
+<<gainSkill "practical" "dishwashing" 1>>
+<<recalculateStats>>
+<</silently>>
+
+<<include "RubysDishwashWork_afterMini">>

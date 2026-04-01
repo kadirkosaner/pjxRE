@@ -262,6 +262,8 @@
     <<set $daily.dentalCareUsed = false>>
     <<set $daily.magazineStatUsedToday = false>>
     <<set $daily.bookMinutesRead = 0>>
+    <<set $daily.dishwashRushSurgeToday = false>>
+    <<set $daily.dishwashVinceCheckToday = false>>
 
     /* Job: record insufficient days before reset (hoursToday from day we're leaving) */
     <<jobRecordInsufficientDay _days>>

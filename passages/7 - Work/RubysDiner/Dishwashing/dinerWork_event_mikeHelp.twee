@@ -1,0 +1,41 @@
+:: dinerWork_event_mikeHelp
+<<silently>><<set _v = random(1, 3)>><</silently>>
+
+<<if _v === 1>>
+<<narrative>>
+The rack is full and another bus tub just came in. You're falling behind.
+
+Mike finishes his side, looks at your pile, and walks over. He starts unloading without a word.
+<</narrative>>
+<<narrative>>
+You work side by side for a few minutes. The pile goes down fast. He goes back to his station when it's done.
+<</narrative>>
+
+<<elseif _v === 2>>
+<<narrative>>
+Mike glances over during a rush. Your station is overflowing. He dries his hands, walks over, and starts stacking the clean ones onto the rack.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+You rinse. I'll stack.
+<</dialog>>
+<<narrative>>
+No argument. You get through the backlog in half the time.
+<</narrative>>
+
+<<else>>
+<<narrative>>
+You're scrubbing a burned pot that won't come clean. Mike reaches over and takes it from you.
+<</narrative>>
+<<dialog "dinerDishwasher">>
+Use the steel wool. And soak it first next time.
+<</dialog>>
+<<narrative>>
+He scrubs it clean in thirty seconds. Hands it back, already looking elsewhere.
+<</narrative>>
+<</if>>
+
+<<silently>>
+<<gainStat "energy" 8>>
+<<gainCharacterStat "dinerDishwasher" "friendship" 1>>
+<<recalculateStats>>
+<</silently>>

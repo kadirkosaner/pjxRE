@@ -87,6 +87,8 @@ Another shift at the sink. Hands raw, stacks cleared. Time to head out front.
 <<vid _dishVid "100%">>
 
 /* Mini event check */
+<<if ndef $daily.dishwashRushSurgeToday>><<set $daily.dishwashRushSurgeToday = false>><</if>>
+<<if ndef $daily.dishwashVinceCheckToday>><<set $daily.dishwashVinceCheckToday = false>><</if>>
 <<silently>>
 <<set _dishSkill = ($skills && $skills.practical && $skills.practical.dishwashing) ? $skills.practical.dishwashing : 0>>
 <<set _accidentChance = (_dishSkill <= 10) ? 40 : (_dishSkill <= 25) ? 20 : 5>>
@@ -95,56 +97,72 @@ Another shift at the sink. Hands raw, stacks cleared. Time to head out front.
 <<set _eventType = "">>
 
 <<if _accidentRoll <= _accidentChance>>
-    <<set _eventType = "broken">>
+    <<set _negPool = ["broken", "clog"]>>
+    <<if _dishSkill <= 15>>
+        <<run _negPool.push("burn")>>
+    <</if>>
+    <<set _eventType = _negPool[Math.floor(Math.random() * _negPool.length)]>>
     <<set _eventFired = true>>
 <<else>>
-    <<set _positivePool = []>>
-    <<if $characters.dinerWaitress1.stats.friendship >= 35 && $energy <= 35>>
-        <<run _positivePool.push("emmaWater")>>
-    <</if>>
-    <<if $characters.dinerChef.stats.friendship >= 35 && $energy <= 35>>
-        <<run _positivePool.push("jamesSnack")>>
-    <</if>>
-    <<if _positivePool.length > 0>>
-        <<set _eventType = _positivePool[Math.floor(Math.random() * _positivePool.length)]>>
+    <<set _neutralRoll = random(1, 100)>>
+    <<if _neutralRoll <= 15 && !$daily.dishwashRushSurgeToday>>
+        <<set _eventType = "rushSurge">>
         <<set _eventFired = true>>
+        <<set $daily.dishwashRushSurgeToday = true>>
+    <<elseif _neutralRoll <= 25 && !$daily.dishwashVinceCheckToday>>
+        <<set _eventType = "vinceCheck">>
+        <<set _eventFired = true>>
+        <<set $daily.dishwashVinceCheckToday = true>>
+    <<else>>
+        <<set _positivePool = []>>
+        <<if $characters.dinerWaitress1.stats.friendship >= 35 && $energy <= 35>>
+            <<run _positivePool.push("emmaWater")>>
+        <</if>>
+        <<if $characters.dinerChef.stats.friendship >= 35 && $energy <= 35>>
+            <<run _positivePool.push("jamesSnack")>>
+        <</if>>
+        <<if $characters.dinerWaitress3.stats.friendship >= 25>>
+            <<run _positivePool.push("sofiaChat")>>
+        <</if>>
+        <<if $characters.dinerDishwasher.stats.friendship >= 30 && ((_h >= 12 && _h <= 14) || (_h >= 17 && _h <= 20))>>
+            <<run _positivePool.push("mikeHelp")>>
+        <</if>>
+        <<if $characters.dinerClerk.stats.friendship >= 30 && !(_h >= 12 && _h <= 14) && !(_h >= 17 && _h <= 20)>>
+            <<run _positivePool.push("tomChat")>>
+        <</if>>
+        <<if _positivePool.length > 0>>
+            <<set _eventType = _positivePool[Math.floor(Math.random() * _positivePool.length)]>>
+            <<set _eventFired = true>>
+        <</if>>
     <</if>>
 <</if>>
 <</silently>>
 
+<<if _eventFired && _eventType === "rushSurge">>
+<<goto "dinerWork_event_rushSurge">>
+<<else>>
 <<if _eventFired>>
     <<if _eventType === "broken">>
         <<include "dinerWork_event_broken">>
+    <<elseif _eventType === "clog">>
+        <<include "dinerWork_event_clog">>
+    <<elseif _eventType === "burn">>
+        <<include "dinerWork_event_burn">>
     <<elseif _eventType === "emmaWater">>
         <<include "dinerWork_event_emmaWater">>
     <<elseif _eventType === "jamesSnack">>
         <<include "dinerWork_event_jamesSnack">>
+    <<elseif _eventType === "sofiaChat">>
+        <<include "dinerWork_event_sofiaChat">>
+    <<elseif _eventType === "mikeHelp">>
+        <<include "dinerWork_event_mikeHelp">>
+    <<elseif _eventType === "tomChat">>
+        <<include "dinerWork_event_tomChat">>
+    <<elseif _eventType === "vinceCheck">>
+        <<include "dinerWork_event_vinceCheck">>
     <</if>>
 <</if>>
-
-<<silently>>
-<<set _dianaJob = ($job && $job.id) ? setup.jobs[$job.id] : null>>
-<<set _dianaReqDay = (_dianaJob && _dianaJob.requiredHoursPerDay != null) ? _dianaJob.requiredHoursPerDay : 8>>
-/* Calendar day of employment since $job.startedOn: 1 = first day; event from day 3 onward */
-<<set State.temporary.dianaEmployDay = 0>>
-<<run (function () {
-    var v = State.variables;
-    var j = v.job && v.job.startedOn;
-    var ts = v.timeSys;
-    if (!j || j.year == null || !ts || ts.year == null) return;
-    var s = new Date(j.year, j.month - 1, j.day);
-    var c = new Date(ts.year, ts.month - 1, ts.day);
-    var diff = Math.floor((c.getTime() - s.getTime()) / 86400000);
-    State.temporary.dianaEmployDay = diff >= 0 ? diff + 1 : 0;
-})()>>
-<</silently>>
-<<if $job && $job.id === "ruby_dishwasher" && State.temporary.dianaEmployDay >= 3 && (parseFloat($jobState.hoursToday) || 0) >= _dianaReqDay && !$flags.dianaEventShown>>
-<<set $flags.dianaEventShown = true>>
-<<goto "dinerWork_event_dianaArrival">>
-<<else>>
-<div class="location-actions">
-<<btn "Finish shift" "dinerRubys">><</btn>>
-</div>
+<<include "RubysDishwashWork_afterMini">>
 <</if>>
 <</if>>
 </div>

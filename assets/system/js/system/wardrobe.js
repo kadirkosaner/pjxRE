@@ -165,6 +165,49 @@ function getState() {
     return { variables: {} };
 }
 
+function getWikifierClass() {
+    return window.Wikifier || (typeof SugarCube !== 'undefined' && SugarCube.Wikifier) || null;
+}
+
+function withTemporaryWardrobeState(options, fn) {
+    const S = getState();
+    if (!S.temporary) S.temporary = {};
+
+    const temporary = options?.temporary || {};
+    const previousTemporary = {};
+    const hadTemporaryKey = {};
+
+    Object.keys(temporary).forEach(key => {
+        hadTemporaryKey[key] = Object.prototype.hasOwnProperty.call(S.temporary, key);
+        previousTemporary[key] = S.temporary[key];
+        S.temporary[key] = temporary[key];
+    });
+
+    const shouldSwapEquipped = options && Object.prototype.hasOwnProperty.call(options, 'equipped');
+    const wardrobe = S?.variables?.wardrobe;
+    const previousEquipped = wardrobe?.equipped;
+
+    if (shouldSwapEquipped && wardrobe) {
+        wardrobe.equipped = options.equipped;
+    }
+
+    try {
+        return fn(S);
+    } finally {
+        Object.keys(temporary).forEach(key => {
+            if (hadTemporaryKey[key]) {
+                S.temporary[key] = previousTemporary[key];
+            } else {
+                delete S.temporary[key];
+            }
+        });
+
+        if (shouldSwapEquipped && wardrobe) {
+            wardrobe.equipped = previousEquipped;
+        }
+    }
+}
+
 function initializePlayerWardrobe() {
     const S = getState();
     if (!S || !S.variables || !S.variables.wardrobe) {
@@ -434,61 +477,60 @@ function checkRequirements(item) {
     if (!item || !item.tags) {
         return { allowed: true };
     }
-    
-    const S = getState();
-    
-    if (!S.temporary) S.temporary = {};
-    S.temporary.wardrobeItemToCheck = item;
-    
-    // Find Wikifier
-    const WikifierClass = window.Wikifier || (typeof SugarCube !== 'undefined' && SugarCube.Wikifier);
-    
+
+    const WikifierClass = getWikifierClass();
+
     if (!WikifierClass) {
         console.error('[Wardrobe] Wikifier not available!');
-        return { allowed: true };
+        return { allowed: true, reason: 'Requirement check unavailable' };
     }
-    
-    // Call widget
-    new WikifierClass(null, "<<checkClothingRequirements>>");
-    
-    const result = S.temporary.wardrobeCheckResult;
-    
-    // Cleanup
-    delete S.temporary.wardrobeItemToCheck;
-    delete S.temporary.wardrobeCheckResult;
-    
-    console.log(`[Wardrobe] checkRequirements for "${item.id}":`, result);
-    
-    return result || { allowed: true };
+
+    return withTemporaryWardrobeState({
+        temporary: {
+            wardrobeItemToCheck: item,
+            wardrobeCheckResult: undefined
+        }
+    }, (S) => {
+        try {
+            new WikifierClass(null, "<<checkClothingRequirements>>");
+        } catch (error) {
+            console.error('[Wardrobe] checkClothingRequirements failed:', error);
+            return { allowed: true, reason: 'Requirement check unavailable' };
+        }
+
+        const result = S.temporary.wardrobeCheckResult;
+        console.log(`[Wardrobe] checkRequirements for "${item.id}":`, result);
+        return result || { allowed: true };
+    });
 }
 
 function checkCommandoRequirement(slot) {
     if (slot !== 'panty' && slot !== 'bra') return { allowed: true };
 
-    const S = getState();
-    
-    if (!S.temporary) S.temporary = {};
-    S.temporary.wardrobeSlotToCheck = slot;
-    
-    const WikifierClass = window.Wikifier || (typeof SugarCube !== 'undefined' && SugarCube.Wikifier);
-    
+    const WikifierClass = getWikifierClass();
+
     if (!WikifierClass) {
         console.error('[Wardrobe] Wikifier not available!');
-        return { allowed: true };
+        return { allowed: true, reason: 'Requirement check unavailable' };
     }
-    
-    // Call widget
-    new WikifierClass(null, "<<checkCommandoRequirement>>");
-    
-    const result = S.temporary.wardrobeCheckResult;
-    
-    // Cleanup
-    delete S.temporary.wardrobeSlotToCheck;
-    delete S.temporary.wardrobeCheckResult;
-    
-    console.log(`[Wardrobe] checkCommandoRequirement for "${slot}":`, result);
-    
-    return result || { allowed: true };
+
+    return withTemporaryWardrobeState({
+        temporary: {
+            wardrobeSlotToCheck: slot,
+            wardrobeCheckResult: undefined
+        }
+    }, (S) => {
+        try {
+            new WikifierClass(null, "<<checkCommandoRequirement>>");
+        } catch (error) {
+            console.error('[Wardrobe] checkCommandoRequirement widget failed:', error);
+            return { allowed: true, reason: 'Requirement check unavailable' };
+        }
+
+        const result = S.temporary.wardrobeCheckResult;
+        console.log(`[Wardrobe] checkCommandoRequirement for "${slot}":`, result);
+        return result || { allowed: true };
+    });
 }
 
 
@@ -972,37 +1014,35 @@ function checkOutfitRequirements(outfit) {
     if (!outfit || !outfit.equipped) {
         return { allowed: true };
     }
-    
+
     const S = getState();
+    const wardrobe = S?.variables?.wardrobe;
     const equipped = outfit.equipped;
-    
-    // Temporarily mock the equipped state to check THIS outfit
-    // We need to do this because the widget checks $wardrobe.equipped
-    const originalEquipped = S.variables.wardrobe.equipped;
-    S.variables.wardrobe.equipped = equipped;
-    
-    // Check Panty Requirement
-    if (!equipped.panty || equipped.panty === '') {
-        const pantyReq = checkCommandoRequirement('panty');
-        if (!pantyReq.allowed) {
-            S.variables.wardrobe.equipped = originalEquipped; // Restore
-            return pantyReq;
-        }
+
+    if (!wardrobe) {
+        console.warn('[Wardrobe] checkOutfitRequirements: wardrobe state not ready');
+        return { allowed: true };
     }
-    
-    // Check Bra Requirement
-    if (!equipped.bra || equipped.bra === '') {
-        const braReq = checkCommandoRequirement('bra');
-        if (!braReq.allowed) {
-            S.variables.wardrobe.equipped = originalEquipped; // Restore
-            return braReq;
+
+    return withTemporaryWardrobeState({ equipped }, () => {
+        // Check Panty Requirement
+        if (!equipped.panty || equipped.panty === '') {
+            const pantyReq = checkCommandoRequirement('panty');
+            if (!pantyReq.allowed) {
+                return pantyReq;
+            }
         }
-    }
-    
-    // Restore original state
-    S.variables.wardrobe.equipped = originalEquipped;
-    
-    return { allowed: true };
+
+        // Check Bra Requirement
+        if (!equipped.bra || equipped.bra === '') {
+            const braReq = checkCommandoRequirement('bra');
+            if (!braReq.allowed) {
+                return braReq;
+            }
+        }
+
+        return { allowed: true };
+    });
 }
 
 function renderOutfits() {

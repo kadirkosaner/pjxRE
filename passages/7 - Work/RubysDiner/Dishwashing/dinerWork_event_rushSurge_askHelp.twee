@@ -1,0 +1,32 @@
+:: dinerWork_event_rushSurge_askHelp
+<<silently>>
+<<set _charisma = $charisma || 0>>
+<<set _roll = random(1, 100)>>
+<<set _threshold = 30 + Math.min(_charisma, 40)>>
+<</silently>>
+
+<<if _roll <= _threshold>>
+<<narrative>>
+You catch Mike's eye and tilt your head toward the pile. He nods.
+
+Two people, twice the speed. The rush clears faster than it built up.
+<</narrative>>
+<<silently>>
+<<gainCharacterStat "dinerDishwasher" "friendship" 1>>
+<<recalculateStats>>
+<</silently>>
+
+<<else>>
+<<narrative>>
+You try to get Mike's attention but he's buried in his own stack. He doesn't see you — or pretends not to.
+
+You handle it alone. It takes longer than it should.
+<</narrative>>
+<<silently>>
+<<loseStat "energy" 5>>
+<<loseStat "mood" 3>>
+<<recalculateStats>>
+<</silently>>
+<</if>>
+
+<<include "RubysDishwashWork_afterMini">>

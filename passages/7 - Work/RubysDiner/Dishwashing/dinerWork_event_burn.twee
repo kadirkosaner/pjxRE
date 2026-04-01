@@ -1,0 +1,42 @@
+:: dinerWork_event_burn
+<<silently>><<set _v = random(1, 3)>><</silently>>
+
+<<if _v === 1>>
+<<narrative "Accident">>
+You grab a pot straight off the pass without thinking. The handle is still hot from the stove.
+
+You let go fast. Not fast enough. A red line across your palm.
+<</narrative>>
+<<narrative>>
+You run cold water over it and keep going.
+<</narrative>>
+
+<<elseif _v === 2>>
+<<narrative "Accident">>
+Steam hits your forearm when you open the washer too early. A sharp sting that fades into a dull pink mark.
+
+You pull your sleeve down and keep working.
+<</narrative>>
+
+<<else>>
+<<narrative "Accident">>
+A splash of near-boiling water catches the back of your hand while you're draining a pot. You flinch and almost drop it.
+
+Sofia is passing through with a tray.
+<</narrative>>
+<<dialog "dinerWaitress3">>
+Hey — you okay? Hold on.
+<</dialog>>
+<<narrative>>
+She comes back a minute later with a wet napkin and a small bandage from the first-aid box. Doesn't say much else. Goes back to her tables.
+<</narrative>>
+<<silently>>
+<<gainCharacterStat "dinerWaitress3" "friendship" 1>>
+<</silently>>
+<</if>>
+
+<<silently>>
+<<loseStat "health" 2>>
+<<loseStat "mood" 2>>
+<<recalculateStats>>
+<</silently>>

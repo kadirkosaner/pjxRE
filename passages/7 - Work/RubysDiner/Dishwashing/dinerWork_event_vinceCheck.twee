@@ -1,0 +1,68 @@
+:: dinerWork_event_vinceCheck
+<<silently>>
+<<set _dishSkill = ($skills && $skills.practical && $skills.practical.dishwashing) ? $skills.practical.dishwashing : 0>>
+<<set _v = random(1, 2)>>
+<</silently>>
+
+<<if _dishSkill >= 20>>
+
+    <<if _v === 1>>
+    <<narrative>>
+    Vince walks through the kitchen. He stops behind you for a second. You don't turn around.
+
+    He looks at the rack, the station, the floor. Then he leaves.
+    <</narrative>>
+    <<narrative>>
+    No comment. From Vince, that's a compliment.
+    <</narrative>>
+
+    <<else>>
+    <<narrative>>
+    Vince is doing his rounds. He pauses at your station. Looks at the organized rack, the clean counter.
+    <</narrative>>
+    <<dialog "dinerManager">>
+    Good.
+    <</dialog>>
+    <<narrative>>
+    One word. He moves on. You feel slightly better about the shift.
+    <</narrative>>
+    <</if>>
+
+    <<silently>>
+    <<gainStat "mood" 3>>
+    <<gainCharacterStat "dinerManager" "friendship" 1>>
+    <<recalculateStats>>
+    <</silently>>
+
+<<else>>
+
+    <<if _v === 1>>
+    <<narrative>>
+    Vince appears behind you. You didn't hear him come in.
+    <</narrative>>
+    <<dialog "dinerManager">>
+    You're leaving water marks on the glasses. Rinse them properly.
+    <</dialog>>
+    <<narrative>>
+    He taps the rack and walks off. You rinse the next batch twice.
+    <</narrative>>
+
+    <<else>>
+    <<narrative>>
+    Vince leans into the kitchen doorway. His eyes go straight to the pile on your counter.
+    <</narrative>>
+    <<dialog "dinerManager">>
+    That shouldn't still be sitting there.
+    <</dialog>>
+    <<narrative>>
+    He doesn't wait for an explanation. You move faster.
+    <</narrative>>
+    <</if>>
+
+    <<silently>>
+    <<gainStat "stress" 3>>
+    <<loseStat "mood" 2>>
+    <<recalculateStats>>
+    <</silently>>
+
+<</if>>
