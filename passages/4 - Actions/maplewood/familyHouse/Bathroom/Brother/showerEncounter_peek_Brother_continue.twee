@@ -1,0 +1,89 @@
+:: showerEncounter_peek_Brother_continue
+<<nobr>>
+<<silently>>
+<<set _char = $characters.brother>>
+<<set _return = $showerEncounterReturnLoc>>
+<<if !_return>>
+    <<set _return = "fhUpperstairs">>
+<</if>>
+<<set $location = "fhUpperBath">>
+<<set _videoVar = random(1, 5)>>
+<<if _videoVar === 1>>
+    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/brother/brotherShower2-1.mp4">>
+    <<set _peekVideoSize = "50%">>
+<<elseif _videoVar === 2>>
+    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/brother/brotherShower2-2.mp4">>
+    <<set _peekVideoSize = "100%">>
+<<elseif _videoVar === 3>>
+    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/brother/brotherShower2-3.mp4">>
+    <<set _peekVideoSize = "100%">>
+<<elseif _videoVar === 4>>
+    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/brother/brotherShower2-4.mp4">>
+    <<set _peekVideoSize = "100%">>
+<<else>>
+    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/brother/brotherShower2-5.mp4">>
+    <<set _peekVideoSize = "100%">>
+<</if>>
+<<gainStat "stress" 2>>
+<<gainStat "arousal" 3>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Upstairs Bathroom">>
+You don't move. The steam thins for a moment and the angle changes.
+<</narrative>>
+
+<<vid _peekVideo _peekVideoSize>>
+
+<<narrative>>
+You see it clearly now.
+<</narrative>>
+
+<<narrative>>
+<<print _char.firstName>>'s cock.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Oh my god...  
+<<print _char.firstName>>'s cock...
+<</dialog>>
+
+<<narrative>>
+Your stomach tightens. Your breath catches.
+<</narrative>>
+
+<<narrative>>
+But you still don't move.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+I shouldn't be seeing this...
+<</dialog>>
+
+<<narrative>>
+He keeps rinsing, completely unaware. Water runs down his body.
+<</narrative>>
+
+<<narrative>>
+You're still standing there.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Go...  
+Just go...
+...
+You're not leaving.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back" "fhUpperstairs">>
+<<unset State.temporary.peekShowerTarget>>
+<<unset $showerEncounterReturnLoc>>
+<<unset $interactionEntryPassage>>
+<</btn>>
+<<btn "Continue" _return>><<unset State.temporary.peekShowerTarget>><<unset $showerEncounterReturnLoc>><<unset $interactionEntryPassage>><</btn>>
+</div>
+<</nobr>>

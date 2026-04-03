@@ -75,10 +75,7 @@ function validateFotogramSetup(vars, options) {
     if (options.logOnce && vars) {
         if (vars._phoneFotogramSetupMissingSig !== signature) {
             vars._phoneFotogramSetupMissingSig = signature;
-            if (missing.length) console.warn('[Fotogram setup] Missing keys:', missing);
         }
-    } else if (options.logAlways && missing.length) {
-        console.warn('[Fotogram setup] Missing keys:', missing);
     }
     return { ok: missing.length === 0, missing: missing };
 }
@@ -118,6 +115,7 @@ function getMediaPoolEntryByPath(kind, category, path) {
     var pathNorm = normalizePathForCompare(path);
     var slotLists = [];
     var cat = pools[kind][category];
+    if (Array.isArray(cat.global)) slotLists.push(cat.global);
     if (Array.isArray(cat.safe)) slotLists.push(cat.safe);
     if (Array.isArray(cat.public)) slotLists.push(cat.public);
     for (var s = 0; s < slotLists.length; s++) {

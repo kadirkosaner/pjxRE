@@ -628,9 +628,7 @@ function createPhoneOverlay() {
         if (turns && Array.isArray(turns) && turns.length > 0) {
             if (availableNow) {
                 var choiceHit = false;
-                console.log('[Topic] Processing topic:', topicId, 'imagePool:', topic.imagePool, 'imageType:', topic.imageType);
                 var topicImage = (typeof window.phonePickRandomImage === 'function' && (topic.imagePool || (topic.images && topic.images.length))) ? window.phonePickRandomImage(topic) : null;
-                console.log('[Topic] topicImage selected:', topicImage);
                 var topicImageType = topic.imageType || null;
                 var photoPushed = false;
                 for (var i = 0; i < turns.length; i++) {
@@ -649,20 +647,16 @@ function createPhoneOverlay() {
                     var from = (turn.from === 'player') ? 'player' : charId;
                     var text = turn.text || '';
                     var img = null;
-                    console.log('[Topic Turn ' + i + '] from:', from, 'text:', text.substring(0, 30) + '...', 'topicImage:', topicImage, 'photoPushed:', photoPushed, 'topicImageType:', topicImageType);
                     if (topicImage && !photoPushed) {
                         if (topicImageType === 'receiver' && from !== 'player') { 
                             img = topicImage; 
                             photoPushed = true;
-                            console.log('[Topic Turn ' + i + '] ATTACHING receiver image:', img);
                         }
                         else if (topicImageType === 'sender' && from === 'player') { 
                             img = topicImage; 
                             photoPushed = true; 
-                            console.log('[Topic Turn ' + i + '] ATTACHING sender image:', img);
                         }
                     }
-                    console.log('[Topic Turn ' + i + '] Calling pushPhoneMessage with img:', img);
                     if (text || img) pushPhoneMessage(charId, from, text, img);
                 }
                 if (!choiceHit && typeof window.phoneApplyTopicEffects === 'function') window.phoneApplyTopicEffects(charId, topic, vars);
@@ -931,7 +925,6 @@ function createPhoneOverlay() {
                 return;
             }
             var promoteEng = (typeof Engine !== 'undefined' && Engine.wiki) ? Engine : (window.parent && window.parent.Engine && window.parent.Engine.wiki ? window.parent.Engine : null);
-            if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] promote click dmId=" + dmId, "promoteEng=" + (promoteEng ? "yes" : "NO"));
             if (typeof window.fdmEnsurePromotedFromDm === 'function') {
                 window.fdmEnsurePromotedFromDm(vars, dmId);
             } else if (promoteEng && promoteEng.wiki) {
@@ -1016,7 +1009,6 @@ function createPhoneOverlay() {
                     }
                 };
                 var eng = (typeof Engine !== 'undefined' && Engine.wiki) ? Engine : (window.parent && window.parent.Engine && window.parent.Engine.wiki ? window.parent.Engine : null);
-                if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] reply isSwapReply path dmId=" + dmId, "eng=" + (eng ? "yes" : "NO"));
                 if (typeof window.fdmEnsurePromotedFromDm === 'function') {
                     window.fdmEnsurePromotedFromDm(vars, dmId);
                 } else if (eng && eng.wiki) {

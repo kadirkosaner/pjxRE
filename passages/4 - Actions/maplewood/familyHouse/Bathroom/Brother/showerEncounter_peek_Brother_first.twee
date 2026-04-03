@@ -1,0 +1,141 @@
+:: showerEncounter_peek_Brother_first
+<<nobr>>
+<<silently>>
+<<set _cid = "brother">>
+<<set _char = $characters.brother>>
+<<set _return = $showerEncounterReturnLoc>>
+<<if !_return>>
+    <<set _return = "fhUpperstairs">>
+<</if>>
+<<set $location = "fhUpperBath">>
+<<set _lust = (_char.stats && typeof _char.stats.lust === "number") ? _char.stats.lust : 0>>
+<<set _lustLevel = (_char.stats && typeof _char.stats.lustLevel === "number") ? _char.stats.lustLevel : 1>>
+<<set _canKeepWatching = (_lustLevel >= 2) && (_lust >= 10)>>
+<<set $flags.brotherShowerPeekFirstSeen = true>>
+<<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/brother/brotherFirstScene.mp4">>
+<<set _peekVideoSize = "100%">>
+<<gainStat "stress" 2>>
+<<gainStat "arousal" 4>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Upstairs Bathroom">>
+You ease the door wider.
+<</narrative>>
+
+<<narrative>>
+Just enough to look. A second, maybe. Then you'd step away.
+<</narrative>>
+
+<<narrative>>
+But the second you see him, your body stops.
+<</narrative>>
+
+<<narrative>>
+His back is to you. Water slips from his shoulders down his waist, over the curve of his hips. He has no idea anyone is there.
+<</narrative>>
+
+<<narrative>>
+You don't look away.
+<</narrative>>
+
+<<vid _peekVideo _peekVideoSize>>
+
+<<dialog "player">>
+(Inner voice)
+Okay.
+
+You saw enough.
+
+Look away.
+<</dialog>>
+
+<<narrative>>
+But you don't.
+<</narrative>>
+
+<<narrative>>
+Your hand locks around the edge of the door. Your pulse turns heavy and fast. You stand there so still it feels like even breathing might give you away.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+What am I doing?
+
+Why am I still here?
+<</dialog>>
+
+<<narrative>>
+The hiss of the shower fills the room. His soapy hands move over his arms, his neck. He shifts his weight just a little.
+<</narrative>>
+
+<<narrative>>
+One more second, you tell yourself.
+<</narrative>>
+
+<<narrative>>
+Just one.
+<</narrative>>
+
+<<narrative>>
+The second stretches.
+<</narrative>>
+
+<<narrative>>
+That's the part that lands hardest.
+<</narrative>>
+
+<<narrative>>
+Not what you're seeing.
+<</narrative>>
+
+<<narrative>>
+The fact that you should have stepped back already, and didn't.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Go.
+
+Right now.
+
+If you stay, then you're really choosing this.
+<</dialog>>
+
+<<narrative>>
+That thought drops cold into your stomach.
+<</narrative>>
+
+<<narrative>>
+This isn't an accident anymore.
+<</narrative>>
+
+<<narrative>>
+It's the few seconds you stayed after you knew exactly what you were doing.
+<</narrative>>
+
+<<narrative>>
+Your hand is still on the door. Part of you wants to pull back into the hall before the floor creaks or he turns even slightly. The other part hasn't moved.
+<</narrative>>
+
+<<narrative>>
+You know you should step away.
+<</narrative>>
+
+<<narrative>>
+You just haven't done it yet.
+<</narrative>>
+
+<div class="location-actions">
+<<if _canKeepWatching>>
+<<btn "Keep watching" "showerEncounter_peek_Brother_continue">><</btn>>
+<<else>>
+<span class="link-internal btn-style btn-default locked" data-tooltip="Requires lust level 2 and at least 10 lust with your brother."><i class="icon icon-lock icon-12"></i> Keep watching</span>
+<</if>>
+<<btn "Step away" "fhUpperstairs">>
+<<unset State.temporary.peekShowerTarget>>
+<<unset $showerEncounterReturnLoc>>
+<<unset $interactionEntryPassage>>
+<</btn>>
+</div>
+<</nobr>>

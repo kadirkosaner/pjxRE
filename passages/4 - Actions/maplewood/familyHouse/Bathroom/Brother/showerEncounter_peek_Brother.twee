@@ -1,24 +1,26 @@
-:: showerEncounter_peek_Father
-/* Videos (random this passage): dadShower1.mp4 / dadShower2.mp4 */
+:: showerEncounter_peek_Brother
 <<nobr>>
 <<silently>>
-<<set _cid = "father">>
-<<set _char = $characters.father>>
+<<set _cid = "brother">>
+<<set _char = $characters.brother>>
 <<set _return = $showerEncounterReturnLoc>>
 <<if !_return>>
-    <<set _return = "fhParentsRoom">>
+    <<set _return = "fhUpperstairs">>
 <</if>>
-<<set $location = "fhParentsBath">>
+<<set $location = "fhUpperBath">>
 <<set _lust = (_char.stats && typeof _char.stats.lust === "number") ? _char.stats.lust : 0>>
 <<set _lustLevel = (_char.stats && typeof _char.stats.lustLevel === "number") ? _char.stats.lustLevel : 1>>
 <<set _canKeepWatching = (_lustLevel >= 2) && (_lust >= 10)>>
 <<set _peekVar = random(1, 3)>>
-<<set _videoVar = random(1, 2)>>
+<<set _videoVar = random(1, 3)>>
 <<if _videoVar === 1>>
-    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/father/dadFirstScene.mp4">>
-    <<set _peekVideoSize = "50%">>
+    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/brother/brotherFirstScene.mp4">>
+    <<set _peekVideoSize = "100%">>
+<<elseif _videoVar === 2>>
+    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/brother/brotherShower1-1.mp4">>
+    <<set _peekVideoSize = "100%">>
 <<else>>
-    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/father/dadShower1-2.mp4">>
+    <<set _peekVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/brother/brotherShower1-2.mp4">>
     <<set _peekVideoSize = "100%">>
 <</if>>
 <<gainStat "stress" 2>>
@@ -27,7 +29,7 @@
 <</silently>>
 
 <<if _peekVar === 1>>
-<<narrative "Parents Bathroom">>
+<<narrative "Upstairs Bathroom">>
 You ease the door wider — only enough to slip through, slow and soundless. The fan and the shower swallow any creak. Steam hits your face; you hug the wall where the tile stays dry.
 <</narrative>>
 
@@ -35,20 +37,20 @@ You ease the door wider — only enough to slip through, slow and soundless. The
 <<print _char.firstName>> is square to the spray, his back to you, head tipped under the water. From here he can't see the doorway. He has no reason to think anyone's behind him.
 <</narrative>>
 <<elseif _peekVar === 2>>
-<<narrative "Parents Bathroom">>
+<<narrative "Upstairs Bathroom">>
 You nudge the door a little farther open. Just enough for a look. Steam drifts into the hall while the shower and the fan cover whatever sound you make.
 <</narrative>>
 
 <<narrative>>
-Your father stands with his back to you beneath the spray, head angled down. His hands move slowly over his arms and neck. He never glances toward the doorway. There's no reason for him to think anyone is there.
+Your brother stands with his back to you beneath the spray, head angled down. His hands move slowly over his arms and neck. He never glances toward the doorway. There's no reason for him to think anyone is there.
 <</narrative>>
 <<else>>
-<<narrative "Parents Bathroom">>
+<<narrative "Upstairs Bathroom">>
 You ease the door wider and hold still. Warm damp air spills through the gap and settles against your skin while you stay close to the wall and look in.
 <</narrative>>
 
 <<narrative>>
-Your father is turned away from you, broad back under the stream, shoulders slick with water. He stays in his own routine, unaware of the doorway, unaware of you.
+Your brother is turned away from you, shoulders slick with water. He stays in his own routine, unaware of the doorway, unaware of you.
 <</narrative>>
 <</if>>
 
@@ -56,11 +58,11 @@ Your father is turned away from you, broad back under the stream, shoulders slic
 
 <div class="location-actions">
 <<if _canKeepWatching>>
-<<btn "Keep watching" "showerEncounter_peek_Father_continue">><</btn>>
+<<btn "Keep watching" "showerEncounter_peek_Brother_continue">><</btn>>
 <<else>>
-<span class="link-internal btn-style btn-default locked" data-tooltip="Requires lust level 2 and at least 10 lust with your father."><i class="icon icon-lock icon-12"></i> Keep watching</span>
+<span class="link-internal btn-style btn-default locked" data-tooltip="Requires lust level 2 and at least 10 lust with your brother."><i class="icon icon-lock icon-12"></i> Keep watching</span>
 <</if>>
-<<btn "Step away" "fhParentsRoom">>
+<<btn "Step away" "fhUpperstairs">>
 <<unset State.temporary.peekShowerTarget>>
 <<unset $showerEncounterReturnLoc>>
 <<unset $interactionEntryPassage>>

@@ -13,7 +13,7 @@
 <<set _amount = _args[2] || 1>>
 
 <<if !$reputation[_region]>>
-    <<run console.warn("gainReputation: Unknown region: " + _region)>>
+    /* unknown region */
 <<else>>
     /* Check if this is a global category */
     <<set _catInfo = setup.reputationCategories[_category]>>

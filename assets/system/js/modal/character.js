@@ -261,7 +261,6 @@ window.CharacterInit = function (API) {
             const self = window.CharacterSystem;
             const item = self.getItemById(itemId);
             if (!item || item.usageType !== 'direct') {
-                console.log('[Inventory] Item not usable:', itemId, item?.usageType);
                 return;
             }
             
@@ -270,11 +269,8 @@ window.CharacterInit = function (API) {
             const invIndex = inventory.findIndex(i => i.id === itemId);
             
             if (invIndex === -1 || inventory[invIndex].quantity <= 0) {
-                console.log('[Inventory] Item not in inventory:', itemId);
                 return;
             }
-            
-            console.log('[Inventory] Using item:', item.name);
             
             // Stats that should be clamped between 0 and 100
             const CLAMP_STATS = ['energy', 'health', 'mood', 'arousal', 'hunger', 'thirst', 'stress', 'bladder', 'hygiene', 'focus'];
@@ -294,8 +290,7 @@ window.CharacterInit = function (API) {
                     }
                     
                     self.API.State.variables[effect.stat] = newVal;
-                    console.log('[Inventory] Applied effect:', effect.stat, currentVal, '->', newVal);
-                    
+
                     // Add to notification queue (effect.value determines the direction/color in the widget)
                     // Note: queueStatChange expects the raw change amount, not the clamped difference, 
                     // but for accurate notifications we might want to respect the clamped delta if needed.
@@ -309,14 +304,10 @@ window.CharacterInit = function (API) {
             
             if (inventory[invIndex].quantity <= 0) {
                 inventory.splice(invIndex, 1);
-                console.log('[Inventory] Item removed from inventory');
-            } else {
-                console.log('[Inventory] Item quantity decreased to:', inventory[invIndex].quantity);
             }
-            
+
             // Trigger the notifications via SugarCube
             notificationScript += '<<flushNotifications>>';
-            console.log('[Inventory] Running notification script');
             $.wiki(notificationScript);
             
             // Update UIBar to show stat changes
@@ -333,7 +324,6 @@ window.CharacterInit = function (API) {
 
         // Refresh inventory tab content
         refreshInventoryTab: function() {
-            console.log('[Inventory] Refreshing tab (jQuery)...');
             const self = window.CharacterSystem;
             
             // Preserve active sub-tab
@@ -351,14 +341,11 @@ window.CharacterInit = function (API) {
             if ($container.length > 0) {
                 $container.replaceWith(newHtml);
                 $('.modal-overlay[data-modal="character-modal"] .modal-content').scrollTop(0);
-                console.log('[Inventory] DOM successfully replaced via jQuery');
             } else {
-                console.error('[Inventory] Container not found via jQuery');
                 const $modalContainer = $('.inventory-container');
                 if ($modalContainer.length > 0) {
                     $modalContainer.replaceWith(newHtml);
                     $('.modal-overlay[data-modal="character-modal"] .modal-content').scrollTop(0);
-                    console.log('[Inventory] DOM replaced using fallback scope');
                 }
             }
         },

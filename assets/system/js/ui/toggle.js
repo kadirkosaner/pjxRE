@@ -90,5 +90,4 @@ window.ToggleInit = function (API) {
         }
     });
 
-    console.log('[UI] Toggle Macros Initialized');
 };

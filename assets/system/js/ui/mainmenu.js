@@ -107,7 +107,6 @@ function handleMenuAction(action) {
             if (window.openCustomSaveLoad) {
                 window.openCustomSaveLoad();
             } else {
-                console.error('[MainMenu] openCustomSaveLoad not available');
             }
             closeMainMenu();
             break;
@@ -115,7 +114,6 @@ function handleMenuAction(action) {
             if (window.SettingsSystem) {
                 window.SettingsSystem.open();
             } else {
-                console.error('[MainMenu] SettingsSystem not available - falling back to default');
                 MainMenuAPI.UI.settings();
             }
             closeMainMenu();

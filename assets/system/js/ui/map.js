@@ -190,7 +190,6 @@ window.MapInit = function (API) {
 
             if (container.find('.map-container, .map-region-container').length > 0) return;
 
-            console.log('[MapSystem] Injecting interactive map...');
             this.showMain();
         },
 
@@ -249,7 +248,6 @@ window.MapInit = function (API) {
                 return true;
             });
 
-            console.log(`[MapSystem] Area ${areaId} has ${visibleChildren.length} visible children:`, visibleChildren);
 
             // Build location markers for children
             const locationMarkers = visibleChildren.map(childId => {
@@ -388,7 +386,6 @@ window.MapInit = function (API) {
             }
 
             if (location.image) {
-                console.log(`[MapSystem] Location image path: ${location.image}`);
             }
 
             const bgImageHtml = location.image ? `
@@ -610,7 +607,6 @@ window.MapInit = function (API) {
                 if (targetPassage) {
                     self.callTaxi(targetPassage, cost);
                 } else {
-                    console.warn('[MapSystem] No passage found for taxi destination');
                 }
             });
         },

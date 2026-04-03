@@ -48,8 +48,8 @@ You quietly approach <<print _char.firstName>>'s room. The door is slightly ajar
 </div>
 
 <<elseif _status === "showering">>
-<<set State.temporary.showerEncounterTarget = $interactingChar>>
-<<set State.temporary.showerEncounterReturnLoc = _returnLoc>>
+<<set $showerEncounterTarget = $interactingChar>>
+<<set $showerEncounterReturnLoc = _returnLoc>>
 <<if $interactingChar === "mother" || $interactingChar === "father" || $interactingChar === "brother">>
     <<goto "showerEncounter">>
 <<else>>

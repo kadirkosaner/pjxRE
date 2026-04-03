@@ -1654,7 +1654,6 @@ function processFotogramNumber(vars, dmId, give) {
         }
         s.ended = true;
         var promotedId = fdmEnsurePromotedFromDm(vars, dmId);
-        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] phone-fotogram-dm JS promote dmId=" + dmId, "promotedId=" + promotedId);
         if (!promotedId && typeof window !== 'undefined' && typeof window.showNotification === 'function') {
             window.showNotification({ type: 'warning', message: 'Could not promote DM to contact. Try again.' });
         }

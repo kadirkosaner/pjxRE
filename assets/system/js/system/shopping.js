@@ -162,7 +162,6 @@ function getQuestItemsForLocation(locationId) {
         
         // Check items for this location
         stage.items.forEach(questItem => {
-            console.log(`[Shopping DEBUG] Checking item: ${questItem.itemId}, item.location: "${questItem.location}", current locationId: "${locationId}"`);
             if (!questItem.location || questItem.location === locationId) {
                 // Check if objective already completed
                 const completed = state.objectives?.[questItem.objectiveId] || false;
@@ -171,7 +170,6 @@ function getQuestItemsForLocation(locationId) {
                     const itemData = questItemsDb.find(i => i.id === questItem.itemId);
                     
                     if (itemData) {
-                        console.log(`[Shopping DEBUG] Adding quest item: ${itemData.name} (location match: ${questItem.location === locationId})`);
                         questItems.push({
                             id: `quest_${qid}_${questItem.objectiveId}`,
                             name: itemData.name,
@@ -186,8 +184,6 @@ function getQuestItemsForLocation(locationId) {
                             _originalItemId: questItem.itemId,
                             hasTooltip: itemData.hasTooltip
                         });
-                    } else {
-                        console.warn(`[Shopping] Quest item not found in database: ${questItem.itemId}`);
                     }
                 }
             }
@@ -320,7 +316,6 @@ function addToCart(itemId) {
     }
     
     if (!item) {
-        console.warn('[Shopping] Item not found:', itemId);
         return;
     }
 
@@ -446,9 +441,7 @@ function getEngine() {
 function checkoutCash() {
     const S = getState();
     const total = getCartTotal();
-    
-    console.log('[Shopping] Checkout Cash. Total:', total, 'Balance:', S.variables.cashBalance);
-    
+
     if (total <= 0 || S.variables.cashBalance < total) {
         showToast('Insufficient cash!');
         return false;
@@ -457,9 +450,7 @@ function checkoutCash() {
     // Spend cash
     S.variables.moneySpend += total;
     S.variables.cashBalance = S.variables.moneyEarn - S.variables.moneySpend;
-    
-    console.log('[Shopping] New Balance:', S.variables.cashBalance);
-    
+
     // Add items to inventory
     addCartToInventory();
     
@@ -472,22 +463,18 @@ function checkoutCash() {
     // Reload passage to save history moment (User Request)
     const engine = getEngine();
     if (engine) {
-        console.log('[Shopping] Reloading passage via Engine to save history...');
         engine.play(getState().passage);
     } else {
-        console.warn('[Shopping] Engine not found, falling back to renderAll (No history save!)');
-        renderAll(); 
+        renderAll();
     }
-    
+
     return true;
 }
 
 function checkoutCard() {
     const S = getState();
     const total = getCartTotal();
-    
-    console.log('[Shopping] Checkout Card. Total:', total, 'Bank:', S.variables.bankBalance);
-    
+
     if (total <= 0 || S.variables.bankBalance < total) {
         showToast('Insufficient bank balance!');
         return false;
@@ -496,25 +483,21 @@ function checkoutCard() {
     // Spend from bank
     S.variables.bankSpend += total;
     S.variables.bankBalance = S.variables.bankDeposit - S.variables.bankSpend - S.variables.bankWithdraw;
-    
-    console.log('[Shopping] New Bank Balance:', S.variables.bankBalance);
-    
+
     // Add items to inventory
     addCartToInventory();
-    
+
     // Clear cart
     S.variables.shoppingCart = [];
-    
+
     // Save state before reloading
     saveShopState();
-    
+
     // Reload passage to save history moment
     const engine = getEngine();
     if (engine) {
-        console.log('[Shopping] Reloading passage via Engine to save history...');
         engine.play(getState().passage);
     } else {
-        console.warn('[Shopping] Engine not found, falling back to renderAll (No history save!)');
         renderAll();
     }
     
@@ -540,9 +523,7 @@ function addCartToInventory() {
     
     const inventory = S.variables.inventory;
     const wardrobeOwned = S.variables.wardrobe.owned;
-    
-    console.log('[Shopping] Processing cart:', cart);
-    
+
     cart.forEach(cartItem => {
         // Check if it's a quest item (special handling) - use stored metadata
         if (cartItem._isQuestItem || cartItem.id.startsWith('quest_')) {
@@ -550,15 +531,13 @@ function addCartToInventory() {
             const objectiveId = cartItem._objectiveId;
             
             if (!questId || !objectiveId) {
-                console.warn(`[Shopping] Quest item missing IDs: ${cartItem.id}`);
                 return;
             }
-            
+
             // Complete the objective
             if (S.variables.questState?.active?.[questId]) {
                 S.variables.questState.active[questId].objectives[objectiveId] = true;
-                console.log(`[Shopping] Quest objective completed: ${questId} -> ${objectiveId}`);
-                
+
                 // Show notification
                 if (window.showNotification) {
                     window.showNotification({
@@ -578,7 +557,6 @@ function addCartToInventory() {
                     if (stage?.objectives && stage.completeWhen === 'allObjectives') {
                         const allComplete = stage.objectives.every(o => state.objectives[o.id]);
                         if (allComplete) {
-                            console.log(`[Shopping] All objectives complete, advancing quest ${questId}`);
                             // Use $.wiki to call the macro
                             if (typeof $ !== 'undefined' && $.wiki) {
                                 $.wiki(`<<advanceQuestStage "${questId}">>`);
@@ -586,8 +564,6 @@ function addCartToInventory() {
                         }
                     }
                 }
-            } else {
-                console.warn(`[Shopping] Quest not active: ${questId}`);
             }
             return; // Don't add quest items to inventory
         }
@@ -595,7 +571,6 @@ function addCartToInventory() {
         const item = getItemById(cartItem.id);
         
         if (!item) {
-            console.warn(`[Shopping] Item not found: ${cartItem.id}`);
             return;
         }
         
@@ -604,9 +579,6 @@ function addCartToInventory() {
             // Add to wardrobe.owned (clothing doesn't stack, just add if not owned)
             if (!wardrobeOwned.includes(cartItem.id)) {
                 wardrobeOwned.push(cartItem.id);
-                console.log(`[Shopping] Added clothing to wardrobe: ${cartItem.id}`);
-            } else {
-                console.log(`[Shopping] Already own clothing: ${cartItem.id}`);
             }
         } else {
             // Add to regular inventory (stackable); cosmetics with maxUses add quantity * maxUses
@@ -617,12 +589,8 @@ function addCartToInventory() {
             } else {
                 inventory.push({ id: cartItem.id, quantity: qty });
             }
-            console.log(`[Shopping] Added item to inventory: ${cartItem.id} x${qty}`);
         }
     });
-    
-    console.log('[Shopping] Wardrobe owned after:', wardrobeOwned);
-    console.log('[Shopping] Inventory after:', inventory);
 }
 
 // ============================================
@@ -1011,7 +979,6 @@ function cleanupShopSession() {
     S.variables.shoppingCart = [];
     // Clear saved state so next entry is fresh
     delete S.variables._shopState;
-    console.log('[Shopping] Session ended. Cart and state cleared.');
 }
 
 // ============================================
@@ -1021,15 +988,12 @@ function cleanupShopSession() {
 function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
     const S = getState();
     const saved = S.variables._shopState;
-    console.log('[Shopping] Macro called. Name:', shopName, 'Saved:', saved);
-    
+
     // Check if we are reloading the same shop
     const isReload = saved && saved.name === (shopName || 'Shop');
-    console.log('[Shopping] Is Reload?', isReload);
-    
+
     if (itemIds && Array.isArray(itemIds) && itemIds.length > 0 && !isReload) {
         // BRAND NEW shop visit - Initialize state
-        console.log('[Shopping] Initializing new shop state.');
         currentShopName = shopName || 'Shop';
         currentShopType = shopType || 'Store';
         currentShopItems = getItemsByIds(itemIds);
@@ -1041,7 +1005,6 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
         const locationId = S.variables.location || '';
         const questItems = getQuestItemsForLocation(locationId);
         if (questItems.length > 0) {
-            console.log('[Shopping] Adding quest items:', questItems.map(i => i.name));
             currentShopItems = [...questItems, ...currentShopItems]; // Quest items first
         }
 
@@ -1050,8 +1013,6 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
         // Reloading same shop OR different shop with empty items
         const sameShop = saved && (saved.name === (shopName || 'Shop'));
         if (sameShop && loadShopState()) {
-            console.log('[Shopping] Restored existing shop state:', currentShopName);
-
             // Re-add quest items (they might have changed)
             const locationId = S.variables.location || '';
             const questItems = getQuestItemsForLocation(locationId);
@@ -1076,10 +1037,7 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
             saveShopState();
         }
     }
-    
-    // Log current money state to verify persistence
-    console.log('[Shopping] Current Balance (Cash):', S.variables.cashBalance);
-    
+
     // Detect if this is a clothing shop and extract categories
     isClothingShop = currentShopItems.some(item => item._isClothing);
     isReadingShop = false;
@@ -1097,7 +1055,6 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
             const orderB = idxB === -1 ? 999 : idxB;
             return orderA - orderB;
         });
-        console.log('[Shopping] Clothing shop detected. Categories:', shopCategories);
     } else {
         shopCategories = [];
         const stock = currentShopItems.filter(item => !item._isQuestItem && item.category === 'reading');
@@ -1105,9 +1062,6 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
             const hasBooks = stock.some(i => i._category === 'books');
             const hasMags = stock.some(i => i._category === 'magazines');
             isReadingShop = hasBooks && hasMags;
-        }
-        if (isReadingShop) {
-            console.log('[Shopping] Reading shop (books + magazines tabs)');
         }
     }
 
@@ -1168,7 +1122,6 @@ function shopMacroHandler(output, shopName, shopType, itemIds, backPassage) {
 // ============================================
 
 function ShoppingInit(API) {
-    console.log('[Shopping] ShoppingInit called');
     ShopAPI = API;
 }
 

@@ -1,6 +1,6 @@
 :: showerEncounter_Mother
-<<set State.temporary.showerEncounterTarget = "mother">>
-<<if !State.temporary.showerEncounterReturnLoc>>
-    <<set State.temporary.showerEncounterReturnLoc = "fhParentsRoom">>
+<<set $showerEncounterTarget = "mother">>
+<<if !$showerEncounterReturnLoc>>
+    <<set $showerEncounterReturnLoc = "fhParentsRoom">>
 <</if>>
 <<goto "showerEncounter">>

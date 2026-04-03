@@ -352,12 +352,10 @@ function restaurantOpen(menuId, backPassage) {
     var setupObj = restaurantGetSetup();
     var menu = restaurantGetMenu(menuId);
     if (!menu) {
-        console.warn('[Restaurant] Menu not found:', menuId);
         return;
     }
     var dishes = setupObj.restaurantDishes;
     if (!dishes || !dishes.foods || !dishes.drinks) {
-        console.warn('[Restaurant] Database not loaded.');
         return;
     }
     var back = backPassage || menu.back || restaurantGetState().variables.location || menuId;

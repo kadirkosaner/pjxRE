@@ -19,10 +19,10 @@
    "lockerRoom": { name: "Locker Room" },
    
    Camera (optional): cameraLoc = "public" | "safe" | "forbidden" | "never"
-   - public: normal rules (Hot/Spicy need higher corruption outside).
-   - safe: only fhBedroom; lower corruption for Hot/Spicy.
-   - forbidden: no camera unless Exhibitionism >= cameraExhibitionismMin (then public).
-   - never: camera never allowed (no override).
+   - public: public media pool. Hot/Spicy need higher corruption outside.
+   - safe: safe media pool. Lower corruption for Hot/Spicy.
+   - forbidden: no Hot/Spicy unless Exhibitionism >= cameraExhibitionismMin (then public pool).
+   - never: no Hot/Spicy; Normal/Cute may fall back to the global media pool.
    Example: "policeStation": { name: "5th Precinct", cameraLoc: "never" }
    
    STEP 2: Add to locations

@@ -241,12 +241,10 @@
     <<run (function(){
         var dmId = State.temporary["_dmId"];
         var charId = State.temporary["_charId"];
-        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] phonePromoteContact called", "dmId=" + dmId, "charId=" + charId);
         if (!dmId) return;
         var maxSwap = (typeof window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX !== "undefined" && Number.isFinite(window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX)) ? window.PHONE_FOTOGRAM_RANDOM_SWAP_MAX : 10;
         var vars = State.variables;
         var dms = vars.phoneFotogramDMs || [];
-        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] dms.length=" + (dms ? dms.length : 0), "State.temporary id=" + (typeof State !== "undefined" && State.temporary ? "ok" : "missing"));
         vars.phoneFotogramRandomSwapIds = Array.isArray(vars.phoneFotogramRandomSwapIds) ? vars.phoneFotogramRandomSwapIds : [];
         var isActiveFotogramRandom = function (id) {
             if (!id) return false;
@@ -288,35 +286,27 @@
         };
         var dm = null;
         for (var i = 0; i < dms.length; i++) { if (dms[i].id === dmId) { dm = dms[i]; break; } }
-        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] dm found=" + !!dm, dm ? "dm.promotedToCharId=" + dm.promotedToCharId : "");
         if (!dm) return;
         var resolvedCharId = charId || null;
         if (!resolvedCharId) resolvedCharId = dm.charId || (typeof setup !== "undefined" && setup.fotogramAnonCharPool && setup.fotogramAnonCharPool[dm.anonId]) || null;
-        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] resolvedCharId before charGenerate=" + resolvedCharId);
         if (!resolvedCharId) {
             if (!canCreateFotogramRandom()) {
                 if (window.showNotification) window.showNotification({ type: 'warning', message: 'You can have at most ' + maxSwap + ' Fotogram swaps.' });
                 return;
             }
-            if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] calling charGenerate for dmId=" + dmId, "Engine=" + (typeof Engine !== "undefined" ? "yes" : "no"), "Engine.wiki=" + (typeof Engine !== "undefined" && Engine.wiki ? "yes" : "no"));
             if (typeof Engine !== "undefined" && Engine.wiki) Engine.wiki("\x3C\x3CcharGenerate \"" + dmId + "\"\x3E\x3E");
             resolvedCharId = State.temporary["_generatedCharId"] || null;
-            if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] after charGenerate _generatedCharId=" + resolvedCharId);
             /* If widget was not loaded yet (e.g. phone UI context), load passage and retry once. */
             if (!resolvedCharId && typeof Engine !== "undefined" && Engine.wiki) {
-                if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] retry: include CharGenerateWidget then charGenerate");
                 Engine.wiki("\x3C\x3Cinclude \"CharGenerateWidget\"\x3E\x3E");
                 Engine.wiki("\x3C\x3CcharGenerate \"" + dmId + "\"\x3E\x3E");
                 resolvedCharId = State.temporary["_generatedCharId"] || null;
-                if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] after retry _generatedCharId=" + resolvedCharId);
             }
         }
         if (!resolvedCharId) {
-            if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] FAIL: no resolvedCharId, showing error");
             if (window.showNotification) window.showNotification({ type: 'error', message: 'Could not create contact. Please try again.' });
             return;
         }
-        if (window.DEBUG_PHONE_SWAP) console.log("[PhoneSwap] SUCCESS resolvedCharId=" + resolvedCharId, "calling phoneUnlockContact, moving messages, swapIntroSent=" + !!dm.swapIntroSent);
         markFotogramFirstMet(resolvedCharId);
         dm.promotedToCharId = resolvedCharId;
         if (!vars.phoneContactPromoted) vars.phoneContactPromoted = {};

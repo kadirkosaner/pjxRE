@@ -21,6 +21,21 @@ const DIANA_DEBUG_PASSAGES = [
     { id: 'stealDad', order: 17, title: 'Steal Dad', passage: 'fhLivingRoom_event_stealDad', note: 'Take the money', questStage: 7 }
 ];
 
+const SHOWER_DEBUG_PASSAGES = [
+    { id: 'fatherDoor', order: 1, title: 'Father Door', passage: 'showerEncounter', note: 'Parents bath door scene', target: 'father', returnLoc: 'fhParentsRoom', variant: 'door' },
+    { id: 'fatherFirst', order: 2, title: 'Father First Peek', passage: 'showerEncounter_peek_Father_first', note: 'First-time peek scene', target: 'father', returnLoc: 'fhParentsRoom', variant: 'first' },
+    { id: 'fatherPeek', order: 3, title: 'Father Repeat Peek', passage: 'showerEncounter_peek_Father', note: 'Repeat peek scene', target: 'father', returnLoc: 'fhParentsRoom', variant: 'repeat' },
+    { id: 'fatherContinue', order: 4, title: 'Father Continue', passage: 'showerEncounter_peek_Father_continue', note: 'Keep watching follow-up', target: 'father', returnLoc: 'fhParentsRoom', variant: 'continue' },
+    { id: 'motherDoor', order: 5, title: 'Mother Door', passage: 'showerEncounter', note: 'Parents bath door scene', target: 'mother', returnLoc: 'fhParentsRoom', variant: 'door' },
+    { id: 'motherFirst', order: 6, title: 'Mother First Peek', passage: 'showerEncounter_peek_Mother_first', note: 'First-time peek scene', target: 'mother', returnLoc: 'fhParentsRoom', variant: 'first' },
+    { id: 'motherPeek', order: 7, title: 'Mother Repeat Peek', passage: 'showerEncounter_peek_Mother', note: 'Repeat peek scene', target: 'mother', returnLoc: 'fhParentsRoom', variant: 'repeat' },
+    { id: 'motherContinue', order: 8, title: 'Mother Continue', passage: 'showerEncounter_peek_Mother_continue', note: 'Keep watching follow-up', target: 'mother', returnLoc: 'fhParentsRoom', variant: 'continue' },
+    { id: 'brotherDoor', order: 9, title: 'Brother Door', passage: 'showerEncounter', note: 'Upstairs bath door scene', target: 'brother', returnLoc: 'fhUpperstairs', variant: 'door' },
+    { id: 'brotherFirst', order: 10, title: 'Brother First Peek', passage: 'showerEncounter_peek_Brother_first', note: 'First-time peek scene', target: 'brother', returnLoc: 'fhUpperstairs', variant: 'first' },
+    { id: 'brotherPeek', order: 11, title: 'Brother Repeat Peek', passage: 'showerEncounter_peek_Brother', note: 'Repeat peek scene', target: 'brother', returnLoc: 'fhUpperstairs', variant: 'repeat' },
+    { id: 'brotherContinue', order: 12, title: 'Brother Continue', passage: 'showerEncounter_peek_Brother_continue', note: 'Keep watching follow-up', target: 'brother', returnLoc: 'fhUpperstairs', variant: 'continue' }
+];
+
 // Initialize
 window.DebugInit = function(API) {
     DebugAPI = API;
@@ -71,6 +86,7 @@ function createDebugPanel() {
                     <button class="debug-tab active" type="button" data-debug-tab="vars">Variables</button>
                     <button class="debug-tab" type="button" data-debug-tab="inventory">Inventory</button>
                     <button class="debug-tab" type="button" data-debug-tab="diana">Diana Go To</button>
+                    <button class="debug-tab" type="button" data-debug-tab="shower">Shower Go To</button>
                 </div>
 
                 <div class="debug-tab-panel active" data-debug-panel="vars">
@@ -124,6 +140,15 @@ function createDebugPanel() {
                     </div>
                     <div class="debug-result" id="debug-goto-result"></div>
                 </div>
+
+                <div class="debug-tab-panel" data-debug-panel="shower">
+                    <div class="debug-section-title">Shower Encounter Arc</div>
+                    <div class="debug-helper-text">Direct jumps for the bathroom door, first peek, repeat peek, and continue scenes. Minimum corruption/lust requirements are auto-filled.</div>
+                    <div class="debug-goto-grid">
+                        ${getShowerDebugButtonsHtml()}
+                    </div>
+                    <div class="debug-result" id="debug-shower-result"></div>
+                </div>
             </div>
         </div>
     `;
@@ -153,6 +178,10 @@ function createDebugPanel() {
     $('.debug-goto-btn').on('click', function() {
         goToDianaPassage($(this).data('passageId'));
     });
+
+    $('.debug-shower-btn').on('click', function() {
+        goToShowerPassage($(this).data('showerId'));
+    });
     
     // Enter key support
     $('#debug-variable, #debug-value').on('keypress', function(e) {
@@ -181,6 +210,20 @@ function getDianaDebugButtonsHtml() {
     return DIANA_DEBUG_PASSAGES.map(function(entry) {
         return `
             <button class="debug-goto-btn" type="button" data-passage-id="${entry.id}">
+                <span class="debug-goto-order">${entry.order}</span>
+                <span class="debug-goto-copy">
+                    <span class="debug-goto-title">${entry.title}</span>
+                    <span class="debug-goto-note">${entry.note}</span>
+                </span>
+            </button>
+        `;
+    }).join('');
+}
+
+function getShowerDebugButtonsHtml() {
+    return SHOWER_DEBUG_PASSAGES.map(function(entry) {
+        return `
+            <button class="debug-goto-btn debug-shower-btn" type="button" data-shower-id="${entry.id}">
                 <span class="debug-goto-order">${entry.order}</span>
                 <span class="debug-goto-copy">
                     <span class="debug-goto-title">${entry.title}</span>
@@ -358,6 +401,84 @@ function goToDianaPassage(passageId) {
     }
 }
 
+function ensureShowerDebugRequirements(vars, entry) {
+    if (typeof vars.corruption !== 'number' || vars.corruption < 2) {
+        vars.corruption = 2;
+    }
+
+    if (!vars.characters || !vars.characters[entry.target]) return;
+
+    const char = vars.characters[entry.target];
+    if (!char.stats) char.stats = {};
+
+    if (typeof char.stats.lustLevel !== 'number' || char.stats.lustLevel < 2) {
+        char.stats.lustLevel = 2;
+    }
+
+    if (typeof char.stats.lust !== 'number' || char.stats.lust < 10) {
+        char.stats.lust = 10;
+    }
+}
+
+function prepareShowerPassageState(entry) {
+    if (!DebugAPI) return;
+
+    const vars = DebugAPI.State.variables;
+    const temp = DebugAPI.State.temporary || (DebugAPI.State.temporary = {});
+    const firstSeenFlagByTarget = {
+        father: 'fatherShowerPeekFirstSeen',
+        mother: 'motherShowerPeekFirstSeen',
+        brother: 'brotherShowerPeekFirstSeen'
+    };
+    const flagKey = firstSeenFlagByTarget[entry.target];
+
+    if (!vars.flags) vars.flags = {};
+
+    ensureShowerDebugRequirements(vars, entry);
+
+    temp.showerEncounterTarget = entry.target;
+    temp.showerEncounterReturnLoc = entry.returnLoc;
+    temp.bathroomCheck = {
+        someoneShowering: true,
+        character: entry.target
+    };
+
+    if (flagKey) {
+        if (entry.variant === 'first') {
+            vars.flags[flagKey] = false;
+        } else if (entry.variant === 'repeat' || entry.variant === 'continue') {
+            vars.flags[flagKey] = true;
+        }
+    }
+}
+
+function goToShowerPassage(passageId) {
+    if (!DebugAPI) return;
+
+    const entry = SHOWER_DEBUG_PASSAGES.find(function(item) {
+        return item.id === passageId;
+    });
+
+    if (!entry) {
+        showShowerResult('Error: Shower debug passage not found', 'error');
+        return;
+    }
+
+    const engine = DebugAPI.Engine || window.Engine;
+    if (!engine || typeof engine.play !== 'function') {
+        showShowerResult('Error: Engine.play is not available', 'error');
+        return;
+    }
+
+    try {
+        prepareShowerPassageState(entry);
+        closeDebugPanel();
+        engine.play(entry.passage);
+    } catch (error) {
+        showShowerResult(`Error: ${error.message}`, 'error');
+    }
+}
+
 // Apply debug change
 function applyDebugChange() {
     if (!DebugAPI) return;
@@ -499,6 +620,18 @@ function showItemResult(message, type) {
 
 function showGotoResult(message, type) {
     const result = $('#debug-goto-result');
+    result.text(message);
+    result.removeClass('success error');
+    result.addClass(type);
+    setTimeout(function() {
+        result.fadeOut(300, function() {
+            $(this).text('').show().removeClass('success error');
+        });
+    }, 3000);
+}
+
+function showShowerResult(message, type) {
+    const result = $('#debug-shower-result');
     result.text(message);
     result.removeClass('success error');
     result.addClass(type);

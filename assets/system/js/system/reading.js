@@ -591,7 +591,6 @@ function createReadingHTML() {
 function cleanupReadingSession() {
     var S = getState();
     delete S.variables._readingState;
-    console.log('[Reading] Session ended, state cleared.');
 }
 
 // ============================================
@@ -635,8 +634,6 @@ function readingMacroHandler(output, backPassage) {
         var eng = getEngine();
         if (eng) eng.play(readingReturnPassage || 'Start');
     });
-
-    console.log('[Reading] Macro rendered. Tab:', readingCurrentTab, 'Return:', readingReturnPassage);
 }
 
 // ============================================
@@ -644,7 +641,6 @@ function readingMacroHandler(output, backPassage) {
 // ============================================
 
 function ReadingInit(API) {
-    console.log('[Reading] ReadingInit called');
     ReadingAPI = API;
 }
 

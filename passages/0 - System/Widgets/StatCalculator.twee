@@ -427,11 +427,11 @@
     <<if !_charId>>
         /* silent */
     <<elseif !State.variables.characters>>
-        <<run console.error("gainCharacterStat: $characters undefined")>>
+        /* silent */
     <<elseif !State.variables.characters[_charId]>>
-        <<run console.error("gainCharacterStat: Character not found: " + _charId)>>
+        /* silent */
     <<elseif !State.variables.characters[_charId].stats>>
-        <<run console.error("gainCharacterStat: Character has no stats: " + _charId)>>
+        /* silent */
     <<elseif State.variables.characters[_charId].stats[_statName] === undefined>>
         /* Stat does not exist on character, do nothing */
     <<else>>

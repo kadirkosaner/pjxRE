@@ -16,13 +16,6 @@ function rebuildTopbar() {
     const state = (typeof State !== 'undefined' && State) ? State : TopbarAPI.State;
     const vars = state.variables || {};
 
-    // Check if current passage is Start (startscreen) - ALLOW topbar for hamburger menu
-    // if (TopbarAPI.State.passage === 'Start') {
-    //    console.log('[Topbar] Skipping - Start passage (startscreen)');
-    //    $('.top-bar-wrapper').remove();
-    //    return;
-    // }
-
     // hideTopbar now only hides the content, hamburger still shows
     const hideTopbarContent = vars.hideTopbar === true;
 
@@ -375,26 +368,18 @@ function showNavDialog(action) {
     if (action === 'character') {
         if (window.CharacterSystem) {
             window.CharacterSystem.open();
-        } else {
-            console.error('[Topbar] CharacterSystem not available');
         }
     } else if (action === 'relations') {
         if (window.RelationsSystem) {
             window.RelationsSystem.open();
-        } else {
-            console.error('[Topbar] RelationsSystem not available');
         }
     } else if (action === 'stats') {
         if (window.StatsSystem) {
             window.StatsSystem.open();
-        } else {
-            console.error('[Topbar] StatsSystem not available');
         }
     } else if (action === 'journal') {
         if (window.JournalSystem) {
             window.JournalSystem.open();
-        } else {
-            console.error('[Topbar] JournalSystem not available');
         }
     }
 }

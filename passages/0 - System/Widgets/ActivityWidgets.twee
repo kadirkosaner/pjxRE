@@ -16,7 +16,7 @@
     <<set _actionId = _args[1]>>
 
     <<if !_charId || !_actionId>>
-        <<run console.error("logDailyActivity requires charId and actionId")>>
+        /* invalid args */
     <<else>>
         /* Initialize dailyActivityLog if not exists */
         <<if !$dailyActivityLog>>

@@ -3,7 +3,7 @@
 ========================================== */
 
 // Game Information
-<<set setup.gameName = "Deneme">>
+<<set setup.gameName = "All That Glitters">>
 <<set setup.gameVersion = "Beta">>
 <<set $saveVersion to 1>>
 
@@ -121,6 +121,9 @@
 /* Flags System - For story events/states */
 <<set $flags = {
     fatherStartedWork: false,
+    fatherShowerPeekFirstSeen: false,
+    motherShowerPeekFirstSeen: false,
+    brotherShowerPeekFirstSeen: false,
     dianaEventShown: false,
     dianaGossipUnlocked: false,
     dianaThoughtsShown: false,

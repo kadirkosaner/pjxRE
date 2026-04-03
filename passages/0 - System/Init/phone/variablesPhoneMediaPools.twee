@@ -2,7 +2,7 @@
 /* =============================================================================
    PHONE MEDIA POOLS – Camera & Fotogram
    =============================================================================
-   Camera picks paths from these pools by category + location (safe/public).
+   Camera picks paths from these pools by category + location bucket (global/safe/public).
    Gallery item: { id, path, flags, timestamp, quality, from }.
    Same path + higher quality → replaces old item (phone-camera.js).
    Fotogram: flags determine post eligibility (Instagram-style; topless/nude not allowed).
@@ -10,10 +10,10 @@
    STRUCTURE:
    setup.phoneMediaPools = {
      photos: {
-       normal: { safe: [...], public: [...] },
-       cute:   { safe: [...], public: [...] },
-       hot:    { safe: [...], public: [...] },
-       spicy:  { safe: [...], public: [...] }
+       normal: { global: [...], safe: [...], public: [...] },
+       cute:   { global: [...], safe: [...], public: [...] },
+       hot:    { global: [...], safe: [...], public: [...] },
+       spicy:  { global: [...], safe: [...], public: [...] }
      },
      videos: { same }
    }
@@ -26,13 +26,21 @@
      Fotogram: risky/teasing/suggestive/bikini = postable. topless/nude/explicit = not postable.
    - conditions: Stat/outfit/location checks. Entry used only if ALL pass.
      { fitness: 50 }           – min $fitness
+     { corruption: 3 }         – min $corruption
+     { exhibitionism: 40 }     – min $exhibitionism
+     { confidence: 30 }        – min $confidence
+     { beauty: 50 }            – min $beauty
      { outfitStyle: "sporty", outfitMinItems: 1 } – wearing sporty (1+ items)
      { location: "fhBathroom" } or { location: ["fhBathroom","fhBedroom"] }
+     { requiredFlags: "phoneParkUnlocked" } or { forbiddenFlags: ["embarrassedToday"] }
      Example: Fitness 50 + sporty outfit + fhBathroom → photoNameX
 
    FULL EXAMPLE:
    photos: {
      normal: {
+       global: [
+         { path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp", tags: [], flags: ["casual"] }
+       ],
        safe: [
          { path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp", tags: [], flags: ["casual"] },
          { path: "assets/content/phone/camera/normal_safe_2.webp", tags: ["fhBedroom"], flags: ["casual","clothed"] }
@@ -42,6 +50,9 @@
        ]
      },
      spicy: {
+       global: [
+         { path: "assets/.../spicy_generic_1.webp", tags: [], flags: ["teasing","risky"] }
+       ],
        safe: [
          { path: "assets/.../spicy_tease_1.webp", tags: [], flags: ["teasing","risky"] },   // Fotogram OK
          { path: "assets/.../spicy_topless_1.webp", tags: [], flags: ["topless"] }          // Fotogram NOT OK
@@ -55,59 +66,144 @@
 <<set setup.phoneMediaPools = {
 	photos: {
 		normal: {
-			safe: [
-				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp", desc: "Normal selfie" },
-        { path: "assets/content/phone/gallery/photos/normal/normalSelfie2.webp", desc: "Normal selfie" },
-        { path: "assets/content/phone/gallery/photos/normal/normalSelfie3.webp", desc: "Normal selfie" },
-        { path: "assets/content/phone/gallery/photos/normal/normalSelfie4.webp", desc: "Normal selfie" },
-        { path: "assets/content/phone/gallery/photos/normal/normalSelfie5.webp", desc: "Normal selfie" },
-        { path: "assets/content/phone/gallery/photos/normal/normalSelfie6.webp", desc: "Normal selfie" },
-        { path: "assets/content/phone/gallery/photos/normal/normalSelfie7.webp", desc: "Normal selfie" },
-				/* Example: Fitness 50 + sporty outfit + fhBathroom → specific photo
-				{ path: "assets/content/phone/camera/normal_fitness_sporty_bathroom.webp", conditions: { fitness: 50, outfitStyle: "sporty", outfitMinItems: 1, location: "fhBathroom" } },
-				*/
+			global: [
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie1.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie2.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie3.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie4.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie5.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie6.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie7.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie8.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie9.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie10.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie11.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie12.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie13.webp" },
+				{ path: "assets/content/phone/gallery/photos/normal/global/normalSelfie14.webp" }
 			],
-			public: [				
-				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" },
-			],
+			safe: [],
+			public: [],
 		},
 		cute: {
-			safe: [
-				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
+			global: [
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie1.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie2.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie3.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie4.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie5.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie6.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie7.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie8.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie9.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie10.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie11.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie12.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie13.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie15.webp" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie15.jpg" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie16.jpg" },
+				{ path: "assets/content/phone/gallery/photos/cute/global/cuteSelfie17.jpg" }
 			],
-			public: [
-				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
-			]
+			safe: [],
+			public: []
 		},
 		hot: {
-			safe: [
-				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
+			global: [
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie1.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie2.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie3.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie3.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie4.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie5.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie6.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie7.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie8.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie9.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie10.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie11.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie12.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie13.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie14.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie15.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie16.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie17.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie18.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie19.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie20.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie21.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie22.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie23.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie24.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie25.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie26.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie27.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie28.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie29.webp" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie30.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie31.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie32.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie33.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie34.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie35.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie36.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie37.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie38.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie39.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie40.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie41.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie42.jpg" },
+				{ path: "assets/content/phone/gallery/photos/hot/global/hotSelfie43.jpg" }
 			],
-			public: [
-				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
-			]
+			safe: [],
+			public: []
 		},
 		spicy: {
-			safe: [
-				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
-			],
-			public: [
-				{ path: "assets/content/phone/gallery/photos/normal/normalSelfie1.webp" }
-			]
+			global: [],
+			safe: [],
+			public: []
 		}
 	},
 	videos: {
 		normal: { 
-      safe: [
-        { path: "assets/content/phone/gallery/videos/normal/normalVideo1.mp4" },
-        { path: "assets/content/phone/gallery/videos/normal/normalVideo2.mp4" },
-        { path: "assets/content/phone/gallery/videos/normal/normalVideo3.mp4" },
-      ], 
-      public: [
-      ] 
+      global: [
+        { path: "assets/content/phone/gallery/videos/normal/global/normalVideo1.mp4" },
+        { path: "assets/content/phone/gallery/videos/normal/global/normalVideo2.mp4" },
+        { path: "assets/content/phone/gallery/videos/normal/global/normalVideo3.mp4" }
+      ],
+      safe: [],
+      public: [] 
     },
-		cute:   { safe: [], public: [] },
-		hot:    { safe: [], public: [] },
-		spicy:  { safe: [], public: [] }
+		cute:   { global: [
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo1.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo2.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo2_out.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo3.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo4.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo5.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo6.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo7.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo8.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo9.mp4" },
+        { path: "assets/content/phone/gallery/videos/cute/global/cuteVideo10.mp4" }
+      ], safe: [], public: [] },
+		hot:    { global: [
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo1.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo2.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo3.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo4.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo5.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo6.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo7.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo8.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo9.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo10.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo11.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo12.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo13.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo14.mp4" },
+        { path: "assets/content/phone/gallery/videos/hot/global/hotVideo15.mp4" }
+      ], safe: [], public: [] },
+		spicy:  { global: [], safe: [], public: [] }
 	}
 }>>

@@ -4,7 +4,6 @@ window.SaveLoadAPI = window.SaveLoadAPI || null;
 // Initialize
 window.SaveloadInit = function (API) {
     window.SaveLoadAPI = API;
-    console.log('[SaveLoad] Module initialized - custom save/load ready');
 
     // Auto-save on passage navigation (except Start passage)
     $(document).on(':passageend', function () {
@@ -23,10 +22,8 @@ window.SaveloadInit = function (API) {
                 const autoSaveTitle = `autosave_${day}:${month}:${year}_${hours}:${minutes}`;
                 
                 // Save with metadata containing title
-                API.Save.slots.save(0, null, { saveTitle: autoSaveTitle });
-                console.log('[SaveLoad] Auto-saved to slot 0 with title:', autoSaveTitle);
+                API.Save.browser.slot.save(0, null, { saveTitle: autoSaveTitle });
             } catch (error) {
-                console.error('[SaveLoad] Auto-save failed:', error);
             }
         }
     });
@@ -123,12 +120,12 @@ function renderSlot(slotId) {
     const API = window.SaveLoadAPI;
     if (!API) return '';
 
-    const hasSave = API.Save.slots.has(slotId);
+    const hasSave = API.Save.browser.slot.has(slotId);
     const isAutoSave = slotId === 0;
 
     if (hasSave) {
         // Get save data
-        const saveData = API.Save.slots.get(slotId);
+        const saveData = API.Save.browser.slot.get(slotId);
         
         // Try to get title from metadata, then title, then passage title
         const saveTitle = saveData.metadata?.saveTitle || saveData.title || 'Unknown';
@@ -212,7 +209,6 @@ function saveToSlot(slotId) {
     const API = window.SaveLoadAPI;
     if (!API) return;
 
-    console.log('[SaveLoad] Saving to slot:', slotId);
 
     // Show modal to ask for save title
     if (!window.ModalTabSystem) {
@@ -259,8 +255,7 @@ function saveToSlot(slotId) {
         
         try {
             // Pass title as metadata object
-            API.Save.slots.save(slotId, null, { saveTitle: saveTitle });
-            console.log('[SaveLoad] Saved to slot', slotId, 'with title:', saveTitle);
+            API.Save.browser.slot.save(slotId, null, { saveTitle: saveTitle });
 
             // Close modal
             $('#save-title-overlay').remove();
@@ -268,7 +263,6 @@ function saveToSlot(slotId) {
             // Re-render slots to show new save
             renderSaveSlots();
         } catch (error) {
-            console.error('[SaveLoad] Save failed:', error);
             alert('Save failed: ' + error.message);
         }
     };
@@ -297,35 +291,25 @@ function loadFromSlot(slotId) {
     const API = window.SaveLoadAPI;
     if (!API) return;
 
-    console.log('[SaveLoad] Loading from slot:', slotId);
+    API.Save.browser.slot.load(slotId)
+        .then(function () {
+            if (typeof window.runSaveVersion === 'function') {
+                window.runSaveVersion();
+            }
 
-    try {
-        API.Save.slots.load(slotId);
-        console.log('[SaveLoad] Load successful');
-        if (typeof window.runSaveVersion === 'function') {
-            window.runSaveVersion();
-        } else {
-            console.warn('[SaveLoad] runSaveVersion not found – save version inits skipped.');
-        }
+            closeCustomSaveLoad();
 
-        // Close modal
-        closeCustomSaveLoad();
+            if (window.handleStartScreen) {
+                window.handleStartScreen(false);
+            }
 
-        // Close StartScreen if active (needed when loading from startscreen)
-        if (window.handleStartScreen) {
-            window.handleStartScreen(false);
-            console.log('[SaveLoad] StartScreen closed');
-        }
-
-        // Force render passage to fix black screen
-        if (API.Engine && API.Engine.show) {
-            API.Engine.show();
-            console.log('[SaveLoad] Engine.show() called');
-        }
-    } catch (error) {
-        console.error('[SaveLoad] Load failed:', error);
-        alert('Load failed: ' + error.message);
-    }
+            if (API.Engine && API.Engine.show) {
+                API.Engine.show();
+            }
+        })
+        .catch(function (error) {
+            alert('Load failed: ' + (error && error.message ? error.message : String(error)));
+        });
 }
 
 // Delete slot
@@ -367,16 +351,13 @@ function performDelete(slotId) {
     const API = window.SaveLoadAPI;
     if (!API) return;
 
-    console.log('[SaveLoad] Deleting slot:', slotId);
 
     try {
-        API.Save.slots.delete(slotId);
-        console.log('[SaveLoad] Delete successful');
+        API.Save.browser.slot.delete(slotId);
 
         // Re-render slots
         renderSaveSlots();
     } catch (error) {
-        console.error('[SaveLoad] Delete failed:', error);
         alert('Delete failed: ' + error.message);
     }
 }
@@ -386,11 +367,9 @@ function exportSlot(slotId) {
     const API = window.SaveLoadAPI;
     if (!API) return;
 
-    console.log('[SaveLoad] Exporting slot:', slotId);
 
     try {
         // Debug: Show all localStorage keys to find the correct format
-        console.log('[SaveLoad] All localStorage keys:', Object.keys(localStorage));
         
         const storyId = typeof Story !== 'undefined' ? Story.domId : 'pjx';
         
@@ -402,14 +381,10 @@ function exportSlot(slotId) {
         const rawInfo = localStorage.getItem(infoKey);
         
         if (!rawData) {
-            console.error('[SaveLoad] Slot data not found:', dataKey);
             alert('Slot is empty');
             return;
         }
         
-        console.log('[SaveLoad] Retrieved from localStorage');
-        console.log('[SaveLoad] Data key:', dataKey);
-        console.log('[SaveLoad] Info key:', infoKey);
         
         // Decompress data (UTF16)
         let stateData;
@@ -417,12 +392,10 @@ function exportSlot(slotId) {
             const decompressed = LZString.decompressFromUTF16(rawData);
             if (decompressed) {
                 stateData = JSON.parse(decompressed);
-                console.log('[SaveLoad] Decompressed data using UTF16');
             } else {
                 throw new Error('Data decompression failed');
             }
         } catch (e) {
-            console.error('[SaveLoad] Data decompression failed:', e);
             throw new Error('Could not decompress save data');
         }
         
@@ -433,10 +406,8 @@ function exportSlot(slotId) {
                 const decompressedInfo = LZString.decompressFromUTF16(rawInfo);
                 if (decompressedInfo) {
                     infoData = JSON.parse(decompressedInfo);
-                    console.log('[SaveLoad] Decompressed info using UTF16');
                 }
             } catch (e) {
-                console.warn('[SaveLoad] Info decompression failed, using defaults:', e);
             }
         }
         
@@ -452,12 +423,9 @@ function exportSlot(slotId) {
             if (currentDelta?.title && Array.isArray(currentDelta.title)) {
                 // title[1] contains the passage name in delta format
                 fullSaveData.passage = currentDelta.title[1];
-                console.log('[SaveLoad] Extracted passage from delta:', fullSaveData.passage);
             }
         }
         
-        console.log('[SaveLoad] Combined save data keys:', Object.keys(fullSaveData));
-        console.log('[SaveLoad] Full save data:', fullSaveData);
 
         // Get save title for filename
         const saveTitle = fullSaveData.metadata?.saveTitle || fullSaveData.title || `save_slot_${slotId}`;
@@ -465,7 +433,6 @@ function exportSlot(slotId) {
 
         // Re-compress for export (already in correct format)
         const compressed = LZString.compressToBase64(JSON.stringify(fullSaveData));
-        console.log('[SaveLoad] Save data serialized and compressed');
 
         // Create download
         const blob = new Blob([compressed], { type: 'text/plain;charset=UTF-8' });
@@ -478,9 +445,7 @@ function exportSlot(slotId) {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
 
-        console.log('[SaveLoad] Export successful');
     } catch (error) {
-        console.error('[SaveLoad] Export failed:', error);
         alert('Failed to export save: ' + error.message);
     }
 }
@@ -491,7 +456,6 @@ function saveToDisk() {
     const API = window.SaveLoadAPI;
     if (!API) return;
 
-    console.log('[SaveLoad] Saving to disk using Save.export(filename)');
 
     try {
         // Generate filename FIRST
@@ -503,10 +467,8 @@ function saveToDisk() {
         // Standard SugarCube Save.export triggers the download internally.
         API.Save.export(filename);
         
-        console.log('[SaveLoad] Save.export initiated for:', filename);
         
     } catch (error) {
-        console.error('[SaveLoad] Disk save failed:', error);
         alert('Failed to save to disk: ' + error.message);
     }
 }
@@ -516,7 +478,6 @@ function loadFromDisk() {
     const API = window.SaveLoadAPI;
     if (!API) return;
 
-    console.log('[SaveLoad] Loading from disk');
 
     const input = document.createElement('input');
     input.type = 'file';
@@ -530,7 +491,6 @@ function loadFromDisk() {
         // Make this handler ASYNC to handle potential promises from deserialize
         reader.onload = async function(event) {
             try {
-                console.log('[SaveLoad] File read, attempting restore...');
                 const saveStr = event.target.result;
                 let saveObj;
 
@@ -544,12 +504,10 @@ function loadFromDisk() {
                         const decompressed = LZString.decompressFromBase64(saveStr);
                         if (decompressed) saveObj = JSON.parse(decompressed);
                     } catch (lzErr) {
-                        console.error('Parse failed', jsonErr, lzErr);
                     }
                 }
 
                 if (!saveObj) throw new Error('Could not parse save file');
-                console.log('[SaveLoad] Parsed object:', saveObj);
 
                 // 2. EXPAND STATE via API.Save.deserialize
                 // This is critical for expanding Type 4 'delta' compression.
@@ -560,25 +518,20 @@ function loadFromDisk() {
                 if (typeof API.Save.deserialize === 'function') {
                     // ATTEMPT 1: Pass the Object
                     try {
-                        console.log('[SaveLoad] Attempting API.Save.deserialize(object)...');
                         // Await in case it returns a promise (fix for "in promise" crash)
                         stateToRestore = await API.Save.deserialize(saveObj);
                     } catch (e1) {
-                        console.warn('[SaveLoad] Deserialize(object) failed', e1);
                         
                         // ATTEMPT 2: Pass the Raw String (rare but possible in some versions)
                         try {
-                            console.log('[SaveLoad] Attempting API.Save.deserialize(string)...');
                             stateToRestore = await API.Save.deserialize(saveStr);
                         } catch (e2) {
-                            console.warn('[SaveLoad] Deserialize(string) failed', e2);
                         }
                     }
                 }
                 
                 // Fallback Manual Extraction (if deserialize fails completely)
                 if (!stateToRestore) {
-                    console.warn('[SaveLoad] All deserialize attempts failed. Using Manual Fallback.');
                     if (saveObj.state && saveObj.id) {
                         // Type 4: Wrapper object containing 'state'
                         stateToRestore = saveObj.state;
@@ -592,11 +545,9 @@ function loadFromDisk() {
 
                 // 3. RESTORE
                 API.State.restore(stateToRestore);
-                console.log('[SaveLoad] State restored');
                 if (typeof window.runSaveVersion === 'function') {
                     window.runSaveVersion();
                 } else {
-                    console.warn('[SaveLoad] runSaveVersion not found – save version inits skipped.');
                 }
 
                 // 4. NAVIGATION FIX
@@ -624,7 +575,6 @@ function loadFromDisk() {
                     savedPassage = API.State.passage;
                 }
 
-                console.log('[SaveLoad] Navigation Target:', savedPassage);
 
                 // UI Cleanup
                 closeCustomSaveLoad();
@@ -634,14 +584,11 @@ function loadFromDisk() {
                 // Execute Navigation
                 if (savedPassage && savedPassage !== 'Start') {
                     API.Engine.play(savedPassage);
-                    console.log('[SaveLoad] Navigated to:', savedPassage);
                 } else {
-                    console.warn('[SaveLoad] Target is Start or Null, forcing show()');
                     API.Engine.show();
                 }
 
             } catch (error) {
-                console.error('[SaveLoad] Load failed:', error);
                 alert('Failed to load save: ' + error.message);
             }
         };

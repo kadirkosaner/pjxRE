@@ -211,7 +211,6 @@ function withTemporaryWardrobeState(options, fn) {
 function initializePlayerWardrobe() {
     const S = getState();
     if (!S || !S.variables || !S.variables.wardrobe) {
-        console.warn('[Wardrobe] initializePlayerWardrobe: State or $wardrobe not ready');
         return;
     }
     const wardrobe = S.variables.wardrobe;
@@ -221,16 +220,13 @@ function initializePlayerWardrobe() {
     const owned = [];
     
     const catKeys = Object.keys(clothingData);
-    console.log('[Wardrobe] initializePlayerWardrobe called. ClothingData categories:', catKeys);
-    
+
     if (catKeys.length === 0) {
-        console.warn('[Wardrobe] initializePlayerWardrobe: No clothing data found in setup.clothingData!');
         return;
     }
     
     catKeys.forEach(category => {
         const items = clothingData[category] || [];
-        console.log(`[Wardrobe] - Category "${category}": ${items.length} items`);
         items.forEach(item => {
             if (item.startOwned && !owned.includes(item.id)) {
                 owned.push(item.id);
@@ -249,11 +245,8 @@ function initializePlayerWardrobe() {
     // Only populate owned if it's truly empty
     if (!wardrobe.owned || wardrobe.owned.length === 0) {
         wardrobe.owned = owned;
-        console.log('[Wardrobe] Owned was empty, populated with:', owned.length, 'items');
     } else {
-        const beforeOwned = wardrobe.owned.length;
         wardrobe.owned = wardrobe.owned.filter(id => validItemIds.has(id));
-        console.log('[Wardrobe] Owned preserved+cleaned:', beforeOwned, '->', wardrobe.owned.length);
     }
 
     // Clean equipped/outfits from removed DB item IDs
@@ -263,8 +256,7 @@ function initializePlayerWardrobe() {
         const itemId = wardrobe.equipped[slot];
         if (itemId && !validItemIds.has(itemId)) delete wardrobe.equipped[slot];
     });
-    console.log('[Wardrobe] Equipped cleaned to valid IDs:', Object.keys(wardrobe.equipped).length, 'slots');
-    
+
     if (!wardrobe.outfits || !Array.isArray(wardrobe.outfits)) {
         wardrobe.outfits = [null, null, null, null];
     }
@@ -481,7 +473,6 @@ function checkRequirements(item) {
     const WikifierClass = getWikifierClass();
 
     if (!WikifierClass) {
-        console.error('[Wardrobe] Wikifier not available!');
         return { allowed: true, reason: 'Requirement check unavailable' };
     }
 
@@ -494,12 +485,10 @@ function checkRequirements(item) {
         try {
             new WikifierClass(null, "<<checkClothingRequirements>>");
         } catch (error) {
-            console.error('[Wardrobe] checkClothingRequirements failed:', error);
             return { allowed: true, reason: 'Requirement check unavailable' };
         }
 
         const result = S.temporary.wardrobeCheckResult;
-        console.log(`[Wardrobe] checkRequirements for "${item.id}":`, result);
         return result || { allowed: true };
     });
 }
@@ -510,7 +499,6 @@ function checkCommandoRequirement(slot) {
     const WikifierClass = getWikifierClass();
 
     if (!WikifierClass) {
-        console.error('[Wardrobe] Wikifier not available!');
         return { allowed: true, reason: 'Requirement check unavailable' };
     }
 
@@ -523,12 +511,10 @@ function checkCommandoRequirement(slot) {
         try {
             new WikifierClass(null, "<<checkCommandoRequirement>>");
         } catch (error) {
-            console.error('[Wardrobe] checkCommandoRequirement widget failed:', error);
             return { allowed: true, reason: 'Requirement check unavailable' };
         }
 
         const result = S.temporary.wardrobeCheckResult;
-        console.log(`[Wardrobe] checkCommandoRequirement for "${slot}":`, result);
         return result || { allowed: true };
     });
 }
@@ -638,13 +624,9 @@ function equipItem(itemId) {
     const item = _w_getItemById(itemId);
     if (!item || !ownsItem(itemId)) return;
 
-    console.log(`[Wardrobe] equipItem called for "${itemId}"`);
-
     const req = checkRequirements(item);
-    console.log(`[Wardrobe] equipItem requirement check result:`, req);
-    
+
     if (!req.allowed) {
-        console.log(`[Wardrobe] equipItem BLOCKED: ${req.reason}`);
         showToast(req.reason);
         return;
     }
@@ -780,14 +762,12 @@ function _w_renderCategories() {
     const container = root?.querySelector('.categories');
     
     if (!container) {
-        console.error('[Wardrobe] renderCategories: .categories element NOT found in DOM!');
         return;
     }
 
     let categories = getSetup().wardrobeCategories;
-    
+
     if (!categories || categories.length === 0) {
-        console.warn('[Wardrobe] Categories missing in setup, using defaults');
         categories = defaultCategories;
     }
     // Apron is already in the "Other" group via wardrobeConfig — no auto-injection needed.
@@ -880,18 +860,13 @@ function renderClothingGrid() {
 
             const allowed = el.dataset.allowed === 'true';
 
-            console.log(`[Wardrobe] CLICK on item: ${itemId}, allowed: ${allowed}`);
-
             if (!allowed) {
-                console.log('[Wardrobe] Item is LOCKED, action blocked');
                 return;
             }
 
             if (equippedId === itemId) {
-                console.log('[Wardrobe] Action: Unequip');
                 unequipSlot(slot);
             } else {
-                console.log('[Wardrobe] Action: Equip');
                 equipItem(itemId);
             }
         });
@@ -905,7 +880,6 @@ function renderClothingGrid() {
 
 function renderWearingSlots() {
     if (!WardrobeAPI) {
-        console.warn('[Wardrobe] WardrobeAPI is null/undefined in renderWearingSlots');
         return;
     }
     const container = wardrobeContainer?.querySelector('.wearing-slots');
@@ -914,7 +888,6 @@ function renderWearingSlots() {
     const slotLabels = getSetup().slotLabels || {};
     
     if (!WardrobeAPI.State) {
-        console.error('[Wardrobe] WardrobeAPI.State is undefined!', WardrobeAPI);
         return;
     }
     const equipped = WardrobeAPI.State.variables.wardrobe?.equipped || {};
@@ -1020,7 +993,6 @@ function checkOutfitRequirements(outfit) {
     const equipped = outfit.equipped;
 
     if (!wardrobe) {
-        console.warn('[Wardrobe] checkOutfitRequirements: wardrobe state not ready');
         return { allowed: true };
     }
 
@@ -1301,7 +1273,6 @@ function createWardrobeHTML(backPassage, backLinkText, hideBackLink) {
 // ============================================
 
 function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack, jobId) {
-    console.log('[Wardrobe] SYSTEM v2.5 LOADED (Requirement Fix)');
     wardrobeLocationFilter = null;
     wardrobeSessionEquipped = null;
     wardrobeRequiredJobId = jobId || null;
@@ -1403,18 +1374,13 @@ function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack,
     // Capture initial state for "Cancel" functionality (Back button)
     const initialWardrobeState = JSON.parse(JSON.stringify(wardrobe));
 
-    console.log('[Wardrobe] Stats Check: confidence=' + S.variables.confidence + ', exhibitionism=' + S.variables.exhibitionism);
-
     if (wardrobe && (!wardrobe.owned || wardrobe.owned.length === 0)) {
-        console.log('[Wardrobe] Wardrobe empty or not initialized. Running initializePlayerWardrobe...');
         initializePlayerWardrobe();
     }
 
     $wrapper.find('.back-link').on('click', function(e) {
         if (hideBackLink) return;
         e.preventDefault();
-        
-        console.log('[Wardrobe] Back clicked. Reverting changes...');
 
         removeWardrobeGlobalTooltips();
 
@@ -1492,7 +1458,7 @@ function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack,
             _w_renderAll();
             updateWearButton();
         } catch (e) {
-            console.error('[Wardrobe] _w_renderAll FAILED:', e);
+            /* render failed */
         }
     }, 50);
 }
@@ -1502,7 +1468,6 @@ function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack,
 // ============================================
 
 function WardrobeInit(API) {
-    console.log('[Wardrobe] WardrobeInit called with API:', API);
     WardrobeAPI = API;
     
     const s = getSetup();

@@ -332,9 +332,6 @@ window.StatsInit = function (API) {
             setTimeout(function() {
                 if (window.initTooltips) {
                     window.initTooltips();
-                    console.log('[Stats] Tooltips initialized via global system');
-                } else {
-                    console.warn('[Stats] window.initTooltips not found');
                 }
             }, 300);
         }

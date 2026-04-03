@@ -1,5 +1,11 @@
 let StartScreenAPI = null;
 
+function getMaxBrowserSlotSaves() {
+    const cfg = StartScreenAPI && StartScreenAPI.Config && StartScreenAPI.Config.saves;
+    const n = cfg && typeof cfg.maxSlotSaves === 'number' ? cfg.maxSlotSaves : 8;
+    return n > 0 ? n : 8;
+}
+
 // Initialize
 window.StartscreenInit = function (API) {
     StartScreenAPI = API;
@@ -29,7 +35,6 @@ $(document).on(':passagestart', function (ev) {
 
     // Skip if we just loaded from a save (prevent reopening)
     if (window._skipStartScreenCheck) {
-        console.log('[StartScreen] Skipping startscreen check due to save load');
         window._skipStartScreenCheck = false;
         return;
     }
@@ -124,8 +129,9 @@ function checkAndUpdateContinueButton() {
     let hasSaves = false;
     
     // Check regular save slots
-    for (let i = 0; i < StartScreenAPI.Save.slots.length; i++) {
-        if (StartScreenAPI.Save.slots.has(i)) {
+    const maxSlots = getMaxBrowserSlotSaves();
+    for (let i = 0; i < maxSlots; i++) {
+        if (StartScreenAPI.Save.browser.slot.has(i)) {
             hasSaves = true;
             break;
         }
@@ -161,17 +167,17 @@ window.startscreenContinue = function () {
     if (window._startscreenProcessing) return;
     window._startscreenProcessing = true;
 
-    console.log('[StartScreen] Continue clicked');
 
     // Check if there are any saves (SugarCube 2 - proper method)
     let hasSaves = false;
     let mostRecentSlot = -1;
     let mostRecentDate = 0;
 
-    for (let i = 0; i < StartScreenAPI.Save.slots.length; i++) {
-        if (StartScreenAPI.Save.slots.has(i)) {
+    const maxSlotsContinue = getMaxBrowserSlotSaves();
+    for (let i = 0; i < maxSlotsContinue; i++) {
+        if (StartScreenAPI.Save.browser.slot.has(i)) {
             hasSaves = true;
-            const slotData = StartScreenAPI.Save.slots.get(i);
+            const slotData = StartScreenAPI.Save.browser.slot.get(i);
             if (slotData && slotData.date > mostRecentDate) {
                 mostRecentDate = slotData.date;
                 mostRecentSlot = i;
@@ -179,26 +185,24 @@ window.startscreenContinue = function () {
         }
     }
 
-    console.log('[StartScreen] Has saves:', hasSaves);
-
     if (hasSaves && mostRecentSlot >= 0) {
-        console.log('[StartScreen] Loading most recent save from slot:', mostRecentSlot);
 
         // CRITICAL: Remove StartScreen UI first
         handleStartScreen(false);
 
-        // Load save
-        StartScreenAPI.Save.slots.load(mostRecentSlot);
-
-        // Force render to prevent black screen (Fix for continue)
-        if (StartScreenAPI.Engine && StartScreenAPI.Engine.show) {
-            StartScreenAPI.Engine.show();
-        }
-
-        window._startscreenProcessing = false;
+        StartScreenAPI.Save.browser.slot.load(mostRecentSlot)
+            .then(function () {
+                if (StartScreenAPI.Engine && StartScreenAPI.Engine.show) {
+                    StartScreenAPI.Engine.show();
+                }
+                window._startscreenProcessing = false;
+            })
+            .catch(function () {
+                window._startscreenProcessing = false;
+                window.startscreenNewGame();
+            });
     } else {
         // No saves, start new game
-        console.log('[StartScreen] No saves found, starting new game');
         window._startscreenProcessing = false;
         window.startscreenNewGame();
     }
@@ -211,17 +215,13 @@ window.startscreenNewGame = function () {
     if (window._startscreenProcessing) return;
     window._startscreenProcessing = true;
 
-    console.log('[StartScreen] New Game clicked');
-    console.log('[StartScreen] Current passage:', StartScreenAPI.State.passage);
 
     // CRITICAL: Remove StartScreen UI first (body class + container)
     // This must happen BEFORE Engine.play so GameStart renders in clean state
     handleStartScreen(false);
 
     // Navigate to GameStart - UI will recreate automatically via :passagerender
-    console.log('[StartScreen] Calling Engine.play("GameStart")...');
     StartScreenAPI.Engine.play('GameStart');
-    console.log('[StartScreen] Engine.play returned, current passage:', StartScreenAPI.State.passage);
 
     window._startscreenProcessing = false;
 };
@@ -233,13 +233,11 @@ window.startscreenLoad = function () {
     if (window._startscreenProcessing) return;
     window._startscreenProcessing = true;
 
-    console.log('[StartScreen] Load clicked');
 
     // Open custom save/load screen
     if (window.openCustomSaveLoad) {
         window.openCustomSaveLoad();
     } else {
-        console.error('[StartScreen] openCustomSaveLoad not available');
     }
     window._startscreenProcessing = false;
 };

@@ -5,7 +5,6 @@ window.AccordionInit = function (API) {
         API: API,
         
         init: function() {
-            console.log('[AccordionSystem] Initializing...');
             this.attachEvents();
         },
 
@@ -34,7 +33,6 @@ window.AccordionInit = function (API) {
                 $(this).text($(this).hasClass('active') ? 'ON' : 'OFF');
             });
 
-            console.log('[AccordionSystem] Events attached');
         }
     };
 

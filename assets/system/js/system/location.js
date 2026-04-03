@@ -7,7 +7,6 @@ let currentPassageName = null;
 
 function LocationInit(API) {
     LocationAPI = API;
-    console.log('[Location] Initializing location background system');
 
     function updateLocationBackground() {
         if (!LocationAPI) return;
@@ -39,15 +38,12 @@ function LocationInit(API) {
                 // Keep the data attribute for CSS transitions/logic
                 document.body.setAttribute('data-location', location);
                 
-                console.log(`[Location] Background set to: ${location} (${imagePath})`);
             } else {
                 $('#dynamic-location-bg').remove();
-                console.log(`[Location] No image found for: ${location}`);
             }
         } else {
             document.body.removeAttribute('data-location');
             $('#dynamic-location-bg').remove();
-            console.log('[Location] Background cleared - no location set');
         }
     }
 
@@ -61,7 +57,6 @@ function LocationInit(API) {
         if (currentPassageName !== null && currentPassageName !== newPassageName) {
             if (LocationAPI.State.variables) {
                 LocationAPI.State.variables.location = null;
-                console.log('[Location] Cleared for new passage:', newPassageName);
             }
         }
 
@@ -79,7 +74,6 @@ function LocationInit(API) {
         updateLocationBackground();
     });
 
-    console.log('[Location] Event handlers registered');
 }
 
 // Export to window for loader auto-init

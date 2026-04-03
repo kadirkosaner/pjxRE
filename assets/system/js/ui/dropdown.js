@@ -170,5 +170,4 @@ window.DropdownInit = function (API) {
         }
     });
 
-    console.log('[UI] Dropdown Macros Initialized');
 };

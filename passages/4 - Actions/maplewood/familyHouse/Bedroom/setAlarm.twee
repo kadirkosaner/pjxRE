@@ -120,9 +120,6 @@ Set your wake-up preferences. You can configure different schedules for weekdays
         const $weekdayBox = $('#time-box-weekday');
         const $weekendBox = $('#time-box-weekend');
         
-        // Debug
-        // console.log("AlarmUI: Updating visuals. Weekday Checked:", $weekdayToggle.prop('checked'));
-
         // Update Weekday
         if ($weekdayToggle.prop('checked')) {
             $weekdayBox.removeClass('disabled');

@@ -53,12 +53,19 @@
     <</narrative>>
 
     <div class="location-actions">
-        <<link "Approach the door">>
-            <<set State.temporary.showerEncounterTarget = _showeringChar>>
-            <<set State.temporary.showerEncounterReturnLoc = _returnLoc>>
+        <<capture _showeringChar _returnLoc>>
+        <<btn "Approach the door">>
+            <<set $showerEncounterTarget = _showeringChar>>
+            <<set $showerEncounterReturnLoc = _returnLoc>>
             <<goto "showerEncounter">>
-        <</link>>
-        <<btn "Go Back" _returnLoc "secondary">><</btn>>
+        <</btn>>
+        <</capture>>
+        <<capture _returnLoc>>
+        <<btn "Go Back" _returnLoc "secondary">>
+            <<unset $showerEncounterTarget>>
+            <<unset $showerEncounterReturnLoc>>
+        <</btn>>
+        <</capture>>
     </div>
 <</if>>
 <</nobr>>

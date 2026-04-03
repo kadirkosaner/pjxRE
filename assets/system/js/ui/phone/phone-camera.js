@@ -33,6 +33,28 @@ function getEffectiveCameraLocation(locationId, vars) {
     return { effective: loc, isBlocked: false, isNever: false, requiredExhibitionism: 0 };
 }
 
+function getMediaPoolBucket(effectiveLocation) {
+    if (effectiveLocation === 'safe') return 'safe';
+    if (effectiveLocation === 'public') return 'public';
+    return 'global';
+}
+
+function getPhoneLocationId(location) {
+    var loc = (location != null) ? String(location) : '';
+    return (loc.indexOf('/') >= 0 || loc.indexOf('\\') >= 0) ? loc.split(/[/\\]/).pop() : loc;
+}
+
+function normalizeConditionArray(value) {
+    if (value == null) return [];
+    return Array.isArray(value) ? value : [value];
+}
+
+function meetsMinimumVariableCondition(cond, vars, key) {
+    if (cond[key] == null) return true;
+    var current = (vars && vars[key] != null) ? Number(vars[key]) : 0;
+    return current >= Number(cond[key]);
+}
+
 /**
  * Check if Hot/Spicy can be taken (corruption + location). Assumes location is not blocked (forbidden/never).
  * @param {string} type - 'hot' or 'spicy'
@@ -114,7 +136,7 @@ function phoneRenderCameraApp(vars, opts) {
     var locationId = (opts && opts.locationId != null && opts.locationId !== '') ? opts.locationId
         : (function () {
             var raw = (vars && vars.location) || (typeof PhoneAPI !== 'undefined' && PhoneAPI.State && (PhoneAPI.State.variables && PhoneAPI.State.variables.location || PhoneAPI.State.passage)) || (typeof State !== 'undefined' && State.passage) || '';
-            return (raw.indexOf('/') >= 0 || raw.indexOf('\\') >= 0) ? raw.split(/[/\\]/).pop() : raw;
+            return getPhoneLocationId(raw);
         })();
     var locInfo = getEffectiveCameraLocation(locationId, vars);
     // Unlock by corruption + location. Normal/Cute not affected by forbidden/never.
@@ -326,7 +348,13 @@ function getMediaFlagsForType(type, locationId, isSafe) {
 
 /**
  * Check if player meets conditions for a media pool entry.
- * conditions: { fitness?: number, outfitStyle?: string, outfitMinItems?: number, location?: string|string[] }
+ * conditions: {
+ *   fitness?: number, corruption?: number, exhibitionism?: number,
+ *   confidence?: number, beauty?: number, looks?: number,
+ *   outfitStyle?: string, outfitMinItems?: number,
+ *   location?: string|string[],
+ *   requiredFlags?: string|string[], forbiddenFlags?: string|string[]
+ * }
  * @param {object} item - Pool entry { path, tags?, flags?, conditions? }
  * @param {object} vars - State.variables
  * @returns {boolean}
@@ -335,10 +363,12 @@ function meetsMediaConditions(item, vars) {
     var cond = item && item.conditions;
     if (!cond || typeof cond !== 'object') return true;
 
-    if (cond.fitness != null) {
-        var fitness = (vars && vars.fitness != null) ? Number(vars.fitness) : 0;
-        if (fitness < Number(cond.fitness)) return false;
-    }
+    if (!meetsMinimumVariableCondition(cond, vars, 'fitness')) return false;
+    if (!meetsMinimumVariableCondition(cond, vars, 'corruption')) return false;
+    if (!meetsMinimumVariableCondition(cond, vars, 'exhibitionism')) return false;
+    if (!meetsMinimumVariableCondition(cond, vars, 'confidence')) return false;
+    if (!meetsMinimumVariableCondition(cond, vars, 'beauty')) return false;
+    if (!meetsMinimumVariableCondition(cond, vars, 'looks')) return false;
 
     if (cond.outfitStyle) {
         var style = String(cond.outfitStyle);
@@ -362,7 +392,7 @@ function meetsMediaConditions(item, vars) {
 
     if (cond.location != null) {
         var loc = (vars && vars.location) ? String(vars.location) : '';
-        var locId = loc.indexOf('/') >= 0 || loc.indexOf('\\') >= 0 ? loc.split(/[/\\]/).pop() : loc;
+        var locId = getPhoneLocationId(loc);
         var required = Array.isArray(cond.location) ? cond.location : [cond.location];
         var match = false;
         for (var j = 0; j < required.length; j++) {
@@ -374,21 +404,31 @@ function meetsMediaConditions(item, vars) {
         if (!match) return false;
     }
 
+    var requiredFlags = normalizeConditionArray(cond.requiredFlags);
+    for (var k = 0; k < requiredFlags.length; k++) {
+        if (!vars || !vars[requiredFlags[k]]) return false;
+    }
+
+    var forbiddenFlags = normalizeConditionArray(cond.forbiddenFlags);
+    for (var f = 0; f < forbiddenFlags.length; f++) {
+        if (vars && vars[forbiddenFlags[f]]) return false;
+    }
+
     return true;
 }
 
 /**
  * Get pool from setup.phoneMediaPools (Twee). Each item: { path, tags?, conditions? }.
- * conditions: { fitness?: number, outfitStyle?: string, outfitMinItems?: number, location?: string|string[] }
+ * conditions support min stats, outfit/location checks, and required/forbidden story flags.
  * @param {string} mediaKind - 'photos' | 'videos'
  * @param {string} type - 'normal' | 'cute' | 'hot' | 'spicy'
- * @param {boolean} isSafe - safe location (bedroom) vs public
+ * @param {string} locationBucket - 'global' | 'safe' | 'public'
  * @param {object} vars - State.variables (for stat/outfit/location checks)
  * @param {string[]} [contextTags] - optional; only items with at least one of these tags (empty = use all)
  * @param {number} [targetQuality] - candidate priority check against existing gallery quality
  * @returns {string} path or ''
  */
-function getMediaPathFromPool(mediaKind, type, isSafe, vars, contextTags, targetQuality) {
+function getMediaPathFromPool(mediaKind, type, locationBucket, vars, contextTags, targetQuality) {
     // Try PhoneAPI.setup first, then fallback to global setup
     var pools = null;
     if (typeof PhoneAPI !== 'undefined' && PhoneAPI.setup && PhoneAPI.setup.phoneMediaPools) {
@@ -398,11 +438,10 @@ function getMediaPathFromPool(mediaKind, type, isSafe, vars, contextTags, target
     }
     
     if (!pools || !pools[mediaKind] || !pools[mediaKind][type]) {
-        console.warn('[CAMERA] No media pool found for', mediaKind, type, '- PhoneAPI.setup:', typeof PhoneAPI !== 'undefined' && PhoneAPI.setup ? 'exists' : 'missing');
         return '';
     }
     
-    var slot = isSafe ? 'safe' : 'public';
+    var slot = getMediaPoolBucket(locationBucket);
     var list = pools[mediaKind][type][slot];
     if (!Array.isArray(list) || list.length === 0) return '';
     var candidates = list;
@@ -576,13 +615,14 @@ window.phoneTakeSelfie = function(type) {
     const timeSys = vars.timeSys || {};
     const location = vars.location || 'unknown';
     var locInfo = getEffectiveCameraLocation(location, vars);
-    var isSafe = locInfo.effective === 'safe';
-    var locationId = (location && (location.indexOf('/') >= 0 || location.indexOf('\\') >= 0)) ? location.split(/[/\\]/).pop() : (location || '');
+    var locationBucket = getMediaPoolBucket(locInfo.effective);
+    var isSafe = locationBucket === 'safe';
+    var locationId = getPhoneLocationId(location);
     
     const quality = calculateMediaQuality(vars, type);
     var flags = getMediaFlagsForType(type, location, isSafe);
     var contextTags = locationId ? [locationId] : [];
-    var path = getMediaPathFromPool('photos', type, isSafe, vars, contextTags, quality) || '';
+    var path = getMediaPathFromPool('photos', type, locationBucket, vars, contextTags, quality) || '';
     
     const photo = {
         id: generateMediaId(),
@@ -674,13 +714,14 @@ window.phoneRecordVideo = function(type) {
     const timeSys = vars.timeSys || {};
     const location = vars.location || 'unknown';
     var locInfo = getEffectiveCameraLocation(location, vars);
-    var isSafe = locInfo.effective === 'safe';
-    var locationId = (location && (location.indexOf('/') >= 0 || location.indexOf('\\') >= 0)) ? location.split(/[/\\]/).pop() : (location || '');
+    var locationBucket = getMediaPoolBucket(locInfo.effective);
+    var isSafe = locationBucket === 'safe';
+    var locationId = getPhoneLocationId(location);
 
     const quality = calculateMediaQuality(vars, type);
     var flags = getMediaFlagsForType(type, location, isSafe);
     var contextTags = locationId ? [locationId] : [];
-    var path = getMediaPathFromPool('videos', type, isSafe, vars, contextTags, quality) || '';
+    var path = getMediaPathFromPool('videos', type, locationBucket, vars, contextTags, quality) || '';
     const video = {
         id: generateMediaId(),
         path: path,

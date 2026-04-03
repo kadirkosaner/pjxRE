@@ -140,21 +140,17 @@ window.SettingsInit = function (API) {
 
         initEvents: function () {
             const self = this;
-            console.log('[Settings] Initializing toggle events');
 
             $(document).off('click.settings-toggle', '.setting-toggle-btn');
             $(document).on('click.settings-toggle', '.setting-toggle-btn', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 const key = $(this).data('setting');
-                console.log('[Settings] Toggle clicked:', key);
                 self.toggleSetting(key);
             });
 
             this.initCustomSliders();
 
-            console.log('[Settings] Event listeners attached. Found buttons:', $('.setting-toggle-btn').length);
-            console.log('[Settings] Event listeners attached. Found custom sliders:', $('.custom-slider-container').length);
         },
 
         initCustomSliders: function () {
@@ -213,7 +209,6 @@ window.SettingsInit = function (API) {
         },
 
         toggleSetting: function (key) {
-            console.log('[Settings] toggleSetting called for:', key);
 
             const vars = this.API.State.variables;
             const btn = $(`.setting-toggle-btn[data-setting="${key}"]`);
@@ -225,43 +220,34 @@ window.SettingsInit = function (API) {
                 }
                 
                 const settings = vars.contentPreferences;
-                console.log('[Settings] Current value:', settings[key]);
                 
                 settings[key] = !settings[key];
-                console.log('[Settings] New value:', settings[key]);
                 
                 if (btn.length) {
                     const isActive = settings[key];
                     btn.toggleClass('active', isActive);
                     btn.text(isActive ? 'ON' : 'OFF');
-                    console.log('[Settings] Button updated to:', isActive ? 'ON' : 'OFF');
                 }
                 
-                console.log(`[Settings] ${key} final value: ${settings[key]}`);
             } else {
                 if (!vars.videoSettings) {
                     vars.videoSettings = { autoplaySet: true, loopSet: true, masterVolume: 100, videoVolume: 100 };
                 }
                 
                 const settings = vars.videoSettings;
-                console.log('[Settings] Current value:', settings[key]);
                 
                 settings[key] = !settings[key];
-                console.log('[Settings] New value:', settings[key]);
                 
                 if (btn.length) {
                     const isActive = settings[key];
                     btn.toggleClass('active', isActive);
                     btn.text(isActive ? 'ON' : 'OFF');
-                    console.log('[Settings] Button updated to:', isActive ? 'ON' : 'OFF');
                 }
                 
-                console.log(`[Settings] ${key} final value: ${settings[key]}`);
             }
         },
 
         updateVolume: function (key, value) {
-            console.log('[Settings] updateVolume called for:', key, 'value:', value);
 
             const vars = this.API.State.variables;
             if (!vars.videoSettings) {
@@ -273,7 +259,6 @@ window.SettingsInit = function (API) {
 
             $(`.volume-value[data-volume="${key}"]`).text(value + '%');
 
-            console.log(`[Settings] ${key} updated to: ${value}%`);
         }
     };
 };

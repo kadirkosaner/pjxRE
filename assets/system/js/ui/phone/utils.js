@@ -28,8 +28,8 @@ function persistPhoneChanges() {
     } catch (e) { }
     try {
         var api = window.SaveLoadAPI;
-        if (api && api.Save && api.Save.slots && typeof api.Save.slots.save === 'function') {
-            api.Save.slots.save(0);
+        if (api && api.Save && api.Save.browser && api.Save.browser.slot && typeof api.Save.browser.slot.save === 'function') {
+            api.Save.browser.slot.save(0);
         }
     } catch (e2) { }
 }

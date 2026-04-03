@@ -88,11 +88,9 @@ $(document).one(':storyready', async function () {
         allModules.forEach(moduleName => {
             const initFn = getInitFunctionName(moduleName);
             if (window[initFn]) {
-                console.log(`[Loader] Initializing: ${initFn}`);
                 window[initFn](API);
             }
         });
-        console.log("[Loader] All modules loaded and initialized.");
         if (typeof Engine !== 'undefined' && typeof Engine.show === 'function') {
             setTimeout(() => Engine.show(), 50);
         }
@@ -102,7 +100,7 @@ $(document).one(':storyready', async function () {
         $(document.head).find('#style-ui-bar').remove();
 
     } catch (error) {
-        console.error("[Loader] Error:", error);
+        /* loader failed */
     }
 });
 
@@ -111,33 +109,26 @@ window.runSaveVersion = function () {
     try {
         var API = window.SaveLoadAPI;
         if (!API) {
-            console.warn('[SaveVersion] API not ready');
             return;
         }
 
         var V = API.State.variables;
-        console.log('[SaveVersion] $saveVersion:', V.saveVersion);
 
         // Story API can't find passages — read directly from DOM
         var el = document.querySelector('tw-passagedata[name="SaveVersion"]');
         if (!el) {
-            console.warn('[SaveVersion] "SaveVersion" passage not found in DOM');
             return;
         }
 
         var content = el.textContent;
         if (!content || !content.trim()) {
-            console.warn('[SaveVersion] Passage is empty');
             return;
         }
 
-        console.log('[SaveVersion] Passage loaded from DOM, wikifying...');
         var Wk = API.Wikifier || window.Wikifier;
         new Wk(null, content);
-
-        console.log('[SaveVersion] Done, $saveVersion:', V.saveVersion);
     } catch (e) {
-        console.error('[SaveVersion]', e);
+        /* save version migration failed */
     }
 };
 
@@ -284,7 +275,7 @@ window.getDiscoveryKey = function (locationId) {
 /** Notification stub for phone events (future: toast notifications) */
 window.notifyPhone = function (message) {
     // TODO: Implement toast notification system
-    console.log('[Phone Notification]', message);
+    void message;
 };
 
 
@@ -551,16 +542,13 @@ Macro.add('startQuest', {
             vars.questState = { active: {}, completed: [], failed: [], daily: {} };
         }
         if (vars.questState.active[qid]) {
-            console.log(`[Quest V2] Quest "${qid}" already active`);
             return;
         }
         if (vars.questState.completed.includes(qid)) {
-            console.log(`[Quest V2] Quest "${qid}" already completed`);
             return;
         }
         const reqResult = checkQuestRequirements(quest.requirements, vars);
         if (!reqResult.met) {
-            console.log(`[Quest V2] Cannot start "${qid}" - missing requirements:`, reqResult.missing);
             return;
         }
         vars.questState.active[qid] = {
@@ -579,8 +567,6 @@ Macro.add('startQuest', {
                 position: 'rightbar-left'
             });
         }
-
-        console.log(`[Quest V2] Started: ${quest.title}`);
     }
 });
 
@@ -597,7 +583,6 @@ Macro.add('advanceQuestStage', {
         const quest = setup.quests?.[qid];
 
         if (!state || !quest) {
-            console.log(`[Quest V2] Cannot advance - quest "${qid}" not found or not active`);
             return;
         }
 
@@ -613,7 +598,6 @@ Macro.add('advanceQuestStage', {
         state.stage++;
         state.objectives = {};
         state.triggeredStage = -1;
-        console.log(`[Quest V2] Advanced "${qid}" to stage ${state.stage}`);
         if (state.stage >= quest.stages.length) {
             $.wiki(`<<completeQuest "${qid}">>`);
         } else {
@@ -655,7 +639,6 @@ Macro.add('completeObjective', {
             });
         }
 
-        console.log(`[Quest V2] Completed objective "${objId}" for quest "${qid}"`);
         const allComplete = stage.objectives.every(o => state.objectives[o.id]);
         const anyComplete = stage.objectives.some(o => state.objectives[o.id]);
 
@@ -732,8 +715,6 @@ Macro.add('completeQuest', {
                 }
             }
         }
-
-        console.log(`[Quest V2] Completed: ${quest.title}`);
     }
 });
 
@@ -1192,8 +1173,6 @@ $(document).one(':storyready', function () {
         styleTag.id = 'dynamic-button-styles';
         styleTag.textContent = cssRules;
         document.head.appendChild(styleTag);
-
-        console.log('[ButtonStyles] Generated button classes:', colorVars.map(v => '.btn-' + v.replace('--color-', '')));
     };
 
     // Wait for CSS to fully load
@@ -1226,12 +1205,9 @@ Macro.add('wardrobe', {
         let attempts = 0;
         const maxAttempts = 50; // 5 seconds max
 
-        console.log('[Wardrobe Macro] Starting wait loop with Anchor strategy...');
-
         const checkInterval = setInterval(() => {
             attempts++;
             if (window.wardrobeModule && window.wardrobeModule.macroHandler) {
-                console.log('[Wardrobe Macro] Module found!', window.wardrobeModule);
                 clearInterval(checkInterval);
 
                 // Clear loader
@@ -1239,13 +1215,10 @@ Macro.add('wardrobe', {
 
                 try {
                     window.wardrobeModule.macroHandler($anchor, locationFilter, backPassage, noBack, jobId);
-                    console.log('[Wardrobe Macro] Handler executed on Anchor.');
                 } catch (e) {
-                    console.error('[Wardrobe Macro] Handler CRASH:', e);
                     $anchor.html('<div class="error-view">Wardrobe crashed: ' + e.message + '</div>');
                 }
             } else if (attempts >= maxAttempts) {
-                console.error('[Wardrobe Macro] Timeout waiting for module.');
                 clearInterval(checkInterval);
                 $anchor.html('<div class="error-msg">Error: Wardrobe module failed to load. Please refresh.</div>');
             }
@@ -1286,11 +1259,9 @@ Macro.add('shop', {
                 try {
                     window.shopModule.macroHandler($anchor, shopName, shopType, itemIds, backPassage);
                 } catch (e) {
-                    console.error('[Shop Macro] Handler CRASH:', e);
                     $anchor.html('<div class="error-view">Shop crashed: ' + e.message + '</div>');
                 }
             } else if (attempts >= maxAttempts) {
-                console.error('[Shop Macro] Timeout waiting for module.');
                 clearInterval(checkInterval);
                 $anchor.html('<div class="error-msg">Error: Shop module failed to load. Please refresh.</div>');
             }
@@ -1326,7 +1297,6 @@ Macro.add('readingScreen', {
                 try {
                     window.readingModule.macroHandler($anchor, backPassage);
                 } catch (e) {
-                    console.error('[Reading Macro] Handler CRASH:', e);
                     $anchor.html('<div class="error-view">Reading system crashed: ' + e.message + '</div>');
                 }
             } else if (attempts >= maxAttempts) {
@@ -1363,7 +1333,6 @@ Macro.add('restaurant', {
                 try {
                     window.restaurantModule.macroHandler($anchor, menuId, backPassage);
                 } catch (e) {
-                    console.error('[Restaurant Macro] Error:', e);
                     $anchor.html('<div class="restaurant-error">Restaurant failed to load. Refresh the page.</div>');
                 }
             } else if (attempts >= maxAttempts) {
@@ -1603,8 +1572,7 @@ Macro.add('vid', {
         if (globalAutoplay) {
             const playPromise = video[0].play();
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("[Video] Autoplay blocked, showing play overlay.");
+                playPromise.catch(() => {
                     overlay.removeClass('hidden');
                 });
             }
@@ -1947,7 +1915,6 @@ window.processNavCard = function (tag, $container, passedSetup) {
     let imagePath = args[2];
     const discoveryVar = window.getDiscoveryKey ? window.getDiscoveryKey(cardId) : ('discovered' + cardId.charAt(0).toUpperCase() + cardId.slice(1));
     if (State.variables[discoveryVar] === false) {
-        console.log(`[Navigation] Card "${cardId}" hidden (${discoveryVar} = false)`);
         return;
     }
     if (navSetup.navCards && navSetup.navCards[cardId]) {
@@ -2084,8 +2051,6 @@ window.processNavCard = function (tag, $container, passedSetup) {
             }
 
             Engine.play(passageName);
-        } else {
-            console.error("[Navigation] No passage defined for:", displayName);
         }
     });
 
@@ -2113,8 +2078,6 @@ Macro.add('navMenu', {
             if (tag.name === 'navCard') {
                 if (window.processNavCard) {
                     window.processNavCard(tag, $container, setup);
-                } else {
-                    console.error('[Navigation] processNavCard helper not found!');
                 }
             }
         });
