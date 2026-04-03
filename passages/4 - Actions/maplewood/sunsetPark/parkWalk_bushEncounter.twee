@@ -1,6 +1,14 @@
 :: parkWalk_bushEncounter
 
 <<nobr>>
+<<if $contentPreferences.publicExhibition === false>>
+<<narrative "Park Walk">>
+You catch a hint of movement and muffled voices in the bushes off the path. Whatever it is, you decide not to look — and keep walking.
+<</narrative>>
+<div class="location-actions">
+    <<btn "Finish" $location>><</btn>>
+</div>
+<<else>>
 <<silently>>
 <<if ndef $flags>><<set $flags = {}>><</if>>
 <<set $flags.bushSet = random(1, 5)>>
@@ -74,4 +82,5 @@ Your heart is going faster than it should be. You know exactly what you're looki
     <<btn "Keep watching" "parkWalk_bushWatch">><</btn>>
     <<btn "Walk away" $location>><</btn>>
 </div>
+<</if>>
 <</nobr>>

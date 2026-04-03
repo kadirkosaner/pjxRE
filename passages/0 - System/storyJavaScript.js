@@ -1768,6 +1768,11 @@ Macro.add('showActions', {
                         meetsReqs = false;
                         missingReqs.push(`Willpower ${value}`);
                     }
+                } else if (req === 'jobHoursTodayMin') {
+                    const hoursToday = parseFloat(vars.jobState?.hoursToday || 0);
+                    if (hoursToday < value) {
+                        meetsReqs = false;
+                    }
                 } else {
                     // Raw stat check (legacy: friendship, lust, etc.)
                     if ((charStats[req] || 0) < value) {

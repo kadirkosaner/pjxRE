@@ -75,7 +75,7 @@
 
     <<set _bushEncounter = false>>
     <<if _timeSlot is "evening">>
-        <<if random(1, 3) is 1>>
+        <<if ($contentPreferences.publicExhibition !== false) && random(1, 3) is 1>>
             <<set _bushEncounter = true>>
         <</if>>
     <</if>>

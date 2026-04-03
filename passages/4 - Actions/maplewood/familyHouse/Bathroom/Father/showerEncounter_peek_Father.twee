@@ -8,6 +8,9 @@
 <<if !_return>>
     <<set _return = "fhParentsRoom">>
 <</if>>
+<<if ($contentPreferences.incest === false) || ($contentPreferences.maleSexual === false)>>
+<<goto _return>>
+<</if>>
 <<set $location = "fhParentsBath">>
 <<set _lust = (_char.stats && typeof _char.stats.lust === "number") ? _char.stats.lust : 0>>
 <<set _lustLevel = (_char.stats && typeof _char.stats.lustLevel === "number") ? _char.stats.lustLevel : 1>>

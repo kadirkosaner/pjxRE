@@ -30,6 +30,12 @@
     <<set _doorVideoSize = "100%">>
 <</if>>
 <<set _canPeek = ($corruption >= 2) && (_lustLevel >= 2) && (_lust >= 5)>>
+<<set _peekContentAllowed = false>>
+<<if _cid === "mother">>
+    <<set _peekContentAllowed = ($contentPreferences.incest !== false) && ($contentPreferences.femaleSexual !== false)>>
+<<elseif _cid === "father" || _cid === "brother">>
+    <<set _peekContentAllowed = ($contentPreferences.incest !== false) && ($contentPreferences.maleSexual !== false)>>
+<</if>>
 <<set _fatherFirstPeekSeen = !!$flags.fatherShowerPeekFirstSeen>>
 <<set _motherFirstPeekSeen = !!$flags.motherShowerPeekFirstSeen>>
 <<set _brotherFirstPeekSeen = !!$flags.brotherShowerPeekFirstSeen>>
@@ -53,7 +59,7 @@ A draft of warm, damp air slips into the hall. The bathroom door is barely crack
 <<vid _doorVideo _doorVideoSize>>
 
 <div class="location-actions">
-<<if _canPeek>>
+<<if _canPeek && _peekContentAllowed>>
     <<if _cid === "mother">>
         <<if !_motherFirstPeekSeen>>
             <<btn "Peek inside" "showerEncounter_peek_Mother_first">><</btn>>
@@ -73,6 +79,8 @@ A draft of warm, damp air slips into the hall. The bathroom door is barely crack
             <<btn "Peek inside" "showerEncounter_peek_Brother">><</btn>>
         <</if>>
     <</if>>
+<<elseif !_peekContentAllowed>>
+<span class="link-internal btn-style btn-default locked" data-tooltip="Turn on Incest and the matching sexual content option in Settings (Content Preferences) to enable this."><i class="icon icon-lock icon-12"></i> Peek inside</span>
 <<else>>
 <span class="link-internal btn-style btn-default locked" data-tooltip="Requires corruption 2, lust level 2 or higher, and at least 5 lust with this person."><i class="icon icon-lock icon-12"></i> Peek inside</span>
 <</if>>

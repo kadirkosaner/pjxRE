@@ -6,6 +6,9 @@
 <<if !_return>>
     <<set _return = "fhParentsRoom">>
 <</if>>
+<<if ($contentPreferences.incest === false) || ($contentPreferences.maleSexual === false)>>
+<<goto _return>>
+<</if>>
 <<set $location = "fhParentsBath">>
 <<set _contVar = random(1, 3)>>
 <<set _videoVar = random(1, 3)>>

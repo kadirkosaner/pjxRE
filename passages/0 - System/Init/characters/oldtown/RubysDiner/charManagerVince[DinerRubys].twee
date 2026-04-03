@@ -64,19 +64,19 @@
     dinerRubys: [
         {
             id: "talk", label: "Talk", passage: "vinceTalkDinerRubys",
-            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+            tags: [], requirements: { jobHoursTodayMin: 1 }, showWhenLocked: false, dailyLimit: true, minPlayerEnergy: 5
         }
     ],
     dinerRubysManagerOffice: [
         {
             id: "talk", label: "Talk", passage: "vinceTalkDinerRubys",
-            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+            tags: [], requirements: { jobHoursTodayMin: 1 }, showWhenLocked: false, dailyLimit: true, minPlayerEnergy: 5
         }
     ],
     dinerRubysKitchen: [
         {
             id: "talk", label: "Talk", passage: "vinceTalkDinerRubys",
-            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+            tags: [], requirements: { jobHoursTodayMin: 1 }, showWhenLocked: false, dailyLimit: true, minPlayerEnergy: 5
         }
     ]
 }>>

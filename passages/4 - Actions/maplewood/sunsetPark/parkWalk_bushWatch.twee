@@ -2,6 +2,9 @@
 
 <<nobr>>
 <<silently>>
+<<if $contentPreferences.publicExhibition === false>>
+<<goto $location>>
+<</if>>
 <<set _basePath = "assets/content/scenes/maplewood/park/walk/encounter/" + $flags.bushSet + "/">>
 <<gainStat "arousal" 15>>
 <<recalculateStats>>

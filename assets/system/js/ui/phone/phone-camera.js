@@ -49,6 +49,36 @@ function normalizeConditionArray(value) {
     return Array.isArray(value) ? value : [value];
 }
 
+function getPoolList(pools, mediaKind, type, slot) {
+    if (!pools || !pools[mediaKind] || !pools[mediaKind][type]) return [];
+    var list = pools[mediaKind][type][slot];
+    return Array.isArray(list) ? list : [];
+}
+
+function itemMatchesLocationContext(item, vars, contextTags) {
+    if (!item) return false;
+
+    if (contextTags && contextTags.length > 0) {
+        var tags = item.tags;
+        if (Array.isArray(tags) && contextTags.some(function (tag) { return tags.indexOf(tag) >= 0; })) {
+            return true;
+        }
+    }
+
+    var cond = item.conditions;
+    if (cond && cond.location != null) {
+        var loc = (vars && vars.location) ? String(vars.location) : '';
+        var locId = getPhoneLocationId(loc);
+        var required = normalizeConditionArray(cond.location);
+        for (var i = 0; i < required.length; i++) {
+            var target = String(required[i]);
+            if (locId === target || loc.indexOf(target) >= 0) return true;
+        }
+    }
+
+    return false;
+}
+
 function meetsMinimumVariableCondition(cond, vars, key) {
     if (cond[key] == null) return true;
     var current = (vars && vars[key] != null) ? Number(vars[key]) : 0;
@@ -442,16 +472,21 @@ function getMediaPathFromPool(mediaKind, type, locationBucket, vars, contextTags
     }
     
     var slot = getMediaPoolBucket(locationBucket);
-    var list = pools[mediaKind][type][slot];
-    if (!Array.isArray(list) || list.length === 0) return '';
-    var candidates = list;
-    if (contextTags && contextTags.length > 0) {
-        candidates = list.filter(function (item) {
-            var t = item.tags;
-            return Array.isArray(t) && contextTags.some(function (tag) { return t.indexOf(tag) >= 0; });
+    var globalList = getPoolList(pools, mediaKind, type, 'global');
+    var slotList = getPoolList(pools, mediaKind, type, slot);
+    var candidates = slotList;
+
+    // For safe/public, location-specific entries act as overrides.
+    // If nothing targets the current location, fall back to global media.
+    if (slot !== 'global') {
+        var locationSpecific = slotList.filter(function (item) {
+            return itemMatchesLocationContext(item, vars, contextTags);
         });
-        if (candidates.length === 0) candidates = list;
+        candidates = locationSpecific.length > 0 ? locationSpecific : globalList;
     }
+
+    if (!Array.isArray(candidates) || candidates.length === 0) return '';
+
     var conditioned = candidates.filter(function (item) { return meetsMediaConditions(item, vars || {}); });
     if (conditioned.length > 0) candidates = conditioned;
     var chosenPool = candidates;
