@@ -5,10 +5,13 @@
 ========================================== */
 <div class="divnobr">
 <<silently>>
+<<set $location = "dinerRubys">>
 <<logDailyActivity "Talked to Sofia">>
 <<gainCharacterStat "dinerWaitress2" "friendship" 2>>
 <<advanceTime 15>>
 <</silently>>
+
+<<image "assets/content/scenes/interactions/sofia/level1/sofiaFrontAfternoon-1.webp" "100%">>
 
 <<dialog "player">>
 There was someone here yesterday. The woman with Vince.
@@ -111,5 +114,17 @@ She knows something she's not saying.
 <<set $flags.sofiaGossipDone = true>>
 <<completeObjective "something_different" "talkSofia">>
 <</nobr>>
+
+<div class="location-actions">
+<<set _currentCharLocation = $characters.dinerWaitress2.currentLocation>>
+<<if _currentCharLocation === $location>>
+    <<set _gossipBackTarget = "CharacterInteraction">>
+<<else>>
+    <<set _gossipBackTarget = $interactionEntryPassage || $location>>
+<</if>>
+<<btn "Back" _gossipBackTarget "secondary">>
+<<if _currentCharLocation !== $location>><<unset $interactionEntryPassage>><</if>>
+<</btn>>
+</div>
 
 </div>

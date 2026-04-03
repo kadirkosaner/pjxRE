@@ -10,7 +10,11 @@
 <<advanceQuestStage "something_different">>
 <</silently>>
 
-<<narrative "Parents' Room">>
+<<narrative "Parents Room">><</narrative>>
+
+<<image "assets/content/locations/maplewood/familyHouse/fhParentsRoom.webp" "100%">>
+
+<<narrative>>
 She's lying back on the bed, book open in her lap, glasses perched on her nose. When she sees you, she marks the page and smiles.
 <</narrative>>
 
@@ -29,10 +33,14 @@ What were you doing?
 <<dialog "mother">>
 (She sets the book aside and sighs.)
 Reading, really. I've been on house stuff all day, baby—laundry, your things, the kitchen… I needed to clear my head. We haven't seen much of each other lately. Sit here.
-(She taps the edge of the bed.)
 <</dialog>>
+<<narrative>>
+She taps the edge of the bed.
+<</narrative>>
 
-<<narrative "Parents' Room">>
+<<image "assets/content/scenes/interactions/mother/level2/parentsroomEvening-1.webp" "100%">>
+
+<<narrative>>
 You sit beside her.
 <</narrative>>
 
@@ -53,7 +61,7 @@ Not terrible. I'm still getting used to it.
 Good. Don't forget to rest, okay?
 <</dialog>>
 
-<<narrative "Parents' Room">>
+<<narrative>>
 A short silence. Then your voice comes out smaller than you meant.
 <</narrative>>
 
@@ -70,7 +78,7 @@ What? Where did that come from?
 I just… felt it.
 <</dialog>>
 
-<<narrative "Parents' Room">>
+<<narrative>>
 A beat. Her expression softens.
 <</narrative>>
 
@@ -94,12 +102,15 @@ You don't look foreign, sweetie. That's tiredness, maybe a little dryness. It's 
 What am I supposed to do? I looked things up online and only got more confused—every video says something different, ten steps here, "just drink water" there… I didn't know who to trust. I told myself my mom would know best.
 <</dialog>>
 
+<<image "assets/content/scenes/interactions/mother/level2/parentsroomEvening-3.webp" "100%">>
+
 <<dialog "mother">>
 (She laughs.)
-The internet? Of course it confused you.
+The internet? Of course it confused you. 
 
 You're lucky. In my day we didn't have all this information—we figured things out by word of mouth, whatever worked.
-
+<</dialog>>
+<<dialog "mother">>
 (She thinks for a moment.)
 Start simple. I've got creams in the bathroom—moisturizer, sunscreen in the morning… You can use mine if you want, but I'll be honest: they're not really picked for skin your age; they're for what I need. For now, a light moisturizer and sunscreen in the morning are enough. Start there—we'll talk about the rest when you're ready, no rush.
 <</dialog>>
@@ -137,7 +148,7 @@ That's not really tonight's topic, sweetie—but in short, life sped up. Home, w
 So… love at first sight, huh?
 <</dialog>>
 
-<<narrative "Parents' Room">>
+<<narrative>>
 You both laugh—light, easy.
 <</narrative>>
 

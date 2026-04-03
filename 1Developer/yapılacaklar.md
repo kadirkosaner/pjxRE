@@ -1,14 +1,8 @@
-- Mağazalardaki değerler şuan dengesiz bir göz atıp yapılması gerekiyor.
 - dinersRuby Check yap.
-- Mirror check.
-- wardrobe revize tam hal !
-
-- Kitap ve İtemlar.
 - phone için selfieler ve videoları tamamla.
 - Numara silindiği zaman karakter tepkileri.
 
 - tom ile talk before the work.
-
 
 ############################################################################################################################
 
@@ -22,8 +16,3 @@
 - bir gün diner'da vince'nin gün sonunda çıkarken toplantı olacak odayı toparla dediğinde pc'yi açık görüp merak edip pcyi incelerken güvenlik kameralarına yakalanan ve vincenin sapık tarafının keşfi
 - Belki aileyi eve geç geldiğinde seks yaparken yakalaması odadan gelen seslere kulak verip.
 
-Bence şu sırayla git:
-Babadan para çalmak
-Vince kamera sahnesi
-Duşta görme / yakından bakma
-Aileyi yakalamak

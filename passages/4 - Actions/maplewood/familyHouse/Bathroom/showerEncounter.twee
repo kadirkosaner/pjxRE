@@ -1,0 +1,64 @@
+:: showerEncounter
+<<nobr>>
+<<silently>>
+<<set _cid = State.temporary.showerEncounterTarget || (State.temporary.bathroomCheck && State.temporary.bathroomCheck.character)>>
+<<unset State.temporary.showerEncounterTarget>>
+<<if !_cid || !$characters[_cid]>>
+    <<goto "fhUpperstairs">>
+<</if>>
+<<set _char = $characters[_cid]>>
+<<set _first = _char.firstName>>
+<<set _lust = (_char.stats && typeof _char.stats.lust === "number") ? _char.stats.lust : 0>>
+<<set _lustLevel = (_char.stats && typeof _char.stats.lustLevel === "number") ? _char.stats.lustLevel : 1>>
+<<set _return = State.temporary.showerEncounterReturnLoc>>
+<<if !_return>>
+    <<set _return = (_cid === "mother" || _cid === "father") ? "fhParentsRoom" : "fhUpperstairs">>
+<</if>>
+<<if _cid === "mother" || _cid === "father">>
+    <<set $location = "fhParentsBath">>
+<<else>>
+    <<set $location = "fhUpperBath">>
+<</if>>
+<<set _doorClip = random(1, 3)>>
+<<if _doorClip === 1>>
+    <<set _doorVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/doorAjar1.mp4">>
+<<elseif _doorClip === 2>>
+    <<set _doorVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/doorAjar2.mp4">>
+<<else>>
+    <<set _doorVideo = "assets/content/scenes/maplewood/familyHouse/showerEncounter/doorAjar3.mp4">>
+<</if>>
+<<set _canPeek = ($corruption >= 2) && (_lustLevel === 2) && (_lust >= 5)>>
+<<set _introVar = random(1, 3)>>
+<</silently>>
+
+<<if _introVar === 1>>
+<<narrative "Bathroom">>
+The door isn't quite latched — a thin strip of light and steam at the edge. Inside, the shower runs steady; <<print _first>> has to be the one in there.
+<</narrative>>
+<<elseif _introVar === 2>>
+<<narrative "Bathroom">>
+You almost walk past, then stop. The door hangs open a finger's width. Water drums on tile behind it, and you know <<print _first>>'s routine well enough: that's a shower, not a sink.
+<</narrative>>
+<<else>>
+<<narrative "Bathroom">>
+A draft of warm, damp air slips into the hall. The bathroom door is barely cracked; from the gap comes the hiss of the spray and, faintly, movement. <<print _first>> is almost certainly behind it.
+<</narrative>>
+<</if>>
+
+<<vid _doorVideo "100%">>
+
+<div class="location-actions">
+<<if _canPeek>>
+    <<if _cid === "mother">>
+        <<link "Peek inside">><<goto "showerEncounter_peek_Mother">><</link>>
+    <<elseif _cid === "father">>
+        <<link "Peek inside">><<goto "showerEncounter_peek_Father">><</link>>
+    <<elseif _cid === "brother">>
+        <<link "Peek inside">><<goto "showerEncounter_peek_Brother">><</link>>
+    <</if>>
+<<else>>
+<span class="link-internal btn-style btn-default locked" data-tooltip="Requires corruption 2, lust level 1, and at least 5 lust with this person."><i class="icon icon-lock icon-12"></i> Peek inside</span>
+<</if>>
+<<btn "Walk away" _return "secondary">><<unset State.temporary.peekShowerTarget>><<unset State.temporary.showerEncounterReturnLoc>><<unset $interactionEntryPassage>><</btn>>
+</div>
+<</nobr>>

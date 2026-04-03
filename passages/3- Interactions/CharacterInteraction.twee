@@ -48,13 +48,10 @@ You quietly approach <<print _char.firstName>>'s room. The door is slightly ajar
 </div>
 
 <<elseif _status === "showering">>
-/* Redirect to shower encounter passage based on character */
-<<if $interactingChar === "mother">>
-    <<goto "showerEncounter_Mother">>
-<<elseif $interactingChar === "father">>
-    <<goto "showerEncounter_Father">>
-<<elseif $interactingChar === "brother">>
-    <<goto "showerEncounter_Brother">>
+<<set State.temporary.showerEncounterTarget = $interactingChar>>
+<<set State.temporary.showerEncounterReturnLoc = _returnLoc>>
+<<if $interactingChar === "mother" || $interactingChar === "father" || $interactingChar === "brother">>
+    <<goto "showerEncounter">>
 <<else>>
     <<narrative _charLocName>>
     <<print _char.firstName>> is in the shower right now.

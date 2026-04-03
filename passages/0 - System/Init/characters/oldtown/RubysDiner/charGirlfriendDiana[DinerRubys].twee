@@ -1,19 +1,35 @@
 /* ==========================================
    VINCE'S GIRLFRIEND - Ruby's Diner (visitor)
    40s, confident, comfortable in her position
+   Dialog id: <<dialog "dianaRuby">>
 ========================================== */
 
 <<set setup.characterDefs.dianaRuby = {
-    name: "Diana",
+    name: "Diana Hayes",
     firstName: "Diana",
-    lastName: "",
+    lastName: "Hayes",
     birthYear: 1983,
     gender: "female",
     occupation: "",
-    location: "",
-    avatar: "assets/content/people/oldtown/rubysdiner/diana.webp",
+    location: "Ruby's Diner (visitor)",
+    avatar: "assets/content/people/oldtown/rubysdiner/dianaHayes.webp",
     type: "npc",
     color: "#dc2626",
     info: "<p>Vince's girlfriend. She shows up at the diner occasionally. Always dressed well, always comfortable — like she owns the place too.</p>",
-    status: "Visitor"
+    status: "Vince's girlfriend",
+    relationship: { status: "dating", partnerLabel: "boyfriend" },
+    maxLevels: { love: 1, friendship: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 0, love: 0, trust: 0, lust: 0 }
+}>>
+<<set $characters.dianaRuby = {
+    stats: {
+            love: 0, loveLevel: 1,
+            friendship: 0, friendshipLevel: 1,
+            lust: 0, lustLevel: 1,
+            trust: 0, trustLevel: 1
+    },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
 }>>

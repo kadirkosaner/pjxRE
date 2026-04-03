@@ -1,5 +1,13 @@
-<<nobr>><<set $location = "storeCosmetics">><</nobr>>
+<<nobr>>
+<<set $location = "storeCosmetics">>
+<<set _shopItems = [
+	"makeup_kit",
+	"portable_makeup",
+	"comb",
+	"hair_cream",
+	"face_cream"
+]>>
 <<updateCharacterLocations>>
-<<narrative "Cosmetics Store">>A fragrant beauty store with makeup, skincare, and perfumes. Testers line the counters.<</narrative>>
 <<showLocationChars "storeCosmetics">>
-<<navMenu>><<navCard "floorGround">><</navMenu>>
+<<shop "Lumière Beauty" "Makeup & Personal Care" _shopItems "floorGround">>
+<</nobr>>

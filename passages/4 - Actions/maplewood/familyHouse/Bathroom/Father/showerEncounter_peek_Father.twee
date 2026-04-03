@@ -1,0 +1,43 @@
+:: showerEncounter_peek_Father
+/* Video (this passage only): assets/content/scenes/maplewood/familyHouse/showerEncounter/dadShower1.mp4 */
+<<nobr>>
+<<silently>>
+<<set _cid = "father">>
+<<set _char = $characters.father>>
+<<set _return = State.temporary.showerEncounterReturnLoc>>
+<<if !_return>>
+    <<set _return = "fhParentsRoom">>
+<</if>>
+<<set $location = "fhParentsBath">>
+<<set _lust = (_char.stats && typeof _char.stats.lust === "number") ? _char.stats.lust : 0>>
+<<set _lustLevel = (_char.stats && typeof _char.stats.lustLevel === "number") ? _char.stats.lustLevel : 1>>
+<<set _canKeepWatching = (_lustLevel >= 2) && (_lust >= 10)>>
+<<gainStat "stress" 2>>
+<<gainStat "arousal" 4>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Parents Bathroom">>
+You ease the door wider — only enough to slip through, slow and soundless. The fan and the shower swallow any creak. Steam hits your face; you hug the wall where the tile stays dry.
+<</narrative>>
+
+<<narrative>>
+<<print _char.firstName>> is square to the spray, his back to you, head tipped under the water. From here he can't see the doorway. He has no reason to think anyone's behind him.
+<</narrative>>
+
+<<vid "assets/content/scenes/maplewood/familyHouse/showerEncounter/dadShower1.mp4" "100%">>
+
+<div class="location-actions">
+<<if _canKeepWatching>>
+<<link "Keep watching">><<goto "showerEncounter_peek_Father_continue">><</link>>
+<<else>>
+<span class="link-internal btn-style btn-default locked" data-tooltip="Requires lust level 2 and at least 10 lust with your father."><i class="icon icon-lock icon-12"></i> Keep watching</span>
+<</if>>
+<<link "Step away">>
+    <<unset State.temporary.peekShowerTarget>>
+    <<unset State.temporary.showerEncounterReturnLoc>>
+    <<unset $interactionEntryPassage>>
+    <<goto _return>>
+<</link>>
+</div>
+<</nobr>>

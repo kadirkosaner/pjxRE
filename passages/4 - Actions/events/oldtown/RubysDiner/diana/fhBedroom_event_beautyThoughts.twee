@@ -2,7 +2,6 @@
    EVENT - Mirror Moment
    Triggers from fhBedroom after emmaGossipDone.
    Leads player to brother's PC.
-   Voice: <<narrative>> to player (*you* ok); inner = dialog (Inner voice), *I*.
 ========================================== */
 <div class="divnobr">
 <<silently>>
@@ -16,6 +15,8 @@ You closed the door behind you.
 
 You didn't sit down. You walked straight to the window and leaned against the glass.
 <</narrative>>
+
+<<vid "assets/content/scenes/events/diana/windowLook.mp4" "100%">>
 
 <<narrative>>
 The street below was the same as yesterday. Same houses. Same trees.
@@ -50,11 +51,13 @@ Nobody had.
 What did she have that I didn't?
 <</dialog>>
 
-<<narrative "Bedroom">>
+<<narrative>>
 You picked up the hand mirror from the desk.
 
 You looked.
 <</narrative>>
+
+<<vid "assets/content/scenes/events/diana/checkMirror.mp4" "100%">>
 
 <<narrative>>
 Vince's voice came back, clear as if he were standing in the room.
@@ -100,13 +103,13 @@ You held the mirror a long time.
 Is this my life now — for good?
 <</dialog>>
 
-<<narrative "Bedroom">>
+<<narrative>>
 You set the mirror down.
 
 Your brother's room came to mind — his desk. His computer.
 <</narrative>>
 
 <div class="location-actions">
-<<btn "Go to your brother's room" "fhBrotherRoomPC">><</btn>>
+<<btn "Go to your brother's room" "brotherComputer_beautySearch">><</btn>>
 </div>
 </div>

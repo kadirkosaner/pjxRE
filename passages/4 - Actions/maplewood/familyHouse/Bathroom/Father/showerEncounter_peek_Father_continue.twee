@@ -1,0 +1,33 @@
+:: showerEncounter_peek_Father_continue
+<<nobr>>
+<<silently>>
+<<set _char = $characters.father>>
+<<set _return = State.temporary.showerEncounterReturnLoc>>
+<<if !_return>>
+    <<set _return = "fhParentsRoom">>
+<</if>>
+<<set $location = "fhParentsBath">>
+<<gainStat "stress" 2>>
+<<gainStat "arousal" 3>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Parents Bathroom">>
+You don't leave. The glass fogs and clears in patches; you track the water sheeting down his shoulders, the flex of his back when he soaps his neck. He still hasn't turned — //one glance over his shoulder and it's over,// but he only rinses, humming under his breath, oblivious.
+<</narrative>>
+
+<<narrative>>
+Your legs ache from standing still. The heat and the risk braid together until it's hard to tell which is sharper. Then he shifts his weight, foot sliding half an inch on wet tile, and your stomach lurches: //stupid, greedy, stay still.// He steadies. Breathes. Keeps facing the wall.
+<</narrative>>
+
+<<narrative>>
+That's enough — more than enough. You peel yourself off the wall and retreat the way you came, one silent step after another, until the door sits exactly as before. The hall air feels cold on your skin. Only your pulse says how long you stood there.
+<</narrative>>
+
+<<unset State.temporary.peekShowerTarget>>
+<<unset State.temporary.showerEncounterReturnLoc>>
+
+<div class="location-actions">
+<<btn "Leave" _return>><<unset $interactionEntryPassage>><</btn>>
+</div>
+<</nobr>>

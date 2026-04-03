@@ -1,62 +1,70 @@
 /* ==========================================
    EVENT - Hallway after mom talk (Something Different arc)
-   Bridge: parents' room → stairs / living room sounds → dad.
+   Bridge: parents' room → hallway / living room sounds → dad.
    No quest advance (mother scene already advanced).
 ========================================== */
 <div class="divnobr">
 <<silently>>
-<<set $location = "fhUpperstairs">>
+<<set $location = "fhDownstairs">>
 <<advanceTime 5>>
 <</silently>>
 
-<<narrative "Upstairs">>
+<<narrative "Hallway">>
 You close the door gently behind you.
-
+<</narrative>>
+<<narrative>>
 The hallway feels cooler at once. A moment ago the room was warm—her voice, the bed, her hands on your face—and now it's a few steps behind you.
 <</narrative>>
 
 <<narrative>>
 As you walk, your fingers drift to your cheek without thinking.
-
+<</narrative>>
+<<narrative>>
 "Keep it simple."
+<</narrative>>
+<<narrative>>
 "Moisturizer."
+<</narrative>>
+<<narrative>>
 "Sunscreen in the morning."
+<</narrative>>
+<<narrative>>
 
 What she said still rings clear. For the first time, this doesn't feel completely out of reach.
-
+<</narrative>>
+<<narrative>>
 Then the cost comes back.
-
+<</narrative>>
+<<narrative>>
 The feeling breaks apart.
 <</narrative>>
 
 <<dialog "player">>
 (Inner voice)
-Moisturizer. Sunscreen. That's still money.
-
-And right now even small things feel bigger than they should.
+Moisturizer. Sunscreen. That's still money. And right now even small things feel bigger than they should.
 <</dialog>>
 
 <<narrative>>
-You slow near the stairs.
-
-Talking to your dad shouldn't feel this heavy.
-
+You slow near the mouth of the hall. Talking to your dad shouldn't feel this heavy.
+<</narrative>>
+<<narrative>>
 Tonight it does.
 <</narrative>>
 
 <<narrative>>
-You're about to head for the stairs when the TV downstairs cuts out.
-
+You're about to turn away when the TV in the living room cuts out.
+<</narrative>>
+<<narrative>>
 Then your father's rough cough. The remote clicks onto the coffee table. The couch shifts with a soft creak.
 <</narrative>>
 
 <<narrative>>
-You stop.
-
-He's still down there.
-
+You stop. He's still in there.
+<</narrative>>
+<<narrative>>
 Footsteps creak toward the hallway—slow, like he's about to head for bed.
-
+<</narrative>>
+<<narrative>>
 If he crosses that threshold before you do, the opening closes.
 <</narrative>>
 
@@ -66,11 +74,11 @@ If I don't speak now, I'll put it off again.
 <</dialog>>
 
 <<narrative>>
-Your hand finds the banister.
+Your hand brushes the wall. 
 
-You take a breath.
+You take a breath. 
 
-Then you start down the stairs.
+Then you head for the living room.
 <</narrative>>
 
 <div class="location-actions">

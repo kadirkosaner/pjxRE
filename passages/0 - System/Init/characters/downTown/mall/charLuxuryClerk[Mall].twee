@@ -1,0 +1,29 @@
+/* ==========================================
+   LUXURY BOUTIQUE CLERK - Metro Mall (upper floor)
+   Scene-only NPC; <<dialog "mallClerk">> in Diana arc.
+========================================== */
+
+<<set setup.characterDefs.mallClerk = {
+    name: "Sienna Park",
+    firstName: "Sienna",
+    lastName: "Park",
+    birthYear: 1992,
+    gender: "female",
+    occupation: "Sales associate",
+    location: "Metro Shopping Center",
+    avatar: "assets/content/people/downtown/mall/luxuryStore/SiennaPark.webp",
+    type: "npc",
+    color: "#64748b",
+    info: "<p>A polished sales associate at a high-end boutique in the mall. Pleasant on the surface, exacting underneath.</p>",
+    status: "Sales associate",
+    relationship: { status: "single" },
+    maxLevels: { love: 0, friendship: 0, lust: 0, trust: 0 },
+    versionCaps: { friendship: 0, love: 0, trust: 0, lust: 0 }
+}>>
+<<set $characters.mallClerk = {
+    stats: { love: 0, loveLevel: 0, friendship: 0, friendshipLevel: 0, lust: 0, lustLevel: 0, trust: 0, trustLevel: 0 },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
