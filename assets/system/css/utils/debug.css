@@ -243,6 +243,78 @@
     color: #8b8b8b;
 }
 
+/* Version Tab */
+.debug-version-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #0f0f0f;
+    border: 1px solid #1a1a1a;
+    border-radius: 6px;
+}
+
+.debug-version-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.debug-version-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.debug-migration-log {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.debug-log-entry {
+    padding: 0.6rem 0.8rem;
+    background: #0f0f0f;
+    border: 1px solid #1a1a1a;
+    border-radius: 4px;
+    font-size: 0.82rem;
+}
+
+.debug-log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.debug-log-date {
+    font-size: 0.72rem;
+    color: #666;
+    font-weight: 400;
+}
+
+.debug-log-step {
+    padding: 0.15rem 0;
+    font-size: 0.78rem;
+}
+
+.debug-log-step.log-ok {
+    color: #22c55e;
+}
+
+.debug-log-step.log-error {
+    color: #ef4444;
+}
+
+.debug-log-msg {
+    color: #888;
+    font-size: 0.72rem;
+}
+
 @media (max-width: 640px) {
     .debug-goto-grid {
         grid-template-columns: 1fr;

@@ -1,56 +1,32 @@
-:: SaveVersion [init] {"position":"100,475","size":"100,100"}
+:: SaveVersion {"position":"100,475","size":"100,100"}
 /* ==========================================
-   SAVE VERSION MIGRATION
+   SAVE VERSION MIGRATION SYSTEM
    
-   Purpose: Ensures old saves receive new state variables,
-   characters, and systems added in later updates.
+   Migration passages live in passages/0 - System/Migrations/
+   Each file: SaveMigration_v1.twee, SaveMigration_v2.twee, etc.
    
-   Triggered by: window.runSaveVersion() after a save is loaded.
+   Registry is in storyJavaScript.js:
+     setup.CURRENT_SAVE_VERSION — latest version number
+     setup.saveVersions[] — version metadata array
+   
+   Runner: window.runSaveVersion()
+     Called automatically after save load.
+     Loops from current $saveVersion to CURRENT_SAVE_VERSION.
    
    HOW TO ADD A NEW VERSION:
    ─────────────────────────
-   1. Add a new <<if $saveVersion lt N>> block below
-   2. Inside the block, use <<domInclude>> to run init passages
-      (use <<domInclude>> instead of <<include>> because
-       Story API can't find passages in external JS context)
-   3. At the end of the block, set $saveVersion to N
+   1. Create Migrations/SaveMigration_vN.twee
+   2. Add entry to setup.saveVersions in storyJavaScript.js
+   3. Increment setup.CURRENT_SAVE_VERSION
    
-   EXAMPLE:
-   <<if $saveVersion lt 3>>
-       <<domInclude "charNewCharacter[Location]">>
-       <<set $someNewFlag to false>>
-       <<set $saveVersion to 3>>
-   <</if>>
-   
-   RULES:
-   • Never modify existing version blocks after release
-   • Always increment version number sequentially
-   • Each block runs ONLY ONCE per save (tracked by $saveVersion)
-   • New games start at version 0 and run through all blocks
-   • Blocks execute in order: v0→v1, v1→v2, v2→v3, etc.
+   MIGRATION PASSAGE RULES:
+   • Wrap content in <<silently>>
+   • Use <<if $saveVersion lt N>> guard for idempotency
+   • Use <<domInclude>> for character init passages
+   • Do NOT set $saveVersion — the runner handles it
+   • Do NOT use [init] tag
    
    VERSION HISTORY:
    ─────────────────
-   v1 - Town Hall characters (Receptionist, Career Clerk)
+   v0 - First release (no migrations needed)
 ========================================== */
-<<silently>>
-
-/* Initialize saveVersion if undefined (new game or pre-versioning save) 
-<<if ndef $saveVersion>><<set $saveVersion to 0>><</if>>*/
-
-/* ── Version 1: Town Hall Characters ── 
-<<if $saveVersion lt 1>>
-    <<domInclude "charReceptionist[TownHall]">>
-    <<domInclude "charCareerClerk[TownHall]">>
-    <<set $saveVersion to 1>>
-<</if>>
-*/
-/* ── Version 2: (template for future use) ──
-<<if $saveVersion lt 2>>
-    <<domInclude "newPassageName">>
-    <<set $someNewVariable to false>>
-    <<set $saveVersion to 2>>
-<</if>>
-*/
-
-<</silently>>

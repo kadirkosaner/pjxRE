@@ -1,0 +1,7 @@
+:: SaveMigration_v1 {"position":"100,575","size":"100,100"}
+<<silently>>
+<<if $saveVersion lt 1>>
+    <<domInclude "charReceptionist[TownHall]">>
+    <<domInclude "charCareerClerk[TownHall]">>
+<</if>>
+<</silently>>

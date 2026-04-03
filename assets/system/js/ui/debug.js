@@ -87,6 +87,7 @@ function createDebugPanel() {
                     <button class="debug-tab" type="button" data-debug-tab="inventory">Inventory</button>
                     <button class="debug-tab" type="button" data-debug-tab="diana">Diana Go To</button>
                     <button class="debug-tab" type="button" data-debug-tab="shower">Shower Go To</button>
+                    <button class="debug-tab" type="button" data-debug-tab="versions">Versions</button>
                 </div>
 
                 <div class="debug-tab-panel active" data-debug-panel="vars">
@@ -149,6 +150,10 @@ function createDebugPanel() {
                     </div>
                     <div class="debug-result" id="debug-shower-result"></div>
                 </div>
+
+                <div class="debug-tab-panel" data-debug-panel="versions">
+                    ${getVersionsTabHtml()}
+                </div>
             </div>
         </div>
     `;
@@ -182,7 +187,19 @@ function createDebugPanel() {
     $('.debug-shower-btn').on('click', function() {
         goToShowerPassage($(this).data('showerId'));
     });
-    
+
+    $('#debug-run-migrations').on('click', function() {
+        runDebugMigrations();
+    });
+
+    $('#debug-force-version').on('click', function() {
+        forceDebugVersion();
+    });
+
+    $('#debug-force-version-input').on('keypress', function(e) {
+        if (e.which === 13) forceDebugVersion();
+    });
+
     // Enter key support
     $('#debug-variable, #debug-value').on('keypress', function(e) {
         if (e.which === 13) {
@@ -632,6 +649,154 @@ function showGotoResult(message, type) {
 
 function showShowerResult(message, type) {
     const result = $('#debug-shower-result');
+    result.text(message);
+    result.removeClass('success error');
+    result.addClass(type);
+    setTimeout(function() {
+        result.fadeOut(300, function() {
+            $(this).text('').show().removeClass('success error');
+        });
+    }, 3000);
+}
+
+function getVersionsTabHtml() {
+    if (!DebugAPI) return '<div class="debug-helper-text">Debug API not available.</div>';
+
+    var vars = DebugAPI.State.variables;
+    var currentVer = typeof setup !== 'undefined' ? setup.CURRENT_SAVE_VERSION : 0;
+    var saveVer = vars.saveVersion != null ? vars.saveVersion : 0;
+    var gl = typeof setup !== 'undefined' && setup.getSaveVersionLabel ? setup.getSaveVersionLabel : function(v) { return '0.' + (v + 1); };
+    var pending = (typeof saveVer === 'number' && typeof currentVer === 'number' && saveVer < currentVer);
+
+    var statusClass = saveVer === currentVer ? 'version-current' : (pending ? 'version-outdated' : 'version-legacy');
+    var statusText = saveVer === currentVer ? '✓ Up to date' : (pending ? '⚠ Outdated' : '? Unknown');
+
+    var html = '';
+    html += '<div class="debug-version-status">';
+    html += '  <div class="debug-version-row">';
+    html += '    <span class="debug-label">Game Version</span>';
+    html += '    <span class="debug-version-value">' + gl(currentVer) + '</span>';
+    html += '  </div>';
+    html += '  <div class="debug-version-row">';
+    html += '    <span class="debug-label">Save Version</span>';
+    html += '    <span class="debug-version-value save-version-badge ' + statusClass + '">' + gl(saveVer) + ' ' + statusText + '</span>';
+    html += '  </div>';
+    html += '</div>';
+
+    if (pending) {
+        html += '<div class="debug-helper-text">Pending: ' + gl(saveVer + 1) + ' → ' + gl(currentVer) + '</div>';
+    }
+
+    html += '<div class="debug-row" style="flex-direction:row; gap:0.5rem;">';
+    html += '  <button class="debug-apply-btn" id="debug-run-migrations" type="button" style="flex:1;">Run Migrations</button>';
+    html += '</div>';
+
+    html += '<div class="debug-row" style="flex-direction:row; gap:0.5rem; align-items:flex-end;">';
+    html += '  <div style="flex:1; display:flex; flex-direction:column; gap:0.5rem;">';
+    html += '    <label class="debug-label">Force Version</label>';
+    html += '    <input type="number" class="debug-input" id="debug-force-version-input" placeholder="0" min="0" value="' + (typeof saveVer === 'number' ? saveVer : 0) + '">';
+    html += '  </div>';
+    html += '  <button class="debug-apply-btn" id="debug-force-version" type="button" style="flex:0 0 auto; width:auto; padding:0.75rem 1.5rem;">Set</button>';
+    html += '</div>';
+
+    html += '<div class="debug-result" id="debug-version-result"></div>';
+
+    var log = Array.isArray(vars.migrationLog) ? vars.migrationLog : [];
+    if (log.length > 0) {
+        html += '<div class="debug-section-title" style="margin-top:0.5rem;">Migration Log</div>';
+        html += '<div class="debug-migration-log">';
+        for (var i = log.length - 1; i >= 0; i--) {
+            var entry = log[i];
+            var dateStr = entry.date ? new Date(entry.date).toLocaleString() : '—';
+            html += '<div class="debug-log-entry">';
+            html += '  <div class="debug-log-header">';
+            html += '    <span>' + gl(entry.from) + ' → ' + gl(entry.to) + '</span>';
+            html += '    <span class="debug-log-date">' + dateStr + '</span>';
+            html += '  </div>';
+            if (Array.isArray(entry.results)) {
+                for (var j = 0; j < entry.results.length; j++) {
+                    var r = entry.results[j];
+                    var icon = r.status === 'ok' ? '✓' : (r.status === 'error' ? '✗' : '?');
+                    var cls = r.status === 'ok' ? 'log-ok' : 'log-error';
+                    html += '  <div class="debug-log-step ' + cls + '">';
+                    html += '    <span>' + icon + ' ' + gl(r.version) + '</span>';
+                    if (r.message) html += ' <span class="debug-log-msg">' + r.message + '</span>';
+                    html += '  </div>';
+                }
+            }
+            html += '</div>';
+        }
+        html += '</div>';
+    }
+
+    return html;
+}
+
+function runDebugMigrations() {
+    if (!DebugAPI) return;
+
+    if (typeof window.runSaveVersion !== 'function') {
+        showVersionResult('Error: runSaveVersion not available', 'error');
+        return;
+    }
+
+    var result = window.runSaveVersion();
+
+    if (!result) {
+        showVersionResult('Error: No result returned', 'error');
+        return;
+    }
+
+    var gl = typeof setup !== 'undefined' && setup.getSaveVersionLabel ? setup.getSaveVersionLabel : function(v) { return '0.' + (v + 1); };
+
+    if (!result.migrated) {
+        showVersionResult('Already up to date (' + gl(result.from) + ')', 'success');
+        return;
+    }
+
+    if (result.hasErrors) {
+        showVersionResult('Migration failed. Reached ' + gl(result.to) + ' / ' + gl(result.target), 'error');
+    } else {
+        var count = result.to - result.from;
+        showVersionResult('Migrated ' + gl(result.from) + ' → ' + gl(result.to) + ' (' + count + ' step' + (count > 1 ? 's' : '') + ')', 'success');
+    }
+
+    refreshVersionsTab();
+}
+
+function forceDebugVersion() {
+    if (!DebugAPI) return;
+
+    var val = parseInt($('#debug-force-version-input').val(), 10);
+    if (isNaN(val) || val < 0) {
+        showVersionResult('Error: Enter a valid version number (≥ 0)', 'error');
+        return;
+    }
+
+    DebugAPI.State.variables.saveVersion = val;
+    showVersionResult('Forced saveVersion = ' + val, 'success');
+    refreshVersionsTab();
+}
+
+function refreshVersionsTab() {
+    var $panel = $('[data-debug-panel="versions"]');
+    if ($panel.length) {
+        $panel.html(getVersionsTabHtml());
+
+        $('#debug-run-migrations').on('click', function() {
+            runDebugMigrations();
+        });
+        $('#debug-force-version').on('click', function() {
+            forceDebugVersion();
+        });
+        $('#debug-force-version-input').on('keypress', function(e) {
+            if (e.which === 13) forceDebugVersion();
+        });
+    }
+}
+
+function showVersionResult(message, type) {
+    var result = $('#debug-version-result');
     result.text(message);
     result.removeClass('success error');
     result.addClass(type);

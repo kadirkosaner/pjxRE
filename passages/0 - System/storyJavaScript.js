@@ -104,35 +104,92 @@ $(document).one(':storyready', async function () {
     }
 });
 
+/* ================== Save Version Registry =================== */
+setup.CURRENT_SAVE_VERSION = 0;
+
+setup.saveVersions = [];
+
+setup.getSaveVersionLabel = function (v) {
+    if (v === 0) return '0.1';
+    for (var i = 0; i < setup.saveVersions.length; i++) {
+        if (setup.saveVersions[i].version === v && setup.saveVersions[i].versionLabel) {
+            return setup.saveVersions[i].versionLabel;
+        }
+    }
+    return '0.' + (v + 1);
+};
+
 /* ================== Save Version Migration =================== */
 window.runSaveVersion = function () {
     try {
-        var API = window.SaveLoadAPI;
-        if (!API) {
-            return;
+        var V = State.variables;
+
+        if (V.saveVersion == null) {
+            V.saveVersion = 0;
         }
 
-        var V = API.State.variables;
+        var target = setup.CURRENT_SAVE_VERSION;
 
-        // Story API can't find passages — read directly from DOM
-        var el = document.querySelector('tw-passagedata[name="SaveVersion"]');
-        if (!el) {
-            return;
+        if (V.saveVersion >= target) {
+            return { migrated: false, from: V.saveVersion, to: V.saveVersion };
         }
 
-        var content = el.textContent;
-        if (!content || !content.trim()) {
-            return;
+        var startVersion = V.saveVersion;
+        var results = [];
+
+        for (var v = startVersion + 1; v <= target; v++) {
+            var passageName = 'SaveMigration_v' + v;
+            var el = document.querySelector('tw-passagedata[name="' + passageName + '"]');
+
+            if (!el) {
+                results.push({ version: v, status: 'missing' });
+                break;
+            }
+
+            try {
+                var content = el.textContent;
+                if (content && content.trim()) {
+                    var frag = document.createElement('div');
+                    new Wikifier(frag, content);
+                    var errs = frag.querySelectorAll('.error');
+                    if (errs.length > 0) {
+                        results.push({ version: v, status: 'error', message: errs[0].textContent });
+                        break;
+                    }
+                }
+                V.saveVersion = v;
+                results.push({ version: v, status: 'ok' });
+            } catch (e) {
+                results.push({ version: v, status: 'error', message: e.message || String(e) });
+                break;
+            }
         }
 
-        var Wk = API.Wikifier || window.Wikifier;
-        new Wk(null, content);
+        var logEntry = {
+            from: startVersion,
+            to: V.saveVersion,
+            date: new Date().toISOString(),
+            results: results
+        };
+
+        if (!Array.isArray(V.migrationLog)) {
+            V.migrationLog = [];
+        }
+        V.migrationLog.push(logEntry);
+
+        return {
+            migrated: true,
+            from: startVersion,
+            to: V.saveVersion,
+            target: target,
+            results: results,
+            hasErrors: results.some(function (r) { return r.status !== 'ok'; })
+        };
     } catch (e) {
-        /* save version migration failed */
+        return { migrated: false, error: e.message || String(e) };
     }
 };
 
-// Legacy alias for older saveload references
 window.runSaveVersionInits = window.runSaveVersion;
 
 /* ================== Character prop helper (NPC static from setup.characterDefs, core from $characters) =================== */

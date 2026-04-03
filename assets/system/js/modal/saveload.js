@@ -22,7 +22,7 @@ window.SaveloadInit = function (API) {
                 const autoSaveTitle = `autosave_${day}:${month}:${year}_${hours}:${minutes}`;
                 
                 // Save with metadata containing title
-                API.Save.browser.slot.save(0, null, { saveTitle: autoSaveTitle });
+                API.Save.browser.slot.save(0, null, { saveTitle: autoSaveTitle, saveVersion: API.State.variables.saveVersion });
             } catch (error) {
             }
         }
@@ -132,6 +132,16 @@ function renderSlot(slotId) {
         const saveDate = new Date(saveData.date);
         const dateStr = formatDate(saveDate);
 
+        const slotVersion = saveData.metadata?.saveVersion ?? 0;
+        const currentVer = typeof setup !== 'undefined' ? setup.CURRENT_SAVE_VERSION : 0;
+        const getLabel = typeof setup !== 'undefined' && setup.getSaveVersionLabel ? setup.getSaveVersionLabel : function(v) { return '0.' + (v + 1); };
+        let versionBadge = '';
+        if (slotVersion >= currentVer) {
+            versionBadge = `<span class="save-version-badge version-current">${getLabel(slotVersion)} ✓</span>`;
+        } else {
+            versionBadge = `<span class="save-version-badge version-outdated">${getLabel(slotVersion)} ⚠</span>`;
+        }
+
         return `
             <div class="save-slot" data-slot="${slotId}">
                 <div class="save-preview">
@@ -143,7 +153,7 @@ function renderSlot(slotId) {
                 </div>
                 <div class="save-metadata">
                     <div class="save-title">${saveTitle}</div>
-                    <div class="save-date">${dateStr}</div>
+                    <div class="save-date">${dateStr} ${versionBadge}</div>
                 </div>
                 <div class="save-actions">
                     <button class="save-btn save-btn-load" data-slot="${slotId}">
@@ -255,7 +265,7 @@ function saveToSlot(slotId) {
         
         try {
             // Pass title as metadata object
-            API.Save.browser.slot.save(slotId, null, { saveTitle: saveTitle });
+            API.Save.browser.slot.save(slotId, null, { saveTitle: saveTitle, saveVersion: API.State.variables.saveVersion });
 
             // Close modal
             $('#save-title-overlay').remove();
@@ -293,8 +303,9 @@ function loadFromSlot(slotId) {
 
     API.Save.browser.slot.load(slotId)
         .then(function () {
+            var migrationResult = null;
             if (typeof window.runSaveVersion === 'function') {
-                window.runSaveVersion();
+                migrationResult = window.runSaveVersion();
             }
 
             closeCustomSaveLoad();
@@ -305,6 +316,20 @@ function loadFromSlot(slotId) {
 
             if (API.Engine && API.Engine.show) {
                 API.Engine.show();
+            }
+
+            if (migrationResult && migrationResult.migrated) {
+                var count = migrationResult.to - migrationResult.from;
+                var gl = typeof setup !== 'undefined' && setup.getSaveVersionLabel ? setup.getSaveVersionLabel : function(v) { return '0.' + (v + 1); };
+                if (migrationResult.hasErrors) {
+                    if (typeof window.notifyError === 'function') {
+                        window.notifyError('Migration failed at ' + gl(migrationResult.to + 1) + '. Save loaded but some features may not work.', 5000);
+                    }
+                } else if (count > 0) {
+                    if (typeof window.notifySuccess === 'function') {
+                        window.notifySuccess('Save updated: ' + gl(migrationResult.from) + ' → ' + gl(migrationResult.to) + ' (' + count + ' migration' + (count > 1 ? 's' : '') + ' applied)', 4000);
+                    }
+                }
             }
         })
         .catch(function (error) {
@@ -371,7 +396,7 @@ function exportSlot(slotId) {
     try {
         // Debug: Show all localStorage keys to find the correct format
         
-        const storyId = typeof Story !== 'undefined' ? Story.domId : 'pjx';
+        const storyId = typeof Story !== 'undefined' ? Story.domId : 'all-that-glitters';
         
         // SugarCube stores saves in TWO keys: data and info
         const dataKey = `${storyId}.save.slot.data:${slotId}`;
@@ -545,9 +570,9 @@ function loadFromDisk() {
 
                 // 3. RESTORE
                 API.State.restore(stateToRestore);
+                var diskMigrationResult = null;
                 if (typeof window.runSaveVersion === 'function') {
-                    window.runSaveVersion();
-                } else {
+                    diskMigrationResult = window.runSaveVersion();
                 }
 
                 // 4. NAVIGATION FIX
@@ -586,6 +611,20 @@ function loadFromDisk() {
                     API.Engine.play(savedPassage);
                 } else {
                     API.Engine.show();
+                }
+
+                if (diskMigrationResult && diskMigrationResult.migrated) {
+                    var count = diskMigrationResult.to - diskMigrationResult.from;
+                    var gl = typeof setup !== 'undefined' && setup.getSaveVersionLabel ? setup.getSaveVersionLabel : function(v) { return '0.' + (v + 1); };
+                    if (diskMigrationResult.hasErrors) {
+                        if (typeof window.notifyError === 'function') {
+                            window.notifyError('Migration failed at ' + gl(diskMigrationResult.to + 1) + '. Save loaded but some features may not work.', 5000);
+                        }
+                    } else if (count > 0) {
+                        if (typeof window.notifySuccess === 'function') {
+                            window.notifySuccess('Save updated: ' + gl(diskMigrationResult.from) + ' → ' + gl(diskMigrationResult.to) + ' (' + count + ' migration' + (count > 1 ? 's' : '') + ' applied)', 4000);
+                        }
+                    }
                 }
 
             } catch (error) {
