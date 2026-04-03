@@ -44,6 +44,7 @@ window.SystemModules = {
     "relations", // Relations modal
     "character", // Character modal (tabs)
     "journal", // Journal modal (tabs)
+    "help", // Help modal (sidebar)
   ],
 
   // System - Core game logic
@@ -116,6 +117,7 @@ window.SystemCSS = {
     "saveload", // Save/load modal
     "alarm", // Alarm clock system
     "read", // Read system
+    "help", // Help modal sidebar layout
   ],
 
   // Utils - Helpers (load last)

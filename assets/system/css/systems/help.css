@@ -1,0 +1,311 @@
+/* ============================================
+   SYSTEMS/HELP.CSS
+   Help modal – sidebar + content layout
+   ============================================ */
+
+/* ── Modal size override ── */
+.modal-overlay[data-modal="help-modal"] .modal {
+  max-width: 1100px;
+  width: 95%;
+  height: 80vh;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.modal-overlay[data-modal="help-modal"] .modal .modal-header {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* ── Two-panel body ── */
+.help-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Sidebar ── */
+.help-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--color-bg-primary);
+  border-right: 1px solid var(--color-border-primary);
+  padding: var(--spacing-md) 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.help-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  transition: all var(--transition-fast);
+  border-left: 3px solid transparent;
+  user-select: none;
+}
+
+.help-sidebar-item:hover {
+  color: var(--color-text-primary);
+  background: var(--white-alpha-05);
+}
+
+.help-sidebar-item.active {
+  color: var(--color-accent);
+  background: var(--color-accent-alpha-10);
+  border-left-color: var(--color-accent);
+}
+
+.help-sidebar-item .icon {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.help-sidebar-item.active .icon {
+  opacity: 1;
+}
+
+/* ── Content panel ── */
+.help-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-xl);
+  min-height: 0;
+}
+
+.help-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.help-content::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+.help-content::-webkit-scrollbar-thumb {
+  background: var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+}
+
+.help-content::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* ── Article styles ── */
+.help-article h2 {
+  font-size: 1.25rem;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-md) 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.help-article h3 {
+  font-size: 0.95rem;
+  color: var(--color-accent);
+  margin: var(--spacing-xl) 0 var(--spacing-md) 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.help-article p {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+/* ── Info block (key-value rows) ── */
+.help-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--color-border-primary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+}
+
+.help-info-row {
+  display: flex;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-bg-secondary);
+}
+
+.help-info-row:hover {
+  background: var(--white-alpha-03);
+}
+
+.help-label {
+  flex-shrink: 0;
+  width: 120px;
+  color: var(--color-text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.help-value {
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* ── Needs grid ── */
+.help-needs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.help-need-card {
+  background: var(--white-alpha-03);
+  border: 1px solid var(--white-alpha-05);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-fast);
+}
+
+.help-need-card:hover {
+  background: var(--white-alpha-05);
+  border-color: var(--color-border-secondary);
+}
+
+.help-need-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.help-need-header .icon {
+  color: var(--color-accent);
+}
+
+.help-need-card p {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+/* ── Subsection title ── */
+.help-subsection-title {
+  font-size: 0.82rem;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
+  font-weight: 600;
+}
+
+/* ── Stat change badges ── */
+.help-stat-change {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: monospace;
+  letter-spacing: 0.5px;
+}
+
+.help-stat-change.bad {
+  background: var(--color-danger-alpha-20);
+  color: var(--color-danger);
+}
+
+.help-stat-change.good {
+  background: var(--color-success-alpha-20);
+  color: var(--color-success);
+}
+
+.help-stat-change.warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--color-warning);
+}
+
+.help-note {
+  color: var(--color-text-tertiary);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* ── Threshold rows ── */
+.help-threshold {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: var(--spacing-sm);
+}
+
+.help-threshold-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 6px var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.help-threshold-row.danger {
+  background: var(--color-danger-alpha-20);
+  border-left: 2px solid var(--color-danger);
+}
+
+.help-threshold-row.warning {
+  background: rgba(245, 158, 11, 0.15);
+  border-left: 2px solid var(--color-warning);
+}
+
+.help-threshold-label {
+  font-weight: 700;
+  font-family: monospace;
+  min-width: 40px;
+  color: var(--color-text-primary);
+}
+
+.help-threshold-note {
+  margin: var(--spacing-xs) 0 0 0;
+  font-size: 0.78rem;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+
+/* ── Formula block ── */
+.help-formula {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--white-alpha-05);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ── Tip callout ── */
+.help-tip {
+  position: relative;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-accent-alpha-10);
+  border: 1px solid var(--color-accent-alpha-20);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-top: var(--spacing-md);
+}

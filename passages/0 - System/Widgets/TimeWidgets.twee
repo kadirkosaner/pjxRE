@@ -108,14 +108,17 @@
             if (mins <= 0) return;
             const w = S.wardrobe;
             const equipped = w.equipped || {};
+            /* Dirt and laundry basket only in your bedroom so public time cannot strand you in undress flows later. */
+            const allowSoil = S.location === 'fhBedroom';
             const seen = new Set();
-            Object.values(equipped).forEach(itemId => {
+            Object.values(equipped).forEach(function(itemId) {
                 if (!itemId || seen.has(itemId)) return;
                 seen.add(itemId);
                 const item = setup.getClothingById ? setup.getClothingById(itemId) : null;
                 if (!item) return;
                 if (!w.wornToday[itemId]) w.wornToday[itemId] = 0;
                 w.wornToday[itemId] += mins;
+                if (!allowSoil) return;
                 if (!w.itemState[itemId]) {
                     w.itemState[itemId] = {
                         durability: (typeof item.durability === 'number' ? item.durability : 100),
@@ -165,6 +168,22 @@
                 });
                 w.wornToday = {};
             }
+        })();
+    >>
+<</widget>>
+
+/* Reset dirt on all wardrobe items with runtime state; clear laundry basket. Call after <<advanceTime>> for a wash activity so equipped items do not stay dirty from the minutes spent. */
+<<widget "washAllWardrobeItems">>
+    <<run
+        (function() {
+            const w = State.variables.wardrobe;
+            if (!w) return;
+            if (!w.itemState || typeof w.itemState !== 'object') w.itemState = {};
+            Object.keys(w.itemState).forEach(function(id) {
+                const st = w.itemState[id];
+                if (st && typeof st === 'object') st.dirt = 0;
+            });
+            w.laundryBasket = [];
         })();
     >>
 <</widget>>

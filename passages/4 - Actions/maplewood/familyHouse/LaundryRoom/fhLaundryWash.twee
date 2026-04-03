@@ -1,0 +1,28 @@
+<<silently>>
+<<set $location = "fhLaundryRoom">>
+<<advanceTime 55>>
+<<washAllWardrobeItems>>
+<<gainSkill "practical" "cleaning" 1>>
+<<run window.notifySuccess("Laundry done")>>
+<<flushNotifications>>
+<<recalculateStats>>
+<<set _laundryVidIndex = random(1, 3)>>
+<</silently>>
+
+<<narrative "Laundry Room">>
+You sort lights and darks, check pockets, and load the washer. The machine hums and sloshes steadily while you tidy the shelf and fold a few stray towels from the dryer rack.
+
+When the cycle finishes, you move everything to the dryer or the drying rack, then fold and put pieces away. Your clothes feel clean again.
+<</narrative>>
+
+<<if _laundryVidIndex == 1>>
+	<<vid "assets/content/scenes/maplewood/familyHouse/laundryroom/laundry1.mp4" "100%">>
+<<elseif _laundryVidIndex == 2>>
+	<<vid "assets/content/scenes/maplewood/familyHouse/laundryroom/laundry2.mp4" "100%">>
+<<elseif _laundryVidIndex == 3>>
+	<<vid "assets/content/scenes/maplewood/familyHouse/laundryroom/laundry3.mp4" "100%">>
+<</if>>
+
+<div class="location-actions">
+	<<btn "Done" "fhLaundryRoom">><</btn>>
+</div>

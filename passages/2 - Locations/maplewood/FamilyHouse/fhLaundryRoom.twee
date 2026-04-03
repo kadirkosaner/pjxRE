@@ -1,0 +1,24 @@
+<<nobr>>
+<<set $location = "fhLaundryRoom">>
+<<updateCharacterLocations>>
+
+<<narrative "Laundry Room">>
+A small utility room off the upstairs hall. A washing machine and dryer sit beneath a shelf of detergent and fabric softener. A hamper waits in the corner.
+<</narrative>>
+
+<<showLocationChars "fhLaundryRoom">>
+
+<<if ndef $wardrobe>><<set $wardrobe = {}>><</if>>
+<<if ndef $wardrobe.laundryBasket>><<set $wardrobe.laundryBasket = []>><</if>>
+<div class="location-actions">
+	<<if $wardrobe.laundryBasket.length > 0>>
+		<<btn "Wash laundry" "fhLaundryWash">><</btn>>
+	<<else>>
+		<span class="link-internal btn-style btn-default locked" data-tooltip="Your laundry basket is empty. Items are added when clothes get dirty while you spend time in your bedroom."><i class="icon icon-lock icon-12"></i> Wash laundry</span>
+	<</if>>
+</div>
+
+<<navMenu>>
+	<<navCard "fhUpperstairs">>
+<</navMenu>>
+<</nobr>>

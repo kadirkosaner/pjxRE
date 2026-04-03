@@ -571,7 +571,7 @@ window.JournalInit = function (API) {
                                         ${this.createRecordRow(
                                           "Career Status",
                                           vars.characters?.player?.occupation ||
-                                            "Student"
+                                            "Unemployed"
                                         )}
                                     `
                                     )}

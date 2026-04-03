@@ -119,7 +119,9 @@ function handleMenuAction(action) {
             closeMainMenu();
             break;
         case 'help':
-            alert('Help section - Coming soon!');
+            if (window.HelpSystem) {
+                window.HelpSystem.open();
+            }
             closeMainMenu();
             break;
         case 'restart':

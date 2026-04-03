@@ -6,7 +6,7 @@
  * $wardrobe.owned         - Array of owned item IDs
  * $wardrobe.itemState     - Runtime item state { [id]: { durability, dirt } }
  * $wardrobe.wornToday     - Minutes worn today by item { [id]: minutes }
- * $wardrobe.laundryBasket - Array of item IDs ready for laundry
+ * $wardrobe.laundryBasket - Array of item IDs ready for laundry (IDs added only while $location is fhBedroom)
  */
 
 /* Initialize wardrobe state */
