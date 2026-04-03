@@ -1,0 +1,60 @@
+<<nobr>>
+<<set $location = "fhDownstairs">>
+<<set _thinVar = random(1, 3)>>
+
+<<narrative "Downstairs">>
+You had stopped on the main floor with one foot still on the bottom stair, half-thinking about water or bed. The house held that thick midnight quiet—until a thin sound threaded through it from the direction of your parents' room.
+<</narrative>>
+
+<<narrative "Downstairs">>
+You tell yourself not to. *Just go upstairs.* Your body doesn't listen. A few careful steps carry you down the hall; you lean in until your ear is almost flush with the wall, breath held.
+<</narrative>>
+
+<<if _thinVar === 1>>
+	<<narrative "Downstairs">>
+	On the other side of plaster and paint, the rhythm finds you—ragged inhales, a soft cry cut short, the headboard's faint tap. Another moan, higher, then a muffled laugh and a shush. They think the house is asleep.
+	<</narrative>>
+	<<dialog "player">>
+	(Inner voice)
+	Oh my God. I should *not* be here.
+	<</dialog>>
+<<elseif _thinVar === 2>>
+	<<narrative "Downstairs">>
+	The voices are barely words—your ear is so close that meaning leaks through anyway.
+	<</narrative>>
+	<<dialog "father">>
+	(muffled)
+	Where'd we put the condom—
+	<</dialog>>
+	<<dialog "mother">>
+	(whisper)
+	Nightstand—*shh*—
+	<</dialog>>
+	<<narrative "Downstairs">>
+	Rustling, a stifled giggle, then silence that still isn't quiet.
+	<</narrative>>
+<<else>>
+	<<narrative "Downstairs">>
+	The noises thin to nothing. Then, intimate as a secret through the wall:
+	<</narrative>>
+	<<dialog "mother">>
+	(murmur)
+	That was so good.
+	<</dialog>>
+	<<dialog "father">>
+	(low)
+	Come here.
+	<</dialog>>
+	<<narrative "Downstairs">>
+	*Pretend you didn't hear. Pretend you didn't lean in.* Cloth shifts; a kiss you can't see. The hall feels too bright in the dark.
+	<</narrative>>
+<</if>>
+
+<<narrative "Downstairs">>
+You peel yourself off the wall. Whatever you do next, it won't be *here*.
+<</narrative>>
+
+<div class="location-actions">
+	<<btn "Move on" "fhDownstairs">><</btn>>
+</div>
+<</nobr>>

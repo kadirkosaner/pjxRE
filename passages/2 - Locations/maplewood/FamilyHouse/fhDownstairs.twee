@@ -1,4 +1,10 @@
 <<nobr>>
+<<if $timeSys.hour === 0 && $daily.fhThinWallsNight !== $timeSys.day>>
+	<<set $daily.fhThinWallsNight = $timeSys.day>>
+	<<if random(1, 100) <= 20>>
+		<<goto "fhDownstairs_event_parentsThinWalls">>
+	<</if>>
+<</if>>
 <<set $location = "fhDownstairs">>
 
 <<updateCharacterLocations>>
