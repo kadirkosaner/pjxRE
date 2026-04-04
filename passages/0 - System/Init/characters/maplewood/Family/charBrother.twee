@@ -112,6 +112,14 @@
 <<set setup.characterActions.brother = {
     fhBrotherRoom: [
         {
+            id: "vinceDay3FamilyBrother",
+            label: "Need to vent",
+            passage: "quest_vince_day3_family_brother",
+            tags: [],
+            requirements: { flag: "vinceDay3FamilyOpen", flagNot: "vinceDay3FamilyBrotherDone" },
+            dailyLimit: false, minPlayerEnergy: 5, showWhenLocked: false
+        },
+        {
             id: "talk", label: "Talk", passage: "brotherTalkBedroom",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
         }

@@ -10,7 +10,8 @@ TODO — Mom scene: "Am I ugly?" (full dialogue TBD).
 <div class="location-actions">
 <<btn "Continue" "fhKitchen">>
 <<silently>>
-<<advanceQuestStage "vince_day3_family">>
+<<set $flags.vinceDay3FamilyMomDone = true>>
+<<completeObjective "vince_day3_family" "talkMother">>
 <</silently>>
 <</btn>>
 </div>

@@ -72,6 +72,14 @@
 <<set setup.characterActions.mother = {
     fhKitchen: [
         {
+            id: "vinceDay3FamilyMom",
+            label: "Something happened at work",
+            passage: "quest_vince_day3_family_mother",
+            tags: [],
+            requirements: { flag: "vinceDay3FamilyOpen", flagNot: "vinceDay3FamilyMomDone" },
+            dailyLimit: false, minPlayerEnergy: 5, showWhenLocked: false
+        },
+        {
             id: "talk", label: "Talk", passage: "motherTalkKitchen",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
         }

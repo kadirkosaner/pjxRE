@@ -10,7 +10,8 @@ TODO — Brother scene (full dialogue TBD).
 <div class="location-actions">
 <<btn "Continue" "fhBrotherRoom">>
 <<silently>>
-<<advanceQuestStage "vince_day3_family">>
+<<set $flags.vinceDay3FamilyBrotherDone = true>>
+<<completeObjective "vince_day3_family" "talkBrother">>
 <</silently>>
 <</btn>>
 </div>

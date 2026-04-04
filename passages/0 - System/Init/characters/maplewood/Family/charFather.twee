@@ -123,6 +123,14 @@
     ],
     fhGarage: [
         {
+            id: "vinceDay3FamilyFather",
+            label: "Ask for a minute",
+            passage: "quest_vince_day3_family_father",
+            tags: [],
+            requirements: { flag: "vinceDay3FamilyOpen", flagNot: "vinceDay3FamilyFatherDone" },
+            dailyLimit: false, minPlayerEnergy: 5, showWhenLocked: false
+        },
+        {
             id: "talk", label: "Talk", passage: "fatherTalkGarage",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
         }

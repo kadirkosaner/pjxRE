@@ -11,7 +11,8 @@ TODO — Closing monologue (full text TBD). Quest ends with extra mood hit.
 <<btn "Continue" "fhBedroom">>
 <<silently>>
 <<loseStat "mood" 5>>
-<<advanceQuestStage "vince_day3_family">>
+<<set $flags.vinceDay3FamilyBedroomDone = true>>
+<<completeObjective "vince_day3_family" "bedroomAlone">>
 <</silently>>
 <</btn>>
 </div>

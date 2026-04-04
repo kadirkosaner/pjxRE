@@ -7,6 +7,9 @@
 <<if _sdQuest && setup.quests.something_different.stages[_sdQuest.stage].id === "after_mall">>
 <<goto "fhBedroom_event_mallAftermath">>
 <</if>>
+<<if $flags.vinceDay3FamilyOpen && !$flags.vinceDay3FamilyBedroomDone && $questState.active.vince_day3_family>>
+<<goto "quest_vince_day3_family_bedroom">>
+<</if>>
 <<set $location = "fhBedroom">>
 <<updateCharacterLocations>>
 

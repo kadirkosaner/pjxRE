@@ -10,7 +10,8 @@ TODO — Dad scene (full dialogue TBD).
 <div class="location-actions">
 <<btn "Continue" "fhGarage">>
 <<silently>>
-<<advanceQuestStage "vince_day3_family">>
+<<set $flags.vinceDay3FamilyFatherDone = true>>
+<<completeObjective "vince_day3_family" "talkFather">>
 <</silently>>
 <</btn>>
 </div>

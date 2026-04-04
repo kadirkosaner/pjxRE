@@ -482,44 +482,22 @@
         category: "main",
         character: "player",
 
-        requirements: {},
+        requirements: {
+            flags: ["vinceInspectionDay3Shown"]
+        },
 
         stages: [
             {
-                id: "talk_mother",
-                title: "Talk to your mother",
-                desc: "Something's been eating at you. Mom's usually in the kitchen.",
-                triggers: { location: "fhKitchen" },
-                buttonText: "Talk to Mom",
-                forceScene: true,
-                passage: "quest_vince_day3_family_mother"
-            },
-            {
-                id: "talk_brother",
-                title: "Talk to your brother",
-                desc: "He's probably in his room.",
-                triggers: { location: "fhBrotherRoom" },
-                buttonText: "Talk to your brother",
-                forceScene: true,
-                passage: "quest_vince_day3_family_brother"
-            },
-            {
-                id: "talk_father",
-                title: "Talk to your father",
-                desc: "Dad might be in the garage.",
-                triggers: { location: "fhGarage" },
-                buttonText: "Talk to Dad",
-                forceScene: true,
-                passage: "quest_vince_day3_family_father"
-            },
-            {
-                id: "bedroom",
-                title: "Be alone for a minute",
-                desc: "Your room. Sit with it.",
-                triggers: { location: "fhBedroom" },
-                buttonText: "Go to your room",
-                forceScene: true,
-                passage: "quest_vince_day3_family_bedroom"
+                id: "reach_out_at_home",
+                title: "Family",
+                desc: "You're rattled after work. Talk to your mom, brother, or dad, or take a minute alone in your room — in whatever order feels right.",
+                objectives: [
+                    { id: "talkMother", text: "Talk to your mother (kitchen)" },
+                    { id: "talkBrother", text: "Talk to your brother (his room)" },
+                    { id: "talkFather", text: "Talk to your father (garage when he's there)" },
+                    { id: "bedroomAlone", text: "Be alone in your room" }
+                ],
+                completeWhen: "allObjectives"
             }
         ],
 
