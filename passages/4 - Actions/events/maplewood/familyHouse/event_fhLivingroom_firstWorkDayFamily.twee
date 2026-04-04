@@ -1,0 +1,40 @@
+:: event_fhLivingroom_firstWorkDayFamily
+<<nobr>>
+<<set $location = "fhLivingroom">>
+<<updateCharacterLocations>>
+
+<<image "assets/content/scenes/maplewood/firstJobDay/sayHello.webp" "100%">>
+
+<<narrative "Living Room">>
+When you step into the living room, you notice your mom and dad on the couch, watching TV. The moment they see you, the remote goes down—the screen goes dark—and their attention snaps to you.
+<</narrative>>
+
+<<dialog "player">>
+Hey, everyone.
+<</dialog>>
+
+<<narrative>>
+Your mom sits up a little.
+<</narrative>>
+
+<<dialog "mother">>
+Welcome home, honey…
+<</dialog>>
+
+<<narrative>>
+A few seconds of quiet.
+<</narrative>>
+
+<<dialog "father">>
+Welcome home. How was your day?
+<</dialog>>
+
+<<narrative>>
+The question should be easy. It isn't. You hesitate, take a shallow breath.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "It went great." "event_fhLivingroom_firstWorkDayFamily_great">><</btn>>
+<<btn "It was okay…" "event_fhLivingroom_firstWorkDayFamily_okay" "secondary">><</btn>>
+</div>
+<</nobr>>

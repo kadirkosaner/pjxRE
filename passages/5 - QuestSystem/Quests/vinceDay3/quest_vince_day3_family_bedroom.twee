@@ -1,0 +1,18 @@
+:: quest_vince_day3_family_bedroom
+<<nobr>>
+<<set $location = "fhBedroom">>
+<<updateCharacterLocations>>
+
+<<narrative "Bedroom">>
+TODO — Closing monologue (full text TBD). Quest ends with extra mood hit.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "fhBedroom">>
+<<silently>>
+<<loseStat "mood" 5>>
+<<advanceQuestStage "vince_day3_family">>
+<</silently>>
+<</btn>>
+</div>
+<</nobr>>

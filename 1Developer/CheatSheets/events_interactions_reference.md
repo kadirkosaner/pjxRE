@@ -289,11 +289,19 @@ Random events during dishwashing shifts. Driven by `RubysDishwashWork.twee` with
 
 **Post-shift:** `RubysDishwashWork_afterMini.twee` — may trigger Diana arrival event if conditions met.
 
+### Ruby's Diner — Vince inspection (employment day 3)
+
+| Passage | Trigger |
+|---------|---------|
+| `dinerWork_event_vinceInspection_day3` | Dishwasher job, **employment day 3**, first **or** second shift of that day chosen at random (`$flags.vinceDay3InspectShift`, persists across quit/rehire until the scene runs), `!$flags.vinceInspectionDay3Shown`. **One-shot:** sets `vinceInspectionDay3Shown` then `goto` (same pattern as Diana). Runs at **start** of `RubysDishwashWork` (before `jobExecuteShift`). **Source:** `passages/5 - QuestSystem/Quests/vinceDay3/`. |
+
+**Follow-up quest:** `vince_day3_family` — same folder: kitchen intro + Mom / brother / dad / bedroom stubs. Completing sets `vince_day3_family_quest_done`.
+
 ### Ruby's Diner — Diana Arrival
 
 | Passage | Trigger |
 |---------|---------|
-| `dinerWork_event_dianaArrival` | Employment day ≥ 3, completed required hours, `!$flags.dianaEventShown` |
+| `dinerWork_event_dianaArrival` | Employment day ≥ 5, completed required hours, `!$flags.dianaEventShown` |
 | `dinerWork_event_dianaKitchen` | Linked from Diana arrival (kitchen gossip) |
 | `dinerWork_event_nightThoughts` | Bedroom, `$flags.dianaEventShown && !$flags.dianaThoughtsShown` |
 

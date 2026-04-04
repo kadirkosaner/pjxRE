@@ -1,0 +1,17 @@
+:: quest_vince_day3_family_father
+<<nobr>>
+<<set $location = "fhGarage">>
+<<updateCharacterLocations>>
+
+<<narrative "Garage">>
+TODO — Dad scene (full dialogue TBD).
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "fhGarage">>
+<<silently>>
+<<advanceQuestStage "vince_day3_family">>
+<</silently>>
+<</btn>>
+</div>
+<</nobr>>

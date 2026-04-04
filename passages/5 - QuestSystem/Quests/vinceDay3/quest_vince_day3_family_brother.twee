@@ -1,0 +1,17 @@
+:: quest_vince_day3_family_brother
+<<nobr>>
+<<set $location = "fhBrotherRoom">>
+<<updateCharacterLocations>>
+
+<<narrative "Brother's Room">>
+TODO — Brother scene (full dialogue TBD).
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "fhBrotherRoom">>
+<<silently>>
+<<advanceQuestStage "vince_day3_family">>
+<</silently>>
+<</btn>>
+</div>
+<</nobr>>

@@ -106,6 +106,7 @@ Let's get started then.
 <</silently>>
 <<if $jobShiftSuccess>>
 <<set $jobState.firstWorkDayEventShown = true>>
+<<set $flags.firstWorkDayWalkEvent = true>>
 <<goto "dinerRubys">>
 <<else>>
 <<goto "dinerFirstdayJob_dishwasher">>

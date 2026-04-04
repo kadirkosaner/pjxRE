@@ -1,0 +1,105 @@
+<<nobr>>
+<<set $location = "maplewood">>
+<<updateCharacterLocations>>
+
+<<image "assets/content/scenes/maplewood/firstJobDay/mappleNight.webp" "100%">>
+
+<<narrative "Maplewood">>
+It hadn't even been a few days since you left home, but time stretched here in a strange way.
+<</narrative>>
+
+<<narrative>>
+Since you got here, you'd never felt this brave.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Brave? You?
+<</dialog>>
+
+<<narrative>>
+You'd always dodged admitting you kept to yourself.
+<</narrative>>
+
+<<narrative>>
+But now you could confess it quietly, to yourself: for a long time you'd chosen to stay where it felt safe.
+<</narrative>>
+
+<<narrative>>
+You'd never had a job. You'd wanted one, really… but you'd been scared.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Was it embarrassing yourself? Giving up? Or someone saying you weren't enough? You couldn't name it exactly.
+<</dialog>>
+
+<<narrative>>
+When school ended it felt like life's door cracked open. Getting to the threshold was easy; stepping through was something else. Today you stepped.
+<</narrative>>
+
+<<narrative>>
+When your first shift ended there was a strange feeling inside: this wasn't "just a job." For the first time you'd touched real life from the outside, under your own name.
+<</narrative>>
+
+<<narrative>>
+You'd thought the big city would swallow you. You'd imagined streets turned against you. That fear wasn't entirely wrong—but here you were in Maplewood now.
+<</narrative>>
+
+<<image "assets/content/scenes/maplewood/firstJobDay/mapplePorch.webp" "100%">>
+
+<<narrative>>
+Porch lights glowed. TV noise drifted from somewhere. Cooking smell hung in the air. It didn't feel that foreign.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+You'd been talking like everything changed. When really you'd just grown a little.
+<</dialog>>
+
+<<narrative>>
+The thought spread quietly in your chest. Not shame. Quiet, warm pride.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+You did it.
+<</dialog>>
+<<dialog "player">>
+(Inner voice)
+You went.
+<</dialog>>
+<<dialog "player">>
+(Inner voice)
+You held on.
+<</dialog>>
+
+<<narrative>>
+You were tired, but the tiredness felt good.
+<</narrative>>
+
+<<narrative>>
+The diner noise still rang in your ears; your feet ached—but none of it crushed you. If anything it made you feel more real.
+<</narrative>>
+
+<<narrative>>
+You let your shoulders sink slowly. The noise stayed behind. In its place: crickets, the soft scuff of your shoes.
+<</narrative>>
+
+<<narrative>>
+You'd been so far inside your own head you almost missed it—then the curb, the front steps, your own porch light swam into focus.
+<</narrative>>
+
+<<narrative>>
+Your legs had carried you home while you weren't paying attention.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Enter home" "maplewood">>
+<<silently>>
+<<set $flags.firstWorkDayWalkEvent = false>>
+<<set $flags.firstWorkDayWalkHome = true>>
+<</silently>>
+<</btn>>
+</div>
+<</nobr>>

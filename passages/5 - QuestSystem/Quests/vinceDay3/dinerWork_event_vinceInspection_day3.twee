@@ -1,0 +1,66 @@
+:: dinerWork_event_vinceInspection_day3
+/* Vince day 3 arc — all passages in `Quests/vinceDay3/`. One-shot flag set in RubysDishwashWork before goto. */
+<<nobr>>
+<<set $location = "dinerRubysKitchen">>
+<<updateCharacterLocations>>
+<<loseStat "mood" 10>>
+<<set $stress = Math.min(100, ($stress || 0) + 5)>>
+
+<<narrative "Kitchen">>
+You're pulling on your gloves when Vince steps in. Suit, shirt buttoned all the way up — inspection mode. He stops by James, says something low. James nods. Mike gets a light tap on the shoulder, the kind that means keep it up.
+
+Then he's in front of you. His eyes skim you the way someone checks a plate is on the rack — not to understand it, just to confirm it's there.
+<</narrative>>
+
+<<dialog "dinerManager">>
+How's it going?
+<</dialog>>
+
+<<dialog "player">>
+Good. I'm still getting used to everything.
+<</dialog>>
+
+<<dialog "dinerManager">>
+Hmm.
+<</dialog>>
+
+<<narrative>>
+He nods once, already not really listening. He's turning away before you've finished exhaling.
+
+Then he's over by Emma. His shoulders loosen. His voice softens.
+<</narrative>>
+
+<<dialog "dinerManager">>
+Emma. Everything okay?
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+Yeah. Table four's being a pain, but I'm managing.
+<</dialog>>
+
+<<dialog "dinerManager">>
+Tell me about it. We'll get it handled.
+<</dialog>>
+
+<<narrative>>
+You catch the difference without trying to. With you: a grunt and a glance. With her: names, time, a smile that reaches his eyes.
+
+Hot water. Soap. You wash your hands longer than you need to.
+
+Do you ever look at yourself in the mirror?
+
+You didn't dwell on it when you first heard it. Now it won't leave.
+
+You look at Emma without meaning to. Put together. Comfortable in her skin. Vince sees her. You're not sure he sees you at all.
+
+The thought is small and ugly and you can't unthink it.
+<</narrative>>
+
+<<silently>>
+<<startQuest "vince_day3_family">>
+<</silently>>
+
+<div class="location-actions">
+<<btn "Start your shift" "RubysDishwashWork">><</btn>>
+</div>
+<</nobr>>

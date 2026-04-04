@@ -1,0 +1,39 @@
+:: event_fhLivingroom_firstWorkDayFamily_great
+<<nobr>>
+<<set $location = "fhLivingroom">>
+<<updateCharacterLocations>>
+<<gainStat "willpower" 2>>
+<<set $flags.firstWorkDayWalkHome = false>>
+
+<<narrative "Living Room">>
+You find your voice. It comes out calmer than you expected.
+<</narrative>>
+
+<<dialog "player">>
+It was a lot… but I did it. First day is over.
+<</dialog>>
+
+<<dialog "player">>
+People were nice. It was obvious I was the new one, but nobody made a big deal out of it.
+<</dialog>>
+
+<<narrative>>
+Your mom listens carefully, a small smile forming on her face.
+<</narrative>>
+
+<<dialog "mother">>
+That's what I wanted to hear. Not that it was easy — but that you got through it.
+<</dialog>>
+
+<<dialog "father">>
+Good. That's how it starts.
+<</dialog>>
+
+<<narrative>>
+Something small and warm settles in your chest.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "fhLivingroom">><</btn>>
+</div>
+<</nobr>>

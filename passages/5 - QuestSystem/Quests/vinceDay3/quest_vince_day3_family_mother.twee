@@ -1,0 +1,17 @@
+:: quest_vince_day3_family_mother
+<<nobr>>
+<<set $location = "fhKitchen">>
+<<updateCharacterLocations>>
+
+<<narrative "Kitchen">>
+TODO — Mom scene: "Am I ugly?" (full dialogue TBD).
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "fhKitchen">>
+<<silently>>
+<<advanceQuestStage "vince_day3_family">>
+<</silently>>
+<</btn>>
+</div>
+<</nobr>>

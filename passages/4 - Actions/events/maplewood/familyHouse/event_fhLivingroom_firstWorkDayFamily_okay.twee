@@ -1,0 +1,39 @@
+:: event_fhLivingroom_firstWorkDayFamily_okay
+<<nobr>>
+<<set $location = "fhLivingroom">>
+<<updateCharacterLocations>>
+<<loseStat "mood" 5>>
+<<set $flags.firstWorkDayWalkHome = false>>
+
+<<narrative "Living Room">>
+You almost shrug, but catch yourself.
+<</narrative>>
+
+<<dialog "player">>
+It was okay… I guess.
+<</dialog>>
+
+<<dialog "player">>
+My head felt heavy the whole time. Everyone already knew each other. I was still the new girl.
+<</dialog>>
+
+<<narrative>>
+Your dad nods slowly, like he understands exactly what you mean.
+<</narrative>>
+
+<<dialog "father">>
+First days are always like that. Doesn't mean you failed.
+<</dialog>>
+
+<<dialog "mother">>
+You still came home and told us how it really felt. That counts for something.
+<</dialog>>
+
+<<narrative>>
+It doesn't fix everything, but it still sits nicely inside you.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "fhLivingroom">><</btn>>
+</div>
+<</nobr>>

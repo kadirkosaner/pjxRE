@@ -5,7 +5,7 @@
 <<silently>>
 <<set _dianaJob = ($job && $job.id) ? setup.jobs[$job.id] : null>>
 <<set _dianaReqDay = (_dianaJob && _dianaJob.requiredHoursPerDay != null) ? _dianaJob.requiredHoursPerDay : 8>>
-/* Calendar day of employment since $job.startedOn: 1 = first day; event from day 3 onward */
+/* Calendar day of employment since $job.startedOn: 1 = first day; Diana arrival from day 5 onward */
 <<set State.temporary.dianaEmployDay = 0>>
 <<run (function () {
     var v = State.variables;
@@ -18,7 +18,7 @@
     State.temporary.dianaEmployDay = diff >= 0 ? diff + 1 : 0;
 })()>>
 <</silently>>
-<<if $job && $job.id === "ruby_dishwasher" && State.temporary.dianaEmployDay >= 3 && (parseFloat($jobState.hoursToday) || 0) >= _dianaReqDay && !$flags.dianaEventShown>>
+<<if $job && $job.id === "ruby_dishwasher" && State.temporary.dianaEmployDay >= 5 && (parseFloat($jobState.hoursToday) || 0) >= _dianaReqDay && !$flags.dianaEventShown>>
 <<set $flags.dianaEventShown = true>>
 <<goto "dinerWork_event_dianaArrival">>
 <<else>>

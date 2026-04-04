@@ -1,4 +1,25 @@
 <div class="divnobr">
+<<silently>>
+<<set State.temporary.rubyEmployDay = 0>>
+<<run (function () {
+    var v = State.variables;
+    var j = v.job && v.job.startedOn;
+    var ts = v.timeSys;
+    if (!j || j.year == null || !ts || ts.year == null) return;
+    var s = new Date(j.year, j.month - 1, j.day);
+    var c = new Date(ts.year, ts.month - 1, ts.day);
+    var diff = Math.floor((c.getTime() - s.getTime()) / 86400000);
+    State.temporary.rubyEmployDay = diff >= 0 ? diff + 1 : 0;
+})()>>
+<<if $job && $job.id === "ruby_dishwasher" && State.temporary.rubyEmployDay === 3 && !$flags.vinceInspectionDay3Shown>>
+    <<if !$flags.vinceDay3InspectShift>><<set $flags.vinceDay3InspectShift = random(1, 2)>><</if>>
+    <<set _vinceNextShiftNum = ($jobState.shiftsToday || 0) + 1>>
+    <<if _vinceNextShiftNum === $flags.vinceDay3InspectShift>>
+    <<set $flags.vinceInspectionDay3Shown = true>>
+    <<goto "dinerWork_event_vinceInspection_day3">>
+    <</if>>
+<</if>>
+<</silently>>
 <<jobExecuteShift $selectedDuration>>
 <<if !$jobShiftSuccess>>
 <<goto "jobWorkSelect">>
