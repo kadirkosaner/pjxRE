@@ -2,21 +2,27 @@
 <<silently>>
     <<set $location = "fhBedroom">>
     <<set $isSleeping = true>>
+    <<set _sleepMaxMinutes = 540>>
 
-    /* 1. REQUESTED DURATION (from btnPicker → sleep_prep → here) */
+    /* 1. REQUESTED DURATION (picker; hard cap = 9h) */
     <<set _requestedDuration = 480>>
     <<if def $pickerMemory and def $pickerMemory.sleepDuration>>
         <<set _requestedDuration = $pickerMemory.sleepDuration>>
     <</if>>
+    <<if _requestedDuration > _sleepMaxMinutes>><<set _requestedDuration = _sleepMaxMinutes>><</if>>
 
-    /* 2. ENERGY-BASED EARLY WAKE CALCULATION */
-    /* Rate: 480 min of ideal sleep = +energyMax gain */
-    /* So: 1 energy unit recovered per (480 / energyMax) minutes */
+    /* 2. ENERGY ↔ TIME — 20→max = 8h (480m); 0→max takes longer (linear in deficit vs span above 20) */
+    <<set _sleepEnergyFullMinutes = 480>>
+    <<set _energySleepFloor = 20>>
     <<set _energyCurrent = parseInt($energy || 0)>>
-    <<set _energyMax = $energyMax || 100>>
+    <<set _energyMax = Math.max(1, $energyMax || 80)>>
     <<set _energyToFill = Math.max(0, _energyMax - _energyCurrent)>>
-    <<set _minsPerEnergyUnit = 480 / _energyMax>>
-    <<set _minutesToFillEnergy = Math.round(_energyToFill * _minsPerEnergyUnit)>>
+    <<if _energyMax > _energySleepFloor>>
+        <<set _energySpanAboveFloor = _energyMax - _energySleepFloor>>
+    <<else>>
+        <<set _energySpanAboveFloor = Math.max(1, _energyMax)>>
+    <</if>>
+    <<set _minutesToFillEnergy = Math.round((_energyToFill / _energySpanAboveFloor) * _sleepEnergyFullMinutes)>>
 
     /* 3. ALARM CALCULATION */
     <<set _currentDay = $timeSys.weekday>>
@@ -68,14 +74,16 @@
         <<set _wakeType = "natural">>
     <</if>>
 
-    /* Safety clamps */
+    /* Safety clamps (never more than 9h in one sleep) */
     <<if _sleepDuration < 30>><<set _sleepDuration = 30>><</if>>
-    <<if _sleepDuration > 600>><<set _sleepDuration = 600>><</if>>
+    <<if _sleepDuration > _sleepMaxMinutes>><<set _sleepDuration = _sleepMaxMinutes>><</if>>
 
-    /* 5. RECOVERY CALCULATION (scaled against ideal 8h = 480 min) */
-    <<set _recoveryRatio = _sleepDuration / 480>>
-    /* Energy: scale with energyMax, cap at actual deficit to prevent overflow */
-    <<set _energyGain = Math.min(Math.round(_energyMax * _recoveryRatio), _energyToFill)>>
+    /* 5. RECOVERY — energy scales with actual sleep vs time-to-full; stress/health: 9h = 100% ratio */
+    <<set _recoveryRatio = _sleepDuration / _sleepMaxMinutes>>
+    <<set _energyGain = 0>>
+    <<if _energyToFill > 0 && _minutesToFillEnergy > 0>>
+        <<set _energyGain = Math.min(Math.round(_sleepDuration * (_energyToFill / _minutesToFillEnergy)), _energyToFill)>>
+    <</if>>
     <<set _stressLoss = Math.round(50 * _recoveryRatio)>>
     <<set _healthGain = Math.round(20 * _recoveryRatio)>>
 

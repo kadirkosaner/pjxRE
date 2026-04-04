@@ -4,7 +4,7 @@
 <<if !$job || !$job.id || !setup.jobs[$job.id] || setup.jobs[$job.id].workplace !== "dinerRubys">>
 <<goto "dinerRubysStorage">>
 <</if>>
-<<advanceTime 30>>
+<<advanceTime 30 "relax">>
 <<loseStat "stress" 25>>
 <<gainStat "energy" 25>>
 <<gainStat "mood" 10>>

@@ -1,13 +1,13 @@
 <<silently>>
     <<set $location = "fhKitchen">>
-    <<advanceTime 20>>
     <<eatFood 500 50>>
     <<loseStat "thirst" 100>>
-    <<run window.notifySuccess("Hunger & Thirst Restored")>>
     <<gainStat "energy" 30>>
-    <<gainStat "mood" 10>>
+    <<gainStat "mood" 12>>
     <<gainStat "health" 2>>
     <<loseStat "stress" 5>>
+    <<advanceTime 20>>
+    <<run window.notifySuccess("Hunger & Thirst Restored")>>
     <<flushNotifications>>
     <<recalculateStats>>
 <</silently>>

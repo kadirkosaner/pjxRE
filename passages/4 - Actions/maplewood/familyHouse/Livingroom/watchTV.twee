@@ -1,17 +1,31 @@
 <<nobr>>
 <<silently>>
     <<set $location = "fhLivingroom">>
-    <<advanceTime $selectedDuration>>
-    <<loseStat "stress" 7>>
-    <<gainStat "mood" 10>>
+    <<set _tvMins = parseInt($selectedDuration) || 15>>
+    <<set _tvScale = _tvMins / 30>>
+    <<advanceTime _tvMins "relax">>
+    <<set _tvStressLoss = Math.max(1, Math.round(7 * _tvScale))>>
+    <<set _tvMoodGain = Math.max(1, Math.round(10 * _tvScale))>>
+    <<set _stressBefore = $stress || 0>>
+    <<set _moodBefore = $mood || 0>>
+    <<set $stress = Math.max(0, _stressBefore - _tvStressLoss)>>
+    <<set _actualStressLoss = _stressBefore - $stress>>
+    <<if _actualStressLoss > 0>><<queueStatChange "stress" (-1 * _actualStressLoss)>><</if>>
+    <<set $mood = Math.min(100, _moodBefore + _tvMoodGain)>>
+    <<set _actualMoodGain = $mood - _moodBefore>>
+    <<if _actualMoodGain > 0>><<queueStatChange "mood" _actualMoodGain>><</if>>
     <<run window.notifySuccess("Stress Relieved")>>
     /* Energy cost: base 5 for first 15 min, +2 per extra 15 min (15→5, 30→7, 45→9, 60→11) */
     <<set _energyCost = 5>>
-    <<if ($selectedDuration || 15) > 15>>
-        <<set _energyCost = 5 + Math.floor(($selectedDuration - 15) / 15) * 2>>
+    <<if _tvMins > 15>>
+        <<set _energyCost = 5 + Math.floor((_tvMins - 15) / 15) * 2>>
         <<set _energyCost = Math.min(11, _energyCost)>>
     <</if>>
-    <<loseStat "energy" _energyCost>>
+    <<set _energyBefore = $energy || 0>>
+    <<set $energy = Math.max(0, _energyBefore - _energyCost)>>
+    <<set _actualEnergyLoss = _energyBefore - $energy>>
+    <<if _actualEnergyLoss > 0>><<queueStatChange "energy" (-1 * _actualEnergyLoss)>><</if>>
+    <<recalculateStats>>
     
     <<set _watchingWith = $watchingWith || "alone">>
     <<set _useSportsTopic = false>>
@@ -85,38 +99,46 @@
             <</switch>>
         <</if>>
     
-    /* ----- DAD ----- (Watch Sports - topic database) */
+    /* ----- DAD ----- (Watch Sports — uses setup.fatherTopics living room pools, sports/tv first) */
     <<elseif _watchingWith === "dad">>
         <<set _useSportsTopic = true>>
-        <<set _char = $characters.father>>
-        <<set _friendship = _char.stats.friendship>>
-        <<if def $flags && $flags.fatherStartedWork>>
-            <<set _phase = "postWork">>
+        <<set _level = $characters.father.stats.friendshipLevel || 1>>
+        <<set _phase = (def $flags && $flags.fatherStartedWork) ? "postWork" : "preWork">>
+        <<set _hour = $timeSys.hour>>
+        <<if _hour >= 6 && _hour < 12>>
+            <<set _timeSlot = "morning">>
+        <<elseif _hour >= 12 && _hour < 18>>
+            <<set _timeSlot = "afternoon">>
         <<else>>
-            <<set _phase = "preWork">>
+            <<set _timeSlot = "evening">>
         <</if>>
-        <<if _friendship < 40>>
-            <<set _tier = "tier1">>
-        <<elseif _friendship < 70>>
-            <<set _tier = "tier2">>
-        <<else>>
-            <<set _tier = "tier3">>
+        <<set _contextKey = "fhLivingroom_" + _phase + "_" + _timeSlot>>
+        <<set _phasePool = setup.fatherTopics[_phase] && setup.fatherTopics[_phase]["level" + _level]>>
+        <<set _context = (_phasePool && _phasePool[_contextKey]) ? _phasePool[_contextKey] : null>>
+        <<if !_context && _phasePool>>
+            <<set _context = _phasePool["fhLivingroom_" + _phase + "_evening"]>>
+            <<if !_context>>
+                <<set _context = _phasePool["fhLivingroom_" + _phase + "_morning"]>>
+            <</if>>
         <</if>>
-        <<if _phase === "preWork">>
-            <<set _topicArray = setup.fatherTalkTopics.common.sports[_tier]>>
-        <<else>>
-            <<set _topicArray = setup.fatherTalkTopics.postWork.sports[_tier]>>
+        <<if _context && _context.sports && _context.sports.length>>
+            <<set _topic = _context.sports.random()>>
+        <<elseif _context && _context.tv && _context.tv.length>>
+            <<set _topic = _context.tv.random()>>
+        <<elseif _context>>
+            <<set _topicKeys = Object.keys(_context)>>
+            <<if _topicKeys.length>>
+                <<set _topicKey = _topicKeys.random()>>
+                <<set _topic = _context[_topicKey].random()>>
+            <</if>>
         <</if>>
-        <<set _topic = _topicArray.random()>>
-        <<if _topic.friendship>>
-            <<gainStat "friendship" _topic.friendship "father">>
+        <<if !_topic>>
+            <<set _topic = { text: "You watch whatever's on together — mostly the game, some sideline commentary, easy quiet between plays.", friendship: 1 }>>
         <</if>>
-        <<if _topic.trust>>
-            <<gainStat "trust" _topic.trust "father">>
-        <</if>>
-        <<if _topic.love>>
-            <<gainStat "love" _topic.love "father">>
-        <</if>>
+        <<if _topic.friendship>><<gainCharacterStat "father" "friendship" _topic.friendship>><</if>>
+        <<if _topic.trust>><<gainCharacterStat "father" "trust" _topic.trust>><</if>>
+        <<if _topic.love>><<gainCharacterStat "father" "love" _topic.love>><</if>>
+        <<recalculateStats>>
         <<if _imgFolder === "morning">>
             <<set _sportsIntro = "The big game is on, and your father has claimed his spot on the couch. He looks happy—this is his element.">>
         <<else>>
@@ -190,36 +212,44 @@
     /* ----- DAD & BROTHER ----- */
     <<elseif _watchingWith === "dadbrother">>
         <<set _useSportsTopic = true>>
-        <<set _char = $characters.father>>
-        <<set _friendship = _char.stats.friendship>>
-        <<if def $flags && $flags.fatherStartedWork>>
-            <<set _phase = "postWork">>
+        <<set _level = $characters.father.stats.friendshipLevel || 1>>
+        <<set _phase = (def $flags && $flags.fatherStartedWork) ? "postWork" : "preWork">>
+        <<set _hour = $timeSys.hour>>
+        <<if _hour >= 6 && _hour < 12>>
+            <<set _timeSlot = "morning">>
+        <<elseif _hour >= 12 && _hour < 18>>
+            <<set _timeSlot = "afternoon">>
         <<else>>
-            <<set _phase = "preWork">>
+            <<set _timeSlot = "evening">>
         <</if>>
-        <<if _friendship < 40>>
-            <<set _tier = "tier1">>
-        <<elseif _friendship < 70>>
-            <<set _tier = "tier2">>
-        <<else>>
-            <<set _tier = "tier3">>
+        <<set _contextKey = "fhLivingroom_" + _phase + "_" + _timeSlot>>
+        <<set _phasePool = setup.fatherTopics[_phase] && setup.fatherTopics[_phase]["level" + _level]>>
+        <<set _context = (_phasePool && _phasePool[_contextKey]) ? _phasePool[_contextKey] : null>>
+        <<if !_context && _phasePool>>
+            <<set _context = _phasePool["fhLivingroom_" + _phase + "_evening"]>>
+            <<if !_context>>
+                <<set _context = _phasePool["fhLivingroom_" + _phase + "_morning"]>>
+            <</if>>
         <</if>>
-        <<if _phase === "preWork">>
-            <<set _topicArray = setup.fatherTalkTopics.common.sports[_tier]>>
-        <<else>>
-            <<set _topicArray = setup.fatherTalkTopics.postWork.sports[_tier]>>
+        <<if _context && _context.sports && _context.sports.length>>
+            <<set _topic = _context.sports.random()>>
+        <<elseif _context && _context.tv && _context.tv.length>>
+            <<set _topic = _context.tv.random()>>
+        <<elseif _context>>
+            <<set _topicKeys = Object.keys(_context)>>
+            <<if _topicKeys.length>>
+                <<set _topicKey = _topicKeys.random()>>
+                <<set _topic = _context[_topicKey].random()>>
+            <</if>>
         <</if>>
-        <<set _topic = _topicArray.random()>>
-        <<if _topic.friendship>>
-            <<gainStat "friendship" _topic.friendship "father">>
+        <<if !_topic>>
+            <<set _topic = { text: "You watch whatever's on together — mostly the game, some sideline commentary, easy quiet between plays.", friendship: 1 }>>
         <</if>>
-        <<if _topic.trust>>
-            <<gainStat "trust" _topic.trust "father">>
-        <</if>>
-        <<if _topic.love>>
-            <<gainStat "love" _topic.love "father">>
-        <</if>>
-        <<gainStat "friendship" 1 "brother">>
+        <<if _topic.friendship>><<gainCharacterStat "father" "friendship" _topic.friendship>><</if>>
+        <<if _topic.trust>><<gainCharacterStat "father" "trust" _topic.trust>><</if>>
+        <<if _topic.love>><<gainCharacterStat "father" "love" _topic.love>><</if>>
+        <<gainCharacterStat "brother" "friendship" 1>>
+        <<recalculateStats>>
         <<if _imgFolder === "morning">>
             <<set _sportsIntro = "The big game is on, and your father has claimed his spot on the couch. Your brother's there too. He looks happy—this is his element.">>
         <<else>>

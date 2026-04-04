@@ -189,7 +189,7 @@
     <</if>>
 
     <<if !_bookLimitReached>>
-        <<advanceTime $selectedDuration>>
+        <<advanceTime $selectedDuration "relax">>
     <</if>>
 
     <<set State.temporary.newPage = _newPage>>

@@ -2,6 +2,7 @@
     <<set $location = $activityOrigin>>
     <<advanceTime 15>>
     <<addHeelsTravelMinutes 15>>
+    <<loseStat "energy" 5>>
     <<loseStat "stress" 12>>
     <<gainStat "mood" 5>>
     <<flushNotifications>>

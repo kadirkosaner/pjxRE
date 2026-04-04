@@ -408,17 +408,19 @@ window.CharacterInit = function (API) {
                 { id: 'ring', label: 'Rings' }
             ];
 
-            /* When bodysuit or swimsuit equipped (bra===panty), show single slot */
+            const bodysuitId = equipped.bodysuit;
+            const bodysuitItem = bodysuitId ? self.getClothingItemById(bodysuitId) : null;
+            /* Swimsuit still uses shared bra/panty occupancy; bodysuit has its own slot and keeps panty optional. */
             const braId = equipped.bra;
             const pantyId = equipped.panty;
             const braItem = braId ? self.getClothingItemById(braId) : null;
             const isFullBody = braId && pantyId && braId === pantyId && braItem;
             const isSwimsuitOn = isFullBody && braItem.slot === 'swimsuit';
-            const isBodysuitOn = isFullBody && !isSwimsuitOn && braItem.tags && braItem.tags.includes('bodysuit');
+            const isBodysuitOn = bodysuitItem && bodysuitItem.tags && bodysuitItem.tags.includes('bodysuit');
             const underwearSlots = isSwimsuitOn
                 ? [{ id: 'bra', label: 'Swimsuit' }, { id: 'sleepwear', label: 'Sleepwear' }, { id: 'garter', label: 'Garter' }]
                 : isBodysuitOn
-                    ? [{ id: 'bra', label: 'Bodysuit' }, { id: 'sleepwear', label: 'Sleepwear' }, { id: 'garter', label: 'Garter' }]
+                    ? [{ id: 'bodysuit', label: 'Bodysuit' }, { id: 'panty', label: 'Panties' }, { id: 'sleepwear', label: 'Sleepwear' }, { id: 'garter', label: 'Garter' }]
                     : [
                         { id: 'bra', label: 'Bra' },
                         { id: 'panty', label: 'Panties' },

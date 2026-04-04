@@ -122,8 +122,6 @@
     <<set _fullName = (_char.firstName || "") + " " + (_char.lastName || "")>>
     <<set _age = ($timeSysYear || 2024) - (_char.birthYear || 2000)>>
     <<set _stats = _char.stats || { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 }>>
-    <<set _charDef = setup.characterDefs[_charId] || {}>>
-    <<set _maxLvls = _charDef.maxLevels || _char.maxLevels || { love: 5, friendship: 5, lust: 5, trust: 5 }>>
     <<set _thresholds = _char.levelUpThresholds || {}>>
     <<set _opinion = _char.opinion || { awareness: 0, flags: [] }>>
     <<set _awareness = _opinion.awareness || 0>>
@@ -173,7 +171,7 @@
                 <div class="char-stat-bar-row">
                     <div class="char-stat-bar-label">
                         <span>Love</span>
-                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _loveLevel>></span> · <<print _stats.love>>/<<if _loveLevel >= (_maxLvls.love || 5)>>MAX<<else>><<print _loveThr>><</if>></span>
+                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _loveLevel>></span> · <<print _stats.love>>/<<print _loveThr>></span>
                     </div>
                     <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lovePct + '%; background:#ec4899;'"></div></div>
                 </div>
@@ -181,7 +179,7 @@
                 <div class="char-stat-bar-row">
                     <div class="char-stat-bar-label">
                         <span>Friendship</span>
-                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _friendLevel>></span> · <<print _stats.friendship>>/<<if _friendLevel >= (_maxLvls.friendship || 5)>>MAX<<else>><<print _friendThr>><</if>></span>
+                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _friendLevel>></span> · <<print _stats.friendship>>/<<print _friendThr>></span>
                     </div>
                     <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _friendPct + '%; background:#3b82f6;'"></div></div>
                 </div>
@@ -189,7 +187,7 @@
                 <div class="char-stat-bar-row">
                     <div class="char-stat-bar-label">
                         <span>Lust</span>
-                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _lustLevel>></span> · <<print _stats.lust>>/<<if _lustLevel >= (_maxLvls.lust || 5)>>MAX<<else>><<print _lustThr>><</if>></span>
+                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _lustLevel>></span> · <<print _stats.lust>>/<<print _lustThr>></span>
                     </div>
                     <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lustPct + '%; background:#ef4444;'"></div></div>
                 </div>
@@ -197,7 +195,7 @@
                 <div class="char-stat-bar-row">
                     <div class="char-stat-bar-label">
                         <span>Trust</span>
-                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _trustLevel>></span> · <<print _stats.trust>>/<<if _trustLevel >= (_maxLvls.trust || 5)>>MAX<<else>><<print _trustThr>><</if>></span>
+                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _trustLevel>></span> · <<print _stats.trust>>/<<print _trustThr>></span>
                     </div>
                     <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _trustPct + '%; background:#10b981;'"></div></div>
                 </div>

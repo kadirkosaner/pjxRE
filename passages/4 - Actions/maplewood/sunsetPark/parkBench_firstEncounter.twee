@@ -15,10 +15,12 @@
 <</if>>
 <<gainCharacterStat "parkRunnerLily" "friendship" 2>>
 
-<<set $selectedDuration = $selectedDuration || 30>>
+<<set $selectedDuration = parseInt($selectedDuration) || 30>>
+<<set _restScale = $selectedDuration / 30>>
 <<advanceTime $selectedDuration>>
-<<loseStat "stress" 5>>
-<<gainStat "mood" 5>>
+<<loseStat "stress" Math.max(1, Math.round(5 * _restScale))>>
+<<gainStat "mood" Math.max(1, Math.round(5 * _restScale))>>
+<<gainStat "energy" Math.max(1, Math.round(4 * _restScale))>>
 <<flushNotifications>>
 <<recalculateStats>>
 

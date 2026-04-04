@@ -99,18 +99,21 @@ window.showNotification = function (options) {
   if (hasActions) config.duration = 0;
 
   const id = 'notif-' + Date.now();
+  const typeSafe = String(config.type || 'info').replace(/[^a-z0-9-]/gi, '') || 'info';
   const $el = NotificationAPI.$(`
-    <div class="notification notification-${config.type}" id="${id}"
+    <div class="notification notification-${typeSafe}" id="${id}"
          role="status" aria-live="polite" style="visibility:hidden;">
-      <span class="notification-text">${config.message}</span>
+      <span class="notification-text"></span>
     </div>
   `);
+  $el.find('.notification-text').text(config.message == null ? '' : String(config.message));
 
   // Render action buttons
   if (hasActions) {
     const $actions = NotificationAPI.$('<div class="notification-actions"></div>');
     config.actions.forEach(action => {
-      const $btn = NotificationAPI.$(`<button class="notif-action-btn">${action.label}</button>`);
+      const $btn = NotificationAPI.$('<button type="button" class="notif-action-btn"></button>');
+      $btn.text(action.label == null ? '' : String(action.label));
       $btn.on('click', function () {
         closeNotification($el);
         if (action.fn) action.fn();

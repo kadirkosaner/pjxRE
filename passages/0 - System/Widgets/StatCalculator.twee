@@ -212,7 +212,9 @@
 
         <<set _actualGain = _baseAmount * _multiplier>>
 
-        <<if def State.variables[_statName]>>
+        /* Own-property checks: avoid `def State.variables[_statName]` and Object.prototype in <<set>> (SC2/runtime issues) */
+        <<set _playerStatExists = typeof State.variables[_statName] !== "undefined">>
+        <<if _playerStatExists>>
             <<set _maxVal = 100>>
             <<if _maxCap>>
                 <<set _maxVal = _maxCap>>
@@ -345,7 +347,8 @@
         <<loseCharacterStat _characterId _statName _baseAmount>>
     <<else>>
         /* Handle player stat */
-        <<if def State.variables[_statName]>>
+        <<set _playerStatExists = typeof State.variables[_statName] !== "undefined">>
+        <<if _playerStatExists>>
             <<set State.variables[_statName] = Math.min(100, Math.max(0, State.variables[_statName] - _baseAmount))>>
             <<queueStatChange _statName _negAmount>>
         <</if>>

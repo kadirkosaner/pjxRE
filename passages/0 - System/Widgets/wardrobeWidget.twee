@@ -119,8 +119,13 @@
 <<widget "checkCommandoRequirement">>
     <<set _slot to _wardrobeSlotToCheck>>
     <<set _checkResult to { allowed: true, reason: "" }>>
+    <<set _hasBodysuit to ($wardrobe.equipped.bodysuit and $wardrobe.equipped.bodysuit !== "")>>
     
     <<if _slot is "panty">>
+        <<if _hasBodysuit>>
+            <<set _wardrobeCheckResult to _checkResult>>
+            <<return>>
+        <</if>>
         <<set _coverLevel to "nude">>
         
         /* Check what covers the bottom */
@@ -153,6 +158,10 @@
         <</if>>
         
     <<elseif _slot is "bra">>
+        <<if _hasBodysuit>>
+            <<set _wardrobeCheckResult to _checkResult>>
+            <<return>>
+        <</if>>
         /* BRA LOGIC */
         <<set _coverLevel to "nude">>
         
@@ -229,18 +238,19 @@ setup.getClothingById = function(id) {
     <<if ndef $exhibitionism>><<set $exhibitionism = 0>><</if>>
 
     /* Coverage flags */
-    <<set _hasTop    to ($wardrobe.equipped.top    and $wardrobe.equipped.top    !== "")>>
+    <<set _hasBodysuit to ($wardrobe.equipped.bodysuit and $wardrobe.equipped.bodysuit !== "")>>
+    <<set _hasTop    to (($wardrobe.equipped.top and $wardrobe.equipped.top !== "") or _hasBodysuit)>>
     <<set _hasBottom to ($wardrobe.equipped.bottom and $wardrobe.equipped.bottom !== "")>>
     <<set _hasDress  to ($wardrobe.equipped.dress  and $wardrobe.equipped.dress  !== "")>>
-    <<set _hasBra    to ($wardrobe.equipped.bra    and $wardrobe.equipped.bra    !== "")>>
+    <<set _hasBra    to (($wardrobe.equipped.bra and $wardrobe.equipped.bra !== "") or _hasBodysuit)>>
     <<set _hasPanty  to ($wardrobe.equipped.panty  and $wardrobe.equipped.panty  !== "")>>
     <<set _hasSleepwear to ($wardrobe.equipped.sleepwear and $wardrobe.equipped.sleepwear !== "")>>
 
     /* Categories */
-    <<set _isFullyDressed  to (_hasDress or (_hasTop and _hasBottom))>>
+    <<set _isFullyDressed  to (_hasDress or ((_hasTop or _hasBodysuit) and _hasBottom))>>
     <<set _isInSleepwear   to (_hasSleepwear and !_isFullyDressed)>>
-    <<set _isUnderwearOnly to (!_isFullyDressed and !_hasSleepwear and (_hasBra or _hasPanty))>>
-    <<set _isNaked         to (!_isFullyDressed and !_hasSleepwear and !_hasBra and !_hasPanty)>>
+    <<set _isUnderwearOnly to (!_isFullyDressed and !_hasSleepwear and ((_hasBra or _hasPanty) or _hasBodysuit))>>
+    <<set _isNaked         to (!_isFullyDressed and !_hasSleepwear and !_hasBra and !_hasPanty and !_hasBodysuit)>>
 
     /* Sleepwear sexiness */
     <<set _sleepwearSexiness to 0>>
@@ -321,18 +331,19 @@ setup.getClothingById = function(id) {
     <</if>>
 
     /* Coverage flags */
-    <<set _ogHasTop       = ($wardrobe.equipped.top       && $wardrobe.equipped.top       !== "")>>
+    <<set _ogHasBodysuit  = ($wardrobe.equipped.bodysuit  && $wardrobe.equipped.bodysuit  !== "")>>
+    <<set _ogHasTop       = (($wardrobe.equipped.top      && $wardrobe.equipped.top       !== "") || _ogHasBodysuit)>>
     <<set _ogHasBottom    = ($wardrobe.equipped.bottom    && $wardrobe.equipped.bottom    !== "")>>
     <<set _ogHasDress     = ($wardrobe.equipped.dress     && $wardrobe.equipped.dress     !== "")>>
-    <<set _ogHasBra       = ($wardrobe.equipped.bra       && $wardrobe.equipped.bra       !== "")>>
+    <<set _ogHasBra       = (($wardrobe.equipped.bra      && $wardrobe.equipped.bra       !== "") || _ogHasBodysuit)>>
     <<set _ogHasPanty     = ($wardrobe.equipped.panty     && $wardrobe.equipped.panty     !== "")>>
     <<set _ogHasSleepwear = ($wardrobe.equipped.sleepwear && $wardrobe.equipped.sleepwear !== "")>>
 
     /* Outfit categories */
-    <<set _ogFullyDressed  = (_ogHasDress || (_ogHasTop && _ogHasBottom))>>
+    <<set _ogFullyDressed  = (_ogHasDress || ((_ogHasTop || _ogHasBodysuit) && _ogHasBottom))>>
     <<set _ogInSleepwear   = (_ogHasSleepwear && !_ogFullyDressed)>>
-    <<set _ogUnderwearOnly = (!_ogFullyDressed && !_ogHasSleepwear && (_ogHasBra || _ogHasPanty))>>
-    <<set _ogNaked         = (!_ogFullyDressed && !_ogHasSleepwear && !_ogHasBra && !_ogHasPanty)>>
+    <<set _ogUnderwearOnly = (!_ogFullyDressed && !_ogHasSleepwear && ((_ogHasBra || _ogHasPanty) || _ogHasBodysuit))>>
+    <<set _ogNaked         = (!_ogFullyDressed && !_ogHasSleepwear && !_ogHasBra && !_ogHasPanty && !_ogHasBodysuit)>>
 
     /* Sleepwear sexiness */
     <<set _ogSwSexiness = 0>>
@@ -405,19 +416,20 @@ setup.getClothingById = function(id) {
     <<if !$wardrobe.equipped>><<set $wardrobe.equipped = {} >><</if>>
     
     /* Calculate Coverage */
-    <<set _hasTop to ($wardrobe.equipped.top and $wardrobe.equipped.top !== "")>>
+    <<set _hasBodysuit to ($wardrobe.equipped.bodysuit and $wardrobe.equipped.bodysuit !== "")>>
+    <<set _hasTop to (($wardrobe.equipped.top and $wardrobe.equipped.top !== "") or _hasBodysuit)>>
     <<set _hasBottom to ($wardrobe.equipped.bottom and $wardrobe.equipped.bottom !== "")>>
     <<set _hasDress to ($wardrobe.equipped.dress and $wardrobe.equipped.dress !== "")>>
-    <<set _hasBra to ($wardrobe.equipped.bra and $wardrobe.equipped.bra !== "")>>
+    <<set _hasBra to (($wardrobe.equipped.bra and $wardrobe.equipped.bra !== "") or _hasBodysuit)>>
     <<set _hasPanty to ($wardrobe.equipped.panty and $wardrobe.equipped.panty !== "")>>
     
     /* Determine Outfit State */
-    <<set _isFullyDressed to (_hasDress or (_hasTop and _hasBottom))>>
+    <<set _isFullyDressed to (_hasDress or ((_hasTop or _hasBodysuit) and _hasBottom))>>
     <<set _hasAnyUnderwear to (_hasBra or _hasPanty)>>
     <<set _hasFullUnderwear to (_hasBra and _hasPanty)>>
     <<set _isUnderwearOnly to (!_isFullyDressed and _hasAnyUnderwear)>>
-    <<set _isNude to (!_isFullyDressed and !_hasAnyUnderwear)>>
-    <<set _isCommando to (_isFullyDressed and !_hasAnyUnderwear)>>
+    <<set _isNude to (!_isFullyDressed and !_hasAnyUnderwear and !_hasBodysuit)>>
+    <<set _isCommando to (_isFullyDressed and !_hasPanty and !_hasDress and (_hasTop or _hasBodysuit))>>
     
     /* Check for Revealing Tags */
     <<set _isRevealing to false>>
@@ -430,7 +442,11 @@ setup.getClothingById = function(id) {
                 <</if>>
             <</if>>
         <<else>>
-            <<set _topItem to setup.getClothingById($wardrobe.equipped.top)>>
+            <<if _hasBodysuit>>
+                <<set _topItem to setup.getClothingById($wardrobe.equipped.bodysuit)>>
+            <<else>>
+                <<set _topItem to setup.getClothingById($wardrobe.equipped.top)>>
+            <</if>>
             <<set _bottomItem to setup.getClothingById($wardrobe.equipped.bottom)>>
             <<if _topItem and _topItem.tags>>
                 <<if _topItem.tags.includes("revealing") or _topItem.tags.includes("daring") or _topItem.tags.includes("erotic") or _topItem.tags.includes("lewd")>>

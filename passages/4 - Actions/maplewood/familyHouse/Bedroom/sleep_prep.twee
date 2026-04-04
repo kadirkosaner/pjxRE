@@ -4,7 +4,7 @@
     <<set $location = "fhBedroom">>
 
     /* 1. TIME + ENERGY */
-    <<set _energyMax      = $energyMax || 100>>
+    <<set _energyMax      = $energyMax || 80>>
     <<set _energyCurrent  = parseInt($energy || 0)>>
     <<set _energyThreshold = Math.round(_energyMax * 0.85)>>
     <<set _currentHour    = $timeSys.hour>>

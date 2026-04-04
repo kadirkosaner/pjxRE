@@ -16,6 +16,24 @@ window.JournalInit = function (API) {
         .trim();
     },
 
+    escapeHtml: function (s) {
+      if (s == null || s === "") return "";
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    },
+
+    /* Normalize mistaken "&&" in quest copy back to the word "and" (natural English). */
+    formatQuestStageDesc: function (s) {
+      if (s == null || s === "") return "";
+      return String(s)
+        .trim()
+        .replace(/\s*&{2,}\s*/g, " and ")
+        .replace(/\s{2,}/g, " ");
+    },
+
     createTimelineItem: function (title, content) {
       if (!content) return "";
       const text =
@@ -294,7 +312,7 @@ window.JournalInit = function (API) {
               ${status === 'active' ? '<i class="icon icon-alert"></i>' : '<i class="icon icon-check"></i>'}
             </div>
             <div class="quest-list-content">
-              <div class="quest-list-title">${quest.title}</div>
+              <div class="quest-list-title">${this.escapeHtml(quest.title)}</div>
             </div>
           </div>
         `;
@@ -318,7 +336,7 @@ window.JournalInit = function (API) {
                 ${stage.objectives.map(obj => `
                   <div class="quest-objective ${state.objectives[obj.id] ? 'completed' : ''}">
                     <i class="icon icon-${state.objectives[obj.id] ? 'check' : 'circle'} icon-12"></i>
-                    ${obj.text}
+                    ${this.escapeHtml(this.formatQuestStageDesc(obj.text || ""))}
                   </div>
                 `).join('')}
               </div>
@@ -336,8 +354,8 @@ window.JournalInit = function (API) {
                 <div class="quest-stage-item completed">
                   <div class="quest-stage-number">${idx + 1}</div>
                   <div class="quest-stage-info">
-                    <div class="quest-stage-title">${stg.title}</div>
-                    <div class="quest-stage-desc">${stg.desc || ''}</div>
+                    <div class="quest-stage-title">${this.escapeHtml(stg.title)}</div>
+                    <div class="quest-stage-desc">${this.escapeHtml(this.formatQuestStageDesc(stg.desc || ''))}</div>
                   </div>
                   <i class="icon icon-check quest-stage-check"></i>
                 </div>
@@ -362,8 +380,8 @@ window.JournalInit = function (API) {
                   <div class="quest-stage-item ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}">
                     <div class="quest-stage-number">${originalIdx + 1}</div>
                     <div class="quest-stage-info">
-                      <div class="quest-stage-title">${stg.title}</div>
-                      <div class="quest-stage-desc">${stg.desc || ''}</div>
+                      <div class="quest-stage-title">${this.escapeHtml(stg.title)}</div>
+                      <div class="quest-stage-desc">${this.escapeHtml(this.formatQuestStageDesc(stg.desc || ''))}</div>
                     </div>
                     ${isCompleted ? '<i class="icon icon-check quest-stage-check"></i>' : ''}
                     ${isCurrent ? '<i class="icon icon-circle quest-stage-current"></i>' : ''}
@@ -377,7 +395,7 @@ window.JournalInit = function (API) {
         return `
           <div class="quest-detail-content">
             <div class="quest-detail-header">
-              <h2>${quest.title}</h2>
+              <h2>${this.escapeHtml(quest.title)}</h2>
             </div>
             
             ${status === 'active' ? `

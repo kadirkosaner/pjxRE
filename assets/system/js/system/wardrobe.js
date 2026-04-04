@@ -581,7 +581,7 @@ function isInSessionSnapshot(itemId) {
     return Object.values(wardrobeSessionEquipped).indexOf(itemId) !== -1;
 }
 
-/** True if item has bodysuit tag (occupies both bra and panty slots). */
+/** True if item has bodysuit tag. */
 function isBodysuitItem(item) {
     return item && item.tags && Array.isArray(item.tags) && item.tags.includes('bodysuit');
 }
@@ -593,12 +593,58 @@ function isSwimwearItem(item) {
     return item.slot === 'swimsuit' || tags.includes('swimsuit') || tags.includes('bikini');
 }
 
-/** True if a bodysuit is currently equipped (bra === panty and that item is bodysuit). */
+/**
+ * Normalize equipped state for the new bodysuit model:
+ * - legacy bodysuit saves (bra===panty===bodysuit) are migrated to bodysuit+top
+ * - bodysuit always occupies the top slot
+ * - bra cannot coexist with bodysuit
+ */
+function normalizeEquippedSlots(equipped) {
+    if (!equipped || typeof equipped !== 'object') return equipped;
+
+    if (equipped.bra && equipped.panty && equipped.bra === equipped.panty) {
+        const combined = _w_getItemById(equipped.bra);
+        if (isBodysuitItem(combined)) {
+            equipped.bodysuit = equipped.bra;
+            delete equipped.bra;
+            delete equipped.panty;
+        }
+    }
+
+    if (equipped.top) {
+        const topItem = _w_getItemById(equipped.top);
+        if (isBodysuitItem(topItem)) {
+            equipped.bodysuit = equipped.top;
+        }
+    }
+
+    if (equipped.bodysuit) {
+        const bodysuitItem = _w_getItemById(equipped.bodysuit);
+        if (isBodysuitItem(bodysuitItem)) {
+            equipped.top = equipped.bodysuit;
+            delete equipped.bra;
+        } else {
+            delete equipped.bodysuit;
+        }
+    }
+
+    return equipped;
+}
+
+function clearBodysuitOccupancy(wardrobe) {
+    if (!wardrobe?.equipped) return;
+    const bodysuitId = wardrobe.equipped.bodysuit;
+    if (bodysuitId && wardrobe.equipped.top === bodysuitId) {
+        delete wardrobe.equipped.top;
+    }
+    delete wardrobe.equipped.bodysuit;
+}
+
+/** True if a bodysuit is currently equipped. */
 function isBodysuitEquipped(wardrobe) {
-    const bra = wardrobe?.equipped?.bra;
-    const panty = wardrobe?.equipped?.panty;
-    if (!bra || bra !== panty) return false;
-    const item = _w_getItemById(bra);
+    const itemId = wardrobe?.equipped?.bodysuit;
+    if (!itemId) return false;
+    const item = _w_getItemById(itemId);
     return isBodysuitItem(item);
 }
 
@@ -635,37 +681,47 @@ function equipItem(itemId) {
     if (!slot) return;
 
     const wardrobe = WardrobeAPI.State.variables.wardrobe;
+    normalizeEquippedSlots(wardrobe.equipped);
 
     if (slot === 'dress') {
         delete wardrobe.equipped.top;
         delete wardrobe.equipped.bottom;
+        clearBodysuitOccupancy(wardrobe);
     }
     if (slot === 'top' || slot === 'bottom') {
         delete wardrobe.equipped.dress;
+        if (slot === 'top') {
+            clearBodysuitOccupancy(wardrobe);
+        }
     }
 
-    /* Bodysuit: occupies both bra and panty */
+    /* Bodysuit: occupies top + bra space, keeps panty optional, requires a bottom for valid exit. */
     if (slot === 'bodysuit') {
         delete wardrobe.equipped.swimsuit;
+        delete wardrobe.equipped.dress;
+        delete wardrobe.equipped.top;
         delete wardrobe.equipped.bra;
-        delete wardrobe.equipped.panty;
-        wardrobe.equipped.bra = itemId;
-        wardrobe.equipped.panty = itemId;
+        delete wardrobe.equipped.bodysuit;
+        wardrobe.equipped.bodysuit = itemId;
+        wardrobe.equipped.top = itemId;
     } else if (slot === 'swimsuit') {
         /* Swimsuit occupies BOTH bra and panty slots (same as bodysuit-style occupancy) */
+        clearBodysuitOccupancy(wardrobe);
         delete wardrobe.equipped.bra;
         delete wardrobe.equipped.panty;
         delete wardrobe.equipped.swimsuit; // legacy cleanup if old saves had this slot
         wardrobe.equipped.bra = itemId;
         wardrobe.equipped.panty = itemId;
     } else if (slot === 'bra' || slot === 'panty') {
-        /* Equipping bra or panty: clear bodysuit/swimsuit full-body occupancy first */
-        delete wardrobe.equipped.swimsuit;
+        if (slot === 'bra') {
+            clearBodysuitOccupancy(wardrobe);
+        }
+        /* Equipping bra or panty: clear swimsuit full-body occupancy first */
         const braId = wardrobe.equipped.bra;
         const pantyId = wardrobe.equipped.panty;
         if (braId && braId === pantyId) {
             const combined = _w_getItemById(braId);
-            if (isBodysuitItem(combined) || isSwimwearItem(combined)) {
+            if (isSwimwearItem(combined)) {
                 delete wardrobe.equipped.bra;
                 delete wardrobe.equipped.panty;
             }
@@ -674,6 +730,7 @@ function equipItem(itemId) {
     } else {
         wardrobe.equipped[slot] = itemId;
     }
+    normalizeEquippedSlots(wardrobe.equipped);
     showToast(`Equipped: ${item.name}`);
     
     if (window.Wikifier) new Wikifier(null, "<<recalculateStats>><<updateCaption>><<updateClothesNotification>>");
@@ -685,19 +742,23 @@ function equipItem(itemId) {
 function unequipSlot(slot) {
     if (!WardrobeAPI) return;
     const wardrobe = WardrobeAPI.State.variables.wardrobe;
+    normalizeEquippedSlots(wardrobe.equipped);
     const itemId = wardrobe.equipped[slot];
     
     if (!itemId) return;
     
     const item = _w_getItemById(itemId);
-    /* Bodysuit/swimsuit: clearing bra, panty, bodysuit or swimsuit clears both */
-    if (
-        slot === 'bodysuit' ||
+    /* Bodysuit/swimsuit cleanup keeps the remaining compatible slots intact. */
+    if (slot === 'bodysuit') {
+        clearBodysuitOccupancy(wardrobe);
+    } else if (slot === 'top' && wardrobe.equipped.bodysuit && wardrobe.equipped.bodysuit === itemId) {
+        clearBodysuitOccupancy(wardrobe);
+    } else if (
         slot === 'swimsuit' ||
         (
             (slot === 'bra' || slot === 'panty') &&
             wardrobe.equipped.bra === wardrobe.equipped.panty &&
-            (isBodysuitItem(item) || isSwimwearItem(item))
+            isSwimwearItem(item)
         )
     ) {
         delete wardrobe.equipped.bra;
@@ -819,7 +880,8 @@ function renderClothingGrid() {
     const slot = categoryToSlot[currentCategory] || null;
     const equipped = WardrobeAPI.State.variables.wardrobe?.equipped || {};
     /* Bodysuits are stored in bra+panty; use bra for "equipped" check */
-    const equippedId = slot === 'bodysuit' ? equipped.bra : equipped[slot];
+    normalizeEquippedSlots(equipped);
+    const equippedId = slot === 'bodysuit' ? equipped.bodysuit : equipped[slot];
 
     const categories = getSetup().wardrobeCategories || defaultCategories;
     const catInfo = categories.flatMap(g => g.items).find(c => c.id === currentCategory);
@@ -908,16 +970,21 @@ function renderWearingSlots() {
         `;
     }
 
+    normalizeEquippedSlots(equipped);
+    const bodysuitOn = isBodysuitEquipped(WardrobeAPI.State.variables.wardrobe || {});
     let html = '<div class="slots-section-title">Outerwear</div>';
-    html += ['coat', 'top', 'bottom', 'dress', 'shoes', 'socks'].map(renderSlot).join('');
+    const outerwearSlots = bodysuitOn
+        ? ['coat', 'bottom', 'dress', 'shoes', 'socks']
+        : ['coat', 'top', 'bottom', 'dress', 'shoes', 'socks'];
+    html += outerwearSlots.map(renderSlot).join('');
     html += '<div class="slots-section-title">Underwear</div>';
-    /* When bodysuit equipped, show single Bodysuit slot instead of bra+panty */
+    /* Bodysuit occupies top+bra, but panty remains optional and visible. */
     const wardrobe = WardrobeAPI.State.variables.wardrobe || {};
     const underwearSlots = (() => {
         if (isBodysuitEquipped(wardrobe)) {
-            const braId = wardrobe.equipped.bra;
-            const combinedSlot = { slot: 'bodysuit', itemId: braId };
-            return [combinedSlot, { slot: 'sleepwear' }, { slot: 'garter' }];
+            const bodysuitId = wardrobe.equipped.bodysuit;
+            const combinedSlot = { slot: 'bodysuit', itemId: bodysuitId };
+            return [combinedSlot, { slot: 'panty' }, { slot: 'sleepwear' }, { slot: 'garter' }];
         }
         if (isSwimwearEquipped(wardrobe)) {
             const braId = wardrobe.equipped.bra;
@@ -990,15 +1057,21 @@ function checkOutfitRequirements(outfit) {
 
     const S = getState();
     const wardrobe = S?.variables?.wardrobe;
-    const equipped = outfit.equipped;
+    const equipped = { ...(outfit.equipped || {}) };
 
     if (!wardrobe) {
         return { allowed: true };
     }
 
+    normalizeEquippedSlots(equipped);
+
     return withTemporaryWardrobeState({ equipped }, () => {
+        if (equipped.bodysuit && (!equipped.bottom || equipped.bottom === '')) {
+            return { allowed: false, reason: 'Bodysuits require a bottom before leaving the wardrobe.' };
+        }
+
         // Check Panty Requirement
-        if (!equipped.panty || equipped.panty === '') {
+        if ((!equipped.panty || equipped.panty === '') && !equipped.bodysuit) {
             const pantyReq = checkCommandoRequirement('panty');
             if (!pantyReq.allowed) {
                 return pantyReq;
@@ -1006,7 +1079,7 @@ function checkOutfitRequirements(outfit) {
         }
 
         // Check Bra Requirement
-        if (!equipped.bra || equipped.bra === '') {
+        if ((!equipped.bra || equipped.bra === '') && !equipped.bodysuit) {
             const braReq = checkCommandoRequirement('bra');
             if (!braReq.allowed) {
                 return braReq;
@@ -1187,6 +1260,7 @@ function wearOutfit(index) {
     const outfit = wardrobe.outfits[index];
     if (outfit?.equipped) {
         wardrobe.equipped = { ...outfit.equipped };
+        normalizeEquippedSlots(wardrobe.equipped);
         showToast(`Wearing: ${outfit.name}`);
         
         if (window.Wikifier) {

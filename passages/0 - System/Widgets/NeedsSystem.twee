@@ -50,8 +50,8 @@
     <<set $hunger = Math.min(100, $hunger + _amount)>>
     <<queueStatChange "hunger" _amount>>
     
-    /* Check for critical hunger levels and apply penalties (skip during sleep - no mood/stress/health) */
-    <<if !$isSleeping>>
+    /* Check for critical hunger levels and apply penalties (skip during sleep/relax time) */
+    <<if !$isSleeping && $timeAdvanceMode !== "relax">>
     <<if $hunger >= 90>>
         <<set $energy = Math.max(0, $energy - 20)>>
         <<queueStatChange "energy" -20>>
@@ -79,8 +79,8 @@
     <<set $thirst = Math.min(100, $thirst + _amount)>>
     <<queueStatChange "thirst" _amount>>
     
-    /* Penalties for Dehydration (skip during sleep) */
-    <<if !$isSleeping>>
+    /* Penalties for Dehydration (skip during sleep/relax time) */
+    <<if !$isSleeping && $timeAdvanceMode !== "relax">>
     <<if $thirst >= 90>>
         <<set $energy = Math.max(0, $energy - 15)>>
         <<queueStatChange "energy" -15>>
@@ -107,8 +107,8 @@
     <<set $bladder = Math.min(100, $bladder + _amount)>>
     <<queueStatChange "bladder" _amount>>
     
-    /* Penalties for Holding it (skip during sleep) */
-    <<if !$isSleeping>>
+    /* Penalties for Holding it (skip during sleep/relax time) */
+    <<if !$isSleeping && $timeAdvanceMode !== "relax">>
     <<if $bladder >= 100>>
         <<set $stress = Math.min(100, $stress + 10)>>
         <<queueStatChange "stress" 10>>
@@ -132,8 +132,8 @@
     <<set $hygiene = Math.max(0, $hygiene - _amount)>>
     <<queueStatChange "hygiene" _negAmount>>
     
-    /* Penalties for Poor Hygiene (skip during sleep) */
-    <<if !$isSleeping>>
+    /* Penalties for Poor Hygiene (skip during sleep/relax time) */
+    <<if !$isSleeping && $timeAdvanceMode !== "relax">>
     <<if $hygiene <= 10>>
         <<set $mood = Math.max(0, $mood - 10)>>
         <<queueStatChange "mood" -10>>

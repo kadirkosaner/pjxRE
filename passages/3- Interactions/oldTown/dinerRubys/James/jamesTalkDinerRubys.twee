@@ -1,5 +1,8 @@
 :: jamesTalkDinerRubys
 <<silently>>
+<<if !$location && $interactionEntryPassage>>
+    <<set $location = $interactionEntryPassage>>
+<</if>>
 <<logDailyActivity "dinerChef" "talk">>
 <<set _char = $characters.dinerChef>>
 <<set _stats = $characters.dinerChef.stats>>
@@ -27,19 +30,29 @@
     <<set _timeSlot = "evening">>
 <</if>>
 
-/* Build context key */
+<<set _isDinerBackArea = ($location === "dinerRubysKitchen" || $location === "dinerRubysStorage" || $location === "dinerRubysCorridor" || $location === "dinerRubysBathroom" || $location === "dinerRubysDressingRoom")>>
 <<set _levelKey = "level" + _level>>
 <<set _topicPool = null>>
 
 <<set _ctxKey = $location + "_" + _phase + "_" + _timeSlot>>
-
 <<if setup.jamesTopics && setup.jamesTopics[_phase] && setup.jamesTopics[_phase][_levelKey] && setup.jamesTopics[_phase][_levelKey][_ctxKey]>>
     <<set _topicPool = setup.jamesTopics[_phase][_levelKey][_ctxKey]>>
 <</if>>
+<<if !_topicPool && _isDinerBackArea>>
+    <<set _ctxKey = "dinerRubys_" + _phase + "_" + _timeSlot>>
+    <<if setup.jamesTopics && setup.jamesTopics[_phase] && setup.jamesTopics[_phase][_levelKey] && setup.jamesTopics[_phase][_levelKey][_ctxKey]>>
+        <<set _topicPool = setup.jamesTopics[_phase][_levelKey][_ctxKey]>>
+    <</if>>
+<</if>>
 
-/* Fallback to common afternoon if missing */
 <<if !_topicPool>>
     <<set _fallbackKey = $location + "_common_" + _timeSlot>>
+    <<if setup.jamesTopics && setup.jamesTopics.common && setup.jamesTopics.common[_levelKey] && setup.jamesTopics.common[_levelKey][_fallbackKey]>>
+        <<set _topicPool = setup.jamesTopics.common[_levelKey][_fallbackKey]>>
+    <</if>>
+<</if>>
+<<if !_topicPool && _isDinerBackArea>>
+    <<set _fallbackKey = "dinerRubys_common_" + _timeSlot>>
     <<if setup.jamesTopics && setup.jamesTopics.common && setup.jamesTopics.common[_levelKey] && setup.jamesTopics.common[_levelKey][_fallbackKey]>>
         <<set _topicPool = setup.jamesTopics.common[_levelKey][_fallbackKey]>>
     <</if>>

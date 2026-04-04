@@ -48,11 +48,4 @@
 
 /* Talk action added later – first meeting is scripted in park bench event */
 <<set setup.characterActions.parkRunnerLily = {
-    sunsetPark: [
-        {
-            id: "swapNumbers", label: "Swap numbers", passage: "PhoneSwap_Generic",
-            charId: "parkRunnerLily",
-            tags: [], requirements: { friendship: 15 }
-        }
-    ]
 }>>

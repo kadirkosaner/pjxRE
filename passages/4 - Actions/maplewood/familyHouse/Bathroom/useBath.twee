@@ -3,7 +3,7 @@
         <<set $returnAfterToilet = "fhUpperBath">>
     <</if>>
     <<set $location = $returnAfterToilet>>
-    <<advanceTime 20>>
+    <<advanceTime 20 "relax">>
     <<gainStat "hygiene" 100>>
     <<set $appearance.hairCombed = 0>>
     <<run window.notifySuccess("Hygiene Restored")>>

@@ -1,10 +1,23 @@
 <<silently>>
-    <<set $location = $activityOrigin>>
-    <<set $selectedDuration = $selectedDuration || 30>>
-    <<advanceTime $selectedDuration>>
-    <<loseStat "stress" 10>>
-    <<gainStat "mood" 5>>
-    <<gainStat "energy" 5>>
+    <<set $location = $activityOrigin || "sunsetPark">>
+    <<set $selectedDuration = parseInt($selectedDuration) || 30>>
+    <<set _restScale = $selectedDuration / 30>>
+    <<set _stressLoss = Math.max(1, Math.round(10 * _restScale))>>
+    <<set _moodGain = Math.max(1, Math.round(5 * _restScale))>>
+    <<set _energyGain = Math.max(1, Math.round(5 * _restScale))>>
+    <<set _stressBefore = $stress || 0>>
+    <<set _moodBefore = $mood || 0>>
+    <<set _energyBefore = $energy || 0>>
+    <<set $stress = Math.max(0, _stressBefore - _stressLoss)>>
+    <<set _actualStressLoss = _stressBefore - $stress>>
+    <<if _actualStressLoss > 0>><<queueStatChange "stress" (-1 * _actualStressLoss)>><</if>>
+    <<set $mood = Math.min(100, _moodBefore + _moodGain)>>
+    <<set _actualMoodGain = $mood - _moodBefore>>
+    <<if _actualMoodGain > 0>><<queueStatChange "mood" _actualMoodGain>><</if>>
+    <<set $energy = Math.min($energyMax || 100, _energyBefore + _energyGain)>>
+    <<set _actualEnergyGain = $energy - _energyBefore>>
+    <<if _actualEnergyGain > 0>><<queueStatChange "energy" _actualEnergyGain>><</if>>
+    <<advanceTime $selectedDuration "relax">>
     <<flushNotifications>>
     <<recalculateStats>>
     <<run $(document).trigger(':passagerender')>>

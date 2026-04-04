@@ -33,7 +33,16 @@
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-lg);
+  /* Grid 1fr row defaults to min-height:auto → row grows with content and forces a scrollbar */
+  min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.rightbar-middle::-webkit-scrollbar {
+  display: none;
 }
 
 .rightbar-bottom {

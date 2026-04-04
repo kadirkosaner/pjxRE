@@ -1,21 +1,7 @@
 <<silently>>
 <<set $location = "fhKitchen">>
-<<advanceTime 30>>
-/* Stat bonus only once per day (first family meal); later meals same day only give relationship */
-<<if ndef $familyMealStatBonusUsedToday>><<set $familyMealStatBonusUsedToday = false>><</if>>
-<<if !$familyMealStatBonusUsedToday>>
-    /* Needs: full meal resets hunger/thirst; eating and drinking fill bladder */
-    <<set $hunger = 0>>
-    <<set $thirst = 0>>
-    <<gainStat "bladder" 15>>
-    <<gainStat "energy" 30>>
-    <<loseStat "stress" 10>>
-    <<gainStat "mood" 5>>
-    <<gainStat "health" 5>>
-    <<set $familyMealStatBonusUsedToday = true>>
-<</if>>
 
-/* Detect family members in kitchen */
+/* Who is at the table (needed for mood scaling on first daily meal) */
 <<set _presentFamily = []>>
 <<if $characters.mother.currentLocation is "fhKitchen">>
     <<run _presentFamily.push("mother")>>
@@ -25,6 +11,22 @@
 <</if>>
 <<if $characters.brother.currentLocation is "fhKitchen">>
     <<run _presentFamily.push("brother")>>
+<</if>>
+
+/* Stat bonus only once per day (first family meal); later meals same day only give relationship */
+<<if ndef $familyMealStatBonusUsedToday>><<set $familyMealStatBonusUsedToday = false>><</if>>
+<<if !$familyMealStatBonusUsedToday>>
+    /* Needs: full meal resets hunger/thirst; eating and drinking fill bladder */
+    <<set $hunger = 0>>
+    <<set $thirst = 0>>
+    <<gainStat "bladder" 15>>
+    <<gainStat "energy" 30>>
+    <<loseStat "stress" 12>>
+    <<set _familyMoodBase = 12>>
+    <<set _familyMoodExtra = Math.min(9, _presentFamily.length * 3)>>
+    <<gainStat "mood" (_familyMoodBase + _familyMoodExtra)>>
+    <<gainStat "health" 5>>
+    <<set $familyMealStatBonusUsedToday = true>>
 <</if>>
 
 /* Determine meal type based on time */
@@ -48,6 +50,7 @@
     <<set $characters[_member].stats.love += 1>>
 <</for>>
 
+<<advanceTime 30>>
 <<flushNotifications>>
 <<run window.notifySuccess("Enjoyed a meal with family!")>>
 <</silently>>

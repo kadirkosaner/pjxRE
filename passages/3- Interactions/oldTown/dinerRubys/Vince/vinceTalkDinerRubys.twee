@@ -1,5 +1,8 @@
 :: vinceTalkDinerRubys
 <<silently>>
+<<if !$location && $interactionEntryPassage>>
+    <<set $location = $interactionEntryPassage>>
+<</if>>
 <<logDailyActivity "dinerManager" "talk">>
 <<set _char = $characters.dinerManager>>
 <<set _stats = $characters.dinerManager.stats>>
@@ -27,19 +30,29 @@
     <<set _timeSlot = "evening">>
 <</if>>
 
-/* Build context key */
+<<set _isDinerBackArea = ($location === "dinerRubysKitchen" || $location === "dinerRubysStorage" || $location === "dinerRubysCorridor" || $location === "dinerRubysBathroom" || $location === "dinerRubysDressingRoom")>>
 <<set _levelKey = "level" + _level>>
 <<set _topicPool = null>>
 
 <<set _ctxKey = $location + "_" + _phase + "_" + _timeSlot>>
-
 <<if setup.vinceTopics && setup.vinceTopics[_phase] && setup.vinceTopics[_phase][_levelKey] && setup.vinceTopics[_phase][_levelKey][_ctxKey]>>
     <<set _topicPool = setup.vinceTopics[_phase][_levelKey][_ctxKey]>>
 <</if>>
+<<if !_topicPool && _isDinerBackArea>>
+    <<set _ctxKey = "dinerRubys_" + _phase + "_" + _timeSlot>>
+    <<if setup.vinceTopics && setup.vinceTopics[_phase] && setup.vinceTopics[_phase][_levelKey] && setup.vinceTopics[_phase][_levelKey][_ctxKey]>>
+        <<set _topicPool = setup.vinceTopics[_phase][_levelKey][_ctxKey]>>
+    <</if>>
+<</if>>
 
-/* Fallback to common afternoon if missing */
 <<if !_topicPool>>
     <<set _fallbackKey = $location + "_common_" + _timeSlot>>
+    <<if setup.vinceTopics && setup.vinceTopics.common && setup.vinceTopics.common[_levelKey] && setup.vinceTopics.common[_levelKey][_fallbackKey]>>
+        <<set _topicPool = setup.vinceTopics.common[_levelKey][_fallbackKey]>>
+    <</if>>
+<</if>>
+<<if !_topicPool && _isDinerBackArea>>
+    <<set _fallbackKey = "dinerRubys_common_" + _timeSlot>>
     <<if setup.vinceTopics && setup.vinceTopics.common && setup.vinceTopics.common[_levelKey] && setup.vinceTopics.common[_levelKey][_fallbackKey]>>
         <<set _topicPool = setup.vinceTopics.common[_levelKey][_fallbackKey]>>
     <</if>>

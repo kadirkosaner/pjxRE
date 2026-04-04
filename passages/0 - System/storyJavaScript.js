@@ -463,20 +463,36 @@ function checkQuestRequirements(reqs, vars) {
     return { met: missing.length === 0, missing };
 }
 
+/* Set in :passagerender, read in :passagedisplay (after :passageend clears _navigatingBackward) */
+let _deferredLocationClosedCheckSkip = false;
+
 /* -------------------- QUEST LEGACY SUPPORT -------------------- */
 $(document).on(':passagerender', function () {
+    _deferredLocationClosedCheckSkip = !!(State.variables && State.variables._navigatingBackward);
+
     if (Macro.has("questCheck")) $.wiki("<<questCheck>>");
     $.wiki("<<updateTimedEvents>>");
+});
+
+/* Closed-location kick must run after the passage is actually displayed; :passagerender + setTimeout(0)
+   can still run before the first paint, so the player never sees activity scenes (e.g. park bench) before Engine.play(region). */
+$(document).on(':passagedisplay', function () {
+    const skipLocationCloseBecauseHistoryBack = _deferredLocationClosedCheckSkip;
+    _deferredLocationClosedCheckSkip = false;
 
     /* Check if current location is closed – move player outside (e.g. mall at 22:00).
-       Defer to next tick so we run after nav-card Engine.play, which can overwrite advanceTime's goto. */
+       Next tick after display so nav-card Engine.play still wins over advanceTime's goto from same tick. */
     setTimeout(function () {
         const vars = State.variables;
-        if (vars._navigatingBackward) return;
+        if (skipLocationCloseBecauseHistoryBack) return;
         const loc = vars.location;
         if (!loc) return;
         const hours = setup.locationHours && setup.locationHours[loc];
         if (!hours || hours.open24h) return;
+        /* Activity scenes use passage names (e.g. parkBench) while $location stays the hub id (sunsetPark).
+           Only run the closed-kick on hub passages where passage name === location id (e.g. after "Stand Up"). */
+        const passage = State.passage;
+        if (passage && passage !== loc) return;
         if (window.isLocationOpen && window.isLocationOpen(loc)) return;
         const region = hours.region || "downTown";
         const locName = (setup.navCards && setup.navCards[loc]?.name) || loc;
@@ -484,7 +500,9 @@ $(document).on(':passagerender', function () {
             window.showNotification({ type: "warning", message: locName + " is now closed. You've been moved outside." });
         }
         vars.location = region;
-        Engine.play(region);
+        /* Second arg true = do not push a new history moment. Otherwise Stand Up → hub → kick adds two steps
+           and backward lands on hub before the activity; player should go from region back to the event first. */
+        Engine.play(region, true);
     }, 0);
 });
 
@@ -1915,11 +1933,38 @@ function sealQuestAdvancesForPassage() {
 $(document).on(':passageend', function () {
     sealQuestAdvancesForPassage();
     resetPassagesScroll();
-    if (State && State.variables) State.variables._navigatingBackward = false;
+    if (State && State.variables) {
+        const vars = State.variables;
+        /* Passage source re-runs on history back; advanceTime is skipped but other macros can still
+           touch state. Restore timeSys from the snapshot taken right after Engine.backward() restored State. */
+        if (vars._navigatingBackward && vars._backwardTimeSnapshot) {
+            try {
+                vars.timeSys = JSON.parse(JSON.stringify(vars._backwardTimeSnapshot));
+            } catch (e) { /* ignore */ }
+            delete vars._backwardTimeSnapshot;
+        }
+        vars._navigatingBackward = false;
+    }
 });
 $(document).on(':passagestart', function () {
     resetPassagesScroll();
     requestAnimationFrame(resetPassagesScroll);
+    /* After Engine.backward(), restored state replaces variables — set skip flags on the restored moment */
+    if (window.__navigatingBackwardFromUI) {
+        if (State && State.variables) {
+            const vars = State.variables;
+            vars._navigatingBackward = true;
+            const t = vars.timeSys;
+            if (t && typeof t === 'object') {
+                try {
+                    vars._backwardTimeSnapshot = JSON.parse(JSON.stringify(t));
+                } catch (e) {
+                    delete vars._backwardTimeSnapshot;
+                }
+            }
+        }
+        window.__navigatingBackwardFromUI = false;
+    }
 });
 
 /* ================== Passage Layout =================== */

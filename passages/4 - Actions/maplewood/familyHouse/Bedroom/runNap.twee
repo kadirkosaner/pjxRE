@@ -54,11 +54,17 @@
         <<if $selectedDuration > 60>><<set $selectedDuration = 60>><</if>>
         <<if $selectedDuration < 15>><<set $selectedDuration = 15>><</if>>
 
+        /* Scale recovery to duration (30 min = full base values from location) */
+        <<set _napScale = $selectedDuration / 30>>
+        <<set _napEnergy = Math.max(1, Math.round(_energyGainFactor * _napScale))>>
+        <<set _napStress = Math.max(1, Math.round(_stressLossFactor * _napScale))>>
+        <<set _napMood = Math.max(1, Math.round(5 * _napScale))>>
+
         /* Apply Changes */
-        <<advanceTime $selectedDuration>>
-        <<loseStat "stress" _stressLossFactor>>
-        <<gainStat "energy" _energyGainFactor>>
-        <<gainStat "mood" 5>>
+        <<advanceTime $selectedDuration "relax">>
+        <<loseStat "stress" _napStress>>
+        <<gainStat "energy" _napEnergy>>
+        <<gainStat "mood" _napMood>>
         <<flushNotifications>>
         <<recalculateStats>>
         <<set _resultText = "After " + Math.floor($selectedDuration) + " minutes, you wake up feeling refreshed.">>

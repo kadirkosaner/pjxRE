@@ -153,7 +153,8 @@ function rebuildTopbar() {
         'sexy': { icon: 'dress', tooltip: 'Wearing something sexy.', color: '#f97316' },
         'sporty': { icon: 'dress', tooltip: 'Sporty outfit.', color: '#06b6d4' },
         'slutty': { icon: 'dress', tooltip: 'Wearing a slutty outfit.', color: '#ef4444' },
-        'work': { icon: 'dress', tooltip: 'Work-appropriate look.', color: '#3b82f6' }
+        'work': { icon: 'dress', tooltip: 'Work-appropriate look.', color: '#3b82f6' },
+        sleepwear: { icon: 'dress', tooltip: 'You are wearing sleepwear.', color: '#c4b5fd' }
     };
 
     // Calculate clothes notification dynamically from wardrobe state
@@ -162,17 +163,20 @@ function rebuildTopbar() {
         if (!wardrobe || !wardrobe.equipped) return { type: 0 };
         
         const equipped = wardrobe.equipped;
-        const hasTop = equipped.top && equipped.top !== '';
+        const hasBodysuit = equipped.bodysuit && equipped.bodysuit !== '';
+        const hasTop = (equipped.top && equipped.top !== '') || hasBodysuit;
         const hasBottom = equipped.bottom && equipped.bottom !== '';
         const hasDress = equipped.dress && equipped.dress !== '';
-        const hasBra = equipped.bra && equipped.bra !== '';
+        const hasSleepwear = equipped.sleepwear && equipped.sleepwear !== '';
+        const hasBra = (equipped.bra && equipped.bra !== '') || hasBodysuit;
         const hasPanty = equipped.panty && equipped.panty !== '';
         
-        const isFullyDressed = hasDress || (hasTop && hasBottom);
+        const hasConventionalOutfit = hasDress || (hasTop && hasBottom);
+        const isFullyDressed = hasConventionalOutfit || hasSleepwear;
         const hasAnyUnderwear = hasBra || hasPanty;
         const isUnderwearOnly = !isFullyDressed && hasAnyUnderwear;
-        const isNude = !isFullyDressed && !hasAnyUnderwear;
-        const isCommando = isFullyDressed && !hasAnyUnderwear;
+        const isNude = !isFullyDressed && !hasAnyUnderwear && !hasBodysuit;
+        const isCommando = hasConventionalOutfit && !hasPanty && !hasDress && (hasTop || hasBodysuit);
         
         if (isNude) return { type: 1 };
         if (isUnderwearOnly) return { type: 2 };
@@ -180,6 +184,9 @@ function rebuildTopbar() {
         
         // If fully dressed, check for dominant style
         if (isFullyDressed) {
+            if (hasSleepwear && !hasConventionalOutfit) {
+                return { type: 'sleepwear' };
+            }
             const clothingData = window.setup?.clothingData || {};
             let styleCounts = {};
             
@@ -226,6 +233,8 @@ function rebuildTopbar() {
 
     if (clothesResult.type === 'style') {
         config = clothesConfig[clothesResult.style];
+    } else if (clothesResult.type === 'sleepwear') {
+        config = clothesConfig.sleepwear;
     } else if (clothesResult.type > 0) {
         config = clothesConfig[clothesResult.type];
     }
@@ -333,7 +342,9 @@ function rebuildTopbar() {
             const prev = s.history[idx - 1];
             const previousPassage = prev?.title ?? prev?.passage;
             if (previousPassage !== 'Start') {
-                if (s.variables) s.variables._navigatingBackward = true;
+                /* Engine.backward() restores history state — vars set here are discarded.
+                   Flag on window; storyJavaScript :passagestart copies into restored State.variables. */
+                window.__navigatingBackwardFromUI = true;
                 TopbarAPI.Engine.backward();
             }
         }

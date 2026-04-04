@@ -34,6 +34,7 @@
 <<set _charLoc = _charState.currentLocation || "unknown">>
 <<set _status = _charState.currentStatus || "available">>
 <<set $location = _returnLoc>>
+
 /* Get display name from navCards, fallback to raw ID */
 <<set _charLocName = setup.navCards[_returnLoc]?.name || _returnLoc>>
 

@@ -55,18 +55,6 @@ function createMainMenu() {
                         </span>
                         <span class="menu-text">Report Bug</span>
                     </div>
-                    <div class="menu-item" data-action="website">
-                        <span class="menu-icon">
-                            <span class="icon icon-nephslair icon-24"></span>
-                        </span>
-                        <span class="menu-text">Nephslair</span>
-                    </div>
-                    <div class="menu-item" data-action="patreon">
-                        <span class="menu-icon">
-                            <span class="icon icon-patreon icon-24"></span>
-                        </span>
-                        <span class="menu-text">Patreon</span>
-                    </div>
                 </div>
             </div>
         `;
