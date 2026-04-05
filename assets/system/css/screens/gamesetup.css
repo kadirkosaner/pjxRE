@@ -753,7 +753,82 @@
 }
 
 /* ==========================================
-   PLAYER NAME CARD (Character Identity)
+   CONFIRMATION PAGE — IDENTITY ROW
+========================================== */
+
+.confirm-identity-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.confirm-person-card {
+  flex: 1;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+}
+
+.confirm-person-you {
+  border-color: var(--color-accent);
+  background: var(--color-accent-alpha-10);
+}
+
+.confirm-person-role {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin-bottom: 0.4rem;
+}
+
+.confirm-person-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* ==========================================
+   CONFIRMATION PAGE — TAGS
+========================================== */
+
+.confirm-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.25rem 0;
+}
+
+.confirm-tag {
+  background: var(--color-accent-alpha-10);
+  border: 1px solid var(--color-accent-alpha-30);
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+}
+
+.confirm-empty {
+  font-size: 0.85rem;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+/* ==========================================
+   CONFIRMATION PAGE — ACTIONS
+========================================== */
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================
+   SETTINGS PAGE — PLAYER NAME CARD
 ========================================== */
 
 .player-name-card {

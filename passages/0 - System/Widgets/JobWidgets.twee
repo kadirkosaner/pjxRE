@@ -290,10 +290,10 @@
         <<set _addFirst = false>>
         <<if _onOrAfterStart>>
             <<if _oldWeekday == null>>
-                <<set _addFirst = _hoursToday < _required>>
+                <<set _addFirst = _hoursToday <= 0>>
             <<else>>
                 <<set _firstOff = _off.includes(_oldWeekday)>>
-                <<if !_firstOff && _hoursToday < _required>>
+                <<if !_firstOff && _hoursToday <= 0>>
                     <<set _addFirst = true>>
                 <</if>>
             <</if>>

@@ -15,31 +15,35 @@
     </p>
 
     <div class="info-grid">
+
         <!-- 1. IDENTITY (Full Width) -->
         <div class="info-card" style="grid-column: 1 / -1;">
             <div class="info-card-header">
                 <span class="icon icon-user"></span> CHARACTER IDENTITY
             </div>
-            <div class="info-card-body">
-                <div style="text-align: center;">
-                    <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">You</div>
-                    <div style="font-size: 1.25rem; color: var(--color-accent); font-weight: 600;">$player.firstName $player.lastName</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; padding-top: 1rem;">
-                        <div>
-                            <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">$characters.mother.status</div>
-                            <div style="font-size: 1.25rem; color: var(--color-accent); font-weight: 600;">$characters.mother.firstName $player.lastName</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">$characters.father.status</div>
-                            <div style="font-size: 1.25rem; color: var(--color-accent); font-weight: 600;">$characters.father.firstName $player.lastName</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">$characters.brother.status</div>
-                            <div style="font-size: 1.25rem; color: var(--color-accent); font-weight: 600;margin-bottom: 0.5rem;">$characters.brother.firstName $player.lastName</div>
-                        </div>
+            <div class="info-card-body" style="padding: 1rem;">
+                <div class="confirm-identity-row">
+
+                    <div class="confirm-person-card confirm-person-you">
+                        <div class="confirm-person-role">You</div>
+                        <div class="confirm-person-name">$player.firstName $player.lastName</div>
                     </div>
+
+                    <div class="confirm-person-card">
+                        <div class="confirm-person-role">$characters.mother.status</div>
+                        <div class="confirm-person-name">$characters.mother.firstName $player.lastName</div>
+                    </div>
+
+                    <div class="confirm-person-card">
+                        <div class="confirm-person-role">$characters.father.status</div>
+                        <div class="confirm-person-name">$characters.father.firstName $player.lastName</div>
+                    </div>
+
+                    <div class="confirm-person-card">
+                        <div class="confirm-person-role">$characters.brother.status</div>
+                        <div class="confirm-person-name">$characters.brother.firstName $player.lastName</div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -50,80 +54,93 @@
                 <span class="icon icon-body"></span> BODY DETAILS
             </div>
             <div class="info-card-body">
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem 2rem;">
                     <div>
-                        <div class="info-line"><span class="label">Eye Color</span> <span class="value">$player.eyeColor</span></div>
-                        <div class="info-line"><span class="label">Hair Color</span> <span class="value">$player.hairColor</span></div>
-                        <div class="info-line"><span class="label">Hair Length</span> <span class="value">$player.hairLength</span></div>
-                        <div class="info-line"><span class="label">Hair Style</span> <span class="value">$player.hairStyle</span></div>
+                        <div class="info-line"><span class="label">Eye Color</span><span class="value">$player.eyeColor</span></div>
+                        <div class="info-line"><span class="label">Hair Color</span><span class="value">$player.hairColor</span></div>
+                        <div class="info-line"><span class="label">Hair Length</span><span class="value">$player.hairLength</span></div>
+                        <div class="info-line"><span class="label">Hair Style</span><span class="value">$player.hairStyle</span></div>
                     </div>
                     <div>
-                        <div class="info-line"><span class="label">Height</span> <span class="value">$body.height cm</span></div>
-                        <div class="info-line"><span class="label">Weight</span> <span class="value">$body.weight kg</span></div>
-                        <div class="info-line"><span class="label">BMI</span> <span class="value">$body.bmi</span></div>
-                        <div class="info-line"><span class="label">Body Type</span> <span class="value">$body.bodyType</span></div>
+                        <div class="info-line"><span class="label">Height</span><span class="value">$body.height cm</span></div>
+                        <div class="info-line"><span class="label">Weight</span><span class="value">$body.weight kg</span></div>
+                        <div class="info-line"><span class="label">BMI</span><span class="value">$body.bmi</span></div>
+                        <div class="info-line"><span class="label">Body Type</span><span class="value">$body.bodyType</span></div>
                     </div>
                     <div>
-                        <div class="info-line"><span class="label">Bust Size</span> <span class="value">$player.bustSize ($body.bust cm)</span></div>
-                        <div class="info-line"><span class="label">Hip Size</span> <span class="value">$player.hipSize ($body.hips cm)</span></div>
+                        <div class="info-line"><span class="label">Bust</span><span class="value">$player.bustSize — $body.bust cm</span></div>
+                        <div class="info-line"><span class="label">Hips</span><span class="value">$player.hipSize — $body.hips cm</span></div>
+                        <div class="info-line"><span class="label">Waist</span><span class="value">$body.waist cm</span></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 3. SIMULATION (Left Col) -->
+        <!-- 3. SIMULATION -->
         <div class="info-card">
             <div class="info-card-header">
-                <span class="icon icon-settings"></span> SIMULATION SETTINGS
+                <span class="icon icon-settings"></span> SIMULATION
             </div>
-            <div class="info-card-body">
-                <div class="info-line"><span class="label">Hunger Tracking</span> <span class="value"><<if $gameSettings.trackHunger>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Thirst Tracking</span> <span class="value"><<if $gameSettings.trackThirst>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Bladder Tracking</span> <span class="value"><<if $gameSettings.trackBladder>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Calorie Tracking</span> <span class="value"><<if $gameSettings.trackCalories>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Hygiene Requirement</span> <span class="value"><<if $gameSettings.hygieneRequirement>>ON<<else>>OFF<</if>></span></div>
-                <div class="separator-line"></div>
-                <div class="info-line"><span class="label">Hair Growth</span> <span class="value"><<if $gameSettings.hairGrowth>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Hair Messiness</span> <span class="value"><<if $gameSettings.hairMessiness>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Body Hair Growth</span> <span class="value"><<if $gameSettings.bodyHairGrowth>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Makeup Fade</span> <span class="value"><<if $gameSettings.makeupWearOff>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Body Weight Changes</span> <span class="value"><<if $gameSettings.bodyDegradation>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Skill Decay</span> <span class="value"><<if $gameSettings.skillDecay>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Relationship Decay</span> <span class="value"><<if $gameSettings.relationshipDecay>>ON<<else>>OFF<</if>></span></div>
+            <div class="info-card-body" style="padding: 1rem;">
+                <div class="confirm-tags-wrap">
+                    <<if $gameSettings.trackHunger>><span class="confirm-tag">Hunger</span><</if>>
+                    <<if $gameSettings.trackThirst>><span class="confirm-tag">Thirst</span><</if>>
+                    <<if $gameSettings.trackBladder>><span class="confirm-tag">Bladder</span><</if>>
+                    <<if $gameSettings.trackCalories>><span class="confirm-tag">Calories</span><</if>>
+                    <<if $gameSettings.hygieneRequirement>><span class="confirm-tag">Hygiene</span><</if>>
+                    <<if $gameSettings.hairGrowth>><span class="confirm-tag">Hair Growth</span><</if>>
+                    <<if $gameSettings.hairMessiness>><span class="confirm-tag">Hair Messiness</span><</if>>
+                    <<if $gameSettings.bodyHairGrowth>><span class="confirm-tag">Body Hair</span><</if>>
+                    <<if $gameSettings.makeupWearOff>><span class="confirm-tag">Makeup Fade</span><</if>>
+                    <<if $gameSettings.bodyDegradation>><span class="confirm-tag">Body Changes</span><</if>>
+                    <<if $gameSettings.hairCareDecay>><span class="confirm-tag">Hair Care Decay</span><</if>>
+                    <<if $gameSettings.faceCareDecay>><span class="confirm-tag">Face Care Decay</span><</if>>
+                    <<if $gameSettings.dentalCareDecay>><span class="confirm-tag">Dental Decay</span><</if>>
+                    <<if $gameSettings.skillDecay>><span class="confirm-tag">Skill Decay</span><</if>>
+                    <<if $gameSettings.relationshipDecay>><span class="confirm-tag">Relation Decay</span><</if>>
+                </div>
+                <<if !$gameSettings.trackHunger && !$gameSettings.trackThirst && !$gameSettings.trackBladder && !$gameSettings.trackCalories && !$gameSettings.hygieneRequirement && !$gameSettings.hairGrowth && !$gameSettings.hairMessiness && !$gameSettings.bodyHairGrowth && !$gameSettings.makeupWearOff && !$gameSettings.bodyDegradation && !$gameSettings.skillDecay && !$gameSettings.relationshipDecay>>
+                    <div class="confirm-empty">All settings off — simplified mode</div>
+                <</if>>
             </div>
         </div>
 
-        <!-- 4. CONTENT (Right Col) -->
+        <!-- 4. CONTENT -->
         <div class="info-card">
             <div class="info-card-header">
-                <span class="icon icon-eye"></span> CONTENT PREFERENCES
+                <span class="icon icon-eye"></span> CONTENT
             </div>
-            <div class="info-card-body">
-                <div class="info-line"><span class="label">Male Sexual Content</span> <span class="value"><<if $contentPreferences.maleSexual>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Female Sexual Content</span> <span class="value"><<if $contentPreferences.femaleSexual>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Trans / Futa Content</span> <span class="value"><<if $contentPreferences.futaTrans>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Pregnancy Content</span> <span class="value"><<if $contentPreferences.pregnancy>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Incest Content</span> <span class="value"><<if $contentPreferences.incest>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">NTR / Cheating</span> <span class="value"><<if $contentPreferences.ntr>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">BDSM Content</span> <span class="value"><<if $contentPreferences.bdsm>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Non-Consensual</span> <span class="value"><<if $contentPreferences.nonConsensual>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Public Exhibition</span> <span class="value"><<if $contentPreferences.publicExhibition>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Lactation</span> <span class="value"><<if $contentPreferences.lactation>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Foot Fetish</span> <span class="value"><<if $contentPreferences.feet>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Watersports</span> <span class="value"><<if $contentPreferences.watersports>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Scat Content</span> <span class="value"><<if $contentPreferences.scat>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Gore / Violence</span> <span class="value"><<if $contentPreferences.goreViolence>>ON<<else>>OFF<</if>></span></div>
-                <div class="info-line"><span class="label">Ageplay</span> <span class="value"><<if $contentPreferences.ageplay>>ON<<else>>OFF<</if>></span></div>
+            <div class="info-card-body" style="padding: 1rem;">
+                <div class="confirm-tags-wrap">
+                    <<if $contentPreferences.maleSexual>><span class="confirm-tag">Male Sexual</span><</if>>
+                    <<if $contentPreferences.femaleSexual>><span class="confirm-tag">Female Sexual</span><</if>>
+                    <<if $contentPreferences.futaTrans>><span class="confirm-tag">Trans / Futa</span><</if>>
+                    <<if $contentPreferences.pregnancy>><span class="confirm-tag">Pregnancy</span><</if>>
+                    <<if $contentPreferences.incest>><span class="confirm-tag">Incest</span><</if>>
+                    <<if $contentPreferences.ntr>><span class="confirm-tag">NTR / Cheating</span><</if>>
+                    <<if $contentPreferences.bdsm>><span class="confirm-tag">BDSM</span><</if>>
+                    <<if $contentPreferences.nonConsensual>><span class="confirm-tag">Non-Consensual</span><</if>>
+                    <<if $contentPreferences.publicExhibition>><span class="confirm-tag">Exhibition</span><</if>>
+                    <<if $contentPreferences.lactation>><span class="confirm-tag">Lactation</span><</if>>
+                    <<if $contentPreferences.feet>><span class="confirm-tag">Foot Fetish</span><</if>>
+                    <<if $contentPreferences.watersports>><span class="confirm-tag">Watersports</span><</if>>
+                    <<if $contentPreferences.scat>><span class="confirm-tag">Scat</span><</if>>
+                    <<if $contentPreferences.goreViolence>><span class="confirm-tag">Gore / Violence</span><</if>>
+                    <<if $contentPreferences.ageplay>><span class="confirm-tag">Ageplay</span><</if>>
+                </div>
+                <<if !$contentPreferences.maleSexual && !$contentPreferences.femaleSexual && !$contentPreferences.futaTrans && !$contentPreferences.pregnancy && !$contentPreferences.incest && !$contentPreferences.ntr && !$contentPreferences.bdsm && !$contentPreferences.nonConsensual && !$contentPreferences.publicExhibition && !$contentPreferences.lactation && !$contentPreferences.feet && !$contentPreferences.watersports && !$contentPreferences.scat && !$contentPreferences.goreViolence && !$contentPreferences.ageplay>>
+                    <div class="confirm-empty">No explicit content enabled</div>
+                <</if>>
             </div>
         </div>
 
     </div>
 
     <!-- NAVIGATION BUTTONS -->
-    <div class="form-actions mt-4">
+    <div class="confirm-actions mt-4">
         <<btn "Go Back" "settingsPage" "default">><</btn>>
         <<btn "Start Life" "prologuePage" "accent">><</btn>>
-        <<btn "Skip Prologue" "skipPrologue" "accent">><</btn>>
+        <<btn "Skip Prologue" "skipPrologue" "default">><</btn>>
     </div>
 
 </div>
