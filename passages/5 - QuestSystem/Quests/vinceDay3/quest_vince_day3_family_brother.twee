@@ -4,14 +4,216 @@
 <<updateCharacterLocations>>
 
 <<narrative "Brother's Room">>
-TODO — Brother scene (full dialogue TBD).
+The door's half open.
+<</narrative>>
+
+<<narrative>>
+He's at the PC, headphones on, clicking away. He doesn't notice you.
+<</narrative>>
+
+<<narrative>>
+You knock on the doorframe.
+<</narrative>>
+
+<<narrative>>
+Nothing.
+<</narrative>>
+
+<<narrative>>
+You knock harder.
+<</narrative>>
+
+<<dialog "brother">>
+What.
+<</dialog>>
+
+<<narrative>>
+He doesn't even look. Keeps clicking.
+<</narrative>>
+
+<<dialog "player">>
+Can I come in?
+<</dialog>>
+
+<<dialog "brother">>
+You're already in.
+<</dialog>>
+
+<<narrative>>
+You sit on the edge of his bed. Watch him play for a while. Just keyboard and mouse.
+<</narrative>>
+
+<<dialog "player">>
+Can I ask you something?
+<</dialog>>
+
+<<dialog "brother">>
+Mm.
+<</dialog>>
+
+<<dialog "player">>
+Someone said something to me today.
+<</dialog>>
+
+<<dialog "brother">>
+Okay?
+<</dialog>>
+
+<<dialog "player">>
+About how I look.
+<</dialog>>
+
+<<narrative>>
+Still not looking at you.
+<</narrative>>
+
+<<dialog "brother">>
+Who? Your boyfriend?
+<</dialog>>
+
+<<dialog "player">>
+Shut up.
+<</dialog>>
+
+<<narrative>>
+Your face goes hot. Why did you say that, you think.
+<</narrative>>
+
+<<narrative>>
+He swivels his chair halfway. Lifts one side of his headphones.
+<</narrative>>
+
+<<narrative>>
+Grins.
+<</narrative>>
+
+<<dialog "brother">>
+Whoa, whoa, whoa. When's the last time you even had a boyfriend? Let me think…
+<</dialog>>
+
+<<narrative>>
+He props his chin on his hand. Looks at the ceiling.
+<</narrative>>
+
+<<dialog "brother">>
+Hmm…
+<</dialog>>
+
+<<dialog "brother">>
+Oh, right. Never.
+<</dialog>>
+
+<<narrative>>
+He leans back in the chair and laughs.
+<</narrative>>
+
+<<dialog "player">>
+You're such an idiot.
+<</dialog>>
+
+<<narrative>>
+You stand up.
+<</narrative>>
+
+<<dialog "brother">>
+I'm joking—
+<</dialog>>
+
+<<dialog "player">>
+Forget it.
+<</dialog>>
+
+<<narrative>>
+You're already at the door.
+<</narrative>>
+
+<<dialog "brother">>
+Hey.
+<</dialog>>
+
+<<narrative>>
+Something's different in his voice. You stop — but you don't turn around.
+<</narrative>>
+
+<<narrative>>
+A silence. The clicking has stopped.
+<</narrative>>
+
+<<narrative>>
+You hear him pull the headphones off. Set them on the desk.
+<</narrative>>
+
+<<narrative>>
+Your hand's on the doorframe.
+<</narrative>>
+
+<<dialog "brother">>
+What happened?
+<</dialog>>
+
+<<narrative>>
+You turn halfway. He's not laughing anymore. He's looking at you — really looking.
+<</narrative>>
+
+<<dialog "brother">>
+You're my little sister. If something was wrong with your face, I'd tell you.
+<</dialog>>
+
+<<narrative>>
+Half a smirk.
+<</narrative>>
+
+<<dialog "brother">>
+Trust me. I wouldn't go easy.
+<</dialog>>
+
+<<dialog "player">>
+…
+<</dialog>>
+
+<<dialog "player">>
+This is your nice version?
+<</dialog>>
+
+<<dialog "brother">>
+My honest version.
+<</dialog>>
+
+<<narrative>>
+He turns back to the screen. Puts the headphones on. Then — lifts one side again.
+<</narrative>>
+
+<<dialog "brother">>
+Oh, and the reason you don't have a boyfriend isn't your face. It's because you're weird.
+<</dialog>>
+
+<<narrative>>
+He says it to the monitor.
+<</narrative>>
+
+<<narrative>>
+The headphones go back on. Clicking starts again.
+<</narrative>>
+
+<<narrative>>
+You stand there a second. Then you leave.
+<</narrative>>
+
+<<narrative>>
+You're almost smiling.
 <</narrative>>
 
 <div class="location-actions">
 <<btn "Continue" "fhBrotherRoom">>
 <<silently>>
 <<set $flags.vinceDay3FamilyBrotherDone = true>>
+<<gainStat "willpower" 1>>
+<<gainStat "mood" 2>>
+<<gainStat "friendship" 2 "brother">>
+<<gainStat "trust" 1 "brother">>
+<<gainStat "love" 1 "brother">>
 <<completeObjective "vince_day3_family" "talkBrother">>
+<<advanceTime 7 "relax">>
 <</silently>>
 <</btn>>
 </div>

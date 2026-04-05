@@ -4,14 +4,168 @@
 <<updateCharacterLocations>>
 
 <<narrative "Kitchen">>
-TODO — Mom scene: "Am I ugly?" (full dialogue TBD).
+The kitchen is warm.
 <</narrative>>
+
+<<narrative>>
+She's busy at the counter.
+<</narrative>>
+
+<<narrative>>
+You stand in the doorway for a beat.
+<</narrative>>
+
+<<narrative>>
+It's hard to line up what you want to say.
+<</narrative>>
+
+<<dialog "player">>
+Mom…
+<</dialog>>
+
+<<narrative>>
+She looks up.
+<</narrative>>
+
+<<dialog "mother">>
+Yes, honey?
+<</dialog>>
+
+<<narrative>>
+A short pause.
+<</narrative>>
+
+<<dialog "player">>
+Do you think I'm… pretty?
+<</dialog>>
+
+<<narrative>>
+The question hangs there.
+<</narrative>>
+
+<<narrative>>
+Surprise flickers across her face.
+<</narrative>>
+
+<<narrative>>
+Then it softens.
+<</narrative>>
+
+<<dialog "mother">>
+Where is this coming from?
+<</dialog>>
+
+<<dialog "player">>
+I don't know.
+<</dialog>>
+
+<<narrative>>
+You look away.
+<</narrative>>
+
+<<dialog "player">>
+It just got stuck in my head.
+<</dialog>>
+
+<<narrative>>
+She turns toward you. This time she really looks — studies you.
+<</narrative>>
+
+<<narrative>>
+She's not rushing.
+<</narrative>>
+
+<<dialog "mother">>
+Yes.
+<</dialog>>
+
+<<narrative>>
+A pause.
+<</narrative>>
+
+<<dialog "mother">>
+You're beautiful.
+<</dialog>>
+
+<<narrative>>
+She takes a step closer.
+<</narrative>>
+
+<<dialog "mother">>
+But I don't think that's what this is about.
+<</dialog>>
+
+<<dialog "player">>
+What do you mean?
+<</dialog>>
+
+<<dialog "mother">>
+Sometimes you can know you're beautiful… and still not feel it.
+<</dialog>>
+
+<<narrative>>
+A brief silence.
+<</narrative>>
+
+<<dialog "mother">>
+Is today one of those days?
+<</dialog>>
+
+<<narrative>>
+It's hard to answer.
+<</narrative>>
+
+<<dialog "player">>
+Maybe.
+<</dialog>>
+
+<<dialog "mother">>
+Come here.
+<</dialog>>
+
+<<narrative>>
+She touches your shoulder, light.
+<</narrative>>
+
+<<dialog "mother">>
+Don't look at yourself like that.
+<</dialog>>
+
+<<narrative>>
+Softer now:
+<</narrative>>
+
+<<dialog "mother">>
+There's nothing wrong with you.
+<</dialog>>
+
+<<dialog "player">>
+Okay…
+<</dialog>>
+
+<<narrative>>
+You nod a little.
+<</narrative>>
+
+<<dialog "player">>
+Thank you.
+<</dialog>>
+
+<<dialog "mother">>
+Always.
+<</dialog>>
 
 <div class="location-actions">
 <<btn "Continue" "fhKitchen">>
 <<silently>>
 <<set $flags.vinceDay3FamilyMomDone = true>>
+<<gainStat "willpower" 1>>
+<<gainStat "mood" 2>>
+<<gainStat "friendship" 2 "mother">>
+<<gainStat "trust" 1 "mother">>
+<<gainStat "love" 1 "mother">>
 <<completeObjective "vince_day3_family" "talkMother">>
+<<advanceTime 10 "relax">>
 <</silently>>
 <</btn>>
 </div>

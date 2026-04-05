@@ -488,16 +488,23 @@
 
         stages: [
             {
-                id: "reach_out_at_home",
-                title: "Family",
-                desc: "You're rattled after work. Talk to your mom, brother, or dad, or take a minute alone in your room — in whatever order feels right.",
+                id: "reach_out",
+                title: "Talk to your family",
+                desc: "Something's been eating at you since work.",
                 objectives: [
-                    { id: "talkMother", text: "Talk to your mother (kitchen)" },
-                    { id: "talkBrother", text: "Talk to your brother (his room)" },
-                    { id: "talkFather", text: "Talk to your father (garage when he's there)" },
-                    { id: "bedroomAlone", text: "Be alone in your room" }
+                    { id: "talkMother", text: "Talk to your mother in the kitchen" },
+                    { id: "talkBrother", text: "Talk to your brother in his room" },
+                    { id: "talkFather", text: "Talk to your father in the garage" }
                 ],
                 completeWhen: "allObjectives"
+            },
+            {
+                id: "bedroom_alone",
+                title: "Go to your room",
+                desc: "You need a minute alone.",
+                triggers: { location: "fhBedroom" },
+                forceScene: true,
+                passage: "quest_vince_day3_family_reflection"
             }
         ],
 

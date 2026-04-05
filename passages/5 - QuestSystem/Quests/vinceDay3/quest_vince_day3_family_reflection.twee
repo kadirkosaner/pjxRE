@@ -1,0 +1,176 @@
+:: quest_vince_day3_family_reflection
+<<nobr>>
+<<set $location = "fhBedroom">>
+<<updateCharacterLocations>>
+
+<<narrative "Bedroom">>
+You close the door. The room goes quiet.
+<</narrative>>
+
+<<narrative>>
+You sit on the bed. Stay like that for a while.
+<</narrative>>
+
+<<narrative>>
+Your eyes snag on the mirror across the room.
+<</narrative>>
+
+<<narrative>>
+You don't get up and go to it.
+<</narrative>>
+
+<<narrative>>
+You just look from the bed. From a distance.
+<</narrative>>
+
+<<narrative>>
+It comes back to you.
+<</narrative>>
+
+<<narrative>>
+Do you ever look at yourself in the mirror?
+<</narrative>>
+
+<<narrative>>
+That day your face had burned. You'd looked away. You couldn't answer.
+<</narrative>>
+
+<<narrative>>
+But you're thinking about it now.
+<</narrative>>
+
+<<narrative>>
+Your mom looked at you. Really looked.
+<</narrative>>
+
+<<narrative>>
+And she sounded sure.
+<</narrative>>
+
+<<narrative>>
+Your dad couldn't finish the sentence — but he didn't have to.
+<</narrative>>
+
+<<narrative>>
+Your brother made fun of you. Then he took his headphones off.
+<</narrative>>
+
+<<narrative>>
+He never takes his headphones off for anything.
+<</narrative>>
+
+<<narrative>>
+You smile. A little.
+<</narrative>>
+
+<<narrative>>
+But then the thought comes.
+<</narrative>>
+
+<<narrative>>
+They're your family.
+<</narrative>>
+
+<<narrative>>
+Of course they'll say that.
+<</narrative>>
+
+<<narrative>>
+They don't want to hurt you. They won't make you cry.
+<</narrative>>
+
+<<narrative>>
+They won't look you in the eye and say yes, something's wrong.
+<</narrative>>
+
+<<narrative>>
+That's what family does. They have to.
+<</narrative>>
+
+<<narrative>>
+So what about everyone else?
+<</narrative>>
+
+<<narrative>>
+Vince wasn't family. You barely knew him.
+<</narrative>>
+
+<<narrative>>
+And he looked at you. And he said what he saw.
+<</narrative>>
+
+<<narrative>>
+Maybe that's what everyone on the outside sees too.
+<</narrative>>
+
+<<narrative>>
+Maybe your family just isn't saying it.
+<</narrative>>
+
+<<narrative>>
+…
+<</narrative>>
+
+<<narrative>>
+You sit with that for a while.
+<</narrative>>
+
+<<narrative>>
+Then you stand up. You walk to the mirror.
+<</narrative>>
+
+<<narrative>>
+You look.
+<</narrative>>
+
+<<narrative>>
+Your hair's a mess. The skin under your eyes is a little tired.
+<</narrative>>
+
+<<narrative>>
+Your dad's oily fingerprints are still on your shirt.
+<</narrative>>
+
+<<narrative>>
+Not perfect. You know that.
+<</narrative>>
+
+<<narrative>>
+But…
+<</narrative>>
+
+<<narrative>>
+Your brother said it. If something was wrong with your face, he'd tell you. He wouldn't go easy.
+<</narrative>>
+
+<<narrative>>
+He wouldn't. He really wouldn't.
+<</narrative>>
+
+<<narrative>>
+And he didn't say it.
+<</narrative>>
+
+<<narrative>>
+This time you don't look away. You keep looking.
+<</narrative>>
+
+<<narrative>>
+Vince's voice is still there somewhere. It doesn't fully leave.
+<</narrative>>
+
+<<narrative>>
+But it's not as loud as it used to be.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "fhBedroom">>
+<<silently>>
+<<loseStat "mood" 5>>
+<<set $flags.vinceDay3FamilyBedroomDone = true>>
+<<advanceQuestStage "vince_day3_family">>
+<<advanceTime 8 "relax">>
+<</silently>>
+<</btn>>
+</div>
+<</nobr>>

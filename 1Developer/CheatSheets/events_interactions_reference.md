@@ -295,7 +295,7 @@ Random events during dishwashing shifts. Driven by `RubysDishwashWork.twee` with
 |---------|---------|
 | `dinerWork_event_vinceInspection_day3` | Dishwasher job, **employment day 3**, first **or** second shift of that day chosen at random (`$flags.vinceDay3InspectShift`, persists across quit/rehire until the scene runs), `!$flags.vinceInspectionDay3Shown`. **One-shot:** sets `vinceInspectionDay3Shown` then `goto` (same pattern as Diana). Runs at **start** of `RubysDishwashWork` (before `jobExecuteShift`). **Source:** `passages/5 - QuestSystem/Quests/vinceDay3/`. |
 
-**Follow-up quest:** `vince_day3_family` — `requirements.flags`: `vinceInspectionDay3Shown`. Teftişte `vinceDay3FamilyOpen` + `<<startQuest>>`. Diana gibi karakter aksiyonları: `flag` / `flagNot` (`vinceDay3FamilyMomDone` vb.); sahneler `<<completeObjective>>`. Yatak odası: `fhBedroom` girişinde `<<goto quest_vince_day3_family_bedroom>>` (`after_mall` gibi otomatik). Tamamlanınca `vince_day3_family_quest_done`.
+**Follow-up quest:** `vince_day3_family` — `requirements.flags`: `vinceInspectionDay3Shown`. Teftiş: `vinceDay3FamilyOpen` + `<<startQuest>>`. **Stage 1** `reach_out`: üç konuşma `allObjectives` + `completeObjective`. **Stage 2** `bedroom_alone`: `forceScene` + `quest_vince_day3_family_reflection`; `fhBedroom` girişinde aşama `bedroom_alone` iken otomatik `goto` (`!vinceDay3FamilyBedroomDone`); sahnede `<<advanceQuestStage>>`. Tamamlanınca `vince_day3_family_quest_done`.
 
 ### Ruby's Diner — Diana Arrival
 

@@ -4,14 +4,232 @@
 <<updateCharacterLocations>>
 
 <<narrative "Garage">>
-TODO — Dad scene (full dialogue TBD).
+Oil and metal own the air in the garage.
+<</narrative>>
+
+<<narrative>>
+Your dad's at the bench with the engine.
+<</narrative>>
+
+<<narrative>>
+When he sees you, he looks up.
+<</narrative>>
+
+<<dialog "father">>
+That you? For a second I thought you were your mom.
+<</dialog>>
+
+<<narrative>>
+He reaches out.
+<</narrative>>
+
+<<dialog "father">>
+Pass me that wrench.
+<</dialog>>
+
+<<narrative>>
+You step over and hand it to him.
+<</narrative>>
+
+<<dialog "father">>
+Thanks.
+<</dialog>>
+
+<<narrative>>
+He fits it to the part.
+<</narrative>>
+
+<<narrative>>
+For a while there's only the sound of metal.
+<</narrative>>
+
+<<dialog "father">>
+What'd you do today?
+<</dialog>>
+
+<<dialog "player">>
+Nothing… got bored a little.
+<</dialog>>
+
+<<dialog "father">>
+Hm.
+<</dialog>>
+
+<<narrative>>
+A quick glance.
+<</narrative>>
+
+<<narrative>>
+Then he's back at it.
+<</narrative>>
+
+<<dialog "father">>
+How was work?
+<</dialog>>
+
+<<dialog "player">>
+Fine.
+<</dialog>>
+
+<<narrative>>
+A short silence. You lean against the bench. You scratch at a grease smear with your nail.
+<</narrative>>
+
+<<dialog "player">>
+It's just—
+<</dialog>>
+
+<<narrative>>
+You stop.
+<</narrative>>
+
+<<dialog "player">>
+Stupid. Never mind.
+<</dialog>>
+
+<<dialog "father">>
+Say it.
+<</dialog>>
+
+<<dialog "player">>
+Nothing.
+<</dialog>>
+
+<<narrative>>
+Your dad tightens whatever's in his hand. Waits.
+<</narrative>>
+
+<<dialog "player">>
+…
+<</dialog>>
+
+<<narrative>>
+You breathe in.
+<</narrative>>
+
+<<dialog "player">>
+I mean…
+<</dialog>>
+
+<<dialog "player">>
+Do you think I'm—
+<</dialog>>
+
+<<narrative>>
+Your voice drops.
+<</narrative>>
+
+<<dialog "player">>
+…pretty?
+<</dialog>>
+
+<<narrative>>
+The last word barely makes it out. You rush to add—
+<</narrative>>
+
+<<dialog "player">>
+It's not a big deal. I just—
+<</dialog>>
+
+<<narrative>>
+He stops. Sets the tool down on the bench, slow.
+<</narrative>>
+
+<<narrative>>
+He looks at you.
+<</narrative>>
+
+<<narrative>>
+Doesn't answer right away.
+<</narrative>>
+
+<<narrative>>
+He turns back to the engine. Tightens a bolt. Lets it go.
+<</narrative>>
+
+<<dialog "father">>
+When I first met your mom… she was wearing this red coat, and I thought—
+<</dialog>>
+
+<<narrative>>
+He cuts himself off. Rubs his brow with an oily thumb.
+<</narrative>>
+
+<<dialog "father">>
+Never mind. Forget it.
+<</dialog>>
+
+<<narrative>>
+A brief silence.
+<</narrative>>
+
+<<dialog "father">>
+You got your looks from your mom.
+<</dialog>>
+
+<<narrative>>
+He looks at you.
+<</narrative>>
+
+<<dialog "father">>
+And she's the most beautiful woman in the world.
+<</dialog>>
+
+<<narrative>>
+He shrugs — like he's proving arithmetic.
+<</narrative>>
+
+<<dialog "father">>
+The math checks out.
+<</dialog>>
+
+<<narrative>>
+He steps closer. Puts a hand on your shoulder. Oily fingerprints stay on your shirt.
+<</narrative>>
+
+<<dialog "father">>
+Don't get stuck on it.
+<</dialog>>
+
+<<narrative>>
+He squeezes your shoulder. Then a clumsy, quick hug — garage and oil. He pulls back almost at once.
+<</narrative>>
+
+<<narrative>>
+For a beat neither of you knows what to do.
+<</narrative>>
+
+<<narrative>>
+He fake-coughs. Turns to the bench. Picks up a tool. Puts it back down. The same one.
+<</narrative>>
+
+<<dialog "player">>
+…
+<</dialog>>
+
+<<dialog "player">>
+Thanks, Dad.
+<</dialog>>
+
+<<dialog "father">>
+Hm.
+<</dialog>>
+
+<<narrative>>
+He bends over the engine again. For a long moment his hands don't move.
 <</narrative>>
 
 <div class="location-actions">
 <<btn "Continue" "fhGarage">>
 <<silently>>
 <<set $flags.vinceDay3FamilyFatherDone = true>>
+<<gainStat "willpower" 1>>
+<<gainStat "mood" 2>>
+<<gainStat "friendship" 2 "father">>
+<<gainStat "trust" 1 "father">>
+<<gainStat "love" 1 "father">>
 <<completeObjective "vince_day3_family" "talkFather">>
+<<advanceTime 10 "relax">>
 <</silently>>
 <</btn>>
 </div>

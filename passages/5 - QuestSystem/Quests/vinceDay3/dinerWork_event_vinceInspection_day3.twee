@@ -1,59 +1,215 @@
 :: dinerWork_event_vinceInspection_day3
-/* Vince day 3 arc — all passages in `Quests/vinceDay3/`. One-shot flag set in RubysDishwashWork before goto. */
+/* Vince day 3 arc — all passages in Quests/vinceDay3/. One-shot flag set in RubysDishwashWork before goto. */
 <<nobr>>
 <<set $location = "dinerRubysKitchen">>
 <<updateCharacterLocations>>
 <<loseStat "mood" 10>>
-<<set $stress = Math.min(100, ($stress || 0) + 5)>>
+<<gainStat "stress" 5>>
 
 <<narrative "Kitchen">>
-You're pulling on your gloves when Vince steps in. Suit, shirt buttoned all the way up — inspection mode. He stops by James, says something low. James nods. Mike gets a light tap on the shoulder, the kind that means keep it up.
+You're peeling off your gloves when Vince walks into the kitchen.
+<</narrative>>
 
-Then he's in front of you. His eyes skim you the way someone checks a plate is on the rack — not to understand it, just to confirm it's there.
+<<narrative>>
+Nobody notices him at first.
+<</narrative>>
+
+<<narrative>>
+He goes straight to James. Leans in and murmurs something in his ear.
+<</narrative>>
+
+<<narrative>>
+James nods.
+<</narrative>>
+
+<<narrative>>
+A quick, familiar smile passes between them.
+<</narrative>>
+
+<<narrative>>
+Then he moves on to Mike.
+<</narrative>>
+
+<<narrative>>
+Mike's got headphones on, lost in his music.
+<</narrative>>
+
+<<narrative>>
+Vince touches his shoulder, light.
+<</narrative>>
+
+<<narrative>>
+Mike startles, lifts a hand without quite pulling the headphones off, and flashes an okay sign.
+<</narrative>>
+
+<<narrative>>
+Vince returns it the same way.
+<</narrative>>
+
+<<narrative>>
+Quick. Routine.
+<</narrative>>
+
+<<narrative>>
+Then Vince turns to you.
+<</narrative>>
+
+<<narrative>>
+He pauses a beat.
+<</narrative>>
+
+<<narrative>>
+His eyes move over you — fast, but not quite flat.
 <</narrative>>
 
 <<dialog "dinerManager">>
 How's it going?
 <</dialog>>
 
-<<dialog "player">>
-Good. I'm still getting used to everything.
-<</dialog>>
-
-<<dialog "dinerManager">>
-Hmm.
-<</dialog>>
-
 <<narrative>>
-He nods once, already not really listening. He's turning away before you've finished exhaling.
-
-Then he's over by Emma. His shoulders loosen. His voice softens.
+A short gap.
 <</narrative>>
 
 <<dialog "dinerManager">>
-Emma. Everything okay?
+Settling in?
+<</dialog>>
+
+<<dialog "player">>
+Good…
+I'm st—
 <</dialog>>
 
 <<dialog "dinerWaitress1">>
-Yeah. Table four's being a pain, but I'm managing.
-<</dialog>>
-
-<<dialog "dinerManager">>
-Tell me about it. We'll get it handled.
+(from the pass)
+James! Is four up? The guy's complaining again!
 <</dialog>>
 
 <<narrative>>
-You catch the difference without trying to. With you: a grunt and a glance. With her: names, time, a smile that reaches his eyes.
+Vince's attention snaps away.
+<</narrative>>
 
-Hot water. Soap. You wash your hands longer than you need to.
+<<narrative>>
+He turns his head.
+<</narrative>>
 
+<<narrative>>
+His shoulders loosen.
+<</narrative>>
+
+<<narrative>>
+He walks off from you without a word.
+<</narrative>>
+
+<<narrative>>
+He takes a few steps toward Emma, then stops.
+<</narrative>>
+
+<<narrative>>
+His eyes skim her face for a second.
+<</narrative>>
+
+<<dialog "dinerManager">>
+You changed your lipstick.
+<</dialog>>
+
+<<dialog "dinerWaitress1">>
+So you noticed.
+<</dialog>>
+
+<<dialog "dinerManager">>
+Hard not to notice what suits you.
+<</dialog>>
+
+<<narrative>>
+A brief silence.
+<</narrative>>
+
+<<narrative>>
+The question he asked you hung unfinished.
+<</narrative>>
+
+<<narrative>>
+Like there wouldn't be a follow-up.
+<</narrative>>
+
+<<narrative>>
+Maybe that's how it is, you thought.
+<</narrative>>
+
+<<narrative>>
+They've worked together long enough.
+<</narrative>>
+
+<<narrative>>
+They kept talking. You couldn't make out the words.
+<</narrative>>
+
+<<narrative>>
+But you saw Emma smile.
+<</narrative>>
+
+<<narrative>>
+You saw Vince's eyes not leave her.
+<</narrative>>
+
+<<narrative>>
+You looked at Emma again.
+<</narrative>>
+
+<<narrative>>
+She stood easy. Like she belonged exactly where she was.
+<</narrative>>
+
+<<narrative>>
+Her lipstick was flawless.
+<</narrative>>
+
+<<narrative>>
+Her face a little too put together.
+<</narrative>>
+
+<<narrative>>
+You looked a second longer.
+<</narrative>>
+
+<<narrative>>
+Something snagged in your mind.
+<</narrative>>
+
+<<narrative>>
 Do you ever look at yourself in the mirror?
+<</narrative>>
 
-You didn't dwell on it when you first heard it. Now it won't leave.
+<<narrative>>
+You hadn't thought much of it at the time.
+<</narrative>>
 
-You look at Emma without meaning to. Put together. Comfortable in her skin. Vince sees her. You're not sure he sees you at all.
+<<narrative>>
+Now it… wouldn't go away.
+<</narrative>>
 
-The thought is small and ugly and you can't unthink it.
+<<narrative>>
+You dip your head slightly.
+<</narrative>>
+
+<<narrative>>
+Your silhouette shows in the shine of the counter.
+<</narrative>>
+
+<<narrative>>
+You look for a moment.
+<</narrative>>
+
+<<narrative>>
+Then Vince claps — and you flinch.
+<</narrative>>
+
+<<dialog "dinerManager">>
+All right, everyone, let's keep moving. We're doing good.
+<</dialog>>
+
+<<narrative>>
+Vince turns and walks out of the kitchen.
 <</narrative>>
 
 <<silently>>
