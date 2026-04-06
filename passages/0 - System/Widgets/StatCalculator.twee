@@ -10,10 +10,12 @@
     <<set _returnPassage = $args[1] || $location || "fhLivingroom">>
     <<set _energyWarn = ($args.length > 2 && $args[2] !== undefined && $args[2] !== "") ? $args[2] : "Not enough energy.">>
     <<if (parseInt($energy || 0)) < _min>>
-        /* If energy is completely depleted, trigger collapse */
         <<if (parseInt($energy || 0)) <= 0>>
-            <<set $collapseReturnTo = _returnPassage>>
-            <<goto "energy_collapse">>
+            <<if !$_navigatingBackward>>
+                <<set $collapseReturnTo = _returnPassage>>
+                <<set $collapseAtLocation = $location || _returnPassage>>
+                <<goto "energy_collapse">>
+            <</if>>
         <<else>>
             <<run window.notifyError(_energyWarn)>>
             <<goto _returnPassage>>
@@ -45,7 +47,7 @@
 
     /* HEALTH FAINT CHECK — trigger collapse if critically low */
     /* Skip during sleep, and skip if already on the faint passage to avoid loops */
-    <<if $health <= 20 and !$isSleeping and passage() !== "health_faint" and passage() !== "energy_collapse" and passage() !== "energy_collapse_nap">>
+    <<if $health <= 20 and !$isSleeping and !$_navigatingBackward and passage() !== "health_faint" and passage() !== "energy_collapse" and passage() !== "energy_collapse_nap">>
         <<goto "health_faint">>
     <</if>>
     
@@ -90,11 +92,12 @@
     <<set $energy = Math.max(0, Math.min($energyMax, $energy))>>
     /* ENERGY COLLAPSE — depleted after clamp (any loseStat / time / needs path that calls recalculateStats) */
     <<set _collapsePass = passage()>>
-    <<if $energy <= 0 && !$isSleeping &&
+    <<if $energy <= 0 && !$isSleeping && !$_navigatingBackward &&
         _collapsePass !== "energy_collapse" && _collapsePass !== "energy_collapse_nap" &&
         _collapsePass !== "energy_collapse_items" && _collapsePass !== "energy_collapse_use" &&
         _collapsePass !== "health_faint">>
         <<if !$collapseReturnTo>><<set $collapseReturnTo = $location || "fhBedroom">><</if>>
+        <<set $collapseAtLocation = $location || $collapseReturnTo>>
         <<goto "energy_collapse">>
     <</if>>
     <<set $stress = Math.max(0, Math.min(100, $stress))>>

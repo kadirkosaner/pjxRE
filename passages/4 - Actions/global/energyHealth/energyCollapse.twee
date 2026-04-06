@@ -1,7 +1,9 @@
 <<nobr>>
 <<silently>>
-/* Save return location before anything changes */
-<<if ndef $collapseReturnTo>><<set $collapseReturnTo = $location || "fhBedroom">><</if>>
+/* passagestart clears $location — restore scene id for body[data-location] / backgrounds */
+<<if ndef $collapseAtLocation>><<set $collapseAtLocation = $collapseReturnTo || "fhBedroom">><</if>>
+<<if ndef $collapseReturnTo>><<set $collapseReturnTo = $collapseAtLocation || "fhBedroom">><</if>>
+<<set $location = $collapseAtLocation>>
 
 /* Check inventory for any item that restores energy */
 <<set _hasEnergyItem = false>>

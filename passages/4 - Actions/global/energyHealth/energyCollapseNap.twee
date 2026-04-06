@@ -10,6 +10,7 @@
 <<set $appearance.hairCombed = 0>>
 <<set _returnTo = $collapseReturnTo || "fhBedroom">>
 <<set $collapseReturnTo = null>>
+<<set $collapseAtLocation = null>>
 <<recalculateStats>>
 <</silently>>
 

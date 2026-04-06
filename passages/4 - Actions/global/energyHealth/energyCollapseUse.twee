@@ -1,4 +1,5 @@
 <<silently>>
+<<set $location = $collapseAtLocation || $collapseReturnTo>>
 /* Apply the selected item's energy effect */
 <<set _usedItem = null>>
 <<set _energyGain = 0>>
@@ -37,6 +38,7 @@
 
 <<set _returnTo = $collapseReturnTo || "fhBedroom">>
 <<set $collapseReturnTo = null>>
+<<set $collapseAtLocation = null>>
 <<set $collapseUseItemId = null>>
 <<recalculateStats>>
 <</silently>>

@@ -1,5 +1,6 @@
 <<nobr>>
 <<silently>>
+<<set $location = $collapseAtLocation || $collapseReturnTo>>
 /* Build list of energy-restoring items from inventory */
 <<set _energyItems = []>>
 <<if $inventory and $inventory.length > 0>>

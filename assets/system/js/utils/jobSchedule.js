@@ -13,12 +13,15 @@ window.JobSchedule = {
         return !!(jobDef && jobDef.schedule) && !this.isScheduledOffDay(jobDef, weekday);
     },
 
-    /** Comma-separated weekday names for days the player works (inverse of offWeekdays). */
+    /** Comma-separated weekday names for days the player works (inverse of offWeekdays).
+     *  Order is Monday → Sunday (not JS 0=Sun order) for readable “Shift days” labels. */
     formatWorkDayNames: function (jobDef, weekdayNames) {
         var names = weekdayNames || ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var off = (jobDef && jobDef.schedule && jobDef.schedule.offWeekdays) || [];
         var parts = [];
-        for (var w = 0; w < 7; w++) {
+        var order = [1, 2, 3, 4, 5, 6, 0];
+        for (var i = 0; i < 7; i++) {
+            var w = order[i];
             if (off.indexOf(w) === -1) parts.push(names[w]);
         }
         return parts.join(', ');

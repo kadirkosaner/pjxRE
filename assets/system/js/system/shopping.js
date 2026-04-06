@@ -300,6 +300,19 @@ function canWearClothingItem(item) {
     return { allowed: true, reason: '' };
 }
 
+/** Clothing stat-gate or reading book stat-gate — used for grid sort and card render. */
+function getShopProductLockState(item) {
+    const isClothing = item._isClothing;
+    const wearCheck = isClothing ? canWearClothingItem(item) : { allowed: true, reason: '' };
+    const setupObj = getSetup();
+    const readMeta = item.category === 'reading' && typeof setupObj.getReadingItem === 'function'
+        ? setupObj.getReadingItem(item.id)
+        : null;
+    const readingBookLocked = !!(readMeta && readMeta.type === 'book' && readMeta.requires && !meetsShopReadingBookRequirements(readMeta));
+    const isLocked = (isClothing && !wearCheck.allowed) || readingBookLocked;
+    return { isLocked, isClothing, wearCheck, readingBookLocked, readMeta };
+}
+
 // ============================================
 // CART OPERATIONS
 // ============================================
@@ -699,26 +712,18 @@ function renderProducts() {
         return true;
     });
 
-    /* Bookstore: purchasable books & magazines first, stat-locked books last (stable within each group). */
-    if (isReadingShop && itemsToShow.length > 1) {
-        const setupObj = getSetup();
+    /* Unlocked / purchasable items first, locked last; stable order within each group. */
+    if (itemsToShow.length > 1) {
         const idxMap = new Map();
         currentShopItems.forEach((it, i) => idxMap.set(it.id, i));
-
-        function readingBookLockedForSort(item) {
-            if (item.category !== 'reading') return false;
-            if (typeof setupObj.getReadingItem !== 'function') return false;
-            const m = setupObj.getReadingItem(item.id);
-            if (!m || m.type !== 'book' || !m.requires) return false;
-            return !meetsShopReadingBookRequirements(m);
-        }
-
-        itemsToShow.sort((a, b) => {
-            const la = readingBookLockedForSort(a) ? 1 : 0;
-            const lb = readingBookLockedForSort(b) ? 1 : 0;
-            if (la !== lb) return la - lb;
-            return (idxMap.get(a.id) ?? 0) - (idxMap.get(b.id) ?? 0);
-        });
+        itemsToShow = itemsToShow
+            .map(item => ({
+                item,
+                locked: getShopProductLockState(item).isLocked ? 1 : 0,
+                idx: idxMap.get(item.id) ?? 0
+            }))
+            .sort((a, b) => a.locked - b.locked || a.idx - b.idx)
+            .map(x => x.item);
     }
 
     if (itemsToShow.length === 0) {
@@ -729,14 +734,7 @@ function renderProducts() {
     grid.innerHTML = itemsToShow.map(item => {
         const hasEffects = item.effects && item.effects.length > 0;
         const hasDesc = item.desc && item.desc.length > 0;
-        const isClothing = item._isClothing;
-        const wearCheck = isClothing ? canWearClothingItem(item) : { allowed: true, reason: '' };
-        const setupObj = getSetup();
-        const readMeta = item.category === 'reading' && typeof setupObj.getReadingItem === 'function'
-            ? setupObj.getReadingItem(item.id)
-            : null;
-        const readingBookLocked = !!(readMeta && readMeta.type === 'book' && readMeta.requires && !meetsShopReadingBookRequirements(readMeta));
-        const isLocked = (isClothing && !wearCheck.allowed) || readingBookLocked;
+        const { isLocked, isClothing, wearCheck, readingBookLocked, readMeta } = getShopProductLockState(item);
         const readingTooltipInner = readMeta ? buildShopReadingTooltipHTML(item, readMeta, { lockedBook: readingBookLocked }) : '';
         const showTooltip = !!readingTooltipInner || hasEffects || hasDesc || isClothing;
         const sexiness = typeof item.sexinessScore === 'number' ? item.sexinessScore : 0;
