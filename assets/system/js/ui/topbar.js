@@ -79,13 +79,31 @@ function rebuildTopbar() {
     const hoursToday = parseInt(jobState.hoursToday || 0, 10);
     const requiredHoursPerDay = jobDef?.requiredHoursPerDay ?? 8;
     const dailyQuotaComplete = hoursToday >= requiredHoursPerDay;
-    const showWorkIcon = hasJob && isFirstWorkDayOrLater && !dailyQuotaComplete && currentHour >= (open - WORK_ICON_HOURS_BEFORE) && currentHour < close;
+    const JobSched = window.JobSchedule || {};
+    const isScheduleOffDay = !!(hasJob && jobDef && JobSched.isScheduledOffDay && JobSched.isScheduledOffDay(jobDef, timeSys.weekday || 0));
+    let showWorkIcon = false;
+    let workIconColor = '#ef4444';
+    if (hasJob && isFirstWorkDayOrLater && !dailyQuotaComplete) {
+        if (isScheduleOffDay) {
+            if (currentHour >= open && currentHour < close) {
+                showWorkIcon = true;
+                workIconColor = '#f59e0b';
+            }
+        } else if (currentHour >= (open - WORK_ICON_HOURS_BEFORE) && currentHour < close) {
+            showWorkIcon = true;
+        }
+    }
 
-    // Work tooltip: dynamic based on job schedule
+    // Work tooltip: dynamic based on job schedule (amber icon = scheduled day off during shift hours)
     function getWorkTooltip() {
         if (!job || !job.id) return 'Work';
         if (!jobDef || !jobDef.schedule) return 'Work';
         if (dailyQuotaComplete) return 'Already worked ' + hoursToday + '/' + requiredHoursPerDay + ' hours today';
+        if (isScheduleOffDay) {
+            if (currentHour >= open && currentHour < close) return 'Day off — no shift today';
+            if (currentHour < open) return 'Day off today';
+            return 'Day off today';
+        }
         if (currentHour < open) return 'Work starts at ' + open + ':00';
         if (currentHour >= open && currentHour < close) return 'You need to go to work';
         return 'Work has ended for today';
@@ -126,7 +144,7 @@ function rebuildTopbar() {
             { icon: 'bed', tooltip: 'Sleep', show: vars.notificationBed, color: '#3b82f6' },
             { icon: 'alarm', tooltip: vars.notificationAlarmText || 'Time Event', show: vars.notificationAlarm, color: '#f59e0b' },
             { icon: 'school', tooltip: 'School', show: vars.notificationSchool, color: '#10b981' },
-            { icon: 'work', tooltip: workTooltip, show: showWorkIcon, color: '#ef4444' }
+            { icon: 'work', tooltip: workTooltip, show: showWorkIcon, color: workIconColor }
         ],
         right: [
             { icon: 'face', tooltip: (vars.notificationFaceText || '').replace(/"/g, '&quot;'), show: vars.notificationFace, color: '#a78bfa' },

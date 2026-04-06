@@ -22,8 +22,24 @@
             </div>
             <div class="info-card-body">
                 <div style="text-align: center;">
-                    <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Full Name</div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">You</div>
                     <div style="font-size: 1.25rem; color: var(--color-accent); font-weight: 600;">$player.firstName $player.lastName</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; padding-top: 1rem;">
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">$characters.mother.status</div>
+                            <div style="font-size: 1.25rem; color: var(--color-accent); font-weight: 600;">$characters.mother.firstName $player.lastName</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">$characters.father.status</div>
+                            <div style="font-size: 1.25rem; color: var(--color-accent); font-weight: 600;">$characters.father.firstName $player.lastName</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">$characters.brother.status</div>
+                            <div style="font-size: 1.25rem; color: var(--color-accent); font-weight: 600;margin-bottom: 0.5rem;">$characters.brother.firstName $player.lastName</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

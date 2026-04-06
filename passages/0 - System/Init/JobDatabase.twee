@@ -22,7 +22,8 @@
         requiredHoursPerDay: 8,
         tips: false,
 
-        schedule: { open: 10, close: 22 },
+        /* offWeekdays: 0=Sun … 6=Sat (JS Date). Tue & Thu off → 5 work days. */
+        schedule: { open: 10, close: 22, offWeekdays: [2, 4] },
         payDayWeekday: 1,
         minHoursPerWeek: 8,
         minHoursWarningsBeforeFire: 3,

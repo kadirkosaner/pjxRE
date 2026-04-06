@@ -22,15 +22,68 @@
             <span class="setup-accordion-toggle icon icon-chevron-down"></span>
         </div>
         <div class="settings-section-body setup-accordion-content">
-            <div class="form-grid-2">
-                <div class="form-input-group">
-                    <label>First Name</label>
-                    <input type="text" id="characterFirstName" @value="$player.firstName">
+            <div class="player-name-card">
+                <div class="family-member-header">You</div>
+                <div class="form-grid-2">
+                    <div class="form-input-group">
+                        <label>First name</label>
+                        <input type="text" id="characterFirstName" @value="$player.firstName" maxlength="40" autocomplete="given-name">
+                    </div>
+                    <div class="form-input-group">
+                        <label>Surname</label>
+                        <input type="text" id="characterLastName" @value="$player.lastName" maxlength="40" autocomplete="family-name">
+                    </div>
                 </div>
-                <div class="form-input-group">
-                    <label>Last Name</label>
-                    <input type="text" id="characterLastName" @value="$player.lastName">
+            </div>
+
+            <div class="note-box warning">
+                The surname applies to you, your mother, father, and sibling for the whole game.
+            </div>
+
+            <div class="setup-subsection-title" style="margin-top: 1.25rem; margin-bottom: 0.5rem; font-weight: 600;">Household</div>
+
+            <div class="family-member-row">
+
+                <div class="family-member-card">
+                    <div class="family-member-header">Mother</div>
+                    <div class="form-input-group">
+                        <label>First name</label>
+                        <input type="text" id="familyMotherFirstName" @value="$characters.mother.firstName" maxlength="40" autocomplete="off">
+                    </div>
+                    <div class="form-input-group">
+                        <label>Called as</label>
+                        <input type="text" id="familyMotherStatus" @value="$characters.mother.status" maxlength="24" placeholder="Mom, Mother..." autocomplete="off">
+                    </div>
                 </div>
+
+                <div class="family-member-card">
+                    <div class="family-member-header">Father</div>
+                    <div class="form-input-group">
+                        <label>First name</label>
+                        <input type="text" id="familyFatherFirstName" @value="$characters.father.firstName" maxlength="40" autocomplete="off">
+                    </div>
+                    <div class="form-input-group">
+                        <label>Called as</label>
+                        <input type="text" id="familyFatherStatus" @value="$characters.father.status" maxlength="24" placeholder="Dad, Father..." autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="family-member-card">
+                    <div class="family-member-header">Sibling</div>
+                    <div class="form-input-group">
+                        <label>First name</label>
+                        <input type="text" id="familyBrotherFirstName" @value="$characters.brother.firstName" maxlength="40" autocomplete="off">
+                    </div>
+                    <div class="form-input-group">
+                        <label>Called as</label>
+                        <input type="text" id="familyBrotherStatus" @value="$characters.brother.status" maxlength="24" placeholder="Brother, Sis..." autocomplete="off">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="note-box warning" >
+                “Called as” is how they appear in dialogue and on the character profile (e.g. Sarah (Mother)) (WIP).
             </div>
         </div>
     </div>
@@ -145,35 +198,35 @@
                         <div class="sim-label">Hunger</div>
                         <div class="sim-desc">Need to eat regularly</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="trackHunger">ON</button>
+                    <button class="setting-toggle-btn" data-setting="trackHunger">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Thirst</div>
                         <div class="sim-desc">Need to drink water</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="trackThirst">ON</button>
+                    <button class="setting-toggle-btn" data-setting="trackThirst">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Bladder</div>
                         <div class="sim-desc">Need to use bathroom</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="trackBladder">ON</button>
+                    <button class="setting-toggle-btn" data-setting="trackBladder">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Calories</div>
                         <div class="sim-desc">Track intake vs burn</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="trackCalories">ON</button>
+                    <button class="setting-toggle-btn" data-setting="trackCalories">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Hygiene Impact</div>
                         <div class="sim-desc">Bad smell repels people</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="hygieneRequirement">ON</button>
+                    <button class="setting-toggle-btn" data-setting="hygieneRequirement">OFF</button>
                 </div>
 
                 <div class="sim-group-title">Appearance & Decay</div>
@@ -183,70 +236,70 @@
                         <div class="sim-label">Hair Growth</div>
                         <div class="sim-desc">Hair gets longer daily</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="hairGrowth">ON</button>
+                    <button class="setting-toggle-btn" data-setting="hairGrowth">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Hair Messiness</div>
                         <div class="sim-desc">Wake up with messy hair</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="hairMessiness">ON</button>
+                    <button class="setting-toggle-btn" data-setting="hairMessiness">OFF</button>
                 </div>
                  <div class="sim-item">
                     <div>
                         <div class="sim-label">Body Hair</div>
                         <div class="sim-desc">Body hair grows over time</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="bodyHairGrowth">ON</button>
+                    <button class="setting-toggle-btn" data-setting="bodyHairGrowth">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Makeup Fade</div>
                         <div class="sim-desc">Makeup wears off daily</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="makeupWearOff">ON</button>
+                    <button class="setting-toggle-btn" data-setting="makeupWearOff">OFF</button>
                 </div>
                  <div class="sim-item">
                     <div>
                         <div class="sim-label">Body Changes</div>
                         <div class="sim-desc">Muscle/Fat gain/loss</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="bodyDegradation">ON</button>
+                    <button class="setting-toggle-btn" data-setting="bodyDegradation">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Hair Care Decay</div>
                         <div class="sim-desc">Hair care drops without routine</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="hairCareDecay">ON</button>
+                    <button class="setting-toggle-btn" data-setting="hairCareDecay">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Face Care Decay</div>
                         <div class="sim-desc">Skincare drops without routine</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="faceCareDecay">ON</button>
+                    <button class="setting-toggle-btn" data-setting="faceCareDecay">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Dental Care Decay</div>
                         <div class="sim-desc">Teeth care drops without brushing</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="dentalCareDecay">ON</button>
+                    <button class="setting-toggle-btn" data-setting="dentalCareDecay">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Skill Decay</div>
                         <div class="sim-desc">Unused skills degrade</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="skillDecay">ON</button>
+                    <button class="setting-toggle-btn" data-setting="skillDecay">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Relation Decay</div>
                         <div class="sim-desc">Unseen friends drift apart</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="relationshipDecay">ON</button>
+                    <button class="setting-toggle-btn" data-setting="relationshipDecay">OFF</button>
                 </div>
             </div>
         </div>
@@ -269,105 +322,105 @@
                         <div class="sim-label">Male Sexual</div>
                         <div class="sim-desc">Scenes with men</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="maleSexual" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="maleSexual" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Female Sexual</div>
                         <div class="sim-desc">Scenes with women</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="femaleSexual" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="femaleSexual" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Trans/Futa</div>
                         <div class="sim-desc">Penis-having women</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="futaTrans" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="futaTrans" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Pregnancy</div>
                         <div class="sim-desc">Risk of getting pregnant</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="pregnancy" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="pregnancy" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Incest</div>
                         <div class="sim-desc">Family relations</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="incest" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="incest" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">NTR / Cheating</div>
                         <div class="sim-desc">Betrayal content</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="ntr" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="ntr" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">BDSM</div>
                         <div class="sim-desc">Bondage and dominance</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="bdsm" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="bdsm" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Non-Consensual</div>
                         <div class="sim-desc">Forced interactions</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="nonConsensual" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="nonConsensual" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Public / Exhibition</div>
                         <div class="sim-desc">Being seen in public</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="publicExhibition" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="publicExhibition" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Lactation</div>
                         <div class="sim-desc">Breast milk production</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="lactation" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="lactation" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Foot Fetish</div>
                         <div class="sim-desc">Focus on feet</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="feet" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="feet" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Watersports</div>
                         <div class="sim-desc">Urine related content</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="watersports" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="watersports" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Scat</div>
                         <div class="sim-desc">Feces related content</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="scat" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="scat" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Gore / Violence</div>
                         <div class="sim-desc">Blood and injury</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="goreViolence" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="goreViolence" data-category="content">OFF</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Ageplay</div>
                         <div class="sim-desc">Age difference dynamics</div>
                     </div>
-                    <button class="setting-toggle-btn active" data-setting="ageplay" data-category="content">ON</button>
+                    <button class="setting-toggle-btn" data-setting="ageplay" data-category="content">OFF</button>
                 </div>
             </div>
         </div>
@@ -431,6 +484,24 @@ $(document).on(':passagedisplay', function(ev) {
         restoreSelection('HipSize', vars.player.hipSize);
         if (vars.player.firstName) $('#characterFirstName').val(vars.player.firstName);
         if (vars.player.lastName) $('#characterLastName').val(vars.player.lastName);
+
+        if (vars.characters) {
+            const m = vars.characters.mother;
+            const f = vars.characters.father;
+            const b = vars.characters.brother;
+            if (m) {
+                if (m.firstName) $('#familyMotherFirstName').val(m.firstName);
+                if (m.status) $('#familyMotherStatus').val(m.status);
+            }
+            if (f) {
+                if (f.firstName) $('#familyFatherFirstName').val(f.firstName);
+                if (f.status) $('#familyFatherStatus').val(f.status);
+            }
+            if (b) {
+                if (b.firstName) $('#familyBrotherFirstName').val(b.firstName);
+                if (b.status) $('#familyBrotherStatus').val(b.status);
+            }
+        }
         
         // Restore height
         if (vars.body && vars.body.height) {
@@ -575,6 +646,24 @@ $(document).on(':passagedisplay', function(ev) {
             }
             if (vars.characters.brother) {
                 vars.characters.brother.lastName = lastName;
+            }
+
+            const m = vars.characters.mother;
+            const f = vars.characters.father;
+            const b = vars.characters.brother;
+            if (m) {
+                const mfn = ($('#familyMotherFirstName').val() || '').trim() || 'Sarah';
+                m.firstName = mfn;
+                m.name = mfn;
+                m.status = ($('#familyMotherStatus').val() || '').trim() || 'Mother';
+            }
+            if (f) {
+                f.firstName = ($('#familyFatherFirstName').val() || '').trim() || 'Robert';
+                f.status = ($('#familyFatherStatus').val() || '').trim() || 'Father';
+            }
+            if (b) {
+                b.firstName = ($('#familyBrotherFirstName').val() || '').trim() || 'Jake';
+                b.status = ($('#familyBrotherStatus').val() || '').trim() || 'Brother';
             }
         }
         

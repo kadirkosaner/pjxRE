@@ -119,6 +119,14 @@ window.StatsInit = function (API) {
             const payDayWeekday = def.payDayWeekday != null ? def.payDayWeekday : 1;
             const payDayName = timeConfig.weekdayNames[payDayWeekday] || 'Monday';
 
+            const sched = def.schedule || {};
+            const openH = sched.open != null ? sched.open : 10;
+            const closeH = sched.close != null ? sched.close : 22;
+            const JobSched = window.JobSchedule || {};
+            const shiftDaysStr = (JobSched.formatWorkDayNames)
+                ? JobSched.formatWorkDayNames(def, timeConfig.weekdayNames || [])
+                : '';
+
             const gross = jobState.weeklyEarnings || 0;
             const deductions = jobState.weeklyDeductions || 0;
             const net = Math.max(0, gross - deductions);
@@ -142,6 +150,14 @@ window.StatsInit = function (API) {
                             <div class="work-row">
                                 <span class="stat-label">Wage</span>
                                 <span class="work-value">$${wage}/hr</span>
+                            </div>
+                            <div class="work-row">
+                                <span class="stat-label">Shift days</span>
+                                <span class="work-value">${shiftDaysStr || '—'}</span>
+                            </div>
+                            <div class="work-row">
+                                <span class="stat-label">Shift hours</span>
+                                <span class="work-value">${openH}:00–${closeH}:00</span>
                             </div>
                             <div class="work-field-xp work-field-hours">
                                 <span class="stat-label">Hours today</span>

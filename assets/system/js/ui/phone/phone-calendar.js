@@ -31,22 +31,55 @@ window.PhoneApps.calendar = {
             if (!a || a.status !== 'pending' || !a.time) return false;
             var aptDate = ((a.time.year || 0) * 10000) + ((a.time.month || 0) * 100) + (a.time.day || 0);
             return aptDate === dateKey;
-        }).sort(function (x, y) {
+        });
+        var workSynthetic = [];
+        var job = vars.job;
+        var JobSched = window.JobSchedule;
+        if (job && job.id && JobSched && JobSched.isScheduledWorkDay) {
+            var jobsMap = (window.setup && window.setup.jobs) || {};
+            var jdef = jobsMap[job.id];
+            if (jdef && JobSched.isScheduledWorkDay(jdef, dateInfo.weekday)) {
+                var sk = job.startedOn
+                    ? ((job.startedOn.year || 0) * 10000 + (job.startedOn.month || 0) * 100 + (job.startedOn.day || 0))
+                    : 0;
+                if (dateKey >= sk) {
+                    var wh = (jdef.schedule && jdef.schedule.open != null) ? jdef.schedule.open : 10;
+                    workSynthetic.push({
+                        isWorkCalendar: true,
+                        workPlaceName: jdef.workplaceName || 'Work',
+                        time: {
+                            year: dateInfo.year,
+                            month: dateInfo.month,
+                            day: dateInfo.day,
+                            hour: wh,
+                            minute: 0
+                        }
+                    });
+                }
+            }
+        }
+        var dayEventsMerged = workSynthetic.concat(dayEvents).sort(function (x, y) {
             var mx = (x.time.hour || 0) * 60 + (x.time.minute || 0);
             var my = (y.time.hour || 0) * 60 + (y.time.minute || 0);
             return mx - my;
         });
         var daysHtml = '<div class="phone-calendar-day' + (isToday ? ' phone-calendar-day-today' : '') + '">';
         daysHtml += '<div class="phone-calendar-day-title">' + dayLabel + '</div>';
-        if (dayEvents.length === 0) {
+        if (dayEventsMerged.length === 0) {
             daysHtml += '<div class="phone-calendar-day-events phone-calendar-day-empty">No events</div>';
         } else {
             daysHtml += '<div class="phone-calendar-day-events">';
-            dayEvents.forEach(function (a) {
+            dayEventsMerged.forEach(function (a) {
                 var timeStr = a.time ? (String(a.time.hour || 0).padStart(2, '0') + ':' + String(a.time.minute || 0).padStart(2, '0')) : '';
-                var name = getPhoneContactName(a.charId, vars);
-                var place = a.locationName || a.location || '';
-                daysHtml += '<div class="phone-calendar-event"><span class="phone-calendar-event-time">' + timeStr + '</span> <span class="phone-calendar-event-desc">' + escapeHtml(name) + (place ? ' @ ' + escapeHtml(place) : '') + '</span></div>';
+                var desc;
+                if (a.isWorkCalendar) {
+                    desc = 'Work — ' + escapeHtml(a.workPlaceName);
+                } else {
+                    var name = getPhoneContactName(a.charId, vars);
+                    var place = a.locationName || a.location || '';
+                    desc = escapeHtml(name) + (place ? ' @ ' + escapeHtml(place) : '');
+                }
+                daysHtml += '<div class="phone-calendar-event"><span class="phone-calendar-event-time">' + timeStr + '</span> <span class="phone-calendar-event-desc">' + desc + '</span></div>';
             });
             daysHtml += '</div>';
         }

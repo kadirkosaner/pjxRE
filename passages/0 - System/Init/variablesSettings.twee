@@ -4,24 +4,24 @@
 ========================================== */
 <<set $gameSettings = {
     /* Basic Needs */
-    trackHunger: true,
-    trackThirst: true,
-    trackBladder: true,
-    trackCalories: true,
-    hygieneRequirement: true,
+    trackHunger: false,
+    trackThirst: false,
+    trackBladder: false,
+    trackCalories: false,
+    hygieneRequirement: false,
     /* Appearance Changes */
-    hairGrowth: true,
-    hairMessiness: true,
-    bodyHairGrowth: true,
-    makeupWearOff: true,
-    bodyDegradation: true,
+    hairGrowth: false,
+    hairMessiness: false,
+    bodyHairGrowth: false,
+    makeupWearOff: false,
+    bodyDegradation: false,
     /* Appearance Care Decay (hair/face/dental care drops without routine) */
-    hairCareDecay: true,
-    faceCareDecay: true,
-    dentalCareDecay: true,
+    hairCareDecay: false,
+    faceCareDecay: false,
+    dentalCareDecay: false,
     /* Decay Systems */
-    skillDecay: true,
-    relationshipDecay: true
+    skillDecay: false,
+    relationshipDecay: false
 }>>
 
 /* ==========================================
@@ -42,19 +42,19 @@ State.variables.videoSettings = State.variables.videoSettings || {
    Controls which content types are visible (14 categories)
 ========================================== */
 <<set $contentPreferences = {
-    maleSexual: true,
-    femaleSexual: true,
-    futaTrans: true,
-    ntr: true,
-    pregnancy: true,
-    incest: true,
-    bdsm: true,
-    nonConsensual: true,
-    publicExhibition: true,
-    lactation: true,
-    feet: true,
-    watersports: true,
-    scat: true,
-    goreViolence: true,
-    ageplay: true
+    maleSexual: false,
+    femaleSexual: false,
+    futaTrans: false,
+    ntr: false,
+    pregnancy: false,
+    incest: false,
+    bdsm: false,
+    nonConsensual: false,
+    publicExhibition: false,
+    lactation: false,
+    feet: false,
+    watersports: false,
+    scat: false,
+    goreViolence: false,
+    ageplay: false
 }>>

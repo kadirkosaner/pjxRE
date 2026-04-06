@@ -9,7 +9,6 @@
 <<advanceTime 3>>
 <<earnMoney 100 "You took $100 from Dad's wallet">>
 <<set $corruption += 1>>
-<<advanceQuestStage "something_different">>
 <</silently>>
 
 
@@ -136,6 +135,10 @@ Now it feels real.
 <</narrative>>
 
 <div class="location-actions">
-<<btn "Continue" "fhBedroom">><</btn>>
+<<btn "Continue" "fhBedroom">>
+<<silently>>
+<<completeQuest "something_different">>
+<</silently>>
+<</btn>>
 </div>
 </div>

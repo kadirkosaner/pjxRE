@@ -24,6 +24,13 @@ You don't have a job here.
 <div class="location-actions">
 <<btn "Back" _backPassage "secondary">><</btn>>
 </div>
+<<elseif ((_job.schedule && _job.schedule.offWeekdays) || []).includes($timeSys.weekday)>>
+<<narrative "Work">>
+It's your scheduled day off — no shift today.
+<</narrative>>
+<div class="location-actions">
+<<btn "Back" _backPassage "secondary">><</btn>>
+</div>
 <<else>>
 <<narrative "Work">>
 You're at <<= _job.workplaceName>>. How long do you want to work?

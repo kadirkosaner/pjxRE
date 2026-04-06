@@ -11,6 +11,9 @@ Your brother's room is messier than yours. Gaming posters cover the walls and cl
 <<questPrompts>>
 <div class="location-actions">
 <<useComputerWidget>>
+<<if $characters.brother && $characters.brother.currentLocation === "fhBrotherRoom">>
+<<btn "Watch Brother" "brotherWatch">><</btn>>
+<</if>>
 </div>
 <<navMenu>>
 	<<navCard "fhUpperstairs">>

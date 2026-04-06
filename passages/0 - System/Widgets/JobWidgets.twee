@@ -78,6 +78,13 @@
         <<return>>
     <</if>>
 
+    /* Scheduled off day (e.g. Tue/Thu) */
+    <<set _offList = _job.schedule.offWeekdays || []>>
+    <<if _offList.includes($timeSys.weekday)>>
+        <<run window.notifyWarning("You don't have a shift scheduled today (day off).")>>
+        <<return>>
+    <</if>>
+
     /* Check schedule (open <= currentHour, currentHour + shiftHours <= close) */
     <<set _hour = $timeSys.hour>>
     <<if _hour < _job.schedule.open>>
@@ -222,6 +229,7 @@
    For multi-day skips, add extra insufficient days. */
 <<widget "jobRecordInsufficientDay">>
     <<set _days = $args[0] || 1>>
+    <<set _oldWeekday = $args[1]>>
     <<if !$job || !$job.id>>
         <<return>>
     <</if>>
@@ -230,11 +238,30 @@
         <<set _required = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
         <<set _hoursToday = parseInt($jobState.hoursToday || 0, 10)>>
         <<if ndef $jobState.insufficientDaysThisWeek>><<set $jobState.insufficientDaysThisWeek = 0>><</if>>
-        <<if _hoursToday < _required>>
+        <<set _off = _job.schedule.offWeekdays || []>>
+        <<set _addFirst = false>>
+        <<if _oldWeekday == null>>
+            <<set _addFirst = _hoursToday < _required>>
+        <<else>>
+            <<set _firstOff = _off.includes(_oldWeekday)>>
+            <<if !_firstOff && _hoursToday < _required>>
+                <<set _addFirst = true>>
+            <</if>>
+        <</if>>
+        <<if _addFirst>>
             <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + 1>>
         <</if>>
         <<if _days > 1>>
-            <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + (_days - 1)>>
+            <<if _oldWeekday == null>>
+                <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + (_days - 1)>>
+            <<else>>
+                <<for _i = 1; _i < _days; _i++>>
+                    <<set _w = (_oldWeekday + _i) % 7>>
+                    <<if !_off.includes(_w)>>
+                        <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + 1>>
+                    <</if>>
+                <</for>>
+            <</if>>
         <</if>>
     <</if>>
 <</widget>>
@@ -312,8 +339,18 @@
     <<set _hour = $timeSys.hour>>
     <<set _currentDate = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
     <<set _startDate = $job.startedOn.year * 10000 + $job.startedOn.month * 100 + $job.startedOn.day>>
+    <<set _offDays = _job.schedule.offWeekdays || []>>
+    <<set _isScheduleOffDay = _offDays.includes($timeSys.weekday)>>
     <<set _canWorkToday = _currentDate >= _startDate && _hour >= _job.schedule.open>>
-        <<if _canWorkToday && _hour < _job.schedule.close>>
+        <<if _canWorkToday && _isScheduleOffDay && _hour < _job.schedule.close>>
+            <<set _offNames = []>>
+            <<for _wd range _offDays>>
+                <<run _offNames.push($timeConfig.weekdayNames[_wd])>>
+            <</for>>
+            <<set _offHint = _offNames.length ? _offNames.join(" & ") : "scheduled off">>
+            <<set _dayOffLockText = "Day off (" + _offHint + ")">>
+            <<btn "Work" "" "locked" _dayOffLockText>><</btn>>
+        <<elseif _canWorkToday && !_isScheduleOffDay && _hour < _job.schedule.close>>
             <<silently>>
             <<set _workLocked = false>>
             <<set _workLockedReasons = []>>

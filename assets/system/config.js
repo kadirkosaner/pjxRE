@@ -2,6 +2,7 @@
 window.SystemModules = {
   // Utils - Base systems and helpers (load first)
   utils: [
+    "jobSchedule", // Job off-days / work-days (topbar, calendar, stats)
     "modal", // Base modal system (ModalTabSystem)
     "tooltip", // Tooltip helper
     "notification", // Toast notification helpers

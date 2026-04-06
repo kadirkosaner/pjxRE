@@ -1,0 +1,47 @@
+:: brotherPlayTogether
+<<nobr>>
+<<requireMinEnergy 10 "fhBrotherRoom">>
+<<silently>>
+<<set $location = "fhBrotherRoom">>
+<<set _pcVidBase = "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/gaming/">>
+<<set _sceneVid = "">>
+<<set _v = random(1, 4)>>
+<<switch _v>>
+<<case 1>>
+    <<set _sceneText = "He carries harder than he admits, but when you clutch a round he actually laughs—surprised, not mean. The next match you play looser, talking smack like you've got the rank to back it up.">>
+    <<set _sceneVid = _pcVidBase + "gameComp" + random(1, 6) + ".mp4">>
+<<case 2>>
+    <<set _sceneText = "You take turns on one cozy builder save. He pretends not to care where you put the decorations; he fixes your mistakes with quick clicks and worse excuses.">>
+    <<set _sceneVid = _pcVidBase + "gameCozy" + random(1, 5) + ".mp4">>
+<<case 3>>
+    <<set _sceneText = "Co-op roguelike: you die first every time until you don't. He says 'told you' and queues another run anyway.">>
+    <<set _sceneVid = _pcVidBase + "gameRogue" + random(1, 9) + ".mp4">>
+<<case 4>>
+    <<set _sceneText = "Story mode with two controllers mapped awkwardly to one keyboard. You argue over dialogue choices and agree the ending still hits.">>
+    <<set _sceneVid = _pcVidBase + "gameStory" + random(1, 14) + ".mp4">>
+<</switch>>
+<<gainStat "mood" 15>>
+<<loseStat "stress" 10>>
+<<loseStat "energy" 10>>
+<<gainCharacterStat "brother" "friendship" 1>>
+<<set _gamingNow = ($skills.technical && def $skills.technical.gaming) ? $skills.technical.gaming : 0>>
+<<if _gamingNow >= 35>>
+<<run window.notifyWarning("You've gained all the gaming skill you can from playing games with your brother.")>>
+<<else>>
+<<gainSkill "technical" "gaming" 2>>
+<</if>>
+<<recalculateStats>>
+<<advanceTime 30>>
+<<flushNotifications>>
+<</silently>>
+
+<<narrative "Gaming together">>
+<<print _sceneText>>
+<</narrative>>
+
+<<if _sceneVid !== "">><<vid _sceneVid "100%">><</if>>
+
+<div class="location-actions">
+<<btn "Step Away" "fhBrotherRoom">><</btn>>
+</div>
+<</nobr>>

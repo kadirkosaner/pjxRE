@@ -286,7 +286,7 @@
     <<set $daily.dishwashVinceCheckToday = false>>
 
     /* Job: record insufficient days before reset (hoursToday from day we're leaving) */
-    <<jobRecordInsufficientDay _days>>
+    <<jobRecordInsufficientDay _days _oldWeekday>>
 
     /* Job: reset shiftsToday for new day */
     <<jobResetDaily>>

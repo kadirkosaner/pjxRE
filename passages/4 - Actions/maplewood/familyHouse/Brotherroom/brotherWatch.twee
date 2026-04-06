@@ -1,0 +1,60 @@
+:: brotherWatch
+<<nobr>>
+<<silently>>
+<<set $location = "fhBrotherRoom">>
+<<set _broHere = $characters.brother && $characters.brother.currentLocation === "fhBrotherRoom">>
+<<set _gamingLvl = ($skills.technical && def $skills.technical.gaming) ? $skills.technical.gaming : 0>>
+<<set _watchScene = random(1, 2)>>
+<<set _watchBrotherVid = "">>
+<<if _watchScene === 1>>
+<<set _watchBrotherVid = "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/watchbrother/normal" + random(1, 2) + ".mp4">>
+<<elseif _watchScene === 2>>
+<<set _watchBrotherVid = "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/watchbrother/gaming" + random(1, 3) + ".mp4">>
+<</if>>
+<</silently>>
+
+<<if !_broHere>>
+<<goto "fhBrotherRoom">>
+<<else>>
+
+<<narrative "Brother's Room">>
+<<switch _watchScene>>
+<<case 1>>
+He's at his desk, mouse moving in slow drags—scrolling feeds, a forum thread, something with too many ads. Normal PC noise: clicks, the occasional snort at a dumb comment. He's absorbed, not gaming.
+<<case 2>>
+His headset's on and he's leaned in, fingers busy on the keyboard. The screen throws colored light across his face. Every so often he mutters under his breath at whatever's happening in-game.
+<</switch>>
+<</narrative>>
+
+<<if _watchBrotherVid !== "">><<vid _watchBrotherVid "100%">><</if>>
+
+<div class="location-actions">
+<<if _watchScene === 2>>
+    <<silently>>
+    <<set _canAskPlay = _gamingLvl >= 15 && (parseInt($energy || 0, 10) >= 10)>>
+    <<set _askPlayErrors = []>>
+    <<if _gamingLvl < 15>>
+        <<run _askPlayErrors.push("Need 15 gaming")>>
+    <</if>>
+    <<if parseInt($energy || 0, 10) < 10>>
+        <<run _askPlayErrors.push("Need 10 energy")>>
+    <</if>>
+    <<set _askPlayTooltip = _askPlayErrors.join(" ")>>
+    <</silently>>
+    <<if _canAskPlay>>
+        <<btn "Ask to play" "brotherPlayTogether" "default">><</btn>>
+    <<else>>
+        <<set _askPlayLockedSpan = '<span class="link-internal btn-style btn-default locked" data-tooltip="' + _askPlayTooltip + '"><i class="icon icon-lock icon-12"></i> Ask to play</span>'>>
+        <<print _askPlayLockedSpan>>
+    <</if>>
+<</if>>
+<<btn "Go back" "fhBrotherRoom">><</btn>>
+</div>
+
+<<silently>>
+<<advanceTime 10>>
+<<flushNotifications>>
+<</silently>>
+
+<</if>>
+<</nobr>>

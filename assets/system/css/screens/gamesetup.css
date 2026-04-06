@@ -302,7 +302,7 @@
 .note-box {
   background: rgba(236, 72, 153, 0.1);
   border-left: 3px solid var(--color-accent);
-  padding: 0.75rem 1rem;
+  padding: 1rem 1rem 0.85rem 1rem;
   margin-bottom: 1rem;
   font-size: 0.9rem;
   color: var(--color-text-secondary);
@@ -750,4 +750,86 @@
   padding: 0.5rem 1rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border-primary);
+}
+
+/* ==========================================
+   PLAYER NAME CARD (Character Identity)
+========================================== */
+
+.player-name-card {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: border-color var(--transition-fast);
+}
+
+.player-name-card:hover {
+  border-color: var(--color-border-secondary);
+}
+
+.player-name-card .form-grid-2 {
+  margin-top: 0.75rem;
+}
+
+.player-name-card .form-input-group {
+  margin-bottom: 0;
+}
+
+.player-name-card .form-input-group label {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+/* ==========================================
+   HOUSEHOLD / FAMILY MEMBER CARDS
+========================================== */
+
+.family-member-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.family-member-card {
+  flex: 1;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color var(--transition-fast);
+}
+
+.family-member-card:hover {
+  border-color: var(--color-border-secondary);
+}
+
+.family-member-header {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.family-member-card .form-input-group {
+  margin-bottom: 0;
+}
+
+.family-member-card .form-input-group label {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 600px) {
+  .family-member-row {
+    flex-direction: column;
+  }
 }

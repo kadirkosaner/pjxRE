@@ -1,5 +1,5 @@
 <<nobr>>
-<<requireMinEnergy 10 "brotherComputerMenu">>
+<<requireMinEnergy 5 "brotherComputerMenu">>
 <<silently>>
 <<set $location = "fhBrotherRoom">>
 <<set _pcVidBase = "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/gaming/">>
@@ -19,11 +19,16 @@
     <<set _sceneText = "You sink into a story game—dialogue choices, slow exploration, a plot that actually lands. When you look up, the room feels dimmer and your eyes are dry.">>
     <<set _sceneVid = _pcVidBase + "gameStory" + random(1, 14) + ".mp4">>
 <</switch>>
-<<gainStat "mood" 20>>
-<<loseStat "stress" 15>>
-<<loseStat "energy" 10>>
-<<gainSkill "technical" "gaming" 2>>
-<<advanceTime 60>>
+<<gainStat "mood" 10>>
+<<loseStat "stress" 10>>
+<<loseStat "energy" 5>>
+<<set _gamingNow = ($skills.technical && def $skills.technical.gaming) ? $skills.technical.gaming : 0>>
+<<if _gamingNow >= 20>>
+<<run window.notifyWarning("You've gained all the gaming skill you can from playing solo on your brother's PC.")>>
+<<else>>
+<<gainSkill "technical" "gaming" 1>>
+<</if>>
+<<advanceTime 30>>
 <<flushNotifications>>
 <</silently>>
 

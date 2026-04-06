@@ -1,6 +1,7 @@
 :: variablesPhoneTopicsBrother [init]
 /* Brother phone topics – 2–4 variations per topic, slang/profanity ok */
 
+<<if !setup.phoneMessageTopics>><<set setup.phoneMessageTopics = {}>><</if>>
 <<set setup.phoneMessageTopics.brother = [
     /* === FRIENDSHIP === */
     {
