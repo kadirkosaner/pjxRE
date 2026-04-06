@@ -1,4 +1,7 @@
 <<nobr>>
+<<if $flags.firstWorkDayWalkEvent>>
+<<goto "event_maplewood_firstWorkDayWalkHome">>
+<</if>>
 <<if $timeSys.hour === 0 && $daily.fhThinWallsNight !== $timeSys.day>>
 	<<set $daily.fhThinWallsNight = $timeSys.day>>
 	<<if random(1, 100) <= 20>>
