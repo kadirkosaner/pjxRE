@@ -1159,10 +1159,11 @@ function renderOutfits() {
                 }
                 
                 wearOutfit(idx);
-                
+
+                removeWardrobeGlobalTooltips();
                 document.body.classList.remove('wardrobe-active');
                 if (WardrobeAPI) {
-                    const target = 'fhBedroom';
+                    const target = wardrobeReturnPassage || 'fhBedroom';
                     if (target === WardrobeAPI.State.passage) {
                         WardrobeAPI.Engine.display(target, null, "back");
                         if (typeof UIBar !== 'undefined' && UIBar.update) UIBar.update();

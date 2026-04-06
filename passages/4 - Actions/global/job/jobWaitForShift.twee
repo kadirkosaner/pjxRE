@@ -13,7 +13,11 @@
 <<set _jobDef = setup.jobs[$job.id]>>
 <<set _offDays = (_jobDef.schedule && _jobDef.schedule.offWeekdays) || []>>
 <<if _offDays.includes($timeSys.weekday)>>
+<<if $timeSys.weekday === 1 && ($jobState.bossWantsToSeePlayer) && _jobDef.bossOfficePassage>>
+<<run window.notifyWarning("No shift today — your manager still needs to see you.")>>
+<<else>>
 <<run window.notifyWarning("No shift today.")>>
+<</if>>
 <<goto _returnPassage>>
 <</if>>
 <<set _openH = _jobDef.schedule.open>>

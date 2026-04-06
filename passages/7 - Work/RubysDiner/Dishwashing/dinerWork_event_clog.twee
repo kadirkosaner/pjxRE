@@ -1,5 +1,9 @@
 :: dinerWork_event_clog
-<<silently>><<set _v = random(1, 3)>><</silently>>
+
+<<silently>>
+<<set _v = random(1, 3)>>
+<<set $location = $activityOrigin || "dinerRubys">>
+<</silently>>
 
 <<if _v === 1>>
 <<narrative "Problem">>
@@ -39,4 +43,5 @@ You clear the blockage and mop the floor. Ten minutes you won't get back.
 <<loseStat "energy" 5>>
 <<gainStat "stress" 3>>
 <<recalculateStats>>
+<<flushNotifications>>
 <</silently>>

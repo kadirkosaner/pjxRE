@@ -1,4 +1,5 @@
 <<nobr>>
+<<requireMinEnergy 5 "brotherComputerMenu">>
 <<silently>>
 <<set $location = "fhBrotherRoom">>
 <<set _v = random(1, 8)>>
@@ -22,6 +23,7 @@
 <</switch>>
 <<gainStat "mood" 10>>
 <<loseStat "stress" 8>>
+<<loseStat "energy" 5>>
 <<advanceTime 30>>
 <<flushNotifications>>
 <</silently>>
@@ -31,6 +33,6 @@
 <</narrative>>
 
 <div class="location-actions">
-<<btn "Step Away" "fhBrotherRoom">><</btn>>
+<<btn "Go Back" "brotherComputerMenu">><</btn>>
 </div>
 <</nobr>>

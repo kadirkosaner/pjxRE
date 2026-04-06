@@ -1,5 +1,6 @@
 :: dinerWork_event_rushSurge_askHelp
 <<silently>>
+<<set $location = $activityOrigin || "dinerRubys">>
 <<set _charisma = $charisma || 0>>
 <<set _roll = random(1, 100)>>
 <<set _threshold = 30 + Math.min(_charisma, 40)>>
@@ -14,6 +15,7 @@ Two people, twice the speed. The rush clears faster than it built up.
 <<silently>>
 <<gainCharacterStat "dinerDishwasher" "friendship" 1>>
 <<recalculateStats>>
+<<flushNotifications>>
 <</silently>>
 
 <<else>>
@@ -26,6 +28,7 @@ You handle it alone. It takes longer than it should.
 <<loseStat "energy" 5>>
 <<loseStat "mood" 3>>
 <<recalculateStats>>
+<<flushNotifications>>
 <</silently>>
 <</if>>
 

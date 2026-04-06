@@ -1,5 +1,8 @@
 :: dinerWork_event_mikeHelp
-<<silently>><<set _v = random(1, 3)>><</silently>>
+<<silently>>
+<<set $location = $activityOrigin || "dinerRubys">>
+<<set _v = random(1, 3)>>
+<</silently>>
 
 <<if _v === 1>>
 <<narrative>>
@@ -38,4 +41,5 @@ He scrubs it clean in thirty seconds. Hands it back, already looking elsewhere.
 <<gainStat "energy" 8>>
 <<gainCharacterStat "dinerDishwasher" "friendship" 1>>
 <<recalculateStats>>
+<<flushNotifications>>
 <</silently>>

@@ -55,6 +55,12 @@ function createMainMenu() {
                         </span>
                         <span class="menu-text">Report Bug</span>
                     </div>
+                    <div class="menu-item" data-action="subscribestar">
+                        <span class="menu-icon">
+                            <span class="icon icon-subscribestar icon-24"></span>
+                        </span>
+                        <span class="menu-text">SubscribeStar</span>
+                    </div>
                 </div>
             </div>
         `;
@@ -132,11 +138,15 @@ function handleMenuAction(action) {
             }
             break;
         case 'report-bug':
-            alert('Reporting Bug - Coming soon!');
+            window.open('https://discord.gg/y598bANqJ3', '_blank');
+            closeMainMenu();
+            break;
+        case 'subscribestar':
+            window.open('https://subscribestar.adult/neph93', '_blank');
             closeMainMenu();
             break;
         case 'website':
-            window.open('https://nephslair.com', '_blank');
+            window.open('https://.com', '_blank');
             closeMainMenu();
             break;
         case 'patreon':

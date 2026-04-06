@@ -1,5 +1,8 @@
 :: dinerWork_event_rushSurge
-<<silently>><<set _v = random(1, 2)>><</silently>>
+<<silently>>
+<<set $location = $activityOrigin || "dinerRubys">>
+<<set _v = random(1, 2)>>
+<</silently>>
 
 <<if _v === 1>>
 <<narrative "Rush">>

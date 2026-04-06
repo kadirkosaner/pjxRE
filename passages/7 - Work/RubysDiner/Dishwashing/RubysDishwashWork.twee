@@ -25,6 +25,7 @@
 <<goto "jobWorkSelect">>
 <<else>>
 <<set $location = "dinerRubys">>
+<<set $activityOrigin = "dinerRubys">>
 <<updateCharacterLocations>>
 
 <<silently>>

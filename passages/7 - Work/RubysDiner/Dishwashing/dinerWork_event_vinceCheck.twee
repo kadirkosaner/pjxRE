@@ -1,5 +1,6 @@
 :: dinerWork_event_vinceCheck
 <<silently>>
+<<set $location = $activityOrigin || "dinerRubys">>
 <<set _dishSkill = ($skills && $skills.practical && $skills.practical.dishwashing) ? $skills.practical.dishwashing : 0>>
 <<set _v = random(1, 2)>>
 <</silently>>
@@ -32,6 +33,7 @@
     <<gainStat "mood" 3>>
     <<gainCharacterStat "dinerManager" "friendship" 1>>
     <<recalculateStats>>
+    <<flushNotifications>>
     <</silently>>
 
 <<else>>
@@ -63,6 +65,7 @@
     <<gainStat "stress" 3>>
     <<loseStat "mood" 2>>
     <<recalculateStats>>
+    <<flushNotifications>>
     <</silently>>
 
 <</if>>

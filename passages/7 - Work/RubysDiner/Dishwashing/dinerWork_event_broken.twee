@@ -1,4 +1,5 @@
 <<silently>>
+<<set $location = $activityOrigin || "dinerRubys">>
 <<set _v = random(1, 3)>>
 <<set _picNum = random(1, 4)>>
 <<if _v === 1>>
@@ -59,4 +60,5 @@ He looks at the mug in your hand. Then at you. He leaves without waiting for an 
 <<loseStat "mood" 3>>
 <<set $jobState.weeklyDeductions = ($jobState.weeklyDeductions || 0) + 3>>
 <<recalculateStats>>
+<<flushNotifications>>
 <</silently>>

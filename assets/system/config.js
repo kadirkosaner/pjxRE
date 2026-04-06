@@ -32,7 +32,7 @@ window.SystemModules = {
     "map", // Map overlay (injects into rightbar)
     "startscreen", // Start screen handler
     "mainmenu", // Main menu sliding panel
-//    "debug", // Debug floating panel
+    "debug", // Debug floating panel
     "toggle", // Custom Toggle Switch
     "dropdown", // Custom Dropdown
   ],

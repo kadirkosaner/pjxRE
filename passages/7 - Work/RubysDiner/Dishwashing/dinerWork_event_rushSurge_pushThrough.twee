@@ -1,4 +1,7 @@
-:: dinerWork_event_rushSurge_pushThrough
+<<silently>>
+<<set $location = $activityOrigin || "dinerRubys">>
+<</silently>>
+
 <<narrative>>
 You don't look up. Hands in the water, one plate at a time. The pile doesn't shrink for a while. Then it does.
 
@@ -10,6 +13,7 @@ Your arms are heavy by the end. But you did it.
 <<gainStat "stress" 5>>
 <<gainSkill "practical" "dishwashing" 1>>
 <<recalculateStats>>
+<<flushNotifications>>
 <</silently>>
 
 <<include "RubysDishwashWork_afterMini">>

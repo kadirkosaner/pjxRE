@@ -56,13 +56,24 @@ function isDiscoveredLocation(locationId, vars) {
 }
 
 function getDateWithOffset(ts, dayOffset) {
+    var offset = dayOffset || 0;
     var dt = new Date(ts.year || 2025, (ts.month || 1) - 1, ts.day || 1);
-    dt.setDate(dt.getDate() + dayOffset);
+    dt.setDate(dt.getDate() + offset);
+    /* Use game weekday + offset so calendar/messages match topbar ($timeSys.weekday).
+       Raw Date.getDay() drifts when story start weekday ≠ real calendar for that date. */
+    var baseWd = ts.weekday;
+    if (baseWd == null || baseWd === '' || isNaN(Number(baseWd))) {
+        baseWd = dt.getDay();
+    } else {
+        baseWd = Number(baseWd);
+    }
+    var weekday = (baseWd + offset) % 7;
+    if (weekday < 0) weekday += 7;
     return {
         year: dt.getFullYear(),
         month: dt.getMonth() + 1,
         day: dt.getDate(),
-        weekday: dt.getDay()
+        weekday: weekday
     };
 }
 

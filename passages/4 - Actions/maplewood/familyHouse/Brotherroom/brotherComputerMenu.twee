@@ -1,5 +1,3 @@
-:: brotherComputerMenu
-/* Brother's PC only — post-quest casual use (v0.1) */
 <<nobr>>
 <<silently>>
 <<set $location = "fhBrotherRoomPC">>
@@ -12,9 +10,9 @@ What do you want to do?
 <</narrative>>
 
 <div class="location-actions">
-<<btn "Browse / Surf" "brotherComputerBrowse">><</btn>>
-<<btn "Watch Video" "brotherComputerWatchVideo">><</btn>>
-<<btn "Play Game" "brotherComputerPlayGame">><</btn>>
+<<btn "Browse / Surf" "brotherComputerBrowse" "default" 10>><</btn>>
+<<btn "Watch Video" "brotherComputerWatchVideo" "default" 12>><</btn>>
+<<btn "Play Game" "brotherComputerPlayGame" "default" 15>><</btn>>
 <<btn "Close Computer" "fhBrotherRoom">><</btn>>
 </div>
 <</nobr>>

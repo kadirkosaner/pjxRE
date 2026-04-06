@@ -918,6 +918,16 @@ setup.hubAmbientEnergyActDrain = function (key, mins) {
     const mm = !isNaN(m) && m > 0 ? m : defM;
     return Math.max(1, Math.round((h * mm) / 60));
 };
+/** Insufficient-day job logic: add deltaDays to y/m/d. weekday = Date.getDay (0=Sun), matches $timeSys.weekday. */
+setup.jobDateAddDays = function (y, m, d, deltaDays) {
+    const dt = new Date(y, m - 1, d + deltaDays);
+    return {
+        year: dt.getFullYear(),
+        month: dt.getMonth() + 1,
+        day: dt.getDate(),
+        weekday: dt.getDay()
+    };
+};
 setup.hubAmbientEnergyForMins = {
     walk(mins) {
         return setup.hubAmbientEnergyActDrain('walk', mins) + 10;
@@ -1225,8 +1235,7 @@ Macro.add('btnPicker', {
 
 /* ================== jobWorkPicker Macro =================== */
 /* Usage: <<jobWorkPicker "Work" "jobWorkExecute">>
-   Uses $jobAvailableShifts (from jobSetAvailableShifts) - only shows options with enough energy + schedule
-   If no options, shows locked state. */
+   Uses $jobAvailableShifts (from jobSetAvailableShifts) — schedule, energy (cost+10), tracked needs < 50 */
 Macro.add('jobWorkPicker', {
     handler: function () {
         if (this.args.length < 2) {
@@ -1244,9 +1253,12 @@ Macro.add('jobWorkPicker', {
         const presetName = 'jobShiftDuration';
 
         if (options.length === 0) {
+            const lockHint = State.variables.jobWorkNeedsBlock
+                ? 'Eat, drink, or use the bathroom first (needs too high)'
+                : 'Not enough energy or no shifts available';
             const span = $('<span>')
                 .addClass('link-internal btn-style locked')
-                .attr('data-tooltip', "Not enough energy or no shifts available")
+                .attr('data-tooltip', lockHint)
                 .html('<span class="icon icon-lock icon-12"></span> ' + text)
                 .appendTo(this.output)
                 .addClass('btn-' + style);

@@ -1,5 +1,8 @@
 :: dinerWork_event_sofiaChat
-<<silently>><<set _v = random(1, 3)>><</silently>>
+<<silently>>
+<<set $location = $activityOrigin || "dinerRubys">>
+<<set _v = random(1, 3)>>
+<</silently>>
 
 <<if _v === 1>>
 <<narrative>>
@@ -40,4 +43,5 @@ She says it casually, like it's nothing. It's not nothing.
 <<loseStat "stress" 3>>
 <<gainCharacterStat "dinerWaitress3" "friendship" 1>>
 <<recalculateStats>>
+<<flushNotifications>>
 <</silently>>

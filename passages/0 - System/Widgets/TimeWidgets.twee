@@ -222,6 +222,9 @@
 
 <<widget "advanceDay">>
     <<set _days = $args[0] || 1>>
+    <<set _jobLeaveY = $timeSys.year>>
+    <<set _jobLeaveM = $timeSys.month>>
+    <<set _jobLeaveD = $timeSys.day>>
     <<set _oldWeekday = $timeSys.weekday>>
     <<set $timeSys.day += _days>>
     <<set $timeSys.weekday = ($timeSys.weekday + _days) % 7>>
@@ -285,8 +288,8 @@
     <<set $daily.dishwashRushSurgeToday = false>>
     <<set $daily.dishwashVinceCheckToday = false>>
 
-    /* Job: record insufficient days before reset (hoursToday from day we're leaving) */
-    <<jobRecordInsufficientDay _days _oldWeekday>>
+    /* Job: record insufficient days before reset (hoursToday from calendar day _jobLeaveY/M/D) */
+    <<jobRecordInsufficientDay _days _oldWeekday _jobLeaveY _jobLeaveM _jobLeaveD>>
 
     /* Job: reset shiftsToday for new day */
     <<jobResetDaily>>

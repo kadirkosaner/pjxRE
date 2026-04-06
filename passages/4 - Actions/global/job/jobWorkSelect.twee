@@ -25,12 +25,25 @@ You don't have a job here.
 <<btn "Back" _backPassage "secondary">><</btn>>
 </div>
 <<elseif ((_job.schedule && _job.schedule.offWeekdays) || []).includes($timeSys.weekday)>>
+<<set _bossSummonOffDay = ($timeSys.weekday === 1) && ($jobState.bossWantsToSeePlayer) && _job.bossOfficePassage>>
+<<if _bossSummonOffDay>>
+<<set _bossFirst = setup.characterDefs[_job.bossCharId].firstName>>
+<<narrative "Work">>
+It's your scheduled day off — no shift today. Still, <<= _bossFirst>> asked you to come in for a talk.
+<</narrative>>
+<div class="location-actions">
+<<set _btnSeeBoss = "See " + _bossFirst>>
+<<btn _btnSeeBoss _job.bossOfficePassage>><</btn>>
+<<btn "Back" _backPassage "secondary">><</btn>>
+</div>
+<<else>>
 <<narrative "Work">>
 It's your scheduled day off — no shift today.
 <</narrative>>
 <div class="location-actions">
 <<btn "Back" _backPassage "secondary">><</btn>>
 </div>
+<</if>>
 <<else>>
 <<narrative "Work">>
 You're at <<= _job.workplaceName>>. How long do you want to work?
@@ -38,7 +51,7 @@ You're at <<= _job.workplaceName>>. How long do you want to work?
 
 <<if ndef _available>><<set _available = []>><</if>>
 <<if _available.length === 0>>
-<p style="text-align: center; font-style: italic;">You can't start a shift right now—either you've already worked 8 hours today, or the available shift times wouldn't fit before closing.</p>
+<<narrative>><<if $jobWorkNeedsBlock>>You need to eat, drink, or use the bathroom before you can start a shift.<<else>>You can't start a shift right now—either you've already worked 8 hours today, you don't have enough energy, or the available shift times wouldn't fit before closing.<</if>><</narrative>>
 <<else>>
 <div class="location-actions">
 <<jobWorkPicker "Work" "jobWorkExecute">>

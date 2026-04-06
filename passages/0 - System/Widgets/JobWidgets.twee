@@ -5,13 +5,25 @@
    Design: 1Developer/JobSystemDesign.md
 ========================================== */
 
-/* Set $jobAvailableShifts (filter by schedule + energy) */
+/* Set $jobAvailableShifts (filter by schedule + energy + needs). Block shift if tracked hunger/thirst/bladder >= 50. */
 <<widget "jobSetAvailableShifts">>
     <<set _jobId = $args[0] || $job.id>>
     <<set _job = setup.jobs[_jobId]>>
+    <<set $jobWorkNeedsBlock = false>>
     <<if !_job>>
         <<set $jobAvailableShifts = []>>
     <<else>>
+        <<set _needMax = 50>>
+        <<set _needsOk = true>>
+        <<if $gameSettings.trackHunger && (parseInt($hunger, 10) || 0) >= _needMax>>
+            <<set _needsOk = false>>
+        <</if>>
+        <<if $gameSettings.trackThirst && (parseInt($thirst, 10) || 0) >= _needMax>>
+            <<set _needsOk = false>>
+        <</if>>
+        <<if $gameSettings.trackBladder && (parseInt($bladder, 10) || 0) >= _needMax>>
+            <<set _needsOk = false>>
+        <</if>>
         <<set _hour = parseInt($timeSys.hour, 10)>>
         <<set _close = _job.schedule.close>>
         <<set _energy = parseInt($energy, 10) || 0>>
@@ -19,13 +31,19 @@
         <<set _requiredHoursPerDay = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
         <<set _options = _job.shiftHoursOptions || [2, 4, 6, 8]>>
         <<set $jobAvailableShifts = []>>
+        <<if !_needsOk>>
+            <<set $jobWorkNeedsBlock = true>>
+        <<else>>
         <<for _h range _options>>
             <<set _mult = _h / 4>>
             <<set _energyCost = Math.ceil(Math.abs((_job.statCostsPer4Hours || {}).energy || 50) * _mult)>>
-            <<if _hour + _h <= _close && _energy >= _energyCost && _hoursToday + _h <= _requiredHoursPerDay>>
+            /* Same rule as watch TV: need shift energy cost + 10 reserve to start */
+            <<set _energyNeed = _energyCost + 10>>
+            <<if _hour + _h <= _close && _energy >= _energyNeed && _hoursToday + _h <= _requiredHoursPerDay>>
                 <<run $jobAvailableShifts.push(_h)>>
             <</if>>
         <</for>>
+        <</if>>
     <</if>>
 <</widget>>
 
@@ -62,11 +80,26 @@
         <</if>>
     <</if>>
 
-    /* Check min energy (approx cost for this shift) */
+    /* Min energy: shift cost + 10 reserve (matches time picker / watch TV) */
     <<set _mult = _shiftHours / 4>>
     <<set _energyCost = Math.ceil(Math.abs((_job.statCostsPer4Hours || {}).energy || 50) * _mult)>>
-    <<if ($energy || 0) < _energyCost>>
-        <<run window.notifyWarning("Not enough energy. You need at least " + _energyCost + " for this shift.")>>
+    <<set _energyNeed = _energyCost + 10>>
+    <<if ($energy || 0) < _energyNeed>>
+        <<run window.notifyWarning("Not enough energy. You need at least " + _energyNeed + " to start this shift.")>>
+        <<return>>
+    <</if>>
+
+    <<set _needMaxExec = 50>>
+    <<if $gameSettings.trackHunger && (parseInt($hunger, 10) || 0) >= _needMaxExec>>
+        <<run window.notifyWarning("You're too hungry to start a shift. Eat something first.")>>
+        <<return>>
+    <</if>>
+    <<if $gameSettings.trackThirst && (parseInt($thirst, 10) || 0) >= _needMaxExec>>
+        <<run window.notifyWarning("You're too thirsty to start a shift. Drink something first.")>>
+        <<return>>
+    <</if>>
+    <<if $gameSettings.trackBladder && (parseInt($bladder, 10) || 0) >= _needMaxExec>>
+        <<run window.notifyWarning("You need a bathroom break before you can start a shift.")>>
         <<return>>
     <</if>>
 
@@ -213,7 +246,9 @@
     <<set _deductions = $jobState.weeklyDeductions || 0>>
     <<set _net = Math.max(0, _gross - _deductions)>>
     <<if _net > 0>>
-        <<earnMoney _net "Weekly pay: $" + _net.toFixed(2)>>
+        /* $ before closing " is parsed as SugarCube sigil — use single-quoted fragment for literal dollar */
+        <<set _weeklyPayNotify to 'Weekly pay: $' + _net.toFixed(2)>>
+        <<earnMoney _net _weeklyPayNotify>>
     <</if>>
 
     /* Reset for new week */
@@ -225,11 +260,14 @@
 <</widget>>
 
 /* Record insufficient days before reset. Call before jobResetDaily in advanceDay.
-   When advancing _days, record if we had < requiredHoursPerDay on the day we're leaving.
-   For multi-day skips, add extra insufficient days. */
+   Args: days, oldWeekday, leaveYear, leaveMonth, leaveDay — leave* = calendar day being closed (before advanceDay's date +=).
+   Only counts days on or after $job.startedOn (set to "first work day" when accepting Ruby's job). */
 <<widget "jobRecordInsufficientDay">>
     <<set _days = $args[0] || 1>>
     <<set _oldWeekday = $args[1]>>
+    <<set _ly = $args[2]>>
+    <<set _lm = $args[3]>>
+    <<set _ld = $args[4]>>
     <<if !$job || !$job.id>>
         <<return>>
     <</if>>
@@ -239,34 +277,45 @@
         <<set _hoursToday = parseInt($jobState.hoursToday || 0, 10)>>
         <<if ndef $jobState.insufficientDaysThisWeek>><<set $jobState.insufficientDaysThisWeek = 0>><</if>>
         <<set _off = _job.schedule.offWeekdays || []>>
-        <<set _addFirst = false>>
-        <<if _oldWeekday == null>>
-            <<set _addFirst = _hoursToday < _required>>
+        <<set _startKey = 0>>
+        <<if $job.startedOn && $job.startedOn.year>>
+            <<set _startKey = $job.startedOn.year * 10000 + $job.startedOn.month * 100 + $job.startedOn.day>>
+        <</if>>
+        <<if $args.length >= 5>>
+            <<set _leaveKey = _ly * 10000 + _lm * 100 + _ld>>
         <<else>>
-            <<set _firstOff = _off.includes(_oldWeekday)>>
-            <<if !_firstOff && _hoursToday < _required>>
-                <<set _addFirst = true>>
+            <<set _leaveKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+        <</if>>
+        <<set _onOrAfterStart = (_startKey <= 0 || _leaveKey >= _startKey)>>
+        <<set _addFirst = false>>
+        <<if _onOrAfterStart>>
+            <<if _oldWeekday == null>>
+                <<set _addFirst = _hoursToday < _required>>
+            <<else>>
+                <<set _firstOff = _off.includes(_oldWeekday)>>
+                <<if !_firstOff && _hoursToday < _required>>
+                    <<set _addFirst = true>>
+                <</if>>
             <</if>>
         <</if>>
         <<if _addFirst>>
             <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + 1>>
         <</if>>
-        <<if _days > 1>>
-            <<if _oldWeekday == null>>
-                <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + (_days - 1)>>
-            <<else>>
-                <<for _i = 1; _i < _days; _i++>>
-                    <<set _w = (_oldWeekday + _i) % 7>>
-                    <<if !_off.includes(_w)>>
-                        <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + 1>>
-                    <</if>>
-                <</for>>
-            <</if>>
+        <<if _days > 1 && $args.length >= 5 && setup.jobDateAddDays>>
+            <<for _i = 1; _i < _days; _i++>>
+                <<set _dinfo = setup.jobDateAddDays(_ly, _lm, _ld, _i)>>
+                <<set _midKey = _dinfo.year * 10000 + _dinfo.month * 100 + _dinfo.day>>
+                <<if (_startKey <= 0 || _midKey >= _startKey) && !_off.includes(_dinfo.weekday)>>
+                    <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + 1>>
+                <</if>>
+            <</for>>
         <</if>>
     <</if>>
 <</widget>>
 
-/* Check if player skipped Monday boss call. If we advanced past Monday without visiting, fire. */
+/* Check if player skipped Monday boss call. If you advance *past* a playable Monday without visiting, fire.
+   weekday 1 = Monday. Uses calendar steps: (_oldWeekday + k) % 7 for k = 1.._days is each new wake-up day.
+   BUGFIX: old formula (_oldWeekday + _i - 1) falsely fired e.g. Tue→Wed sleep (i=0 → "Monday"). */
 <<widget "jobCheckSkippedBossCall">>
     <<set _days = $args[0] || 1>>
     <<set _oldWeekday = $args[1] || 0>>
@@ -276,26 +325,30 @@
     <<if !$jobState.bossWantsToSeePlayer>>
         <<return>>
     <</if>>
-    /* Did we advance through a Monday? (weekday 1) */
-    <<set _passedMonday = false>>
-    <<for _i range _days>>
-        <<set _d = (_oldWeekday + _i - 1) % 7>>
-        <<if _d === 1>>
-            <<set _passedMonday = true>>
-            <<break>>
-        <</if>>
-    <</for>>
-    <<if _passedMonday && !$jobState.visitedBossThisMonday>>
-        <<set _job = setup.jobs[$job.id]>>
+    <<if $jobState.visitedBossThisMonday>>
+        <<return>>
+    <</if>>
+    <<set _job = setup.jobs[$job.id]>>
+    <<set _off = (_job.schedule && _job.schedule.offWeekdays) || []>>
+    <<set _mondayIsScheduledOff = _off.includes(1)>>
+    /* Left Monday while still owing a visit (wake up Tuesday+ from a Monday start). Skip if Monday is never a work day for this job. */
+    <<set _missedBossDeadline = (_oldWeekday === 1 && _days >= 1 && !_mondayIsScheduledOff)>>
+    /* Slept through at least one full calendar Monday (landed on Tue+ after a Mon in the interval, not ending on Mon). */
+    <<if !_missedBossDeadline && _days > 1>>
+        <<for _k = 1; _k < _days; _k++>>
+            <<set _w = (_oldWeekday + _k) % 7>>
+            <<if _w === 1 && !_mondayIsScheduledOff>>
+                <<set _missedBossDeadline = true>>
+                <<break>>
+            <</if>>
+        <</for>>
+    <</if>>
+    <<if _missedBossDeadline>>
         <<set $job.id = null>>
         <<set $job.tier = 1>>
         <<set $job.startedOn = null>>
         <<jobResetState>>
         <<run window.notifyWarning("You didn't show up when your boss wanted to see you. You've been fired from " + _job.workplaceName + ".")>>
-    <</if>>
-    /* Clear visitedBossThisMonday when we leave Monday (advance to Tuesday) */
-    <<if _passedMonday>>
-        <<set $jobState.visitedBossThisMonday = false>>
     <</if>>
 <</widget>>
 
@@ -356,7 +409,16 @@
             <</for>>
             <<set _offHint = _offNames.length ? _offNames.join(" & ") : "scheduled off">>
             <<set _dayOffLockText = "Day off (" + _offHint + ")">>
+            /* Boss summons (e.g. Monday after short hours) must work on scheduled off days too */
+            <<set _isMondayBoss = $timeSys.weekday === 1>>
+            <<set _bossSummonOffDay = _isMondayBoss && ($jobState.bossWantsToSeePlayer) && _job.bossOfficePassage>>
+            <<if _bossSummonOffDay>>
+                <<set _bossFirst = setup.characterDefs[_job.bossCharId].firstName>>
+                <<set _btnSeeBoss = "See " + _bossFirst>>
+                <<btn _btnSeeBoss _job.bossOfficePassage>><</btn>>
+            <<else>>
             <<btn "Work" "" "locked" _dayOffLockText>><</btn>>
+            <</if>>
         <<elseif _beforeShiftOpens>>
             <<btn "Wait for shift" "jobWaitForShift">><<set $jobWaitReturnTo = $location>><</btn>>
         <<elseif _shiftHoursOpen>>
@@ -381,9 +443,10 @@
             <</if>>
             <<if !_workLocked>>
             <<set _minEnergy2h = Math.ceil(Math.abs((_job.statCostsPer4Hours || {}).energy || 50) * (2/4))>>
-            <<if ($energy || 0) < _minEnergy2h>>
+            <<set _minEnergy2hNeed = _minEnergy2h + 10>>
+            <<if ($energy || 0) < _minEnergy2hNeed>>
                 <<set _workLocked = true>>
-                <<run _workLockedReasons.push(_minEnergy2h + " energy for 2h shift")>>
+                <<run _workLockedReasons.push(_minEnergy2hNeed + " energy for 2h shift")>>
             <</if>>
             <</if>>
             <<if _workLockedReasons.length>><<set _workLockedText = "Need: " + _workLockedReasons.join(", ")>><</if>>
