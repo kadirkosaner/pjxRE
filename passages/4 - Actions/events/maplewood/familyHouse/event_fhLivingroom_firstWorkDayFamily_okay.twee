@@ -1,8 +1,8 @@
-:: event_fhLivingroom_firstWorkDayFamily_okay
-<<nobr>>
+<div class="divnobr">
 <<set $location = "fhLivingroom">>
 <<updateCharacterLocations>>
 <<loseStat "mood" 5>>
+<<flushNotifications>>
 <<set $flags.firstWorkDayWalkHome = false>>
 
 <<narrative "Living Room">>
@@ -36,4 +36,4 @@ It doesn't fix everything, but it still sits nicely inside you.
 <div class="location-actions">
 <<btn "Continue" "fhLivingroom">><</btn>>
 </div>
-<</nobr>>
+<</div>>

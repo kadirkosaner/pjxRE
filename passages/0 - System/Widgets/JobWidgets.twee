@@ -331,6 +331,7 @@
 <</widget>>
 
 /* Work button for a workplace: locked (daily complete, already worked, outfit, energy) or link to jobWorkSelect.
+   Before schedule.open on a work day: "Wait for shift" → jobWaitForShift advances time to opening; then "Work" applies.
    Usage: <<jobWorkButton "dinerRubys">> or <<jobWorkButton>> (uses $location as workplace) */
 <<widget "jobWorkButton">>
     <<set _workplace = $args[0] || $location>>
@@ -341,8 +342,14 @@
     <<set _startDate = $job.startedOn.year * 10000 + $job.startedOn.month * 100 + $job.startedOn.day>>
     <<set _offDays = _job.schedule.offWeekdays || []>>
     <<set _isScheduleOffDay = _offDays.includes($timeSys.weekday)>>
-    <<set _canWorkToday = _currentDate >= _startDate && _hour >= _job.schedule.open>>
-        <<if _canWorkToday && _isScheduleOffDay && _hour < _job.schedule.close>>
+    <<set _jobStartedDate = _currentDate >= _startDate>>
+    <<set _openH = _job.schedule.open>>
+    <<set _closeH = _job.schedule.close>>
+    <<set _nowMins = (_hour * 60) + ($timeSys.minute || 0)>>
+    <<set _openMins = _openH * 60>>
+    <<set _beforeShiftOpens = _jobStartedDate && !_isScheduleOffDay && _nowMins < _openMins && _hour < _closeH>>
+    <<set _shiftHoursOpen = _jobStartedDate && !_isScheduleOffDay && _nowMins >= _openMins && _hour < _closeH>>
+        <<if _jobStartedDate && _isScheduleOffDay && _hour < _closeH>>
             <<set _offNames = []>>
             <<for _wd range _offDays>>
                 <<run _offNames.push($timeConfig.weekdayNames[_wd])>>
@@ -350,7 +357,9 @@
             <<set _offHint = _offNames.length ? _offNames.join(" & ") : "scheduled off">>
             <<set _dayOffLockText = "Day off (" + _offHint + ")">>
             <<btn "Work" "" "locked" _dayOffLockText>><</btn>>
-        <<elseif _canWorkToday && !_isScheduleOffDay && _hour < _job.schedule.close>>
+        <<elseif _beforeShiftOpens>>
+            <<btn "Wait for shift" "jobWaitForShift">><<set $jobWaitReturnTo = $location>><</btn>>
+        <<elseif _shiftHoursOpen>>
             <<silently>>
             <<set _workLocked = false>>
             <<set _workLockedReasons = []>>

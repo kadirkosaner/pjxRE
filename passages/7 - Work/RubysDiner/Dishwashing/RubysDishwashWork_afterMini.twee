@@ -23,6 +23,13 @@
 <<goto "dinerWork_event_dianaArrival">>
 <<else>>
 <div class="location-actions">
-<<btn "Finish shift" "dinerRubys">><</btn>>
+<<btn "Finish shift" "dinerRubys">>
+<<silently>>
+/* Normal shift outro (not first-day tutorial passage): set walk-home gate for Maplewood — same flag as dinerFirstdayJob_dishwasher */
+<<if $job && $job.id === "ruby_dishwasher" && State.temporary.dianaEmployDay === 1 && !$flags.firstWorkDayWalkHome>>
+<<set $flags.firstWorkDayWalkEvent = true>>
+<</if>>
+<</silently>>
+<</btn>>
 </div>
 <</if>>

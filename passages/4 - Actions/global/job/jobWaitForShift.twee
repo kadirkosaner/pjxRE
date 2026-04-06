@@ -1,0 +1,38 @@
+<<nobr>>
+<<silently>>
+/* :passagestart clears $location — set again so body background matches workplace */
+<<set _returnPassage = $jobWaitReturnTo || "">>
+<<if !_returnPassage && $job && $job.id && setup.jobs[$job.id]>>
+<<set _returnPassage = setup.jobs[$job.id].workplace>>
+<</if>>
+<<if !_returnPassage>><<set _returnPassage = "dinerRubys">><</if>>
+<<set $location = _returnPassage>>
+<<if !$job || !$job.id || !setup.jobs[$job.id]>>
+<<goto _returnPassage>>
+<</if>>
+<<set _jobDef = setup.jobs[$job.id]>>
+<<set _offDays = (_jobDef.schedule && _jobDef.schedule.offWeekdays) || []>>
+<<if _offDays.includes($timeSys.weekday)>>
+<<run window.notifyWarning("No shift today.")>>
+<<goto _returnPassage>>
+<</if>>
+<<set _openH = _jobDef.schedule.open>>
+<<set _closeH = _jobDef.schedule.close>>
+<<set _openMins = _openH * 60>>
+<<set _nowMins = ($timeSys.hour * 60) + ($timeSys.minute || 0)>>
+<<set _waitMins = _openMins - _nowMins>>
+<<if _waitMins <= 0>>
+<<goto _returnPassage>>
+<</if>>
+<<advanceTime _waitMins>>
+<<flushNotifications>>
+<</silently>>
+
+<<narrative "Work">>
+You decide to stay and wait right here until shift time.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" _returnPassage>><</btn>>
+</div>
+<</nobr>>
