@@ -185,6 +185,7 @@
         <<run window.notifySuccess("Tier up! You're now tier " + $job.tier + " at " + _job.position + ".")>>
     <</if>>
 
+    <<set $jobState.workedToday = true>>
     <<set $jobShiftSuccess = true>>
     <<run window.notifySuccess("Shift done. +$" + _earned.toFixed(2) + " (payday Monday).")>>
     <</if>>
@@ -263,6 +264,9 @@
    Args: days, oldWeekday, leaveYear, leaveMonth, leaveDay — leave* = calendar day being closed (before advanceDay's date +=).
    Only counts days on or after $job.startedOn (set to "first work day" when accepting Ruby's job). */
 <<widget "jobRecordInsufficientDay">>
+    <<if !$jobState.firstWorkDayEventShown>>
+        <<return>>
+    <</if>>
     <<set _days = $args[0] || 1>>
     <<set _oldWeekday = $args[1]>>
     <<set _ly = $args[2]>>
@@ -273,8 +277,7 @@
     <</if>>
     <<set _job = setup.jobs != null ? setup.jobs[$job.id] : null>>
     <<if _job>>
-        <<set _required = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
-        <<set _hoursToday = parseInt($jobState.hoursToday || 0, 10)>>
+        /* Insufficient = scheduled work day with no completed shift (workedToday). Partial hours still count as worked. */
         <<if ndef $jobState.insufficientDaysThisWeek>><<set $jobState.insufficientDaysThisWeek = 0>><</if>>
         <<set _off = _job.schedule.offWeekdays || []>>
         <<set _startKey = 0>>
@@ -290,12 +293,10 @@
         <<set _addFirst = false>>
         <<if _onOrAfterStart>>
             <<if _oldWeekday == null>>
-                <<set _addFirst = _hoursToday <= 0>>
+                <<set _addFirst = !$jobState.workedToday>>
             <<else>>
                 <<set _firstOff = _off.includes(_oldWeekday)>>
-                <<if !_firstOff && _hoursToday <= 0>>
-                    <<set _addFirst = true>>
-                <</if>>
+                <<set _addFirst = !_firstOff && !$jobState.workedToday>>
             <</if>>
         <</if>>
         <<if _addFirst>>
@@ -328,9 +329,12 @@
     <<if $jobState.visitedBossThisMonday>>
         <<return>>
     <</if>>
-    <<set _job = setup.jobs[$job.id]>>
+    <<set _job = (setup.jobs && setup.jobs[$job.id]) ? setup.jobs[$job.id] : null>>
+    <<if !_job>>
+        <<return>>
+    <</if>>
     <<set _off = (_job.schedule && _job.schedule.offWeekdays) || []>>
-    <<set _mondayIsScheduledOff = _off.includes(1)>>
+    <<set _mondayIsScheduledOff = Array.isArray(_off) && _off.includes(1)>>
     /* Left Monday while still owing a visit (wake up Tuesday+ from a Monday start). Skip if Monday is never a work day for this job. */
     <<set _missedBossDeadline = (_oldWeekday === 1 && _days >= 1 && !_mondayIsScheduledOff)>>
     /* Slept through at least one full calendar Monday (landed on Tue+ after a Mon in the interval, not ending on Mon). */
@@ -369,7 +373,8 @@
         insufficientDaysThisWeek: 0,
         bossWantsToSeePlayer: false,
         visitedBossThisMonday: false,
-        freeMealUsedToday: false
+        freeMealUsedToday: false,
+        workedToday: false
     }>>
 <</widget>>
 
@@ -378,6 +383,7 @@
     <<if def $jobState>>
         <<set $jobState.shiftsToday = 0>>
         <<set $jobState.hoursToday = 0>>
+        <<set $jobState.workedToday = false>>
         <<set $jobState.freeMealUsedToday = false>>
         <<set $jobState.lastShiftEndHour = null>>
     <</if>>
@@ -390,6 +396,7 @@
     <<set _workplace = $args[0] || $location>>
     <<if _workplace && $job && $job.id && setup.jobs[$job.id] && setup.jobs[$job.id].workplace === _workplace>>
     <<set _job = setup.jobs[$job.id]>>
+    <<if !_job>><<return>><</if>>
     <<set _hour = $timeSys.hour>>
     <<set _currentDate = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
     <<set _startDate = $job.startedOn.year * 10000 + $job.startedOn.month * 100 + $job.startedOn.day>>
