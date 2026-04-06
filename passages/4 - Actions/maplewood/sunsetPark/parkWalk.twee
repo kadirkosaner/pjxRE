@@ -1,6 +1,8 @@
 <<silently>>
+    <<set _parkActRet = $activityOrigin || "sunsetPark">>
+    <<requireMinEnergy 15 _parkActRet "Not enough energy.">>
     <<set $location = $activityOrigin>>
-    <<advanceTime 15>>
+    <<advanceTime 15 "relax">>
     <<addHeelsTravelMinutes 15>>
     <<loseStat "energy" 5>>
     <<loseStat "stress" 12>>

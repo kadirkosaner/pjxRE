@@ -1,7 +1,7 @@
 <<nobr>>
 <<silently>>
 <<set _ret = $mallWindowShoppingReturn || "floorGround">>
-<<requireMinEnergy 10 _ret "Not enough energy.">>
+<<requireMinEnergy 15 _ret "Not enough energy.">>
 <<set $location = _ret>>
 <<updateCharacterLocations>>
 <<advanceTime 20 "relax">>

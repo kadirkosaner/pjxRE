@@ -69,19 +69,19 @@
 <<widget "yogaActions">><<nobr>>
     <<if $location === "fhBackyard">>
         <<set $activityOrigin = "fhBackyard">>
-        <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
+        <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat|minStat:energy 25" $daily.yogaDone>>
     <<else>>
         <<set $activityOrigin = "fhLivingroom">>
         <<set _momPresent = ($characters.mother.currentLocation === "fhLivingroom")>>
         <<if _momPresent>>
-            <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
+            <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat|minStat:energy 25" $daily.yogaDone>>
         <<else>>
-            <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
+            <<activityButton "Yoga" "runYogaSolo" "outfit:sporty 2|item:yoga_mat|minStat:energy 25" $daily.yogaDone>>
         <</if>>
     <</if>>
 <</nobr>><</widget>>
 
 <<widget "danceActions">><<nobr>>
     <<set $activityOrigin = "fhLivingroom">>
-    <<activityButton "Dance" "runDance" "minStat:energy 20" $daily.danceDone>>
+    <<activityButton "Dance" "runDance" "minStat:energy 30" $daily.danceDone>>
 <</nobr>><</widget>>

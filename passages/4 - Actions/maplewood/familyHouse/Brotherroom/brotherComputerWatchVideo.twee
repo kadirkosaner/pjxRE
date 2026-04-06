@@ -1,5 +1,5 @@
 <<nobr>>
-<<requireMinEnergy 5 "brotherComputerMenu">>
+<<requireMinEnergy 15 "brotherComputerMenu">>
 <<silently>>
 <<set $location = "fhBrotherRoom">>
 <<set _v = random(1, 4)>>
@@ -16,7 +16,7 @@
 <<gainStat "mood" 15>>
 <<loseStat "stress" 12>>
 <<loseStat "energy" 5>>
-<<advanceTime 45>>
+<<advanceTime 45 "relax">>
 <<flushNotifications>>
 <</silently>>
 

@@ -55,6 +55,16 @@
     setup.hubAmbientEnergyForMins.watch = function (mins) {
         return _hubActDrain('watch', mins) + 10;
     };
+    /* Living room TV (watchTV.twee): discrete cost steps + 10 to start */
+    setup.hubAmbientEnergyForMins.tvWatch = function (mins) {
+        var m = parseInt(mins, 10) || 15;
+        var cost = 5;
+        if (m > 15) {
+            cost = 5 + Math.floor((m - 15) / 15) * 2;
+            cost = Math.min(11, cost);
+        }
+        return cost + 10;
+    };
 
     if (setup.hubAmbient) return;
     setup.hubAmbient = {

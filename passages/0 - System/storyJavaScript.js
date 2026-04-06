@@ -927,11 +927,21 @@ setup.hubAmbientEnergyForMins = {
     },
     watch(mins) {
         return setup.hubAmbientEnergyActDrain('watch', mins) + 10;
+    },
+    /* Living room TV: matches watchTV.twee energy steps; start needs cost + 10 */
+    tvWatch(mins) {
+        const m = parseInt(mins, 10) || 15;
+        let cost = 5;
+        if (m > 15) {
+            cost = 5 + Math.floor((m - 15) / 15) * 2;
+            cost = Math.min(11, cost);
+        }
+        return cost + 10;
     }
 };
 
 /* ================== btnPicker Macro =================== */
-/* Usage: <<btnPicker "Text" "passage" "presetName">> | 4th: style | 5th: minEnergy (number) OR hub key "walk"|"phone"|"watch" for duration-based energy (setup.hubAmbientEnergyForMins). Presets: DurationPresets.twee */
+/* Usage: <<btnPicker "Text" "passage" "presetName">> | 4th: style | 5th: minEnergy (number) OR hub key "walk"|"phone"|"watch"|"tvWatch" for duration-based energy (setup.hubAmbientEnergyForMins). Presets: DurationPresets.twee */
 Macro.add('btnPicker', {
     handler: function () {
         if (this.args.length < 3) {

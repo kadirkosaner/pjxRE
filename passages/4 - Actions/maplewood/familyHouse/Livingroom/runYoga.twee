@@ -46,12 +46,12 @@
 
     <div class="location-actions">
         <<if _friendship >= 30>>
-            <<btn "Invite Mom to join you" "runYogaMom">><</btn>>
+            <<btn "Invite Mom to join you" "runYogaMom" "default" 25>><</btn>>
         <<else>>
             <<btn "Invite Mom (She looks busy)" "" "locked" "Friendship too low (< 30)">><</btn>>
         <</if>>
 
-        <<btn "Do Yoga Alone" "runYogaSolo">><</btn>>
+        <<btn "Do Yoga Alone" "runYogaSolo" "default" 25>><</btn>>
     </div>
     <div class="location-actions">
         <<btn "Back" $location>><</btn>>

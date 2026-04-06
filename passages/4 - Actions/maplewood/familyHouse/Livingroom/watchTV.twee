@@ -3,6 +3,14 @@
     <<set $location = "fhLivingroom">>
     <<set _tvMins = parseInt($selectedDuration) || 15>>
     <<set _tvScale = _tvMins / 30>>
+    /* Energy cost: base 5 for first 15 min, +2 per extra 15 min (15→5, 30→7, 45→9, 60→11); start needs cost + 10 */
+    <<set _energyCost = 5>>
+    <<if _tvMins > 15>>
+        <<set _energyCost = 5 + Math.floor((_tvMins - 15) / 15) * 2>>
+        <<set _energyCost = Math.min(11, _energyCost)>>
+    <</if>>
+    <<set _tvNeedEnergy = _energyCost + 10>>
+    <<requireMinEnergy _tvNeedEnergy "fhCouch" "Not enough energy.">>
     <<advanceTime _tvMins "relax">>
     <<set _tvStressLoss = Math.max(1, Math.round(7 * _tvScale))>>
     <<set _tvMoodGain = Math.max(1, Math.round(10 * _tvScale))>>
@@ -15,12 +23,6 @@
     <<set _actualMoodGain = $mood - _moodBefore>>
     <<if _actualMoodGain > 0>><<queueStatChange "mood" _actualMoodGain>><</if>>
     <<run window.notifySuccess("Stress Relieved")>>
-    /* Energy cost: base 5 for first 15 min, +2 per extra 15 min (15→5, 30→7, 45→9, 60→11) */
-    <<set _energyCost = 5>>
-    <<if _tvMins > 15>>
-        <<set _energyCost = 5 + Math.floor((_tvMins - 15) / 15) * 2>>
-        <<set _energyCost = Math.min(11, _energyCost)>>
-    <</if>>
     <<set _energyBefore = $energy || 0>>
     <<set $energy = Math.max(0, _energyBefore - _energyCost)>>
     <<set _actualEnergyLoss = _energyBefore - $energy>>

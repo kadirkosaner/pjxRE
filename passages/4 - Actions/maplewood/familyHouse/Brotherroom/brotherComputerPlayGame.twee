@@ -1,5 +1,5 @@
 <<nobr>>
-<<requireMinEnergy 5 "brotherComputerMenu">>
+<<requireMinEnergy 15 "brotherComputerMenu">>
 <<silently>>
 <<set $location = "fhBrotherRoom">>
 <<set _pcVidBase = "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/gaming/">>
@@ -28,7 +28,7 @@
 <<else>>
 <<gainSkill "technical" "gaming" 1>>
 <</if>>
-<<advanceTime 30>>
+<<advanceTime 30 "relax">>
 <<flushNotifications>>
 <</silently>>
 

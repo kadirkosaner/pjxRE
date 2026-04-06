@@ -111,21 +111,21 @@
    
    Requirements Format: "type:value|type2:value2"
    
-   Park Yoga (outfit + item + min energy 15):
-   <<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
+   Park Yoga (outfit + item + min energy 25):
+   <<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat|minStat:energy 25" $daily.yogaDone>>
    
-   Park Jog (outfit + min energy 20):
-   <<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3|minStat:energy 20" $daily.jogDone>>
+   Park Jog (outfit + min energy 30):
+   <<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3|minStat:energy 30" $daily.jogDone>>
    
    Nap (with max energy check):
    <<activityButton "Take a Nap" "runNap" "maxStat:energy 50" false>>
    
-   Yoga with Mom (outfit + item + min energy 15):
-   <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
+   Yoga with Mom (outfit + item + min energy 25):
+   <<activityButton "Yoga" "runYoga" "outfit:sporty 2|item:yoga_mat|minStat:energy 25" $daily.yogaDone>>
    
    Character presence check (optional):
    <<activityButton "Study with Sarah" "studyWithSarah" "character:sarah|minStat:intelligence 20" false>>
    
-   Dance (min energy 20):
-   <<activityButton "Dance" "runDance" "minStat:energy 20" $daily.danceDone>>
+   Dance (min energy 30):
+   <<activityButton "Dance" "runDance" "minStat:energy 30" $daily.danceDone>>
 ========================================== */

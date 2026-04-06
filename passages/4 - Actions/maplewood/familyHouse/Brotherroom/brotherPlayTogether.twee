@@ -1,6 +1,6 @@
 :: brotherPlayTogether
 <<nobr>>
-<<requireMinEnergy 10 "fhBrotherRoom">>
+<<requireMinEnergy 20 "fhBrotherRoom">>
 <<silently>>
 <<set $location = "fhBrotherRoom">>
 <<set _pcVidBase = "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/gaming/">>
@@ -31,7 +31,7 @@
 <<gainSkill "technical" "gaming" 2>>
 <</if>>
 <<recalculateStats>>
-<<advanceTime 30>>
+<<advanceTime 30 "relax">>
 <<flushNotifications>>
 <</silently>>
 

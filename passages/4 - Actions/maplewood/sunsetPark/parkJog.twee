@@ -1,10 +1,12 @@
 <<silently>>
+    <<set _parkActRet = $activityOrigin || "sunsetPark">>
+    <<requireMinEnergy 30 _parkActRet "Not enough energy.">>
     /* Set location from activity origin */
     <<set $location = $activityOrigin>>
     
     /* Run the jogging activity */
     <<set $daily.jogDone = true>>
-    <<advanceTime 45>>
+    <<advanceTime 45 "relax">>
     <<loseStat "energy" 20>>
     <<loseStat "stress" 15>>
     <<gainStat "cardio" 2 20>>

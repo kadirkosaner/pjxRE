@@ -12,9 +12,9 @@ A beautiful park with walking paths, benches, and a small pond. Perfect for an a
 	<<set $activityOrigin = "sunsetPark">>
 	<<btnPicker "Rest" "parkRest" "mediumActivity">>
 	<<btnPicker "Sit on Bench" "parkBench" "mediumActivity">>
-	<<btn "Walk" "parkWalk">><</btn>>
-	<<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3|minStat:energy 20" $daily.jogDone>>
-	<<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat|minStat:energy 15" $daily.yogaDone>>
+	<<btn "Walk" "parkWalk" "default" 15>><</btn>>
+	<<activityButton "Go for a Jog" "parkJog" "outfit:sporty 3|minStat:energy 30" $daily.jogDone>>
+	<<activityButton "Do Yoga" "parkYoga" "outfit:sporty 3|item:yoga_mat|minStat:energy 25" $daily.yogaDone>>
 </div>
 
 <<navMenu>>

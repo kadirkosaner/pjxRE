@@ -1,6 +1,5 @@
 <<nobr>>
 <<set $location = "floorSecond">>
-<</nobr>>
 
 <<updateCharacterLocations>>
 
@@ -12,7 +11,7 @@ The second floor offers fashion boutiques, jewelry stores, and intimate apparel 
 
 <div class="location-actions">
 <<set $mallWindowShoppingReturn = "floorSecond">>
-<<btn "Window Shopping" "mall_windowShopping" "default" 10>><</btn>>
+<<btn "Window Shopping" "mall_windowShopping" "default" 15>><</btn>>
 </div>
 
 <<navMenu>>
@@ -27,3 +26,4 @@ The second floor offers fashion boutiques, jewelry stores, and intimate apparel 
 	<<navCard "floorGround">>
 	<<navCard "floorThird">>
 <</navMenu>>
+<</nobr>>
