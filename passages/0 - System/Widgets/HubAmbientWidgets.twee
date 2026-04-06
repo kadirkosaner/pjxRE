@@ -1,0 +1,252 @@
+/*
+   District hub ambient — btnPicker 5th: "walk" | "phone" | "watch".
+   ENERGY drain/h (defaults): walk 10, phone 8, watch 10 → drain = max(1,round(rate*m/60)); START needs drain+10. Override: setup.hubAmbientEnergyDrainPerHour.
+   Per hour (m = minutes, scale with m/60):
+   Walk:   stress −6, mood +8, energy −10, heels m, time m
+   Phone:  stress −4, mood +12, energy −8, time m
+   Watch:  stress −8, mood +6, energy −10, time m
+   Flow: <<advanceTime m "relax">> first, then <<loseStat "stress">> / <<gainStat "mood">> / <<loseStat "energy">> (widgets queue via <<queueStatChange>>), <<recalculateStats>>, <<flushNotifications>>.
+*/
+<<script>>
+(function () {
+    if (!setup.durationPresets) setup.durationPresets = {};
+    var _hubDurPresets = {
+        hubAmbientWalk: [
+            { label: "15 min", value: 15 },
+            { label: "30 min", value: 30 },
+            { label: "45 min", value: 45 },
+            { label: "1 hour", value: 60 }
+        ],
+        hubAmbientPhone: [
+            { label: "10 min", value: 10 },
+            { label: "15 min", value: 15 },
+            { label: "20 min", value: 20 },
+            { label: "30 min", value: 30 }
+        ],
+        hubAmbientWatch: [
+            { label: "15 min", value: 15 },
+            { label: "30 min", value: 30 },
+            { label: "45 min", value: 45 },
+            { label: "1 hour", value: 60 }
+        ]
+    };
+    Object.keys(_hubDurPresets).forEach(function (key) {
+        if (!setup.durationPresets[key]) setup.durationPresets[key] = _hubDurPresets[key];
+    });
+
+    setup.hubAmbientEnergyDrainPerHour = Object.assign(
+        { walk: 10, phone: 8, watch: 10 },
+        setup.hubAmbientEnergyDrainPerHour || {}
+    );
+    function _hubActDrain(key, mins) {
+        var h = setup.hubAmbientEnergyDrainPerHour[key];
+        var defM = key === 'phone' ? 10 : 15;
+        var m = parseInt(mins, 10);
+        var mm = !isNaN(m) && m > 0 ? m : defM;
+        return Math.max(1, Math.round((h * mm) / 60));
+    }
+    if (!setup.hubAmbientEnergyForMins) setup.hubAmbientEnergyForMins = {};
+    setup.hubAmbientEnergyForMins.walk = function (mins) {
+        return _hubActDrain('walk', mins) + 10;
+    };
+    setup.hubAmbientEnergyForMins.phone = function (mins) {
+        return _hubActDrain('phone', mins) + 10;
+    };
+    setup.hubAmbientEnergyForMins.watch = function (mins) {
+        return _hubActDrain('watch', mins) + 10;
+    };
+
+    if (setup.hubAmbient) return;
+    setup.hubAmbient = {
+        walk: {
+            maplewood: [
+                "You wander the quiet streets—lawns, mailboxes, the occasional dog walker. Nothing dramatic happens, and that is the point.",
+                "A loop past the same tidy yards; sprinklers click on somewhere. You count porch lights and let your breathing slow.",
+                "Someone waves from a driveway; you half-wave back. The suburb pretends everyone already knows each other.",
+                "You take the long way around the block. Kids' bikes lie abandoned on a lawn; the day feels ordinary in a good way."
+            ],
+            downTown: [
+                "You ride the rhythm of the sidewalks—suits, tourists, buses sighing at corners. The city presses in until your shoulders unclench anyway.",
+                "Glass towers throw back the sky; you weave through crosswalks and food smells. Noise becomes a kind of white noise.",
+                "You walk with nowhere to be, letting crowds split around you. A busker misses a note; nobody boos.",
+                "Steam from a vent, honking, someone laughing too loud on a call. You keep moving until your legs remind you you are still in a body."
+            ],
+            oldTown: [
+                "Cobblestones and old signs; you loop past shop windows and school-day crowds. The neighborhood feels lived-in, familiar.",
+                "You pass the bakery smell twice on purpose. Bells tinkle; a shopkeeper nods like you are a regular.",
+                "Brick alleys shorten the wind. Tourists consult maps; locals cut through without looking.",
+                "The historic plaque you have ignored a hundred times still says the same year. You read it anyway, slowing down."
+            ],
+            hillcrest: [
+                "Wide drives, polished cars, clipped hedges. You walk like you belong—or like you are invisible—and either way the air feels expensive.",
+                "A gardener trims a hedge into geometry. Water features murmur behind gates you will never enter.",
+                "You follow the curve of a private road and turn back. Nothing happens; that is the flex.",
+                "Leather-soled footsteps on someone else's sidewalk. You practice a neutral face while windows reflect money."
+            ],
+            marinaBay: [
+                "Salt, gulls, and open sky between buildings. You stroll toward the water and back, letting the breeze do half the work.",
+                "Rigging clinks; a dog shakes seawater onto tourists. You taste metal and sunscreen in the air.",
+                "You walk the pier without buying anything. Waves erase the same line over and over.",
+                "A ferry horn makes everyone look up at once. You let the shared pause happen without joining it."
+            ],
+            universityDistrict: [
+                "Campus spillover fills the sidewalks—backpacks, coffee cups, loud plans for tonight. You drift with the current.",
+                "Flyers peel from a pole; someone practices a presentation aloud. You step around a longboard and almost smile.",
+                "The quad is half empty, half loud. You cut through anyway, anonymous among deadlines.",
+                "A food truck line doubles back; you do not join. The smell of fries follows you two blocks."
+            ],
+            southside: [
+                "Chain-link, loading bays, murals half finished. You keep moving; people notice, then look away. The edge keeps you alert.",
+                "A dog behind a fence does not stop barking until you are past. You do not speed up—that would read wrong.",
+                "You walk the long side of an empty lot. Glass crunches; nobody asks what you are doing here.",
+                "Two guys argue over a car hood; they pause when you pass. You keep your eyes forward and your pace even."
+            ],
+            suburbs: [
+                "Long blocks and thin trees; fewer faces, more distance between doors. Your footsteps are the main sound for a while.",
+                "A garage door rattles shut; a TV glows behind thin curtains. You wonder who is awake this early.",
+                "You walk past the same rental sign three days in a row. The grass grows anyway.",
+                "Distant highway hum; closer, a sprinkler ticks. The outskirts pretend they are far from everything."
+            ],
+            redLightCenter: [
+                "Neon bleed and bass from doorways; you do not stop anywhere, just move through. The spectacle is exhausting in a strange, almost funny way.",
+                "Someone tries a flyer; you decline without eye contact. The sidewalk is sticky in patches.",
+                "You take a wide arc around a cluster of loud laughter. High heels click; a car slows, then does not stop.",
+                "Pink and purple light washes your hands a wrong color. You count doorways until the block ends."
+            ]
+        },
+        phone: {
+            maplewood: [
+                "You scroll on a quiet stoop—feeds, messages, nothing urgent. The suburb hums behind the glass.",
+                "A group chat argues about nothing; you react with the safest emoji. A bird lands close; you do not film it.",
+                "You fall into short videos until your thumb aches. When you look up, the light has shifted.",
+                "Signal is perfect; guilt is optional. You answer one message and leave three on read."
+            ],
+            downTown: [
+                "Against a building ledge you thumb through apps while the city roars past. Your screen feels like a tiny room.",
+                "You pretend to check a map so you have a reason to stand still. Notifications stack; you clear them without reading.",
+                "Someone bumps you; you apologize to your phone. The crowd does not care.",
+                "Brightness maxed against glare. You find a podcast and let voices replace the street for a while."
+            ],
+            oldTown: [
+                "Between older storefronts you lose twenty minutes to videos and group chats. Time slips in the nicest way.",
+                "You sit on a bench and doomscroll gently. Pigeons negotiate crumbs; you do not share.",
+                "Wi-Fi from a café leaks far enough. You order nothing; the barista does not notice.",
+                "An old classmate posts a life update; you feel a flicker of something and keep scrolling."
+            ],
+            hillcrest: [
+                "Perfect signal, polished aesthetics on every profile. You half-watch luxury pass by in real life while the algorithm shows you more.",
+                "You zoom a photo of a watch you cannot afford. The storefront reflection agrees you are out of place.",
+                "A dating app pings; you swipe without hope. Valets ignore you; the phone does not.",
+                "You read a long article about money to feel informed. The words blur; the headline was enough."
+            ],
+            marinaBay: [
+                "Sun glare on the screen; you tilt away and keep scrolling. Vacation energy without going anywhere.",
+                "You post a story with the water in the background. The filter makes the sky impossible.",
+                "Sand in your shoe grinds; you ignore it for one more clip. Seagulls sound like notifications.",
+                "Someone's Bluetooth speaker plays the same summer hit. Your feed plays a different one; both are loud."
+            ],
+            universityDistrict: [
+                "Memes, campus gossip, a calendar reminder you dismiss. The student hive mind fits in your palm.",
+                "You half-listen to a lecture recording while liking posts. Multitasking feels productive for ninety seconds.",
+                "A study group chat explodes; you mute it. Peace returns; guilt follows.",
+                "You compare your schedule to everyone else's highlight reel. The phone gets warm in your hand."
+            ],
+            southside: [
+                "You keep one eye up while you scroll—habit. The phone still wins most of your attention.",
+                "Low bars; pages load in chunks. You fill the gaps by watching who walks behind you in reflection.",
+                "Someone sells something in your DMs; you block without drama. The street sells louder things.",
+                "You watch a fight video twice, then feel stupid. Pocket the phone; the block is still there."
+            ],
+            suburbs: [
+                "Sparse notifications, long-loading clips. The quiet makes every ping feel louder than it is.",
+                "You read the same three apps in rotation. A car passes once a minute; you look up each time.",
+                "Your cousin's baby photos get a heart. The algorithm serves you ads for things you joked about once.",
+                "You sit in a driveway chair like a throne. The screen is the only window that moves."
+            ],
+            redLightCenter: [
+                "Ads get weird fast here. You switch apps, laugh once, and pretend you are not cataloging what you see.",
+                "You delete your search history out of reflex. The street already knows what is for sale.",
+                "A notification vibrates; you silence it mid-scroll. Neon turns your face a liar color.",
+                "You answer a harmless text while walking past a doorway bass drop. Normal life feels like a split screen."
+            ]
+        },
+        watch: {
+            maplewood: [
+                "Neighbors, joggers, a dad teaching a kid to ride a bike. Small stories; you read them without staring.",
+                "A sprinkler arcs; a woman argues with a hose. Two dogs negotiate a meeting; owners pretend they are in charge.",
+                "The mail truck stops at every box; you learn the driver's rhythm. Someone jogs past twice—laps or lost?",
+                "Kids trade cards on a curb. You remember doing that somewhere else. The scene keeps going without you."
+            ],
+            downTown: [
+                "Crosswalk ballets, arguments at cab windows, someone filming something pointless. The city rehearses itself in front of you.",
+                "A suit eats salad on a ledge like a performance. Tourists aim phones at a building you stopped noticing years ago.",
+                "Traffic cop whistles; nobody listens the first time. You watch the second whistle work like magic.",
+                "Street preacher, street dancer, street vendor—three volumes competing. You do not pick a winner."
+            ],
+            oldTown: [
+                "Families, teens in uniform, shopkeepers on smoke breaks. You pick up rhythms—who belongs, who is passing through.",
+                "An old couple shares fries on a bench; ketchup on a chin becomes a love language.",
+                "School lets out in a wave of blazers. You step aside; they flow around you like water.",
+                "A shop door bells every minute. You guess which customers will buy; you are wrong half the time."
+            ],
+            hillcrest: [
+                "Who arrives in what car, who is waited on first. Tiny status games play out while valets pretend not to judge.",
+                "A woman tips the attendant without looking. The smile she gives the car is warmer than the one for people.",
+                "Someone's dog wears a sweater worth more than your shoes. The dog does not care; neither do you, officially.",
+                "Lunch meetings in tinted windows—mouths moving, hands gesturing. You invent their drama from posture alone."
+            ],
+            marinaBay: [
+                "Tourists, locals, boats and bodies in motion. You note who lingers, who hurries, who is performing leisure.",
+                "A couple argues in whispers; seagulls scream over them. The pier pretends it is romantic anyway.",
+                "Kids chase waves; parents chase kids. You track a single kite until it becomes a dot.",
+                "Someone films the sunset for followers; someone else watches with bare eyes. Both look busy."
+            ],
+            universityDistrict: [
+                "Flirts, study fights, impromptu frisbee. Social life on display like a live feed with no filter.",
+                "Two friends debrief a lecture in overlapping sentences. You catch phrases—professor, unfair, quiz.",
+                "A guy practices a handshake alone near a trash can. You look away before the second attempt.",
+                "Someone cries on a phone; someone else pretends not to hear. Campus empathy has bandwidth limits."
+            ],
+            southside: [
+                "Corners and doorways tell you where not to loiter. You still learn the block—faces, habits, who watches back.",
+                "A bodega door buzzes every few minutes. You memorize who gets waved in and who waits.",
+                "Kids on bikes circle the same stretch. You are scenery; they are the show.",
+                "Someone fixes a car with the hood up; tools clink. No one offers help; no one asks."
+            ],
+            suburbs: [
+                "Sparse traffic, delivery vans, someone always mowing a lawn somewhere. Subtle patterns in a place that pretends nothing happens.",
+                "The same walker passes at the same time as yesterday. Routine looks like personality from far away.",
+                "A teenager slams a screen door; silence returns slowly. You count how long until the next sound.",
+                "Amazon drops a box; a dog announces the apocalypse. The owner shushes both."
+            ],
+            redLightCenter: [
+                "Queues, bouncers, couples negotiating boundaries in whispers. You observe without committing—and file it all away.",
+                "A group laughs too loud for the sidewalk; heels scrape; a phone flashlight checks a face. The night has rules.",
+                "Someone steps out for air; smoke rises; the door sucks closed behind them. They look relieved and bored.",
+                "Neon reflects in a puddle; you watch the colors ripple. Cheap poetry, but it works."
+            ]
+        }
+    };
+})();
+<</script>>
+
+<<widget "hubAmbientPickFlavor">><<nobr>>
+    <<set _hubKind = $args[0]>>
+    <<set _hubDist = $hubAmbientDistrict || $location>>
+    <<set _hubList = setup.hubAmbient[_hubKind] && setup.hubAmbient[_hubKind][_hubDist]>>
+    <<if _hubList && _hubList.length > 0>>
+        <<set _flavor = _hubList[random(0, _hubList.length - 1)]>>
+    <<else>>
+        <<set _flavor = "You take a moment.">>
+    <</if>>
+<</nobr>><</widget>>
+
+<<widget "hubAmbientActions">><<nobr>>
+    <<set $hubAmbientReturn = passage()>>
+    <<set $hubAmbientDistrict = $location>>
+    <div class="location-actions hub-ambient-actions">
+        <<btnPicker "Walk Around" "districtHub_walkAround" "hubAmbientWalk" "default" "walk">>
+        <<btnPicker "Play with Phone" "districtHub_playPhone" "hubAmbientPhone" "default" "phone">>
+        <<btnPicker "Watch People" "districtHub_watchPeople" "hubAmbientWatch" "default" "watch">>
+    </div>
+<</nobr>><</widget>>

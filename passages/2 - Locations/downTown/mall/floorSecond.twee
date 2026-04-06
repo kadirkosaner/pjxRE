@@ -10,6 +10,11 @@ The second floor offers fashion boutiques, jewelry stores, and intimate apparel 
 
 <<showLocationChars "floorSecond">>
 
+<div class="location-actions">
+<<set $mallWindowShoppingReturn = "floorSecond">>
+<<btn "Window Shopping" "mall_windowShopping" "default" 10>><</btn>>
+</div>
+
 <<navMenu>>
 	<<navCard "mallBathroomFromSecond">>
 	<<navCard "storeBags">>

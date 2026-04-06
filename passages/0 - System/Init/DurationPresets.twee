@@ -11,7 +11,8 @@
    
    ===================================================================== */
 
-setup.durationPresets = {
+/* Merge so hub / other scripts can register presets first; avoids losing keys by load order. */
+setup.durationPresets = Object.assign({}, setup.durationPresets || {}, {
     /* ==========================================
        ENTERTAINMENT
        ========================================== */
@@ -111,7 +112,27 @@ setup.durationPresets = {
         { label: "4 hours", value: 240 },
         { label: "6 hours", value: 360 },
         { label: "8 hours", value: 480 }
+    ],
+
+    /* District hub — btnPicker uses preset[0] as default when no pickerMemory; keep shortest first */
+    "hubAmbientWalk": [
+        { label: "15 min", value: 15 },
+        { label: "30 min", value: 30 },
+        { label: "45 min", value: 45 },
+        { label: "1 hour", value: 60 }
+    ],
+    "hubAmbientPhone": [
+        { label: "10 min", value: 10 },
+        { label: "15 min", value: 15 },
+        { label: "20 min", value: 20 },
+        { label: "30 min", value: 30 }
+    ],
+    "hubAmbientWatch": [
+        { label: "15 min", value: 15 },
+        { label: "30 min", value: 30 },
+        { label: "45 min", value: 45 },
+        { label: "1 hour", value: 60 }
     ]
-};
+});
 
 <</script>>

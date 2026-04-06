@@ -1,0 +1,28 @@
+<<nobr>>
+<<silently>>
+<<set _ret = $hubAmbientReturn || "maplewood">>
+<<set _d = $hubAmbientDistrict || $location>>
+<<set $location = _d>>
+<<set _mins = parseInt($selectedDuration, 10) || 15>>
+<<set _watchEnergy = Math.max(1, Math.round(10 * _mins / 60))>>
+<<set _needHubEnergy = _watchEnergy + 10>>
+<<requireMinEnergy _needHubEnergy _ret "Dont have enought energy">>
+<<hubAmbientPickFlavor "watch">>
+<<set _districtHubVid = "assets/content/scenes/global/districtHub/watchPeople" + random(1, 6) + ".mp4">>
+<<advanceTime _mins "relax">>
+<<set _hubStressLoss = Math.max(1, Math.round(8 * _mins / 60))>>
+<<set _hubMoodGain = Math.max(1, Math.round(6 * _mins / 60))>>
+<<loseStat "stress" _hubStressLoss>>
+<<gainStat "mood" _hubMoodGain>>
+<<loseStat "energy" _watchEnergy>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</silently>>
+<<narrative "People Watching">>
+<<print _flavor>>
+<</narrative>>
+<<if _districtHubVid !== "">><<vid _districtHubVid "100%">><</if>>
+<div class="location-actions">
+<<btn "Back" _ret>><</btn>>
+</div>
+<</nobr>>

@@ -1,0 +1,29 @@
+<<nobr>>
+<<silently>>
+<<set _ret = $hubAmbientReturn || "maplewood">>
+<<set _d = $hubAmbientDistrict || $location>>
+<<set $location = _d>>
+<<set _mins = parseInt($selectedDuration, 10) || 10>>
+<<set _phoneEnergy = Math.max(1, Math.round(8 * _mins / 60))>>
+<<set _needHubEnergy = _phoneEnergy + 10>>
+<<requireMinEnergy _needHubEnergy _ret "Dont have enought energy">>
+<<hubAmbientPickFlavor "phone">>
+<<set _phoneClipIds = [1, 2, 3, 5, 6, 7]>>
+<<set _districtHubVid = "assets/content/scenes/global/districtHub/phone" + _phoneClipIds[random(0, 5)] + ".mp4">>
+<<advanceTime _mins "relax">>
+<<set _hubStressLoss = Math.max(1, Math.round(4 * _mins / 60))>>
+<<set _hubMoodGain = Math.max(1, Math.round(12 * _mins / 60))>>
+<<loseStat "stress" _hubStressLoss>>
+<<gainStat "mood" _hubMoodGain>>
+<<loseStat "energy" _phoneEnergy>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</silently>>
+<<narrative "Phone">>
+<<print _flavor>>
+<</narrative>>
+<<if _districtHubVid !== "">><<vid _districtHubVid "100%">><</if>>
+<div class="location-actions">
+<<btn "Back" _ret>><</btn>>
+</div>
+<</nobr>>

@@ -4,17 +4,18 @@
 ========================================== */
 
 /* REQUIRE MIN ENERGY - Block action if energy too low */
-/* Usage: <<requireMinEnergy 1 "fhCouch">> or <<requireMinEnergy 5>> (uses $location or fhLivingroom) */
+/* Usage: <<requireMinEnergy 1 "fhCouch">> or <<requireMinEnergy 5>> — optional 3rd arg: custom warning text */
 <<widget "requireMinEnergy">><<nobr>>
     <<set _min = typeof $args[0] !== "undefined" ? parseInt($args[0]) : 1>>
     <<set _returnPassage = $args[1] || $location || "fhLivingroom">>
+    <<set _energyWarn = ($args.length > 2 && $args[2] !== undefined && $args[2] !== "") ? $args[2] : "Not enough energy.">>
     <<if (parseInt($energy || 0)) < _min>>
         /* If energy is completely depleted, trigger collapse */
         <<if (parseInt($energy || 0)) <= 0>>
             <<set $collapseReturnTo = _returnPassage>>
             <<goto "energy_collapse">>
         <<else>>
-            <<run window.notifyWarning("Not enough energy.")>>
+            <<run window.notifyError(_energyWarn)>>
             <<goto _returnPassage>>
         <</if>>
     <</if>>

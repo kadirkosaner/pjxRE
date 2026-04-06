@@ -1,0 +1,22 @@
+<<nobr>>
+<<silently>>
+<<set _ret = $mallWindowShoppingReturn || "floorGround">>
+<<requireMinEnergy 10 _ret "Not enough energy.">>
+<<set $location = _ret>>
+<<updateCharacterLocations>>
+<<advanceTime 20 "relax">>
+<<loseStat "stress" 3>>
+<<gainStat "mood" 6>>
+<<loseStat "energy" 5>>
+<<recalculateStats>>
+<<flushNotifications>>
+<<set _windowShopVid = "assets/content/scenes/downtown/mall/windowShop/windowShop" + random(1, 2) + ".mp4">>
+<</silently>>
+<<narrative "Window Shopping">>
+You move slowly along the corridor, letting the displays wash over you — lit windows, folded outfits, gadgets you do not need, perfume cards on little sticks. No wallet comes out; it is enough to look, compare, and imagine. The crowd noise turns into a kind of wallpaper, and for a while you are just another face in the flow.
+<</narrative>>
+<<if _windowShopVid !== "">><<vid _windowShopVid "100%">><</if>>
+<div class="location-actions">
+<<btn "Continue" _ret>><</btn>>
+</div>
+<</nobr>>

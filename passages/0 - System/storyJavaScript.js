@@ -904,8 +904,34 @@ Macro.add('btn', {
     }
 });
 
+/* Hub ambient: drain = max(1, round(drainPerHour * minutes / 60)); requireMin = drain + 10. Rates tunable in setup.hubAmbientEnergyDrainPerHour. */
+setup.hubAmbientEnergyNotEnoughMsg = 'Dont have enough energy';
+setup.hubAmbientEnergyDrainPerHour = Object.assign(
+    { walk: 10, phone: 8, watch: 10 },
+    setup.hubAmbientEnergyDrainPerHour || {}
+);
+setup.hubAmbientEnergyActDrain = function (key, mins) {
+    const h = setup.hubAmbientEnergyDrainPerHour[key];
+    if (h == null) return 1;
+    const defM = key === 'phone' ? 10 : 15;
+    const m = parseInt(mins, 10);
+    const mm = !isNaN(m) && m > 0 ? m : defM;
+    return Math.max(1, Math.round((h * mm) / 60));
+};
+setup.hubAmbientEnergyForMins = {
+    walk(mins) {
+        return setup.hubAmbientEnergyActDrain('walk', mins) + 10;
+    },
+    phone(mins) {
+        return setup.hubAmbientEnergyActDrain('phone', mins) + 10;
+    },
+    watch(mins) {
+        return setup.hubAmbientEnergyActDrain('watch', mins) + 10;
+    }
+};
+
 /* ================== btnPicker Macro =================== */
-/* Usage: <<btnPicker "Text" "passage" "presetName">> or add 4th style, 5th minEnergy. Presets in DurationPresets.twee */
+/* Usage: <<btnPicker "Text" "passage" "presetName">> | 4th: style | 5th: minEnergy (number) OR hub key "walk"|"phone"|"watch" for duration-based energy (setup.hubAmbientEnergyForMins). Presets: DurationPresets.twee */
 Macro.add('btnPicker', {
     handler: function () {
         if (this.args.length < 3) {
@@ -916,16 +942,30 @@ Macro.add('btnPicker', {
         const passage = this.args[1];
         const presetName = this.args[2];
         const style = this.args[3] ? this.args[3].toLowerCase() : 'default';
-        const minEnergy = this.args[4] !== undefined ? parseInt(this.args[4], 10) : 0;
+        const energyArg = this.args[4];
+        let staticMinEnergy = 0;
+        let dynamicEnergyKey = null;
+        if (energyArg !== undefined && energyArg !== null && energyArg !== '') {
+            if (
+                typeof energyArg === 'string' &&
+                setup.hubAmbientEnergyForMins &&
+                typeof setup.hubAmbientEnergyForMins[energyArg] === 'function'
+            ) {
+                dynamicEnergyKey = energyArg;
+            } else {
+                staticMinEnergy = parseInt(energyArg, 10) || 0;
+            }
+        }
 
         const energy = parseInt(State.variables.energy || 0, 10);
-        const locked = minEnergy > 0 && energy < minEnergy;
+        const staticLocked = !dynamicEnergyKey && staticMinEnergy > 0 && energy < staticMinEnergy;
 
-        if (locked) {
-            const tooltip = 'Need ' + minEnergy + ' energy';
+        if (staticLocked) {
+            const tooltip = 'Need ' + staticMinEnergy + ' energy';
             const span = $('<span>')
                 .addClass('link-internal btn-style locked')
                 .attr('data-tooltip', tooltip)
+                .attr('data-tooltip-type', 'locked')
                 .html('<span class="icon icon-lock icon-12"></span> ' + text)
                 .appendTo(this.output);
             if (style.includes(' ')) {
@@ -947,6 +987,16 @@ Macro.add('btnPicker', {
             const found = preset.find(p => p.value === val);
             return found ? found.label : preset[0].label;
         };
+
+        const requiredEnergyForSelection = () => {
+            if (dynamicEnergyKey && setup.hubAmbientEnergyForMins[dynamicEnergyKey]) {
+                return setup.hubAmbientEnergyForMins[dynamicEnergyKey](selectedValue);
+            }
+            return staticMinEnergy;
+        };
+
+        const hubEnergyMsg = setup.hubAmbientEnergyNotEnoughMsg || 'Dont have enought energy';
+
         const wrapper = $('<div>')
             .addClass('btn-picker-split')
             .appendTo(this.output);
@@ -962,6 +1012,80 @@ Macro.add('btnPicker', {
         const dropdown = $('<div>')
             .addClass('btn-picker-dropdown')
             .appendTo(wrapper);
+
+        function closeDropdownCompletely() {
+            dropdown.removeClass('open');
+            wrapper.removeClass('open');
+            $('body').removeClass('btn-picker-open');
+            moveDropdownBackToWrapper();
+        }
+
+        const refreshAffordableOptions = () => {
+            if (!dynamicEnergyKey || !setup.hubAmbientEnergyForMins[dynamicEnergyKey]) return;
+            const en = parseInt(State.variables.energy || 0, 10);
+            const fn = setup.hubAmbientEnergyForMins[dynamicEnergyKey];
+            dropdown.find('.btn-picker-option').each(function () {
+                const v = parseInt($(this).attr('data-value'), 10);
+                const req = fn(v);
+                $(this).toggleClass('option-unaffordable', req > 0 && en < req);
+            });
+        };
+
+        const refreshMainBtnEnergyLock = () => {
+            const need = requiredEnergyForSelection();
+            const en = parseInt(State.variables.energy || 0, 10);
+            const low = need > 0 && en < need;
+            btn.toggleClass('locked', low);
+            btn.attr('aria-disabled', low ? 'true' : 'false');
+            if (dynamicEnergyKey) {
+                wrapper.toggleClass('btn-picker-split-energy-locked', low);
+                if (low) {
+                    btn.html('<span class="icon icon-lock icon-12"></span> ' + text);
+                    btn.attr('data-tooltip', hubEnergyMsg);
+                    btn.attr('data-tooltip-type', 'locked');
+                    wrapper.attr('data-tooltip', hubEnergyMsg);
+                    wrapper.attr('data-tooltip-type', 'locked');
+                    trigger.attr('data-tooltip', hubEnergyMsg);
+                    trigger.attr('data-tooltip-type', 'locked');
+                } else {
+                    btn.text(text);
+                    btn.removeAttr('data-tooltip');
+                    btn.removeAttr('data-tooltip-type');
+                    wrapper.removeAttr('data-tooltip');
+                    wrapper.removeAttr('data-tooltip-type');
+                    trigger.removeAttr('data-tooltip');
+                    trigger.removeAttr('data-tooltip-type');
+                }
+                refreshAffordableOptions();
+            } else {
+                wrapper.removeClass('btn-picker-split-energy-locked');
+                wrapper.removeAttr('data-tooltip');
+                wrapper.removeAttr('data-tooltip-type');
+                if (low) {
+                    btn.html('<span class="icon icon-lock icon-12"></span> ' + text);
+                    btn.attr('data-tooltip', 'Need ' + need + ' energy');
+                    btn.attr('data-tooltip-type', 'locked');
+                } else {
+                    btn.text(text);
+                    btn.removeAttr('data-tooltip');
+                    btn.removeAttr('data-tooltip-type');
+                }
+            }
+        };
+        refreshMainBtnEnergyLock();
+
+        const energyRenderNs =
+            dynamicEnergyKey && presetName && passage
+                ? 'btnPickerHub.' + presetName + '.' + passage.replace(/[^a-zA-Z0-9]/g, '_')
+                : null;
+        if (energyRenderNs) {
+            $(document)
+                .off(':passagerender.' + energyRenderNs)
+                .on(':passagerender.' + energyRenderNs, function () {
+                    refreshMainBtnEnergyLock();
+                });
+        }
+
         preset.forEach(option => {
             const optionBtn = $('<a>')
                 .addClass('btn-picker-option')
@@ -977,18 +1101,28 @@ Macro.add('btnPicker', {
                 e.preventDefault();
                 e.stopPropagation();
 
+                if (dynamicEnergyKey && setup.hubAmbientEnergyForMins[dynamicEnergyKey]) {
+                    const oVal = parseInt($(this).attr('data-value'), 10);
+                    const req = setup.hubAmbientEnergyForMins[dynamicEnergyKey](oVal);
+                    const enNow = parseInt(State.variables.energy || 0, 10);
+                    if (req > 0 && enNow < req) {
+                        return;
+                    }
+                }
+
                 selectedValue = option.value;
                 State.variables.pickerMemory[presetName] = selectedValue;
                 trigger.find('.picker-value').text(option.label);
 
                 dropdown.find('.btn-picker-option').removeClass('selected');
                 $(this).addClass('selected');
-                dropdown.removeClass('open');
-                wrapper.removeClass('open');
-                $('body').removeClass('btn-picker-open');
-                moveDropdownBackToWrapper();
+                closeDropdownCompletely();
+                refreshMainBtnEnergyLock();
             });
         });
+        if (dynamicEnergyKey) {
+            refreshMainBtnEnergyLock();
+        }
         function positionDropdownInPortal() {
             const triggerEl = trigger[0];
             const dropEl = dropdown[0];
@@ -1043,6 +1177,7 @@ Macro.add('btnPicker', {
             if (dropdown.hasClass('open')) {
                 $('body').addClass('btn-picker-open');
                 moveDropdownToBody();
+                refreshAffordableOptions();
             } else {
                 $('body').removeClass('btn-picker-open');
                 moveDropdownBackToWrapper();
@@ -1050,6 +1185,10 @@ Macro.add('btnPicker', {
         });
         btn.on('click', function (e) {
             e.preventDefault();
+            if (btn.hasClass('locked')) return;
+            const need = requiredEnergyForSelection();
+            const en = parseInt(State.variables.energy || 0, 10);
+            if (need > 0 && en < need) return;
             State.variables.selectedDuration = selectedValue;
             Engine.play(passage);
         });
@@ -1065,6 +1204,9 @@ Macro.add('btnPicker', {
         });
         $(document).one(':passagestart', function () {
             $(document).off('click.btnPicker' + presetName);
+            if (energyRenderNs) {
+                $(document).off(':passagerender.' + energyRenderNs);
+            }
             $('body').removeClass('btn-picker-open');
             moveDropdownBackToWrapper();
         });

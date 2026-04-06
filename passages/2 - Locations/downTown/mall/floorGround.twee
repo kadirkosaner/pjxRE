@@ -10,6 +10,11 @@ The main floor of the mall features clothing stores, electronics, and sports equ
 
 <<showLocationChars "floorGround">>
 
+<div class="location-actions">
+<<set $mallWindowShoppingReturn = "floorGround">>
+<<btn "Window Shopping" "mall_windowShopping" "default" 10>><</btn>>
+</div>
+
 <<navMenu>>
 	<<navCard "storeClothingA">>
 	<<navCard "storeCosmetics">>

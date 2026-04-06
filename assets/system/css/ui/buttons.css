@@ -202,6 +202,36 @@ button.btn-secondary,
   text-decoration: none !important;
 }
 
+/* pointer-events must stay auto so global tooltip (tooltip.js) can show on hover; click still blocked in JS */
+.btn-picker-main.locked {
+  opacity: 0.65;
+  cursor: not-allowed;
+  pointer-events: auto;
+}
+
+/* Hub ambient: current duration unaffordable — dim row, main dead, time trigger still changes duration */
+.btn-picker-split-energy-locked {
+  opacity: 0.72;
+}
+
+.btn-picker-split-energy-locked .btn-picker-main {
+  pointer-events: auto;
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.btn-picker-split-energy-locked .btn-picker-trigger {
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.btn-picker-option.option-unaffordable {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .btn-picker-trigger {
   display: flex;
   align-items: center;

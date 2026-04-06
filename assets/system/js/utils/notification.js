@@ -60,6 +60,8 @@
  */
 
 let NotificationAPI = null;
+/** Monotonic suffix so rapid back-to-back toasts (e.g. <<flushNotifications>>) never share the same DOM id */
+let notificationIdSeq = 0;
 
 // Initialize 
 window.NotificationInit = function (API) {
@@ -98,7 +100,7 @@ window.showNotification = function (options) {
   const hasActions = Array.isArray(config.actions) && config.actions.length > 0;
   if (hasActions) config.duration = 0;
 
-  const id = 'notif-' + Date.now();
+  const id = 'notif-' + Date.now() + '-' + (++notificationIdSeq);
   const typeSafe = String(config.type || 'info').replace(/[^a-z0-9-]/gi, '') || 'info';
   const $el = NotificationAPI.$(`
     <div class="notification notification-${typeSafe}" id="${id}"

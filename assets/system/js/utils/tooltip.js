@@ -50,10 +50,17 @@ window.initTooltips = function() {
             
             $globalTooltip.text(tooltipText);
             
-            // Handle success (green) tooltip
+            // Handle success (green) vs locked (red bg / white text — same as .btn-style.locked, action-btn.locked)
             if ($el.attr('data-tooltip-type') === 'success') {
                 $globalTooltip.addClass('success-tooltip').removeClass('locked-tooltip');
-            } else if ($el.hasClass('locked') || $el.hasClass('disabled') || $el.hasClass('location-closed') || $el.attr('data-allowed') === 'false') {
+            } else if (
+                $el.attr('data-tooltip-type') === 'locked' ||
+                $el.hasClass('locked') ||
+                $el.hasClass('disabled') ||
+                $el.hasClass('location-closed') ||
+                $el.attr('data-allowed') === 'false' ||
+                ($el.hasClass('btn-picker-split-energy-locked') && $el.attr('data-tooltip'))
+            ) {
                 $globalTooltip.addClass('locked-tooltip').removeClass('success-tooltip');
             } else {
                 $globalTooltip.removeClass('locked-tooltip success-tooltip');

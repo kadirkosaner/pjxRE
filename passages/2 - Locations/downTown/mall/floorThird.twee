@@ -9,6 +9,11 @@ The top floor houses the food court, movie theatre, and beauty services. The aro
 
 <<showLocationChars "floorThird">>
 
+<div class="location-actions">
+<<set $mallWindowShoppingReturn = "floorThird">>
+<<btn "Window Shopping" "mall_windowShopping" "default" 10>><</btn>>
+</div>
+
 <<navMenu>>
 	<<navCard "foodCourtMall">>
 	<<navCard "salonBeautyMall">>
