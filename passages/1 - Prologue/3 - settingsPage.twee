@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-input-group">
                         <label>Called as</label>
-                        <input type="text" id="familyMotherStatus" @value="$characters.mother.status" maxlength="24" placeholder="Mom, Mother..." autocomplete="off">
+                        <input type="text" id="familyMotherStatus" @value="$characters.mother.status" maxlength="24" placeholder="Mom, Mother, Step-Mother..." autocomplete="off">
                     </div>
                 </div>
 
@@ -64,7 +64,7 @@
                     </div>
                     <div class="form-input-group">
                         <label>Called as</label>
-                        <input type="text" id="familyFatherStatus" @value="$characters.father.status" maxlength="24" placeholder="Dad, Father..." autocomplete="off">
+                        <input type="text" id="familyFatherStatus" @value="$characters.father.status" maxlength="24" placeholder="Dad, Father, Step-Father..." autocomplete="off">
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
                     </div>
                     <div class="form-input-group">
                         <label>Called as</label>
-                        <input type="text" id="familyBrotherStatus" @value="$characters.brother.status" maxlength="24" placeholder="Brother, Sis..." autocomplete="off">
+                        <input type="text" id="familyBrotherStatus" @value="$characters.brother.status" maxlength="24" placeholder="Brother, Step-Brother..." autocomplete="off">
                     </div>
                 </div>
 
@@ -189,6 +189,9 @@
             <div class="note-box warning">
                 ⚠️ These settings cannot be changed after starting the game.
             </div>
+            <div class="note-box warning">
+                ⚠️ Closed settings were not fully tested during the beta process.
+            </div>
 
             <div class="sim-grid">
                 <div class="sim-group-title">Basic Needs</div>
@@ -198,35 +201,35 @@
                         <div class="sim-label">Hunger</div>
                         <div class="sim-desc">Need to eat regularly</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="trackHunger">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="trackHunger">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Thirst</div>
                         <div class="sim-desc">Need to drink water</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="trackThirst">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="trackThirst">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Bladder</div>
                         <div class="sim-desc">Need to use bathroom</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="trackBladder">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="trackBladder">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Calories</div>
                         <div class="sim-desc">Track intake vs burn</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="trackCalories">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="trackCalories">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Hygiene Impact</div>
                         <div class="sim-desc">Bad smell repels people</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="hygieneRequirement">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="hygieneRequirement">ON</button>
                 </div>
 
                 <div class="sim-group-title">Appearance & Decay</div>
@@ -236,70 +239,70 @@
                         <div class="sim-label">Hair Growth</div>
                         <div class="sim-desc">Hair gets longer daily</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="hairGrowth">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="hairGrowth">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Hair Messiness</div>
                         <div class="sim-desc">Wake up with messy hair</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="hairMessiness">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="hairMessiness">ON</button>
                 </div>
                  <div class="sim-item">
                     <div>
                         <div class="sim-label">Body Hair</div>
                         <div class="sim-desc">Body hair grows over time</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="bodyHairGrowth">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="bodyHairGrowth">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Makeup Fade</div>
                         <div class="sim-desc">Makeup wears off daily</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="makeupWearOff">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="makeupWearOff">ON</button>
                 </div>
                  <div class="sim-item">
                     <div>
                         <div class="sim-label">Body Changes</div>
                         <div class="sim-desc">Muscle/Fat gain/loss</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="bodyDegradation">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="bodyDegradation">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Hair Care Decay</div>
                         <div class="sim-desc">Hair care drops without routine</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="hairCareDecay">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="hairCareDecay">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Face Care Decay</div>
                         <div class="sim-desc">Skincare drops without routine</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="faceCareDecay">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="faceCareDecay">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Dental Care Decay</div>
                         <div class="sim-desc">Teeth care drops without brushing</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="dentalCareDecay">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="dentalCareDecay">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Skill Decay</div>
                         <div class="sim-desc">Unused skills degrade</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="skillDecay">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="skillDecay">ON</button>
                 </div>
                 <div class="sim-item">
                     <div>
                         <div class="sim-label">Relation Decay</div>
                         <div class="sim-desc">Unseen friends drift apart</div>
                     </div>
-                    <button class="setting-toggle-btn" data-setting="relationshipDecay">OFF</button>
+                    <button class="setting-toggle-btn active" data-setting="relationshipDecay">ON</button>
                 </div>
             </div>
         </div>
@@ -313,7 +316,10 @@
         </div>
         <div class="settings-section-body setup-accordion-content">
             <div class="note-box warning">
-                Select content you are comfortable with. Can be changed anytime.
+                ⚠️ Select content you are comfortable with. Can be changed anytime.
+            </div>
+            <div class="note-box warning">
+                ⚠️ Recommend having all settings enabled for the best experience.
             </div>
 
             <div class="sim-grid">

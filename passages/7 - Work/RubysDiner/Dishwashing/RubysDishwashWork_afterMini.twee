@@ -1,26 +1,27 @@
 /* ==========================================
    Dishwasher shift outro: Diana gate + Finish shift.
+   Diana arrives 2+ days after "Unfinished Thoughts" quest completion.
    Included from RubysDishwashWork and rush sub-passages.
+   Diana: set dianaEventShown then <<btn>> (no <<goto>>) so history keeps the flag and Back works.
 ========================================== */
 <<silently>>
 <<set _dianaJob = ($job && $job.id) ? setup.jobs[$job.id] : null>>
 <<set _dianaReqDay = (_dianaJob && _dianaJob.requiredHoursPerDay != null) ? _dianaJob.requiredHoursPerDay : 8>>
-/* Calendar day of employment since $job.startedOn: 1 = first day; Diana arrival from day 5 onward */
-<<set State.temporary.dianaEmployDay = 0>>
-<<run (function () {
-    var v = State.variables;
-    var j = v.job && v.job.startedOn;
-    var ts = v.timeSys;
-    if (!j || j.year == null || !ts || ts.year == null) return;
-    var s = new Date(j.year, j.month - 1, j.day);
-    var c = new Date(ts.year, ts.month - 1, ts.day);
-    var diff = Math.floor((c.getTime() - s.getTime()) / 86400000);
-    State.temporary.dianaEmployDay = diff >= 0 ? diff + 1 : 0;
-})()>>
+/* Diana gate: quest "Unfinished Thoughts" must be done + 2 days elapsed */
+<<set _vinceQuestDoneDate = ($questState && $questState.completedDates && $questState.completedDates.vince_day3_family) || 0>>
+<<set _today = ($timeSys.year || 0) * 10000 + ($timeSys.month || 0) * 100 + ($timeSys.day || 0)>>
+/* completedDates stores YYYYMMDD numeric; add 2 days using JS Date for month rollover safety */
+<<set _doneY = Math.floor(_vinceQuestDoneDate / 10000)>>
+<<set _doneM = Math.floor((_vinceQuestDoneDate % 10000) / 100)>>
+<<set _doneD = _vinceQuestDoneDate % 100>>
+<<set _targetDateObj = (_vinceQuestDoneDate > 0) ? new Date(_doneY, _doneM - 1, _doneD + 2) : null>>
+<<set _targetDate = _targetDateObj ? (_targetDateObj.getFullYear() * 10000 + (_targetDateObj.getMonth() + 1) * 100 + _targetDateObj.getDate()) : 99999999>>
 <</silently>>
-<<if $job && $job.id === "ruby_dishwasher" && State.temporary.dianaEmployDay >= 5 && (parseFloat($jobState.hoursToday) || 0) >= _dianaReqDay && !$flags.dianaEventShown>>
+<<if $job && $job.id === "ruby_dishwasher" && _vinceQuestDoneDate > 0 && _today >= _targetDate && (parseFloat($jobState.hoursToday) || 0) >= _dianaReqDay && !$flags.dianaEventShown>>
 <<set $flags.dianaEventShown = true>>
-<<goto "dinerWork_event_dianaArrival">>
+<div class="location-actions">
+<<btn "See what's going on up front" "dinerWork_event_dianaArrival">><</btn>>
+</div>
 <<else>>
 <div class="location-actions">
 <<btn "Finish shift" "dinerRubys">>

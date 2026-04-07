@@ -28,7 +28,7 @@
 <<if _waitMins <= 0>>
 <<goto _returnPassage>>
 <</if>>
-<<advanceTime _waitMins>>
+<<advanceTime _waitMins "relax">>
 <<flushNotifications>>
 <</silently>>
 

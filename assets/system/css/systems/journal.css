@@ -10,6 +10,13 @@
   gap: 24px;
 }
 
+/* Disable font ligatures in the whole journal modal — sequences like "to" can render as one glyph
+   that looks like "=" in some fonts (same issue as notifications.css). */
+.modal-overlay[data-modal="journal-modal"] .modal-content {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "dlig" 0, "calt" 0;
+}
+
 /* Profile Header Section */
 .journal-profile-header {
   display: flex;

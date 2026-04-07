@@ -1,15 +1,40 @@
 <<nobr>>
-<<if $flags.dianaEventShown && !$flags.dianaThoughtsShown>>
-<<set $flags.dianaThoughtsShown = true>>
-<<goto "dinerWork_event_nightThoughts">>
-<</if>>
 <<set _sdQuest = $questState.active.something_different>>
-<<if _sdQuest && setup.quests.something_different.stages[_sdQuest.stage].id === "after_mall">>
+<<if _sdQuest && setup.quests.something_different.stages[_sdQuest.stage] && setup.quests.something_different.stages[_sdQuest.stage].id === "after_mall">>
 <<goto "fhBedroom_event_mallAftermath">>
 <</if>>
+<<set State.temporary.fhBedroomPlayPassage = "">>
+<<if $flags.dianaEventShown && !$flags.dianaThoughtsShown>>
+<<if !State.variables._navigatingBackward>>
+<<set State.temporary.fhBedroomPlayPassage = "dinerWork_event_nightThoughts">>
+<</if>>
+<</if>>
 <<set _vdf = $questState.active.vince_day3_family>>
-<<if _vdf && !$flags.vinceDay3FamilyBedroomDone && setup.quests.vince_day3_family.stages[_vdf.stage] && setup.quests.vince_day3_family.stages[_vdf.stage].id === "bedroom_alone">>
-<<goto "quest_vince_day3_family_reflection">>
+<<if State.temporary.fhBedroomPlayPassage === "" && _vdf && !$flags.vinceDay3FamilyBedroomDone && setup.quests.vince_day3_family.stages[_vdf.stage] && setup.quests.vince_day3_family.stages[_vdf.stage].id === "bedroom_alone">>
+<<if !State.variables._navigatingBackward>>
+<<set State.temporary.fhBedroomPlayPassage = "quest_vince_day3_family_reflection">>
+<</if>>
+<</if>>
+<<if State.temporary.fhBedroomPlayPassage === "" && _sdQuest && setup.quests.something_different.stages[_sdQuest.stage] && setup.quests.something_different.stages[_sdQuest.stage].id === "mirror_moment">>
+<<if !State.variables._navigatingBackward>>
+<<set State.temporary.fhBedroomPlayPassage = "fhBedroom_event_beautyThoughts">>
+<</if>>
+<</if>>
+<<if State.temporary.fhBedroomPlayPassage !== "">>
+<<script>>
+setTimeout(function () {
+  var p = State.temporary.fhBedroomPlayPassage;
+  State.temporary.fhBedroomPlayPassage = "";
+  if (typeof window !== "undefined" && window.__suppressFhBedroomQuestAutoNext) {
+    window.__suppressFhBedroomQuestAutoNext = false;
+    return;
+  }
+  if (!p || State.variables._navigatingBackward) return;
+  if (State.passage !== "fhBedroom") return;
+  var Eng = typeof Engine !== "undefined" ? Engine : (typeof SugarCube !== "undefined" ? SugarCube.Engine : null);
+  if (Eng && typeof Eng.play === "function") Eng.play(p);
+}, 0);
+<</script>>
 <</if>>
 <<set $location = "fhBedroom">>
 <<updateCharacterLocations>>
@@ -18,7 +43,6 @@
 Your room. Posters on the walls, your things where you left them — small, but yours.
 <</narrative>>
 
-<<questPrompts>>
 <<showLocationChars "fhBedroom">>
 
 <div class="location-actions">

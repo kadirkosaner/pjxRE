@@ -178,6 +178,6 @@
     
     <<if !State.variables[_flag]>>
         <<set State.variables[_flag] = true>>
-        <<run notifySuccess("New Location Discovered: " + _name)>>
+        <<run window.notifySuccess("New Location Discovered: " + _name)>>
     <</if>>
 <</nobr>><</widget>>

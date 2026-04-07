@@ -19,6 +19,9 @@
   opacity: 0;
   transition: transform 250ms ease, opacity 250ms ease !important;
   will-change: transform, opacity;
+  /* Whole toast: some fonts ligate "to" into a glyph that reads like "=" */
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "dlig" 0, "calt" 0;
 }
 
 .notification .icon-16 {

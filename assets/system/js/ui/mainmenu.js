@@ -49,6 +49,12 @@ function createMainMenu() {
                         </span>
                         <span class="menu-text">Help</span>
                     </div>
+                    <div class="menu-item" data-action="unstick-bedroom">
+                        <span class="menu-icon">
+                            <span class="icon icon-bed icon-24"></span>
+                        </span>
+                        <span class="menu-text">Unstuck</span>
+                    </div>
                     <div class="menu-item" data-action="report-bug">
                         <span class="menu-icon">
                             <span class="icon icon-bug icon-24"></span>
@@ -117,6 +123,15 @@ function handleMenuAction(action) {
                 window.HelpSystem.open();
             }
             closeMainMenu();
+            break;
+        case 'unstick-bedroom':
+            closeMainMenu();
+            {
+                const Eng = MainMenuAPI.Engine || (typeof Engine !== 'undefined' ? Engine : null);
+                if (Eng && typeof Eng.play === 'function') {
+                    Eng.play('fhBedroom');
+                }
+            }
             break;
         case 'restart':
             // Use window.ModalTabSystem if available, otherwise fallback

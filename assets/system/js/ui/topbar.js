@@ -1,5 +1,13 @@
 let TopbarAPI = null;
 
+/** SugarCube passage title: usually string; normalize objects / edge cases. */
+function normalizePassageTitle(p) {
+    if (p == null || p === '') return '';
+    if (typeof p === 'string') return p;
+    if (typeof p === 'object' && p.title != null) return String(p.title);
+    return String(p);
+}
+
 // Initialize
 window.TopbarInit = function (API) {
     TopbarAPI = API;
@@ -29,13 +37,26 @@ function rebuildTopbar() {
     const canForward = currentIndex < (historySize - 1);
 
     // Check if previous passage is Start (don't allow backward to StartScreen)
-    let previousPassage = null;
+    let previousPassageRaw = null;
     if (currentIndex > 0 && state.history) {
         const moments = state.history;
         const prev = moments[currentIndex - 1];
-        previousPassage = prev?.title ?? prev?.passage;
+        previousPassageRaw = prev?.title ?? prev?.passage;
     }
-    const canBackToStart = canBack && previousPassage !== 'Start';
+    const previousPassageTitle = normalizePassageTitle(previousPassageRaw);
+    const canBackToStart = canBack && previousPassageTitle !== 'Start';
+
+    /* Family hub + quest-scene: shallow history (idx 0) or Start → scene (debug / odd stacks) — still allow exit */
+    const activePassageTitle = normalizePassageTitle(state.passage);
+    const loc = (vars.location) || '';
+    const questSceneFamilyHub =
+        (loc === 'fhBedroom' || loc === 'fhParentsRoom') &&
+        typeof window.isQuestScenePassage === 'function' &&
+        window.isQuestScenePassage(activePassageTitle);
+    const timeBackEnabled =
+        canBackToStart
+        || (questSceneFamilyHub && currentIndex === 0)
+        || (questSceneFamilyHub && currentIndex > 0 && previousPassageTitle === 'Start');
 
     // vars already declared above, use it directly
     const timeSys = vars.timeSys || {};
@@ -315,7 +336,7 @@ function rebuildTopbar() {
                     </div>
                     
                     <div class="timebox" style="${hideTimebox ? 'visibility: hidden;' : ''}">
-                        <button class="time-arrow" id="time-back" ${!canBackToStart ? 'disabled' : ''}>
+                        <button class="time-arrow" id="time-back" ${!timeBackEnabled ? 'disabled' : ''}>
                             <span class="icon icon-chevron-left icon-16"></span>
                         </button>
                         <div class="time-content">
@@ -354,16 +375,72 @@ function rebuildTopbar() {
     });
 
     $('#time-back').on('click', () => {
-        const s = TopbarAPI.State;
-        const idx = s.activeIndex ?? s.index ?? 0;
-        if (idx > 0 && s.history) {
-            const prev = s.history[idx - 1];
-            const previousPassage = prev?.title ?? prev?.passage;
-            if (previousPassage !== 'Start') {
-                /* Engine.backward() restores history state — vars set here are discarded.
-                   Flag on window; storyJavaScript :passagestart copies into restored State.variables. */
+        const St = (typeof State !== 'undefined' && State) ? State : TopbarAPI.State;
+        const idx = St.activeIndex ?? St.index ?? 0;
+        const loc = (St.variables && St.variables.location) || '';
+        const passageTitle = normalizePassageTitle(St.passage);
+        const isQuestScene =
+            typeof window.isQuestScenePassage === 'function' &&
+            window.isQuestScenePassage(passageTitle);
+        const questSceneFamilyHub =
+            (loc === 'fhBedroom' || loc === 'fhParentsRoom') && isQuestScene;
+        const questBedroomBack = loc === 'fhBedroom' && isQuestScene;
+
+        /* No history moment to pop — jump to landing (bedroom → hall; parents' quest → room hub) */
+        if (questSceneFamilyHub && idx === 0) {
+            window.__navigatingBackwardFromUI = true;
+            const Eng = TopbarAPI.Engine;
+            if (Eng && typeof Eng.play === 'function') {
+                Eng.play(loc === 'fhBedroom' ? 'fhUpperstairs' : 'fhParentsRoom');
+            }
+            return;
+        }
+
+        if (idx > 0 && St.history) {
+            const prev = St.history[idx - 1];
+            const previousTitle = normalizePassageTitle(prev?.title ?? prev?.passage);
+            if (previousTitle === 'Start' && questSceneFamilyHub) {
                 window.__navigatingBackwardFromUI = true;
+                const Eng = TopbarAPI.Engine;
+                if (Eng && typeof Eng.play === 'function') {
+                    Eng.play(loc === 'fhBedroom' ? 'fhUpperstairs' : 'fhParentsRoom');
+                }
+                return;
+            }
+            if (previousTitle !== 'Start') {
+                /*
+                 * Typical stack: fhUpperstairs → fhBedroom → bedroom quest (Engine.play).
+                 * Pop twice so we skip the empty fhBedroom hub and avoid Engine.play('fhUpperstairs'),
+                 * which was adding an extra forward step and time/state weirdness.
+                 */
+                if (
+                    questBedroomBack &&
+                    idx >= 2 &&
+                    previousTitle === 'fhBedroom'
+                ) {
+                    const prev2 = St.history[idx - 2];
+                    const previousTitle2 = normalizePassageTitle(prev2?.title ?? prev2?.passage);
+                    if (previousTitle2 === 'fhUpperstairs') {
+                        window.__navigatingBackwardFromUI = true;
+                        TopbarAPI.Engine.backward();
+                        TopbarAPI.Engine.backward();
+                        return;
+                    }
+                }
+                /* Fallback: came from fhBedroom but not via upper hall, or shallow history */
+                if (questBedroomBack) {
+                    window.__suppressFhBedroomQuestAutoNext = true;
+                    window.__navigatingBackwardFromUI = true;
+                }
                 TopbarAPI.Engine.backward();
+                if (questBedroomBack) {
+                    setTimeout(function () {
+                        const Eng = TopbarAPI.Engine;
+                        if (Eng && typeof Eng.play === 'function') {
+                            Eng.play('fhUpperstairs');
+                        }
+                    }, 0);
+                }
             }
         }
     });

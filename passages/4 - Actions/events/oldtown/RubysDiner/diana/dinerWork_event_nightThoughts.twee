@@ -1,7 +1,8 @@
+:: dinerWork_event_nightThoughts [quest-scene]
 /* ==========================================
    EVENT - Night Thoughts (Diana Arc)
-   Auto-triggers from fhBedroom after
-   dianaEventShown and before dianaThoughtsShown
+   Opens like quest_vince_day3_family_reflection: fhBedroom finishes,
+   then Engine.play (fhBedroomPlayPassage). Requires dianaEventShown && !dianaThoughtsShown.
    Voice: <<narrative>> to player (*you* ok); inner = dialog (Inner voice), *I*.
 ========================================== */
 <div class="divnobr">
@@ -109,6 +110,7 @@ You sat up.
 <<nobr>>
 <<set $flags.dianaGossipUnlocked = true>>
 <<set $flags.dianaThoughtsShown = true>>
+<<startQuest "something_different">>
 <</nobr>>
 
 <div class="location-actions">

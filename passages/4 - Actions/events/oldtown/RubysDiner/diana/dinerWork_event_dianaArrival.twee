@@ -1,12 +1,14 @@
+:: dinerWork_event_dianaArrival [quest-scene]
 /* ==========================================
    EVENT - Diana Arrival
-   Triggers after day 5 of dishwasher work,
+   Triggers after vince_day3_family + 2 days, full dish shift; player taps through from shift outro.
    end of shift. Player witnesses from hallway.
    Voice: <<narrative>> to player (*you* ok); inner = dialog (Inner voice), *I*.
 ========================================== */
 <div class="divnobr">
 <<silently>>
 <<set $location = "dinerRubys">>
+<<set $flags.dianaEventShown = true>>
 <<set $flags.dianaGossipUnlocked = false>>
 <<advanceTime 15>>
 <</silently>>
@@ -32,7 +34,7 @@ You stop.
 Red dress. Shoulders bare. The perfume reaches you before she does.
 <</narrative>>
 
-<<image "assets/content/scenes/events/diana/diana_arrival.webp" "60%">>
+<<image "assets/content/scenes/events/diana/diana_arrival.webp" "50%">>
 
 <<narrative>>
 Tom looks up from behind the counter, by the register:

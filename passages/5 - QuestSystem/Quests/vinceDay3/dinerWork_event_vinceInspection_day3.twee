@@ -1,6 +1,6 @@
 :: dinerWork_event_vinceInspection_day3
 /* Vince day 3 arc — all passages in Quests/vinceDay3/. One-shot flag set in RubysDishwashWork before goto. */
-<<nobr>>
+<div class="divnobr">
 <<set $location = "dinerRubysKitchen">>
 <<updateCharacterLocations>>
 <<loseStat "mood" 10>>
@@ -220,4 +220,4 @@ Vince turns and walks out of the kitchen.
 <div class="location-actions">
 <<btn "Start your shift" "RubysDishwashWork">><</btn>>
 </div>
-<</nobr>>
+</div>

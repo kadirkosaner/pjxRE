@@ -13,6 +13,7 @@
    - effects: array of effects [{stat, value, type, duration}]
    - hasTooltip: whether to show info icon in shop
    - maxUses: (optional) uses per purchase; if set, 1 buy = maxUses in inventory. Omit for unlimited (e.g. comb, umbrella)
+   - singleInventory: (optional) if true, shop allows only one unit ever (one per cart line, cap in inventory; hide in shop when owned)
 ========================================== */
 
 <<set setup.items = {
@@ -217,6 +218,7 @@
             name: "Comb",
             category: "cosmetic",
             usageType: "passage",
+            singleInventory: true,
             desc: "A simple comb for brushing your hair. Unlimited use.",
             price: 5.00,
             image: "assets/content/items/cosmetics/comb.webp",

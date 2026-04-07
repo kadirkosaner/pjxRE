@@ -346,6 +346,35 @@ window.phoneTotalBadge = function () {
     return messages + fotogram + finder;
 };
 
+/**
+ * Quest / cinematic scene detection: passage name starts with quest_ OR Twee tags [quest-scene] / [quest_scene].
+ * Used for hide-nav, navMenu skip, pending quest prompts injection, topbar back shortcut.
+ */
+window.isQuestScenePassage = function (passageTitle) {
+    const t = passageTitle != null && passageTitle !== ''
+        ? String(passageTitle)
+        : (typeof State !== 'undefined' && State.passage ? State.passage : '');
+    if (!t) return false;
+    if (t.startsWith('quest_')) return true;
+    /* Name fallbacks if passage tags are missing from compiled Story (Twee pipeline) */
+    if (/^fhBedroom_event_/.test(t)) return true;
+    if (t === 'dinerWork_event_nightThoughts' || /^dinerWork_event_diana/.test(t)) return true;
+    try {
+        if (typeof tags === 'function') {
+            const tagList = tags(t);
+            if (Array.isArray(tagList) && (tagList.includes('quest-scene') || tagList.includes('quest_scene'))) return true;
+        }
+    } catch (e1) { /* ignore */ }
+    try {
+        const StoryRef = typeof Story !== 'undefined' ? Story : (typeof SugarCube !== 'undefined' ? SugarCube.Story : null);
+        if (StoryRef && typeof StoryRef.has === 'function' && StoryRef.has(t)) {
+            const p = StoryRef.get(t);
+            if (p && Array.isArray(p.tags) && (p.tags.includes('quest-scene') || p.tags.includes('quest_scene'))) return true;
+        }
+    } catch (e2) { /* ignore */ }
+    return false;
+};
+
 /* ================== Fullscreen Layout Detection =================== */
 $(document).on(':passagerender', function () {
     const vars = State.variables;
@@ -357,12 +386,12 @@ $(document).on(':passagerender', function () {
     } else {
         $('body').removeClass('fullscreen-layout');
     }
-    if (State.passage.startsWith('quest_') || tags().includes('hide-nav')) {
+    if (window.isQuestScenePassage(State.passage) || tags().includes('hide-nav')) {
         $('body').addClass('hide-nav');
     } else {
         $('body').removeClass('hide-nav');
     }
-    if (!State.passage.startsWith('quest_') && State.variables.pendingQuestPrompts?.length > 0) {
+    if (!window.isQuestScenePassage(State.passage) && State.variables.pendingQuestPrompts?.length > 0) {
         const $passage = $('#passages .passage');
         const $narrative = $passage.find('.narrative').last();
         const $btnCenter = $passage.find('.btn-center').first();
@@ -431,7 +460,8 @@ function checkQuestRequirements(reqs, vars) {
     const missing = [];
     if (reqs.flags) {
         for (const flag of reqs.flags) {
-            if (!vars[flag]) missing.push({ type: 'flag', name: flag });
+            /* Check both top-level vars and $flags object (game stores flags in $flags.xxx) */
+            if (!vars[flag] && !(vars.flags && vars.flags[flag])) missing.push({ type: 'flag', name: flag });
         }
     }
     if (reqs.quests) {
@@ -740,6 +770,10 @@ Macro.add('completeQuest', {
         if (vars.questMaxAdvancesFromPassage && vars.questMaxAdvancesFromPassage[qid]) delete vars.questMaxAdvancesFromPassage[qid];
         if (!vars.questState.completed) vars.questState.completed = [];
         vars.questState.completed.push(qid);
+        /* Store completion date for delayed quest scheduling */
+        if (!vars.questState.completedDates) vars.questState.completedDates = {};
+        const ts = vars.timeSys;
+        vars.questState.completedDates[qid] = (ts?.year || 0) * 10000 + (ts?.month || 0) * 100 + (ts?.day || 0);
         const rewards = quest.onComplete;
         if (rewards) {
             if (rewards.relationships) {
@@ -789,6 +823,8 @@ Macro.add('completeQuest', {
                     $.wiki(`<<startQuest "${rewards.nextQuest}">>`);
                 }
             }
+
+
         }
     }
 });
@@ -2012,6 +2048,13 @@ Macro.add('showActions', {
                     if (hoursToday < value) {
                         meetsReqs = false;
                     }
+                } else if (req === 'firstWorkDayEventShown') {
+                    const shown = !!(vars.jobState && vars.jobState.firstWorkDayEventShown);
+                    if (value && !shown) {
+                        meetsReqs = false;
+                    } else if (value === false && shown) {
+                        meetsReqs = false;
+                    }
                 } else {
                     // Raw stat check (legacy: friendship, lust, etc.)
                     if ((charStats[req] || 0) < value) {
@@ -2038,6 +2081,7 @@ Macro.add('showActions', {
 
             // Create button
             const btn = $('<a>').addClass('btn-style action-btn');
+            if (action.questButton) btn.addClass('btn-quest');
 
             // Check if done today first (highest priority lock)
             if (isDoneToday) {
@@ -2332,7 +2376,7 @@ window.processNavCard = function (tag, $container, passedSetup) {
 Macro.add('navMenu', {
     tags: ['navCard'],
     handler: function () {
-        if (State.passage.startsWith('quest_')) {
+        if (window.isQuestScenePassage(State.passage)) {
             return;
         }
         $('body').addClass('has-navmenu');

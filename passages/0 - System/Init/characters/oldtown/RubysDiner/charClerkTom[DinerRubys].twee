@@ -55,13 +55,13 @@
     dinerRubys: [
         {
             id: "talk", label: "Talk", passage: "tomTalkDinerRubys",
-            tags: [], requirements: { jobHoursTodayMin: 1 }, showWhenLocked: false, dailyLimit: true, minPlayerEnergy: 5
+            tags: [], requirements: { firstWorkDayEventShown: true }, showWhenLocked: false, dailyLimit: true, minPlayerEnergy: 5
         }
     ],
     dinerRubysStorage: [
         {
             id: "talk", label: "Talk", passage: "tomTalkDinerRubys",
-            tags: [], requirements: { jobHoursTodayMin: 1 }, showWhenLocked: false, dailyLimit: true, minPlayerEnergy: 5
+            tags: [], requirements: { firstWorkDayEventShown: true }, showWhenLocked: false, dailyLimit: true, minPlayerEnergy: 5
         }
     ]
 }>>

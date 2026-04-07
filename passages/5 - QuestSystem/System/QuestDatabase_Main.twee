@@ -7,7 +7,8 @@
    at specific locations (not auto-navigation).
 ========================================== */
 
-<<run Object.assign(setup.quests, {
+<<script>>
+Object.assign(setup.quests, {
 
     /* ========== FIRST SHOPPING - MAP DISCOVERY ========== */
     first_shopping: {
@@ -317,7 +318,7 @@
     /* ========== GO TO MALL - Lily's suggestion ========== */
     go_to_mall: {
         id: "go_to_mall",
-        title: "Go to Mall",
+        title: "Go To Mall",
         category: "side",
         character: "parkRunnerLily",
 
@@ -346,7 +347,7 @@
 
         onComplete: {
             flags: ["go_to_mall_done"],
-            notification: "Quest Complete: Go to Mall"
+            notification: "Quest Complete: Go To Mall"
         }
     },
 
@@ -404,11 +405,8 @@
             {
                 id: "mirror_moment",
                 title: "Think About It",
-                desc: "Go home.",
-                buttonText: "Be alone for a minute",
-                triggers: { location: "fhBedroom" },
-                forceScene: true,
-                passage: "fhBedroom_event_beautyThoughts"
+                desc: "Go to your room and think about it.",
+                triggers: { location: "fhBedroom" }
             },
             {
                 id: "research",
@@ -422,7 +420,7 @@
             {
                 id: "talk_mom",
                 title: "Talk to Mom",
-                desc: "Go talk to your mother.",
+                desc: "Go talk to your mother when she on the.",
                 buttonText: "Ask mom about skincare",
                 triggers: {
                     location: "fhParentsRoom",
@@ -441,8 +439,8 @@
             {
                 id: "visit_mall",
                 title: "Check the Mall",
-                desc: "See what's available.",
-                buttonText: "Go to the mall",
+                desc: "Go to the mall and browse around.",
+                buttonText: "Explore the mall",
                 triggers: { location: "mall" },
                 forceScene: true,
                 passage: "mall_event_beautyVisit"
@@ -451,14 +449,12 @@
                 id: "after_mall",
                 title: "Sit With It",
                 desc: "Go back to your room.",
-                triggers: { location: "fhBedroom" },
-                forceScene: true,
-                passage: "fhBedroom_event_mallAftermath"
+                triggers: { location: "fhBedroom" }
             },
             {
                 id: "find_money",
                 title: "Find a Way",
-                desc: "Late at night, you might get a chance.",
+                desc: "Late at night, Leave the bedroom and go upstairs.",
                 triggers: {
                     location: "fhUpperstairs",
                     timeRange: { min: 23, max: 24 }
@@ -478,7 +474,7 @@
     /* ========== VINCE DAY 3 — FAMILY (mirror / self-image) ========== */
     vince_day3_family: {
         id: "vince_day3_family",
-        title: "Family",
+        title: "Unfinished Thoughts",
         category: "main",
         character: "player",
 
@@ -489,22 +485,20 @@
         stages: [
             {
                 id: "reach_out",
-                title: "Talk to your family",
+                title: "Speak with your family",
                 desc: "Something's been eating at you since work.",
                 objectives: [
-                    { id: "talkMother", text: "Talk to your mother in the kitchen" },
-                    { id: "talkBrother", text: "Talk to your brother in his room" },
-                    { id: "talkFather", text: "Talk to your father in the garage" }
+                    { id: "talkMother", text: "Speak with your mother in the kitchen" },
+                    { id: "talkBrother", text: "Speak with your brother in his room" },
+                    { id: "talkFather", text: "Speak with your father in the garage" }
                 ],
                 completeWhen: "allObjectives"
             },
             {
                 id: "bedroom_alone",
-                title: "Go to your room",
-                desc: "You need a minute alone.",
-                triggers: { location: "fhBedroom" },
-                forceScene: true,
-                passage: "quest_vince_day3_family_reflection"
+                title: "Think About It",
+                desc: "You need think about that in your room.",
+                triggers: { location: "fhBedroom" }
             }
         ],
 
@@ -513,4 +507,5 @@
             notification: "Quest complete: Family"
         }
     }
-})>>
+});
+<<endscript>>

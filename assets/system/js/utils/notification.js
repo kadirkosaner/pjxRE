@@ -63,6 +63,15 @@ let NotificationAPI = null;
 /** Monotonic suffix so rapid back-to-back toasts (e.g. <<flushNotifications>>) never share the same DOM id */
 let notificationIdSeq = 0;
 
+/** Turn mistaken JS "&&" in copy into the word "and" (quest titles, pasted strings). Single & unchanged. */
+function normalizeAmpAmpInCopy(s) {
+  if (s == null || s === '') return '';
+  return String(s)
+    .trim()
+    .replace(/&{2,}/g, ' and ')
+    .replace(/\s{2,}/g, ' ');
+}
+
 // Initialize 
 window.NotificationInit = function (API) {
   NotificationAPI = API;
@@ -108,14 +117,14 @@ window.showNotification = function (options) {
       <span class="notification-text"></span>
     </div>
   `);
-  $el.find('.notification-text').text(config.message == null ? '' : String(config.message));
+  $el.find('.notification-text').text(normalizeAmpAmpInCopy(config.message));
 
   // Render action buttons
   if (hasActions) {
     const $actions = NotificationAPI.$('<div class="notification-actions"></div>');
     config.actions.forEach(action => {
       const $btn = NotificationAPI.$('<button type="button" class="notif-action-btn"></button>');
-      $btn.text(action.label == null ? '' : String(action.label));
+      $btn.text(normalizeAmpAmpInCopy(action.label));
       $btn.on('click', function () {
         closeNotification($el);
         if (action.fn) action.fn();

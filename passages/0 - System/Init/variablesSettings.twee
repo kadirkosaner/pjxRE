@@ -4,24 +4,24 @@
 ========================================== */
 <<set $gameSettings = {
     /* Basic Needs */
-    trackHunger: false,
-    trackThirst: false,
-    trackBladder: false,
-    trackCalories: false,
-    hygieneRequirement: false,
+    trackHunger: true,
+    trackThirst: true,
+    trackBladder: true,
+    trackCalories: true,
+    hygieneRequirement: true,
     /* Appearance Changes */
-    hairGrowth: false,
-    hairMessiness: false,
-    bodyHairGrowth: false,
-    makeupWearOff: false,
-    bodyDegradation: false,
+    hairGrowth: true,
+    hairMessiness: true,
+    bodyHairGrowth: true,
+    makeupWearOff: true,
+    bodyDegradation: true,
     /* Appearance Care Decay (hair/face/dental care drops without routine) */
-    hairCareDecay: false,
-    faceCareDecay: false,
-    dentalCareDecay: false,
+    hairCareDecay: true,
+    faceCareDecay: true,
+    dentalCareDecay: true,
     /* Decay Systems */
-    skillDecay: false,
-    relationshipDecay: false
+    skillDecay: true,
+    relationshipDecay: true
 }>>
 
 /* ==========================================

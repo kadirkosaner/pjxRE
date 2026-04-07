@@ -288,6 +288,8 @@
     <<set $daily.dishwashRushSurgeToday = false>>
     <<set $daily.dishwashVinceCheckToday = false>>
 
+    /* Job system: only run if player has an active job with valid state */
+    <<if $job && $job.id && $jobState>>
     /* Job: record insufficient days before reset (hoursToday from calendar day _jobLeaveY/M/D) */
     <<jobRecordInsufficientDay _days _oldWeekday _jobLeaveY _jobLeaveM _jobLeaveD>>
 
@@ -300,6 +302,7 @@
     /* Job: pay day (Monday) - minHours check, pay, reset */
     <<if $timeSys.weekday === 1>>
         <<jobProcessPayDay>>
+    <</if>>
     <</if>>
 
     /* Weekly care bonuses: if new week (weekday 0), apply bonus for previous week then reset */

@@ -25,12 +25,12 @@ window.JournalInit = function (API) {
         .replace(/"/g, "&quot;");
     },
 
-    /* Normalize mistaken "&&" in quest copy back to the word "and" (natural English). */
+    /* Normalize mistaken "&&" in quest copy (often pasted from JS) to the word "and". */
     formatQuestStageDesc: function (s) {
       if (s == null || s === "") return "";
       return String(s)
         .trim()
-        .replace(/\s*&{2,}\s*/g, " and ")
+        .replace(/&{2,}/g, " and ")
         .replace(/\s{2,}/g, " ");
     },
 
@@ -312,7 +312,7 @@ window.JournalInit = function (API) {
               ${status === 'active' ? '<i class="icon icon-alert"></i>' : '<i class="icon icon-check"></i>'}
             </div>
             <div class="quest-list-content">
-              <div class="quest-list-title">${this.escapeHtml(quest.title)}</div>
+              <div class="quest-list-title">${this.escapeHtml(this.formatQuestStageDesc(quest.title))}</div>
             </div>
           </div>
         `;
@@ -354,7 +354,7 @@ window.JournalInit = function (API) {
                 <div class="quest-stage-item completed">
                   <div class="quest-stage-number">${idx + 1}</div>
                   <div class="quest-stage-info">
-                    <div class="quest-stage-title">${this.escapeHtml(stg.title)}</div>
+                    <div class="quest-stage-title">${this.escapeHtml(this.formatQuestStageDesc(stg.title))}</div>
                     <div class="quest-stage-desc">${this.escapeHtml(this.formatQuestStageDesc(stg.desc || ''))}</div>
                   </div>
                   <i class="icon icon-check quest-stage-check"></i>
@@ -380,7 +380,7 @@ window.JournalInit = function (API) {
                   <div class="quest-stage-item ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}">
                     <div class="quest-stage-number">${originalIdx + 1}</div>
                     <div class="quest-stage-info">
-                      <div class="quest-stage-title">${this.escapeHtml(stg.title)}</div>
+                      <div class="quest-stage-title">${this.escapeHtml(this.formatQuestStageDesc(stg.title))}</div>
                       <div class="quest-stage-desc">${this.escapeHtml(this.formatQuestStageDesc(stg.desc || ''))}</div>
                     </div>
                     ${isCompleted ? '<i class="icon icon-check quest-stage-check"></i>' : ''}
@@ -395,7 +395,7 @@ window.JournalInit = function (API) {
         return `
           <div class="quest-detail-content">
             <div class="quest-detail-header">
-              <h2>${this.escapeHtml(quest.title)}</h2>
+              <h2>${this.escapeHtml(this.formatQuestStageDesc(quest.title))}</h2>
             </div>
             
             ${status === 'active' ? `

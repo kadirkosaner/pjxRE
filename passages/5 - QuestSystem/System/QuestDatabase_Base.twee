@@ -3,7 +3,9 @@
    Initializes setup.quests object
 ========================================== */
 /* Initialize empty quest database */
-<<run setup.quests = {}>>
+<<script>>
+setup.quests = {};
+<<endscript>>
 
 /* 
    Quest Structure Reference:

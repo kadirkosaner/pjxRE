@@ -55,13 +55,13 @@
     dinerRubysKitchen: [
         {
             id: "talk", label: "Talk", passage: "mikeTalkDinerRubys",
-            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+            tags: [], requirements: { firstWorkDayEventShown: true }, dailyLimit: true, minPlayerEnergy: 5
         }
     ],
     dinerRubysStorage: [
         {
             id: "talk", label: "Talk", passage: "mikeTalkDinerRubys",
-            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+            tags: [], requirements: { firstWorkDayEventShown: true }, dailyLimit: true, minPlayerEnergy: 5
         }
     ]
 }>>

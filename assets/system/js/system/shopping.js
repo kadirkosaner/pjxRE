@@ -220,6 +220,25 @@ function ownsInventoryItem(itemId) {
     return entry && (entry.quantity || 0) > 0;
 }
 
+/** One physical unit in inventory, one per cart line; hide in shop when owned. Equipment/tools, or ItemDatabase singleInventory. */
+function isUniqueInventoryShopItem(item) {
+    if (!item || item._isClothing || item._isQuestItem) return false;
+    if (item.category === 'equipment' || item.category === 'tool') return true;
+    return item.singleInventory === true;
+}
+
+/** Fix saves / UI that allowed qty > 1 for unique-inventory shop items in cart. */
+function normalizeUniqueCartQuantities() {
+    const cart = getState().variables.shoppingCart;
+    if (!cart || !Array.isArray(cart)) return;
+    cart.forEach(entry => {
+        const item = getItemById(entry.id) || (currentShopItems && currentShopItems.find(i => i.id === entry.id));
+        if (item && isUniqueInventoryShopItem(item) && entry.quantity > 1) {
+            entry.quantity = 1;
+        }
+    });
+}
+
 // Check if player already owns a clothing item
 function ownsClothingItem(itemId) {
     const wardrobe = getState().variables.wardrobe;
@@ -352,13 +371,17 @@ function addToCart(itemId) {
     const existing = cart.find(c => c.id === itemId);
     
     if (existing) {
-        // For clothing or quest items, limit to 1 per purchase
-        if (item._isClothing || item._isQuestItem) {
+        // For clothing, quest items, or unique equipment/tools, limit to 1 per cart line
+        if (item._isClothing || item._isQuestItem || isUniqueInventoryShopItem(item)) {
             showToast('You already have this item in your cart!');
             return;
         }
         existing.quantity++;
     } else {
+        if (isUniqueInventoryShopItem(item) && ownsInventoryItem(itemId)) {
+            showToast('You already own this item.');
+            return;
+        }
         // Clothing: block purchase if player doesn't meet stat requirements
         if (item._isClothing) {
             const wearCheck = canWearClothingItem(item);
@@ -396,6 +419,11 @@ function updateCartQty(itemId, delta) {
     if (idx === -1) return;
     
     cart[idx].quantity += delta;
+
+    const lineItem = getItemById(itemId) || (currentShopItems && currentShopItems.find(i => i.id === itemId));
+    if (lineItem && isUniqueInventoryShopItem(lineItem) && cart[idx].quantity > 1) {
+        cart[idx].quantity = 1;
+    }
     
     if (cart[idx].quantity <= 0) {
         cart.splice(idx, 1);
@@ -453,6 +481,7 @@ function getEngine() {
 
 function checkoutCash() {
     const S = getState();
+    normalizeUniqueCartQuantities();
     const total = getCartTotal();
 
     if (total <= 0 || S.variables.cashBalance < total) {
@@ -486,6 +515,7 @@ function checkoutCash() {
 
 function checkoutCard() {
     const S = getState();
+    normalizeUniqueCartQuantities();
     const total = getCartTotal();
 
     if (total <= 0 || S.variables.bankBalance < total) {
@@ -519,6 +549,7 @@ function checkoutCard() {
 
 function addCartToInventory() {
     const S = getState();
+    normalizeUniqueCartQuantities();
     const cart = S.variables.shoppingCart || [];
     
     // Ensure inventory exists
@@ -595,10 +626,17 @@ function addCartToInventory() {
             }
         } else {
             // Add to regular inventory (stackable); cosmetics with maxUses add quantity * maxUses
-            const qty = item.maxUses ? cartItem.quantity * item.maxUses : cartItem.quantity;
+            let qty = item.maxUses ? cartItem.quantity * item.maxUses : cartItem.quantity;
+            if (isUniqueInventoryShopItem(item)) {
+                qty = Math.min(qty, 1);
+            }
             const existing = inventory.find(i => i.id === cartItem.id);
             if (existing) {
-                existing.quantity += qty;
+                if (isUniqueInventoryShopItem(item)) {
+                    existing.quantity = 1;
+                } else {
+                    existing.quantity += qty;
+                }
             } else {
                 inventory.push({ id: cartItem.id, quantity: qty });
             }
@@ -699,8 +737,8 @@ function renderProducts() {
     // 3. Filter by selected category if not "all"
     let itemsToShow = currentShopItems.filter(item => {
         if (item._isClothing && ownsClothingItem(item.id)) return false; // Hide owned clothing
-        // Hide non-clothing single-purchase items (equipment, tools) when owned
-        if (!item._isClothing && (item.category === 'equipment' || item.category === 'tool') && ownsInventoryItem(item.id)) return false;
+        // Hide non-clothing unique-inventory items when owned
+        if (!item._isClothing && isUniqueInventoryShopItem(item) && ownsInventoryItem(item.id)) return false;
         if (shopShowPurchasableOnly) {
             if (item._isClothing) {
                 const wearCheck = canWearClothingItem(item);
@@ -810,6 +848,7 @@ function renderCart() {
     
     if (!cartItems) return;
 
+    normalizeUniqueCartQuantities();
     const cart = getCart();
     const total = getCartTotal();
     const cash = getCashBalance();
@@ -850,6 +889,7 @@ function renderCart() {
         
         const isClothing = item._isClothing;
         const isQuestItem = item._isQuestItem;
+        const singleCartLine = isClothing || isQuestItem || isUniqueInventoryShopItem(item);
         
         return `
             <div class="cart-item ${isQuestItem ? 'quest-item' : ''}" data-item-id="${cartItem.id}">
@@ -858,10 +898,10 @@ function renderCart() {
                 </div>
                 <div class="cart-item-info">
                     <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-price">$${item.price} ${(isClothing || isQuestItem) ? '' : `× ${cartItem.quantity}`}</div>
+                    <div class="cart-item-price">$${item.price} ${singleCartLine ? '' : `× ${cartItem.quantity}`}</div>
                 </div>
                 <div class="cart-item-qty">
-                    ${(isClothing || isQuestItem) ? 
+                    ${singleCartLine ? 
                         `<button class="qty-btn" data-action="minus" data-item="${cartItem.id}" title="Remove"><span class="icon icon-close"></span></button>` :
                         `
                         <button class="qty-btn" data-action="minus" data-item="${cartItem.id}">−</button>
