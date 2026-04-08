@@ -7,6 +7,24 @@
 
 window.LayoutInit = function(API) {
     
+    function syncNavCardMotionClass() {
+        try {
+            if (!document.body) return;
+            var animationsOn = typeof window.navCardAnimationsEnabled === 'function'
+                ? window.navCardAnimationsEnabled()
+                : true;
+            var staticGrid = !animationsOn;
+            document.body.classList.toggle('nav-cards-no-motion', staticGrid);
+            document.documentElement.classList.toggle('nav-cards-no-motion', staticGrid);
+            /* Class on the real <<navMenu>> container — does not depend on body timing */
+            var accordions = document.querySelectorAll('.accordion-container.nav-breakout');
+            for (var i = 0; i < accordions.length; i++) {
+                accordions[i].classList.toggle('nav-accordion-static', staticGrid);
+            }
+        } catch (e) { /* ignore */ }
+    }
+    window.syncNavCardMotionClass = syncNavCardMotionClass;
+
     // Body classes that should skip layout processing (full-width / fullscreen)
     var skipClasses = ['fullscreen-centered', 'wardrobe-active', 'shop-active', 'restaurant-active'];
     
@@ -64,6 +82,7 @@ window.LayoutInit = function(API) {
     }
     
     function applyLayout() {
+        syncNavCardMotionClass();
         wrapContent();
         centerContent();
     }

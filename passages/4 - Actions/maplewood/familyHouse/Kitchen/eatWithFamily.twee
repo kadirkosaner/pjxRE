@@ -16,16 +16,16 @@
 /* Stat bonus only once per day (first family meal); later meals same day only give relationship */
 <<if ndef $familyMealStatBonusUsedToday>><<set $familyMealStatBonusUsedToday = false>><</if>>
 <<if !$familyMealStatBonusUsedToday>>
-    /* Needs: full meal resets hunger/thirst; eating and drinking fill bladder */
-    <<set $hunger = 0>>
-    <<set $thirst = 0>>
+    <<eatFood 750 100>>
+    <<loseStat "hunger" 100>>
+    <<loseStat "thirst" 100>>
     <<gainStat "bladder" 15>>
-    <<gainStat "energy" 30>>
+    <<gainStat "energy" 35>>
     <<loseStat "stress" 12>>
-    <<set _familyMoodBase = 12>>
     <<set _familyMoodExtra = Math.min(9, _presentFamily.length * 3)>>
-    <<gainStat "mood" (_familyMoodBase + _familyMoodExtra)>>
+    <<gainStat "mood" (15 + _familyMoodExtra)>>
     <<gainStat "health" 5>>
+    <<advanceTime 30 "relax">>
     <<set $familyMealStatBonusUsedToday = true>>
 <</if>>
 
@@ -50,7 +50,7 @@
     <<set $characters[_member].stats.love += 1>>
 <</for>>
 
-<<advanceTime 30>>
+<<advanceTime 30 "relax">>
 <<flushNotifications>>
 <<run window.notifySuccess("Enjoyed a meal with family!")>>
 <</silently>>

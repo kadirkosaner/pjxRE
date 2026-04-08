@@ -1,4 +1,25 @@
 <<nobr>>
+<<set _sdQuest = $questState.active.something_different>>
+/* talk_mom (Something Different): Engine.play from hub — same pattern as fhBedroom/fhUpperstairs so history + time-back work */
+<<set State.temporary.fhParentsRoomPlayPassage = "">>
+<<if _sdQuest && setup.quests.something_different.stages[_sdQuest.stage] && setup.quests.something_different.stages[_sdQuest.stage].id === "talk_mom" && $characters.mother && $characters.mother.currentLocation === "fhParentsRoom" && $timeSys.hour >= 23 && $timeSys.hour < 24 && $questState.active.something_different.triggeredStage !== $questState.active.something_different.stage>>
+<<if !State.variables._navigatingBackward>>
+<<set State.temporary.fhParentsRoomPlayPassage = "fhParentsRoom_event_motherTalk">>
+<<set $questState.active.something_different.triggeredStage = $questState.active.something_different.stage>>
+<</if>>
+<</if>>
+<<if State.temporary.fhParentsRoomPlayPassage !== "">>
+<<script>>
+setTimeout(function () {
+  var p = State.temporary.fhParentsRoomPlayPassage;
+  State.temporary.fhParentsRoomPlayPassage = "";
+  if (!p || State.variables._navigatingBackward) return;
+  if (State.passage !== "fhParentsRoom") return;
+  var Eng = typeof Engine !== "undefined" ? Engine : (typeof SugarCube !== "undefined" ? SugarCube.Engine : null);
+  if (Eng && typeof Eng.play === "function") Eng.play(p);
+}, 0);
+<</script>>
+<</if>>
 <<set $location = "fhParentsRoom">>
 <<updateCharacterLocations>>
 

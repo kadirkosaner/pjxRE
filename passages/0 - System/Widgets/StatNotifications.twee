@@ -54,6 +54,12 @@
                 <<else>>
                     <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_change))>>
                 <</if>>
+            <<elseif _stat === "corruption">>
+                <<if _change > 0>>
+                    <<run window.notifyCorruption("Corruption Gained")>>
+                <<else>>
+                    <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_change))>>
+                <</if>>
             <<elseif _badStats.includes(_stat)>>
                 /* Bad stats - increasing is bad, decreasing is good */
                 <<if _change > 0>>
@@ -95,6 +101,12 @@
             <<run window.notifyError(_displayName + " " + window.formatNotifyDelta(_amount))>>
         <<else>>
             <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_amount))>>
+        <</if>>
+    <<elseif _statName === "corruption">>
+        <<if _amount > 0>>
+            <<run window.notifyCorruption("Corruption Gained")>>
+        <<else>>
+            <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_amount))>>
         <</if>>
     <<elseif _badStats.includes(_statName)>>
         <<if _amount > 0>>

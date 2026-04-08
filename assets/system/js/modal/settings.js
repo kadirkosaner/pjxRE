@@ -1,4 +1,17 @@
 // settings.js
+(function () {
+    var VIDEO_SETTINGS_DEFAULTS = {
+        autoplaySet: true,
+        loopSet: true,
+        masterVolume: 100,
+        videoVolume: 100,
+        navCardAnimations: true
+    };
+
+    function mergeVideoSettings(vars) {
+        return Object.assign({}, VIDEO_SETTINGS_DEFAULTS, vars.videoSettings || {});
+    }
+
 window.SettingsInit = function (API) {
     window.SettingsSystem = {
         API: API,
@@ -6,7 +19,7 @@ window.SettingsInit = function (API) {
         // Open settings modal
         open: function () {
             const vars = this.API.State.variables;
-            const settings = vars.videoSettings || { autoplaySet: true, loopSet: true, masterVolume: 100, videoVolume: 100 };
+            const settings = mergeVideoSettings(vars);
 
             // Content settings data
             const contentSettings = [
@@ -85,6 +98,20 @@ window.SettingsInit = function (API) {
                                         <button class="setting-toggle-btn ${settings.loopSet ? 'active' : ''}" 
                                                 data-setting="loopSet">
                                             ${settings.loopSet ? 'ON' : 'OFF'}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <h3 style="margin-top: 2rem;">Navigation</h3>
+                                <div class="settings-list">
+                                    <div class="settings-control">
+                                        <div class="settings-control-info">
+                                            <div class="settings-control-label">Navigation cards animation</div>
+                                            <div class="settings-control-desc">Accordion hover expand.</div>
+                                        </div>
+                                        <button class="setting-toggle-btn ${settings.navCardAnimations !== false ? 'active' : ''}" 
+                                                data-setting="navCardAnimations">
+                                            ${settings.navCardAnimations !== false ? 'ON' : 'OFF'}
                                         </button>
                                     </div>
                                 </div>
@@ -230,18 +257,19 @@ window.SettingsInit = function (API) {
                 }
                 
             } else {
-                if (!vars.videoSettings) {
-                    vars.videoSettings = { autoplaySet: true, loopSet: true, masterVolume: 100, videoVolume: 100 };
-                }
-                
+                vars.videoSettings = mergeVideoSettings(vars);
                 const settings = vars.videoSettings;
-                
+
                 settings[key] = !settings[key];
-                
+
                 if (btn.length) {
                     const isActive = settings[key];
                     btn.toggleClass('active', isActive);
                     btn.text(isActive ? 'ON' : 'OFF');
+                }
+
+                if (key === 'navCardAnimations' && typeof window.syncNavCardMotionClass === 'function') {
+                    window.syncNavCardMotionClass();
                 }
                 
             }
@@ -250,9 +278,7 @@ window.SettingsInit = function (API) {
         updateVolume: function (key, value) {
 
             const vars = this.API.State.variables;
-            if (!vars.videoSettings) {
-                vars.videoSettings = { autoplaySet: true, loopSet: true, masterVolume: 100, videoVolume: 100 };
-            }
+            vars.videoSettings = mergeVideoSettings(vars);
 
             const settings = vars.videoSettings;
             settings[key] = value;
@@ -262,3 +288,4 @@ window.SettingsInit = function (API) {
         }
     };
 };
+})();

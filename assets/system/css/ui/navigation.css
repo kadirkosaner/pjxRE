@@ -205,3 +205,104 @@ body.has-navmenu .passage {
 .nav-card.location-closed .nav-card-name {
   opacity: 0.6;
 }
+
+/* ================== STATIC STRIPS (Location card animations OFF) =================== */
+/*
+ * Same footprint as default .nav-card (100px strips). No hover width expansion.
+ * Hover: only .card-bg gains color; layout stays narrow.
+ */
+.accordion-container.nav-breakout.nav-accordion-static {
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+.accordion-container.nav-breakout.nav-accordion-static .nav-card {
+  flex: 0 0 100px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  width: 100px !important;
+  min-width: 100px !important;
+  max-width: 100px !important;
+  transition: none !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 40px !important;
+}
+
+.accordion-container.nav-breakout.nav-accordion-static .nav-card:hover {
+  flex: 0 0 100px !important;
+  width: 100px !important;
+  min-width: 100px !important;
+  max-width: 100px !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  padding-left: 0 !important;
+  padding-bottom: 40px !important;
+}
+
+.accordion-container.nav-breakout.nav-accordion-static .nav-card .card-bg {
+  opacity: 0.4 !important;
+  filter: grayscale(100%) brightness(0.5) !important;
+  transform: none !important;
+  transition: filter 0.3s ease, opacity 0.3s ease !important;
+}
+
+.accordion-container.nav-breakout.nav-accordion-static .nav-card:hover .card-bg {
+  opacity: 1 !important;
+  filter: grayscale(0%) brightness(1) !important;
+}
+
+.accordion-container.nav-breakout.nav-accordion-static .nav-card.location-closed .card-bg {
+  opacity: 0.45 !important;
+  filter: grayscale(100%) brightness(0.4) !important;
+}
+
+.accordion-container.nav-breakout.nav-accordion-static .nav-card.location-closed:hover .card-bg {
+  opacity: 0.55 !important;
+  filter: grayscale(75%) brightness(0.48) !important;
+}
+
+/* Idle strip: gradient off (same as default narrow card before hover) */
+.accordion-container.nav-breakout.nav-accordion-static .gradient-overlay,
+.accordion-container.nav-breakout.nav-accordion-static .nav-card:hover .gradient-overlay {
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+/* Same vertical strip typography as default .nav-card-name (not hover-expanded) */
+.accordion-container.nav-breakout.nav-accordion-static .nav-card-name,
+.accordion-container.nav-breakout.nav-accordion-static .nav-card:hover .nav-card-name {
+  writing-mode: vertical-lr !important;
+  transform: rotate(180deg) !important;
+  font-size: clamp(0.6rem, 2vmin, 0.9rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: var(--color-text-secondary) !important;
+  letter-spacing: 3px !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+  transition: color 0.2s ease !important;
+}
+
+.accordion-container.nav-breakout.nav-accordion-static .nav-card:hover .nav-card-name {
+  color: var(--color-text-primary) !important;
+}
+
+.accordion-container.nav-breakout.nav-accordion-static .nav-card.location-closed .nav-card-name {
+  opacity: 0.65 !important;
+}
+
+/* Open/Closed badges: same as accordion — only on hover */
+.accordion-container.nav-breakout.nav-accordion-static .nav-card-status {
+  opacity: 0 !important;
+  transform: translateY(-5px) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.accordion-container.nav-breakout.nav-accordion-static .nav-card:hover .nav-card-status {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}

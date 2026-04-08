@@ -4,7 +4,7 @@
 <<set _back = $location>>
 <<set _mealMinutes = random(30, 45)>>
 <<set _sceneIndex = random(1, 2)>>
-<<advanceTime _mealMinutes>>
+<<advanceTime _mealMinutes "relax">>
 
 <<narrative "Meal">>
 You enjoy your meal. The food hits the spot and you feel refreshed.

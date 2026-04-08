@@ -13,6 +13,7 @@
  * notifyInfo("Info message")
  * notifyTimebox("Time changed")
  * notifyPhone("New message")
+ * notifyCorruption("Corruption Gained")   // vivid glow toast (stat / story beats)
  * 
  * // With duration and position
  * notifySuccess("Message", 5000)                        // 5 seconds
@@ -173,6 +174,9 @@ window.notifyTimebox = (message, duration = 3000) =>
 
 window.notifyPhone = (message, duration = 3000) =>
   showNotification({ type: 'phone', message, icon: 'alert', duration, position: 'phone-area' });
+
+window.notifyCorruption = (message, duration = 4000, position = 'rightbar-left') =>
+  showNotification({ type: 'corruption', message, duration, position });
 
 function closeNotification($el) {
   if (!$el || !$el.length) return;

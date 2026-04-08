@@ -46,17 +46,21 @@ function rebuildTopbar() {
     const previousPassageTitle = normalizePassageTitle(previousPassageRaw);
     const canBackToStart = canBack && previousPassageTitle !== 'Start';
 
-    /* Family hub + quest-scene: shallow history (idx 0) or Start → scene (debug / odd stacks) — still allow exit */
+    /* Quest-scene + known hub: shallow history (idx 0) or Start → scene — still allow exit (Diana arc: mall, diner, etc.) */
     const activePassageTitle = normalizePassageTitle(state.passage);
     const loc = (vars.location) || '';
-    const questSceneFamilyHub =
-        (loc === 'fhBedroom' || loc === 'fhParentsRoom') &&
+    const isQuestScene =
         typeof window.isQuestScenePassage === 'function' &&
         window.isQuestScenePassage(activePassageTitle);
+    const questHub =
+        typeof window.getQuestSceneHubPassage === 'function'
+            ? window.getQuestSceneHubPassage(activePassageTitle, loc)
+            : null;
+    const questSceneShallowBack = !!(isQuestScene && questHub);
     const timeBackEnabled =
         canBackToStart
-        || (questSceneFamilyHub && currentIndex === 0)
-        || (questSceneFamilyHub && currentIndex > 0 && previousPassageTitle === 'Start');
+        || (questSceneShallowBack && currentIndex === 0)
+        || (questSceneShallowBack && currentIndex > 0 && previousPassageTitle === 'Start');
 
     // vars already declared above, use it directly
     const timeSys = vars.timeSys || {};
@@ -382,16 +386,21 @@ function rebuildTopbar() {
         const isQuestScene =
             typeof window.isQuestScenePassage === 'function' &&
             window.isQuestScenePassage(passageTitle);
-        const questSceneFamilyHub =
-            (loc === 'fhBedroom' || loc === 'fhParentsRoom') && isQuestScene;
-        const questBedroomBack = loc === 'fhBedroom' && isQuestScene;
+        const questHub =
+            typeof window.getQuestSceneHubPassage === 'function'
+                ? window.getQuestSceneHubPassage(passageTitle, loc)
+                : null;
+        /* Wallet scene uses $location fhBedroom; must not use generic bedroom-back (that jumps to fhUpperstairs) */
+        const questWalletBack = passageTitle === 'fhUpperstairs_event_walletChance';
+        const questBedroomBack = loc === 'fhBedroom' && isQuestScene && !questWalletBack;
+        const questParentsRoomBack = loc === 'fhParentsRoom' && isQuestScene;
 
-        /* No history moment to pop — jump to landing (bedroom → hall; parents' quest → room hub) */
-        if (questSceneFamilyHub && idx === 0) {
+        /* No history moment to pop — jump to location hub (bedroom → hall, diner → dinerRubys, mall → mall, …) */
+        if (questHub && isQuestScene && idx === 0) {
             window.__navigatingBackwardFromUI = true;
             const Eng = TopbarAPI.Engine;
             if (Eng && typeof Eng.play === 'function') {
-                Eng.play(loc === 'fhBedroom' ? 'fhUpperstairs' : 'fhParentsRoom');
+                Eng.play(questHub);
             }
             return;
         }
@@ -399,11 +408,11 @@ function rebuildTopbar() {
         if (idx > 0 && St.history) {
             const prev = St.history[idx - 1];
             const previousTitle = normalizePassageTitle(prev?.title ?? prev?.passage);
-            if (previousTitle === 'Start' && questSceneFamilyHub) {
+            if (previousTitle === 'Start' && questHub && isQuestScene) {
                 window.__navigatingBackwardFromUI = true;
                 const Eng = TopbarAPI.Engine;
                 if (Eng && typeof Eng.play === 'function') {
-                    Eng.play(loc === 'fhBedroom' ? 'fhUpperstairs' : 'fhParentsRoom');
+                    Eng.play(questHub);
                 }
                 return;
             }
@@ -427,9 +436,51 @@ function rebuildTopbar() {
                         return;
                     }
                 }
+                /*
+                 * fhDownstairs → fhParentsRoom → parents' quest scene (Engine.play): pop twice so back lands on downstairs,
+                 * not on fhParentsRoom again.
+                 */
+                if (
+                    questParentsRoomBack &&
+                    idx >= 2 &&
+                    previousTitle === 'fhParentsRoom'
+                ) {
+                    const prev2p = St.history[idx - 2];
+                    const previousTitle2p = normalizePassageTitle(prev2p?.title ?? prev2p?.passage);
+                    if (previousTitle2p === 'fhDownstairs') {
+                        window.__navigatingBackwardFromUI = true;
+                        TopbarAPI.Engine.backward();
+                        TopbarAPI.Engine.backward();
+                        return;
+                    }
+                }
+                /*
+                 * fhBedroom → fhUpperstairs → wallet (Engine.play): pop twice or upper hall re-fires wallet scene.
+                 */
+                if (
+                    questWalletBack &&
+                    idx >= 2 &&
+                    previousTitle === 'fhUpperstairs'
+                ) {
+                    const prev2w = St.history[idx - 2];
+                    const previousTitle2w = normalizePassageTitle(prev2w?.title ?? prev2w?.passage);
+                    if (previousTitle2w === 'fhBedroom') {
+                        window.__navigatingBackwardFromUI = true;
+                        TopbarAPI.Engine.backward();
+                        TopbarAPI.Engine.backward();
+                        return;
+                    }
+                }
                 /* Fallback: came from fhBedroom but not via upper hall, or shallow history */
                 if (questBedroomBack) {
                     window.__suppressFhBedroomQuestAutoNext = true;
+                    window.__navigatingBackwardFromUI = true;
+                }
+                if (questParentsRoomBack) {
+                    window.__navigatingBackwardFromUI = true;
+                }
+                if (questWalletBack) {
+                    window.__suppressFhUpperstairsQuestAutoNext = true;
                     window.__navigatingBackwardFromUI = true;
                 }
                 TopbarAPI.Engine.backward();
@@ -438,6 +489,22 @@ function rebuildTopbar() {
                         const Eng = TopbarAPI.Engine;
                         if (Eng && typeof Eng.play === 'function') {
                             Eng.play('fhUpperstairs');
+                        }
+                    }, 0);
+                }
+                if (questParentsRoomBack) {
+                    setTimeout(function () {
+                        const Eng = TopbarAPI.Engine;
+                        if (Eng && typeof Eng.play === 'function') {
+                            Eng.play('fhDownstairs');
+                        }
+                    }, 0);
+                }
+                if (questWalletBack) {
+                    setTimeout(function () {
+                        const Eng = TopbarAPI.Engine;
+                        if (Eng && typeof Eng.play === 'function') {
+                            Eng.play('fhBedroom');
                         }
                     }, 0);
                 }

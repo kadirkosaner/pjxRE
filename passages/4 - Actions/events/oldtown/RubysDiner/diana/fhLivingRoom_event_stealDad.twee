@@ -6,10 +6,11 @@
 ========================================== */
 <div class="divnobr">
 <<silently>>
-<<set $location = "fhBedroom">>
+<<set $location = "fhLivingroom">>
 <<advanceTime 3>>
 <<earnMoney 100 "You took $100 from Dad's wallet">>
-<<set $corruption += 1>>
+<<gainStat "corruption" 1>>
+<<flushNotifications>>
 <</silently>>
 
 

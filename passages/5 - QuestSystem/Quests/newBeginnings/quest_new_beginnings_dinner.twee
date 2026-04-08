@@ -6,11 +6,11 @@
 <<set $location = "fhKitchen">>
 <<updateCharacterLocations>>
 
-/* Stats and time - same as normal meal */
-<<advanceTime 30>>
-<<loseStat "hunger" 50>>
-<<loseStat "thirst" 80>>
-<<gainStat "energy" 30>>
+/* Vitals: loseStat only (no eatFood — avoids double hunger with trackHunger) */
+<<advanceTime 30 "relax">>
+<<loseStat "hunger" 100>>
+<<loseStat "thirst" 100>>
+<<gainStat "energy" 40>>
 <<loseStat "stress" 10>>
 <<earnMoney 100>>
 

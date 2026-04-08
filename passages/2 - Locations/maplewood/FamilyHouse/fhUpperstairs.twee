@@ -1,7 +1,27 @@
 <<nobr>>
 <<set _sdQuest = $questState.active.something_different>>
+/* find_money + late night: Engine.play (not <<goto>>) keeps fhUpperstairs in history for back navigation */
+<<set State.temporary.fhUpperstairsPlayPassage = "">>
 <<if _sdQuest && setup.quests.something_different.stages[_sdQuest.stage] && setup.quests.something_different.stages[_sdQuest.stage].id === "find_money" && $timeSys.hour >= 23 && $timeSys.hour < 24>>
-<<goto "fhUpperstairs_event_walletChance">>
+<<if !State.variables._navigatingBackward>>
+<<set State.temporary.fhUpperstairsPlayPassage = "fhUpperstairs_event_walletChance">>
+<</if>>
+<</if>>
+<<if State.temporary.fhUpperstairsPlayPassage !== "">>
+<<script>>
+setTimeout(function () {
+  var p = State.temporary.fhUpperstairsPlayPassage;
+  State.temporary.fhUpperstairsPlayPassage = "";
+  if (typeof window !== "undefined" && window.__suppressFhUpperstairsQuestAutoNext) {
+    window.__suppressFhUpperstairsQuestAutoNext = false;
+    return;
+  }
+  if (!p || State.variables._navigatingBackward) return;
+  if (State.passage !== "fhUpperstairs") return;
+  var Eng = typeof Engine !== "undefined" ? Engine : (typeof SugarCube !== "undefined" ? SugarCube.Engine : null);
+  if (Eng && typeof Eng.play === "function") Eng.play(p);
+}, 0);
+<</script>>
 <</if>>
 <<set $location = "fhUpperstairs">>
 <<updateCharacterLocations>>

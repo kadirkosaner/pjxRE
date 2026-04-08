@@ -1,6 +1,7 @@
 /* ============================================
    SYSTEMS/LOCATION-NAV.CSS
-   Location navigation widget (accordion cards)
+   NOT loaded by assets/system/config.js — dead duplicate.
+   Source of truth: assets/system/css/ui/navigation.css
    ============================================ */
 
 .accordion-container {
@@ -98,4 +99,95 @@
   font-size: 1.5rem;
   color: var(--color-text-primary);
   letter-spacing: 1px;
+}
+
+/* Match ui/navigation.css: static grid when Location card animations OFF */
+html.nav-cards-no-motion .accordion-container,
+body.nav-cards-no-motion .accordion-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  justify-content: stretch !important;
+}
+
+html.nav-cards-no-motion .nav-card,
+body.nav-cards-no-motion .nav-card {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  transition: none !important;
+  align-items: flex-end !important;
+  justify-content: flex-start !important;
+  padding-left: 30px !important;
+  padding-right: 10px !important;
+  padding-bottom: 30px !important;
+}
+
+html.nav-cards-no-motion .nav-card:hover,
+body.nav-cards-no-motion .nav-card:hover {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  padding-left: 30px !important;
+  padding-bottom: 30px !important;
+}
+
+html.nav-cards-no-motion .nav-card .card-bg,
+body.nav-cards-no-motion .nav-card .card-bg {
+  opacity: 0.5 !important;
+  filter: grayscale(100%) brightness(0.55) !important;
+  transform: none !important;
+  transition: filter 0.3s ease, opacity 0.3s ease !important;
+}
+
+html.nav-cards-no-motion .nav-card:hover .card-bg,
+body.nav-cards-no-motion .nav-card:hover .card-bg {
+  opacity: 1 !important;
+  filter: grayscale(0%) brightness(1) !important;
+}
+
+html.nav-cards-no-motion .nav-card.location-closed .card-bg,
+body.nav-cards-no-motion .nav-card.location-closed .card-bg {
+  opacity: 0.45 !important;
+  filter: grayscale(100%) brightness(0.4) !important;
+}
+
+html.nav-cards-no-motion .nav-card.location-closed:hover .card-bg,
+body.nav-cards-no-motion .nav-card.location-closed:hover .card-bg {
+  opacity: 0.55 !important;
+  filter: grayscale(75%) brightness(0.48) !important;
+}
+
+html.nav-cards-no-motion .gradient-overlay,
+body.nav-cards-no-motion .gradient-overlay {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+html.nav-cards-no-motion .nav-card-name,
+body.nav-cards-no-motion .nav-card-name,
+html.nav-cards-no-motion .nav-card:hover .nav-card-name,
+body.nav-cards-no-motion .nav-card:hover .nav-card-name {
+  writing-mode: horizontal-tb !important;
+  transform: none !important;
+  font-size: clamp(0.65rem, 2.2vmin, 1.3rem) !important;
+  line-height: 1.2 !important;
+  color: var(--color-text-primary) !important;
+  letter-spacing: 0.5px !important;
+  white-space: normal !important;
+  text-align: left !important;
+  transition: none !important;
+}
+
+html.nav-cards-no-motion .nav-card.location-closed .nav-card-name,
+body.nav-cards-no-motion .nav-card.location-closed .nav-card-name {
+  opacity: 0.65 !important;
+}
+
+html.nav-cards-no-motion .nav-card-status,
+body.nav-cards-no-motion .nav-card-status {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: none !important;
 }

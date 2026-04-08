@@ -70,6 +70,39 @@
   border-color: #6d28d9;
 }
 
+/* Corruption gains — high-contrast “lit” toast */
+.notification-corruption {
+  background: linear-gradient(135deg, #4c0519 0%, #9f1239 40%, #86198f 100%);
+  border: 1px solid #f0abfc;
+  color: #fdf4ff;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 12px rgba(250, 232, 255, 0.9), 0 0 24px rgba(236, 72, 153, 0.65);
+  box-shadow:
+    0 0 22px rgba(236, 72, 153, 0.7),
+    0 0 44px rgba(168, 85, 247, 0.45),
+    0 6px 20px rgba(0, 0, 0, 0.35);
+  animation: notification-corruption-glow 2.2s ease-in-out infinite;
+}
+
+@keyframes notification-corruption-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 18px rgba(236, 72, 153, 0.55),
+      0 0 36px rgba(168, 85, 247, 0.35),
+      0 6px 20px rgba(0, 0, 0, 0.35);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      0 0 28px rgba(244, 114, 182, 0.85),
+      0 0 52px rgba(192, 132, 252, 0.55),
+      0 6px 22px rgba(0, 0, 0, 0.38);
+    filter: brightness(1.08);
+  }
+}
+
 .notification[data-position="top-right"],
 .notification[data-position="bottom-right"],
 .notification[data-position="phone-area"],
@@ -138,6 +171,10 @@
 @media (prefers-reduced-motion: reduce) {
   .notification {
     transition: none !important;
+  }
+
+  .notification-corruption {
+    animation: none;
   }
 }
 

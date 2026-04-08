@@ -91,6 +91,9 @@ $(document).one(':storyready', async function () {
                 window[initFn](API);
             }
         });
+        if (typeof window.syncNavCardMotionClass === 'function') {
+            window.syncNavCardMotionClass();
+        }
         if (typeof Engine !== 'undefined' && typeof Engine.show === 'function') {
             setTimeout(() => Engine.show(), 50);
         }
@@ -103,6 +106,18 @@ $(document).one(':storyready', async function () {
         /* loader failed */
     }
 });
+
+/* ================== Nav cards (<<navMenu>> / <<navCard>>) — Display setting =================== */
+window.navCardAnimationsEnabled = function () {
+    try {
+        var vs = typeof State !== 'undefined' && State.variables && State.variables.videoSettings;
+        var raw = vs && vs.navCardAnimations;
+        if (raw === false || raw === 'false' || raw === 0) return false;
+        return true;
+    } catch (e) {
+        return true;
+    }
+};
 
 /* ================== Save Version Registry =================== */
 setup.CURRENT_SAVE_VERSION = 0;
@@ -358,6 +373,8 @@ window.isQuestScenePassage = function (passageTitle) {
     if (t.startsWith('quest_')) return true;
     /* Name fallbacks if passage tags are missing from compiled Story (Twee pipeline) */
     if (/^fhBedroom_event_/.test(t)) return true;
+    if (/^fhParentsRoom_event_/.test(t)) return true;
+    if (/^fhLivingRoom_event_/.test(t)) return true;
     if (t === 'dinerWork_event_nightThoughts' || /^dinerWork_event_diana/.test(t)) return true;
     try {
         if (typeof tags === 'function') {
@@ -373,6 +390,26 @@ window.isQuestScenePassage = function (passageTitle) {
         }
     } catch (e2) { /* ignore */ }
     return false;
+};
+
+/**
+ * Hub passage for Engine.play when a quest-scene has shallow history (idx 0) or previous moment is Start.
+ * Used by topbar time-back. fhUpperstairs wallet scene → fhBedroom avoids fhUpperstairs auto-<<goto>> loop.
+ */
+window.getQuestSceneHubPassage = function (passageTitle, location) {
+    const t = passageTitle != null ? String(passageTitle) : '';
+    const loc = location != null ? String(location) : '';
+    if (t === 'fhUpperstairs_event_walletChance') return 'fhBedroom';
+    if (loc === 'fhBedroom') return 'fhUpperstairs';
+    /* Parents' room quest scenes: land on downstairs hub (nav path), not fhParentsRoom again */
+    if (loc === 'fhParentsRoom') return 'fhDownstairs';
+    if (loc === 'dinerRubys') return 'dinerRubys';
+    if (loc === 'mall') return 'mall';
+    if (loc === 'fhUpperstairs') return 'fhBedroom';
+    if (loc === 'fhLivingroom') return 'fhLivingroom';
+    if (loc === 'fhDownstairs') return 'fhDownstairs';
+    if (loc === 'fhBrotherRoomPC') return 'fhBrotherRoom';
+    return null;
 };
 
 /* ================== Fullscreen Layout Detection =================== */
@@ -2397,6 +2434,8 @@ Macro.add('navMenu', {
             }
         });
 
+        $container.toggleClass('nav-accordion-static', !window.navCardAnimationsEnabled());
+
         // Create a wrapper for the container to handle positioning
         const $wrapper = $('<div class="navmenu-wrapper" style="opacity: 0;"></div>');
         $wrapper.append($container);
@@ -2404,10 +2443,16 @@ Macro.add('navMenu', {
         // Append to output (INSIDE the passage, as requested)
         $(this.output).append($wrapper);
 
+        if (typeof window.syncNavCardMotionClass === 'function') {
+            window.syncNavCardMotionClass();
+        }
+
         // Position/Size function - Calculates breakout metrics
         const positionNavMenu = () => {
             // Safety check
             if (!$wrapper[0].isConnected) return;
+
+            $container.toggleClass('nav-accordion-static', !window.navCardAnimationsEnabled());
 
             // FORCE BREAKOUT: Explicitly unconstrain ALL parent containers
             // Hierarchy: #story > #passages > .passage > .navmenu-wrapper

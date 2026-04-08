@@ -1,9 +1,22 @@
 <<nobr>>
+<<set State.temporary.fhDownstairsPlayPassage = "">>
 <<if $timeSys.hour === 0 && $daily.fhThinWallsNight !== $timeSys.day>>
 	<<set $daily.fhThinWallsNight = $timeSys.day>>
-	<<if random(1, 100) <= 20>>
-		<<goto "fhDownstairs_event_parentsThinWalls">>
+	<<if random(1, 100) <= 20 && !State.variables._navigatingBackward>>
+		<<set State.temporary.fhDownstairsPlayPassage = "fhDownstairs_event_parentsThinWalls">>
 	<</if>>
+<</if>>
+<<if State.temporary.fhDownstairsPlayPassage !== "">>
+<<script>>
+setTimeout(function () {
+  var p = State.temporary.fhDownstairsPlayPassage;
+  State.temporary.fhDownstairsPlayPassage = "";
+  if (!p || State.variables._navigatingBackward) return;
+  if (State.passage !== "fhDownstairs") return;
+  var Eng = typeof Engine !== "undefined" ? Engine : (typeof SugarCube !== "undefined" ? SugarCube.Engine : null);
+  if (Eng && typeof Eng.play === "function") Eng.play(p);
+}, 0);
+<</script>>
 <</if>>
 <<set $location = "fhDownstairs">>
 

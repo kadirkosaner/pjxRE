@@ -1,10 +1,13 @@
 <<nobr>>
 <<set _sdQuest = $questState.active.something_different>>
-<<if _sdQuest && setup.quests.something_different.stages[_sdQuest.stage] && setup.quests.something_different.stages[_sdQuest.stage].id === "after_mall">>
-<<goto "fhBedroom_event_mallAftermath">>
-<</if>>
+/* after_mall: use Engine.play via script (not <<goto>>) so fhBedroom stays in history and time-back works */
 <<set State.temporary.fhBedroomPlayPassage = "">>
-<<if $flags.dianaEventShown && !$flags.dianaThoughtsShown>>
+<<if _sdQuest && setup.quests.something_different.stages[_sdQuest.stage] && setup.quests.something_different.stages[_sdQuest.stage].id === "after_mall">>
+<<if !State.variables._navigatingBackward>>
+<<set State.temporary.fhBedroomPlayPassage = "fhBedroom_event_mallAftermath">>
+<</if>>
+<</if>>
+<<if State.temporary.fhBedroomPlayPassage === "" && $flags.dianaEventShown && !$flags.dianaThoughtsShown>>
 <<if !State.variables._navigatingBackward>>
 <<set State.temporary.fhBedroomPlayPassage = "dinerWork_event_nightThoughts">>
 <</if>>
