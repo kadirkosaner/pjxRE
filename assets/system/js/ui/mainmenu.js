@@ -49,17 +49,17 @@ function createMainMenu() {
                         </span>
                         <span class="menu-text">Help</span>
                     </div>
-                    <div class="menu-item" data-action="unstick-bedroom">
-                        <span class="menu-icon">
-                            <span class="icon icon-bed icon-24"></span>
-                        </span>
-                        <span class="menu-text">Unstuck</span>
-                    </div>
                     <div class="menu-item" data-action="report-bug">
                         <span class="menu-icon">
                             <span class="icon icon-bug icon-24"></span>
                         </span>
                         <span class="menu-text">Report Bug</span>
+                    </div>
+                    <div class="menu-item" data-action="patreon">
+                        <span class="menu-icon">
+                            <span class="icon icon-patreon icon-24"></span>
+                        </span>
+                        <span class="menu-text">Patreon</span>
                     </div>
                     <div class="menu-item" data-action="subscribestar">
                         <span class="menu-icon">
@@ -165,7 +165,7 @@ function handleMenuAction(action) {
             closeMainMenu();
             break;
         case 'patreon':
-            alert('Patreon - Coming soon!');
+            window.open('https://www.patreon.com/cw/Neph93', '_blank');
             closeMainMenu();
             break;
     }
