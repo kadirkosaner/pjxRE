@@ -106,7 +106,8 @@
             <<set _makeupScore = Math.round(_styleBase * (_muQuality / 100))>>
         <</if>>
         <<set _makeupScore = Math.max(0, Math.min(100, _makeupScore))>>
-        <<set $looks = Math.round(_beauty * 0.50 + ($hygiene || 0) * 0.10 + ($clothingScore || 0) * 0.20 + _makeupScore * 0.20)>>
+        <<set _fallbackHygieneLooks = $gameSettings.hygieneRequirement ? ($hygiene || 0) : 100>>
+        <<set $looks = Math.round(_beauty * 0.50 + _fallbackHygieneLooks * 0.10 + ($clothingScore || 0) * 0.20 + _makeupScore * 0.20)>>
     <</if>>
 <</widget>>
 

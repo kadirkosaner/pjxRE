@@ -10,7 +10,9 @@
     <<set _hungerReduction = $args[1] || 25>>
     
     /* Add to daily calorie intake */
-    <<set $dailyCalorieIntake += _calories>>
+    <<if $gameSettings.trackCalories>>
+        <<set $dailyCalorieIntake += _calories>>
+    <</if>>
     
     /* Reduce hunger (if tracking enabled) */
     <<if $gameSettings.trackHunger>>
@@ -28,7 +30,9 @@
     <<set _hungerIncrease = $args[1] || 8>>
     
     /* Subtract from daily calorie intake */
-    <<set $dailyCalorieIntake -= _calories>>
+    <<if $gameSettings.trackCalories>>
+        <<set $dailyCalorieIntake -= _calories>>
+    <</if>>
     
     /* Increase hunger (if tracking enabled) */
     <<if $gameSettings.trackHunger>>
@@ -73,8 +77,10 @@
 /* Usage: <<increaseThirst 5>> */
 <<widget "increaseThirst">>
     <<if typeof $thirst !== "number">><<set $thirst = 0>><</if>>
+    <<if !$gameSettings.trackThirst>>
+        <<return>>
+    <</if>>
     
-    /* Thirst is critical, always track or check settings if preferred */
     <<set _amount = $args[0] || 5>>
     <<set $thirst = Math.min(100, $thirst + _amount)>>
     <<queueStatChange "thirst" _amount>>
@@ -102,6 +108,9 @@
 /* Usage: <<increaseBladder 5>> */
 <<widget "increaseBladder">>
     <<if typeof $bladder !== "number">><<set $bladder = 0>><</if>>
+    <<if !$gameSettings.trackBladder>>
+        <<return>>
+    <</if>>
 
     <<set _amount = $args[0] || 5>>
     <<set $bladder = Math.min(100, $bladder + _amount)>>
@@ -126,6 +135,9 @@
 /* Usage: <<decreaseHygiene 5>> */
 <<widget "decreaseHygiene">>
     <<if typeof $hygiene !== "number">><<set $hygiene = 100>><</if>>
+    <<if !$gameSettings.hygieneRequirement>>
+        <<return>>
+    <</if>>
 
     <<set _amount = $args[0] || 5>>
     <<set _negAmount = -1 * _amount>>

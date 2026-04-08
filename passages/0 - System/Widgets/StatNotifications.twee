@@ -23,6 +23,10 @@
     <<initNotificationQueue>>
     <<set _statName = $args[0]>>
     <<set _amount = $args[1]>>
+    <<if def "isSimulationStatEnabled">>
+        <<isSimulationStatEnabled _statName>>
+        <<if !_return>><<return>><</if>>
+    <</if>>
     
     /* Accumulate changes for the same stat */
     <<if typeof $pendingNotifications[_statName] === "undefined">>

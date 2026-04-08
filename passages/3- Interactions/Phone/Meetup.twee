@@ -7,6 +7,9 @@
 
 <<set _char = setup.getCharacter(_charId)>>
 <<set _charName = _char ? ((_char.firstName || _char.name || "") + (_char.lastName ? " " + _char.lastName : "")) : _charId>>
+<<if def "touchCharacterRelation">>
+    <<touchCharacterRelation _charId>>
+<</if>>
 
 <<narrative "Meetup">>
 You met <<print _charName>> at <<print _returnLocName>>. What would you like to do?

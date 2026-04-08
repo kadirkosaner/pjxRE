@@ -263,6 +263,13 @@
     <<if $gameSettings.skillDecay>>
         <<applySkillDecay>>
     <</if>>
+
+    /* Relationship Decay - unseen characters slowly drift away */
+    <<if $gameSettings.relationshipDecay>>
+        <<if def "applyRelationshipDecay">>
+            <<applyRelationshipDecay>>
+        <</if>>
+    <</if>>
     
     /* Calorie & Weight - Update weight based on daily balance */
     <<if $gameSettings.trackCalories>>

@@ -22,6 +22,9 @@
     <<unset $interactionEntryPassage>>
     <<goto _returnLoc>>
 <</if>>
+<<if def "touchCharacterRelation">>
+    <<touchCharacterRelation $interactingChar>>
+<</if>>
 <<set _charState = $characters[$interactingChar]>>
 <<set _char = setup.getCharacter($interactingChar)>>
 

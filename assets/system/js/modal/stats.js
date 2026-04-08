@@ -232,13 +232,15 @@ window.StatsInit = function (API) {
                                     ${this.createStatRow('Mood', vars.mood, 100, '#10b981', 'Mental stability and overall happiness.')}
                                     ${this.createStatRow('Stress', vars.stress || 0, 100, '#dc2626', 'Mental strain. High stress affects mood and health.')}
                                     ${this.createStatRow('Arousal', vars.arousal, 100, '#d946ef', 'Sexual excitement level.')}
-                                    ${this.createStatRow('Hygiene', vars.hygiene, 100, '#3b82f6', 'Cleanliness level. Affects social interactions.')}
+                                    ${settings.hygieneRequirement ? this.createStatRow('Hygiene', vars.hygiene, 100, '#3b82f6', 'Cleanliness level. Affects social interactions.') : ''}
                                     ${settings.trackHunger ? this.createStatRow('Hunger', vars.hunger, 100, '#9a3412', 'Food requirement. High values mean starvation.') : ''}
                                     ${settings.trackThirst ? this.createStatRow('Thirst', vars.thirst, 100, '#0ea5e9', 'Hydration level. affects fatigue.') : ''}
                                     ${settings.trackBladder ? this.createStatRow('Bladder', vars.bladder, 100, '#eab308', 'Bathroom urgency.') : ''}
+                                    ${settings.trackCalories ? `
                                     <div style="text-align: center; font-weight: bold; margin-top: 1rem; color: var(--color-text-highlight);">
                                         Calorie Balance : ${vars.dailyCalorieIntake || 0} / ${(vars.basalMetabolicRate || 2000) + (vars.dailyExercise || 0)}
                                     </div>
+                                    ` : ''}
                                 `)}
 
                                 ${this.createAccordion('physical', 'Physical Stats', 'physical', `

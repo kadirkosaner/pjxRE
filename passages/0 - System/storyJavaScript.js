@@ -361,17 +361,24 @@ window.phoneTotalBadge = function () {
     return messages + fotogram + finder;
 };
 
-/**
- * Quest / cinematic scene detection: passage name starts with quest_ OR Twee tags [quest-scene] / [quest_scene].
- * Used for hide-nav, navMenu skip, pending quest prompts injection, topbar back shortcut.
- */
-window.isQuestScenePassage = function (passageTitle) {
-    const t = passageTitle != null && passageTitle !== ''
-        ? String(passageTitle)
-        : (typeof State !== 'undefined' && State.passage ? State.passage : '');
+function normalizeQuestScenePassageTitle(passageTitle) {
+    if (passageTitle != null && passageTitle !== '') return String(passageTitle);
+    if (typeof State !== 'undefined' && State && State.passage) return String(State.passage);
+    return '';
+}
+
+function getQuestSceneStageId(vars, questId) {
+    const questState = vars && vars.questState && vars.questState.active && vars.questState.active[questId];
+    const questDef = setup && setup.quests && setup.quests[questId];
+    if (!questState || !questDef || !Array.isArray(questDef.stages)) return null;
+    const stage = questDef.stages[questState.stage];
+    return stage && stage.id ? stage.id : null;
+}
+
+function legacyQuestSceneDetection(passageTitle) {
+    const t = normalizeQuestScenePassageTitle(passageTitle);
     if (!t) return false;
     if (t.startsWith('quest_')) return true;
-    /* Name fallbacks if passage tags are missing from compiled Story (Twee pipeline) */
     if (/^fhBedroom_event_/.test(t)) return true;
     if (/^fhParentsRoom_event_/.test(t)) return true;
     if (/^fhLivingRoom_event_/.test(t)) return true;
@@ -390,26 +397,339 @@ window.isQuestScenePassage = function (passageTitle) {
         }
     } catch (e2) { /* ignore */ }
     return false;
+}
+
+window.QuestSceneNav = (function () {
+    const suppressState = {
+        hubPassage: null
+    };
+
+    const sceneRegistry = {
+        fhBedroom_event_mallAftermath: {
+            sceneId: 'sd_after_mall',
+            hubPassage: 'fhBedroom',
+            backTarget: 'fhUpperstairs',
+            skipHubOnBack: true
+        },
+        dinerWork_event_nightThoughts: {
+            sceneId: 'diana_night_thoughts',
+            hubPassage: 'fhBedroom',
+            backTarget: 'fhUpperstairs',
+            skipHubOnBack: true
+        },
+        quest_vince_day3_family_reflection: {
+            sceneId: 'vince_day3_family_reflection',
+            hubPassage: 'fhBedroom',
+            backTarget: 'fhUpperstairs',
+            skipHubOnBack: true
+        },
+        fhBedroom_event_beautyThoughts: {
+            sceneId: 'sd_beauty_thoughts',
+            hubPassage: 'fhBedroom',
+            backTarget: 'fhUpperstairs',
+            skipHubOnBack: true
+        },
+        fhParentsRoom_event_motherTalk: {
+            sceneId: 'sd_talk_mom',
+            hubPassage: 'fhParentsRoom',
+            backTarget: 'fhDownstairs',
+            skipHubOnBack: true
+        },
+        fhUpperstairs_event_walletChance: {
+            sceneId: 'sd_wallet_chance',
+            hubPassage: 'fhUpperstairs',
+            backTarget: 'fhBedroom',
+            skipHubOnBack: true
+        },
+        brotherComputer_beautySearch: {
+            sceneId: 'sd_beauty_search',
+            hubPassage: 'fhBrotherRoom',
+            backTarget: 'fhBrotherRoom'
+        },
+        fhLivingRoom_event_askDadMoney: {
+            sceneId: 'sd_ask_dad',
+            hubPassage: 'fhLivingroom',
+            backTarget: 'fhLivingroom'
+        },
+        fhLivingRoom_event_stealDad: {
+            sceneId: 'sd_steal_dad',
+            hubPassage: 'fhLivingroom',
+            backTarget: 'fhLivingroom'
+        },
+        fhLivingRoom_event_closeWallet: {
+            sceneId: 'sd_close_wallet',
+            hubPassage: 'fhLivingroom',
+            backTarget: 'fhLivingroom'
+        },
+        dinerWork_event_dianaArrival: {
+            sceneId: 'diana_arrival',
+            hubPassage: 'dinerRubys',
+            backTarget: 'dinerRubys'
+        },
+        dinerWork_event_dianaKitchen: {
+            sceneId: 'diana_kitchen',
+            hubPassage: 'dinerRubys',
+            backTarget: 'dinerRubys'
+        },
+        mall_event_beautyVisit: {
+            sceneId: 'sd_mall_visit',
+            hubPassage: 'mall',
+            backTarget: 'mall'
+        },
+        mall_event_beautyVisit_window: {
+            sceneId: 'sd_mall_window',
+            hubPassage: 'mall',
+            backTarget: 'mall'
+        },
+        mall_event_beautyVisit_luxuryStore: {
+            sceneId: 'sd_mall_store',
+            hubPassage: 'mall',
+            backTarget: 'mall'
+        },
+        mall_event_beautyVisit_clerk: {
+            sceneId: 'sd_mall_clerk',
+            hubPassage: 'mall',
+            backTarget: 'mall'
+        }
+    };
+
+    const hubResolvers = {
+        fhBedroom(vars) {
+            if (getQuestSceneStageId(vars, 'something_different') === 'after_mall') {
+                return { passage: 'fhBedroom_event_mallAftermath' };
+            }
+            if (!!(vars.flags && vars.flags.dianaEventShown) && !(vars.flags && vars.flags.dianaThoughtsShown)) {
+                return { passage: 'dinerWork_event_nightThoughts' };
+            }
+            if (
+                getQuestSceneStageId(vars, 'vince_day3_family') === 'bedroom_alone' &&
+                !(vars.flags && vars.flags.vinceDay3FamilyBedroomDone)
+            ) {
+                return { passage: 'quest_vince_day3_family_reflection' };
+            }
+            if (getQuestSceneStageId(vars, 'something_different') === 'mirror_moment') {
+                return { passage: 'fhBedroom_event_beautyThoughts' };
+            }
+            return null;
+        },
+        fhUpperstairs(vars) {
+            if (
+                getQuestSceneStageId(vars, 'something_different') === 'find_money' &&
+                vars.timeSys && vars.timeSys.hour >= 23 && vars.timeSys.hour < 24
+            ) {
+                return { passage: 'fhUpperstairs_event_walletChance' };
+            }
+            return null;
+        },
+        fhParentsRoom(vars) {
+            const stageId = getQuestSceneStageId(vars, 'something_different');
+            const questState = vars.questState && vars.questState.active && vars.questState.active.something_different;
+            const mother = vars.characters && vars.characters.mother;
+            if (
+                stageId === 'talk_mom' &&
+                mother && mother.currentLocation === 'fhParentsRoom' &&
+                vars.timeSys && vars.timeSys.hour >= 23 && vars.timeSys.hour < 24 &&
+                questState && questState.triggeredStage !== questState.stage
+            ) {
+                return {
+                    passage: 'fhParentsRoom_event_motherTalk',
+                    beforeEnter(currentVars) {
+                        if (currentVars.questState && currentVars.questState.active && currentVars.questState.active.something_different) {
+                            currentVars.questState.active.something_different.triggeredStage =
+                                currentVars.questState.active.something_different.stage;
+                        }
+                    }
+                };
+            }
+            return null;
+        }
+    };
+
+    function getState(state) {
+        if (state) return state;
+        if (typeof State !== 'undefined' && State) return State;
+        return null;
+    }
+
+    function getSceneMeta(passageTitle) {
+        const t = normalizeQuestScenePassageTitle(passageTitle);
+        return t ? (sceneRegistry[t] || null) : null;
+    }
+
+    function getFallbackBackTarget(location) {
+        const loc = location != null ? String(location) : '';
+        if (loc === 'fhBedroom') return 'fhUpperstairs';
+        if (loc === 'fhParentsRoom') return 'fhDownstairs';
+        if (loc === 'dinerRubys') return 'dinerRubys';
+        if (loc === 'mall') return 'mall';
+        if (loc === 'fhUpperstairs') return 'fhBedroom';
+        if (loc === 'fhLivingroom') return 'fhLivingroom';
+        if (loc === 'fhDownstairs') return 'fhDownstairs';
+        if (loc === 'fhBrotherRoomPC') return 'fhBrotherRoom';
+        return null;
+    }
+
+    function getCurrentIndex(state) {
+        return state.activeIndex ?? state.index ?? 0;
+    }
+
+    function getPreviousTitle(state, idx) {
+        if (!(idx > 0) || !state.history) return '';
+        const prev = state.history[idx - 1];
+        return normalizeQuestScenePassageTitle(prev && (prev.title ?? prev.passage));
+    }
+
+    function getHistoryTitle(state, idx) {
+        if (!(idx >= 0) || !state.history) return '';
+        const item = state.history[idx];
+        return normalizeQuestScenePassageTitle(item && (item.title ?? item.passage));
+    }
+
+    function setSuppressHubAutoScene(hubPassage) {
+        suppressState.hubPassage = hubPassage || null;
+    }
+
+    function consumeSuppressHubAutoScene(hubPassage) {
+        if (!hubPassage || suppressState.hubPassage !== hubPassage) return false;
+        suppressState.hubPassage = null;
+        return true;
+    }
+
+    function getEngine(engine) {
+        if (engine) return engine;
+        if (typeof Engine !== 'undefined' && Engine) return Engine;
+        if (typeof SugarCube !== 'undefined' && SugarCube.Engine) return SugarCube.Engine;
+        return null;
+    }
+
+    function isScenePassage(passageTitle) {
+        return !!getSceneMeta(passageTitle) || legacyQuestSceneDetection(passageTitle);
+    }
+
+    function getBackTarget(passageTitle, location) {
+        const meta = getSceneMeta(passageTitle);
+        if (meta && meta.backTarget) return meta.backTarget;
+        return getFallbackBackTarget(location);
+    }
+
+    function isTimeBackEnabled(state) {
+        const St = getState(state);
+        if (!St) return false;
+        const idx = getCurrentIndex(St);
+        const previousTitle = getPreviousTitle(St, idx);
+        const canBackToStart = idx > 0 && previousTitle !== 'Start';
+        if (canBackToStart) return true;
+        const backTarget = getBackTarget(St.passage, St.variables && St.variables.location);
+        return !!(isScenePassage(St.passage) && backTarget && (idx === 0 || previousTitle === 'Start'));
+    }
+
+    function backFromCurrentScene(state, engine) {
+        const St = getState(state);
+        const Eng = getEngine(engine);
+        if (!St || !Eng || typeof Eng.backward !== 'function') return false;
+
+        const meta = getSceneMeta(St.passage);
+        if (!meta || !meta.backTarget) return false;
+
+        const idx = getCurrentIndex(St);
+        const previousTitle = getPreviousTitle(St, idx);
+
+        if (idx === 0 || previousTitle === 'Start') {
+            window.__navigatingBackwardFromUI = true;
+            if (typeof Eng.play === 'function') Eng.play(meta.backTarget);
+            return true;
+        }
+
+        if (
+            meta.skipHubOnBack &&
+            previousTitle === meta.hubPassage &&
+            idx >= 2 &&
+            getHistoryTitle(St, idx - 2) === meta.backTarget
+        ) {
+            window.__navigatingBackwardFromUI = true;
+            setSuppressHubAutoScene(meta.hubPassage);
+            Eng.backward();
+            Eng.backward();
+            return true;
+        }
+
+        if (meta.skipHubOnBack && previousTitle === meta.hubPassage) {
+            window.__navigatingBackwardFromUI = true;
+            setSuppressHubAutoScene(meta.hubPassage);
+            Eng.backward();
+            if (typeof Eng.play === 'function') {
+                setTimeout(function () {
+                    const currentEngine = getEngine();
+                    if (currentEngine && typeof currentEngine.play === 'function') {
+                        currentEngine.play(meta.backTarget);
+                    }
+                }, 0);
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    function resolveHubAutoScene(hubPassage, vars) {
+        const resolver = hubResolvers[hubPassage];
+        if (typeof resolver !== 'function') return null;
+        return resolver(vars || {}) || null;
+    }
+
+    function scheduleHubAutoScene(hubPassage) {
+        setTimeout(function () {
+            const St = getState();
+            if (!St || St.passage !== hubPassage) return;
+            if (St.variables && St.variables._navigatingBackward) return;
+            if (consumeSuppressHubAutoScene(hubPassage)) return;
+
+            const resolved = resolveHubAutoScene(hubPassage, St.variables || {});
+            if (!resolved || !resolved.passage) return;
+            if (typeof resolved.beforeEnter === 'function') {
+                resolved.beforeEnter(St.variables || {});
+            }
+
+            const Eng = getEngine();
+            if (Eng && typeof Eng.play === 'function') {
+                Eng.play(resolved.passage);
+            }
+        }, 0);
+    }
+
+    return {
+        getSceneMeta,
+        isScenePassage,
+        getBackTarget,
+        isTimeBackEnabled,
+        backFromCurrentScene,
+        resolveHubAutoScene,
+        scheduleHubAutoScene,
+        setSuppressHubAutoScene,
+        consumeSuppressHubAutoScene
+    };
+}());
+
+/**
+ * Quest / cinematic scene detection: registry first, then legacy tag/name fallback.
+ * Used for hide-nav, navMenu skip, pending quest prompts injection, topbar back shortcut.
+ */
+window.isQuestScenePassage = function (passageTitle) {
+    if (window.QuestSceneNav && typeof window.QuestSceneNav.isScenePassage === 'function') {
+        return window.QuestSceneNav.isScenePassage(passageTitle);
+    }
+    return legacyQuestSceneDetection(passageTitle);
 };
 
 /**
- * Hub passage for Engine.play when a quest-scene has shallow history (idx 0) or previous moment is Start.
- * Used by topbar time-back. fhUpperstairs wallet scene → fhBedroom avoids fhUpperstairs auto-<<goto>> loop.
+ * Back target for quest scenes and related cinematic locations.
+ * Kept as compatibility wrapper while callers migrate to QuestSceneNav directly.
  */
 window.getQuestSceneHubPassage = function (passageTitle, location) {
-    const t = passageTitle != null ? String(passageTitle) : '';
-    const loc = location != null ? String(location) : '';
-    if (t === 'fhUpperstairs_event_walletChance') return 'fhBedroom';
-    if (loc === 'fhBedroom') return 'fhUpperstairs';
-    /* Parents' room quest scenes: land on downstairs hub (nav path), not fhParentsRoom again */
-    if (loc === 'fhParentsRoom') return 'fhDownstairs';
-    if (loc === 'dinerRubys') return 'dinerRubys';
-    if (loc === 'mall') return 'mall';
-    if (loc === 'fhUpperstairs') return 'fhBedroom';
-    if (loc === 'fhLivingroom') return 'fhLivingroom';
-    if (loc === 'fhDownstairs') return 'fhDownstairs';
-    if (loc === 'fhBrotherRoomPC') return 'fhBrotherRoom';
-    return null;
+    if (window.QuestSceneNav && typeof window.QuestSceneNav.getBackTarget === 'function') {
+        return window.QuestSceneNav.getBackTarget(passageTitle, location);
+    }
+    return getFallbackBackTarget(location);
 };
 
 /* ================== Fullscreen Layout Detection =================== */

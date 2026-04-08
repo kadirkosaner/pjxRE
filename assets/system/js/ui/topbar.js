@@ -46,21 +46,18 @@ function rebuildTopbar() {
     const previousPassageTitle = normalizePassageTitle(previousPassageRaw);
     const canBackToStart = canBack && previousPassageTitle !== 'Start';
 
-    /* Quest-scene + known hub: shallow history (idx 0) or Start → scene — still allow exit (Diana arc: mall, diner, etc.) */
+    /* Quest-scene back enablement is delegated to QuestSceneNav when available. */
     const activePassageTitle = normalizePassageTitle(state.passage);
     const loc = (vars.location) || '';
     const isQuestScene =
         typeof window.isQuestScenePassage === 'function' &&
         window.isQuestScenePassage(activePassageTitle);
-    const questHub =
-        typeof window.getQuestSceneHubPassage === 'function'
-            ? window.getQuestSceneHubPassage(activePassageTitle, loc)
-            : null;
-    const questSceneShallowBack = !!(isQuestScene && questHub);
-    const timeBackEnabled =
-        canBackToStart
-        || (questSceneShallowBack && currentIndex === 0)
-        || (questSceneShallowBack && currentIndex > 0 && previousPassageTitle === 'Start');
+    const timeBackEnabled = (
+        window.QuestSceneNav &&
+        typeof window.QuestSceneNav.isTimeBackEnabled === 'function'
+    )
+        ? window.QuestSceneNav.isTimeBackEnabled(state)
+        : canBackToStart;
 
     // vars already declared above, use it directly
     const timeSys = vars.timeSys || {};
@@ -380,135 +377,17 @@ function rebuildTopbar() {
 
     $('#time-back').on('click', () => {
         const St = (typeof State !== 'undefined' && State) ? State : TopbarAPI.State;
-        const idx = St.activeIndex ?? St.index ?? 0;
-        const loc = (St.variables && St.variables.location) || '';
-        const passageTitle = normalizePassageTitle(St.passage);
-        const isQuestScene =
-            typeof window.isQuestScenePassage === 'function' &&
-            window.isQuestScenePassage(passageTitle);
-        const questHub =
-            typeof window.getQuestSceneHubPassage === 'function'
-                ? window.getQuestSceneHubPassage(passageTitle, loc)
-                : null;
-        /* Wallet scene uses $location fhBedroom; must not use generic bedroom-back (that jumps to fhUpperstairs) */
-        const questWalletBack = passageTitle === 'fhUpperstairs_event_walletChance';
-        const questBedroomBack = loc === 'fhBedroom' && isQuestScene && !questWalletBack;
-        const questParentsRoomBack = loc === 'fhParentsRoom' && isQuestScene;
-
-        /* No history moment to pop — jump to location hub (bedroom → hall, diner → dinerRubys, mall → mall, …) */
-        if (questHub && isQuestScene && idx === 0) {
-            window.__navigatingBackwardFromUI = true;
-            const Eng = TopbarAPI.Engine;
-            if (Eng && typeof Eng.play === 'function') {
-                Eng.play(questHub);
-            }
+        if (
+            window.QuestSceneNav &&
+            typeof window.QuestSceneNav.backFromCurrentScene === 'function' &&
+            window.QuestSceneNav.backFromCurrentScene(St, TopbarAPI.Engine)
+        ) {
             return;
         }
 
-        if (idx > 0 && St.history) {
-            const prev = St.history[idx - 1];
-            const previousTitle = normalizePassageTitle(prev?.title ?? prev?.passage);
-            if (previousTitle === 'Start' && questHub && isQuestScene) {
-                window.__navigatingBackwardFromUI = true;
-                const Eng = TopbarAPI.Engine;
-                if (Eng && typeof Eng.play === 'function') {
-                    Eng.play(questHub);
-                }
-                return;
-            }
-            if (previousTitle !== 'Start') {
-                /*
-                 * Typical stack: fhUpperstairs → fhBedroom → bedroom quest (Engine.play).
-                 * Pop twice so we skip the empty fhBedroom hub and avoid Engine.play('fhUpperstairs'),
-                 * which was adding an extra forward step and time/state weirdness.
-                 */
-                if (
-                    questBedroomBack &&
-                    idx >= 2 &&
-                    previousTitle === 'fhBedroom'
-                ) {
-                    const prev2 = St.history[idx - 2];
-                    const previousTitle2 = normalizePassageTitle(prev2?.title ?? prev2?.passage);
-                    if (previousTitle2 === 'fhUpperstairs') {
-                        window.__navigatingBackwardFromUI = true;
-                        TopbarAPI.Engine.backward();
-                        TopbarAPI.Engine.backward();
-                        return;
-                    }
-                }
-                /*
-                 * fhDownstairs → fhParentsRoom → parents' quest scene (Engine.play): pop twice so back lands on downstairs,
-                 * not on fhParentsRoom again.
-                 */
-                if (
-                    questParentsRoomBack &&
-                    idx >= 2 &&
-                    previousTitle === 'fhParentsRoom'
-                ) {
-                    const prev2p = St.history[idx - 2];
-                    const previousTitle2p = normalizePassageTitle(prev2p?.title ?? prev2p?.passage);
-                    if (previousTitle2p === 'fhDownstairs') {
-                        window.__navigatingBackwardFromUI = true;
-                        TopbarAPI.Engine.backward();
-                        TopbarAPI.Engine.backward();
-                        return;
-                    }
-                }
-                /*
-                 * fhBedroom → fhUpperstairs → wallet (Engine.play): pop twice or upper hall re-fires wallet scene.
-                 */
-                if (
-                    questWalletBack &&
-                    idx >= 2 &&
-                    previousTitle === 'fhUpperstairs'
-                ) {
-                    const prev2w = St.history[idx - 2];
-                    const previousTitle2w = normalizePassageTitle(prev2w?.title ?? prev2w?.passage);
-                    if (previousTitle2w === 'fhBedroom') {
-                        window.__navigatingBackwardFromUI = true;
-                        TopbarAPI.Engine.backward();
-                        TopbarAPI.Engine.backward();
-                        return;
-                    }
-                }
-                /* Fallback: came from fhBedroom but not via upper hall, or shallow history */
-                if (questBedroomBack) {
-                    window.__suppressFhBedroomQuestAutoNext = true;
-                    window.__navigatingBackwardFromUI = true;
-                }
-                if (questParentsRoomBack) {
-                    window.__navigatingBackwardFromUI = true;
-                }
-                if (questWalletBack) {
-                    window.__suppressFhUpperstairsQuestAutoNext = true;
-                    window.__navigatingBackwardFromUI = true;
-                }
-                TopbarAPI.Engine.backward();
-                if (questBedroomBack) {
-                    setTimeout(function () {
-                        const Eng = TopbarAPI.Engine;
-                        if (Eng && typeof Eng.play === 'function') {
-                            Eng.play('fhUpperstairs');
-                        }
-                    }, 0);
-                }
-                if (questParentsRoomBack) {
-                    setTimeout(function () {
-                        const Eng = TopbarAPI.Engine;
-                        if (Eng && typeof Eng.play === 'function') {
-                            Eng.play('fhDownstairs');
-                        }
-                    }, 0);
-                }
-                if (questWalletBack) {
-                    setTimeout(function () {
-                        const Eng = TopbarAPI.Engine;
-                        if (Eng && typeof Eng.play === 'function') {
-                            Eng.play('fhBedroom');
-                        }
-                    }, 0);
-                }
-            }
+        const idx = St.activeIndex ?? St.index ?? 0;
+        if (idx > 0) {
+            TopbarAPI.Engine.backward();
         }
     });
 

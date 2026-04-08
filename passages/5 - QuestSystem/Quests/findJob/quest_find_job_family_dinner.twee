@@ -4,8 +4,8 @@
 <div class="divnobr">
 <<silently>>
 <<set $location = "fhKitchen">>
-<<set $hunger = 0>>
-<<set $thirst = 0>>
+<<eatFood 750 100>>
+<<loseStat "thirst" 100>>
 <<gainStat "bladder" 15>>
 <<gainStat "energy" 30>>
 <<loseStat "stress" 10>>

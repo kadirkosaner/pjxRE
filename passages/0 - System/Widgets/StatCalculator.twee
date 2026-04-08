@@ -23,6 +23,27 @@
     <</if>>
 <</nobr>><</widget>>
 
+/* Returns whether an optional simulation stat is enabled by settings. */
+/* Usage: <<isSimulationStatEnabled "hunger">> -> _return true/false */
+<<widget "isSimulationStatEnabled">><<nobr>>
+    <<set _statName = String($args[0] || "")>>
+    <<set _settingKey = "">>
+    <<if _statName === "hunger">>
+        <<set _settingKey = "trackHunger">>
+    <<elseif _statName === "thirst">>
+        <<set _settingKey = "trackThirst">>
+    <<elseif _statName === "bladder">>
+        <<set _settingKey = "trackBladder">>
+    <<elseif _statName === "hygiene">>
+        <<set _settingKey = "hygieneRequirement">>
+    <</if>>
+    <<if _settingKey === "">>
+        <<set _return = true>>
+    <<else>>
+        <<set _return = !($gameSettings && $gameSettings[_settingKey] === false)>>
+    <</if>>
+<</nobr>><</widget>>
+
 /* RECALCULATE DERIVED STATS */
 <<widget "recalculateStats">><<nobr>>
     /* 0. Sync Body Measurements (Text -> CM) */
@@ -59,6 +80,12 @@
         <<calculateBodyAppeal>>
     <</if>>
 
+    /* Normalize disabled simulation stats so hidden systems cannot keep stale values. */
+    <<if !$gameSettings.trackHunger>><<set $hunger = 0>><</if>>
+    <<if !$gameSettings.trackThirst>><<set $thirst = 0>><</if>>
+    <<if !$gameSettings.trackBladder>><<set $bladder = 0>><</if>>
+    <<if !$gameSettings.hygieneRequirement>><<set $hygiene = 100>><</if>>
+
     /* Beauty (0-100) = overall body/face attractiveness. No base – derived from fitness (highest), body, face/hair/dental care. */
     <<set _bodyScaled = ($body.appeal || 0) * 2>>
     <<set _beauty = Math.min(100, ($fitness || 0) * 0.28 + _bodyScaled * 0.25 + ($appearance.faceCare || 0) * 0.20 + ($appearance.hairCare || 0) * 0.15 + ($appearance.dentalCare || 0) * 0.12)>>
@@ -82,8 +109,9 @@
         <<set _makeupScore = Math.round(_styleBase * (_quality / 100))>>
     <</if>>
     <<set _makeupScore = Math.max(0, Math.min(100, _makeupScore))>>
+    <<set _hygieneLooksValue = $gameSettings.hygieneRequirement ? ($hygiene || 0) : 100>>
     /* Looks = Beauty (50%) + Hygiene (10%) + Clothing (20%) + Makeup (20%) */
-    <<set $looks = Math.max(0, Math.min(100, Math.round(_beauty * 0.50 + ($hygiene || 0) * 0.10 + ($clothingScore || 0) * 0.20 + _makeupScore * 0.20)))>>
+    <<set $looks = Math.max(0, Math.min(100, Math.round(_beauty * 0.50 + _hygieneLooksValue * 0.10 + ($clothingScore || 0) * 0.20 + _makeupScore * 0.20)))>>
 
     /* Confidence = charisma + looks */
     <<set $confidence = Math.round(Math.min(100, Math.max(0, ($charisma * 0.5) + ($looks * 0.3))))>>
@@ -136,9 +164,9 @@
     
     /* Stats where HIGH is bad (needs) */
     <<set $notificationArousal = ($arousal >= 70) ? 1 : 0>>
-    <<set $notificationBladder = ($bladder >= 70) ? 1 : 0>>
-    <<set $notificationThirst = ($thirst >= 70) ? 1 : 0>>
-    <<set $notificationHunger = ($hunger >= 70) ? 1 : 0>>
+    <<set $notificationBladder = ($gameSettings.trackBladder && $bladder >= 70) ? 1 : 0>>
+    <<set $notificationThirst = ($gameSettings.trackThirst && $thirst >= 70) ? 1 : 0>>
+    <<set $notificationHunger = ($gameSettings.trackHunger && $hunger >= 70) ? 1 : 0>>
 
     /* Appearance (Face): show icon when any of hair/face/dental care is below 25%; tooltip lists only the low ones */
     <<set _hair = $appearance.hairCare || 0>>
@@ -199,6 +227,8 @@
     <<set _arg3 = $args[2]>>
     <<set _characterId = (typeof _arg3 === "string" ? _arg3 : null)>>
     <<set _maxCap = (typeof _arg3 === "number" ? _arg3 : null)>>
+    <<isSimulationStatEnabled _statName>>
+    <<if !_return>><<return>><</if>>
 
     /* If character ID is provided (must be string), delegate to gainCharacterStat */
     <<if _characterId>>
@@ -345,6 +375,8 @@
     <<set _baseAmount = $args[1]>>
     <<set _characterId = $args[2]>>
     <<set _negAmount = -1 * _baseAmount>>
+    <<isSimulationStatEnabled _statName>>
+    <<if !_return>><<return>><</if>>
 
     /* If character ID is provided (must be string), delegate to loseCharacterStat */
     <<if _characterId && typeof _characterId === "string">>
@@ -442,6 +474,11 @@
     <<elseif State.variables.characters[_charId].stats[_statName] === undefined>>
         /* Stat does not exist on character, do nothing */
     <<else>>
+        <<if _baseAmount !== 0 && ["love","friendship","lust","trust"].includes(_statName)>>
+            <<if def "touchCharacterRelation">>
+                <<touchCharacterRelation _charId>>
+            <</if>>
+        <</if>>
         <<set _charData = $characters[_charId]>>
         <<set _charDef = setup.characterDefs[_charId] || {}>>
         <<set _stats = _charData.stats>>

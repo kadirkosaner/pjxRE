@@ -35,8 +35,7 @@ Cold water. You drink it.
 
 <<silently>>
 <<if $gameSettings.trackThirst>>
-    <<set $thirst = Math.max(0, $thirst - 25)>>
-    <<queueStatChange "thirst" -25>>
+    <<loseStat "thirst" 25>>
 <</if>>
 <<gainCharacterStat "dinerWaitress1" "friendship" 1>>
 <<recalculateStats>>

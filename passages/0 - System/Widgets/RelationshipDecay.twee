@@ -1,0 +1,81 @@
+<<nobr>>
+/* ==========================================
+   RELATIONSHIP DECAY WIDGETS
+   Tracks when characters were last seen and
+   slowly decays friendship while unseen.
+========================================== */
+
+/* Mark a character as seen today. */
+/* Usage: <<touchCharacterRelation "mother">> */
+<<widget "touchCharacterRelation">>
+    <<set _charId = $args[0]>>
+    <<if !_charId || !$characters || !$characters[_charId]>><<return>><</if>>
+    <<run (function () {
+        var V = State.variables;
+        var charId = State.temporary._charId;
+        var charState = V.characters && V.characters[charId];
+        var ts = V.timeSys || {};
+        if (!charState) return;
+        var year = Number(ts.year || 0);
+        var month = Number(ts.month || 1);
+        var day = Number(ts.day || 1);
+        var dayNumber = Math.floor(Date.UTC(year, month - 1, day) / 86400000);
+        charState.lastSeenAt = { year: year, month: month, day: day };
+        charState.lastSeenDayNumber = dayNumber;
+        if (typeof charState.lastRelationshipDecayDayNumber !== "number") {
+            charState.lastRelationshipDecayDayNumber = dayNumber;
+        }
+    })()>>
+<</widget>>
+
+/* Apply relationship decay once per day. */
+/* Hidden effect: no toast spam for every NPC at day rollover. */
+<<widget "applyRelationshipDecay">>
+    <<if !$gameSettings.relationshipDecay>><<return>><</if>>
+    <<run (function () {
+        var V = State.variables;
+        var chars = V.characters || {};
+        var ts = V.timeSys || {};
+        var year = Number(ts.year || 0);
+        var month = Number(ts.month || 1);
+        var day = Number(ts.day || 1);
+        var currentDayNumber = Math.floor(Date.UTC(year, month - 1, day) / 86400000);
+
+        Object.keys(chars).forEach(function (charId) {
+            if (charId === "player") return;
+
+            var charState = chars[charId];
+            if (!charState || charState.known !== true || !charState.stats) return;
+
+            if (typeof charState.lastSeenDayNumber !== "number") {
+                charState.lastSeenDayNumber = currentDayNumber;
+                charState.lastRelationshipDecayDayNumber = currentDayNumber;
+                return;
+            }
+
+            var lastSeen = Number(charState.lastSeenDayNumber);
+            var lastDecay = (typeof charState.lastRelationshipDecayDayNumber === "number")
+                ? Number(charState.lastRelationshipDecayDayNumber)
+                : lastSeen;
+            var unseenDays = currentDayNumber - lastSeen;
+            if (unseenDays < 7) return;
+
+            var decayAnchor = Math.max(lastSeen, lastDecay);
+            var daysSinceDecay = currentDayNumber - decayAnchor;
+            if (daysSinceDecay < 3) return;
+
+            var decaySteps = Math.floor(daysSinceDecay / 3);
+            if (decaySteps <= 0) return;
+
+            var currentFriendship = Number(charState.stats.friendship || 0);
+            if (currentFriendship <= 0) {
+                charState.lastRelationshipDecayDayNumber = currentDayNumber;
+                return;
+            }
+
+            charState.stats.friendship = Math.max(0, currentFriendship - decaySteps);
+            charState.lastRelationshipDecayDayNumber = decayAnchor + (decaySteps * 3);
+        });
+    })()>>
+<</widget>>
+<</nobr>>
