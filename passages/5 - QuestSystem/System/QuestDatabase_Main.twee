@@ -471,6 +471,82 @@ Object.assign(setup.quests, {
         }
     },
 
+    /* ========== STAYING STRONG — GYM DISCOVERY ========== */
+    staying_strong: {
+        id: "staying_strong",
+        title: "Staying Strong",
+        category: "side",
+        character: "player",
+
+        requirements: {
+            flags: ["first_shopping_done"]
+        },
+
+        stages: [
+            {
+                id: "visit_gym",
+                title: "Check Out the Gym",
+                desc: "Lily mentioned a fitness center in the Skyline district. Head to Apex Tower, find the Recreation Center, and check out the gym.",
+                buttonText: "Look around",
+                triggers: { location: "gym" },
+                forceScene: true,
+                passage: "quest_staying_strong_gym_first"
+            },
+            {
+                id: "first_workout",
+                title: "First Workout",
+                desc: "The gym has everything you need. Try one of the workout machines.",
+                objectives: [
+                    { id: "doWorkout", text: "Complete a workout at Iron Works Gym" }
+                ],
+                completeWhen: "anyObjective"
+            }
+        ],
+
+        onComplete: {
+            flags: ["staying_strong_done"],
+            notification: "Quest Complete: Staying Strong"
+        }
+    },
+
+    /* ========== FIRST COFFEE — THE DAILY GRIND ========== */
+    first_coffee: {
+        id: "first_coffee",
+        title: "A Quiet Corner",
+        category: "side",
+        character: "player",
+
+        requirements: {
+            flags: ["job_search_started"]
+        },
+
+        stages: [
+            {
+                id: "find_coffee",
+                title: "The Daily Grind",
+                desc: "Tom mentioned a coffee shop nearby – The Daily Grind. It's in Old Town, two blocks from the diner.",
+                buttonText: "Step inside",
+                triggers: { location: "shopCoffeeOldtown" },
+                forceScene: true,
+                passage: "quest_first_coffee_arrival"
+            },
+            {
+                id: "order_coffee",
+                title: "Order Something",
+                desc: "The place looks good. Order a coffee and stay a while.",
+                objectives: [
+                    { id: "orderCoffee", text: "Order a coffee at The Daily Grind" }
+                ],
+                completeWhen: "anyObjective"
+            }
+        ],
+
+        onComplete: {
+            flags: ["first_coffee_done"],
+            notification: "Quest Complete: A Quiet Corner"
+        }
+    },
+
     /* ========== VINCE DAY 3 — FAMILY (mirror / self-image) ========== */
     vince_day3_family: {
         id: "vince_day3_family",

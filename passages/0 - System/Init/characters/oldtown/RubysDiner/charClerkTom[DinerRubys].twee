@@ -56,6 +56,11 @@
         {
             id: "talk", label: "Talk", passage: "tomTalkDinerRubys",
             tags: [], requirements: { firstWorkDayEventShown: true }, showWhenLocked: false, dailyLimit: true, minPlayerEnergy: 5
+        },
+        {
+            id: "coffeeHint", label: "Know any good spots nearby?", passage: "tomCoffeeHintDinerRubys",
+            tags: [], requirements: { firstWorkDayEventShown: true, flagNot: "tomCoffeeHintDone" },
+            dailyLimit: false, minPlayerEnergy: 5, showWhenLocked: false
         }
     ],
     dinerRubysStorage: [

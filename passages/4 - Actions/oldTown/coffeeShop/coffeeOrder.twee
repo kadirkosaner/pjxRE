@@ -1,0 +1,63 @@
+<<silently>>
+    <<set $location = "shopCoffeeOldtown">>
+    <<set _coffeeCost = 3.50>>
+    <<canAffordCash _coffeeCost>>
+<</silently>>
+
+<<if !_canAfford>>
+
+<<narrative "The Daily Grind">>
+You scan the chalkboard menu and reach for your wallet – but you're a little short. You give a quiet, slightly embarrassed smile toward the counter and step back.
+
+//Maybe next time.//
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Step Back" "shopCoffeeOldtown">><</btn>>
+</div>
+
+<<else>>
+
+<<silently>>
+    <<spendCash _coffeeCost>>
+    <<advanceTime 20 "relax">>
+    <<gainStat "energy" 18>>
+    <<gainStat "mood" 8 100>>
+    <<loseStat "stress" 10>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+
+    /* Quest: first coffee order */
+    <<if $questState && $questState.active && $questState.active.first_coffee>>
+        <<completeObjective "first_coffee" "orderCoffee">>
+    <</if>>
+
+    /* Flag first order */
+    <<if !$flags.coffeeFirstOrder>>
+        <<set $flags.coffeeFirstOrder = true>>
+    <</if>>
+
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "You order a flat white. The barista nods, no small talk required, and a minute later you have a cup that's the right temperature and noticeably stronger than the diner coffee. You take a corner seat and let yourself breathe.">>
+        <<case 2>>
+            <<set _sceneText = "A medium latte, extra shot. The espresso machine hisses. The cup arrives with a quiet smile from across the counter. You wrap both hands around it and take the first sip standing – too impatient to find a seat.">>
+        <<case 3>>
+            <<set _sceneText = "You go with the special – a honey cinnamon cortado. It sounds like too much but tastes exactly right. You find a small table near the window and sit with it for a few minutes, not in a hurry to be anywhere.">>
+    <</switch>>
+    <<set _vidNum = random(1, 3)>>
+    <<set _coffeeVid = "assets/content/scenes/oldtown/coffeeShop/coffeeDrink" + _vidNum + ".mp4">>
+<</silently>>
+
+<<narrative "The Daily Grind">>
+<<print _sceneText>>
+<</narrative>>
+
+<<vid _coffeeVid "100%">>
+
+<div class="location-actions">
+    <<btn "Finish" "shopCoffeeOldtown">><</btn>>
+</div>
+
+<</if>>

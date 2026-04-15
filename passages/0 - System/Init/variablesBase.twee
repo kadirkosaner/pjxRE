@@ -84,10 +84,11 @@
 /* ==========================================
    DAILY TRACKING
 ========================================== */
-<<set $daily = { 
-    yogaDone: false, 
+<<set $daily = {
+    yogaDone: false,
     danceDone: false,
     jogDone: false,
+    gymDone: false,
     hairCreamUsed: false,
     faceCreamUsed: false,
     dentalCareUsed: false,
@@ -140,7 +141,13 @@
     vinceDay3FamilyFatherDone: false,
     vinceDay3FamilyBedroomDone: false,
     firstWorkDayWalkEvent: false,
-    firstWorkDayWalkHome: false
+    firstWorkDayWalkHome: false,
+    gymFirstVisit: false,
+    gymFirstWorkout: false,
+    coffeeShopDiscovered: false,
+    coffeeFirstOrder: false,
+    tomCoffeeHintDone: false,
+    lilyGymHintDone: false
 }>>
 
 /* Important Dates */

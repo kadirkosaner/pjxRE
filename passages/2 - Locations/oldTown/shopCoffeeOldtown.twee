@@ -1,5 +1,19 @@
 <<nobr>><<set $location = "shopCoffeeOldtown">><</nobr>>
 <<updateCharacterLocations>>
-<<narrative "The Daily Grind">>A cozy coffee shop with homemade pastries. The perfect spot to relax with a book.<</narrative>>
+<<narrative "The Daily Grind">>
+A cozy coffee shop wedged between a pharmacy and an old bookstore. The smell of fresh roast hits the moment you step in – rich and a little warm. A chalkboard menu lists the day's specials in neat chalk lettering. Soft music and the hiss of the espresso machine fill the background. A few small tables by the window catch the afternoon light.
+<</narrative>>
+
 <<showLocationChars "shopCoffeeOldtown">>
-<<navMenu>><<navCard "oldTown">><</navMenu>>
+<<questPrompts>>
+
+<div class="location-actions">
+    <<set $activityOrigin = "shopCoffeeOldtown">>
+    <<btn "Order Coffee" "coffeeOrder" "default">><</btn>>
+    <<btn "Sit & Relax" "coffeeSit" "default">><</btn>>
+    <<btn "Read Here" "coffeeRead" "default">><</btn>>
+</div>
+
+<<navMenu>>
+    <<navCard "oldTown">>
+<</navMenu>>

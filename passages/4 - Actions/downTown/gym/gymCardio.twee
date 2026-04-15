@@ -1,0 +1,45 @@
+<<silently>>
+    <<set $location = "gym">>
+    <<requireMinEnergy 30 "gym" "Not enough energy.">>
+    <<set $daily.gymDone = true>>
+    <<advanceTime 45 "workout">>
+    <<loseStat "energy" 20>>
+    <<loseStat "stress" 15>>
+    <<gainStat "cardio" 3 25>>
+    <<gainStat "lowerBody" 1 15>>
+    <<gainSkill "physical" "cardio" 2 50>>
+
+    /* Quest: first workout objective */
+    <<if $questState && $questState.active && $questState.active.staying_strong>>
+        <<completeObjective "staying_strong" "doWorkout">>
+    <</if>>
+
+    <<if $gameSettings && $gameSettings.trackCalories>>
+        <<set $dailyCalorieIntake -= 350>>
+    <</if>>
+
+    <<flushNotifications>>
+    <<recalculateStats>>
+
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "You claim a treadmill near the back and start with a steady walk before building into a run. The gym playlist fills the space. Sweat comes by the third lap and you push through it, counting your breaths. By the time you slow down your legs are heavy but your head feels clear.">>
+        <<case 2>>
+            <<set _sceneText = "The stationary bikes are free. You pick one, dial up the resistance, and settle into a rhythm. After twenty minutes your thighs burn and your mind goes quiet – the good kind of quiet that only comes from pushing your body.">>
+        <<case 3>>
+            <<set _sceneText = "You start on the elliptical, warming up slowly. Someone nearby gives a quick nod when you step on – the silent gym solidarity. Forty minutes later you step off: legs unsteady, face flushed, and weirdly proud of yourself.">>
+    <</switch>>
+    <<set _vidNum = random(1, 3)>>
+    <<set _gymVid = "assets/content/scenes/downtown/gym/cardio/gymCardio" + _vidNum + ".mp4">>
+<</silently>>
+
+<<narrative "Cardio Machines">>
+<<print _sceneText>>
+<</narrative>>
+
+<<vid _gymVid "100%">>
+
+<div class="location-actions">
+    <<btn "Finish" "gym">><</btn>>
+</div>

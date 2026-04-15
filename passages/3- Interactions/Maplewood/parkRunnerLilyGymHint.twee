@@ -1,0 +1,62 @@
+<<silently>>
+    <<set $location = "sunsetPark">>
+    <<set $flags.lilyGymHintDone = true>>
+    <<startQuest "staying_strong">>
+    <<logDailyActivity "parkRunnerLily" "gymHint">>
+    <<advanceTime 15>>
+    <<loseStat "energy" 5>>
+
+    <<set _currentFriendship = $characters.parkRunnerLily.stats.friendship>>
+    <<if _currentFriendship < 90>>
+        <<set $characters.parkRunnerLily.stats.friendship = Math.min(90, _currentFriendship + 3)>>
+        <<set _actualGain = $characters.parkRunnerLily.stats.friendship - _currentFriendship>>
+        <<if _actualGain > 0>>
+            <<run window.notifySuccess("Lily Friendship +" + _actualGain)>>
+        <</if>>
+    <</if>>
+    <<recalculateStats>>
+<</silently>>
+
+<<narrative "Sunset Park">>
+Lily's finishing a cool-down stretch near the fountain, one leg up on the bench rail. She straightens when she sees you and breaks into a quick grin.
+<</narrative>>
+
+<<dialog "parkRunnerLily">>
+Hey! You've been keeping up with the jogging – I've noticed.
+<</dialog>>
+
+<<dialog "player">>
+Trying to stay consistent.
+<</dialog>>
+
+<<dialog "parkRunnerLily">>
+That's the thing about outdoor running – it's great for building a base, but if you want real progress you need some structure on top of it. Resistance, intervals, proper recovery.
+<</dialog>>
+
+<<dialog "player">>
+Like a gym?
+<</dialog>>
+
+<<dialog "parkRunnerLily">>
+Exactly. There's one in the Skyline district – Iron Works. It's inside the Recreation Center at Apex Tower. Cardio machines, free weights, a decent stretching area. They keep it clean, which matters more than people think. I use it twice a week when the weather's bad or when I want something heavier than a run.
+<</dialog>>
+
+<<dialog "player">>
+Is it worth the trip out there?
+<</dialog>>
+
+<<dialog "parkRunnerLily">>
+For me it is. It made a real difference once I started mixing it in. They let you look around before you commit to anything – just walk in and say you're interested. No pressure.
+<</dialog>>
+
+<<narrative>>
+She drops her leg from the rail and shakes out her arms, glancing down the path.
+<</narrative>>
+
+<<dialog "parkRunnerLily">>
+Anyway – just a thought. Keep running in the meantime. And keep at it.
+<</dialog>>
+
+<div class="location-actions">
+    <<btn "Thanks, Lily" "sunsetPark">><</btn>>
+</div>

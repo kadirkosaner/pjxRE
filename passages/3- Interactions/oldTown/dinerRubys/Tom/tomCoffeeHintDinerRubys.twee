@@ -1,0 +1,49 @@
+<<silently>>
+    <<set $location = "dinerRubys">>
+    <<set $flags.tomCoffeeHintDone = true>>
+    <<startQuest "first_coffee">>
+    <<logDailyActivity "dinerClerk" "coffeeHint">>
+    <<advanceTime 10>>
+    <<loseStat "energy" 3>>
+    <<recalculateStats>>
+<</silently>>
+
+<<narrative "Ruby's Diner">>
+Tom's leaning against the counter during a lull, watching the street through the front window. He glances over when he hears you approaching.
+<</narrative>>
+
+<<dialog "dinerClerk">>
+Long day?
+<</dialog>>
+
+<<dialog "player">>
+Getting there.
+<</dialog>>
+
+<<dialog "dinerClerk">>
+You know what actually helps? Getting out of here when your shift ends. Actually out – not just the parking lot.
+<</dialog>>
+
+<<dialog "player">>
+Any particular place in mind?
+<</dialog>>
+
+<<dialog "dinerClerk">>
+There's a coffee shop two blocks down – The Daily Grind. Go left out the front, cross at the lights, you'll see the sign. Good coffee. Quiet. Nobody's going to ask you to do anything while you're there.
+<</dialog>>
+
+<<dialog "player">>
+That sounds exactly right.
+<</dialog>>
+
+<<dialog "dinerClerk">>
+Tell Zoe I sent you. She might throw in a loyalty stamp. She might not. Either way, the coffee's worth it.
+<</dialog>>
+
+<<narrative>>
+He turns back to the window, unhurried, like he said nothing particularly useful. Which, you think, is the Tom way of things.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Good to know" "dinerRubys">><</btn>>
+</div>

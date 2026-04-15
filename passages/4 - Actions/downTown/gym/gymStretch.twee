@@ -1,0 +1,33 @@
+<<silently>>
+    <<set $location = "gym">>
+    <<requireMinEnergy 15 "gym" "Not enough energy.">>
+    <<advanceTime 20 "relax">>
+    <<loseStat "energy" 5>>
+    <<loseStat "stress" 20>>
+    <<gainStat "mood" 8 100>>
+    <<gainSkill "physical" "yoga" 1 50>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "You find a quiet corner of the stretching area and roll out one of the gym's mats. Hip flexors, hamstrings, shoulders – you work through each group slowly. Nothing strenuous, just letting the tension drain out. By the time you're done you feel looser and a little more centered.">>
+        <<case 2>>
+            <<set _sceneText = "The stretching mats are near the window. You set up and move through a quiet sequence – forward fold, pigeon pose, shoulder rolls. The hum of the gym fades into background noise. You hold each stretch a beat longer than usual and feel better for it.">>
+        <<case 3>>
+            <<set _sceneText = "Cool-down stretches at the gym hit differently than at home. The mat, the ambient noise, the sense of others working around you – it all makes the routine feel more purposeful. You leave the mat feeling genuinely unwound.">>
+    <</switch>>
+    <<set _vidNum = random(1, 2)>>
+    <<set _gymVid = "assets/content/scenes/downtown/gym/stretch/gymStretch" + _vidNum + ".mp4">>
+<</silently>>
+
+<<narrative "Stretching Area">>
+<<print _sceneText>>
+<</narrative>>
+
+<<vid _gymVid "100%">>
+
+<div class="location-actions">
+    <<btn "Finish" "gym">><</btn>>
+</div>

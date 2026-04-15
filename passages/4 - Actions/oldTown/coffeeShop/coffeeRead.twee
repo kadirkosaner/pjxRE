@@ -1,0 +1,32 @@
+<<silently>>
+    <<set $location = "shopCoffeeOldtown">>
+    <<requireMinEnergy 10 "shopCoffeeOldtown" "Not enough energy to focus.">>
+    <<advanceTime 60 "relax">>
+    <<loseStat "energy" 5>>
+    <<loseStat "stress" 20>>
+    <<gainStat "mood" 12 100>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+
+    <<set _variation = random(1, 3)>>
+    <<switch _variation>>
+        <<case 1>>
+            <<set _sceneText = "You settle in with your phone and whatever you've been meaning to read. An hour slips past almost unnoticed. The coffee shop keeps its easy rhythm around you. By the time you look up, the light has shifted and you feel genuinely rested.">>
+        <<case 2>>
+            <<set _sceneText = "You pull out your book and order a refill. The barista tops you up without interrupting your page. This is the kind of quiet that's hard to find at home – present and occupied, but somehow also still.">>
+        <<case 3>>
+            <<set _sceneText = "An hour at The Daily Grind with something to read. No one needs anything from you. The words come easy in this setting – something about the ambient noise and the smell of coffee makes concentration feel almost effortless.">>
+    <</switch>>
+    <<set _vidNum = random(1, 2)>>
+    <<set _coffeeVid = "assets/content/scenes/oldtown/coffeeShop/coffeeRead" + _vidNum + ".mp4">>
+<</silently>>
+
+<<narrative "The Daily Grind – Reading">>
+<<print _sceneText>>
+<</narrative>>
+
+<<vid _coffeeVid "100%">>
+
+<div class="location-actions">
+    <<btn "Leave" "shopCoffeeOldtown">><</btn>>
+</div>

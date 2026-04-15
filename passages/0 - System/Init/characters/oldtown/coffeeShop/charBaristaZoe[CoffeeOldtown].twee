@@ -1,0 +1,60 @@
+/* ==========================================
+   BARISTA - The Daily Grind (Old Town)
+   22, cheerful, coffee enthusiast
+========================================= */
+
+<<set setup.characterDefs.coffeeShopBarista = {
+    name: "Zoe Park",
+    firstName: "Zoe",
+    lastName: "Park",
+    birthYear: 2003,
+    gender: "female",
+    occupation: "Barista",
+    location: "The Daily Grind",
+    avatar: "assets/content/people/oldtown/coffeeShop/zoePark.webp",
+    type: "npc",
+    color: "#d97706",
+    info: "<p>Barista at The Daily Grind. Cheerful and quick with a recommendation. Knows her coffee and seems to genuinely enjoy the work.</p>",
+    status: "Barista",
+    relationship: { status: "single" },
+    maxLevels: { love: 1, friendship: 2, lust: 1, trust: 1 },
+    versionCaps: { friendship: 60, love: 0, trust: 30, lust: 0 }
+}>>
+
+<<set $characters.coffeeShopBarista = {
+    stats: {
+        love: 0, loveLevel: 1,
+        friendship: 0, friendshipLevel: 1,
+        lust: 0, lustLevel: 1,
+        trust: 0, trustLevel: 1
+    },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.coffeeShopBarista = {
+    weekday: [
+        { hour: 0,  location: null,                  status: "unavailable" },
+        { hour: 7,  location: "shopCoffeeOldtown",   status: "available" },
+        { hour: 14, location: null,                  status: "unavailable" },
+        { hour: 16, location: "shopCoffeeOldtown",   status: "available" },
+        { hour: 20, location: null,                  status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0,  location: null,                  status: "unavailable" },
+        { hour: 8,  location: "shopCoffeeOldtown",   status: "available" },
+        { hour: 16, location: null,                  status: "unavailable" }
+    ]
+}>>
+
+/* ACTIONS */
+<<set setup.characterActions.coffeeShopBarista = {
+    shopCoffeeOldtown: [
+        {
+            id: "talk", label: "Talk", passage: "zoeTalkCoffeeShop",
+            tags: [], requirements: { flag: "coffeeShopDiscovered" }, dailyLimit: true, minPlayerEnergy: 5
+        }
+    ]
+}>>

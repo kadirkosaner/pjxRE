@@ -1,5 +1,19 @@
 <<nobr>><<set $location = "gym">><</nobr>>
 <<updateCharacterLocations>>
-<<narrative "Iron Works Gym">>A well-equipped fitness center with weights, cardio machines, and training areas.<</narrative>>
+<<narrative "Iron Works Gym">>
+A well-equipped fitness center with cardio machines, free weights, and stretching areas. The place hums with effort – treadmills running, weights clinking, someone working hard on the rowing machine. Clean floors, mirrored walls, and the kind of air conditioning that means business.
+<</narrative>>
+
 <<showLocationChars "gym">>
-<<navMenu>><<navCard "recreationCenter">><</navMenu>>
+<<questPrompts>>
+
+<div class="location-actions">
+    <<set $activityOrigin = "gym">>
+    <<activityButton "Cardio Machines" "gymCardio" "outfit:sporty 3|minStat:energy 30" $daily.gymDone>>
+    <<activityButton "Free Weights" "gymWeights" "outfit:sporty 3|minStat:energy 35" $daily.gymDone>>
+    <<activityButton "Stretch & Cool Down" "gymStretch" "minStat:energy 15" false>>
+</div>
+
+<<navMenu>>
+    <<navCard "recreationCenter">>
+<</navMenu>>

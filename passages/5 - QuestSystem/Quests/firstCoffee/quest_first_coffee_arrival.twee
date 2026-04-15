@@ -1,0 +1,55 @@
+<<silently>>
+    <<set $location = "shopCoffeeOldtown">>
+    <<set $flags.coffeeShopDiscovered = true>>
+    <<advanceQuestStage "first_coffee">>
+
+    /* Introduce Zoe */
+    <<if !$characters.coffeeShopBarista.known>>
+        <<set $characters.coffeeShopBarista.known = true>>
+        <<set $characters.coffeeShopBarista.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
+        <<gainCharacterStat "coffeeShopBarista" "friendship" 3>>
+    <</if>>
+    <<recalculateStats>>
+<</silently>>
+
+<<narrative "The Daily Grind">>
+The door is heavier than you expected. A small bell rings above it as you step in.
+
+The inside is warm and unhurried – wood counter, chalk menu board, mismatched chairs that somehow all work together. A woman behind the bar is pulling an espresso shot, watching the stream with easy, practiced attention. Her hair is pulled back, her apron is coffee-stained in the ways that mean she works hard. She sets the finished cup down for a customer waiting at the end of the bar, then looks up.
+<</narrative>>
+
+<<dialog "coffeeShopBarista">>
+Hey – first time in?
+<</dialog>>
+
+<<dialog "player">>
+That obvious?
+<</dialog>>
+
+<<dialog "coffeeShopBarista">>
+Not in a bad way. I just know the regulars. I'm Zoe.
+<</dialog>>
+
+<<dialog "player">>
+<<print $player.firstName>>. I work down the street – Ruby's Diner.
+<</dialog>>
+
+<<dialog "coffeeShopBarista">>
+The diner? Good people over there. You get a real Friday rush, I always wonder how that kitchen handles it.
+<</dialog>>
+
+<<dialog "player">>
+Barely.
+<</dialog>>
+
+<<dialog "coffeeShopBarista">>
+Ha. Well you're off the clock now. What can I get you?
+<</dialog>>
+
+<<narrative>>
+She gestures at the chalkboard menu. The chalk lettering is neat and legible. Everything on it looks like something you'd actually want.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Look at the menu" "shopCoffeeOldtown">><</btn>>
+</div>

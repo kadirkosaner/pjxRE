@@ -1,0 +1,24 @@
+<<silently>>
+    <<set $location = "gym">>
+    <<set $flags.gymFirstVisit = true>>
+    <<advanceQuestStage "staying_strong">>
+    <<recalculateStats>>
+<</silently>>
+
+<<narrative "Iron Works Gym">>
+You push through the glass door and step inside.
+
+The smell hits first – clean rubber mats, metal, and cool air conditioning. It's bigger than it looks from the street. Three rows of cardio machines face the floor-to-ceiling windows. Beyond them, a free weights area with mirrors along the wall. Stretching mats line the far side. A whiteboard near the entrance lists the week's classes in careful marker: Spin. Circuit. Yoga. Boxing Fundamentals.
+
+You walk the floor slowly. A woman works the cable machine without looking up. Two guys trade sets at the bench press, talking quietly between reps. The trainer behind the desk gives you a brief, unhurried nod.
+
+//Take your time.//
+
+You do. You walk the whole floor, take in the equipment, run a hand along the edge of a treadmill you're not yet using. By the time you head back toward the exit, you haven't done anything except look.
+
+But looking was enough. You know what's here now.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Step Back Out" "gym">><</btn>>
+</div>

@@ -1,0 +1,91 @@
+<<silently>>
+    <<set $location = "shopCoffeeOldtown">>
+    <<logDailyActivity "coffeeShopBarista" "talk">>
+    <<updateCharacterLocations>>
+    <<advanceTime 15>>
+    <<loseStat "energy" 5>>
+
+    <<set _coffFriendship = $characters.coffeeShopBarista.stats.friendship>>
+    <<if _coffFriendship < 30>>
+        <<set _friendshipGain = random(1, 2)>>
+        <<set $characters.coffeeShopBarista.stats.friendship = Math.min(30, _coffFriendship + _friendshipGain)>>
+        <<set _actualGain = $characters.coffeeShopBarista.stats.friendship - _coffFriendship>>
+        <<if _actualGain > 0>>
+            <<run window.notifySuccess("Zoe Friendship +" + _actualGain)>>
+        <</if>>
+    <</if>>
+
+    <<recalculateStats>>
+    <<set _coffFriendship = $characters.coffeeShopBarista.stats.friendship>>
+    <<set _variation = random(1, 3)>>
+<</silently>>
+
+<<narrative "The Daily Grind">>
+Zoe's behind the counter when she looks up and nods.
+<</narrative>>
+
+<<if _coffFriendship < 15>>
+
+<<dialog "coffeeShopBarista">>
+Back again? That's always a good sign.
+<</dialog>>
+
+<<dialog "player">>
+Hard not to come back when it's this good.
+<</dialog>>
+
+<<dialog "coffeeShopBarista">>
+That's what I like to hear. Same as usual, or trying something different?
+<</dialog>>
+
+<<dialog "player">>
+<<if _variation is 1>>
+What do you recommend today?
+<<elseif _variation is 2>>
+The flat white worked last time.
+<<else>>
+Surprise me.
+<</if>>
+<</dialog>>
+
+<<dialog "coffeeShopBarista">>
+<<if _variation is 1>>
+The honey oat latte's been popular this week. Not too sweet, good texture. Worth a try.
+<<elseif _variation is 2>>
+Solid choice. Coming right up.
+<<else>>
+Bold call. Give me two minutes – I'll do something fun.
+<</if>>
+<</dialog>>
+
+<<else>>
+
+<<dialog "coffeeShopBarista">>
+Hey! Thought I'd see you today. The usual?
+<</dialog>>
+
+<<dialog "player">>
+<<if _variation is 1>>
+You already know my order. That's either impressive or a little concerning.
+<<elseif _variation is 2>>
+Please. And one of those pastries if there are any left.
+<<else>>
+Actually, let's try something different. Your call.
+<</if>>
+<</dialog>>
+
+<<dialog "coffeeShopBarista">>
+<<if _variation is 1>>
+Good memory is part of the job. Doesn't hurt that you're a regular now.
+<<elseif _variation is 2>>
+Last almond croissant has your name on it.
+<<else>>
+Now we're talking. Give me a minute.
+<</if>>
+<</dialog>>
+
+<</if>>
+
+<div class="btn-center">
+    <<btn "Continue" "shopCoffeeOldtown">><</btn>>
+</div>
