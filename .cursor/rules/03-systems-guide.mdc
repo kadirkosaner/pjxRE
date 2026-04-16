@@ -1,0 +1,203 @@
+---
+description: Core game systems — time, stats, quests, wardrobe, phone, relationships. How they work and interconnect.
+alwaysApply: false
+---
+
+# Game Systems Guide
+
+Canonical sources: `docs/GAME_SYSTEM_MAP.md`, `docs/player-systems-guide.md`, `1Developer/AktiviteOzeti.md`. This file is a **quick reference** for agents.
+
+---
+
+## 1. Time System
+
+**Owner:** `passages/0 - System/Widgets/TimeWidgets.twee` + `variablesTime.twee`
+
+**Variable:** `$timeSys` = `{ year, month, day, hour, minute, period }`
+- `period`: `"morning" | "afternoon" | "evening" | "night"` (derived)
+
+**Advance time:**
+```twee
+<<advanceTime N>>            /* N minutes */
+```
+Side effects: updates character locations (`<<updateCharacterLocations>>`), decays needs/skills/relationships, triggers schedule events.
+
+**Read current time:** `$timeSys.hour`, `$timeSys.period`, `$timeSys.day`
+
+---
+
+## 2. Stats System
+
+**Owner:** `StatCalculator.twee` (derivation), `StatNotifications.twee` (toasts), `variablesBase.twee` (storage)
+
+**Main stats:** (stored on `$character` or dedicated `$stats`)
+- `confidence`, `charisma`, `intelligence`, `strength`, `endurance`
+- `attractiveness` (derived from body + wardrobe)
+- `corruption` (quest-gated)
+
+**Derived/bounded:** `energy`, `health`, `mood`, `hunger`, `thirst`, `bladder`, `hygiene`
+
+**Modify stats:**
+```twee
+<<gainStat "confidence" 5>>
+<<loseStat "energy" 10>>
+```
+These show notifications and clamp to valid ranges.
+
+**Derivations:** `StatCalculator.twee` recomputes on passage render via `<<updateDerivedStats>>`.
+
+---
+
+## 3. Needs System
+
+**Owner:** `NeedsSystem.twee`
+
+Hunger/thirst/bladder/hygiene decay per `<<advanceTime>>`. When a need crosses threshold, mood/energy drops. Activities restore them:
+- Eat restaurant/food → hunger
+- Drink → thirst
+- Bathroom (`parkWC`, home bathroom) → bladder
+- Shower → hygiene
+
+---
+
+## 4. Quest System V2
+
+**Owner:** `passages/5 - QuestSystem/`
+
+**Key objects:**
+- `setup.quests[questId]` — static definition (title, stages, requirements, onComplete)
+- `$activeQuests` — currently active quest IDs
+- `$questState[questId]` — per-quest runtime state (current stage, objectives done, flags)
+- `$completedQuests` — finished quest IDs
+
+**Quest schema** (see `QuestDatabase_Base.twee` comment block):
+```
+stages: [{
+  id, title, desc,
+  triggers: { location, time, character, flag },
+  forceScene: bool, passage: "target",
+  objectives: [{ id, text, trigger }],
+  completeWhen: "allObjectives" | "anyObjective"
+}]
+```
+
+**Widgets:** `<<questPrompts>>`, `<<advanceQuestStage>>`, `<<completeQuest>>`, `<<setQuestFlag>>`
+
+**Current quest chain:** First Shopping → Find Job → Check Old Town → (more queued). Full list in `1Developer/ozetler/Quest-Pasaj-Stat-Zaman-Ozeti.md`.
+
+---
+
+## 5. Character / Relationship System
+
+**Owner:** `CharacterWidgets.twee`, per-character init in `Init/characters/`
+
+**Variable:** `$characters[charId]` = `{ name, currentLocation, currentStatus, schedule, appearance, ... }`
+- `currentStatus`: `"available" | "sleeping" | "showering" | "working" | "busy"`
+
+**Relationships:** `$relationships[charId]` = `{ love, friendship, respect, lust, trust, ... }`
+
+**Update location:** `<<updateCharacterLocations>>` runs schedule for current time.
+
+**Decay:** `RelationshipDecay.twee` runs daily.
+
+---
+
+## 6. Wardrobe System
+
+**Owner:** `wardrobeWidget.twee`, `0 - System/WardrobeSys/`
+
+**Variable:** `$wardrobe.equipped` = slot-keyed item IDs (top, bottom, panties, bra, shoes, etc.)
+
+**Checks:**
+- `exposureLevel` — derived 0-100, drives corruption gates
+- `durability`, `dirt` — per-item, tracked across days
+
+**Widgets:** `<<equipOutfit>>`, `<<wardrobeCheckExposure>>`, `<<changeIntoPajamas>>`
+
+**Modal UI:** `assets/system/js/modal/character.js` → Outfit tab
+
+---
+
+## 7. Phone System
+
+**Owner:** `passages/0 - System/Widgets/PhoneWidgets.twee` + `assets/system/js/ui/phone/`
+
+**State:** `$phoneConversations`, `$phoneContactsUnlocked`, `$phoneCallsLog`, `$phoneAppointments`, `$phoneFotogramDMs`
+
+**Apps:** Messages, Contacts, Calendar, Fotogram (social), Finder (dating), Camera, Gallery
+
+**Widgets:**
+- `<<phoneSendMessage charId text>>`
+- `<<phoneStartConversation charId firstMsg>>`
+- `<<phoneWhereAreYou charId>>` (auto-reply based on schedule)
+- `<<phoneCreateAppointment charId location hour>>`
+- `<<phoneUnlockContact charId>>`
+
+**JS:** `window.PhoneAPI` (set in `phone/index.js`), `window.phoneViewState` (mutable sub-app state)
+
+---
+
+## 8. Job System
+
+**Owner:** `JobWidgets.twee`, `JobDatabase.twee`, `passages/7 - Work/`
+
+**Variable:** `$jobs[jobId]` = `{ tier, shifts, earnings, experience }`
+
+**Flow:** Apply → first shift → promote tiers → earn wage + experience. Stats decay during shift (energy -, confidence +).
+
+**Definitions:** See `1Developer/CheatSheets/JobSystemDesign.md` for tier structure.
+
+---
+
+## 9. Map / Navigation
+
+**Owner:** `assets/system/js/ui/map.js`, `variablesMap.twee`, `setup.navCards`
+
+**Discovery:** `$discovered[locationId]` — location visible on map only after discovery flag set.
+
+**Fast travel:** `passages/8 - Others/fastTravelTaxi.twee` (costs money + time).
+
+---
+
+## 10. Save / Load
+
+**Owner:** `assets/system/js/modal/saveload.js`, SugarCube built-in `Save` API
+
+**Auto-save:** slot 0, on `:passageend` event.
+
+**Migration:** `0 - System/Migrations/` — runs on load if `$saveVersion` < current.
+
+---
+
+## System Interconnections (Quick Graph)
+
+```
+<<advanceTime>>
+  ├─► updateCharacterLocations (CharacterWidgets)
+  ├─► decay needs       (NeedsSystem)
+  ├─► decay skills      (SkillDecay)
+  ├─► decay relations   (RelationshipDecay)
+  ├─► trigger schedule events
+  └─► ambient events    (HubAmbientWidgets)
+
+:passagerender (JS event)
+  ├─► location.js      → background image
+  ├─► layout.js        → wrap content
+  ├─► topbar.js        → refresh badges
+  ├─► rightbar.js      → refresh stats
+  └─► StatCalculator   → derived stats
+
+Quest stage trigger
+  ├─► requirements check (location, time, character, flags)
+  ├─► forceScene → <<goto>>
+  ├─► objectives tracked
+  └─► onComplete → stats/money/flags/nextQuest
+```
+
+---
+
+## Known Gaps
+
+- **Level 3 (sexual) dialogues** not yet written; `<<sexScene>>` exists but no triggers.
+- **Red Light District, University District, Marina Bay, Hillcrest** mostly empty location hubs.
+- **Shower/arousal encounters** stubbed (see `DIANA_DEBUG_PASSAGES`, `SHOWER_DEBUG_PASSAGES` arrays in `debug.js`).

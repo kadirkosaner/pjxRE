@@ -1,0 +1,163 @@
+---
+description: SugarCube 2 syntax, macro rules, variable scoping. Apply to all .twee and .tw files.
+globs:
+  - "**/*.twee"
+  - "**/*.tw"
+alwaysApply: false
+---
+
+# SugarCube 2 Conventions
+
+## Variable Scopes
+
+| Prefix | Type | Persistence | Example |
+|--------|------|-------------|---------|
+| `$foo` | Story variable | Saved, survives passages | `$playerName`, `$money` |
+| `_foo` | Temporary variable | Passage-local, reset each passage | `_charId`, `_count` |
+| `setup.foo` | Static data | Defined once, NOT saved | `setup.quests`, `setup.items` |
+| `State.variables.foo` | JS access to `$foo` | Same as `$` | From inside `<<script>>` or JS files |
+| `State.temporary.foo` | JS access to `_foo` | Same as `_` | From inside `<<script>>` |
+
+**Rule:** Never mutate `setup.*` at runtime per save — it's shared across saves. Use `$` for save-bound state.
+
+## Macro Closing Tags — CRITICAL
+
+SugarCube 2 uses `<</macroName>>` for closing. **Do NOT use** SugarCube 1 style `<<endmacro>>`.
+
+```twee
+<<script>>...<</script>>      ✅ correct
+<<endscript>>                  ❌ WRONG — will error
+<<if>>...<</if>>               ✅
+<<for>>...<</for>>             ✅
+<<widget>>...<</widget>>       ✅
+<<nobr>>...<</nobr>>           ✅
+<<silently>>...<</silently>>   ✅
+<<link>>...<</link>>           ✅
+<<button>>...<</button>>       ✅
+<<switch>><<case>><</switch>>  ✅
+```
+
+## `<<nobr>>` Inside Widgets — Common Pitfall
+
+Widget definitions often start with `<<widget "x">><<nobr>>`. You **must** close both:
+
+```twee
+<<widget "foo">><<nobr>>
+    <<set _x = $args[0]>>
+    ...
+<</nobr>><</widget>>     ✅ both closed
+
+<<widget "foo">><<nobr>>
+    ...
+<</widget>>              ❌ <<nobr>> leaks to next widget/passage
+```
+
+## Core Macros
+
+### Flow Control
+
+```twee
+<<if _cond>>...<<elseif _other>>...<<else>>...<</if>>
+<<switch $state>><<case "a">>...<<case "b">>...<<default>>...<</switch>>
+<<for _i to 0; _i lt 5; _i++>>...<</for>>
+<<for _item range $array>>...<</for>>
+```
+
+### State
+
+```twee
+<<set $x = 5>>
+<<set _y to "hello">>             /* "to" and "=" both valid */
+<<set $arr.push(item)>>           /* mutating calls work inline */
+<<run someJsFunction(arg)>>       /* pure JS, no output */
+<<unset $x>>
+```
+
+### Output
+
+```twee
+<<= $expression>>                 /* raw HTML */
+<<- $expression>>                 /* escaped */
+$variable                         /* shortcut for <<= $variable>> */
+```
+
+### Navigation
+
+```twee
+<<goto "passageName">>            /* immediate redirect */
+<<include "passageName">>         /* render passage inline */
+<<link "Go">><<goto "next">><</link>>
+<<link "Run">><<run doThing()>><</link>>
+<<button "Save">><<run Save.autosave.save()>><</button>>
+```
+
+### Script
+
+```twee
+<<script>>
+    setup.foo = {};
+    State.variables.playerName = "Lily";
+<</script>>
+```
+
+## Widget Definition
+
+Widgets are reusable macros defined in passages tagged `widget`.
+
+```twee
+:: MyWidgets [widget]
+
+<<widget "myWidget">><<nobr>>
+    <<set _arg1 = $args[0]>>
+    <<set _arg2 = $args[1] || "default">>
+    ...
+<</nobr>><</widget>>
+```
+
+Call from any passage: `<<myWidget "value" 42>>`
+
+Arguments appear in `$args` array inside the widget.
+
+## JS Macro Registration (from `.js` files)
+
+```javascript
+Macro.add('myMacro', {
+  tags: null,                    // or ['subMacro'] for block macros
+  handler() {
+    const $args = this.args;
+    const payload = $args[0];
+    $(this.output).wiki(payload); // render SugarCube markup
+    // OR: this.output.textContent = 'plain';
+    // this.error('message')  for errors
+  }
+});
+```
+
+## Event Hooks
+
+```javascript
+$(document).on(':passagestart', function (ev) { ... });
+$(document).on(':passagerender', function (ev) { ... });
+$(document).on(':passageend', function (ev) { ... });
+$(document).on(':storyready', function () { ... });
+```
+
+## Common Mistakes Agents Make
+
+1. **`<<endscript>>`** — doesn't exist in SugarCube 2, use `<</script>>`
+2. **Forgetting `<</nobr>>`** in widgets — layouts break silently
+3. **Using `$` inside `<<script>>`** — should be `State.variables.foo`
+4. **Mutating `setup.*` per save** — use `$` for save-scoped state
+5. **Passage name with spaces/hyphens** — avoid; camelCase preferred
+6. **Circular `<<include>>`** — causes infinite recursion
+7. **Missing `<<set>>`** — writing `$x = 5` alone doesn't work; needs `<<set $x = 5>>`
+
+## Passage Tags Used in This Project
+
+| Tag | Meaning |
+|-----|---------|
+| `widget` | Contains widget definitions (loaded early) |
+| `init` | Runs at game start (via `StoryInit` or manual) |
+| `nobr` | Auto-applies `<<nobr>>` to entire passage |
+| `bookmark` | Appears in bookmark menu |
+| `no-history` | Doesn't appear in back/history |

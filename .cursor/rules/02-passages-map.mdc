@@ -1,0 +1,146 @@
+---
+description: passages/ folder structure, naming conventions, entry points, and where to add new content.
+globs:
+  - "passages/**"
+alwaysApply: false
+---
+
+# Passages — Structure & Naming
+
+## Folder Purposes
+
+```
+passages/
+├── 0 - System/          Foundation: init, widgets, migrations — loaded early
+├── 1 - Prologue/        Linear intro, 19 passages, ends when player reaches home
+├── 2 - Locations/       9 districts, each with many sub-locations (hub passages)
+├── 3- Interactions/     Character dialogue trees (talks, relationships)
+├── 4 - Actions/         Per-location action widgets (shower, yoga, TV, etc.)
+├── 5 - QuestSystem/     Quest DB + state machine + per-quest content
+├── 6 - Scripts/         Twee-embedded JS helpers (rare)
+├── 7 - Work/            Job shift logic (currently only RubysDiner)
+└── 8 - Others/          Misc (fastTravelTaxi, etc.)
+```
+
+## `0 - System/` Breakdown
+
+```
+0 - System/
+├── Init/                  Runs first, sets up $ variables and setup.* data
+│   ├── variablesBase.twee       Core globals — read this for full var list
+│   ├── variables{Time,People,Discovery,Image,Settings,...}.twee
+│   ├── characters/              Per-character init (charPlayer + per-district NPCs)
+│   ├── phone/                   Phone data (fotogram, topics, gallery)
+│   ├── ItemDatabase.twee        setup.items
+│   ├── JobDatabase.twee         setup.jobs (ruby_dishwasher, etc.)
+│   ├── ReadingDatabase.twee     setup.books
+│   ├── RestaurantDatabase.twee  setup.restaurants
+│   └── SaveVersion.twee         Save migration version tag
+│
+├── Widgets/               Macro definitions — see 04-widgets-reference.mdc
+├── Migrations/            Save data migration widgets
+├── WardrobeSys/           Outfit mechanics (equip, durability)
+└── storyJavaScript.js     Loader — reads SystemModules/SystemCSS from config.js
+```
+
+## `2 - Locations/` Districts
+
+```
+downTown/         maplewood/        (family home district)
+hillcrest/        marinaBay/
+oldTown/          redLightCenter/   (locked early-game)
+southside/        suburbs/
+universityDistrict/
+```
+
+Each district has a hub passage (e.g. `maplewood`, `oldTown`) that routes to sub-locations.
+
+## `5 - QuestSystem/` Structure
+
+```
+System/
+├── QuestDatabase_Base.twee    Empty init: setup.quests = {}
+├── QuestDatabase_Main.twee    ALL quest definitions (huge object)
+├── QuestItems.twee            Quest-specific items
+├── QuestState.twee            State helpers
+└── QuestWidgets.twee          <<questPrompts>>, <<advanceStage>>, etc.
+
+Quests/
+├── findJob/
+├── gotoOldtown/
+├── movingTroubles/
+├── newBeginnings/
+├── useComputer/
+└── vinceDay3/
+```
+
+See quest schema in `QuestDatabase_Base.twee` top comment (structure reference).
+
+## Entry Point Flow
+
+```
+welcomePage                    (1 - Prologue/2 - GameStart.twee)
+  ↓ age gate
+settingsPage                   (3 - settingsPage.twee)
+  ↓ character creation
+confirmationPage               (4 - confirmationPage.twee)
+  ↓
+prologuePage                   (5 - prologuePage.twee)
+  ↓
+earlyYears → childhoodYears → formativeYears → adolescentYears
+  ↓
+comingofAge → newhomeEnter → newHome → prologueBedroom
+  ↓ (free play begins)
+maplewood (home district hub)
+```
+
+Shortcut: `skipPrologue.twee` jumps past intro for testing.
+
+## Passage Naming Patterns
+
+| Type | Pattern | Example |
+|------|---------|---------|
+| Location hub | `{district}` or `{district}{Building}` | `maplewood`, `dinerRubys` |
+| Sub-location | `{location}{Room}` | `dinerRubysKitchen`, `fhBedroom` (fh = family home) |
+| Action | `{location}_{action}` OR inside action widget | `parkWC`, `bedroomYoga` |
+| Character talk | `{character}Talk{Location}` | `brotherTalkBackyard` |
+| Encounter | `{event}Encounter_{Char}` | `showerEncounter_Brother` |
+| Quest passage | `quest_{questId}_{stage}` | `quest_findJob_apply` |
+| Work shift | `{job}Shift{Variant}` | `rubysShiftMorning` |
+| System/UI | camelCase, descriptive | `welcomePage`, `settingsPage` |
+
+## File Header Convention
+
+Each `.twee` file starts with one or more passage headers:
+
+```twee
+:: PassageName [tag1 tag2]
+content here...
+
+:: AnotherPassage
+more content...
+```
+
+Tags go in square brackets. Multiple tags space-separated.
+
+## Where to Add New Content
+
+| Task | Location |
+|------|----------|
+| New NPC | `0 - System/Init/characters/{district}/char{Name}.twee` + interaction folder |
+| New location | `2 - Locations/{district}/{locationName}.twee` |
+| New action at location | `4 - Actions/{district}/{location}/{action}.twee` |
+| New quest | `5 - QuestSystem/Quests/{questId}/` + add to `QuestDatabase_Main.twee` |
+| New dialogue | `3- Interactions/{Area}/` with `Talk{Level}` convention |
+| New widget | `0 - System/Widgets/{Purpose}Widgets.twee` |
+| New global var | `0 - System/Init/variables{Group}.twee` |
+
+## Hotspot Files (High Complexity — Edit with Care)
+
+- `0 - System/Widgets/PhoneWidgets.twee` — 19 widgets, has known `<</nobr>>` bugs
+- `0 - System/Widgets/wardrobeWidget.twee` — 82 if-branches
+- `0 - System/Widgets/StatCalculator.twee` — 58 if-branches
+- `0 - System/Widgets/TimeWidgets.twee` — 63 if-branches, owns schedule logic
+- `5 - QuestSystem/System/QuestDatabase_Main.twee` — all quest data, easy to break
+
+When editing these, read the widget fully first, then change.

@@ -1,0 +1,136 @@
+---
+description: JS modules under assets/system/js/ — load order, global APIs, purpose per file.
+globs:
+  - "assets/system/js/**"
+alwaysApply: false
+---
+
+# JS Modules Reference
+
+41 JS files under `assets/system/js/`, loaded via `assets/system/config.js` → `passages/0 - System/storyJavaScript.js`.
+
+## Load Order (defined in `config.js`)
+
+```
+utils  →  ui  →  modal  →  system
+```
+
+Each group loaded sequentially; within a group, array order matters.
+
+## File Catalog
+
+### `utils/` — Base helpers (load first)
+
+| File | Global API | Purpose |
+|------|-----------|---------|
+| `jobSchedule.js` | `window.jobSchedule` | Off-days / work-days lookup for topbar + calendar |
+| `modal.js` | `window.Modal`, `window.ModalTabSystem` | Create/manage modal overlays with tabs |
+| `tooltip.js` | `$.fn.initTooltips` | Attach tooltips to info icons |
+| `notification.js` | `window.notify` | Toast notifications |
+| `accordion.js` | `window.initAccordion` | Collapsible section binder |
+
+### `ui/` — Render-driven components
+
+| File | Global API | Purpose |
+|------|-----------|---------|
+| `layout.js` | — | Wrap passage content into `.page-wrapper`, attach `:passagerender` hooks |
+| `topbar.js` | — | Time/notifications/character-link navbar |
+| `rightbar.js` | — | Profile/stats/phone/map preview sidebar |
+| `mainmenu.js` | — | Sliding panel (Save, Settings, Help, etc.) |
+| `map.js` | `window.MapAPI` | Interactive map overlay; location hierarchy |
+| `startscreen.js` | — | Age gate, welcome screen |
+| `debug.js` | `window.DebugPanel` | Dev floating panel; `DIANA_DEBUG_PASSAGES`, `SHOWER_DEBUG_PASSAGES` arrays |
+| `dropdown.js` | `Macro.add('uiDropdown')` | Custom `<<uiDropdown>>` macro for settings |
+| `toggle.js` | `Macro.add('uiToggle')` | Custom `<<uiToggle>>` macro for settings |
+
+#### `ui/phone/` — Phone OS subsystem (15 files)
+
+| File | Purpose |
+|------|---------|
+| `index.js` | **Entry point** — overlay open/close, app router, `window.PhoneAPI`, `window.phoneViewState`. ⚠️ `DEBUG_PHONE_SWAP` defaults `true` (audit issue #8) |
+| `config.js` | Phone UI constants |
+| `utils.js` | Formatting helpers |
+| `shared-contacts.js` | Contact list widget |
+| `shared-meetup.js` | Meetup picker |
+| `shared-topics.js` | Conversation topic picker |
+| `phone-messages.js` | Messages app |
+| `phone-contacts.js` | Contacts app |
+| `phone-calendar.js` | Calendar / appointments |
+| `phone-fotogram.js` | Fotogram (Instagram-like) feed |
+| `phone-fotogram-dm.js` | Fotogram DM threads |
+| `phone-finder.js` | Finder (dating) app |
+| `topic-system.js` | Topic-based chat engine |
+| `phone-camera.js` | Selfie camera app |
+| `phone-gallery.js` | Photo gallery with folders |
+
+### `modal/` — Modal dialogs
+
+| File | Global API | Purpose |
+|------|-----------|---------|
+| `saveload.js` | `window.SaveLoadAPI`, `window.openCustomSaveLoad` | Custom save/load slots (auto-save on slot 0) |
+| `settings.js` | `window.SettingsModal` | Tabbed settings |
+| `stats.js` | `window.StatsInit`, `window.StatsSystem` | Stats accordion modal |
+| `relations.js` | `window.RelationsInit`, `window.RelationsSystem` | Character relations grid + detail |
+| `character.js` | `window.CharacterInit`, `window.CharacterSystem` | Character detail: appearance, outfit, inventory (⚠️ hotspot — see audit #4, #5) |
+| `journal.js` | `window.JournalInit`, `window.JournalSystem` | Quests/records/milestones/reputation |
+| `help.js` | `window.HelpSystem` | Help sidebar (1200+ lines) |
+
+### `system/` — Game logic
+
+| File | Global API | Purpose |
+|------|-----------|---------|
+| `location.js` | — | Dynamic `<style id="dynamic-location-bg">` injection for location backgrounds |
+| `reading.js` | — | Book/magazine reading session with `$readProgress`, `$readFinished` |
+| `restaurant.js` | — | Menu/cart/payment flow |
+| `shopping.js` | — | Wardrobe shopping cart/checkout |
+| `wardrobe.js` | `Macro.add('wardrobe')` | Outfit equipping, durability/dirt tracking |
+
+## Custom Macros Registered From JS
+
+| Macro | File |
+|-------|------|
+| `<<uiDropdown>>` | `ui/dropdown.js` |
+| `<<uiToggle>>` | `ui/toggle.js` |
+| `<<wardrobe>>` | `system/wardrobe.js` |
+
+## Event Hooks Attached (cross-module)
+
+| Event | Handlers |
+|-------|----------|
+| `:passagestart` | `location.js` (clear bg), `layout.js` |
+| `:passagerender` | `layout.js` (wrap), `location.js` (inject bg), `topbar.js`, `rightbar.js` |
+| `:passageend` | `saveload.js` (auto-save to slot 0) |
+| `:storyready` | Module init hooks |
+
+## Global Namespace Inventory
+
+```
+window.Modal / ModalTabSystem              (utils/modal.js)
+window.notify                              (utils/notification.js)
+window.jobSchedule                         (utils/jobSchedule.js)
+window.PhoneAPI / phoneViewState           (ui/phone/index.js)
+window.DEBUG_PHONE_SWAP                    (ui/phone/index.js — should be false in prod)
+window.MapAPI                              (ui/map.js)
+window.DebugPanel                          (ui/debug.js)
+window.SaveLoadAPI / openCustomSaveLoad    (modal/saveload.js)
+window.SettingsModal                       (modal/settings.js)
+window.StatsInit / StatsSystem             (modal/stats.js)
+window.RelationsInit / RelationsSystem     (modal/relations.js)
+window.CharacterInit / CharacterSystem     (modal/character.js)
+window.JournalInit / JournalSystem         (modal/journal.js)
+window.HelpSystem                          (modal/help.js)
+window.updatePhoneBadges                   (referenced by PhoneWidgets)
+window.DIANA_DEBUG_PASSAGES / SHOWER_DEBUG_PASSAGES  (ui/debug.js)
+```
+
+## CSS Modules
+
+Loaded in `config.js` order: `base → layout → ui → screens → systems → utils`. See file itself for the full list. `base/variables.css` defines the `:root` custom properties used everywhere else.
+
+## When Adding a New JS Module
+
+1. Drop file into appropriate category folder (`utils/`, `ui/`, `modal/`, or `system/`)
+2. Register in `assets/system/config.js` `window.SystemModules.{category}` array — **order matters** within the array
+3. If it registers a macro, use `Macro.add()` with proper `handler()` + `this.error()` for failures
+4. If it mutates game state, prefer `State.variables.foo = x` over direct `$.foo` from JS
+5. Attach event listeners to `$(document)` inside the module file, wrapped in DOMContentLoaded-equivalent check if needed

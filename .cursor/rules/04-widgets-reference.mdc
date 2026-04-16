@@ -1,0 +1,160 @@
+---
+description: Custom widget (macro) API reference — signatures, arguments, examples. Use when calling or defining widgets.
+globs:
+  - "passages/**"
+alwaysApply: false
+---
+
+# Custom Widgets — Quick Reference
+
+All widgets defined under `passages/0 - System/Widgets/`. Listed by domain. Call from any passage: `<<widgetName arg1 arg2>>`.
+
+## Time (`TimeWidgets.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<advanceTime>>` | `minutes: Number` | Advance clock, run all decay/schedule hooks |
+| `<<updateCharacterLocations>>` | (no args) | Recompute `$characters[].currentLocation` from schedule |
+| `<<getPeriod>>` | (no args) | Return "morning"/"afternoon"/"evening"/"night" for current time |
+
+## Stats (`StatCalculator.twee`, `StatNotifications.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<gainStat>>` | `statName: String, amount: Number` | +stat, clamp, toast notification |
+| `<<loseStat>>` | `statName: String, amount: Number` | −stat, clamp, toast |
+| `<<updateDerivedStats>>` | (no args) | Recompute attractiveness, mood, etc. |
+
+## Money (`MoneyWidgets.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<gainMoney>>` | `amount: Number, source?: String` | Add to `$money`, log source |
+| `<<spendMoney>>` | `amount: Number, reason?: String` | Deduct (fails silently if insufficient — check `$money >= x` first) |
+
+## Quest (`QuestWidgets.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<questPrompts>>` | (no args) | Render active-quest call-to-action list |
+| `<<startQuest>>` | `questId: String` | Add to `$activeQuests`, init state |
+| `<<advanceQuestStage>>` | `questId: String` | Next stage |
+| `<<completeQuest>>` | `questId: String` | Run `onComplete`, move to `$completedQuests` |
+| `<<setQuestFlag>>` | `questId: String, flagName: String` | Set flag, re-check objectives |
+| `<<questObjectiveDone>>` | `questId: String, objId: String` | Mark single objective done |
+
+## Character (`CharacterWidgets.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<charSchedule>>` | `charId: String` | Return current scheduled location/status |
+| `<<charRelation>>` | `charId: String, stat: String, delta: Number` | Modify one relationship stat |
+| `<<charAvailable>>` | `charId: String` | Boolean — are they here and not busy |
+
+## Phone (`PhoneWidgets.twee`)
+
+⚠️ Multiple widgets in this file have **unclosed `<<nobr>>`** — see `docs/audit/00-ozet.md` #2.
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<phoneSendMessage>>` | `charId: String, text: String` | Player-sent message |
+| `<<phoneReceiveMessage>>` | `charId: String, text: String` | NPC-sent message |
+| `<<phoneStartConversation>>` | `charId: String, firstMsg?: String` | Init thread |
+| `<<phoneMarkConversationRead>>` | `charId: String` | Clear unread badges |
+| `<<phoneUnlockContact>>` | `charId: String` | Add to contacts list |
+| `<<phoneEnsureTopics>>` | (no args) | Init `setup.phoneMessageTopics` if empty |
+| `<<phoneWhereAreYou>>` | `charId: String` | Auto-reply based on NPC schedule |
+| `<<phoneCallLog>>` | `charId: String, direction: "in"\|"out"` | Log call entry |
+| `<<phoneCreateAppointment>>` | `charId: String, location: String, hour: Number` | Schedule meetup |
+| `<<phoneCancelAppointment>>` | `apptId: String` | Remove from calendar |
+| `<<completeMeetupAppointment>>` | `apptId: String` | Mark done, apply effects |
+
+## Activity (`ActivityWidgets.twee`, `ActivityButtonWidget.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<activityButton>>` | `label, minutes, statEffects, passage?` | Render clickable action with cost/reward preview |
+| `<<doActivity>>` | `activityId` | Execute time advance + stat changes |
+
+## Wardrobe (`wardrobeWidget.twee`, `ClothingCheckWidgets.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<equipOutfit>>` | `outfitId: String` | Equip preset outfit |
+| `<<equipItem>>` | `slot: String, itemId: String` | Equip single piece |
+| `<<wardrobeCheckExposure>>` | (no args) | Recompute `$exposureLevel` |
+| `<<clothingCheck>>` | `slot: String` | Return equipped item in slot |
+| `<<changeIntoPajamas>>` | (no args) | Swap to sleep outfit |
+
+## Needs (`NeedsSystem.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<restoreNeed>>` | `needName: String, amount: Number` | +hunger/thirst/hygiene/bladder |
+| `<<needsTick>>` | `minutes: Number` | Decay (called by `<<advanceTime>>`) |
+
+## Reading (`ReadWidgets.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<startReading>>` | `bookId: String` | Begin reading session |
+| `<<continueReading>>` | (no args) | Resume based on `$readProgress` |
+
+## Mirror (`MirrorWidgets.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<mirrorPrompt>>` | (no args) | Show appearance inspection UI |
+
+## Computer (`ComputerWidget.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<computerMenu>>` | (no args) | Main PC interface (web browser, email, etc.) |
+
+## Sexual (`SexualWidgets.twee`)
+
+⚠️ Triggering content (Level 3) not yet written — see `03-systems-guide.mdc` Known Gaps.
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<sexScene>>` | `sceneId: String` | Initialize scene state |
+| `<<sexAct>>` | `actType: String, charId: String` | Per-act handler |
+
+## Shop (`ShopWidgets.twee`, `RestaurantWidgets.twee`)
+
+| Widget | Signature | Purpose |
+|--------|-----------|---------|
+| `<<shopCart>>` | (no args) | Render current cart |
+| `<<shopCheckout>>` | (no args) | Process payment, add to inventory |
+| `<<restaurantMenu>>` | `restaurantId: String` | Render order UI |
+
+## Ambient / System
+
+| Widget | From | Purpose |
+|--------|------|---------|
+| `<<hubAmbient>>` | `HubAmbientWidgets.twee` | Background events at hubs |
+| `<<charGenerate>>` | `CharGenerateWidget.twee` | Random NPC generator (procedural) |
+| `<<reputationUpdate>>` | `ReputationWidgets.twee` | Modify district reputation |
+
+## Defining a New Widget — Template
+
+```twee
+:: MyNewWidgets [widget]
+
+<<widget "myAction">><<nobr>>
+    <<set _arg1 = $args[0]>>
+    <<set _amount = $args[1] || 1>>
+
+    /* validation */
+    <<if !_arg1>><<return>><</if>>
+
+    /* logic */
+    <<set $someVar += _amount>>
+
+    /* side effects (notifications, events) */
+    <<gainStat "confidence" 1>>
+<</nobr>><</widget>>    /* ← ALWAYS close both */
+```
+
+Widget files must contain `[widget]` in the passage tag bracket. Tweego loads them before normal passages.

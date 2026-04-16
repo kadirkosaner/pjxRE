@@ -1,0 +1,72 @@
+---
+description: Project overview, tech stack, root folder map. Always read first.
+alwaysApply: true
+---
+
+# All That Glitters — Project Overview
+
+Interactive fiction game built on **Twine 2 + SugarCube 2**. Adult-oriented slice-of-life with character relationships, jobs, quests, time-based schedules, wardrobe, phone OS, and map navigation.
+
+## Tech Stack
+
+- **Story engine:** SugarCube 2 (Twine 2 format)
+- **Build tool:** Tweego (assumed) — reads `.twee` files under `passages/`
+- **UI library:** jQuery (bundled with SugarCube)
+- **Style:** Vanilla CSS with `:root` custom properties, no preprocessor
+- **Asset pipeline:** `assets/system/config.js` declares JS/CSS module load order
+- **AI image generation:** Python scripts under `Automation/FalNanoBanana2/` (FAL.AI) and `Automation/ReplicateBulk/` (Replicate)
+
+## Root Folder Map
+
+```
+/home/user/pjxRE/
+├── passages/                Twine story content (481 .twee files)
+│   ├── 0 - System/          Init, Widgets, Migrations, WardrobeSys
+│   ├── 1 - Prologue/        Intro sequence (19 files)
+│   ├── 2 - Locations/       9 districts × many passages (112 files)
+│   ├── 3- Interactions/     Character dialogues (66 files)
+│   ├── 4 - Actions/         Per-location action widgets (112 files)
+│   ├── 5 - QuestSystem/     Quest DB + state + widgets (38 files)
+│   ├── 6 - Scripts/         External JS helpers from Twee
+│   ├── 7 - Work/            Job shift flows
+│   └── 8 - Others/          Fast travel, misc
+│
+├── assets/
+│   └── system/
+│       ├── config.js        MODULE LOAD MANIFEST (js + css order)
+│       ├── js/              41 JS files (modal/, ui/, system/, utils/)
+│       └── css/             50 CSS files (base/, layout/, ui/, screens/, systems/, utils/)
+│
+├── Automation/              AI image generation pipelines (out of game scope)
+├── docs/                    Existing design docs (systems, player guides, audit)
+├── 1Developer/              Developer notes, cheat sheets, TODO
+└── changelog.md
+```
+
+## Critical Files
+
+| Purpose | File |
+|---------|------|
+| JS/CSS load order | `assets/system/config.js` |
+| Story JS loader | `passages/0 - System/storyJavaScript.js` |
+| Global variables | `passages/0 - System/Init/variablesBase.twee` |
+| Game start | `passages/1 - Prologue/2 - GameStart.twee` → `welcomePage` |
+| Quest DB | `passages/5 - QuestSystem/System/QuestDatabase_Main.twee` |
+| Character data | `passages/0 - System/Init/characters/` |
+
+## Where to Go Next
+
+- **SugarCube syntax rules:** `01-sugarcube-conventions.mdc`
+- **Passage structure / naming:** `02-passages-map.mdc`
+- **Game systems (time, quest, stats, phone):** `03-systems-guide.mdc`
+- **Widget API reference:** `04-widgets-reference.mdc`
+- **JS module → global API map:** `05-js-modules.mdc`
+- **Known bugs / issues:** `docs/audit/00-ozet.md` + `docs/audit/03-fix-listesi.md`
+
+## Key Conventions
+
+- **Language:** Code + commits in Turkish; passage text primarily English; rules files in English for agent consistency
+- **File naming:** camelCase passages (`dinerRubysKitchen`), PascalCase widget files (`PhoneWidgets.twee`)
+- **Variable scope:** `$` = story (persists), `_` = temporary (passage), `setup.` = static data
+- **Never use** `<<endscript>>` — always `<</script>>` (SugarCube 2)
+- **Always pair** `<<nobr>>` with `<</nobr>>` inside widgets
