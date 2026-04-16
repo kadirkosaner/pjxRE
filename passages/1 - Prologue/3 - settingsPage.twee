@@ -703,21 +703,20 @@ $(document).on(':passagedisplay', function(ev) {
         // Only A/B + Slim/Medium at start, so body type is Normal
         vars.body.bodyType = "Normal";
         vars.body.bmi = Math.round((vars.body.weight / (heightM * heightM)) * 10) / 10;
-        
-        // Trigger initial stats calculation
-        if (window.Wikifier) window.Wikifier.wikifyEval("<<recalculateStats>>");
 
-        // Save Simulation Settings
+        // Save simulation + content toggles BEFORE recalculateStats so disabled tracks
+        // (hunger/thirst/bladder/hygiene) clamp correctly on first run.
         $('.setting-toggle-btn[data-category!="content"]').each(function() {
             const key = $(this).data('setting');
             vars.gameSettings[key] = $(this).hasClass('active');
         });
 
-        // Save Content Preferences
         $('.setting-toggle-btn[data-category="content"]').each(function() {
             const key = $(this).data('setting');
             vars.contentPreferences[key] = $(this).hasClass('active');
         });
+
+        if (window.Wikifier) window.Wikifier.wikifyEval("<<recalculateStats>>");
 
         // Navigate
         SugarCube.Engine.play('confirmationPage');

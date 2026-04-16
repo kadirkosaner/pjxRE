@@ -42,7 +42,7 @@
 
    DRINKS:
    - Water               thirst -40
-   - Coffee              energy +15
+   - Coffee              energy +25
    - Iced Tea            thirst -35, energy +5
    - Soda                thirst -25
    - Fresh Juice         thirst -30, energy +8
@@ -402,7 +402,7 @@ setup.restaurantDishes = {
             desc: "Freshly brewed.",
             image: "assets/content/items/restaurants/coffee.webp",
             effects: [
-                { stat: "energy", value: 15, type: "instant" }
+                { stat: "energy", value: 25, type: "instant" }
             ]
         },
         {
@@ -497,7 +497,7 @@ setup.restaurantDishes = {
             desc: "Hot coffee in a to-go cup.",
             image: "assets/content/items/restaurants/fc_coffee_cup.webp",
             effects: [
-                { stat: "energy", value: 15, type: "instant" }
+                { stat: "energy", value: 25, type: "instant" }
             ]
         },
         {

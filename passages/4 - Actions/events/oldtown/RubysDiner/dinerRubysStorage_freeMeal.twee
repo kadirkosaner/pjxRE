@@ -8,15 +8,15 @@
 <<goto "dinerRubysStorage">>
 <</if>>
 <<set $jobState.freeMealUsedToday = true>>
-<<eatFood 750 70>>
+<<eatFood 750 100>>
 <<loseStat "thirst" 100>>
-<<gainStat "energy" 35>>
+<<gainStat "energy" 45>>
 <<gainStat "mood" 10>>
 <<gainStat "health" 2>>
 <<loseStat "stress" 7>>
-<<advanceTime 15 "relax">>
+<<advanceTime 30 "relax">>
 <<flushNotifications>>
-<<run window.notifySuccess("Staff meal – hunger and energy restored.")>>
+<<run window.notifyStaffMealToast()>>
 <<set _sceneIndex = random(1, 2)>>
 <<recalculateStats>>
 <</silently>>

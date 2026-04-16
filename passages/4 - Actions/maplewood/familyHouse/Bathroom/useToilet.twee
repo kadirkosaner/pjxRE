@@ -5,7 +5,7 @@
     <</if>>
     <<set $location = $returnAfterToilet>>
     <<loseStat "bladder" 100>>
-    <<run window.notifySuccess("Bladder Emptied")>>
+    <<run window.notifySuccessIfStatsEnabled('bladder', "Bladder Emptied")>>
     <<loseStat "hygiene" 5>>
     <<advanceTime 5>>
     <<flushNotifications>>

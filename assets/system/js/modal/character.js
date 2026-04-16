@@ -274,6 +274,13 @@ window.CharacterInit = function (API) {
             
             // Stats that should be clamped between 0 and 100
             const CLAMP_STATS = ['energy', 'health', 'mood', 'arousal', 'hunger', 'thirst', 'stress', 'bladder', 'hygiene', 'focus'];
+            const gs = self.API.State.variables.gameSettings || {};
+            const simOff = {
+                hunger: gs.trackHunger === false,
+                thirst: gs.trackThirst === false,
+                bladder: gs.trackBladder === false,
+                hygiene: gs.hygieneRequirement === false
+            };
             
             // Prepare SugarCube macros for notification system
             let notificationScript = '<<initNotificationQueue>>';
@@ -281,8 +288,16 @@ window.CharacterInit = function (API) {
             // Apply instant effects
             item.effects.forEach(effect => {
                 if (effect.type === 'instant') {
-                    let currentVal = self.API.State.variables[effect.stat] || 0;
-                    let newVal = currentVal + effect.value;
+                    if (simOff[effect.stat]) {
+                        return;
+                    }
+                    let currentVal = Number(self.API.State.variables[effect.stat]);
+                    if (Number.isNaN(currentVal)) {
+                        currentVal = 0;
+                    }
+                    const delta = Number(effect.value);
+                    const add = Number.isNaN(delta) ? 0 : delta;
+                    let newVal = currentVal + add;
                     
                     // Clamp values for standard stats
                     if (CLAMP_STATS.includes(effect.stat)) {
@@ -295,7 +310,7 @@ window.CharacterInit = function (API) {
                     // Note: queueStatChange expects the raw change amount, not the clamped difference, 
                     // but for accurate notifications we might want to respect the clamped delta if needed.
                     // For now, passing the effect value as per standard behavior.
-                    notificationScript += `<<queueStatChange "${effect.stat}" ${effect.value}>>`;
+                    notificationScript += `<<queueStatChange "${effect.stat}" ${add}>>`;
                 }
             });
             
@@ -306,8 +321,8 @@ window.CharacterInit = function (API) {
                 inventory.splice(invIndex, 1);
             }
 
-            // Trigger the notifications via SugarCube
-            notificationScript += '<<flushNotifications>>';
+            // Trigger the notifications via SugarCube; recalculateStats refreshes notificationHunger / topbar need flags
+            notificationScript += '<<flushNotifications>><<recalculateStats>>';
             $.wiki(notificationScript);
             
             // Update UIBar to show stat changes

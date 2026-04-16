@@ -84,11 +84,20 @@ function restaurantOrderTotal() {
 function restaurantApplyEffects(dish) {
     if (!dish || !dish.effects || !dish.effects.length) return;
     var S = restaurantGetState();
+    var clampStats = { energy: 1, health: 1, mood: 1, arousal: 1, hunger: 1, thirst: 1, stress: 1, bladder: 1, hygiene: 1, focus: 1 };
     for (var i = 0; i < dish.effects.length; i++) {
         var e = dish.effects[i];
-        if (e.type === 'instant' && e.stat && S.variables[e.stat] !== undefined) {
-            S.variables[e.stat] = (S.variables[e.stat] || 0) + (e.value || 0);
+        if (e.type !== 'instant' || !e.stat) continue;
+        var cur = S.variables[e.stat];
+        var base = (typeof cur === 'number' && !isNaN(cur)) ? cur : Number(cur);
+        if (isNaN(base)) base = 0;
+        var delta = e.value != null ? Number(e.value) : 0;
+        if (isNaN(delta)) delta = 0;
+        var next = base + delta;
+        if (clampStats[e.stat]) {
+            next = Math.max(0, Math.min(100, next));
         }
+        S.variables[e.stat] = next;
     }
 }
 

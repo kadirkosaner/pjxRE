@@ -6,9 +6,9 @@
 <</if>>
 <<advanceTime 15>>
 <<loseStat "thirst" 30>>
-<<gainStat "energy" 10>>
+<<gainStat "energy" 25>>
 <<flushNotifications>>
-<<run window.notifySuccess("Coffee – thirst and a bit of energy.")>>
+<<run window.notifyStaffCoffeeToast()>>
 <<recalculateStats>>
 <<set _sceneIndex = random(1, 3)>>
 <</silently>>

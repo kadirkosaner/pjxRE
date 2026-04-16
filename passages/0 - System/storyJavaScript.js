@@ -1029,6 +1029,12 @@ Macro.add('startQuest', {
                 position: 'rightbar-left'
             });
         }
+        vars.showJournalQuestNotify = true;
+        if (typeof window.rebuildTopbar === 'function') {
+            requestAnimationFrame(function () {
+                window.rebuildTopbar();
+            });
+        }
     }
 });
 

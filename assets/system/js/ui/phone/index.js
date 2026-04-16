@@ -271,6 +271,10 @@ function createPhoneOverlay() {
     }
 
     $('#phone-overlay').on('click', function (e) {
+        if (e.target === this) {
+            closePhoneOverlay();
+            return;
+        }
         var $t = $(e.target);
         if ($t.closest('#phone-close').length || $t.hasClass('phone-close-btn')) {
             e.preventDefault();

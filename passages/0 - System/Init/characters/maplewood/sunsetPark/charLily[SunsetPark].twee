@@ -46,6 +46,11 @@
     ]
 }>>
 
-/* Talk action added later – first meeting is scripted in park bench event */
 <<set setup.characterActions.parkRunnerLily = {
+    sunsetPark: [
+        {
+            id: "talk", label: "Talk", passage: "parkRunnerLilyTalk",
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
+        },
+    ]
 }>>

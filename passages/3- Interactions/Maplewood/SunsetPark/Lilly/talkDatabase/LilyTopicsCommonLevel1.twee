@@ -1,0 +1,220 @@
+:: LilyTopicsCommonLevel1 [init]
+<<nobr>>
+<<set setup.lilyTopics = setup.lilyTopics || {}>>
+<<set setup.lilyTopics.common = setup.lilyTopics.common || {}>>
+<<set setup.lilyTopics.common.level1 = {
+
+    "sunsetPark_common_morning": {
+
+        "cooldown_pond": [
+            {
+                text: `<<narrative "Sunset Park">>Lily is stretching her calves against a bench by the pond, still breathing hard from her run. Her breath fogs slightly in the early morning chill when she laughs.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_morning_cooldown_pond_1.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>Morning! Nothing beats laps around the pond. Well… maybe coffee comes close.<</dialog>>
+<<dialog "player">>You're making me feel lazy just watching you.<</dialog>>
+<<dialog "parkRunnerLily">>Hey, you showed up. That already counts more than most people.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Sunset Park">>Lily jogs lightly in place, then slows to a walk when she sees you and towels the sweat from her neck.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_morning_cooldown_pond_2.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>Perfect timing. I was about to talk myself into one more lap. Be my excuse to stop?<</dialog>>
+<<dialog "player">>I can be the excuse.<</dialog>>
+<<dialog "parkRunnerLily">>Best kind of excuse. Recovery is part of the training, you know.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "mall_tip_followup": [
+            {
+                text: `<<narrative "Sunset Park">>Lily takes a long sip from her water bottle, then caps it with a satisfied click.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_morning_mall_tip_followup_1.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>Hey, good to see you again! How did the sportswear hunt go? Did you check out the mall like I said?<</dialog>>
+<<dialog "player">>Yeah, thanks for the tip.<</dialog>>
+<<dialog "parkRunnerLily">>Anytime. Tell them your legs sent you — they won’t get it, but it’ll be funny.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Sunset Park">>Lily checks her watch, then relaxes and smiles.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_morning_mall_tip_followup_2.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>If you go for gear, hit the athletic floor first. Otherwise you’ll end up buying candles and socks you don’t need. Trust me, I’ve lived it.<</dialog>>
+<<dialog "player">>That sounds very specific.<</dialog>>
+<<dialog "parkRunnerLily">>I contain multitudes… mostly in the form of novelty socks.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "running_buddy": [
+            {
+                text: `<<narrative "Sunset Park">>Lily rolls her shoulders, eyes scanning the path like she’s already planning tomorrow’s route.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_morning_running_buddy_1.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>This park’s basically my second home now. If you ever want a running buddy, I’m usually here.<</dialog>>
+<<dialog "player">>I might take you up on that… but slowly.<</dialog>>
+<<dialog "parkRunnerLily">>Slow is perfect. Slow is how you actually stick with it without hating your life.<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Sunset Park">>A couple of ducks glide across the pond. Lily watches them with a small, amused smile.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_morning_running_buddy_2.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>Fair warning though — if you run with me, I will tell you extremely weird tree facts. It’s a coping mechanism.<</dialog>>
+<<dialog "player">>How weird are we talking?<</dialog>>
+<<dialog "parkRunnerLily">>Some maples can change their entire leaf color overnight if the temperature drops fast enough. Nature’s biggest drama queen.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ]
+    },
+
+    "sunsetPark_common_afternoon": {
+
+        "midday_heat": [
+            {
+                text: `<<narrative "Sunset Park">>Lily’s hair is up in a messy ponytail, a few strands stuck to her forehead. She waves at you from under the shade of a big oak.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_afternoon_midday_heat_1.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>Afternoon runs are brutal. The sun doesn’t negotiate with anyone.<</dialog>>
+<<dialog "player">>And yet you’re still out here.<</dialog>>
+<<dialog "parkRunnerLily">>Stubbornness is a skill. That, and industrial amounts of sunscreen.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Sunset Park">>Lily is on a cooldown walk, headphones around her neck, music low enough that you can hear the birds.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_afternoon_midday_heat_2.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>I used to power through midday heat like an idiot. Now I hydrate like a civilized human and actually live longer.<</dialog>>
+<<dialog "player">>Very sensible.<</dialog>>
+<<dialog "parkRunnerLily">>Shh. Don’t ruin my reputation.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "paths_and_pacing": [
+            {
+                text: `<<narrative "Sunset Park">>Lily points along the winding path with her water bottle, tracing an invisible route in the air.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_afternoon_paths_and_pacing_1.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>If you’re new here, start with the inner loop. It’s shorter and your calves won’t hate you tomorrow morning.<</dialog>>
+<<dialog "player">>Sounds like experience talking.<</dialog>>
+<<dialog "parkRunnerLily">>Experience, yes. Dignity… that’s still debatable.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Sunset Park">>Kids are running around on the grass nearby. Lily watches them with a soft smile before turning back to you.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_afternoon_paths_and_pacing_2.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>Afternoons are when the park turns into a whole little town. Dogs, strollers, chaos… I secretly love it.<</dialog>>
+<<dialog "player">>Doesn’t it mess with your pace?<</dialog>>
+<<dialog "parkRunnerLily">>That’s what headphones and good dodging skills are for.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "gear_chat": [
+            {
+                text: `<<narrative "Sunset Park">>Lily tugs at the bottom of her running shirt, checking the fit.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_afternoon_gear_chat_1.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>Real talk — if you go shopping for gear, actually move around in it at the store. Mirrors lie. Your body doesn’t.<</dialog>>
+<<dialog "player">>Squats in the fitting room?<</dialog>>
+<<dialog "parkRunnerLily">>High knees if you’re brave. Lunges if you want the employees to remember you forever.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ]
+    },
+
+    "sunsetPark_common_evening": {
+
+        "golden_hour": [
+            {
+                text: `<<narrative "Sunset Park">>The light over the pond has turned soft and golden. Lily’s pace is relaxed now, like she’s unwinding with the day.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_evening_golden_hour_1.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>Evening runs are my favorite reward. The whole world just… softens.<</dialog>>
+<<dialog "player">>That sounds really nice.<</dialog>>
+<<dialog "parkRunnerLily">>It is. Bring a jacket though — Maplewood evenings love to trick you.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Sunset Park">>Lily stretches her arms overhead, her silhouette sharp against the glowing sky.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_evening_golden_hour_2.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>If you time it right you get the sunset and the duck drama for free. Best show in town.<</dialog>>
+<<dialog "player">>Duck drama?<</dialog>>
+<<dialog "parkRunnerLily">>Oh yeah. Bread politics, territorial quacks… it gets intense.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "wind_down": [
+            {
+                text: `<<narrative "Sunset Park">>The air is starting to cool. Fireflies haven’t appeared yet, but the park already feels like it’s heading toward night.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_evening_wind_down_1.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>After a long day this is my reset button. Sweat out the nonsense, walk home feeling human again.<</dialog>>
+<<dialog "player">>Does it actually work?<</dialog>>
+<<dialog "parkRunnerLily">>Most days. The nonsense always tries to sneak back in, but I win the first round.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Sunset Park">>Lily sits on a bench and starts untying her shoes with obvious relief.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_evening_wind_down_2.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>If you ever see me out here looking half-dead, don’t worry. It’s the good kind of tired.<</dialog>>
+<<dialog "player">>Noted.<</dialog>>
+<<dialog "parkRunnerLily">>The bad kind is when you skip stretching. Learn from my many mistakes.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "invite_back": [
+            {
+                text: `<<narrative "Sunset Park">>The path lamps start flickering on one by one, casting a gentle glow through the trees.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/lily/park/level1/sunsetPark_common_evening_invite_back_1.webp">>
+<<image _img "100%">>
+
+<<dialog "parkRunnerLily">>Same offer as always — if you want company, I’m usually out here around dusk. No pressure, no pace shaming.<</dialog>>
+<<dialog "player">>I’ll keep that in mind.<</dialog>>
+<<dialog "parkRunnerLily">>Good. This park’s way better when you share it with someone.<</dialog>>`,
+                friendship: 2, trust: 1, love: 0, lust: 0
+            }
+        ]
+    }
+
+}>>
+<</nobr>>

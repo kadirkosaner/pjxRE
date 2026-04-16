@@ -1,0 +1,209 @@
+:: MarcusTopicsCommonLevel1
+<<nobr>>
+<<set setup.marcusTopics = setup.marcusTopics || {}>>
+<<set setup.marcusTopics.common = setup.marcusTopics.common || {}>>
+<<set setup.marcusTopics.common.level1 = {
+
+    "storeCorner_common_morning": {
+
+        "open_shift": [
+            {
+                text: `<<narrative "Quick Mart - Counter">>Marcus closes the drink cooler, humming quietly to himself. When the door chimes, he straightens up with a bright, energetic smile, as if he's been awake for hours.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_morning_open_shift_1.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Morning! You're out early. Coffee's still brewing, but the energy drinks are ice cold if you need a quick boost.<</dialog>>
+<<dialog "player">>I'm mostly awake already. How are you this energetic so early?<</dialog>>
+<<dialog "shopClerkMarcus">>Opening shift is my favorite. The store's quiet, everything's in its place, and nobody's spilled a Slushie yet. I'll take this peace while it lasts.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Quick Mart - Counter">>Marcus wipes the counter with quick, practiced strokes while soft pop music plays low on the radio. He looks up as you enter.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_morning_open_shift_2.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Hey, early bird strikes again. I just finished the opening checklist—twenty minutes of beeps and no customers.<</dialog>>
+<<dialog "player">>Sounds like a morning ritual.<</dialog>>
+<<dialog "shopClerkMarcus">>It really is. Wakes my brain up. After that, I'm ready for whatever Maplewood throws at me.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "neighborhood_energy": [
+            {
+                text: `<<narrative "Quick Mart - Counter">>Marcus neatly stocks bags of chips, then taps the display proudly when he notices you.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_morning_neighborhood_energy_1.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Mornings in retail are kinda nice. You get to see the same joggers, dog walkers, and regulars. Maplewood runs like a little clock.<</dialog>>
+<<dialog "player">>You really notice all that?<</dialog>>
+<<dialog "shopClerkMarcus">>Hard not to. Recognizing faces makes the shift feel a lot less endless.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Quick Mart - Counter">>Marcus counts bills behind the register, then looks up with a warm smile.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_morning_neighborhood_energy_2.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Good morning! The pastries just came in—they're still warm if you're grabbing breakfast.<</dialog>>
+<<dialog "player">>That actually sounds tempting.<</dialog>>
+<<dialog "shopClerkMarcus">>That's the spirit. Fuel up before the day starts throwing errands at you.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "map_followup": [
+            {
+                text: `<<narrative "Quick Mart - Counter">>Marcus caps a marker after finishing a sale sign and grins when you walk in.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_morning_map_followup_1.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Hey! Did that map actually help, or did it become a crumpled ball in your pocket?<</dialog>>
+<<dialog "player">>It helped. I'm not getting lost on my own block anymore.<</dialog>>
+<<dialog "shopClerkMarcus">>Nice! If you discover any weird shortcuts, you owe me the gossip.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ]
+    },
+
+    "storeCorner_common_afternoon": {
+
+        "mid_shift": [
+            {
+                text: `<<narrative "Quick Mart - Counter">>The counter is still cluttered with receipts from the lunch rush. Marcus sorts them into a neat pile, sleeves rolled up.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_afternoon_mid_shift_1.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Finally, the afternoon lull. For a solid hour it was just beeps and people asking for the bathroom.<</dialog>>
+<<dialog "player">>Sounds rough.<</dialog>>
+<<dialog "shopClerkMarcus">>Busy is okay. It's the noise that wears you down. Now I can hear myself think again.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Quick Mart - Counter">>Marcus leans on the counter, slowly rolling his shoulders like they're stiff.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_afternoon_mid_shift_2.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Official mid-shift stretch break. If I don't move soon, I'm gonna fuse with the register.<</dialog>>
+<<dialog "player">>Retail yoga?<</dialog>>
+<<dialog "shopClerkMarcus">>Exactly. Very spiritual. Very creaky.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "heat_snacks": [
+            {
+                text: `<<narrative "Quick Mart - Counter">>The AC hums steadily as Marcus rearranges bottles in the cold case, fog spilling out.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_afternoon_heat_snacks_1.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>This afternoon heat hits different through the glass doors. People come in for ice and walk out with ice plus three unplanned items.<</dialog>>
+<<dialog "player">>Classic convenience store math.<</dialog>>
+<<dialog "shopClerkMarcus">>I'm not judging. I've done the exact same thing on my breaks.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Quick Mart - Counter">>A half-emptied delivery box sits behind the counter. Marcus cuts it open and checks items off his list.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_afternoon_heat_snacks_2.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Delivery day crashing into lunch rush—always fun. At least the stockroom smells like soap and chips instead of the dumpster.<</dialog>>
+<<dialog "player">>The glamorous side of retail.<</dialog>>
+<<dialog "shopClerkMarcus">>Hey, I signed up for fluorescent lights and mystery beeps. Living the dream.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "regulars": [
+            {
+                text: `<<narrative "Quick Mart - Counter">>Marcus refills the coffee urn, the sharp bitter smell filling the air.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_afternoon_regulars_1.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Afternoon regulars are a whole different breed. Slower steps, bigger sighs, and way more energy drinks.<</dialog>>
+<<dialog "player">>Which category do I fall into?<</dialog>>
+<<dialog "shopClerkMarcus">>You're in the "actually says hi" category. That automatically puts you in the top tier.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ]
+    },
+
+    "storeCorner_common_evening": {
+
+        "closing_energy": [
+            {
+                text: `<<narrative "Quick Mart - Counter">>The light coming through the windows has turned amber. Marcus sweeps the floor with slow but steady strokes.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_evening_closing_energy_1.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>The evening crew is already counting down in my head. Not grumpy, just... volume turned down a bit.<</dialog>>
+<<dialog "player">>Long day?<</dialog>>
+<<dialog "shopClerkMarcus">>Full day. Still nice that you stopped by. Friendly faces make the last hour easier.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Quick Mart - Counter">>Marcus dims some of the overhead lights and straightens the impulse-buy rack again.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_evening_closing_energy_2.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Evening shoppers either forgot something for dinner or they're avoiding cooking. I get both.<</dialog>>
+<<dialog "player">>Sometimes it's both for me.<</dialog>>
+<<dialog "shopClerkMarcus">>Then you're my kind of people. Grab something easy and call it a win.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "winding_down": [
+            {
+                text: `<<narrative "Quick Mart - Counter">>Marcus leans on the counter with his forearms, phone face-down beside the register. He gives you a tired but genuine smile.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_evening_winding_down_1.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Hey. If you need something from the top shelf, give me a warning—my vertical jump isn't what it was at 9 a.m.<</dialog>>
+<<dialog "player">>Just came by to say hi.<</dialog>>
+<<dialog "shopClerkMarcus">>I'll take it. Way better than arguing with the card reader.<</dialog>>`,
+                friendship: 2, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Quick Mart - Counter">>Headlights sweep across the windows outside. Inside, the store feels smaller and cozier. Marcus counts cigarettes, lips moving slightly.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_evening_winding_down_2.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Evening math: cigarettes, lottery tickets, and the guy who always buys the same chocolate bar. Brains love patterns.<</dialog>>
+<<dialog "player">>Does yours work like that too?<</dialog>>
+<<dialog "shopClerkMarcus">>Especially mine. I could probably run this place blindfolded. Don't tell my manager.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "night_coming": [
+            {
+                text: `<<narrative "Quick Mart - Counter">>The door hisses as a customer leaves. Marcus rolls his neck, then spots you.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/marcus/level1/storeCorner_common_evening_night_coming_1.webp">>
+<<image _img "100%">>
+
+<<dialog "shopClerkMarcus">>Sun's basically gone. Time for the "do I really need this snack?" crowd. Spoiler: they always do.<</dialog>>
+<<dialog "player">>Honest marketing.<</dialog>>
+<<dialog "shopClerkMarcus">>I call it gentle enabling. We're all just trying to survive out here.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ]
+    }
+
+}>>
+<</nobr>>

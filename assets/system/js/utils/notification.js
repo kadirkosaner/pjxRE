@@ -58,6 +58,13 @@
  * <<run notifySuccess("Game saved!")>>
  * <<run notifyTimebox("Evening arrived")>>
  * <<set $notificationPush = 1>>  // Phone notification trigger
+ *
+ * SIMULATION / NEED TOGGLES ($gameSettings):
+ * showNotification({ ..., simulationStat: 'hunger' }) — skip if trackHunger is false
+ * showNotification({ ..., simulationStats: ['hunger','thirst'] }) — skip unless all listed stats are "on"
+ * notifyStatToast('warning', 'thirst', message) — same filter by stat key
+ * notifySuccessIfStatsEnabled('thirst', "Thirst Quenched") — one stat
+ * notifySuccessIfStatsEnabled(['hunger','thirst'], "Both restored") — all must be on
  */
 
 let NotificationAPI = null;
@@ -90,6 +97,38 @@ window.formatNotifyDelta = function (n) {
   return sign + body;
 };
 
+function getSugarCubeStateVariables() {
+  try {
+    if (typeof State !== 'undefined' && State.variables) return State.variables;
+    if (typeof SugarCube !== 'undefined' && SugarCube.State && SugarCube.State.variables) {
+      return SugarCube.State.variables;
+    }
+  } catch (e) { /* empty */ }
+  return null;
+}
+
+/** Maps player stat keys to $gameSettings booleans (same rules as isSimulationStatEnabled in StatCalculator.twee). */
+var SIMULATION_STAT_NOTIFY_SETTING = {
+  hunger: 'trackHunger',
+  thirst: 'trackThirst',
+  bladder: 'trackBladder',
+  hygiene: 'hygieneRequirement'
+};
+
+/**
+ * Whether toast/UI should mention this simulation stat (hunger, thirst, bladder, hygiene).
+ * Unknown stat names always return true (no filter).
+ */
+window.isSimulationStatNotifyEnabled = function (statName) {
+  const key = String(statName || '').toLowerCase();
+  const settingKey = SIMULATION_STAT_NOTIFY_SETTING[key];
+  if (!settingKey) return true;
+  const vars = getSugarCubeStateVariables();
+  const gs = vars && vars.gameSettings;
+  if (!gs || gs[settingKey] === undefined) return true;
+  return gs[settingKey] !== false;
+};
+
 // Public API
 window.showNotification = function (options) {
   const defaults = {
@@ -100,9 +139,21 @@ window.showNotification = function (options) {
     position: 'rightbar-left',     
     target: null,              
     offsetX: 0,
-    offsetY: 10
+    offsetY: 10,
+    simulationStat: null,
+    simulationStats: null
   };
   const config = Object.assign({}, defaults, options);
+
+  const many = config.simulationStats;
+  if (many != null && many !== '') {
+    const arr = Array.isArray(many) ? many : [many];
+    for (let i = 0; i < arr.length; i++) {
+      if (!window.isSimulationStatNotifyEnabled(arr[i])) return null;
+    }
+  } else if (config.simulationStat != null && config.simulationStat !== '') {
+    if (!window.isSimulationStatNotifyEnabled(config.simulationStat)) return null;
+  }
 
   if (!NotificationAPI || !NotificationAPI.$) return null;
 
@@ -177,6 +228,77 @@ window.notifyPhone = (message, duration = 3000) =>
 
 window.notifyCorruption = (message, duration = 4000, position = 'rightbar-left') =>
   showNotification({ type: 'corruption', message, duration, position });
+
+/**
+ * Toast for a stat delta or stat-themed message; suppressed when that simulation stat is off in settings.
+ * @param {'success'|'warning'|'error'|'info'} type
+ * @param {string|null} statKey hunger | thirst | bladder | hygiene | health | energy | … (only mapped stats filter)
+ */
+window.notifyStatToast = function (type, statKey, message, duration, position) {
+  return showNotification({
+    type: type || 'info',
+    message,
+    duration: duration != null ? duration : 3000,
+    position: position || 'rightbar-left',
+    simulationStat: statKey || null
+  });
+};
+
+/**
+ * Success toast only if every listed stat is enabled in gameSettings (empty / null list = no filter).
+ * @param {string|string[]|null} stats
+ */
+window.notifySuccessIfStatsEnabled = function (stats, message, duration, position) {
+  const list =
+    stats == null || stats === ''
+      ? []
+      : (Array.isArray(stats) ? stats : [stats]);
+  for (let i = 0; i < list.length; i++) {
+    if (!window.isSimulationStatNotifyEnabled(list[i])) return null;
+  }
+  return showNotification({
+    type: 'success',
+    message,
+    duration: duration != null ? duration : 3000,
+    position: position || 'rightbar-left'
+  });
+};
+
+/** Kitchen eat-food passage: one toast based on which needs are tracked. */
+window.notifyKitchenEatFoodToast = function () {
+  if (window.isSimulationStatNotifyEnabled('hunger') && window.isSimulationStatNotifyEnabled('thirst')) {
+    return window.notifySuccess('Hunger & Thirst Restored');
+  }
+  if (window.isSimulationStatNotifyEnabled('hunger')) {
+    return window.notifySuccess('Hunger restored.');
+  }
+  if (window.isSimulationStatNotifyEnabled('thirst')) {
+    return window.notifySuccess('Thirst restored.');
+  }
+  return window.notifySuccess('You feel refueled.');
+};
+
+/** Diner staff meal passage. */
+window.notifyStaffMealToast = function () {
+  if (window.isSimulationStatNotifyEnabled('hunger') && window.isSimulationStatNotifyEnabled('thirst')) {
+    return window.notifySuccess('Staff meal – needs and energy restored.');
+  }
+  if (window.isSimulationStatNotifyEnabled('hunger')) {
+    return window.notifySuccess('Staff meal – hunger and energy restored.');
+  }
+  if (window.isSimulationStatNotifyEnabled('thirst')) {
+    return window.notifySuccess('Staff meal – thirst and energy restored.');
+  }
+  return window.notifySuccess('Staff meal – energy restored.');
+};
+
+/** Diner coffee passage. */
+window.notifyStaffCoffeeToast = function () {
+  if (window.isSimulationStatNotifyEnabled('thirst')) {
+    return window.notifySuccess('Coffee – thirst and a bit of energy.');
+  }
+  return window.notifySuccess('Coffee – a bit of energy.');
+};
 
 function closeNotification($el) {
   if (!$el || !$el.length) return;

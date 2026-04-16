@@ -356,7 +356,10 @@ function rebuildTopbar() {
                     
                     <div class="navbar-right" style="${hideNav ? 'visibility: hidden;' : ''}">
                         <div class="nav-item" data-action="stats">Stats</div>
-                        <div class="nav-item" data-action="journal">Journal</div>
+                        <div class="nav-item" data-action="journal" style="position: relative;">
+                            Journal
+                            ${vars.showJournalQuestNotify === true ? '<div class="journal-notification-dot"></div>' : ''}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -435,3 +438,6 @@ function showNavDialog(action) {
         }
     }
 }
+
+/** Allow other UI (e.g. quest start) to refresh the bar when State changes mid-passage */
+window.rebuildTopbar = rebuildTopbar;

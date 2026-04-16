@@ -1,0 +1,74 @@
+:: shopClerkTalk
+<<silently>>
+<<if !$location && $interactionEntryPassage>>
+    <<set $location = $interactionEntryPassage>>
+<</if>>
+<<set $location = $location || "storeCorner">>
+<<logDailyActivity "shopClerkMarcus" "talk">>
+<<updateCharacterLocations>>
+
+<<set _stats = $characters.shopClerkMarcus.stats>>
+<<set _level = _stats.friendshipLevel || 1>>
+
+<<set _phase = "common">>
+
+<<set _hour = $timeSys.hour>>
+<<if _hour >= 6 && _hour < 12>>
+    <<set _timeSlot = "morning">>
+<<elseif _hour < 17>>
+    <<set _timeSlot = "afternoon">>
+<<else>>
+    <<set _timeSlot = "evening">>
+<</if>>
+
+<<set _levelKey = "level" + _level>>
+<<set _topicPool = null>>
+<<set _ctxKey = $location + "_" + _phase + "_" + _timeSlot>>
+
+<<if setup.marcusTopics && setup.marcusTopics[_phase] && setup.marcusTopics[_phase][_levelKey] && setup.marcusTopics[_phase][_levelKey][_ctxKey]>>
+    <<set _topicPool = setup.marcusTopics[_phase][_levelKey][_ctxKey]>>
+<</if>>
+
+<<if !_topicPool>>
+    <<set _fallbackKey = $location + "_common_" + _timeSlot>>
+    <<if setup.marcusTopics && setup.marcusTopics.common && setup.marcusTopics.common[_levelKey] && setup.marcusTopics.common[_levelKey][_fallbackKey]>>
+        <<set _topicPool = setup.marcusTopics.common[_levelKey][_fallbackKey]>>
+    <</if>>
+<</if>>
+
+<<if _topicPool>>
+    <<set _topicKeys = Object.keys(_topicPool)>>
+    <<set _randomKey = _topicKeys[Math.floor(Math.random() * _topicKeys.length)]>>
+    <<set _topicArray = _topicPool[_randomKey]>>
+    <<set _topic = _topicArray[Math.floor(Math.random() * _topicArray.length)]>>
+<<else>>
+    <<set _topic = { text: "Marcus is tied up with a delivery at the back. He gives you an apologetic wave through the security mirror.", friendship: 0, trust: 0, love: 0, lust: 0 }>>
+<</if>>
+
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+<<gainStat "mood" 2>>
+
+<<if _topic.friendship>><<gainCharacterStat "shopClerkMarcus" "friendship" _topic.friendship>><</if>>
+<<if _topic.trust>><<gainCharacterStat "shopClerkMarcus" "trust" _topic.trust>><</if>>
+<<if _topic.love>><<gainCharacterStat "shopClerkMarcus" "love" _topic.love>><</if>>
+<<if _topic.lust>><<gainCharacterStat "shopClerkMarcus" "lust" _topic.lust>><</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<nobr>>
+<div class="talk-interaction">
+<<print _topic.text>>
+
+<div class="location-actions">
+<<set _currentCharLocation = $characters.shopClerkMarcus.currentLocation>>
+<<if _currentCharLocation === $location>>
+    <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<else>>
+    <<set _backPassage = $interactionEntryPassage || $location>>
+    <<btn "Back" _backPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+<</if>>
+</div>
+</div>
+<</nobr>>

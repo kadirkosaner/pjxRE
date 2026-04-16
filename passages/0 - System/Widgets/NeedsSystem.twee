@@ -16,8 +16,10 @@
     
     /* Reduce hunger (if tracking enabled) */
     <<if $gameSettings.trackHunger>>
+        <<set _hungerNow = Number($hunger)>>
+        <<if isNaN(_hungerNow)>><<set _hungerNow = 0>><</if>>
         <<set _negHunger = -1 * _hungerReduction>>
-        <<set $hunger = Math.max(0, $hunger - _hungerReduction)>>
+        <<set $hunger = Math.max(0, _hungerNow - _hungerReduction)>>
         <<queueStatChange "hunger" _negHunger>>
     <</if>>
 <</widget>>

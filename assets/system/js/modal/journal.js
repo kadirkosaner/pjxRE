@@ -282,6 +282,8 @@ window.JournalInit = function (API) {
 
     open: function () {
       const vars = this.API.State.variables;
+      vars.showJournalQuestNotify = false;
+      this.API.$('.journal-notification-dot').fadeOut(300);
       const firsts = vars.firsts || {};
       const reputation = vars.reputation || {};
       const counts = vars.sexual?.counts || {};

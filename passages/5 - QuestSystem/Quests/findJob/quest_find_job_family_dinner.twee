@@ -7,10 +7,13 @@
 <<eatFood 750 100>>
 <<loseStat "thirst" 100>>
 <<gainStat "bladder" 15>>
-<<gainStat "energy" 30>>
+<<gainStat "energy" 45>>
 <<loseStat "stress" 10>>
 <<gainStat "mood" 5>>
 <<gainStat "health" 5>>
+<<advanceTime 30 "relax">>
+<<flushNotifications>>
+<<recalculateStats>>
 <</silently>>
 <<nobr>>
 <<narrative "Family Dinner">>

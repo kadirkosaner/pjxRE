@@ -2,8 +2,8 @@
     <<set $location = "fhKitchen">>
     <<advanceTime 5>>
     <<loseStat "thirst" 100>>
+    <<run window.notifySuccessIfStatsEnabled('thirst', "Thirst Quenched")>>
     <<flushNotifications>>
-    <<run window.notifySuccess("Thirst Quenched")>>
 <</silently>>
 
 <<narrative "Drink Water">>

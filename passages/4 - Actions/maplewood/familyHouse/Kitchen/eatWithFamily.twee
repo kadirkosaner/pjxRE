@@ -1,7 +1,7 @@
 <<silently>>
 <<set $location = "fhKitchen">>
 
-/* Who is at the table (needed for mood scaling on first daily meal) */
+/* Who is at the table (mood bonus scales with present family) */
 <<set _presentFamily = []>>
 <<if $characters.mother.currentLocation is "fhKitchen">>
     <<run _presentFamily.push("mother")>>
@@ -13,21 +13,14 @@
     <<run _presentFamily.push("brother")>>
 <</if>>
 
-/* Stat bonus only once per day (first family meal); later meals same day only give relationship */
-<<if ndef $familyMealStatBonusUsedToday>><<set $familyMealStatBonusUsedToday = false>><</if>>
-<<if !$familyMealStatBonusUsedToday>>
-    <<eatFood 750 100>>
-    <<loseStat "hunger" 100>>
-    <<loseStat "thirst" 100>>
-    <<gainStat "bladder" 15>>
-    <<gainStat "energy" 35>>
-    <<loseStat "stress" 12>>
-    <<set _familyMoodExtra = Math.min(9, _presentFamily.length * 3)>>
-    <<gainStat "mood" (15 + _familyMoodExtra)>>
-    <<gainStat "health" 5>>
-    <<advanceTime 30 "relax">>
-    <<set $familyMealStatBonusUsedToday = true>>
-<</if>>
+<<eatFood 750 100>>
+<<loseStat "thirst" 100>>
+<<gainStat "bladder" 15>>
+<<gainStat "energy" 45>>
+<<loseStat "stress" 12>>
+<<set _familyMoodExtra = Math.min(9, _presentFamily.length * 3)>>
+<<gainStat "mood" (15 + _familyMoodExtra)>>
+<<gainStat "health" 5>>
 
 /* Determine meal type based on time */
 <<if $timeSys.hour >= 7 and $timeSys.hour < 9>>
@@ -52,6 +45,7 @@
 
 <<advanceTime 30 "relax">>
 <<flushNotifications>>
+<<recalculateStats>>
 <<run window.notifySuccess("Enjoyed a meal with family!")>>
 <</silently>>
 

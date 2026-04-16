@@ -6,24 +6,24 @@
 <<set $location = "fhKitchen">>
 <<updateCharacterLocations>>
 
-/* Vitals: loseStat only (no eatFood — avoids double hunger with trackHunger) */
-<<advanceTime 30 "relax">>
-<<loseStat "hunger" 100>>
+<<eatFood 750 100>>
 <<loseStat "thirst" 100>>
-<<gainStat "energy" 40>>
+<<gainStat "energy" 45>>
 <<loseStat "stress" 10>>
 <<earnMoney 100>>
 
-/* Mark dinner as eaten */
 <<set $familyMeals.dinner = true>>
 
-/* Relationship bonuses using gainCharacterStat widget */
 <<gainCharacterStat "mother" "friendship" 2>>
 <<gainCharacterStat "mother" "love" 1>>
 <<gainCharacterStat "father" "friendship" 2>>
 <<gainCharacterStat "father" "love" 1>>
 <<gainCharacterStat "brother" "friendship" 2>>
 <<gainCharacterStat "brother" "love" 1>>
+
+<<advanceTime 30 "relax">>
+<<flushNotifications>>
+<<recalculateStats>>
 <</silently>>
 
 <<narrative "Kitchen - Evening">>

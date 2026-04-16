@@ -23,9 +23,8 @@
     <<initNotificationQueue>>
     <<set _statName = $args[0]>>
     <<set _amount = $args[1]>>
-    <<if def "isSimulationStatEnabled">>
-        <<isSimulationStatEnabled _statName>>
-        <<if !_return>><<return>><</if>>
+    <<if typeof window.isSimulationStatNotifyEnabled === "function">>
+        <<if !window.isSimulationStatNotifyEnabled(_statName)>><<return>><</if>>
     <</if>>
     
     /* Accumulate changes for the same stat */
@@ -54,29 +53,29 @@
             <<if _stat === "health">>
                 /* Health is special - always show as error when dropping */
                 <<if _change < 0>>
-                    <<run window.notifyError(_displayName + " " + window.formatNotifyDelta(_change))>>
+                    <<run window.notifyStatToast("error", _stat, _displayName + " " + window.formatNotifyDelta(_change))>>
                 <<else>>
-                    <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_change))>>
+                    <<run window.notifyStatToast("success", _stat, _displayName + " " + window.formatNotifyDelta(_change))>>
                 <</if>>
             <<elseif _stat === "corruption">>
                 <<if _change > 0>>
                     <<run window.notifyCorruption("Corruption Gained")>>
                 <<else>>
-                    <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_change))>>
+                    <<run window.notifyStatToast("warning", _stat, _displayName + " " + window.formatNotifyDelta(_change))>>
                 <</if>>
             <<elseif _badStats.includes(_stat)>>
                 /* Bad stats - increasing is bad, decreasing is good */
                 <<if _change > 0>>
-                    <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_change))>>
+                    <<run window.notifyStatToast("warning", _stat, _displayName + " " + window.formatNotifyDelta(_change))>>
                 <<else>>
-                    <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_change))>>
+                    <<run window.notifyStatToast("success", _stat, _displayName + " " + window.formatNotifyDelta(_change))>>
                 <</if>>
             <<else>>
                 /* Good stats - increasing is good, decreasing is bad */
                 <<if _change > 0>>
-                    <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_change))>>
+                    <<run window.notifyStatToast("success", _stat, _displayName + " " + window.formatNotifyDelta(_change))>>
                 <<else>>
-                    <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_change))>>
+                    <<run window.notifyStatToast("warning", _stat, _displayName + " " + window.formatNotifyDelta(_change))>>
                 <</if>>
             <</if>>
         <</if>>
@@ -102,27 +101,27 @@
     
     <<if _statName === "health">>
         <<if _amount < 0>>
-            <<run window.notifyError(_displayName + " " + window.formatNotifyDelta(_amount))>>
+            <<run window.notifyStatToast("error", _statName, _displayName + " " + window.formatNotifyDelta(_amount))>>
         <<else>>
-            <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_amount))>>
+            <<run window.notifyStatToast("success", _statName, _displayName + " " + window.formatNotifyDelta(_amount))>>
         <</if>>
     <<elseif _statName === "corruption">>
         <<if _amount > 0>>
             <<run window.notifyCorruption("Corruption Gained")>>
         <<else>>
-            <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_amount))>>
+            <<run window.notifyStatToast("warning", _statName, _displayName + " " + window.formatNotifyDelta(_amount))>>
         <</if>>
     <<elseif _badStats.includes(_statName)>>
         <<if _amount > 0>>
-            <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_amount))>>
+            <<run window.notifyStatToast("warning", _statName, _displayName + " " + window.formatNotifyDelta(_amount))>>
         <<else>>
-            <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_amount))>>
+            <<run window.notifyStatToast("success", _statName, _displayName + " " + window.formatNotifyDelta(_amount))>>
         <</if>>
     <<else>>
         <<if _amount > 0>>
-            <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_amount))>>
+            <<run window.notifyStatToast("success", _statName, _displayName + " " + window.formatNotifyDelta(_amount))>>
         <<else>>
-            <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_amount))>>
+            <<run window.notifyStatToast("warning", _statName, _displayName + " " + window.formatNotifyDelta(_amount))>>
         <</if>>
     <</if>>
 <</widget>>

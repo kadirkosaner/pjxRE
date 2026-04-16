@@ -1,0 +1,74 @@
+:: parkRunnerLilyTalk
+<<silently>>
+<<if !$location && $interactionEntryPassage>>
+    <<set $location = $interactionEntryPassage>>
+<</if>>
+<<set $location = $location || "sunsetPark">>
+<<logDailyActivity "parkRunnerLily" "talk">>
+<<updateCharacterLocations>>
+
+<<set _stats = $characters.parkRunnerLily.stats>>
+<<set _level = _stats.friendshipLevel || 1>>
+
+<<set _phase = "common">>
+
+<<set _hour = $timeSys.hour>>
+<<if _hour >= 6 && _hour < 12>>
+    <<set _timeSlot = "morning">>
+<<elseif _hour < 17>>
+    <<set _timeSlot = "afternoon">>
+<<else>>
+    <<set _timeSlot = "evening">>
+<</if>>
+
+<<set _levelKey = "level" + _level>>
+<<set _topicPool = null>>
+<<set _ctxKey = $location + "_" + _phase + "_" + _timeSlot>>
+
+<<if setup.lilyTopics && setup.lilyTopics[_phase] && setup.lilyTopics[_phase][_levelKey] && setup.lilyTopics[_phase][_levelKey][_ctxKey]>>
+    <<set _topicPool = setup.lilyTopics[_phase][_levelKey][_ctxKey]>>
+<</if>>
+
+<<if !_topicPool>>
+    <<set _fallbackKey = $location + "_common_" + _timeSlot>>
+    <<if setup.lilyTopics && setup.lilyTopics.common && setup.lilyTopics.common[_levelKey] && setup.lilyTopics.common[_levelKey][_fallbackKey]>>
+        <<set _topicPool = setup.lilyTopics.common[_levelKey][_fallbackKey]>>
+    <</if>>
+<</if>>
+
+<<if _topicPool>>
+    <<set _topicKeys = Object.keys(_topicPool)>>
+    <<set _randomKey = _topicKeys[Math.floor(Math.random() * _topicKeys.length)]>>
+    <<set _topicArray = _topicPool[_randomKey]>>
+    <<set _topic = _topicArray[Math.floor(Math.random() * _topicArray.length)]>>
+<<else>>
+    <<set _topic = { text: "Lily gives you a quick smile and taps her watch—she's got to finish her cooldown and head out.", friendship: 0, trust: 0, love: 0, lust: 0 }>>
+<</if>>
+
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+<<gainStat "mood" 2>>
+
+<<if _topic.friendship>><<gainCharacterStat "parkRunnerLily" "friendship" _topic.friendship>><</if>>
+<<if _topic.trust>><<gainCharacterStat "parkRunnerLily" "trust" _topic.trust>><</if>>
+<<if _topic.love>><<gainCharacterStat "parkRunnerLily" "love" _topic.love>><</if>>
+<<if _topic.lust>><<gainCharacterStat "parkRunnerLily" "lust" _topic.lust>><</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<nobr>>
+<div class="talk-interaction">
+<<print _topic.text>>
+
+<div class="location-actions">
+<<set _currentCharLocation = $characters.parkRunnerLily.currentLocation>>
+<<if _currentCharLocation === $location>>
+    <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+<<else>>
+    <<set _backPassage = $interactionEntryPassage || $location>>
+    <<btn "Back" _backPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
+<</if>>
+</div>
+</div>
+<</nobr>>
