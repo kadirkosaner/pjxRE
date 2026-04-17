@@ -36,8 +36,55 @@ function canUseTalkTopicToday(charId, topicId, vars) {
 
 function getAvailableTalkTopics(charId, vars) {
     var topics = (typeof window.phoneGetUnlockedTopics === 'function') ? window.phoneGetUnlockedTopics(charId, vars) : [];
-    return topics.filter(function (t) { return canUseTalkTopicToday(charId, t.id, vars); });
+    return topics.filter(function (t) {
+        if (!canUseTalkTopicToday(charId, t.id, vars)) return false;
+        var lock = (typeof window.phoneGetTopicLockReason === 'function') ? window.phoneGetTopicLockReason(charId, t, vars) : '';
+        return !lock;
+    });
 }
+
+window.phoneGetTopicLockReason = function (charId, topic, vars) {
+    if (!topic || !vars) return '';
+    var rules = topic.customRules || {};
+    if (rules.jobExcuseBeforeNoon) {
+        var job = vars.job || {};
+        var jobState = vars.jobState || {};
+        if (!job.id || !window.setup || !setup.jobs || !setup.jobs[job.id]) {
+            return 'Requires an active job.';
+        }
+        var def = setup.jobs[job.id];
+        var bossId = def.bossCharId || 'dinerManager';
+        if (charId !== bossId) {
+            return 'Only available for your manager.';
+        }
+        var t = vars.timeSys || {};
+        var hour = Number(t.hour) || 0;
+        var minute = Number(t.minute) || 0;
+        var minsNow = (hour * 60) + minute;
+        var cutOffHour = (def.excusePolicy && Number.isFinite(Number(def.excusePolicy.cutoffHour)))
+            ? Number(def.excusePolicy.cutoffHour)
+            : 12;
+        var cutOff = cutOffHour * 60;
+        if (minsNow >= cutOff) {
+            var hh = String(Math.max(0, Math.min(23, cutOffHour))).padStart(2, '0');
+            return 'Excuse message is only available before ' + hh + ':00.';
+        }
+        var worked = Number(jobState.hoursToday) || 0;
+        if (worked > 0 || jobState.workedToday) {
+            return 'Shift already started today.';
+        }
+        if (jobState.excuseSentToday) {
+            return 'You already sent an excuse today.';
+        }
+        if (jobState.excuseForDateKey) {
+            var dateKey = (Number(t.year) || 0) * 10000 + (Number(t.month) || 0) * 100 + (Number(t.day) || 0);
+            if ((Number(jobState.excuseForDateKey) || 0) === dateKey) {
+                return 'You already sent an excuse today.';
+            }
+        }
+    }
+    return '';
+};
 
 function markTalkTopicUsedToday(charId, topicId, vars) {
     if (!vars.phoneTalkAskedLast) vars.phoneTalkAskedLast = {};
@@ -77,12 +124,17 @@ function ensureTalkTopicsLoaded() {
 }
 
 function getTopicListHtml(charId, vars) {
-    var topics = getAvailableTalkTopics(charId, vars);
+    var allTopics = (typeof window.phoneGetUnlockedTopics === 'function') ? window.phoneGetUnlockedTopics(charId, vars) : [];
+    var topics = allTopics.filter(function (t) { return canUseTalkTopicToday(charId, t.id, vars); });
     var name = getPhoneContactFullName(charId, vars);
     if (topics.length === 0) {
         return '<div class="phone-messages-thread" data-char-id="' + charId + '"><div class="phone-thread-name">Pick a topic</div><div class="phone-app-placeholder"><p class="phone-app-placeholder-text">No topics available</p><p class="phone-app-placeholder-sub">More topics unlock as your relationship grows.</p></div></div>';
     }
     var list = topics.map(function (t) {
+        var lock = (typeof window.phoneGetTopicLockReason === 'function') ? window.phoneGetTopicLockReason(charId, t, vars) : '';
+        if (lock) {
+            return '<div class="phone-topic-item disabled" data-tooltip="' + escapeHtml(lock) + '"><div class="phone-topic-label">' + escapeHtml(t.label || t.id) + '</div></div>';
+        }
         return '<div class="phone-topic-item" data-topic-id="' + escapeHtml(t.id) + '"><div class="phone-topic-label">' + escapeHtml(t.label || t.id) + '</div></div>';
     }).join('');
     return '<div class="phone-messages-thread phone-topic-list-view" data-char-id="' + charId + '"><div class="phone-thread-name">Pick a topic</div><div class="phone-messages-list phone-topic-list">' + list + '</div></div>';

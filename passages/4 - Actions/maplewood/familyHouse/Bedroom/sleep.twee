@@ -99,29 +99,26 @@
     <<set _sleepHours = Math.floor(_sleepDuration / 60)>>
     <<set _sleepMins = _sleepDuration % 60>>
     <<if _wakeType == "alarm">>
-        <<run window.notifySuccess("Alarm — " + _sleepHours + "h " + _sleepMins + "m sleep")>>
+        <<run window.notifySuccess("You wake up to your alarm.")>>
     <<elseif _wakeType == "energy">>
-        <<run window.notifySuccess("Rested — " + _sleepHours + "h " + _sleepMins + "m (energy full)")>>
+        <<run window.notifySuccess("You feel fully rested.")>>
     <<else>>
-        <<run window.notifySuccess("Slept " + _sleepHours + "h " + _sleepMins + "m — Fully Rested")>>
+        <<run window.notifySuccess("You slept well.")>>
     <</if>>
 
-    /* 8. CLOTHING STATE CHECK FOR WAKE-UP OPTIONS */
-    <<set _isNakedAtWakeup = false>>
-    <<set _isUnderwearOnlyAtWakeup = false>>
-    <<if $wardrobe && $wardrobe.equipped>>
-        <<set _hasOuterCovering = (
-            ($wardrobe.equipped.sleepwear && $wardrobe.equipped.sleepwear !== "") ||
-            ($wardrobe.equipped.top       && $wardrobe.equipped.top !== "")       ||
-            ($wardrobe.equipped.dress     && $wardrobe.equipped.dress !== "")     ||
-            ($wardrobe.equipped.bottom    && $wardrobe.equipped.bottom !== "")
-        )>>
-        <<set _hasUnderwear = (
-            ($wardrobe.equipped.bra   && $wardrobe.equipped.bra !== "") ||
-            ($wardrobe.equipped.panty && $wardrobe.equipped.panty !== "")
-        )>>
-        <<set _isNakedAtWakeup = (!_hasOuterCovering && !_hasUnderwear)>>
-        <<set _isUnderwearOnlyAtWakeup = (!_hasOuterCovering && _hasUnderwear)>>
+    /* 8. SLEEP CONTEXT FOR WAKE-UP OPTIONS
+       Consumed by <<bedWakeUp>> to decide which continue-sleep buttons to show.
+       Follow-up passages (sleepToDesiredTime / sleepUntilAlarm / sleepSnoozeApply)
+       update .sleepDuration after extra sleep so flags recompute correctly. */
+    <<set $sleepWakeContext = {}>>
+    <<set $sleepWakeContext.wakeType = _wakeType>>
+    <<set $sleepWakeContext.sleepDuration = _sleepDuration>>
+    <<set $sleepWakeContext.requestedDuration = _requestedDuration>>
+    <<set $sleepWakeContext.alarmActive = _alarmActive>>
+    <<if _alarmActive>>
+        <<set $sleepWakeContext.timeUntilAlarm = _timeUntilAlarm>>
+    <<else>>
+        <<set $sleepWakeContext.timeUntilAlarm = 0>>
     <</if>>
 
     <<set _sceneIndex = random(1, 3)>>
@@ -167,28 +164,4 @@ You wake up naturally, feeling completely refreshed. The room looks the same, bu
 
 <<flushNotifications>>
 </div>
-/* ==================== WAKE-UP OPTIONS ==================== */
-<div class="location-actions">
-
-    /* Get Dressed: restores the outfit worn before sleep */
-    <<btn "Get Dressed" "fhBedroom">>
-        <<if $preSleepOutfit>>
-            <<set $wardrobe.equipped = clone($preSleepOutfit)>>
-            <<recalculateStats>>
-            <<updateClothesNotification>>
-        <</if>>
-    <</btn>>
-
-    /* Go to Bathroom: gate or confirm based on corruption thresholds */
-    <<if _isNakedAtWakeup && $corruption < 5>>
-        <<btn "Go to Bathroom" "sleep_naked_bathroom_confirm">><</btn>>
-    <<elseif _isUnderwearOnlyAtWakeup && $corruption < 3>>
-        <<btn "Go to Bathroom" "sleep_naked_bathroom_confirm">><</btn>>
-    <<else>>
-        <<btn "Go to Bathroom" "fhUpperBath">><</btn>>
-    <</if>>
-
-    /* Get Out of Bed: stay in current outfit (sleepwear/naked), go to room */
-    <<btn "Get Out of Bed" "fhBedroom">><</btn>>
-
-</div>
+<<bedWakeUp>>

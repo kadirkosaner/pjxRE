@@ -11,6 +11,16 @@
 <<set _job = setup.jobs[$job.id]>>
 <<if def _job>>
 <<set $location = _job.workplace>>
+<<if ndef $jobState.bossMeetingRequired>><<set $jobState.bossMeetingRequired = false>><</if>>
+<<if ndef $jobState.weeklyPayPending>><<set $jobState.weeklyPayPending = null>><</if>>
+<<if ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending) && !$_navigatingBackward>>
+    <<set _meetingPassage = _job.bossMeetingPassage || _job.bossOfficePassage || "jobBossOfficeCall_ruby">>
+    <<goto _meetingPassage>>
+<</if>>
+<<if $jobState.weeklyPayPending && !$_navigatingBackward>>
+    <<set _payPassage = _job.paydayScenePassage || "jobWeeklyPayEnvelope">>
+    <<goto _payPassage>>
+<</if>>
 <<jobSetAvailableShifts $job.id>>
 <<set _available = $jobAvailableShifts>>
 <</if>>
@@ -25,7 +35,7 @@ You don't have a job here.
 <<btn "Back" _backPassage "secondary">><</btn>>
 </div>
 <<elseif ((_job.schedule && _job.schedule.offWeekdays) || []).includes($timeSys.weekday)>>
-<<set _bossSummonOffDay = ($timeSys.weekday === 1) && ($jobState.bossWantsToSeePlayer) && _job.bossOfficePassage>>
+<<set _bossSummonOffDay = ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending) && (_job.bossMeetingPassage || _job.bossOfficePassage)>>
 <<if _bossSummonOffDay>>
 <<set _bossFirst = setup.characterDefs[_job.bossCharId].firstName>>
 <<narrative "Work">>
@@ -33,7 +43,8 @@ It's your scheduled day off — no shift today. Still, <<= _bossFirst>> asked yo
 <</narrative>>
 <div class="location-actions">
 <<set _btnSeeBoss = "See " + _bossFirst>>
-<<btn _btnSeeBoss _job.bossOfficePassage>><</btn>>
+<<set _meetingPassage = _job.bossMeetingPassage || _job.bossOfficePassage || "jobBossOfficeCall_ruby">>
+<<btn _btnSeeBoss _meetingPassage>><</btn>>
 <<btn "Back" _backPassage "secondary">><</btn>>
 </div>
 <<else>>
@@ -46,12 +57,12 @@ It's your scheduled day off — no shift today.
 <</if>>
 <<else>>
 <<narrative "Work">>
-You're at <<= _job.workplaceName>>. How long do you want to work?
+How long do you want to work?
 <</narrative>>
 
 <<if ndef _available>><<set _available = []>><</if>>
 <<if _available.length === 0>>
-<<narrative>><<if $jobWorkNeedsBlock>>You need to eat, drink, or use the bathroom before you can start a shift.<<else>>You can't start a shift right now—either you've already worked 8 hours today, you don't have enough energy, or the available shift times wouldn't fit before closing.<</if>><</narrative>>
+<<narrative>><<if $jobWorkNeedsBlock>>You need to eat, drink, or use the bathroom before you can start a shift. Head to the storage room to take care of it.<<else>>You can't start a shift right now—either you've already worked 8 hours today, you don't have enough energy, or the available shift times wouldn't fit before closing.<</if>><</narrative>>
 <<else>>
 <div class="location-actions">
 <<jobWorkPicker "Work" "jobWorkExecute">>

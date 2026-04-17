@@ -88,6 +88,7 @@
     yogaDone: false, 
     danceDone: false,
     jogDone: false,
+    snoozeCount: 0,
     hairCreamUsed: false,
     faceCreamUsed: false,
     dentalCareUsed: false,
@@ -173,7 +174,20 @@
     bossWantsToSeePlayer: false,
     visitedBossThisMonday: false,
     freeMealUsedToday: false,
-    workedToday: false
+    workedToday: false,
+    workTrustScore: 60,
+    workTrustBand: "mid",
+    bossMeetingRequired: false,
+    bossMeetingReason: "",
+    terminationPending: false,
+    promotionPending: false,
+    pendingTier: 0,
+    weeklyPayPending: null,
+    lastInsufficientType: "",
+    lastInsufficientHours: 0,
+    excuseForDateKey: 0,
+    excuseMode: "",
+    excuseSentToday: false
 }>>
 
 /* School calendar - cyclical, repeats every year */

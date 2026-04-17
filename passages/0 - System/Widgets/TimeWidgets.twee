@@ -294,9 +294,11 @@
     <<set $daily.bookMinutesRead = 0>>
     <<set $daily.dishwashRushSurgeToday = false>>
     <<set $daily.dishwashVinceCheckToday = false>>
+    <<set $daily.snoozeCount = 0>>
 
     /* Job system: only run if player has an active job with valid state */
     <<if $job && $job.id && $jobState>>
+    <<jobEnsureState>>
     /* Job: record insufficient days before reset (hoursToday from calendar day _jobLeaveY/M/D) */
     <<jobRecordInsufficientDay _days _oldWeekday _jobLeaveY _jobLeaveM _jobLeaveD>>
 

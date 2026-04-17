@@ -21,3 +21,94 @@
     </div>
 <</nobr>>
 <</widget>>
+
+/* ==========================================
+   WAKE-UP OPTIONS WIDGET
+   Renders the post-sleep choices for the player.
+   Reads $sleepWakeContext (set by sleep.twee and its follow-ups) to decide
+   which continue-sleep buttons to show:
+     - Sleep to Desired Time : shown when planned duration not yet reached
+     - Sleep Until Alarm     : shown when alarm was set and has not fired yet
+     - Snooze                : shown whenever energy is below max
+========================================== */
+<<widget "bedWakeUp">>
+<<nobr>>
+<<silently>>
+    /* Clothing state */
+    <<set _isNakedAtWakeup = false>>
+    <<set _isUnderwearOnlyAtWakeup = false>>
+    <<if $wardrobe && $wardrobe.equipped>>
+        <<set _hasOuterCovering = (
+            ($wardrobe.equipped.sleepwear && $wardrobe.equipped.sleepwear !== "") ||
+            ($wardrobe.equipped.top       && $wardrobe.equipped.top !== "")       ||
+            ($wardrobe.equipped.dress     && $wardrobe.equipped.dress !== "")     ||
+            ($wardrobe.equipped.bottom    && $wardrobe.equipped.bottom !== "")
+        )>>
+        <<set _hasUnderwear = (
+            ($wardrobe.equipped.bra   && $wardrobe.equipped.bra !== "") ||
+            ($wardrobe.equipped.panty && $wardrobe.equipped.panty !== "")
+        )>>
+        <<set _isNakedAtWakeup = (!_hasOuterCovering && !_hasUnderwear)>>
+        <<set _isUnderwearOnlyAtWakeup = (!_hasOuterCovering && _hasUnderwear)>>
+    <</if>>
+
+    /* QoL flags from sleep context */
+    <<set _ctx = $sleepWakeContext>>
+    <<if ndef _ctx>><<set _ctx = {}>><</if>>
+    <<set _reqDur = parseInt(_ctx.requestedDuration, 10)>>
+    <<if _reqDur !== _reqDur>><<set _reqDur = 0>><</if>>
+    <<set _slept = parseInt(_ctx.sleepDuration, 10)>>
+    <<if _slept !== _slept>><<set _slept = 0>><</if>>
+    <<set _alarmCtx = _ctx.alarmActive ? true : false>>
+    <<set _tUntilAlarm = parseInt(_ctx.timeUntilAlarm, 10)>>
+    <<if _tUntilAlarm !== _tUntilAlarm>><<set _tUntilAlarm = 0>><</if>>
+
+    <<set _energyNow = parseInt($energy || 0, 10)>>
+    <<set _energyMaxNow = parseInt($energyMax || 80, 10)>>
+
+    <<set _reachedPlan = _slept >= _reqDur>>
+    <<set _reachedAlarm = (!_alarmCtx) || (_slept >= _tUntilAlarm)>>
+    <<set _energyFull = _energyNow >= _energyMaxNow>>
+
+    <<set _showSleepToDesired = !_reachedPlan && _reqDur > 0>>
+    <<set _showSleepUntilAlarm = _alarmCtx && !_reachedAlarm>>
+    <<set _showSnooze = !_energyFull>>
+<</silently>>
+
+<<if _showSleepToDesired || _showSleepUntilAlarm || _showSnooze>>
+<div class="location-actions">
+    <<if _showSleepToDesired>>
+        <<btn "Sleep to Desired Time" "sleepToDesiredTime">><</btn>>
+    <</if>>
+
+    <<if _showSleepUntilAlarm>>
+        <<btn "Sleep Until Alarm" "sleepUntilAlarm">><</btn>>
+    <</if>>
+
+    <<if _showSnooze>>
+        <<btnPicker "Snooze" "sleepSnoozeApply" "snoozeDuration">>
+    <</if>>
+</div>
+<</if>>
+
+<div class="location-actions">
+    <<btn "Get Dressed" "fhBedroom">>
+        <<if $preSleepOutfit>>
+            <<set $wardrobe.equipped = clone($preSleepOutfit)>>
+            <<recalculateStats>>
+            <<updateClothesNotification>>
+        <</if>>
+    <</btn>>
+
+    <<if _isNakedAtWakeup && $corruption < 5>>
+        <<btn "Go to Bathroom" "sleep_naked_bathroom_confirm">><</btn>>
+    <<elseif _isUnderwearOnlyAtWakeup && $corruption < 3>>
+        <<btn "Go to Bathroom" "sleep_naked_bathroom_confirm">><</btn>>
+    <<else>>
+        <<btn "Go to Bathroom" "fhUpperBath">><</btn>>
+    <</if>>
+
+    <<btn "Get Out of Bed" "fhBedroom">><</btn>>
+</div>
+<</nobr>>
+<</widget>>

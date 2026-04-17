@@ -32,6 +32,32 @@ function getUnreadFotogramDmThreadsCount(vars) {
     return unread;
 }
 
+function getCalendarNoticeMeta(vars) {
+    var job = vars && vars.job;
+    var jobState = (vars && vars.jobState) || {};
+    var jobs = (window.setup && window.setup.jobs) || {};
+    var t = (vars && vars.timeSys) || {};
+    if (!job || !job.id || !jobs[job.id]) return { show: false, key: '' };
+    var hasBossNotice = !!(jobState.bossMeetingRequired || jobState.bossWantsToSeePlayer || jobState.terminationPending || jobState.promotionPending);
+    if (!hasBossNotice) return { show: false, key: '' };
+    var dateKey = (Number(t.year) || 0) * 10000 + (Number(t.month) || 0) * 100 + (Number(t.day) || 0);
+    var key = JSON.stringify({
+        dateKey: dateKey,
+        bossMeetingRequired: !!jobState.bossMeetingRequired,
+        bossWantsToSeePlayer: !!jobState.bossWantsToSeePlayer,
+        terminationPending: !!jobState.terminationPending,
+        promotionPending: !!jobState.promotionPending
+    });
+    var seen = vars && vars.phoneCalendarNoticeSeenKey === key;
+    return { show: !seen, key: key };
+}
+
+window.getCalendarNoticeMeta = getCalendarNoticeMeta;
+
+function getCalendarNotificationCount(vars) {
+    return getCalendarNoticeMeta(vars).show ? 1 : 0;
+}
+
 function getAppContent(action, vars) {
     if (action === 'camera' && typeof window.phoneRenderCameraApp === 'function') {
         var rawLoc = (vars && vars.location) || (PhoneAPI && PhoneAPI.State && (PhoneAPI.State.variables && PhoneAPI.State.variables.location || PhoneAPI.State.passage)) || '';
@@ -54,7 +80,8 @@ function updatePhoneBadges() {
     var msgCount = (typeof window.phoneUnreadCount === 'function') ? window.phoneUnreadCount() : 0;
     var fotogramCount = getUnreadFotogramDmThreadsCount(v);
     var finderCount = (v.phoneNotifications && v.phoneNotifications.finder) ? v.phoneNotifications.finder.length : 0;
-    var badges = { messages: msgCount, fotogram: fotogramCount, finder: finderCount };
+    var calendarCount = getCalendarNotificationCount(v);
+    var badges = { messages: msgCount, calendar: calendarCount, fotogram: fotogramCount, finder: finderCount };
     $('#phone-overlay .phone-app').each(function () {
         var action = $(this).data('action');
         var n = badges[action];
@@ -66,7 +93,7 @@ function updatePhoneBadges() {
             $badge.remove();
         }
     });
-    var total = msgCount + fotogramCount + finderCount;
+    var total = msgCount + calendarCount + fotogramCount + finderCount;
     var $preview = $('.right-bar .phone-preview');
     if ($preview.length) {
         var html = total > 0
@@ -85,7 +112,11 @@ function showAppView(action) {
     phoneViewState.pickerFor = null;
     phoneViewState.meetup = null;
     var vars = PhoneAPI.State.variables;
-    if (action === 'calendar') phoneViewState.calendarOffset = 0;
+    if (action === 'calendar') {
+        phoneViewState.calendarOffset = 0;
+        var calMeta = getCalendarNoticeMeta(vars);
+        if (calMeta.key) vars.phoneCalendarNoticeSeenKey = calMeta.key;
+    }
     if (action === 'gallery') phoneViewState.galleryFolder = null;
     if (action === 'fotogram') {
         phoneViewState.fotogramSub = 'feed';
@@ -110,6 +141,7 @@ function showAppView(action) {
     if (action === 'fotogram' && phoneViewState.fotogramSub === 'dm' && phoneViewState.fotogramDmThread) {
         scrollPhoneThreadToBottom();
     }
+    if (action === 'calendar') updatePhoneBadges();
     $view.show();
     $('#phone-overlay .phone-home').hide();
     
@@ -250,12 +282,13 @@ function createPhoneOverlay() {
     var notificationMessages = (typeof window.phoneUnreadCount === 'function') ? window.phoneUnreadCount() : 0;
     var notificationFotogram = getUnreadFotogramDmThreadsCount(vars);
     var notificationFinder = (vars.phoneNotifications && vars.phoneNotifications.finder) ? vars.phoneNotifications.finder.length : 0;
+    var notificationCalendar = getCalendarNotificationCount(vars);
     var apps = [
         { name: 'Camera', icon: 'assets/content/phone/icons/icon_camera.webp', action: 'camera', badge: 0 },
         { name: 'Contacts', icon: 'assets/content/phone/icons/icon_calls.webp', action: 'contacts', badge: 0 },
         { name: 'Messages', icon: 'assets/content/phone/icons/icon_messages.webp', action: 'messages', badge: notificationMessages },
         { name: 'Gallery', icon: 'assets/content/phone/icons/icon_gallery.webp', action: 'gallery', badge: 0 },
-        { name: 'Calendar', icon: 'assets/content/phone/icons/icon_calendar.webp', action: 'calendar', badge: 0 },
+        { name: 'Calendar', icon: 'assets/content/phone/icons/icon_calendar.webp', action: 'calendar', badge: notificationCalendar },
         { name: 'Fotogram', icon: 'assets/content/phone/icons/icon_fotogram.webp', action: 'fotogram', badge: notificationFotogram },
         { name: 'Finder', icon: 'assets/content/phone/icons/icon_finder.webp', action: 'finder', badge: notificationFinder }
     ];
@@ -459,6 +492,7 @@ function createPhoneOverlay() {
         phoneViewState.sub = 'topics';
         $('#phone-app-view-title').text('Talk - ' + getPhoneContactFullName(charId, vars));
         $('#phone-app-view-content').html(getTopicListHtml(charId, vars));
+        if (typeof window.initTooltips === 'function') window.initTooltips();
     });
 
     $('#phone-overlay').on('click', '#phone-where-btn', function () {
@@ -614,6 +648,7 @@ function createPhoneOverlay() {
 
     $('#phone-overlay').on('click', '.phone-topic-item', function () {
         if (!PhoneAPI) return;
+        if ($(this).hasClass('disabled')) return;
         var charId = phoneViewState.threadCharId;
         var topicId = $(this).data('topic-id');
         var vars = PhoneAPI.State.variables;
@@ -641,6 +676,10 @@ function createPhoneOverlay() {
                         var gallery = vars.phoneGallery;
                         var hasSpicy = !!(gallery && gallery.photos && Array.isArray(gallery.photos.spicy) && gallery.photos.spicy.length > 0);
                         var visible = turn.options.map(function (o, idx) { return { opt: o, idx: idx }; }).filter(function (x) {
+                            if (x.opt.requiresCorruptionEq != null) {
+                                var corr = Number(vars.corruption) || 0;
+                                if (corr !== Number(x.opt.requiresCorruptionEq)) return false;
+                            }
                             return !x.opt.requiresSpicyPhoto || hasSpicy;
                         });
                         var optIdx = visible.length > 0 ? visible[Math.floor(Math.random() * visible.length)].idx : 0;
@@ -713,12 +752,22 @@ function createPhoneOverlay() {
         var topicImage = pending.topicImage || null;
         var topicImageType = pending.topicImageType || null;
         var photoPushed = pending.photoPushed || false;
+        var actionResult = null;
+        if (opt.customAction && opt.customAction.type === 'job_excuse' && typeof window.jobApplyPhoneExcuse === 'function') {
+            actionResult = window.jobApplyPhoneExcuse(opt.customAction.mode, opt.customAction.lieType, charId);
+        }
         var attachImgToPlayer = topicImage && !photoPushed && topicImageType === 'sender';
         var playerImg = selectedImagePath || (attachImgToPlayer ? topicImage : null);
         pushPhoneMessage(charId, 'player', opt.playerText || '', playerImg);
         if (attachImgToPlayer || selectedImagePath) photoPushed = true;
-        if (opt.then && Array.isArray(opt.then)) {
-            opt.then.forEach(function (t) {
+        var thenTurns = null;
+        if (opt.thenByMode && actionResult && actionResult.mode && Array.isArray(opt.thenByMode[actionResult.mode])) {
+            thenTurns = opt.thenByMode[actionResult.mode];
+        } else if (opt.then && Array.isArray(opt.then)) {
+            thenTurns = opt.then;
+        }
+        if (thenTurns && Array.isArray(thenTurns)) {
+            thenTurns.forEach(function (t) {
                 var from = (t.from === 'player') ? 'player' : charId;
                 var text = t.text || '';
                 var img = null;

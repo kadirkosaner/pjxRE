@@ -13,9 +13,9 @@
         workplaceName: "Ruby's Diner",
         position: "Dishwasher",
 
-        tierMax: 6,
-        tierExperienceRequirements: [0, 50, 120, 200, 320, 500],
-        wageByTier: [3, 4, 5, 6, 7, 8],
+        tierMax: 4,
+        tierExperienceRequirements: [0, 50, 100, 150],
+        wageByTier: [3, 4, 5, 6],
         xpPerHour: 0.5,
 
         shiftHoursOptions: [2, 4, 6, 8],
@@ -30,6 +30,45 @@
 
         bossOfficePassage: "jobBossOfficeCall_ruby",
         bossCharId: "dinerManager",
+        bossMeetingPassage: "jobBossOfficeCall_ruby",
+        paydayScenePassage: "jobWeeklyPayEnvelope",
+        trustPolicy: {
+            base: 60,
+            fullDayGain: 4,
+            partial6Penalty: 6,
+            partial4Penalty: 10,
+            noShowPenalty: 20,
+            noShowMessagePenalty: {
+                none: 20,
+                honest: 10,
+                lieSuccess: 8,
+                lieFail: 16
+            },
+            dismissalAtTrust: 0,
+            discountThresholds: [
+                { trust: 85, percent: 10 },
+                { trust: 50, percent: 5 }
+            ]
+        },
+        liePolicy: {
+            confidenceBonusMax: 20,
+            successCapMin: 5,
+            successCapMax: 95,
+            options: {
+                sick: 60,
+                family: 50,
+                transport: 40
+            }
+        },
+        excusePolicy: {
+            cutoffHour: 12
+        },
+        /* Tier gates: job XP + dishwashing only; max tier 4 (waitress path uses promotionRules). */
+        tierProgressionRules: {
+            2: { jobExperience: 50, skills: { "practical.dishwashing": 30 } },
+            3: { jobExperience: 100, skills: { "practical.dishwashing": 60 } },
+            4: { jobExperience: 150, skills: { "practical.dishwashing": 90 } }
+        },
 
         statCostsPer4Hours: {
             energy: -30,
@@ -41,6 +80,17 @@
         skillGainsPer4Hours: [
             { category: "practical", skill: "dishwashing", amount: 2 }
         ],
+        skillGainSoftCap: {
+            bands: [
+                { min: 0, mult: 1.0 },
+                { min: 30, mult: 0.6 },
+                { min: 60, mult: 0.35 },
+                { min: 85, mult: 0.2 }
+            ],
+            shortShiftMinGainHours: 2,
+            shortShiftMinGainAmount: 1,
+            shortShiftMinGainMaxSkill: 35
+        },
 
         requirements: {
             looks: 0,
@@ -65,6 +115,15 @@
             looks: 35,
             skills: { "social.conversation": 10 },
             scenePassage: null
+        },
+        promotionRules: {
+            ruby_waitress: {
+                daysWorked: 14,
+                jobExperience: 100,
+                looks: 35,
+                confidence: 35,
+                skills: { "social.conversation": 10 }
+            }
         }
     }
 

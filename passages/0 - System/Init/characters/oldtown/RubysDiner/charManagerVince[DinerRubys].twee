@@ -41,7 +41,7 @@
         { hour: 14, location: "dinerRubysManagerOffice", status: "available" },
         { hour: 16, location: "dinerRubysKitchen", status: "available" },
         { hour: 17, location: "dinerRubys", status: "available" },
-        { hour: 19, location: "dinerRubysManagerOffice", status: "available" },
+        { hour: 18, location: "dinerRubysManagerOffice", status: "available" },
         { hour: 22, location: null, status: "unavailable" }
     ],
     weekend: [
@@ -51,7 +51,7 @@
         { hour: 14, location: "dinerRubysManagerOffice", status: "available" },
         { hour: 16, location: "dinerRubysKitchen", status: "available" },
         { hour: 17, location: "dinerRubys", status: "available" },
-        { hour: 19, location: "dinerRubysManagerOffice", status: "available" },
+        { hour: 18, location: "dinerRubysManagerOffice", status: "available" },
         { hour: 22, location: null, status: "unavailable" }
     ],
     sunday: [
@@ -71,6 +71,10 @@
         {
             id: "talk", label: "Talk", passage: "vinceTalkDinerRubys",
             tags: [], requirements: { firstWorkDayEventShown: true }, showWhenLocked: false, dailyLimit: true, minPlayerEnergy: 5
+        },
+        {
+            id: "bossPromotionTalk", label: "Discuss Promotion", passage: "jobBossOfficeCall_ruby",
+            tags: [], requirements: { firstWorkDayEventShown: true, promotionEligible: true }, showWhenLocked: true, dailyLimit: false, minPlayerEnergy: 0
         }
     ],
     dinerRubysKitchen: [

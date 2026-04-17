@@ -36,6 +36,18 @@ function restaurantGetEngine() {
     return null;
 }
 
+function restaurantRoundMoney(value) {
+    if (typeof window.roundMoney === 'function') return window.roundMoney(value);
+    var n = Number(value);
+    if (!Number.isFinite(n)) n = 0;
+    return Math.round(n * 100) / 100;
+}
+
+function restaurantFormatMoney(value) {
+    if (typeof window.formatMoney === 'function') return window.formatMoney(value);
+    return restaurantRoundMoney(value).toFixed(2);
+}
+
 function restaurantGetDish(type, id) {
     var dishes = restaurantGetSetup().restaurantDishes;
     if (!dishes) return null;
@@ -114,8 +126,8 @@ function restaurantPayCash() {
     if (total <= 0) { restaurantToast('Select something first.'); return; }
     var S = restaurantGetState();
     if ((S.variables.cashBalance || 0) < total) { restaurantToast('Not enough cash.'); return; }
-    S.variables.moneySpend = (S.variables.moneySpend || 0) + total;
-    S.variables.cashBalance = (S.variables.moneyEarn || 0) - (S.variables.moneySpend || 0);
+    S.variables.moneySpend = restaurantRoundMoney((S.variables.moneySpend || 0) + total);
+    S.variables.cashBalance = restaurantRoundMoney((S.variables.moneyEarn || 0) - (S.variables.moneySpend || 0));
     if (restaurantSelectedFood) {
         var d = restaurantGetDish('food', restaurantSelectedFood);
         if (d) {
@@ -149,8 +161,8 @@ function restaurantPayCard() {
     if (total <= 0) { restaurantToast('Select something first.'); return; }
     var S = restaurantGetState();
     if ((S.variables.bankBalance || 0) < total) { restaurantToast('Insufficient bank balance.'); return; }
-    S.variables.bankSpend = (S.variables.bankSpend || 0) + total;
-    S.variables.bankBalance = (S.variables.bankDeposit || 0) - (S.variables.bankSpend || 0) - (S.variables.bankWithdraw || 0);
+    S.variables.bankSpend = restaurantRoundMoney((S.variables.bankSpend || 0) + total);
+    S.variables.bankBalance = restaurantRoundMoney((S.variables.bankDeposit || 0) - (S.variables.bankSpend || 0) - (S.variables.bankWithdraw || 0));
     if (restaurantSelectedFood) {
         var d = restaurantGetDish('food', restaurantSelectedFood);
         if (d) {
@@ -255,9 +267,9 @@ function restaurantRenderOrder() {
     var cashBtn = restaurantContainer ? restaurantContainer.querySelector('.restaurant-pay-cash') : null;
     var cardBtn = restaurantContainer ? restaurantContainer.querySelector('.restaurant-pay-card') : null;
     var summaryEl = restaurantContainer ? restaurantContainer.querySelector('.restaurant-order-summary') : null;
-    if (totalEl) totalEl.textContent = '$' + total.toFixed(2);
-    if (cashEl) cashEl.textContent = '$' + cash;
-    if (bankEl) bankEl.textContent = '$' + bank;
+    if (totalEl) totalEl.textContent = '$' + restaurantFormatMoney(total);
+    if (cashEl) cashEl.textContent = '$' + restaurantFormatMoney(cash);
+    if (bankEl) bankEl.textContent = '$' + restaurantFormatMoney(bank);
     if (cashBtn) cashBtn.classList.toggle('disabled', total <= 0 || cash < total);
     if (cardBtn) cardBtn.classList.toggle('disabled', total <= 0 || bank < total);
     var summaryHtml = '';

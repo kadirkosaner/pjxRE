@@ -115,6 +115,16 @@ function rebuildTopbar() {
             showWorkIcon = true;
         }
     }
+    let workNeedsDot = false;
+    if (window.StatsSystem && typeof window.StatsSystem.getWorkNoticeMeta === 'function') {
+        workNeedsDot = !!window.StatsSystem.getWorkNoticeMeta(vars).showDot;
+    } else {
+        const workNoticeHasPending = !!(jobState && jobState.weeklyPayPending);
+        const workNoticeKey = workNoticeHasPending ? JSON.stringify({
+            weeklyPayPendingNet: Number(jobState.weeklyPayPending && jobState.weeklyPayPending.net ? jobState.weeklyPayPending.net : 0)
+        }) : '';
+        workNeedsDot = workNoticeHasPending && vars.workTabNoticeSeenKey !== workNoticeKey;
+    }
 
     // Work tooltip: dynamic based on job schedule (amber icon = scheduled day off during shift hours)
     function getWorkTooltip() {
@@ -355,7 +365,10 @@ function rebuildTopbar() {
                     </div>
                     
                     <div class="navbar-right" style="${hideNav ? 'visibility: hidden;' : ''}">
-                        <div class="nav-item" data-action="stats">Stats</div>
+                        <div class="nav-item" data-action="stats" style="position: relative;">
+                            Stats
+                            ${workNeedsDot ? '<div class="stats-notification-dot"></div>' : ''}
+                        </div>
                         <div class="nav-item" data-action="journal" style="position: relative;">
                             Journal
                             ${vars.showJournalQuestNotify === true ? '<div class="journal-notification-dot"></div>' : ''}
@@ -390,6 +403,7 @@ function rebuildTopbar() {
 
         const idx = St.activeIndex ?? St.index ?? 0;
         if (idx > 0) {
+            window.__navigatingBackwardFromUI = true;
             TopbarAPI.Engine.backward();
         }
     });

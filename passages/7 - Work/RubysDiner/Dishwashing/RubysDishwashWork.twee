@@ -1,4 +1,8 @@
 <div class="divnobr">
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+<<if !$_navigatingBackward>>
 <<silently>>
 /* Work day number: stable across all shifts in the same day.
    Before 1st shift: totalDaysWorked=2, workedToday=false → 2+1=3
@@ -178,6 +182,7 @@ Another shift at the sink. Hands raw, stacks cleared. Time to head out front.
     <</if>>
 <</if>>
 <<include "RubysDishwashWork_afterMini">>
+<</if>>
 <</if>>
 <</if>>
 </div>

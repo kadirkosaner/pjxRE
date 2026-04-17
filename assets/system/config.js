@@ -6,6 +6,7 @@ window.SystemModules = {
     "modal", // Base modal system (ModalTabSystem)
     "tooltip", // Tooltip helper
     "notification", // Toast notification helpers
+    "money", // Money rounding/format helpers
     "accordion", // Event binding helper
   ],
 

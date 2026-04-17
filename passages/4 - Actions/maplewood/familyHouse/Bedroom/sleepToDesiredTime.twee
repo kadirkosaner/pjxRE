@@ -1,0 +1,40 @@
+:: sleepToDesiredTime
+<<nobr>>
+<<silently>>
+    <<set $location = "fhBedroom">>
+    <<set _ctx = $sleepWakeContext>>
+    <<if ndef _ctx>><<set _ctx = {}>><</if>>
+    <<set _reqDur = parseInt(_ctx.requestedDuration, 10)>>
+    <<if _reqDur !== _reqDur>><<set _reqDur = 0>><</if>>
+    <<set _slept = parseInt(_ctx.sleepDuration, 10)>>
+    <<if _slept !== _slept>><<set _slept = 0>><</if>>
+    <<set _extra = Math.max(0, _reqDur - _slept)>>
+
+    <<if _extra > 0>>
+        <<set $isSleeping = true>>
+        <<advanceTime _extra>>
+        <<set $isSleeping = false>>
+
+        /* Scaled recovery — same spirit as sleep.twee (9h = 100%) */
+        <<set _energyMaxNow = parseInt($energyMax || 80, 10)>>
+        <<set _energyToFill = Math.max(0, _energyMaxNow - parseInt($energy || 0, 10))>>
+        <<if _energyToFill > 0>>
+            <<gainStat "energy" Math.min(_energyToFill, Math.round(_extra * 0.2))>>
+        <</if>>
+        <<loseStat "stress" Math.round((50 * _extra) / 540)>>
+        <<gainStat "health" Math.round((20 * _extra) / 540)>>
+
+        <<set $sleepWakeContext.sleepDuration = _slept + _extra>>
+        <<set $sleepWakeContext.wakeType = "planned">>
+
+        <<run window.notifySuccess("You sleep a little longer.")>>
+        <<flushNotifications>>
+    <</if>>
+<</silently>>
+
+<<narrative "Back to Sleep">>
+You sink back into the covers, letting yourself drift until the hour you originally set out for. When you stir again the room feels different — quieter, softer — and you know your body finally had the time it asked for.
+<</narrative>>
+
+<<bedWakeUp>>
+<</nobr>>

@@ -3,6 +3,10 @@
    Receives $selectedDuration in minutes (120, 240, 360, 480)
 ======================================== */
 <div class="divnobr">
+   <<if $_navigatingBackward>>
+      <<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+   <</if>>
+   <<if !$_navigatingBackward>>
    <<jobExecuteShift $selectedDuration "validate">>
    <<if $jobShiftSuccess>>
       <<silently>>
@@ -15,14 +19,7 @@
       <<set $jobState.firstWorkDayEventShown = true>>
       <<goto "dinerFirstdayJob_firstWorkDayEvent">>
    <<else>>
-
-      <<narrative "Shift">>
-      You got ready for the job and came to your place to start work.
-      <</narrative>>
-
-      <div class="location-actions">
-         <<btn "Start job" _postWork>><</btn>>
-      </div>
+      <<goto _postWork>>
    <</if>>
    <<else>>
       <<set _backPassage = "jobWorkSelect">>
@@ -34,5 +31,6 @@
       <div class="location-actions">
          <<btn "Back" _backPassage "secondary">><</btn>>
       </div>
+   <</if>>
    <</if>>
 </div>

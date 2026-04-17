@@ -84,6 +84,93 @@ window.StatsInit = function (API) {
         // ============================================
         // WORK TAB
         // ============================================
+        getPromotionProgressMeta: function (vars, def) {
+            const job = vars.job || {};
+            const jobState = vars.jobState || {};
+            if (!job.id || !def) return { show: false, lines: [], nextTier: null };
+
+            const tier = Math.min(job.tier || 1, def.tierMax || 6);
+            const nextTier = tier + 1;
+            if (nextTier > (def.tierMax || 6)) return { show: false, lines: [], nextTier: null };
+
+            const reqs = def.tierExperienceRequirements || [0, 50, 120, 200, 320, 500];
+            const xpForNext = reqs[tier] || 0;
+            const currentXP = Number(jobState.jobExperience || 0);
+            const xpFull = currentXP >= xpForNext;
+            const isPending = !!jobState.promotionPending;
+
+            if (!xpFull && !isPending) return { show: false, lines: [], nextTier: nextTier };
+
+            const lines = [];
+            const rule = (def.tierProgressionRules && def.tierProgressionRules[nextTier]) ? def.tierProgressionRules[nextTier] : null;
+            const pushTargetIfUnmet = function (have, need, label) {
+                const n = Math.round(Number(need) || 0);
+                const h = Number(have) || 0;
+                if (n > 0 && h < n) {
+                    const word = String(label || '');
+                    const upper = word.toUpperCase();
+                    const formatted = (upper === 'XP' || upper === 'HP' || upper === 'MP')
+                        ? upper
+                        : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                    lines.push(`${n} ${formatted}`);
+                }
+            };
+
+            if (rule && !isPending) {
+                if (rule.jobExperience != null) {
+                    pushTargetIfUnmet(currentXP, rule.jobExperience, 'XP');
+                }
+                if (rule.stats && typeof rule.stats === 'object') {
+                    Object.entries(rule.stats).forEach(([statKey, need]) => {
+                        pushTargetIfUnmet(vars[statKey], need, statKey);
+                    });
+                }
+                if (rule.skills && typeof rule.skills === 'object') {
+                    Object.entries(rule.skills).forEach(([skillPath, need]) => {
+                        let node = vars.skills || {};
+                        const parts = String(skillPath || '').replace(/^skills\./, '').split('.');
+                        for (let i = 0; i < parts.length; i += 1) {
+                            if (!node || typeof node !== 'object') { node = null; break; }
+                            node = node[parts[i]];
+                        }
+                        const have = Number(node || 0);
+                        const skillName = parts[parts.length - 1] || 'skill';
+                        pushTargetIfUnmet(have, need, skillName);
+                    });
+                }
+            }
+
+            return { show: true, lines: lines, nextTier: nextTier, isPending: isPending, xpFull: xpFull };
+        },
+
+        getWorkNoticeMeta: function (vars) {
+            const jobState = vars.jobState || {};
+            const setup = this.API?.setup || window.setup || {};
+            const jobs = setup.jobs || {};
+            const job = vars.job || {};
+            const def = (job.id && jobs[job.id]) ? jobs[job.id] : null;
+            const promotionMeta = this.getPromotionProgressMeta(vars, def);
+            const hasPending = !!(jobState.weeklyPayPending || promotionMeta.show);
+            if (!hasPending) {
+                return { showDot: false, key: '' };
+            }
+            const key = JSON.stringify({
+                weeklyPayPendingNet: Number(jobState.weeklyPayPending && jobState.weeklyPayPending.net ? jobState.weeklyPayPending.net : 0),
+                promotionMeta: promotionMeta
+            });
+            const seen = vars.workTabNoticeSeenKey === key;
+            return { showDot: !seen, key: key };
+        },
+
+        markWorkNoticeSeen: function (vars, key) {
+            if (!key) return;
+            vars.workTabNoticeSeenKey = key;
+            this.API.$('.modal-overlay[data-modal="stats-modal"] .modal-tab[data-tab="work"] .modal-tab-dot').remove();
+            if (typeof window.rebuildTopbar === 'function') {
+                window.rebuildTopbar();
+            }
+        },
+
         renderWorkTab: function(vars) {
             const job = vars.job;
             const jobState = vars.jobState || {};
@@ -110,9 +197,10 @@ window.StatsInit = function (API) {
             const currentXP = jobState.jobExperience || 0;
             const xpForCurrent = reqs[tier - 1] || 0;
             const xpForNext = tier >= (def.tierMax || 6) ? xpForCurrent : (reqs[tier] || 0);
-            const xpInTier = currentXP - xpForCurrent;
-            const xpNeeded = xpForNext - xpForCurrent;
-            const xpPct = xpNeeded <= 0 ? 100 : Math.min(100, (xpInTier / xpNeeded) * 100);
+            const xpInTierRaw = Math.max(0, currentXP - xpForCurrent);
+            const xpNeeded = Math.max(0, xpForNext - xpForCurrent);
+            const xpInTier = xpNeeded > 0 ? Math.min(xpInTierRaw, xpNeeded) : xpInTierRaw;
+            const xpPct = xpNeeded <= 0 ? 100 : Math.min(100, Math.max(0, (xpInTier / xpNeeded) * 100));
 
             const wageByTier = def.wageByTier || [];
             const wage = (wageByTier[tier - 1] != null) ? wageByTier[tier - 1] : (def.wagePerHour || 0);
@@ -130,10 +218,31 @@ window.StatsInit = function (API) {
             const gross = jobState.weeklyEarnings || 0;
             const deductions = jobState.weeklyDeductions || 0;
             const net = Math.max(0, gross - deductions);
+            const hasTrustState = (jobState.workTrustScore != null);
+            const trustRaw = hasTrustState ? Number(jobState.workTrustScore || 0) : 60;
+            const trust = Math.max(0, Math.min(100, trustRaw));
+            const thresholds = (def.trustPolicy && Array.isArray(def.trustPolicy.discountThresholds))
+                ? def.trustPolicy.discountThresholds
+                : [];
+            const trustDiscount = thresholds.reduce((best, t) => {
+                const minTrust = Number(t && t.trust);
+                const pct = Number(t && t.percent);
+                if (!Number.isFinite(minTrust) || !Number.isFinite(pct)) return best;
+                return trust >= minTrust && pct > best ? pct : best;
+            }, 0);
+            const bossName = (window.setup && setup.characterDefs && setup.characterDefs[def.bossCharId]) ? (setup.characterDefs[def.bossCharId].firstName || 'manager') : 'manager';
+            const bossNameLower = String(bossName || 'manager').toLowerCase();
+            const pendingPay = jobState.weeklyPayPending || null;
+            const pendingPayNet = pendingPay ? Number(pendingPay.net || 0) : 0;
+            const pendingPayPassage = def.paydayScenePassage || 'jobWeeklyPayEnvelope';
+            const promotionMeta = this.getPromotionProgressMeta(vars, def);
 
             const requiredHoursPerDay = def.requiredHoursPerDay != null ? def.requiredHoursPerDay : 8;
             const hoursToday = jobState.hoursToday || 0;
             const hoursTodayPct = requiredHoursPerDay <= 0 ? 100 : Math.min(100, (hoursToday / requiredHoursPerDay) * 100);
+            const primaryAction = pendingPay
+                ? { label: 'Collect weekly pay', passage: pendingPayPassage }
+                : null;
 
             return `
                 <div class="stats-view work-tab">
@@ -196,7 +305,38 @@ window.StatsInit = function (API) {
                                 <span class="stat-label">Pay day</span>
                                 <span class="work-value">${payDayName}</span>
                             </div>
+                            <div class="work-row">
+                                <span class="stat-label">Trust</span>
+                                <span class="work-value">${Math.round(trust)} / 100</span>
+                            </div>
+                            <div class="work-row">
+                                <span class="stat-label">Deduction reduce</span>
+                                <span class="work-value">${trustDiscount}%</span>
+                            </div>
+                            ${primaryAction ? `
+                            <div class="location-actions">
+                                <button class="btn work-action-btn" data-passage="${primaryAction.passage}">${primaryAction.label}</button>
+                            </div>
+                            ` : ''}
                         </div>
+                        ${promotionMeta.show ? `
+                        <div class="work-panel work-panel-promotion">
+                            <div class="work-salary-title">Tier progression</div>
+                            <p class="work-promotion-lead">See ${bossNameLower} to get promoted to tier ${promotionMeta.nextTier}.</p>
+                            ${promotionMeta.lines.length
+                                ? `<div class="work-promotion-reqs">${promotionMeta.lines.map(line => `<div class="work-promotion-req">${line}</div>`).join('')}</div>`
+                                : (!promotionMeta.isPending ? `<div class="work-promotion-reqs"><div class="work-promotion-req">You're eligible to discuss promotion with your manager when you're ready.</div></div>` : '')}
+                        </div>
+                        ` : ''}
+                        ${pendingPay ? `
+                        <div class="work-panel work-panel-pending">
+                            <div class="work-salary-title">Pending pay</div>
+                            <div class="work-row">
+                                <span class="stat-label">Amount</span>
+                                <span class="work-value">$${pendingPayNet.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        ` : ''}
                     </div>
                 </div>
             `;
@@ -215,6 +355,7 @@ window.StatsInit = function (API) {
             const fitness = vars.fitness || Math.round((vars.upperBody + vars.core + vars.lowerBody + vars.cardio) / 4);
             const looks = vars.looks || 0;
 
+            const workNotice = this.getWorkNoticeMeta(vars);
             this.API.Modal.create({
                 id: 'stats-modal',
                 title: 'Stats & Skills',
@@ -339,10 +480,22 @@ window.StatsInit = function (API) {
                     // ====================== TAB 3: WORK ======================
                     {
                         id: 'work',
-                        label: 'Work',
+                        label: workNotice.showDot ? 'Work <span class="modal-tab-dot"></span>' : 'Work',
                         content: this.renderWorkTab(vars)
                     }
                 ]
+            });
+
+            const self = this;
+            const $statsModal = this.API.$('.modal-overlay[data-modal="stats-modal"]');
+            $statsModal.find('.modal-tab[data-tab="work"]').off('click.stats-work-seen').on('click.stats-work-seen', function () {
+                self.markWorkNoticeSeen(vars, workNotice.key);
+            });
+            $statsModal.off('click.stats-work-action', '.work-action-btn').on('click.stats-work-action', '.work-action-btn', function () {
+                const passage = self.API.$(this).data('passage');
+                if (!passage) return;
+                self.API.Modal.close();
+                self.API.Engine.play(passage);
             });
 
             // Initialize tooltips explicitly using standard system

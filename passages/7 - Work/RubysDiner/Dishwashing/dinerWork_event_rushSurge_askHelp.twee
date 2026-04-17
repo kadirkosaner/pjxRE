@@ -1,4 +1,8 @@
 :: dinerWork_event_rushSurge_askHelp
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+<<if !$_navigatingBackward>>
 <<silently>>
 <<set $location = $activityOrigin || "dinerRubys">>
 <<set _charisma = $charisma || 0>>
@@ -33,3 +37,4 @@ You handle it alone. It takes longer than it should.
 <</if>>
 
 <<include "RubysDishwashWork_afterMini">>
+<</if>>

@@ -120,7 +120,7 @@ window.navCardAnimationsEnabled = function () {
 };
 
 /* ================== Save Version Registry =================== */
-setup.CURRENT_SAVE_VERSION = 0;
+setup.CURRENT_SAVE_VERSION = 1;
 
 setup.saveVersions = [];
 
@@ -2265,6 +2265,77 @@ Macro.add('image', {
     }
 });
 
+/* Same rules as <<jobCanAdvanceTier>> — used for Discuss Promotion without waiting for promotionPending. */
+window.getJobPromotionEligibility = function (vars) {
+    const setupObj = (typeof setup !== 'undefined' && setup) ? setup : (typeof window !== 'undefined' && window.setup) ? window.setup : null;
+    if (!setupObj || !vars) return { eligible: false, nextTier: null, targetHints: [] };
+    const job = vars.job;
+    const jobState = vars.jobState || {};
+    if (!job || !job.id || !setupObj.jobs || !setupObj.jobs[job.id]) {
+        return { eligible: false, nextTier: null, targetHints: [] };
+    }
+    const def = setupObj.jobs[job.id];
+    const tier = parseInt(job.tier, 10) || 1;
+    const maxTier = parseInt(def.tierMax, 10) || 6;
+    const next = tier + 1;
+    if (next > maxTier) {
+        return { eligible: false, nextTier: null, targetHints: [] };
+    }
+    const rules = def.tierProgressionRules || {};
+    const rule = rules[next] || null;
+    const targetHints = [];
+    const formatReqLabel = function (word) {
+        const w = String(word || '');
+        const upper = w.toUpperCase();
+        if (upper === 'XP' || upper === 'HP' || upper === 'MP') return upper;
+        return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    };
+
+    if (!rule) {
+        const reqs = def.tierExperienceRequirements || [];
+        const needXp = parseInt(reqs[tier], 10) || 0;
+        const haveXp = parseInt(jobState.jobExperience, 10) || 0;
+        if (needXp > 0 && haveXp < needXp) {
+            targetHints.push(needXp + ' XP');
+        }
+        return { eligible: targetHints.length === 0, nextTier: next, targetHints: targetHints };
+    }
+
+    const haveXpJ = parseInt(jobState.jobExperience, 10) || 0;
+    const needXpR = parseInt(rule.jobExperience || 0, 10) || 0;
+    if (needXpR > 0 && haveXpJ < needXpR) {
+        targetHints.push(needXpR + ' XP');
+    }
+    if (rule.stats && typeof rule.stats === 'object') {
+        Object.entries(rule.stats).forEach(function (entry) {
+            const statKey = entry[0];
+            const statTarget = Number(entry[1] || 0);
+            const statHave = Number(vars[statKey] || 0);
+            if (statTarget > 0 && statHave < statTarget) {
+                targetHints.push(Math.round(statTarget) + ' ' + formatReqLabel(statKey));
+            }
+        });
+    }
+    if (rule.skills && typeof rule.skills === 'object') {
+        Object.entries(rule.skills).forEach(function (entry) {
+            const skillPath = String(entry[0] || '');
+            const skillTarget = Number(entry[1] || 0);
+            let node = vars.skills || {};
+            const parts = skillPath.replace(/^skills\./, '').split('.');
+            for (let i = 0; i < parts.length; i++) {
+                if (!node || typeof node !== 'object') { node = null; break; }
+                node = node[parts[i]];
+            }
+            const skillHave = Number(node || 0);
+            if (skillTarget > 0 && skillHave < skillTarget) {
+                const skillLabel = parts[parts.length - 1] || 'skill';
+                targetHints.push(Math.round(skillTarget) + ' ' + formatReqLabel(skillLabel));
+            }
+        });
+    }
+    return { eligible: targetHints.length === 0, nextTier: next, targetHints: targetHints };
+};
+
 /* ================== CHARACTER INTERACTION MACRO =================== */
 Macro.add('showActions', {
     handler: function () {
@@ -2418,6 +2489,84 @@ Macro.add('showActions', {
                     } else if (value === false && shown) {
                         meetsReqs = false;
                     }
+                } else if (req === 'promotionPending') {
+                    const pending = !!(vars.jobState && vars.jobState.promotionPending);
+                    if (value && !pending) {
+                        meetsReqs = false;
+                        const jobId = vars.job && vars.job.id ? vars.job.id : null;
+                        const jobDef = (jobId && setup.jobs && setup.jobs[jobId]) ? setup.jobs[jobId] : null;
+                        const currentTier = parseInt(vars.job && vars.job.tier, 10) || 1;
+                        const nextTier = currentTier + 1;
+                        const rule = (jobDef && jobDef.tierProgressionRules) ? jobDef.tierProgressionRules[nextTier] : null;
+                        const targetHints = [];
+
+                        const formatReqLabel = function (word) {
+                            const w = String(word || '');
+                            const upper = w.toUpperCase();
+                            if (upper === 'XP' || upper === 'HP' || upper === 'MP') return upper;
+                            return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+                        };
+
+                        if (rule) {
+                            const xpTarget = parseInt(rule.jobExperience || 0, 10);
+                            const xpHave = parseInt(vars.jobState && vars.jobState.jobExperience, 10) || 0;
+                            if (xpTarget > 0 && xpHave < xpTarget) {
+                                targetHints.push(xpTarget + ' XP');
+                            }
+
+                            if (rule.stats && typeof rule.stats === 'object') {
+                                Object.entries(rule.stats).forEach(function (entry) {
+                                    const statKey = entry[0];
+                                    const statTarget = Number(entry[1] || 0);
+                                    const statHave = Number(vars[statKey] || 0);
+                                    if (statTarget > 0 && statHave < statTarget) {
+                                        targetHints.push(Math.round(statTarget) + ' ' + formatReqLabel(statKey));
+                                    }
+                                });
+                            }
+
+                            if (rule.skills && typeof rule.skills === 'object') {
+                                Object.entries(rule.skills).forEach(function (entry) {
+                                    const skillPath = String(entry[0] || '');
+                                    const skillTarget = Number(entry[1] || 0);
+                                    let node = vars.skills || {};
+                                    const parts = skillPath.replace(/^skills\./, '').split('.');
+                                    for (let p = 0; p < parts.length; p++) {
+                                        if (!node || typeof node !== 'object') { node = null; break; }
+                                        node = node[parts[p]];
+                                    }
+                                    const skillHave = Number(node || 0);
+                                    if (skillTarget > 0 && skillHave < skillTarget) {
+                                        const skillLabel = parts[parts.length - 1] || 'skill';
+                                        targetHints.push(Math.round(skillTarget) + ' ' + formatReqLabel(skillLabel));
+                                    }
+                                });
+                            }
+                        }
+
+                        if (targetHints.length) {
+                            missingReqs.push(targetHints.map(function (h) { return 'Need ' + h; }).join(', '));
+                        } else if (rule) {
+                            missingReqs.push('Meet job XP and skill targets, then use Discuss Promotion with your manager.');
+                        } else {
+                            missingReqs.push('Promotion requirements not met yet');
+                        }
+                    } else if (value === false && pending) {
+                        meetsReqs = false;
+                        missingReqs.push('Complete the current promotion review first');
+                    }
+                } else if (req === 'promotionEligible') {
+                    if (value) {
+                        const el = window.getJobPromotionEligibility(vars);
+                        if (!el.eligible) {
+                            meetsReqs = false;
+                            if (el.targetHints.length) {
+                                missingReqs.push(el.targetHints.map(function (h) { return 'Need ' + h; }).join(', '));
+                            } else {
+                                missingReqs.push('Promotion not available for your current job or tier.');
+                            }
+                        }
+                    }
                 } else {
                     // Raw stat check (legacy: friendship, lust, etc.)
                     if ((charStats[req] || 0) < value) {
@@ -2438,9 +2587,7 @@ Macro.add('showActions', {
             // Hide completely if locked and showWhenLocked is false
             if (!meetsReqs && action.showWhenLocked === false) return;
 
-            const lockTooltip = missingReqs.length === 1 && missingReqs[0].startsWith('Need ') && missingReqs[0].endsWith(' energy')
-                ? missingReqs[0]
-                : (missingReqs.length ? 'Requires: ' + missingReqs.join(', ') : '');
+            const lockTooltip = missingReqs.length ? missingReqs.join(', ') : '';
 
             // Create button
             const btn = $('<a>').addClass('btn-style action-btn');

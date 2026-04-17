@@ -182,3 +182,15 @@
         <<run window.notifySuccess("New Location Discovered: " + _name)>>
     <</if>>
 <</nobr>><</widget>>
+
+<<widget "talkBackButton">><<nobr>>
+    <<set _currentCharLocation = $args[0]>>
+    <<set _preferMainPassageBack = !!($gameSettings && $gameSettings.talkBackToMainPassage)>>
+
+    <<if _preferMainPassageBack>>
+        <<set _mainBackTarget = $interactionEntryPassage || $location || previous()>>
+        <<btn "Back" _mainBackTarget "secondary">><<unset $interactionEntryPassage>><</btn>>
+    <<else>>
+        <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
+    <</if>>
+<</nobr>><</widget>>

@@ -62,7 +62,9 @@ function getMessagesThreadHtml(charId, vars) {
     });
     var bubbles = bubbleList.join('');
     var canWhere = canAskWhereAreYou(charId, vars);
-    var canTalk = getAvailableTalkTopics(charId, vars).length > 0;
+    var unlockedTopics = (typeof window.phoneGetUnlockedTopics === 'function') ? window.phoneGetUnlockedTopics(charId, vars) : [];
+    var topicsForToday = unlockedTopics.filter(function (t) { return canUseTalkTopicToday(charId, t.id, vars); });
+    var canTalk = topicsForToday.length > 0;
     var meetupInProgress = !!(phoneViewState.meetup && phoneViewState.meetup.charId === charId);
     var canMeetup = canShowMeetupButton(charId, vars) && !hasMeetupTodayWithChar(charId, vars) && !meetupInProgress;
     var talkBtn = canTalk ? '<button type="button" class="phone-topic-btn" id="phone-talk-btn">Talk</button>' : '';

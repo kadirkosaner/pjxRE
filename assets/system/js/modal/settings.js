@@ -106,13 +106,28 @@ window.SettingsInit = function (API) {
                                 <div class="settings-list">
                                     <div class="settings-control">
                                         <div class="settings-control-info">
-                                            <div class="settings-control-label">Navigation cards animation</div>
-                                            <div class="settings-control-desc">Accordion hover expand.</div>
+                                            <div class="settings-control-label">Navigation Card Animations</div>
+                                            <div class="settings-control-desc">Enable hover expand animations on navigation cards.</div>
                                         </div>
                                         <button class="setting-toggle-btn ${settings.navCardAnimations !== false ? 'active' : ''}" 
                                                 data-setting="navCardAnimations">
                                             ${settings.navCardAnimations !== false ? 'ON' : 'OFF'}
                                         </button>
+                                    </div>
+                                    <div class="settings-control settings-control-select">
+                                        <div class="settings-control-info">
+                                            <div class="settings-control-label">Interaction Back Destination</div>
+                                            <div class="settings-control-desc">Choose where Back leads after interactions.</div>
+                                        </div>
+                                        <div class="setting-picker" data-setting="talkBackToMainPassage" data-category="game-picker">
+                                            <button class="setting-picker-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                                                <span class="setting-picker-value">${(vars.gameSettings && vars.gameSettings.talkBackToMainPassage) ? 'Location' : 'Interaction Menu'}</span>
+                                            </button>
+                                            <div class="setting-picker-menu" role="listbox" aria-label="Interaction back destination">
+                                                <button class="setting-picker-option ${(vars.gameSettings && vars.gameSettings.talkBackToMainPassage) ? '' : 'active'}" type="button" data-value="characterInteraction">Interaction Menu</button>
+                                                <button class="setting-picker-option ${(vars.gameSettings && vars.gameSettings.talkBackToMainPassage) ? 'active' : ''}" type="button" data-value="locationPassage">Location</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -174,6 +189,29 @@ window.SettingsInit = function (API) {
                 e.stopPropagation();
                 const key = $(this).data('setting');
                 self.toggleSetting(key);
+            });
+            $(document).off('click.settings-picker', '.setting-picker-btn');
+            $(document).on('click.settings-picker', '.setting-picker-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                self.togglePicker($(this).closest('.setting-picker'));
+            });
+
+            $(document).off('click.settings-picker-option', '.setting-picker-option');
+            $(document).on('click.settings-picker-option', '.setting-picker-option', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const $option = $(this);
+                const $picker = $option.closest('.setting-picker');
+                const key = $picker.data('setting');
+                const category = $picker.data('category');
+                const value = $option.data('value');
+                self.updatePickerSetting($picker, key, category, value);
+            });
+
+            $(document).off('click.settings-picker-close');
+            $(document).on('click.settings-picker-close', function () {
+                self.closeAllPickers();
             });
 
             this.initCustomSliders();
@@ -256,6 +294,19 @@ window.SettingsInit = function (API) {
                     btn.text(isActive ? 'ON' : 'OFF');
                 }
                 
+            } else if (category === 'game') {
+                if (!vars.gameSettings || typeof vars.gameSettings !== 'object') {
+                    vars.gameSettings = {};
+                }
+
+                const settings = vars.gameSettings;
+                settings[key] = !settings[key];
+
+                if (btn.length) {
+                    const isActive = settings[key];
+                    btn.toggleClass('active', isActive);
+                    btn.text(isActive ? 'ON' : 'OFF');
+                }
             } else {
                 vars.videoSettings = mergeVideoSettings(vars);
                 const settings = vars.videoSettings;
@@ -272,6 +323,36 @@ window.SettingsInit = function (API) {
                     window.syncNavCardMotionClass();
                 }
                 
+            }
+        },
+
+        togglePicker: function ($picker) {
+            const isOpen = $picker.hasClass('open');
+            this.closeAllPickers();
+            if (!isOpen) {
+                $picker.addClass('open');
+                $picker.find('.setting-picker-btn').attr('aria-expanded', 'true');
+            }
+        },
+
+        closeAllPickers: function () {
+            $('.setting-picker.open').removeClass('open').find('.setting-picker-btn').attr('aria-expanded', 'false');
+        },
+
+        updatePickerSetting: function ($picker, key, category, value) {
+            const vars = this.API.State.variables;
+            if (category === 'game-picker') {
+                if (!vars.gameSettings || typeof vars.gameSettings !== 'object') {
+                    vars.gameSettings = {};
+                }
+                if (key === 'talkBackToMainPassage') {
+                    vars.gameSettings.talkBackToMainPassage = value === 'locationPassage';
+                }
+                const label = value === 'locationPassage' ? 'Location' : 'Interaction Menu';
+                $picker.find('.setting-picker-value').text(label);
+                $picker.find('.setting-picker-option').removeClass('active');
+                $picker.find(`.setting-picker-option[data-value="${value}"]`).addClass('active');
+                this.closeAllPickers();
             }
         },
 

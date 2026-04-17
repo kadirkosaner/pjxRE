@@ -1,0 +1,43 @@
+:: sleepSnoozeApply
+<<nobr>>
+<<silently>>
+    <<set $location = "fhBedroom">>
+    <<if ndef $daily>><<set $daily = {}>><</if>>
+
+    /* Duration: use snooze picker memory first (avoid stale selectedDuration from other pickers) */
+    <<set _snooze = NaN>>
+    <<if def $pickerMemory and def $pickerMemory.snoozeDuration>>
+        <<set _snooze = parseInt($pickerMemory.snoozeDuration, 10)>>
+    <</if>>
+    <<if _snooze !== _snooze || _snooze < 1>>
+        <<set _snooze = parseInt($selectedDuration, 10)>>
+    <</if>>
+    <<if _snooze !== _snooze || _snooze < 1>><<set _snooze = 15>><</if>>
+    <<if _snooze > 60>><<set _snooze = 60>><</if>>
+
+    <<set $isSleeping = true>>
+    <<advanceTime _snooze>>
+    <<set $isSleeping = false>>
+
+    <<set _energyGain = Math.max(1, Math.round(_snooze * 0.25))>>
+    <<gainStat "energy" _energyGain>>
+    <<loseStat "stress" Math.round((_snooze / 60) * 10)>>
+    <<set $daily.snoozeCount = (parseInt($daily.snoozeCount, 10) || 0) + 1>>
+
+    <<if $sleepWakeContext>>
+        <<set _slept = parseInt($sleepWakeContext.sleepDuration, 10) || 0>>
+        <<set $sleepWakeContext.sleepDuration = _slept + _snooze>>
+    <</if>>
+
+    <<run window.notifySuccess("You snooze for a bit longer.")>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+    <<run $(document).trigger(':passagerender')>>
+<</silently>>
+
+<<narrative "Snooze">>
+You tap the alarm and roll over, slipping under again — just for a little while. When the quiet pulls you back up you're not sure how long it's been, only that the covers //felt// too good to leave.
+<</narrative>>
+
+<<bedWakeUp>>
+<</nobr>>

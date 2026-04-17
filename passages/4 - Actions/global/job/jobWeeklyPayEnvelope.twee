@@ -1,0 +1,51 @@
+<<nobr>>
+<<silently>>
+<<if $_navigatingBackward>>
+    <<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+<</silently>>
+<<if !$_navigatingBackward>>
+<<silently>>
+<<if !$job || !$job.id || !setup.jobs[$job.id]>>
+    <<goto "jobWorkSelect">>
+<</if>>
+<<set _job = setup.jobs[$job.id]>>
+<<set _bossId = _job.bossCharId || "dinerManager">>
+<<set _bossName = (setup.characterDefs && setup.characterDefs[_bossId]) ? setup.characterDefs[_bossId].firstName : "your manager">>
+<<if ndef $jobState.weeklyPayPending>><<set $jobState.weeklyPayPending = null>><</if>>
+<<if !$jobState.weeklyPayPending>>
+    <<goto "jobWorkSelect">>
+<</if>>
+<<if _job.workplace>><<set $location = _job.workplace>><</if>>
+<<set _beforeLocName = (setup.navCards && $location && setup.navCards[$location]) ? setup.navCards[$location].name : "Before shift">>
+<<set _pay = $jobState.weeklyPayPending>>
+<<set _gross = Math.max(0, parseFloat(_pay.gross || 0))>>
+<<set _dedBase = Math.max(0, parseFloat(_pay.deductionsBase || 0))>>
+<<set _disc = parseInt(_pay.discountPercent || 0, 10) || 0>>
+<<set _dedFinal = Math.max(0, parseFloat(_pay.deductionsFinal || 0))>>
+<<set _net = Math.max(0, parseFloat(_pay.net || 0))>>
+<</silently>>
+
+<<narrative _beforeLocName>>
+<<= _bossName>> steps in front of you with a sealed envelope.
+<</narrative>>
+<<dialog _bossId>>
+This is your weekly pay. Keep your schedule tight and we'll both be happy.
+<</dialog>>
+<<narrative>>
+You open the envelope and quickly check the numbers.
+<</narrative>>
+<div class="location-actions">
+<div><strong>Gross:</strong> $<<= _gross.toFixed(2)>></div>
+<div><strong>Deductions:</strong> $<<= _dedBase.toFixed(2)>></div>
+<div><strong>Trust discount:</strong> <<= _disc>>%</div>
+<div><strong>Final deductions:</strong> $<<= _dedFinal.toFixed(2)>></div>
+<div><strong>Net paid:</strong> $<<= _net.toFixed(2)>></div>
+</div>
+<div class="location-actions">
+<<btn "Take envelope and start shift" "jobWorkSelect">>
+    <<jobFinalizeWeeklyPay>>
+<</btn>>
+</div>
+<</if>>
+<</nobr>>

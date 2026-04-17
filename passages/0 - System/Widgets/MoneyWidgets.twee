@@ -13,8 +13,8 @@
     <<set _amount = $args[0]>>
     <<set _message = $args[1] || null>>
     <<if _amount > 0>>
-        <<set $moneyEarn += _amount>>
-        <<set $cashBalance = $moneyEarn - $moneySpend>>
+        <<set $moneyEarn = Math.round(($moneyEarn + _amount) * 100) / 100>>
+        <<set $cashBalance = Math.round(($moneyEarn - $moneySpend) * 100) / 100>>
         <<if _message>>
             <<run window.notifySuccess(_message)>>
         <<elseif window.notifySuccess>>
@@ -34,8 +34,8 @@
     <<set _amount = $args[0]>>
     <<set _transactionSuccess = false>>
     <<if _amount > 0 && $cashBalance >= _amount>>
-        <<set $moneySpend += _amount>>
-        <<set $cashBalance = $moneyEarn - $moneySpend>>
+        <<set $moneySpend = Math.round(($moneySpend + _amount) * 100) / 100>>
+        <<set $cashBalance = Math.round(($moneyEarn - $moneySpend) * 100) / 100>>
         <<set _transactionSuccess = true>>
     <</if>>
 <</widget>>
@@ -51,8 +51,8 @@
     <<set _amount = $args[0]>>
     <<set _transactionSuccess = false>>
     <<if _amount > 0 && $bankBalance >= _amount>>
-        <<set $bankSpend += _amount>>
-        <<set $bankBalance = $bankDeposit - $bankSpend - $bankWithdraw>>
+        <<set $bankSpend = Math.round(($bankSpend + _amount) * 100) / 100>>
+        <<set $bankBalance = Math.round(($bankDeposit - $bankSpend - $bankWithdraw) * 100) / 100>>
         <<set _transactionSuccess = true>>
     <</if>>
 <</widget>>
@@ -69,11 +69,11 @@
     <<set _transactionSuccess = false>>
     <<if _amount > 0 && $cashBalance >= _amount>>
         /* Deduct from cash */
-        <<set $moneySpend += _amount>>
-        <<set $cashBalance = $moneyEarn - $moneySpend>>
+        <<set $moneySpend = Math.round(($moneySpend + _amount) * 100) / 100>>
+        <<set $cashBalance = Math.round(($moneyEarn - $moneySpend) * 100) / 100>>
         /* Add to bank */
-        <<set $bankDeposit += _amount>>
-        <<set $bankBalance = $bankDeposit - $bankSpend - $bankWithdraw>>
+        <<set $bankDeposit = Math.round(($bankDeposit + _amount) * 100) / 100>>
+        <<set $bankBalance = Math.round(($bankDeposit - $bankSpend - $bankWithdraw) * 100) / 100>>
         <<set _transactionSuccess = true>>
     <</if>>
 <</widget>>
@@ -90,11 +90,11 @@
     <<set _transactionSuccess = false>>
     <<if _amount > 0 && $bankBalance >= _amount>>
         /* Deduct from bank */
-        <<set $bankWithdraw += _amount>>
-        <<set $bankBalance = $bankDeposit - $bankSpend - $bankWithdraw>>
+        <<set $bankWithdraw = Math.round(($bankWithdraw + _amount) * 100) / 100>>
+        <<set $bankBalance = Math.round(($bankDeposit - $bankSpend - $bankWithdraw) * 100) / 100>>
         /* Add to cash */
-        <<set $moneyEarn += _amount>>
-        <<set $cashBalance = $moneyEarn - $moneySpend>>
+        <<set $moneyEarn = Math.round(($moneyEarn + _amount) * 100) / 100>>
+        <<set $cashBalance = Math.round(($moneyEarn - $moneySpend) * 100) / 100>>
         <<set _transactionSuccess = true>>
     <</if>>
 <</widget>>

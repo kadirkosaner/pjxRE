@@ -23,7 +23,7 @@
             <<set _sceneText = "Today you try learning a new dance routine from a tutorial. It takes a few attempts to get the steps right, and you keep rewinding the tricky parts. By the end of 30 minutes, you've almost nailed the chorus. Almost.">>
     <</switch>>
 <</silently>>
-
+<<nobr>>
 <<narrative "Dance Session">>
 _sceneText
 <</narrative>>
@@ -33,3 +33,4 @@ _sceneText
 <div class="location-actions">
     <<btn "Finish" $location>><</btn>>
 </div>
+<</nobr>>

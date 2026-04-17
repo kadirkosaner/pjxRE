@@ -11,9 +11,18 @@
 <<goto _returnPassage>>
 <</if>>
 <<set _jobDef = setup.jobs[$job.id]>>
+<<if ndef $jobState.bossMeetingRequired>><<set $jobState.bossMeetingRequired = false>><</if>>
+<<if ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending) && !$_navigatingBackward>>
+<<set _meetingPassage = _jobDef.bossMeetingPassage || _jobDef.bossOfficePassage || "jobBossOfficeCall_ruby">>
+<<goto _meetingPassage>>
+<</if>>
+<<if $jobState.weeklyPayPending && !$_navigatingBackward>>
+<<set _payPassage = _jobDef.paydayScenePassage || "jobWeeklyPayEnvelope">>
+<<goto _payPassage>>
+<</if>>
 <<set _offDays = (_jobDef.schedule && _jobDef.schedule.offWeekdays) || []>>
 <<if _offDays.includes($timeSys.weekday)>>
-<<if $timeSys.weekday === 1 && ($jobState.bossWantsToSeePlayer) && _jobDef.bossOfficePassage>>
+<<if ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending) && (_jobDef.bossMeetingPassage || _jobDef.bossOfficePassage)>>
 <<run window.notifyWarning("No shift today — your manager still needs to see you.")>>
 <<else>>
 <<run window.notifyWarning("No shift today.")>>

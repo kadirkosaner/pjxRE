@@ -17,18 +17,10 @@
 
 ---
 
-**Job Progression**
-- [ ] Dishwasher tier 1-6 görsel/UI göstergesi
-- [ ] `ruby_waitress` job definition (JobDatabase)
-- [ ] Terfi şart göstergesi (days/looks/XP/skill progress)
-- [ ] Vince terfi konuşma scene
-- [ ] Waitress shift sistemi
-
----
 
 **Lily Talks**
-- [ ] `characterActions.parkRunnerLily`'e talk ekle
-- [ ] Level 2 topic'ler (GYM yönlendirme, koşu arkadaşlığı)
+- [ ] Lilly ile birlikte jog yapma
+- [ ] Lilly ile jog yaparken belli bir arkadaşlık seviyesi + fitness değeri varsa gym açılır downtownda.
 
 ---
 

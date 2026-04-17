@@ -5,6 +5,224 @@
    Design: 1Developer/JobSystemDesign.md
 ========================================== */
 
+/* Ensure job state fields exist on old saves before use. */
+<<widget "jobEnsureState">>
+    <<if ndef $jobState>><<jobResetState>><<return>><</if>>
+    <<if ndef $jobState.workTrustScore>><<set $jobState.workTrustScore = 60>><</if>>
+    <<if ndef $jobState.workTrustBand>><<set $jobState.workTrustBand = "mid">><</if>>
+    <<if ndef $jobState.bossMeetingRequired>><<set $jobState.bossMeetingRequired = false>><</if>>
+    <<if ndef $jobState.bossMeetingReason>><<set $jobState.bossMeetingReason = "">><</if>>
+    <<if ndef $jobState.terminationPending>><<set $jobState.terminationPending = false>><</if>>
+    <<if ndef $jobState.promotionPending>><<set $jobState.promotionPending = false>><</if>>
+    <<if ndef $jobState.pendingTier>><<set $jobState.pendingTier = 0>><</if>>
+    <<if ndef $jobState.weeklyPayPending>><<set $jobState.weeklyPayPending = null>><</if>>
+    <<if ndef $jobState.lastInsufficientType>><<set $jobState.lastInsufficientType = "">><</if>>
+    <<if ndef $jobState.lastInsufficientHours>><<set $jobState.lastInsufficientHours = 0>><</if>>
+    <<if ndef $jobState.excuseForDateKey>><<set $jobState.excuseForDateKey = 0>><</if>>
+    <<if ndef $jobState.excuseMode>><<set $jobState.excuseMode = "">><</if>>
+    <<if ndef $jobState.excuseSentToday>><<set $jobState.excuseSentToday = false>><</if>>
+    <<if $job && $job.id && setup.jobs[$job.id]>>
+        <<set _jobTierMax = parseInt(setup.jobs[$job.id].tierMax, 10) || 6>>
+        <<set _curJobTier = parseInt($job.tier, 10) || 1>>
+        <<if _curJobTier > _jobTierMax>><<set $job.tier = _jobTierMax>><</if>>
+    <</if>>
+<</widget>>
+
+<<widget "jobSetTrustBand">>
+    <<set _trust = parseInt($jobState.workTrustScore, 10) || 0>>
+    <<if _trust >= 70>>
+        <<set $jobState.workTrustBand = "high">>
+    <<elseif _trust >= 30>>
+        <<set $jobState.workTrustBand = "mid">>
+    <<else>>
+        <<set $jobState.workTrustBand = "low">>
+    <</if>>
+<</widget>>
+
+/* Delta is signed (+/-). Clamps to 0-100 and updates trust band. */
+<<widget "jobAdjustTrust">>
+    <<jobEnsureState>>
+    <<set _delta = parseInt($args[0], 10) || 0>>
+    <<set _current = parseInt($jobState.workTrustScore, 10) || 0>>
+    <<set _next = Math.max(0, Math.min(100, _current + _delta))>>
+    <<set $jobState.workTrustScore = _next>>
+    <<jobSetTrustBand>>
+<</widget>>
+
+<<widget "jobGetMeetingPassage">>
+    <<set _jid = ($job && $job.id) ? $job.id : null>>
+    <<set _j = (_jid && setup.jobs && setup.jobs[_jid]) ? setup.jobs[_jid] : null>>
+    <<if _j>>
+        <<set _return = _j.bossMeetingPassage || _j.bossOfficePassage || "jobBossOfficeCall_ruby">>
+    <<else>>
+        <<set _return = "jobBossOfficeCall_ruby">>
+    <</if>>
+<</widget>>
+
+/* Builds weekly pay record; deductions discount is applied after base deductions. */
+<<widget "jobPrepareWeeklyPay">>
+    <<jobEnsureState>>
+    <<if !$job || !$job.id || !setup.jobs[$job.id]>><<return>><</if>>
+    <<set _job = setup.jobs[$job.id]>>
+    <<set _gross = Math.max(0, parseFloat($jobState.weeklyEarnings || 0))>>
+    <<set _dedBase = Math.max(0, parseFloat($jobState.weeklyDeductions || 0))>>
+    <<if _gross <= 0 && _dedBase <= 0>>
+        <<set $jobState.weeklyPayPending = null>>
+        <<return>>
+    <</if>>
+    <<set _trust = parseInt($jobState.workTrustScore, 10) || 0>>
+    <<set _discount = 0>>
+    <<set _thresholds = (_job.trustPolicy && _job.trustPolicy.discountThresholds) ? _job.trustPolicy.discountThresholds : []>>
+    <<for _t range _thresholds>>
+        <<if _trust >= (_t.trust || 0) && (_t.percent || 0) > _discount>>
+            <<set _discount = _t.percent>>
+        <</if>>
+    <</for>>
+    <<set _dedAfter = Math.round((_dedBase * (1 - (_discount / 100))) * 100) / 100>>
+    <<set _net = Math.max(0, Math.round((_gross - _dedAfter) * 100) / 100)>>
+    <<set _weekKey = $timeSys.year + "-" + $timeSys.month + "-" + $timeSys.day>>
+    <<set $jobState.weeklyPayPending = {
+        weekKey: _weekKey,
+        gross: _gross,
+        deductionsBase: _dedBase,
+        discountPercent: _discount,
+        deductionsFinal: _dedAfter,
+        net: _net,
+        jobId: $job.id,
+        preparedAtWeekday: $timeSys.weekday
+    }>>
+<</widget>>
+
+/* Pays current pending record and closes it. */
+<<widget "jobFinalizeWeeklyPay">>
+    <<jobEnsureState>>
+    <<if !$jobState.weeklyPayPending>><<return>><</if>>
+    <<set _pay = $jobState.weeklyPayPending>>
+    <<set _net = Math.max(0, parseFloat(_pay.net || 0))>>
+    <<if _net > 0>>
+        <<set _notifyTxt to 'Weekly pay received: $' + _net.toFixed(2)>>
+        <<earnMoney _net _notifyTxt>>
+    <</if>>
+    <<set $jobState.weeklyPayPending = null>>
+<</widget>>
+
+<<widget "jobGetSkillValue">>
+    <<set _path = ($args[0] || "") + "">>
+    <<set _return = 0>>
+    <<if !_path>><<return>><</if>>
+    <<run
+        (function() {
+            var p = State.temporary._path || "";
+            var out = 0;
+            var node = State.variables;
+            var parts = p.split(".");
+            if (parts[0] === "skills") {
+                node = State.variables.skills || {};
+                parts = parts.slice(1);
+            } else {
+                node = State.variables.skills || {};
+            }
+            for (var i = 0; i < parts.length; i++) {
+                if (!node || typeof node !== "object") { node = null; break; }
+                node = node[parts[i]];
+            }
+            if (typeof node === "number") out = node;
+            State.temporary._return = out;
+        })();
+    >>
+    <<set _return = parseFloat(_return) || 0>>
+<</widget>>
+
+<<script>>
+window.jobApplyPhoneExcuse = function (mode, lieType, charId) {
+    try {
+        var V = State.variables || {};
+        if (!V.job || !V.job.id || !window.setup || !setup.jobs || !setup.jobs[V.job.id]) return { ok: false, reason: "no_job" };
+        var job = setup.jobs[V.job.id];
+        if (!V.jobState || typeof V.jobState !== "object") return { ok: false, reason: "no_job_state" };
+        if (charId && job.bossCharId && charId !== job.bossCharId) return { ok: false, reason: "wrong_boss" };
+
+        var t = V.timeSys || {};
+        var dateKey = (Number(t.year) || 0) * 10000 + (Number(t.month) || 0) * 100 + (Number(t.day) || 0);
+        V.jobState.excuseForDateKey = dateKey;
+        V.jobState.excuseSentToday = true;
+
+        if (mode === "honest") {
+            V.jobState.excuseMode = "honest";
+            if (window.notifySuccess) window.notifySuccess("You informed your manager you can't make it today.");
+            return { ok: true, mode: "honest" };
+        }
+
+        if (mode !== "lie") return { ok: false, reason: "invalid_mode" };
+        var corruption = parseInt(V.corruption, 10) || 0;
+        if (corruption !== 2) {
+            V.jobState.excuseMode = "honest";
+            if (window.notifyWarning) window.notifyWarning("You couldn't bring yourself to lie, so you sent an honest message.");
+            return { ok: true, mode: "honest", forcedHonest: true };
+        }
+
+        var policy = (job.liePolicy && typeof job.liePolicy === "object") ? job.liePolicy : {};
+        var options = policy.options || {};
+        var base = Number(options[lieType]);
+        if (!Number.isFinite(base)) base = 50;
+        var conf = Math.max(0, Math.min(100, Number(V.confidence) || 0));
+        var bonusMax = Number(policy.confidenceBonusMax);
+        if (!Number.isFinite(bonusMax)) bonusMax = 20;
+        var bonus = (conf / 100) * bonusMax;
+        var minCap = Number(policy.successCapMin);
+        var maxCap = Number(policy.successCapMax);
+        if (!Number.isFinite(minCap)) minCap = 5;
+        if (!Number.isFinite(maxCap)) maxCap = 95;
+        var chance = Math.max(minCap, Math.min(maxCap, base + bonus));
+        var roll = Math.random() * 100;
+        var success = roll < chance;
+
+        V.jobState.excuseMode = success ? "lie_success" : "lie_fail";
+        if (window.notifyWarning) {
+            window.notifyWarning(success ? "Your excuse seems to have worked." : "Your excuse sounded suspicious.");
+        }
+        return { ok: true, mode: V.jobState.excuseMode, chance: chance, roll: roll };
+    } catch (e) {
+        return { ok: false, reason: "exception" };
+    }
+};
+<</script>>
+
+<<widget "jobCanAdvanceTier">>
+    <<set _return = false>>
+    <<if !$job || !$job.id || !setup.jobs[$job.id]>><<return>><</if>>
+    <<set _j = setup.jobs[$job.id]>>
+    <<set _tier = parseInt($job.tier, 10) || 1>>
+    <<set _next = _tier + 1>>
+    <<set _maxTier = _j.tierMax || 6>>
+    <<if _next > _maxTier>><<return>><</if>>
+    <<set _rules = _j.tierProgressionRules || {}>>
+    <<set _rule = _rules[_next] || null>>
+    <<if !_rule>>
+        <<set _reqs = _j.tierExperienceRequirements || []>>
+        <<set _needXp = _reqs[_tier] || 0>>
+        <<if ($jobState.jobExperience || 0) >= _needXp>><<set _return = true>><</if>>
+        <<return>>
+    <</if>>
+    <<set _ok = true>>
+    <<set _needXp = _rule.jobExperience || 0>>
+    <<if ($jobState.jobExperience || 0) < _needXp>><<set _ok = false>><</if>>
+    <<if _ok && _rule.stats>>
+        <<for _s, _need range _rule.stats>>
+            <<run State.temporary._jobTmpStat = (State.variables[_s] != null ? parseFloat(State.variables[_s]) : 0)>>
+            <<set _have = parseFloat(State.temporary._jobTmpStat) || 0>>
+            <<if _have < (_need || 0)>><<set _ok = false>><</if>>
+        <</for>>
+    <</if>>
+    <<if _ok && _rule.skills>>
+        <<for _spath, _sneed range _rule.skills>>
+            <<jobGetSkillValue _spath>>
+            <<if (_return || 0) < (_sneed || 0)>><<set _ok = false>><</if>>
+        <</for>>
+    <</if>>
+    <<set _return = _ok>>
+<</widget>>
+
 /* Set $jobAvailableShifts (filter by schedule + energy + needs). Block shift if tracked hunger/thirst/bladder >= 50. */
 <<widget "jobSetAvailableShifts">>
     <<set _jobId = $args[0] || $job.id>>
@@ -54,6 +272,7 @@
 /* Execute a shift: advanceTime, apply stat/skill costs, update earnings.
    Duration in MINUTES (e.g. 120, 240, 360, 480). advanceTime expects minutes. */
 <<widget "jobExecuteShift">>
+    <<jobEnsureState>>
     <<set $jobShiftSuccess = false>>
     <<set _shiftMinutes = $args[0]>>
     <<set _shiftHours = _shiftMinutes / 60>>
@@ -160,15 +379,44 @@
     /* Skill gains (per 4h, scaled) */
     <<set _gains = _job.skillGainsPer4Hours || []>>
     <<for _g range _gains>>
-        <<set _amt = Math.round((_g.amount || 0) * _mult)>>
+        <<set _baseAmt = (_g.amount || 0) * _mult>>
+        <<set _softMult = 1>>
+        <<set _soft = (_job.skillGainSoftCap && _job.skillGainSoftCap.bands) ? _job.skillGainSoftCap.bands : []>>
+        <<set _haveSkill = 0>>
+        <<if _soft.length && _g.category && _g.skill>>
+            <<if $skills && $skills[_g.category] && $skills[_g.category][_g.skill] != null>>
+                <<set _haveSkill = parseFloat($skills[_g.category][_g.skill]) || 0>>
+            <</if>>
+            <<for _band range _soft>>
+                <<if _haveSkill >= (_band.min || 0) && (_band.mult || 0) > 0>>
+                    <<set _softMult = _band.mult>>
+                <</if>>
+            <</for>>
+        <</if>>
+        <<set _amt = Math.floor(_baseAmt * _softMult)>>
+        /* Optional floor for short shifts only at lower skill bands. */
+        <<set _shortMinH = (_job.skillGainSoftCap && _job.skillGainSoftCap.shortShiftMinGainHours != null) ? _job.skillGainSoftCap.shortShiftMinGainHours : 2>>
+        <<set _shortMinAmt = (_job.skillGainSoftCap && _job.skillGainSoftCap.shortShiftMinGainAmount != null) ? _job.skillGainSoftCap.shortShiftMinGainAmount : 1>>
+        <<set _shortMaxSkill = (_job.skillGainSoftCap && _job.skillGainSoftCap.shortShiftMinGainMaxSkill != null) ? _job.skillGainSoftCap.shortShiftMinGainMaxSkill : 50>>
+        <<if _baseAmt > 0 && _shiftHours <= _shortMinH && _amt < _shortMinAmt && _haveSkill < _shortMaxSkill>>
+            <<set _amt = _shortMinAmt>>
+        <</if>>
         <<if _amt > 0>>
             <<gainSkill _g.category _g.skill _amt>>
         <</if>>
     <</for>>
 
-    /* Job experience */
+    /* Job experience
+       Keep XP capped at the current tier gate until promotion is approved,
+       so progress does not spill into the next tier bar early. */
     <<set _xp = Math.round((_job.xpPerHour || 5) * _shiftHours)>>
     <<set $jobState.jobExperience += _xp>>
+    <<set _xpReqs = _job.tierExperienceRequirements || []>>
+    <<set _tierNow = parseInt($job.tier, 10) || 1>>
+    <<set _tierXpCap = _xpReqs[_tierNow] || 0>>
+    <<if _tierXpCap > 0 && ($jobState.jobExperience || 0) > _tierXpCap>>
+        <<set $jobState.jobExperience = _tierXpCap>>
+    <</if>>
 
     /* Earnings (per shift, current tier wage) */
     <<set _tier = $job.tier || 1>>
@@ -177,29 +425,29 @@
     <<set $jobState.weeklyEarnings += _earned>>
     <<set $jobState.hoursThisWeek += _shiftHours>>
     <<if ndef $jobState.hoursToday>><<set $jobState.hoursToday = 0>><</if>>
+    <<set _hoursTodayBefore = $jobState.hoursToday || 0>>
     <<set $jobState.hoursToday += _shiftHours>>
+    <<set _requiredHoursPerDay = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
+    <<set _fullDayGain = Math.abs((_job.trustPolicy && _job.trustPolicy.fullDayGain != null) ? _job.trustPolicy.fullDayGain : 4)>>
+    <<if _hoursTodayBefore < _requiredHoursPerDay && ($jobState.hoursToday || 0) >= _requiredHoursPerDay && _fullDayGain > 0>>
+        <<jobAdjustTrust _fullDayGain>>
+    <</if>>
     /* Only count 1 worked day per calendar day, not per shift */
     <<if !$jobState.workedToday>>
         <<set $jobState.totalDaysWorked += 1>>
     <</if>>
     <<set $jobState.shiftsToday += 1>>
 
-    /* Tier up check (one tier per shift; multiple tiers rare) */
-    <<set _reqs = _job.tierExperienceRequirements || []>>
-    <<set _maxTier = _job.tierMax || 6>>
-    <<if _tier < _maxTier && $jobState.jobExperience >= (_reqs[_tier] || 0)>>
-        <<set $job.tier = _tier + 1>>
-        <<run window.notifySuccess("Tier up! You're now tier " + $job.tier + " at " + _job.position + ".")>>
-    <</if>>
-
     <<set $jobState.workedToday = true>>
     <<set $jobShiftSuccess = true>>
-    <<run window.notifySuccess("Shift done. +$" + _earned.toFixed(2) + " (payday Monday).")>>
+    <<run window.notifySuccess("Shift done. +$" + _earned.toFixed(2) + " added to this week's payroll.")>>
     <</if>>
 <</widget>>
 
-/* Process pay day: minHours check, pay, reset. Call when weekday becomes Monday (1). */
+/* Process pay day: finalize weekly payroll record and reset counters.
+   Actual payment happens on next work start event (jobWeeklyPayEnvelope). */
 <<widget "jobProcessPayDay">>
+    <<jobEnsureState>>
     <<if !$job || !$job.id>>
         <<return>>
     <</if>>
@@ -219,45 +467,19 @@
         <<return>>
     <</if>>
 
-    /* Insufficient days (daily quota not met): boss wants to see player on Monday.
-       Firing (3 strikes) happens when they VISIT the boss - see jobBossOfficeCall. */
+    /* Daily insufficiency means mandatory manager talk before next shift. */
     <<set _insufficientDays = $jobState.insufficientDaysThisWeek || 0>>
     <<if _insufficientDays > 0>>
+        <<set $jobState.bossMeetingRequired = true>>
+        <<if !$jobState.bossMeetingReason>><<set $jobState.bossMeetingReason = "insufficient_day">><</if>>
         <<set $jobState.bossWantsToSeePlayer = true>>
         <<set $jobState.visitedBossThisMonday = false>>
     <<else>>
         <<set $jobState.bossWantsToSeePlayer = false>>
-        <<set $jobState.minHoursWarningCount = 0>>
     <</if>>
 
-    /* Legacy minHoursPerWeek check (weekly total) - still apply if no insufficient days */
-    <<set _minHours = (_job && _job.minHoursPerWeek != null) ? _job.minHoursPerWeek : 0>>
-    <<set _warningsBeforeFire = (_job && _job.minHoursWarningsBeforeFire != null) ? _job.minHoursWarningsBeforeFire : 3>>
-    <<if _minHours > 0 && $jobState.hoursThisWeek < _minHours && _insufficientDays === 0>>
-        <<if ($jobState.minHoursWarningCount || 0) >= _warningsBeforeFire>>
-            <<set $job.id = null>>
-            <<set $job.tier = 1>>
-            <<set $job.startedOn = null>>
-            <<jobResetState>>
-            <<run window.notifyWarning("You lost your job at " + _job.workplaceName + " for not meeting minimum hours.")>>
-            <<return>>
-        <<else>>
-            <<set $jobState.minHoursWarningCount = ($jobState.minHoursWarningCount || 0) + 1>>
-            <<run window.notifyWarning("You didn't work enough hours this week. Warning " + $jobState.minHoursWarningCount + "/" + _warningsBeforeFire + ".")>>
-        <</if>>
-    <<elseif _insufficientDays === 0>>
-        <<set $jobState.minHoursWarningCount = 0>>
-    <</if>>
-
-    /* Pay */
-    <<set _gross = $jobState.weeklyEarnings || 0>>
-    <<set _deductions = $jobState.weeklyDeductions || 0>>
-    <<set _net = Math.max(0, _gross - _deductions)>>
-    <<if _net > 0>>
-        /* $ before closing " is parsed as SugarCube sigil — use single-quoted fragment for literal dollar */
-        <<set _weeklyPayNotify to 'Weekly pay: $' + _net.toFixed(2)>>
-        <<earnMoney _net _weeklyPayNotify>>
-    <</if>>
+    /* Prepare single weekly pay record (no stacking); paid later at work entry scene. */
+    <<jobPrepareWeeklyPay>>
 
     /* Reset for new week */
     <<set $jobState.hoursThisWeek = 0>>
@@ -265,12 +487,15 @@
     <<set $jobState.weeklyDeductions = 0>>
     <<set $jobState.lastPayWeek = _payDateKey>>
     <<set $jobState.insufficientDaysThisWeek = 0>>
+    <<set $jobState.excuseMode = "">>
+    <<set $jobState.excuseSentToday = false>>
 <</widget>>
 
 /* Record insufficient days before reset. Call before jobResetDaily in advanceDay.
    Args: days, oldWeekday, leaveYear, leaveMonth, leaveDay — leave* = calendar day being closed (before advanceDay's date +=).
    Only counts days on or after $job.startedOn (set to "first work day" when accepting Ruby's job). */
 <<widget "jobRecordInsufficientDay">>
+    <<jobEnsureState>>
     <<if ndef $jobState>>
         <<return>>
     <</if>>
@@ -288,11 +513,14 @@
     <<set _job = setup.jobs != null ? setup.jobs[$job.id] : null>>
     <<if _job && _job.schedule>>
         /* Insufficient = scheduled work day where player did NOT complete requiredHoursPerDay.
-           Both "didn't show up at all" (0h) and "left early" (e.g. 2h/8h) count as insufficient. */
+           Trust system classifies: no-show / partial_4_8 / partial_6_8. */
         <<if ndef $jobState.insufficientDaysThisWeek>><<set $jobState.insufficientDaysThisWeek = 0>><</if>>
         <<set _off = _job.schedule.offWeekdays || []>>
         <<set _reqH = _job.requiredHoursPerDay != null ? _job.requiredHoursPerDay : 8>>
         <<set _todayH = $jobState.hoursToday || 0>>
+        <<set _policy = _job.trustPolicy || {}>>
+        <<set _delta = 0>>
+        <<set _reason = "">>
         <<set _startKey = 0>>
         <<if $job.startedOn && $job.startedOn.year>>
             <<set _startKey = $job.startedOn.year * 10000 + $job.startedOn.month * 100 + $job.startedOn.day>>
@@ -314,6 +542,44 @@
         <</if>>
         <<if _addFirst>>
             <<set $jobState.insufficientDaysThisWeek = ($jobState.insufficientDaysThisWeek || 0) + 1>>
+            <<if _todayH <= 0>>
+                <<set _reason = "no_show">>
+                <<set _excuseMode = "none">>
+                <<if ndef $jobState.excuseForDateKey>><<set $jobState.excuseForDateKey = 0>><</if>>
+                <<if ndef $jobState.excuseMode>><<set $jobState.excuseMode = "">><</if>>
+                <<if $jobState.excuseForDateKey === _leaveKey && $jobState.excuseMode>>
+                    <<set _excuseMode = $jobState.excuseMode>>
+                <</if>>
+                <<set _msgPenalty = (_policy.noShowMessagePenalty || {})>>
+                <<if _excuseMode === "honest">>
+                    <<set _delta = -Math.abs(_msgPenalty.honest != null ? _msgPenalty.honest : 10)>>
+                <<elseif _excuseMode === "lie_success">>
+                    <<set _delta = -Math.abs(_msgPenalty.lieSuccess != null ? _msgPenalty.lieSuccess : 8)>>
+                <<elseif _excuseMode === "lie_fail">>
+                    <<set _delta = -Math.abs(_msgPenalty.lieFail != null ? _msgPenalty.lieFail : 16)>>
+                <<else>>
+                    <<set _delta = -Math.abs(_msgPenalty.none != null ? _msgPenalty.none : (_policy.noShowPenalty != null ? _policy.noShowPenalty : 20))>>
+                <</if>>
+            <<elseif _todayH <= 4>>
+                <<set _reason = "partial_4_8">>
+                <<set _delta = -Math.abs(_policy.partial4Penalty != null ? _policy.partial4Penalty : 10)>>
+            <<else>>
+                <<set _reason = "partial_6_8">>
+                <<set _delta = -Math.abs(_policy.partial6Penalty != null ? _policy.partial6Penalty : 6)>>
+            <</if>>
+            <<jobAdjustTrust _delta>>
+            <<set $jobState.lastInsufficientType = _reason>>
+            <<set $jobState.lastInsufficientHours = _todayH>>
+            <<set $jobState.bossMeetingRequired = true>>
+            <<set $jobState.bossMeetingReason = _reason>>
+            <<set $jobState.bossWantsToSeePlayer = true>>
+            <<set $jobState.visitedBossThisMonday = false>>
+            <<set _dismissAt = (_policy.dismissalAtTrust != null) ? _policy.dismissalAtTrust : 0>>
+            <<if ($jobState.workTrustScore || 0) <= _dismissAt>>
+                <<set $jobState.terminationPending = true>>
+                <<set $jobState.bossMeetingReason = "termination_trust0">>
+            <</if>>
+            <<set $jobState.excuseMode = "">>
         <</if>>
         <<if _days > 1 && $args.length >= 5 && setup.jobDateAddDays>>
             <<for _i = 1; _i < _days; _i++>>
@@ -331,6 +597,7 @@
    weekday 1 = Monday. Uses calendar steps: (_oldWeekday + k) % 7 for k = 1.._days is each new wake-up day.
    Uses positive <<if>> guard — no <<return>> (SugarCube <<return>> inside <<if>> is unreliable). */
 <<widget "jobCheckSkippedBossCall">>
+    <<jobEnsureState>>
     <<set _days = $args[0] || 1>>
     <<set _oldWeekday = $args[1] || 0>>
     /* ALL guards in a single <<if>> — only run body when boss actually wants to see player */
@@ -352,11 +619,14 @@
                 <</for>>
             <</if>>
             <<if _missedBossDeadline>>
-                <<set $job.id = null>>
-                <<set $job.tier = 1>>
-                <<set $job.startedOn = null>>
-                <<jobResetState>>
-                <<run window.notifyWarning("You didn't show up when your boss wanted to see you. You've been fired from " + _job.workplaceName + ".")>>
+                <<set $jobState.bossMeetingRequired = true>>
+                <<set $jobState.bossMeetingReason = "missed_meeting">>
+                <<set $jobState.bossWantsToSeePlayer = true>>
+                <<jobAdjustTrust -10>>
+                <<if ($jobState.workTrustScore || 0) <= 0>>
+                    <<set $jobState.terminationPending = true>>
+                    <<set $jobState.bossMeetingReason = "termination_trust0">>
+                <</if>>
             <</if>>
         <</if>>
     <</if>>
@@ -380,7 +650,20 @@
         bossWantsToSeePlayer: false,
         visitedBossThisMonday: false,
         freeMealUsedToday: false,
-        workedToday: false
+        workedToday: false,
+        workTrustScore: 60,
+        workTrustBand: "mid",
+        bossMeetingRequired: false,
+        bossMeetingReason: "",
+        terminationPending: false,
+        promotionPending: false,
+        pendingTier: 0,
+        weeklyPayPending: null,
+        lastInsufficientType: "",
+        lastInsufficientHours: 0,
+        excuseForDateKey: 0,
+        excuseMode: "",
+        excuseSentToday: false
     }>>
 <</widget>>
 
@@ -392,6 +675,7 @@
         <<set $jobState.workedToday = false>>
         <<set $jobState.freeMealUsedToday = false>>
         <<set $jobState.lastShiftEndHour = null>>
+        <<set $jobState.excuseSentToday = false>>
     <</if>>
 <</widget>>
 
@@ -399,6 +683,7 @@
    Before schedule.open on a work day: "Wait for shift" → jobWaitForShift advances time to opening; then "Work" applies.
    Usage: <<jobWorkButton "dinerRubys">> or <<jobWorkButton>> (uses $location as workplace) */
 <<widget "jobWorkButton">>
+    <<jobEnsureState>>
     <<set _workplace = $args[0] || $location>>
     <<if _workplace && $job && $job.id && setup.jobs[$job.id] && setup.jobs[$job.id].workplace === _workplace>>
     <<set _job = setup.jobs[$job.id]>>
@@ -422,12 +707,12 @@
             <<set _offHint = _offNames.length ? _offNames.join(" & ") : "scheduled off">>
             <<set _dayOffLockText = "Day off (" + _offHint + ")">>
             /* Boss summons (e.g. Monday after short hours) must work on scheduled off days too */
-            <<set _isMondayBoss = $timeSys.weekday === 1>>
-            <<set _bossSummonOffDay = _isMondayBoss && ($jobState.bossWantsToSeePlayer) && _job.bossOfficePassage>>
+            <<set _bossSummonOffDay = (($jobState.bossWantsToSeePlayer) || ($jobState.bossMeetingRequired) || ($jobState.terminationPending) || ($jobState.promotionPending)) && (_job.bossMeetingPassage || _job.bossOfficePassage)>>
             <<if _bossSummonOffDay>>
                 <<set _bossFirst = setup.characterDefs[_job.bossCharId].firstName>>
                 <<set _btnSeeBoss = "See " + _bossFirst>>
-                <<btn _btnSeeBoss _job.bossOfficePassage>><</btn>>
+                <<jobGetMeetingPassage>>
+                <<btn _btnSeeBoss _return>><</btn>>
             <<else>>
             <<btn "Work" "" "locked" _dayOffLockText>><</btn>>
             <</if>>
@@ -462,9 +747,18 @@
             <</if>>
             <</if>>
             <<if _workLockedReasons.length>><<set _workLockedText = "Need: " + _workLockedReasons.join(", ")>><</if>>
-            <<set _isMonday = $timeSys.weekday === 1>>
-            <<set _bossWantsToSee = $jobState.bossWantsToSeePlayer>>
-            <<set _workTarget = (_isMonday && _bossWantsToSee && _job.bossOfficePassage) ? _job.bossOfficePassage : ($jobState.firstWorkDayEventShown ? "jobWorkSelect" : (_job.firstWorkDayEventPassage || "jobWorkSelect"))>>
+            <<set _needsBoss = ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending)>>
+            <<jobGetMeetingPassage>>
+            <<set _meetingPassage = _return>>
+            <<set _payPending = !!$jobState.weeklyPayPending>>
+            <<set _payPassage = _job.paydayScenePassage || "jobWeeklyPayEnvelope">>
+            <<if _needsBoss>>
+                <<set _workTarget = _meetingPassage>>
+            <<elseif _payPending>>
+                <<set _workTarget = _payPassage>>
+            <<else>>
+                <<set _workTarget = ($jobState.firstWorkDayEventShown ? "jobWorkSelect" : (_job.firstWorkDayEventPassage || "jobWorkSelect"))>>
+            <</if>>
             <</silently>>
             <<if _workLocked>>
             <<btn "Work" "" "locked" _workLockedText>><</btn>>

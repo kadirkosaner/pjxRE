@@ -4,6 +4,11 @@
 <<updateCharacterLocations>>
 
 <<silently>>
+<<jobEnsureState>>
+<<run State.temporary._promoMeta = (window.getJobPromotionEligibility ? window.getJobPromotionEligibility(State.variables) : { eligible: false, nextTier: null, targetHints: [] })>>
+<<set _promoEligible = !!(State.temporary._promoMeta && State.temporary._promoMeta.eligible)>>
+<<set _promoNextTier = (State.temporary._promoMeta && State.temporary._promoMeta.nextTier != null) ? State.temporary._promoMeta.nextTier : 0>>
+<<set _promoTargets = (State.temporary._promoMeta && State.temporary._promoMeta.targetHints) ? State.temporary._promoMeta.targetHints : []>>
 <<set _job = (setup.jobs && setup.jobs[$job.id]) ? setup.jobs[$job.id] : null>>
 <<if !_job>>
     <<set $job.id = null>>
@@ -16,23 +21,28 @@
 <<set _bossName = setup.characterDefs[_job.bossCharId].firstName>>
 <<set $jobState.visitedBossThisMonday = true>>
 <<set $jobState.bossWantsToSeePlayer = false>>
-<<set $jobState.minHoursWarningCount = ($jobState.minHoursWarningCount || 0) + 1>>
-<<set _warningsBeforeFire = (_job.minHoursWarningsBeforeFire != null) ? _job.minHoursWarningsBeforeFire : 3>>
-<<set _isFired = $jobState.minHoursWarningCount >= _warningsBeforeFire>>
+<<set _reason = $jobState.bossMeetingReason || "">>
+<<set _hasAttendanceIssue = !!($jobState.bossMeetingRequired || _reason === "no_show" || _reason === "partial_4_8" || _reason === "partial_6_8" || _reason === "missed_meeting" || _reason === "insufficient_day")>>
+<<set _trust = parseInt($jobState.workTrustScore, 10) || 0>>
+<<set _band = $jobState.workTrustBand || "mid">>
+<<set _dismissAt = (_job.trustPolicy && _job.trustPolicy.dismissalAtTrust != null) ? _job.trustPolicy.dismissalAtTrust : 0>>
+<<if _trust <= _dismissAt>>
+    <<set $jobState.terminationPending = true>>
+<</if>>
 <</silently>>
 
-<<if _isFired>>
+<<if $jobState.terminationPending || _reason === "termination_trust0">>
 <<narrative "Manager's Office">>
 <<= _bossName>> doesn't look up when you enter. He's staring at a spreadsheet. After a long moment, he sets down his pen.
 <</narrative>>
 <<dialog _job.bossCharId>>
-We've had this talk before. More than once. You know what I expect.
+Your reliability has collapsed. I can't keep you on this roster.
 <</dialog>>
 <<dialog "player">>
-I'm sorry. I'll do better.
+I'm sorry.
 <</dialog>>
 <<dialog _job.bossCharId>>
-No. You won't. Not here. I'm letting you go.
+I'm letting you go.
 <</dialog>>
 <<narrative>>
 He hands you a final paycheck. Your time at <<= _job.workplaceName>> is over.
@@ -42,33 +52,103 @@ He hands you a final paycheck. Your time at <<= _job.workplaceName>> is over.
 <<set $job.tier = 1>>
 <<set $job.startedOn = null>>
 <<jobResetState>>
-<<run window.notifyWarning("You've been fired from " + _job.workplaceName + " for repeated failure to meet your daily hours.")>>
+<<run window.notifyWarning("You've been fired from " + _job.workplaceName + " after trust dropped to zero.")>>
 <</silently>>
+<div class="btn-center">
+<<btn "Leave" "dinerRubys">><</btn>>
+</div>
+<<elseif _promoEligible || ($jobState.promotionPending && ($jobState.pendingTier || 0) > ($job.tier || 1))>>
+<<set _nextTier = _promoEligible ? (parseInt($job.tier, 10) + 1) : ($jobState.pendingTier)>>
+<<narrative "Manager's Office">>
+<<= _bossName>> checks your file and gives a short nod.
+<</narrative>>
+<<dialog _job.bossCharId>>
+You've kept pace. I'm moving you up a tier.
+<</dialog>>
+<<dialog "player">>
+Thank you. I won't waste it.
+<</dialog>>
+<<silently>>
+<<set $job.tier = _nextTier>>
+<<set $jobState.promotionPending = false>>
+<<set $jobState.pendingTier = 0>>
+<<set $jobState.bossMeetingRequired = false>>
+<<set $jobState.bossMeetingReason = "">>
+<<run window.notifySuccess("Promotion approved. You're now tier " + $job.tier + ".")>>
+<</silently>>
+<div class="btn-center">
+<<btn "Leave" "dinerRubys">><</btn>>
+</div>
+<<elseif _hasAttendanceIssue>>
+<<narrative "Manager's Office">>
+<<= _bossName>> looks up when you knock. He gestures you in.
+<</narrative>>
+<<dialog _job.bossCharId>>
+Sit. We need to talk about your attendance.
+<</dialog>>
+<<dialog "player">>
+I understand.
+<</dialog>>
+<<if _reason === "no_show">>
+    <<dialog _job.bossCharId>>
+You missed the whole day. If this happens again, your trust with me drops fast.
+    <</dialog>>
+<<elseif _reason === "partial_4_8">>
+    <<dialog _job.bossCharId>>
+Four hours out of eight is not a complete shift. Fix this immediately.
+    <</dialog>>
+<<elseif _reason === "partial_6_8">>
+    <<dialog _job.bossCharId>>
+Six hours is closer, but still short. I need full shifts from you.
+    <</dialog>>
+<<elseif _reason === "missed_meeting">>
+    <<dialog _job.bossCharId>>
+You delayed this talk. That's not professional.
+    <</dialog>>
+<<else>>
+    <<dialog _job.bossCharId>>
+Your schedule has been inconsistent. I expect better from now on.
+    <</dialog>>
+<</if>>
+<<if _band === "low">>
+    <<dialog _job.bossCharId>>
+You're on thin ice. One more slide and this job is over.
+    <</dialog>>
+<<elseif _band === "high">>
+    <<dialog _job.bossCharId>>
+You've built enough goodwill to recover, but don't burn it.
+    <</dialog>>
+<<else>>
+    <<dialog _job.bossCharId>>
+Get your full hours in and we'll move on.
+    <</dialog>>
+<</if>>
+<<silently>>
+<<set $jobState.bossMeetingRequired = false>>
+<<set $jobState.bossMeetingReason = "">>
+<</silently>>
+<<run window.notifyWarning("Manager warning logged. Work trust: " + ($jobState.workTrustScore || 0) + "/100.")>>
 <div class="btn-center">
 <<btn "Leave" "dinerRubys">><</btn>>
 </div>
 <<else>>
 <<narrative "Manager's Office">>
-<<= _bossName>> looks up when you knock. He gestures you in. His expression is stern.
+<<= _bossName>> glances up from his paperwork.
 <</narrative>>
+<<if _promoTargets.length>>
 <<dialog _job.bossCharId>>
-Sit. We need to talk about your hours.
+You're not ready for promotion yet. I need to see: <<= _promoTargets.join(", ")>>.
 <</dialog>>
-<<dialog "player">>
-I know. I'm sorry.
-<</dialog>>
+<<elseif _promoNextTier <= (parseInt($job.tier, 10) || 1)>>
 <<dialog _job.bossCharId>>
-You didn't work your full eight hours every day last week. That's not acceptable. This is strike <<= $jobState.minHoursWarningCount>>. You get <<= _warningsBeforeFire>>. One more and you're out. Understand?
+You're already at the highest tier for this position.
 <</dialog>>
-<<dialog "player">>
-I understand. It won't happen again.
-<</dialog>>
+<<else>>
 <<dialog _job.bossCharId>>
-Good. Now get back to work.
+Nothing urgent right now. Keep your performance steady.
 <</dialog>>
-<<run window.notifyWarning("Warning " + $jobState.minHoursWarningCount + "/" + _warningsBeforeFire + " – work your full hours every day.")>>
+<</if>>
 <div class="btn-center">
-<<btn "Start work" "jobWorkSelect">><</btn>>
 <<btn "Leave" "dinerRubys">><</btn>>
 </div>
 <</if>>

@@ -1,0 +1,54 @@
+:: variablesPhoneTopicsWork [init]
+/* Work-related phone topics (Phase 1: Ruby / Vince) */
+<<if !setup.phoneMessageTopics>><<set setup.phoneMessageTopics = {}>><</if>>
+<<set setup.phoneMessageTopics.dinerManager = [
+    {
+        id: "work_excuse_today",
+        version: 1,
+        label: "Can't come to shift today",
+        customRules: {
+            jobExcuseBeforeNoon: true
+        },
+        category: "friendship",
+        tier: 0,
+        timeAdvance: 1,
+        statGain: {},
+        variations: [
+            [
+                { from: "player", text: "Hey Vince, I need to let you know I can't make today's shift." },
+                { from: "character", text: "You better have a good reason. What's going on?" },
+                { type: "choice", options: [
+                    { label: "Tell the truth", playerText: "I'm being honest with you. I can't make it today.", customAction: { type: "job_excuse", mode: "honest" }, thenByMode: {
+                        honest: [
+                            { from: "character", text: "Noted. Next time give me a little more notice." }
+                        ]
+                    }},
+                    { label: "Lie: I'm sick", playerText: "I'm really sick today. I can't stand up straight.", requiresCorruptionEq: 2, customAction: { type: "job_excuse", mode: "lie", lieType: "sick" }, thenByMode: {
+                        lie_success: [
+                            { from: "character", text: "Fine. Rest up and be ready tomorrow." }
+                        ],
+                        lie_fail: [
+                            { from: "character", text: "That doesn't sound right. We'll talk at work." }
+                        ]
+                    }},
+                    { label: "Lie: Family emergency", playerText: "Family emergency came up. I need to handle it right now.", requiresCorruptionEq: 2, customAction: { type: "job_excuse", mode: "lie", lieType: "family" }, thenByMode: {
+                        lie_success: [
+                            { from: "character", text: "Alright. Handle it and update me tomorrow." }
+                        ],
+                        lie_fail: [
+                            { from: "character", text: "This sounds like an excuse. We'll discuss this in person." }
+                        ]
+                    }},
+                    { label: "Lie: Transport issue", playerText: "I'm stuck with a transport problem and can't get there on time.", requiresCorruptionEq: 2, customAction: { type: "job_excuse", mode: "lie", lieType: "transport" }, thenByMode: {
+                        lie_success: [
+                            { from: "character", text: "Understood. Be here on time for your next shift." }
+                        ],
+                        lie_fail: [
+                            { from: "character", text: "I don't buy that. We'll have a proper talk at work." }
+                        ]
+                    }}
+                ]}
+            ]
+        ]
+    }
+]>>

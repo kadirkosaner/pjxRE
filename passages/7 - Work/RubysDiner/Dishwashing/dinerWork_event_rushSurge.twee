@@ -1,4 +1,7 @@
-:: dinerWork_event_rushSurge
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+<<if !$_navigatingBackward>>
 <<silently>>
 <<set $location = $activityOrigin || "dinerRubys">>
 <<set _v = random(1, 2)>>
@@ -28,3 +31,4 @@ You've got two options — dig in and power through, or wave Mike over before it
 <<btn "Get Mike's attention" "dinerWork_event_rushSurge_askHelp">><</btn>>
 <</if>>
 </div>
+<</if>>

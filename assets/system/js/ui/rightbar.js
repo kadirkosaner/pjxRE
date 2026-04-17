@@ -35,9 +35,25 @@ function getUnreadFotogramDmThreadsCount(vars) {
 
 function getPhoneNotificationTotal(vars) {
     var messages = getUnreadConversationCount(vars);
+    var calendar = 0;
+    if (typeof window.getCalendarNoticeMeta === 'function') {
+        calendar = window.getCalendarNoticeMeta(vars).show ? 1 : 0;
+    } else {
+        var job = vars && vars.job;
+        var jobState = (vars && vars.jobState) || {};
+        var jobs = (window.setup && window.setup.jobs) || {};
+        calendar = (job && job.id && jobs[job.id] && (jobState.bossMeetingRequired || jobState.bossWantsToSeePlayer || jobState.terminationPending || jobState.promotionPending)) ? 1 : 0;
+    }
     var fotogram = getUnreadFotogramDmThreadsCount(vars);
     var finder = (vars && vars.phoneNotifications && Array.isArray(vars.phoneNotifications.finder)) ? vars.phoneNotifications.finder.length : 0;
-    return messages + fotogram + finder;
+    return messages + calendar + fotogram + finder;
+}
+
+function formatMoneySafe(value) {
+    if (typeof window.formatMoney === 'function') return window.formatMoney(value);
+    var n = Number(value);
+    if (!Number.isFinite(n)) n = 0;
+    return (Math.round(n * 100) / 100).toFixed(2);
 }
 
 // Initialize
@@ -108,15 +124,15 @@ $(document).on(':passagerender', function () {
                         <div class="stat-tooltip">
                             <div class="stat-tooltip-row">
                                 <span>Cash:</span>
-                                <span>$${vars.cashBalance || 0}</span>
+                                <span>$${formatMoneySafe(vars.cashBalance || 0)}</span>
                             </div>
                             <div class="stat-tooltip-row">
                                 <span>Card:</span>
-                                <span>$${vars.bankBalance || 0}</span>
+                                <span>$${formatMoneySafe(vars.bankBalance || 0)}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="stat-value">${stat.value}</div>
+                    <div class="stat-value">${stat.label === 'Money' ? ('$' + formatMoneySafe(stat.value)) : stat.value}</div>
                 </div>
             `;
         }

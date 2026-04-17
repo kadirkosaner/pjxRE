@@ -733,8 +733,7 @@ function equipItem(itemId) {
     normalizeEquippedSlots(wardrobe.equipped);
     showToast(`Equipped: ${item.name}`);
     
-    if (window.Wikifier) new Wikifier(null, "<<recalculateStats>><<updateCaption>><<updateClothesNotification>>");
-    if (typeof UIBar !== 'undefined' && UIBar.update) UIBar.update();
+    refreshAfterWardrobeChange();
     
     _w_renderAll();
 }
@@ -769,8 +768,7 @@ function unequipSlot(slot) {
     }
     if (item) showToast(`Removed: ${item.name}`);
     
-    if (window.Wikifier) new Wikifier(null, "<<recalculateStats>><<updateCaption>><<updateClothesNotification>>");
-    if (typeof UIBar !== 'undefined' && UIBar.update) UIBar.update();
+    refreshAfterWardrobeChange();
     
     _w_renderAll();
 }
@@ -781,6 +779,13 @@ function showToast(message) {
     toast.textContent = message;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+function refreshAfterWardrobeChange() {
+    if (window.Wikifier) {
+        new Wikifier(null, "<<recalculateStats>><<updateCaption>><<updateClothesNotification>>");
+    }
+    if (typeof UIBar !== 'undefined' && UIBar.update) UIBar.update();
 }
 
 const defaultCategories = [
@@ -1164,12 +1169,7 @@ function renderOutfits() {
                 document.body.classList.remove('wardrobe-active');
                 if (WardrobeAPI) {
                     const target = wardrobeReturnPassage || 'fhBedroom';
-                    if (target === WardrobeAPI.State.passage) {
-                        WardrobeAPI.Engine.display(target, null, "back");
-                        if (typeof UIBar !== 'undefined' && UIBar.update) UIBar.update();
-                    } else {
-                        WardrobeAPI.Engine.play(target);
-                    }
+                    WardrobeAPI.Engine.play(target);
                 }
             }
         });
@@ -1264,10 +1264,7 @@ function wearOutfit(index) {
         normalizeEquippedSlots(wardrobe.equipped);
         showToast(`Wearing: ${outfit.name}`);
         
-        if (window.Wikifier) {
-            new Wikifier(null, "<<recalculateStats>><<updateCaption>><<updateClothesNotification>>");
-        }
-        if (typeof UIBar !== 'undefined' && UIBar.update) UIBar.update();
+        refreshAfterWardrobeChange();
         
         _w_renderAll();
     }
@@ -1358,7 +1355,11 @@ function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack,
     const passage = S?.passage || '';
     const locations = setupObj.locations || {};
     const navCards = setupObj.navCards || {};
-    const backPassage = customBackPassage || locations[passage]?.parent || 'fhBedroom';
+    let backPassage = customBackPassage || locations[passage]?.parent || 'fhBedroom';
+    // Safety fallback: corridor location was removed from Ruby's Diner.
+    if (backPassage === 'dinerRubysCorridor') {
+        backPassage = 'dinerRubys';
+    }
     const backLinkText = navCards[backPassage]?.name || 'Back';
     wardrobeReturnPassage = backPassage;
 
@@ -1467,17 +1468,10 @@ function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack,
         const passage = $(this).data('passage');
         
         if (passage && WardrobeAPI) {
-            if (passage === WardrobeAPI.State.passage) {
-                WardrobeAPI.Engine.display(passage, null, "back");
-            } else {
-                WardrobeAPI.Engine.play(passage);
-            }
-            
-            // Ensure UI is updated with the reverted state
-            if (typeof UIBar !== 'undefined' && UIBar.update) UIBar.update();
-            
-            // Recalculate stats based on reverted wardrobe
-            if (window.Wikifier) new Wikifier(null, "<<recalculateStats>>");
+            WardrobeAPI.Engine.play(passage);
+
+            // Ensure UI/stats are updated with reverted wardrobe state
+            refreshAfterWardrobeChange();
         }
     });
 
@@ -1512,18 +1506,13 @@ function wardrobeMacroHandler(output, locationFilter, customBackPassage, noBack,
             return;
         }
         
-        if (window.Wikifier) new Wikifier(null, "<<recalculateStats>>");
+        refreshAfterWardrobeChange();
         
         removeWardrobeGlobalTooltips();
         document.body.classList.remove('wardrobe-active');
         if (WardrobeAPI) {
             const target = wardrobeReturnPassage || 'fhBedroom';
-            if (target === WardrobeAPI.State.passage) {
-                WardrobeAPI.Engine.display(target, null, "back");
-                if (typeof UIBar !== 'undefined' && UIBar.update) UIBar.update();
-            } else {
-                WardrobeAPI.Engine.play(target);
-            }
+            WardrobeAPI.Engine.play(target);
         }
     });
 

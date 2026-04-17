@@ -1214,6 +1214,11 @@
   color: var(--color-accent-hover);
 }
 
+.phone-topic-btn[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .phone-thread-choices {
   display: flex;
   flex-wrap: wrap;
@@ -1262,6 +1267,16 @@
 
 .phone-topic-item:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.phone-topic-item.disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+.phone-topic-item.disabled:hover {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .phone-topic-label {

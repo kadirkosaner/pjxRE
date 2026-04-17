@@ -48,6 +48,10 @@ You stand up. You leave the office, walk down the corridor to the front of the d
 <<jobResetState>>
 <<set $job.id = "ruby_dishwasher">>
 <<set $job.tier = 1>>
+<<phoneUnlockContact "dinerManager">>
+<<if !$phoneConversations["dinerManager"] || $phoneConversations["dinerManager"].length === 0>>
+    <<phoneReceiveMessage "dinerManager" "This is Vince. Save this number. If you can't make a shift, message me before start time.">>
+<</if>>
 <<run (function(){
     var t = State.variables.timeSys;
     var d = new Date(t.year, t.month - 1, t.day);

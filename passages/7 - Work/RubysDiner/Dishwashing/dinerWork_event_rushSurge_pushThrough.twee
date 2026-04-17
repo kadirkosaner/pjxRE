@@ -1,3 +1,7 @@
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+<<if !$_navigatingBackward>>
 <<silently>>
 <<set $location = $activityOrigin || "dinerRubys">>
 <</silently>>
@@ -17,3 +21,4 @@ Your arms are heavy by the end. But you did it.
 <</silently>>
 
 <<include "RubysDishwashWork_afterMini">>
+<</if>>

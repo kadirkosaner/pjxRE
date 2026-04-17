@@ -33,10 +33,31 @@ window.PhoneApps.calendar = {
             return aptDate === dateKey;
         });
         var workSynthetic = [];
+        var bossMeetingSynthetic = [];
         var job = vars.job;
+        var jobState = vars.jobState || {};
         var JobSched = window.JobSchedule;
+        var jobsMap = (window.setup && window.setup.jobs) || {};
+        var charDefs = (window.setup && window.setup.characterDefs) || {};
+        var jdefForBoss = (job && job.id) ? jobsMap[job.id] : null;
+        var needsBossTalkToday = !!(isToday && jdefForBoss && (jobState.bossMeetingRequired || jobState.bossWantsToSeePlayer || jobState.terminationPending || jobState.promotionPending));
+        if (needsBossTalkToday) {
+            var bossDef = jdefForBoss && jdefForBoss.bossCharId ? charDefs[jdefForBoss.bossCharId] : null;
+            var bossName = (bossDef && bossDef.firstName) ? bossDef.firstName : 'Manager';
+            var bossHour = (jdefForBoss.schedule && jdefForBoss.schedule.open != null) ? jdefForBoss.schedule.open : 10;
+            bossMeetingSynthetic.push({
+                isBossMeetingCalendar: true,
+                text: bossName + ' wants to talk about absenteeism',
+                time: {
+                    year: dateInfo.year,
+                    month: dateInfo.month,
+                    day: dateInfo.day,
+                    hour: bossHour,
+                    minute: 0
+                }
+            });
+        }
         if (job && job.id && JobSched && JobSched.isScheduledWorkDay) {
-            var jobsMap = (window.setup && window.setup.jobs) || {};
             var jdef = jobsMap[job.id];
             if (jdef && JobSched.isScheduledWorkDay(jdef, dateInfo.weekday)) {
                 var sk = job.startedOn
@@ -58,7 +79,7 @@ window.PhoneApps.calendar = {
                 }
             }
         }
-        var dayEventsMerged = workSynthetic.concat(dayEvents).sort(function (x, y) {
+        var dayEventsMerged = bossMeetingSynthetic.concat(workSynthetic).concat(dayEvents).sort(function (x, y) {
             var mx = (x.time.hour || 0) * 60 + (x.time.minute || 0);
             var my = (y.time.hour || 0) * 60 + (y.time.minute || 0);
             return mx - my;
@@ -70,9 +91,13 @@ window.PhoneApps.calendar = {
         } else {
             daysHtml += '<div class="phone-calendar-day-events">';
             dayEventsMerged.forEach(function (a) {
-                var timeStr = a.time ? (String(a.time.hour || 0).padStart(2, '0') + ':' + String(a.time.minute || 0).padStart(2, '0')) : '';
+                var timeStr = a.isBossMeetingCalendar
+                    ? 'Today'
+                    : (a.time ? (String(a.time.hour || 0).padStart(2, '0') + ':' + String(a.time.minute || 0).padStart(2, '0')) : '');
                 var desc;
-                if (a.isWorkCalendar) {
+                if (a.isBossMeetingCalendar) {
+                    desc = escapeHtml(a.text || 'Manager wants to talk today');
+                } else if (a.isWorkCalendar) {
                     desc = 'Work — ' + escapeHtml(a.workPlaceName);
                 } else {
                     var name = getPhoneContactName(a.charId, vars);

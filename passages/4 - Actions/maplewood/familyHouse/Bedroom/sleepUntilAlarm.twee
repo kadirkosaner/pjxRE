@@ -1,0 +1,51 @@
+:: sleepUntilAlarm
+<<nobr>>
+<<silently>>
+    <<set $location = "fhBedroom">>
+    <<set _ctx = $sleepWakeContext>>
+    <<if ndef _ctx>><<set _ctx = {}>><</if>>
+    <<set _tUntilAlarm = parseInt(_ctx.timeUntilAlarm, 10)>>
+    <<if _tUntilAlarm !== _tUntilAlarm>><<set _tUntilAlarm = 0>><</if>>
+    <<set _slept = parseInt(_ctx.sleepDuration, 10)>>
+    <<if _slept !== _slept>><<set _slept = 0>><</if>>
+    <<set _extra = Math.max(0, _tUntilAlarm - _slept)>>
+
+    <<if _extra > 0>>
+        <<set $isSleeping = true>>
+        <<advanceTime _extra>>
+        <<set $isSleeping = false>>
+
+        /* Recover energy from extra sleep until alarm (never 0 while still tired) */
+        <<set _energyCurrentNow = parseInt($energy || 0, 10)>>
+        <<set _energyMaxNow = Math.max(1, parseInt($energyMax || 80, 10))>>
+        <<set _energyToFill = Math.max(0, _energyMaxNow - _energyCurrentNow)>>
+        <<set _energySleepFloor = 20>>
+        <<set _sleepEnergyFullMinutes = 480>>
+        <<if _energyMaxNow > _energySleepFloor>>
+            <<set _energySpanAboveFloor = _energyMaxNow - _energySleepFloor>>
+        <<else>>
+            <<set _energySpanAboveFloor = Math.max(1, _energyMaxNow)>>
+        <</if>>
+        <<set _minutesToFillEnergy = Math.max(1, Math.round((_energyToFill / _energySpanAboveFloor) * _sleepEnergyFullMinutes))>>
+        <<if _energyToFill > 0>>
+            <<set _energyGain = Math.min(_energyToFill, Math.max(1, Math.round(_extra * (_energyToFill / _minutesToFillEnergy))))>>
+            <<gainStat "energy" _energyGain>>
+        <</if>>
+
+        <<loseStat "stress" Math.round((_extra / 60) * 8)>>
+        <<gainStat "health" 2>>
+
+        <<set $sleepWakeContext.sleepDuration = _slept + _extra>>
+        <<set $sleepWakeContext.wakeType = "alarm">>
+
+        <<run window.notifySuccess("You rest until the alarm.")>>
+        <<flushNotifications>>
+    <</if>>
+<</silently>>
+
+<<narrative "Almost Morning">>
+You let the dark settle again, hovering in a thin fog of half-sleep. Sounds blur; time stretches. Then your alarm tears through the quiet — sharp, insistent — and you surface all at once, reaching for it in the dark.
+<</narrative>>
+
+<<bedWakeUp>>
+<</nobr>>

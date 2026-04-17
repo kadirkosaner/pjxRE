@@ -117,14 +117,7 @@ She knows something she's not saying.
 
 <div class="location-actions">
 <<set _currentCharLocation = $characters.dinerWaitress2.currentLocation>>
-<<if _currentCharLocation === $location>>
-    <<set _gossipBackTarget = "CharacterInteraction">>
-<<else>>
-    <<set _gossipBackTarget = $interactionEntryPassage || $location>>
-<</if>>
-<<btn "Back" _gossipBackTarget "secondary">>
-<<if _currentCharLocation !== $location>><<unset $interactionEntryPassage>><</if>>
-<</btn>>
+<<talkBackButton _currentCharLocation>>
 </div>
 
 </div>

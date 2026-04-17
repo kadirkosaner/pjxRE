@@ -251,9 +251,9 @@
 
 /*#region WORK TAB */
 .work-tab .work-layout {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(0, 260px);
   gap: 20px;
-  flex-wrap: wrap;
 }
 
 .work-tab .work-panel {
@@ -261,6 +261,7 @@
   border: 1px solid var(--color-border-primary);
   border-radius: 8px;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .work-tab .work-panel:hover {
@@ -276,10 +277,76 @@
 }
 
 .work-tab .work-panel-salary {
-  width: 220px;
+  width: 100%;
+  max-width: 260px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.work-tab .work-panel-pending {
+  grid-column: 1 / -1;
+  width: auto;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 20px;
+}
+
+.work-tab .work-panel-promotion {
+  grid-column: 1 / -1;
+  width: auto;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 20px;
+}
+
+.work-tab .work-promotion-lead {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--color-text-primary);
+}
+
+.work-tab .work-promotion-reqs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.work-tab .work-promotion-req {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.work-tab .work-panel-pending .work-row .stat-label {
+  width: auto;
+}
+
+.work-tab .work-panel-salary .work-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 10px;
+  align-items: baseline;
+}
+
+.work-tab .work-panel-salary .work-row .stat-label {
+  width: auto;
+  min-width: 0;
+  flex: 1 1 auto;
+  white-space: normal;
+}
+
+.work-tab .work-panel-salary .work-row .work-value {
+  flex: 0 0 auto;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .work-tab .work-panel-full {
@@ -291,19 +358,21 @@
 }
 
 .work-tab .work-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  column-gap: 20px;
+  align-items: baseline;
 }
 
 .work-tab .work-row .stat-label {
-  width: 130px;
-  flex-shrink: 0;
+  width: auto;
+  min-width: 0;
   margin: 0;
 }
 
 .work-tab .work-row .work-value {
-  flex: 1;
+  min-width: 0;
+  word-break: break-word;
 }
 
 .work-tab .work-row .work-value .work-tier {
@@ -380,9 +449,8 @@
   padding-top: 8px;
   border-top: 1px solid var(--color-border-primary);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+  align-items: baseline;
+  gap: 8px;
 }
 
 .work-tab .work-empty {
@@ -393,5 +461,16 @@
   font-size: 14px;
   color: var(--color-text-tertiary);
   margin-top: 8px;
+}
+
+.work-tab .work-status-hint {
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border-primary);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 /*#endregion */

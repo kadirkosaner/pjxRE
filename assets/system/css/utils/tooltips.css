@@ -8,6 +8,10 @@
   cursor: help;
 }
 
+[data-tooltip][disabled] {
+  pointer-events: auto;
+}
+
 .tooltip-popup {
   position: fixed;
   background: var(--color-border-primary);

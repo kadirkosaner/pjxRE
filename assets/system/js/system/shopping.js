@@ -33,6 +33,18 @@ function getState() {
     return { variables: {} };
 }
 
+function moneyRoundSafe(value) {
+    if (typeof window.roundMoney === 'function') return window.roundMoney(value);
+    var n = Number(value);
+    if (!Number.isFinite(n)) n = 0;
+    return Math.round(n * 100) / 100;
+}
+
+function moneyFormatSafe(value) {
+    if (typeof window.formatMoney === 'function') return window.formatMoney(value);
+    return moneyRoundSafe(value).toFixed(2);
+}
+
 /** Prerequisite line for book tooltips (full stat names, no abbreviations). */
 function buildShopReadingRequiresLabel(meta) {
     if (!meta || !meta.requires) return '';
@@ -200,7 +212,8 @@ function getCart() {
 
 // Get cart total
 function getCartTotal() {
-    return getCart().reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const total = getCart().reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    return moneyRoundSafe(total);
 }
 
 // Get balances
@@ -482,7 +495,7 @@ function getEngine() {
 function checkoutCash() {
     const S = getState();
     normalizeUniqueCartQuantities();
-    const total = getCartTotal();
+    const total = moneyRoundSafe(getCartTotal());
 
     if (total <= 0 || S.variables.cashBalance < total) {
         showToast('Insufficient cash!');
@@ -490,8 +503,8 @@ function checkoutCash() {
     }
     
     // Spend cash
-    S.variables.moneySpend += total;
-    S.variables.cashBalance = S.variables.moneyEarn - S.variables.moneySpend;
+    S.variables.moneySpend = moneyRoundSafe((S.variables.moneySpend || 0) + total);
+    S.variables.cashBalance = moneyRoundSafe((S.variables.moneyEarn || 0) - S.variables.moneySpend);
 
     // Add items to inventory
     addCartToInventory();
@@ -516,7 +529,7 @@ function checkoutCash() {
 function checkoutCard() {
     const S = getState();
     normalizeUniqueCartQuantities();
-    const total = getCartTotal();
+    const total = moneyRoundSafe(getCartTotal());
 
     if (total <= 0 || S.variables.bankBalance < total) {
         showToast('Insufficient bank balance!');
@@ -524,8 +537,8 @@ function checkoutCard() {
     }
     
     // Spend from bank
-    S.variables.bankSpend += total;
-    S.variables.bankBalance = S.variables.bankDeposit - S.variables.bankSpend - S.variables.bankWithdraw;
+    S.variables.bankSpend = moneyRoundSafe((S.variables.bankSpend || 0) + total);
+    S.variables.bankBalance = moneyRoundSafe((S.variables.bankDeposit || 0) - S.variables.bankSpend - (S.variables.bankWithdraw || 0));
 
     // Add items to inventory
     addCartToInventory();
@@ -858,16 +871,16 @@ function renderCart() {
     if (cartCount) cartCount.textContent = cart.length;
 
     // Update total
-    if (cartTotal) cartTotal.textContent = '$' + total;
+    if (cartTotal) cartTotal.textContent = '$' + moneyFormatSafe(total);
 
     // Update buttons
     if (cashBtn) {
         cashBtn.classList.toggle('disabled', total <= 0 || cash < total);
-        cashBtn.querySelector('.pay-balance').textContent = `($${cash} available)`;
+        cashBtn.querySelector('.pay-balance').textContent = `($${moneyFormatSafe(cash)} available)`;
     }
     if (cardBtn) {
         cardBtn.classList.toggle('disabled', total <= 0 || bank < total);
-        cardBtn.querySelector('.pay-balance').textContent = `($${bank} available)`;
+        cardBtn.querySelector('.pay-balance').textContent = `($${moneyFormatSafe(bank)} available)`;
     }
 
     // Render cart items
@@ -931,8 +944,8 @@ function renderHeader() {
 
     if (nameEl) nameEl.textContent = currentShopName;
     if (typeEl) typeEl.textContent = currentShopType;
-    if (cashEl) cashEl.textContent = '$' + getCashBalance();
-    if (bankEl) bankEl.textContent = '$' + getBankBalance();
+    if (cashEl) cashEl.textContent = '$' + moneyFormatSafe(getCashBalance());
+    if (bankEl) bankEl.textContent = '$' + moneyFormatSafe(getBankBalance());
 }
 
 function renderAll() {

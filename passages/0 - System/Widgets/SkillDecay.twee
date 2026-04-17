@@ -34,6 +34,14 @@
         <<return>>
     <</if>>
     
+    /* Safety init for old saves */
+    <<if !$skillUsageTracking>>
+        <<set $skillUsageTracking = {
+            mental: {}, social: {}, physical: {},
+            creative: {}, technical: {}, practical: {}
+        }>>
+    <</if>>
+    
     /* Define category-based decay rates (days until -1) */
     <<set _decayRates = {
         mental: 10,
@@ -84,9 +92,10 @@
                 <<set _decayAmount = Math.floor(_daysSinceUse / _decayThreshold)>>
                 
                 /* Apply decay (minimum 0) */
-                <<set $skills[_category][_skillName] = Math.max(0, _skillValue - _decayAmount)>>
+                <<set _newSkillValue = Math.max(0, _skillValue - _decayAmount)>>
+                <<set $skills[_category][_skillName] = _newSkillValue>>
                 <<set _displayName = _skillName.charAt(0).toUpperCase() + _skillName.slice(1)>>
-                <<run window.notifyWarning(_displayName + " -" + _decayAmount + " (Decay)")>>
+                <<run window.notifyWarning(_displayName + " decayed")>>
             <</if>>
         <</for>>
     <</for>>

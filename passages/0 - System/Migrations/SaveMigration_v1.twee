@@ -1,7 +1,68 @@
-:: SaveMigration_v1 {"position":"100,575","size":"100,100"}
 <<silently>>
 <<if $saveVersion lt 1>>
-    <<domInclude "charReceptionist[TownHall]">>
-    <<domInclude "charCareerClerk[TownHall]">>
+    /* Job system migration: trust-based work state (backward compatibility). */
+    <<if ndef $job>><<set $job = { id: null, tier: 1, startedOn: null }>><</if>>
+    <<if ndef $jobState>><<set $jobState = {}>><</if>>
+    <<if ndef $jobState.hoursThisWeek>><<set $jobState.hoursThisWeek = 0>><</if>>
+    <<if ndef $jobState.hoursToday>><<set $jobState.hoursToday = 0>><</if>>
+    <<if ndef $jobState.shiftsToday>><<set $jobState.shiftsToday = 0>><</if>>
+    <<if ndef $jobState.totalDaysWorked>><<set $jobState.totalDaysWorked = 0>><</if>>
+    <<if ndef $jobState.jobExperience>><<set $jobState.jobExperience = 0>><</if>>
+    <<if ndef $jobState.weeklyEarnings>><<set $jobState.weeklyEarnings = 0>><</if>>
+    <<if ndef $jobState.weeklyDeductions>><<set $jobState.weeklyDeductions = 0>><</if>>
+    <<if ndef $jobState.lastPayWeek>><<set $jobState.lastPayWeek = null>><</if>>
+    <<if ndef $jobState.lastShiftEndHour>><<set $jobState.lastShiftEndHour = null>><</if>>
+    <<if ndef $jobState.minHoursWarningCount>><<set $jobState.minHoursWarningCount = 0>><</if>>
+    <<if ndef $jobState.firstWorkDayEventShown>><<set $jobState.firstWorkDayEventShown = false>><</if>>
+    <<if ndef $jobState.insufficientDaysThisWeek>><<set $jobState.insufficientDaysThisWeek = 0>><</if>>
+    <<if ndef $jobState.bossWantsToSeePlayer>><<set $jobState.bossWantsToSeePlayer = false>><</if>>
+    <<if ndef $jobState.visitedBossThisMonday>><<set $jobState.visitedBossThisMonday = false>><</if>>
+    <<if ndef $jobState.freeMealUsedToday>><<set $jobState.freeMealUsedToday = false>><</if>>
+    <<if ndef $jobState.workedToday>><<set $jobState.workedToday = false>><</if>>
+
+    <<if ndef $jobState.workTrustScore>><<set $jobState.workTrustScore = 60>><</if>>
+    <<if ndef $jobState.workTrustBand>><<set $jobState.workTrustBand = "mid">><</if>>
+    <<if ndef $jobState.bossMeetingRequired>><<set $jobState.bossMeetingRequired = false>><</if>>
+    <<if ndef $jobState.bossMeetingReason>><<set $jobState.bossMeetingReason = "">><</if>>
+    <<if ndef $jobState.terminationPending>><<set $jobState.terminationPending = false>><</if>>
+    <<if ndef $jobState.promotionPending>><<set $jobState.promotionPending = false>><</if>>
+    <<if ndef $jobState.pendingTier>><<set $jobState.pendingTier = 0>><</if>>
+    <<if ndef $jobState.weeklyPayPending>><<set $jobState.weeklyPayPending = null>><</if>>
+    <<if ndef $jobState.lastInsufficientType>><<set $jobState.lastInsufficientType = "">><</if>>
+    <<if ndef $jobState.lastInsufficientHours>><<set $jobState.lastInsufficientHours = 0>><</if>>
+    <<if ndef $jobState.excuseForDateKey>><<set $jobState.excuseForDateKey = 0>><</if>>
+    <<if ndef $jobState.excuseMode>><<set $jobState.excuseMode = "">><</if>>
+    <<if ndef $jobState.excuseSentToday>><<set $jobState.excuseSentToday = false>><</if>>
+
+    /* Ensure trust band matches migrated score. */
+    <<if ($jobState.workTrustScore || 0) >= 70>>
+        <<set $jobState.workTrustBand = "high">>
+    <<elseif ($jobState.workTrustScore || 0) >= 30>>
+        <<set $jobState.workTrustBand = "mid">>
+    <<else>>
+        <<set $jobState.workTrustBand = "low">>
+    <</if>>
+
+    /* If player already has a job, ensure manager contact exists in phone. */
+    <<if $job && $job.id && setup.jobs && setup.jobs[$job.id]>>
+        <<set _mJob = setup.jobs[$job.id]>>
+        <<set _bossId = _mJob.bossCharId || "dinerManager">>
+        <<if ndef $phoneContactsUnlocked>><<set $phoneContactsUnlocked = []>><</if>>
+        <<if !$phoneContactsUnlocked.includes(_bossId)>>
+            <<run $phoneContactsUnlocked.push(_bossId)>>
+        <</if>>
+        <<if ndef $phoneConversations>><<set $phoneConversations = {}>><</if>>
+        <<if !$phoneConversations[_bossId]>><<set $phoneConversations[_bossId] = []>><</if>>
+        <<if $phoneConversations[_bossId].length === 0>>
+            <<set _t = $timeSys || {}>>
+            <<set _msgTime = { day: _t.day, month: _t.month, year: _t.year, hour: _t.hour, minute: _t.minute }>>
+            <<run $phoneConversations[_bossId].push({
+                from: _bossId,
+                text: "This is Vince. Save this number. If you can't make a shift, message me before start time.",
+                time: _msgTime,
+                read: false
+            })>>
+        <</if>>
+    <</if>>
 <</if>>
 <</silently>>

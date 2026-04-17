@@ -67,12 +67,7 @@ He's just come in from work. The kitchen is where he lands first — jacket off,
 
 <div class="location-actions">
 <<set _currentCharLocation = $characters.father.currentLocation>>
-<<if _currentCharLocation === $location>>
-    <<btn "Back" "CharacterInteraction" "secondary">><</btn>>
-<<else>>
-    <<set _backPassage = $interactionEntryPassage || $location>>
-    <<btn "Back" _backPassage "secondary">><<unset $interactionEntryPassage>><</btn>>
-<</if>>
+<<talkBackButton _currentCharLocation>>
 </div>
 </div>
 <</nobr>>
