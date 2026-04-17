@@ -18,11 +18,31 @@
 <<addHeelsTravelMinutes _mins>>
 <<recalculateStats>>
 <<flushNotifications>>
+<<set _walkAroundDiscoverStoreBook = false>>
+<<if _d === "oldTown" && !$discoveredStoreBook && random(1, 4) === 1>>
+	<<set _walkAroundDiscoverStoreBook = true>>
+<</if>>
 <</silently>>
 <<narrative "Walk Around">>
 <<print _flavor>>
 <</narrative>>
 <<if _districtHubVid !== "">><<vid _districtHubVid "100%">><</if>>
+<<if _walkAroundDiscoverStoreBook>>
+<<narrative>>
+While you're taking everything in, a storefront suddenly snags your attention—crowded window, paperbacks stacked like brickwork, a little handwritten sign about bargain bins.
+<</narrative>>
+<<image "assets/content/locations/oldTown/storeBook.webp" "100%">>
+<<dialog "player">>
+(Inner voice)
+A real bookshop tucked into Old Town. I wonder what's actually in there—besides dust and good intentions.
+<</dialog>>
+<<narrative>>
+You discovered Bookworm's Corner.
+<</narrative>>
+<<silently>>
+<<discover "StoreBook" "Bookworm's Corner">>
+<</silently>>
+<</if>>
 <div class="location-actions">
 <<btn "Back" _ret>><</btn>>
 </div>

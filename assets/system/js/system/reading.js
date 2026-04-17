@@ -69,6 +69,13 @@ function calcEstimatedPages(durationMinutes) {
     return Math.max(1, Math.floor(durationMinutes * calcReadingSpeed()));
 }
 
+/** Tooltip label: camelCase id → spaced words, first letter capitalized (e.g. problemSolving → Problem Solving). */
+function formatReadingStatOrSkillId(id) {
+    if (id == null || id === '') return '';
+    var spaced = String(id).replace(/([A-Z])/g, ' $1').trim();
+    return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+}
+
 function buildReadingTooltipHTML(entry) {
     var lines = [];
     var meta = entry.meta;
@@ -76,24 +83,22 @@ function buildReadingTooltipHTML(entry) {
         lines.push('<div class="tooltip-effect" style="opacity:0.6;font-size:0.72rem">Single Use</div>');
         if (meta.gainOnComplete && (meta.gainType || (meta.gainTypeOptions && meta.gainTypeOptions.length))) {
             var statLabel = (meta.gainTypeOptions && meta.gainTypeOptions.length)
-                ? meta.gainTypeOptions.join(' / ')
-                : meta.gainType;
+                ? meta.gainTypeOptions.map(formatReadingStatOrSkillId).join(' / ')
+                : formatReadingStatOrSkillId(meta.gainType);
             lines.push('<div class="tooltip-effect">+' + meta.gainOnComplete + ' ' + statLabel + '</div>');
         }
         if (meta.skillOnComplete && meta.skillOnComplete.skill) {
             var sc = meta.skillOnComplete;
-            lines.push('<div class="tooltip-effect">+' + sc.amount + ' ' + sc.skill + ' skill</div>');
+            lines.push('<div class="tooltip-effect">+' + sc.amount + ' ' + formatReadingStatOrSkillId(sc.skill) + ' skill</div>');
         }
     } else {
         if (meta.statPool && meta.statPool.length > 0) {
-            var poolLabel = meta.statPool.map(function(s) {
-                return s.charAt(0).toUpperCase() + s.slice(1);
-            }).join(', ');
+            var poolLabel = meta.statPool.map(formatReadingStatOrSkillId).join(', ');
             lines.push('<div class="tooltip-effect tooltip-reading-stat">' + poolLabel + '</div>');
         }
         if (meta.skillOnRead && meta.skillOnRead.length > 0) {
             var skillLabel = meta.skillOnRead.map(function(sr) {
-                return sr.skill.charAt(0).toUpperCase() + sr.skill.slice(1);
+                return formatReadingStatOrSkillId(sr.skill);
             }).join(', ');
             lines.push('<div class="tooltip-effect tooltip-reading-skill">' + skillLabel + '</div>');
         }

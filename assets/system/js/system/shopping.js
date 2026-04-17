@@ -63,6 +63,13 @@ function meetsShopReadingBookRequirements(meta) {
     return true;
 }
 
+/** Tooltip label: camelCase id → spaced words (e.g. problemSolving → Problem Solving). Mirrors reading.js. */
+function formatReadingStatOrSkillId(id) {
+    if (id == null || id === '') return '';
+    const spaced = String(id).replace(/([A-Z])/g, ' $1').trim();
+    return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+}
+
 /**
  * Full product-tooltip inner HTML for books/magazines — same info as Read screen (ReadingDatabase).
  * @param {{ lockedBook?: boolean }} [opts]
@@ -80,14 +87,12 @@ function buildShopReadingTooltipHTML(item, meta, opts) {
             lines.push('<div class="tooltip-reading-req">Requires ' + reqLabel + '</div>');
         }
         if (meta.statPool && meta.statPool.length > 0) {
-            const poolLabel = meta.statPool.map(function(s) {
-                return s.charAt(0).toUpperCase() + s.slice(1);
-            }).join(', ');
+            const poolLabel = meta.statPool.map(formatReadingStatOrSkillId).join(', ');
             lines.push('<div class="tooltip-effect tooltip-reading-stat">' + poolLabel + '</div>');
         }
         if (meta.skillOnRead && meta.skillOnRead.length > 0) {
             const skillLabel = meta.skillOnRead.map(function(sr) {
-                return sr.skill.charAt(0).toUpperCase() + sr.skill.slice(1);
+                return formatReadingStatOrSkillId(sr.skill);
             }).join(', ');
             lines.push('<div class="tooltip-effect tooltip-reading-skill">' + skillLabel + '</div>');
         }
@@ -95,13 +100,13 @@ function buildShopReadingTooltipHTML(item, meta, opts) {
         lines.push('<div class="tooltip-reading-meta tooltip-reading-single">Single use</div>');
         if (meta.gainOnComplete && (meta.gainType || (meta.gainTypeOptions && meta.gainTypeOptions.length))) {
             const statLabel = (meta.gainTypeOptions && meta.gainTypeOptions.length)
-                ? meta.gainTypeOptions.join(' / ')
-                : meta.gainType;
+                ? meta.gainTypeOptions.map(formatReadingStatOrSkillId).join(' / ')
+                : formatReadingStatOrSkillId(meta.gainType);
             lines.push('<div class="tooltip-effect tooltip-reading-stat">+' + meta.gainOnComplete + ' ' + statLabel + '</div>');
         }
         if (meta.skillOnComplete && meta.skillOnComplete.skill) {
             const sc = meta.skillOnComplete;
-            lines.push('<div class="tooltip-effect tooltip-reading-skill">+' + sc.amount + ' ' + sc.skill + ' skill</div>');
+            lines.push('<div class="tooltip-effect tooltip-reading-skill">+' + sc.amount + ' ' + formatReadingStatOrSkillId(sc.skill) + ' skill</div>');
         }
     }
     if (lines.length === 0) return '';

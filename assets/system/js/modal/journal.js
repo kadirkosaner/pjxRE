@@ -241,6 +241,22 @@ window.JournalInit = function (API) {
             `;
     },
 
+    /** Label on one line, value below — for long text (e.g. job title + workplace). */
+    createRecordRowStacked: function (label, value) {
+      const safe =
+        value == null
+          ? ""
+          : typeof value === "string"
+            ? this.escapeHtml(value)
+            : this.escapeHtml(String(value));
+      return `
+                <div class="record-stat-row record-stat-row--stacked">
+                    <span class="record-label">${this.escapeHtml(label)}</span>
+                    <span class="record-value record-value--multiline">${safe}</span>
+                </div>
+            `;
+    },
+
     // New Helper: Record Group
     createRecordGroup: function (title, icon, content) {
       return `
@@ -288,7 +304,38 @@ window.JournalInit = function (API) {
       const reputation = vars.reputation || {};
       const counts = vars.sexual?.counts || {};
       const totalPartners = vars.sexual?.totalPartners || 0;
-      const money = vars.money || 0;
+      /* Money: game uses cashBalance + moneyEarn (see MoneyWidgets / charPlayer), not vars.money / lifetimeEarnings */
+      const formatJournalMoney = function (amount) {
+        const n = Number(amount);
+        const safe = Number.isFinite(n) ? n : 0;
+        if (typeof window.formatMoney === "function") return window.formatMoney(safe);
+        return safe.toFixed(2);
+      };
+      const cashBal = vars.cashBalance;
+      const currentFundsNum =
+        cashBal != null && cashBal !== ""
+          ? Number(cashBal)
+          : Number(vars.moneyEarn || 0) - Number(vars.moneySpend || 0);
+      const moneyStr = formatJournalMoney(currentFundsNum);
+      const lifetimeEarnStr = formatJournalMoney(
+        vars.moneyEarn != null ? vars.moneyEarn : 0
+      );
+      /* Career: occupation on player char is not always synced; prefer active $job from setup.jobs */
+      const jobId = vars.job && vars.job.id;
+      const jobDef =
+        jobId && this.API.setup && this.API.setup.jobs
+          ? this.API.setup.jobs[jobId]
+          : null;
+      let careerLabel = "";
+      if (jobDef) {
+        careerLabel = [jobDef.workplaceName, jobDef.position || jobDef.name]
+          .filter(Boolean)
+          .join(" — ");
+      }
+      if (!careerLabel) {
+        careerLabel =
+          vars.characters?.player?.occupation || "Unemployed";
+      }
 
       // Quest System V2 Support
       const questState = vars.questState || { active: {}, completed: [] };
@@ -582,16 +629,15 @@ window.JournalInit = function (API) {
                                       `
                                         ${this.createRecordRow(
                                           "Current Funds",
-                                          "$" + money
+                                          "$" + moneyStr
                                         )}
                                         ${this.createRecordRow(
                                           "Lifetime Earnings",
-                                          "$" + (vars.lifetimeEarnings || money)
+                                          "$" + lifetimeEarnStr
                                         )}
-                                        ${this.createRecordRow(
+                                        ${this.createRecordRowStacked(
                                           "Career Status",
-                                          vars.characters?.player?.occupation ||
-                                            "Unemployed"
+                                          careerLabel
                                         )}
                                     `
                                     )}

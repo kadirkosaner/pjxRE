@@ -819,6 +819,30 @@
   font-weight: 500;
   font-family: var(--font-mono, monospace);
 }
+
+/* Stacked label + value (e.g. Career Status) — full width, body font for readability */
+.record-stat-row--stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.record-stat-row--stacked .record-label {
+  font-weight: 600;
+}
+
+.record-stat-row--stacked .record-value--multiline {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 500;
+  white-space: normal;
+  max-width: 100%;
+  word-break: break-word;
+}
 /*#endregion */
 
 /*#region VIRGINITY INFO ICON */

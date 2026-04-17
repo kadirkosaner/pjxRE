@@ -38,9 +38,9 @@
 
 <<if _topicPool>>
     <<set _topicKeys = Object.keys(_topicPool)>>
-    <<set _randomKey = _topicKeys[Math.floor(Math.random() * _topicKeys.length)]>>
+    <<set _randomKey = _topicKeys[Math.floor(State.random() * _topicKeys.length)]>>
     <<set _topicArray = _topicPool[_randomKey]>>
-    <<set _topic = _topicArray[Math.floor(Math.random() * _topicArray.length)]>>
+    <<set _topic = _topicArray[Math.floor(State.random() * _topicArray.length)]>>
 <<else>>
     <<set _topic = { text: "Marcus is tied up with a delivery at the back. He gives you an apologetic wave through the security mirror.", friendship: 0, trust: 0, love: 0, lust: 0 }>>
 <</if>>

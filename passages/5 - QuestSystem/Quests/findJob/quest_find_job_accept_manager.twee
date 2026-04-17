@@ -48,6 +48,8 @@ You stand up. You leave the office, walk down the corridor to the front of the d
 <<jobResetState>>
 <<set $job.id = "ruby_dishwasher">>
 <<set $job.tier = 1>>
+<<set _accJob = setup.jobs && setup.jobs[$job.id]>>
+<<if _accJob>><<set $characters.player.occupation = _accJob.position + ", " + _accJob.workplaceName>><</if>>
 <<phoneUnlockContact "dinerManager">>
 <<if !$phoneConversations["dinerManager"] || $phoneConversations["dinerManager"].length === 0>>
     <<phoneReceiveMessage "dinerManager" "This is Vince. Save this number. If you can't make a shift, message me before start time.">>

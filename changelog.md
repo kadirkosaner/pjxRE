@@ -2,6 +2,7 @@
 
 ## Oynanış ve Yaşam
 
+- Eski Kasaba'da çevreyi gezdiğinizde bazen kitapçıyı keşfedebilirsiniz.
 - Yemek yeme ve kahve içme eylemlerinin enerji ve açlık değerleri yeniden dengelendi.
 - Uyku sistemi iyileştirildi: Erken uyandığınızda seçtiğiniz süre tamamlanana kadar veya alarm kuruluysa alarm çalana kadar yeniden uyuyabilirsiniz. Enerji seviyesi tam dolmadıysa Snooze seçeneği kullanılabilir.
 - İhtiyaç simülasyonları (açlık, susuzluk vb.) kapalıyken artık ilgili gereksiz bildirimler çıkmıyor; kurulum akışı düzeltildi.
