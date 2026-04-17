@@ -15,6 +15,16 @@
     <<if typeof $pendingNotifications === "undefined">>
         <<set $pendingNotifications = {}>>
     <</if>>
+    /* Safety fallback: some builds can miss notification.js init order. */
+    <<run
+        if (typeof window.formatNotifyDelta !== "function") {
+            window.formatNotifyDelta = function (n) {
+                var v = Number(n);
+                if (!Number.isFinite(v)) v = 0;
+                return (v > 0 ? "+" : "") + v;
+            };
+        }
+    >>
 <</widget>>
 
 /* QUEUE A STAT CHANGE */

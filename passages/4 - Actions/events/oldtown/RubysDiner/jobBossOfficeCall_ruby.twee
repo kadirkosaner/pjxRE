@@ -80,34 +80,43 @@ Thank you. I won't waste it.
 <<btn "Leave" "dinerRubys">><</btn>>
 </div>
 <<elseif _hasAttendanceIssue>>
+<<silently>>
+<<set _liePolicy = _job.inPersonLiePolicy || {}>>
+<<set _lieOpts = _liePolicy.options || {}>>
+<<set _lieAttempted = !!$jobState.bossLieAttemptedThisMeeting>>
+<<set _lieResult = $jobState.bossLieLastResult || "">>
+<<set _lieKey = $jobState.bossLieLastKey || "">>
+<<set _lieSay = (_lieKey && _lieOpts[_lieKey] && _lieOpts[_lieKey].say) ? _lieOpts[_lieKey].say : "">>
+<<set _liePenalty = parseFloat($jobState.bossLieLastPenaltyAmount || 0) || 0>>
+<<set _reqCorr = (_liePolicy.requiresCorruption != null) ? _liePolicy.requiresCorruption : 2>>
+<<set _reqConf = (_liePolicy.requiresConfidence != null) ? _liePolicy.requiresConfidence : 10>>
+<<set _hasCorr = (parseInt($corruption, 10) || 0) >= _reqCorr>>
+<<set _hasConf = (parseInt($confidence, 10) || 0) >= _reqConf>>
+<<set _canLie = _hasCorr && _hasConf && !_lieAttempted>>
+<<set _lieLockTip = !_hasCorr ? "Requires Corruption " + _reqCorr : (!_hasConf ? "Requires Confidence " + _reqConf : "")>>
+<</silently>>
+<<if !_lieAttempted>>
 <<narrative "Manager's Office">>
 <<= _bossName>> looks up when you knock. He gestures you in.
 <</narrative>>
 <<dialog _job.bossCharId>>
 Sit. We need to talk about your attendance.
 <</dialog>>
-<<dialog "player">>
-I understand.
-<</dialog>>
 <<if _reason === "no_show">>
     <<dialog _job.bossCharId>>
-You missed the whole day. If this happens again, your trust with me drops fast.
+You missed the whole day. What happened?
     <</dialog>>
-<<elseif _reason === "partial_4_8">>
+<<elseif _reason === "partial_4_8" || _reason === "partial_6_8" || _reason === "insufficient_day">>
     <<dialog _job.bossCharId>>
-Four hours out of eight is not a complete shift. Fix this immediately.
-    <</dialog>>
-<<elseif _reason === "partial_6_8">>
-    <<dialog _job.bossCharId>>
-Six hours is closer, but still short. I need full shifts from you.
+You clocked out before the shift was done. Why did you leave early?
     <</dialog>>
 <<elseif _reason === "missed_meeting">>
     <<dialog _job.bossCharId>>
-You delayed this talk. That's not professional.
+You didn't come to see me when I asked. What's your story?
     <</dialog>>
 <<else>>
     <<dialog _job.bossCharId>>
-Your schedule has been inconsistent. I expect better from now on.
+Your schedule has been inconsistent. Care to explain?
     <</dialog>>
 <</if>>
 <<if _band === "low">>
@@ -116,21 +125,109 @@ You're on thin ice. One more slide and this job is over.
     <</dialog>>
 <<elseif _band === "high">>
     <<dialog _job.bossCharId>>
-You've built enough goodwill to recover, but don't burn it.
-    <</dialog>>
-<<else>>
-    <<dialog _job.bossCharId>>
-Get your full hours in and we'll move on.
+You've built enough goodwill to recover, but I still want an answer.
     <</dialog>>
 <</if>>
-<<silently>>
-<<set $jobState.bossMeetingRequired = false>>
-<<set $jobState.bossMeetingReason = "">>
-<</silently>>
-<<run window.notifyWarning("Manager warning logged. Work trust: " + ($jobState.workTrustScore || 0) + "/100.")>>
 <div class="btn-center">
-<<btn "Leave" "dinerRubys">><</btn>>
+<<btn "Take the warning" "jobBossOfficeCall_ruby">>
+    <<silently>>
+    <<set $jobState.bossLieAttemptedThisMeeting = true>>
+    <<set $jobState.bossLieLastResult = "accept">>
+    <<set $jobState.bossLieLastKey = "">>
+    <<set $jobState.bossLieLastReason = _reason>>
+    <<set $jobState.bossLieLastPenaltyAmount = 0>>
+    <</silently>>
+<</btn>>
+<<if _canLie>>
+<<btn "Try to explain" "jobBossOfficeCall_ruby">>
+    <<run window.jobRollInPersonLie()>>
+<</btn>>
+<<else>>
+<<btn "Try to explain" "" "locked" _lieLockTip>><</btn>>
+<</if>>
 </div>
+<<else>>
+    <<if _lieResult === "accept">>
+<<dialog "player">>
+I understand. It won't happen again.
+<</dialog>>
+<<dialog _job.bossCharId>>
+Good. Go do your job.
+<</dialog>>
+<<narrative>>
+You take the warning on the chin and head for the door.
+<</narrative>>
+    <<elseif _lieResult === "success">>
+<<narrative>>
+You take a breath and go with it.
+<</narrative>>
+<<dialog "player">>
+<<= _lieSay>>
+<</dialog>>
+<<dialog _job.bossCharId>>
+...Alright. Don't let it happen again. Call next time.
+<</dialog>>
+<<narrative>>
+His shoulders ease. You keep your face neutral and don't say another word.
+<</narrative>>
+<<dialog "player">>
+(Inner voice) Hold it together. Don't smile. Don't celebrate until you're out the door.
+<</dialog>>
+    <<elseif _lieResult === "fail">>
+<<narrative>>
+You go with the story anyway.
+<</narrative>>
+<<dialog "player">>
+<<= _lieSay>>
+<</dialog>>
+<<dialog _job.bossCharId>>
+Don't.
+<</dialog>>
+<<dialog "player">>
+I—
+<</dialog>>
+<<dialog _job.bossCharId>>
+I said don't. I've been running this place longer than you've been working. I can tell.
+<</dialog>>
+<<narrative>>
+He makes a note on the page in front of him without looking up.
+<</narrative>>
+<<dialog _job.bossCharId>>
+That's coming out of your pay. Get back to work.
+<</dialog>>
+<<dialog "player">>
+(Inner voice) He's not asking. He's telling. That was a mistake.
+<</dialog>>
+    <</if>>
+<<silently>>
+    /* Skill tick on any attempt (including "accept" if they at least showed up). Only gain if a lie was rolled. */
+    <<if _lieResult === "success" || _lieResult === "fail">>
+        <<set _sg = _liePolicy.skillGainOnAttempt || []>>
+        <<for _s range _sg>>
+            <<gainSkill _s.category _s.skill _s.amount>>
+        <</for>>
+    <</if>>
+    /* Notifications (only tangible effects; nothing about lying outcome itself). */
+    <<if _lieResult === "fail" && _liePenalty > 0>>
+        <<run window.notifyWarning("Manager logged a deduction of $" + _liePenalty.toFixed(2) + " against this week's pay.")>>
+    <</if>>
+<</silently>>
+<div class="btn-center">
+<<btn "Leave" "dinerRubys">>
+    <<silently>>
+    <<set $jobState.bossMeetingRequired = false>>
+    <<set $jobState.bossMeetingReason = "">>
+    <<set $jobState.bossLieAttemptedThisMeeting = false>>
+    <<set $jobState.bossLieLastResult = "">>
+    <<set $jobState.bossLieLastKey = "">>
+    <<set $jobState.bossLieLastReason = "">>
+    <<set $jobState.bossLieLastPenaltyAmount = 0>>
+    <<set $jobState.visitedBossThisMonday = true>>
+    <<set $jobState.bossWantsToSeePlayer = false>>
+    <</silently>>
+<</btn>>
+</div>
+<</if>>
 <<else>>
 <<narrative "Manager's Office">>
 <<= _bossName>> glances up from his paperwork.

@@ -606,6 +606,23 @@ window.CharacterInit = function (API) {
                 if (v < 75) return 'Healthy';
                 return 'Shiny';
             }
+            function getMakeupDisplay(makeup) {
+                const m = makeup || {};
+                const state = String(m.state || 'off').toLowerCase();
+                const style = Number(m.style || 0);
+                const quality = Math.max(0, Math.min(100, Math.round(Number(m.quality || 0))));
+                const styleNames = {
+                    1: 'Light',
+                    2: 'Medium',
+                    3: 'Heavy',
+                    4: 'Slutty',
+                    5: 'Bimbo'
+                };
+                if (state === 'off' || style < 1 || !styleNames[style]) {
+                    return 'Off';
+                }
+                return `${styleNames[style]} (${quality}%)`;
+            }
             
             // Hips
             const hipKey = "hip" + (p.hipSize || "Medium");
@@ -647,7 +664,7 @@ window.CharacterInit = function (API) {
             };
 
             const outfitHtml = this.generateOutfitHtml(vars);
-            const bodyImage = "assets/content/people/player/body/appearanceBody.png";
+            const bodyImage = "assets/content/people/player/body/appearanceBody.webp";
             
             return `
                 <div class="tab-content-inner appearance-container">
@@ -762,7 +779,7 @@ window.CharacterInit = function (API) {
                             <div class="app-info-content">
                                 <h4>Face & Makeup</h4>
                                 <div class="app-stat-row"><span>Eyes:</span> <span class="val">${p.eyeColor}</span></div>
-                                <div class="app-stat-row"><span>Makeup:</span> <span class="val">Level ${app.makeupLevel || 0}</span></div>
+                                <div class="app-stat-row"><span>Makeup:</span> <span class="val">${getMakeupDisplay(vars.makeup)}</span></div>
                                 <div class="app-stat-row"><span>Status:</span> <span class="val">${getFaceCareLabel(app.faceCare)}</span></div>
                             </div>
                         </div>

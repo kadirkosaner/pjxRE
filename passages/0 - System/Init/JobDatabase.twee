@@ -63,6 +63,66 @@
         excusePolicy: {
             cutoffHour: 12
         },
+        /* In-person lie (at boss meeting) — requires Corruption 2 + Confidence 10.
+           Pools:
+             noshow  → for bossMeetingReason "no_show"
+             partial → for "partial_4_8" / "partial_6_8" / "insufficient_day"
+             meeting → for "missed_meeting"
+           Base % is the lie's own difficulty; stats add bonus on top.
+           Success = partial trust refund (reason-based). Fail = this-week deduction + extra trust drop. */
+        inPersonLiePolicy: {
+            requiresCorruption: 2,
+            requiresConfidence: 10,
+            persuasionBonusMax: 25,
+            problemSolvingBonusMax: 15,
+            confidenceBonusMax: 10,
+            successCapMin: 5,
+            successCapMax: 92,
+            /* Fail: daily pay (wage*8 at current tier) × this pct → added to weeklyDeductions
+               (same pipe as broken glass, reflected in NEXT weekly envelope). */
+            failDailyPayPenaltyPct: 50,
+            failTrustExtraPenalty: 8,
+            /* Success trust refund by attendance reason */
+            successTrustRefundByReason: {
+                no_show: 12,
+                partial_4_8: 6,
+                partial_6_8: 4,
+                insufficient_day: 5,
+                missed_meeting: 6
+            },
+            /* Skill gain on attempt (success or fail) */
+            skillGainOnAttempt: [
+                { category: "social", skill: "persuasion", amount: 1 },
+                { category: "mental", skill: "problemSolving", amount: 1 }
+            ],
+            /* Lie options. pool = which attendance context this lie fits.
+               base = own chance %, say = player's line. */
+            options: {
+                noshow_bus:      { pool: "noshow",  base: 45, say: "The bus got stuck — by the time I figured out another way, it was already too late." },
+                noshow_sick:     { pool: "noshow",  base: 55, say: "I woke up sick. I couldn't keep anything down all morning." },
+                noshow_dad:      { pool: "noshow",  base: 55, say: "My dad wasn't doing well. I had to stay home with him." },
+                noshow_mom:      { pool: "noshow",  base: 52, say: "My mom needed help with something she couldn't handle alone." },
+                noshow_brother:  { pool: "noshow",  base: 48, say: "My brother got into trouble at school. I had to deal with it first." },
+                noshow_mixup:    { pool: "noshow",  base: 38, say: "I misread the schedule. I thought today was my day off." },
+                noshow_power:    { pool: "noshow",  base: 42, say: "The power went out at our place. No alarm — I slept right through it." },
+                noshow_water:    { pool: "noshow",  base: 45, say: "There was a water problem at the house. I couldn't leave my parents with it." },
+                noshow_migraine: { pool: "noshow",  base: 50, say: "A migraine hit hard this morning. I couldn't even stand up." },
+                noshow_phone:    { pool: "noshow",  base: 35, say: "My phone died overnight. No alarm. I only just noticed the time." },
+                early_mom:       { pool: "partial", base: 55, say: "My mom called — she needed help with something urgent at home." },
+                early_brother:   { pool: "partial", base: 48, say: "My brother got into something at school. I had to go." },
+                early_dad:       { pool: "partial", base: 55, say: "My dad hurt himself at home. I couldn't stay." },
+                early_sick:      { pool: "partial", base: 58, say: "I started feeling really sick. I didn't want to be around the food like that." },
+                early_migraine:  { pool: "partial", base: 52, say: "A migraine hit hard. I couldn't see straight." },
+                early_dizzy:     { pool: "partial", base: 45, say: "I got lightheaded. I was worried I'd knock something over." },
+                early_appt:      { pool: "partial", base: 42, say: "I had an appointment I completely forgot about until mid-shift." },
+                early_bus:       { pool: "partial", base: 38, say: "The last bus was coming up. I didn't want to get stranded." },
+                early_period:    { pool: "partial", base: 60, say: "Rough cramps. I couldn't push through it." },
+                early_allergy:   { pool: "partial", base: 45, say: "A bad allergic reaction hit. I had to get out before it got worse." },
+                miss_schedule:   { pool: "meeting", base: 40, say: "I was sure our talk was today, not yesterday." },
+                miss_family:     { pool: "meeting", base: 48, say: "Something came up with my family and I lost track of the day." },
+                miss_nerves:     { pool: "meeting", base: 42, say: "I got in my head about it and kept putting it off. I know that's no excuse." }
+            }
+        },
         /* Tier gates: job XP + dishwashing only; max tier 4 (waitress path uses promotionRules). */
         tierProgressionRules: {
             2: { jobExperience: 50, skills: { "practical.dishwashing": 30 } },

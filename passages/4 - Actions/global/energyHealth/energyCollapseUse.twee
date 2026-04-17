@@ -40,6 +40,10 @@
 <<set $collapseReturnTo = null>>
 <<set $collapseAtLocation = null>>
 <<set $collapseUseItemId = null>>
+/* Prevent immediate re-collapse loops after emergency item use. */
+<<set $hunger = 35>>
+<<set $thirst = 35>>
+<<set $bladder = 35>>
 <<recalculateStats>>
 <</silently>>
 <<if _usedItem>>

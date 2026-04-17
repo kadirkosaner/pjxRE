@@ -13,13 +13,12 @@
 <<set $location = _job.workplace>>
 <<if ndef $jobState.bossMeetingRequired>><<set $jobState.bossMeetingRequired = false>><</if>>
 <<if ndef $jobState.weeklyPayPending>><<set $jobState.weeklyPayPending = null>><</if>>
-<<if ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending) && !$_navigatingBackward>>
-    <<set _meetingPassage = _job.bossMeetingPassage || _job.bossOfficePassage || "jobBossOfficeCall_ruby">>
-    <<goto _meetingPassage>>
-<</if>>
 <<if $jobState.weeklyPayPending && !$_navigatingBackward>>
     <<set _payPassage = _job.paydayScenePassage || "jobWeeklyPayEnvelope">>
     <<goto _payPassage>>
+<<elseif ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending) && !$_navigatingBackward>>
+    <<set _meetingPassage = _job.bossMeetingPassage || _job.bossOfficePassage || "jobBossOfficeCall_ruby">>
+    <<goto _meetingPassage>>
 <</if>>
 <<jobSetAvailableShifts $job.id>>
 <<set _available = $jobAvailableShifts>>

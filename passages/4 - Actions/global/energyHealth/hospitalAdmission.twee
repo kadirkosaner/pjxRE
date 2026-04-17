@@ -1,0 +1,58 @@
+:: hospital_admission
+<<nobr>>
+<<silently>>
+<<set $location = "hospital">>
+<<set $hospitalAdmissionInProgress = true>>
+<<set _treatmentCost = 150>>
+<<set _cashNow = Math.max(0, ($cashBalance || 0))>>
+<<set _paidNow = Math.min(_treatmentCost, _cashNow)>>
+<<if _paidNow > 0>>
+    <<set _moneySpendNow = parseFloat($moneySpend) || 0>>
+    <<set _moneyEarnNow = parseFloat($moneyEarn) || 0>>
+    <<set $moneySpend = Math.round((_moneySpendNow + _paidNow) * 100) / 100>>
+    <<set $cashBalance = Math.round((_moneyEarnNow - $moneySpend) * 100) / 100>>
+<</if>>
+<<set _remainingDebt = Math.max(0, _treatmentCost - _paidNow)>>
+<<set _todayKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<if _remainingDebt > 0>>
+    <<set $hospitalDebt = Math.round((($hospitalDebt || 0) + _remainingDebt) * 100) / 100>>
+    <<if !$hospitalDebtSinceDateKey || $hospitalDebtSinceDateKey <= 0>>
+        <<set $hospitalDebtSinceDateKey = _todayKey>>
+    <</if>>
+    <<if setup.jobDateAddDays>>
+        <<set _dueDate = setup.jobDateAddDays($timeSys.year, $timeSys.month, $timeSys.day, 30)>>
+        <<set $hospitalDebtDueDateKey = (_dueDate.year * 10000) + (_dueDate.month * 100) + _dueDate.day>>
+    <<else>>
+        <<set $hospitalDebtDueDateKey = _todayKey + 30>>
+    <</if>>
+<</if>>
+<<set $hospitalLastAdmissionDateKey = _todayKey>>
+<<set $hospitalAdmissionCount = ($hospitalAdmissionCount || 0) + 1>>
+<<set $isSleeping = true>>
+<<advanceTime 1440>>
+<<set $isSleeping = false>>
+<<set $health = 100>>
+<<gainStat "energy" 25>>
+<<loseStat "stress" 10>>
+<<set $appearance.hairCombed = 0>>
+<<set $hospitalAdmissionInProgress = false>>
+<<set _visitRoll = random(1, 100)>>
+<<if _visitRoll <= 20>>
+    <<set $hospitalVisitCombo = "all">>
+<<elseif _visitRoll <= 35>>
+    <<set $hospitalVisitCombo = "mother_father">>
+<<elseif _visitRoll <= 50>>
+    <<set $hospitalVisitCombo = "mother_brother">>
+<<elseif _visitRoll <= 65>>
+    <<set $hospitalVisitCombo = "father_brother">>
+<<elseif _visitRoll <= 77>>
+    <<set $hospitalVisitCombo = "mother">>
+<<elseif _visitRoll <= 89>>
+    <<set $hospitalVisitCombo = "father">>
+<<else>>
+    <<set $hospitalVisitCombo = "brother">>
+<</if>>
+<<recalculateStats>>
+<</silently>>
+<<goto "hospital_family_visit">>
+<</nobr>>

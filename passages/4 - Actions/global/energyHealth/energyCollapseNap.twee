@@ -8,12 +8,60 @@
 <<loseStat "health" 10>>
 <<gainStat "stress" 15>>
 <<set $appearance.hairCombed = 0>>
+<<set _criticalAfterCrash = (($health || 0) <= 15)>>
+<<set _napVariant = random(1, 3)>>
 <<set _returnTo = $collapseReturnTo || "fhBedroom">>
 <<set $collapseReturnTo = null>>
 <<set $collapseAtLocation = null>>
-<<recalculateStats>>
+/* Prevent immediate re-collapse loops after emergency rest. */
+<<set $hunger = 35>>
+<<set $thirst = 35>>
+<<set $bladder = 35>>
+<<if !_criticalAfterCrash>>
+    <<recalculateStats>>
+<</if>>
 <</silently>>
 
+<<if _criticalAfterCrash>>
+<<if _napVariant === 1>>
+<<narrative "Barely Made It Home">>
+You make it to your room on instinct more than strength. The moment you collapse onto the bed, the pain in your chest sharpens and your breathing turns shallow.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+Something is really wrong...
+<</dialog>>
+<<narrative>>
+The room blurs again. Distant voices, hurried footsteps, then sirens somewhere far too close.
+<</narrative>>
+<<elseif _napVariant === 2>>
+<<narrative "Too Late">>
+You stumble through the door and barely reach the bed before your body locks up with a sharp, spreading ache.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+No... this isn't just exhaustion.
+<</dialog>>
+<<narrative>>
+Your breathing turns ragged. The ceiling swims. Somewhere outside your room, panic rises into urgent voices.
+<</narrative>>
+<<else>>
+<<narrative "On Empty">>
+You collapse face-first onto the mattress, expecting sleep to pull you under.
+Instead, a crushing tightness settles in your chest and refuses to ease.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+I need help. Now.
+<</dialog>>
+<<narrative>>
+You try to call out, but the sound comes out thin. The next thing you register is a distant siren cutting through the dark.
+<</narrative>>
+<</if>>
+<<goto "hospital_admission">>
+<</if>>
+
+<<if _napVariant === 1>>
 <<narrative "Barely Made It Home">>
 You don't remember much of the walk back. One foot in front of the other, keeping your eyes on the pavement, willing your body to keep moving.
 
@@ -35,6 +83,47 @@ You sit up carefully. The world doesn't tilt this time. A small improvement.
 (Inner voice)
 I need to be more careful.
 <</dialog>>
+<<elseif _napVariant === 2>>
+<<narrative "Crash Landing">>
+By the time you reach your room, your hands are shaking hard enough that you fumble the doorknob twice.
+
+You finally make it inside, fall across the bed, and vanish into a heavy, dreamless sleep.
+<</narrative>>
+<<narrative "After the Nap">>
+You wake with a dry throat and a stiff neck, still tired but no longer on the edge of collapse.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+I keep gambling with my limits.
+<</dialog>>
+<<narrative>>
+You sit still for a minute, waiting for your heartbeat to settle before standing.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+Next time I stop before it gets this bad.
+<</dialog>>
+<<else>>
+<<narrative "Last Reserve">>
+You drag yourself upstairs by memory alone. The bed is there, and that is enough.
+
+The second you lie down, exhaustion takes over like a switch flipping off.
+<</narrative>>
+<<narrative "A Little Later">>
+When you wake, your body still aches, but the dizziness has mostly cleared. Your breathing is steady again.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+I almost paid for that one.
+<</dialog>>
+<<narrative>>
+You rub your face, then swing your legs off the bed with careful, deliberate movements.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+No more pretending I'm fine when I'm not.
+<</dialog>>
+<</if>>
 
 <div class="location-actions">
     <<btn "Get Up" "fhBedroom">><</btn>>

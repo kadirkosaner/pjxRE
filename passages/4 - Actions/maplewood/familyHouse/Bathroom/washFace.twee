@@ -3,6 +3,13 @@
 <<if ndef $returnAfterToilet>>
 <<set $returnAfterToilet = "fhUpperBath">>
 <</if>>
+<<if ndef $makeup>><<set $makeup = { state: "off", style: 0, quality: 0, lastDecayHourKey: "", lastAppliedHourKey: "", lastDecayMinuteStamp: 0 }>><</if>>
+<<set $makeup.state = "off">>
+<<set $makeup.style = 0>>
+<<set $makeup.quality = 0>>
+<<set $makeup.lastDecayHourKey = "">>
+<<set $makeup.lastAppliedHourKey = "">>
+<<set $makeup.lastDecayMinuteStamp = 0>>
 <<set $location = $returnAfterToilet>>
 <<advanceTime 5>>
 <<gainStat "hygiene" 10>>

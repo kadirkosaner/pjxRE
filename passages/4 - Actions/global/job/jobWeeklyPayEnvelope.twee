@@ -24,6 +24,13 @@
 <<set _disc = parseInt(_pay.discountPercent || 0, 10) || 0>>
 <<set _dedFinal = Math.max(0, parseFloat(_pay.deductionsFinal || 0))>>
 <<set _net = Math.max(0, parseFloat(_pay.net || 0))>>
+/* Chain to next pending job event after collecting pay */
+<<set _nextAfterPay = "jobWorkSelect">>
+<<set _needsBossAfterPay = ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending)>>
+<<if _needsBossAfterPay>>
+    <<set _nextAfterPay = _job.bossMeetingPassage || _job.bossOfficePassage || "jobBossOfficeCall_ruby">>
+<</if>>
+<<set _nextBtnLabel = _needsBossAfterPay ? "Take envelope" : "Take envelope and start shift">>
 <</silently>>
 
 <<narrative _beforeLocName>>
@@ -43,7 +50,7 @@ You open the envelope and quickly check the numbers.
 <div><strong>Net paid:</strong> $<<= _net.toFixed(2)>></div>
 </div>
 <div class="location-actions">
-<<btn "Take envelope and start shift" "jobWorkSelect">>
+<<btn _nextBtnLabel _nextAfterPay>>
     <<jobFinalizeWeeklyPay>>
 <</btn>>
 </div>

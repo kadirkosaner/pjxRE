@@ -33,6 +33,12 @@
     <<if ndef $jobState.excuseForDateKey>><<set $jobState.excuseForDateKey = 0>><</if>>
     <<if ndef $jobState.excuseMode>><<set $jobState.excuseMode = "">><</if>>
     <<if ndef $jobState.excuseSentToday>><<set $jobState.excuseSentToday = false>><</if>>
+    <<if ndef $jobState.bossLieAttemptedThisMeeting>><<set $jobState.bossLieAttemptedThisMeeting = false>><</if>>
+    <<if ndef $jobState.bossLieLastResult>><<set $jobState.bossLieLastResult = "">><</if>>
+    <<if ndef $jobState.bossLieLastReason>><<set $jobState.bossLieLastReason = "">><</if>>
+    <<if ndef $jobState.bossLieLastKey>><<set $jobState.bossLieLastKey = "">><</if>>
+    <<if ndef $jobState.bossLieLastChance>><<set $jobState.bossLieLastChance = 0>><</if>>
+    <<if ndef $jobState.bossLieLastPenaltyAmount>><<set $jobState.bossLieLastPenaltyAmount = 0>><</if>>
 
     /* Ensure trust band matches migrated score. */
     <<if ($jobState.workTrustScore || 0) >= 70>>

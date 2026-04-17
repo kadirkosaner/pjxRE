@@ -1,15 +1,29 @@
 <<nobr>>
 <<silently>>
+<<if ($health || 0) <= 15 and !$hospitalAdmissionInProgress>>
+    <<goto "hospital_admission">>
+<</if>>
+/* Apply emergency recovery BEFORE advanceTime so we still break loops even if time widgets error out. */
+<<set $hunger = 35>>
+<<set $thirst = 35>>
+<<set $bladder = 35>>
 <<set $isSleeping = true>>
 <<set $location = "fhBedroom">>
 <<advanceTime 180>>
 <<set $isSleeping = false>>
 <<gainStat "energy" 30>>
+/* Prevent immediate re-trigger loop: faint recovery should lift player above critical-faint band. */
+<<set _healthNow = parseInt($health, 10) || 0>>
+<<if _healthNow <= 20>>
+    <<set $health = Math.min(100, _healthNow + 8)>>
+<</if>>
 <<loseStat "stress" 20>>
 <<set $appearance.hairCombed = 0>>
+<<set _faintVariant = random(1, 3)>>
 <<recalculateStats>>
 <</silently>>
 <</nobr>>
+<<if _faintVariant === 1>>
 <<narrative "Everything Goes Black">>
 It happens fast.
 One moment you're upright. The next, the edges of your vision close in — a slow, grey curtain drawing itself shut from all sides. Your legs don't give warning. They just stop.
@@ -33,6 +47,56 @@ This is a warning. I've been ignoring things I shouldn't ignore.
 <<narrative>>
 You sit up slowly. You're still here. That's something.
 <</narrative>>
+<<elseif _faintVariant === 2>>
+<<narrative "The Drop">>
+Your knees buckle first. Then the rest of you follows.
+
+Sound drains out of the room until all that's left is a distant ringing and the thud of your body hitting the floor.
+<</narrative>>
+<<narrative "A While Later">>
+When your eyes open, the light is softer and unfamiliar for a second. Then you recognize your room.
+
+You are on your bed, shoes still on, blanket half-thrown over you like someone tried to help in a hurry.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+I blacked out. Great.
+<</dialog>>
+<<narrative>>
+Your limbs feel heavy and numb at the same time. Even breathing takes effort.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+I can't keep pretending this is fine.
+<</dialog>>
+<<narrative>>
+You push yourself upright and wait for the dizziness to pass.
+<</narrative>>
+<<else>>
+<<narrative "No Warning">>
+The world narrows into a tunnel of grey. You reach for balance and find nothing.
+
+Then darkness.
+<</narrative>>
+<<narrative "Later">>
+You wake to the sound of pipes in the walls and a pressure behind your eyes.
+Your room is quiet, but your pulse is still racing like you never stopped running.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+Did I really pass out again?
+<</dialog>>
+<<narrative>>
+Every muscle aches. Your body feels like it belongs to someone else.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+Enough. I have to treat this seriously.
+<</dialog>>
+<<narrative>>
+You sit there for a few seconds, steadying your breath before you move.
+<</narrative>>
+<</if>>
 <div class="location-actions">
     <<btn "Get Up" "fhBedroom">><</btn>>
 </div>

@@ -3,7 +3,7 @@
 <<set $location = $mirrorReturnPassage>>
 <<set _style = $makeupChosenStyle || 0>>
 <<if _style < 1 || _style > 5>>
-<<goto "mirrorMakeup">>
+<<goto "Mirror">>
 <</if>>
 <<checkInventoryItem "makeup_kit" 1>>
 <<if State.temporary.inventoryCheckResult.allowed>>
@@ -21,18 +21,24 @@
 You don't have any makeup. You need a makeup kit or portable makeup.
 <</narrative>>
 <div class="location-actions">
-<<btn "Back" "mirrorMakeup">><</btn>>
+<<btn "Back" "Mirror">><</btn>>
 </div>
 <<else>>
 <<silently>>
 <<removeFromInventory _useKit 1>>
 <<set _skill = $skills.practical.makeup || 0>>
 <<set _quality = Math.min(100, Math.round(50 + _skill * 0.5))>>
+<<if ndef $makeup>><<set $makeup = { state: "off", style: 0, quality: 0, lastDecayHourKey: "", lastAppliedHourKey: "", lastDecayMinuteStamp: 0 }>><</if>>
+<<set _currHourKey = $timeSys.year + "-" + String($timeSys.month).padStart(2, "0") + "-" + String($timeSys.day).padStart(2, "0") + "-" + String($timeSys.hour).padStart(2, "0")>>
+<<run State.temporary._makeupCurrMinuteStamp = Math.floor(Date.UTC($timeSys.year, $timeSys.month - 1, $timeSys.day, $timeSys.hour, $timeSys.minute || 0, 0) / 60000)>>
 <<set $makeup.state = "fresh">>
 <<set $makeup.style = _style>>
 <<set $makeup.quality = _quality>>
-<<set _cap = (_style === 1) ? 20 : (_style === 2) ? 40 : (_style === 3) ? 75 : 100>>
-<<set _gain = 2>>
+<<set $makeup.lastAppliedHourKey = _currHourKey>>
+<<set $makeup.lastDecayHourKey = _currHourKey>>
+<<set $makeup.lastDecayMinuteStamp = State.temporary._makeupCurrMinuteStamp>>
+<<set _cap = 35>>
+<<set _gain = 1>>
 <<set _newSkill = Math.min(100, Math.min(_skill + _gain, _cap))>>
 <<set _actualGain = _newSkill - _skill>>
 <<set $skills.practical.makeup = _newSkill>>
@@ -52,6 +58,11 @@ You apply your makeup carefully. You went for a <<if _style === 1>>light<<elseif
 <<vid "assets/content/scenes/global/mirror/makeup/makeup2.mp4" "100%">>
 <<else>>
 <<vid "assets/content/scenes/global/mirror/makeup/makeup3.mp4" "100%">>
+<</if>>
+<<if _newSkill >= _cap>>
+<<narrative>>
+You finish your usual makeup routine, but something feels different. You can no longer feel real progress from repeating the same techniques. If you want to push your makeup skill beyond this point, you'll need a new way to train.
+<</narrative>>
 <</if>>
 
 <div class="location-actions">

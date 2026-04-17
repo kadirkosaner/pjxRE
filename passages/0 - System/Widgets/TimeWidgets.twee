@@ -47,6 +47,17 @@
         <<set _hours = Math.floor($timeSys.minute / 60)>>
         <<set $timeSys.minute = $timeSys.minute % 60>>
         <<set $timeSys.hour = (parseInt($timeSys.hour, 10) || 0) + _hours>>
+
+        /* Safety: ensure notify delta formatter exists before any flushNotifications call. */
+        <<run
+            if (typeof window.formatNotifyDelta !== "function") {
+                window.formatNotifyDelta = function (n) {
+                    var v = Number(n);
+                    if (!Number.isFinite(v)) v = 0;
+                    return (v > 0 ? "+" : "") + v;
+                };
+            }
+        >>
         
         /* Initialize notification queue */
         <<initNotificationQueue>>
@@ -82,6 +93,11 @@
     /* Update character locations based on new time */
     <<updateCharacterLocations>>
     <<set $timeAdvanceMode = _prevTimeAdvanceMode>>
+
+    /* Makeup hourly decay: apply once per full hour elapsed */
+    <<if def "updateMakeupHourlyDecay">>
+        <<updateMakeupHourlyDecay>>
+    <</if>>
     
     /* Do NOT <<goto>> here when closed — advanceTime often runs at the start of activity passages;
        an immediate goto would skip narrative/video. Closed-location kick + notification live in

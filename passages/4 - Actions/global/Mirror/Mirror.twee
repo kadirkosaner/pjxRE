@@ -1,21 +1,35 @@
 <<nobr>>
 <<set _backTo = $mirrorReturnPassage || "fhUpperBath">>
 <<set $location = $mirrorReturnPassage || _backTo>>
-<<if ndef $makeup>><<set $makeup = { state: "off", style: 0, quality: 0 }>><</if>>
+<<if ndef $makeup>><<set $makeup = { state: "off", style: 0, quality: 0, lastDecayHourKey: "", lastAppliedHourKey: "", lastDecayMinuteStamp: 0 }>><</if>>
 <<if ndef $mirrorRoutine>><<set $mirrorRoutine = { makeup: 0, combHair: true, hairCream: true, faceCream: true, dentalCare: true }>><</if>>
 <<set _hasRoutine = $mirrorRoutineConfirmed && ($mirrorRoutine.combHair || $mirrorRoutine.hairCream || $mirrorRoutine.faceCream || $mirrorRoutine.dentalCare || ($mirrorRoutine.makeup >= 1))>>
+<<checkInventoryItem "makeup_kit" 1>>
+<<if State.temporary.inventoryCheckResult.allowed>>
+    <<set _hasKit = true>>
+<<else>>
+    <<checkInventoryItem "portable_makeup" 1>>
+    <<set _hasKit = State.temporary.inventoryCheckResult.allowed>>
+<</if>>
+<<set _corr = $corruption || 0>>
+<<set _skill = $skills.practical.makeup || 0>>
+<<set _makeupOn = $makeup.state !== "off" && $makeup.style >= 1>>
+<<if _makeupOn>><<checkInventoryItem "wet_wipes" 1>><<set _hasWipes = State.temporary.inventoryCheckResult.allowed>><<else>><<set _hasWipes = false>><</if>>
 <<narrative "Mirror">>
 You stand in front of the mirror. Here you can take care of your appearance.
 <</narrative>>
 
-<<image "assets/content/scenes/global/mirror/mirror.webp" "100%">>
+<<image "assets/content/scenes/global/mirror/mirror.webp" "75%">>
 
+<p class="mirror-section-label mirror-section-label--first">Routine</p>
 <div class="location-actions">
 <<if _hasRoutine>>
 <<btn "Apply Routine" "mirrorApplyRoutine">><</btn>>
 <</if>>
 <<btn "Routine Settings" "mirrorRoutineSettingsEnter">><</btn>>
 </div>
+
+<p class="mirror-section-label">Body Care</p>
 <div class="location-actions">
 <<if $appearance.hairCombed === 1>>
 <span class="link-internal btn-style btn-default locked" data-tooltip="Already combed" data-tooltip-type="success"><i class="icon icon-lock icon-12"></i> Comb Hair</span>
@@ -37,9 +51,63 @@ You stand in front of the mirror. Here you can take care of your appearance.
 <<else>>
 <<activityButton "Dental Care" "mirrorDentalCare" "item:toothpaste" false>>
 <</if>>
-<<btn "Makeup" "mirrorMakeup">><</btn>>
 </div>
+
+<p class="mirror-section-label">Makeup</p>
+<<if !_hasKit>>
+<p class="mirror-hint">You need a makeup kit or portable makeup to apply a look.</p>
+<</if>>
+<div class="location-actions mirror-makeup-row-primary">
+    /* Light through Slutty (row 1) */
+    <<set _unlock1 = _hasKit && _corr >= 1>>
+    <<set _req1 = []>>
+    <<if _corr < 1>><<run _req1.push("corruption 1")>><</if>>
+    <<if !_hasKit>><<run _req1.push("makeup kit")>><</if>>
+    <<set _tip1 = "Need " + _req1.join(", ")>>
+    <<if _unlock1>><<btn "Light" "mirrorMakeupApply">><<set $makeupChosenStyle = 1>><</btn>><<else>><<btn "Light" "" "locked" _tip1>><</btn>><</if>>
+
+    <<set _unlock2 = _hasKit && _corr >= 3 && _skill >= 20>>
+    <<set _req2 = []>>
+    <<if _corr < 3>><<run _req2.push("corruption 3")>><</if>>
+    <<if _skill < 20>><<run _req2.push("makeup skill 20")>><</if>>
+    <<if !_hasKit>><<run _req2.push("makeup kit")>><</if>>
+    <<set _tip2 = "Need " + _req2.join(", ")>>
+    <<if _unlock2>><<btn "Medium" "mirrorMakeupApply">><<set $makeupChosenStyle = 2>><</btn>><<else>><<btn "Medium" "" "locked" _tip2>><</btn>><</if>>
+
+    <<set _unlock3 = _hasKit && _corr >= 4 && _skill >= 40>>
+    <<set _req3 = []>>
+    <<if _corr < 4>><<run _req3.push("corruption 4")>><</if>>
+    <<if _skill < 40>><<run _req3.push("makeup skill 40")>><</if>>
+    <<if !_hasKit>><<run _req3.push("makeup kit")>><</if>>
+    <<set _tip3 = "Need " + _req3.join(", ")>>
+    <<if _unlock3>><<btn "Heavy" "mirrorMakeupApply">><<set $makeupChosenStyle = 3>><</btn>><<else>><<btn "Heavy" "" "locked" _tip3>><</btn>><</if>>
+
+    <<set _unlock4 = _hasKit && _corr >= 5 && _skill >= 75>>
+    <<set _req4 = []>>
+    <<if _corr < 5>><<run _req4.push("corruption 5")>><</if>>
+    <<if _skill < 75>><<run _req4.push("makeup skill 75")>><</if>>
+    <<if !_hasKit>><<run _req4.push("makeup kit")>><</if>>
+    <<set _tip4 = "Need " + _req4.join(", ")>>
+    <<if _unlock4>><<btn "Slutty" "mirrorMakeupApply">><<set $makeupChosenStyle = 4>><</btn>><<else>><<btn "Slutty" "" "locked" _tip4>><</btn>><</if>>
+
+    <<set _unlock5 = _hasKit && _corr >= 5 && _skill >= 75>>
+    <<set _req5 = []>>
+    <<if _corr < 5>><<run _req5.push("corruption 5")>><</if>>
+    <<if _skill < 75>><<run _req5.push("makeup skill 75")>><</if>>
+    <<if !_hasKit>><<run _req5.push("makeup kit")>><</if>>
+    <<set _tip5 = "Need " + _req5.join(", ")>>
+    <<if _unlock5>><<btn "Bimbo" "mirrorMakeupApply">><<set $makeupChosenStyle = 5>><</btn>><<else>><<btn "Bimbo" "" "locked" _tip5>><</btn>><</if>>
+
+    <<if _makeupOn && _hasWipes>>
+        <<btn "Remove Makeup" "mirrorMakeupRemove" "secondary">><</btn>>
+    <<elseif _makeupOn>>
+        <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="Need wet wipes to remove makeup"><i class="icon icon-lock icon-12"></i> Remove Makeup</span>
+    <<else>>
+        <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="No makeup on" data-tooltip-type="success"><i class="icon icon-lock icon-12"></i> Remove Makeup</span>
+    <</if>>
+</div>
+
 <div class="location-actions">
-<<btn "Back" _backTo>><</btn>>
+<<btn "Back" _backTo "secondary">><</btn>>
 </div>
 <</nobr>>

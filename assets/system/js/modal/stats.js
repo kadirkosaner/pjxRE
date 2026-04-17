@@ -234,16 +234,11 @@ window.StatsInit = function (API) {
             const bossNameLower = String(bossName || 'manager').toLowerCase();
             const pendingPay = jobState.weeklyPayPending || null;
             const pendingPayNet = pendingPay ? Number(pendingPay.net || 0) : 0;
-            const pendingPayPassage = def.paydayScenePassage || 'jobWeeklyPayEnvelope';
             const promotionMeta = this.getPromotionProgressMeta(vars, def);
 
             const requiredHoursPerDay = def.requiredHoursPerDay != null ? def.requiredHoursPerDay : 8;
             const hoursToday = jobState.hoursToday || 0;
             const hoursTodayPct = requiredHoursPerDay <= 0 ? 100 : Math.min(100, (hoursToday / requiredHoursPerDay) * 100);
-            const primaryAction = pendingPay
-                ? { label: 'Collect weekly pay', passage: pendingPayPassage }
-                : null;
-
             return `
                 <div class="stats-view work-tab">
                     <div class="work-layout">
@@ -313,11 +308,6 @@ window.StatsInit = function (API) {
                                 <span class="stat-label">Deduction reduce</span>
                                 <span class="work-value">${trustDiscount}%</span>
                             </div>
-                            ${primaryAction ? `
-                            <div class="location-actions">
-                                <button class="btn work-action-btn" data-passage="${primaryAction.passage}">${primaryAction.label}</button>
-                            </div>
-                            ` : ''}
                         </div>
                         ${promotionMeta.show ? `
                         <div class="work-panel work-panel-promotion">
@@ -491,13 +481,6 @@ window.StatsInit = function (API) {
             $statsModal.find('.modal-tab[data-tab="work"]').off('click.stats-work-seen').on('click.stats-work-seen', function () {
                 self.markWorkNoticeSeen(vars, workNotice.key);
             });
-            $statsModal.off('click.stats-work-action', '.work-action-btn').on('click.stats-work-action', '.work-action-btn', function () {
-                const passage = self.API.$(this).data('passage');
-                if (!passage) return;
-                self.API.Modal.close();
-                self.API.Engine.play(passage);
-            });
-
             // Initialize tooltips explicitly using standard system
             // We use a slight delay to ensure the modal content is rendered in the DOM
             setTimeout(function() {

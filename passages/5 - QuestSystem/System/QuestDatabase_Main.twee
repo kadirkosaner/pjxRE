@@ -234,6 +234,7 @@ Object.assign(setup.quests, {
                 id: "enter_town_hall",
                 title: "Enter Town Hall",
                 desc: "Step inside Town Hall to find the Career Services office",
+                tip: "Try entering Town Hall between 09:00 and 17:00.",
                 buttonText: "Find Career Services",
                 triggers: { 
                     location: "townHall",
@@ -421,6 +422,7 @@ Object.assign(setup.quests, {
                 id: "talk_mom",
                 title: "Talk to Mom",
                 desc: "Go talk to your mother when she on the bed.",
+                tip: "Talk to Mom in the parents' room between 23:00 and 24:00.",
                 buttonText: "Ask mom about skincare",
                 triggers: {
                     location: "fhParentsRoom",
@@ -455,6 +457,7 @@ Object.assign(setup.quests, {
                 id: "find_money",
                 title: "Find a Way",
                 desc: "Late at night, Leave the bedroom and go upstairs.",
+                tip: "Go to the upstairs hallway between 23:00 and 24:00.",
                 triggers: {
                     location: "fhUpperstairs",
                     timeRange: { min: 23, max: 24 }

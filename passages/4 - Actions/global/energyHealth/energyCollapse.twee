@@ -1,9 +1,17 @@
 <<nobr>>
 <<silently>>
+<<if ($health || 0) <= 15 and !$hospitalAdmissionInProgress>>
+    <<goto "hospital_admission">>
+<</if>>
 /* passagestart clears $location — restore scene id for body[data-location] / backgrounds */
 <<if ndef $collapseAtLocation>><<set $collapseAtLocation = $collapseReturnTo || "fhBedroom">><</if>>
 <<if ndef $collapseReturnTo>><<set $collapseReturnTo = $collapseAtLocation || "fhBedroom">><</if>>
 <<set $location = $collapseAtLocation>>
+/* Emergency normalization to prevent immediate needs-loop while collapsed. */
+<<set $hunger = 35>>
+<<set $thirst = 35>>
+<<set $bladder = 35>>
+<<set _collapseVariant = random(1, 3)>>
 
 /* Check inventory for any item that restores energy */
 <<set _hasEnergyItem = false>>
@@ -27,6 +35,7 @@
 <</if>>
 <</silently>>
 <</nobr>>
+<<if _collapseVariant === 1>>
 <<narrative "Exhausted">>
 Your vision blurs at the edges. Your legs feel like lead, each step more uncertain than the last.
 <</narrative>>
@@ -40,6 +49,35 @@ The world tilts slightly. You reach for the nearest wall, steadying yourself. Yo
 <<narrative>>
 You need to do something — now.
 <</narrative>>
+<<elseif _collapseVariant === 2>>
+<<narrative "Running on Fumes">>
+Your body starts sending signals all at once: trembling hands, weak knees, a headache that pulses behind your eyes.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+Not here. Not now.
+<</dialog>>
+<<narrative>>
+You lean against a wall and wait for the spinning to stop, but it only gets worse.
+<</narrative>>
+<<narrative>>
+If you don't act immediately, you're going down.
+<</narrative>>
+<<else>>
+<<narrative "At the Limit">>
+A wave of dizziness hits so hard you freeze mid-step. Breathing feels shallow, and your legs barely respond.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+Come on. Stay up.
+<</dialog>>
+<<narrative>>
+You force yourself to focus on one thing at a time, fighting to keep your balance.
+<</narrative>>
+<<narrative>>
+You need a quick fix or a way home. Immediately.
+<</narrative>>
+<</if>>
 <div class="location-actions">
     <<if _hasEnergyItem>>
         <<btn "Use an Item" "energy_collapse_items">><</btn>>

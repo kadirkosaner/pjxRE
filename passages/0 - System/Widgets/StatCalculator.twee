@@ -66,9 +66,22 @@
     /* Here we just clamp it to valid range */
     <<set $health = Math.max(0, Math.min(100, $health))>>
 
-    /* HEALTH FAINT CHECK — trigger collapse if critically low */
-    /* Skip during sleep, and skip if already on the faint passage to avoid loops */
-    <<if $health <= 20 and !$isSleeping and !$_navigatingBackward and passage() !== "health_faint" and passage() !== "energy_collapse" and passage() !== "energy_collapse_nap">>
+    /* HEALTH CRISIS CHECK — route to hospital/faint based on threshold */
+    /* Skip during sleep, history nav, and while forced admission flow is already running. */
+    <<set _healthPass = passage()>>
+    <<if $health <= 15 and !$isSleeping and !$_navigatingBackward and !$hospitalAdmissionInProgress and
+        _healthPass !== "hospital_admission" and _healthPass !== "hospitalAdmission" and
+        _healthPass !== "hospital_family_visit" and _healthPass !== "hospitalFamilyVisit" and
+        _healthPass !== "health_faint" and _healthPass !== "healthFaint" and
+        _healthPass !== "energy_collapse" and _healthPass !== "energyCollapse" and
+        _healthPass !== "energy_collapse_nap" and _healthPass !== "energyCollapseNap">>
+        <<goto "hospital_admission">>
+    <<elseif $health <= 20 and !$isSleeping and !$_navigatingBackward and
+        _healthPass !== "health_faint" and _healthPass !== "healthFaint" and
+        _healthPass !== "hospital_admission" and _healthPass !== "hospitalAdmission" and
+        _healthPass !== "hospital_family_visit" and _healthPass !== "hospitalFamilyVisit" and
+        _healthPass !== "energy_collapse" and _healthPass !== "energyCollapse" and
+        _healthPass !== "energy_collapse_nap" and _healthPass !== "energyCollapseNap">>
         <<goto "health_faint">>
     <</if>>
     
@@ -121,9 +134,11 @@
     /* ENERGY COLLAPSE — depleted after clamp (any loseStat / time / needs path that calls recalculateStats) */
     <<set _collapsePass = passage()>>
     <<if $energy <= 0 && !$isSleeping && !$_navigatingBackward &&
-        _collapsePass !== "energy_collapse" && _collapsePass !== "energy_collapse_nap" &&
-        _collapsePass !== "energy_collapse_items" && _collapsePass !== "energy_collapse_use" &&
-        _collapsePass !== "health_faint">>
+        _collapsePass !== "energy_collapse" && _collapsePass !== "energyCollapse" &&
+        _collapsePass !== "energy_collapse_nap" && _collapsePass !== "energyCollapseNap" &&
+        _collapsePass !== "energy_collapse_items" && _collapsePass !== "energyCollapseItems" &&
+        _collapsePass !== "energy_collapse_use" && _collapsePass !== "energyCollapseUse" &&
+        _collapsePass !== "health_faint" && _collapsePass !== "healthFaint">>
         <<if !$collapseReturnTo>><<set $collapseReturnTo = $location || "fhBedroom">><</if>>
         <<set $collapseAtLocation = $location || $collapseReturnTo>>
         <<goto "energy_collapse">>

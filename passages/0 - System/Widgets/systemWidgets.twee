@@ -112,6 +112,70 @@
 <</widget>>
 
 
+<<widget "updateMakeupHourlyDecay">>
+    <<if !$gameSettings.makeupWearOff>><<return>><</if>>
+    <<if ndef $makeup>>
+        <<set $makeup = { state: "off", style: 0, quality: 0, lastDecayHourKey: "", lastAppliedHourKey: "", lastDecayMinuteStamp: 0 }>>
+        <<return>>
+    <</if>>
+    <<if ndef $makeup.lastDecayHourKey>><<set $makeup.lastDecayHourKey = "">><</if>>
+    <<if ndef $makeup.lastAppliedHourKey>><<set $makeup.lastAppliedHourKey = "">><</if>>
+    <<if ndef $makeup.lastDecayMinuteStamp>><<set $makeup.lastDecayMinuteStamp = 0>><</if>>
+    <<if $makeup.state === "off" || ($makeup.style || 0) < 1>>
+        <<set $makeup.lastDecayHourKey = "">>
+        <<set $makeup.lastDecayMinuteStamp = 0>>
+        <<return>>
+    <</if>>
+    <<set _currHourKey = $timeSys.year + "-" + String($timeSys.month).padStart(2, "0") + "-" + String($timeSys.day).padStart(2, "0") + "-" + String($timeSys.hour).padStart(2, "0")>>
+    <<run State.temporary._currMinuteStamp = Math.floor(Date.UTC($timeSys.year, $timeSys.month - 1, $timeSys.day, $timeSys.hour, $timeSys.minute || 0, 0) / 60000)>>
+    <<if !$makeup.lastDecayHourKey || $makeup.lastDecayHourKey === "" || ($makeup.lastDecayMinuteStamp || 0) <= 0>>
+        <<set $makeup.lastDecayHourKey = _currHourKey>>
+        <<set $makeup.lastDecayMinuteStamp = State.temporary._currMinuteStamp>>
+        <<return>>
+    <</if>>
+    <<run
+        (function () {
+            const S = State.variables;
+            const T = State.temporary;
+            const prevMinute = parseInt(S.makeup.lastDecayMinuteStamp || 0, 10);
+            const currMinute = parseInt(T._currMinuteStamp || 0, 10);
+            if (!Number.isFinite(prevMinute) || !Number.isFinite(currMinute) || prevMinute <= 0 || currMinute <= 0) {
+                T._elapsedMakeupHours = 0;
+                T._resetDecayAnchor = true;
+                return;
+            }
+            const elapsedMinutes = currMinute - prevMinute;
+            T._elapsedMakeupHours = Math.max(0, Math.floor(elapsedMinutes / 60));
+            T._resetDecayAnchor = elapsedMinutes < 0;
+            if (T._elapsedMakeupHours > 0) {
+                T._newMakeupDecayMinuteStamp = prevMinute + (T._elapsedMakeupHours * 60);
+            } else {
+                T._newMakeupDecayMinuteStamp = prevMinute;
+            }
+        })();
+    >>
+    <<set _elapsedMakeupHours = State.temporary._elapsedMakeupHours || 0>>
+    <<if _elapsedMakeupHours <= 0 || State.temporary._resetDecayAnchor>>
+        <<set $makeup.lastDecayHourKey = _currHourKey>>
+        <<set $makeup.lastDecayMinuteStamp = State.temporary._currMinuteStamp>>
+        <<return>>
+    <</if>>
+    <<set _makeupLoss = _elapsedMakeupHours * 12>>
+    <<set $makeup.quality = Math.max(0, ($makeup.quality || 0) - _makeupLoss)>>
+    <<if $makeup.quality <= 0>>
+        <<set $makeup.state = "off">>
+        <<set $makeup.style = 0>>
+        <<set $makeup.quality = 0>>
+        <<set $makeup.lastDecayHourKey = "">>
+        <<set $makeup.lastAppliedHourKey = "">>
+        <<set $makeup.lastDecayMinuteStamp = 0>>
+    <<else>>
+        <<set $makeup.state = (($makeup.quality || 0) < 50) ? "smeared" : "fresh">>
+        <<set $makeup.lastDecayHourKey = _currHourKey>>
+        <<set $makeup.lastDecayMinuteStamp = State.temporary._newMakeupDecayMinuteStamp || State.temporary._currMinuteStamp>>
+    <</if>>
+<</widget>>
+
 <<widget "dailyAppearanceUpdate">>
     /* Hair Growth (approx 0.04cm/day = 1.2cm/month) */
     <<if $gameSettings.hairGrowth>>
@@ -129,14 +193,6 @@
         <<set $appearance.bodyHair.legs = Math.min(100, $appearance.bodyHair.legs + 5)>>
         <<set $appearance.bodyHair.pubic = Math.min(100, $appearance.bodyHair.pubic + 5)>>
         <<set $appearance.bodyHair.armpits = Math.min(100, $appearance.bodyHair.armpits + 5)>>
-    <</if>>
-
-    /* Makeup quality decay (when makeup on) */
-    <<if $gameSettings.makeupWearOff>>
-        <<if ndef $makeup>><<set $makeup = { state: "off", style: 0, quality: 0 }>><</if>>
-        <<if $makeup.state !== "off">>
-            <<set $makeup.quality = Math.max(0, ($makeup.quality || 0) - 20)>>
-        <</if>>
     <</if>>
 
     /* Appearance Care Decay: hair/face/dental care drops daily; skip if hair cream used today */

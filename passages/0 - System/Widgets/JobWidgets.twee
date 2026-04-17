@@ -21,6 +21,12 @@
     <<if ndef $jobState.excuseForDateKey>><<set $jobState.excuseForDateKey = 0>><</if>>
     <<if ndef $jobState.excuseMode>><<set $jobState.excuseMode = "">><</if>>
     <<if ndef $jobState.excuseSentToday>><<set $jobState.excuseSentToday = false>><</if>>
+    <<if ndef $jobState.bossLieAttemptedThisMeeting>><<set $jobState.bossLieAttemptedThisMeeting = false>><</if>>
+    <<if ndef $jobState.bossLieLastResult>><<set $jobState.bossLieLastResult = "">><</if>>
+    <<if ndef $jobState.bossLieLastReason>><<set $jobState.bossLieLastReason = "">><</if>>
+    <<if ndef $jobState.bossLieLastKey>><<set $jobState.bossLieLastKey = "">><</if>>
+    <<if ndef $jobState.bossLieLastChance>><<set $jobState.bossLieLastChance = 0>><</if>>
+    <<if ndef $jobState.bossLieLastPenaltyAmount>><<set $jobState.bossLieLastPenaltyAmount = 0>><</if>>
     <<if $job && $job.id && setup.jobs[$job.id]>>
         <<set _jobTierMax = parseInt(setup.jobs[$job.id].tierMax, 10) || 6>>
         <<set _curJobTier = parseInt($job.tier, 10) || 1>>
@@ -182,6 +188,121 @@ window.jobApplyPhoneExcuse = function (mode, lieType, charId) {
             window.notifyWarning(success ? "Your excuse seems to have worked." : "Your excuse sounded suspicious.");
         }
         return { ok: true, mode: V.jobState.excuseMode, chance: chance, roll: roll };
+    } catch (e) {
+        return { ok: false, reason: "exception" };
+    }
+};
+
+/* In-person lie attempt at the boss meeting. Picks a random lie from the context-matching pool
+   (based on bossMeetingReason), rolls success using persuasion + problemSolving + confidence,
+   and applies outcomes:
+   - Success: partial trust refund by reason.
+   - Fail: adds daily-pay × failDailyPayPenaltyPct/100 to weeklyDeductions (reflected next envelope),
+           jobAdjustTrust(-failTrustExtraPenalty), flags termination if trust hits 0.
+   Always grants skill ticks on attempt. */
+window.jobRollInPersonLie = function () {
+    try {
+        var V = State.variables || {};
+        if (!V.job || !V.job.id || !window.setup || !setup.jobs || !setup.jobs[V.job.id]) return { ok: false, reason: "no_job" };
+        var job = setup.jobs[V.job.id];
+        if (!V.jobState || typeof V.jobState !== "object") return { ok: false, reason: "no_job_state" };
+        var policy = (job.inPersonLiePolicy && typeof job.inPersonLiePolicy === "object") ? job.inPersonLiePolicy : null;
+        if (!policy) return { ok: false, reason: "no_policy" };
+
+        if (V.jobState.bossLieAttemptedThisMeeting) return { ok: false, reason: "already_attempted" };
+
+        var corrReq = Number(policy.requiresCorruption);
+        if (!Number.isFinite(corrReq)) corrReq = 2;
+        if ((parseInt(V.corruption, 10) || 0) < corrReq) return { ok: false, reason: "corruption_low" };
+
+        var confReq = Number(policy.requiresConfidence);
+        if (!Number.isFinite(confReq)) confReq = 10;
+        var conf = Math.max(0, Math.min(100, Number(V.confidence) || 0));
+        if (conf < confReq) return { ok: false, reason: "confidence_low" };
+
+        /* Map attendance reason to lie pool */
+        var reason = V.jobState.bossMeetingReason || "";
+        var poolKey = "partial";
+        if (reason === "no_show") poolKey = "noshow";
+        else if (reason === "missed_meeting") poolKey = "meeting";
+        else if (reason === "partial_4_8" || reason === "partial_6_8" || reason === "insufficient_day") poolKey = "partial";
+
+        var opts = policy.options || {};
+        var candidates = [];
+        Object.keys(opts).forEach(function (k) {
+            if (opts[k] && opts[k].pool === poolKey) candidates.push(k);
+        });
+        if (candidates.length === 0) {
+            /* Fallback to any lie if the pool is empty */
+            candidates = Object.keys(opts);
+        }
+        if (candidates.length === 0) return { ok: false, reason: "no_lies" };
+
+        var pickKey = candidates[Math.floor(Math.random() * candidates.length)];
+        var pick = opts[pickKey] || {};
+        var base = Number(pick.base);
+        if (!Number.isFinite(base)) base = 45;
+
+        /* Skill bonuses */
+        var skills = V.skills || {};
+        var persuasion = Math.max(0, Math.min(100, Number((skills.social || {}).persuasion) || 0));
+        var problemSolving = Math.max(0, Math.min(100, Number((skills.mental || {}).problemSolving) || 0));
+        var pMax = Number(policy.persuasionBonusMax); if (!Number.isFinite(pMax)) pMax = 25;
+        var psMax = Number(policy.problemSolvingBonusMax); if (!Number.isFinite(psMax)) psMax = 15;
+        var cMax = Number(policy.confidenceBonusMax); if (!Number.isFinite(cMax)) cMax = 10;
+
+        var bonus = (persuasion / 100) * pMax + (problemSolving / 100) * psMax + (conf / 100) * cMax;
+        var minCap = Number(policy.successCapMin); if (!Number.isFinite(minCap)) minCap = 5;
+        var maxCap = Number(policy.successCapMax); if (!Number.isFinite(maxCap)) maxCap = 92;
+        var chance = Math.max(minCap, Math.min(maxCap, base + bonus));
+        var roll = Math.random() * 100;
+        var success = roll < chance;
+
+        V.jobState.bossLieAttemptedThisMeeting = true;
+        V.jobState.bossLieLastKey = pickKey;
+        V.jobState.bossLieLastReason = reason;
+        V.jobState.bossLieLastChance = Math.round(chance * 10) / 10;
+        V.jobState.bossLieLastResult = success ? "success" : "fail";
+
+        if (success) {
+            var refundMap = policy.successTrustRefundByReason || {};
+            var refund = Number(refundMap[reason]);
+            if (!Number.isFinite(refund)) refund = 5;
+            if (refund > 0) {
+                var cur = parseInt(V.jobState.workTrustScore, 10) || 0;
+                V.jobState.workTrustScore = Math.max(0, Math.min(100, cur + refund));
+                /* Recompute band */
+                var ts = V.jobState.workTrustScore;
+                V.jobState.workTrustBand = ts >= 70 ? "high" : (ts >= 30 ? "mid" : "low");
+            }
+        } else {
+            /* Extra trust penalty */
+            var extra = Number(policy.failTrustExtraPenalty);
+            if (!Number.isFinite(extra)) extra = 8;
+            var curT = parseInt(V.jobState.workTrustScore, 10) || 0;
+            V.jobState.workTrustScore = Math.max(0, Math.min(100, curT - extra));
+            var tsF = V.jobState.workTrustScore;
+            V.jobState.workTrustBand = tsF >= 70 ? "high" : (tsF >= 30 ? "mid" : "low");
+            /* Daily-pay × pct → weeklyDeductions (broken-glass pipe, applied to NEXT envelope) */
+            var pct = Number(policy.failDailyPayPenaltyPct);
+            if (!Number.isFinite(pct)) pct = 50;
+            var tier = Math.max(1, parseInt((V.job || {}).tier, 10) || 1);
+            var wageByTier = Array.isArray(job.wageByTier) ? job.wageByTier : [];
+            var wage = Number(wageByTier[tier - 1]);
+            if (!Number.isFinite(wage) || wage <= 0) wage = Number(job.wagePerHour) || 3;
+            var dailyPay = wage * 8;
+            var penaltyAmount = Math.round(dailyPay * (pct / 100) * 100) / 100;
+            V.jobState.weeklyDeductions = (Number(V.jobState.weeklyDeductions) || 0) + penaltyAmount;
+            V.jobState.bossLieLastPenaltyAmount = penaltyAmount;
+            /* Termination check */
+            var dismissAt = (job.trustPolicy && job.trustPolicy.dismissalAtTrust != null) ? job.trustPolicy.dismissalAtTrust : 0;
+            if ((V.jobState.workTrustScore || 0) <= dismissAt) {
+                V.jobState.terminationPending = true;
+                V.jobState.bossMeetingReason = "termination_trust0";
+            }
+        }
+
+        return { ok: true, success: success, key: pickKey, chance: chance, roll: roll };
     } catch (e) {
         return { ok: false, reason: "exception" };
     }
@@ -663,7 +784,13 @@ window.jobApplyPhoneExcuse = function (mode, lieType, charId) {
         lastInsufficientHours: 0,
         excuseForDateKey: 0,
         excuseMode: "",
-        excuseSentToday: false
+        excuseSentToday: false,
+        bossLieAttemptedThisMeeting: false,
+        bossLieLastResult: "",
+        bossLieLastReason: "",
+        bossLieLastKey: "",
+        bossLieLastChance: 0,
+        bossLieLastPenaltyAmount: 0
     }>>
 <</widget>>
 
@@ -706,9 +833,13 @@ window.jobApplyPhoneExcuse = function (mode, lieType, charId) {
             <</for>>
             <<set _offHint = _offNames.length ? _offNames.join(" & ") : "scheduled off">>
             <<set _dayOffLockText = "Day off (" + _offHint + ")">>
-            /* Boss summons (e.g. Monday after short hours) must work on scheduled off days too */
+            /* On off days: if weekly pay is pending, collect it first; then boss summons. */
+            <<set _payPendingOffDay = !!$jobState.weeklyPayPending>>
+            <<set _payPassageOffDay = _job.paydayScenePassage || "jobWeeklyPayEnvelope">>
             <<set _bossSummonOffDay = (($jobState.bossWantsToSeePlayer) || ($jobState.bossMeetingRequired) || ($jobState.terminationPending) || ($jobState.promotionPending)) && (_job.bossMeetingPassage || _job.bossOfficePassage)>>
-            <<if _bossSummonOffDay>>
+            <<if _payPendingOffDay>>
+                <<btn "Collect weekly pay" _payPassageOffDay>><</btn>>
+            <<elseif _bossSummonOffDay>>
                 <<set _bossFirst = setup.characterDefs[_job.bossCharId].firstName>>
                 <<set _btnSeeBoss = "See " + _bossFirst>>
                 <<jobGetMeetingPassage>>
@@ -747,15 +878,15 @@ window.jobApplyPhoneExcuse = function (mode, lieType, charId) {
             <</if>>
             <</if>>
             <<if _workLockedReasons.length>><<set _workLockedText = "Need: " + _workLockedReasons.join(", ")>><</if>>
+            <<set _payPending = !!$jobState.weeklyPayPending>>
+            <<set _payPassage = _job.paydayScenePassage || "jobWeeklyPayEnvelope">>
             <<set _needsBoss = ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending)>>
             <<jobGetMeetingPassage>>
             <<set _meetingPassage = _return>>
-            <<set _payPending = !!$jobState.weeklyPayPending>>
-            <<set _payPassage = _job.paydayScenePassage || "jobWeeklyPayEnvelope">>
-            <<if _needsBoss>>
-                <<set _workTarget = _meetingPassage>>
-            <<elseif _payPending>>
+            <<if _payPending>>
                 <<set _workTarget = _payPassage>>
+            <<elseif _needsBoss>>
+                <<set _workTarget = _meetingPassage>>
             <<else>>
                 <<set _workTarget = ($jobState.firstWorkDayEventShown ? "jobWorkSelect" : (_job.firstWorkDayEventPassage || "jobWorkSelect"))>>
             <</if>>

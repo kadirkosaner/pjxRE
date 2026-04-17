@@ -405,6 +405,7 @@ window.JournalInit = function (API) {
                   <div class="quest-stage-info">
                     <div class="quest-stage-title">${this.escapeHtml(this.formatQuestStageDesc(stg.title))}</div>
                     <div class="quest-stage-desc">${this.escapeHtml(this.formatQuestStageDesc(stg.desc || ''))}</div>
+                    ${stg.tip ? `<div class="quest-stage-tip"><i class="icon icon-info"></i>${this.escapeHtml(this.formatQuestStageDesc(stg.tip))}</div>` : ''}
                   </div>
                   <i class="icon icon-check quest-stage-check"></i>
                 </div>
@@ -431,6 +432,7 @@ window.JournalInit = function (API) {
                     <div class="quest-stage-info">
                       <div class="quest-stage-title">${this.escapeHtml(this.formatQuestStageDesc(stg.title))}</div>
                       <div class="quest-stage-desc">${this.escapeHtml(this.formatQuestStageDesc(stg.desc || ''))}</div>
+                      ${stg.tip ? `<div class="quest-stage-tip"><i class="icon icon-info"></i>${this.escapeHtml(this.formatQuestStageDesc(stg.tip))}</div>` : ''}
                     </div>
                     ${isCompleted ? '<i class="icon icon-check quest-stage-check"></i>' : ''}
                     ${isCurrent ? '<i class="icon icon-circle quest-stage-current"></i>' : ''}

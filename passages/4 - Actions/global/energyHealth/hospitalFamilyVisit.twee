@@ -1,0 +1,112 @@
+:: hospital_family_visit
+<<nobr>>
+<<silently>>
+<<set $location = "hospital">>
+<<if !$hospitalVisitCombo>><<set $hospitalVisitCombo = "all">><</if>>
+<</silently>>
+<</nobr>>
+
+<<narrative "St. Luke's Hospital">>
+The antiseptic smell hits first. Then the steady beeps, the low hum of machines, and the faint rhythm of footsteps beyond the curtain.
+
+It takes a moment, but your thoughts finally settle into focus. You are not in your room. You are in a hospital bed.
+<</narrative>>
+
+<<if $hospitalVisitCombo === "all">>
+    <<narrative>>
+    The door opens in a quick burst. Mom steps in first, eyes already glassy from worry. Dad follows with a paper cup in one hand, trying to look composed. Your brother lingers right behind them, quieter than usual.
+    <</narrative>>
+    <<dialog "mother">>You're awake. Thank God... You scared us.<</dialog>>
+    <<dialog "father">>Doctor says you're stable now. That's what matters.<</dialog>>
+    <<dialog "brother">>I thought someone was joking when they called. Not funny.<</dialog>>
+    <<dialog "mother">>No more pushing yourself until you collapse, okay?<</dialog>>
+    <<dialog "father">>One day at a time. You recover first, then we deal with the rest.<</dialog>>
+    <<dialog "brother">>Next time you feel bad, say it. Don't disappear on us like that.<</dialog>>
+    <<dialog "player">>I'm sorry. I should've said something earlier.<</dialog>>
+    <<dialog "player">>I'll slow down. I mean it this time.<</dialog>>
+<<elseif $hospitalVisitCombo === "mother_father">>
+    <<narrative>>
+    Mom is already by your bed when you open your eyes, fingers curled around the blanket as if letting go would make this less real. Dad stands at the window, then turns as soon as he hears you move.
+    <</narrative>>
+    <<dialog "mother">>Sweetheart... I was so worried.<</dialog>>
+    <<dialog "father">>You're safe now. That's the important part.<</dialog>>
+    <<dialog "mother">>Please don't ignore your body when it screams for help.<</dialog>>
+    <<dialog "father">>We'll sort the practical stuff later. Right now, rest.<</dialog>>
+    <<dialog "player">>I heard you. I pushed too far.<</dialog>>
+    <<dialog "player">>Thanks for coming... both of you.<</dialog>>
+<<elseif $hospitalVisitCombo === "mother_brother">>
+    <<narrative>>
+    Mom straightens in her chair the second she notices your eyes open. Your brother, arms crossed in the corner, exhales like he's been holding his breath for hours.
+    <</narrative>>
+    <<dialog "mother">>There you are... You had me terrified.<</dialog>>
+    <<dialog "brother">>You picked the worst way to get a day off, you know that?<</dialog>>
+    <<dialog "mother">>Not now.<</dialog>>
+    <<dialog "brother">>Yeah. Sorry. Just... don't do that again.<</dialog>>
+    <<dialog "mother">>Promise me you'll slow down when you need to.<</dialog>>
+    <<dialog "player">>Promise. I'm done pretending I'm fine when I'm not.<</dialog>>
+    <<dialog "player">>And... thank you for staying.<</dialog>>
+<<elseif $hospitalVisitCombo === "father_brother">>
+    <<narrative>>
+    Dad is seated beside the bed with his elbows on his knees, watchful and still. Your brother paces near the door, then immediately pretends he wasn't pacing when you stir.
+    <</narrative>>
+    <<dialog "father">>Good. You're back with us.<</dialog>>
+    <<dialog "brother">>You look awful. That's... actually a good sign, I guess.<</dialog>>
+    <<dialog "father">>He means we're relieved.<</dialog>>
+    <<dialog "brother">>Yeah. That.<</dialog>>
+    <<dialog "father">>Listen to the doctor. No shortcuts this week.<</dialog>>
+    <<dialog "player">>No shortcuts. Got it.<</dialog>>
+    <<dialog "player">>I know I scared you both. Sorry.<</dialog>>
+<<elseif $hospitalVisitCombo === "mother">>
+    <<narrative>>
+    Mom sits close enough that you can feel the warmth of her hand before you fully wake. The lines of worry around her eyes soften only after she sees you focus on her.
+    <</narrative>>
+    <<dialog "mother">>Hi, baby. You gave me the worst scare.<</dialog>>
+    <<dialog "mother">>I know life's heavy right now, but you don't have to carry all of it alone.<</dialog>>
+    <<dialog "mother">>Please be gentler with yourself. I need you here.<</dialog>>
+    <<dialog "player">>I know, Mom. I'm sorry.<</dialog>>
+    <<dialog "player">>I'll ask for help sooner next time.<</dialog>>
+<<elseif $hospitalVisitCombo === "father">>
+    <<narrative>>
+    Dad sits in the visitor chair, hands folded, posture rigid in that way he gets when he's worried and trying not to show it.
+    <</narrative>>
+    <<dialog "father">>Hey. You're awake.<</dialog>>
+    <<dialog "father">>The doctor says you'll be fine if you stop running on empty.<</dialog>>
+    <<dialog "father">>No lecture today. Just recover, then we make a better routine.<</dialog>>
+    <<dialog "player">>Yeah... I needed that wake-up call.<</dialog>>
+    <<dialog "player">>Thanks for being here, Dad.<</dialog>>
+<<else>>
+    <<narrative>>
+    Your brother is the only one in the room when you wake. He looks up from his phone too quickly, like he's been checking every few seconds.
+    <</narrative>>
+    <<dialog "brother">>Oh. Finally. Welcome back to planet Earth.<</dialog>>
+    <<dialog "brother">>Mom and Dad had to handle some stuff, but they kept calling for updates.<</dialog>>
+    <<dialog "brother">>Just... don't make this your personality, okay? We need you annoying and alive.<</dialog>>
+    <<dialog "player">>Deal. I'll stay annoying.<</dialog>>
+    <<dialog "player">>Seriously though... thanks for waiting with me.<</dialog>>
+<</if>>
+
+<<dialog "player">>
+(Inner voice)
+I pushed too far and called it normal. I can't do that again.
+<</dialog>>
+
+<<if ($hospitalDebt || 0) > 0>>
+    <<narrative>>
+    Before they leave, a nurse places the billing paper on the tray table. Insurance did not cover everything.  
+    Remaining hospital debt: <b>$<<= ($hospitalDebt || 0).toFixed(2)>></b>.
+    <</narrative>>
+<<else>>
+    <<narrative>>
+    The paperwork is simple this time. No outstanding balance, no extra forms, no new surprises.
+    <</narrative>>
+<</if>>
+
+<<narrative>>
+When the room quiets again, you take one long breath and let it out slowly.
+
+You are still tired. Still shaken. But you are here, and you have another chance to handle things better.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Leave Hospital" "hospital">><</btn>>
+</div>

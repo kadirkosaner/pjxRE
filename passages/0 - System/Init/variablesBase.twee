@@ -100,12 +100,20 @@
     fhThinWallsNight: 0
 }>>
 
-/* Makeup (state/style/quality; makeup score computed in recalculateStats) */
-<<set $makeup = { state: "off", style: 0, quality: 0 }>>
+/* Makeup (state/style/quality + hourly decay tracking; makeup score computed in recalculateStats) */
+<<set $makeup = { state: "off", style: 0, quality: 0, lastDecayHourKey: "", lastAppliedHourKey: "", lastDecayMinuteStamp: 0 }>>
 
 /* Mirror routine: saved on Confirm; Apply Routine button shows only when confirmed */
 <<set $mirrorRoutine = { makeup: 0, combHair: true, hairCream: true, faceCream: true, dentalCare: true }>>
 <<set $mirrorRoutineConfirmed = false>>
+
+/* Hospital system state (v1). Debt escalation events can hook into dueDateKey later. */
+<<set $hospitalDebt = 0>>
+<<set $hospitalDebtSinceDateKey = 0>>
+<<set $hospitalDebtDueDateKey = 0>>
+<<set $hospitalLastAdmissionDateKey = 0>>
+<<set $hospitalAdmissionInProgress = false>>
+<<set $hospitalAdmissionCount = 0>>
 
 /* ==========================================
    SYSTEM VARIABLES
@@ -187,7 +195,13 @@
     lastInsufficientHours: 0,
     excuseForDateKey: 0,
     excuseMode: "",
-    excuseSentToday: false
+    excuseSentToday: false,
+    bossLieAttemptedThisMeeting: false,
+    bossLieLastResult: "",
+    bossLieLastReason: "",
+    bossLieLastKey: "",
+    bossLieLastChance: 0,
+    bossLieLastPenaltyAmount: 0
 }>>
 
 /* School calendar - cyclical, repeats every year */

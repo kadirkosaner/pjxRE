@@ -161,6 +161,55 @@
   display: none;
 }
 
+/* Mirror passage: section labels sit OUTSIDE .location-actions so action buttons keep normal width */
+.mirror-section-label {
+  display: block;
+  text-align: center;
+  width: 100%;
+  margin: 1.35rem 0 0.35rem;
+  padding: 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-tertiary);
+}
+
+.mirror-section-label--first {
+  margin-top: 0.55rem;
+}
+
+.mirror-hint {
+  text-align: center;
+  margin: 0 auto 0.4rem;
+  max-width: 28rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--color-text-tertiary);
+}
+
+.mirror-section-label + .location-actions,
+.mirror-hint + .location-actions {
+  margin-top: 0.4rem;
+  padding-top: 0.75rem;
+}
+
+.mirror-makeup-row-primary {
+  margin-top: 0.25rem;
+}
+
+.mirror-makeup-row-secondary {
+  margin-top: 0.35rem;
+  padding-top: 0.65rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.mirror-action-muted {
+  opacity: 0.65;
+}
+
 /* Hide stray <br> in talk interactions */
 .talk-interaction br {
   display: none;

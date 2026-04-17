@@ -12,13 +12,13 @@
 <</if>>
 <<set _jobDef = setup.jobs[$job.id]>>
 <<if ndef $jobState.bossMeetingRequired>><<set $jobState.bossMeetingRequired = false>><</if>>
-<<if ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending) && !$_navigatingBackward>>
-<<set _meetingPassage = _jobDef.bossMeetingPassage || _jobDef.bossOfficePassage || "jobBossOfficeCall_ruby">>
-<<goto _meetingPassage>>
-<</if>>
+<<if ndef $jobState.weeklyPayPending>><<set $jobState.weeklyPayPending = null>><</if>>
 <<if $jobState.weeklyPayPending && !$_navigatingBackward>>
 <<set _payPassage = _jobDef.paydayScenePassage || "jobWeeklyPayEnvelope">>
 <<goto _payPassage>>
+<<elseif ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending) && !$_navigatingBackward>>
+<<set _meetingPassage = _jobDef.bossMeetingPassage || _jobDef.bossOfficePassage || "jobBossOfficeCall_ruby">>
+<<goto _meetingPassage>>
 <</if>>
 <<set _offDays = (_jobDef.schedule && _jobDef.schedule.offWeekdays) || []>>
 <<if _offDays.includes($timeSys.weekday)>>
