@@ -63,6 +63,7 @@
 
 - Bildirim sisteminde bazı durumlarda görülen hataya karşı güvenli fallback eklendi.
 - Bu hatanın zaman ilerletme akışını bozup sahneleri kilitlemesine neden olan zincir etkiler giderildi.
+- Widget'ların içindeki `<<return>>` kullanımının bazı pasajlarda "Return Return Return" şeklinde navigasyon linkleri bastığı ve guard koşulu tutsa bile widget kodunun çalışmaya devam ettiği kritik bir SugarCube davranışı düzeltildi: bu artık tek merkezden patch'leniyor, widget içinde argümansız `<<return>>` gerçek erken-çıkış gibi davranıyor (ör. iş sistemi vardiya başlatma guard'ları artık çalışmayan iş akışını gerçekten durduruyor).
 
 ## Teknik ve Kayıt Uyumluluğu
 

@@ -1,3 +1,98 @@
+/* ================== Widget Early-Exit Patch =================== */
+/* Makes <<return>> inside a widget act as a true early-exit.
+   Without this patch, SugarCube's native <<return>> always renders a
+   "Return" navigation link AND lets widget execution continue past it,
+   which caused visible "Return Return Return" text and silent logic
+   bugs (guards that were supposed to block work shifts etc. didn't).
+
+   With the patch:
+   - Bare <<return>> inside a widget: outputs nothing, stops the widget's
+     remaining code from executing (through any depth of <<if>>/<<else>>).
+   - <<return>> called outside a widget, or with arguments: unchanged
+     (still creates a "back to previous passage" link as documented).
+
+   Mechanism:
+   - Wrap every widget created by <<widget>> so its body runs inside
+     a try/finally that tracks an early-exit flag on a TempState stack.
+   - Override <<return>> to, when it sees a widget ancestor, mark the
+     top stack entry and set TempState.break = 3. SugarCube's Wikifier
+     halts on any non-null TempState.break, so the widget's remaining
+     body (and any nested <<if>> bodies) stops immediately. The wrapper
+     clears our custom break signal on unwind so it doesn't leak out.
+   - Value 3 is used (not 1 or 2) so <<for>> / <<break>> / <<continue>>
+     don't accidentally consume it. No widgets nest <<return>> inside
+     <<for>>, so the custom signal never has to survive a for-loop.
+*/
+(function () {
+    if (typeof Macro === 'undefined' || typeof TempState === 'undefined') {
+        return;
+    }
+
+    var widgetMacro = Macro.get('widget');
+    if (widgetMacro && !widgetMacro.__pjxEarlyExitPatched) {
+        var originalWidgetHandler = widgetMacro.handler;
+
+        widgetMacro.handler = function () {
+            if (!this.args || this.args.length === 0) {
+                return originalWidgetHandler.apply(this, arguments);
+            }
+            var widgetName = this.args[0];
+            var result = originalWidgetHandler.apply(this, arguments);
+
+            var created = Macro.get(widgetName);
+            if (created && created.isWidget && !created.__pjxEarlyExitWrapped) {
+                var innerHandler = created.handler;
+                created.handler = function () {
+                    var stack = TempState._pjxWidgetStack = TempState._pjxWidgetStack || [];
+                    var entry = { exited: false };
+                    stack.push(entry);
+                    try {
+                        return innerHandler.apply(this, arguments);
+                    } finally {
+                        stack.pop();
+                        /* Consume our custom break signal so it doesn't leak into
+                           the caller's Wikifier. Only clear value 3 (our marker);
+                           1 and 2 belong to <<continue>>/<<break>>. */
+                        if (entry.exited && TempState.break === 3) {
+                            TempState.break = null;
+                        }
+                    }
+                };
+                created.__pjxEarlyExitWrapped = true;
+            }
+            return result;
+        };
+        widgetMacro.__pjxEarlyExitPatched = true;
+    }
+
+    var returnMacro = Macro.get('return');
+    if (returnMacro && !returnMacro.__pjxEarlyExitPatched) {
+        var originalReturnHandler = returnMacro.handler;
+
+        returnMacro.handler = function () {
+            /* Only intercept bare <<return>> (no args) named "return" (not "back")
+               that is being evaluated inside a widget body. */
+            if (this.name === 'return' && (!this.args || this.args.length === 0)) {
+                var stack = TempState._pjxWidgetStack;
+                if (stack && stack.length) {
+                    var inWidget = typeof this.contextSome === 'function'
+                        ? this.contextSome(function (ctx) { return ctx.self && ctx.self.isWidget; })
+                        : true;
+                    if (inWidget) {
+                        stack[stack.length - 1].exited = true;
+                        /* Non-null signal halts the current Wikifier loop; we use
+                           a custom value so <<for>> loops won't consume it. */
+                        TempState.break = 3;
+                        return;
+                    }
+                }
+            }
+            return originalReturnHandler.apply(this, arguments);
+        };
+        returnMacro.__pjxEarlyExitPatched = true;
+    }
+})();
+
 /* ================== External Loader =================== */
 $(document).one(':storyready', async function () {
     function loadCSS(url) {

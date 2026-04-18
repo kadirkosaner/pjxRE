@@ -715,8 +715,7 @@ window.jobRollInPersonLie = function () {
 <</widget>>
 
 /* Check if player skipped Monday boss call. If you advance *past* a playable Monday without visiting, fire.
-   weekday 1 = Monday. Uses calendar steps: (_oldWeekday + k) % 7 for k = 1.._days is each new wake-up day.
-   Uses positive <<if>> guard — no <<return>> (SugarCube <<return>> inside <<if>> is unreliable). */
+   weekday 1 = Monday. Uses calendar steps: (_oldWeekday + k) % 7 for k = 1.._days is each new wake-up day. */
 <<widget "jobCheckSkippedBossCall">>
     <<jobEnsureState>>
     <<set _days = $args[0] || 1>>
