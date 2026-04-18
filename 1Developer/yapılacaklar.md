@@ -6,7 +6,7 @@
 
 ############################################################################################################################
 
-**v0.2 Scope Listesi**
+**v0.1.5 Scope Listesi**
 
 
 **GYM**
@@ -55,19 +55,6 @@ LOKASYONLAR (2 yeni)
 └── St. Luke's Hospital ← navCards'da var, aktive edilecek
     └── Hospital Room ← yatış odası
 
-SİSTEMLER
-
-├── HASTANE SİSTEMİ
-│   ├── Tetikleyici: health ≤ 15 → otomatik yatış (StatCalculator'e eklenecek)
-│   ├── Maliyet: $150 tedavi
-│   ├── Süre: 1 gün iyileşme (iş kaçırılıyor)
-│   └── Sahne: Aileden ziyaret (anne + baba)
-│
-└── İŞ DRAMA SİSTEMİ (Vince)
-    ├── Tetikleyici: ≥3 uyarı veya belirli Vince event
-    ├── FIRED sahne (Vince ofisi)
-    └── GROVEL / Geri Dön quest
-        └── Vince şartlar koyuyor [future corruption hook]
 
 STORY ARCLARI (quest zincirleri)
 

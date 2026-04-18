@@ -26,37 +26,133 @@
 <<set _trust = parseInt($jobState.workTrustScore, 10) || 0>>
 <<set _band = $jobState.workTrustBand || "mid">>
 <<set _dismissAt = (_job.trustPolicy && _job.trustPolicy.dismissalAtTrust != null) ? _job.trustPolicy.dismissalAtTrust : 0>>
+<<if ndef $jobState.firingAppealState>><<set $jobState.firingAppealState = "">><</if>>
+<<if ndef $jobState.firingLastChanceUsed>><<set $jobState.firingLastChanceUsed = false>><</if>>
+<<set _vinceFriendship = (($characters.dinerManager && $characters.dinerManager.stats) ? (parseInt($characters.dinerManager.stats.friendship, 10) || 0) : 0)>>
+<<set _vinceFriendshipLevel = (($characters.dinerManager && $characters.dinerManager.stats) ? (parseInt($characters.dinerManager.stats.friendshipLevel, 10) || 0) : 0)>>
+<<set _canAskFinalChance = (_job.bossCharId === "dinerManager") && (_vinceFriendshipLevel >= 1) && (_vinceFriendship >= 60) && !$jobState.firingLastChanceUsed>>
+<<set _finalChanceLockTip = "" >>
+<<if _job.bossCharId !== "dinerManager">>
+    <<set _finalChanceLockTip = "Only Vince can grant this last chance.">>
+<<elseif $jobState.firingLastChanceUsed>>
+    <<set _finalChanceLockTip = "You already used your one last chance.">>
+<<elseif _vinceFriendshipLevel < 1 || _vinceFriendship < 60>>
+    <<set _finalChanceLockTip = "Requires Vince friendship level 1 and 60.">>
+<</if>>
 <<if _trust <= _dismissAt>>
     <<set $jobState.terminationPending = true>>
 <</if>>
 <</silently>>
 
-<<if $jobState.terminationPending || _reason === "termination_trust0">>
+<<if $jobState.terminationPending || _reason === "termination_trust0" || !!$jobState.firingAppealState>>
+<<if !$jobState.firingAppealState>>
 <<narrative "Manager's Office">>
-<<= _bossName>> doesn't look up when you enter. He's staring at a spreadsheet. After a long moment, he sets down his pen.
+<<= _bossName>> doesn't look up right away when you enter. The only sound is the scratching of his pen and the hum of the office fan.  
+After a long moment he closes the file, folds his hands, and finally meets your eyes.
 <</narrative>>
 <<dialog _job.bossCharId>>
-Your reliability has collapsed. I can't keep you on this roster.
+We both knew this meeting was coming. You've burned through every warning I could justify.
 <</dialog>>
 <<dialog "player">>
-I'm sorry.
+Vince, I can explain—
 <</dialog>>
 <<dialog _job.bossCharId>>
-I'm letting you go.
+No. Don't.
+This isn't about one bad day anymore. It's a pattern, and it is costing me staff time and money.
+<</dialog>>
+<<dialog "player">>
+I just need one minute, I—
+<</dialog>>
+<<dialog _job.bossCharId>>
+I said no. You're not listening.
+<</dialog>>
+<<dialog _job.bossCharId>>
+I'm taking you off the schedule.
 <</dialog>>
 <<narrative>>
-He hands you a final paycheck. Your time at <<= _job.workplaceName>> is over.
+The words land like a locked door. He pulls a final envelope from the drawer and sets it on the desk between you, already moving on to the next page.
 <</narrative>>
+<<if _canAskFinalChance>>
+<<dialog "player">>
+Vince... wait. I know I messed up, but don't end it like this. Give me one last chance and I'll prove I can recover.
+<</dialog>>
+<<dialog _job.bossCharId>>
+One chance. One. If you slip again, we're done and we won't have this talk twice.
+<</dialog>>
+<<else>>
+<<dialog _job.bossCharId>>
+No. We're past that point.
+<</dialog>>
+<</if>>
+<div class="btn-center">
+<<btn "Accept being fired" "jobBossOfficeCall_ruby">>
+    <<set $jobState.firingAppealState = "declined">>
+<</btn>>
+<<if _canAskFinalChance>>
+<<btn "Ask for one last chance" "jobBossOfficeCall_ruby">>
+    <<silently>>
+    <<set $jobState.firingAppealState = "accepted">>
+    <<set $jobState.firingLastChanceUsed = true>>
+    <<set $jobState.workTrustScore = 50>>
+    <<set $jobState.workTrustBand = "mid">>
+    <<set $jobState.terminationPending = false>>
+    <<set $jobState.bossMeetingRequired = false>>
+    <<set $jobState.bossMeetingReason = "">>
+    <<set $jobState.bossLieAttemptedThisMeeting = false>>
+    <<set $jobState.bossLieLastResult = "">>
+    <<set $jobState.bossLieLastKey = "">>
+    <<set $jobState.bossLieLastReason = "">>
+    <<set $jobState.bossLieLastPenaltyAmount = 0>>
+    <<set $jobState.visitedBossThisMonday = true>>
+    <<set $jobState.bossWantsToSeePlayer = false>>
+    <</silently>>
+<</btn>>
+<<else>>
+<<btn "Ask for one last chance" "" "locked" _finalChanceLockTip>><</btn>>
+<</if>>
+</div>
+<<elseif $jobState.firingAppealState === "accepted">>
+<<narrative "Manager's Office">>
+You step back from the desk with shaky breath, not fired, not safe either.
+<</narrative>>
+<<dialog _job.bossCharId>>
+Your name stays on the roster. That's me taking a risk on you.
+<</dialog>>
+<<dialog _job.bossCharId>>
+Don't make me look stupid for it.
+<</dialog>>
+<<dialog "player">>
+I won't. Thanks... really.
+<</dialog>>
+<<silently>>
+<<set $jobState.firingAppealState = "">>
+<<run window.notifySuccess("Vince gave you one final chance. Work trust restored to 50.")>>
+<</silently>>
+<div class="btn-center">
+<<btn "Leave" "dinerRubys">><</btn>>
+</div>
+<<else>>
+<<narrative "Manager's Office">>
+He pushes the envelope toward you and waits in silence.
+<</narrative>>
+<<dialog _job.bossCharId>>
+Take care of yourself. This job is over.
+<</dialog>>
+<<dialog "player">>
+...Understood.
+<</dialog>>
 <<silently>>
 <<set $job.id = null>>
 <<set $job.tier = 1>>
 <<set $job.startedOn = null>>
 <<jobResetState>>
+<<set $jobState.firingAppealState = "">>
 <<run window.notifyWarning("You've been fired from " + _job.workplaceName + " after trust dropped to zero.")>>
 <</silently>>
 <div class="btn-center">
 <<btn "Leave" "dinerRubys">><</btn>>
 </div>
+<</if>>
 <<elseif _promoEligible || ($jobState.promotionPending && ($jobState.pendingTier || 0) > ($job.tier || 1))>>
 <<set _nextTier = _promoEligible ? (parseInt($job.tier, 10) + 1) : ($jobState.pendingTier)>>
 <<narrative "Manager's Office">>

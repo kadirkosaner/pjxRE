@@ -22,7 +22,7 @@
 <</if>>
 <</silently>>
 
-<<if _criticalAfterCrash>>
+<<if _criticalAfterCrash and !$_navigatingBackward>>
 <<if _napVariant === 1>>
 <<narrative "Barely Made It Home">>
 You make it to your room on instinct more than strength. The moment you collapse onto the bed, the pain in your chest sharpens and your breathing turns shallow.

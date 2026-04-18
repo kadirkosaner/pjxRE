@@ -1,6 +1,6 @@
 <<nobr>>
 <<silently>>
-<<if ($health || 0) <= 15 and !$hospitalAdmissionInProgress>>
+<<if ($health || 0) <= 15 and !$hospitalAdmissionInProgress and !$_navigatingBackward>>
     <<goto "hospital_admission">>
 <</if>>
 /* passagestart clears $location — restore scene id for body[data-location] / backgrounds */

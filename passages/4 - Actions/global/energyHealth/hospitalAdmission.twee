@@ -1,4 +1,15 @@
 :: hospital_admission
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<<else>>
+<<narrative "Everything Goes Dark">>
+You barely register your body giving out. One moment you're trying to stay on your feet, the next everything tilts and sound drops away.
+
+When your eyes open again, you're staring at a white hospital ceiling. Your throat is dry, your arms feel heavy, and a monitor beeps steadily beside you.
+<</narrative>>
+<<dialog "nurse">>Easy. You're at St. Luke's. You collapsed from severe exhaustion and dehydration. Try to stay calm and don't sit up too fast.<</dialog>>
+<<dialog "player">>(Inner voice) I really let it get this far...<</dialog>>
+
 <<nobr>>
 <<silently>>
 <<set $location = "hospital">>
@@ -54,5 +65,11 @@
 <</if>>
 <<recalculateStats>>
 <</silently>>
-<<goto "hospital_family_visit">>
 <</nobr>>
+
+<<dialog "nurse">>Take a slow breath. You're safe here. Your family is waiting outside and can come in when you're ready.<</dialog>>
+
+<div class="location-actions">
+    <<btn "Continue" "hospital_family_visit">><</btn>>
+</div>
+<</if>>

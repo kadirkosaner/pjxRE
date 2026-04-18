@@ -1,28 +1,23 @@
 # Changelog
 
-## Oynanış ve Yaşam
+## Öne Çıkanlar
 
-- Eski Kasaba'da çevreyi gezdiğinizde bazen kitapçıyı keşfedebilirsiniz.
-- Yemek yeme ve kahve içme eylemlerinin enerji ve açlık değerleri yeniden dengelendi.
-- Uyku sistemi iyileştirildi: Erken uyandığınızda seçtiğiniz süre tamamlanana kadar veya alarm kuruluysa alarm çalana kadar yeniden uyuyabilirsiniz. Enerji seviyesi tam dolmadıysa Snooze seçeneği kullanılabilir.
-- İhtiyaç simülasyonları (açlık, susuzluk vb.) kapalıyken artık ilgili gereksiz bildirimler çıkmıyor; kurulum akışı düzeltildi.
-- Makyaj bozulması günlük blok yerine saatlik hesaplanıyor; oyun saatinde tamamlanan her saat için kalite düşer. Makyajın solması (Makeup Fade) ayarı kapalıysa bu bozulma uygulanmaz.
-- Yüzünüzü yıkamak veya ıslak mendille makyajı çıkarmak makyajı tamamen kaldırır.
-- Ayna ve rutinde makyaj uyguladıkça Pratik Makyaj yeteneği kazanır; ayna üzerinden kazanım üst sınırı 35’tir. Tavana ulaştığınızda rutin bildirimi ve uygulama sonrası anlatı doğru şekilde tetiklenir.
-
-## Etkileşimler ve Konuşmalar
-
-- Konuşma ekranlarında Geri davranışı artık ayarlardan seçilebiliyor: dilerseniz konuşmadan sonra konuşma menüsünde kalabilir, dilerseniz bulunduğunuz pasaja dönebilirsiniz.
-- Marcus konuşmaları günün saatine göre düzenlendi; 15 yeni varyasyon eklendi.
-- Lily konuşmaları günün saatine göre düzenlendi; 16 yeni varyasyon eklendi.
+- Yeni hastane sistemi eklendi: Sağlığınız kritik seviyeye düştüğünde karakter artık otomatik olarak hastaneye kaldırılır.
+- Kritik sağlık akışı netleştirildi: orta-kritik durumda bayılma sahnesi, çok düşük sağlıkta doğrudan hastane süreci devreye girer.
+- Hastane tedavisi artık ücretlidir: Tedavi bedeli $150. Paran yetmezse kalan tutar hastane borcu olarak kaydedilir.
+- Hastane giriş anlatısı yenilendi: "bir anda geçiş" yerine daha doğal bir bayılma/uyanma sahnesi ile başlar.
+- Hastane aile ziyareti sahnesi eklendi: anne, baba ve kardeş kombinasyonlarına göre farklı diyalog varyasyonları oynar.
+- Hastaneden çıkışta karakter toparlanmış şekilde taburcu olur: temel değerler iyileşir, stress ve mood orta seviyede kalır.
+- Energy Collapse ve Health Faint sahneleri genişletildi; tek metin yerine farklı narrative/diyalog varyasyonları eklendi.
 
 ## İş Sistemi
 
 - İş sistemi kapsamlı şekilde yenilendi: disiplin, terfi, maaş ve patron görüşmeleri artık daha tutarlı ve olay odaklı çalışıyor.
 - Strike sistemi kaldırılıp Work Trust sistemine geçildi. İş performansına göre güven puanı düşer/yükselir; kritik eşiklerde patron görüşmesi zorunlu olur.
 - Artık patronla konuşmadan anlık işten çıkarılma yok. İşten çıkarılma kararı görüşme/event üzerinden ilerler.
+- İşten atılma anında artık son bir pazarlık şansınız var: Vince ile dostluğunuz yeterince güçlüyse "Ask for one last chance" seçeneği açılır ve işi tamamen kaybetmeden kendinizi toplama fırsatı bulursunuz.
 - Terfiler otomatik verilmiyor; uygun olduğunuzda "promotion pending" durumuna düşersiniz ve patron onayı gerekir.
-- Eksik vardiya günleri (0/8, 4/8, 6/8) için ertesi iş gününde patron görüşmesi tetiklenir; diyaloglar güven bandına göre farklılaşır.
+- Eksik vardiya günleri (0/8, 2/8, 4/8, 6/8) için ertesi iş gününde patron görüşmesi tetiklenir; diyaloglar güven bandına göre farklılaşır.
 - Haftalık maaş sistemi yenilendi: otomatik pazartesi ödemesi kaldırıldı. Haftalık ödeme zarf olayı ile ilk uygun iş gününde teslim edilir.
 - Kesinti indirimi (trust indirimi) sistemi eklendi ve yeniden dengelendi: güven puanına göre kesintilerde indirim uygulanır.
 - İş sistemi skill kazanımları yeniden dengelendi: erken oyunda akıcı, orta-geç oyunda daha yavaş ilerler; soft-cap sistemi eklendi.
@@ -42,6 +37,32 @@
 - Yalan denediğinizde (başarılı veya başarısız) Persuasion ve Problem Solving yeteneklerinden küçük tecrübe kazanırsınız.
 - Journal görev detayında stage açıklamalarının altına isteğe bağlı "tip" satırı desteği eklendi; saat/koşul kritik adımlarda kısa yönlendirme metni gösterilebilir.
 
+## Oynanış ve Yaşam
+
+- Eski Kasaba'da çevreyi gezdiğinizde bazen kitapçıyı keşfedebilirsiniz.
+- Yemek yeme ve kahve içme eylemlerinin enerji ve açlık değerleri yeniden dengelendi.
+- Uyku sistemi iyileştirildi: Erken uyandığınızda seçtiğiniz süre tamamlanana kadar veya alarm kuruluysa alarm çalana kadar yeniden uyuyabilirsiniz. Enerji seviyesi tam dolmadıysa Snooze seçeneği kullanılabilir.
+- İhtiyaç simülasyonları (açlık, susuzluk vb.) kapalıyken artık ilgili gereksiz bildirimler çıkmıyor; kurulum akışı düzeltildi.
+- Makyaj bozulması günlük blok yerine saatlik hesaplanıyor; oyun saatinde tamamlanan her saat için kalite düşer. Makyajın solması (Makeup Fade) ayarı kapalıysa bu bozulma uygulanmaz.
+- Yüzünüzü yıkamak veya ıslak mendille makyajı çıkarmak makyajı tamamen kaldırır.
+- Ayna ve rutinde makyaj uyguladıkça Pratik Makyaj yeteneği kazanır; ayna üzerinden kazanım üst sınırı 35’tir. Tavana ulaştığınızda rutin bildirimi ve uygulama sonrası anlatı doğru şekilde tetiklenir.
+
+## Etkileşimler ve Konuşmalar
+
+- Konuşma ekranlarında Geri davranışı artık ayarlardan seçilebiliyor: dilerseniz konuşmadan sonra konuşma menüsünde kalabilir, dilerseniz bulunduğunuz pasaja dönebilirsiniz.
+- Marcus konuşmaları günün saatine göre düzenlendi; 15 yeni varyasyon eklendi.
+- Lily konuşmaları günün saatine göre düzenlendi; 16 yeni varyasyon eklendi.
+
+## Bayılma ve Çöküş İyileştirmeleri
+
+- Energy Collapse sonrası ihtiyaç değerleri (açlık, susuzluk, mesane) döngüye sokmaması için güvenli seviyeye çekilir.
+- Düşük sağlıkta bazı sahnelerde oluşan tekrar-bayılma döngüleri engellendi.
+- Otomatik geçişlerde geri navigasyon (backward) davranışı iyileştirildi; hastane akışında sıkışma sorunları azaltıldı.
+
+## Hata Düzeltmeleri
+
+- Bildirim sisteminde bazı durumlarda görülen hataya karşı güvenli fallback eklendi.
+- Bu hatanın zaman ilerletme akışını bozup sahneleri kilitlemesine neden olan zincir etkiler giderildi.
 
 ## Teknik ve Kayıt Uyumluluğu
 

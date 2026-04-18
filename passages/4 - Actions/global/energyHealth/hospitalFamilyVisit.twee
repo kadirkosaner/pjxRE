@@ -108,5 +108,17 @@ You are still tired. Still shaken. But you are here, and you have another chance
 <</narrative>>
 
 <div class="location-actions">
-    <<btn "Leave Hospital" "hospital">><</btn>>
+    <<btn "Leave Hospital" "hospital">>
+        /* Discharge reset: full recovery feel, with mood/stress left at mid levels. */
+        <<set $health = 100>>
+        <<set $energy = $energyMax || 100>>
+        <<set $hygiene = 100>>
+        <<set $hunger = 0>>
+        <<set $thirst = 0>>
+        <<set $bladder = 0>>
+        <<set $arousal = 0>>
+        <<set $stress = 50>>
+        <<set $mood = 50>>
+        <<recalculateStats>>
+    <</btn>>
 </div>
