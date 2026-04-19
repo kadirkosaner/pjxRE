@@ -8,7 +8,6 @@
 
 **v0.1.5 Scope Listesi**
 
-
 **GYM**
 - [ ] Workout aktiviteleri (weights, cardio, yoga)
 - [ ] 2 yeni karakter (trainer + düzenli müşteri)
@@ -16,19 +15,10 @@
 
 ---
 
-
-**Lily Talks**
-- [ ] Lilly ile birlikte jog yapma
-- [ ] Lilly ile jog yaparken belli bir arkadaşlık seviyesi + fitness değeri varsa gym açılır downtownda.
-
----
-
 **Old Town Coffee**
 - [ ] 1-2 karakter ekle
 - [ ] Oturma/okuma/çalışma aktivitesi
 - [ ] Conversation skill gain
-
-
 
 KARAKTERLER (8 yeni NPC)
 │
