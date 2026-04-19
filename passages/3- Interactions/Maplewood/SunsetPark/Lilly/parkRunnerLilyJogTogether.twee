@@ -21,11 +21,17 @@
 <<set _friendshipNow = ($characters.parkRunnerLily && $characters.parkRunnerLily.stats && $characters.parkRunnerLily.stats.friendship) || 0>>
 <<set _friendshipLevelNow = ($characters.parkRunnerLily && $characters.parkRunnerLily.stats && $characters.parkRunnerLily.stats.friendshipLevel) || 1>>
 <<set _showGymQuestEvent = (!$flags.lilyGymQuestOffered && _friendshipLevelNow >= 1 && _friendshipNow > 40 && $cardio > 20 && $lowerBody > 10)>>
+<<set _miaUnknown = !($characters.neighborMia && $characters.neighborMia.known)>>
+<<set _showMiaJogMeetEvent = (_miaUnknown && State.random() < (1 / 3))>>
 <</silently>>
 
+<<if _showMiaJogMeetEvent>>
+<<include "parkRunnerLilyJogMeetMiaEvent">>
+<<else>>
 <<set _gossipPool = setup.lilyJogGossip>>
 <<set _pick = _gossipPool[Math.floor(State.random() * _gossipPool.length)]>>
 <<print _pick.text>>
+<</if>>
 
 <<narrative "Sunset Park">>By the time you cool down, your legs are tired but your head feels lighter.<</narrative>>
 

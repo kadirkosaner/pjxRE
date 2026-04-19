@@ -6,75 +6,51 @@
 
 ############################################################################################################################
 
-**v0.1.5 Scope Listesi**
+## v0.1.5 Düzenlenmiş Yapılacaklar
 
-**GYM**
-- [ ] Workout aktiviteleri (weights, cardio, yoga)
-- [ ] 2 yeni karakter (trainer + düzenli müşteri)
-- [ ] Stat gain görsel feedback (upperBody, cardio, core)
+### Öncelikli Görevler
 
----
+- [ ] GYM doldurulacak.
+- [X] Lily ile jog yaparken, zaman ve stat fark etmeksizin Mia ile tanışma event'i 1/3 oranında tetiklenecek.
+  - [] Event içeriği yazılacak ve düzenlenecek.
+  - [] Mia için yol seçilecek.
+- [ ] Hospital'e doktora görünme eventi eklenecek (düşük health yükseltme için).
+- [ ] Eczane genişletilecek.
+- [ ] Yeni karakterlerin schedule'ları ayarlanacak.
+- [ ] Lily schedule'ına gym eklenecek.
+- [ ] Coffee Shop düzenlenecek.
 
-**Old Town Coffee**
-- [ ] 1-2 karakter ekle
-- [ ] Oturma/okuma/çalışma aktivitesi
-- [ ] Conversation skill gain
+### Mekanlar
 
-KARAKTERLER (8 yeni NPC)
-│
-├── Maplewood / Mahalle
-│   ├── Mia Harrison (21) ← Komşu, "open" karakter, yönlendirici
-│   │   ├── Elena Harrison (44) ← Mia'nın annesi [future encounter]
-│   │   └── Robert Harrison (46) ← Mia'nın babası [future encounter]
-│   └── Ethan Clarke (21) ← Erkek romantik ilgi, mahalle keşfinde
-│
-├── Iron Works Gym (Downtown)
-│   ├── Nick Santos (32) ← Trainer, sabah/akşam
-│   ├── Kayla Morgan (24) ← Kadın regular, sabah
-│   └── Tyler Reed (25) ← Erkek regular, öğleden sonra
-│
-└── The Daily Grind (Old Town)
-    └── Leo Harper (24) ← 1. barista, öğleden sonra/akşam
+- [ ] Iron Works Gym (Downtown)
+- [ ] Sunset Park (Lily jog event akışı)
+- [ ] Maplewood (Mia tanışma bölgesi)
+- [ ] St. Luke's Hospital (doktor kontrolü / health recovery)
+- [ ] Eczane (genişletilecek)
+- [ ] Old Town Coffee / The Daily Grind
+- [ ] Mia's House
 
-LOKASYONLAR (2 yeni)
-│
-├── Mia's House ← Maplewood içinde, FamilyHouse gibi
-│   ├── Living Room
-│   └── [future: bedrooms, parents' room]
-│
-└── St. Luke's Hospital ← navCards'da var, aktive edilecek
-    └── Hospital Room ← yatış odası
+### Karakterler
 
+#### Maplewood / Mahalle
 
-STORY ARCLARI (quest zincirleri)
+- [X] Mia Harrison
+- [X] Elena Harrison
+- [X] Robert Harrison
 
-1. LILY ARC (Sunset Park)
-   ├── [X] "Jog Together" – Lily parkta iken koş butonu açılıyor
-   ├── [X] Fitness Milestone – cardio ≥ 15 sonrası Lily compliment scene
-   │   └── [X] "Fiziğin değişiyor, sen sporcu tipsin" diyalog
-   └── Mahalle Dedikodu – Lily Mia'yı tanıtıyor
-       └── → Quest: "Meet the Neighbors" başlıyor
+- [X] Ethan Clarke
 
-2. MİA ARC (Yeni Komşu)
-   ├── İlk Karşılaşma – Maplewood'ta dolaşırken
-   ├── Ev Ziyareti – Mia eve davet ediyor
-   ├── Aile Tanışması – Elena + Robert sahne
-   │   ├── Elena: Sıcak, biraz flörtöz, ev kadını
-   │   └── Robert: Rahat, başarılı, yakışıklı
-   └── [future: dedikodu, beraber alışveriş, corruption hints]
+#### Iron Works Gym (Downtown)
 
-3. COFFEE SHOP ARC (alternatif açılış)
-   ├── Jake (Waiter/dinerWaitress3) iş çıkışı davet ediyor
-   │   ├── Tetikleyici: totalDaysWorked ≥ 3, iş bitti
-   │   └── Jake ile birlikte The Daily Grind'a gidiliyor
-   ├── Zoe tanışması (0.1.5'te var, quest sahnesine bağlanacak)
-   └── Leo Harper tanışması ← 2. barista, ayrı vardiya
+- [X] Nick Santos (Receptionist/Trainer)
+- [X] Kayla Morgan (Regular)
+- [X] Tyler Reed (Regular)
+- [X] Nora Carter (Receptionist/Trainer)
 
-4. GYM SOCIAL ARC
-   ├── Nick Santos ← ilk karşılaşma: check-in masasında
-   ├── Kayla Morgan ← cardio makinelerinde tanışma
-   └── Tyler Reed ← weights alanında tanışma
+#### Old Town Coffee / The Daily Grind
 
-5. ETHAN ARC (Romantik İlgi)
-   ├── Tetikleyici: Mia arki başladıktan sonra, mahalle walk
-   └── İlk karşılaşma sahne
+- [X] Leo Harper (Barita)
+
+#### Hospital
+
+- [X] Rachel Brooks (Nurse)

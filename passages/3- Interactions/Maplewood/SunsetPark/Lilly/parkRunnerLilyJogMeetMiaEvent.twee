@@ -1,0 +1,31 @@
+:: parkRunnerLilyJogMeetMiaEvent
+<<silently>>
+<<set $flags = $flags || {}>>
+<<set $flags.lilyJogMiaMeetTriggered = true>>
+<<if $characters.neighborMia>>
+    <<set $characters.neighborMia.known = true>>
+    <<if !$characters.neighborMia.firstMet>>
+        <<set $characters.neighborMia.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
+    <</if>>
+    <<set $characters.neighborMia.currentLocation = "maplewood">>
+    <<gainCharacterStat "neighborMia" "friendship" 1>>
+<</if>>
+<<gainCharacterStat "parkRunnerLily" "friendship" 1>>
+<</silently>>
+
+<<narrative "Sunset Park">>You and Lily slow near the park exit to catch your breath. A blonde woman in a light hoodie waves from the sidewalk, then starts toward you with quick, confident steps.<</narrative>>
+
+<<dialog "parkRunnerLily">>Perfect timing. I was just about to introduce you two.<</dialog>>
+<<dialog "parkRunnerLily">>This is Mia. She lives a few houses down from me in Maplewood.<</dialog>>
+
+<<dialog "neighborMia">>Hey. You're the new girl, right? I've seen you around.<</dialog>>
+<<dialog "player">>Yeah, that's me. Nice to finally meet you.<</dialog>>
+
+<<dialog "neighborMia">>Likewise. If you ever need shortcuts around Maplewood, ask me before Lily gives you the dramatic tour version.<</dialog>>
+<<dialog "parkRunnerLily">>Excuse me, my tours are premium quality.<</dialog>>
+
+<<narrative>>Mia laughs, gives you one more quick once-over, then points down the street toward the neighborhood.<</narrative>>
+
+<<dialog "neighborMia">>I gotta run, but we'll talk properly next time.<</dialog>>
+
+<<narrative "Sunset Park">>She heads off at an easy jog. Lily bumps your shoulder with hers, grinning.<</narrative>>
