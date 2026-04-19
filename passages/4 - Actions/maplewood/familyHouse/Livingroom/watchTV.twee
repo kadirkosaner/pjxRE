@@ -3,11 +3,11 @@
     <<set $location = "fhLivingroom">>
     <<set _tvMins = parseInt($selectedDuration) || 15>>
     <<set _tvScale = _tvMins / 30>>
-    /* Energy cost: base 5 for first 15 min, +2 per extra 15 min (15→5, 30→7, 45→9, 60→11); start needs cost + 10 */
-    <<set _energyCost = 5>>
+    /* Energy: ~5/hr passive cap — base 2 first 15m, +1 per extra 15m, max 6; advanceTime uses "relax" to skip hourly passive energy drain */
+    <<set _energyCost = 2>>
     <<if _tvMins > 15>>
-        <<set _energyCost = 5 + Math.floor((_tvMins - 15) / 15) * 2>>
-        <<set _energyCost = Math.min(11, _energyCost)>>
+        <<set _energyCost = 2 + Math.floor((_tvMins - 15) / 15) * 1>>
+        <<set _energyCost = Math.min(6, _energyCost)>>
     <</if>>
     <<set _tvNeedEnergy = _energyCost + 10>>
     <<requireMinEnergy _tvNeedEnergy "fhCouch" "Not enough energy.">>

@@ -1,0 +1,38 @@
+/* charId: neighborEthan — Ethan Clarke, Maplewood / Ethan romantic arc */
+
+<<set setup.characterDefs.neighborEthan = {
+    firstName: "Ethan",
+    lastName: "Clarke",
+    birthYear: 2005,
+    gender: "male",
+    occupation: "Neighbor",
+    location: "Maplewood",
+    avatar: "assets/content/people/maplewood/neighbors/ethanClarke.webp",
+    type: "npc",
+    color: "#059669",
+    info: "<p>A guy from the neighborhood you might run into while exploring Maplewood.</p>",
+    status: "Neighbor",
+    relationship: { status: "single" },
+    maxLevels: { love: 1, friendship: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 90, love: 90, trust: 90, lust: 0 }
+}>>
+<<set $characters.neighborEthan = {
+    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.neighborEthan = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 14, location: "maplewood", status: "available" },
+        { hour: 19, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 13, location: "maplewood", status: "available" },
+        { hour: 20, location: null, status: "unavailable" }
+    ]
+}>>

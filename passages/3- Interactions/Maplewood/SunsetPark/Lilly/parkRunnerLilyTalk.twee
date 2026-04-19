@@ -1,14 +1,19 @@
-:: parkRunnerLilyTalk
+<div class="divnobr">
 <<silently>>
 <<if !$location && $interactionEntryPassage>>
     <<set $location = $interactionEntryPassage>>
 <</if>>
 <<set $location = $location || "sunsetPark">>
-<<logDailyActivity "parkRunnerLily" "talk">>
-<<updateCharacterLocations>>
+<<set $flags = $flags || {}>>
 
 <<set _stats = $characters.parkRunnerLily.stats>>
 <<set _level = _stats.friendshipLevel || 1>>
+<<set _friendship = _stats.friendship || 0>>
+<<set _showInviteEvent = (!$flags.lilyJogInviteSeen && _level >= 1 && _friendship >= 20)>>
+
+<<if !_showInviteEvent>>
+<<logDailyActivity "parkRunnerLily" "talk">>
+<<updateCharacterLocations>>
 
 <<set _phase = "common">>
 
@@ -55,8 +60,12 @@
 <<if _topic.lust>><<gainCharacterStat "parkRunnerLily" "lust" _topic.lust>><</if>>
 
 <<recalculateStats>>
+<</if>>
 <</silently>>
 
+<<if _showInviteEvent>>
+<<include "parkRunnerLilyJogInviteEvent">>
+<<else>>
 <<nobr>>
 <div class="talk-interaction">
 <<print _topic.text>>
@@ -67,3 +76,5 @@
 </div>
 </div>
 <</nobr>>
+<</if>>
+</div>

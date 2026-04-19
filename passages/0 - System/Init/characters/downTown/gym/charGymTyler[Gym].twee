@@ -1,0 +1,38 @@
+/* charId: gymRegularTyler — Tyler Reed, afternoon weights regular */
+
+<<set setup.characterDefs.gymRegularTyler = {
+    firstName: "Tyler",
+    lastName: "Reed",
+    birthYear: 2001,
+    gender: "male",
+    occupation: "Gym Regular",
+    location: "Iron Works Gym",
+    avatar: "assets/content/people/downtown/gym/tylerReed.webp",
+    type: "npc",
+    color: "#d97706",
+    info: "<p>A regular at Iron Works who tends to lift in the afternoon.</p>",
+    status: "Regular",
+    relationship: { status: "single" },
+    maxLevels: { love: 1, friendship: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 90, love: 0, trust: 90, lust: 0 }
+}>>
+<<set $characters.gymRegularTyler = {
+    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.gymRegularTyler = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 14, location: "gym", status: "available" },
+        { hour: 19, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 13, location: "gym", status: "available" },
+        { hour: 19, location: null, status: "unavailable" }
+    ]
+}>>

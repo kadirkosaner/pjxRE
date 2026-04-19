@@ -1,0 +1,36 @@
+<<silently>>
+<<set $location = "sunsetPark">>
+<<set $flags = $flags || {}>>
+<<set $flags.lilyJogInviteSeen = true>>
+<<set $flags.lilyJogUnlocked = true>>
+<<advanceTime 10>>
+<<loseStat "energy" 3>>
+<<gainStat "mood" 2>>
+<<gainCharacterStat "parkRunnerLily" "friendship" 1>>
+<<recalculateStats>>
+<</silently>>
+
+<<narrative "Sunset Park">>Lily stops when she sees you and turns toward you with a pleasant smile. She's lightly sweaty and looks comfortable in her sportswear.<</narrative>>
+
+<<dialog "parkRunnerLily">>You know... we've been talking about running together for a while but we've never actually done it.<</dialog>>
+<<dialog "player">>You're right.<</dialog>>
+<<dialog "parkRunnerLily">>So what do you say? Next time you see me here, no excuses. We're running together.<</dialog>>
+
+<<dialog "parkRunnerLily">>You look like you could use a good run anyway.<</dialog>>
+<<dialog "parkRunnerLily">>You're young so you don't really care, but one day you'l l just collapse, girl. You should take better care of yourself.<</dialog>>
+
+<<dialog "player">>You think so?<</dialog>>
+
+<<dialog "parkRunnerLily">>I'm serious. I'm warning you now so you can't say "I wish I listened" later.<</dialog>>
+
+<<dialog "parkRunnerLily">>Deal?<</dialog>>
+<<dialog "player">>Alright, deal.<</dialog>>
+
+<<narrative>>Lily smiles back at you, her grin widening as she sees you smiling.<</narrative>>
+
+<<narrative>>Now you can jog with Lily when you see her in the park.<</narrative>>
+
+<div class="location-actions">
+<<set _currentCharLocation = $characters.parkRunnerLily.currentLocation>>
+<<talkBackButton _currentCharLocation>>
+</div>

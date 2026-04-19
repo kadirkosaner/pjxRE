@@ -170,14 +170,6 @@
 
                 <div class="char-stat-bar-row">
                     <div class="char-stat-bar-label">
-                        <span>Love</span>
-                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _loveLevel>></span> · <<print _stats.love>>/<<print _loveThr>></span>
-                    </div>
-                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lovePct + '%; background:#ec4899;'"></div></div>
-                </div>
-
-                <div class="char-stat-bar-row">
-                    <div class="char-stat-bar-label">
                         <span>Friendship</span>
                         <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _friendLevel>></span> · <<print _stats.friendship>>/<<print _friendThr>></span>
                     </div>
@@ -186,18 +178,26 @@
 
                 <div class="char-stat-bar-row">
                     <div class="char-stat-bar-label">
-                        <span>Lust</span>
-                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _lustLevel>></span> · <<print _stats.lust>>/<<print _lustThr>></span>
-                    </div>
-                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lustPct + '%; background:#ef4444;'"></div></div>
-                </div>
-
-                <div class="char-stat-bar-row">
-                    <div class="char-stat-bar-label">
                         <span>Trust</span>
                         <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _trustLevel>></span> · <<print _stats.trust>>/<<print _trustThr>></span>
                     </div>
                     <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _trustPct + '%; background:#10b981;'"></div></div>
+                </div>
+
+                <div class="char-stat-bar-row">
+                    <div class="char-stat-bar-label">
+                        <span>Love</span>
+                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _loveLevel>></span> · <<print _stats.love>>/<<print _loveThr>></span>
+                    </div>
+                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lovePct + '%; background:#ec4899;'"></div></div>
+                </div>
+
+                <div class="char-stat-bar-row">
+                    <div class="char-stat-bar-label">
+                        <span>Lust</span>
+                        <span class="char-stat-bar-meta"><span class="char-stat-level">Level <<print _lustLevel>></span> · <<print _stats.lust>>/<<print _lustThr>></span>
+                    </div>
+                    <div class="char-stat-bar-track"><div class="char-stat-bar-fill" @style="'width:' + _lustPct + '%; background:#ef4444;'"></div></div>
                 </div>
 
             </div>

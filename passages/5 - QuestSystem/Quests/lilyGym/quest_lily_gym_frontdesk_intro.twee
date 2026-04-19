@@ -1,0 +1,36 @@
+<div class="divnobr">
+<<nobr>>
+<<silently>>
+<<set $location = "gym">>
+<<set $flags = $flags || {}>>
+<<set $characters.gymReceptionNora.known = true>>
+<<if !$characters.gymReceptionNora.firstMet>>
+    <<set $characters.gymReceptionNora.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
+<</if>>
+<<set $flags.lilyGymReceptionTalked = true>>
+<<gainCharacterStat "gymReceptionNora" "friendship" 1>>
+<<completeQuest "lily_gym_intro">>
+<<advanceTime 10>>
+<<loseStat "energy" 2>>
+<<gainStat "mood" 1>>
+<<recalculateStats>>
+<<updateCharacterLocations>>
+<</silently>>
+
+<<narrative "Iron Works Gym">>
+You glance toward the front desk and step closer.
+<</narrative>>
+
+<<dialog "gymReceptionNora">>Hey, welcome to Iron Works. First time here?<</dialog>>
+<<dialog "player">>Yeah. Just wanted to say hi and get some info about the gym.</dialog>>
+<<dialog "gymReceptionNora">>Perfect. I'm Nora at the front desk. If you need class info, trainer slots, or locker details, come to me anytime.</dialog>>
+
+<<narrative>>
+The gym feels a lot less intimidating now that you've introduced yourself.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "gym">><</btn>>
+</div>
+<</nobr>>
+</div>

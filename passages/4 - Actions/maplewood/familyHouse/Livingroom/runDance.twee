@@ -1,12 +1,12 @@
 <<silently>>
     <<set _danceActRet = $activityOrigin || "fhLivingroom">>
-    <<requireMinEnergy 30 _danceActRet "Not enough energy.">>
+    <<requireMinEnergy 20 _danceActRet "Not enough energy.">>
     <<set $location = $activityOrigin>>
     <<updateCharacterLocations>>
 
     <<set $daily.danceDone = true>>
     <<advanceTime 30 "relax">>
-    <<loseStat "energy" 20>>
+    <<loseStat "energy" 10>>
     <<loseStat "stress" 15>>
     <<flushNotifications>>
     <<gainSkill "physical" "dance" 1 20>>

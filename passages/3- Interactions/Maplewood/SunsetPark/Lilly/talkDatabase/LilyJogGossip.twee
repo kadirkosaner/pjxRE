@@ -1,0 +1,188 @@
+:: LilyJogGossip [init]
+<<nobr>>
+<<set setup.lilyJogGossip = [
+
+    {
+        id: "maplewood_blonde_neighbor",
+        text: `<<narrative "Sunset Park">>You jog side by side along the wide trail. Leaves rustle softly overhead.<</narrative>>
+<<dialog "parkRunnerLily">>You know that blonde down our street? Lives alone.<</dialog>>
+<<dialog "player">>Which one?<</dialog>>
+<<dialog "parkRunnerLily">>A different car parks at her door every night. My neighbor's literally counting plates now.<</dialog>>
+<<dialog "player">>Seriously?<</dialog>>
+<<dialog "parkRunnerLily">>Three different plates last week, she said.<</dialog>>
+<<dialog "player">>Maybe they're friends?<</dialog>>
+<<dialog "parkRunnerLily">>Friends don't show up at three in the morning, sweetie.<</dialog>>`,
+        friendship: 1, trust: 0, love: 0, lust: 0
+    },
+
+    {
+        id: "maplewood_rich_neighbor",
+        text: `<<narrative "Sunset Park">>You run under the shade of the trees. Lily glances at you sideways.<</narrative>>
+<<dialog "parkRunnerLily">>Have you seen the big villa on the corner?<</dialog>>
+<<dialog "player">>Which one?<</dialog>>
+<<dialog "parkRunnerLily">>Some insanely rich, gorgeous guy lives there alone. Comes out of the shower and forgets to close the curtains sometimes.<</dialog>>
+<<dialog "player">>What, he walks around naked?<</dialog>>
+<<dialog "parkRunnerLily">>Sometimes not even a towel. The whole street watches.<</dialog>>
+<<dialog "player">>That's insane.<</dialog>>
+<<dialog "parkRunnerLily">>If that towel ever drops, traffic will lock up out here.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "downtown_pulse_club",
+        text: `<<narrative "Sunset Park">>After running quietly for a while, Lily catches her breath and starts talking.<</narrative>>
+<<dialog "player">>What are the clubs in Downtown actually like?<</dialog>>
+<<dialog "parkRunnerLily">>Pulse is the busiest. Friday night you're stuck at the door for hours.<</dialog>>
+<<dialog "player">>That packed?<</dialog>>
+<<dialog "parkRunnerLily">>Packed. Inside it's rich types, models, money everywhere.<</dialog>>
+<<dialog "player">>You ever been?<</dialog>>
+<<dialog "parkRunnerLily">>A few times. Would you go to a place like that?<</dialog>>
+<<dialog "player">>Not brave enough yet.<</dialog>>
+<<dialog "parkRunnerLily">>Maybe one day we go together. What do you say?<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "hillcrest_rich_wives",
+        text: `<<narrative "Sunset Park">>The path tilts upward and both of you start breathing harder.<</narrative>>
+<<dialog "parkRunnerLily">>Those rich wives up in Hillcrest...<</dialog>>
+<<dialog "player">>What about them?<</dialog>>
+<<dialog "parkRunnerLily">>Daytime they play perfect wife and mother.<</dialog>>
+<<dialog "parkRunnerLily">>At night they're rubbing on younger guys at the rooftop bars.<</dialog>>
+<<dialog "player">>You serious?<</dialog>>
+<<dialog "parkRunnerLily">>Saw one last month. Hand on the kid's waist, ring still on her finger.<</dialog>>
+<<dialog "player">>While her husband's home?<</dialog>>
+<<dialog "parkRunnerLily">>Yep. Money doesn't make them bold. Boredom does.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "maplewood_gossip_culture",
+        text: `<<narrative "Sunset Park">>You reach a quieter corner of the park. Just your footsteps now.<</narrative>>
+<<dialog "parkRunnerLily">>Everyone in Maplewood is in everyone else's business, I swear.<</dialog>>
+<<dialog "player">>Really?<</dialog>>
+<<dialog "parkRunnerLily">>Throw a backyard party Saturday and by Sunday the whole street knows what you drank and who you talked to.<</dialog>>
+<<dialog "player">>Doesn't that bug you?<</dialog>>
+<<dialog "parkRunnerLily">>It does. But also, kind of fun.<</dialog>>
+<<dialog "player">>So you keep tabs on the neighbors too?<</dialog>>
+<<dialog "parkRunnerLily">>Me? No... I just listen.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "university_campus_nightlife",
+        text: `<<narrative "Sunset Park">>Lily holds the tempo, smiling a little.<</narrative>>
+<<dialog "player">>What's the University District like?<</dialog>>
+<<dialog "parkRunnerLily">>Young energy everywhere. Bars, parties, exam stress, all mixed together.<</dialog>>
+<<dialog "player">>Really that intense?<</dialog>>
+<<dialog "parkRunnerLily">>Very. Some girls head to other neighborhoods on weekends, they say.<</dialog>>
+<<dialog "player">>Why?<</dialog>>
+<<dialog "parkRunnerLily">>Rent's expensive, allowance doesn't cut it. You do the math.<</dialog>>`,
+        friendship: 1, trust: 0, love: 0, lust: 0
+    },
+
+    {
+        id: "southside_gang_territory",
+        text: `<<narrative "Sunset Park">>Lily's voice turns a bit more serious.<</narrative>>
+<<dialog "parkRunnerLily">>Don't ever go into Southside alone at night.<</dialog>>
+<<dialog "player">>That bad?<</dialog>>
+<<dialog "parkRunnerLily">>Gangs have the blocks divided up, they say.<</dialog>>
+<<dialog "player">>How do people live there?<</dialog>>
+<<dialog "parkRunnerLily">>Quietly. They've learned not to stick their nose in things.<</dialog>>
+<<dialog "player">>What about the police?<</dialog>>
+<<dialog "parkRunnerLily">>They're there, but even they walk careful.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "southside_wrong_color",
+        text: `<<narrative "Sunset Park">>A light breeze blows through the trees. Lily wipes sweat from her forehead.<</narrative>>
+<<dialog "player">>Heard anything new about Southside?<</dialog>>
+<<dialog "parkRunnerLily">>Last month they beat a guy for wearing the wrong color shoes.<</dialog>>
+<<dialog "player">>That's crazy.<</dialog>>
+<<dialog "parkRunnerLily">>Colors are signals on those streets.<</dialog>>
+<<dialog "player">>Seriously?<</dialog>>
+<<dialog "parkRunnerLily">>Wear the wrong one and you're sending a message without realizing it.<</dialog>>
+<<dialog "parkRunnerLily">>A girl at the gym told me. Her sister grew up there.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "suburbs_calm_facade",
+        text: `<<narrative "Sunset Park">>You jog along the flat path in the middle of the park. Lily shakes her head.<</narrative>>
+<<dialog "parkRunnerLily">>Suburbs has been coming up a lot lately. Strange place.<</dialog>>
+<<dialog "player">>What's happening there?<</dialog>>
+<<dialog "parkRunnerLily">>From outside it looks like the perfect quiet family neighborhood.<</dialog>>
+<<dialog "parkRunnerLily">>But apparently the drug trade runs pretty quietly out there.<</dialog>>
+<<dialog "player">>Don't the police know?<</dialog>>
+<<dialog "parkRunnerLily">>I'm sure they do. But word travels fast before anything happens.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "suburbs_fake_quiet",
+        text: `<<narrative "Sunset Park">>Another jogger passes by. Lily lowers her voice slightly.<</narrative>>
+<<dialog "player">>Is Suburbs really that bad?<</dialog>>
+<<dialog "parkRunnerLily">>Not super dangerous. More like fake calm.<</dialog>>
+<<dialog "player">>What do you mean?<</dialog>>
+<<dialog "parkRunnerLily">>Streets are quiet, kids riding bikes during the day.<</dialog>>
+<<dialog "player">>And at night?<</dialog>>
+<<dialog "parkRunnerLily">>Same houses get customers coming and going. Pills, powder... whatever pays.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "redlight_open_street",
+        text: `<<narrative "Sunset Park">>Lily lowers her voice as you continue along the trail.<</narrative>>
+<<dialog "player">>What do you hear about Red Light Center?<</dialog>>
+<<dialog "parkRunnerLily">>The girls on the street don't bother being subtle anymore.<</dialog>>
+<<dialog "parkRunnerLily">>Some of them work practically in their underwear.<</dialog>>
+<<dialog "player">>For real?<</dialog>>
+<<dialog "parkRunnerLily">>A friend saw a girl drop a guy to his knees right on the sidewalk and go down on him in front of everyone.<</dialog>>
+<<dialog "player">>What do the cops do?<</dialog>>
+<<dialog "parkRunnerLily">>That area pretty much makes its own rules.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "redlight_private_clubs",
+        text: `<<narrative "Sunset Park">>The late afternoon sun filters through the trees as you round a bend.<</narrative>>
+<<dialog "player">>What are the clubs in Red Light like?<</dialog>>
+<<dialog "parkRunnerLily">>There are strip clubs, and then the private entertainment houses.<</dialog>>
+<<dialog "player">>What happens in the private ones?<</dialog>>
+<<dialog "parkRunnerLily">>VIP rooms. You go in for a massage... and it ends differently.<</dialog>>
+<<dialog "player">>You ever go inside?<</dialog>>
+<<dialog "parkRunnerLily">>Only the lobby once. I figured out what was going on before I went any further.<</dialog>>
+<<dialog "player">>Then what?<</dialog>>
+<<dialog "parkRunnerLily">>I left. But if someone had asked me to stay... I might have thought about it.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 1
+    },
+
+    {
+        id: "general_city_gossip",
+        text: `<<narrative "Sunset Park">>You both slow down slightly in the middle of the park. Lily looks around.<</narrative>>
+<<dialog "parkRunnerLily">>Every neighborhood in this city feels like its own little world.<</dialog>>
+<<dialog "player">>Which one do you think is the weirdest?<</dialog>>
+<<dialog "parkRunnerLily">>Southside and the Suburbs for sure. One's too dangerous, the other's too fake.<</dialog>>
+<<dialog "player">>What about Maplewood?<</dialog>>
+<<dialog "parkRunnerLily">>Maplewood looks calm on the surface, but the gossip never stops.<</dialog>>
+<<dialog "player">>Where would you actually want to live?<</dialog>>
+<<dialog "parkRunnerLily">>Right here in Maplewood is fine for now. At least the running trail is nice.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    },
+
+    {
+        id: "general_maplewood_vs_others",
+        text: `<<narrative "Sunset Park">>Lily smiles as she looks at the trees around you.<</narrative>>
+<<dialog "parkRunnerLily">>Maplewood is nice to live in, but I sometimes wonder about the other parts of the city.<</dialog>>
+<<dialog "player">>Like which ones?<</dialog>>
+<<dialog "parkRunnerLily">>Hillcrest is full of money. Downtown is nonstop energy. Red Light... that's a whole different story.<</dialog>>
+<<dialog "player">>You curious about Red Light?<</dialog>>
+<<dialog "parkRunnerLily">>A little. But everything about that place gets talked about way too openly.<</dialog>>
+<<dialog "player">>What's your overall take on this city?<</dialog>>
+<<dialog "parkRunnerLily">>It's beautiful... but you have to be careful. Every corner has its own secrets.<</dialog>>`,
+        friendship: 1, trust: 1, love: 0, lust: 0
+    }
+
+]>>
+<</nobr>>

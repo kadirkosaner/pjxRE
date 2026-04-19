@@ -516,46 +516,80 @@ window.HelpInit = function (API) {
             jobs: `
                 <div class="help-article">
                     <h2>Jobs & Money</h2>
-                    <p>Earn money through jobs to fund your lifestyle, buy clothes, and unlock new opportunities.</p>
+                    <p>Earn money through jobs to fund your lifestyle, buy clothes, and unlock new opportunities. Jobs are found through story quests &mdash; keep an eye on your journal for leads.</p>
+                    <div class="help-tip">Your current job's specific details &mdash; wage, tier progress, trust score, weekly hours, and schedule &mdash; are all visible in the <strong>Stats &rarr; Work</strong> tab.</div>
 
-                    <h3>Job System</h3>
+                    <h3>Shifts</h3>
+                    <p>At your workplace you can choose a shift length (typically 2, 4, 6, or 8 hours). Each shift advances time, costs stats, and trains job-related skills. There is a daily hour cap &mdash; once you've hit it, the Work button locks until the next day.</p>
                     <div class="help-info-block">
                         <div class="help-info-row">
-                            <span class="help-label">Finding Work</span>
-                            <span class="help-value">Look for job openings at various locations in town.</span>
+                            <span class="help-label">Schedule</span>
+                            <span class="help-value">Each job has its own opening hours and scheduled days off. You can't start a shift outside those hours.</span>
                         </div>
                         <div class="help-info-row">
-                            <span class="help-label">Shifts</span>
-                            <span class="help-value">Choose shift length (2, 4, 6, or 8 hours) limited by schedule and energy. Each shift advances time and affects your needs.</span>
+                            <span class="help-label">Wait for Shift</span>
+                            <span class="help-value">Arrive early on a work day? Use "Wait for Shift" to advance time directly to opening.</span>
                         </div>
                         <div class="help-info-row">
-                            <span class="help-label">Daily Cap</span>
-                            <span class="help-value">Maximum 8 hours of work per day (configurable per job).</span>
+                            <span class="help-label">Needs Block</span>
+                            <span class="help-value">If hunger, thirst, or bladder reaches 50 or above you cannot start a shift. Take care of your needs first.</span>
                         </div>
                         <div class="help-info-row">
-                            <span class="help-label">Experience & Tiers</span>
-                            <span class="help-value">Gain job experience to unlock higher pay tiers. Each tier has an XP threshold and increased hourly wage.</span>
+                            <span class="help-label">Uniform</span>
+                            <span class="help-value">Some jobs require a specific work outfit. The button will tell you what's missing if you're not dressed correctly.</span>
                         </div>
                     </div>
 
-                    <h3>Pay & Requirements</h3>
+                    <h3>Pay & Tiers</h3>
+                    <p>Every job has multiple pay tiers. Your hourly wage increases as you advance. Tier progression requires accumulated <strong>Job XP</strong> (earned each shift) and may also require a minimum skill level. XP is capped at the current tier gate until the promotion is confirmed, so progress won't "overflow" early.</p>
+                    <p>Wages are totalled every <strong>Monday</strong>. Any deductions are subtracted from gross earnings before you receive the net pay envelope.</p>
                     <div class="help-info-block">
                         <div class="help-info-row">
-                            <span class="help-label">Payday</span>
-                            <span class="help-value">Wages are processed every <strong>Monday</strong>. Weekly earnings minus deductions go to your bank.</span>
-                        </div>
-                        <div class="help-info-row">
-                            <span class="help-label">Minimum Hours</span>
-                            <span class="help-value">Each job has a minimum weekly hour requirement. Failing to meet it triggers warnings and can get you fired.</span>
-                        </div>
-                        <div class="help-info-row">
-                            <span class="help-label">Work Notification</span>
-                            <span class="help-value">A work icon appears in the top bar when you have a job, haven't met daily hours, and the workplace is open.</span>
+                            <span class="help-label">Minimum weekly hours</span>
+                            <span class="help-value">Each job has a minimum number of hours you must work per week. Falling short triggers the Trust system.</span>
                         </div>
                     </div>
+
+                    <h3>Trust System</h3>
+                    <p>Your <strong>Work Trust Score</strong> (0&ndash;100) reflects how your boss perceives your reliability. It starts at a neutral value and changes based on attendance:</p>
+                    <div class="help-info-block">
+                        <div class="help-info-row">
+                            <span class="help-label" style="color:#4ade80">High trust</span>
+                            <span class="help-value">Boss is happy. Earns a discount on any wage deductions.</span>
+                        </div>
+                        <div class="help-info-row">
+                            <span class="help-label" style="color:#fbbf24">Mid trust</span>
+                            <span class="help-value">Neutral. No bonus, no extra scrutiny.</span>
+                        </div>
+                        <div class="help-info-row">
+                            <span class="help-label" style="color:#ef4444">Low trust</span>
+                            <span class="help-value">Boss is unhappy. Reaching 0 means termination.</span>
+                        </div>
+                    </div>
+                    <p>Completing a full scheduled day gains Trust. Leaving early, no-showing, or ignoring your boss all cost Trust. How much depends on how badly you missed the expectation.</p>
+
+                    <h3>Calling In &mdash; Phone Excuses</h3>
+                    <p>If you can't make it to work, message your boss before the daily cutoff to soften the Trust penalty:</p>
+                    <div class="help-info-block">
+                        <div class="help-info-row">
+                            <span class="help-label">Honest</span>
+                            <span class="help-value">Always available. Significantly reduces the no-show Trust penalty.</span>
+                        </div>
+                        <div class="help-info-row">
+                            <span class="help-label">Lie</span>
+                            <span class="help-value">Requires <strong>Corruption level 2</strong>. Success chance depends on the excuse type and your Confidence. A failed lie hurts more than saying nothing.</span>
+                        </div>
+                    </div>
+
+                    <h3>Boss Meetings</h3>
+                    <p>Missing or partially completing a scheduled day triggers a mandatory <strong>boss meeting</strong>. You must visit the manager before your next shift. If you skip the deadline, you lose additional Trust and risk being fired.</p>
+                    <p>During the meeting you can tell the truth, or &mdash; with sufficient Confidence and the right mindset &mdash; attempt an in-person lie. Success partially restores lost Trust; failure adds a financial penalty and costs extra Trust.</p>
+
+                    <h3>Promotion</h3>
+                    <p>Once you meet a job's promotion requirements (days worked, XP, stats, and skills), your boss will offer you a step up. Each promotion comes with a higher wage and new responsibilities.</p>
 
                     <h3>Money</h3>
-                    <p>Your money is split between <strong>cash</strong> and <strong>bank</strong>. The right bar shows the total &mdash; hover over it to see the breakdown. Spend your earnings at shops, restaurants, and other locations around town.</p>
+                    <p>Your money is split between <strong>cash</strong> and <strong>bank</strong>. Weekly pay is deposited to your bank. The right bar shows the total &mdash; hover over it to see the breakdown. Spend your earnings at shops, restaurants, and other locations around town.</p>
                 </div>
             `,
 

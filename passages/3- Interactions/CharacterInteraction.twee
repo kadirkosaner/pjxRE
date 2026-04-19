@@ -7,8 +7,8 @@
     <<set $interactionEntryPassage = _prev>>
 <</if>>
 
-/* When coming from a Talk passage (Back): use talk's $location, fallback to saved entry (set when we first entered) */
-<<if _prev && _prev.includes("Talk")>>
+/* When coming from Talk or same-location character flows (Back): use $location, fallback to saved entry (set when we first entered) */
+<<if _prev && (_prev.includes("Talk") || _prev.includes("parkRunnerLilyJog"))>>
     <<set _returnLoc = $location || $interactionEntryPassage>>
 <<else>>
     <<set _returnLoc = $interactionEntryPassage || _prev || $location>>

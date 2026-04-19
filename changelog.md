@@ -2,68 +2,57 @@
 
 ## Öne Çıkanlar
 
-- Yeni hastane sistemi eklendi: Sağlığınız kritik seviyeye düştüğünde karakter artık otomatik olarak hastaneye kaldırılır.
-- Kritik sağlık akışı netleştirildi: orta-kritik durumda bayılma sahnesi, çok düşük sağlıkta doğrudan hastane süreci devreye girer.
-- Hastane tedavisi artık ücretlidir: Tedavi bedeli $150. Paran yetmezse kalan tutar hastane borcu olarak kaydedilir.
-- Hastane giriş anlatısı yenilendi: "bir anda geçiş" yerine daha doğal bir bayılma/uyanma sahnesi ile başlar.
-- Hastane aile ziyareti sahnesi eklendi: anne, baba ve kardeş kombinasyonlarına göre farklı diyalog varyasyonları oynar.
-- Hastaneden çıkışta karakter toparlanmış şekilde taburcu olur: temel değerler iyileşir, stress ve mood orta seviyede kalır.
-- Energy Collapse ve Health Faint sahneleri genişletildi; tek metin yerine farklı narrative/diyalog varyasyonları eklendi.
+- Sunset Park'taki Lily hattı genişletildi; koşudan Iron Works Gym'e uzanan yeni bir görev akışı eklendi.
+- İş sistemi büyük güncelleme aldı: Work Trust, patron karar süreçleri, terfi ve haftalık ödeme akışları yeniden düzenlendi.
+- Kritik sağlık/hastane akışı güçlendirildi; çöküşten toparlanmaya kadar süreç daha tutarlı ve ücretli tedavi sistemiyle daha anlamlı.
+- Journal, Work ve görev yönlendirme (tip) tarafında görünürlük artırıldı; oyuncu ilerlemesi daha net takip ediliyor.
 
 ## İş Sistemi
 
-- İş sistemi kapsamlı şekilde yenilendi: disiplin, terfi, maaş ve patron görüşmeleri artık daha tutarlı ve olay odaklı çalışıyor.
-- Strike sistemi kaldırılıp Work Trust sistemine geçildi. İş performansına göre güven puanı düşer/yükselir; kritik eşiklerde patron görüşmesi zorunlu olur.
-- Artık patronla konuşmadan anlık işten çıkarılma yok. İşten çıkarılma kararı görüşme/event üzerinden ilerler.
-- İşten atılma anında artık son bir pazarlık şansınız var: Vince ile dostluğunuz yeterince güçlüyse "Ask for one last chance" seçeneği açılır ve işi tamamen kaybetmeden kendinizi toplama fırsatı bulursunuz.
-- Terfiler otomatik verilmiyor; uygun olduğunuzda "promotion pending" durumuna düşersiniz ve patron onayı gerekir.
-- Eksik vardiya günleri (0/8, 2/8, 4/8, 6/8) için ertesi iş gününde patron görüşmesi tetiklenir; diyaloglar güven bandına göre farklılaşır.
-- Haftalık maaş sistemi yenilendi: otomatik pazartesi ödemesi kaldırıldı. Haftalık ödeme zarf olayı ile ilk uygun iş gününde teslim edilir.
-- Kesinti indirimi (trust indirimi) sistemi eklendi ve yeniden dengelendi: güven puanına göre kesintilerde indirim uygulanır.
-- İş sistemi skill kazanımları yeniden dengelendi: erken oyunda akıcı, orta-geç oyunda daha yavaş ilerler; soft-cap sistemi eklendi.
+- İş sistemi kapsamlı biçimde yeniden dengelendi (disiplin, terfi, maaş, patron görüşmeleri).
+- Strike sistemi kaldırıldı; Work Trust ilerleyişiyle performansınız sonuçlara daha net yansıyor.
+- Uyarı ve işten çıkarılma süreçleri daha olay odaklı hale getirildi, ani kopuşlar azaltıldı.
+- Terfi ve haftalık ödeme akışında düzenlemeler yapıldı; kesinti tarafı da yeniden ayarlandı.
+- İş kaynaklı skill kazanımları erken oyunda daha akıcı, ilerleyen aşamada daha kontrollü ilerler.
 
 ## Arayüz ve Navigasyon
 
-- Ayarlar menüsünde kapalı bırakılan seçeneklerin davranışı gözden geçirildi; oyun akışı sadeleştirildi.
-- Karakter görünümünde yüz bilgisinde makyaj stili ve tamamlanma yüzdesi gösteriliyor.
-- Ayna ekranı yeniden düzenlendi: rutin, vücut bakımı ve makyaj bölümleri dış başlıklarla ayrıldı; makyaj seçenekleri iki satıra bölündü, Geri ve makyajı çıkarma ikincil buton stiliyle sunuluyor; makyaj setiniz yoksa kısa bilgi notu görünür.
-- Yeni quest alındığında üst çubuktaki Journal sekmesinde kırmızı bildirim noktası gösteriliyor.
-- Work sekmesi güncellendi: patron görüşmesi/terfi bekleme durumları ve trust bilgisi daha görünür hale getirildi; sekmede kırmızı bildirim noktası eklendi.
-- Ruby's Diner içi gezinme sadeleştirildi: iç lokasyon nav düzeni standartlaştırıldı, gereksiz geçişler temizlendi.
-- Telefona işe gelmeme mazereti sistemi eklendi. Patron numarası üzerinden dürüst/yalan mesaj seçenekleri, saat kısıtı ve uygunluk kuralları ile çalışır.
-- Patron görüşmelerinde yüz yüze yalan sistemi eklendi. Eksik vardiya ya da atlanan görüşme sonrası patronun karşısına geçtiğinizde artık iki seçenek sunuluyor: "Take the warning" ile uyarıyı kabul edebilir ya da "Try to explain" ile bir bahane uydurabilirsiniz. Açıklama denemesi Corruption 2 ve Confidence 10 gerektirir.
-- Yalan havuzu duruma göre değişir: sabah hiç gelmediyseniz "neden gelmedin" yalanları, erken çıktıysanız "neden erken ayrıldın" yalanları, görüşmeyi kaçırdıysanız ona özel bahaneler rastgele seçilerek sunulur. 
-- Yalanın başarı şansı Persuasion, Problem Solving ve Confidence değerlerinizle artar. Başarılı olursanız patron ikna olur ve güven puanınızın bir kısmı geri gelir; başarısız olursanız bu haftanın kesintisine patronun notu eklenir (haftalık zarfta görürsünüz) ve güven puanınız daha da düşer.
-- Yalan denediğinizde (başarılı veya başarısız) Persuasion ve Problem Solving yeteneklerinden küçük tecrübe kazanırsınız.
-- Journal görev detayında stage açıklamalarının altına isteğe bağlı "tip" satırı desteği eklendi; saat/koşul kritik adımlarda kısa yönlendirme metni gösterilebilir.
+- Ayarlar ve temel UI akışı sadeleştirildi.
+- Ayna/makyaj ekranı yeniden düzenlendi; bilgi yoğunluğu azaltılıp kullanım kolaylığı artırıldı.
+- Journal ve Work sekmelerine görev/durum bildirimleri eklendi.
+- Journal görev detaylarında kısa yönlendirme için `tip` satırı desteği geldi.
+- Ruby's Diner içi geçişler daha tutarlı hale getirildi.
+- Patron iletişimi için telefon ve yüz yüze diyalog akışlarına yeni seçenekler eklendi.
 
 ## Oynanış ve Yaşam
 
 - Eski Kasaba'da çevreyi gezdiğinizde bazen kitapçıyı keşfedebilirsiniz.
 - Yemek yeme ve kahve içme eylemlerinin enerji ve açlık değerleri yeniden dengelendi.
-- Uyku sistemi iyileştirildi: Erken uyandığınızda seçtiğiniz süre tamamlanana kadar veya alarm kuruluysa alarm çalana kadar yeniden uyuyabilirsiniz. Enerji seviyesi tam dolmadıysa Snooze seçeneği kullanılabilir.
-- İhtiyaç simülasyonları (açlık, susuzluk vb.) kapalıyken artık ilgili gereksiz bildirimler çıkmıyor; kurulum akışı düzeltildi.
-- Makyaj bozulması günlük blok yerine saatlik hesaplanıyor; oyun saatinde tamamlanan her saat için kalite düşer. Makyajın solması (Makeup Fade) ayarı kapalıysa bu bozulma uygulanmaz.
-- Yüzünüzü yıkamak veya ıslak mendille makyajı çıkarmak makyajı tamamen kaldırır.
-- Ayna ve rutinde makyaj uyguladıkça Pratik Makyaj yeteneği kazanır; ayna üzerinden kazanım üst sınırı 35’tir. Tavana ulaştığınızda rutin bildirimi ve uygulama sonrası anlatı doğru şekilde tetiklenir.
+- Uyku sistemi iyileştirildi; erken uyanma sonrası akış daha doğal ilerliyor.
+- İhtiyaç simülasyonu kapalıyken gereksiz bildirimler temizlendi.
+- Makyaj bozulması saatlik düzene alındı; yüz temizleme tarafı daha net sonuç veriyor.
+- Pratik Makyaj kazanımı ve ayna tarafındaki ilerleme geri bildirimleri düzenlendi.
+- Sunset Park'ta Lily ile koşu içeriği genişletildi.
+- Lily hattında Iron Works Gym'e uzanan yeni bir görev zinciri eklendi.
+- Oyun akışında düzenlemeler yapıldı.
 
 ## Etkileşimler ve Konuşmalar
 
-- Konuşma ekranlarında Geri davranışı artık ayarlardan seçilebiliyor: dilerseniz konuşmadan sonra konuşma menüsünde kalabilir, dilerseniz bulunduğunuz pasaja dönebilirsiniz.
+- Konuşma ekranlarında Geri davranışı artık ayarlardan seçilebiliyor.
 - Marcus konuşmaları günün saatine göre düzenlendi; 15 yeni varyasyon eklendi.
 - Lily konuşmaları günün saatine göre düzenlendi; 16 yeni varyasyon eklendi.
 
 ## Bayılma ve Çöküş İyileştirmeleri
 
-- Energy Collapse sonrası ihtiyaç değerleri (açlık, susuzluk, mesane) döngüye sokmaması için güvenli seviyeye çekilir.
-- Düşük sağlıkta bazı sahnelerde oluşan tekrar-bayılma döngüleri engellendi.
-- Otomatik geçişlerde geri navigasyon (backward) davranışı iyileştirildi; hastane akışında sıkışma sorunları azaltıldı.
+- Energy Collapse sonrası ihtiyaç değerleri güvenli seviyeye çekilerek döngü sorunları azaltıldı.
+- Düşük sağlıkta bazı sahnelerde oluşan tekrar-bayılma problemleri giderildi.
+- Hastane geçişlerinde geri navigasyon davranışı iyileştirildi.
 
 ## Hata Düzeltmeleri
 
 - Bildirim sisteminde bazı durumlarda görülen hataya karşı güvenli fallback eklendi.
 - Bu hatanın zaman ilerletme akışını bozup sahneleri kilitlemesine neden olan zincir etkiler giderildi.
-- Widget'ların içindeki `<<return>>` kullanımının bazı pasajlarda "Return Return Return" şeklinde navigasyon linkleri bastığı ve guard koşulu tutsa bile widget kodunun çalışmaya devam ettiği kritik bir SugarCube davranışı düzeltildi: bu artık tek merkezden patch'leniyor, widget içinde argümansız `<<return>>` gerçek erken-çıkış gibi davranıyor (ör. iş sistemi vardiya başlatma guard'ları artık çalışmayan iş akışını gerçekten durduruyor).
+- Widget içi `<<return>>` kullanımından kaynaklı kritik navigasyon/akış hatası düzeltildi.
 
 ## Teknik ve Kayıt Uyumluluğu
 

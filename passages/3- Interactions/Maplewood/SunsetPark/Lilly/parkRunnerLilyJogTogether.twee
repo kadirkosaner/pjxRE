@@ -1,0 +1,38 @@
+:: parkRunnerLilyJogTogether
+<<silently>>
+<<set $flags = $flags || {}>>
+<<set _ret = $characters.parkRunnerLily.currentLocation || "sunsetPark">>
+<<set $location = _ret>>
+<<requireMinEnergy 25 _ret "Not enough energy.">>
+<<logDailyActivity "parkRunnerLily" "jogTogether">>
+<<advanceTime 45 "relax">>
+<<loseStat "energy" 15>>
+<<loseStat "stress" 20>>
+<<gainStat "mood" 4>>
+<<gainStat "cardio" 1 25>>
+<<gainStat "lowerBody" 1 15>>
+<<gainSkill "physical" "running" 1 35>>
+<<gainCharacterStat "parkRunnerLily" "friendship" 2>>
+<<flushNotifications>>
+<<recalculateStats>>
+<<if $gameSettings.trackCalories>>
+    <<set $dailyCalorieIntake -= 300>>
+<</if>>
+<<set _friendshipNow = ($characters.parkRunnerLily && $characters.parkRunnerLily.stats && $characters.parkRunnerLily.stats.friendship) || 0>>
+<<set _friendshipLevelNow = ($characters.parkRunnerLily && $characters.parkRunnerLily.stats && $characters.parkRunnerLily.stats.friendshipLevel) || 1>>
+<<set _showGymQuestEvent = (!$flags.lilyGymQuestOffered && _friendshipLevelNow >= 1 && _friendshipNow > 40 && $cardio > 20 && $lowerBody > 10)>>
+<</silently>>
+
+<<set _gossipPool = setup.lilyJogGossip>>
+<<set _pick = _gossipPool[Math.floor(State.random() * _gossipPool.length)]>>
+<<print _pick.text>>
+
+<<narrative "Sunset Park">>By the time you cool down, your legs are tired but your head feels lighter.<</narrative>>
+
+<<if _showGymQuestEvent>>
+<<include "parkRunnerLilyJogGymQuestEvent">>
+<</if>>
+
+<div class="location-actions">
+<<talkBackButton _ret>>
+</div>

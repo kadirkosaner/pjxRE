@@ -3,7 +3,7 @@
    ENERGY drain/h (defaults): walk 10, phone 8, watch 10 → drain = max(1,round(rate*m/60)); START needs drain+10. Override: setup.hubAmbientEnergyDrainPerHour.
    Per hour (m = minutes, scale with m/60):
    Walk:   stress −6, mood +8, energy −10, heels m, time m
-   Phone:  stress −4, mood +12, energy −8, time m
+   Phone:  stress −4, mood +8 (setup.hubAmbientMoodGainPerHour.phone), energy −8, time m
    Watch:  stress −8, mood +6, energy −10, time m
    Flow: <<advanceTime m "relax">> first, then <<loseStat "stress">> / <<gainStat "mood">> / <<loseStat "energy">> (widgets queue via <<queueStatChange>>), <<recalculateStats>>, <<flushNotifications>>.
 */
@@ -38,6 +38,10 @@
         { walk: 10, phone: 8, watch: 10 },
         setup.hubAmbientEnergyDrainPerHour || {}
     );
+    setup.hubAmbientMoodGainPerHour = Object.assign(
+        { walk: 8, phone: 8, watch: 6 },
+        setup.hubAmbientMoodGainPerHour || {}
+    );
     function _hubActDrain(key, mins) {
         var h = setup.hubAmbientEnergyDrainPerHour[key];
         var defM = key === 'phone' ? 10 : 15;
@@ -55,13 +59,13 @@
     setup.hubAmbientEnergyForMins.watch = function (mins) {
         return _hubActDrain('watch', mins) + 10;
     };
-    /* Living room TV (watchTV.twee): discrete cost steps + 10 to start */
+    /* Living room TV (watchTV.twee): base 2, +1 per extra 15m, max 6; +10 to start */
     setup.hubAmbientEnergyForMins.tvWatch = function (mins) {
         var m = parseInt(mins, 10) || 15;
-        var cost = 5;
+        var cost = 2;
         if (m > 15) {
-            cost = 5 + Math.floor((m - 15) / 15) * 2;
-            cost = Math.min(11, cost);
+            cost = 2 + Math.floor((m - 15) / 15) * 1;
+            cost = Math.min(6, cost);
         }
         return cost + 10;
     };

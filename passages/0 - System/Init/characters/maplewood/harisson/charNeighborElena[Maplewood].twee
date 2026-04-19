@@ -1,0 +1,34 @@
+/* charId: neighborElena — Elena Harrison, Mia's mother [future: Mia's house] */
+
+<<set setup.characterDefs.neighborElena = {
+    firstName: "Elena",
+    lastName: "Harrison",
+    birthYear: 1982,
+    gender: "female",
+    occupation: "Homemaker",
+    location: "Maplewood",
+    avatar: "assets/content/people/maplewood/harrisons/elenaHarrison.webp",
+    type: "npc",
+    color: "#c026d3",
+    info: "<p>Mia's mother. Warm and welcoming when you eventually meet at the Harrisons' place.</p>",
+    status: "Mia's mom",
+    relationship: { status: "married", partnerLabel: "husband" },
+    maxLevels: { love: 1, friendship: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 90, love: 0, trust: 90, lust: 0 }
+}>>
+<<set $characters.neighborElena = {
+    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.neighborElena = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" }
+    ]
+}>>

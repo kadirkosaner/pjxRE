@@ -1,0 +1,16 @@
+<<silently>>
+<<set $flags = $flags || {}>>
+<<set $flags.lilyGymQuestOffered = true>>
+<<startQuest "lily_gym_intro">>
+<<discover "DownTown" "Downtown">>
+<<discover "Skyline" "Skyline">>
+<<discover "TowerA" "Apex Tower">>
+<<discover "Gym" "Iron Works Gym">>
+<</silently>>
+
+<<dialog "player">>You are looking really good lately.<</dialog>>
+<<dialog "parkRunnerLily">>Thanks. Running helps, but gym work changed the most for me.<</dialog>>
+<<dialog "parkRunnerLily">>Have you ever trained at a real gym before?<</dialog>>
+<<dialog "player">>Not really. I mostly just run out here.<</dialog>>
+<<dialog "parkRunnerLily">>Then you should try Iron Works Gym downtown. Keep this pace and it will level you up fast.<</dialog>>
+<<dialog "parkRunnerLily">>Go check it out when you can. Next time we run, I want to hear how it went.<</dialog>>

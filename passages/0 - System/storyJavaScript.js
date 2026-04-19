@@ -1,28 +1,3 @@
-/* ================== Widget Early-Exit Patch =================== */
-/* Makes <<return>> inside a widget act as a true early-exit.
-   Without this patch, SugarCube's native <<return>> always renders a
-   "Return" navigation link AND lets widget execution continue past it,
-   which caused visible "Return Return Return" text and silent logic
-   bugs (guards that were supposed to block work shifts etc. didn't).
-
-   With the patch:
-   - Bare <<return>> inside a widget: outputs nothing, stops the widget's
-     remaining code from executing (through any depth of <<if>>/<<else>>).
-   - <<return>> called outside a widget, or with arguments: unchanged
-     (still creates a "back to previous passage" link as documented).
-
-   Mechanism:
-   - Wrap every widget created by <<widget>> so its body runs inside
-     a try/finally that tracks an early-exit flag on a TempState stack.
-   - Override <<return>> to, when it sees a widget ancestor, mark the
-     top stack entry and set TempState.break = 3. SugarCube's Wikifier
-     halts on any non-null TempState.break, so the widget's remaining
-     body (and any nested <<if>> bodies) stops immediately. The wrapper
-     clears our custom break signal on unwind so it doesn't leak out.
-   - Value 3 is used (not 1 or 2) so <<for>> / <<break>> / <<continue>>
-     don't accidentally consume it. No widgets nest <<return>> inside
-     <<for>>, so the custom signal never has to survive a for-loop.
-*/
 (function () {
     if (typeof Macro === 'undefined' || typeof TempState === 'undefined') {
         return;
@@ -1412,6 +1387,11 @@ setup.hubAmbientEnergyActDrain = function (key, mins) {
     const mm = !isNaN(m) && m > 0 ? m : defM;
     return Math.max(1, Math.round((h * mm) / 60));
 };
+/** Mood gain per hour of hub ambient (used by district hub passages). */
+setup.hubAmbientMoodGainPerHour = Object.assign(
+    { walk: 8, phone: 8, watch: 6 },
+    setup.hubAmbientMoodGainPerHour || {}
+);
 /** Insufficient-day job logic: add deltaDays to y/m/d. weekday = Date.getDay (0=Sun), matches $timeSys.weekday. */
 setup.jobDateAddDays = function (y, m, d, deltaDays) {
     const dt = new Date(y, m - 1, d + deltaDays);
@@ -1432,13 +1412,13 @@ setup.hubAmbientEnergyForMins = {
     watch(mins) {
         return setup.hubAmbientEnergyActDrain('watch', mins) + 10;
     },
-    /* Living room TV: matches watchTV.twee energy steps; start needs cost + 10 */
+    /* Living room TV: matches watchTV.twee — base 2, +1 per extra 15m, max 6; +10 to start */
     tvWatch(mins) {
         const m = parseInt(mins, 10) || 15;
-        let cost = 5;
+        let cost = 2;
         if (m > 15) {
-            cost = 5 + Math.floor((m - 15) / 15) * 2;
-            cost = Math.min(11, cost);
+            cost = 2 + Math.floor((m - 15) / 15) * 1;
+            cost = Math.min(6, cost);
         }
         return cost + 10;
     }
@@ -2540,6 +2520,7 @@ Macro.add('showActions', {
             const reqs = action.requirements || {};
             let meetsReqs = true;
             let missingReqs = [];
+            let missingFlagReq = false;
 
             for (const [req, value] of Object.entries(reqs)) {
                 if (req === 'friendshipLevel' || req === 'lustLevel' || req === 'loveLevel' || req === 'trustLevel') {
@@ -2554,6 +2535,7 @@ Macro.add('showActions', {
                     const flags = vars.flags || {};
                     if (!flags[value]) {
                         meetsReqs = false;
+                        missingFlagReq = true;
                         // Silent — flag failures are typically paired with showWhenLocked: false
                     }
                 } else if (req === 'flagNot') {
@@ -2561,6 +2543,7 @@ Macro.add('showActions', {
                     const flags = vars.flags || {};
                     if (flags[value]) {
                         meetsReqs = false;
+                        missingFlagReq = true;
                     }
                 } else if (req === 'corruption') {
                     if ((vars.corruption || 0) < value) {
@@ -2662,6 +2645,78 @@ Macro.add('showActions', {
                             }
                         }
                     }
+                } else if (req === 'outfit') {
+                    // Outfit requirement string format: "sporty 3"
+                    const outfitReq = String(value || '').trim();
+                    const parts = outfitReq.split(/\s+/);
+                    const requiredStyle = parts[0] || '';
+                    const minStyleItems = parseInt(parts[1], 10) || 2;
+                    let styleCount = 0;
+
+                    if (requiredStyle) {
+                        const equipped = (vars.wardrobe && vars.wardrobe.equipped) ? vars.wardrobe.equipped : null;
+                        if (equipped && typeof equipped === 'object') {
+                            const seenItemIds = new Set();
+                            Object.keys(equipped).forEach(function (slot) {
+                                const itemId = equipped[slot];
+                                if (!itemId || seenItemIds.has(itemId)) return;
+                                seenItemIds.add(itemId);
+                                const item = (typeof setup.getClothingById === 'function') ? setup.getClothingById(itemId) : null;
+                                if (item && Array.isArray(item.tags) && item.tags.includes(requiredStyle)) {
+                                    styleCount += 1;
+                                }
+                            });
+                        }
+
+                        if (styleCount < minStyleItems) {
+                            meetsReqs = false;
+                            missingReqs.push('You need ' + requiredStyle + ' outfit.');
+                        }
+                    }
+                } else if (req === 'item') {
+                    // Inventory item requirement, value can be "item_id" or "item_id 2"
+                    const itemReq = String(value || '').trim();
+                    const itemParts = itemReq.split(/\s+/);
+                    const itemId = itemParts[0] || '';
+                    const minQty = parseInt(itemParts[1], 10) || 1;
+
+                    if (itemId) {
+                        const inventory = Array.isArray(vars.inventory) ? vars.inventory : [];
+                        let ownedQty = 0;
+                        for (let i = 0; i < inventory.length; i++) {
+                            const invItem = inventory[i];
+                            if (invItem && invItem.id === itemId) {
+                                ownedQty = parseInt(invItem.quantity, 10) || 1;
+                                break;
+                            }
+                        }
+                        if (ownedQty < minQty) {
+                            meetsReqs = false;
+                            missingReqs.push('You need ' + itemId.replace(/_/g, ' ') + '.');
+                        }
+                    }
+                } else if (req === 'minStat') {
+                    // Min stat requirement format: "energy 30"
+                    const statReq = String(value || '').trim();
+                    const statParts = statReq.split(/\s+/);
+                    const statName = statParts[0] || '';
+                    const minValue = parseInt(statParts[1], 10) || 0;
+                    const currentValue = parseInt(vars[statName], 10) || 0;
+                    if (statName && minValue > 0 && currentValue < minValue) {
+                        meetsReqs = false;
+                        missingReqs.push('Need ' + minValue + ' ' + statName);
+                    }
+                } else if (req === 'maxStat') {
+                    // Max stat requirement format: "energy 50"
+                    const statReq = String(value || '').trim();
+                    const statParts = statReq.split(/\s+/);
+                    const statName = statParts[0] || '';
+                    const maxValue = parseInt(statParts[1], 10) || 0;
+                    const currentValue = parseInt(vars[statName], 10) || 0;
+                    if (statName && maxValue > 0 && currentValue > maxValue) {
+                        meetsReqs = false;
+                        missingReqs.push('Need ' + statName + ' <= ' + maxValue + ' (current: ' + currentValue + ')');
+                    }
                 } else {
                     // Raw stat check (legacy: friendship, lust, etc.)
                     if ((charStats[req] || 0) < value) {
@@ -2681,6 +2736,8 @@ Macro.add('showActions', {
 
             // Hide completely if locked and showWhenLocked is false
             if (!meetsReqs && action.showWhenLocked === false) return;
+            // Optional: hide only when a flag-based lock is unmet (unlock gating)
+            if (!meetsReqs && action.hideWhenFlagLocked === true && missingFlagReq) return;
 
             const lockTooltip = missingReqs.length ? missingReqs.join(', ') : '';
 

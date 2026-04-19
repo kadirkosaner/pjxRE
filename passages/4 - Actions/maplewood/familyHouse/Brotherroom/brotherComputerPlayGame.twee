@@ -1,5 +1,5 @@
 <<nobr>>
-<<requireMinEnergy 10 "brotherComputerMenu">>
+<<requireMinEnergy 20 "brotherComputerMenu">>
 <<silently>>
 <<set $location = "fhBrotherRoom">>
 <<set _pcVidBase = "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/gaming/">>
@@ -23,7 +23,7 @@
 <<loseStat "stress" 10>>
 <<loseStat "energy" 10>>
 <<set _gamingNow = ($skills.technical && def $skills.technical.gaming) ? $skills.technical.gaming : 0>>
-<<if _gamingNow >= 20>>
+<<if _gamingNow >= 25>>
 <<run window.notifyWarning("You've gained all the gaming skill you can from playing solo on your brother's PC.")>>
 <<else>>
 <<gainSkill "technical" "gaming" 1>>

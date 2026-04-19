@@ -12,7 +12,8 @@
 <<set _districtHubVid = "assets/content/scenes/global/districtHub/phone" + _phoneClipIds[random(0, 5)] + ".mp4">>
 <<advanceTime _mins "relax">>
 <<set _hubStressLoss = Math.max(1, Math.round(4 * _mins / 60))>>
-<<set _hubMoodGain = Math.max(1, Math.round(12 * _mins / 60))>>
+<<set _hubMoodRate = (setup.hubAmbientMoodGainPerHour && setup.hubAmbientMoodGainPerHour.phone != null) ? setup.hubAmbientMoodGainPerHour.phone : 8>>
+<<set _hubMoodGain = Math.max(1, Math.round(_hubMoodRate * _mins / 60))>>
 <<loseStat "stress" _hubStressLoss>>
 <<gainStat "mood" _hubMoodGain>>
 <<loseStat "energy" _phoneEnergy>>

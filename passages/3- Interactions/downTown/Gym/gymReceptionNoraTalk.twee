@@ -1,0 +1,46 @@
+:: gymReceptionNoraTalk
+<<silently>>
+<<set $location = "gym">>
+<<set $flags = $flags || {}>>
+<<if !$characters.gymReceptionNora.firstMet>>
+    <<set $characters.gymReceptionNora.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
+<</if>>
+<<set $characters.gymReceptionNora.known = true>>
+<<logDailyActivity "gymReceptionNora" "talk">>
+<<advanceTime 10>>
+<<loseStat "energy" 2>>
+<<gainStat "mood" 1>>
+<<if $questState && $questState.active && $questState.active.lily_gym_intro && $questState.active.lily_gym_intro.stage === 1 && !$flags.lilyGymReceptionTalked>>
+    <<set $flags.lilyGymReceptionTalked = true>>
+    <<gainCharacterStat "gymReceptionNora" "friendship" 1>>
+    <<completeQuest "lily_gym_intro">>
+    <<set _isQuestTalk = true>>
+<<else>>
+    <<set _isQuestTalk = false>>
+<</if>>
+<<recalculateStats>>
+<</silently>>
+
+<<if _isQuestTalk>>
+<<narrative "Iron Works Gym">>
+Nora looks up from the front desk and gives you a welcoming smile.
+<</narrative>>
+
+<<dialog "gymReceptionNora">>Hi, welcome to Iron Works. First time here?<</dialog>>
+<<dialog "player">>Yeah, I wanted to say hi and get a quick idea of how things work here.</dialog>>
+<<dialog "gymReceptionNora">>Great timing. I'm Nora at the front desk. If you need class info, trainer slots, or locker details, just ask me anytime.</dialog>>
+
+<<narrative>>
+After that short chat, the place feels much easier to navigate.
+<</narrative>>
+<<else>>
+<<narrative "Iron Works Gym">>
+Nora is organizing sign-up sheets and gives you a quick friendly nod.
+<</narrative>>
+
+<<dialog "gymReceptionNora">>Hey. Let me know if you need anything before your workout.<</dialog>>
+<</if>>
+
+<div class="location-actions">
+<<talkBackButton "gym">>
+</div>

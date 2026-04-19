@@ -7,9 +7,9 @@
     <<set $daily.yogaDone = true>>
     <<advanceTime 30 "relax">>
     <<loseStat "energy" 15>>
-    <<loseStat "stress" 10>>
+    <<loseStat "stress" 15>>
     <<flushNotifications>>
-    <<gainSkill "physical" "yoga" 2 20>>
+    <<gainSkill "physical" "yoga" 1 20>>
     <<recalculateStats>>
     
     /* Location-based content */

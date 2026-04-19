@@ -1,0 +1,42 @@
+/* charId: gymTrainerNick — Nick Santos, Iron Works Gym trainer */
+
+<<set setup.characterDefs.gymTrainerNick = {
+    firstName: "Nick",
+    lastName: "Santos",
+    birthYear: 1994,
+    gender: "male",
+    occupation: "Personal Trainer",
+    location: "Iron Works Gym",
+    avatar: "assets/content/people/downtown/gym/nickSantos.webp",
+    type: "npc",
+    color: "#ea580c",
+    info: "<p>A professional trainer at Iron Works Gym. Usually around for early birds and after-work sessions.</p>",
+    status: "Trainer",
+    relationship: { status: "single" },
+    maxLevels: { love: 1, friendship: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 90, love: 0, trust: 90, lust: 0 }
+}>>
+<<set $characters.gymTrainerNick = {
+    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.gymTrainerNick = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 6, location: "gym", status: "available" },
+        { hour: 10, location: null, status: "unavailable" },
+        { hour: 17, location: "gym", status: "available" },
+        { hour: 21, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 8, location: "gym", status: "available" },
+        { hour: 12, location: null, status: "unavailable" },
+        { hour: 16, location: "gym", status: "available" },
+        { hour: 20, location: null, status: "unavailable" }
+    ]
+}>>

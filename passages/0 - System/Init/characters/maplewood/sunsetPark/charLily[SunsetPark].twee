@@ -52,5 +52,9 @@
             id: "talk", label: "Talk", passage: "parkRunnerLilyTalk",
             tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 5
         },
+        {
+            id: "jogTogether", label: "Jog together", passage: "parkRunnerLilyJogTogether",
+            tags: [], requirements: { flag: "lilyJogUnlocked", outfit: "sporty 3", minStat: "energy 25", friendshipLevel: 1, friendship: 20 }, hideWhenFlagLocked: true, dailyLimit: true
+        },
     ]
 }>>

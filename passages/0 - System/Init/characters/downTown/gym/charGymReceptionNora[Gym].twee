@@ -1,0 +1,47 @@
+/* charId: gymReceptionNora — Nora Carter, Iron Works front desk */
+
+<<set setup.characterDefs.gymReceptionNora = {
+    firstName: "Nora",
+    lastName: "Carter",
+    birthYear: 1999,
+    gender: "female",
+    occupation: "Gym Receptionist",
+    location: "Iron Works Gym",
+    avatar: "assets/content/people/downtown/gym/miaCarter.webp",
+    type: "npc",
+    color: "#a855f7",
+    info: "<p>The front desk receptionist at Iron Works Gym. Friendly, organized, and always tracking new sign-ups.</p>",
+    status: "Reception",
+    relationship: { status: "single" },
+    maxLevels: { love: 1, friendship: 1, lust: 1, trust: 1 },
+    versionCaps: { friendship: 90, love: 0, trust: 90, lust: 0 }
+}>>
+<<set $characters.gymReceptionNora = {
+    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.gymReceptionNora = {
+    weekday: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 8, location: "gym", status: "available" },
+        { hour: 20, location: null, status: "unavailable" }
+    ],
+    weekend: [
+        { hour: 0, location: null, status: "unavailable" },
+        { hour: 9, location: "gym", status: "available" },
+        { hour: 18, location: null, status: "unavailable" }
+    ]
+}>>
+
+<<set setup.characterActions.gymReceptionNora = {
+    gym: [
+        {
+            id: "talk", label: "Talk", passage: "gymReceptionNoraTalk",
+            tags: [], requirements: {}, dailyLimit: true, minPlayerEnergy: 2
+        }
+    ]
+}>>

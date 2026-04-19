@@ -33,18 +33,18 @@
 KARAKTERLER (8 yeni NPC)
 │
 ├── Maplewood / Mahalle
-│   ├── Mia Torres (21) ← Komşu, "open" karakter, yönlendirici
-│   │   ├── Elena Torres (44) ← Mia'nın annesi [future encounter]
-│   │   └── Roberto Torres (46) ← Mia'nın babası [future encounter]
-│   └── Ethan Clarke (23) ← Erkek romantik ilgi, mahalle keşfinde
+│   ├── Mia Harrison (21) ← Komşu, "open" karakter, yönlendirici
+│   │   ├── Elena Harrison (44) ← Mia'nın annesi [future encounter]
+│   │   └── Robert Harrison (46) ← Mia'nın babası [future encounter]
+│   └── Ethan Clarke (21) ← Erkek romantik ilgi, mahalle keşfinde
 │
 ├── Iron Works Gym (Downtown)
 │   ├── Nick Santos (32) ← Trainer, sabah/akşam
-│   ├── Kayla Chen (24) ← Kadın regular, sabah
+│   ├── Kayla Morgan (24) ← Kadın regular, sabah
 │   └── Tyler Reed (25) ← Erkek regular, öğleden sonra
 │
 └── The Daily Grind (Old Town)
-    └── Leo Kim (24) ← 2. barista, öğleden sonra/akşam
+    └── Leo Harper (24) ← 1. barista, öğleden sonra/akşam
 
 LOKASYONLAR (2 yeni)
 │
@@ -68,9 +68,9 @@ STORY ARCLARI (quest zincirleri)
 2. MİA ARC (Yeni Komşu)
    ├── İlk Karşılaşma – Maplewood'ta dolaşırken
    ├── Ev Ziyareti – Mia eve davet ediyor
-   ├── Aile Tanışması – Elena + Roberto sahne
+   ├── Aile Tanışması – Elena + Robert sahne
    │   ├── Elena: Sıcak, biraz flörtöz, ev kadını
-   │   └── Roberto: Rahat, başarılı, yakışıklı
+   │   └── Robert: Rahat, başarılı, yakışıklı
    └── [future: dedikodu, beraber alışveriş, corruption hints]
 
 3. COFFEE SHOP ARC (alternatif açılış)
@@ -78,17 +78,13 @@ STORY ARCLARI (quest zincirleri)
    │   ├── Tetikleyici: totalDaysWorked ≥ 3, iş bitti
    │   └── Jake ile birlikte The Daily Grind'a gidiliyor
    ├── Zoe tanışması (0.1.5'te var, quest sahnesine bağlanacak)
-   └── Leo Kim tanışması ← 2. barista, ayrı vardiya
+   └── Leo Harper tanışması ← 2. barista, ayrı vardiya
 
 4. GYM SOCIAL ARC
    ├── Nick Santos ← ilk karşılaşma: check-in masasında
-   ├── Kayla Chen ← cardio makinelerinde tanışma
+   ├── Kayla Morgan ← cardio makinelerinde tanışma
    └── Tyler Reed ← weights alanında tanışma
 
 5. ETHAN ARC (Romantik İlgi)
    ├── Tetikleyici: Mia arki başladıktan sonra, mahalle walk
    └── İlk karşılaşma sahne
-
-6. VİNCE DRAMA ARC
-   ├── Fired event (ofis sahnesi)
-   └── Grovel quest (Ruby's'e geri dön, kapı sahnesi)

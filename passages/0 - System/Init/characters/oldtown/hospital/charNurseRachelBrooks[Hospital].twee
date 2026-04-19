@@ -1,0 +1,20 @@
+/* ==========================================
+   ST. LUKE'S HOSPITAL — staff (generic RN)
+   Dialog id: nurse  (<<dialog "nurse">> in hospitalAdmission etc.)
+   Reuse: reference setup.characterDefs.nurse / char id "nurse"
+========================================== */
+
+<<set setup.characterDefs.nurse = {
+    firstName: "Rachel",
+    lastName: "Brooks",
+    birthYear: 1992,
+    gender: "female",
+    occupation: "Registered Nurse",
+    location: "St. Luke's Hospital",
+    avatar: "assets/content/people/oldtown/hospital/nurseRachelBrooks.webp",
+    type: "npc",
+    color: "#0d9488",
+    info: "<p>A calm, professional nurse at St. Luke's. She handles admissions and recovery checks; you may see her again on future hospital scenes.</p>",
+    status: "RN, St. Luke's",
+    relationship: { status: "single" }
+}>>

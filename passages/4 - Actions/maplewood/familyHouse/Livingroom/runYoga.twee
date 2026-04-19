@@ -3,7 +3,8 @@
     /* Set location from activity origin */
     <<set $location = $activityOrigin>>
     <<set _momName = "Mom">>
-    <<set _friendship = $characters.mother.stats.friendship || 0>>
+    <<set _momFriendLevel = $characters.mother.stats.friendshipLevel || 1>>
+    <<set _momFriendship = $characters.mother.stats.friendship || 0>>
 
     /* Check requirements for yoga */
     <<checkOutfitStyle "sporty" 1 0>>      /* Requires: sporty outfit (1+ items) */
@@ -45,10 +46,11 @@
     <<image "assets/content/scenes/maplewood/FamilyHouse/livingroom/yogaSetup.webp">>
 
     <div class="location-actions">
-        <<if _friendship >= 30>>
+        <<set _canInviteMomYoga = (_momFriendLevel >= 2) || (_momFriendLevel === 1 && _momFriendship > 30)>>
+        <<if _canInviteMomYoga>>
             <<btn "Invite Mom to join you" "runYogaMom" "default" 25>><</btn>>
         <<else>>
-            <<btn "Invite Mom (She looks busy)" "" "locked" "Friendship too low">><</btn>>
+            <<btn "Invite Mom (She looks busy)" "" "locked" "Need closer friendship with Mom (level 1, over 30 progress)">><</btn>>
         <</if>>
 
         <<btn "Do Yoga Alone" "runYogaSolo" "default" 25>><</btn>>

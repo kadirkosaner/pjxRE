@@ -352,6 +352,41 @@ Object.assign(setup.quests, {
         }
     },
 
+    /* ========== LILY GYM INTRO ========== */
+    lily_gym_intro: {
+        id: "lily_gym_intro",
+        title: "Try the Gym",
+        category: "side",
+        character: "parkRunnerLily",
+
+        requirements: {},
+
+        stages: [
+            {
+                id: "visit_iron_works_gym",
+                title: "Check Gym",
+                desc: "Lily suggested training at Iron Works Gym. Go there and check it out yourself.",
+                tip: "The gym is located in Apex Tower, in Downtown's Skyline District.",
+                triggers: { location: "gym" }
+            },
+            {
+                id: "talk_to_reception",
+                title: "Talk to Reception",
+                desc: "Say hello at the front desk and ask about the gym.",
+                buttonText: "Talk at the front desk",
+                tip: "When you enter Iron Works Gym, check the front desk.",
+                triggers: { location: "gym" },
+                forceScene: true,
+                passage: "quest_lily_gym_frontdesk_intro"
+            }
+        ],
+
+        onComplete: {
+            flags: ["lily_gym_intro_done"],
+            notification: "Quest Complete: Try the Gym"
+        }
+    },
+
     /* ========== CHECK OLD TOWN ========== */
     check_old_town: {
         id: "check_old_town",
