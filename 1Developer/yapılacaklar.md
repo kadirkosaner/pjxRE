@@ -49,9 +49,9 @@ LOKASYONLAR (2 yeni)
 STORY ARCLARI (quest zincirleri)
 
 1. LILY ARC (Sunset Park)
-   ├── "Jog Together" – Lily parkta iken koş butonu açılıyor
-   ├── Fitness Milestone – cardio ≥ 15 sonrası Lily compliment scene
-   │   └── → "Fiziğin değişiyor, sen sporcu tipsin" diyalog
+   ├── [X] "Jog Together" – Lily parkta iken koş butonu açılıyor
+   ├── [X] Fitness Milestone – cardio ≥ 15 sonrası Lily compliment scene
+   │   └── [X] "Fiziğin değişiyor, sen sporcu tipsin" diyalog
    └── Mahalle Dedikodu – Lily Mia'yı tanıtıyor
        └── → Quest: "Meet the Neighbors" başlıyor
 

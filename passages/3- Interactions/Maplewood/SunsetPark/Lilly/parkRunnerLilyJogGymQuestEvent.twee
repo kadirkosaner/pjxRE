@@ -6,11 +6,56 @@
 <<discover "Skyline" "Skyline">>
 <<discover "TowerA" "Apex Tower">>
 <<discover "Gym" "Iron Works Gym">>
+<<gainCharacterStat "parkRunnerLily" "friendship" 2>>
+<<gainCharacterStat "parkRunnerLily" "trust" 1>>
+<<gainCharacterStat "parkRunnerLily" "love" 1>>
+<<gainCharacterStat "parkRunnerLily" "lust" 1>>
 <</silently>>
 
-<<dialog "player">>You are looking really good lately.<</dialog>>
-<<dialog "parkRunnerLily">>Thanks. Running helps, but gym work changed the most for me.<</dialog>>
-<<dialog "parkRunnerLily">>Have you ever trained at a real gym before?<</dialog>>
-<<dialog "player">>Not really. I mostly just run out here.<</dialog>>
-<<dialog "parkRunnerLily">>Then you should try Iron Works Gym downtown. Keep this pace and it will level you up fast.<</dialog>>
-<<dialog "parkRunnerLily">>Go check it out when you can. Next time we run, I want to hear how it went.<</dialog>>
+<<narrative "Sunset Park">>
+The morning air is still cool, your breath visible in short puffs. Lily slows her pace beside you, her ponytail swinging as she drops into a walk. A bead of sweat traces down her collarbone. She turns toward you, breathing just a little heavy.
+<</narrative>>
+
+<<dialog "parkRunnerLily">>You've really been looking good lately, you know.<</dialog>>
+<<dialog "parkRunnerLily">>I noticed it right away. When we first started running together, your body looked a bit softer... more loose.<</dialog>>
+<<dialog "parkRunnerLily">>But now? Look at those hips... they've really tightened up nicely. It looks amazing on you.<</dialog>>
+
+<<narrative>>
+You weren't used to someone studying you like that. Shame, maybe. Or something else. You didn't want to look too closely at which one it was.
+<</narrative>>
+
+<<dialog "player">>Thanks... I didn't think it was that noticeable.<</dialog>>
+<<dialog "parkRunnerLily">>Oh it's noticeable, trust me. (winking)<</dialog>>
+<<dialog "parkRunnerLily">>At this rate, I might start running behind you just to enjoy the view better.<</dialog>>
+<<dialog "player">>Can you not say stuff like that out loud... (face turning red, looking away)<</dialog>>
+<<dialog "parkRunnerLily">>What? I'm just being honest! (laughing softly)<</dialog>>
+<<dialog "parkRunnerLily">>Have you ever done any weight training at a real gym before?<</dialog>>
+<<dialog "player">>Not really. I've only been running outside like this.<</dialog>>
+<<dialog "parkRunnerLily">>Then you should try Iron Works Gym downtown. Trainers actually know what they're doing - not like those commercial chains.<</dialog>>
+<<dialog "parkRunnerLily">>I go there a few times a week. I'm getting stronger...<</dialog>>
+
+<<narrative>>
+For just a second, her eyes drifted somewhere past you, like she was remembering someone.
+<</narrative>>
+
+<<dialog "parkRunnerLily">>...and the view isn't bad either.<</dialog>>
+<<dialog "player">>The view? What do you mean?<</dialog>>
+<<dialog "parkRunnerLily">>Haha, well... obviously the hot, muscular guys. The place is full of them - all sexy and well-built. It's quite the motivation, honestly.<</dialog>>
+
+<<narrative>>
+Something tightened in your stomach. You didn't try to figure out what it was.
+<</narrative>>
+
+<<dialog "player">>Wait, seriously? That many good-looking guys?<</dialog>>
+<<dialog "player">>I don't usually go to gyms... but now you've got me a little curious.<</dialog>>
+<<dialog "parkRunnerLily">>You should come check it out sometime. Maybe we'll even run into each other there.<</dialog>>
+<<dialog "parkRunnerLily">>Would be fun to see you sweating for a change... instead of me chasing you. (smirking)<</dialog>>
+
+<<narrative>>
+She held your gaze for a second longer - the smirk still there, but something else behind it. Then she turned and picked up her pace again, leaving you standing in the cool morning air.
+<</narrative>>
+
+<div class="location-actions">
+<<set _currentCharLocation = $characters.parkRunnerLily.currentLocation>>
+<<talkBackButton _currentCharLocation>>
+</div>
