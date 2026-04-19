@@ -123,6 +123,10 @@ setup.navCards = {
     "courtBasketball": { name: "Basketball Courts", cameraLoc: "public" },
     "courtVolleyball": { name: "Volleyball Courts", cameraLoc: "public" },
     "gym": { name: "Iron Works Gym", cameraLoc: "public" },
+    "gymMaleLocker": { name: "Men's Locker Room", cameraLoc: "public" },
+    "gymMaleLockerShower": { name: "Men's Showers", cameraLoc: "public" },
+    "gymFemaleLocker": { name: "Women's Locker Room", cameraLoc: "public" },
+    "gymFemaleLockerWardrobe": { name: "Locker", cameraLoc: "public" },
 
     /* -- Tower B (Sterling Tower) -- */
     "towerB": { name: "Sterling Tower", cameraLoc: "public" },
@@ -345,6 +349,10 @@ setup.locations = {
     "courtBasketball": { parent: "recreationCenter", type: "room" },
     "courtVolleyball": { parent: "recreationCenter", type: "room" },
     "gym": { parent: "towerA", type: "room" },
+    "gymMaleLocker": { parent: "gym", type: "room" },
+    "gymMaleLockerShower": { parent: "gymMaleLocker", type: "subroom" },
+    "gymFemaleLocker": { parent: "gym", type: "room" },
+    "gymFemaleLockerWardrobe": { parent: "gymFemaleLocker", type: "subroom" },
     
     // Tower B
     "bank": { parent: "towerB", type: "room" },

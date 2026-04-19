@@ -1,3 +1,4 @@
+<<nobr>>
 <<set $location = "gym">>
 <<set $flags = $flags || {}>>
 <<if $questState && $questState.active && $questState.active.lily_gym_intro && $questState.active.lily_gym_intro.stage === 0 && !$flags.lilyGymFirstVisit>>
@@ -8,4 +9,9 @@
 <<narrative "Iron Works Gym">>A well-equipped fitness center with weights, cardio machines, and training areas.<</narrative>>
 <<showLocationChars "gym">>
 <<questPrompts>>
-<<navMenu>><<navCard "towerA">><</navMenu>>
+<<navMenu>>
+<<navCard "gymMaleLocker">>
+<<navCard "gymFemaleLocker">>
+<<navCard "towerA">>
+<</navMenu>>
+<</nobr>>

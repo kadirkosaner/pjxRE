@@ -1,0 +1,20 @@
+<<nobr>>
+<<set $location = "gymFemaleLocker">>
+<<set $returnAfterToilet = "gymFemaleLocker">>
+<<updateCharacterLocations>>
+<<discover "GymFemaleLockerWardrobe" "Locker">>
+
+<<narrative "Women's Locker Room">>
+Lockers line the walls, with a clean vanity mirror and bathroom facilities nearby.
+<</narrative>>
+<<showLocationChars "gymFemaleLocker">>
+<div class="location-actions">
+    <<btn "Take a Shower" "useBath">><</btn>>
+    <<bathroomActions>>
+    <<mirrorBtn>>
+</div>
+<<navMenu>>
+    <<navCard "gymFemaleLockerWardrobe">>
+    <<navCard "gym">>
+<</navMenu>>
+<</nobr>>

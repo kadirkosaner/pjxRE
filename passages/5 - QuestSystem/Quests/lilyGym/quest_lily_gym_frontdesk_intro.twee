@@ -3,6 +3,12 @@
 <<silently>>
 <<set $location = "gym">>
 <<set $flags = $flags || {}>>
+<<discover "Gym" "Iron Works Gym">>
+<<discover "CourtBasketball" "Basketball Courts">>
+<<discover "CourtVolleyball" "Volleyball Courts">>
+<<discover "GymMaleLocker" "Men's Locker Room">>
+<<discover "GymFemaleLocker" "Women's Locker Room">>
+<<discover "GymFemaleLockerWardrobe" "Locker">>
 <<set $characters.gymReceptionNora.known = true>>
 <<if !$characters.gymReceptionNora.firstMet>>
     <<set $characters.gymReceptionNora.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
