@@ -34,7 +34,7 @@
             <<set _walkText = "You follow the winding trail without rushing, taking in the greenery and giving yourself a few quiet minutes away from everything else.">>
         <<else>>
             <<set _walkVid = "assets/content/scenes/maplewood/park/walk/birdScene1.mp4">>
-            <<set _walkText = "For a moment, your eyes drift upward to two birds perched in the branches. It is a small, peaceful detail, but it slows your thoughts in the best way.">>
+            <<set _walkText = "Two birds on a branch above you. One of them hops sideways for no reason. You stand there watching for longer than you meant to.">>
         <</if>>
     <<else>>
         <<if _timeSlot is "morning">>
@@ -68,7 +68,7 @@
                 <<set _walkText = "A couple walking ahead of you pauses for a kiss, unhurried and completely in their own world. The late-day light softens everything around the path.">>
             <<elseif _sceneRoll is 2>>
                 <<set _walkVid = "assets/content/scenes/maplewood/park/walk/eveningScene1-2.mp4">>
-                <<set _walkText = "The same pair drifts into a quiet embrace while the evening crowd thins out. You keep moving, but the slower atmosphere settles into your pace.">>
+                <<set _walkText = "The same couple has stopped talking. They're just sitting now. You walk past them without looking twice.">>
             <<else>>
                 <<set _walkVid = "assets/content/scenes/maplewood/park/walk/eveningScene2.mp4">>
                 <<set _walkText = "On the grass, a couple huddles over a phone, sharing something that makes them both smile. Around them, the park feels calm and comfortably winding down.">>

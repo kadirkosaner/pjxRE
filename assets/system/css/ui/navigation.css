@@ -306,3 +306,182 @@ body.has-navmenu .passage {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
+
+/* ================================================================================
+   LAYOUT MODE: VERTICAL (opt-in)
+   Landscape cards, 4 per row, centered. Image + label both horizontal.
+   Defined AFTER the static-strip rules on purpose — so when both classes
+   happen to be present (legacy containers), vertical still wins.
+================================================================================ */
+
+/* Container: flex row, wrap, centered, auto height, small gap, side padding */
+.accordion-container.nav-breakout.nav-layout-vertical,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  gap: 6px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 6px 48px !important;
+  box-sizing: border-box !important;
+}
+
+/* Landscape card: fixed compact size, 4 per row centered with small gap */
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card,
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card:hover,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card:hover {
+  position: relative !important;
+  flex: 0 0 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  width: 300px !important;
+  height: 75px !important;
+  min-height: 75px !important;
+  max-height: 75px !important;
+  border: 1px solid var(--color-border-primary) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  transition: none !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+}
+
+/* Idle: faded + grayscale like horizontal mode */
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card .card-bg,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card .card-bg {
+  opacity: 0.4 !important;
+  filter: grayscale(100%) brightness(0.5) !important;
+  transform: none !important;
+  transition: opacity 0.35s ease, filter 0.35s ease !important;
+}
+
+/* Hover: gains full color */
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card:hover .card-bg,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card:hover .card-bg {
+  opacity: 1 !important;
+  filter: grayscale(0%) brightness(1) !important;
+  transform: none !important;
+}
+
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card.location-closed .card-bg {
+  opacity: 0.45 !important;
+  filter: grayscale(100%) brightness(0.4) !important;
+}
+
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card.location-closed:hover .card-bg {
+  opacity: 0.55 !important;
+  filter: grayscale(75%) brightness(0.48) !important;
+}
+
+/* Bottom gradient so the horizontal label stays readable */
+.accordion-container.nav-breakout.nav-layout-vertical .gradient-overlay,
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card:hover .gradient-overlay,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .gradient-overlay,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card:hover .gradient-overlay {
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  top: auto !important;
+  width: 100% !important;
+  height: 60% !important;
+  opacity: 1 !important;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 100%) !important;
+  transition: none !important;
+}
+
+/* Horizontal label at the bottom-left of each landscape card */
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card .nav-card-name,
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card:hover .nav-card-name,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card .nav-card-name,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card:hover .nav-card-name,
+body.nav-layout-vertical .accordion-container.nav-breakout .nav-card .nav-card-name,
+body.nav-layout-vertical .accordion-container.nav-breakout .nav-card:hover .nav-card-name {
+  position: relative !important;
+  z-index: 2 !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  transform: none !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: left !important;
+  color: var(--color-text-secondary) !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85) !important;
+  padding: 0 10px 8px !important;
+  width: 100% !important;
+  transition: color 0.3s ease !important;
+}
+
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card:hover .nav-card-name {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.6px !important;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 2px 6px rgba(0, 0, 0, 0.9),
+    0 4px 14px rgba(0, 0, 0, 0.8) !important;
+  transition: color 0.25s ease, font-size 0.25s ease, letter-spacing 0.25s ease, text-shadow 0.25s ease !important;
+}
+
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card.location-closed .nav-card-name {
+  opacity: 0.65 !important;
+}
+
+/* Open/Closed badge pinned to the top-right, only visible on hover */
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card-status,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card-status {
+  top: 8px !important;
+  right: 8px !important;
+  transform: translateY(-4px) !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.accordion-container.nav-breakout.nav-layout-vertical .nav-card:hover .nav-card-status,
+.accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card:hover .nav-card-status {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Responsive: smaller fixed sizes on narrow viewports */
+@media (max-width: 1100px) {
+  .accordion-container.nav-breakout.nav-layout-vertical .nav-card,
+  .accordion-container.nav-breakout.nav-layout-vertical .nav-card:hover,
+  .accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card,
+  .accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card:hover {
+    flex: 0 0 160px !important;
+    min-width: 160px !important;
+    max-width: 160px !important;
+    width: 160px !important;
+  }
+}
+
+@media (max-width: 780px) {
+  .accordion-container.nav-breakout.nav-layout-vertical .nav-card,
+  .accordion-container.nav-breakout.nav-layout-vertical .nav-card:hover,
+  .accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card,
+  .accordion-container.nav-breakout.nav-layout-vertical.nav-accordion-static .nav-card:hover {
+    flex: 0 0 140px !important;
+    min-width: 140px !important;
+    max-width: 140px !important;
+    width: 140px !important;
+  }
+}

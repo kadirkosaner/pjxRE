@@ -56,4 +56,3 @@ dinerWork_event_sofiaChat - Sofia ile sohbet olayı.
 
 dinerWork_event_vinceInspection_day3 - Üçüncü iş günü Vince denetimi; görev zinciri.
 
-Mirror - Ayna ekranı; rutin, saç, yüz ve diş bakımı ile makyaj seçenekleri; temel ayna görseli.

@@ -1,0 +1,44 @@
+:: gymMiniGameChoice [nobr]
+<<silently>>
+    /* Evaluate the pick */
+    <<if $gymMG.timedOut>>
+        <<set $gymMG.lastResult = "timeout">>
+    <<elseif $gymMG.picked === $gymMG.zone>>
+        <<set $gymMG.lastResult = "correct">>
+        <<set $gymMG.score += 1>>
+    <<else>>
+        <<set $gymMG.lastResult = "wrong">>
+    <</if>>
+
+    /* Advance to next phase */
+    <<set $gymMG.phase += 1>>
+<</silently>>
+
+<div class="gym-mg-feedback-screen gym-mg-feedback-<<print $gymMG.lastResult>>">
+    <<if $gymMG.lastResult === "correct">>
+        <span class="gym-mg-feedback-msg gym-mg-feedback-correct">Good focus!</span>
+    <<elseif $gymMG.lastResult === "timeout">>
+        <span class="gym-mg-feedback-msg gym-mg-feedback-timeout">Too slow!</span>
+    <<else>>
+        <span class="gym-mg-feedback-msg gym-mg-feedback-wrong">Wrong zone!</span>
+    <</if>>
+</div>
+
+<<script>>
+(function () {
+    var mg   = State.variables.gymMG;
+    if (!mg) {
+        Engine.play('gym');
+        return;
+    }
+    var dest = (mg.phase > mg.totalPhases) ? 'gymMiniGameResult' : 'gymMiniGameRound';
+    if (window._gymMGChoiceTimeout) {
+        clearTimeout(window._gymMGChoiceTimeout);
+        window._gymMGChoiceTimeout = null;
+    }
+    window._gymMGChoiceTimeout = setTimeout(function () {
+        window._gymMGChoiceTimeout = null;
+        Engine.play(dest);
+    }, 700);
+})();
+<</script>>

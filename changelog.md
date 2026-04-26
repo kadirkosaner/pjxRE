@@ -23,6 +23,7 @@
 - Journal görev detaylarında kısa yönlendirme için `tip` satırı desteği geldi.
 - Ruby's Diner içi geçişler daha tutarlı hale getirildi.
 - Patron iletişimi için telefon ve yüz yüze diyalog akışlarına yeni seçenekler eklendi.
+- Lokasyon navigasyon kartları için yeni bir düzen seçeneği eklendi: Ayarlar > Gameplay > Navigation'dan Horizontal veya Vertical tercih edilebiliyor.
 
 ## Oynanış ve Yaşam
 

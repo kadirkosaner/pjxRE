@@ -311,6 +311,10 @@
     <<set $daily.dishwashRushSurgeToday = false>>
     <<set $daily.dishwashVinceCheckToday = false>>
     <<set $daily.snoozeCount = 0>>
+    <<set $daily.gymUpperDone = false>>
+    <<set $daily.gymCoreDone = false>>
+    <<set $daily.gymLowerDone = false>>
+    <<set $daily.gymCardioDone = false>>
 
     /* Job system: only run if player has an active job with valid state */
     <<if $job && $job.id && $jobState>>

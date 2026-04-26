@@ -1,0 +1,237 @@
+:: gymMiniGameRound
+<<nobr>>
+<<set $location = "gym">>
+<<silently>>
+    <<if ndef $gymMG.feedbackMode>><<set $gymMG.feedbackMode = false>><</if>>
+
+    <<if !$gymMG.feedbackMode>>
+        /* Build 5 choices: 1 correct + 4 wrong (3 other zones + repeat first wrong) */
+        <<set _allZones = ["upper", "core", "lower", "cardio"]>>
+        <<set _wrongZones = []>>
+        <<for _zi = 0; _zi < _allZones.length; _zi++>>
+            <<if _allZones[_zi] !== $gymMG.zone>>
+                <<run _wrongZones.push(_allZones[_zi])>>
+            <</if>>
+        <</for>>
+        /* _wrongZones has 3 entries; add the first one again to get 4 wrong */
+        <<set _pool = [_wrongZones[0], _wrongZones[1], _wrongZones[2], _wrongZones[0], $gymMG.zone]>>
+        <<set $gymMG.choices = _pool.sort(function() { return Math.random() - 0.5; })>>
+        <<set $gymMG.timedOut = false>>
+        <<set $gymMG.picked = null>>
+        <<set $gymMG.lastResult = "">>
+        <<set $gymMG.locked = false>>
+    <</if>>
+
+    /* Display helpers */
+    <<set _zoneLabels = { upper: "Upper Body", core: "Core", lower: "Lower Body", cardio: "Cardio" }>>
+    <<set _zoneIcons  = { upper: "upperbody",  core: "core",  lower: "lowerbody",  cardio: "cardio" }>>
+    <<set _zoneLabel  = _zoneLabels[$gymMG.zone]>>
+    <<set _zoneStatMain = { upper: "Upper Body", core: "Core", lower: "Lower Body", cardio: "Cardio" }>>
+    <<set _zoneStatSup  = { upper: "Core",       core: "Lower Body", lower: "Cardio", cardio: "Lower Body" }>>
+    <<set _statMainName = _zoneStatMain[$gymMG.zone]>>
+    <<set _statSupName  = _zoneStatSup[$gymMG.zone]>>
+    /* Per-phase stat rewards: main max +2.0, support scales proportionally */
+    <<set _mainPerPhase = 2 / $gymMG.totalPhases>>
+    <<set _supPerPhase  = _mainPerPhase / 2>>
+    <<set _previewMain  = $gymMG.score * _mainPerPhase>>
+    <<set _previewSup   = $gymMG.score * _supPerPhase>>
+<</silently>>
+
+<div class="gym-mg-wrap">
+
+    <!-- Header -->
+    <div class="gym-mg-header">
+        <div>
+            <div class="gym-mg-zone-name"><<print _zoneLabel>> Training</div>
+            <div class="gym-mg-phase-count">Phase <<print $gymMG.phase>> <span class="gym-mg-phase-total">/ <<print $gymMG.totalPhases>></span></div>
+        </div>
+        <div class="gym-mg-score-block">
+            <div class="gym-mg-score-label">Stat Gain</div>
+            <div class="gym-mg-score-val"><<print _statMainName>> +<<print _previewMain.toFixed(1)>></div>
+            <<if _previewSup > 0>>
+                <div class="gym-mg-score-sub"><<print _statSupName>> +<<print _previewSup.toFixed(2)>></div>
+            <</if>>
+        </div>
+    </div>
+
+    <!-- Timer -->
+    <div class="gym-mg-timer-wrap">
+        <div class="gym-mg-timer-row">
+            <span class="gym-mg-timer-label">Timer</span>
+            <span id="gymMGTimerText" class="gym-mg-timer-text">5s</span>
+        </div>
+        <div class="gym-mg-timer-track">
+            <div id="gymMGTimerBar" class="gym-mg-timer-fill"></div>
+        </div>
+    </div>
+
+    <<if $gymMG.feedbackMode>>
+        <div class="gym-mg-feedback-slot">
+            <div class="gym-mg-feedback-screen gym-mg-feedback-<<print $gymMG.lastResult>>">
+                <<if $gymMG.lastResult === "correct">>
+                    <span class="gym-mg-feedback-msg gym-mg-feedback-correct">Perfect Zone</span>
+                <<elseif $gymMG.lastResult === "timeout">>
+                    <span class="gym-mg-feedback-msg gym-mg-feedback-timeout">Too Slow</span>
+                <<else>>
+                    <span class="gym-mg-feedback-msg gym-mg-feedback-wrong">Wrong Zone</span>
+                <</if>>
+            </div>
+        </div>
+    <<else>>
+        <!-- Zone choice buttons: exactly 5 btn macros -->
+        <div class="gym-mg-choices">
+            <<set _btn0 = "<i class='icon icon-" + _zoneIcons[$gymMG.choices[0]] + " icon-32'></i>">>
+            <<set _btn1 = "<i class='icon icon-" + _zoneIcons[$gymMG.choices[1]] + " icon-32'></i>">>
+            <<set _btn2 = "<i class='icon icon-" + _zoneIcons[$gymMG.choices[2]] + " icon-32'></i>">>
+            <<set _btn3 = "<i class='icon icon-" + _zoneIcons[$gymMG.choices[3]] + " icon-32'></i>">>
+            <<set _btn4 = "<i class='icon icon-" + _zoneIcons[$gymMG.choices[4]] + " icon-32'></i>">>
+
+            <<btn _btn0 "gymMiniGameRound" "gym-zone-btn gym-zone-btn-icon">>
+                <<if !$gymMG.locked and !$gymMG.feedbackMode>>
+                    <<set $gymMG.locked = true>>
+                    <<set $gymMG.picked = $gymMG.choices[0]>>
+                    <<set $gymMG.timedOut = false>>
+                    <<if $gymMG.picked === $gymMG.zone>>
+                        <<set $gymMG.lastResult = "correct">>
+                        <<set $gymMG.score += 1>>
+                    <<else>>
+                        <<set $gymMG.lastResult = "wrong">>
+                    <</if>>
+                    <<set $gymMG.phase += 1>>
+                    <<set $gymMG.feedbackMode = true>>
+                <</if>>
+            <</btn>>
+
+            <<btn _btn1 "gymMiniGameRound" "gym-zone-btn gym-zone-btn-icon">>
+                <<if !$gymMG.locked and !$gymMG.feedbackMode>>
+                    <<set $gymMG.locked = true>>
+                    <<set $gymMG.picked = $gymMG.choices[1]>>
+                    <<set $gymMG.timedOut = false>>
+                    <<if $gymMG.picked === $gymMG.zone>>
+                        <<set $gymMG.lastResult = "correct">>
+                        <<set $gymMG.score += 1>>
+                    <<else>>
+                        <<set $gymMG.lastResult = "wrong">>
+                    <</if>>
+                    <<set $gymMG.phase += 1>>
+                    <<set $gymMG.feedbackMode = true>>
+                <</if>>
+            <</btn>>
+
+            <<btn _btn2 "gymMiniGameRound" "gym-zone-btn gym-zone-btn-icon">>
+                <<if !$gymMG.locked and !$gymMG.feedbackMode>>
+                    <<set $gymMG.locked = true>>
+                    <<set $gymMG.picked = $gymMG.choices[2]>>
+                    <<set $gymMG.timedOut = false>>
+                    <<if $gymMG.picked === $gymMG.zone>>
+                        <<set $gymMG.lastResult = "correct">>
+                        <<set $gymMG.score += 1>>
+                    <<else>>
+                        <<set $gymMG.lastResult = "wrong">>
+                    <</if>>
+                    <<set $gymMG.phase += 1>>
+                    <<set $gymMG.feedbackMode = true>>
+                <</if>>
+            <</btn>>
+
+            <<btn _btn3 "gymMiniGameRound" "gym-zone-btn gym-zone-btn-icon">>
+                <<if !$gymMG.locked and !$gymMG.feedbackMode>>
+                    <<set $gymMG.locked = true>>
+                    <<set $gymMG.picked = $gymMG.choices[3]>>
+                    <<set $gymMG.timedOut = false>>
+                    <<if $gymMG.picked === $gymMG.zone>>
+                        <<set $gymMG.lastResult = "correct">>
+                        <<set $gymMG.score += 1>>
+                    <<else>>
+                        <<set $gymMG.lastResult = "wrong">>
+                    <</if>>
+                    <<set $gymMG.phase += 1>>
+                    <<set $gymMG.feedbackMode = true>>
+                <</if>>
+            <</btn>>
+
+            <<btn _btn4 "gymMiniGameRound" "gym-zone-btn gym-zone-btn-icon">>
+                <<if !$gymMG.locked and !$gymMG.feedbackMode>>
+                    <<set $gymMG.locked = true>>
+                    <<set $gymMG.picked = $gymMG.choices[4]>>
+                    <<set $gymMG.timedOut = false>>
+                    <<if $gymMG.picked === $gymMG.zone>>
+                        <<set $gymMG.lastResult = "correct">>
+                        <<set $gymMG.score += 1>>
+                    <<else>>
+                        <<set $gymMG.lastResult = "wrong">>
+                    <</if>>
+                    <<set $gymMG.phase += 1>>
+                    <<set $gymMG.feedbackMode = true>>
+                <</if>>
+            <</btn>>
+        </div>
+    <</if>>
+
+    <!-- Phase dots -->
+    <div class="gym-mg-dots">
+        <<for _di = 1; _di <= $gymMG.totalPhases; _di++>>
+            <div class="gym-mg-dot <<if _di < $gymMG.phase>>gym-mg-dot-done<<elseif _di === $gymMG.phase>>gym-mg-dot-active<<else>>gym-mg-dot-pending<</if>>"></div>
+        <</for>>
+    </div>
+
+</div>
+
+<<script>>
+(function () {
+    var V  = State.variables;
+    var mg = V.gymMG;
+    if (!mg) { Engine.play('gym'); return; }
+
+    /* Stop any leftover timer from a previous round */
+    if (window.GymTimer && typeof window.GymTimer.stop === 'function') {
+        window.GymTimer.stop();
+    }
+    if (window._gymMGFeedbackTimeout) {
+        clearTimeout(window._gymMGFeedbackTimeout);
+        window._gymMGFeedbackTimeout = null;
+    }
+
+    /* Feedback shown in this same passage, then auto-advance */
+    if (mg.feedbackMode) {
+        window._gymMGFeedbackTimeout = setTimeout(function () {
+            mg.feedbackMode = false;
+            var dest = (mg.phase > mg.totalPhases) ? 'gymMiniGameResult' : 'gymMiniGameRound';
+            Engine.play(dest);
+        }, 700);
+        return;
+    }
+
+    /* Defer timer start until the passage DOM is actually mounted */
+    var startTimer = function () {
+        if (!window.GymTimer) return;
+        window.GymTimer.start({
+            duration: 5000,
+            barSel:   '#gymMGTimerBar',
+            txtSel:   '#gymMGTimerText',
+            onTimeout: function () {
+                var V2 = State.variables;
+                var mg2 = V2.gymMG;
+                if (!mg2 || mg2.locked) return;
+                mg2.locked     = true;
+                mg2.timedOut   = true;
+                mg2.picked     = null;
+                mg2.lastResult = 'timeout';
+                mg2.phase     += 1;
+                mg2.feedbackMode = true;
+                Engine.play('gymMiniGameRound');
+            }
+        });
+    };
+
+    /* Wait until SugarCube attaches the passage to the DOM, then start */
+    if (typeof jQuery !== 'undefined') {
+        jQuery(document).one(':passagedisplay.gymMG', function () {
+            setTimeout(startTimer, 0);
+        });
+    } else {
+        setTimeout(startTimer, 0);
+    }
+})();
+<</script>>
+<</nobr>>

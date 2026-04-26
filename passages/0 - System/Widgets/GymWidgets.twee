@@ -1,0 +1,109 @@
+/* ==========================================
+   GYM WIDGETS
+   Gym workout flow without transit passages
+========================================== */
+
+/* GYM START WORKOUT - Single-step routing called from the gym button body.
+   Usage (inside <<btn>>): <<gymStartWorkout "upper" 15 10 "gymUpperDone">>
+*/
+<<widget "gymStartWorkout">><<nobr>>
+    <<set _zone = $args[0]>>
+    <<set _energyCost = parseInt($args[1])>>
+    <<set _stressCost = parseInt($args[2])>>
+    <<set _dailyKey = $args[3]>>
+    <<set _energyMsg = ($args[4] && $args[4] !== "") ? $args[4] : "Not enough energy to work out.">>
+
+    <<requireMinEnergy _energyCost "gym" _energyMsg>>
+    <<if $daily[_dailyKey]>><<goto "gym">><</if>>
+
+    <<set $daily[_dailyKey] = true>>
+    <<advanceTime 45 "relax">>
+    <<loseStat "energy" _energyCost>>
+    <<loseStat "stress" _stressCost>>
+
+    <<set $gymMG = { zone: _zone, phase: 1, score: 0, totalPhases: 4, lastResult: "", timedOut: false, picked: null }>>
+
+    <<if $gameSettings.gymMiniGameEnabled isnot false>>
+        <<if !$flags.gymMiniGameTutorialSeen>>
+            <<goto "gymWorkoutTutorial">>
+        <<else>>
+            <<goto "gymMiniGameRound">>
+        <</if>>
+    <<else>>
+        <<goto "gymWorkoutOff">>
+    <</if>>
+<</nobr>><</widget>>
+
+/* GYM WORKOUT BUTTON - Daily lock + sporty outfit check + minimum energy check.
+   Usage: <<gymWorkoutBtn "upper">>
+   Zones: "upper" | "core" | "lower" | "cardio"
+*/
+<<widget "gymWorkoutBtn">><<nobr>>
+<<silently>>
+    <<set _zone = $args[0]>>
+
+    /* Zone config */
+    <<switch _zone>>
+        <<case "upper">>
+            <<set _btnText = "Upper Body">>
+            <<set _dailyDone = $daily.gymUpperDone>>
+            <<set _minEnergy = 15>>
+        <<case "core">>
+            <<set _btnText = "Core">>
+            <<set _dailyDone = $daily.gymCoreDone>>
+            <<set _minEnergy = 15>>
+        <<case "lower">>
+            <<set _btnText = "Lower Body">>
+            <<set _dailyDone = $daily.gymLowerDone>>
+            <<set _minEnergy = 15>>
+        <<case "cardio">>
+            <<set _btnText = "Cardio">>
+            <<set _dailyDone = $daily.gymCardioDone>>
+            <<set _minEnergy = 18>>
+        <<default>>
+            <<set _btnText = "Workout">>
+            <<set _dailyDone = false>>
+            <<set _minEnergy = 15>>
+    <</switch>>
+
+    <<set _canDo = true>>
+    <<set _tooltipText = "">>
+
+    /* Daily check */
+    <<if _dailyDone>>
+        <<set _canDo = false>>
+        <<set _tooltipText = "Already done today">>
+    <</if>>
+
+    /* Outfit check (sporty, 3 slots) */
+    <<if _canDo>>
+        <<checkOutfitStyle "sporty" 3 0>>
+        <<if !State.temporary.outfitCheckResult.allowed>>
+            <<set _canDo = false>>
+            <<set _tooltipText = State.temporary.outfitCheckResult.reason>>
+        <</if>>
+    <</if>>
+
+    /* Energy check */
+    <<if _canDo && (parseInt($energy || 0) < _minEnergy)>>
+        <<set _canDo = false>>
+        <<set _tooltipText = "Need " + _minEnergy + " energy">>
+    <</if>>
+<</silently>>
+
+<<if _canDo>>
+    <<switch _zone>>
+        <<case "upper">>
+            <<btn "Upper Body">><<gymStartWorkout "upper" 15 10 "gymUpperDone">><</btn>>
+        <<case "core">>
+            <<btn "Core">><<gymStartWorkout "core" 15 10 "gymCoreDone">><</btn>>
+        <<case "lower">>
+            <<btn "Lower Body">><<gymStartWorkout "lower" 15 10 "gymLowerDone">><</btn>>
+        <<case "cardio">>
+            <<btn "Cardio">><<gymStartWorkout "cardio" 18 15 "gymCardioDone" "Not enough energy for a cardio session.">><</btn>>
+    <</switch>>
+<<else>>
+    <<set _lockedSpan = '<span class="link-internal btn-style btn-default locked" data-tooltip="' + _tooltipText + '"><i class="icon icon-lock icon-12"></i> ' + _btnText + '</span>'>>
+    <<print _lockedSpan>>
+<</if>>
+<</nobr>><</widget>>

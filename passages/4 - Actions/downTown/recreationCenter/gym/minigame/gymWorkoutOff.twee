@@ -1,0 +1,46 @@
+:: gymWorkoutOff
+<<nobr>>
+<<silently>>
+    <<set $location = "gym">>
+    <<set _zone = ($gymMG && $gymMG.zone) ? $gymMG.zone : "upper">>
+
+    /* Flat reward when mini-game is turned off */
+    <<if _zone === "upper">>
+        <<gainStat "upperBody" 1.0>>
+        <<gainStat "core" 0.5>>
+        <<set _zoneLabel = "Upper Body Training">>
+    <<elseif _zone === "core">>
+        <<gainStat "core" 1.0>>
+        <<gainStat "lowerBody" 0.5>>
+        <<set _zoneLabel = "Core Training">>
+    <<elseif _zone === "lower">>
+        <<gainStat "lowerBody" 1.0>>
+        <<gainStat "cardio" 0.5>>
+        <<set _zoneLabel = "Lower Body Training">>
+    <<else>>
+        <<gainStat "cardio" 1.0>>
+        <<gainStat "lowerBody" 0.5>>
+        <<set _zoneLabel = "Cardio Session">>
+    <</if>>
+
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</silently>>
+
+<<narrative _zoneLabel>>
+    <<switch _zone>>
+        <<case "upper">>
+            You run through a solid upper body session. Bench, rows, shoulder press. You hit every muscle group and finish with a good pump.
+        <<case "core">>
+            Planks, crunches, leg raises. You work through the full circuit. Your midsection burns by the end, a sign it was worth it.
+        <<case "lower">>
+            Squats, lunges, deadlifts. Your legs get a proper workout today. You push through the burn and finish strong.
+        <<default>>
+            Treadmill sprints, bike intervals, jump rope. Your heart pounds and sweat drips by the time you finish. You feel completely spent in the best way.
+    <</switch>>
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Back" "gym">><</btn>>
+</div>
+<</nobr>>

@@ -13,13 +13,25 @@ window.LayoutInit = function(API) {
             var animationsOn = typeof window.navCardAnimationsEnabled === 'function'
                 ? window.navCardAnimationsEnabled()
                 : true;
-            var staticGrid = !animationsOn;
+            var isVerticalLayout = typeof window.navCardLayoutMode === 'function'
+                ? window.navCardLayoutMode() === 'vertical'
+                : false;
+            /* Vertical layout defines its own static rules; do NOT apply the horizontal
+               static-strip class (nav-accordion-static) when vertical, otherwise the
+               100px-wide strip rules win over the vertical 4-per-row grid. */
+            var staticGrid = !animationsOn && !isVerticalLayout;
             document.body.classList.toggle('nav-cards-no-motion', staticGrid);
             document.documentElement.classList.toggle('nav-cards-no-motion', staticGrid);
+            document.body.classList.toggle('nav-layout-vertical', isVerticalLayout);
+            document.body.classList.toggle('nav-layout-horizontal', !isVerticalLayout);
+            document.documentElement.classList.toggle('nav-layout-vertical', isVerticalLayout);
+            document.documentElement.classList.toggle('nav-layout-horizontal', !isVerticalLayout);
             /* Class on the real <<navMenu>> container — does not depend on body timing */
             var accordions = document.querySelectorAll('.accordion-container.nav-breakout');
             for (var i = 0; i < accordions.length; i++) {
                 accordions[i].classList.toggle('nav-accordion-static', staticGrid);
+                accordions[i].classList.toggle('nav-layout-vertical', isVerticalLayout);
+                accordions[i].classList.toggle('nav-layout-horizontal', !isVerticalLayout);
             }
         } catch (e) { /* ignore */ }
     }

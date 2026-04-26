@@ -99,7 +99,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
             {
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>She glances out the window at the sky — grey, uncertain.<</narrative>>
+<<narrative>>She glances out the window. The sky's grey.<</narrative>>
 <<dialog "mother">>Looks like rain. Do you have plans today?<</dialog>>
 <<dialog "player">>Not really. Maybe go out later if it clears.<</dialog>>
 <<dialog "mother">>Take an umbrella just in case. Third drawer.<</dialog>>`,
@@ -126,11 +126,11 @@ I hate calling repairmen. They always act like you should already know what's wr
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-1.webp">>
 <<image _img "100%">>
 <<narrative>>She's putting food away in containers, labeling them with little sticky notes.<</narrative>>
-<<dialog "mother">>Did you eat lunch? There's leftovers in the fridge — top shelf.<</dialog>>
+<<dialog "mother">>Did you eat lunch? There's leftovers in the fridge. Top shelf.<</dialog>>
 <<dialog "player">>I grabbed something earlier.<</dialog>>
 <<dialog "mother">>(not quite convinced) Something as in real food, or something as in crackers?<</dialog>>
 <<dialog "player">>...Both.<</dialog>>
-<<dialog "mother">>There's soup. Heat it up properly — not just lukewarm. Actually hot.<</dialog>>`,
+<<dialog "mother">>There's soup. Heat it up properly. Not just lukewarm. Actually hot.<</dialog>>`,
                 friendship: 1
             },
             {
@@ -195,7 +195,7 @@ Would you mind taking this to the bin outside?<</dialog>>
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's making tea, pulling out a second mug without being asked.<</narrative>>
-<<dialog "mother">>I went to the market this morning. They had good biscuits — blue tin, top cupboard.<</dialog>>
+<<dialog "mother">>I went to the market this morning. They had good biscuits. Blue tin, top cupboard.<</dialog>>
 <<dialog "player">>Nice.<</dialog>>
 <<dialog "mother">>Don't eat them all at once. They're supposed to last the week.<</dialog>>
 <<dialog "player">>No promises.<</dialog>>
@@ -307,7 +307,7 @@ Keep an eye on him if you can. He listens to you.<</dialog>>`,
             {
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-3.webp">>
 <<image _img "100%">>
-<<narrative>>She's clearly in the middle of several things at once — oven, stove, and something in the sink.<</narrative>>
+<<narrative>>She's got the oven going, the stove going, and something in the sink.<</narrative>>
 <<dialog "mother">>Could you watch the pot? Just make sure it doesn't boil over. I'll be right back.<</dialog>>
 <<dialog "player">>Got it.<</dialog>>
 <<dialog "mother">>If it starts bubbling hard, just turn it down a little. Don't touch anything else.<</dialog>>
@@ -321,7 +321,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEve
 <<narrative>>She's washing up while things cook, hands deep in soapy water.<</narrative>>
 <<dialog "mother">>Can you dry?<</dialog>>
 <<dialog "player">>(picking up the towel) Sure.<</dialog>>
-<<dialog "mother">>Careful with the big pan — the handle gets hot even after it's been washed.<</dialog>>
+<<dialog "mother">>Careful with the big pan. The handle gets hot even after it's been washed.<</dialog>>
 <<dialog "player">>Noted.<</dialog>>
 <<dialog "mother">>Your grandmother did this every night. Wash and dry together. I don't know why I keep doing it.<</dialog>>
 <<dialog "player">>Habit, probably.<</dialog>>
@@ -402,7 +402,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
 <<narrative>>She's matched all the socks and is now holding up one that has no pair.<</narrative>>
 <<dialog "mother">>Do you have odd socks upstairs? Because I've got one with no match and it's bothering me.<</dialog>>
 <<dialog "player">>(thinking) Possibly.<</dialog>>
-<<dialog "mother">>It's always one. It's never zero or two — always exactly one.<</dialog>>
+<<dialog "mother">>It's always one. Never zero or two. Exactly one.<</dialog>>
 <<dialog "player">>That's just how it works.<</dialog>>
 <<dialog "mother">>(staring at the sock) Infuriating.<</dialog>>`,
                 friendship: 2
@@ -415,7 +415,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
 <<dialog "player">>(picking them up) Sure. Want me to put them away?<</dialog>>
 <<dialog "mother">>Just leave them on the bed. I'll sort them later.
 (looking at the remaining pile)
-Actually — yes, put them away. It'll just sit there otherwise.<</dialog>>`,
+Actually, yes. Put them away or it'll just sit there.<</dialog>>`,
                 friendship: 1
             }
         ],
@@ -450,7 +450,7 @@ Does the room feel small to you?<</dialog>>
             {
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>She's putting up a framed photo on the wall — adjusting it slightly, stepping back, adjusting again.<</narrative>>
+<<narrative>>She's putting up a framed photo on the wall. Adjusting it, stepping back, adjusting again.<</narrative>>
 <<dialog "mother">>Is this level?<</dialog>>
 <<dialog "player">>(looking) Almost. A tiny bit to the left.<</dialog>>
 <<dialog "mother">>(adjusting) Here?<</dialog>>
@@ -518,7 +518,7 @@ This show is terrible. I can't stop watching it.<</dialog>>`,
             {
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-2.webp">>
 <<image _img "100%">>
-<<narrative>>She pats the seat next to her — an invitation without words.<</narrative>>
+<<narrative>>She pats the seat next to her.<</narrative>>
 <<dialog "mother">>Come sit. I need someone to be annoyed at this with me.<</dialog>>
 <<dialog "player">>(sitting) What's happening?<</dialog>>
 <<dialog "mother">>This character is making the worst decision possible and everyone around her is just watching.
@@ -547,7 +547,7 @@ Are you doing okay? You seem a bit in your head.<</dialog>>
             {
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>She's writing in a small notebook — lists, by the look of it.<</narrative>>
+<<narrative>>She's writing in a small notebook. Lists, by the look of it.<</narrative>>
 <<dialog "mother">>I'm making a list of things that still need doing in the house. The shelf, the hallway light, that gap in the kitchen skirting board...<</dialog>>
 <<dialog "player">>I didn't know about the gap.<</dialog>>
 <<dialog "mother">>(showing you) Back corner. It's been bothering me since we moved in. I keep stepping around it mentally.<</dialog>>
@@ -640,7 +640,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
 <<dialog "player">>(sitting) Everything okay?<</dialog>>
 <<dialog "mother">>Yes, just... I wanted to check in. We've all been so busy adjusting, I feel like I haven't actually talked to anyone in days.<</dialog>>
 <<dialog "player">>I know what you mean.<</dialog>>
-<<dialog "mother">>Good. Then just — sit with me for a bit. That's all.<</dialog>>`,
+<<dialog "mother">>Good. Then just sit with me for a bit. That's all.<</dialog>>`,
                 friendship: 2, trust: 1
             },
             {
@@ -669,7 +669,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's about to head up but pauses when you come in.<</narrative>>
-<<dialog "mother">>Oh good, I wanted to ask — did you lock the back door?<</dialog>>
+<<dialog "mother">>Oh good, I wanted to ask. Did you lock the back door?<</dialog>>
 <<dialog "player">>I think so. I'll check.<</dialog>>
 <<dialog "mother">>Thank you. Your father always forgets.
 (heading toward the stairs)
@@ -682,7 +682,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
 <<narrative>>She's collecting mugs and glasses from around the room, doing a last round before bed.<</narrative>>
 <<dialog "mother">>Can you grab that one? On the far side.<</dialog>>
 <<dialog "player">>(handing it over) Here.<</dialog>>
-<<dialog "mother">>Thank you. Okay — I think that's everything.
+<<dialog "mother">>Thank you. Okay. I think that's everything.
 (looking around one last time)
 Another day done.<</dialog>>
 <<dialog "player">>Another day done.<</dialog>>
@@ -747,7 +747,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
             {
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-2.webp">>
 <<image _img "100%">>
-<<narrative>>She offers you a mug without you asking — she must have brought two out.<</narrative>>
+<<narrative>>She offers you a mug without you asking. She must have brought two out.<</narrative>>
 <<dialog "mother">>I thought you might come out. It's a nice morning.<</dialog>>
 <<dialog "player">>(taking the mug) Thanks.<</dialog>>
 <<dialog "mother">>The light is good today. I keep meaning to take photos of the garden but then I don't.<</dialog>>
@@ -774,7 +774,7 @@ I think they might be nesting.<</dialog>>
             {
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-3.webp">>
 <<image _img "100%">>
-<<narrative>>She's just standing in the middle of the backyard doing nothing — not often you see that.<</narrative>>
+<<narrative>>She's just standing in the middle of the backyard, doing nothing. You don't see that much.<</narrative>>
 <<dialog "player">>You okay?<</dialog>>
 <<dialog "mother">>(coming back to herself) Yes. Sorry. I was just... being here for a minute.<</dialog>>
 <<dialog "player">>Nothing wrong with that.<</dialog>>
@@ -795,7 +795,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>She's sitting on the back step, not doing anything in particular, just being outside.<</narrative>>
-<<dialog "mother">>Come sit. I don't have anything to say — I just wanted company.<</dialog>>
+<<dialog "mother">>Come sit. I don't have anything to say. I just wanted company.<</dialog>>
 <<dialog "player">>(sitting beside her) I can do that.<</dialog>>
 <<dialog "mother">>Good.
 (a comfortable pause)
@@ -828,7 +828,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAf
 <<narrative>>She hands you the watering can without asking.<</narrative>>
 <<dialog "mother">>Start on the left side? I'll do the pots.<</dialog>>
 <<dialog "player">>(taking it) Sure. How much?<</dialog>>
-<<dialog "mother">>Until the water starts coming out the bottom. Then stop.<</dialog>>
+<<dialog "mother">>Until water comes out the bottom, then stop.<</dialog>>
 <<dialog "player">>Easy enough.<</dialog>>
 <<dialog "mother">>(moving to the pots) That's all gardening is, really. Pay attention and don't overdo it.<</dialog>>`,
                 friendship: 2
@@ -909,7 +909,7 @@ Maybe over there.<</dialog>>
             {
 text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-3.webp">>
 <<image _img "100%">>
-<<narrative>>She's looking at something in the corner of the yard — a spot that doesn't get much sun.<</narrative>>
+<<narrative>>She's looking at the corner of the yard. It doesn't get much sun.<</narrative>>
 <<dialog "mother">>What do you think goes in a shady corner?<</dialog>>
 <<dialog "player">>Ferns? Hostas?<</dialog>>
 <<dialog "mother">>(nodding slowly) Ferns. Yes. I hadn't thought of ferns.
@@ -967,7 +967,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
 <<narrative>>She's checking nightstands and dresser drawers, clearly looking for something.<</narrative>>
 <<dialog "mother">>Have you seen my reading glasses? Small, brown frames.<</dialog>>
 <<dialog "player">>I saw them on the kitchen counter last night.<</dialog>>
-<<dialog "mother">>(relieved) Of course. Thank you — I'd lose my head if it wasn't attached.<</dialog>>`,
+<<dialog "mother">>(relieved) Of course. Thank you. I'd lose my head if it wasn't attached.<</dialog>>`,
                 friendship: 1, trust: 1
             },
             {
@@ -1003,7 +1003,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
 <<narrative>>She's making the bed and hands you the other side of the duvet without asking.<</narrative>>
 <<dialog "mother">>Grab that end?<</dialog>>
 <<dialog "player">>(taking it) Sure.<</dialog>>
-<<dialog "mother">>Pull it even — there.<</dialog>>
+<<dialog "mother">>Pull it even. There.<</dialog>>
 <<dialog "player">>You're very precise about this.<</dialog>>
 <<dialog "mother">>Thirty years of habit.
 (smoothing her side)
@@ -1136,7 +1136,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
 <<narrative>>She's sitting quietly on her side of the bed, not doing anything, just being still.<</narrative>>
 <<dialog "mother">>You know, mornings are the hardest still. When I wake up and for a second I forget we've moved.<</dialog>>
 <<dialog "player">>Does that go away?<</dialog>>
-<<dialog "mother">>(nodding) Gradually. One morning you wake up and you just — know where you are. And it feels like home.<</dialog>>
+<<dialog "mother">>(nodding) Gradually. One morning you wake up and you just know where you are. And it feels like home.<</dialog>>
 <<dialog "player">>How long does that take?<</dialog>>
 <<dialog "mother">>(quietly) Different for everyone. But it happens.<</dialog>>`,
                 friendship: 2, trust: 2

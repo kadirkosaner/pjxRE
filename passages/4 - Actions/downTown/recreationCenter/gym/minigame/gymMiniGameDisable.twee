@@ -1,0 +1,40 @@
+:: gymMiniGameDisable
+<<nobr>>
+<<silently>>
+    <<set $location = "gym">>
+    <<if ndef $gameSettings>><<set $gameSettings = {}>><</if>>
+    <<set $gameSettings.gymMiniGameEnabled = false>>
+
+    <<set _zone = $gymMG ? $gymMG.zone : "upper">>
+
+    /* Flat reward when mini-game is turned off */
+    <<if _zone === "upper">>
+        <<gainStat "upperBody" 1.0>>
+        <<gainStat "core" 0.5>>
+        <<set _zoneLabel = "Upper Body">>
+    <<elseif _zone === "core">>
+        <<gainStat "core" 1.0>>
+        <<gainStat "lowerBody" 0.5>>
+        <<set _zoneLabel = "Core">>
+    <<elseif _zone === "lower">>
+        <<gainStat "lowerBody" 1.0>>
+        <<gainStat "cardio" 0.5>>
+        <<set _zoneLabel = "Lower Body">>
+    <<else>>
+        <<gainStat "cardio" 1.0>>
+        <<gainStat "lowerBody" 0.5>>
+        <<set _zoneLabel = "Cardio">>
+    <</if>>
+
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</silently>>
+
+<<narrative "Workout Complete">>
+You skip the minigame and finish a solid <<print _zoneLabel>> session. The gym mini-game is now turned off, you can re-enable it anytime from Settings.
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Return to Gym" "gym">><</btn>>
+</div>
+<</nobr>>

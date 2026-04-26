@@ -5,7 +5,7 @@
 // Game Information
 <<set setup.gameName = "All That Glitters">>
 <<set setup.gameVersion = "Beta">>
-<<set $saveVersion to 0>>
+<<set $saveVersion to (setup.CURRENT_SAVE_VERSION || 0)>>
 
 /* ==========================================
    UI VISIBILITY SETTINGS

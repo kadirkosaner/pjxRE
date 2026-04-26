@@ -164,6 +164,9 @@ $(document).one(':storyready', async function () {
         if (typeof window.syncNavCardMotionClass === 'function') {
             window.syncNavCardMotionClass();
         }
+        if (typeof window.syncNavCardLayoutClass === 'function') {
+            window.syncNavCardLayoutClass();
+        }
         if (typeof Engine !== 'undefined' && typeof Engine.show === 'function') {
             setTimeout(() => Engine.show(), 50);
         }
@@ -181,12 +184,42 @@ $(document).one(':storyready', async function () {
 window.navCardAnimationsEnabled = function () {
     try {
         var vs = typeof State !== 'undefined' && State.variables && State.variables.videoSettings;
+        if (vs && vs.navCardLayout === 'vertical') return false;
         var raw = vs && vs.navCardAnimations;
         if (raw === false || raw === 'false' || raw === 0) return false;
         return true;
     } catch (e) {
         return true;
     }
+};
+
+window.navCardLayoutMode = function () {
+    try {
+        var vs = typeof State !== 'undefined' && State.variables && State.variables.videoSettings;
+        return vs && vs.navCardLayout === 'vertical' ? 'vertical' : 'horizontal';
+    } catch (e) {
+        return 'horizontal';
+    }
+};
+
+window.syncNavCardLayoutClass = function () {
+    try {
+        var mode = window.navCardLayoutMode();
+        var isVertical = mode === 'vertical';
+        if (document.body) {
+            document.body.classList.toggle('nav-layout-vertical', isVertical);
+            document.body.classList.toggle('nav-layout-horizontal', !isVertical);
+        }
+        if (document.documentElement) {
+            document.documentElement.classList.toggle('nav-layout-vertical', isVertical);
+            document.documentElement.classList.toggle('nav-layout-horizontal', !isVertical);
+        }
+        var accordions = document.querySelectorAll('.accordion-container.nav-breakout');
+        for (var i = 0; i < accordions.length; i++) {
+            accordions[i].classList.toggle('nav-layout-vertical', isVertical);
+            accordions[i].classList.toggle('nav-layout-horizontal', !isVertical);
+        }
+    } catch (e) { /* ignore */ }
 };
 
 /* ================== Save Version Registry =================== */
@@ -1346,8 +1379,13 @@ Macro.add('btn', {
             .addClass('link-internal')
             .addClass('btn-style')
             .attr('tabindex', '0')
-            .text(text)
             .appendTo(this.output);
+
+        if (typeof text === 'string' && /<[^>]+>/.test(text)) {
+            link.wiki(text);
+        } else {
+            link.text(text);
+        }
 
         if (style.includes(' ')) {
             link.addClass(style);
@@ -3059,7 +3097,12 @@ Macro.add('navMenu', {
             }
         });
 
-        $container.toggleClass('nav-accordion-static', !window.navCardAnimationsEnabled());
+        const __layoutMode = window.navCardLayoutMode();
+        const __isVertical = __layoutMode === 'vertical';
+        /* Skip horizontal static-strip class in vertical mode — vertical defines its own layout */
+        $container.toggleClass('nav-accordion-static', !window.navCardAnimationsEnabled() && !__isVertical);
+        $container.toggleClass('nav-layout-vertical', __isVertical);
+        $container.toggleClass('nav-layout-horizontal', !__isVertical);
 
         // Create a wrapper for the container to handle positioning
         const $wrapper = $('<div class="navmenu-wrapper" style="opacity: 0;"></div>');
@@ -3071,13 +3114,20 @@ Macro.add('navMenu', {
         if (typeof window.syncNavCardMotionClass === 'function') {
             window.syncNavCardMotionClass();
         }
+        if (typeof window.syncNavCardLayoutClass === 'function') {
+            window.syncNavCardLayoutClass();
+        }
 
         // Position/Size function - Calculates breakout metrics
         const positionNavMenu = () => {
             // Safety check
             if (!$wrapper[0].isConnected) return;
 
-            $container.toggleClass('nav-accordion-static', !window.navCardAnimationsEnabled());
+            const __vMode = window.navCardLayoutMode();
+            const __vIsVertical = __vMode === 'vertical';
+            $container.toggleClass('nav-accordion-static', !window.navCardAnimationsEnabled() && !__vIsVertical);
+            $container.toggleClass('nav-layout-vertical', __vIsVertical);
+            $container.toggleClass('nav-layout-horizontal', !__vIsVertical);
 
             // FORCE BREAKOUT: Explicitly unconstrain ALL parent containers
             // Hierarchy: #story > #passages > .passage > .navmenu-wrapper

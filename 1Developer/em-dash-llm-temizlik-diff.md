@@ -1,0 +1,4065 @@
+# Em-dash / LLM Prose Temizlik ? Tam Diff
+
+Bu oturumda yap?lan tüm de?i?ikliklerin git diff ç?kt?s?. Amaç: LLM-üretimi nesir kal?plar?n? (özellikle em-dash `?` kullan?m?n?, "action ? meta-commentary" yap?s?n?, jenerik aç?klay?c? eklentileri) azaltmak.
+
+## Kapsam
+
+?ki ana grup:
+
+1. **Prologue dosyalar?** (`passages/1 - Prologue/`): 11, 13, 14, 15 ba?ta olmak üzere erken ve adolesan anlat?lar?n em-dash temizli?i.
+2. **Family Talk Database** (`passages/3- Interactions/FamilyHouse/`): Mother, Father, Brother topic dosyalar?n?n Level 1/2'leri.
+
+## Toplam ?statistik
+
+```
+22 files changed, 449 insertions(+), 457 deletions(-)
+```
+
+## Dosya Baz?nda ?statistik
+
+```
+ passages/1 - Prologue/10 - comingofAge.twee                                     |  26 ++---
+ passages/1 - Prologue/11 - newhomeEnter.twee                                    |  10 +-
+ passages/1 - Prologue/12 - newHome.twee                                         |   6 +-
+ passages/1 - Prologue/13 - prologueBedroom.twee                                 |  12 +--
+ passages/1 - Prologue/14 - prologueDownstairsAsk.twee                           |   6 +-
+ passages/1 - Prologue/15 - prologueEvening.twee                                 |   6 +-
+ passages/1 - Prologue/17 - prologueNightEnd.twee                                |   8 +-
+ passages/1 - Prologue/18 - nextDayMorning.twee                                  |   6 +-
+ passages/1 - Prologue/5 - prologuePage.twee                                     |   8 +-
+ passages/1 - Prologue/6 - earlyYears.twee                                       |   8 +-
+ passages/1 - Prologue/7 - childhoodYears.twee                                   |  14 +--
+ passages/1 - Prologue/8 - formativeYears.twee                                   |  14 +--
+ passages/1 - Prologue/9 - adolescentYears.twee                                  |  18 ++--
+ .../FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel1.twee             |  44 ++++----
+ .../FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel2.twee             |  56 +++++-----
+ .../FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel1.twee           | 110 +++++++++----------
+ .../FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel2.twee           | 114 ++++++++++----------
+ .../FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel1.twee             |  78 +++++++-------
+ .../FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel2.twee             | 120 ++++++++++-----------
+ .../FamilyHouse/Father/talkDatabase/FatherTopicsPreWorkLevel1.twee              | 106 +++++++++---------
+ .../FamilyHouse/Mother/talkDatabase/MotherTopicsLevel1.twee                     |  44 ++++----
+ .../FamilyHouse/Mother/talkDatabase/MotherTopicsLevel2.twee                     |  92 ++++++++--------
+```
+
+## Tam Diff
+
+```diff
+diff --git a/passages/1 - Prologue/10 - comingofAge.twee b/passages/1 - Prologue/10 - comingofAge.twee
+index 329ac15..3c1f674 100644
+--- a/passages/1 - Prologue/10 - comingofAge.twee	
++++ b/passages/1 - Prologue/10 - comingofAge.twee	
+@@ -86,7 +86,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        The reflection in the mirror was familiar???an adult looked back at you. Or at least someone trying to be one.
++        The reflection in the mirror was familiar. An adult looked back at you. Or at least someone trying to be one.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -94,7 +94,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        One evening, dad came home early. Unusual. Mom was already in the kitchen. He looked at both of you???you and your brother at the table doing homework.
++        One evening, dad came home early. Unusual. Mom was already in the kitchen. He looked at both of you. You and your brother at the table doing homework.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -138,7 +138,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        You sat there, processing. The small town. Your whole life. Everything you knew???about to be left behind.
++        You sat there, processing. The small town. Your whole life. All of it, about to be left behind.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -154,7 +154,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        Your relationship with your parents shifted. They started treating you differently???not as a child anymore, but as someone whose opinion mattered.
++        Your relationship with your parents shifted. They started treating you differently. Not as a child anymore. As someone whose opinion mattered.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -190,11 +190,11 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        That honesty brought you closer. You weren't just siblings anymore???you were allies facing the unknown together.
++        That honesty brought you closer. You weren't just siblings anymore. You were both scared, and that made you allies.
+       <</narrative>>
+       
+       <<narrative>>
+-        School felt different too. Every moment mattered now because it was ending. Friends. Teachers. That one person you'd been crushing on???the feelings were more intense, more real, because time was running out.
++        School felt different too. Every moment mattered now because it was ending. Friends. Teachers. That one person you'd been crushing on. Time was running out and it made everything sharper.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -202,7 +202,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        Not your first kiss???that had been clumsy, awkward, forgettable. This was different. Connection. Chemistry. Bodies close, hearts racing. When you got home, face flushed, mom was still up.
++        Not your first kiss. That one had been clumsy and forgettable. This was different. Bodies close. Hearts racing. When you got home, face flushed, mom was still up.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -218,7 +218,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        That moment???her seeing you as a young woman, not a child???it meant more than any lecture.
++        Her seeing you as a young woman instead of a child. It meant more than any lecture.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -238,7 +238,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        Those final months at home were a strange mix???freedom and restraint, adulthood and childhood, excitement and grief.
++        Those final months at home were a strange mix. Freedom one day, old rules the next.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -252,7 +252,7 @@
+           <div class="prologue-memory-card" data-section="coming" data-title="Coming Into Your Own" data-effect="+15% Beauty" data-stat="beauty" data-value="1.15">
+             <div class="prologue-memory-title">Coming Into Your Own</div>
+             <div class="prologue-memory-text">
+-              "When you looked in the mirror now, you saw something different. Not a girl anymore???a woman. The way you moved, dressed, carried yourself???it all changed. Mom noticed, of course. Sometimes she'd look at you with pride, other times with something like sadness. 'You look just like I did at your age,' she said once, touching your cheek. Dad noticed too, though he pretended not to. He'd look away when guys stared at you, clear his throat when you wore certain outfits. That transformation, that ownership of your body and presence???it gave you power you didn't fully understand yet, but felt deeply."
++              "When you looked in the mirror now, you saw something different. Not a girl anymore. The way you moved, dressed, carried yourself had changed without you deciding. Mom noticed. Sometimes she'd look at you with pride, other times with something like sadness. 'You look just like I did at your age,' she said once, touching your cheek. Dad noticed too, and pretended not to. He'd look away when guys stared at you. Clear his throat when you wore certain outfits. You had power now, and you weren't sure what to do with it yet."
+             </div>
+             <div class="prologue-memory-effect">+15% Beauty</div>
+           </div>
+@@ -260,7 +260,7 @@
+           <div class="prologue-memory-card" data-section="coming" data-title="Understanding Desire" data-effect="+15% Charisma" data-stat="charisma" data-value="1.15">
+             <div class="prologue-memory-title">Understanding Desire</div>
+             <div class="prologue-memory-text">
+-              "It happened at a party. Or maybe just an evening hanging out. You'd been circling each other for weeks???glances, accidental touches, tension building. When it finally happened, it wasn't like the movies. It was awkward, then electric. Your heart pounded. Your body responded in ways you didn't expect. You came home different somehow. Mom saw it on your face but didn't push. Dad asked if you had fun, his voice carefully casual. Your brother rolled his eyes: 'You're acting weird.' But you weren't weird???you were awake. That awareness of desire, of connection beyond friendship???it changed how you saw everything, everyone, yourself."
++              "It happened at a party. Or maybe just an evening hanging out. You'd been circling each other for weeks. Glances. Accidental touches. When it finally happened, it wasn't like the movies. It was awkward, then electric. You came home different and you could tell. Mom saw it on your face but didn't push. Dad asked if you had fun, his voice carefully casual. Your brother rolled his eyes. 'You're acting weird.' You weren't weird. You were just paying attention to things you hadn't noticed before."
+             </div>
+             <div class="prologue-memory-effect">+15% Charisma</div>
+           </div>
+@@ -268,7 +268,7 @@
+           <div class="prologue-memory-card" data-section="coming" data-title="Breaking Away" data-effect="+15% Practical Skills" data-stat="practical" data-value="1.15">
+             <div class="prologue-memory-title">Breaking Away</div>
+             <div class="prologue-memory-text">
+-              "Independence was calling. You got a part-time job, earned your own money, made your own plans. Mom struggled with it. 'Where are you going?' 'When will you be back?' But the questions felt different now???less controlling, more worried. Dad tried to help in his own way. Showed you how to budget, opened a bank account for you, taught you to change a tire. 'You need to know these things,' he said. Your brother watched it all happen, jealous and confused. 'Why does she get to do whatever she wants?' The truth was, you didn't get to do whatever you wanted. You were just learning to navigate the space between what you wanted and what they'd allow. That negotiation, that push and pull???it taught you how to stand on your own while still being part of something."
++              "Independence was calling. You got a part-time job, earned your own money, made your own plans. Mom struggled with it. 'Where are you going?' 'When will you be back?' The questions felt less controlling now, more worried. Dad tried to help in his own way. Showed you how to budget, opened a bank account for you, taught you to change a tire. 'You need to know these things,' he said. Your brother watched it all happen, jealous. 'Why does she get to do whatever she wants?' You didn't get to do whatever you wanted. You were learning to negotiate. Turns out that's a skill too."
+             </div>
+             <div class="prologue-memory-effect">+15% Practical Skills</div>
+           </div>
+@@ -276,7 +276,7 @@
+           <div class="prologue-memory-card" data-section="coming" data-title="Physical Awakening" data-effect="+15% Physical Skills" data-stat="physical" data-value="1.15">
+             <div class="prologue-memory-title">Physical Awakening</div>
+             <div class="prologue-memory-text">
+-              "Dancing, moving, using your body as a means of expression???it all took on new meaning. The way you walked, the way you touched someone's arm in conversation, the awareness of eyes on you. It wasn't just about appearance anymore???it was about presence, energy, the space you occupied. Mom noticed when you started carrying yourself differently. 'Confidence looks good on you,' she said, but there was something else in her tone???concern, maybe. Dad was more obvious. He'd tense up when you hugged him goodbye, like he wasn't sure how to hold you anymore???daughter but also not daughter. Your brother was oblivious to most of it, but once he said: 'Why do you walk like that now?' You didn't even realize you walked differently. But you did. That embodiment, that comfort in your own skin???it was power and vulnerability all at once."
++              "Dancing, moving, using your body as a means of expression started to mean something different. The way you walked. The way you touched someone's arm in conversation. Mom noticed when you started carrying yourself differently. 'Confidence looks good on you,' she said, but there was concern underneath it. Dad was more obvious. He'd tense up when you hugged him goodbye, like he wasn't sure how to hold you anymore. Your brother said it out loud once. 'Why do you walk like that now?' You hadn't realized you walked differently. But you did."
+             </div>
+             <div class="prologue-memory-effect">+15% Physical Skills</div>
+           </div>
+diff --git a/passages/1 - Prologue/11 - newhomeEnter.twee b/passages/1 - Prologue/11 - newhomeEnter.twee
+index 1ead40b..9d459f5 100644
+--- a/passages/1 - Prologue/11 - newhomeEnter.twee	
++++ b/passages/1 - Prologue/11 - newhomeEnter.twee	
+@@ -87,7 +87,7 @@
+       <<image "assets/content/scenes/prologue/arrivalCarPOV.webp" "100%">>
+ 
+       <<narrative>>
+-        Buildings rise higher than anything back home. Glass and steel catching the afternoon sun. Traffic flows in three lanes???constant, humming, alive.
++        Buildings rise higher than anything back home. Glass and steel catching the afternoon sun. Traffic flows in three lanes, constant and humming.
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -95,7 +95,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        People walk past???so many people, more than you'd see in a week back home. A woman in a business suit talks on her phone, heels clicking against the pavement. Two teenagers laugh, bumping shoulders as they walk. An old man sits on a bench, feeding pigeons.
++        People walk past. So many people, more than you'd see in a week back home. A woman in a business suit talks on her phone, heels clicking against the pavement. Two teenagers laugh, bumping shoulders as they walk. An old man sits on a bench, feeding pigeons.
+       <</narrative>>
+       
+       <<image "assets/content/scenes/prologue/citySidewalks.webp" "100%">>
+@@ -117,7 +117,7 @@
+       <</dialog>>
+       
+       <<narrative>>
+-        You watch it all unfold. The energy here is different???faster, louder, more anonymous. Back home, you knew every face. Here, everyone's a stranger.
++        You watch it all unfold. The energy here is different. Everything faster, everyone a stranger. Back home, you knew every face.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -147,11 +147,11 @@
+       <</dialog>>
+       
+       <<narrative>>
+-        You take a deep breath and open the car door. The air smells different???exhaust mixed with something you can't quite place. Urban. Foreign. But also... exciting.
++        You open the car door. It smells like exhaust and somebody's dryer vent. You're not sure why that feels promising.
+       <</narrative>>
+       
+       <<narrative>>
+-        Everything that shaped you???every choice, every moment, every person???brought you here.
++        Everything that shaped you brought you here.
+       <</narrative>>
+       
+       <<narrative>>
+diff --git a/passages/1 - Prologue/12 - newHome.twee b/passages/1 - Prologue/12 - newHome.twee
+index bddbe5f..4db81de 100644
+--- a/passages/1 - Prologue/12 - newHome.twee	
++++ b/passages/1 - Prologue/12 - newHome.twee	
+@@ -31,7 +31,7 @@
+       <</dialog>>
+       
+       <<narrative>>
+-        The living room is larger than the old one. Familiar furniture???the couch, coffee table, TV???arranged in this new space. Everything's here but it feels different. Whiter walls, higher ceilings, more light.
++        The living room is bigger than the old one. Your couch is against the wrong wall. Mom keeps walking past it and then walking back, like she hasn't decided either.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -63,7 +63,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        The house smells new???paint, wood polish, cleaning products. Not the familiar smell of the old house, the one that meant safety, comfort, everything you knew.
++        The house smells like paint. The old house smelled like mom's cooking and whatever dad was fixing that week. Here, nothing yet.
+       <</narrative>>
+ 
+       <<image "assets/content/locations/maplewood/familyHouse/fhDownstairs.webp" "100%">>
+@@ -73,7 +73,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        From below, you hear your parents???bags rustling, cabinet doors opening, mom's voice: "Did you pack the coffee?"
++        From below you hear mom ask dad where the coffee box is. He doesn't answer the first time.
+       <</narrative>>
+       
+       <<narrative>>
+diff --git a/passages/1 - Prologue/13 - prologueBedroom.twee b/passages/1 - Prologue/13 - prologueBedroom.twee
+index 3b8583b..dd1bdfb 100644
+--- a/passages/1 - Prologue/13 - prologueBedroom.twee	
++++ b/passages/1 - Prologue/13 - prologueBedroom.twee	
+@@ -19,7 +19,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        For a moment, you just stand there. Taking it in.
++        You stand in the doorway. It's smaller than the old one. Or maybe it just feels smaller because you haven't decided where anything goes yet.
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -41,7 +41,7 @@
+       <<image "assets/content/scenes/prologue/bedroomView.webp" "100%">>
+ 
+       <<narrative>>
+-        The street stretches below. Houses line both sides, trees dotting the sidewalks. Evening is approaching???lights starting to flicker on in neighbors' windows.
++        The street stretches below. Houses line both sides, trees dotting the sidewalks. Evening is approaching. Lights are starting to flicker on in neighbors' windows.
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -49,7 +49,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        Back in the old town, your window faced the main street. You knew the rhythm???Mrs. Chen walking her dog at 6pm, the ice cream truck on Thursdays, kids playing ball until dark.
++        Back in the old town, your window faced the main street. You knew the rhythm. Mrs. Chen walking her dog at 6pm. The ice cream truck on Thursdays. Kids playing ball until someone's mom called them in.
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -79,7 +79,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        Your eyes scan the room. Under the bed???nothing. Behind the desk???nothing. Back to the closet???still empty.
++        Your eyes scan the room. Nothing under the bed. Nothing behind the desk. The closet is still empty.
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -87,7 +87,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        The big black one with most of your clothes???hoodies, jackets, your good jeans, extra shoes. Where is it?
++        The big black one with most of your clothes. Hoodies, jackets, your good jeans. Where is it?
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -99,7 +99,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        Heart sinking, you realize???it's not here.
++        Heart sinking, you realize it's not here.
+       <</narrative>>
+ 
+       <<dialog "player">>
+diff --git a/passages/1 - Prologue/14 - prologueDownstairsAsk.twee b/passages/1 - Prologue/14 - prologueDownstairsAsk.twee
+index 7eb6361..dd49d1d 100644
+--- a/passages/1 - Prologue/14 - prologueDownstairsAsk.twee	
++++ b/passages/1 - Prologue/14 - prologueDownstairsAsk.twee	
+@@ -19,7 +19,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        The hallway is quiet. Music still drifts from your brother's room???muffled, bass-heavy.
++        The hallway is quiet. Music still drifts from your brother's room, muffled and bass-heavy.
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -27,7 +27,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        Each step creaks slightly under your feet. As you descend, the sounds of home life rise to meet you???cabinet doors, running water, your parents' voices.
++        Each step creaks slightly under your feet. As you descend, the sounds of home life rise to meet you. Cabinet doors. Running water. Your parents' voices.
+       <</narrative>>
+ 
+       <<image "assets/content/scenes/prologue/fhLivingroomEvening.webp" "100%">>
+@@ -57,7 +57,7 @@
+       <</dialog>>
+ 
+       <<narrative>>
+-        Mom's expression shifts???confusion, then realization.
++        Mom's expression shifts. Confusion, then realization.
+       <</narrative>>
+ 
+       <<dialog "mother">>
+diff --git a/passages/1 - Prologue/15 - prologueEvening.twee b/passages/1 - Prologue/15 - prologueEvening.twee
+index 0cf9755..36bb361 100644
+--- a/passages/1 - Prologue/15 - prologueEvening.twee	
++++ b/passages/1 - Prologue/15 - prologueEvening.twee	
+@@ -57,7 +57,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        The climb up feels different now. Lighter, maybe. Pizza. A family tradition???first night in a new place, always pizza.
++        The climb up feels different now. Lighter, maybe. Pizza. A family tradition. First night in a new place, always pizza.
+       <</narrative>>
+ 
+       <<image "assets/content/scenes/prologue/stairsNight.webp" "100%">>
+@@ -81,7 +81,7 @@
+       <<image "assets/content/scenes/prologue/brotherRoomNight.webp" "100%">>
+ 
+       <<narrative>>
+-        His room mirrors yours but distinctly his???blue-grey walls, sports posters already hung up, computer setup by the window. A few boxes sit unpacked by the bed.
++        His room mirrors yours but it's already his. Blue-grey walls, sports posters up, computer set up by the window. A few boxes sit unpacked by the bed.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -163,7 +163,7 @@
+       <</dialog>>
+ 
+       <<narrative>>
+-        There's something in her voice???nostalgia, hope, maybe a little sadness.
++        There's something in her voice. Hope, maybe, with a little sadness underneath.
+       <</narrative>>
+       
+       <<dialog "player">>
+diff --git a/passages/1 - Prologue/17 - prologueNightEnd.twee b/passages/1 - Prologue/17 - prologueNightEnd.twee
+index 895c579..8c19545 100644
+--- a/passages/1 - Prologue/17 - prologueNightEnd.twee	
++++ b/passages/1 - Prologue/17 - prologueNightEnd.twee	
+@@ -111,7 +111,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        At the top, you pause in the hallway. Your brother's door is closed. A thin line of light shows underneath???he's still awake, probably on his phone.
++        At the top you pause in the hallway. Your brother's door is closed, a band of blue glowing under it. Phone, not lamp.
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -126,10 +126,6 @@
+         The room is dark except for the streetlight filtering through the window. You don't turn on the lamp. Instead, you walk to the bed and sit on the edge.
+       <</narrative>>
+ 
+-      <<narrative>>
+-        For a moment, you just sit there.
+-      <</narrative>>
+-
+       <<dialog "player">>
+         (Inner voice)
+         First night. New house. New city.
+@@ -152,7 +148,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        Your mind wanders. The old town. Your friends. That street you knew by heart. All of it's gone now???not gone, but... behind you.
++        Your mind wanders to the old street. To Sam's driveway, where you left your bike for three days last summer before anyone noticed. That's what gone means.
+       <</narrative>>
+ 
+       <<dialog "player">>
+diff --git a/passages/1 - Prologue/18 - nextDayMorning.twee b/passages/1 - Prologue/18 - nextDayMorning.twee
+index 55e8627..deed76c 100644
+--- a/passages/1 - Prologue/18 - nextDayMorning.twee	
++++ b/passages/1 - Prologue/18 - nextDayMorning.twee	
+@@ -17,7 +17,7 @@
+       <</narrative>>
+ 
+       <<narrative>>
+-        For a moment, you forget where you are. Then you remember.
++        You wake up and don't recognize the ceiling. Then you do.
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -25,7 +25,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        You sit up, look around. The room looks different in daylight???less intimidating, almost welcoming.
++        You sit up. The room looks smaller in daylight. Also less hostile.
+       <</narrative>>
+ 
+       <<narrative>>
+@@ -59,7 +59,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        You sit down. The table feels strange???same furniture, different kitchen.
++        You sit down. Same table, new kitchen. It's going to take a while.
+       <</narrative>>
+ 
+       <<dialog "father">>
+diff --git a/passages/1 - Prologue/5 - prologuePage.twee b/passages/1 - Prologue/5 - prologuePage.twee
+index d94ff82..d542f29 100644
+--- a/passages/1 - Prologue/5 - prologuePage.twee	
++++ b/passages/1 - Prologue/5 - prologuePage.twee	
+@@ -24,11 +24,11 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        You're in the back seat, staring out the window. Your brother's asleep next to you, headphones still in. Mom and dad sit quietly up front. An old song plays on the radio???something familiar but you can't place it.
++        You're in the back seat, staring out the window. Your brother's asleep next to you, headphones still in. Mom and dad haven't talked since the last gas station. The radio plays some 80s song dad knows all the words to but isn't singing.
+       <</narrative>>
+       
+       <<narrative>>
+-        That street keeps running through your mind. Your house. The backyard. The neighbors. Your friends... All of it's behind you now. Your earliest memories are there???your brother being born, mom reading to you at night, those endless afternoons in the yard... Feels like a lifetime ago.
++        That street keeps running through your mind. Your brother learning to ride a bike on the sidewalk. Mom reading to you in the backyard until the sun dropped. It's all behind you now.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -63,10 +63,6 @@
+         The city's getting closer.
+       <</narrative>>
+       
+-      <<narrative>>
+-        Something stirs inside you???fear, excitement, curiosity... All at once. Your heart beats faster.
+-      <</narrative>>
+-      
+       <<narrative>>
+         You close your eyes. The memories come...
+       <</narrative>>
+diff --git a/passages/1 - Prologue/6 - earlyYears.twee b/passages/1 - Prologue/6 - earlyYears.twee
+index 11bdfd8..d0e09c1 100644
+--- a/passages/1 - Prologue/6 - earlyYears.twee	
++++ b/passages/1 - Prologue/6 - earlyYears.twee	
+@@ -114,7 +114,7 @@
+           <div class="prologue-memory-card" data-section="early" data-title="Your Own Space" data-effect="+15% Focus" data-stat="focus" data-value="1.15">
+             <div class="prologue-memory-title">Your Own Space</div>
+             <div class="prologue-memory-text">
+-              "While everyone fussed over your brother, you found your own space. Building blocks, puzzles, drawing???hours would pass in your quiet corner. Mom would check on you: 'You okay, sweetie?' Dad would ruffle your hair on his way past. They were busy, but they noticed. When your brother turned three, he started sitting next to you, watching silently. 'Good job teaching him,' dad said one day. That patience, that ability to be alone without feeling lonely???it became your strength."
++              "Everyone fussed over your brother. That meant you got the corner. You'd stack blocks until the tower came down, then stack them again. Mom would check in. 'You okay, sweetie?' Dad would ruffle your hair on his way past. When your brother turned three, he started sitting next to you, watching. Dad noticed. 'Good job teaching him.' You didn't think you were teaching anyone anything. You just liked having him there."
+             </div>
+             <div class="prologue-memory-effect">+15% Focus</div>
+           </div>
+@@ -122,7 +122,7 @@
+           <div class="prologue-memory-card" data-section="early" data-title="Dad's Kingdom" data-effect="+15% Fitness" data-stat="fitness" data-value="1.15">
+             <div class="prologue-memory-title">Dad's Kingdom</div>
+             <div class="prologue-memory-text">
+-              "The backyard was dad's kingdom, and he made it yours too. Every weekend: 'Come on, let's go outside.' Climbing trees, digging holes, kicking the ball until sunset. When your brother started walking, you'd take his hand: 'Come on, I'll show you.' Dad watched from the porch, coffee in hand, smiling. 'She's got your energy,' mom would say. That restlessness, that need to move???you got it from him."
++              "The backyard was dad's kingdom, and he made it yours too. Every weekend: 'Come on, let's go outside.' Climbing trees, kicking the ball until the streetlights came on. When your brother started walking, you'd take his hand. 'Come on, I'll show you.' Dad watched from the porch, coffee in hand, smiling. 'She's got your energy,' mom would say. He had that energy all his life. You recognized it in yourself before you could name it."
+             </div>
+             <div class="prologue-memory-effect">+15% Fitness</div>
+           </div>
+@@ -130,7 +130,7 @@
+           <div class="prologue-memory-card" data-section="early" data-title="Mom's Special Time" data-effect="+15% Intelligence" data-stat="intelligence" data-value="1.15">
+             <div class="prologue-memory-title">Mom's Special Time</div>
+             <div class="prologue-memory-text">
+-              "Every night, mom would read to both of you. But after your brother fell asleep, she'd stay. 'This is our time,' she'd whisper, and keep reading???just for you. Those extra chapters, those whispered conversations in the dark. 'You're my first,' she'd say sometimes, tucking you in. 'That means something.' The magic of words, the worlds in those stories, and the feeling of being chosen, even if just for twenty minutes???that never left you."
++              "Every night, mom would read to both of you. But after your brother fell asleep, she'd stay. 'This is our time,' she'd whisper, and keep reading. Just for you. 'You're my first,' she'd say sometimes, tucking you in. 'That means something.' You still remember the weight of her voice going quiet at the end of a chapter. Those twenty minutes were yours. Nothing else felt like that."
+             </div>
+             <div class="prologue-memory-effect">+15% Intelligence</div>
+           </div>
+@@ -138,7 +138,7 @@
+           <div class="prologue-memory-card" data-section="early" data-title="Family Pride" data-effect="+15% Charisma" data-stat="charisma" data-value="1.15">
+             <div class="prologue-memory-title">Family Pride</div>
+             <div class="prologue-memory-text">
+-              "There was always a game happening on the street. Hide and seek, tag, ball games... You gathered the group, explained the rules. When your brother turned three, you'd bring him along. 'This is my brother,' you'd announce proudly. He was the youngest on the block. Mom watched from the window: 'Look at her, taking care of him.' Dad would come out sometimes, join the game, see you leading. 'That's my girl,' he'd say. Bringing people together, taking charge???it came naturally, and they saw it."
++              "There was always a game happening on the street. You'd gather the group, explain the rules, sort out who was on which team. When your brother turned three, you'd bring him along. 'This is my brother,' you'd announce proudly. He was the youngest on the block. Mom watched from the window. 'Look at her, taking care of him.' Dad would come out sometimes and join the game. 'That's my girl.' You didn't know you were in charge. You just got everyone to stop arguing about rules so the game could start."
+             </div>
+             <div class="prologue-memory-effect">+15% Charisma</div>
+           </div>
+diff --git a/passages/1 - Prologue/7 - childhoodYears.twee b/passages/1 - Prologue/7 - childhoodYears.twee
+index 73506c6..421d35f 100644
+--- a/passages/1 - Prologue/7 - childhoodYears.twee	
++++ b/passages/1 - Prologue/7 - childhoodYears.twee	
+@@ -66,7 +66,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        No longer just at home, in the backyard, on the street???there was a real world out there. Classrooms, teachers, rules, homework... And new people. So many people.
++        No longer just at home. There was a real world out there now. Classrooms. Rules. New people, so many of them.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -74,7 +74,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        Dad had left for work early but came back just for this. He stood behind mom, hands in his pockets, trying to look casual. But when you looked back before entering, he gave you a thumbs up and that smile???the one that meant everything would be okay.
++        Dad had left for work early but came back just for this. He stood behind mom, hands in his pockets, trying to look casual. When you looked back before entering, he gave you a thumbs up and the smile that meant everything would be okay.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -98,7 +98,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        Those years really started shaping you. Who you were, what you loved, what you were good at, what you avoided... It all began there.
++        Those years really started shaping you. You can still draw that neighborhood from memory. The kink in the sidewalk where you scraped your knee. Mrs. Keller's dog. The hill.
+       <</narrative>>
+       
+       <div class="prologue-memory-section">
+@@ -108,7 +108,7 @@
+           <div class="prologue-memory-card" data-section="childhood" data-title="Dad's Lessons" data-effect="+15% Willpower" data-stat="willpower" data-value="1.15">
+             <div class="prologue-memory-title">Dad's Lessons</div>
+             <div class="prologue-memory-text">
+-              "Some things were hard. Math problems, tying shoelaces, riding that bike without training wheels... Dad would sit with you at the kitchen table every evening. 'One more time,' he'd say patiently. When you finally got it, his face would light up. 'See? You just needed to stick with it.' Mom would watch from the doorway, smiling. That persistence, that refusal to give up???you learned it from those evenings with him."
++              "Some things were hard. Long division. Tying shoelaces in a hurry. Riding that bike without training wheels. Dad would sit with you at the kitchen table every evening. 'One more time,' he'd say, patient in a way he usually wasn't. When you finally got it, his face would light up. 'See? You just needed to stick with it.' Mom watched from the doorway, smiling. He never said he was proud. He didn't have to. You could see it on his face."
+             </div>
+             <div class="prologue-memory-effect">+15% Willpower</div>
+           </div>
+@@ -116,7 +116,7 @@
+           <div class="prologue-memory-card" data-section="childhood" data-title="Mom's Encouragement" data-effect="+15% Creativity" data-stat="creativity" data-value="1.15">
+             <div class="prologue-memory-title">Mom's Encouragement</div>
+             <div class="prologue-memory-text">
+-              "Art class was your world. You'd come home with drawings, paintings, clay projects. Mom would pin everything on the fridge, no matter how messy. 'You're so creative,' she'd say, examining each one carefully. Dad would joke: 'We're running out of fridge space!' but he never took anything down. When your brother started school, he'd watch you draw for hours. 'Teach me,' he'd beg. And you would, just like mom taught you???with patience and praise."
++              "Art class was your world. You'd come home with drawings and clay projects that barely survived the bus ride. Mom would pin everything on the fridge, no matter how messy. 'You're so creative,' she'd say, examining each one carefully. Dad would joke: 'We're running out of fridge space!' but he never took anything down. When your brother started school, he'd watch you draw for hours. 'Teach me,' he'd beg. And you would. You didn't have mom's patience, exactly. But you'd stop and check, the way she did."
+             </div>
+             <div class="prologue-memory-effect">+15% Creativity</div>
+           </div>
+@@ -124,7 +124,7 @@
+           <div class="prologue-memory-card" data-section="childhood" data-title="Family Dinner Talks" data-effect="+15% Intelligence" data-stat="mental" data-value="1.15">
+             <div class="prologue-memory-title">Family Dinner Talks</div>
+             <div class="prologue-memory-text">
+-              "Dinner table conversations fascinated you. Every night, dad would talk about his day at work, mom about the neighbors, and you'd ask endless questions. 'Why does that work that way?' 'What happens if...?' Your brother would get bored, playing with his food, but you were locked in. 'She's got your brain,' dad would tell mom. 'No, yours,' she'd reply. Those dinner talks, that constant questioning???it shaped how you saw the world."
++              "Dinner table conversations fascinated you. Every night, dad would talk about his day at work and mom about the neighbors, and you'd ask endless questions. 'Why does that work that way?' 'What happens if...?' Your brother would get bored, playing with his food. You were locked in. 'She's got your brain,' dad would tell mom. 'No, yours,' she'd reply. Some nights you'd still be asking after mom had cleared the plates. Dad would answer one more, then one more, until mom said enough."
+             </div>
+             <div class="prologue-memory-effect">+15% Intelligence</div>
+           </div>
+@@ -132,7 +132,7 @@
+           <div class="prologue-memory-card" data-section="childhood" data-title="Mom's Social Butterfly" data-effect="+15% Charisma" data-stat="social" data-value="1.15">
+             <div class="prologue-memory-title">Mom's Social Butterfly</div>
+             <div class="prologue-memory-text">
+-              "Making friends was never hard for you. By the second week, you knew everyone's name. Mom would walk you to school and watch you run off to join the group. 'Just like me at that age,' she'd say proudly. When your brother started, you introduced him to everyone. 'This is my brother,' you'd announce. Kids accepted him because of you. Mom saw it all from the gate. 'You're taking care of him,' she'd say later. 'Just like a big sister should.' That gift of connection, of making others feel welcome???you got it from her."
++              "Making friends was never hard for you. By the second week, you knew everyone's name. Mom would walk you to school and watch you run off to join the group. 'Just like me at that age,' she'd say proudly. When your brother started, you introduced him to everyone. 'This is my brother.' Kids accepted him because of you. Mom saw it all from the gate. 'You're taking care of him,' she'd say later. 'Just like a big sister should.' You didn't think of it as a gift. It just seemed obvious. If someone was alone, you went over."
+             </div>
+             <div class="prologue-memory-effect">+15% Charisma</div>
+           </div>
+diff --git a/passages/1 - Prologue/8 - formativeYears.twee b/passages/1 - Prologue/8 - formativeYears.twee
+index 39fcddc..eb2f8a5 100644
+--- a/passages/1 - Prologue/8 - formativeYears.twee	
++++ b/passages/1 - Prologue/8 - formativeYears.twee	
+@@ -60,17 +60,17 @@
+         <div class="prologue-age-badge">Ages 10-12</div>
+         <h1 class="prologue-title">Growing Up</h1>
+         <div class="prologue-header-line"></div>
+-        <p class="prologue-subtitle">Not a little kid anymore, but not quite big either...</p>
++        <p class="prologue-subtitle">Too old for cartoons, too young for everything else.</p>
+       </div>
+       
+       <<image "assets/content/scenes/prologue/formativeYears.webp" "100%">>
+ 
+       <<narrative>>
+-        Middle school years. That strange in-between time???not a little kid anymore, but not quite "big" either.
++        Middle school. The worst three years of anyone's life.
+       <</narrative>>
+       
+       <<narrative>>
+-        Your body was changing. Voices around you were changing. Everyone was getting into something???sports, music, art, computer games. You were searching too, trying to figure out what was yours.
++        Your body was changing. The kid who sat next to you in fourth grade was now six inches taller and played guitar. Everyone had a thing. You didn't.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -132,7 +132,7 @@
+           <div class="prologue-memory-card" data-section="formative" data-title="Dad's Coaching" data-effect="+15% Fitness" data-stat="fitness" data-value="1.15">
+             <div class="prologue-memory-title">Dad's Coaching</div>
+             <div class="prologue-memory-text">
+-              "You'd joined a sports team. Three practices a week, games on weekends. Dad started coming to watch. At first, just occasionally, but then every game. He'd stand on the sidelines, cheering loudly. After tough losses, he'd take you for ice cream. 'You played great,' he'd say. 'I'm proud of you.' Those games became your time together again. Mom would joke: 'Finally, something gets him off the couch.' That drive, that competitive spirit???you built it together, one game at a time."
++              "You'd joined a sports team. Three practices a week, games on weekends. Dad started coming to watch. At first just occasionally, then every game. He'd stand on the sidelines, cheering loudly. After tough losses, he'd take you for ice cream. Strawberry. Always strawberry. 'You played great,' he'd say. 'I'm proud of you.' Mom would joke: 'Finally, something gets him off the couch.' You stopped telling him when a game got cancelled. He'd already taken off work."
+             </div>
+             <div class="prologue-memory-effect">+15% Fitness</div>
+           </div>
+@@ -140,7 +140,7 @@
+           <div class="prologue-memory-card" data-section="formative" data-title="Mom's Pride" data-effect="+15% Intelligence" data-stat="intelligence" data-value="1.15">
+             <div class="prologue-memory-title">Mom's Pride</div>
+             <div class="prologue-memory-text">
+-              "School became your arena. Science fairs, math competitions, honor roll every semester. Mom was your biggest cheerleader. She'd help you prepare, quiz you before tests, celebrate every achievement. 'You're so smart,' she'd say, showing off your report card to relatives. When you won that science fair, she cried. Dad was proud too, but mom... she saw you becoming something more. 'You're going to do great things,' she'd whisper. That ambition, that hunger to excel???it came from wanting to make her proud."
++              "School became your arena. Science fairs, math competitions, honor roll every semester. Mom was your biggest cheerleader. She'd quiz you before tests, celebrate every achievement. 'You're so smart,' she'd say, showing off your report card to relatives. When you won that science fair, she cried. Dad was proud too, but mom saw you becoming something more. 'You're going to do great things,' she'd whisper. You weren't sure you agreed with her. But you kept studying, partly because the answer mattered and partly because you didn't want to find out."
+             </div>
+             <div class="prologue-memory-effect">+15% Intelligence</div>
+           </div>
+@@ -148,7 +148,7 @@
+           <div class="prologue-memory-card" data-section="formative" data-title="Finding Your Thing" data-effect="+15% Physical Skills" data-stat="physical" data-value="1.15">
+             <div class="prologue-memory-title">Finding Your Thing</div>
+             <div class="prologue-memory-text">
+-              "Dance, gymnastics, maybe basketball... You tried everything, searching for what fit. Some activities lasted weeks, others just days. Dad would drive you, wait in the car or watch from the stands. 'It's okay if you don't like it,' he'd say after you quit something. 'We'll find your thing.' Your brother would tag along sometimes, imitating your moves. That exploration, that willingness to try and fail???it taught you it's okay not to be perfect at everything."
++              "Dance. Gymnastics. Basketball for three weeks. You tried everything, searching for what fit. Some activities lasted weeks, others just days. Dad would drive you, wait in the car or watch from the stands. 'It's okay if you don't like it,' he'd say after you quit something. 'We'll find your thing.' Your brother would tag along sometimes, imitating your moves. You kept a list on the back of a notebook: everything you'd tried, with a check or an X next to each. The Xs outnumbered the checks. You kept adding to the list anyway."
+             </div>
+             <div class="prologue-memory-effect">+15% Physical Skills</div>
+           </div>
+@@ -156,7 +156,7 @@
+           <div class="prologue-memory-card" data-section="formative" data-title="Your Own Path" data-effect="+15% Creative Skills" data-stat="creativity" data-value="1.15">
+             <div class="prologue-memory-title">Your Own Path</div>
+             <div class="prologue-memory-text">
+-              "You'd picked up a hobby???maybe an instrument, maybe drawing, maybe writing. It was yours, something you chose yourself, not because mom or dad suggested it. They supported it anyway. Mom bought you supplies, dad listened to you play (even when you were terrible). Your brother would barge in while you practiced: 'Can I try?' Sometimes you'd let him, teaching what you learned. That creative outlet, that thing that was just yours???it became your escape, your identity."
++              "You'd picked up a hobby. An instrument, or drawing, or writing. You chose it yourself, not because mom or dad suggested it. They supported it anyway. Mom bought you supplies. Dad listened to you play, even when you were terrible. Your brother would barge in while you practiced. 'Can I try?' Sometimes you'd let him, teaching what you'd learned. You were bad at it for a long time. Then less bad. At some point you noticed that being bad at it had stopped bothering you, which felt like the real thing you'd learned."
+             </div>
+             <div class="prologue-memory-effect">+15% Creative Skills</div>
+           </div>
+diff --git a/passages/1 - Prologue/9 - adolescentYears.twee b/passages/1 - Prologue/9 - adolescentYears.twee
+index fa5d47d..056f325 100644
+--- a/passages/1 - Prologue/9 - adolescentYears.twee	
++++ b/passages/1 - Prologue/9 - adolescentYears.twee	
+@@ -78,7 +78,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        Your body was different now. You spent more time in front of mirrors. What you wore, how you looked, how others saw you???it all suddenly mattered in ways it never had before.
++        Your body was different now. You'd stand in front of the mirror longer than you used to. Whether your jeans sat right mattered now, in a way it hadn't last summer.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -90,7 +90,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        One Friday night, you wanted to go to a party. Just a normal party???friends, music, nothing crazy.
++        One Friday night you wanted to go to a party. Sam's basement. Most of your grade would be there.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -138,7 +138,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        That vulnerability???you'd never heard it from him before.
++        You'd never heard him say something like that before. Not out loud.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -182,7 +182,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        Friendships became more complex. Not just hanging out anymore???secrets were shared, drama erupted, who liked who, who said what about who. Social media made everything worse and better at the same time. One comment could ruin your day. One like could make it.
++        Friendships got complicated. Who sat with who at lunch became a coded map you had to read every morning. One ignored text and you'd spend the whole afternoon running worst-case scenarios.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -190,7 +190,7 @@
+       <</narrative>>
+       
+       <<narrative>>
+-        And then there were other changes. New feelings. Attraction. Curiosity. That first crush hit you like a wave???sudden, overwhelming, confusing. You didn't tell anyone at first, afraid of what it meant, what they'd think.
++        You got your first crush in eighth grade. You didn't tell anyone ??? not your brother, definitely not mom. You weren't sure what to call it yet, and putting words on it would have made it real.
+       <</narrative>>
+       
+       <<narrative>>
+@@ -208,7 +208,7 @@
+           <div class="prologue-memory-card" data-section="adolescent" data-title="Mom's Tension" data-effect="+15% Beauty" data-stat="beauty" data-value="1.15">
+             <div class="prologue-memory-title">Mom's Tension</div>
+             <div class="prologue-memory-text">
+-              "Appearance started to matter. You'd spend an hour getting ready for school, trying different outfits, makeup experiments. Mom noticed. 'You don't need all that,' she'd say, wiping lipstick off your face. But then she'd catch herself in the mirror, touch her own hair. 'You're beautiful,' she'd add quietly. 'Don't grow up too fast.' The tension was always there???she wanted you to be confident but not too confident, pretty but not too pretty. That awareness of how you looked, how you presented yourself???it became both armor and identity."
++              "Appearance started to matter. You'd spend an hour getting ready for school, trying different outfits. Mom noticed. 'You don't need all that,' she'd say, wiping lipstick off your face. Then she'd catch herself in the mirror, touch her own hair. 'You're beautiful,' she'd add quietly. 'Don't grow up too fast.' The tension was always there. She wanted you to be confident but not too confident. You figured out the difference between looking put together for yourself and looking put together for someone else. Mostly by doing the second one first."
+             </div>
+             <div class="prologue-memory-effect">+15% Beauty</div>
+           </div>
+@@ -216,7 +216,7 @@
+           <div class="prologue-memory-card" data-section="adolescent" data-title="Dad's Quiet Support" data-effect="+15% Social Skills" data-stat="social" data-value="1.15">
+             <div class="prologue-memory-title">Dad's Quiet Support</div>
+             <div class="prologue-memory-text">
+-              "Your social life exploded during those years. Parties, sleepovers, hanging out at the mall. Dad would drive you everywhere, often in silence. He didn't understand your world anymore???the drama, the friendships, who was dating who. But he showed up. 'Call me when you're ready,' he'd say, handing you twenty bucks. Mom would worry, asking a million questions. Dad would just nod: 'She'll be fine.' That social confidence, that ability to navigate complex relationships???you built it knowing he was always just a phone call away, even if you never called."
++              "Your social life exploded during those years. Parties, sleepovers, hanging out at the mall. Dad would drive you everywhere, often in silence. He didn't understand your world anymore. The drama, the friendships, who was dating who. But he showed up. 'Call me when you're ready,' he'd say, handing you twenty bucks without looking at you. Like he was embarrassed to do it in front of mom. You never called him for pickup. You didn't need to. Just knowing you could was enough."
+             </div>
+             <div class="prologue-memory-effect">+15% Social Skills</div>
+           </div>
+@@ -224,7 +224,7 @@
+           <div class="prologue-memory-card" data-section="adolescent" data-title="Your Space" data-effect="+15% Technical Skills" data-stat="technical" data-value="1.15">
+             <div class="prologue-memory-title">Your Space</div>
+             <div class="prologue-memory-text">
+-              "The internet, social media, your phone???they became extensions of you. A world your parents didn't fully understand. 'You're always on that thing,' mom would complain. Dad would just shake his head, confused by what you found so fascinating. But online, you could be anyone. Express yourself. Find communities that got you. Your brother would ask: 'What are you doing?' 'You wouldn't understand,' you'd reply. That digital literacy, that comfort in virtual spaces???it gave you connection when home felt suffocating, and skills your parents never imagined you'd need."
++              "The internet became an extension of you. A world your parents didn't fully understand. 'You're always on that thing,' mom would complain. Dad would shake his head, confused by what you found so fascinating. But online, you could be anyone. Find communities that got you. Your brother would ask: 'What are you doing?' 'You wouldn't understand,' you'd reply. You figured out how to look things up that your parents couldn't explain. That became a habit. They still ask you how to do things on the router."
+             </div>
+             <div class="prologue-memory-effect">+15% Technical Skills</div>
+           </div>
+@@ -232,7 +232,7 @@
+           <div class="prologue-memory-card" data-section="adolescent" data-title="Beyond Family" data-effect="+15% Willpower" data-stat="willpower" data-value="1.15">
+             <div class="prologue-memory-title">Beyond Family</div>
+             <div class="prologue-memory-text">
+-              "That ability to form deep bonds, to be vulnerable with others??? you learned it by stepping away from family, by finding connection elsewhere. It took courage to create your own emotional world, separate from your parents. That independence, that strength to define yourself???it became your foundation."
++              "You figured out early that your parents weren't going to solve middle school for you. So you stopped asking. Friends became the thing that mattered ??? the first people you told things to, before family. That's still how it works. Whether that's a strength or not depends on the day."
+             </div>
+             <div class="prologue-memory-effect">+15% Willpower</div>
+           </div>
+diff --git a/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel1.twee b/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel1.twee
+index b6d2027..dabaee9 100644
+--- a/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel1.twee	
++++ b/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel1.twee	
+@@ -81,7 +81,7 @@ Bye.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's checking his backpack for the fourth time ??? classic pre-school anxiety tell.<</narrative>>
++<<narrative>>He's checking his backpack for the fourth time. Classic pre-school anxiety tell.<</narrative>>
+ <<dialog "player">>Forget something?<</dialog>>
+ <<dialog "brother">>(still checking) No. Maybe. I don't know.<</dialog>>
+ <<dialog "player">>What do you need?<</dialog>>
+@@ -175,7 +175,7 @@ Just... annoying.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He comes to dinner and actually sits ??? no phone out, which is unusual.<</narrative>>
++<<narrative>>He comes to dinner and actually sits. No phone out, which is unusual.<</narrative>>
+ <<dialog "player">>You're not on your phone.<</dialog>>
+ <<dialog "brother">>(eating) Had to leave it in my bag all day. New rule.
+ (flatly)
+@@ -215,7 +215,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/ki
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's making toast at 8pm ??? his personal second dinner.<</narrative>>
++<<narrative>>He's making toast at 8pm. His personal second dinner.<</narrative>>
+ <<dialog "player">>Didn't you eat like two hours ago?<</dialog>>
+ <<dialog "brother">>(watching the toaster) I'm a growing person. Biologically.
+ (toast pops)
+@@ -228,7 +228,7 @@ This is science.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in the kitchen but clearly just came to avoid something ??? not hungry, just here.<</narrative>>
++<<narrative>>He's in the kitchen but clearly just came to avoid something. Not hungry, just here.<</narrative>>
+ <<dialog "player">>You okay?<</dialog>>
+ <<dialog "brother">>(getting water) Yeah.<</dialog>>
+ <<dialog "player">>You're in the kitchen.<</dialog>>
+@@ -240,7 +240,7 @@ It's fine. Don't ask.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sits across from you uncharacteristically ??? doesn't explain why.<</narrative>>
++<<narrative>>He sits across from you, uncharacteristically, and doesn't explain why.<</narrative>>
+ <<dialog "player">>(glancing up) Hey.<</dialog>>
+ <<dialog "brother">>Hey.
+ (silence)
+@@ -281,7 +281,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/be
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's mid-game ??? something intense, judging by his posture. He notices you in the door but doesn't stop.<</narrative>>
++<<narrative>>He's mid-game. Something intense, judging by his posture. He notices you in the doorway but doesn't stop.<</narrative>>
+ <<dialog "brother">>(to the screen) One second. One second.
+ (dies)
+ Okay. What.<</dialog>>
+@@ -294,7 +294,7 @@ Thanks.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's loading into a lobby, waiting ??? a rare still moment.<</narrative>>
++<<narrative>>He's loading into a lobby, waiting. A rare still moment.<</narrative>>
+ <<dialog "brother">>(looking at the loading screen) This game's been broken for two weeks and they haven't fixed it.<</dialog>>
+ <<dialog "player">>Is that the one you were telling Dad about?<</dialog>>
+ <<dialog "brother">>(surprised) You remembered that?<</dialog>>
+@@ -321,19 +321,19 @@ Yeah.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at his desk but not doing anything ??? phone face-down, monitor off.<</narrative>>
++<<narrative>>He's at his desk but not doing anything. Phone face-down, monitor off.<</narrative>>
+ <<dialog "player">>Not gaming?<</dialog>>
+ <<dialog "brother">>(flatly) Taking a break from screens. My eyes hurt.<</dialog>>
+ <<dialog "player">>Rare.<</dialog>>
+ <<dialog "brother">>(turning his chair slightly) Shut up.
+-(a pause ??? not hostile, just banter)
++(a pause, not hostile, just banter)
+ What do people do without screens?<</dialog>>`,
+                 friendship: 2
+             },
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's reading something ??? actual reading, a graphic novel. He closes it when you come in.<</narrative>>
++<<narrative>>He's reading. Actual reading. A graphic novel. He closes it when you come in.<</narrative>>
+ <<dialog "player">>What was that?<</dialog>>
+ <<dialog "brother">>(sliding it under something) Nothing. A book.<</dialog>>
+ <<dialog "player">>You read?<</dialog>>
+@@ -360,7 +360,7 @@ I hate Mr. Henley.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's been staring at his screen for a while ??? homework tab open, but also three other tabs.<</narrative>>
++<<narrative>>He's been staring at his screen for a while. Homework tab open. Also three other tabs.<</narrative>>
+ <<dialog "brother">>(noticing you noticing) I'm doing it. I'm multitasking.<</dialog>>
+ <<dialog "player">>That's not multitasking, that's avoiding.<</dialog>>
+ <<dialog "brother">>(brief pause) ...Both.<</dialog>>`,
+@@ -369,7 +369,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/be
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He spins his chair round and looks at you directly ??? unusual.<</narrative>>
++<<narrative>>He spins his chair round and looks at you directly. Unusual.<</narrative>>
+ <<dialog "brother">>What do you know about photosynthesis?<</dialog>>
+ <<dialog "player">>...Some things. Why?<</dialog>>
+ <<dialog "brother">>(pushing his textbook across slightly) I've been looking at this for forty minutes and I don't understand a single word.
+@@ -386,7 +386,7 @@ Can you explain it like I'm five?<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>His room glows blue in the dark. He's fully in the zone ??? headset on, mic active, talking quietly to someone online.<</narrative>>
++<<narrative>>His room glows blue in the dark. He's fully in the zone. Headset on, mic active, talking quietly to someone online.<</narrative>>
+ <<dialog "player">>(knocking) Jake?<</dialog>>
+ <<dialog "brother">>(one hand up ??? hold on)
+ (into mic) Yeah, okay, I'll push ??? one sec???
+@@ -399,7 +399,7 @@ What?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's between games ??? a rare window where there's no noise from his setup.<</narrative>>
++<<narrative>>He's between games. A rare window where there's no noise from his setup.<</narrative>>
+ <<dialog "brother">>(stretching loudly) Ugh.
+ (noticing you at the door)
+ How long have you been there?<</dialog>>
+@@ -412,7 +412,7 @@ I'm going to bed soon.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He gets killed in-game right as you come in ??? the worst timing. He pulls the headset off.<</narrative>>
++<<narrative>>He gets killed in-game right as you come in. The worst timing. He pulls the headset off.<</narrative>>
+ <<dialog "brother">>(exhausted) Today has been the worst day.<</dialog>>
+ <<dialog "player">>School or the game?<</dialog>>
+ <<dialog "brother">>(considering) Both. At the same time. Continuously.<</dialog>>
+@@ -452,7 +452,7 @@ I got into something online. I'll go to sleep now.
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/bedroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He actually looks a little rough ??? tired eyes, the particular tiredness of someone who hasn't been sleeping enough for weeks.<</narrative>>
++<<narrative>>He actually looks a little rough. Tired eyes. The particular tiredness of someone who hasn't been sleeping enough for weeks.<</narrative>>
+ <<dialog "player">>You look tired.<</dialog>>
+ <<dialog "brother">>(without energy to deflect) Yeah.
+ (just sitting there for a moment)
+@@ -580,7 +580,7 @@ I'm quick under pressure.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>You're both on the sofa, not talking, not watching anything ??? just coexisting.<</narrative>>
++<<narrative>>You're both on the sofa, not talking, not watching anything. Just coexisting.<</narrative>>
+ <<dialog "brother">>(after a while) This is kind of nice actually.<</dialog>>
+ <<dialog "player">>What is?<</dialog>>
+ <<dialog "brother">>Just sitting here. Not having to do anything.
+@@ -618,7 +618,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He materialises from his room to watch something ??? unusual, but here he is.<</narrative>>
++<<narrative>>He materialises from his room to watch something. Unusual, but here he is.<</narrative>>
+ <<dialog "brother">>(sitting) Is this a thing you've started watching?<</dialog>>
+ <<dialog "player">>Yeah, a few episodes in. Want to catch up?<</dialog>>
+ <<dialog "brother">>(considering) Just tell me what happened so far. I'll pick it up.<</dialog>>`,
+@@ -650,7 +650,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's near you but not quite with you ??? phone in hand, but not really using it.<</narrative>>
++<<narrative>>He's near you but not quite with you. Phone in hand, not really using it.<</narrative>>
+ <<dialog "brother">>(out of nowhere) Do you think we'll stay here? Like, for a long time?<</dialog>>
+ <<dialog "player">>I don't know. Probably?<</dialog>>
+ <<dialog "brother">>(quiet for a moment) Okay.
+@@ -671,7 +671,7 @@ Does it feel like home to you yet?<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He laughs at something on his phone and shows you the screen automatically ??? before he thinks to stop himself.<</narrative>>
++<<narrative>>He laughs at something on his phone and shows you the screen automatically. Before he thinks to stop himself.<</narrative>>
+ <<dialog "brother">>Look at this.
+ (shows you something chaotic online)<</dialog>>
+ <<dialog "player">>(looking) That's chaotic.<</dialog>>
+@@ -685,7 +685,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He paces slightly, picking things up and putting them down ??? too wired from gaming to settle.<</narrative>>
++<<narrative>>He paces slightly, picking things up and putting them down. Too wired from gaming to settle.<</narrative>>
+ <<dialog "player">>You good?<</dialog>>
+ <<dialog "brother">>(picking up a TV remote and pretending that's what he came for) Yeah. Fine. Just???
+ (puts the remote down)
+@@ -707,7 +707,7 @@ Friends. From school. Some of them.
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He comes in just to say goodnight ??? which he almost never does.<</narrative>>
++<<narrative>>He comes in just to say goodnight. Which he almost never does.<</narrative>>
+ <<dialog "brother">>(in the doorway) I'm going to bed.<</dialog>>
+ <<dialog "player">>Night.<</dialog>>
+ <<dialog "brother">>(standing there a second longer than necessary)
+diff --git a/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel2.twee b/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel2.twee
+index b392a96..19142db 100644
+--- a/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel2.twee	
++++ b/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsSchoolLevel2.twee	
+@@ -19,7 +19,7 @@
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at the counter and holds out the coffee pot toward you as you walk in ??? first time he's ever done this.<</narrative>>
++<<narrative>>He's at the counter and holds out the coffee pot toward you as you walk in. First time he's ever done that.<</narrative>>
+ <<dialog "brother">>You want some?<</dialog>>
+ <<dialog "player">>(surprised) Yeah. Thanks.<</dialog>>
+ <<dialog "brother">>(pouring, business-like) You looked tired yesterday. Figured you probably needed it.
+@@ -29,7 +29,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/ki
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's actually sitting at the table ??? a rare morning sit-down.<</narrative>>
++<<narrative>>He's actually sitting at the table. Rare, in the morning.<</narrative>>
+ <<dialog "brother">>(eating properly) I've been getting up ten minutes earlier. It's better.
+ (with the energy of someone who discovered fire)
+ You can actually eat breakfast when you're not running for the bus.<</dialog>>
+@@ -101,7 +101,7 @@ Good.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He gives you a look on the way out ??? almost conspiratorial.<</narrative>>
++<<narrative>>He gives you a look on the way out. Almost conspiratorial.<</narrative>>
+ <<dialog "brother">>(quietly) If Mom asks, I already finished my English thing.
+ (pause)
+ Which I'm going to finish. On lunch. I have a plan.<</dialog>>
+@@ -123,7 +123,7 @@ Cool. See you.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He appears in the doorway ready to go, spots you, and nods ??? an actual nod, not the teenager look-through.<</narrative>>
++<<narrative>>He appears in the doorway ready to go, spots you, and nods. An actual nod. Not the teenager look-through.<</narrative>>
+ <<dialog "brother">>Later.<</dialog>>
+ <<dialog "player">>Later. Good luck today.<</dialog>>
+ <<dialog "brother">>(a small surprised beat ??? he didn't expect that) ...Yeah. Thanks.
+@@ -152,7 +152,7 @@ I think I actually got it.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He helps clear the table ??? unprompted, actual help. Something has shifted.<</narrative>>
++<<narrative>>He helps clear the table. Unprompted. Actual help. Something has shifted.<</narrative>>
+ <<dialog "player">>Thanks for clearing up.<</dialog>>
+ <<dialog "brother">>(stacking plates) Yeah. It's not a big deal.
+ (a pause)
+@@ -164,7 +164,7 @@ How was your day?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sits at the kitchen table after everyone else has gone ??? looks like he's waiting for you to come back down.<</narrative>>
++<<narrative>>He sits at the kitchen table after everyone else has gone. Looks like he's waiting for you to come back down.<</narrative>>
+ <<dialog "brother">>Hey. So there's this thing at school. Like a club I might join.
+ (very casual)
+ It's probably stupid.<</dialog>>
+@@ -192,13 +192,13 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/ki
+ <<dialog "brother">>(sitting) It's too quiet in my room.
+ (opening his stuff)
+ Don't talk to me though. Working.<</dialog>>
+-<<narrative>>He works ??? actually works ??? for the next thirty minutes. Still there.<</narrative>>`,
++<<narrative>>He works. Actually works. For the next thirty minutes he's still there.<</narrative>>`,
+                 friendship: 3
+             },
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He shows you something on his phone ??? his draft essay, sent without saying what it is.<</narrative>>
++<<narrative>>He shows you something on his phone. His draft essay, sent without explanation.<</narrative>>
+ <<dialog "brother">>Just. If you have a second.
+ (already looking away)
+ You don't have to.<</dialog>>
+@@ -211,7 +211,7 @@ Thanks.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He makes two cups of tea ??? brings one to you without being asked.<</narrative>>
++<<narrative>>He makes two cups of tea and brings one to you without being asked.<</narrative>>
+ <<dialog "brother">>(setting it down) I don't know how you take it. I guessed.<</dialog>>
+ <<dialog "player">>This is exactly right.<</dialog>>
+ <<dialog "brother">>(surprised) Oh.
+@@ -237,7 +237,7 @@ That sounds weird. Forget I said that.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He mentions something small from childhood ??? just drops it into conversation out of nowhere.<</narrative>>
++<<narrative>>He mentions something small from childhood. Just drops it into conversation out of nowhere.<</narrative>>
+ <<dialog "brother">>Do you remember that time we had that fish? The one that lasted like three weeks?<</dialog>>
+ <<dialog "player">>Goldie?<</dialog>>
+ <<dialog "brother">>(nodding) Yeah. The best fish.
+@@ -248,7 +248,7 @@ I was actually sad when it died. I never told anyone that.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sits at the kitchen table not doing anything ??? just being in the same space.<</narrative>>
++<<narrative>>He sits at the kitchen table not doing anything. Just being in the same space.<</narrative>>
+ <<dialog "brother">>(after a long quiet) You know you can knock on my door if you need something. Right? Like, actually knock.
+ (very casual, not making it a big deal)
+ I mean I might be mid-game, but still.<</dialog>>
+@@ -265,7 +265,7 @@ I mean I might be mid-game, but still.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/bedroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He waves you in ??? actually waves you in instead of ignoring you.<</narrative>>
++<<narrative>>He waves you in. Actually waves you in, instead of ignoring you.<</narrative>>
+ <<dialog "brother">>Come watch this. I'm about to do something stupid.
+ (fully focused on the screen)
+ Watch. Watch???
+@@ -289,7 +289,7 @@ I'll go easy on you. For the first five minutes.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/bedroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pulls a clip up on his screen ??? something genuinely funny that happened in the game.<</narrative>>
++<<narrative>>He pulls a clip up on his screen. Something genuinely funny that happened in the game.<</narrative>>
+ <<dialog "brother">>Okay so look at this. Wait for the end.
+ (you watch it)
+ Right?! Like how does that even happen.<</dialog>>
+@@ -315,7 +315,7 @@ Nobody knows that. I don't talk about it.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/bedroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He shows you something he made ??? a design, a small project, something from school or just for himself.<</narrative>>
++<<narrative>>He shows you something he made. A design. A small project. Something from school or just for himself.<</narrative>>
+ <<dialog "brother">>(showing you his screen, very casual) Tell me if it looks bad.
+ (not looking at you while you look)<</dialog>>
+ <<dialog "player">>(genuinely) Jake, this is really good.<</dialog>>
+@@ -353,7 +353,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/be
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/bedroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He moves a pile of stuff off his second chair without being asked ??? making room for you.<</narrative>>
++<<narrative>>He moves a pile of stuff off his second chair without being asked. Making room for you.<</narrative>>
+ <<dialog "brother">>(not commenting on it) You can sit there if you want. I'm not going anywhere for a while.<</dialog>>
+ <<dialog "player">>Thanks.<</dialog>>
+ <<dialog "brother">>(already back to gaming) Yeah.<</dialog>>
+@@ -394,7 +394,7 @@ Good night.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/bedroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's off his gaming setup ??? unusual for this hour. He's just lying on the bed staring at his phone.<</narrative>>
++<<narrative>>He's off his gaming setup. Unusual for this hour. He's just lying on the bed staring at his phone.<</narrative>>
+ <<dialog "brother">>(without leading up to it) Is it normal to just feel kind of... heavy sometimes? Not like sad. Just heavy.
+ (immediately)
+ Forget it. That's a stupid question.<</dialog>>
+@@ -420,7 +420,7 @@ You can go in like five minutes if you want.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/bedroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's still up ??? but on his own terms, not avoiding sleep.<</narrative>>
++<<narrative>>He's still up. On his own terms, not avoiding sleep.<</narrative>>
+ <<dialog "brother">>(as you pass the open door) Hey. What are you up for?<</dialog>>
+ <<dialog "player">>Water. You?<</dialog>>
+ <<dialog "brother">>(leaning back in his chair) Couldn't sleep. Might as well do something.
+@@ -435,7 +435,7 @@ Yeah, I think so.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/bedroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>His light is off but he's awake ??? you can tell.<</narrative>>
++<<narrative>>His light is off but he's awake. You can tell.<</narrative>>
+ <<dialog "player">>(quietly) Jake. You good?<</dialog>>
+ <<dialog "brother">>(after a pause) Yeah. Just thinking.
+ (quiet)
+@@ -447,7 +447,7 @@ It's fine. Go to sleep.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/bedroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's watching something on his laptop ??? one earphone ??? and pats the edge of the bed when you appear in the doorway.<</narrative>>
++<<narrative>>He's watching something on his laptop with one earphone in. He pats the edge of the bed when you appear in the doorway.<</narrative>>
+ <<dialog "brother">>You can watch this if you haven't seen it. It's good.
+ (making room without making a thing of it)<</dialog>>
+ <<dialog "player">>(sitting) What is it?<</dialog>>
+@@ -482,7 +482,7 @@ I had extra. Whatever.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/bedroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He says goodnight properly ??? not mumbled from behind a closed door, but standing in the hallway.<</narrative>>
++<<narrative>>He says goodnight properly. Not mumbled from behind a closed door. Standing in the hallway.<</narrative>>
+ <<dialog "brother">>Night.
+ (meeting your eyes briefly)
+ Sleep well.<</dialog>>
+@@ -499,7 +499,7 @@ Sleep well.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/livingroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's waiting in the living room ??? which he never does ??? and when you come down he says:<</narrative>>
++<<narrative>>He's waiting in the living room, which he never does, and when you come down he says:<</narrative>>
+ <<dialog "brother">>There's this film I want to watch. It's probably not your kind of thing.
+ (obviously setting it up so you'll say yes)<</dialog>>
+ <<dialog "player">>I'll watch it.<</dialog>>
+@@ -510,7 +510,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/livingroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sits close enough to you on the sofa that it's deliberate ??? a teenager's way of saying he wants company.<</narrative>>
++<<narrative>>He sits close enough to you on the sofa that it's deliberate. A teenager's way of saying he wants company.<</narrative>>
+ <<dialog "brother">>(watching something) This part's funny. Wait for it.
+ (glances at you to check you're watching, then looks back)<</dialog>>`,
+                 friendship: 3
+@@ -531,7 +531,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/livingroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He asks something he's been thinking about ??? not as casually as he's pretending.<</narrative>>
++<<narrative>>He asks something he's been thinking about. Not as casually as he's pretending.<</narrative>>
+ <<dialog "brother">>When you were in school ??? like, high school ??? did you know what you wanted to do?<</dialog>>
+ <<dialog "player">>Not really. Not yet.<</dialog>>
+ <<dialog "brother">>(absorbing this, relieved) Okay. Good. That's fine then.
+@@ -580,7 +580,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/livingroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He offers you half of whatever he's eating ??? just reaches it across without saying anything.<</narrative>>
++<<narrative>>He offers you half of whatever he's eating. Just reaches it across without saying anything.<</narrative>>
+ <<dialog "player">>Thanks.<</dialog>>
+ <<dialog "brother">>(watching TV) There was loads.<</dialog>>`,
+                 friendship: 3
+@@ -604,7 +604,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's down for the whole evening ??? not rushing off, fully settled in.<</narrative>>
++<<narrative>>He's down for the whole evening. Not rushing off. Fully settled in.<</narrative>>
+ <<dialog "brother">>(comfortable, legs over the sofa arm) This is actually my favourite part of the day.
+ (not embarrassed to admit it)
+ Just. No school. No homework. Just here.<</dialog>>
+@@ -643,7 +643,7 @@ Night.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/livingroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>The TV is muted. He's turned toward you slightly ??? that's different.<</narrative>>
++<<narrative>>The TV is muted. He's turned toward you slightly. That's different.<</narrative>>
+ <<dialog "brother">>Can I ask you something weird?<</dialog>>
+ <<dialog "player">>Yeah.<</dialog>>
+ <<dialog "brother">>Do you think Dad's doing okay? Like, with the new job and everything?<</dialog>>
+@@ -679,7 +679,7 @@ That's a compliment, by the way.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He teases you ??? properly, affectionately, knowing you can take it.<</narrative>>
++<<narrative>>He teases you. Properly, affectionately. Knowing you can take it.<</narrative>>
+ <<dialog "brother">>(very seriously) I just want you to know that your taste in films is objectively bad.
+ (holds up a hand before you argue)
+ I still watch them with you. Because I love you. But bad.<</dialog>>
+@@ -690,7 +690,7 @@ I still watch them with you. Because I love you. But bad.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level2/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He does something for you without being asked ??? grabs a blanket, switches the lamp on, adjusts the TV so you can see better ??? small seamless domestic care.<</narrative>>
++<<narrative>>He does something for you without being asked. Grabs a blanket. Switches the lamp on. Adjusts the TV so you can see better. Small seamless domestic care.<</narrative>>
+ <<dialog "player">>Thanks.<</dialog>>
+ <<dialog "brother">>(settled back in, casual) Yeah.<</dialog>>`,
+                 friendship: 3, love: 2
+diff --git a/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel1.twee b/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel1.twee
+index 16cb864..39283aa 100644
+--- a/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel1.twee	
++++ b/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel1.twee	
+@@ -39,7 +39,7 @@ What time is it?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in the world's most chaotic morning state ??? dishevelled hair, hoodie that might be yesterday's, surrounded by empty crisp packets.<</narrative>>
++<<narrative>>He's in the world's most chaotic morning state. Dishevelled hair, hoodie that might be yesterday's, surrounded by empty crisp packets.<</narrative>>
+ <<dialog "player">>Jake.<</dialog>>
+ <<dialog "brother">>(looking up from the screen like he forgot there were other people in the house) Oh. Hey.<</dialog>>
+ <<dialog "player">>When did you last sleep?<</dialog>>
+@@ -49,7 +49,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's been up long enough that he's actually functional. The room has a different energy ??? vacation mode settled in.<</narrative>>
++<<narrative>>He's been up long enough that he's actually functional. The room has a different energy. Vacation mode settled in.<</narrative>>
+ <<dialog "brother">>(from his desk, fairly awake) There's nothing to do.
+ (as a statement of fact)
+ On vacation. Nothing to do.<</dialog>>
+@@ -63,7 +63,7 @@ On vacation. Nothing to do.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He materialises, squinting, in his door frame ??? has been asleep and just woke up.<</narrative>>
++<<narrative>>He materialises, squinting, in his door frame. He's been asleep and just woke up.<</narrative>>
+ <<dialog "brother">>(croaky) Is there food?<</dialog>>
+ <<dialog "player">>In the kitchen. Yes.<</dialog>>
+ <<dialog "brother">>(turning toward the stairs, not fully conscious) Cool.
+@@ -84,7 +84,7 @@ Water? Please.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He opens his curtains ??? a historic event ??? and blinks at the daylight.<</narrative>>
++<<narrative>>He opens his curtains, a historic event, and blinks at the daylight.<</narrative>>
+ <<dialog "brother">>Is it always this bright?
+ (genuinely unsure)<</dialog>>
+ <<dialog "player">>It's literally just a normal day.<</dialog>>
+@@ -111,7 +111,7 @@ I don't know. It's vacation. What is time.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's mid-game but not seriously ??? vacation mode means he can lose and not care.<</narrative>>
++<<narrative>>He's mid-game but not seriously. Vacation mode means he can lose and not care.<</narrative>>
+ <<dialog "brother">>(getting killed in-game) Whatever. I don't care.
+ (sees you)
+ Oh hey. What do you need?<</dialog>>
+@@ -122,7 +122,7 @@ Oh hey. What do you need?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pauses his game ??? actually pauses ??? and stretches dramatically.<</narrative>>
++<<narrative>>He pauses his game. Actually pauses. Then stretches dramatically.<</narrative>>
+ <<dialog "brother">>Okay I need to not look at a screen for five minutes or my eyes will fall out.
+ (swivelling his chair toward you)
+ What's happening in the house today?<</dialog>>
+@@ -161,7 +161,7 @@ Is there cake or something?<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's done something different from gaming ??? has a sketchbook open, which he immediately closes when you see it.<</narrative>>
++<<narrative>>He's done something different from gaming. A sketchbook is open, which he immediately closes when you see it.<</narrative>>
+ <<dialog "brother">>(closing it fast) It's nothing. I was bored.
+ (covering it with a textbook, instinctively)
+ Don't ask.<</dialog>>`,
+@@ -173,7 +173,7 @@ Don't ask.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in a long session ??? properly in the zone. You knock and he actually lets you in without irritation.<</narrative>>
++<<narrative>>He's in a long session, properly in the zone. You knock and he actually lets you in without irritation.<</narrative>>
+ <<dialog "brother">>(to mic) Give me two minutes ??? (to you) Hey. What's up?<</dialog>>
+ <<dialog "player">>Nothing. You want food?<</dialog>>
+ <<dialog "brother">>(already back at the mic but genuinely) Yeah, whatever you've got.
+@@ -184,7 +184,7 @@ Thanks.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's on a winning streak and it shows ??? more good energy than usual.<</narrative>>
++<<narrative>>He's on a winning streak and it shows. More good energy than usual.<</narrative>>
+ <<dialog "brother">>(grinning when you come in) I'm having the best session.
+ (without breaking eye contact with the screen)
+ Five wins. In a row. Today is good.<</dialog>>
+@@ -208,7 +208,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>Music is on ??? actual speakers, not headphones. He doesn't turn it down when you appear.<</narrative>>
++<<narrative>>Music is on. Actual speakers, not headphones. He doesn't turn it down when you appear.<</narrative>>
+ <<dialog "player">>What is this?<</dialog>>
+ <<dialog "brother">>(barely looking up) Old playlist.
+ (a pause)
+@@ -218,7 +218,7 @@ Dad's got similar stuff actually. Don't tell him I know that.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's listening to something on his headphones and not gaming ??? just listening. He pulls one side off when you come in.<</narrative>>
++<<narrative>>He's listening to something on his headphones and not gaming. Just listening. He pulls one side off when you come in.<</narrative>>
+ <<dialog "brother">>(offering one earbud) Here. Just this track.<</dialog>>
+ <<dialog "player">>(listening) It's good.<</dialog>>
+ <<dialog "brother">>(taking it back) Yeah. I know. Found it yesterday.<</dialog>>`,
+@@ -227,7 +227,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's drumming quietly on his desk to something ??? actually rhythmically good. He stops when he notices you.<</narrative>>
++<<narrative>>He's drumming quietly on his desk to something. Actually rhythmically good. He stops when he notices you.<</narrative>>
+ <<dialog "player">>Keep going.<</dialog>>
+ <<dialog "brother">>(stopping anyway) No. It's cringe.<</dialog>>
+ <<dialog "player">>It wasn't.<</dialog>>
+@@ -243,7 +243,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in full vacation evening mode ??? the room is dark except the monitors, music low, snacks within reach.<</narrative>>
++<<narrative>>He's in full vacation evening mode. The room is dark except the monitors, music low, snacks within reach.<</narrative>>
+ <<dialog "player">>(from the door) You're not sleeping?<</dialog>>
+ <<dialog "brother">>It's vacation. Sleeping's for school days.
+ (glancing over)
+@@ -256,14 +256,14 @@ You heading to bed?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>The monitors are off ??? he's on his phone in the dark instead.<</narrative>>
++<<narrative>>The monitors are off. He's on his phone in the dark instead.<</narrative>>
+ <<dialog "brother">>(scrolling) Have you seen that thing about???
+ (stops himself)
+ Actually, never mind, you probably haven't.<</dialog>>
+ <<dialog "player">>What thing?<</dialog>>
+ <<dialog "brother">>(showing you his phone) This. But you need like ten hours of context for it to be funny.<</dialog>>
+ <<dialog "player">>Try me.<</dialog>>
+-<<dialog "brother">>(shifting to give you the full story ??? clearly has wanted to tell someone)<</dialog>>`,
++<<dialog "brother">>(shifting to give you the full story, clearly has wanted to tell someone)<</dialog>>`,
+                 friendship: 2
+             },
+             {
+@@ -283,7 +283,7 @@ Yeah.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's deep in a YouTube rabbit hole ??? you can tell by the unfocused expression.<</narrative>>
++<<narrative>>He's deep in a YouTube rabbit hole. You can tell by the unfocused expression.<</narrative>>
+ <<dialog "brother">>(hearing you) Don't judge me. I started watching a video about ancient Rome and somehow ended up watching fish tank tutorials.<</dialog>>
+ <<dialog "player">>That's a very specific journey.<</dialog>>
+ <<dialog "brother">>(scrolling) It felt logical at every step.<</dialog>>`,
+@@ -292,7 +292,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's watching something with the volume just audible ??? a video essay, something long-form.<</narrative>>
++<<narrative>>He's watching something with the volume just audible. A video essay, something long-form.<</narrative>>
+ <<dialog "player">>What's that one?<</dialog>>
+ <<dialog "brother">>Some guy explaining why a film from the 90s is secretly about capitalism.
+ (pause)
+@@ -302,7 +302,7 @@ I don't know if he's right but he's very convincing.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He shows you his phone ??? a genuinely bizarre video ??? and monitors your reaction.<</narrative>>
++<<narrative>>He shows you his phone, a genuinely bizarre video, and monitors your reaction.<</narrative>>
+ <<dialog "brother">>Tell me what you think is happening in this video before I explain it.<</dialog>>
+ <<dialog "player">>(watching, confused) ...I have no idea.<</dialog>>
+ <<dialog "brother">>(delighted) Nobody does. The creator doesn't know either. That's the whole thing.<</dialog>>`,
+@@ -336,7 +336,7 @@ You can come in though. If you want. I'm not doing anything interesting but.<</d
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/bedroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He says goodnight first ??? a vacation thing. He's more relaxed about it here.<</narrative>>
++<<narrative>>He says goodnight first. A vacation thing. He's more relaxed about it here.<</narrative>>
+ <<dialog "brother">>I'm going to actually sleep tonight. Experiment.
+ (in the doorway)
+ Night.<</dialog>>
+@@ -353,7 +353,7 @@ Night.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at the kitchen table with a bowl of cereal and his phone ??? no rush, no school, no bag. The full vacation morning look.<</narrative>>
++<<narrative>>He's at the kitchen table with a bowl of cereal and his phone. No rush, no school, no bag. The full vacation morning look.<</narrative>>
+ <<dialog "brother">>(not looking up) Did you know a bear can run thirty miles per hour?<</dialog>>
+ <<dialog "player">>At nine in the morning?<</dialog>>
+ <<dialog "brother">>(holding up his phone) I'm doing this thing where I learn a fact a day.
+@@ -364,7 +364,7 @@ I learned it yesterday. Still thinking about it.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's made proper breakfast ??? eggs, toast ??? with the energy of someone who has nothing to rush for.<</narrative>>
++<<narrative>>He's made proper breakfast. Eggs, toast. The energy of someone who has nothing to rush for.<</narrative>>
+ <<dialog "player">>You cooked?<</dialog>>
+ <<dialog "brother">>(pleased with himself) It's vacation. I have time now.
+ (pushing the extra plate toward you)
+@@ -425,7 +425,7 @@ This is genuinely the best feeling.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at the table and looks up when you come in ??? actually meets your eyes first thing.<</narrative>>
++<<narrative>>He's at the table and looks up when you come in. Actually meets your eyes first thing.<</narrative>>
+ <<dialog "brother">>Did you sleep okay?<</dialog>>
+ <<dialog "player">>(surprised) Yeah. You?<</dialog>>
+ <<dialog "brother">>(so-so) Six hours. It'll do.
+@@ -444,7 +444,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He said something in his sleep apparently ??? you overhead him ??? and he looks mortified when you imply it.<</narrative>>
++<<narrative>>He said something in his sleep apparently. You overhead him. He looks mortified when you imply it.<</narrative>>
+ <<dialog "player">>(innocently) You were talking in your sleep last night.<</dialog>>
+ <<dialog "brother">>(immediately) What? No I wasn't. What did I say?<</dialog>>
+ <<dialog "player">>Nothing too bad.<</dialog>>
+@@ -460,7 +460,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at dinner and actually present ??? no tomorrow to worry about. He eats slower.<</narrative>>
++<<narrative>>He's at dinner and actually present. No tomorrow to worry about. He eats slower.<</narrative>>
+ <<dialog "brother">>Today was alright.
+ (genuinely)<</dialog>>
+ <<dialog "player">>Yeah?<</dialog>>
+@@ -470,7 +470,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's been in a good mood all day ??? vacation agrees with him. You can see it at dinner.<</narrative>>
++<<narrative>>He's been in a good mood all day. Vacation agrees with him. You can see it at dinner.<</narrative>>
+ <<dialog "brother">>(loading his plate) I had the most insane gaming session today.
+ (sitting down)
+ Top one percent. They give you a thing. I got the thing.<</dialog>>
+@@ -481,7 +481,7 @@ Top one percent. They give you a thing. I got the thing.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He actually helps set the table ??? vacation energy means he's less defensive about being helpful.<</narrative>>
++<<narrative>>He actually helps set the table. Vacation energy means he's less defensive about being helpful.<</narrative>>
+ <<dialog "brother">>(putting out plates) Where do these go over here?<</dialog>>
+ <<dialog "player">>There's fine.<</dialog>>
+ <<dialog "brother">>(setting them, casual) I don't mind this. Setting the table. It's a contained task.
+@@ -538,7 +538,7 @@ Mine's a supermarket. Which is a weird first memory.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's found a subject he actually wants to talk about ??? you can tell because he's using full sentences.<</narrative>>
++<<narrative>>He's found a subject he actually wants to talk about. You can tell because he's using full sentences.<</narrative>>
+ <<dialog "brother">>There's this game mechanic I've been thinking about designing. Like, professionally. Not now. Eventually.
+ (getting into it)
+ Tell me if this is stupid: what if the whole point of the game was???<</dialog>>`,
+@@ -566,7 +566,7 @@ It's a ten isn't it.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's on the sofa with a blanket and his phone ??? migrated from his room to here for reasons he hasn't articulated.<</narrative>>
++<<narrative>>He's on the sofa with a blanket and his phone. Migrated from his room to here for reasons he hasn't articulated.<</narrative>>
+ <<dialog "player">>(surprised) You're down here?<</dialog>>
+ <<dialog "brother">>(already under the blanket) My room gets warm in the morning.
+ (very settled)
+@@ -576,7 +576,7 @@ Don't make it weird.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's watching something with the volume low ??? morning TV, some kind of nature documentary.<</narrative>>
++<<narrative>>He's watching something with the volume low. Morning TV. Some kind of nature documentary.<</narrative>>
+ <<dialog "player">>When did you become a nature documentary person?<</dialog>>
+ <<dialog "brother">>(watching) Shh. The crab is about to do something.<</dialog>>
+ <<dialog "player">>...The crab?<</dialog>>
+@@ -586,7 +586,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's doing absolutely nothing ??? on the sofa, no phone, no TV. Just being there.<</narrative>>
++<<narrative>>He's doing absolutely nothing. On the sofa, no phone, no TV. Just being there.<</narrative>>
+ <<dialog "player">>You okay?<</dialog>>
+ <<dialog "brother">>(genuinely content) Yeah. I'm just sitting.
+ (as if this is perfectly normal)
+@@ -599,7 +599,7 @@ Haven't done this in a while.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's got breakfast on the coffee table ??? technically Mom would not approve but she's not here.<</narrative>>
++<<narrative>>He's got breakfast on the coffee table. Technically Mom would not approve, but she's not here.<</narrative>>
+ <<dialog "brother">>(pre-empting) I'm going to clean this up. Before you say anything.
+ (eating)
+ I always clean it up.<</dialog>>
+@@ -619,7 +619,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's comfortable in a very particular morning-only way ??? relaxed before the day has any expectations.<</narrative>>
++<<narrative>>He's comfortable in a very particular morning-only way. Relaxed before the day has any expectations.<</narrative>>
+ <<dialog "brother">>(slowly) Vacation morning is a different kind of morning.
+ (philosophical)
+ You should be allowed to sit in it.<</dialog>>
+@@ -702,7 +702,7 @@ But you'll watch the whole thing anyway.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's doing impressions of people he knows ??? teachers, Dad, himself ??? without an audience until you come in.<</narrative>>
++<<narrative>>He's doing impressions of people he knows. Teachers, Dad, himself. Without an audience until you come in.<</narrative>>
+ <<dialog "player">>(from the doorway) Who was that?<</dialog>>
+ <<dialog "brother">>(immediately stops) Nobody. Nothing. I was on the phone.<</dialog>>
+ <<dialog "player">>You weren't on the phone.<</dialog>>
+@@ -724,7 +724,7 @@ Also that cabinet would fall, the mounting is wrong.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He challenges you to something ??? a competition, a bet, something low-stakes and dumb.<</narrative>>
++<<narrative>>He challenges you to something. A competition, a bet, something low-stakes and dumb.<</narrative>>
+ <<dialog "brother">>Okay. I bet you fifty pence I can name more countries in sixty seconds than you can.
+ (completely confident)
+ You don't have to bet. But you should.<</dialog>>`,
+@@ -736,7 +736,7 @@ You don't have to bet. But you should.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's watching something and laughs ??? actually laughs, properly ??? and it's easy to be in the same room.<</narrative>>
++<<narrative>>He's watching something and laughs. Actually laughs, properly. And it's easy to be in the same room.<</narrative>>
+ <<dialog "player">>Good?<</dialog>>
+ <<dialog "brother">>(still laughing a bit) Yeah. Sorry. It's just this person???
+ (shows you the screen)
+@@ -746,7 +746,7 @@ Look at this.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>You're both on the sofa doing different things ??? parallel existence. Occasionally he'll show you something from his phone, you'll look, you'll both go back.<</narrative>>
++<<narrative>>You're both on the sofa doing different things. Parallel existence. Occasionally he'll show you something from his phone, you'll look, you'll both go back.<</narrative>>
+ <<dialog "brother">>(at some point) This is alright.
+ (meaning: this, right here, is enough)<</dialog>>`,
+                 friendship: 2
+@@ -754,7 +754,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He falls asleep on the sofa briefly ??? properly asleep for about twenty minutes ??? and wakes up disoriented and slightly embarrassed.<</narrative>>
++<<narrative>>He falls asleep on the sofa briefly. Properly asleep for about twenty minutes. Wakes up disoriented and slightly embarrassed.<</narrative>>
+ <<dialog "brother">>(waking up, groggy) I wasn't ??? I wasn't asleep.<</dialog>>
+ <<dialog "player">>You were snoring.<</dialog>>
+ <<dialog "brother">>(sitting up) I breathe loud.
+@@ -770,7 +770,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's set up the living room for a proper film ??? blankets, snacks, lights off. Didn't ask anyone, just did it.<</narrative>>
++<<narrative>>He's set up the living room for a proper film. Blankets, snacks, lights off. Didn't ask anyone, just did it.<</narrative>>
+ <<dialog "brother">>(when you come in) I'm putting something on. If you want to watch you can, if not I'm watching anyway.
+ (having sorted everything out)
+ I got the good crisps.<</dialog>>`,
+@@ -856,7 +856,7 @@ Night.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's on the sofa and reaches past you to get something ??? brushes your shoulder ??? and doesn't make it weird. It's just easy.<</narrative>>
++<<narrative>>He's on the sofa and reaches past you to get something, brushes your shoulder, and doesn't make it weird. It's just easy.<</narrative>>
+ <<dialog "brother">>(getting what he needed) Sorry.
+ (back to his phone, completely relaxed)<</dialog>>
+ <<dialog "player">>It's fine.<</dialog>>
+@@ -872,7 +872,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's sitting on the back step with his phone, sunglasses on ??? has managed to take the gaming lifestyle outside.<</narrative>>
++<<narrative>>He's sitting on the back step with his phone, sunglasses on. He's managed to take the gaming lifestyle outside.<</narrative>>
+ <<dialog "player">>(surprised) You're outside?<</dialog>>
+ <<dialog "brother">>(phone in hand) My room is hot and somewhere along the way I ended up here.
+ (not moving)
+@@ -882,7 +882,7 @@ It's not bad actually.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's found something to kick around ??? a football, a stone ??? the particular aimlessness of a teenager with nowhere to be.<</narrative>>
++<<narrative>>He's found something to kick around. A football, a stone. The particular aimlessness of a teenager with nowhere to be.<</narrative>>
+ <<dialog "player">>(stepping out) Hey.<</dialog>>
+ <<dialog "brother">>(kicking the thing) Hey.
+ (a pause)
+@@ -892,7 +892,7 @@ You can sit on the step if you want. I'm not doing anything important.<</dialog>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's lying on the grass looking at the sky ??? sincerely.<</narrative>>
++<<narrative>>He's lying on the grass looking at the sky. Sincerely.<</narrative>>
+ <<dialog "player">>Jake.<</dialog>>
+ <<dialog "brother">>(not moving) What.<</dialog>>
+ <<dialog "player">>What are you doing?<</dialog>>
+@@ -908,7 +908,7 @@ Sit down, it's actually good.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's bouncing a ball off the back fence ??? rhythmic, meditative, something he still does from years ago.<</narrative>>
++<<narrative>>He's bouncing a ball off the back fence. Rhythmic, meditative. Something he still does from years ago.<</narrative>>
+ <<dialog "player">>Want company?<</dialog>>
+ <<dialog "brother">>(catching the ball, considering) You can stand here if you want.
+ (throws it again)
+@@ -918,7 +918,7 @@ I'm not talking. I do this to not think.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's found the old badminton set from the move ??? is holding the racket like he's not sure if he wants to use it.<</narrative>>
++<<narrative>>He's found the old badminton set from the move. He's holding the racket like he's not sure if he wants to use it.<</narrative>>
+ <<dialog "brother">>(to you) Do you play?<</dialog>>
+ <<dialog "player">>A bit. Why?<</dialog>>
+ <<dialog "brother">>(handing you a racket) I'm bored enough.
+@@ -929,7 +929,7 @@ Let's do it.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's helping with something in the garden ??? Dad asked him and he's doing it with minimal complaint.<</narrative>>
++<<narrative>>He's helping with something in the garden. Dad asked him and he's doing it with minimal complaint.<</narrative>>
+ <<dialog "brother">>(not looking up) I'm being helpful. Note it.
+ (doing the task)
+ This is me helping. It's a thing I do now.<</dialog>>`,
+@@ -952,7 +952,7 @@ Can you look this up.
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's looking at the neighbour's cat that's got into the garden ??? he's trying to be cool about how much he wants to pet it.<</narrative>>
++<<narrative>>He's looking at the neighbour's cat that's got into the garden. Trying to be cool about how much he wants to pet it.<</narrative>>
+ <<dialog "brother">>(very calm) Don't move. Don't make it weird.
+ (inching toward the cat)
+ I just want to see if it'll let me???
+@@ -963,7 +963,7 @@ Okay. That's fine. I didn't want to anyway.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in the garden in the sun ??? genuinely comfortable, rare for someone who lives by screen glow.<</narrative>>
++<<narrative>>He's in the garden in the sun. Genuinely comfortable. Rare for someone who lives by screen glow.<</narrative>>
+ <<dialog "brother">>(to the air) The sun's actually nice today.
+ (looking at his arm)
+ I think I'm slightly less pale than last week.<</dialog>>
+@@ -980,7 +980,7 @@ I think I'm slightly less pale than last week.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's on the back step as the light goes golden ??? has been out here for a while.<</narrative>>
++<<narrative>>He's on the back step as the light goes golden. He's been out here for a while.<</narrative>>
+ <<dialog "player">>(coming out) You've been out here a while.<</dialog>>
+ <<dialog "brother">>(not apologetically) Yeah.
+ (quiet for a moment)
+@@ -992,7 +992,7 @@ It gets good around now. The light.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's sitting in the garden with nothing in his hands ??? no phone, no device, just there.<</narrative>>
++<<narrative>>He's sitting in the garden with nothing in his hands. No phone, no device. Just there.<</narrative>>
+ <<dialog "player">>(sitting near him) What are you thinking about?<</dialog>>
+ <<dialog "brother">>(honest) Nothing specific. Just everything kind of at once.
+ (looks at you briefly)
+@@ -1004,7 +1004,7 @@ Do you do that?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's found a spot he likes in the garden ??? a particular corner. He goes there without explaining.<</narrative>>
++<<narrative>>He's found a spot he likes in the garden. A particular corner. He goes there without explaining.<</narrative>>
+ <<dialog "player">>(following him) You have a spot?<</dialog>>
+ <<dialog "brother">>(settling in) Don't tell anyone.
+ (looking at the fence next door, the sky above)
+@@ -1017,7 +1017,7 @@ It's just quieter here.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's on the grass looking up as the first stars come out ??? very much not something he'd do in public.<</narrative>>
++<<narrative>>He's on the grass looking up as the first stars come out. Very much not something he'd do in public.<</narrative>>
+ <<dialog "brother">>(not explaining himself) You can see three already.
+ (pointing up)
+ That one first. Then two more.<</dialog>>`,
+@@ -1026,7 +1026,7 @@ That one first. Then two more.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's kicking about in the garden before coming in ??? a last bit of air before the evening routine.<</narrative>>
++<<narrative>>He's kicking about in the garden before coming in. A last bit of air before the evening routine.<</narrative>>
+ <<dialog "brother">>(to you) Staying out a bit?<</dialog>>
+ <<dialog "player">>For a while.<</dialog>>
+ <<dialog "brother">>(sitting on the step nearby, doesn't go in yet) Cool.
+@@ -1036,7 +1036,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He comes outside just as it's getting dark ??? has been inside all day and needed air.<</narrative>>
++<<narrative>>He comes outside just as it's getting dark. He's been inside all day and needed air.<</narrative>>
+ <<dialog "brother">>(breathing it in) Okay. Yeah. That's better.
+ (sitting on the step)
+ I forget to go outside sometimes.
+@@ -1053,7 +1053,7 @@ I forget to go outside sometimes.
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-3.webp">>
+ <<image _img "100%">>
+ <<narrative>>The garden is quiet. He starts talking without making a thing of it:<</narrative>>
+-<<dialog "brother">>I think I know what I want to do. With like ??? school and after.
++<<dialog "brother">>I think I know what I want to do. With like, school and after.
+ (not looking at you)
+ I don't know if it's realistic.<</dialog>>
+ <<dialog "player">>What is it?<</dialog>>
+@@ -1081,7 +1081,7 @@ Like, even now. Like you haven't finished yet.<</dialog>>
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level1/backyardEvening-3.webp">>
+ <<image _img "100%">>
+ <<narrative>>He says it plainly, like it's obvious:<</narrative>>
+-<<dialog "brother">>You're easy to be around. Like ??? you don't make things more complicated than they are.
++<<dialog "brother">>You're easy to be around. Like, you don't make things more complicated than they are.
+ (pause)
+ Most people do that.<</dialog>>
+ <<dialog "player">>Thanks.<</dialog>>
+diff --git a/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel2.twee b/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel2.twee
+index 701c016..bca1496 100644
+--- a/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel2.twee	
++++ b/passages/3- Interactions/FamilyHouse/Brother/talkDatabase/BrotherTopicsVacationLevel2.twee	
+@@ -3,11 +3,11 @@
+    phase === "vacation" && friendshipLevel === 2
+ 
+    VACATION L2 TONE:
+-   ??? He genuinely seeks you out ??? won't admit it but does
++   ??? He genuinely seeks you out. Won't admit it but does
+    ??? Opens up about future, identity, what he actually cares about
+    ??? Dry humour as warmth: teases you = likes you
+    ??? Backyard at night = his most honest version
+-   ??? Real sibling bond ??? rare but unmistakeable
++   ??? Real sibling bond. Rare but unmistakeable
+    ??? Stat gains: friendship +3, trust +2, love +1-2
+ 
+    8 CONTEXTS (same as L1):
+@@ -25,7 +25,7 @@
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He calls from his room as you pass ??? not unusual now.<</narrative>>
++<<narrative>>He calls from his room as you pass. Not unusual now.<</narrative>>
+ <<dialog "brother">>Hey. Come look at this.<</dialog>>
+ <<dialog "player">>(at the door) What is it?<</dialog>>
+ <<dialog "brother">>(turning his monitor toward you) I made this last night. When I couldn't sleep.
+@@ -40,7 +40,7 @@ I just wanted a second opinion.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in a good mood when you pass ??? you can hear it before you see it.<</narrative>>
++<<narrative>>He's in a good mood when you pass. You can hear it before you see it.<</narrative>>
+ <<dialog "brother">>(at his desk, something going right) Hey, good morning.
+ (pointing at a chair)
+ Sit for a second. I want to tell you something.<</dialog>>
+@@ -53,7 +53,7 @@ It might be something real.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's already awake when you knock ??? unusual. Morning light fills his room.<</narrative>>
++<<narrative>>He's already awake when you knock. Unusual. Morning light fills his room.<</narrative>>
+ <<dialog "brother">>(at his desk, sketchbook open) I've been up since seven. I don't know what happened.
+ (looking at what he made)
+ Good morning though.
+@@ -67,7 +67,7 @@ You want to see what I've been doing?<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He holds out a printed page ??? something he made, something he designed, something from the sketchbook.<</narrative>>
++<<narrative>>He holds out a printed page. Something he made. Something he designed. Something from the sketchbook.<</narrative>>
+ <<dialog "brother">>(handing it to you) I printed it. Just to see what it looked like on paper.
+ (watching you hold it)
+ You can keep it if you want.<</dialog>>
+@@ -80,7 +80,7 @@ Thanks.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He explains what he's working on in more detail than he usually allows himself ??? the design, the system, the idea behind it.<</narrative>>
++<<narrative>>He explains what he's working on in more detail than he usually allows himself. The design, the system, the idea behind it.<</narrative>>
+ <<dialog "brother">>So the mechanic is ??? okay, don't say anything until I finish explaining???
+ (laying it all out, the fastest and most articulate you've heard him)
+ Does that make sense? Like, does the logic track?<</dialog>>
+@@ -116,7 +116,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's up early drawing ??? the sketchbook is out, pencil in hand, window light on the page.<</narrative>>
++<<narrative>>He's up early drawing. The sketchbook is out, pencil in hand, window light on the page.<</narrative>>
+ <<dialog "player">>(at the door) You're drawing?<</dialog>>
+ <<dialog "brother">>(not closing it) Yeah. I do it in the mornings now. When I can't sleep in.
+ (shrugging)
+@@ -126,7 +126,7 @@ It's actually pretty good. The morning thing.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He says good morning first ??? properly. Not the grunt. The actual words.<</narrative>>
++<<narrative>>He says good morning first. Properly. Not the grunt. The actual words.<</narrative>>
+ <<dialog "brother">>Morning.
+ (looking up from whatever he's doing)
+ Sleep okay?<</dialog>>
+@@ -144,7 +144,7 @@ Sleep okay?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's just won something and he turns around to tell you first ??? before anyone, before online friends, before checking the leaderboard.<</narrative>>
++<<narrative>>He's just won something and he turns around to tell you first. Before anyone, before online friends, before checking the leaderboard.<</narrative>>
+ <<dialog "brother">>(spinning his chair) I did it. I actually did it.
+ (genuinely excited in a way he doesn't usually allow)
+ I ranked up. Top five hundred.<</dialog>>
+@@ -169,7 +169,7 @@ Trust me on this one.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pauses the game when you come in ??? full stop, not just a hold-on.<</narrative>>
++<<narrative>>He pauses the game when you come in. Full stop, not just a hold-on.<</narrative>>
+ <<dialog "brother">>Hey. Sit down a sec. I want to ask you something.
+ (turning his chair)<</dialog>>
+ <<dialog "player">>What's up?<</dialog>>
+@@ -222,7 +222,7 @@ But I don't do that with you anymore.
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He shows you the notebook ??? the game design one. Not just the one thing. The whole notebook.<</narrative>>
++<<narrative>>He shows you the notebook. The game design one. Not just the one thing. The whole notebook.<</narrative>>
+ <<dialog "brother">>(handing it across) Don't read the early stuff. It's embarrassing.
+ (you look anyway)
+ Okay fine, you can read the early stuff. Just don't comment on it.<</dialog>>
+@@ -234,7 +234,7 @@ Yeah. I've been working on it for a while.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He does an impression of you ??? affectionate and slightly uncanny. You didn't know he watched you that closely.<</narrative>>
++<<narrative>>He does an impression of you. Affectionate and slightly uncanny. You didn't know he watched you that closely.<</narrative>>
+ <<dialog "brother">>(doing you) "Jake, it's late???" Jake, have you eaten???" "Jake???"
+ (grinning)
+ That's you. That's what you sound like.<</dialog>>
+@@ -245,11 +245,11 @@ That's you. That's what you sound like.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's calm and comfortable with you in his room now ??? doesn't clean up, doesn't get defensive, just lets you be there.<</narrative>>
++<<narrative>>He's calm and comfortable with you in his room now. Doesn't clean up, doesn't get defensive, just lets you be there.<</narrative>>
+ <<dialog "brother">>(at his desk, drawing) You can sit wherever. I'm just doing this.
+ (carrying on)
+ Tell me about your day if you want. I'm listening.
+-(and he is ??? in his way, he's listening)<</dialog>>`,
++(and he is, in his way, listening)<</dialog>>`,
+                 friendship: 4, love: 1
+             }
+         ]
+@@ -261,7 +261,7 @@ Tell me about your day if you want. I'm listening.
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's on his bed, lamp on ??? read earlier, put the book down, didn't pick anything else up. He looks okay.<</narrative>>
++<<narrative>>He's on his bed, lamp on. Read earlier, put the book down, didn't pick anything else up. He looks okay.<</narrative>>
+ <<dialog "brother">>(when you appear) Come in for a sec.
+ (moving so there's room on the end of the bed)
+ I wanted to say something.<</dialog>>
+@@ -276,7 +276,7 @@ Don't make it a whole thing.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He says something honest without hiding it behind a joke first ??? a sign of how much things have changed.<</narrative>>
++<<narrative>>He says something honest without hiding it behind a joke first. A sign of how much things have changed.<</narrative>>
+ <<dialog "brother">>I was kind of a mess at the start of the year. When we moved.
+ (factual, not dramatic)
+ I think I took it out on everyone.
+@@ -292,7 +292,7 @@ Okay. That's it. I said it. Done.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He asks you to sit down properly ??? pulls the spare chair out from under his desk.<</narrative>>
++<<narrative>>He asks you to sit down properly. He pulls the spare chair out from under his desk.<</narrative>>
+ <<dialog "brother">>I want to ask you something and I want a real answer, not just a nice one.
+ (sitting on his bed, serious)
+ Do you think I'm actually talented? At the design stuff. Or is it just... okay for a teenager?<</dialog>>
+@@ -308,7 +308,7 @@ Okay. Thank you. That's what I needed to hear.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's drawing late ??? his desk lamp the only light, the house quiet around him.<</narrative>>
++<<narrative>>He's drawing late. His desk lamp the only light, the house quiet around him.<</narrative>>
+ <<dialog "player">>(at the door, quietly) Still up?<</dialog>>
+ <<dialog "brother">>(not startled, expected you) Yeah. I'm in the middle of something.
+ (not closing the sketchbook)
+@@ -333,7 +333,7 @@ Come in if you want. I'll talk while I work.<</dialog>>`,
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-2.webp">>
+ <<image _img "100%">>
+ <<narrative>>He's about to stop for the night and he looks up at you with the tired-but-good look of someone who made something today.<</narrative>>
+-<<dialog "brother">>Good night. I mean actually ??? it was a good night. In here.
++<<dialog "brother">>Good night. I mean actually. It was a good night. In here.
+ (patting the sketchbook)
+ Did a lot.<</dialog>>
+ <<dialog "player">>Yeah?<</dialog>>
+@@ -347,7 +347,7 @@ Did a lot.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He says goodnight from the hallway ??? proper, warm, not rushed.<</narrative>>
++<<narrative>>He says goodnight from the hallway. Proper, warm, not rushed.<</narrative>>
+ <<dialog "brother">>Hey. Night.
+ (making eye contact, not just calling from behind the door)
+ You okay?<</dialog>>
+@@ -370,7 +370,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/bedroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He left something outside your door at some point in the evening ??? a snack, a note, something small and deliberate. When you mention it he shrugs.<</narrative>>
++<<narrative>>He left something outside your door at some point in the evening. A snack. A note. Something small and deliberate. When you mention it he shrugs.<</narrative>>
+ <<dialog "brother">>I had extra.
+ (very firmly not making it a big thing)
+ That's all it is.<</dialog>>
+@@ -390,7 +390,7 @@ That's all it is.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He made breakfast. Actual breakfast ??? eggs and toast, two plates, without being asked.<</narrative>>
++<<narrative>>He made breakfast. Actual breakfast. Eggs and toast, two plates, without being asked.<</narrative>>
+ <<dialog "brother">>(when you come in) I was making it anyway. Sit down.
+ (putting a plate in front of you, casual about it)<</dialog>>
+ <<dialog "player">>Thanks, Jake.<</dialog>>
+@@ -400,7 +400,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at the table with good morning energy ??? rare, and slightly funny.<</narrative>>
++<<narrative>>He's at the table with good morning energy. Rare, and slightly funny.<</narrative>>
+ <<dialog "brother">>(looking up) Morning. I slept properly for once. Eight hours.
+ (with the wonder of someone who discovered it's possible)
+ I feel like a different person.<</dialog>>
+@@ -412,7 +412,7 @@ I feel like a different person.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He makes room at the table for you without any ceremony ??? just moves his stuff over.<</narrative>>
++<<narrative>>He makes room at the table for you without any ceremony. Just moves his stuff over.<</narrative>>
+ <<dialog "brother">>(sliding across the juice) Sit. It's a good morning.
+ (looking out the window)
+ I don't know why. It just is.<</dialog>>`,
+@@ -424,8 +424,8 @@ I don't know why. It just is.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He says it while looking at his tea ??? the mug in his hands, not at you:<</narrative>>
+-<<dialog "brother">>I drew something for you. Like, specifically for you. Not to show you ??? just made it.
++<<narrative>>He says it while looking at his tea. The mug in his hands, not at you:<</narrative>>
++<<dialog "brother">>I drew something for you. Like, specifically for you. Not to show you. Just made it.
+ (a pause)
+ It's of a thing you said once. About somewhere you wanted to go.
+ (quickly)
+@@ -479,7 +479,7 @@ I've been watching the garden. A fox came through at like six AM. Proper fox.<</
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He passes you something mid-sentence ??? whatever you needed ??? then keeps talking like it didn't happen. Just easy.<</narrative>>
++<<narrative>>He passes you something mid-sentence, whatever you needed, then keeps talking like it didn't happen. Just easy.<</narrative>>
+ <<dialog "brother">>(handing it across, continuing his story) ??? and then the guy online says, no that's not a bug that's a feature, and I'm like???
+ (you take it)
+ ??? and I'm like, it clearly IS a bug because???<</dialog>>
+@@ -507,8 +507,8 @@ Don't make a thing of it.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's telling you about something at dinner and he's properly animated ??? the kind of story that has gestures.<</narrative>>
+-<<dialog "brother">>Okay so the level I was designing ??? the whole ecosystem thing ??? I figured out how the food chain works. I worked it out on paper. It's like six pages.
++<<narrative>>He's telling you about something at dinner and he's properly animated. The kind of story that has gestures.<</narrative>>
++<<dialog "brother">>Okay so the level I was designing, the whole ecosystem thing, I figured out how the food chain works. I worked it out on paper. It's like six pages.
+ (spreading his hands)
+ I know that sounds like nothing but it was really hard to???<</dialog>>
+ <<dialog "player">>Show me after?<</dialog>>
+@@ -518,7 +518,7 @@ I know that sounds like nothing but it was really hard to???<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He serves you first when he's dishing up ??? just does it, doesn't comment.<</narrative>>
++<<narrative>>He serves you first when he's dishing up. Just does it. Doesn't comment.<</narrative>>
+ <<dialog "player">>Thanks.<</dialog>>
+ <<dialog "brother">>(sitting) You always forget to serve yourself when you're talking. I've noticed.
+ (completely calm about having noticed this)<</dialog>>`,
+@@ -566,7 +566,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He puts the sketchbook on the table between you ??? open, at the beginning ??? and waits.<</narrative>>
++<<narrative>>He puts the sketchbook on the table between you, open, at the beginning, and waits.<</narrative>>
+ <<dialog "brother">>You can look through it. All of it. I don't mind anymore.
+ (watching your hands, not your face)
+ Tell me if any of it's bad. Honestly.<</dialog>>`,
+@@ -575,9 +575,9 @@ Tell me if any of it's bad. Honestly.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He explains the game concept fully ??? the whole thing, not the sanitised version he gives everyone else.<</narrative>>
++<<narrative>>He explains the game concept fully. The whole thing, not the sanitised version he gives everyone else.<</narrative>>
+ <<dialog "brother">>Okay. The full version. Ready?
+-(and then he tells you everything ??? the world, the characters, the mechanics, the ending)
++(and then he tells you everything. The world, the characters, the mechanics, the ending)
+ ...That's it. That's the whole thing.
+ (looking at you, vulnerable)
+ What do you think?<</dialog>>`,
+@@ -589,7 +589,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/
+ <<narrative>>He shows you a drawing he did of the family. You're in it. He hadn't planned to show you this one.<</narrative>>
+ <<dialog "brother">>(seeing you see it, quickly) That one was just practice. Figures and stuff.
+ (not taking it away)
+-I draw what's around me. You were ??? it's not a thing.<</dialog>>
++I draw what's around me. You were. It's not a thing.<</dialog>>
+ <<dialog "player">>Jake. It's really good.<</dialog>>
+ <<dialog "brother">>(very quietly) I know.
+ (closing the sketchbook gently)
+@@ -605,7 +605,7 @@ Thanks.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's downstairs early ??? sketchbook on his lap, back door slightly open for air. Comfortable.<</narrative>>
++<<narrative>>He's downstairs early. Sketchbook on his lap, back door slightly open for air. Comfortable.<</narrative>>
+ <<dialog "player">>(coming down) You're down here again.<</dialog>>
+ <<dialog "brother">>(not looking up) It's better in the morning. The light's different.
+ (turning a page)
+@@ -615,7 +615,7 @@ There's tea in the pot. I kept it warm.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's made himself at home in the living room ??? morning newspaper someone left, a cup of tea, the sofa configured for a morning stay.<</narrative>>
++<<narrative>>He's made himself at home in the living room. Morning newspaper someone left, a cup of tea, the sofa configured for a morning stay.<</narrative>>
+ <<dialog "brother">>(glancing up) There's a whole article in here about game design. I pulled it out.
+ (holding up a torn page)
+ Don't tell Dad I tore it. I'll recycle it after.<</dialog>>`,
+@@ -646,7 +646,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's drawing, you're doing something nearby. He occasionally narrates what he's working on without looking up ??? half to you, half to himself.<</narrative>>
++<<narrative>>He's drawing, you're doing something nearby. He occasionally narrates what he's working on without looking up. Half to you, half to himself.<</narrative>>
+ <<dialog "brother">>(sketching) I'm trying to do hands. Hands are the worst.
+ (a beat)
+ Actually no, feet are the worst. But hands are close.<</dialog>>`,
+@@ -655,7 +655,7 @@ Actually no, feet are the worst. But hands are close.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He shows you something in the sketchbook without making it a presentation ??? just holds it up as you pass.<</narrative>>
++<<narrative>>He shows you something in the sketchbook without making it a presentation. Just holds it up as you pass.<</narrative>>
+ <<dialog "brother">>Tell me if the proportions are off.
+ (holds up the page)
+ I've been looking at it too long. I can't tell anymore.<</dialog>>`,
+@@ -668,7 +668,7 @@ I've been looking at it too long. I can't tell anymore.<</dialog>>`,
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomMorning-3.webp">>
+ <<image _img "100%">>
+ <<narrative>>He sits across from you and asks something genuine:<</narrative>>
+-<<dialog "brother">>What do you actually think of me? Like ??? honestly. As a person.
++<<dialog "brother">>What do you actually think of me? Like, honestly. As a person.
+ (before you can answer)
+ Not nice. Honest.<</dialog>>
+ <<dialog "player">>(taking it seriously, answering honestly)<</dialog>>
+@@ -695,7 +695,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/
+ <<image _img "100%">>
+ <<narrative>>He says something that costs him but he says it anyway:<</narrative>>
+ <<dialog "brother">>I think you're the person in this house who actually gets me.
+-(not dramatic ??? just observational)
++(not dramatic. Just observational)
+ Dad tries but he doesn't really. Mom does in her way.
+ (looking at you)
+ You just sort of... do. Without trying.<</dialog>>`,
+@@ -710,7 +710,7 @@ You just sort of... do. Without trying.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He shows you the game document on his phone ??? the actual file, the organised version, the one he's been building for months.<</narrative>>
++<<narrative>>He shows you the game document on his phone. The actual file, the organised version, the one he's been building for months.<</narrative>>
+ <<dialog "brother">>(handing you the phone) Don't scroll too fast. The structure matters.
+ (nervous in the way only something real can make you nervous)
+ Tell me what you think of the first level.<</dialog>>`,
+@@ -728,7 +728,7 @@ Sit down. It starts slow but stay with it.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's settled on the sofa and reaches across to pass you the snacks when you sit ??? automatic now, easy.<</narrative>>
++<<narrative>>He's settled on the sofa and reaches across to pass you the snacks when you sit. Automatic now. Easy.<</narrative>>
+ <<dialog "brother">>(not looking away from the screen) Good afternoon.
+ (completely deadpan)
+ Nice of you to join me.<</dialog>>
+@@ -742,7 +742,7 @@ Nice of you to join me.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He turns off the TV ??? just turns it off, middle of nothing, to say something:<</narrative>>
++<<narrative>>He turns off the TV. Just turns it off, middle of nothing, to say something:<</narrative>>
+ <<dialog "brother">>I'm nervous about going back to school. Still. Even after everything.
+ (matter of fact)
+ I thought it would go away but it hasn't. I'm just better at managing it now.
+@@ -833,7 +833,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's set up next to you ??? close enough that it's comfortable, far enough that it's not a thing. Just right.<</narrative>>
++<<narrative>>He's set up next to you. Close enough that it's comfortable, far enough that it's not a thing. Just right.<</narrative>>
+ <<dialog "brother">>(pressing play) Good choice tonight. I admit it.
+ (settling in)
+ You have better taste than I said you had.<</dialog>>
+@@ -928,7 +928,7 @@ Good.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in the garden with his sketchbook ??? actively chose to come outside with it.<</narrative>>
++<<narrative>>He's in the garden with his sketchbook. Actively chose to come outside with it.<</narrative>>
+ <<dialog "player">>(coming out) Hey.<</dialog>>
+ <<dialog "brother">>(not looking up from the page) Hey.
+ (a beat)
+@@ -940,7 +940,7 @@ I'm trying to do the garden. The actual garden.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's found a spot that works for him ??? the same corner he always ends up in now. He looks up when you come out.<</narrative>>
++<<narrative>>He's found a spot that works for him. The same corner he always ends up in now. He looks up when you come out.<</narrative>>
+ <<dialog "brother">>(making room) Sit here. The sun hits this spot right.
+ (moving over, easy about it)<</dialog>>
+ <<dialog "player">>Since when is this your spot?<</dialog>>
+@@ -962,7 +962,7 @@ The last world in the game. I can't figure out the mood of it. What would you ma
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He shows you his best drawing from the vacation ??? holds it up in the afternoon light.<</narrative>>
++<<narrative>>He shows you his best drawing from the vacation. Holds it up in the afternoon light.<</narrative>>
+ <<dialog "brother">>(holding it out) Best thing I've done.
+ (watching your face as you look)
+ I'm not being modest. It actually is.<</dialog>>
+@@ -974,7 +974,7 @@ I'm not being modest. It actually is.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's leaning back with his face in the sun ??? no phone, no sketchbook, just there.<</narrative>>
++<<narrative>>He's leaning back with his face in the sun. No phone, no sketchbook, just there.<</narrative>>
+ <<dialog "brother">>(eyes closed) This is a good afternoon.
+ (very settled)
+ Tell me something.<</dialog>>
+@@ -986,7 +986,7 @@ Tell me something.<</dialog>>
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-2.webp">>
+ <<image _img "100%">>
+ <<narrative>>He asks you something while looking at the garden:<</narrative>>
+-<<dialog "brother">>If you could draw something ??? anything, just for yourself, no one else ??? what would it be?<</dialog>>
++<<dialog "brother">>If you could draw something. Anything, just for yourself, no one else. What would it be?<</dialog>>
+ <<dialog "player">>(thinking, answering)<</dialog>>
+ <<dialog "brother">>(nodding, considering this seriously) I could try to draw that.
+ (opening his sketchbook)
+@@ -1000,7 +1000,7 @@ If you want. Just as a thing. No reason.<</dialog>>`,
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-3.webp">>
+ <<image _img "100%">>
+ <<narrative>>He says it simply, like he's been deciding when to say it:<</narrative>>
+-<<dialog "brother">>If something went badly wrong ??? like properly wrong ??? you'd be the person I'd call first.
++<<dialog "brother">>If something went badly wrong, like properly wrong, you'd be the person I'd call first.
+ (not looking at you)
+ Not Mom, not Dad. You.
+ (a beat)
+@@ -1025,7 +1025,7 @@ Okay. Moving on. What do you want for dinner.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in a real mood ??? expansive, open, the version of him that comes out in good light on good days.<</narrative>>
++<<narrative>>He's in a real mood. Expansive, open. The version of him that comes out in good light on good days.<</narrative>>
+ <<dialog "brother">>I'm going to be okay.
+ (not fishing, just stating it)
+ Like, I genuinely think I'm going to be okay. The school stuff, the future stuff.
+@@ -1091,7 +1091,7 @@ It's genuinely interesting though.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He lies in the grass next to you and narrates quietly ??? things he's looked up, things he noticed, things he thought while you weren't here.<</narrative>>
++<<narrative>>He lies in the grass next to you and narrates quietly. Things he's looked up. Things he noticed. Things he thought while you weren't here.<</narrative>>
+ <<dialog "brother">>(pointing at a star) That one's been there every night this week. Same spot. 
+ (a long pause)
+ I never noticed stars before this vacation.
+@@ -1119,7 +1119,7 @@ Yeah. I think so too.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He goes inside and then turns back in the doorway ??? warm light behind him, garden dark now.<</narrative>>
++<<narrative>>He goes inside and then turns back in the doorway. Warm light behind him, garden dark now.<</narrative>>
+ <<dialog "brother">>Hey.
+ (just looking at you for a second)
+ Glad you're my sister.
+@@ -1135,19 +1135,19 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/
+ <<dialog "brother">>This was a good vacation.
+ (looking back at the garden)
+ I'll remember it.
+-(and he means that ??? the sky, the drawings, the conversations, all of it)
++(and he means that. The sky, the drawings, the conversations, all of it)
+ Come in when you're ready. I'll leave the light on.<</dialog>>`,
+                 friendship: 4, love: 3, trust: 2
+             },
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/brother/vacation/level2/backyardEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He stands in the doorway for a moment ??? silhouette against the kitchen light ??? and says something simple:<</narrative>>
++<<narrative>>He stands in the doorway for a moment, silhouette against the kitchen light, and says something simple:<</narrative>>
+ <<dialog "brother">>Thanks.
+ (not specifying for what)
+ For being around.
+ (going in, quietly)<</dialog>>
+-<<narrative>>The door swings half-shut. Through the window you can see him put the kettle on ??? making tea for both of you without asking, one last time.<</narrative>>`,
++<<narrative>>The door swings half-shut. Through the window you can see him put the kettle on. Making tea for both of you without asking, one last time.<</narrative>>`,
+                 friendship: 4, love: 4, trust: 3
+             }
+         ]
+diff --git a/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel1.twee b/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel1.twee
+index 1fa245c..61e0c6e 100644
+--- a/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel1.twee	
++++ b/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel1.twee	
+@@ -19,7 +19,7 @@
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's already dressed and moving fast ??? commute mode. He glances up from his coffee as you come in.<</narrative>>
++<<narrative>>He's already dressed and moving fast. Commute mode. He glances up from his coffee as you come in.<</narrative>>
+ <<dialog "father">>Morning. You're up early.<</dialog>>
+ <<dialog "player">>Couldn't sleep.<</dialog>>
+ <<dialog "father">>(pouring a second mug) Coffee's hot.<</dialog>>
+@@ -32,7 +32,7 @@ Right. I'll see you tonight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's toast and standing ??? proper sit-down breakfast is a thing of the past now.<</narrative>>
++<<narrative>>He's eating toast standing up. Proper sit-down breakfast is a thing of the past now.<</narrative>>
+ <<dialog "father">>(eating over the counter) Meeting at nine. I need to leave in ten.
+ (glancing at you)
+ Did you need something?<</dialog>>
+@@ -45,7 +45,7 @@ Good morning.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's running a few minutes early ??? unusual ??? and actually has a moment.<</narrative>>
++<<narrative>>He's running a few minutes early, which is unusual, and he actually has a moment.<</narrative>>
+ <<dialog "father">>I've got five minutes. Sit if you want.<</dialog>>
+ <<dialog "player">>(sitting) Early start?<</dialog>>
+ <<dialog "father">>Covering for someone. It's fine.
+@@ -104,7 +104,7 @@ Look after your mother.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He glances at the kitchen calendar as he passes ??? a habit now.<</narrative>>
++<<narrative>>He glances at the kitchen calendar as he passes. A habit now.<</narrative>>
+ <<dialog "father">>Jake got the early bus?<</dialog>>
+ <<dialog "player">>Think so. I heard the door.<</dialog>>
+ <<dialog "father">>(satisfied) Good.
+@@ -129,7 +129,7 @@ See you later.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at the counter with a rare unhurried moment ??? someone cancelled a meeting.<</narrative>>
++<<narrative>>He's at the counter with a rare unhurried moment. Someone cancelled a meeting.<</narrative>>
+ <<dialog "father">>First meeting's been moved. I've got fifteen minutes.
+ (sitting down, actually)
+ Tell me something that's happening here while I'm gone.<</dialog>>
+@@ -161,7 +161,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/k
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sets the table ??? something he's started doing without being asked since work started.<</narrative>>
++<<narrative>>He sets the table. He's started doing it without being asked since work started.<</narrative>>
+ <<dialog "father">>(working) How was the day?<</dialog>>
+ <<dialog "player">>Fine. You?<</dialog>>
+ <<dialog "father">>Long.
+@@ -192,7 +192,7 @@ Anyway. This looks good.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He rinses his plate and leans on the counter for a moment ??? processing the day.<</narrative>>
++<<narrative>>He rinses his plate and leans on the counter for a moment. Processing the day.<</narrative>>
+ <<dialog "father">>New team's not bad. Bit slow to start. They'll get there.
+ (to himself)
+ They always do.<</dialog>>
+@@ -205,7 +205,7 @@ Goes for all of us.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pours water for both of them without thinking ??? the new evening habit.<</narrative>>
++<<narrative>>He pours water for both of them without thinking. The new evening habit.<</narrative>>
+ <<dialog "father">>Ask me about my day.<</dialog>>
+ <<dialog "player">>(raising an eyebrow) ...How was your day?<</dialog>>
+ <<dialog "father">>(almost smiling) Productive.
+@@ -216,7 +216,7 @@ Thanks for asking.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He checks something on his phone, then puts it face-down ??? a conscious act.<</narrative>>
++<<narrative>>He checks something on his phone, then puts it face-down. A conscious act.<</narrative>>
+ <<dialog "father">>Done with that until tomorrow.
+ (firmly)
+ That's the rule. After six-thirty, it goes down.<</dialog>>
+@@ -232,7 +232,7 @@ Your generation's better at that than mine, I think.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He does the washing up while you dry ??? the pattern they've settled into.<</narrative>>
++<<narrative>>He does the washing up while you dry. The pattern they've settled into.<</narrative>>
+ <<dialog "father">>Jake alright today?<</dialog>>
+ <<dialog "player">>Seemed good. He watched a film with us in the afternoon.<</dialog>>
+ <<dialog "father">>(quiet satisfaction) Good. Good.<</dialog>>`,
+@@ -241,7 +241,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/k
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's preparing tomorrow's lunch the night before ??? systematic.<</narrative>>
++<<narrative>>He's preparing tomorrow's lunch the night before. Systematic.<</narrative>>
+ <<dialog "father">>How's your mother been today?<</dialog>>
+ <<dialog "player">>Good. She found a new thing she wants to do with the garden.<</dialog>>
+ <<dialog "father">>(quietly) Good. She needs projects.
+@@ -252,7 +252,7 @@ So do I.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pauses mid-task and looks at you properly ??? a rarity after a long day.<</narrative>>
++<<narrative>>He pauses mid-task and looks at you properly. Rare, after a long day.<</narrative>>
+ <<dialog "father">>You alright? Genuinely.<</dialog>>
+ <<dialog "player">>Yeah. I'm fine.<</dialog>>
+ <<dialog "father">>(studying you briefly) Okay. You'd say if you weren't?<</dialog>>
+@@ -269,7 +269,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/k
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in the armchair, jacket off, shoes off ??? the decompress ritual in full effect.<</narrative>>
++<<narrative>>He's in the armchair, jacket off, shoes off. The decompress ritual in full effect.<</narrative>>
+ <<dialog "father">>(flatly) Don't talk to me for ten minutes.<</dialog>>
+ <<dialog "player">>Okay.<</dialog>>
+ <<narrative>>You sit quietly. After about eight minutes:<</narrative>>
+@@ -281,7 +281,7 @@ Good day?<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's got his eyes closed, not sleeping ??? thinking, or not thinking. Hard to tell.<</narrative>>
++<<narrative>>He's got his eyes closed but he's not sleeping. Thinking, or not thinking. Hard to tell.<</narrative>>
+ <<dialog "player">>Do you want anything? Tea?<</dialog>>
+ <<dialog "father">>(without opening his eyes) That'd be good. Yes.
+ (a beat)
+@@ -291,7 +291,7 @@ Thank you.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's switched on the TV but isn't watching it ??? it's just noise cover while he sits.<</narrative>>
++<<narrative>>He's switched on the TV but isn't watching it. Just noise cover while he sits.<</narrative>>
+ <<dialog "father">>I'm not tired. Just done.
+ (without looking at you)
+ There's a difference.<</dialog>>
+@@ -305,7 +305,7 @@ There's a difference.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>Something on TV catches him off guard ??? he actually laughs, short and genuine.<</narrative>>
++<<narrative>>Something on TV catches him off guard. He actually laughs. Short and genuine.<</narrative>>
+ <<dialog "player">>What was that?<</dialog>>
+ <<dialog "father">>(still smiling) I don't know. But it was the right thing at the right time.
+ (gesturing to the couch)
+@@ -340,7 +340,7 @@ You don't have to sit here.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>You're sitting in the same room ??? him doing nothing, you reading or scrolling. It's comfortable.<</narrative>>
++<<narrative>>You're sitting in the same room. Him doing nothing, you reading or scrolling. It's comfortable.<</narrative>>
+ <<dialog "father">>This is actually nice.
+ (just)
+ That.<</dialog>>
+@@ -351,7 +351,7 @@ That.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He looks at the family photo on the shelf ??? the one he put up himself.<</narrative>>
++<<narrative>>He looks at the family photo on the shelf. The one he put up himself.<</narrative>>
+ <<dialog "father">>That photo's been in three different houses now.
+ (quietly)
+ Good photo.<</dialog>>
+@@ -362,7 +362,7 @@ Good photo.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He says goodnight before you do. Unusual ??? normally you head up first.<</narrative>>
++<<narrative>>He says goodnight before you do. Unusual. Normally you head up first.<</narrative>>
+ <<dialog "father">>Right. I'm going up.
+ (passing you)
+ Goodnight.<</dialog>>
+@@ -382,7 +382,7 @@ Goodnight.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's under the bonnet ??? work clothes still on, or a t-shirt if he changed. He doesn't look up immediately.<</narrative>>
++<<narrative>>He's under the bonnet. Work clothes still on, or a t-shirt if he changed. He doesn't look up right away.<</narrative>>
+ <<dialog "father">>Hand me the long socket. Third drawer.<</dialog>>
+ <<dialog "player">>(finding it) This?<</dialog>>
+ <<dialog "father">>(taking it) Yeah. Thanks.
+@@ -395,7 +395,7 @@ You don't have to stay.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's checking the tyre pressure ??? methodical, slow. Not in a hurry to be anywhere.<</narrative>>
++<<narrative>>He's checking the tyre pressure. Methodical, slow. Not in a hurry to be anywhere.<</narrative>>
+ <<dialog "father">>Know how to check these?<</dialog>>
+ <<dialog "player">>Not really.<</dialog>>
+ <<dialog "father">>Come here. I'll show you once. You'll want to know it eventually.
+@@ -406,7 +406,7 @@ Basic thing. Should take thirty seconds.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He steps back from the car and wipes his hands ??? done for the night, satisfied.<</narrative>>
++<<narrative>>He steps back from the car and wipes his hands. Done for the night. Satisfied.<</narrative>>
+ <<dialog "father">>That's the cooling system sorted. Took three evenings.
+ (simply)
+ Worth it though.<</dialog>>
+@@ -422,7 +422,7 @@ It's the only thing I work on where I can actually see it's done.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's cleaning tools at the workbench ??? precise, habitual, clearly therapeutic.<</narrative>>
++<<narrative>>He's cleaning tools at the workbench. Precise, habitual. Clearly therapeutic.<</narrative>>
+ <<dialog "father">>You can sit there if you want.
+ (indicating a stool)
+ I'm not going to talk much.<</dialog>>
+@@ -447,7 +447,7 @@ Not too hard.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He notices you looking at something on the wall ??? old tools, framed like display.<</narrative>>
++<<narrative>>He notices you looking at something on the wall. Old tools, framed like display pieces.<</narrative>>
+ <<dialog "father">>My grandfather's. He was a machinist.
+ (without stopping what he's doing)
+ Good hands. Better than mine, probably.<</dialog>>
+@@ -463,7 +463,7 @@ Computers pay better.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's got the radio on ??? same station as always. He doesn't talk over it.<</narrative>>
++<<narrative>>He's got the radio on. Same station as always. He doesn't talk over it.<</narrative>>
+ <<dialog "player">>What is this?<</dialog>>
+ <<dialog "father">>Late night radio. Talk show.
+ (listening)
+@@ -486,7 +486,7 @@ How does that get on the radio.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>Something plays that he actually knows ??? he drums once on the workbench, then stops.<</narrative>>
++<<narrative>>Something plays that he actually knows. He drums once on the workbench, then stops.<</narrative>>
+ <<dialog "player">>Was that ??? did you just?<</dialog>>
+ <<dialog "father">>(returning to work, straight face) I don't know what you're talking about.<</dialog>>
+ <<dialog "player">>(grinning) You drummed on the bench.<</dialog>>
+@@ -502,7 +502,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/g
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's doing his tie in the mirror ??? almost ready, in commute mode.<</narrative>>
++<<narrative>>He's doing his tie in the mirror. Almost ready. Commute mode.<</narrative>>
+ <<dialog "father">>(without turning) You need something?<</dialog>>
+ <<dialog "player">>No. Just passing.<</dialog>>
+ <<dialog "father">>(straightening his tie) I'm leaving in five. If anything needs doing today ??? call me, I'll sort it tonight.<</dialog>>
+@@ -513,7 +513,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/p
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's looking for something ??? checking pockets, desk, jacket.<</narrative>>
++<<narrative>>He's looking for something. Checking pockets, desk, jacket.<</narrative>>
+ <<dialog "father">>Have you seen my phone? It was???
+ (finds it on the nightstand)
+ Never mind.
+@@ -528,7 +528,7 @@ Goodbye.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pauses at the door ??? something he wanted to say, not sure if there's time.<</narrative>>
++<<narrative>>He pauses at the door. Something he wanted to say. He's not sure if there's time.<</narrative>>
+ <<dialog "father">>(deciding there is) Look after your mother today. She's been quiet.
+ (not waiting for a response, heading out)
+ I'll be back by seven.<</dialog>>
+@@ -542,7 +542,7 @@ I'll be back by seven.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's laying out tomorrow's clothes the night before ??? old habit from work, still going.<</narrative>>
++<<narrative>>He's laying out tomorrow's clothes the night before. Old habit from work, still going.<</narrative>>
+ <<dialog "player">>(at the door) You do that every night?<</dialog>>
+ <<dialog "father">>(folding his jacket) Saves time in the morning. When you're half-asleep and making decisions, you make bad ones.<</dialog>>
+ <<dialog "player">>Makes sense.<</dialog>>
+@@ -554,7 +554,7 @@ Never again.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's checking his bag ??? methodical, making sure everything's there.<</narrative>>
++<<narrative>>He's checking his bag. Methodical. Making sure everything's there.<</narrative>>
+ <<dialog "father">>Do you know if there's anything happening this weekend? Your mother mentioned something.<</dialog>>
+ <<dialog "player">>I don't think so. Why?<</dialog>>
+ <<dialog "father">>I want to get the bathroom shelf sorted. I need a clear run at it.
+@@ -565,7 +565,7 @@ I'll check with her.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He finds a note he wrote himself ??? reads it, nods to himself, pockets it.<</narrative>>
++<<narrative>>He finds a note he wrote himself. Reads it. Nods, and pockets it.<</narrative>>
+ <<dialog "player">>What's that?<</dialog>>
+ <<dialog "father">>Reminder. I have a habit of thinking of things at 6am and then forgetting them by 8.
+ (pocketing it)
+@@ -596,7 +596,7 @@ Tell me if there's something.
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He looks back as he leaves ??? not dramatic, just a real look. A check.<</narrative>>
++<<narrative>>He looks back as he leaves. Not dramatic. A check.<</narrative>>
+ <<dialog "father">>See you tonight.
+ (meeting your eye briefly)
+ It's a good day. I can tell.<</dialog>>
+@@ -609,7 +609,7 @@ See you later.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He passes you on the way out and pauses ??? something he's decided to say.<</narrative>>
++<<narrative>>He passes you on the way out and pauses. He's decided to say something.<</narrative>>
+ <<dialog "father">>You've been good this week. With the house, with your mother.
+ (simply)
+ I notice, even when I don't say it.<</dialog>>
+@@ -628,7 +628,7 @@ Good.
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's sitting on the bed with his shoes off, doing nothing. Completely still ??? the last bit of decompression.<</narrative>>
++<<narrative>>He's sitting on the bed with his shoes off, doing nothing. Completely still. The last bit of decompression.<</narrative>>
+ <<dialog "player">>You okay?<</dialog>>
+ <<dialog "father">>(not moving) Fine. Just ??? done.
+ (after a moment)
+@@ -642,7 +642,7 @@ Good kind of done. Not bad done.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's changed out of work clothes ??? in that specific released state that only comes after.<</narrative>>
++<<narrative>>He's changed out of work clothes. He's in that specific released state that only comes after.<</narrative>>
+ <<dialog "father">>(quietly) Long day.
+ (not complaining, more reporting)
+ Good work, just ??? long.<</dialog>>
+@@ -655,7 +655,7 @@ That's a kindness though. Thank you.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's already lying down but not asleep ??? staring at the ceiling, thinking.<</narrative>>
++<<narrative>>He's already lying down but not asleep. Staring at the ceiling. Thinking.<</narrative>>
+ <<dialog "player">>(in the doorway) Sorry ??? did I wake you?<</dialog>>
+ <<dialog "father">>(eyes still closed) No.
+ (opening them)
+@@ -672,7 +672,7 @@ Goodnight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's reading before bed ??? the short window he gives himself before lights out.<</narrative>>
++<<narrative>>He's reading before bed. The short window he gives himself before lights out.<</narrative>>
+ <<dialog "father">>(without looking up) Jake settled?<</dialog>>
+ <<dialog "player">>Yeah. He's in his room.<</dialog>>
+ <<dialog "father">>(turning a page) Good.
+@@ -700,7 +700,7 @@ Goodnight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He looks up from his book and catches you in the doorway ??? properly looks at you.<</narrative>>
++<<narrative>>He looks up from his book and catches you in the doorway. Properly looks at you.<</narrative>>
+ <<dialog "father">>Come in a second.
+ (putting the book down)
+ You look like you're thinking about something.<</dialog>>
+diff --git a/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel2.twee b/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel2.twee
+index 3badbf2..9ff8e76 100644
+--- a/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel2.twee	
++++ b/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPostWorkLevel2.twee	
+@@ -19,7 +19,7 @@
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's already set a mug out for you ??? didn't say anything, just did it.<</narrative>>
++<<narrative>>He's already set a mug out for you. Didn't say anything. Just did it.<</narrative>>
+ <<dialog "player">>Oh. Thanks.<</dialog>>
+ <<dialog "father">>(at the stove) You're usually up by this time.
+ (briefly)
+@@ -46,7 +46,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/k
+ <<image _img "100%">>
+ <<narrative>>He slides a folded note across the counter on his way out.<</narrative>>
+ <<dialog "player">>What's this?<</dialog>>
+-<<dialog "father">>(almost at the door) Number for the boiler company. If it makes that noise again while I'm out ??? call them direct. I already explained the situation. They'll come same day.
++<<dialog "father">>(almost at the door) Number for the boiler company. If it makes that noise again while I'm out, call them direct. I already explained the situation. They'll come same day.
+ (leaving)
+ I should've written it down sooner.<</dialog>>`,
+                 friendship: 3, trust: 2
+@@ -70,12 +70,12 @@ Me too. Still.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's putting his lunch together ??? the now-familiar morning ritual.<</narrative>>
+-<<dialog "father">>If you're going past the hardware place today ??? I left a list on the side. If not, no problem.<</dialog>>
++<<narrative>>He's putting his lunch together. The now-familiar morning ritual.<</narrative>>
++<<dialog "father">>If you're going past the hardware place today, I left a list on the side. If not, no problem.<</dialog>>
+ <<dialog "player">>I can go. What do you need?<</dialog>>
+ <<dialog "father">>(looking up) You don't have to. I just thought if you were going anyway???<</dialog>>
+ <<dialog "player">>I'll go. It's fine.<</dialog>>
+-<<dialog "father">>(a beat ??? genuinely pleased) Okay. Thank you.
++<<dialog "father">>(a beat, genuinely pleased) Okay. Thank you.
+ (adding to the list)
+ I'll add the sizes I need.<</dialog>>`,
+                 friendship: 3, trust: 1
+@@ -83,10 +83,10 @@ I'll add the sizes I need.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pauses before leaving ??? eye contact, intentional.<</narrative>>
++<<narrative>>He pauses before leaving. Eye contact. Intentional.<</narrative>>
+ <<dialog "father">>Have a good day.
+ (simply, sincerely)
+-Not just ??? automatically. I mean it.<</dialog>>
++Not just automatically. I mean it.<</dialog>>
+ <<dialog "player">>(a beat) You too.<</dialog>>
+ <<dialog "father">>(nods, goes)<</dialog>>`,
+                 friendship: 3, love: 1
+@@ -97,7 +97,7 @@ Not just ??? automatically. I mean it.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He passes you on the way out ??? shoulder barely touching yours ??? and keeps going.<</narrative>>
++<<narrative>>He passes you on the way out, shoulder barely touching yours, and keeps going.<</narrative>>
+ <<dialog "father">>Heard you last night, by the way. Fixing the thing with the cupboard door.
+ (without stopping)
+ Good fix.<</dialog>>
+@@ -108,7 +108,7 @@ Good fix.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He drops his keys on the counter and picks them up ??? a thought caught mid-motion.<</narrative>>
++<<narrative>>He drops his keys on the counter and picks them up. A thought caught mid-motion.<</narrative>>
+ <<dialog "father">>I've cleared Saturday morning. We can finish the garage properly.
+ (to you)
+ If you're free.<</dialog>>
+@@ -136,7 +136,7 @@ You don't have to read it. But you'd find it interesting.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sits at the kitchen table before dinner's ready ??? unusual; he normally moves around.<</narrative>>
++<<narrative>>He sits at the kitchen table before dinner's ready. Unusual. He normally moves around.<</narrative>>
+ <<dialog "father">>Kid started today. My team. Mid-twenties, just finished his degree.
+ (looking at the table)
+ Reminds me of how much I didn't know at that age.
+@@ -151,7 +151,7 @@ I'll do better tomorrow.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He talks while setting the table ??? the kind of talking where he's working something out.<</narrative>>
++<<narrative>>He talks while setting the table. The kind of talking where he's working something out.<</narrative>>
+ <<dialog "father">>There's a project I've been asked to lead. Large one. More than I've done before.
+ (placing a fork)
+ I should say yes. I've said yes to things I wasn't ready for before and it worked out.
+@@ -182,7 +182,7 @@ That's not a bad thing.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He tastes whatever's on the stove and makes a face ??? then immediately tastes it again.<</narrative>>
++<<narrative>>He tastes whatever's on the stove and makes a face. Then immediately tastes it again.<</narrative>>
+ <<dialog "player">>Is that good or bad?<</dialog>>
+ <<dialog "father">>(tasting a third time) Good. I'm just making sure.
+ (looking at you)
+@@ -212,7 +212,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/k
+ <<dialog "player">>It was dripping.<</dialog>>
+ <<dialog "father">>(examining it) How did you know to do that?<</dialog>>
+ <<dialog "player">>You explained it. When you did the other one.<</dialog>>
+-<<dialog "father">>(quiet for a moment ??? something warm in it) You paid attention.
++<<dialog "father">>(quiet for a moment, something warm in it) You paid attention.
+ (back to normal)
+ Good.<</dialog>>`,
+                 friendship: 3, trust: 2, love: 1
+@@ -223,7 +223,7 @@ Good.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sees something in the kitchen that triggers a memory ??? holds it a moment, then speaks.<</narrative>>
++<<narrative>>He sees something in the kitchen that triggers a memory. Holds it a moment, then speaks.<</narrative>>
+ <<dialog "father">>My mother used to make something that smelled like that. Same thing, probably.
+ (quietly)
+ Every house I've been in that's reminded me of hers has felt like home faster.
+@@ -238,7 +238,7 @@ This one did. Quickly.<</dialog>>
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+ <<narrative>>He's at the counter and says something without warning:<</narrative>>
+-<<dialog "father">>When you were very small ??? maybe three ??? you used to follow me around the kitchen and hand me things. Wrong things, usually.
++<<dialog "father">>When you were very small, maybe three, you used to follow me around the kitchen and hand me things. Wrong things, usually.
+ (a small, genuine smile)
+ Confident about it, though.<</dialog>>
+ <<dialog "player">>I had no idea what you were doing.<</dialog>>
+@@ -250,7 +250,7 @@ That was good.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He hands you a mug ??? deliberate, paired with something he wanted to say.<</narrative>>
++<<narrative>>He hands you a mug. Deliberate. Paired with something he wanted to say.<</narrative>>
+ <<dialog "father">>We've moved three times since you were a child.
+ (sitting with his own mug)
+ I've always worried we disrupted things too much. For you and Jake.
+@@ -271,7 +271,7 @@ Fine. You've turned out fine.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's watching something and clearly enjoying it more because you're there ??? says nothing about this.<</narrative>>
++<<narrative>>He's watching something and clearly enjoying it more because you're there. He says nothing about this.<</narrative>>
+ <<dialog "father">>(during a quiet bit) I almost didn't put this on. Glad I did.
+ (glancing at you)
+ Better with someone.<</dialog>>
+@@ -313,7 +313,7 @@ That's probably obvious. Just wanted to say it once.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He offers something ??? not preachy, more like a note he wanted to pass along.<</narrative>>
++<<narrative>>He offers something. Not preachy. More like a note he wanted to pass along.<</narrative>>
+ <<dialog "father">>I've worked with a lot of people who were afraid to ask questions. Thought it made them look slow.
+ (to you)
+ It doesn't. Questions are how you actually get fast.
+@@ -331,7 +331,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/l
+ <<narrative>>You mention something you're worried about. He doesn't rush his answer.<</narrative>>
+ <<dialog "father">>(after a beat) That's a real problem. And it's a solvable problem.
+ (thinking)
+-Here's how I'd approach it ??? and you can ignore this entirely.
++Here's how I'd approach it. You can ignore this entirely.
+ (laying it out calmly)
+ But the first step is probably just...<</dialog>>`,
+                 friendship: 3, trust: 2, love: 1
+@@ -340,7 +340,7 @@ But the first step is probably just...<</dialog>>`,
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-2.webp">>
+ <<image _img "100%">>
+ <<narrative>>He gives advice he clearly followed himself:<</narrative>>
+-<<dialog "father">>Put the boring things on a list. Don't keep them in your head ??? they take up more space in your head than on paper.
++<<dialog "father">>Put the boring things on a list. Don't keep them in your head. They take up more space in your head than on paper.
+ (tapping his temple)
+ This should be for the actual thinking, not for remembering what you need to do.<</dialog>>
+ <<dialog "player">>Your notepad rule.<</dialog>>
+@@ -353,7 +353,7 @@ This should be for the actual thinking, not for remembering what you need to do.
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He falls asleep in the chair ??? actually, properly asleep midway through a documentary. Wakes up ten minutes later.<</narrative>>
++<<narrative>>He falls asleep in the chair. Actually, properly asleep midway through a documentary. Wakes up ten minutes later.<</narrative>>
+ <<dialog "father">>(groggily) Where did it get to?<</dialog>>
+ <<dialog "player">>(quietly) I paused it.<</dialog>>
+ <<dialog "father">>(finding the remote) Oh.
+@@ -370,7 +370,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/l
+ (low, not making a big thing of it)
+ Goodnight.<</dialog>>
+ <<dialog "player">>Night.<</dialog>>
+-<<narrative>>He goes. The room's quieter now ??? in the good way.<</narrative>>`,
++<<narrative>>He goes. The room's quieter now. In the good way.<</narrative>>`,
+                 friendship: 3, love: 2
+             },
+             {
+@@ -395,12 +395,12 @@ Trust me.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sets down what he's doing and turns ??? tonight, he came to teach, not just work.<</narrative>>
++<<narrative>>He sets down what he's doing and turns. Tonight he came to teach, not just work.<</narrative>>
+ <<dialog "father">>Right. I've been thinking about what's actually useful for you to know.
+ (picking up a part)
+-If anything with the car breaks when I'm not around ??? which it will eventually ??? you should be able to diagnose it yourself.
++If anything with the car breaks when I'm not around, and it will eventually, you should be able to diagnose it yourself.
+ (looking at you)
+-That's the lesson tonight. Diagnosis. Not fixing ??? just knowing what you're looking at.<</dialog>>
++That's the lesson tonight. Diagnosis. Not fixing. Just knowing what you're looking at.<</dialog>>
+ <<dialog "player">>Okay.<</dialog>>
+ <<dialog "father">>Good. Start here.<</dialog>>`,
+                 friendship: 3, trust: 2
+@@ -408,10 +408,10 @@ That's the lesson tonight. Diagnosis. Not fixing ??? just knowing what you're lo
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He walks you through something ??? not impatient, actually taking time with it.<</narrative>>
++<<narrative>>He walks you through something. Not impatient. Actually taking time with it.<</narrative>>
+ <<dialog "father">>The older I get the more I think teaching something is the best way to understand it yourself.
+ (showing you a joint)
+-So for my benefit as much as yours ??? here's how this works.
++So for my benefit as much as yours. Here's how this works.
+ (explaining it properly)<</dialog>>
+ <<dialog "player">>(listening, looking)<</dialog>>
+ <<dialog "father">>(checking you're following) With me?<</dialog>>
+@@ -422,7 +422,7 @@ So for my benefit as much as yours ??? here's how this works.
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>Something you did last time was right ??? and he says so.<</narrative>>
++<<narrative>>Something you did last time was right. He says so.<</narrative>>
+ <<dialog "father">>You did that part correctly last week. Without being told.
+ (direct, not effusive)
+ You've got good instincts for it.<</dialog>>
+@@ -436,10 +436,10 @@ You've got good instincts for it.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's working on something and starts talking ??? not to the room, to you.<</narrative>>
++<<narrative>>He's working on something and starts talking. Not to the room. To you.<</narrative>>
+ <<dialog "father">>My first job after university. I was terrible.
+ (not looking up)
+-I mean technically ??? I didn't know most of what I needed to know.
++I mean, technically, I didn't know most of what I needed to know.
+ (a pause)
+ My supervisor kept me anyway. Said confidence beats knowledge in the first six months.
+ (beat)
+@@ -451,7 +451,7 @@ He was right. Eventually.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He picks up the old chisels and something surfaces ??? a memory he actually wants to share.<</narrative>>
++<<narrative>>He picks up the old chisels and something surfaces. A memory he actually wants to share.<</narrative>>
+ <<dialog "father">>My grandfather had a workshop. Smaller than this. Sawdust on everything.
+ (examining one)
+ He'd let me sit in there for hours. Didn't talk much. I'd just watch and hand him things.
+@@ -466,12 +466,12 @@ You do the same, actually.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He talks without preamble ??? a story that just surfaced.<</narrative>>
+-<<dialog "father">>When your mother and I bought our first house, I didn't know what I was doing with anything. Plumbing, wiring ??? I was making it up.
++<<narrative>>He talks without preamble. A story that just surfaced.<</narrative>>
++<<dialog "father">>When your mother and I bought our first house, I didn't know what I was doing with anything. Plumbing, wiring. I was making it up.
+ (wryly)
+ I fixed one thing and broke two others. Every time.
+ (beat)
+-She never made me feel stupid for it. Just ??? handed me a cup of tea and said 'what's next'.
++She never made me feel stupid for it. Just handed me a cup of tea and said 'what's next'.
+ (quietly)
+ That's worth a lot.<</dialog>>
+ <<dialog "player">>She still does that.<</dialog>>
+@@ -485,8 +485,8 @@ That's worth a lot.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's not doing anything ??? just standing in the garage with a mug of tea. Something's on his mind.<</narrative>>
+-<<dialog "father">>Moving here ??? it was the right call. I know it didn't feel like it at first.
++<<narrative>>He's not doing anything. Just standing in the garage with a mug of tea. Something's on his mind.<</narrative>>
++<<dialog "father">>Moving here. It was the right call. I know it didn't feel like it at first.
+ (looking at you)
+ But for this family. For where we're going.
+ (back to the mug)
+@@ -512,7 +512,7 @@ Tell me if that changes.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/garageEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He finishes for the night ??? wipes down the workbench, turns off the radio. The wind-down ritual.<</narrative>>
++<<narrative>>He finishes for the night. Wipes down the workbench. Turns off the radio. The wind-down ritual.<</narrative>>
+ <<dialog "father">>Good session tonight.
+ (looking at what got done)
+ You're useful in here.
+@@ -533,10 +533,10 @@ Come on.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's almost ready ??? catches your reflection in the mirror as you appear in the doorway.<</narrative>>
++<<narrative>>He's almost ready. He catches your reflection in the mirror as you appear in the doorway.<</narrative>>
+ <<dialog "father">>(without stopping) You're up.<</dialog>>
+ <<dialog "player">>Yeah. Have a good day.<</dialog>>
+-<<dialog "father">>(pausing ??? something in the directness of it) Thanks.
++<<dialog "father">>(pausing, something in the directness of it) Thanks.
+ (turning briefly)
+ You too.<</dialog>>`,
+                 friendship: 3, trust: 1
+@@ -544,10 +544,10 @@ You too.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's grabbing his jacket when he spots something on the desk ??? the note you left.<</narrative>>
++<<narrative>>He's grabbing his jacket when he spots something on the desk. The note you left.<</narrative>>
+ <<dialog "father">>(reading it) What's this?<</dialog>>
+ <<dialog "player">>The plumber's number. You mentioned the downstairs bathroom last week.<</dialog>>
+-<<dialog "father">>(a beat ??? genuinely caught off guard by the thoughtfulness) I did.
++<<dialog "father">>(a beat, genuinely caught off guard by the thoughtfulness) I did.
+ (pocketing it)
+ Thank you. I'll call after nine.<</dialog>>`,
+                 friendship: 3, trust: 2
+@@ -555,7 +555,7 @@ Thank you. I'll call after nine.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's halfway out when he doubles back ??? remembered something.<</narrative>>
++<<narrative>>He's halfway out when he doubles back. Remembered something.<</narrative>>
+ <<dialog "father">>I've been thinking about what you said last night.
+ (brief, not making it a moment)
+ You were right. I'll deal with it differently.<</dialog>>
+@@ -571,14 +571,14 @@ See you tonight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's checking his bag ??? the new morning efficiency. He looks up when you appear.<</narrative>>
++<<narrative>>He's checking his bag. The new morning efficiency. He looks up when you appear.<</narrative>>
+ <<dialog "father">>I've started leaving earlier. Twenty minutes changes the whole drive.
+ (zipping his bag)
+ Fifteen minutes of traffic, not forty-five.
+ (to you)
+ Small things.<</dialog>>
+ <<dialog "player">>You seem less wound up in the mornings.<</dialog>>
+-<<dialog "father">>(a beat ??? receiving that) Yeah. I think I am.
++<<dialog "father">>(a beat, receiving that) Yeah. I think I am.
+ (heading to the door)
+ Good to know it shows.<</dialog>>`,
+                 friendship: 3, trust: 1
+@@ -586,7 +586,7 @@ Good to know it shows.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pauses at the dresser, looking at a photo there ??? the family one. A brief moment.<</narrative>>
++<<narrative>>He pauses at the dresser, looking at a photo there. The family one. A brief moment.<</narrative>>
+ <<dialog "player">>(quietly) Good photo.<</dialog>>
+ <<dialog "father">>(not turning) Yeah.
+ (picking up his watch)
+@@ -605,7 +605,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/p
+ <<dialog "player">>I don't know how.<</dialog>>
+ <<dialog "father">>(continuing) Four-in-hand. It's the only useful one. I'll show you sometime.
+ (finishing the knot)
+-Actually ??? come here.<</dialog>>
++Actually, come here.<</dialog>>
+ <<narrative>>He undoes it and retties it slowly, talking you through it.<</narrative>>
+ <<dialog "father">>There. Now you know.<</dialog>>`,
+                 friendship: 3, trust: 1, love: 1
+@@ -616,7 +616,7 @@ Actually ??? come here.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's almost at the door when he turns back ??? not in a hurry for once.<</narrative>>
++<<narrative>>He's almost at the door when he turns back. Not in a hurry for once.<</narrative>>
+ <<dialog "father">>Can I ask you something?
+ (not waiting long)
+ Are you alright? Not ??? fine. Actually alright.<</dialog>>
+@@ -629,19 +629,19 @@ See you tonight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He passes you in the doorway and pauses ??? close, briefly.<</narrative>>
++<<narrative>>He passes you in the doorway and pauses, close, briefly.<</narrative>>
+ <<dialog "father">>You've been good to your mother this week.
+ (not looking at you, but meaning it fully)
+ I see it.<</dialog>>
+ <<dialog "player">>She's easy to be good to.<</dialog>>
+-<<dialog "father">>(something in that ??? quiet) Yeah. She is.
++<<dialog "father">>(something in that, quiet) Yeah. She is.
+ (heading downstairs)<</dialog>>`,
+                 friendship: 3, love: 2, trust: 1
+             },
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's turned to go and stops ??? looks back over his shoulder with a direct, real expression.<</narrative>>
++<<narrative>>He's turned to go and stops. Looks back over his shoulder. Direct, real.<</narrative>>
+ <<dialog "father">>I'm glad you're here.
+ (simply, not making it a speech)
+ That's all.<</dialog>>
+@@ -658,7 +658,7 @@ That's all.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's sitting in the dim room ??? jacket off, door half-open. Not hiding, just decompressing in the quiet.<</narrative>>
++<<narrative>>He's sitting in the dim room. Jacket off, door half-open. Not hiding. Just decompressing in the quiet.<</narrative>>
+ <<dialog "father">>(low) Come in if you want.<</dialog>>
+ <<dialog "player">>(sitting in the chair) Rough day?<</dialog>>
+ <<dialog "father">>(long pause) Not rough. Just ??? a lot.
+@@ -673,7 +673,7 @@ Doesn't mean I find it easy.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's putting out tomorrow's clothes ??? methodical, Sunday habit on a weeknight. He talks without turning.<</narrative>>
++<<narrative>>He's putting out tomorrow's clothes. Methodical. A Sunday habit on a weeknight. He talks without turning.<</narrative>>
+ <<dialog "father">>You know what I thought about today, out of nowhere?
+ (not waiting)
+ When you were maybe eleven. You fixed the chain on your bike yourself. Didn't ask, just did it.<</dialog>>
+@@ -688,7 +688,7 @@ That was the right call.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at the end of the day ??? genuinely tired, genuinely himself.<</narrative>>
++<<narrative>>He's at the end of the day. Genuinely tired. Genuinely himself.<</narrative>>
+ <<dialog "father">>(sitting on the bed) I forget sometimes that you're ??? not a child anymore. I know that's obvious to say.
+ (looking at you properly)
+ You carry yourself differently than you used to here.
+@@ -705,7 +705,7 @@ Goodnight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's reading ??? actually reading now, not just holding the book. He pauses when you knock.<</narrative>>
++<<narrative>>He's reading. Actually reading now, not just holding the book. He pauses when you knock.<</narrative>>
+ <<dialog "father">>(setting the page) You alright?<</dialog>>
+ <<dialog "player">>Yeah. Just ??? goodnight.<</dialog>>
+ <<dialog "father">>(studying you for a moment) Sit down a minute.
+@@ -725,7 +725,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/p
+ (back to the book)
+ But I mean well. With all of it. I want you to know that.<</dialog>>
+ <<dialog "player">>I know.<</dialog>>
+-<<dialog "father">>(a beat ??? he believed that) Good.
++<<dialog "father">>(a beat, he believed that) Good.
+ (turning off the lamp)
+ Goodnight.<</dialog>>`,
+                 friendship: 3, love: 2, trust: 2
+@@ -733,7 +733,7 @@ Goodnight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's almost asleep but not quite ??? that half-state where things come out more easily.<</narrative>>
++<<narrative>>He's almost asleep but not quite. That half-state where things come out more easily.<</narrative>>
+ <<dialog "father">>(low, half to himself) You know what I keep thinking?
+ (a pause)
+ That I'd like to do this better. Be ??? more present.
+@@ -751,7 +751,7 @@ Goodnight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at the desk ??? not working, just sitting with a cup of tea in the quiet.<</narrative>>
++<<narrative>>He's at the desk. Not working. Just sitting with a cup of tea in the quiet.<</narrative>>
+ <<dialog "father">>(looking up) Come in.
+ (gesturing to the chair)
+ I was just thinking.<</dialog>>
+@@ -766,7 +766,7 @@ I just wanted to say that out loud to someone.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's putting the room in order before bed ??? a quiet, settled energy about him tonight.<</narrative>>
++<<narrative>>He's putting the room in order before bed. There's a quiet, settled energy about him tonight.<</narrative>>
+ <<dialog "player">>You seem ??? I don't know. Good tonight.<</dialog>>
+ <<dialog "father">>(pausing) I had a good day. And I came home to a good house.
+ (back to what he's doing)
+@@ -778,14 +778,14 @@ That's enough. More than enough.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level2/parentsRoomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sits on the edge of the bed and looks at you in the doorway ??? fully present, guard completely gone.<</narrative>>
++<<narrative>>He sits on the edge of the bed and looks at you in the doorway. Fully present. Guard completely gone.<</narrative>>
+ <<dialog "father">>I know I'm not always easy.
+ (direct)
+ I know that. And I know it matters.
+ (simply)
+ I want you to know that I know.<</dialog>>
+ <<dialog "player">>(after a moment) It's okay, Dad. Really.<</dialog>>
+-<<dialog "father">>(holds your gaze a second ??? something completed there)
++<<dialog "father">>(holds your gaze a second, something completed there)
+ Good.
+ (turning off the lamp)
+ Goodnight.<</dialog>>`,
+diff --git a/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPreWorkLevel1.twee b/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPreWorkLevel1.twee
+index 6b2575d..b4c9b71 100644
+--- a/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPreWorkLevel1.twee	
++++ b/passages/3- Interactions/FamilyHouse/Father/talkDatabase/FatherTopicsPreWorkLevel1.twee	
+@@ -23,7 +23,7 @@
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's already set the coffee maker going. He nods when you walk in ??? no big greeting, just an acknowledgement.<</narrative>>
++<<narrative>>He's already set the coffee maker going. He nods when you walk in. No big greeting.<</narrative>>
+ <<dialog "father">>Morning. Coffee's almost done.<</dialog>>
+ <<dialog "player">>Thanks.<</dialog>>
+ <<dialog "father">>(sitting down with the tablet) Sleep okay?<</dialog>>
+@@ -43,7 +43,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/ki
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pours a second mug before you ask ??? sets it on the counter in your direction without fanfare.<</narrative>>
++<<narrative>>He pours a second mug before you ask and slides it across the counter toward you.<</narrative>>
+ <<dialog "player">>Oh ??? thanks.<</dialog>>
+ <<dialog "father">>It brewed too much anyway.<</dialog>>
+ <<dialog "player">>(sitting down) What are your plans today?<</dialog>>
+@@ -76,7 +76,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/ki
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sets his phone face down ??? done with the news for now.<</narrative>>
++<<narrative>>He sets his phone face down. Done with the news for now.<</narrative>>
+ <<dialog "father">>Waste of time, half of it. Same things, different words.
+ (standing)
+ You want toast?<</dialog>>
+@@ -90,7 +90,7 @@ You want toast?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's got a notepad out ??? old habit, clearly, in a house full of screens.<</narrative>>
++<<narrative>>He's got a paper notepad out, which feels like an old habit in a house full of screens.<</narrative>>
+ <<dialog "father">>I'm making a list of things to fix before I start work.
+ (tapping the pad)
+ Otherwise it just won't happen.<</dialog>>
+@@ -114,7 +114,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/ki
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He checks his watch ??? an actual watch, not his phone.<</narrative>>
++<<narrative>>He checks his watch. An actual watch, not his phone.<</narrative>>
+ <<dialog "father">>Starting work in about a week. Feels strange, saying that.
+ (almost to himself)
+ Good strange. I think.<</dialog>>
+@@ -156,7 +156,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/ki
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He pours himself a small glass of water after clearing the table ??? winds-down mode.<</narrative>>
++<<narrative>>He pours himself a small glass of water after clearing the table. Winding down.<</narrative>>
+ <<dialog "father">>Good day?<</dialog>>
+ <<dialog "player">>Not bad. You?<</dialog>>
+ <<dialog "father">>(thinking) Productive. I got the garage halfway sorted.
+@@ -181,7 +181,7 @@ Progress.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He mentions something obliquely ??? checking the temperature of the room.<</narrative>>
++<<narrative>>He brings something up obliquely. Reading the room.<</narrative>>
+ <<dialog "father">>Your mother seems happy with the place. That matters.
+ (glancing at you)
+ You settling in okay?<</dialog>>
+@@ -192,7 +192,7 @@ You settling in okay?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He refills the water filter jug ??? small domestic thing, done without thinking.<</narrative>>
++<<narrative>>He refills the water filter jug. Small thing. He does it without thinking.<</narrative>>
+ <<dialog "father">>When I start work, the evenings'll be different. Shorter.
+ (matter-of-fact)
+ I'll be tired. Fair warning.<</dialog>>
+@@ -206,7 +206,7 @@ I'll be tired. Fair warning.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's got a notepad again ??? this one looks like a shopping list crossed with a project plan.<</narrative>>
++<<narrative>>He's got a notepad again. This one looks like a shopping list crossed with a project plan.<</narrative>>
+ <<dialog "father">>I want to put a shelf unit along that back garage wall before I start work. Something proper. You know how to use a drill?<</dialog>>
+ <<dialog "player">>More or less.<</dialog>>
+ <<dialog "father">>(levelly) That's good enough. I'll show you the rest.<</dialog>>`,
+@@ -215,7 +215,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/ki
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He looks at the kitchen calendar on the wall ??? an actual paper calendar, religiously kept.<</narrative>>
++<<narrative>>He looks at the kitchen calendar on the wall. An actual paper one, religiously kept.<</narrative>>
+ <<dialog "father">>Start date's eight days. I've been doing maths on it all week.
+ (turning)
+ Does that seem strange?<</dialog>>
+@@ -254,7 +254,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He turns the TV down when you sit ??? slight but noticeable.<</narrative>>
++<<narrative>>He turns the TV down when you sit. Slight but noticeable.<</narrative>>
+ <<dialog "father">>Market's doing something odd. My old colleague messaged about it.
+ (vaguely)
+ I'm not worried.<</dialog>>
+@@ -279,7 +279,7 @@ Informative though.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's got a paperback ??? worn spine, clearly re-read. He looks up without putting it down.<</narrative>>
++<<narrative>>He's got a paperback with a worn spine. Clearly re-read. He looks up without putting it down.<</narrative>>
+ <<dialog "player">>What are you reading?<</dialog>>
+ <<dialog "father">>(showing the cover) Engineering history. Bridges.<</dialog>>
+ <<dialog "player">>For fun?<</dialog>>
+@@ -302,7 +302,7 @@ Getting better.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in the reading chair ??? clearly claimed it already as his spot.<</narrative>>
++<<narrative>>He's in the reading chair. He's already claimed it as his spot.<</narrative>>
+ <<dialog "father">>You want anything? I was going to get more coffee.<</dialog>>
+ <<dialog "player">>Sure, if you're going.<</dialog>>
+ <<dialog "father">>(already standing) Right.<</dialog>>
+@@ -336,7 +336,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He looks around the room ??? you can tell he's building a mental inventory.<</narrative>>
++<<narrative>>He looks around the room. You can tell he's building a mental inventory.<</narrative>>
+ <<dialog "father">>I want to get a proper lamp in here. The overhead light is wrong.<</dialog>>
+ <<dialog "player">>Wrong how?<</dialog>>
+ <<dialog "father">>(matter-of-factly) Wrong colour temperature. Makes everything look clinical.
+@@ -353,7 +353,7 @@ I'll look online later.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's sorting through a box ??? not urgently, just steadily working through it.<</narrative>>
++<<narrative>>He's sorting through a box. Not urgently. Just steadily.<</narrative>>
+ <<dialog "father">>I found that cable box I've been looking for.
+ (holding it up)
+ Knew I packed it in here somewhere.<</dialog>>
+@@ -404,7 +404,7 @@ There. His feet were in. Clear call.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He looks up from his tablet ??? sports summary, clearly.<</narrative>>
++<<narrative>>He looks up from his tablet. Sports summary, clearly.<</narrative>>
+ <<dialog "father">>Do you follow any sport?<</dialog>>
+ <<dialog "player">>A bit. Depends on the season.<</dialog>>
+ <<dialog "father">>(mildly surprised) What do you watch?<</dialog>>
+@@ -417,7 +417,7 @@ Fair enough.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's watching highlights with the sound low ??? comfortable lazy-afternoon mode.<</narrative>>
++<<narrative>>He's watching highlights with the sound low. Lazy-afternoon mode.<</narrative>>
+ <<dialog "father">>This is my version of switching off. Don't need to think about it. It just happens.<</dialog>>
+ <<dialog "player">>That's the appeal?<</dialog>>
+ <<dialog "father">>That's the whole appeal.
+@@ -440,7 +440,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He taps the arm of his chair absently ??? not anxious, just thinking.<</narrative>>
++<<narrative>>He taps the arm of his chair absently. Just thinking.<</narrative>>
+ <<dialog "father">>I should look up where the nearest hardware store is.
+ (not moving)
+ I'll do it later.<</dialog>>
+@@ -451,7 +451,7 @@ I'll do it later.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He looks over at you for a moment ??? the look of a parent doing a quiet background check.<</narrative>>
++<<narrative>>He looks over at you for a moment. The look of a parent doing a quiet background check.<</narrative>>
+ <<dialog "father">>You alright?<</dialog>>
+ <<dialog "player">>Yeah, I'm fine.<</dialog>>
+ <<dialog "father">>(satisfied) Good.
+@@ -468,7 +468,7 @@ Ask if you need anything.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's watching something ??? a documentary, looks like. He shifts when you sit down, making room without comment.<</narrative>>
++<<narrative>>He's watching something. A documentary, looks like. He shifts when you sit down, making room without comment.<</narrative>>
+ <<dialog "father">>This one's actually good. About the construction of the Channel Tunnel.<</dialog>>
+ <<dialog "player">>Is it?<</dialog>>
+ <<dialog "father">>The engineering is interesting. Don't need to care about the politics.
+@@ -490,7 +490,7 @@ Resting my eyes.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He looks up from the TV and nods at the couch ??? an invitation without words.<</narrative>>
++<<narrative>>He looks up from the TV and nods at the couch.<</narrative>>
+ <<dialog "player">>(sitting) What's on?<</dialog>>
+ <<dialog "father">>Sports recap. Then probably nothing worth watching.<</dialog>>
+ <<dialog "player">>We could put something else on.<</dialog>>
+@@ -503,7 +503,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/li
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's just sitting ??? not doing anything, not watching anything. Unusual for him.<</narrative>>
++<<narrative>>He's just sitting. Not doing anything. Not watching anything. Unusual for him.<</narrative>>
+ <<dialog "father">>Good day?<</dialog>>
+ <<dialog "player">>Yeah. You?<</dialog>>
+ <<dialog "father">>Busy enough. In a satisfying way.
+@@ -561,7 +561,7 @@ Small things.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's looking at a family photo he's placed on the new shelf ??? clearly recently unpacked.<</narrative>>
++<<narrative>>He's looking at a family photo he's placed on the new shelf. Clearly just unpacked.<</narrative>>
+ <<dialog "father">>I found this in the last box. Thought I'd lost it.
+ (glancing at you briefly)
+ Good photo.<</dialog>>
+@@ -578,7 +578,7 @@ Good photo.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/backyardAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's doing a slow perimeter walk ??? assessing, not relaxing.<</narrative>>
++<<narrative>>He's doing a slow perimeter walk. Assessing, not relaxing.<</narrative>>
+ <<dialog "father">>That fence panel on the left is loose. I'll get to it.
+ (pausing)
+ Back garden's bigger than it looked in the listing. That's good.<</dialog>>
+@@ -589,7 +589,7 @@ Back garden's bigger than it looked in the listing. That's good.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/backyardAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's prodding the lawn with his foot ??? testing the ground.<</narrative>>
++<<narrative>>He's prodding the lawn with his foot. Testing the ground.<</narrative>>
+ <<dialog "father">>Soft in that corner. Drainage issue, maybe.
+ (to himself)
+ I'll dig down and check.<</dialog>>
+@@ -640,7 +640,7 @@ Next one.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/backyardAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's oiling something ??? methodical, unhurried.<</narrative>>
++<<narrative>>He's oiling something. Methodical, unhurried.<</narrative>>
+ <<dialog "father">>Tools need looking after or they rust. Simple as that.
+ (not really speaking to you, more to himself)
+ Ten minutes now saves an hour later.<</dialog>>
+@@ -663,7 +663,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/ba
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/backyardAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He sits on the back step beside you ??? unusual; he's not normally the sitting type.<</narrative>>
++<<narrative>>He sits on the back step beside you. Unusual. He's not normally the sitting type.<</narrative>>
+ <<dialog "father">>Your mother's got plans for that border. I've been given a list.
+ (dryly)
+ A very specific list.<</dialog>>
+@@ -676,7 +676,7 @@ I'm going to follow it precisely.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/backyardAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's watching a bird land on the fence. He doesn't point it out ??? just watches quietly.<</narrative>>
++<<narrative>>He's watching a bird land on the fence. He doesn't point it out. He just watches.<</narrative>>
+ <<dialog "player">>What kind is it?<</dialog>>
+ <<dialog "father">>(without looking away) Blue tit, I think. Hard to tell from here.
+ (it flies away)
+@@ -694,7 +694,7 @@ Gone.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's surveying the garage ??? a general with a battlefield to organise.<</narrative>>
++<<narrative>>He's surveying the garage like a general with a battlefield to organise.<</narrative>>
+ <<dialog "father">>Right. I want the workbench along that wall. Tools hanging above.
+ (pulling out a tape measure)
+ And the shelf unit along the back.<</dialog>>
+@@ -705,7 +705,7 @@ And the shelf unit along the back.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's got the car up on ramps already ??? rare morning motivation.<</narrative>>
++<<narrative>>He's got the car up on ramps already. Rare morning motivation.<</narrative>>
+ <<dialog "father">>I want to get the oil change done before work starts. Easier now than when I've got somewhere to be.
+ (looking under the car)
+ Hand me that socket wrench. The one on the left.<</dialog>>
+@@ -716,7 +716,7 @@ Hand me that socket wrench. The one on the left.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's labelling storage boxes with a label maker ??? intensely.<</narrative>>
++<<narrative>>He's labelling storage boxes with a label maker. Intensely.<</narrative>>
+ <<dialog "player">>Did you bring a label maker?<</dialog>>
+ <<dialog "father">>(not looking up) I have had this label maker for eleven years. It has never let me down.
+ (applying a label)
+@@ -767,7 +767,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/ga
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's got a rough sketch on a notepad ??? the garage layout in rectangles and arrows.<</narrative>>
++<<narrative>>He's got a rough sketch on a notepad. The garage layout in rectangles and arrows.<</narrative>>
+ <<dialog "father">>If I move the chest freezer here, that gives me enough room for a proper workbench.
+ (looking up)
+ What do you think?<</dialog>>
+@@ -789,7 +789,7 @@ Shouldn't be complicated.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He looks around the garage with a kind of quiet ownership ??? this is his space.<</narrative>>
++<<narrative>>He looks around the garage with a kind of quiet ownership. This is his space.<</narrative>>
+ <<dialog "father">>When I have this right I'll put the car in here and actually work on it properly. Like I used to.
+ (slight energy behind that)
+ I haven't had space for it. Years.<</dialog>>
+@@ -806,7 +806,7 @@ I haven't had space for it. Years.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's under the bonnet ??? absorbed in something. He looks up, engine oil on his hands.<</narrative>>
++<<narrative>>He's under the bonnet, absorbed in something. He looks up with engine oil on his hands.<</narrative>>
+ <<dialog "father">>Come look at this.
+ (pointing)
+ You see that? That's the alternator. It's been making a noise.
+@@ -830,7 +830,7 @@ Good.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageAfternoon-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He steps back from the car and stretches his back ??? a satisfying crack.<</narrative>>
++<<narrative>>He steps back from the car and stretches his back. There's a satisfying crack.<</narrative>>
+ <<dialog "father">>That's the brakes sorted.
+ (genuine satisfaction)
+ Was binding on the left. Won't do that anymore.<</dialog>>
+@@ -846,7 +846,7 @@ I'll teach you sometime. It's useful.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's got a small radio going in the corner ??? talk radio, mid-commentary on something.<</narrative>>
++<<narrative>>He's got a small radio going in the corner. Talk radio, mid-commentary on something.<</narrative>>
+ <<dialog "father">>(half-listening) They're wrong about that. The whole premise is wrong.
+ (noticing you)
+ You follow this?<</dialog>>
+@@ -857,7 +857,7 @@ You follow this?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>The radio switches to music ??? something old, something he clearly recognizes.<</narrative>>
++<<narrative>>The radio switches to music. Something old. Something he clearly recognizes.<</narrative>>
+ <<dialog "father">>(not looking up) This was your mother's favourite. When we were first together.<</dialog>>
+ <<dialog "player">>Does she still like it?<</dialog>>
+ <<dialog "father">>She would if she heard it.
+@@ -882,7 +882,7 @@ Quiet's fine too.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/garageAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He leans against the workbench with a thermos of tea ??? a planned break, not a pause.<</narrative>>
++<<narrative>>He leans against the workbench with a thermos of tea. A planned break, not a pause.<</narrative>>
+ <<dialog "father">>Good progress today.
+ (not elaborating)
+ Sit down if you want.<</dialog>>
+@@ -925,7 +925,7 @@ That's what your mother says, anyway.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's sitting on the edge of the bed with a book open ??? not really reading it, just starting the day slowly.<</narrative>>
++<<narrative>>He's sitting on the edge of the bed with a book open. Not really reading it. Just starting the day slowly.<</narrative>>
+ <<dialog "father">>Morning. You're up early.<</dialog>>
+ <<dialog "player">>Couldn't sleep. Just checking in.<</dialog>>
+ <<dialog "father">>(setting the book aside) That's fine. Come in if you want.
+@@ -936,7 +936,7 @@ I was about to make coffee.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's getting dressed ??? tie half-done, still thinking about the day's list.<</narrative>>
++<<narrative>>He's getting dressed. Tie half-done, still thinking about the day's list.<</narrative>>
+ <<dialog "player">>Need anything?<</dialog>>
+ <<dialog "father">>(without turning) No. I'm ??? no.
+ (then, quieter)
+@@ -948,7 +948,7 @@ Actually ??? do you know where the other set of keys went? Not the main ones. Th
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomMorning-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at the window ??? looking out at the garden, mug in hand. Pre-day stillness.<</narrative>>
++<<narrative>>He's at the window, looking out at the garden, mug in hand. Pre-day stillness.<</narrative>>
+ <<dialog "father">>(half to himself) I want to get that fence panel sorted this week.
+ (noticing you)
+ Sorry. Thinking out loud.<</dialog>>
+@@ -964,7 +964,7 @@ Good morning, by the way.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's checking something on his list ??? the physical notepad that travels everywhere.<</narrative>>
++<<narrative>>He's checking something on his list. The physical notepad that travels everywhere.<</narrative>>
+ <<dialog "father">>Eight things today.
+ (not complaining)
+ Good number. Achievable.<</dialog>>
+@@ -977,7 +977,7 @@ You know how those go.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He finds a coin from the old country in his jacket pocket ??? holds it a second.<</narrative>>
++<<narrative>>He finds a coin from the old country in his jacket pocket. Holds it a second.<</narrative>>
+ <<dialog "father">>Always end up with one of these.
+ (to himself)
+ I should leave a dish by the door. Like my mother had.<</dialog>>
+@@ -1031,7 +1031,7 @@ It's actually fine.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He has his back slightly to you ??? looking out the window at the morning, mug warm in both hands. He speaks without turning.<</narrative>>
++<<narrative>>He has his back slightly to you. Looking out the window at the morning, mug warm in both hands. He speaks without turning.<</narrative>>
+ <<dialog "father">>When I was young we moved twice. I hated it both times.
+ (a beat)
+ I decided I wouldn't feel that way here.
+@@ -1050,7 +1050,7 @@ How are you doing with it?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's sitting in the chair by the window ??? doing nothing in particular. It's late.<</narrative>>
++<<narrative>>He's sitting in the chair by the window, doing nothing in particular. It's late.<</narrative>>
+ <<dialog "player">>You're up late.<</dialog>>
+ <<dialog "father">>(quietly) Thinking.
+ (not elaborating)
+@@ -1067,7 +1067,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/pa
+ <<narrative>>He's in bed reading, door slightly open. He looks up when you knock.<</narrative>>
+ <<dialog "father">>What is it?<</dialog>>
+ <<dialog "player">>Nothing. Just passing. Goodnight.<</dialog>>
+-<<dialog "father">>(studying you briefly ??? checking) You alright?<</dialog>>
++<<dialog "father">>(studying you briefly, checking) You alright?<</dialog>>
+ <<dialog "player">>Yeah. Fine. Night.<</dialog>>
+ <<dialog "father">>(settling back) Goodnight.
+ (a beat)
+@@ -1077,7 +1077,7 @@ Sleep well.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomEvening-1.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's put the book down and the light's still on ??? he often goes to sleep thinking rather than reading.<</narrative>>
++<<narrative>>He's put the book down and the light's still on. He often goes to sleep thinking rather than reading.<</narrative>>
+ <<dialog "father">>(unexpectedly) Start date's coming up fast.
+ (to you, in the doorway)
+ I keep making lists and then thinking of more things.<</dialog>>
+@@ -1093,7 +1093,7 @@ Goodnight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's just getting into bed when he hears you in the hallway ??? calls softly.<</narrative>>
++<<narrative>>He's just getting into bed when he hears you in the hallway. He calls softly.<</narrative>>
+ <<dialog "father">>Hey.<</dialog>>
+ <<dialog "player">>(stopping) Yeah?<</dialog>>
+ <<dialog "father">>Nothing. Just ??? goodnight.
+@@ -1106,7 +1106,7 @@ Good day today.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's already in bed and half-asleep when you pass ??? you only went to the door but he stirs.<</narrative>>
++<<narrative>>He's already in bed and half-asleep when you pass. You only went to the door but he stirs.<</narrative>>
+ <<dialog "father">>(groggy) S'everything alright?<</dialog>>
+ <<dialog "player">>Yeah. Sorry ??? go back to sleep.<</dialog>>
+ <<dialog "father">>(already fading) Right.
+@@ -1117,7 +1117,7 @@ Night.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomEvening-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's in the chair with the lamp on, not really reading ??? just thinking with a book in his lap.<</narrative>>
++<<narrative>>He's in the chair with the lamp on, not really reading. Just thinking with a book in his lap.<</narrative>>
+ <<dialog "father">>Come in a second.
+ (gesturing to the edge of the bed)
+ Sit down. I won't keep you.<</dialog>>
+@@ -1133,7 +1133,7 @@ That's all.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's writing something in his notepad ??? tomorrow's list, probably. He looks up when you knock.<</narrative>>
++<<narrative>>He's writing something in his notepad. Tomorrow's list, probably. He looks up when you knock.<</narrative>>
+ <<dialog "father">>What do you need?<</dialog>>
+ <<dialog "player">>Nothing. Just saying goodnight.<</dialog>>
+ <<dialog "father">>(setting the pad down) Goodnight.
+@@ -1146,7 +1146,7 @@ Big day tomorrow for you?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He's at the small desk in the corner, writing something out by hand ??? unusual for him in the evening.<</narrative>>
++<<narrative>>He's at the small desk in the corner, writing something out by hand. Unusual for him in the evening.<</narrative>>
+ <<dialog "player">>What are you writing?<</dialog>>
+ <<dialog "father">>(without looking up) Notes for myself. Things I want to remember before work starts.
+ (a pause)
+@@ -1160,7 +1160,7 @@ Work in progress.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/father/prework/level1/parentsRoomEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>He closes the notepad and looks at the room ??? the new room, still slightly unfamiliar.<</narrative>>
++<<narrative>>He closes the notepad and looks around the new room. Still slightly unfamiliar.<</narrative>>
+ <<dialog "father">>I think this is going to be good. The job. The house.
+ (looking at you in the doorway)
+ All of it.<</dialog>>
+diff --git a/passages/3- Interactions/FamilyHouse/Mother/talkDatabase/MotherTopicsLevel1.twee b/passages/3- Interactions/FamilyHouse/Mother/talkDatabase/MotherTopicsLevel1.twee
+index 97eff2c..fc290d6 100644
+--- a/passages/3- Interactions/FamilyHouse/Mother/talkDatabase/MotherTopicsLevel1.twee	
++++ b/passages/3- Interactions/FamilyHouse/Mother/talkDatabase/MotherTopicsLevel1.twee	
+@@ -99,7 +99,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMor
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>She glances out the window at the sky ??? grey, uncertain.<</narrative>>
++<<narrative>>She glances out the window. The sky's grey.<</narrative>>
+ <<dialog "mother">>Looks like rain. Do you have plans today?<</dialog>>
+ <<dialog "player">>Not really. Maybe go out later if it clears.<</dialog>>
+ <<dialog "mother">>Take an umbrella just in case. Third drawer.<</dialog>>`,
+@@ -126,11 +126,11 @@ I hate calling repairmen. They always act like you should already know what's wr
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-1.webp">>
+ <<image _img "100%">>
+ <<narrative>>She's putting food away in containers, labeling them with little sticky notes.<</narrative>>
+-<<dialog "mother">>Did you eat lunch? There's leftovers in the fridge ??? top shelf.<</dialog>>
++<<dialog "mother">>Did you eat lunch? There's leftovers in the fridge. Top shelf.<</dialog>>
+ <<dialog "player">>I grabbed something earlier.<</dialog>>
+ <<dialog "mother">>(not quite convinced) Something as in real food, or something as in crackers?<</dialog>>
+ <<dialog "player">>...Both.<</dialog>>
+-<<dialog "mother">>There's soup. Heat it up properly ??? not just lukewarm. Actually hot.<</dialog>>`,
++<<dialog "mother">>There's soup. Heat it up properly. Not just lukewarm. Actually hot.<</dialog>>`,
+                 friendship: 1
+             },
+             {
+@@ -195,7 +195,7 @@ Would you mind taking this to the bin outside?<</dialog>>
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenAfternoon-3.webp">>
+ <<image _img "100%">>
+ <<narrative>>She's making tea, pulling out a second mug without being asked.<</narrative>>
+-<<dialog "mother">>I went to the market this morning. They had good biscuits ??? blue tin, top cupboard.<</dialog>>
++<<dialog "mother">>I went to the market this morning. They had good biscuits. Blue tin, top cupboard.<</dialog>>
+ <<dialog "player">>Nice.<</dialog>>
+ <<dialog "mother">>Don't eat them all at once. They're supposed to last the week.<</dialog>>
+ <<dialog "player">>No promises.<</dialog>>
+@@ -307,7 +307,7 @@ Keep an eye on him if you can. He listens to you.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEvening-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>She's clearly in the middle of several things at once ??? oven, stove, and something in the sink.<</narrative>>
++<<narrative>>She's got the oven going, the stove going, and something in the sink.<</narrative>>
+ <<dialog "mother">>Could you watch the pot? Just make sure it doesn't boil over. I'll be right back.<</dialog>>
+ <<dialog "player">>Got it.<</dialog>>
+ <<dialog "mother">>If it starts bubbling hard, just turn it down a little. Don't touch anything else.<</dialog>>
+@@ -321,7 +321,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/kitchenEve
+ <<narrative>>She's washing up while things cook, hands deep in soapy water.<</narrative>>
+ <<dialog "mother">>Can you dry?<</dialog>>
+ <<dialog "player">>(picking up the towel) Sure.<</dialog>>
+-<<dialog "mother">>Careful with the big pan ??? the handle gets hot even after it's been washed.<</dialog>>
++<<dialog "mother">>Careful with the big pan. The handle gets hot even after it's been washed.<</dialog>>
+ <<dialog "player">>Noted.<</dialog>>
+ <<dialog "mother">>Your grandmother did this every night. Wash and dry together. I don't know why I keep doing it.<</dialog>>
+ <<dialog "player">>Habit, probably.<</dialog>>
+@@ -402,7 +402,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
+ <<narrative>>She's matched all the socks and is now holding up one that has no pair.<</narrative>>
+ <<dialog "mother">>Do you have odd socks upstairs? Because I've got one with no match and it's bothering me.<</dialog>>
+ <<dialog "player">>(thinking) Possibly.<</dialog>>
+-<<dialog "mother">>It's always one. It's never zero or two ??? always exactly one.<</dialog>>
++<<dialog "mother">>It's always one. Never zero or two. Exactly one.<</dialog>>
+ <<dialog "player">>That's just how it works.<</dialog>>
+ <<dialog "mother">>(staring at the sock) Infuriating.<</dialog>>`,
+                 friendship: 2
+@@ -415,7 +415,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
+ <<dialog "player">>(picking them up) Sure. Want me to put them away?<</dialog>>
+ <<dialog "mother">>Just leave them on the bed. I'll sort them later.
+ (looking at the remaining pile)
+-Actually ??? yes, put them away. It'll just sit there otherwise.<</dialog>>`,
++Actually, yes. Put them away or it'll just sit there.<</dialog>>`,
+                 friendship: 1
+             }
+         ],
+@@ -450,7 +450,7 @@ Does the room feel small to you?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>She's putting up a framed photo on the wall ??? adjusting it slightly, stepping back, adjusting again.<</narrative>>
++<<narrative>>She's putting up a framed photo on the wall. Adjusting it, stepping back, adjusting again.<</narrative>>
+ <<dialog "mother">>Is this level?<</dialog>>
+ <<dialog "player">>(looking) Almost. A tiny bit to the left.<</dialog>>
+ <<dialog "mother">>(adjusting) Here?<</dialog>>
+@@ -518,7 +518,7 @@ This show is terrible. I can't stop watching it.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>She pats the seat next to her ??? an invitation without words.<</narrative>>
++<<narrative>>She pats the seat next to her.<</narrative>>
+ <<dialog "mother">>Come sit. I need someone to be annoyed at this with me.<</dialog>>
+ <<dialog "player">>(sitting) What's happening?<</dialog>>
+ <<dialog "mother">>This character is making the worst decision possible and everyone around her is just watching.
+@@ -547,7 +547,7 @@ Are you doing okay? You seem a bit in your head.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>She's writing in a small notebook ??? lists, by the look of it.<</narrative>>
++<<narrative>>She's writing in a small notebook. Lists, by the look of it.<</narrative>>
+ <<dialog "mother">>I'm making a list of things that still need doing in the house. The shelf, the hallway light, that gap in the kitchen skirting board...<</dialog>>
+ <<dialog "player">>I didn't know about the gap.<</dialog>>
+ <<dialog "mother">>(showing you) Back corner. It's been bothering me since we moved in. I keep stepping around it mentally.<</dialog>>
+@@ -640,7 +640,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
+ <<dialog "player">>(sitting) Everything okay?<</dialog>>
+ <<dialog "mother">>Yes, just... I wanted to check in. We've all been so busy adjusting, I feel like I haven't actually talked to anyone in days.<</dialog>>
+ <<dialog "player">>I know what you mean.<</dialog>>
+-<<dialog "mother">>Good. Then just ??? sit with me for a bit. That's all.<</dialog>>`,
++<<dialog "mother">>Good. Then just sit with me for a bit. That's all.<</dialog>>`,
+                 friendship: 2, trust: 1
+             },
+             {
+@@ -669,7 +669,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroomEvening-3.webp">>
+ <<image _img "100%">>
+ <<narrative>>She's about to head up but pauses when you come in.<</narrative>>
+-<<dialog "mother">>Oh good, I wanted to ask ??? did you lock the back door?<</dialog>>
++<<dialog "mother">>Oh good, I wanted to ask. Did you lock the back door?<</dialog>>
+ <<dialog "player">>I think so. I'll check.<</dialog>>
+ <<dialog "mother">>Thank you. Your father always forgets.
+ (heading toward the stairs)
+@@ -682,7 +682,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/livingroom
+ <<narrative>>She's collecting mugs and glasses from around the room, doing a last round before bed.<</narrative>>
+ <<dialog "mother">>Can you grab that one? On the far side.<</dialog>>
+ <<dialog "player">>(handing it over) Here.<</dialog>>
+-<<dialog "mother">>Thank you. Okay ??? I think that's everything.
++<<dialog "mother">>Thank you. Okay. I think that's everything.
+ (looking around one last time)
+ Another day done.<</dialog>>
+ <<dialog "player">>Another day done.<</dialog>>
+@@ -747,7 +747,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-2.webp">>
+ <<image _img "100%">>
+-<<narrative>>She offers you a mug without you asking ??? she must have brought two out.<</narrative>>
++<<narrative>>She offers you a mug without you asking. She must have brought two out.<</narrative>>
+ <<dialog "mother">>I thought you might come out. It's a nice morning.<</dialog>>
+ <<dialog "player">>(taking the mug) Thanks.<</dialog>>
+ <<dialog "mother">>The light is good today. I keep meaning to take photos of the garden but then I don't.<</dialog>>
+@@ -774,7 +774,7 @@ I think they might be nesting.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>She's just standing in the middle of the backyard doing nothing ??? not often you see that.<</narrative>>
++<<narrative>>She's just standing in the middle of the backyard, doing nothing. You don't see that much.<</narrative>>
+ <<dialog "player">>You okay?<</dialog>>
+ <<dialog "mother">>(coming back to herself) Yes. Sorry. I was just... being here for a minute.<</dialog>>
+ <<dialog "player">>Nothing wrong with that.<</dialog>>
+@@ -795,7 +795,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMo
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardMorning-3.webp">>
+ <<image _img "100%">>
+ <<narrative>>She's sitting on the back step, not doing anything in particular, just being outside.<</narrative>>
+-<<dialog "mother">>Come sit. I don't have anything to say ??? I just wanted company.<</dialog>>
++<<dialog "mother">>Come sit. I don't have anything to say. I just wanted company.<</dialog>>
+ <<dialog "player">>(sitting beside her) I can do that.<</dialog>>
+ <<dialog "mother">>Good.
+ (a comfortable pause)
+@@ -828,7 +828,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAf
+ <<narrative>>She hands you the watering can without asking.<</narrative>>
+ <<dialog "mother">>Start on the left side? I'll do the pots.<</dialog>>
+ <<dialog "player">>(taking it) Sure. How much?<</dialog>>
+-<<dialog "mother">>Until the water starts coming out the bottom. Then stop.<</dialog>>
++<<dialog "mother">>Until water comes out the bottom, then stop.<</dialog>>
+ <<dialog "player">>Easy enough.<</dialog>>
+ <<dialog "mother">>(moving to the pots) That's all gardening is, really. Pay attention and don't overdo it.<</dialog>>`,
+                 friendship: 2
+@@ -909,7 +909,7 @@ Maybe over there.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/backyardAfternoon-3.webp">>
+ <<image _img "100%">>
+-<<narrative>>She's looking at something in the corner of the yard ??? a spot that doesn't get much sun.<</narrative>>
++<<narrative>>She's looking at the corner of the yard. It doesn't get much sun.<</narrative>>
+ <<dialog "mother">>What do you think goes in a shady corner?<</dialog>>
+ <<dialog "player">>Ferns? Hostas?<</dialog>>
+ <<dialog "mother">>(nodding slowly) Ferns. Yes. I hadn't thought of ferns.
+@@ -967,7 +967,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
+ <<narrative>>She's checking nightstands and dresser drawers, clearly looking for something.<</narrative>>
+ <<dialog "mother">>Have you seen my reading glasses? Small, brown frames.<</dialog>>
+ <<dialog "player">>I saw them on the kitchen counter last night.<</dialog>>
+-<<dialog "mother">>(relieved) Of course. Thank you ??? I'd lose my head if it wasn't attached.<</dialog>>`,
++<<dialog "mother">>(relieved) Of course. Thank you. I'd lose my head if it wasn't attached.<</dialog>>`,
+                 friendship: 1, trust: 1
+             },
+             {
+@@ -1003,7 +1003,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
+ <<narrative>>She's making the bed and hands you the other side of the duvet without asking.<</narrative>>
+ <<dialog "mother">>Grab that end?<</dialog>>
+ <<dialog "player">>(taking it) Sure.<</dialog>>
+-<<dialog "mother">>Pull it even ??? there.<</dialog>>
++<<dialog "mother">>Pull it even. There.<</dialog>>
+ <<dialog "player">>You're very precise about this.<</dialog>>
+ <<dialog "mother">>Thirty years of habit.
+ (smoothing her side)
+@@ -1136,7 +1136,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level1/parentsroo
+ <<narrative>>She's sitting quietly on her side of the bed, not doing anything, just being still.<</narrative>>
+ <<dialog "mother">>You know, mornings are the hardest still. When I wake up and for a second I forget we've moved.<</dialog>>
+ <<dialog "player">>Does that go away?<</dialog>>
+-<<dialog "mother">>(nodding) Gradually. One morning you wake up and you just ??? know where you are. And it feels like home.<</dialog>>
++<<dialog "mother">>(nodding) Gradually. One morning you wake up and you just know where you are. And it feels like home.<</dialog>>
+ <<dialog "player">>How long does that take?<</dialog>>
+ <<dialog "mother">>(quietly) Different for everyone. But it happens.<</dialog>>`,
+                 friendship: 2, trust: 2
+diff --git a/passages/3- Interactions/FamilyHouse/Mother/talkDatabase/MotherTopicsLevel2.twee b/passages/3- Interactions/FamilyHouse/Mother/talkDatabase/MotherTopicsLevel2.twee
+index d2847c3..56660eb 100644
+--- a/passages/3- Interactions/FamilyHouse/Mother/talkDatabase/MotherTopicsLevel2.twee	
++++ b/passages/3- Interactions/FamilyHouse/Mother/talkDatabase/MotherTopicsLevel2.twee	
+@@ -38,7 +38,7 @@ I like that about you.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenMorning-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's making oatmeal ??? one bowl, then pauses and makes a second without asking.<</narrative>>
++<<narrative>>She's making oatmeal. One bowl. Then she pauses and starts a second one without asking.<</narrative>>
+ <<dialog "mother">>You want this with raisins or without?<</dialog>>
+ <<dialog "player">>Without. You remembered I hate raisins?<</dialog>>
+ <<dialog "mother">>(dryly) You've been hating raisins since you were four. I haven't forgotten.<</dialog>>
+@@ -64,7 +64,7 @@ Just something from the radio. I don't even know the name of it.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenMorning-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's looking at the fruit bowl ??? the one she kept from the old house.<</narrative>>
++<<narrative>>She's looking at the fruit bowl. The one she kept from the old house.<</narrative>>
+ <<dialog "mother">>Do you remember Sunday breakfasts? In the old place?<</dialog>>
+ <<dialog "player">>Vaguely. Pancakes?<</dialog>>
+ <<dialog "mother">>Every Sunday. You used to put too much syrup on and then complain your stomach hurt.<</dialog>>
+@@ -86,7 +86,7 @@ You were always so patient.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenMorning-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She sets down a plate of toast in front of you ??? same way she always has, without fanfare.<</narrative>>
++<<narrative>>She sets down a plate of toast in front of you. Same way she always has. No fanfare.<</narrative>>
+ <<dialog "mother">>I used to make toast for you before school. That was the one thing I never had to fight you about in the morning.<</dialog>>
+ <<dialog "player">>Toast is easy to like.<</dialog>>
+ <<dialog "mother">>(sitting across from you) Simple things usually are.<</dialog>>`,
+@@ -149,7 +149,7 @@ You cry, I cook ??? that's the deal.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenAfternoon-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's teaching you her sauce recipe ??? or at least, trying to.<</narrative>>
++<<narrative>>She's teaching you her sauce recipe. Or trying to.<</narrative>>
+ <<dialog "mother">>A splash. Not a pour. A splash.<</dialog>>
+ <<dialog "player">>That's a subjective unit of measurement.<</dialog>>
+ <<dialog "mother">>It is not subjective. A splash is a splash.
+@@ -279,7 +279,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenEve
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenEvening-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>It's just the two of you ??? Dad and Jake are elsewhere. She seems lighter for it.<</narrative>>
++<<narrative>>It's just the two of you. Dad and Jake are elsewhere. She seems lighter for it.<</narrative>>
+ <<dialog "mother">>I like evenings like this sometimes. Just quiet.<</dialog>>
+ <<dialog "player">>Just us?<</dialog>>
+ <<dialog "mother">>I love your father. I love your brother. And sometimes I need five minutes where no one is asking me anything.
+@@ -293,7 +293,7 @@ You've always been good at that. Comfortable silence.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenEvening-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's stirring something and suddenly laughs ??? the kind that comes from a memory.<</narrative>>
++<<narrative>>She's stirring something and suddenly laughs. At a memory, you think.<</narrative>>
+ <<dialog "mother">>I was just thinking about the time you locked yourself in the pantry as a kid. Do you remember that?<</dialog>>
+ <<dialog "player">>Vaguely. I was looking for something.<</dialog>>
+ <<dialog "mother">>You were in there for twenty minutes before you knocked. You didn't want to admit you needed help.<</dialog>>
+@@ -351,7 +351,7 @@ That's just how you are.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenEvening-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>End of dinner prep. She touches your arm briefly as she passes ??? not dramatic, just natural.<</narrative>>
++<<narrative>>End of dinner prep. She touches your arm briefly as she passes.<</narrative>>
+ <<dialog "mother">>I'm glad you're home.
+ (continuing to the stove, matter-of-fact)
+ Now help me carry this in.<</dialog>>
+@@ -367,7 +367,7 @@ Now help me carry this in.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomMorning-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's already made room on the couch ??? moved her stuff to one side before you even got there.<</narrative>>
++<<narrative>>She's already made room on the couch. Moved her stuff to one side before you even got there.<</narrative>>
+ <<dialog "mother">>Come sit. I've been meaning to just talk with you and I keep not doing it.<</dialog>>
+ <<dialog "player">>(sitting) Talk about anything specific?<</dialog>>
+ <<dialog "mother">>No. Just talk. How are you actually finding it here? The new area?<</dialog>>
+@@ -378,7 +378,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomMorning-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She turns off the TV as you walk in ??? a clear signal she'd rather talk.<</narrative>>
++<<narrative>>She turns off the TV as you walk in. She'd rather talk.<</narrative>>
+ <<dialog "mother">>Do you have plans before noon?<</dialog>>
+ <<dialog "player">>Not really. Why?<</dialog>>
+ <<dialog "mother">>I was going to take a walk. Around the neighborhood, see what's here. Want to come?<</dialog>>
+@@ -391,7 +391,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomMorning-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She asks you about something she noticed ??? a book, a change in your routine.<</narrative>>
++<<narrative>>She asks about something she noticed. A book. A change in your routine.<</narrative>>
+ <<dialog "mother">>You've been up earlier this week. New habit?<</dialog>>
+ <<dialog "player">>Trying to be. We'll see if it sticks.<</dialog>>
+ <<dialog "mother">>(approvingly) Good hours, mornings. Quiet before the world gets loud.
+@@ -405,7 +405,7 @@ I've been a morning person my whole life. Your father never understood it.<</dia
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomMorning-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's looking at an old photo she's set on the shelf ??? not unpacked until now.<</narrative>>
++<<narrative>>She's looking at an old photo she's set on the shelf. It wasn't unpacked until now.<</narrative>>
+ <<dialog "mother">>Do you remember this?
+ (showing you the photo)
+ That summer we went to the coast. You must have been about seven.<</dialog>>
+@@ -418,7 +418,7 @@ That summer we went to the coast. You must have been about seven.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomMorning-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's looking out the window at a family walking by outside ??? two parents, a small child.<</narrative>>
++<<narrative>>She's looking out the window at a family walking by. Two parents and a small child.<</narrative>>
+ <<dialog "mother">>When you were that age, you used to insist on walking on my left. Always the left. No idea why.<</dialog>>
+ <<dialog "player">>I don't remember that at all.<</dialog>>
+ <<dialog "mother">>You did it until you were about nine. One day you just stopped and switched sides. Never explained why.
+@@ -429,7 +429,7 @@ You've always done things on your own timeline.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomMorning-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She finds something while sorting a box ??? a drawing, badly done, clearly old.<</narrative>>
++<<narrative>>She finds something while sorting a box. A drawing. Badly done, clearly old.<</narrative>>
+ <<dialog "mother">>(holding it up) Do you know what this is supposed to be?<</dialog>>
+ <<dialog "player">>(looking) A dog?<</dialog>>
+ <<dialog "mother">>You told me it was our family. You were six. I said nothing because I didn't want to upset you.<</dialog>>
+@@ -443,7 +443,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomMorning-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She can tell something's on your mind. She doesn't push ??? just makes space.<</narrative>>
++<<narrative>>She can tell something's on your mind. She doesn't push. She just makes space.<</narrative>>
+ <<dialog "mother">>You look like you're thinking hard about something.<</dialog>>
+ <<dialog "player">>Just a lot in my head lately.<</dialog>>
+ <<dialog "mother">>Do you want to talk about it?<</dialog>>
+@@ -456,7 +456,7 @@ Then just sit here for a bit. You don't have to say anything.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomMorning-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She reaches over briefly and squeezes your hand ??? just once, then lets go.<</narrative>>
++<<narrative>>She reaches over and squeezes your hand. Just once. Then lets go.<</narrative>>
+ <<dialog "mother">>I don't say this enough. But you're doing well. Whatever it feels like from the inside ??? from the outside, you're doing really well.<</dialog>>
+ <<dialog "player">>It doesn't always feel that way.<</dialog>>
+ <<dialog "mother">>I know. But it's true anyway.<</dialog>>`,
+@@ -482,7 +482,7 @@ I put honey in it. I know you don't usually ask for it. Today seemed like a hone
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomAfternoon-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's settled on the couch like she has nowhere to be ??? rare for her.<</narrative>>
++<<narrative>>She's settled on the couch like she has nowhere to be. That's rare.<</narrative>>
+ <<dialog "mother">>Can I ask you something?<</dialog>>
+ <<dialog "player">>Sure.<</dialog>>
+ <<dialog "mother">>Is there anything about this move you're actually glad about? Even one small thing?<</dialog>>
+@@ -495,7 +495,7 @@ That's a good answer.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomAfternoon-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She brings up something she'd been holding back ??? gently, carefully.<</narrative>>
++<<narrative>>She brings up something she'd been holding back. Gently.<</narrative>>
+ <<dialog "mother">>I know the move was hard on you. More than you said.<</dialog>>
+ <<dialog "player">>It was an adjustment.<</dialog>>
+ <<dialog "mother">>(evenly) You don't have to protect me from that. You're allowed to have found it hard.<</dialog>>
+@@ -508,7 +508,7 @@ We'll make it worth it. I promise.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomAfternoon-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's venting ??? a little. She stops herself and laughs.<</narrative>>
++<<narrative>>She's venting a little. Then stops herself and laughs.<</narrative>>
+ <<dialog "mother">>Sorry. I'm not ??? I don't usually do this.<</dialog>>
+ <<dialog "player">>You can. It's fine.<</dialog>>
+ <<dialog "mother">>(looking at you) You're not going to tell your father?<</dialog>>
+@@ -524,7 +524,7 @@ You're actually quite good at this.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomAfternoon-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She tells you something she saw that day ??? something absurd, clearly delighted by it.<</narrative>>
++<<narrative>>She tells you something she saw that day. Something absurd. She's still delighted about it.<</narrative>>
+ <<dialog "mother">>The man at the market was arguing with a self-checkout machine for ten minutes. A full argument. Gesturing and everything.<</dialog>>
+ <<dialog "player">>Did the machine win?<</dialog>>
+ <<dialog "mother">>(laughing) It didn't even blink. Very stoic. I respected it.<</dialog>>
+@@ -535,7 +535,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomAfternoon-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She gets you with a joke ??? the kind she's clearly been sitting on.<</narrative>>
++<<narrative>>She gets you with a joke she's clearly been sitting on.<</narrative>>
+ <<dialog "mother">>Ask me how I am.<</dialog>>
+ <<dialog "player">>(suspicious) ...How are you?<</dialog>>
+ <<dialog "mother">>Wonderful, thanks for asking. You never ask first, you know.<</dialog>>
+@@ -559,12 +559,12 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomAfternoon-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She tells you something small ??? a detail about herself she doesn't usually share.<</narrative>>
++<<narrative>>She tells you something small. A detail about herself she doesn't usually share.<</narrative>>
+ <<dialog "mother">>You know I used to want to be a landscape architect. Before everything else.<</dialog>>
+ <<dialog "player">>Really?<</dialog>>
+ <<dialog "mother">>I was good at it. At least I thought so.
+ (looking at the window)
+-Life changes your plans. You just ??? adapt.<</dialog>>
++Life changes your plans. You adapt.<</dialog>>
+ <<dialog "player">>Do you regret it?<</dialog>>
+ <<dialog "mother">>(honestly) Some days. Most days, no. I just like knowing I had another life in mind once.<</dialog>>`,
+                 friendship: 3, trust: 3
+@@ -602,7 +602,7 @@ I'm trying to be better at it. The door being open kind of thing.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomEvening-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's got a film on ??? something she picked for both of you, clearly.<</narrative>>
++<<narrative>>She's got a film on. Something she picked for both of you, clearly.<</narrative>>
+ <<dialog "mother">>I thought you might want to watch something. Nothing requires thinking. Just sit.<</dialog>>
+ <<dialog "player">>(sitting) What is it?<</dialog>>
+ <<dialog "mother">>Something I used to love. I want to see if it holds up.
+@@ -615,7 +615,7 @@ You're the test.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomEvening-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She makes space on the couch, puts a cushion there ??? quietly, like she hoped you'd come.<</narrative>>
++<<narrative>>She makes space on the couch, puts a cushion there. Like she hoped you'd come.<</narrative>>
+ <<dialog "mother">>I made enough tea for two. In case you wanted to sit here a while.<</dialog>>
+ <<dialog "player">>(sitting) In case?<</dialog>>
+ <<dialog "mother">>(lightly) You're very predictable. I mean that kindly.<</dialog>>
+@@ -626,7 +626,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomEvening-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>You're both watching something and she laughs ??? really laughs ??? at the same moment you do.<</narrative>>
++<<narrative>>You're both watching something and she laughs. Really laughs. At the same moment you do.<</narrative>>
+ <<dialog "mother">>(still laughing) See? I knew you'd get that.<</dialog>>
+ <<dialog "player">>You knew?<</dialog>>
+ <<dialog "mother">>I know your sense of humour. I've been studying it for twenty years.
+@@ -651,7 +651,7 @@ But quietly ??? yes. I think this is going to be good.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomEvening-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She confides something mid-commercial break ??? the way people say things when they aren't quite looking at you.<</narrative>>
++<<narrative>>She confides something mid-commercial break. The kind of thing people say when they aren't quite looking at you.<</narrative>>
+ <<dialog "mother">>You know, this is the first home where I feel like I chose it. The others just... happened.<</dialog>>
+ <<dialog "player">>This one feels different?<</dialog>>
+ <<dialog "mother">>A bit. I just wanted that on record somewhere.
+@@ -676,7 +676,7 @@ I'm trying to be better now. If you'll let me.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomEvening-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She stands and stretches, then squeezes your shoulder as she passes ??? warm, brief, natural.<</narrative>>
++<<narrative>>She stands and stretches, then squeezes your shoulder as she passes.<</narrative>>
+ <<dialog "mother">>Going up. Goodnight.
+ (pausing at the door)
+ It's nice, having you here. Even just sitting.<</dialog>>
+@@ -697,7 +697,7 @@ Goodnight. I'm glad you were here tonight.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomEvening-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She pulls you into a brief, genuine hug before heading upstairs ??? not dramatic, just real.<</narrative>>
++<<narrative>>She pulls you into a brief hug before heading upstairs. No speech, no ceremony.<</narrative>>
+ <<dialog "mother">>Goodnight, sweetheart.<</dialog>>
+ <<dialog "player">>(hugging back) Night.<</dialog>>
+ <<narrative>>She lets go and heads up the stairs. The house feels warmer somehow.<</narrative>>`,
+@@ -712,7 +712,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardMorning-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's drawn something on a napkin ??? a rough plan for the garden.<</narrative>>
++<<narrative>>She's drawn something on a napkin. A rough plan for the garden.<</narrative>>
+ <<dialog "mother">>Look. By summer, I want this area to be herbs. And this corner ??? flowers for cutting.<</dialog>>
+ <<dialog "player">>(looking) You have a whole plan.<</dialog>>
+ <<dialog "mother">>I always have a plan. The execution is the challenge.
+@@ -736,7 +736,7 @@ Do you think we would? Eat outside?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardMorning-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She holds out a seed packet toward you ??? inviting you into whatever she's planning.<</narrative>>
++<<narrative>>She holds out a seed packet toward you. An invitation, basically.<</narrative>>
+ <<dialog "mother">>I bought tomato seeds. I've never successfully grown tomatoes.<</dialog>>
+ <<dialog "player">>This time?<</dialog>>
+ <<dialog "mother">>(looking at the packet) I've been told I overwater them. I feel I am going to overwater them again.
+@@ -761,7 +761,7 @@ But something stuck. Obviously.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardMorning-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She finds an old trowel in the shed ??? clearly well-used ??? and holds it up.<</narrative>>
++<<narrative>>She finds an old trowel in the shed. It's clearly been used. She holds it up.<</narrative>>
+ <<dialog "mother">>I've had this since my first flat. I took it from my parents without asking.<</dialog>>
+ <<dialog "player">>Did they notice?<</dialog>>
+ <<dialog "mother">>(grinning) If they did, they never said. Probably figured I needed it more than they did.
+@@ -786,7 +786,7 @@ I should plant one here.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardMorning-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>You're both in the garden doing different things ??? she's planting, you're just there. Neither of you needs to fill it.<</narrative>>
++<<narrative>>You're both in the garden doing different things. She's planting, you're just there. Neither of you needs to fill the quiet.<</narrative>>
+ <<dialog "mother">>(after a long quiet) This is nice.<</dialog>>
+ <<dialog "player">>Yeah.<</dialog>>
+ <<dialog "mother">>Good.
+@@ -797,7 +797,7 @@ Stay as long as you like.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardMorning-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She pats the step beside her ??? just like that, no words needed.<</narrative>>
++<<narrative>>She pats the step beside her. No words needed.<</narrative>>
+ <<dialog "player">>(sitting) Cold morning.<</dialog>>
+ <<dialog "mother">>Mm. Coffee helps.
+ (wrapping both hands around her mug)
+@@ -809,7 +809,7 @@ We don't have to talk if you don't want to.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardMorning-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>You sit beside her in the garden. She leans her shoulder against yours briefly ??? not dramatic, just there.<</narrative>>
++<<narrative>>You sit beside her in the garden. She leans her shoulder against yours briefly. Then pulls back to whatever she was doing.<</narrative>>
+ <<dialog "mother">>(softly) Good morning.<</dialog>>
+ <<dialog "player">>Morning.<</dialog>>
+ <<narrative>>The yard is quiet. She goes back to her coffee. So do you.<</narrative>>`,
+@@ -936,7 +936,7 @@ I think she'd approve of what we're doing here.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomMorning-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She looks at you ??? really looks ??? when you come in. Tilts her head slightly.<</narrative>>
++<<narrative>>She looks at you when you come in. Really looks. Tilts her head slightly.<</narrative>>
+ <<dialog "mother">>You look well this morning.<</dialog>>
+ <<dialog "player">>Do I?<</dialog>>
+ <<dialog "mother">>Rested. Settled.
+@@ -956,7 +956,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroo
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomMorning-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She hands you something she picked up ??? small, nothing expensive. Just thought of you.<</narrative>>
++<<narrative>>She hands you something she picked up. Small, nothing expensive. She just thought of you.<</narrative>>
+ <<dialog "mother">>I saw this and thought of you.
+ (shrugging before you can react)
+ It's nothing. Just a small thing.<</dialog>>
+@@ -970,7 +970,7 @@ It's nothing. Just a small thing.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomMorning-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She lowers her voice slightly ??? a family meeting tone without the meeting.<</narrative>>
++<<narrative>>She lowers her voice slightly. Family-meeting tone, without the meeting.<</narrative>>
+ <<dialog "mother">>Can I ask how you think your father's doing? With the new job.<</dialog>>
+ <<dialog "player">>He seems okay. Tired, but okay.<</dialog>>
+ <<dialog "mother">>(nodding) He doesn't say much. I'm watching, but I don't want to push.
+@@ -982,7 +982,7 @@ Just tell me if you notice anything.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomMorning-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's thinking out loud before you've properly woken up ??? but gently.<</narrative>>
++<<narrative>>She's thinking out loud before you've properly woken up. Gently, though.<</narrative>>
+ <<dialog "mother">>I think we should do something together. As a family. All four of us. Before everyone gets too busy.<</dialog>>
+ <<dialog "player">>What did you have in mind?<</dialog>>
+ <<dialog "mother">>Nothing huge. Dinner out. A day somewhere. Just ??? something.
+@@ -995,7 +995,7 @@ Would you be up for it?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomMorning-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She mentions Jake ??? the way she does when she's been holding it overnight.<</narrative>>
++<<narrative>>She mentions Jake. She has the voice she uses when she's been holding something since last night.<</narrative>>
+ <<dialog "mother">>Jake seems better this week. I think the school is starting to feel more normal for him.<</dialog>>
+ <<dialog "player">>He mentioned a friend actually. Yesterday.<</dialog>>
+ <<dialog "mother">>(relieved) Did he? Oh, good. That's good.
+@@ -1033,7 +1033,7 @@ Is there coffee still?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomMorning-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She gives you a brief, genuine hug on her way out ??? the kind that means more than it looks.<</narrative>>
++<<narrative>>She gives you a brief hug on her way out. Longer than usual.<</narrative>>
+ <<dialog "mother">>Good morning.
+ (releasing you, heading out)
+ Come down when you're ready. There's plenty.<</dialog>>
+@@ -1049,7 +1049,7 @@ Come down when you're ready. There's plenty.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomEvening-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's winding down, sitting on the bed. She looks up when you knock and really smiles ??? tired and warm.<</narrative>>
++<<narrative>>She's winding down, sitting on the bed. She looks up when you knock and really smiles. Tired, but a real one.<</narrative>>
+ <<dialog "mother">>Come in. Good day?<</dialog>>
+ <<dialog "player">>Yeah, actually. You?<</dialog>>
+ <<dialog "mother">>Better than most. I got things done and no one needed anything catastrophic from me.
+@@ -1060,7 +1060,7 @@ I consider that a full success.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomEvening-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She says it before you even sit down ??? like she'd been saving it.<</narrative>>
++<<narrative>>She says it before you even sit down. Like she'd been saving it.<</narrative>>
+ <<dialog "mother">>Thank you for today. For being around, for helping. It all adds up.
+ (pause)
+ I don't always say it enough.<</dialog>>
+@@ -1073,7 +1073,7 @@ So. Thank you.<</dialog>>`,
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomEvening-" + 1 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She's reflecting on the day ??? out loud, because you're there and she trusts you with it.<</narrative>>
++<<narrative>>She's reflecting on the day out loud, because you're there and she trusts you with it.<</narrative>>
+ <<dialog "mother">>Some days I feel like I'm managing everything and still getting none of it right.<</dialog>>
+ <<dialog "player">>That's not true. We notice.<</dialog>>
+ <<dialog "mother">>(looking at you) Do you?<</dialog>>
+@@ -1087,7 +1087,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroo
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomEvening-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She pulls you into a proper hug this time ??? longer than usual, like she needed it.<</narrative>>
++<<narrative>>She pulls you into a proper hug this time. Longer than usual. Like she needed it.<</narrative>>
+ <<dialog "mother">>(quietly) Goodnight.
+ (pulling back)
+ I love you. You know that, even when I don't say it enough?<</dialog>>
+@@ -1109,7 +1109,7 @@ I'm glad we're ??? different now. That it got easier between us.<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomEvening-" + 2 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She cups your face for just a moment ??? the way mothers do ??? before letting go.<</narrative>>
++<<narrative>>She cups your face for just a moment before letting go.<</narrative>>
+ <<dialog "mother">>You're going to be alright. All of this ??? you're going to be alright.<</dialog>>
+ <<dialog "player">>(quietly) Yeah.<</dialog>>
+ <<dialog "mother">>I know. Goodnight.<</dialog>>`,
+@@ -1134,7 +1134,7 @@ What are the ideas?<</dialog>>
+             {
+ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomEvening-" + 3 + ".webp">>
+ <<image _img "100%">>
+-<<narrative>>She shares something she doesn't usually articulate ??? a hope for the family.<</narrative>>
++<<narrative>>She shares something she doesn't usually put into words. A hope for the family.<</narrative>>
+ <<dialog "mother">>I have this image in my head. A few years from now. All of us around a table, laughing about something. Your father burning something on the grill.<</dialog>>
+ <<dialog "player">>(smiling) He does always burn something.<</dialog>>
+ <<dialog "mother">>He does. And somehow it always tastes fine anyway.
+
+```

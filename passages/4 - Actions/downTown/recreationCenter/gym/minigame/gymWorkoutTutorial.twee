@@ -1,0 +1,27 @@
+:: gymWorkoutTutorial [nobr]
+<<set $location = "gym">>
+<div class="gym-tutorial-trigger">Preparing workout...</div>
+<div id="gymTutorialFallback" class="gym-tutorial-fallback">
+    <<narrative "Workout Briefing">>
+    Tutorial modal couldn't be opened. Start training directly.
+    <</narrative>>
+    <div class="location-actions">
+        <<btn "Start Training" "gymMiniGameRound">>
+            <<set $flags.gymMiniGameTutorialSeen = true>>
+        <</btn>>
+        <<btn "Back to Gym" "gym">><</btn>>
+    </div>
+</div>
+<<script>>
+(function () {
+    if (window.openGymTutorialModal && window.openGymTutorialModal()) {
+        var fallback = document.getElementById('gymTutorialFallback');
+        if (fallback) fallback.style.display = 'none';
+    } else {
+        State.variables.flags = State.variables.flags || {};
+        if (window.console && console.warn) {
+            console.warn('gym tutorial modal failed, using fallback buttons.');
+        }
+    }
+})();
+<</script>>

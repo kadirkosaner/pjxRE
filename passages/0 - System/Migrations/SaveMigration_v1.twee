@@ -49,6 +49,19 @@
         <<set $jobState.workTrustBand = "low">>
     <</if>>
 
+    /* Gym Mini-Game: daily workout flags */
+    <<if ndef $daily>><<set $daily = {}>><</if>>
+    <<if ndef $daily.gymUpperDone>><<set $daily.gymUpperDone = false>><</if>>
+    <<if ndef $daily.gymCoreDone>><<set $daily.gymCoreDone = false>><</if>>
+    <<if ndef $daily.gymLowerDone>><<set $daily.gymLowerDone = false>><</if>>
+    <<if ndef $daily.gymCardioDone>><<set $daily.gymCardioDone = false>><</if>>
+    /* Gym Mini-Game: settings toggle */
+    <<if ndef $gameSettings>><<set $gameSettings = {}>><</if>>
+    <<if ndef $gameSettings.gymMiniGameEnabled>><<set $gameSettings.gymMiniGameEnabled = true>><</if>>
+    /* Gym Mini-Game: tutorial flag */
+    <<if ndef $flags>><<set $flags = {}>><</if>>
+    <<if ndef $flags.gymMiniGameTutorialSeen>><<set $flags.gymMiniGameTutorialSeen = false>><</if>>
+
     /* If player already has a job, ensure manager contact exists in phone. */
     <<if $job && $job.id && setup.jobs && setup.jobs[$job.id]>>
         <<set _mJob = setup.jobs[$job.id]>>

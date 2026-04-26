@@ -5,7 +5,8 @@
         loopSet: true,
         masterVolume: 100,
         videoVolume: 100,
-        navCardAnimations: true
+        navCardAnimations: true,
+        navCardLayout: 'horizontal'
     };
 
     function mergeVideoSettings(vars) {
@@ -20,6 +21,8 @@ window.SettingsInit = function (API) {
         open: function () {
             const vars = this.API.State.variables;
             const settings = mergeVideoSettings(vars);
+            const navLayoutValue = settings.navCardLayout === 'vertical' ? 'vertical' : 'horizontal';
+            const navAnimationsActive = navLayoutValue === 'vertical' ? false : settings.navCardAnimations !== false;
 
             // Content settings data
             const contentSettings = [
@@ -73,6 +76,71 @@ window.SettingsInit = function (API) {
                         `
                     },
                     {
+                        id: 'gameplay',
+                        label: 'Gameplay',
+                        content: `
+                            <div class="tab-content-inner">
+                                <h3>Navigation</h3>
+                                <div class="settings-list">
+                                    <div class="settings-control settings-control-select">
+                                        <div class="settings-control-info">
+                                            <div class="settings-control-label">Navigation Card Layout</div>
+                                            <div class="settings-control-desc">Choose a style for the navigation cards.</div>
+                                        </div>
+                                        <div class="setting-picker" data-setting="navCardLayout" data-category="video-picker">
+                                            <button class="setting-picker-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                                                <span class="setting-picker-value">${navLayoutValue === 'vertical' ? 'Vertical' : 'Horizontal'}</span>
+                                            </button>
+                                            <div class="setting-picker-menu" role="listbox" aria-label="Navigation card layout">
+                                                <button class="setting-picker-option ${navLayoutValue === 'horizontal' ? 'active' : ''}" type="button" data-value="horizontal">Horizontal</button>
+                                                <button class="setting-picker-option ${navLayoutValue === 'vertical' ? 'active' : ''}" type="button" data-value="vertical">Vertical</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-control nav-animations-setting" ${navLayoutValue === 'vertical' ? 'style="display:none;"' : ''}>
+                                        <div class="settings-control-info">
+                                            <div class="settings-control-label">Navigation Card Animations</div>
+                                            <div class="settings-control-desc">Enable hover expand animations on navigation cards.</div>
+                                        </div>
+                                        <button class="setting-toggle-btn ${navAnimationsActive ? 'active' : ''}"
+                                                data-setting="navCardAnimations">
+                                            ${navAnimationsActive ? 'ON' : 'OFF'}
+                                        </button>
+                                    </div>
+                                    <div class="settings-control settings-control-select">
+                                        <div class="settings-control-info">
+                                            <div class="settings-control-label">Interaction Back Destination</div>
+                                            <div class="settings-control-desc">Choose where Back leads after interactions.</div>
+                                        </div>
+                                        <div class="setting-picker" data-setting="talkBackToMainPassage" data-category="game-picker">
+                                            <button class="setting-picker-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                                                <span class="setting-picker-value">${(vars.gameSettings && vars.gameSettings.talkBackToMainPassage) ? 'Location' : 'Interaction Menu'}</span>
+                                            </button>
+                                            <div class="setting-picker-menu" role="listbox" aria-label="Interaction back destination">
+                                                <button class="setting-picker-option ${(vars.gameSettings && vars.gameSettings.talkBackToMainPassage) ? '' : 'active'}" type="button" data-value="characterInteraction">Interaction Menu</button>
+                                                <button class="setting-picker-option ${(vars.gameSettings && vars.gameSettings.talkBackToMainPassage) ? 'active' : ''}" type="button" data-value="locationPassage">Location</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3 style="margin-top: 2rem;">Mini-Games</h3>
+                                <div class="settings-list">
+                                    <div class="settings-control">
+                                        <div class="settings-control-info">
+                                            <div class="settings-control-label">Gym Mini-Game</div>
+                                        </div>
+                                        <button class="setting-toggle-btn ${(vars.gameSettings && vars.gameSettings.gymMiniGameEnabled !== false) ? 'active' : ''}"
+                                                data-setting="gymMiniGameEnabled"
+                                                data-category="game">
+                                            ${(vars.gameSettings && vars.gameSettings.gymMiniGameEnabled !== false) ? 'ON' : 'OFF'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
                         id: 'display',
                         label: 'Display',
                         content: `
@@ -99,35 +167,6 @@ window.SettingsInit = function (API) {
                                                 data-setting="loopSet">
                                             ${settings.loopSet ? 'ON' : 'OFF'}
                                         </button>
-                                    </div>
-                                </div>
-
-                                <h3 style="margin-top: 2rem;">Navigation</h3>
-                                <div class="settings-list">
-                                    <div class="settings-control">
-                                        <div class="settings-control-info">
-                                            <div class="settings-control-label">Navigation Card Animations</div>
-                                            <div class="settings-control-desc">Enable hover expand animations on navigation cards.</div>
-                                        </div>
-                                        <button class="setting-toggle-btn ${settings.navCardAnimations !== false ? 'active' : ''}" 
-                                                data-setting="navCardAnimations">
-                                            ${settings.navCardAnimations !== false ? 'ON' : 'OFF'}
-                                        </button>
-                                    </div>
-                                    <div class="settings-control settings-control-select">
-                                        <div class="settings-control-info">
-                                            <div class="settings-control-label">Interaction Back Destination</div>
-                                            <div class="settings-control-desc">Choose where Back leads after interactions.</div>
-                                        </div>
-                                        <div class="setting-picker" data-setting="talkBackToMainPassage" data-category="game-picker">
-                                            <button class="setting-picker-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
-                                                <span class="setting-picker-value">${(vars.gameSettings && vars.gameSettings.talkBackToMainPassage) ? 'Location' : 'Interaction Menu'}</span>
-                                            </button>
-                                            <div class="setting-picker-menu" role="listbox" aria-label="Interaction back destination">
-                                                <button class="setting-picker-option ${(vars.gameSettings && vars.gameSettings.talkBackToMainPassage) ? '' : 'active'}" type="button" data-value="characterInteraction">Interaction Menu</button>
-                                                <button class="setting-picker-option ${(vars.gameSettings && vars.gameSettings.talkBackToMainPassage) ? 'active' : ''}" type="button" data-value="locationPassage">Location</button>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -187,6 +226,9 @@ window.SettingsInit = function (API) {
             $(document).on('click.settings-toggle', '.setting-toggle-btn', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+                if ($(this).is(':disabled')) {
+                    return;
+                }
                 const key = $(this).data('setting');
                 self.toggleSetting(key);
             });
@@ -322,6 +364,9 @@ window.SettingsInit = function (API) {
                 if (key === 'navCardAnimations' && typeof window.syncNavCardMotionClass === 'function') {
                     window.syncNavCardMotionClass();
                 }
+                if ((key === 'navCardAnimations' || key === 'navCardLayout') && typeof window.syncNavCardLayoutClass === 'function') {
+                    window.syncNavCardLayoutClass();
+                }
                 
             }
         },
@@ -353,6 +398,57 @@ window.SettingsInit = function (API) {
                 $picker.find('.setting-picker-option').removeClass('active');
                 $picker.find(`.setting-picker-option[data-value="${value}"]`).addClass('active');
                 this.closeAllPickers();
+            } else if (category === 'video-picker') {
+                vars.videoSettings = mergeVideoSettings(vars);
+                if (key === 'navCardLayout') {
+                    vars.videoSettings.navCardLayout = value === 'vertical' ? 'vertical' : 'horizontal';
+                    if (vars.videoSettings.navCardLayout === 'vertical') {
+                        vars.videoSettings.navCardAnimations = false;
+                    }
+                }
+                const label = value === 'vertical' ? 'Vertical' : 'Horizontal';
+                $picker.find('.setting-picker-value').text(label);
+                $picker.find('.setting-picker-option').removeClass('active');
+                $picker.find(`.setting-picker-option[data-value="${value}"]`).addClass('active');
+                this.refreshNavCardControls();
+                this.closeAllPickers();
+
+                /* Apply layout classes directly so CSS takes effect immediately, independent of helpers */
+                if (key === 'navCardLayout') {
+                    const isVertical = value === 'vertical';
+                    document.body.classList.toggle('nav-layout-vertical', isVertical);
+                    document.body.classList.toggle('nav-layout-horizontal', !isVertical);
+                    document.documentElement.classList.toggle('nav-layout-vertical', isVertical);
+                    document.documentElement.classList.toggle('nav-layout-horizontal', !isVertical);
+                    document.querySelectorAll('.accordion-container.nav-breakout').forEach(function (el) {
+                        el.classList.toggle('nav-layout-vertical', isVertical);
+                        el.classList.toggle('nav-layout-horizontal', !isVertical);
+                    });
+                }
+
+                if (typeof window.syncNavCardMotionClass === 'function') {
+                    window.syncNavCardMotionClass();
+                }
+                if (typeof window.syncNavCardLayoutClass === 'function') {
+                    window.syncNavCardLayoutClass();
+                }
+            }
+        },
+
+        refreshNavCardControls: function () {
+            const vars = this.API.State.variables;
+            vars.videoSettings = mergeVideoSettings(vars);
+            const settings = vars.videoSettings;
+            const isVertical = settings.navCardLayout === 'vertical';
+            const navAnimationsActive = !isVertical && settings.navCardAnimations !== false;
+            const $row = $('.nav-animations-setting');
+            if ($row.length) {
+                $row.toggle(!isVertical);
+            }
+            const $btn = $('.setting-toggle-btn[data-setting="navCardAnimations"]');
+            if ($btn.length) {
+                $btn.toggleClass('active', navAnimationsActive);
+                $btn.text(navAnimationsActive ? 'ON' : 'OFF');
             }
         },
 

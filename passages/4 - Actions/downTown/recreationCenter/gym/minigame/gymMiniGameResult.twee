@@ -1,0 +1,98 @@
+:: gymMiniGameResult
+<<nobr>>
+<<silently>>
+    <<set $location = "gym">>
+    <<set _score = $gymMG.score>>
+    <<set _zone  = $gymMG.zone>>
+    <<set _completedPhases = Math.min($gymMG.totalPhases, Math.max(0, $gymMG.phase - 1))>>
+    <<set _correctHits = Math.min($gymMG.totalPhases, Math.max(0, Math.floor(Number(_score) || 0)))>>
+
+    /* ── Per-phase stat reward (skill logic ported to stats) ── */
+    <<set _mainPerPhase = 2 / $gymMG.totalPhases>>
+    <<set _supPerPhase  = _mainPerPhase / 2>>
+    <<set _statMain     = _score * _mainPerPhase>>
+    <<set _statSup      = _score * _supPerPhase>>
+    <<set _scoreRatio   = (_score / $gymMG.totalPhases)>>
+
+    <<if _scoreRatio >= 0.75>>
+        <<set _tier = "great">>
+    <<elseif _scoreRatio >= 0.25>>
+        <<set _tier = "decent">>
+    <<else>>
+        <<set _tier = "rough">>
+    <</if>>
+
+    /* ── Zone → stat mapping ── */
+    <<if _zone === "upper">>
+        <<gainStat "upperBody" _statMain>>
+        <<if _statSup > 0>><<gainStat "core" _statSup>><</if>>
+        <<set _statMainName = "Upper Body">>
+        <<set _statSupName  = "Core">>
+    <<elseif _zone === "core">>
+        <<gainStat "core" _statMain>>
+        <<if _statSup > 0>><<gainStat "lowerBody" _statSup>><</if>>
+        <<set _statMainName = "Core">>
+        <<set _statSupName  = "Lower Body">>
+    <<elseif _zone === "lower">>
+        <<gainStat "lowerBody" _statMain>>
+        <<if _statSup > 0>><<gainStat "cardio" _statSup>><</if>>
+        <<set _statMainName = "Lower Body">>
+        <<set _statSupName  = "Cardio">>
+    <<else>>
+        <<gainStat "cardio" _statMain>>
+        <<if _statSup > 0>><<gainStat "lowerBody" _statSup>><</if>>
+        <<set _statMainName = "Cardio">>
+        <<set _statSupName  = "Lower Body">>
+    <</if>>
+
+    <<recalculateStats>>
+    <<flushNotifications>>
+
+    /* ── Display labels ── */
+    <<set _zoneLabels = { upper: "Upper Body", core: "Core", lower: "Lower Body", cardio: "Cardio" }>>
+    <<set _tierLabels = { great: "Great Session", decent: "Decent Session", rough: "Rough Session" }>>
+<</silently>>
+
+<div class="gym-mg-result-wrap">
+
+    <!-- Session badge -->
+    <div class="gym-mg-result-header">
+        <span class="gym-mg-result-tier gym-mg-tier-<<print _tier>>"><<print _tierLabels[_tier]>></span>
+        <div class="gym-mg-result-title">Training Complete</div>
+        <div class="gym-mg-result-subtitle"><<print _zoneLabels[_zone]>></div>
+    </div>
+
+    <!-- Phase bar -->
+    <div class="gym-mg-result-block">
+        <div class="gym-mg-result-row">
+            <span class="gym-mg-result-row-label">Phases Completed</span>
+            <span class="gym-mg-result-row-val"><<print _completedPhases>> <span class="gym-mg-result-row-total">/ <<print $gymMG.totalPhases>></span></span>
+        </div>
+        <div class="gym-mg-phase-bar" style="display:flex;gap:6px;margin-top:10px;width:100%;">
+            <<for _pi = 1; _pi <= $gymMG.totalPhases; _pi++>>
+                <<if _pi <= _correctHits>><div class="gym-mg-phase-seg gym-mg-phase-seg-done" style="flex:1 1 0;height:10px;border-radius:4px;background:#ec4899;">&nbsp;</div><<else>><div class="gym-mg-phase-seg" style="flex:1 1 0;height:10px;border-radius:4px;background:#3a3a44;">&nbsp;</div><</if>>
+            <</for>>
+        </div>
+    </div>
+
+    <!-- Rewards -->
+    <div class="gym-mg-result-block">
+        <div class="gym-mg-result-block-label">Gained</div>
+        <div class="gym-mg-result-row">
+            <span class="gym-mg-result-row-label"><<print _statMainName>></span>
+            <span class="gym-mg-result-reward-stat">+<<print _statMain.toFixed(1)>></span>
+        </div>
+        <<if _statSup > 0>>
+        <div class="gym-mg-result-row">
+            <span class="gym-mg-result-row-label"><<print _statSupName>></span>
+            <span class="gym-mg-result-reward-sup">+<<print _statSup.toFixed(2)>></span>
+        </div>
+        <</if>>
+    </div>
+
+</div>
+
+<div class="location-actions">
+    <<btn "Return to Gym" "gym">><</btn>>
+</div>
+<</nobr>>

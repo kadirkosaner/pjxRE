@@ -8,6 +8,7 @@ window.SystemModules = {
     "notification", // Toast notification helpers
     "money", // Money rounding/format helpers
     "accordion", // Event binding helper
+    "gymTimer", // Gym mini-game countdown timer
   ],
 
   // UI - Passage render driven components
@@ -47,6 +48,7 @@ window.SystemModules = {
     "character", // Character modal (tabs)
     "journal", // Journal modal (tabs)
     "help", // Help modal (sidebar)
+    "gymTutorial", // Gym mini-game tutorial modal
   ],
 
   // System - Core game logic
@@ -120,6 +122,7 @@ window.SystemCSS = {
     "alarm", // Alarm clock system
     "read", // Read system
     "help", // Help modal sidebar layout
+    "gymMiniGame", // Gym workout mini-game
   ],
 
   // Utils - Helpers (load last)
