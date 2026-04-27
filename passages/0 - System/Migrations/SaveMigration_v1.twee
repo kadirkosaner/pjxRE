@@ -61,6 +61,24 @@
     /* Gym Mini-Game: tutorial flag */
     <<if ndef $flags>><<set $flags = {}>><</if>>
     <<if ndef $flags.gymMiniGameTutorialSeen>><<set $flags.gymMiniGameTutorialSeen = false>><</if>>
+    /* Gym Membership: 28-day access for old saves. */
+    <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 28 : 0>><</if>>
+    <<if ndef $gymMembershipStartedAt>><<set $gymMembershipStartedAt = null>><</if>>
+    <<if $flags.gymMembershipActive && ($gymMembershipDaysRemaining || 0) <= 0>>
+        <<set $flags.gymMembershipActive = false>>
+        <<set $gymMembershipDaysRemaining = 0>>
+    <</if>>
+
+    /* Wardrobe quick outfit slot migration: ensure exactly 5 slots for old saves. */
+    <<if ndef $wardrobe>><<set $wardrobe = {}>><</if>>
+    <<if ndef $wardrobe.outfits or !Array.isArray($wardrobe.outfits)>>
+        <<set $wardrobe.outfits = [null, null, null, null, null]>>
+    <<else>>
+        <<run $wardrobe.outfits = $wardrobe.outfits.slice(0, 5)>>
+        <<for _i range $wardrobe.outfits.length; _i lt 5; _i++>>
+            <<run $wardrobe.outfits.push(null)>>
+        <</for>>
+    <</if>>
 
     /* If player already has a job, ensure manager contact exists in phone. */
     <<if $job && $job.id && setup.jobs && setup.jobs[$job.id]>>

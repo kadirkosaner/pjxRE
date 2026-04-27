@@ -1,6 +1,17 @@
 <<nobr>><<set $location = "gymMaleLockerShower">>
 <<updateCharacterLocations>>
-<<narrative "Men's Showers">>Tiled stalls, chrome fixtures, and steam hanging in the air from the last rush hour.<</narrative>>
+<<gymMembershipCheck>>
+<<narrative "Men's Showers">>
+<<if _gymMembershipActive && ($corruption || 0) >= 3>>
+Tiled stalls, chrome fixtures, and steam hanging in the air from the last rush hour.
+<<elseif _gymMembershipActive>>
+You stop at the entrance. Going into the men's showers feels too bold right now.
+<<else>>
+The showers are reserved for active gym members.
+<</if>>
+<</narrative>>
+<<if _gymMembershipActive && ($corruption || 0) >= 3>>
 <<showLocationChars "gymMaleLockerShower">>
+<</if>>
 <<navMenu>><<navCard "gymMaleLocker">><</navMenu>>
 <</nobr>>

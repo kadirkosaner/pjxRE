@@ -315,6 +315,7 @@
     <<set $daily.gymCoreDone = false>>
     <<set $daily.gymLowerDone = false>>
     <<set $daily.gymCardioDone = false>>
+    <<gymMembershipAdvanceDays _days>>
 
     /* Job system: only run if player has an active job with valid state */
     <<if $job && $job.id && $jobState>>

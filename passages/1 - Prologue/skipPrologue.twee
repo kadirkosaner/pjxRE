@@ -192,7 +192,7 @@ $(document).ready(function() {
           if (!State.variables.wardrobe || !State.variables.wardrobe.owned || State.variables.wardrobe.owned.length === 0) {
             State.variables.wardrobe = {
               owned: ["tshirt_white_owned", "tshirt_blue_owned", "tshirt_gray_owned", "jeans_blue_owned", "leggings_black_owned", "dress_summer_owned", "socks_white_owned", "socks_black_owned", "sneakers_flat_owned", "sneakers_girly_owned", "bra_sport_white_owned", "bra_black_owned", "panties_white_owned", "panties_pink_owned", "pajama_color_owned"],
-              outfits: [null, null, null, null],
+              outfits: [null, null, null, null, null],
               equipped: {
                 top: "tshirt_white_owned",
                 bottom: "jeans_blue_owned",

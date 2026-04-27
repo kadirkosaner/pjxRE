@@ -1,8 +1,17 @@
 <<nobr>>
 <<set $location = "gymFemaleLockerWardrobe">>
 <<updateCharacterLocations>>
+<<gymMembershipCheck>>
 <<narrative "Locker">>
+<<if _gymMembershipActive>>
 Rows of lockers and a bench give you enough space to change into something else.
+<<else>>
+This locker is only available with an active gym membership.
+<</if>>
 <</narrative>>
 <</nobr>>
+<<if _gymMembershipActive>>
 <<wardrobe>>
+<<else>>
+<<navMenu>><<navCard "gym">><</navMenu>>
+<</if>>

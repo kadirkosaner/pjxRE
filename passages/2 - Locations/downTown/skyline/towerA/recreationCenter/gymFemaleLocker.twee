@@ -2,19 +2,30 @@
 <<set $location = "gymFemaleLocker">>
 <<set $returnAfterToilet = "gymFemaleLocker">>
 <<updateCharacterLocations>>
-<<discover "GymFemaleLockerWardrobe" "Locker">>
+<<gymMembershipCheck>>
 
 <<narrative "Women's Locker Room">>
+<<if _gymMembershipActive>>
 Lockers line the walls, with a clean vanity mirror and bathroom facilities nearby.
+<<else>>
+The locker room entrance is reserved for active members.
+<</if>>
 <</narrative>>
+<<if _gymMembershipActive>>
+<<discover "GymFemaleLockerWardrobe" "Locker">>
 <<showLocationChars "gymFemaleLocker">>
 <div class="location-actions">
     <<btn "Take a Shower" "useBath">><</btn>>
     <<bathroomActions>>
     <<mirrorBtn>>
 </div>
+<</if>>
+<<if _gymMembershipActive>>
 <<navMenu>>
     <<navCard "gymFemaleLockerWardrobe">>
     <<navCard "gym">>
 <</navMenu>>
+<<else>>
+<<navMenu>><<navCard "gym">><</navMenu>>
+<</if>>
 <</nobr>>

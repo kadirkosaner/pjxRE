@@ -1,10 +1,25 @@
 <<nobr>><<set $location = "gymMaleLocker">>
 <<updateCharacterLocations>>
-<<narrative "Men's Locker Room">>Rows of metal lockers, a bench down the middle, and the faint smell of disinfectant. The showers are through the side door.<</narrative>>
+<<gymMembershipCheck>>
+<<set _maleLockerAllowed = (_gymMembershipActive && ($corruption || 0) >= 3)>>
+<<narrative "Men's Locker Room">>
+<<if _maleLockerAllowed>>
+Rows of metal lockers, a bench down the middle, and the faint smell of disinfectant. The showers are through the side door.
+<<elseif _gymMembershipActive>>
+You stop at the entrance, suddenly aware of the sign on the door and the risk of stepping inside.
+<<else>>
+The locker room entrance is reserved for active members.
+<</if>>
+<</narrative>>
+<<if _maleLockerAllowed>>
 <<showLocationChars "gymMaleLocker">>
+<</if>>
+<<if _maleLockerAllowed>>
 <<navMenu>>
-<<navCard "gymMaleLockerShower">>
-<<navCard "gymMaleLockerRestroom">>
-<<navCard "gym">>
+    <<navCard "gymMaleLockerShower">>
+    <<navCard "gym">>
 <</navMenu>>
+<<else>>
+<<navMenu>><<navCard "gym">><</navMenu>>
+<</if>>
 <</nobr>>

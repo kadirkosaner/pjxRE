@@ -577,7 +577,7 @@ function addCartToInventory() {
     
     // Ensure wardrobe exists
     if (!S.variables.wardrobe) {
-        S.variables.wardrobe = { owned: [], equipped: {}, outfits: [null, null, null, null] };
+        S.variables.wardrobe = { owned: [], equipped: {}, outfits: [null, null, null, null, null] };
     }
     if (!S.variables.wardrobe.owned) {
         S.variables.wardrobe.owned = [];

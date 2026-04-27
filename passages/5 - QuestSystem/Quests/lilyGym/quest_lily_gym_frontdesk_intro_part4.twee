@@ -1,0 +1,57 @@
+<div class="divnobr">
+<<nobr>>
+<<silently>>
+<<set $location = "gym">>
+<<set $flags = $flags || {}>>
+<<set _resolveQuest = ($questState && $questState.active && $questState.active.lily_gym_intro && $questState.active.lily_gym_intro.stage === 1 && !$flags.lilyGymReceptionTalked)>>
+<<if _resolveQuest>>
+    <<set $flags.lilyGymReceptionTalked = true>>
+    <<gainCharacterStat "gymReceptionNora" "friendship" 1>>
+    <<completeQuest "lily_gym_intro">>
+    <<advanceTime 20>>
+    <<loseStat "energy" 2>>
+    <<gainStat "mood" 1>>
+    <<recalculateStats>>
+    <<updateCharacterLocations>>
+<</if>>
+<</silently>>
+
+<<narrative "Iron Works Gym">>
+Nora guided you back to the front desk and opened a brochure, turning the pricing row toward you.
+<</narrative>>
+
+<<gymMembershipCheck>>
+<<if _gymMembershipActive>>
+<<dialog "gymReceptionNora">>You're already set up. Your membership is active.<</dialog>>
+
+<div class="location-actions">
+<<btn "Back" "gym">><</btn>>
+</div>
+<<else>>
+<<dialog "gymReceptionNora">>Standard membership is 229 dollars per month.<</dialog>>
+
+<<narrative>>
+You paused for a second when you saw the number.
+<</narrative>>
+
+<<dialog "player">>229 a month...<</dialog>>
+<<dialog "gymReceptionNora">>Yeah, if you want, we can start it now. If not, you can always come back later.<</dialog>>
+
+<<narrative>>
+Nora waited without rushing you.
+<</narrative>>
+
+<div class="location-actions">
+<<if $cashBalance gte 229>>
+    <<btn "Join (229$)" "gym">>
+        <<spendCash 229>>
+        <<if _transactionSuccess>><<gymMembershipStart>><</if>>
+    <</btn>>
+<<else>>
+    <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="Not enough money (need 229$)"><i class="icon icon-lock icon-12"></i> Join (229$)</span>
+<</if>>
+<<btn "Back" "gym">><</btn>>
+</div>
+<</if>>
+<</nobr>>
+</div>

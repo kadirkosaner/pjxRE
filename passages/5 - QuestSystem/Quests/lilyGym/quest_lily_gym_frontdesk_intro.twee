@@ -2,41 +2,34 @@
 <<nobr>>
 <<silently>>
 <<set $location = "gym">>
-<<set $flags = $flags || {}>>
-<<discover "Gym" "Iron Works Gym">>
-<<discover "CourtBasketball" "Basketball Courts">>
-<<discover "CourtVolleyball" "Volleyball Courts">>
-<<discover "GymMaleLocker" "Men's Locker Room">>
-<<discover "GymFemaleLocker" "Women's Locker Room">>
-<<discover "GymFemaleLockerWardrobe" "Locker">>
-<<set $characters.gymReceptionNora.known = true>>
+<<if !$characters.gymReceptionNora.known>>
+    <<set $characters.gymReceptionNora.known = true>>
+<</if>>
 <<if !$characters.gymReceptionNora.firstMet>>
     <<set $characters.gymReceptionNora.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
 <</if>>
+<<set $flags = $flags || {}>>
 <<set $flags.lilyGymReceptionTalked = true>>
 <<gainCharacterStat "gymReceptionNora" "friendship" 1>>
-<<completeQuest "lily_gym_intro">>
-<<advanceTime 10>>
-<<loseStat "energy" 2>>
-<<gainStat "mood" 1>>
-<<recalculateStats>>
-<<updateCharacterLocations>>
 <</silently>>
 
 <<narrative "Iron Works Gym">>
-You glance toward the front desk and step closer.
+As you pushed the door open, cool air hit your face. Air conditioning, and a faint disinfectant scent. The reception area was clean and organized, and the woman behind the desk looked up the moment she saw you.
 <</narrative>>
 
-<<dialog "gymReceptionNora">>Hey, welcome to Iron Works. First time here?<</dialog>>
-<<dialog "player">>Yeah. Just wanted to say hi and get some info about the gym.</dialog>>
-<<dialog "gymReceptionNora">>Perfect. I'm Nora at the front desk. If you need class info, trainer slots, or locker details, come to me anytime.</dialog>>
+<<dialog "gymReceptionNora">>Welcome. I'm Nora, how can I help you?<</dialog>>
+<<dialog "player">>Hi, I'm $playerName. A friend recommended this place, so I wanted to stop by and take a look.<</dialog>>
+<<dialog "gymReceptionNora">>Nice to meet you, $playerName. Tell your friend thanks from us. First time here?<</dialog>>
+<<dialog "player">>Yeah.<</dialog>>
 
 <<narrative>>
-The gym feels a lot less intimidating now that you've introduced yourself.
+Nora leaned lightly on the counter, relaxed and friendly.
 <</narrative>>
 
+<<dialog "gymReceptionNora">>Want a quick tour?<</dialog>>
+
 <div class="location-actions">
-<<btn "Continue" "gym">><</btn>>
+<<btn "Continue" "quest_lily_gym_frontdesk_intro_part2">><</btn>>
 </div>
 <</nobr>>
 </div>

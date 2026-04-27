@@ -1,0 +1,56 @@
+<div class="divnobr">
+<<nobr>>
+<<silently>>
+<<set $location = "gym">>
+<<set $flags = $flags || {}>>
+<<if !$characters.gymTrainerNick.known>>
+    <<set $characters.gymTrainerNick.known = true>>
+<</if>>
+<</silently>>
+
+<<narrative "Iron Works Gym">>
+Nora stepped out from behind the desk and led you inside. Past the turnstile, the main floor opened up in front of you. Free weights, cable stations, and squat racks. Someone in the back corner finished a set, and the bar hit the floor with a sound that carried across the room.
+<</narrative>>
+
+<<dialog "gymReceptionNora">>We're open from eight to ten, every day.<</dialog>>
+<<dialog "player">>Does it usually get crowded?<</dialog>>
+<<dialog "gymReceptionNora">>Mornings get busier, afternoons are calmer. Depends on your routine.<</dialog>>
+
+<<narrative>>
+Nora called out toward the gym floor.
+<</narrative>>
+
+<<dialog "gymReceptionNora">>Nick!<</dialog>>
+
+<<narrative>>
+The guy by the squat rack looked up and walked over to you at a quick pace.
+<</narrative>>
+
+<<dialog "gymReceptionNora">>Nick, this is $playerName. I'm showing her around and wanted you two to meet.<</dialog>>
+<<dialog "gymTrainerNick">>Nice to meet you, $playerName. Have you trained at a gym before?<</dialog>>
+<<dialog "player">>Not really. I've mostly been running outside.<</dialog>>
+<<dialog "gymTrainerNick">>That's still a start. But lifting here will make you feel stronger, trust me.<</dialog>>
+
+<<narrative>>
+He was about to continue when his eyes caught something across the floor.
+<</narrative>>
+
+<<dialog "gymTrainerNick">>You're doing that movement wrong!<</dialog>>
+
+<<narrative>>
+The guy in the corner paused. Nick turned back to you.
+<</narrative>>
+
+<<dialog "gymTrainerNick">>Anyway, I gotta go. If you want a workout plan, come find Nora or me.<</dialog>>
+
+<<narrative>>
+He turned and left. Nora gave a small laugh.
+<</narrative>>
+
+<<dialog "gymReceptionNora">>Nick gets intense. He's always like this. Want to keep going?<</dialog>>
+
+<div class="location-actions">
+<<btn "Continue" "quest_lily_gym_frontdesk_intro_part3">><</btn>>
+</div>
+<</nobr>>
+</div>

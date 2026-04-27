@@ -10,16 +10,46 @@
 <<showLocationChars "gym">>
 <<questPrompts>>
 
+<<gymMembershipCheck>>
+<<if !_gymMembershipActive>>
+<<narrative>>
+You can look around the front area, but the training floor and locker rooms are for members only.
+<</narrative>>
+<</if>>
+
 <div class="location-actions">
+<<if _gymMembershipActive>>
     <<gymWorkoutBtn "upper">>
     <<gymWorkoutBtn "core">>
     <<gymWorkoutBtn "lower">>
     <<gymWorkoutBtn "cardio">>
+<<else>>
+    <<if $cashBalance gte 229>>
+        <<btn "Join (229$)" "gym">>
+            <<spendCash 229>>
+            <<if _transactionSuccess>><<gymMembershipStart>><</if>>
+        <</btn>>
+    <<else>>
+        <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="Not enough money (need 229$)"><i class="icon icon-lock icon-12"></i> Join (229$)</span>
+    <</if>>
+<</if>>
 </div>
 
+<<if _gymMembershipActive>>
 <<navMenu>>
-<<navCard "gymMaleLocker">>
-<<navCard "gymFemaleLocker">>
-<<navCard "towerA">>
+    <<if $corruption gte 3>>
+        <<navCard "gymMaleLocker">>
+    <<else>>
+        <<navCard "gymMaleLocker" "" "" "Requires corruption 3">>
+    <</if>>
+    <<navCard "gymFemaleLocker">>
+    <<navCard "towerA">>
 <</navMenu>>
+<<else>>
+<<navMenu>>
+    <<navCard "gymMaleLocker" "" "" "Requires an active gym membership">>
+    <<navCard "gymFemaleLocker" "" "" "Requires an active gym membership">>
+    <<navCard "towerA">>
+<</navMenu>>
+<</if>>
 <</nobr>>

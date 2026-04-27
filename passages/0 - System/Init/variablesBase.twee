@@ -149,8 +149,13 @@
     vinceDay3FamilyFatherDone: false,
     vinceDay3FamilyBedroomDone: false,
     firstWorkDayWalkEvent: false,
-    firstWorkDayWalkHome: false
+    firstWorkDayWalkHome: false,
+    gymMembershipActive: false
 }>>
+
+/* Gym membership: 28-day access, decremented by advanceDay. */
+<<set $gymMembershipDaysRemaining = 0>>
+<<set $gymMembershipStartedAt = null>>
 
 /* Important Dates */
 <<set $importantDates = {

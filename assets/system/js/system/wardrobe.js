@@ -258,7 +258,7 @@ function initializePlayerWardrobe() {
     });
 
     if (!wardrobe.outfits || !Array.isArray(wardrobe.outfits)) {
-        wardrobe.outfits = [null, null, null, null];
+        wardrobe.outfits = [null, null, null, null, null];
     }
     wardrobe.outfits = wardrobe.outfits.map(outfit => {
         if (!outfit || !outfit.equipped) return outfit;

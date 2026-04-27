@@ -3,6 +3,36 @@
    Gym workout flow without transit passages
 ========================================== */
 
+<<widget "gymMembershipStart">><<nobr>>
+    <<set $flags = $flags || {}>>
+    <<set $flags.gymMembershipActive = true>>
+    <<set $gymMembershipDaysRemaining = 28>>
+    <<set $gymMembershipStartedAt = { year: $timeSys.year, month: $timeSys.month, day: $timeSys.day }>>
+<</nobr>><</widget>>
+
+<<widget "gymMembershipAdvanceDays">><<nobr>>
+    <<set _daysPassed = parseInt($args[0], 10) || 1>>
+    <<set $flags = $flags || {}>>
+    <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 28 : 0>><</if>>
+    <<if $flags.gymMembershipActive>>
+        <<set $gymMembershipDaysRemaining = Math.max(0, ($gymMembershipDaysRemaining || 0) - _daysPassed)>>
+        <<if $gymMembershipDaysRemaining <= 0>>
+            <<set $flags.gymMembershipActive = false>>
+            <<set $gymMembershipDaysRemaining = 0>>
+        <</if>>
+    <</if>>
+<</nobr>><</widget>>
+
+<<widget "gymMembershipCheck">><<nobr>>
+    <<set $flags = $flags || {}>>
+    <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 28 : 0>><</if>>
+    <<if $flags.gymMembershipActive && ($gymMembershipDaysRemaining || 0) <= 0>>
+        <<set $flags.gymMembershipActive = false>>
+        <<set $gymMembershipDaysRemaining = 0>>
+    <</if>>
+    <<set _gymMembershipActive = ($flags.gymMembershipActive && ($gymMembershipDaysRemaining || 0) > 0)>>
+<</nobr>><</widget>>
+
 /* GYM START WORKOUT - Single-step routing called from the gym button body.
    Usage (inside <<btn>>): <<gymStartWorkout "upper" 15 10 "gymUpperDone">>
 */
@@ -13,6 +43,8 @@
     <<set _dailyKey = $args[3]>>
     <<set _energyMsg = ($args[4] && $args[4] !== "") ? $args[4] : "Not enough energy to work out.">>
 
+    <<gymMembershipCheck>>
+    <<if !_gymMembershipActive>><<goto "gym">><</if>>
     <<requireMinEnergy _energyCost "gym" _energyMsg>>
     <<if $daily[_dailyKey]>><<goto "gym">><</if>>
 
@@ -69,8 +101,15 @@
     <<set _canDo = true>>
     <<set _tooltipText = "">>
 
+    /* Membership check */
+    <<gymMembershipCheck>>
+    <<if !_gymMembershipActive>>
+        <<set _canDo = false>>
+        <<set _tooltipText = "Requires an active gym membership">>
+    <</if>>
+
     /* Daily check */
-    <<if _dailyDone>>
+    <<if _canDo && _dailyDone>>
         <<set _canDo = false>>
         <<set _tooltipText = "Already done today">>
     <</if>>

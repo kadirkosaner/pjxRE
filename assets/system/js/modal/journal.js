@@ -551,6 +551,19 @@ window.JournalInit = function (API) {
         },
       ];
       const certificates = vars.certificates || [];
+      const gymMembershipDays = Math.max(0, Number(vars.gymMembershipDaysRemaining || 0));
+      const gymMembershipActive = !!(vars.flags && vars.flags.gymMembershipActive && gymMembershipDays > 0);
+      const journalEntries = gymMembershipActive
+        ? [
+            {
+              date: "Active",
+              icon: "activity",
+              title: `Gym Membership - ${gymMembershipDays} ${gymMembershipDays === 1 ? "day" : "days"}`,
+              desc: "Iron Works Gym membership is active.",
+            },
+            ...discoveryLog,
+          ]
+        : discoveryLog;
       const locationsDiscoveredCount = Object.keys(vars).filter(
         (k) => typeof k === 'string' && k.startsWith('discovered') && vars[k]
       ).length;
@@ -702,7 +715,7 @@ window.JournalInit = function (API) {
                                     <div class="record-group">
                                         <div class="record-group-title"><i class="icon icon-bookmark"></i> Entries</div>
                                         <div class="timeline-container" style="max-height: 300px; overflow-y: auto; padding-right: 8px;">
-                                            ${discoveryLog
+                                            ${journalEntries
                                               .map(
                                                 (log) => `
                                                 <div class="timeline-item" style="padding-bottom: 24px;">

@@ -27,16 +27,20 @@
 <<set setup.schedules.gymTrainerNick = {
     weekday: [
         { hour: 0, location: null, status: "unavailable" },
-        { hour: 6, location: "gym", status: "available" },
-        { hour: 10, location: null, status: "unavailable" },
-        { hour: 17, location: "gym", status: "available" },
-        { hour: 21, location: null, status: "unavailable" }
+        { hour: 8, location: "gym", status: "trainer" },
+        { hour: 12, location: "gym", status: "reception" },
+        { hour: 13, location: "gym", status: "trainer" },
+        { hour: 17, location: null, status: "break" },
+        { hour: 18, location: "gym", status: "trainer" },
+        { hour: 22, location: null, status: "unavailable" }
     ],
     weekend: [
         { hour: 0, location: null, status: "unavailable" },
-        { hour: 8, location: "gym", status: "available" },
-        { hour: 12, location: null, status: "unavailable" },
-        { hour: 16, location: "gym", status: "available" },
-        { hour: 20, location: null, status: "unavailable" }
+        { hour: 8, location: "gym", status: "trainer" },
+        { hour: 12, location: "gym", status: "reception" },
+        { hour: 13, location: "gym", status: "trainer" },
+        { hour: 17, location: null, status: "break" },
+        { hour: 18, location: "gym", status: "trainer" },
+        { hour: 22, location: null, status: "unavailable" }
     ]
 }>>
