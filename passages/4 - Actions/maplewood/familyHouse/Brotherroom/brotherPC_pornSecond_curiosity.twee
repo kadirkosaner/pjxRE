@@ -601,7 +601,11 @@ For a long while, you don't touch anything.
     <<set $flags.brotherPornLookButtonUnlocked = true>>
 <</if>>
 <<if $questState && $questState.active && $questState.active.brother_browser_rabbit_hole>>
-    <<advanceQuestStage "brother_browser_rabbit_hole">>
+    <<if _step >= 4>>
+        <<completeQuest "brother_browser_rabbit_hole">>
+    <<else>>
+        <<advanceQuestStage "brother_browser_rabbit_hole">>
+    <</if>>
 <</if>>
 <<flushNotifications>>
 <</silently>>

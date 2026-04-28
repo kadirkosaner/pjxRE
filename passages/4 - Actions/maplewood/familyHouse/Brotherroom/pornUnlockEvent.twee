@@ -1,0 +1,63 @@
+:: pornUnlockEvent
+<<nobr>>
+<<silently>>
+<<if ndef $pornSource or $pornSource === "">><<set $pornSource = "brotherRoom">><</if>>
+<<if $pornSource === "brotherRoom">>
+    <<set $location = "fhBrotherRoomPC">>
+<<else>>
+    <<set $location = "fhBedroom">>
+<</if>>
+<<if ndef $pornCategoriesUnlocked>><<set $pornCategoriesUnlocked = ["handjob"]>><</if>>
+<<if ndef $pornCategoryTargets>><<set $pornCategoryTargets = {}>><</if>>
+<<set _cat = $pornPendingUnlock || "">>
+<<set _labels = {
+    handjob: "Handjob",
+    blowjob: "Blowjob",
+    vanilla: "Vanilla Sex",
+    anal: "Anal",
+    bbc: "BBC",
+    creampie: "Creampie",
+    dp: "Double Penetration",
+    spitroast: "Spitroast",
+    gangbang: "Gangbang",
+    incest: "Incest"
+}>>
+<<set _label = _labels[_cat] || _cat>>
+<<if _cat === "" || $pornCategoriesUnlocked.includes(_cat)>>
+    <<goto "pornSite_hotHub">>
+<</if>>
+<</silently>>
+
+<<narrative "Something New">>
+<<if $pornSource === "brotherRoom">>
+The site shifts after the last video closes.
+
+A new tag appears where there was only empty space before: <strong><<print _label>></strong>.
+
+For a second you only stare at it. It feels less like the site changed and more like you changed enough to notice where to click next.
+<<else>>
+The site shifts after the last video closes.
+
+A new tag appears where there was only empty space before: <strong><<print _label>></strong>.
+
+In your own room, with no one else's browser history to blame, the new category feels like something you unlocked in yourself.
+<</if>>
+<</narrative>>
+
+<<silently>>
+<<run $pornCategoriesUnlocked.push(_cat)>>
+<<if _cat === "handjob" || _cat === "blowjob" || _cat === "vanilla">>
+    <<set $pornCategoryTargets[_cat] = $pornCategoryTargets[_cat] || random(3, 5)>>
+<<elseif _cat === "anal" || _cat === "bbc" || _cat === "creampie">>
+    <<set $pornCategoryTargets[_cat] = $pornCategoryTargets[_cat] || random(4, 6)>>
+<<else>>
+    <<set $pornCategoryTargets[_cat] = $pornCategoryTargets[_cat] || random(5, 8)>>
+<</if>>
+<<set $pornPendingUnlock = "">>
+<<flushNotifications>>
+<</silently>>
+
+<div class="location-actions">
+<<btn "Open HotHub" "pornSite_hotHub">><</btn>>
+</div>
+<</nobr>>

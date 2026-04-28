@@ -1,0 +1,50 @@
+:: pornSite_hotHub
+<<nobr>>
+<<requireMinEnergy 18 ($pornReturnPassage || "brotherComputerMenu")>>
+<<silently>>
+<<if ndef $pornSource or $pornSource === "">><<set $pornSource = "brotherRoom">><</if>>
+<<if $pornSource === "brotherRoom">>
+    <<set $location = "fhBrotherRoomPC">>
+<<else>>
+    <<set $location = "fhBedroom">>
+<</if>>
+<<if ndef $pornCategoriesUnlocked>><<set $pornCategoriesUnlocked = ["handjob"]>><</if>>
+<<if ndef $pornReturnPassage or $pornReturnPassage === "">><<set $pornReturnPassage = "brotherComputerMenu">><</if>>
+<<set _labels = {
+    handjob: "Handjob",
+    blowjob: "Blowjob",
+    vanilla: "Vanilla Sex",
+    anal: "Anal",
+    bbc: "BBC",
+    creampie: "Creampie",
+    dp: "Double Penetration",
+    spitroast: "Spitroast",
+    gangbang: "Gangbang",
+    incest: "Incest"
+}>>
+<</silently>>
+
+<<narrative "HotHub">>
+<<if $pornSource === "brotherRoom">>
+The fake logo loads in red and black, bright enough to make the room feel darker around it.
+
+You keep the volume low and the hallway in the corner of your eye. This is still your brother's computer, and every small sound outside the room makes the site feel louder.
+<<else>>
+The fake logo loads in red and black against your own screen. The room is quieter here, softer around the edges, but that almost makes the choice feel more personal.
+
+There is no browser history to blame this time. Just your door, your bed, and the site waiting in front of you.
+<</if>>
+
+Only a few categories are visible. The rest of the site seems to be hiding behind your own nerve, waiting for you to click deeper over time.
+<</narrative>>
+
+<div class="location-actions">
+<<for _cat range $pornCategoriesUnlocked>>
+    <<if _cat !== "incest" || ($contentPreferences && $contentPreferences.incest !== false)>>
+        <<set _label = _labels[_cat] || _cat>>
+        <<btn _label "pornWatch" "default" 18>><<set $pornSelectedCategory = _cat>><</btn>>
+    <</if>>
+<</for>>
+<<btn "Close HotHub" ($pornReturnPassage || "brotherComputerMenu")>><</btn>>
+</div>
+<</nobr>>

@@ -1,3 +1,4 @@
+:: SaveMigration_v1
 <<silently>>
 <<if $saveVersion lt 1>>
     /* Job system migration: trust-based work state (backward compatibility). */
@@ -67,6 +68,8 @@
     <<if ndef $flags.brotherPornFirstSeen>><<set $flags.brotherPornFirstSeen = false>><</if>>
     <<if ndef $flags.brotherPornSecondPeek>><<set $flags.brotherPornSecondPeek = false>><</if>>
     <<if ndef $flags.brotherPornLookButtonUnlocked>><<set $flags.brotherPornLookButtonUnlocked = false>><</if>>
+    <<if ndef $flags.brotherPornWatchFirstDone>><<set $flags.brotherPornWatchFirstDone = false>><</if>>
+    <<if ndef $flags.pornWatchFirstDone>><<set $flags.pornWatchFirstDone = $flags.brotherPornWatchFirstDone || false>><</if>>
     <<if ndef $flags.privateContentHabit>><<set $flags.privateContentHabit = false>><</if>>
     /* Gym Membership: 30-day access for old saves. */
     <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 30 : 0>><</if>>
@@ -76,6 +79,52 @@
     <<if ndef $brotherPornBrowseLastDayKey>><<set $brotherPornBrowseLastDayKey = 0>><</if>>
     <<if ndef $brotherPornBrowseCount>><<set $brotherPornBrowseCount = 0>><</if>>
     <<if ndef $brotherPornPhase2Step>><<set $brotherPornPhase2Step = 0>><</if>>
+    <<if ndef $pornCategoriesUnlocked>><<set $pornCategoriesUnlocked = ["handjob"]>><</if>>
+    <<if ndef $pornCategoryWatchCounts>><<set $pornCategoryWatchCounts = {}>><</if>>
+    <<if ndef $pornCategoryWatchCounts.handjob>><<set $pornCategoryWatchCounts.handjob = 0>><</if>>
+    <<if ndef $pornCategoryWatchCounts.blowjob>><<set $pornCategoryWatchCounts.blowjob = 0>><</if>>
+    <<if ndef $pornCategoryWatchCounts.vanilla>><<set $pornCategoryWatchCounts.vanilla = 0>><</if>>
+    <<if ndef $pornCategoryWatchCounts.anal>><<set $pornCategoryWatchCounts.anal = 0>><</if>>
+    <<if ndef $pornCategoryWatchCounts.bbc>><<set $pornCategoryWatchCounts.bbc = 0>><</if>>
+    <<if ndef $pornCategoryWatchCounts.creampie>><<set $pornCategoryWatchCounts.creampie = 0>><</if>>
+    <<if ndef $pornCategoryWatchCounts.dp>><<set $pornCategoryWatchCounts.dp = 0>><</if>>
+    <<if ndef $pornCategoryWatchCounts.spitroast>><<set $pornCategoryWatchCounts.spitroast = 0>><</if>>
+    <<if ndef $pornCategoryWatchCounts.gangbang>><<set $pornCategoryWatchCounts.gangbang = 0>><</if>>
+    <<if ndef $pornCategoryWatchCounts.incest>><<set $pornCategoryWatchCounts.incest = 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts>><<set $pornCategoryProgressCounts = {}>><</if>>
+    <<if ndef $pornCategoryProgressCounts.handjob>><<set $pornCategoryProgressCounts.handjob = $pornCategoryWatchCounts.handjob || 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts.blowjob>><<set $pornCategoryProgressCounts.blowjob = $pornCategoryWatchCounts.blowjob || 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts.vanilla>><<set $pornCategoryProgressCounts.vanilla = $pornCategoryWatchCounts.vanilla || 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts.anal>><<set $pornCategoryProgressCounts.anal = $pornCategoryWatchCounts.anal || 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts.bbc>><<set $pornCategoryProgressCounts.bbc = $pornCategoryWatchCounts.bbc || 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts.creampie>><<set $pornCategoryProgressCounts.creampie = $pornCategoryWatchCounts.creampie || 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts.dp>><<set $pornCategoryProgressCounts.dp = $pornCategoryWatchCounts.dp || 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts.spitroast>><<set $pornCategoryProgressCounts.spitroast = $pornCategoryWatchCounts.spitroast || 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts.gangbang>><<set $pornCategoryProgressCounts.gangbang = $pornCategoryWatchCounts.gangbang || 0>><</if>>
+    <<if ndef $pornCategoryProgressCounts.incest>><<set $pornCategoryProgressCounts.incest = $pornCategoryWatchCounts.incest || 0>><</if>>
+    <<if ndef $pornCategoryProgressDayKey>><<set $pornCategoryProgressDayKey = 0>><</if>>
+    <<if ndef $pornCategoriesProgressedToday>><<set $pornCategoriesProgressedToday = []>><</if>>
+    <<if ndef $pornCategoryTargets>><<set $pornCategoryTargets = {}>><</if>>
+    <<if ndef $pornCategoryTargets.handjob>><<set $pornCategoryTargets.handjob = random(3, 5)>><</if>>
+    <<if ndef $pornPendingUnlock>><<set $pornPendingUnlock = "">><</if>>
+    <<if ndef $pornSelectedCategory>><<set $pornSelectedCategory = "">><</if>>
+    <<if ndef $pornReturnPassage>><<set $pornReturnPassage = "brotherComputerMenu">><</if>>
+    <<if ndef $pornSource>><<set $pornSource = "brotherRoom">><</if>>
+    <<if ndef $pornArousalDayKey>><<set $pornArousalDayKey = 0>><</if>>
+    <<if ndef $pornWatchCountToday>><<set $pornWatchCountToday = 0>><</if>>
+    <<if ndef $pornSkillGainDayKey>><<set $pornSkillGainDayKey = 0>><</if>>
+    <<if ndef $pornSkillsGainedToday>><<set $pornSkillsGainedToday = []>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen>><<set $pornCategoryFirstWatchSeen = {}>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.handjob>><<set $pornCategoryFirstWatchSeen.handjob = false>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.blowjob>><<set $pornCategoryFirstWatchSeen.blowjob = false>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.vanilla>><<set $pornCategoryFirstWatchSeen.vanilla = false>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.anal>><<set $pornCategoryFirstWatchSeen.anal = false>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.bbc>><<set $pornCategoryFirstWatchSeen.bbc = false>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.creampie>><<set $pornCategoryFirstWatchSeen.creampie = false>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.dp>><<set $pornCategoryFirstWatchSeen.dp = false>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.spitroast>><<set $pornCategoryFirstWatchSeen.spitroast = false>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.gangbang>><<set $pornCategoryFirstWatchSeen.gangbang = false>><</if>>
+    <<if ndef $pornCategoryFirstWatchSeen.incest>><<set $pornCategoryFirstWatchSeen.incest = false>><</if>>
     <<if ndef $arousalDecayHourBuffer>><<set $arousalDecayHourBuffer = 0>><</if>>
     <<if ndef $hospitalLastDoctorDayKey>><<set $hospitalLastDoctorDayKey = 0>><</if>>
     <<if $flags.gymMembershipActive && ($gymMembershipDaysRemaining || 0) <= 0>>
