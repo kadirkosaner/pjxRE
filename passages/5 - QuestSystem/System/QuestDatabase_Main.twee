@@ -418,39 +418,43 @@ Object.assign(setup.quests, {
     /* ========== BROTHER BROWSER RABBIT HOLE ========== */
     brother_browser_rabbit_hole: {
         id: "brother_browser_rabbit_hole",
-        title: "Open Tabs, Closed Doors",
+        title: "What He Watches",
         category: "side",
         character: "brother",
-        tip: "You can make progress on this once per in-game day by using Browse on your brother's PC.",
+        tip: "Browse from your brother's computer when he is not around.",
 
         requirements: {},
 
         stages: [
             {
-                id: "follow_clue_1",
-                title: "Follow the Trail",
-                desc: "Keep browsing and see where the history trail goes."
+                id: "check_history",
+                title: "Check the History",
+                desc: "Use your brother's computer and see what else is in the browser history.",
+                tip: "Browse from your brother's computer when he is not around."
             },
             {
-                id: "follow_clue_2",
-                title: "Follow the Trail",
-                desc: "You are not done yet. Check one more time."
+                id: "look_again",
+                title: "Look Again",
+                desc: "There is more in the history than the first thing you found.",
+                tip: "Come back another day, when the excuse feels easier."
             },
             {
-                id: "follow_clue_3",
-                title: "Follow the Trail",
-                desc: "The pattern is getting clearer."
+                id: "dig_deeper",
+                title: "Dig Deeper",
+                desc: "The searches are starting to form a pattern.",
+                tip: "Use Browse / Surf again on another day."
             },
             {
-                id: "follow_clue_4",
-                title: "Follow the Trail",
-                desc: "One last look should settle it."
+                id: "one_more_search",
+                title: "One More Search",
+                desc: "One more look should tell you what he keeps coming back to.",
+                tip: "Check the history one last time."
             }
         ],
 
         onComplete: {
             flags: ["brother_browser_rabbit_hole_done"],
-            notification: "Quest Complete: Open Tabs, Closed Doors"
+            notification: "Quest Complete: What He Watches"
         }
     },
 

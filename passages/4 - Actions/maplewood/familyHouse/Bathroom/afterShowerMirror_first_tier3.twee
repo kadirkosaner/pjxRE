@@ -1,7 +1,6 @@
 :: afterShowerMirror_first_tier3
 <<nobr>>
 <<silently>>
-<<set _ret = $afterShowerReturnLoc || $returnAfterToilet || "fhUpperBath">>
 <<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
 <<set $flags.bodyAwarenessTier3 = true>>
 <<set $afterShowerMirrorLastDayKey = _dateKey>>
@@ -11,13 +10,26 @@
 <<flushNotifications>>
 <</silently>>
 <<narrative "Bathroom Mirror">>
-This time, you stay in front of the mirror for a long while. Wet strands of hair drip from your shoulders down toward your chest.
+You do not leave the mirror right away.
 
-You study your body from different angles, slowly. The curve of your waist, the fullness of your hips, the shape of your legs... everything looks tighter, more feminine. The towel slips a little lower on your waist.
+Water drips from your hair, down your shoulder, toward your chest. Your eyes follow the drop, then stay on the curve of your breasts, your waist, your hips.
 
-Your fingers drift along the edge of the towel without thinking. You like what you see. A lot.
+The towel has slipped a little lower. You should fix it.
+
+But first, you look.
+
+Your waist is more defined, your hips fuller, your legs longer in the mirror. Your wet skin glows softly in the steam.
+
+Your hand moves to the edge of the towel. You hold it, but you do not pull right away.
+
+For a moment, you see yourself through someone else's eyes.
+
+You can almost guess where they would look.
+
+Your face heats.
+
+But you do not look away from the mirror.
+
+Slowly, you fix the towel.
 <</narrative>>
-<div class="location-actions">
-<<btn "Step back" _ret>><</btn>>
-</div>
 <</nobr>>

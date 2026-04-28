@@ -1,7 +1,6 @@
 :: afterShowerMirror_ambient
 <<nobr>>
 <<silently>>
-<<set _ret = $afterShowerReturnLoc || $returnAfterToilet || "fhUpperBath">>
 <<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
 <<set _tier = 0>>
 <<if $flags.bodyAwarenessTier3>>
@@ -11,29 +10,41 @@
 <<elseif $flags.bodyAwarenessTier1>>
     <<set _tier = 1>>
 <</if>>
-<<set _roll = random(1, 2)>>
+<<set _roll = random(1, 4)>>
 <<set _gain = 1>>
 <<set _text = "You give yourself a quick look in the mirror, adjust your towel, and move on.">>
 <<if _tier === 3>>
     <<set _gain = random(3, 4)>>
     <<if _roll === 1>>
-        <<set _text = "You hold your own gaze in the mirror with confidence. Your posture straightens on its own, more upright and inviting. Your trust in your body keeps growing day by day.">>
+        <<set _text = "Your gaze stays on the mirror longer than before. You are not checking anymore. You are watching: wet hair, low towel, the curve of your waist. You like it.">>
+    <<elseif _roll === 2>>
+        <<set _text = "Your hand moves to fix the towel, then stops at your waist. You look too good in the mirror to rush. The thought does not embarrass you as much as it used to.">>
+    <<elseif _roll === 3>>
+        <<set _text = "You catch your own eyes in the mirror and do not look away. Wet, a little messy, undeniably attractive. Thinking that feels easier now.">>
     <<else>>
-        <<set _text = "You sweep your wet hair back. In the soft haze of steam, the lines of your shoulders, waist, and hips look even more enticing in the mirror. A pleased smile slips onto your face.">>
+        <<set _text = "You pull the towel tighter against your chest, but your eyes stay on your reflection. The wet shine of your skin and the shape of your hips hold you there a second too long.">>
     <</if>>
 <<elseif _tier === 2>>
     <<set _gain = random(2, 3)>>
     <<if _roll === 1>>
-        <<set _text = "You turn sideways and study your hip line for a long moment. Your fingers drift over the towel. The change is small, but undeniably sexy.">>
+        <<set _text = "You turn sideways and look at the line of your hips in the mirror. Normally you would turn away. This time, you stay for two more seconds.">>
+    <<elseif _roll === 2>>
+        <<set _text = "The towel loosens at your waist. Before fixing it, you look at the shape in the mirror. Your hips, waist, and legs seem to fit together better now. Your face warms.">>
+    <<elseif _roll === 3>>
+        <<set _text = "You lean against the sink and look yourself over. The change is not just numbers anymore. Even the way you stand in the mirror feels different.">>
     <<else>>
-        <<set _text = "Leaning against the sink, you look yourself over from head to toe. Seeing your routine slowly pay off fills you with a strange, quiet thrill.">>
+        <<set _text = "You toss your wet hair back and your chest shifts under the towel. Your eyes drop there for a second, then you catch yourself with a small smile.">>
     <</if>>
 <<elseif _tier === 1>>
     <<set _gain = random(1, 2)>>
     <<if _roll === 1>>
-        <<set _text = "You lift your arms and watch your wet reflection in the mirror. Lines you used to miss now look clearer and more attractive.">>
+        <<set _text = "Before the steam covers the mirror again, you catch a quick look at yourself. The small change at your waist is still there. Knowing it leaves a strange warmth behind.">>
+    <<elseif _roll === 2>>
+        <<set _text = "While adjusting the towel, your reflection catches your eye. You pause on a detail you would have ignored before. Maybe stopping is part of the change too.">>
+    <<elseif _roll === 3>>
+        <<set _text = "You sweep your wet hair back. In the mirror, your shoulders and waist look a little clearer. It is not much, but you like it anyway.">>
     <<else>>
-        <<set _text = "You turn sideways in front of the steamed mirror and check your profile. You like the new shape your waist and hips are gradually taking.">>
+        <<set _text = "You hold the towel against your chest and look at the wet shine of your skin. Your gaze lingers for one second too long before you move on.">>
     <</if>>
 <</if>>
 <<set $afterShowerMirrorLastDayKey = _dateKey>>
@@ -44,7 +55,4 @@
 <<narrative "Bathroom Mirror">>
 <<print _text>>
 <</narrative>>
-<div class="location-actions">
-<<btn "Step back" _ret>><</btn>>
-</div>
 <</nobr>>

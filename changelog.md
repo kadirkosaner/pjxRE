@@ -6,6 +6,8 @@
 - İş sistemi büyük güncelleme aldı: Work Trust, patron karar süreçleri, terfi ve haftalık ödeme akışları yeniden düzenlendi.
 - Kritik sağlık/hastane akışı güçlendirildi; çöküşten toparlanmaya kadar süreç daha tutarlı ve ücretli tedavi sistemiyle daha anlamlı.
 - Journal, Work ve görev yönlendirme (tip) tarafında görünürlük artırıldı; oyuncu ilerlemesi daha net takip ediliyor.
+- Brother's PC hattı yeniden kurgulandı; tarayıcı geçmişinde kalan izler artık daha kişisel, daha tehlikeli bir meraka dönüşüyor.
+- Duş sonrası ayna anları yenilendi; bazen buharın arasında kısa bir bakış, karakterin kendi bedenini başka türlü fark etmesine yetebilir.
 
 ## İş Sistemi
 
@@ -34,8 +36,12 @@
 - Makyaj bozulması saatlik düzene alındı; yüz temizleme tarafı daha net sonuç veriyor.
 - Pratik Makyaj kazanımı ve ayna tarafındaki ilerleme geri bildirimleri düzenlendi.
 - Sunset Park'ta Lily ile koşu içeriği genişletildi.
+- Lily ile birlikte koşarken, uygun koşullarda Maplewood komşusu Mia ile kısa bir ilk tanışma sahnesi tetiklenebilir.
 - Gym eklendi.
 - St. Luke's Hospital'a "See Doctor (15$)" eylemi eklendi; kısa muayene sahnesi sonrası sağlık 100'e çekilir, stress azalır ve mood artar.
+- Brother's PC üzerinde yeni "What He Watches" görev hattı eklendi. Masum bir tarayıcı geçmişi kontrolü, zamanla karakterin hem kardeşi hem de kendi merakı hakkında daha rahatsız edici sorular sormasına yol açar.
+- Duş sonrası ayna anları uygun koşullarda duş sahnesinin içinde kendiliğinden, kısa ve daha kişisel anlar olarak belirebilir.
+- Ayna anları fitness, confidence ve vücut gelişimi eşiklerine göre farklılaşır; ilk fark ediş sahneleri ve sonraki rastgele varyasyonlar daha erotik ve karakter odaklı hale getirildi.
 - Oyun akışında düzenlemeler yapıldı.
 
 ## Etkileşimler ve Konuşmalar
@@ -43,6 +49,7 @@
 - Konuşma ekranlarında Geri davranışı artık ayarlardan seçilebiliyor.
 - Marcus konuşmaları günün saatine göre düzenlendi; 15 yeni varyasyon eklendi.
 - Lily konuşmaları günün saatine göre düzenlendi; 16 yeni varyasyon eklendi.
+- Brother's PC içerikleri daha aşamalı ve karakter odaklı hale getirildi; ilk keşif, tekrar bakma, tarayıcı geçmişinde derine inme ve sonrasındaki özel izleme akışı birbirine daha tutarlı bağlandı.
 
 ## Bayılma ve Çöküş İyileştirmeleri
 
@@ -55,6 +62,8 @@
 - Bildirim sisteminde bazı durumlarda görülen hataya karşı güvenli fallback eklendi.
 - Bu hatanın zaman ilerletme akışını bozup sahneleri kilitlemesine neden olan zincir etkiler giderildi.
 - Widget içi `<<return>>` kullanımından kaynaklı kritik navigasyon/akış hatası düzeltildi.
+- Duş sonrası ayna sisteminde kullanılmayan eski geçişler temizlendi.
+- Brother's PC içeriğinde kullanılmayan eski ara pasajlar kaldırıldı ve görev ilerleyişinin sahne sonunda tamamlanması sağlandı.
 
 ## Teknik ve Kayıt Uyumluluğu
 
