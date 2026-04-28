@@ -61,12 +61,38 @@
     /* Gym Mini-Game: tutorial flag */
     <<if ndef $flags>><<set $flags = {}>><</if>>
     <<if ndef $flags.gymMiniGameTutorialSeen>><<set $flags.gymMiniGameTutorialSeen = false>><</if>>
-    /* Gym Membership: 28-day access for old saves. */
-    <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 28 : 0>><</if>>
+    <<if ndef $flags.bodyAwarenessTier1>><<set $flags.bodyAwarenessTier1 = false>><</if>>
+    <<if ndef $flags.bodyAwarenessTier2>><<set $flags.bodyAwarenessTier2 = false>><</if>>
+    <<if ndef $flags.bodyAwarenessTier3>><<set $flags.bodyAwarenessTier3 = false>><</if>>
+    <<if ndef $flags.brotherPornFirstSeen>><<set $flags.brotherPornFirstSeen = false>><</if>>
+    <<if ndef $flags.brotherPornSecondPeek>><<set $flags.brotherPornSecondPeek = false>><</if>>
+    <<if ndef $flags.brotherPornLookButtonUnlocked>><<set $flags.brotherPornLookButtonUnlocked = false>><</if>>
+    <<if ndef $flags.privateContentHabit>><<set $flags.privateContentHabit = false>><</if>>
+    /* Gym Membership: 30-day access for old saves. */
+    <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 30 : 0>><</if>>
     <<if ndef $gymMembershipStartedAt>><<set $gymMembershipStartedAt = null>><</if>>
+    <<if ndef $afterShowerMirrorLastDayKey>><<set $afterShowerMirrorLastDayKey = 0>><</if>>
+    <<if ndef $brotherPornSecondLastSeenDayKey>><<set $brotherPornSecondLastSeenDayKey = 0>><</if>>
+    <<if ndef $brotherPornBrowseLastDayKey>><<set $brotherPornBrowseLastDayKey = 0>><</if>>
+    <<if ndef $brotherPornBrowseCount>><<set $brotherPornBrowseCount = 0>><</if>>
+    <<if ndef $brotherPornPhase2Step>><<set $brotherPornPhase2Step = 0>><</if>>
     <<if $flags.gymMembershipActive && ($gymMembershipDaysRemaining || 0) <= 0>>
         <<set $flags.gymMembershipActive = false>>
         <<set $gymMembershipDaysRemaining = 0>>
+    <</if>>
+    /* Ensure hospital nurse exists and is known on existing saves. */
+    <<if ndef $characters.nurse>><<domInclude "charNurseRachelBrooks[Hospital]">><</if>>
+    <<if $characters.nurse>>
+        <<set $characters.nurse.known = true>>
+    <</if>>
+    /* Ensure hospital doctor exists on existing saves (new char id). */
+    <<if ndef $characters.doctorAdrianCole>><<domInclude "charDoctorAdrianCole[Hospital]">><</if>>
+    /* Backward-compat key migration: doctor -> doctorAdrianCole */
+    <<if $characters.doctor && ndef $characters.doctorAdrianCole>>
+        <<set $characters.doctorAdrianCole = clone($characters.doctor)>>
+    <</if>>
+    <<if $characters.doctor>>
+        <<unset $characters.doctor>>
     <</if>>
 
     /* Wardrobe quick outfit slot migration: ensure exactly 5 slots for old saves. */

@@ -3,7 +3,7 @@
 <<silently>>
 <<set $location = "gym">>
 <<set $flags = $flags || {}>>
-<<set _resolveQuest = ($questState && $questState.active && $questState.active.lily_gym_intro && $questState.active.lily_gym_intro.stage === 1 && !$flags.lilyGymReceptionTalked)>>
+<<set _resolveQuest = ($questState && $questState.active && $questState.active.lily_gym_intro && $questState.active.lily_gym_intro.stage === 1)>>
 <<if _resolveQuest>>
     <<set $flags.lilyGymReceptionTalked = true>>
     <<gainCharacterStat "gymReceptionNora" "friendship" 1>>

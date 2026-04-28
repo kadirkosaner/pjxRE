@@ -1,0 +1,50 @@
+:: afterShowerMirror_ambient
+<<nobr>>
+<<silently>>
+<<set _ret = $afterShowerReturnLoc || $returnAfterToilet || "fhUpperBath">>
+<<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<set _tier = 0>>
+<<if $flags.bodyAwarenessTier3>>
+    <<set _tier = 3>>
+<<elseif $flags.bodyAwarenessTier2>>
+    <<set _tier = 2>>
+<<elseif $flags.bodyAwarenessTier1>>
+    <<set _tier = 1>>
+<</if>>
+<<set _roll = random(1, 2)>>
+<<set _gain = 1>>
+<<set _text = "You give yourself a quick look in the mirror, adjust your towel, and move on.">>
+<<if _tier === 3>>
+    <<set _gain = random(3, 4)>>
+    <<if _roll === 1>>
+        <<set _text = "You hold your own gaze in the mirror with confidence. Your posture straightens on its own, more upright and inviting. Your trust in your body keeps growing day by day.">>
+    <<else>>
+        <<set _text = "You sweep your wet hair back. In the soft haze of steam, the lines of your shoulders, waist, and hips look even more enticing in the mirror. A pleased smile slips onto your face.">>
+    <</if>>
+<<elseif _tier === 2>>
+    <<set _gain = random(2, 3)>>
+    <<if _roll === 1>>
+        <<set _text = "You turn sideways and study your hip line for a long moment. Your fingers drift over the towel. The change is small, but undeniably sexy.">>
+    <<else>>
+        <<set _text = "Leaning against the sink, you look yourself over from head to toe. Seeing your routine slowly pay off fills you with a strange, quiet thrill.">>
+    <</if>>
+<<elseif _tier === 1>>
+    <<set _gain = random(1, 2)>>
+    <<if _roll === 1>>
+        <<set _text = "You lift your arms and watch your wet reflection in the mirror. Lines you used to miss now look clearer and more attractive.">>
+    <<else>>
+        <<set _text = "You turn sideways in front of the steamed mirror and check your profile. You like the new shape your waist and hips are gradually taking.">>
+    <</if>>
+<</if>>
+<<set $afterShowerMirrorLastDayKey = _dateKey>>
+<<gainStat "arousal" _gain>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</silently>>
+<<narrative "Bathroom Mirror">>
+<<print _text>>
+<</narrative>>
+<div class="location-actions">
+<<btn "Step back" _ret>><</btn>>
+</div>
+<</nobr>>

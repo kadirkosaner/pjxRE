@@ -10,7 +10,7 @@
 <<advanceTime 10>>
 <<loseStat "energy" 2>>
 <<gainStat "mood" 1>>
-<<if $questState && $questState.active && $questState.active.lily_gym_intro && $questState.active.lily_gym_intro.stage === 1 && !$flags.lilyGymReceptionTalked>>
+<<if $questState && $questState.active && $questState.active.lily_gym_intro && $questState.active.lily_gym_intro.stage === 1>>
     <<set $flags.lilyGymReceptionTalked = true>>
     <<gainCharacterStat "gymReceptionNora" "friendship" 1>>
     <<completeQuest "lily_gym_intro">>

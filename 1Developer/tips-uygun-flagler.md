@@ -1,0 +1,178 @@
+# Tips Icin Uygun Flagler (Nihai Ayiklama)
+
+Kaynak: `1Developer/all-flags.md` (base flaglar)
+Amac: oyuncuya ilerleme/icerik durumunu gostermek icin uygun flagler
+
+Birincil liste: **132**
+Ikincil liste: **26**
+
+## 1) Birincil (Tips modalda direkt kullan)
+
+- `$currentQuest` - `passages/5 - QuestSystem/System/QuestState.twee`
+- `$discoveredAlleyBack` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredApartmentComplex` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredApartmentsSuburbs` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBarGloryHole` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBarNeon` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBarWine` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBasementEntrance` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBeach` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBeachBar` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBeachClub` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBeachVolleyball` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBoutiqueA` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBoutiqueB` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredBoutiqueC` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredCafeteriaUni` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredCampus` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredCityHall` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredCivicCenter` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredClubPrivate` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredClubStrip` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredCornerBlock` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredCourtBasketball` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredCourtVolleyball` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredDealerCorner` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredDinerRubys` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredDormsUni` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredDownTown` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFamilyHouse` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhBackyard` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhBedroom` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhBrotherRoom` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhDownbath` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhDownstairs` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhKitchen` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhLivingroom` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhParentsBath` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhParentsRoom` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhUpperBath` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhUpperstairs` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFhWardrobe` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredFloorGround` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredFloorSecond` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredFloorThird` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredFoodCourtMall` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredFratHouse` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGalleryArt` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGangTerritory` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGolfClub` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGolfCourse` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGolfRestaurant` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGolfSpa` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGym` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGymFemaleLocker` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGymFemaleLockerWardrobe` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGymMaleLocker` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredGymMaleLockerShower` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredHighSchool` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredHillcrest` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredHospital` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredHotel` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredHouseCrack` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredJazzClub` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredLaundromat` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredLectureHall` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredLibraryOldtown` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredLibraryUni` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredMall` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredMapleChurch` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredMaplewood` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredMarina` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredMarinaBay` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredMotelRedLight` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredMotelSuburbs` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredNightClub` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredOldFactory` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredOldTown` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredParlorMassage` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredPharmacy` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredPier` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredPierIcecream` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredPoliceStation` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredPostOffice` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredRecreationCenter` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredRedLightCenter` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredRestaurantBeach` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredRestaurantDowntown` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredRestaurantLuxury` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredRestaurantRoof` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredRoofTopLounge` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredRoomsPrivate` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredSalonBeautyFifth` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredSalonBeautyMall` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredShopBarber` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredShopCoffeeOldtown` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredShopPawn` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredSkyline` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredSororityHouse` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredSouthside` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredStoreAdult` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredStoreBags` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreBook` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/4 - Actions/global/districtHub/districtHub_walkAround.twee`
+- `$discoveredStoreClothingA` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreClothingB` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreClothingC` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreCorner` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/1 - Prologue/18 - nextDayMorning.twee`
+- `$discoveredStoreCosmetics` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreElectronics` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreHardware` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredStoreJewelry` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreLingerieA` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreLingerieB` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreLiquor` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredStoreShoeA` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreShoeB` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStoreSports` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredStreetFifth` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredStudentBar` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredSuburbs` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredSunsetPark` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredTheatreMovie` - `passages/0 - System/Init/variablesDiscovery.twee`, `passages/5 - QuestSystem/Quests/gotoOldtown/quest_go_to_mall_mall_first.twee`
+- `$discoveredThePit` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredTowerA` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredTowerB` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredTowerC` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredTownHall` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredUniversityDistrict` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$discoveredWallGraffiti` - `passages/0 - System/Init/variablesDiscovery.twee`
+- `$firsts` - `passages/0 - System/Init/characters/charPlayer.twee`, `passages/0 - System/Widgets/SexualWidgets.twee`
+- `$pendingNotifications` - `passages/0 - System/Widgets/StatNotifications.twee`
+- `$quests` - `passages/5 - QuestSystem/System/variablesQuests.twee`
+- `$questState` - `passages/0 - System/Widgets/ComputerWidget.twee`, `passages/0 - System/Widgets/TimeWidgets.twee`
+
+## 2) Ikincil (Ihtiyaca gore ekle)
+
+- `$certificates` - `passages/5 - QuestSystem/System/QuestWidgets.twee`, `passages/5 - QuestSystem/System/variablesQuests.twee`
+- `$contentPreferences` - `passages/0 - System/Init/variablesSettings.twee`, `passages/1 - Prologue/4 - confirmationPage.twee`
+- `$familyMeals` - `passages/4 - Actions/maplewood/familyHouse/Kitchen/eatWithFamily.twee`, `passages/4 - Actions/maplewood/familyHouse/Widgets/FamilyMealsWidgets.twee`
+- `$focus` - `passages/0 - System/Init/characters/charPlayer.twee`, `passages/0 - System/Widgets/NeedsSystem.twee`
+- `$gameLog` - `passages/5 - QuestSystem/System/QuestWidgets.twee`, `passages/5 - QuestSystem/System/variablesQuests.twee`
+- `$gymMG` - `passages/0 - System/Widgets/GymWidgets.twee`, `passages/4 - Actions/downTown/recreationCenter/gym/minigame/gymMiniGameChoice.twee`
+- `$hospitalVisitCombo` - `passages/4 - Actions/global/energyHealth/hospitalAdmission.twee`, `passages/4 - Actions/global/energyHealth/hospitalFamilyVisit.twee`
+- `$intelligence` - `passages/0 - System/Init/characters/charPlayer.twee`, `passages/4 - Actions/global/read/readExecute.twee`
+- `$interactingChar` - `passages/0 - System/Widgets/CharacterWidgets.twee`, `passages/0 - System/Widgets/PhoneWidgets.twee`
+- `$jobAvailableShifts` - `passages/0 - System/Widgets/JobWidgets.twee`, `passages/4 - Actions/global/job/jobWorkSelect.twee`
+- `$jobShiftSuccess` - `passages/0 - System/Widgets/JobWidgets.twee`, `passages/4 - Actions/events/oldtown/RubysDiner/firstdayJob/09 - dinerFirstdayJob_dishwasher.twee`
+- `$jobWorkNeedsBlock` - `passages/0 - System/Widgets/JobWidgets.twee`, `passages/4 - Actions/global/job/jobWorkSelect.twee`
+- `$makeupChosenStyle` - `passages/4 - Actions/global/Mirror/Mirror.twee`, `passages/4 - Actions/global/Mirror/mirrorMakeupApply.twee`
+- `$meetupAction` - `passages/3- Interactions/Phone/Meetup.twee`
+- `$meetupLocation` - `passages/3- Interactions/Phone/Meetup.twee`
+- `$mom_dinner_talk` - `passages/5 - QuestSystem/Quests/findJob/quest_find_job_family_dinner_dishes.twee`
+- `$mom_suggested_mall` - `passages/5 - QuestSystem/Quests/findJob/quest_find_job_family_dinner_dishes.twee`
+- `$preSleepOutfit` - `passages/4 - Actions/maplewood/familyHouse/Bedroom/sleep_prep.twee`, `passages/4 - Actions/maplewood/familyHouse/Widgets/bedWidgets.twee`
+- `$readDurationChoice` - `passages/4 - Actions/global/read/readExecute.twee`
+- `$readProgress` - `passages/0 - System/Init/characters/charPlayer.twee`, `passages/4 - Actions/global/read/readExecute.twee`
+- `$showerEncounterTarget` - `passages/3- Interactions/CharacterInteraction.twee`, `passages/3- Interactions/FamilyHouse/Brother/showerEncounter_Brother.twee`
+- `$showMapTutorial` - `passages/5 - QuestSystem/Quests/movingTroubles/quest_first_shopping_map_scene.twee`
+- `$showRelationTutorial` - `passages/5 - QuestSystem/Quests/movingTroubles/quest_first_shopping_map_scene.twee`
+- `$used_computer` - `passages/0 - System/Widgets/ComputerWidget.twee`, `passages/5 - QuestSystem/Quests/useComputer/quest_use_computer_04_brother_enters.twee`
+- `$watchingWith` - `passages/4 - Actions/maplewood/familyHouse/Livingroom/watchTV.twee`, `passages/4 - Actions/maplewood/familyHouse/Widgets/CouchWidgets.twee`
+- `$willpower` - `passages/0 - System/Init/characters/charPlayer.twee`, `passages/4 - Actions/global/read/readExecute.twee`
+
+## 3) Onerilen tips kategorileri
+
+- Quest progress: `quest*`, `$quests`, `$questState`, `$currentQuest`
+- Discoveries: `discovered*`
+- Character/contact unlock: `*met*`, `*unlocked*`, `$phoneContactsUnlocked`
+- Story milestones: `*intro*`, `*first*`, `*completed*`, `*ending*`

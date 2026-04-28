@@ -100,6 +100,13 @@
     fhThinWallsNight: 0
 }>>
 
+/* Arousal ambient cooldown trackers */
+<<set $afterShowerMirrorLastDayKey = 0>>
+<<set $brotherPornSecondLastSeenDayKey = 0>>
+<<set $brotherPornBrowseLastDayKey = 0>>
+<<set $brotherPornBrowseCount = 0>>
+<<set $brotherPornPhase2Step = 0>>
+
 /* Makeup (state/style/quality + hourly decay tracking; makeup score computed in recalculateStats) */
 <<set $makeup = { state: "off", style: 0, quality: 0, lastDecayHourKey: "", lastAppliedHourKey: "", lastDecayMinuteStamp: 0 }>>
 
@@ -150,10 +157,17 @@
     vinceDay3FamilyBedroomDone: false,
     firstWorkDayWalkEvent: false,
     firstWorkDayWalkHome: false,
-    gymMembershipActive: false
+    gymMembershipActive: false,
+    bodyAwarenessTier1: false,
+    bodyAwarenessTier2: false,
+    bodyAwarenessTier3: false,
+    brotherPornFirstSeen: false,
+    brotherPornSecondPeek: false,
+    brotherPornLookButtonUnlocked: false,
+    privateContentHabit: false
 }>>
 
-/* Gym membership: 28-day access, decremented by advanceDay. */
+/* Gym membership: 30-day access, decremented by advanceDay. */
 <<set $gymMembershipDaysRemaining = 0>>
 <<set $gymMembershipStartedAt = null>>
 

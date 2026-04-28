@@ -1,0 +1,38 @@
+:: hospital_see_doctor
+<<nobr>>
+<<silently>>
+<<set $location = "hospital">>
+<<if ndef $characters.doctorAdrianCole>><<domInclude "charDoctorAdrianColeHospital">><</if>>
+<<set _canTreat = (($health || 0) < 100) && (($cashBalance || 0) >= 15)>>
+<<if _canTreat>>
+    <<spendCash 15>>
+    <<if _transactionSuccess>>
+        <<set $health = 100>>
+        <<loseStat "stress" 8>>
+        <<gainStat "mood" 6>>
+        <<recalculateStats>>
+    <</if>>
+<</if>>
+<</silently>>
+
+<<narrative "St. Luke's Hospital">>
+<<if _canTreat && _transactionSuccess>>
+Doctor Adrian Cole reviews your chart, checks your vitals, and runs a quick examination. After a short treatment and observation, your body feels stable again.
+<</narrative>>
+
+<<dialog "doctorAdrianCole">>You're good to go now. Take it easy and don't push yourself too hard today.<</dialog>>
+<<else>>
+You check in at the desk, but they can't proceed right now.
+<</narrative>>
+
+<<if ($health || 0) >= 100>>
+<<dialog "doctorAdrianCole">>Your health is already fine. You don't need treatment at the moment.<</dialog>>
+<<else>>
+<<dialog "doctorAdrianCole">>Treatment fee is 15 dollars. Come back when you have enough cash.<</dialog>>
+<</if>>
+<</if>>
+
+<div class="location-actions">
+<<btn "Back to Hospital" "hospital">><</btn>>
+</div>
+<</nobr>>

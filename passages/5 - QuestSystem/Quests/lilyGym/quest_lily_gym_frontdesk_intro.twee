@@ -9,7 +9,6 @@
     <<set $characters.gymReceptionNora.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
 <</if>>
 <<set $flags = $flags || {}>>
-<<set $flags.lilyGymReceptionTalked = true>>
 <<gainCharacterStat "gymReceptionNora" "friendship" 1>>
 <</silently>>
 
@@ -18,8 +17,8 @@ As you pushed the door open, cool air hit your face. Air conditioning, and a fai
 <</narrative>>
 
 <<dialog "gymReceptionNora">>Welcome. I'm Nora, how can I help you?<</dialog>>
-<<dialog "player">>Hi, I'm $playerName. A friend recommended this place, so I wanted to stop by and take a look.<</dialog>>
-<<dialog "gymReceptionNora">>Nice to meet you, $playerName. Tell your friend thanks from us. First time here?<</dialog>>
+<<dialog "player">>Hi, I'm <<= $player.firstName>>. A friend recommended this place, so I wanted to stop by and take a look.<</dialog>>
+<<dialog "gymReceptionNora">>Nice to meet you, <<= $player.firstName>>. Tell your friend thanks from us. First time here?<</dialog>>
 <<dialog "player">>Yeah.<</dialog>>
 
 <<narrative>>

@@ -1,0 +1,36 @@
+/* ==========================================
+   ST. LUKE'S HOSPITAL — Doctor
+   Dialog id: doctorAdrianCole
+========================================== */
+
+<<set setup.characterDefs.doctorAdrianCole = {
+    firstName: "Adrian",
+    lastName: "Cole",
+    birthYear: 1988,
+    gender: "male",
+    occupation: "Doctor",
+    location: "St. Luke's Hospital",
+    avatar: "assets/content/people/oldtown/hospital/doctorAdrianCole.webp",
+    type: "npc",
+    color: "#2563eb",
+    info: "<p>A composed physician at St. Luke's Hospital. He handles routine examinations and quick follow-up treatments.</p>",
+    status: "Attending Physician",
+    relationship: { status: "single" }
+}>>
+
+<<set $characters.doctorAdrianCole = {
+    stats: { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 },
+    firstMet: null,
+    known: false,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.schedules.doctorAdrianCole = {
+    weekday: [
+        { hour: 0, location: "hospital", status: "working" }
+    ],
+    weekend: [
+        { hour: 0, location: "hospital", status: "working" }
+    ]
+}>>

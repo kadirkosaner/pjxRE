@@ -74,6 +74,15 @@
             <</if>>
         <</for>>
 
+        /* Global arousal decay: every 2 full hours, always -4 */
+        <<if ndef $arousalDecayHourBuffer>><<set $arousalDecayHourBuffer = 0>><</if>>
+        <<set $arousalDecayHourBuffer += _hours>>
+        <<set _arousalDecaySteps = Math.floor($arousalDecayHourBuffer / 2)>>
+        <<if _arousalDecaySteps > 0>>
+            <<decreaseArousal (_arousalDecaySteps * 4)>>
+            <<set $arousalDecayHourBuffer = $arousalDecayHourBuffer % 2>>
+        <</if>>
+
         /* Fotogram – first-hours engagement spike */
         <<updateFotogramEngagementHours _hours>>
         

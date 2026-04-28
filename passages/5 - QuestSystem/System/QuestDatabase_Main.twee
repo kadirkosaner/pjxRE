@@ -415,6 +415,45 @@ Object.assign(setup.quests, {
         }
     },
 
+    /* ========== BROTHER BROWSER RABBIT HOLE ========== */
+    brother_browser_rabbit_hole: {
+        id: "brother_browser_rabbit_hole",
+        title: "Open Tabs, Closed Doors",
+        category: "side",
+        character: "brother",
+        tip: "You can make progress on this once per in-game day by using Browse on your brother's PC.",
+
+        requirements: {},
+
+        stages: [
+            {
+                id: "follow_clue_1",
+                title: "Follow the Trail",
+                desc: "Keep browsing and see where the history trail goes."
+            },
+            {
+                id: "follow_clue_2",
+                title: "Follow the Trail",
+                desc: "You are not done yet. Check one more time."
+            },
+            {
+                id: "follow_clue_3",
+                title: "Follow the Trail",
+                desc: "The pattern is getting clearer."
+            },
+            {
+                id: "follow_clue_4",
+                title: "Follow the Trail",
+                desc: "One last look should settle it."
+            }
+        ],
+
+        onComplete: {
+            flags: ["brother_browser_rabbit_hole_done"],
+            notification: "Quest Complete: Open Tabs, Closed Doors"
+        }
+    },
+
     /* ========== SOMETHING DIFFERENT - DIANA / BEAUTY ARC ========== */
     something_different: {
         id: "something_different",
@@ -546,4 +585,4 @@ Object.assign(setup.quests, {
         }
     }
 });
-<<endscript>>
+<</script>>

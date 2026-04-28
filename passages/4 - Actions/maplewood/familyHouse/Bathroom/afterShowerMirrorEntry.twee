@@ -1,0 +1,23 @@
+:: afterShowerMirrorEntry
+<<nobr>>
+<<silently>>
+<<set $location = $returnAfterToilet || "fhUpperBath">>
+<<set _fitnessAvg = ($fitness || Math.round((($cardio || 0) + ($lowerBody || 0) + ($core || 0) + ($upperBody || 0)) / 4))>>
+<<set _tier1Eligible = (_fitnessAvg >= 12) && (($confidence || 0) >= 20)>>
+<<set _tier2Eligible = (($lowerBody || 0) >= 18) || (($core || 0) >= 16)>>
+<<set _tier3Eligible = (_fitnessAvg >= 28) && (($confidence || 0) >= 45)>>
+<<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<</silently>>
+
+<<if _tier3Eligible && !$flags.bodyAwarenessTier3>>
+    <<goto "afterShowerMirror_first_tier3">>
+<<elseif _tier2Eligible && !$flags.bodyAwarenessTier2>>
+    <<goto "afterShowerMirror_first_tier2">>
+<<elseif _tier1Eligible && !$flags.bodyAwarenessTier1>>
+    <<goto "afterShowerMirror_first_tier1">>
+<<elseif $afterShowerMirrorLastDayKey !== _dateKey>>
+    <<goto "afterShowerMirror_ambient">>
+<<else>>
+    <<goto "afterShowerMirror_doneToday">>
+<</if>>
+<</nobr>>

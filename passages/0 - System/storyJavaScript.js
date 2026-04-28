@@ -1104,7 +1104,7 @@ Macro.add('startQuest', {
 
         const vars = State.variables;
         if (!vars.questState) {
-            vars.questState = { active: {}, completed: [], failed: [], daily: {} };
+            vars.questState = { active: {}, completed: [], failed: [], daily: {}, completedDates: {} };
         }
         if (vars.questState.active[qid]) {
             return;

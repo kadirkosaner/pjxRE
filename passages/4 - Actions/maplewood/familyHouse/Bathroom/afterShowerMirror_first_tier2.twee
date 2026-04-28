@@ -1,0 +1,21 @@
+:: afterShowerMirror_first_tier2
+<<nobr>>
+<<silently>>
+<<set _ret = $afterShowerReturnLoc || $returnAfterToilet || "fhUpperBath">>
+<<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<set $flags.bodyAwarenessTier2 = true>>
+<<set $afterShowerMirrorLastDayKey = _dateKey>>
+<<gainStat "arousal" 5>>
+<<gainStat "mood" 1>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</silently>>
+<<narrative "Bathroom Mirror">>
+You turn sideways in front of the mirror. The towel sits dangerously low on your waist.
+
+Your hip line is clearly tighter and rounder now. You slowly push your hips back. The lines look much more inviting in the reflection. You take a deep breath. For the first time, you can see the payoff of your effort this clearly.
+<</narrative>>
+<div class="location-actions">
+<<btn "Step back" _ret>><</btn>>
+</div>
+<</nobr>>

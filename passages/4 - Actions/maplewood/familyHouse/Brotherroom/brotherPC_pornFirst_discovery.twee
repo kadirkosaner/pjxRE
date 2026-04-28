@@ -1,0 +1,43 @@
+:: brotherPC_pornFirst_discovery
+<<nobr>>
+<<requireMinEnergy 15 "brotherComputerMenu">>
+<<silently>>
+<<set $location = "fhBrotherRoom">>
+<<set $flags.brotherPornFirstSeen = true>>
+<<startQuest "brother_browser_rabbit_hole">>
+<<gainStat "arousal" 4>>
+<<gainStat "stress" 2>>
+<<loseStat "energy" 5>>
+<<advanceTime 30>>
+<<flushNotifications>>
+<</silently>>
+
+<<narrative "Browsing">>
+You open the browser for something ordinary. Homework, a quick search, anything normal enough to excuse sitting at his desk.
+
+The page restores faster than you expect. For a second it is just a blank tab, then the address bar drops down with old suggestions. A few of them are normal. Games, videos, random searches.
+
+Then you see one that is not.
+
+A porn title sits in the list, half cut off but still clear enough. The little site icon beside it makes your stomach tighten. You do not click it. You only stare for a second too long.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Wait. Is he watching this?
+<</dialog>>
+
+<<narrative>>
+Your hand moves before you finish the thought. You close the suggestions, then the browser itself, like shutting the screen fast enough might erase what you saw.
+
+The room is quiet. The chair feels warmer under you than it should. Your heart keeps beating too hard.
+
+You tell yourself it is normal. Guys watch porn. Brothers probably watch porn. That does not mean anything.
+
+But the list is still in your head.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Go Back" "brotherComputerMenu">><</btn>>
+</div>
+<</nobr>>

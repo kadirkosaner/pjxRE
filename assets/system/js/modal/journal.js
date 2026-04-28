@@ -338,7 +338,7 @@ window.JournalInit = function (API) {
       }
 
       // Quest System V2 Support
-      const questState = vars.questState || { active: {}, completed: [] };
+      const questState = vars.questState || { active: {}, completed: [], failed: [], daily: {}, completedDates: {} };
       const questDatabase = this.API.setup.quests || {};
       
       const activeQuestIds = Object.keys(questState.active);
@@ -447,6 +447,12 @@ window.JournalInit = function (API) {
           <div class="quest-detail-content">
             <div class="quest-detail-header">
               <h2>${this.escapeHtml(this.formatQuestStageDesc(quest.title))}</h2>
+              ${status === 'active' && quest.tip ? `
+                <div class="quest-stage-tip quest-quest-tip">
+                  <i class="icon icon-info"></i>
+                  ${this.escapeHtml(this.formatQuestStageDesc(quest.tip))}
+                </div>
+              ` : ''}
             </div>
             
             ${status === 'active' ? `

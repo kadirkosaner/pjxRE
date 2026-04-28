@@ -2,6 +2,16 @@
 <<requireMinEnergy 15 "brotherComputerMenu">>
 <<silently>>
 <<set $location = "fhBrotherRoom">>
+<<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<set _canFirst = !$flags.brotherPornFirstSeen>>
+<<set _phase2Step = $brotherPornPhase2Step || 0>>
+<<set _canSecond = $flags.brotherPornFirstSeen && !$flags.brotherPornSecondPeek && (_phase2Step < 4) && (($corruption || 0) >= 1) && (($brotherPornSecondLastSeenDayKey || 0) !== _dateKey)>>
+<<if _canFirst && random(1, 100) <= 8>>
+    <<goto "brotherPC_pornFirst_discovery">>
+<</if>>
+<<if _canSecond && random(1, 100) <= 12>>
+    <<goto "brotherPC_pornSecond_curiosity">>
+<</if>>
 <<set _v = random(1, 8)>>
 <<switch _v>>
 <<case 1>>

@@ -1,6 +1,6 @@
 <<nobr>>
 <<set $location = "hospital">>
-<</nobr>>
+<<if ndef $characters.doctorAdrianCole>><<domInclude "charDoctorAdrianColeHospital">><</if>>
 
 <<updateCharacterLocations>>
 
@@ -10,6 +10,19 @@ A large medical center with modern facilities. Doctors and nurses rush through t
 
 <<showLocationChars "hospital">>
 
+<div class="location-actions">
+<<if ($health || 0) < 100>>
+    <<if ($cashBalance || 0) gte 15>>
+        <<btn "See Doctor (15$)" "hospital_see_doctor">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="Not enough money (need 15$)"><i class="icon icon-lock icon-12"></i> See Doctor (15$)</span>
+    <</if>>
+<<else>>
+    <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="Health is already full"><i class="icon icon-lock icon-12"></i> See Doctor (15$)</span>
+<</if>>
+</div>
+
 <<navMenu>>
 	<<navCard "civicCenter">>
 <</navMenu>>
+<</nobr>>

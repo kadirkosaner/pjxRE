@@ -4,16 +4,18 @@
 ========================================== */
 
 <<widget "gymMembershipStart">><<nobr>>
+    <<gymMembershipCheck>>
+    <<if _gymMembershipActive>><<return>><</if>>
     <<set $flags = $flags || {}>>
     <<set $flags.gymMembershipActive = true>>
-    <<set $gymMembershipDaysRemaining = 28>>
+    <<set $gymMembershipDaysRemaining = 30>>
     <<set $gymMembershipStartedAt = { year: $timeSys.year, month: $timeSys.month, day: $timeSys.day }>>
 <</nobr>><</widget>>
 
 <<widget "gymMembershipAdvanceDays">><<nobr>>
     <<set _daysPassed = parseInt($args[0], 10) || 1>>
     <<set $flags = $flags || {}>>
-    <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 28 : 0>><</if>>
+    <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 30 : 0>><</if>>
     <<if $flags.gymMembershipActive>>
         <<set $gymMembershipDaysRemaining = Math.max(0, ($gymMembershipDaysRemaining || 0) - _daysPassed)>>
         <<if $gymMembershipDaysRemaining <= 0>>
@@ -25,7 +27,7 @@
 
 <<widget "gymMembershipCheck">><<nobr>>
     <<set $flags = $flags || {}>>
-    <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 28 : 0>><</if>>
+    <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 30 : 0>><</if>>
     <<if $flags.gymMembershipActive && ($gymMembershipDaysRemaining || 0) <= 0>>
         <<set $flags.gymMembershipActive = false>>
         <<set $gymMembershipDaysRemaining = 0>>

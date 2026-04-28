@@ -1,0 +1,38 @@
+:: brotherPC_pornLook
+<<nobr>>
+<<requireMinEnergy 18 "brotherComputerMenu">>
+<<silently>>
+<<set $location = "fhBrotherRoom">>
+<<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<if !$flags.brotherPornLookButtonUnlocked || !$characters.brother || $characters.brother.currentLocation === "fhBrotherRoom">>
+    <<goto "brotherComputerMenu">>
+<</if>>
+<<if ($brotherPornBrowseLastDayKey || 0) + 2 > _dateKey>>
+    <<run window.notifyWarning("You should wait a bit before doing this again.")>>
+    <<goto "brotherComputerMenu">>
+<</if>>
+<<set $brotherPornBrowseLastDayKey = _dateKey>>
+<<set _minutes = random(15, 30)>>
+<<set _gain = random(10, 16)>>
+<<set _sessions = ($brotherPornBrowseCount || 0) + 1>>
+<<set $brotherPornBrowseCount = _sessions>>
+<<gainStat "arousal" _gain>>
+<<gainStat "stress" 1>>
+<<loseStat "energy" 7>>
+<<advanceTime _minutes>>
+<<if _sessions >= 4>>
+    <<set $flags.privateContentHabit = true>>
+<</if>>
+<<flushNotifications>>
+<</silently>>
+
+<<narrative "Private Browsing">>
+You keep it short and quiet, just enough before closing everything again.
+
+Even when the screen goes dark, the afterglow lingers under your skin.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Go Back" "brotherComputerMenu">><</btn>>
+</div>
+<</nobr>>

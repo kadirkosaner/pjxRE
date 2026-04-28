@@ -1,0 +1,23 @@
+:: afterShowerMirror_first_tier3
+<<nobr>>
+<<silently>>
+<<set _ret = $afterShowerReturnLoc || $returnAfterToilet || "fhUpperBath">>
+<<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<set $flags.bodyAwarenessTier3 = true>>
+<<set $afterShowerMirrorLastDayKey = _dateKey>>
+<<gainStat "arousal" 7>>
+<<gainStat "mood" 2>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</silently>>
+<<narrative "Bathroom Mirror">>
+This time, you stay in front of the mirror for a long while. Wet strands of hair drip from your shoulders down toward your chest.
+
+You study your body from different angles, slowly. The curve of your waist, the fullness of your hips, the shape of your legs... everything looks tighter, more feminine. The towel slips a little lower on your waist.
+
+Your fingers drift along the edge of the towel without thinking. You like what you see. A lot.
+<</narrative>>
+<div class="location-actions">
+<<btn "Step back" _ret>><</btn>>
+</div>
+<</nobr>>

@@ -14,6 +14,7 @@
     <<flushNotifications>>
     <<recalculateStats>>
     <<set _sceneIndex = random(1, 3)>>
+    <<set $afterShowerReturnLoc = $returnAfterToilet>>
 <</silently>>
 
 <<narrative "Shower">>
@@ -40,5 +41,6 @@ Stepping under the spray, you let the hot water run over your body, relaxing you
 <</if>>
 
 <div class="location-actions">
+    <<btn "Check yourself in mirror" "afterShowerMirrorEntry">><</btn>>
     <<btn "Finish & Dry Off" $returnAfterToilet>><</btn>>
 </div>

@@ -34,7 +34,8 @@
 - Makyaj bozulması saatlik düzene alındı; yüz temizleme tarafı daha net sonuç veriyor.
 - Pratik Makyaj kazanımı ve ayna tarafındaki ilerleme geri bildirimleri düzenlendi.
 - Sunset Park'ta Lily ile koşu içeriği genişletildi.
-- Lily hattında Iron Works Gym'e uzanan yeni bir görev zinciri eklendi.
+- Gym eklendi.
+- St. Luke's Hospital'a "See Doctor (15$)" eylemi eklendi; kısa muayene sahnesi sonrası sağlık 100'e çekilir, stress azalır ve mood artar.
 - Oyun akışında düzenlemeler yapıldı.
 
 ## Etkileşimler ve Konuşmalar

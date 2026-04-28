@@ -26,8 +26,8 @@ Nora called out toward the gym floor.
 The guy by the squat rack looked up and walked over to you at a quick pace.
 <</narrative>>
 
-<<dialog "gymReceptionNora">>Nick, this is $playerName. I'm showing her around and wanted you two to meet.<</dialog>>
-<<dialog "gymTrainerNick">>Nice to meet you, $playerName. Have you trained at a gym before?<</dialog>>
+<<dialog "gymReceptionNora">>Nick, this is <<= $player.firstName>>. I'm showing her around and wanted you two to meet.<</dialog>>
+<<dialog "gymTrainerNick">>Nice to meet you, <<= $player.firstName>>. Have you trained at a gym before?<</dialog>>
 <<dialog "player">>Not really. I've mostly been running outside.<</dialog>>
 <<dialog "gymTrainerNick">>That's still a start. But lifting here will make you feel stronger, trust me.<</dialog>>
 
