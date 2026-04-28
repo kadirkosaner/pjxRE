@@ -1,113 +1,195 @@
 # Porn First Watch Metinleri
 
-Her kategori için yalnızca bir kez çalışır. Firstwatch, repeatable intro/porno/kapanış akışını kullanmaz; kendi sahnesini oynatır:
+Her kategori için yalnızca bir kez çalışır. Firstwatch'ta otomatik oda metni yoktur; her tag kendi Brother Room ve Bedroom/Laptop metnini manuel taşır.
 
-1. Kategoriye özel `First Watch` narrative.
+Akış:
+
+1. Tag + room'a özel `First Watch` intro narrative.
 2. Ortak iç ses `dialog`.
 3. Seçilen kategori videosu.
-4. Kategoriye özel manuel outro narrative.
+4. Tag + room'a özel outro narrative.
 
 Oyun içi metinler İngilizce tutuluyor; bu doküman Türkçe ton review için.
 
 ## Handjob
 
-Intro:
+Brother Room intro:
 
-> Tıklanacak kadar basit görünen ilk kategori bu oluyor. Sadece eller, sadece dokunuş, anlayabileceğini sandığın bir şey. Video açılmadan önce bile bunun göründüğünden daha fazla şey taşıyacağını hissediyorsun.
+> Brother'ın bilgisayarında **Handjob** seçiyorsun çünkü başlamak için en güvenli yer gibi görünüyor. Oda fazla sessiz, sandalye senin değil ve yakın çekim thumbnail'lar bütün şeyi basitten çok çalınmış gibi hissettiriyor.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Video bitince kategori artık basit görünmüyor. Beklediğinden daha az anladın, ama midendeki sıcaklık yine de bir şey öğrendiğini söylüyor.
+> Kendi odanda **Handjob** seçiyorsun çünkü anlayabileceğin bir şey gibi görünüyor. Kapın kapalı, ekran önünde; kategori daha güvenli ama aynı zamanda daha bilerek seçilmiş hissettiriyor.
+
+Brother Room outro:
+
+> Video bitince Handjob artık basit görünmüyor. Sekmeyi bir gözün kapıdayken kapatıyor, sıcaklığı brother'ın masasından kanıt gibi yanında götürüyorsun.
+
+Bedroom/Laptop outro:
+
+> Video bitince Handjob artık basit görünmüyor. Kendi odanda sıcaklığın saklanacak yeri yok; onunla biraz daha uzun oturuyorsun.
 
 ## Blowjob
 
-Intro:
+Brother Room intro:
 
-> Kelimenin kendisi bile seni duraksatıyor. Bunu daha önce tag, şaka ya da arama sonucu olarak görmüştün; ama kendin seçmek ekranı farklı hissettiriyor.
+> **Blowjob** üzerinde istemediğin kadar uzun duruyorsun. Kelimeyi brother'ın ekranında görmek odaya yapışan kaba bir his veriyor, ama önizlemeler gözünü geri çekiyor.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Videoyu boğazın sıkı, yüzün sıcak kapatıyorsun. Aklında kalan sadece hareket değil; performansın içinde saklı kontrol hissi oluyor.
+> Kapın kapalı, ses düşükken **Blowjob** üzerinde duruyorsun. Bu kez seni buraya başkasının geçmişi getirmedi; tag'i kendin seçiyorsun ve ekran daha sıcak geliyor.
+
+Brother Room outro:
+
+> Videoyu boğazın sıkı, yüzün sıcak kapatıyorsun. Brother'ın bilgisayarında, performansın içindeki kontrol öğrenmemen gereken bir şeymiş gibi geliyor.
+
+Bedroom/Laptop outro:
+
+> Videoyu boğazın sıkı, yüzün sıcak kapatıyorsun. Yalnızken aklında kalan şeyin sadece hareket değil, dikkatin nasıl tutulduğu olduğunu fark ediyorsun.
 
 ## Vanilla Sex
 
-Intro:
+Brother Room intro:
 
-> İlk bakışta neredeyse normal görünüyor. Bir yatak, iki beden, tanıdık bir seks fikri. Garip şekilde, bu onu daha kişisel yapıyor.
+> Brother'ın bilgisayarında **Vanilla Sex** seçiyorsun çünkü en az tehlikeli seçenek gibi görünüyor. Önizlemeler neredeyse normal, bu yüzden onları saklamak daha garip hissettiriyor.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Video bittikten sonra sıradan şekli aklında kalıyor. Dışarıdan tanıdık görünüyordu, ama izlemek seks fikrini daha yakın ve daha az soyut yaptı.
+> **Vanilla Sex** seçiyorsun çünkü neredeyse zararsız geliyor. Kendi odanda yataklar ve tanıdık pozisyonlar araştırmadan çok, kendine izin verdiğin bir şeye benziyor.
+
+Brother Room outro:
+
+> Video bittikten sonra sıradan şekli aklında kalıyor. Brother'ın odasından bakınca vanilla bile kişisel hale getirmemen gereken bir şey gibi geliyor.
+
+Bedroom/Laptop outro:
+
+> Video bittikten sonra sıradan şekli aklında kalıyor. Kendi odanda seks fikri eskisinden daha yakın ve daha az soyut hissettiriyor.
 
 ## Anal
 
-Intro:
+Brother Room intro:
 
-> Açmadan önce normalden daha uzun bekliyorsun. Kategori hem sitede hem kafanda bir çizgi gibi duruyor; merakın çoktan o çizginin üzerine eğilmiş durumda.
+> Cursor'ın **Anal** üzerinde duruyor ve oda seninle birlikte nefesini tutmuş gibi geliyor. Brother'ın bilgisayarından tıklamak, merak diye açıklayamayacağın bir çizgiyi geçmek gibi.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Bittiğinde hareketsiz kalıyorsun; rahatsızlıkla merak arasında sıkışmış gibi. Hayal ettiğin çizgi hâlâ orada, ama artık diğer tarafından nasıl göründüğünü biliyorsun.
+> Kendi odanın mahremiyetinde cursor'ın **Anal** üzerinde duruyor. Kategori hâlâ bir çizgi gibi ama bu kez karar tamamen sana ait.
+
+Brother Room outro:
+
+> Bittiğinde rahatsızlıkla merak arasında hareketsiz kalıyorsun. Çizgi daha keskin geliyor çünkü onu başkasının sandalyesinden geçtin.
+
+Bedroom/Laptop outro:
+
+> Bittiğinde rahatsızlıkla merak arasında hareketsiz kalıyorsun. Hayal ettiğin çizgi hâlâ orada ama artık kendi merakına ait.
 
 ## BBC
 
-Intro:
+Brother Room intro:
 
-> Video açılmadan önce bile tag'in taşıdığı bir ağırlık var. Tıkladığında kategorinin sana kontrastı, boyutu ve ikisine verilen tepkiyi satmaya çalıştığını hissediyorsun.
+> **BBC**, fark etmemiş olmayı dilediğin browser history türünden tanıdık geliyor. Brother'ın ekranında tekrar görmek, eski merakı video açılmadan keskinleştiriyor.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Klip, boyuttan çok tepkiyi düşündürüyor. Korku, performans, istek; birinin nerede bittiğini diğerinin nerede başladığını ayırt edemiyorsun.
+> **BBC** kategori olmaktan çok, sitenin senden anlamanı beklediği bir meydan okuma gibi. Kendi ekranında seçmek kazara değil, bilinçli hissettiriyor.
+
+Brother Room outro:
+
+> Klip boyuttan çok tepkiyi düşündürüyor. Burada izlemek, korku, performans ve isteği seni buraya getiren eski history ile birbirine karıştırıyor.
+
+Bedroom/Laptop outro:
+
+> Klip boyuttan çok tepkiyi düşündürüyor. Yalnızken korku, performans ve isteğin nerede başlayıp nerede bittiğini ayırt edemiyorsun.
 
 ## Creampie
 
-Intro:
+Brother Room intro:
 
-> Başlık ne vaat ettiğini saklamıyor. Sahnenin nereye varacağını biliyorsun; bu kesinlik merakını azaltmak yerine artırıyor.
+> **Creampie** başlığı sayfayı kapatmana ramak bırakacak kadar açık. Brother'ın bilgisayarında başlık fazla görünür, fazla yakalanabilir hissettiriyor; yine de tıklıyorsun.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Videonun nereye gittiğini biliyordun ve yine de son an etkisini gösterdi. Bu kadar açık olması, bedenini itiraf etmek istemediğin kadar ısıtıyor.
+> **Creampie** daha video yüklenmeden yüzünü ısıtacak kadar açık. Kendi odanda vaat edilen son, uyarıdan çok onu seçme nedenine dönüşüyor.
+
+Brother Room outro:
+
+> Videonun nereye gittiğini biliyordun ve son an yine de etkisini gösterdi. Başlık hâlâ ekranda yakalanabilirmiş gibi hızlıca kapatıyorsun.
+
+Bedroom/Laptop outro:
+
+> Videonun nereye gittiğini biliyordun ve son an yine de etkisini gösterdi. Kendi odanda bu açıklık, bedenini itiraf etmek istemediğin kadar ısıtıyor.
 
 ## Double Penetration
 
-Intro:
+Brother Room intro:
 
-> Etiketi iki kez okuyorsun. Double Penetration. Fikir neredeyse imkansız gibi geliyor, ta ki thumbnail'lar bunu pratik ve gerçek göstermeye başlayana kadar.
+> Etiketi iki kez okuyorsun: **Double Penetration**. Brother'ın ekranında kelimeler aynı anda hem imkansız hem de suçüstü yakalanacakmış gibi görünüyor.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Bittikten sonra bile bir yanın hâlâ bunun nasıl mümkün olduğunu anlamaya çalışıyor. Diğer yanın ise her şeyden çok kadının yüzünü hatırlıyor.
+> Etiketi iki kez okuyorsun: **Double Penetration**. Kendi odanda fikir, kaçmak yerine anlamak isteyeceğin kadar imkansız geliyor.
+
+Brother Room outro:
+
+> Bittikten sonra bir yanın hâlâ bunun nasıl işlediğini anlamaya çalışıyor. Diğer yanın koridoru dinliyor; ekranın ne kadar yoğunlaştığını yeni fark ediyorsun.
+
+Bedroom/Laptop outro:
+
+> Bittikten sonra bir yanın hâlâ bunun nasıl işlediğini anlamaya çalışıyor. Diğer yanın ise her şeyden çok kadının yüzünü hatırlıyor.
 
 ## Spitroast
 
-Intro:
+Brother Room intro:
 
-> Kurulum önizlemelerden bile belli: iki erkeğin arasında bir kadın, dikkati aynı anda iki yöne çekilmiş. Düzenin kendisi bakmayı zorlaştırıyor, ama tıklatıyor.
+> **Spitroast** önizlemeleri tıklamadan önce bile kurulumu açık ediyor. Brother'ın sandalyesinden bakınca düzen sert, kalabalık ve biri içeri girse açıklanamaz hissettiriyor.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Sahne aklında romantizm olarak değil, baskı ve ritim olarak kalıyor. İlk şok geçince ne kadar koordineli göründüğüne şaşırıyorsun.
+> **Spitroast** önizlemeleri tıklamadan önce bile kurulumu açık ediyor. Kendi odanda videoyu açmadan önce düzeni istemediğin kadar uzun inceliyorsun.
+
+Brother Room outro:
+
+> Sahne aklında romantizm değil, baskı ve ritim olarak kalıyor. Brother'ın masasından bakınca koordinasyon, şoktan bile daha suçlayıcı geliyor.
+
+Bedroom/Laptop outro:
+
+> Sahne aklında romantizm değil, baskı ve ritim olarak kalıyor. İlk şok geçince ne kadar koordineli göründüğüne şaşırıyorsun.
 
 ## Gangbang
 
-Intro:
+Brother Room intro:
 
-> Önizlemelerde sahnenin kişisel hissettirmeyeceği kadar çok insan var. Ölçek seni duraklatıyor; aynı şey videoyu açmana da neden oluyor.
+> **Gangbang** sayfayı o kadar kalabalık hissettiriyor ki brother'ın odası etrafında küçülüyor. Çok fazla beden, çok fazla hareket var; yine de elin videoyu açıyor.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Video bitince sessizlik birden çöküyor. Kaos beklemiştin, ama aklında kalan şey bütün o bedenlerin içindeki garip düzen oluyor.
+> **Gangbang**, kendi odanın güvenliğinde bile sayfayı kalabalıklaştırıyor. Ölçek seni duraklatıyor, sonra birinin bunun içinde nasıl görünür kaldığını anlamak için tıklıyorsun.
+
+Brother Room outro:
+
+> Video bitince sessizlik birden çöküyor. Brother'ın odası izlediğin şey için fazla küçük geliyor ve kaosun içindeki garip düzen aklında kalıyor.
+
+Bedroom/Laptop outro:
+
+> Video bitince sessizlik birden çöküyor. Kaos beklemiştin ama aklında kalan şey bütün o bedenlerin içindeki garip düzen oluyor.
 
 ## Incest
 
-Intro:
+Brother Room intro:
 
-> Tag diğerlerinden farklı hissettiriyor; bir eylemden çok arama çubuğuna yazılmış bir sır gibi. Nabzın zaten fazla yüksekken tıklıyorsun.
+> **Incest** tag'i, video açılmadan önce bile brother'ın odasında yanlış hissettiriyor. Bir eylemden çok, duvarların bile görmemesi gereken bir kelime gibi.
 
-Outro:
+Bedroom/Laptop intro:
 
-> Videoyu diğerlerinden daha hızlı kapatıyorsun. Oyunculuk sahteydi, ama tag hâlâ açıklaması daha zor bir sıcaklık bırakıyor.
+> **Incest** tag'i kendi ekranında diğerlerinden farklı hissettiriyor. Bir eylemden çok, kendin yazmış ve artık tanımıyormuş gibi yapamayacağın bir sır gibi.
+
+Brother Room outro:
+
+> Videoyu diğerlerinden daha hızlı kapatıyorsun. Oyunculuk sahteydi ama brother'ın odasında tag, fazla yakın ve açıklaması zor bir sıcaklık bırakıyor.
+
+Bedroom/Laptop outro:
+
+> Videoyu diğerlerinden daha hızlı kapatıyorsun. Oyunculuk sahteydi ama kendi odanda tag hâlâ açıklaması daha zor bir sıcaklık bırakıyor.
 
 ## Ortak Dialog
 

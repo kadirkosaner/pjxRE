@@ -133,45 +133,65 @@
 <<narrative "First Watch">>
 <<switch _category>>
 <<case "handjob">>
-You choose <strong>Handjob</strong> because it looks like the safest place to start.
-
-The page fills with close-up thumbnails: hands on skin, quick previews, women smiling like they know exactly what they are doing. It should be simple. That is what you tell yourself while you pick the first video that keeps pulling your eyes back.
+    <<if $pornSource === "brotherRoom">>
+    You choose <strong>Handjob</strong> on your brother's computer because it looks like the safest place to start. The room is too quiet, the chair is not yours, and the close-up thumbnails make the whole thing feel more stolen than simple.
+    <<else>>
+    You choose <strong>Handjob</strong> from your own room because it looks like something you can understand. With your door closed and your screen in front of you, the category feels safer, but also more deliberately yours.
+    <</if>>
 <<case "blowjob">>
-You stop on <strong>Blowjob</strong> longer than you mean to.
-
-The word feels crude when you are the one choosing it. The page opens into rows of mouths, eyes, knees on beds and floors. You click a video before you can talk yourself out of wanting to know why the tag feels so charged.
+    <<if $pornSource === "brotherRoom">>
+    You stop on <strong>Blowjob</strong> longer than you mean to. Seeing the word on your brother's screen makes it feel crude in a way that sticks to the room, but the previews pull your eyes back until you click.
+    <<else>>
+    You stop on <strong>Blowjob</strong> with your door closed and the volume low. No one else's history led you here this time; you choose the tag yourself, and that makes the screen feel warmer.
+    <</if>>
 <<case "vanilla">>
-You pick <strong>Vanilla Sex</strong> because it sounds almost harmless.
-
-The videos look closer to what you thought sex was supposed to be: beds, bodies, familiar positions, softer lighting. That normality makes it stranger, not easier. You choose one that looks ordinary enough to be safe.
+    <<if $pornSource === "brotherRoom">>
+    You pick <strong>Vanilla Sex</strong> because, on your brother's computer, it seems like the least dangerous option. The previews look almost normal, which somehow makes hiding them feel stranger.
+    <<else>>
+    You pick <strong>Vanilla Sex</strong> because it sounds almost harmless. In your own room, the beds and familiar positions feel less like research and more like something personal you are allowing yourself to watch.
+    <</if>>
 <<case "anal">>
-Your cursor hovers over <strong>Anal</strong>.
-
-The category feels like a line, not just another tag. The previews are slower, more tense, full of hesitation that turns into something else. You know you could back out, but your curiosity has already leaned too far forward.
+    <<if $pornSource === "brotherRoom">>
+    Your cursor hovers over <strong>Anal</strong>, and the room seems to hold its breath with you. Clicking it from your brother's computer feels like crossing a line you cannot explain away as curiosity.
+    <<else>>
+    Your cursor hovers over <strong>Anal</strong> in the privacy of your own room. The category still feels like a line, but here the decision belongs completely to you.
+    <</if>>
 <<case "bbc">>
-<strong>BBC</strong> feels less like a category and more like a dare the site expects you to understand.
-
-The previews sell contrast before anything else: size, reaction, the nervous look before the scene really begins. You click one because you want to know whether the tension is real or just part of the performance.
+    <<if $pornSource === "brotherRoom">>
+    <strong>BBC</strong> feels familiar from the kind of history you wish you had not noticed. Seeing it on your brother's screen again makes the old curiosity sharper before you open the first clip.
+    <<else>>
+    <strong>BBC</strong> feels less like a category and more like a dare the site expects you to understand. On your own screen, choosing it feels deliberate, not accidental.
+    <</if>>
 <<case "creampie">>
-<strong>Creampie</strong> is blunt enough that you almost close the page.
-
-Every title promises the ending before the video even starts. That should make it less interesting, but instead it makes the whole scene feel aimed at one forbidden moment. You choose a clip and feel your face warm before it loads.
+    <<if $pornSource === "brotherRoom">>
+    <strong>Creampie</strong> is blunt enough that you almost close the page. On your brother's computer, the title feels too obvious, too easy to get caught with, and still you click.
+    <<else>>
+    <strong>Creampie</strong> is blunt enough to make your face warm before anything loads. Alone in your room, the promised ending feels less like a warning and more like the reason you chose it.
+    <</if>>
 <<case "dp">>
-You read the full label twice: <strong>Double Penetration</strong>.
-
-The idea seems impossible in your head, but the thumbnails make it look practiced, arranged, real. You hesitate with your hand on the mouse, then open a clip because you cannot picture how it works without seeing it.
+    <<if $pornSource === "brotherRoom">>
+    You read the full label twice: <strong>Double Penetration</strong>. On your brother's screen, the words look impossible and incriminating at the same time, but you open a clip anyway.
+    <<else>>
+    You read the full label twice: <strong>Double Penetration</strong>. In your own room, the idea seems impossible in a way that makes you want to understand it rather than run from it.
+    <</if>>
 <<case "spitroast">>
-The <strong>Spitroast</strong> previews make the setup clear before you click.
-
-One woman between two men, attention pulled in both directions, the scene built around pressure and coordination. You choose a video because the arrangement itself feels difficult to look away from.
+    <<if $pornSource === "brotherRoom">>
+    The <strong>Spitroast</strong> previews make the setup clear before you click. From your brother's chair, the arrangement feels harsh, crowded, and difficult to explain if anyone walked in.
+    <<else>>
+    The <strong>Spitroast</strong> previews make the setup clear before you click. Alone in your room, you study the arrangement longer than you meant to before opening a video.
+    <</if>>
 <<case "gangbang">>
-<strong>Gangbang</strong> is the first category that makes the page feel crowded.
-
-Too many hands, too many bodies, too much happening in each preview for it to feel intimate. The scale makes you hesitate, but it also makes the first video you choose feel like stepping into noise on purpose.
+    <<if $pornSource === "brotherRoom">>
+    <strong>Gangbang</strong> makes the page feel crowded enough that your brother's room seems smaller around you. Too many bodies, too much movement, and still your hand moves to open one.
+    <<else>>
+    <strong>Gangbang</strong> makes the page feel crowded even from the safety of your own room. The scale makes you hesitate, then makes you click because you want to know how anyone stays visible inside it.
+    <</if>>
 <<case "incest">>
-The <strong>Incest</strong> tag feels different from the others.
-
-Less like an act, more like a secret someone typed into the search bar and then pretended was only fantasy. You click with your pulse already too loud, aware of the word before the video even starts.
+    <<if $pornSource === "brotherRoom">>
+    The <strong>Incest</strong> tag feels wrong in your brother's room before the video even opens. Less like an act, more like a word the walls themselves should not see.
+    <<else>>
+    The <strong>Incest</strong> tag feels different from the others on your own screen. Less like an act, more like a secret you typed yourself and now cannot pretend not to recognize.
+    <</if>>
 <</switch>>
 <</narrative>>
 
@@ -187,25 +207,65 @@ That is the excuse you choose, even as your body reacts before your thoughts can
 <<narrative>>
 <<switch _category>>
 <<case "handjob">>
-When it ends, the category does not feel simple anymore. You understand less than you expected, but the warmth in your stomach tells you it still taught you something.
+    <<if $pornSource === "brotherRoom">>
+    When it ends, Handjob does not feel simple anymore. You close the tab with one eye on the door, carrying the heat away from your brother's desk like evidence.
+    <<else>>
+    When it ends, Handjob does not feel simple anymore. In your own room, the warmth has nowhere to hide, so you sit with it a little longer.
+    <</if>>
 <<case "blowjob">>
-You close the video with your throat tight and your face warm. It was not just the act that stayed with you; it was the control hidden inside the performance.
+    <<if $pornSource === "brotherRoom">>
+    You close the video with your throat tight and your face warm. On your brother's computer, the control hidden inside the performance feels like something you were not supposed to learn.
+    <<else>>
+    You close the video with your throat tight and your face warm. Alone, you realize it was not just the act that stayed with you, but the way attention could be held.
+    <</if>>
 <<case "vanilla">>
-The ordinary shape of it lingers after the video ends. It looked familiar from the outside, but watching it made the idea of sex feel closer and less abstract.
+    <<if $pornSource === "brotherRoom">>
+    The ordinary shape of it lingers after the video ends. From your brother's room, even vanilla feels like something you should not have made personal.
+    <<else>>
+    The ordinary shape of it lingers after the video ends. In your own room, sex feels closer and less abstract than it did before.
+    <</if>>
 <<case "anal">>
-You sit still after it ends, caught between discomfort and curiosity. The line you imagined is still there, but now you know what it looks like from the other side.
+    <<if $pornSource === "brotherRoom">>
+    You sit still after it ends, caught between discomfort and curiosity. The line you crossed feels sharper because you crossed it from someone else's chair.
+    <<else>>
+    You sit still after it ends, caught between discomfort and curiosity. The line you imagined is still there, but now it belongs to your own curiosity.
+    <</if>>
 <<case "bbc">>
-The clip leaves you thinking about reaction more than size. Fear, performance, wanting: you are not sure where one ended and the next began.
+    <<if $pornSource === "brotherRoom">>
+    The clip leaves you thinking about reaction more than size. Seeing it here makes fear, performance, and wanting feel tangled with the old browser history that led you this far.
+    <<else>>
+    The clip leaves you thinking about reaction more than size. Fear, performance, wanting: alone, you are not sure where one ended and the next began.
+    <</if>>
 <<case "creampie">>
-You knew where the video was going and still felt the final moment land. The bluntness of it makes your body feel warmer than you want to admit.
+    <<if $pornSource === "brotherRoom">>
+    You knew where the video was going and still felt the final moment land. You close it quickly, as if the title could still be caught on the screen.
+    <<else>>
+    You knew where the video was going and still felt the final moment land. In your own room, the bluntness makes your body feel warmer than you want to admit.
+    <</if>>
 <<case "dp">>
-Even after it ends, part of you is still trying to understand the logistics. Another part remembers the woman's face more clearly than anything else.
+    <<if $pornSource === "brotherRoom">>
+    Even after it ends, part of you is still trying to understand the logistics. Another part is listening for the hallway, suddenly aware of how intense the screen became.
+    <<else>>
+    Even after it ends, part of you is still trying to understand the logistics. Another part remembers the woman's face more clearly than anything else.
+    <</if>>
 <<case "spitroast">>
-The scene stays in your head as pressure and rhythm, not romance. You are surprised by how coordinated it looked once the shock faded.
+    <<if $pornSource === "brotherRoom">>
+    The scene stays in your head as pressure and rhythm, not romance. From your brother's desk, the coordination feels almost more incriminating than the shock.
+    <<else>>
+    The scene stays in your head as pressure and rhythm, not romance. You are surprised by how coordinated it looked once the shock faded.
+    <</if>>
 <<case "gangbang">>
-When the video ends, the silence feels sudden. You expected chaos, but what lingers is the strange pattern inside all those bodies.
+    <<if $pornSource === "brotherRoom">>
+    When the video ends, the silence feels sudden. Your brother's room feels too small for what you just watched, and the strange pattern inside the chaos stays with you.
+    <<else>>
+    When the video ends, the silence feels sudden. You expected chaos, but what lingers is the strange pattern inside all those bodies.
+    <</if>>
 <<case "incest">>
-You close the video faster than the others. The acting was fake, but the tag still leaves a heat behind that feels harder to explain.
+    <<if $pornSource === "brotherRoom">>
+    You close the video faster than the others. The acting was fake, but in your brother's room the tag leaves a heat behind that feels too close and too hard to explain.
+    <<else>>
+    You close the video faster than the others. The acting was fake, but alone in your room the tag still leaves a heat behind that feels harder to explain.
+    <</if>>
 <</switch>>
 <</narrative>>
 <<else>>
