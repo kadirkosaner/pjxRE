@@ -3,10 +3,13 @@
 <<silently>>
 <<set $location = "hospital">>
 <<if ndef $characters.doctorAdrianCole>><<domInclude "charDoctorAdrianColeHospital">><</if>>
-<<set _canTreat = (($health || 0) < 100) && (($cashBalance || 0) >= 15)>>
+<<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<set _doctorSeenToday = ($hospitalLastDoctorDayKey || 0) === _dateKey>>
+<<set _canTreat = (($health || 0) < 100) && (($cashBalance || 0) >= 15) && !_doctorSeenToday>>
 <<if _canTreat>>
     <<spendCash 15>>
     <<if _transactionSuccess>>
+        <<set $hospitalLastDoctorDayKey = _dateKey>>
         <<set $health = 100>>
         <<loseStat "stress" 8>>
         <<gainStat "mood" 6>>
@@ -27,6 +30,8 @@ You check in at the desk, but they can't proceed right now.
 
 <<if ($health || 0) >= 100>>
 <<dialog "doctorAdrianCole">>Your health is already fine. You don't need treatment at the moment.<</dialog>>
+<<elseif _doctorSeenToday>>
+<<dialog "doctorAdrianCole">>I already treated you today. Go home, rest, and come back tomorrow if you still feel unwell.<</dialog>>
 <<else>>
 <<dialog "doctorAdrianCole">>Treatment fee is 15 dollars. Come back when you have enough cash.<</dialog>>
 <</if>>

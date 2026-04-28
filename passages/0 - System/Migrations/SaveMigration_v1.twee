@@ -76,17 +76,19 @@
     <<if ndef $brotherPornBrowseLastDayKey>><<set $brotherPornBrowseLastDayKey = 0>><</if>>
     <<if ndef $brotherPornBrowseCount>><<set $brotherPornBrowseCount = 0>><</if>>
     <<if ndef $brotherPornPhase2Step>><<set $brotherPornPhase2Step = 0>><</if>>
+    <<if ndef $arousalDecayHourBuffer>><<set $arousalDecayHourBuffer = 0>><</if>>
+    <<if ndef $hospitalLastDoctorDayKey>><<set $hospitalLastDoctorDayKey = 0>><</if>>
     <<if $flags.gymMembershipActive && ($gymMembershipDaysRemaining || 0) <= 0>>
         <<set $flags.gymMembershipActive = false>>
         <<set $gymMembershipDaysRemaining = 0>>
     <</if>>
     /* Ensure hospital nurse exists and is known on existing saves. */
-    <<if ndef $characters.nurse>><<domInclude "charNurseRachelBrooks[Hospital]">><</if>>
+    <<if ndef $characters.nurse>><<domInclude "charNurseRachelBrooksHospital">><</if>>
     <<if $characters.nurse>>
         <<set $characters.nurse.known = true>>
     <</if>>
     /* Ensure hospital doctor exists on existing saves (new char id). */
-    <<if ndef $characters.doctorAdrianCole>><<domInclude "charDoctorAdrianCole[Hospital]">><</if>>
+    <<if ndef $characters.doctorAdrianCole>><<domInclude "charDoctorAdrianColeHospital">><</if>>
     /* Backward-compat key migration: doctor -> doctorAdrianCole */
     <<if $characters.doctor && ndef $characters.doctorAdrianCole>>
         <<set $characters.doctorAdrianCole = clone($characters.doctor)>>

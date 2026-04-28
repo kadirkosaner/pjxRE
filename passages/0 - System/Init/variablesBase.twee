@@ -107,6 +107,9 @@
 <<set $brotherPornBrowseCount = 0>>
 <<set $brotherPornPhase2Step = 0>>
 
+/* Hospital daily cooldown trackers */
+<<set $hospitalLastDoctorDayKey = 0>>
+
 /* Makeup (state/style/quality + hourly decay tracking; makeup score computed in recalculateStats) */
 <<set $makeup = { state: "off", style: 0, quality: 0, lastDecayHourKey: "", lastAppliedHourKey: "", lastDecayMinuteStamp: 0 }>>
 

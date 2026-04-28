@@ -21,7 +21,12 @@
     <<set _tier2Eligible = (($lowerBody || 0) >= 18) || (($core || 0) >= 16)>>
     <<set _tier3Eligible = (_fitnessAvg >= 28) && (($confidence || 0) >= 45)>>
     <<set _mirrorMoment = "">>
-    <<if ($afterShowerMirrorLastDayKey || 0) !== _dateKey && random(1, 100) <= 35>>
+    <<set _isFirstTierMoment = (
+        (_tier3Eligible && !$flags.bodyAwarenessTier3) ||
+        (_tier2Eligible && !$flags.bodyAwarenessTier2) ||
+        (_tier1Eligible && !$flags.bodyAwarenessTier1)
+    )>>
+    <<if ($afterShowerMirrorLastDayKey || 0) !== _dateKey && (_isFirstTierMoment || random(1, 100) <= 35)>>
         <<if _tier3Eligible && !$flags.bodyAwarenessTier3>>
             <<set _mirrorMoment = "afterShowerMirror_first_tier3">>
         <<elseif _tier2Eligible && !$flags.bodyAwarenessTier2>>

@@ -1,6 +1,8 @@
 <<nobr>>
 <<set $location = "hospital">>
 <<if ndef $characters.doctorAdrianCole>><<domInclude "charDoctorAdrianColeHospital">><</if>>
+<<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<set _doctorSeenToday = ($hospitalLastDoctorDayKey || 0) === _dateKey>>
 
 <<updateCharacterLocations>>
 
@@ -12,7 +14,9 @@ A large medical center with modern facilities. Doctors and nurses rush through t
 
 <div class="location-actions">
 <<if ($health || 0) < 100>>
-    <<if ($cashBalance || 0) gte 15>>
+    <<if _doctorSeenToday>>
+        <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="You already saw the doctor today"><i class="icon icon-lock icon-12"></i> See Doctor (15$)</span>
+    <<elseif ($cashBalance || 0) gte 15>>
         <<btn "See Doctor (15$)" "hospital_see_doctor">><</btn>>
     <<else>>
         <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="Not enough money (need 15$)"><i class="icon icon-lock icon-12"></i> See Doctor (15$)</span>
