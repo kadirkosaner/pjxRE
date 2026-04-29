@@ -1,15 +1,15 @@
 :: pornSite_hotHub
 <<nobr>>
-<<requireMinEnergy 18 ($pornReturnPassage || "brotherComputerMenu")>>
+<<requireMinEnergy 18 ($porn.returnPassage || "brotherComputerMenu")>>
 <<silently>>
-<<if ndef $pornSource or $pornSource === "">><<set $pornSource = "brotherRoom">><</if>>
-<<if $pornSource === "brotherRoom">>
+<<if $porn.source === "brotherRoom">>
     <<set $location = "fhBrotherRoomPC">>
 <<else>>
     <<set $location = "fhBedroom">>
 <</if>>
-<<if ndef $pornCategoriesUnlocked>><<set $pornCategoriesUnlocked = ["handjob"]>><</if>>
-<<if ndef $pornReturnPassage or $pornReturnPassage === "">><<set $pornReturnPassage = "brotherComputerMenu">><</if>>
+<<if $flags.brotherPornLookButtonUnlocked && $questState && $questState.active && $questState.active.brother_browser_rabbit_hole>>
+    <<completeQuest "brother_browser_rabbit_hole">>
+<</if>>
 <<set _labels = {
     handjob: "Handjob",
     blowjob: "Blowjob",
@@ -25,7 +25,7 @@
 <</silently>>
 
 <<narrative "HotHub">>
-<<if $pornSource === "brotherRoom">>
+<<if $porn.source === "brotherRoom">>
 The fake logo loads in red and black, bright enough to make the room feel darker around it.
 
 You keep the volume low and the hallway in the corner of your eye. This is still your brother's computer, and every small sound outside the room makes the site feel louder.
@@ -39,12 +39,12 @@ Only a few categories are visible. The rest of the site seems to be hiding behin
 <</narrative>>
 
 <div class="location-actions">
-<<for _cat range $pornCategoriesUnlocked>>
+<<for _cat range $porn.categoriesUnlocked>>
     <<if _cat !== "incest" || ($contentPreferences && $contentPreferences.incest !== false)>>
         <<set _label = _labels[_cat] || _cat>>
-        <<btn _label "pornWatch" "default" 18>><<set $pornSelectedCategory = _cat>><</btn>>
+        <<btn _label "pornWatch" "default" 18>><<set $porn.selectedCategory = _cat>><</btn>>
     <</if>>
 <</for>>
-<<btn "Close HotHub" ($pornReturnPassage || "brotherComputerMenu")>><</btn>>
+<<btn "Close HotHub" ($porn.returnPassage || "brotherComputerMenu")>><</btn>>
 </div>
 <</nobr>>

@@ -1,15 +1,12 @@
 :: pornUnlockEvent
 <<nobr>>
 <<silently>>
-<<if ndef $pornSource or $pornSource === "">><<set $pornSource = "brotherRoom">><</if>>
-<<if $pornSource === "brotherRoom">>
+<<if $porn.source === "brotherRoom">>
     <<set $location = "fhBrotherRoomPC">>
 <<else>>
     <<set $location = "fhBedroom">>
 <</if>>
-<<if ndef $pornCategoriesUnlocked>><<set $pornCategoriesUnlocked = ["handjob"]>><</if>>
-<<if ndef $pornCategoryTargets>><<set $pornCategoryTargets = {}>><</if>>
-<<set _cat = $pornPendingUnlock || "">>
+<<set _cat = $porn.pendingUnlock || "">>
 <<set _labels = {
     handjob: "Handjob",
     blowjob: "Blowjob",
@@ -23,13 +20,13 @@
     incest: "Incest"
 }>>
 <<set _label = _labels[_cat] || _cat>>
-<<if _cat === "" || $pornCategoriesUnlocked.includes(_cat)>>
+<<if _cat === "" || $porn.categoriesUnlocked.includes(_cat)>>
     <<goto "pornSite_hotHub">>
 <</if>>
 <</silently>>
 
 <<narrative "Something New">>
-<<if $pornSource === "brotherRoom">>
+<<if $porn.source === "brotherRoom">>
 The site shifts after the last video closes.
 
 A new tag appears where there was only empty space before: <strong><<print _label>></strong>.
@@ -45,15 +42,15 @@ In your own room, with no one else's browser history to blame, the new category 
 <</narrative>>
 
 <<silently>>
-<<run $pornCategoriesUnlocked.push(_cat)>>
+<<run $porn.categoriesUnlocked.push(_cat)>>
 <<if _cat === "handjob" || _cat === "blowjob" || _cat === "vanilla">>
-    <<set $pornCategoryTargets[_cat] = $pornCategoryTargets[_cat] || random(3, 5)>>
+    <<set $porn.categoryTargets[_cat] = $porn.categoryTargets[_cat] || random(3, 5)>>
 <<elseif _cat === "anal" || _cat === "bbc" || _cat === "creampie">>
-    <<set $pornCategoryTargets[_cat] = $pornCategoryTargets[_cat] || random(4, 6)>>
+    <<set $porn.categoryTargets[_cat] = $porn.categoryTargets[_cat] || random(4, 6)>>
 <<else>>
-    <<set $pornCategoryTargets[_cat] = $pornCategoryTargets[_cat] || random(5, 8)>>
+    <<set $porn.categoryTargets[_cat] = $porn.categoryTargets[_cat] || random(5, 8)>>
 <</if>>
-<<set $pornPendingUnlock = "">>
+<<set $porn.pendingUnlock = "">>
 <<flushNotifications>>
 <</silently>>
 

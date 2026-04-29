@@ -12,7 +12,7 @@ What do you want to do?
 <div class="location-actions">
 <<btn "Browse / Surf" "brotherComputerBrowse" "default" 10>><</btn>>
 <<if $flags.brotherPornLookButtonUnlocked && ($corruption || 0) >= 1 && $characters.brother && $characters.brother.currentLocation !== "fhBrotherRoom">>
-<<btn "Watch Porn" "pornSite_hotHub" "default" 15>><<set $pornReturnPassage = "brotherComputerMenu">><<set $pornSource = "brotherRoom">><</btn>>
+<<btn "Watch Porn" "pornSite_hotHub" "default" 15>><<set $porn.returnPassage = "brotherComputerMenu">><<set $porn.source = "brotherRoom">><</btn>>
 <</if>>
 <<btn "Watch Video" "brotherComputerWatchVideo" "default" 12>><</btn>>
 <<btn "Play Game" "brotherComputerPlayGame" "default" 15>><</btn>>

@@ -106,21 +106,24 @@
 <<set $brotherPornBrowseLastDayKey = 0>>
 <<set $brotherPornBrowseCount = 0>>
 <<set $brotherPornPhase2Step = 0>>
-<<set $pornCategoriesUnlocked = ["handjob"]>>
-<<set $pornCategoryWatchCounts = { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, bbc: 0, creampie: 0, dp: 0, spitroast: 0, gangbang: 0, incest: 0 }>>
-<<set $pornCategoryProgressCounts = { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, bbc: 0, creampie: 0, dp: 0, spitroast: 0, gangbang: 0, incest: 0 }>>
-<<set $pornCategoryProgressDayKey = 0>>
-<<set $pornCategoriesProgressedToday = []>>
-<<set $pornCategoryTargets = { handjob: random(3, 5) }>>
-<<set $pornPendingUnlock = "">>
-<<set $pornSelectedCategory = "">>
-<<set $pornReturnPassage = "brotherComputerMenu">>
-<<set $pornSource = "brotherRoom">>
-<<set $pornArousalDayKey = 0>>
-<<set $pornWatchCountToday = 0>>
-<<set $pornSkillGainDayKey = 0>>
-<<set $pornSkillsGainedToday = []>>
-<<set $pornCategoryFirstWatchSeen = { handjob: false, blowjob: false, vanilla: false, anal: false, bbc: false, creampie: false, dp: false, spitroast: false, gangbang: false, incest: false }>>
+<<set $porn = {
+    categoriesUnlocked: ["handjob"],
+    categoryWatchCounts: { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, bbc: 0, creampie: 0, dp: 0, spitroast: 0, gangbang: 0, incest: 0 },
+    categoryProgressCounts: { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, bbc: 0, creampie: 0, dp: 0, spitroast: 0, gangbang: 0, incest: 0 },
+    categoryProgressDayKey: 0,
+    categoriesProgressedToday: [],
+    categoryTargets: { handjob: random(3, 5) },
+    pendingUnlock: "",
+    selectedCategory: "",
+    returnPassage: "brotherComputerMenu",
+    source: "brotherRoom",
+    arousalDayKey: 0,
+    watchCountToday: 0,
+    maxDailyWatches: 6,
+    skillGainDayKey: 0,
+    skillsGainedToday: [],
+    categoryFirstWatchSeen: { handjob: false, blowjob: false, vanilla: false, anal: false, bbc: false, creampie: false, dp: false, spitroast: false, gangbang: false, incest: false }
+}>>
 
 /* Hospital daily cooldown trackers */
 <<set $hospitalLastDoctorDayKey = 0>>
