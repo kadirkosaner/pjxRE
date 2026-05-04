@@ -184,6 +184,8 @@
     <<unset $porn.categoryTargets.group>>
     <<if ndef $arousalDecayHourBuffer>><<set $arousalDecayHourBuffer = 0>><</if>>
     <<if ndef $hospitalLastDoctorDayKey>><<set $hospitalLastDoctorDayKey = 0>><</if>>
+    <<if ndef $porn>><<set $porn = {}>><</if>>
+    <<if ndef $porn.recentlyWatched>><<set $porn.recentlyWatched = []>><</if>>
     <<if $flags.gymMembershipActive && ($gymMembershipDaysRemaining || 0) <= 0>>
         <<set $flags.gymMembershipActive = false>>
         <<set $gymMembershipDaysRemaining = 0>>

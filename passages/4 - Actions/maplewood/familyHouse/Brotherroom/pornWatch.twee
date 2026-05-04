@@ -53,6 +53,10 @@ But your eyes feel tired, your body feels too warm, and every thumbnail starts t
 <<set $flags.brotherPornWatchFirstDone = true>>
 <<set $porn.categoryFirstWatchSeen[_category] = true>>
 <<set $porn.categoryWatchCounts[_category] = ($porn.categoryWatchCounts[_category] || 0) + 1>>
+<<if ndef $porn.recentlyWatched>><<set $porn.recentlyWatched = []>><</if>>
+<<run $porn.recentlyWatched = $porn.recentlyWatched.filter(function(c) { return c !== _category; })>>
+<<run $porn.recentlyWatched.unshift(_category)>>
+<<if $porn.recentlyWatched.length > 10>><<run $porn.recentlyWatched.pop()>><</if>>
 <<if $porn.source === "brotherRoom">>
     <<set $porn.brotherRoomCategoryWatchCounts[_category] = ($porn.brotherRoomCategoryWatchCounts[_category] || 0) + 1>>
     <<if !$porn.brotherRoomCategoriesCountedToday.includes(_category)>>
