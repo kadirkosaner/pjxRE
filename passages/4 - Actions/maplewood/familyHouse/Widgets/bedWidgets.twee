@@ -10,9 +10,18 @@
     <<if $energy !== undefined>>
         <<set _energyLevel = $energy>>
     <</if>>
+    <<set _masturbationUnlocked = ($flags && $flags.masturbationUnlocked)>>
+    <<set _masturbationReady = (_masturbationUnlocked && (($corruption || 0) >= 1) && (($arousal || 0) >= 70))>>
 
     <div class="location-actions">
         <<btnPicker "Sleep" "sleep_prep" "sleepDuration">>
+        <<if _masturbationUnlocked>>
+            <<if _masturbationReady>>
+                <<btn "Masturbate" "bedMasturbate">><</btn>>
+            <<else>>
+                <<btn "Masturbate" "" "locked" "Requires Arousal 70 and Corruption 1.">><</btn>>
+            <</if>>
+        <</if>>
 
         <<set $activityOrigin = "fhBedroom">>
         <<btnPicker "Nap" "runNap" "napDuration">>

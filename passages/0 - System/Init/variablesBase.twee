@@ -106,10 +106,18 @@
 <<set $brotherPornBrowseLastDayKey = 0>>
 <<set $brotherPornBrowseCount = 0>>
 <<set $brotherPornPhase2Step = 0>>
+/* Night restless / try-sleep baseline (v0.1.5 prep) */
+<<set $nightRestlessEventDayKey = 0>>
+<<set $nightRestlessEventSeenCount = 0>>
+<<set $nightRestlessSource = "">>
 <<set $porn = {
     categoriesUnlocked: ["handjob"],
-    categoryWatchCounts: { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, bbc: 0, creampie: 0, dp: 0, spitroast: 0, gangbang: 0, incest: 0 },
-    categoryProgressCounts: { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, bbc: 0, creampie: 0, dp: 0, spitroast: 0, gangbang: 0, incest: 0 },
+    categoryWatchCounts: { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, lesbian: 0, bbc: 0, creampie: 0, mff: 0, mmf: 0, gangbang: 0, incest: 0 },
+    brotherRoomCategoryWatchCounts: { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, lesbian: 0, bbc: 0, creampie: 0, mff: 0, mmf: 0, gangbang: 0, incest: 0 },
+    brotherRoomCategoryDailyWatchCounts: { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, lesbian: 0, bbc: 0, creampie: 0, mff: 0, mmf: 0, gangbang: 0, incest: 0 },
+    brotherRoomCategoryDailyDayKey: 0,
+    brotherRoomCategoriesCountedToday: [],
+    categoryProgressCounts: { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, lesbian: 0, bbc: 0, creampie: 0, mff: 0, mmf: 0, gangbang: 0, incest: 0 },
     categoryProgressDayKey: 0,
     categoriesProgressedToday: [],
     categoryTargets: { handjob: random(3, 5) },
@@ -122,7 +130,7 @@
     maxDailyWatches: 6,
     skillGainDayKey: 0,
     skillsGainedToday: [],
-    categoryFirstWatchSeen: { handjob: false, blowjob: false, vanilla: false, anal: false, bbc: false, creampie: false, dp: false, spitroast: false, gangbang: false, incest: false }
+    categoryFirstWatchSeen: { handjob: false, blowjob: false, vanilla: false, anal: false, lesbian: false, bbc: false, creampie: false, mff: false, mmf: false, gangbang: false, incest: false }
 }>>
 
 /* Hospital daily cooldown trackers */
@@ -187,7 +195,10 @@
     brotherPornLookButtonUnlocked: false,
     brotherPornWatchFirstDone: false,
     pornWatchFirstDone: false,
-    privateContentHabit: false
+    privateContentHabit: false,
+    firstCantSleepStoryDone: false,
+    masturbationUnlocked: false,
+    nightRestlessUnlocked: false
 }>>
 
 /* Gym membership: 30-day access, decremented by advanceDay. */

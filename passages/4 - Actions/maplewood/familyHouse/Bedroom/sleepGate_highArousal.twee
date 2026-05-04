@@ -1,0 +1,17 @@
+:: sleepGate_highArousal
+<<nobr>>
+<<silently>>
+    <<set $location = "fhBedroom">>
+    <<set _arousalNow = parseInt($arousal || 0)>>
+<</silently>>
+
+<<if _arousalNow lt 70>>
+    <<goto "sleep">>
+<<else>>
+    <<if !($flags && $flags.firstCantSleepStoryDone)>>
+        <<goto "nightRestless_highArousal_intro">>
+    <<else>>
+        <<goto "sleep">>
+    <</if>>
+<</if>>
+<</nobr>>

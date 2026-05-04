@@ -1,4 +1,3 @@
-:: SaveMigration_v1
 <<silently>>
 <<if $saveVersion lt 1>>
     /* Job system migration: trust-based work state (backward compatibility). */
@@ -71,6 +70,9 @@
     <<if ndef $flags.brotherPornWatchFirstDone>><<set $flags.brotherPornWatchFirstDone = false>><</if>>
     <<if ndef $flags.pornWatchFirstDone>><<set $flags.pornWatchFirstDone = $flags.brotherPornWatchFirstDone || false>><</if>>
     <<if ndef $flags.privateContentHabit>><<set $flags.privateContentHabit = false>><</if>>
+    <<if ndef $flags.firstCantSleepStoryDone>><<set $flags.firstCantSleepStoryDone = false>><</if>>
+    <<if ndef $flags.masturbationUnlocked>><<set $flags.masturbationUnlocked = false>><</if>>
+    <<if ndef $flags.nightRestlessUnlocked>><<set $flags.nightRestlessUnlocked = false>><</if>>
     /* Gym Membership: 30-day access for old saves. */
     <<if ndef $gymMembershipDaysRemaining>><<set $gymMembershipDaysRemaining = $flags.gymMembershipActive ? 30 : 0>><</if>>
     <<if ndef $gymMembershipStartedAt>><<set $gymMembershipStartedAt = null>><</if>>
@@ -79,13 +81,20 @@
     <<if ndef $brotherPornBrowseLastDayKey>><<set $brotherPornBrowseLastDayKey = 0>><</if>>
     <<if ndef $brotherPornBrowseCount>><<set $brotherPornBrowseCount = 0>><</if>>
     <<if ndef $brotherPornPhase2Step>><<set $brotherPornPhase2Step = 0>><</if>>
-    <<set _pornDefaults = { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, bbc: 0, creampie: 0, dp: 0, spitroast: 0, gangbang: 0, incest: 0 }>>
-    <<set _pornFirstSeenDefaults = { handjob: false, blowjob: false, vanilla: false, anal: false, bbc: false, creampie: false, dp: false, spitroast: false, gangbang: false, incest: false }>>
+    <<if ndef $nightRestlessEventDayKey>><<set $nightRestlessEventDayKey = 0>><</if>>
+    <<if ndef $nightRestlessEventSeenCount>><<set $nightRestlessEventSeenCount = 0>><</if>>
+    <<if ndef $nightRestlessSource>><<set $nightRestlessSource = "">><</if>>
+    <<set _pornDefaults = { handjob: 0, blowjob: 0, vanilla: 0, anal: 0, lesbian: 0, bbc: 0, creampie: 0, mff: 0, mmf: 0, gangbang: 0, incest: 0 }>>
+    <<set _pornFirstSeenDefaults = { handjob: false, blowjob: false, vanilla: false, anal: false, lesbian: false, bbc: false, creampie: false, mff: false, mmf: false, gangbang: false, incest: false }>>
     <<if ndef $porn>>
-        <<set $porn = { categoriesUnlocked: (def $pornCategoriesUnlocked ? $pornCategoriesUnlocked : ["handjob"]), categoryWatchCounts: (def $pornCategoryWatchCounts ? $pornCategoryWatchCounts : clone(_pornDefaults)), categoryProgressCounts: (def $pornCategoryProgressCounts ? $pornCategoryProgressCounts : clone(_pornDefaults)), categoryProgressDayKey: (def $pornCategoryProgressDayKey ? $pornCategoryProgressDayKey : 0), categoriesProgressedToday: (def $pornCategoriesProgressedToday ? $pornCategoriesProgressedToday : []), categoryTargets: (def $pornCategoryTargets ? $pornCategoryTargets : { handjob: random(3, 5) }), pendingUnlock: (def $pornPendingUnlock ? $pornPendingUnlock : ""), selectedCategory: (def $pornSelectedCategory ? $pornSelectedCategory : ""), returnPassage: (def $pornReturnPassage ? $pornReturnPassage : "brotherComputerMenu"), source: (def $pornSource ? $pornSource : "brotherRoom"), arousalDayKey: (def $pornArousalDayKey ? $pornArousalDayKey : 0), watchCountToday: (def $pornWatchCountToday ? $pornWatchCountToday : 0), maxDailyWatches: 6, skillGainDayKey: (def $pornSkillGainDayKey ? $pornSkillGainDayKey : 0), skillsGainedToday: (def $pornSkillsGainedToday ? $pornSkillsGainedToday : []), categoryFirstWatchSeen: (def $pornCategoryFirstWatchSeen ? $pornCategoryFirstWatchSeen : clone(_pornFirstSeenDefaults)) }>>
+        <<set $porn = { categoriesUnlocked: (def $pornCategoriesUnlocked ? $pornCategoriesUnlocked : ["handjob"]), categoryWatchCounts: (def $pornCategoryWatchCounts ? $pornCategoryWatchCounts : clone(_pornDefaults)), brotherRoomCategoryWatchCounts: (def $pornBrotherRoomCategoryWatchCounts ? $pornBrotherRoomCategoryWatchCounts : clone(_pornDefaults)), brotherRoomCategoryDailyWatchCounts: (def $pornBrotherRoomCategoryDailyWatchCounts ? $pornBrotherRoomCategoryDailyWatchCounts : clone(_pornDefaults)), brotherRoomCategoryDailyDayKey: (def $pornBrotherRoomCategoryDailyDayKey ? $pornBrotherRoomCategoryDailyDayKey : 0), brotherRoomCategoriesCountedToday: (def $pornBrotherRoomCategoriesCountedToday ? $pornBrotherRoomCategoriesCountedToday : []), categoryProgressCounts: (def $pornCategoryProgressCounts ? $pornCategoryProgressCounts : clone(_pornDefaults)), categoryProgressDayKey: (def $pornCategoryProgressDayKey ? $pornCategoryProgressDayKey : 0), categoriesProgressedToday: (def $pornCategoriesProgressedToday ? $pornCategoriesProgressedToday : []), categoryTargets: (def $pornCategoryTargets ? $pornCategoryTargets : { handjob: random(3, 5) }), pendingUnlock: (def $pornPendingUnlock ? $pornPendingUnlock : ""), selectedCategory: (def $pornSelectedCategory ? $pornSelectedCategory : ""), returnPassage: (def $pornReturnPassage ? $pornReturnPassage : "brotherComputerMenu"), source: (def $pornSource ? $pornSource : "brotherRoom"), arousalDayKey: (def $pornArousalDayKey ? $pornArousalDayKey : 0), watchCountToday: (def $pornWatchCountToday ? $pornWatchCountToday : 0), maxDailyWatches: 6, skillGainDayKey: (def $pornSkillGainDayKey ? $pornSkillGainDayKey : 0), skillsGainedToday: (def $pornSkillsGainedToday ? $pornSkillsGainedToday : []), categoryFirstWatchSeen: (def $pornCategoryFirstWatchSeen ? $pornCategoryFirstWatchSeen : clone(_pornFirstSeenDefaults)) }>>
     <</if>>
     <<if ndef $porn.categoriesUnlocked>><<set $porn.categoriesUnlocked = ["handjob"]>><</if>>
     <<if ndef $porn.categoryWatchCounts>><<set $porn.categoryWatchCounts = clone(_pornDefaults)>><</if>>
+    <<if ndef $porn.brotherRoomCategoryWatchCounts>><<set $porn.brotherRoomCategoryWatchCounts = clone(_pornDefaults)>><</if>>
+    <<if ndef $porn.brotherRoomCategoryDailyWatchCounts>><<set $porn.brotherRoomCategoryDailyWatchCounts = clone(_pornDefaults)>><</if>>
+    <<if ndef $porn.brotherRoomCategoryDailyDayKey>><<set $porn.brotherRoomCategoryDailyDayKey = 0>><</if>>
+    <<if ndef $porn.brotherRoomCategoriesCountedToday>><<set $porn.brotherRoomCategoriesCountedToday = []>><</if>>
     <<if ndef $porn.categoryProgressCounts>><<set $porn.categoryProgressCounts = clone(_pornDefaults)>><</if>>
     <<if ndef $porn.categoryProgressDayKey>><<set $porn.categoryProgressDayKey = 0>><</if>>
     <<if ndef $porn.categoriesProgressedToday>><<set $porn.categoriesProgressedToday = []>><</if>>
@@ -101,11 +110,78 @@
     <<if ndef $porn.skillGainDayKey>><<set $porn.skillGainDayKey = 0>><</if>>
     <<if ndef $porn.skillsGainedToday>><<set $porn.skillsGainedToday = []>><</if>>
     <<if ndef $porn.categoryFirstWatchSeen>><<set $porn.categoryFirstWatchSeen = clone(_pornFirstSeenDefaults)>><</if>>
+    <<set _pornAllowedCategories = ["handjob", "blowjob"]>>
+    <<run $porn.categoriesUnlocked = ($porn.categoriesUnlocked || []).filter(function(_c){ return _pornAllowedCategories.includes(_c); })>>
+    <<if !$porn.categoriesUnlocked.includes("handjob")>><<run $porn.categoriesUnlocked.unshift("handjob")>><</if>>
+    <<if $porn.selectedCategory && !_pornAllowedCategories.includes($porn.selectedCategory)>><<set $porn.selectedCategory = "handjob">><</if>>
+    <<if $porn.pendingUnlock && !_pornAllowedCategories.includes($porn.pendingUnlock)>><<set $porn.pendingUnlock = "">><</if>>
     <<for _cat range Object.keys(_pornDefaults)>>
         <<if ndef $porn.categoryWatchCounts[_cat]>><<set $porn.categoryWatchCounts[_cat] = 0>><</if>>
+        <<if ndef $porn.brotherRoomCategoryWatchCounts[_cat]>><<set $porn.brotherRoomCategoryWatchCounts[_cat] = 0>><</if>>
+        <<if ndef $porn.brotherRoomCategoryDailyWatchCounts[_cat]>><<set $porn.brotherRoomCategoryDailyWatchCounts[_cat] = 0>><</if>>
         <<if ndef $porn.categoryProgressCounts[_cat]>><<set $porn.categoryProgressCounts[_cat] = $porn.categoryWatchCounts[_cat] || 0>><</if>>
         <<if ndef $porn.categoryFirstWatchSeen[_cat]>><<set $porn.categoryFirstWatchSeen[_cat] = false>><</if>>
     <</for>>
+    <<set _oldDpWatch = $porn.categoryWatchCounts.dp || 0>>
+    <<set _oldSpitroastWatch = $porn.categoryWatchCounts.spitroast || 0>>
+    <<set _oldDpProgress = $porn.categoryProgressCounts.dp || 0>>
+    <<set _oldSpitroastProgress = $porn.categoryProgressCounts.spitroast || 0>>
+    <<if _oldDpWatch gt 0 || _oldSpitroastWatch gt 0>>
+        <<set $porn.categoryWatchCounts.mmf = Math.max($porn.categoryWatchCounts.mmf || 0, _oldDpWatch, _oldSpitroastWatch)>>
+    <</if>>
+    <<if _oldDpProgress gt 0 || _oldSpitroastProgress gt 0>>
+        <<set $porn.categoryProgressCounts.mmf = Math.max($porn.categoryProgressCounts.mmf || 0, _oldDpProgress, _oldSpitroastProgress)>>
+    <</if>>
+    <<if $porn.categoryFirstWatchSeen.dp || $porn.categoryFirstWatchSeen.spitroast>>
+        <<set $porn.categoryFirstWatchSeen.mmf = true>>
+    <</if>>
+    <<if $porn.categoryTargets.dp || $porn.categoryTargets.spitroast>>
+        <<set $porn.categoryTargets.mmf = $porn.categoryTargets.mmf || Math.max($porn.categoryTargets.dp || 0, $porn.categoryTargets.spitroast || 0)>>
+    <</if>>
+    <<if !$porn.categoryTargets.mmf>><<set $porn.categoryTargets.mmf = random(5, 8)>><</if>>
+    <<if ndef $porn.categoryTargets.mff>><<set $porn.categoryTargets.mff = random(5, 8)>><</if>>
+    <<if ndef $porn.categoryTargets.lesbian>><<set $porn.categoryTargets.lesbian = random(4, 6)>><</if>>
+    <<if $porn.pendingUnlock === "dp" || $porn.pendingUnlock === "spitroast">><<set $porn.pendingUnlock = "mmf">><</if>>
+    <<if $porn.selectedCategory === "dp" || $porn.selectedCategory === "spitroast">><<set $porn.selectedCategory = "mmf">><</if>>
+    <<if $porn.pendingUnlock === "group">><<set $porn.pendingUnlock = "mff">><</if>>
+    <<if $porn.selectedCategory === "group">><<set $porn.selectedCategory = "mff">><</if>>
+    <<if $porn.categoriesUnlocked.includes("dp") || $porn.categoriesUnlocked.includes("spitroast")>>
+        <<if !$porn.categoriesUnlocked.includes("mmf")>><<run $porn.categoriesUnlocked.push("mmf")>><</if>>
+    <</if>>
+    <<if $porn.categoriesUnlocked.includes("group")>>
+        <<if !$porn.categoriesUnlocked.includes("mff")>><<run $porn.categoriesUnlocked.push("mff")>><</if>>
+    <</if>>
+    <<run $porn.categoriesUnlocked = $porn.categoriesUnlocked.filter(function(_c){ return _c !== "dp" && _c !== "spitroast"; })>>
+    <<run $porn.categoriesUnlocked = $porn.categoriesUnlocked.filter(function(_c){ return _c !== "group"; })>>
+    <<if def $porn.categoriesProgressedToday>>
+        <<run $porn.categoriesProgressedToday = $porn.categoriesProgressedToday.map(function(_c){ return (_c === "dp" || _c === "spitroast") ? "mmf" : _c; })>>
+        <<run $porn.categoriesProgressedToday = $porn.categoriesProgressedToday.map(function(_c){ return _c === "group" ? "mff" : _c; })>>
+        <<run $porn.categoriesProgressedToday = [...new Set($porn.categoriesProgressedToday)]>>
+    <</if>>
+    <<if ($porn.categoryWatchCounts.group || 0) gt 0>>
+        <<set $porn.categoryWatchCounts.mff = Math.max($porn.categoryWatchCounts.mff || 0, $porn.categoryWatchCounts.group || 0)>>
+    <</if>>
+    <<if ($porn.categoryProgressCounts.group || 0) gt 0>>
+        <<set $porn.categoryProgressCounts.mff = Math.max($porn.categoryProgressCounts.mff || 0, $porn.categoryProgressCounts.group || 0)>>
+    <</if>>
+    <<if $porn.categoryFirstWatchSeen.group>>
+        <<set $porn.categoryFirstWatchSeen.mff = true>>
+    <</if>>
+    <<if $porn.categoryTargets.group>>
+        <<set $porn.categoryTargets.mff = $porn.categoryTargets.mff || $porn.categoryTargets.group>>
+    <</if>>
+    <<unset $porn.categoryWatchCounts.dp>>
+    <<unset $porn.categoryWatchCounts.spitroast>>
+    <<unset $porn.categoryProgressCounts.dp>>
+    <<unset $porn.categoryProgressCounts.spitroast>>
+    <<unset $porn.categoryFirstWatchSeen.dp>>
+    <<unset $porn.categoryFirstWatchSeen.spitroast>>
+    <<unset $porn.categoryTargets.dp>>
+    <<unset $porn.categoryTargets.spitroast>>
+    <<unset $porn.categoryWatchCounts.group>>
+    <<unset $porn.categoryProgressCounts.group>>
+    <<unset $porn.categoryFirstWatchSeen.group>>
+    <<unset $porn.categoryTargets.group>>
     <<if ndef $arousalDecayHourBuffer>><<set $arousalDecayHourBuffer = 0>><</if>>
     <<if ndef $hospitalLastDoctorDayKey>><<set $hospitalLastDoctorDayKey = 0>><</if>>
     <<if $flags.gymMembershipActive && ($gymMembershipDaysRemaining || 0) <= 0>>

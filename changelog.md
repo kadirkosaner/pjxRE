@@ -34,6 +34,7 @@
 - Eski Kasaba'da çevreyi gezerken bazen kitapçıyı keşfedebilirsiniz.
 - Yemek yeme ve kahve içme eylemlerinin enerji/açlık etkileri yeniden dengelendi.
 - Uyku sistemi iyileştirildi; erken uyanma sonrası akış daha doğal ilerliyor.
+- Arousal yükseldiğinde bunu düşürmek için artık yatakta yeni bir rahatlama seçeneği kullanabilirsiniz.
 - İhtiyaç simülasyonu kapalıyken görünen gereksiz bildirimler temizlendi.
 - Makyaj bozulması saatlik düzene alındı; yüz temizleme artık daha net sonuç veriyor.
 - Pratik Makyaj kazanımı ve ayna tarafındaki ilerleme geri bildirimleri düzenlendi.
@@ -42,6 +43,7 @@
 - Iron Works Gym eklendi; yeni rota Lily hattı üzerinden doğal biçimde keşfedilebilir.
 - St. Luke's Hospital'a "See Doctor" eylemi eklendi. Günde bir kez kullanılabilen kısa muayene sahnesinden sonra sağlık toparlanır, stres azalır ve ruh hali iyileşir.
 - Brother's PC üzerinde yeni "What He Watches" görev hattı eklendi. Başta basit görünen bir merak, zamanla karakterin hem kardeşi hem de kendisi hakkında daha rahatsız edici sorular sormasına yol açabilir.
+- Bu hatta ilerledikten sonra aynı izleme akışına hem kendi odanızdaki bilgisayardan hem de kardeşinizin odasındaki PC'den ulaşabilirsiniz; "porno izle" seçeneği iki tarafta da açılır hale gelir.
 - Duş sonrası ayna anları, uygun koşullarda duş sahnesinin içinde kendiliğinden beliren kısa ve daha kişisel anlara dönüştürüldü.
 - Ayna anları artık fitness, confidence ve vücut gelişimi eşiklerine göre farklılaşır; ilk fark ediş sahneleri ve sonraki rastgele varyasyonlar daha erotik ve karakter odaklı hale getirildi.
 - Genel oyun akışında küçük düzenlemeler yapıldı.
@@ -81,3 +83,7 @@
 - Eski kayıtlar için uyumluluk güncellendi; yeni iş sistemi değişkenleri ve ilgili telefon/iş durumları güvenli şekilde devralınır.
 - Patronla yüz yüze görüşme akışındaki yeni sonuçlar için kayıt uyumluluğu eklendi; eski kayıtlar otomatik olarak güncellenir.
 - Arousal zaman azalması için eski kayıt uyumluluğu eklendi.
+
+## FutureTips
+
+- Kardeşinizin bilgisayarında porno izlemek — hiç değilse günde bir kez — ileride bazı görevlerde daha hızlı ilerlemenize yardımcı olabilecek ipuçları ve kapılar için zemin hazırlayabilir.

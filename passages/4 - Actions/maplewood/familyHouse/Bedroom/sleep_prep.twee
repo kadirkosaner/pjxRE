@@ -60,7 +60,7 @@ You move through your room, winding down for the night.
 
     /* --- Change into Pajamas (sleepwear slot — bra/panty stay on underneath) --- */
     <<if _sleepwearEquipped>>
-        <<btn "Change into Pajamas" "sleep">>
+        <<btn "Change into Pajamas" "sleepGate_highArousal">>
             <<set _sw = $wardrobe.equipped.sleepwear>>
             <<set _bra = $wardrobe.equipped.bra>>
             <<set _panty = $wardrobe.equipped.panty>>
@@ -77,7 +77,7 @@ You move through your room, winding down for the night.
 
     /* --- Sleep in Underwear (requires Corruption 3+ and underwear equipped) --- */
     <<if $corruption >= 3 && _hasUnderwear>>
-        <<btn "Sleep in Underwear" "sleep">>
+        <<btn "Sleep in Underwear" "sleepGate_highArousal">>
             <<set _bra = $wardrobe.equipped.bra>>
             <<set _panty = $wardrobe.equipped.panty>>
             <<set $wardrobe.equipped = {}>>
@@ -94,7 +94,7 @@ You move through your room, winding down for the night.
 
     /* --- Sleep Naked (Corruption 5+) --- */
     <<if $corruption >= 5>>
-        <<btn "Sleep Naked" "sleep">>
+        <<btn "Sleep Naked" "sleepGate_highArousal">>
             <<set $wardrobe.equipped = {}>>
             <<recalculateStats>>
             <<updateClothesNotification>>

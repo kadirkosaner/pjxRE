@@ -12,10 +12,11 @@
     blowjob: "Blowjob",
     vanilla: "Vanilla Sex",
     anal: "Anal",
+    lesbian: "Lesbian",
     bbc: "BBC",
     creampie: "Creampie",
-    dp: "Double Penetration",
-    spitroast: "Spitroast",
+    mff: "MFF",
+    mmf: "MMF",
     gangbang: "Gangbang",
     incest: "Incest"
 }>>
@@ -45,7 +46,7 @@ In your own room, with no one else's browser history to blame, the new category 
 <<run $porn.categoriesUnlocked.push(_cat)>>
 <<if _cat === "handjob" || _cat === "blowjob" || _cat === "vanilla">>
     <<set $porn.categoryTargets[_cat] = $porn.categoryTargets[_cat] || random(3, 5)>>
-<<elseif _cat === "anal" || _cat === "bbc" || _cat === "creampie">>
+<<elseif _cat === "anal" || _cat === "lesbian" || _cat === "bbc" || _cat === "creampie">>
     <<set $porn.categoryTargets[_cat] = $porn.categoryTargets[_cat] || random(4, 6)>>
 <<else>>
     <<set $porn.categoryTargets[_cat] = $porn.categoryTargets[_cat] || random(5, 8)>>
@@ -55,6 +56,6 @@ In your own room, with no one else's browser history to blame, the new category 
 <</silently>>
 
 <div class="location-actions">
-<<btn "Open HotHub" "pornSite_hotHub">><</btn>>
+<<btn "Open HotHub" "pornSite_hotHub" "default">><</btn>>
 </div>
 <</nobr>>

@@ -1,13 +1,17 @@
-:: pornWatch
 <<nobr>>
-<<requireMinEnergy 18 "pornSite_hotHub">>
+<<requireMinEnergy 12 "pornSite_hotHub">>
 <<silently>>
 <<if $porn.source === "brotherRoom">>
     <<set $location = "fhBrotherRoomPC">>
 <<else>>
     <<set $location = "fhBedroom">>
 <</if>>
+<<set _allowedCategories = ["handjob", "blowjob"]>>
 <<set _category = $porn.selectedCategory || "handjob">>
+<<if !_allowedCategories.includes(_category)>>
+    <<set _category = "handjob">>
+    <<set $porn.selectedCategory = "handjob">>
+<</if>>
 <<if !$porn.categoriesUnlocked.includes(_category)>>
     <<goto "pornSite_hotHub">>
 <</if>>
@@ -27,6 +31,10 @@
     <<set $porn.categoryProgressDayKey = _dateKey>>
     <<set $porn.categoriesProgressedToday = []>>
 <</if>>
+<<if ($porn.brotherRoomCategoryDailyDayKey || 0) !== _dateKey>>
+    <<set $porn.brotherRoomCategoryDailyDayKey = _dateKey>>
+    <<set $porn.brotherRoomCategoriesCountedToday = []>>
+<</if>>
 <<if ($porn.watchCountToday || 0) >= ($porn.maxDailyWatches || 6)>>
 <<narrative "HotHub">>
 The site is still there, waiting exactly where you left it.
@@ -38,24 +46,31 @@ But your eyes feel tired, your body feels too warm, and every thumbnail starts t
 <<btn "Back to HotHub" "pornSite_hotHub">><</btn>>
 </div>
 <<else>>
-<<set _labels = { handjob: "Handjob", blowjob: "Blowjob", vanilla: "Vanilla Sex", anal: "Anal", bbc: "BBC", creampie: "Creampie", dp: "Double Penetration", spitroast: "Spitroast", gangbang: "Gangbang", incest: "Incest" }>>
+<<set _labels = { handjob: "Handjob", blowjob: "Blowjob", vanilla: "Vanilla Sex", anal: "Anal", lesbian: "Lesbian", bbc: "BBC", creampie: "Creampie", mff: "MFF", mmf: "MMF", gangbang: "Gangbang", incest: "Incest" }>>
 <<set _categoryLabel = _labels[_category] || _category>>
 <<set _isFirstCategory = !$porn.categoryFirstWatchSeen[_category]>>
 <<set $flags.pornWatchFirstDone = true>>
 <<set $flags.brotherPornWatchFirstDone = true>>
 <<set $porn.categoryFirstWatchSeen[_category] = true>>
 <<set $porn.categoryWatchCounts[_category] = ($porn.categoryWatchCounts[_category] || 0) + 1>>
+<<if $porn.source === "brotherRoom">>
+    <<set $porn.brotherRoomCategoryWatchCounts[_category] = ($porn.brotherRoomCategoryWatchCounts[_category] || 0) + 1>>
+    <<if !$porn.brotherRoomCategoriesCountedToday.includes(_category)>>
+        <<set $porn.brotherRoomCategoryDailyWatchCounts[_category] = ($porn.brotherRoomCategoryDailyWatchCounts[_category] || 0) + 1>>
+        <<run $porn.brotherRoomCategoriesCountedToday.push(_category)>>
+    <</if>>
+<</if>>
 <<if !$porn.categoriesProgressedToday.includes(_category)>>
     <<set $porn.categoryProgressCounts[_category] = ($porn.categoryProgressCounts[_category] || 0) + 1>>
     <<run $porn.categoriesProgressedToday.push(_category)>>
 <</if>>
 <<set _count = $porn.categoryProgressCounts[_category] || 0>>
-<<set _baseArousalMap = { handjob: 6, blowjob: 8, vanilla: 10, anal: 12, bbc: 13, creampie: 14, dp: 16, spitroast: 17, gangbang: 18, incest: 18 }>>
+<<set _baseArousalMap = { handjob: 6, blowjob: 8, vanilla: 10, anal: 12, lesbian: 12, bbc: 13, creampie: 14, mff: 16, mmf: 17, gangbang: 18, incest: 18 }>>
 <<set _baseArousal = _baseArousalMap[_category] || 8>>
 <<set _arousalGain = ($porn.watchCountToday || 0) > 0 ? Math.ceil(_baseArousal / 2) : _baseArousal>>
 <<set $porn.watchCountToday = ($porn.watchCountToday || 0) + 1>>
 <<set _introVariant = random(1, 5)>>
-<<set _variantMaxMap = { handjob: 12, blowjob: 2, vanilla: 2, anal: 2, bbc: 2, creampie: 2, dp: 2, spitroast: 2, gangbang: 2, incest: 2 }>>
+<<set _variantMaxMap = { handjob: 12, blowjob: 12, vanilla: 2, anal: 2, lesbian: 2, bbc: 2, creampie: 2, mff: 2, mmf: 2, gangbang: 2, incest: 2 }>>
 <<set _variant = random(1, (_variantMaxMap[_category] || 2))>>
 <<set _closingVariant = random(1, 5)>>
 <<set _position = "">>
@@ -85,14 +100,16 @@ But your eyes feel tired, your body feels too warm, and every thumbnail starts t
     <</if>>
 <<case "anal">>
     <<set _skills = ["anal", "foreplay", "teasing"]>>
+<<case "lesbian">>
+    <<set _skills = ["foreplay", "teasing", "seduction"]>>
 <<case "bbc">>
     <<set _skills = ["foreplay", "teasing", "oral"]>>
 <<case "creampie">>
     <<set _skills = ["foreplay", "riding", "teasing"]>>
-<<case "dp">>
-    <<set _skills = ["anal", "riding", "foreplay", "teasing"]>>
-<<case "spitroast">>
-    <<set _skills = ["oral", "deepthroat", "foreplay", "teasing"]>>
+<<case "mff">>
+    <<set _skills = ["riding", "oral", "foreplay", "teasing"]>>
+<<case "mmf">>
+    <<set _skills = ["oral", "anal", "foreplay", "teasing"]>>
 <<case "gangbang">>
     <<set _skills = ["oral", "deepthroat", "handjob", "riding", "anal", "foreplay", "seduction", "teasing"]>>
 <<case "incest">>
@@ -110,6 +127,10 @@ But your eyes feel tired, your body feels too warm, and every thumbnail starts t
     <<set _videoPath = "assets/content/scenes/global/watchporn/handjob/handjob" + _variant + ".mp4">>
     <<set _handjobVideoSizes = { 1: "60%", 2: "100%", 3: "100%", 4: "100%", 5: "60%", 6: "60%", 7: "60%", 8: "60%", 9: "60%", 10: "60%", 11: "100%", 12: "60%" }>>
     <<set _videoSize = _handjobVideoSizes[_variant] || "100%">>
+<<elseif _category === "blowjob">>
+    <<set _videoPath = _basePath + _category + "/" + _category + _variant + ".mp4">>
+    <<set _blowjobVideoSizes = { 1: "60%", 2: "60%", 3: "60%", 4: "100%", 5: "100%", 6: "100%", 7: "60%", 8: "60%", 9: "60%", 10: "60%", 11: "60%", 12: "60%" }>>
+    <<set _videoSize = _blowjobVideoSizes[_variant] || "100%">>
 <<else>>
     <<set _videoPath = _basePath + _category + "/" + _category + _variant + ".mp4">>
 <</if>>
@@ -117,20 +138,20 @@ But your eyes feel tired, your body feels too warm, and every thumbnail starts t
 <<gainStat "stress" 1>>
 <<loseStat "energy" 7>>
 <<advanceTime 25>>
-<<set _nextMap = { handjob: "blowjob", blowjob: "vanilla", vanilla: "anal", anal: "bbc", bbc: "creampie", creampie: "dp", dp: "spitroast", spitroast: "gangbang", gangbang: "incest" }>>
-<<set _gateMap = { handjob: 1, blowjob: 3, vanilla: 4, anal: 6, bbc: 7, creampie: 8, dp: 10, spitroast: 12, gangbang: 14, incest: 16 }>>
+<<set _nextMap = { handjob: "blowjob", blowjob: "" }>>
+<<set _gateMap = { handjob: 1, blowjob: 1, vanilla: 1, anal: 1, lesbian: 1, bbc: 1, creampie: 1, mff: 1, mmf: 1, gangbang: 1, incest: 1 }>>
 <<set _next = _nextMap[_category] || "">>
 <<if !$porn.categoryTargets[_category]>>
     <<if _category === "handjob" || _category === "blowjob" || _category === "vanilla">>
         <<set $porn.categoryTargets[_category] = random(3, 5)>>
-    <<elseif _category === "anal" || _category === "bbc" || _category === "creampie">>
+    <<elseif _category === "anal" || _category === "lesbian" || _category === "bbc" || _category === "creampie">>
         <<set $porn.categoryTargets[_category] = random(4, 6)>>
     <<else>>
         <<set $porn.categoryTargets[_category] = random(5, 8)>>
     <</if>>
 <</if>>
 <<set _target = $porn.categoryTargets[_category]>>
-<<if _next !== "" && !$porn.categoriesUnlocked.includes(_next) && _count >= _target && ($corruption || 0) >= (_gateMap[_next] || 0)>>
+<<if _next !== "" && _allowedCategories.includes(_next) && !$porn.categoriesUnlocked.includes(_next) && _count >= _target && ($corruption || 0) >= (_gateMap[_next] || 1)>>
     <<if _next !== "incest" || ($contentPreferences && $contentPreferences.incest !== false)>>
         <<set $porn.pendingUnlock = _next>>
     <</if>>
@@ -147,145 +168,10 @@ But your eyes feel tired, your body feels too warm, and every thumbnail starts t
 <<else>>
 <<include "pornWatchRender_firstHandjobBedroom">>
 <</if>>
-<<elseif _isFirstCategory>>
-<<narrative "First Watch">>
-<<switch _category>>
-<<case "handjob">>
-    <<if $porn.source === "brotherRoom">>
-    You choose <strong>Handjob</strong> on your brother's computer because it looks like the safest place to start. The room is too quiet, the chair is not yours, and the close-up thumbnails make the whole thing feel more stolen than simple.
-    <<else>>
-    You choose <strong>Handjob</strong> from your own room because it looks like something you can understand. With your door closed and your screen in front of you, the category feels safer, but also more deliberately yours.
-    <</if>>
-<<case "blowjob">>
-    <<if $porn.source === "brotherRoom">>
-    You stop on <strong>Blowjob</strong> longer than you mean to. Seeing the word on your brother's screen makes it feel crude in a way that sticks to the room, but the previews pull your eyes back until you click.
-    <<else>>
-    You stop on <strong>Blowjob</strong> with your door closed and the volume low. No one else's history led you here this time; you choose the tag yourself, and that makes the screen feel warmer.
-    <</if>>
-<<case "vanilla">>
-    <<if $porn.source === "brotherRoom">>
-    You pick <strong>Vanilla Sex</strong> because, on your brother's computer, it seems like the least dangerous option. The previews look almost normal, which somehow makes hiding them feel stranger.
-    <<else>>
-    You pick <strong>Vanilla Sex</strong> because it sounds almost harmless. In your own room, the beds and familiar positions feel less like research and more like something personal you are allowing yourself to watch.
-    <</if>>
-<<case "anal">>
-    <<if $porn.source === "brotherRoom">>
-    Your cursor hovers over <strong>Anal</strong>, and the room seems to hold its breath with you. Clicking it from your brother's computer feels like crossing a line you cannot explain away as curiosity.
-    <<else>>
-    Your cursor hovers over <strong>Anal</strong> in the privacy of your own room. The category still feels like a line, but here the decision belongs completely to you.
-    <</if>>
-<<case "bbc">>
-    <<if $porn.source === "brotherRoom">>
-    <strong>BBC</strong> feels familiar from the kind of history you wish you had not noticed. Seeing it on your brother's screen again makes the old curiosity sharper before you open the first clip.
-    <<else>>
-    <strong>BBC</strong> feels less like a category and more like a dare the site expects you to understand. On your own screen, choosing it feels deliberate, not accidental.
-    <</if>>
-<<case "creampie">>
-    <<if $porn.source === "brotherRoom">>
-    <strong>Creampie</strong> is blunt enough that you almost close the page. On your brother's computer, the title feels too obvious, too easy to get caught with, and still you click.
-    <<else>>
-    <strong>Creampie</strong> is blunt enough to make your face warm before anything loads. Alone in your room, the promised ending feels less like a warning and more like the reason you chose it.
-    <</if>>
-<<case "dp">>
-    <<if $porn.source === "brotherRoom">>
-    You read the full label twice: <strong>Double Penetration</strong>. On your brother's screen, the words look impossible and incriminating at the same time, but you open a clip anyway.
-    <<else>>
-    You read the full label twice: <strong>Double Penetration</strong>. In your own room, the idea seems impossible in a way that makes you want to understand it rather than run from it.
-    <</if>>
-<<case "spitroast">>
-    <<if $porn.source === "brotherRoom">>
-    The <strong>Spitroast</strong> previews make the setup clear before you click. From your brother's chair, the arrangement feels harsh, crowded, and difficult to explain if anyone walked in.
-    <<else>>
-    The <strong>Spitroast</strong> previews make the setup clear before you click. Alone in your room, you study the arrangement longer than you meant to before opening a video.
-    <</if>>
-<<case "gangbang">>
-    <<if $porn.source === "brotherRoom">>
-    <strong>Gangbang</strong> makes the page feel crowded enough that your brother's room seems smaller around you. Too many bodies, too much movement, and still your hand moves to open one.
-    <<else>>
-    <strong>Gangbang</strong> makes the page feel crowded even from the safety of your own room. The scale makes you hesitate, then makes you click because you want to know how anyone stays visible inside it.
-    <</if>>
-<<case "incest">>
-    <<if $porn.source === "brotherRoom">>
-    The <strong>Incest</strong> tag feels wrong in your brother's room before the video even opens. Less like an act, more like a word the walls themselves should not see.
-    <<else>>
-    The <strong>Incest</strong> tag feels different from the others on your own screen. Less like an act, more like a secret you typed yourself and now cannot pretend not to recognize.
-    <</if>>
-<</switch>>
-<</narrative>>
-
-<<dialog "player">>
-(Inner voice)
-You are only watching.
-
-That is the excuse you choose, even as your body reacts before your thoughts can settle.
-<</dialog>>
-
-<<vid _videoPath "100%">>
-
-<<narrative>>
-<<switch _category>>
-<<case "handjob">>
-    <<if $porn.source === "brotherRoom">>
-    When it ends, Handjob does not feel simple anymore. You close the tab with one eye on the door, carrying the heat away from your brother's desk like evidence.
-    <<else>>
-    When it ends, Handjob does not feel simple anymore. In your own room, the warmth has nowhere to hide, so you sit with it a little longer.
-    <</if>>
-<<case "blowjob">>
-    <<if $porn.source === "brotherRoom">>
-    You close the video with your throat tight and your face warm. On your brother's computer, the control hidden inside the performance feels like something you were not supposed to learn.
-    <<else>>
-    You close the video with your throat tight and your face warm. Alone, you realize it was not just the act that stayed with you, but the way attention could be held.
-    <</if>>
-<<case "vanilla">>
-    <<if $porn.source === "brotherRoom">>
-    The ordinary shape of it lingers after the video ends. From your brother's room, even vanilla feels like something you should not have made personal.
-    <<else>>
-    The ordinary shape of it lingers after the video ends. In your own room, sex feels closer and less abstract than it did before.
-    <</if>>
-<<case "anal">>
-    <<if $porn.source === "brotherRoom">>
-    You sit still after it ends, caught between discomfort and curiosity. The line you crossed feels sharper because you crossed it from someone else's chair.
-    <<else>>
-    You sit still after it ends, caught between discomfort and curiosity. The line you imagined is still there, but now it belongs to your own curiosity.
-    <</if>>
-<<case "bbc">>
-    <<if $porn.source === "brotherRoom">>
-    The clip leaves you thinking about reaction more than size. Seeing it here makes fear, performance, and wanting feel tangled with the old browser history that led you this far.
-    <<else>>
-    The clip leaves you thinking about reaction more than size. Fear, performance, wanting: alone, you are not sure where one ended and the next began.
-    <</if>>
-<<case "creampie">>
-    <<if $porn.source === "brotherRoom">>
-    You knew where the video was going and still felt the final moment land. You close it quickly, as if the title could still be caught on the screen.
-    <<else>>
-    You knew where the video was going and still felt the final moment land. In your own room, the bluntness makes your body feel warmer than you want to admit.
-    <</if>>
-<<case "dp">>
-    <<if $porn.source === "brotherRoom">>
-    Even after it ends, part of you is still trying to understand the logistics. Another part is listening for the hallway, suddenly aware of how intense the screen became.
-    <<else>>
-    Even after it ends, part of you is still trying to understand the logistics. Another part remembers the woman's face more clearly than anything else.
-    <</if>>
-<<case "spitroast">>
-    <<if $porn.source === "brotherRoom">>
-    The scene stays in your head as pressure and rhythm, not romance. From your brother's desk, the coordination feels almost more incriminating than the shock.
-    <<else>>
-    The scene stays in your head as pressure and rhythm, not romance. You are surprised by how coordinated it looked once the shock faded.
-    <</if>>
-<<case "gangbang">>
-    <<if $porn.source === "brotherRoom">>
-    When the video ends, the silence feels sudden. Your brother's room feels too small for what you just watched, and the strange pattern inside the chaos stays with you.
-    <<else>>
-    When the video ends, the silence feels sudden. You expected chaos, but what lingers is the strange pattern inside all those bodies.
-    <</if>>
-<<case "incest">>
-    <<if $porn.source === "brotherRoom">>
-    You close the video faster than the others. The acting was fake, but in your brother's room the tag leaves a heat behind that feels too close and too hard to explain.
-    <<else>>
-    You close the video faster than the others. The acting was fake, but alone in your room the tag still leaves a heat behind that feels harder to explain.
-    <</if>>
-<</switch>>
-<</narrative>>
+<<elseif _isFirstCategory && _category === "blowjob" && $porn.source === "brotherRoom">>
+<<include "pornWatchRender_firstBlowjobBrotherRoom">>
+<<elseif _isFirstCategory && _category === "blowjob" && $porn.source !== "brotherRoom">>
+<<include "pornWatchRender_firstBlowjobBedroom">>
 <<else>>
 <<include "pornWatchRender_repeatable">>
 <</if>>

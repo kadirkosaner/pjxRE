@@ -1,0 +1,40 @@
+:: bedMasturbate
+<<nobr>>
+<<silently>>
+    <<set $location = "fhBedroom">>
+    /* Easy-to-extend list: add new entries as { path, size } */
+    <<set _masturbateVideos = [
+        { path: "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/masturbaterubbing1.mp4", size: "100%" },
+        { path: "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/masturbaterubbing2.mp4", size: "100%" },
+        { path: "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/masturbaterubbing3.mp4", size: "100%" },
+        { path: "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/masturbaterubbing4.mp4", size: "100%" },
+        { path: "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/masturbaterubbing5.mp4", size: "100%" },
+        { path: "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/masturbaterubbing6.mp4", size: "100%" },
+        { path: "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/masturbaterubbing7.mp4", size: "100%" },
+        { path: "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/masturbaterubbing8.mp4", size: "100%" },
+        { path: "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/masturbaterubbing9.mp4", size: "100%" }
+    ]>>
+    <<set _masturbatePick = random(0, _masturbateVideos.length - 1)>>
+    <<set _masturbateVideo = _masturbateVideos[_masturbatePick].path>>
+    <<set _masturbateVideoSize = _masturbateVideos[_masturbatePick].size>>
+    <<advanceTime 20>>
+    <<loseStat "arousal" 999>>
+    <<loseStat "stress" 8>>
+    <<loseStat "energy" 10>>
+<</silently>>
+
+<<narrative "Bed">>
+You close your eyes and let your breathing settle into a slow rhythm.
+
+Your hand moves between your legs, following the heat until it sharpens and spills over in a trembling release.
+
+When it fades, your muscles loosen and your thoughts finally quiet down.
+<</narrative>>
+
+<<vid _masturbateVideo _masturbateVideoSize>>
+
+<div class="location-actions">
+    <<btn "Go to Sleep" "sleep_prep">><</btn>>
+    <<btn "Stay in Bed" "fhBed">><</btn>>
+</div>
+<</nobr>>
