@@ -1,4 +1,4 @@
-:: dinerWork_event_rushSurge_askHelp
+<div class="divnobr">
 <<if $_navigatingBackward>>
 <<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
 <</if>>
@@ -24,7 +24,7 @@ Two people, twice the speed. The rush clears faster than it built up.
 
 <<else>>
 <<narrative>>
-You try to get Mike's attention but he's buried in his own stack. He doesn't see you — or pretends not to.
+You try to get Mike's attention but he's buried in his own stack. He doesn't see you, or pretends not to.
 
 You handle it alone. It takes longer than it should.
 <</narrative>>
@@ -38,3 +38,4 @@ You handle it alone. It takes longer than it should.
 
 <<include "RubysDishwashWork_afterMini">>
 <</if>>
+</div>

@@ -65,10 +65,11 @@ window.StatsInit = function (API) {
             `;
         },
 
-        // Helper: Create an accordion group
-        createAccordion: function(id, title, icon, content) {
+        // Helper: Create an accordion group (expanded = open by default)
+        createAccordion: function(id, title, icon, content, expanded) {
+            const expandedClass = expanded ? ' expanded' : '';
             return `
-                <div class="stat-group" id="stat-group-${id}">
+                <div class="stat-group${expandedClass}" id="stat-group-${id}">
                     <div class="stat-group-header" onclick="$(this).parent().toggleClass('expanded')">
                         <div class="stat-group-icon"><i class="icon icon-${icon}"></i></div>
                         <div class="stat-group-title">${title}</div>
@@ -372,7 +373,7 @@ window.StatsInit = function (API) {
                                         Calorie Balance : ${vars.dailyCalorieIntake || 0} / ${(vars.basalMetabolicRate || 2000) + (vars.dailyExercise || 0)}
                                     </div>
                                     ` : ''}
-                                `)}
+                                `, true)}
 
                                 ${this.createAccordion('physical', 'Physical Stats', 'physical', `
                                     ${this.createStatRow('Fitness', fitness, 100, '#f97316', 'Overall physical condition standard.')}

@@ -1,8 +1,13 @@
 :: brotherPC_pornFirst_discovery
 <<nobr>>
-<<requireMinEnergy 15 "brotherComputerMenu">>
+<<set _returnPassage = $porn.returnPassage || "brotherComputerMenu">>
+<<requireMinEnergy 15 _returnPassage>>
 <<silently>>
-<<set $location = "fhBrotherRoom">>
+<<if $porn.source === "brotherRoom">>
+    <<set $location = "fhBrotherRoom">>
+<<else>>
+    <<set $location = "fhBedroom">>
+<</if>>
 <<set $flags.brotherPornFirstSeen = true>>
 <<startQuest "brother_browser_rabbit_hole">>
 <<gainStat "arousal" 4>>
@@ -14,11 +19,14 @@
 
 <<narrative "Browsing">>
 You open the browser for something ordinary. Homework, a quick search, anything normal enough to excuse sitting at his desk.
-
+<</narrative>>
+<<narrative>>
 The page restores faster than you expect. For a second it is just a blank tab, then the address bar drops down with old suggestions. A few of them are normal. Games, videos, random searches.
-
+<</narrative>>
+<<narrative>>
 Then you see one that is not.
-
+<</narrative>>
+<<narrative>>
 A porn title sits in the list, half cut off but still clear enough. The little site icon beside it makes your stomach tighten. You do not click it. You only stare for a second too long.
 <</narrative>>
 
@@ -29,15 +37,18 @@ Wait. Is he watching this?
 
 <<narrative>>
 Your hand moves before you finish the thought. You close the suggestions, then the browser itself, like shutting the screen fast enough might erase what you saw.
-
+<</narrative>>
+<<narrative>>
 The room is quiet. The chair feels warmer under you than it should. Your heart keeps beating too hard.
-
+<</narrative>>
+<<narrative>>
 You tell yourself it is normal. Guys watch porn. Brothers probably watch porn. That does not mean anything.
-
+<</narrative>>
+<<narrative>>
 But the list is still in your head.
 <</narrative>>
 
 <div class="location-actions">
-<<btn "Go Back" "brotherComputerMenu">><</btn>>
+<<btn "Go Back" _returnPassage>><</btn>>
 </div>
 <</nobr>>

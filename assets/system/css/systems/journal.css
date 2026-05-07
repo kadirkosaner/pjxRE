@@ -798,6 +798,18 @@
   gap: 20px;
 }
 
+.records-grid--single {
+  grid-template-columns: 1fr;
+}
+
+.records-inline-row {
+  margin-top: 4px;
+  padding: 14px 16px;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 8px;
+}
+
 .record-group {
   background: var(--color-bg-tertiary);
   border: 1px solid var(--color-border-primary);
@@ -831,6 +843,62 @@
 
 .record-stat-row:last-child {
   border-bottom: none;
+}
+
+.record-stat-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.record-stat-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.record-stat-grid--six {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.record-stat-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.record-stat-grid--plain {
+  gap: 16px;
+}
+
+.record-stat-grid--plain .record-stat-cell {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  min-width: 0;
+}
+
+.record-stat-grid--plain .record-label {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+.record-stat-grid--plain .record-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .record-stat-grid--six {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .record-stat-grid--plain {
+    gap: 10px;
+  }
 }
 
 .record-label {

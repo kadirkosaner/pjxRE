@@ -24,6 +24,26 @@
                 return (v > 0 ? "+" : "") + v;
             };
         }
+        if (typeof window.notifyStatToast !== "function") {
+            window.notifyStatToast = function (type, statKey, message) {
+                var text = String(message || "");
+                if (type === "error" && typeof window.notifyError === "function") {
+                    return window.notifyError(text);
+                }
+                if (type === "warning" && typeof window.notifyWarning === "function") {
+                    return window.notifyWarning(text);
+                }
+                if (typeof window.notifySuccess === "function") {
+                    return window.notifySuccess(text);
+                }
+                if (typeof window.notifyWarning === "function") {
+                    return window.notifyWarning(text);
+                }
+                if (typeof console !== "undefined" && typeof console.warn === "function") {
+                    console.warn("[notifyStatToast:fallback]", type, statKey, text);
+                }
+            };
+        }
     >>
 <</widget>>
 

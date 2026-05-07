@@ -1,5 +1,5 @@
 /* ==========================================
-   MOTHER TALK TOPICS — LEVEL 2
+   MOTHER TALK TOPICS, LEVEL 2
    friendshipLevel === 2
 
    Structure: setup.motherTopics.level2[locTimeKey][topicName] = [ {text, friendship, trust, love} ]
@@ -143,7 +143,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenAft
 That's a lot of onions.<</dialog>>
 <<dialog "mother">>Big batch. I'm making enough to freeze some.
 (sliding over the board)
-You cry, I cook — that's the deal.<</dialog>>`,
+You cry, I cook, that's the deal.<</dialog>>`,
                 friendship: 3
             },
             {
@@ -181,7 +181,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenAft
 <<dialog "player">>Some days better than others.<</dialog>>
 <<dialog "mother">>(sitting) That's honest. I appreciate honest.
 (wrapping hands around her mug)
-It gets easier. Not all at once — but it does.<</dialog>>
+It gets easier. Not all at once, but it does.<</dialog>>
 <<dialog "player">>Did it for you?<</dialog>>
 <<dialog "mother">>Eventually. Give yourself time. You're allowed to not be okay immediately.<</dialog>>`,
                 friendship: 2, trust: 3
@@ -330,7 +330,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenEve
 text: `<<set _img = "assets/content/scenes/interactions/mother/level2/kitchenEvening-" + 3 + ".webp">>
 <<image _img "100%">>
 <<narrative>>You've been helping without her asking for a while now. She sets down her spoon and looks at you.<</narrative>>
-<<dialog "mother">>You know, you've grown into someone I genuinely like being around. Not just someone I love — someone I like.<</dialog>>
+<<dialog "mother">>You know, you've grown into someone I genuinely like being around. Not just someone I love, someone I like.<</dialog>>
 <<dialog "player">>Those are different?<</dialog>>
 <<dialog "mother">>(seriously) Very different.
 (picking her spoon back up)
@@ -457,7 +457,7 @@ Then just sit here for a bit. You don't have to say anything.<</dialog>>`,
 text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomMorning-" + 3 + ".webp">>
 <<image _img "100%">>
 <<narrative>>She reaches over and squeezes your hand. Just once. Then lets go.<</narrative>>
-<<dialog "mother">>I don't say this enough. But you're doing well. Whatever it feels like from the inside — from the outside, you're doing really well.<</dialog>>
+<<dialog "mother">>I don't say this enough. But you're doing well. Whatever it feels like from the inside, from the outside, you're doing really well.<</dialog>>
 <<dialog "player">>It doesn't always feel that way.<</dialog>>
 <<dialog "mother">>I know. But it's true anyway.<</dialog>>`,
                 friendship: 3, trust: 3, love: 1
@@ -509,7 +509,7 @@ We'll make it worth it. I promise.<</dialog>>`,
 text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomAfternoon-" + 1 + ".webp">>
 <<image _img "100%">>
 <<narrative>>She's venting a little. Then stops herself and laughs.<</narrative>>
-<<dialog "mother">>Sorry. I'm not — I don't usually do this.<</dialog>>
+<<dialog "mother">>Sorry. I'm not, I don't usually do this.<</dialog>>
 <<dialog "player">>You can. It's fine.<</dialog>>
 <<dialog "mother">>(looking at you) You're not going to tell your father?<</dialog>>
 <<dialog "player">>Tell him what? You said nothing.<</dialog>>
@@ -577,7 +577,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
 <<dialog "player">>I didn't know that.<</dialog>>
 <<dialog "mother">>I didn't want to make it everyone else's issue.
 (glancing at you)
-But you asked how I was — or you would have, eventually — so. There it is.<</dialog>>
+But you asked how I was, or you would have, eventually, so. There it is.<</dialog>>
 <<dialog "player">>Is there anything that helps?<</dialog>>
 <<dialog "mother">>(thinking) You being home, actually. It's a bit silly.<</dialog>>`,
                 friendship: 3, trust: 3, love: 1
@@ -586,7 +586,7 @@ But you asked how I was — or you would have, eventually — so. There it is.<<
 text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroomAfternoon-" + 3 + ".webp">>
 <<image _img "100%">>
 <<narrative>>She says something she's clearly been turning over for a while.<</narrative>>
-<<dialog "mother">>I know I don't always make it easy to come to me with things. I know I can be a bit — contained.<</dialog>>
+<<dialog "mother">>I know I don't always make it easy to come to me with things. I know I can be a bit, contained.<</dialog>>
 <<dialog "player">>You're not that contained.<</dialog>>
 <<dialog "mother">>(raising an eyebrow) Your father would disagree. And he's not wrong.
 (pause)
@@ -645,7 +645,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
 <<dialog "player">>Sure.<</dialog>>
 <<dialog "mother">>I'm actually happier here than I let on. I didn't want to make the move feel easy when it was hard for everyone else.
 (pause)
-But quietly — yes. I think this is going to be good.<</dialog>>`,
+But quietly, yes. I think this is going to be good.<</dialog>>`,
                 friendship: 3, trust: 3
             },
             {
@@ -713,7 +713,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/livingroom
 text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardMorning-" + 1 + ".webp">>
 <<image _img "100%">>
 <<narrative>>She's drawn something on a napkin. A rough plan for the garden.<</narrative>>
-<<dialog "mother">>Look. By summer, I want this area to be herbs. And this corner — flowers for cutting.<</dialog>>
+<<dialog "mother">>Look. By summer, I want this area to be herbs. And this corner, flowers for cutting.<</dialog>>
 <<dialog "player">>(looking) You have a whole plan.<</dialog>>
 <<dialog "mother">>I always have a plan. The execution is the challenge.
 (looking at the space)
@@ -773,7 +773,7 @@ They were right.<</dialog>>`,
 text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardMorning-" + 2 + ".webp">>
 <<image _img "100%">>
 <<narrative>>She points to a corner of the yard, explaining something to herself as much as to you.<</narrative>>
-<<dialog "mother">>We had a rosebush when I was seven. Same spot in every house — my mother moved it every time. She said it was the same bush but I never quite believed her.<</dialog>>
+<<dialog "mother">>We had a rosebush when I was seven. Same spot in every house, my mother moved it every time. She said it was the same bush but I never quite believed her.<</dialog>>
 <<dialog "player">>Maybe it was.<</dialog>>
 <<dialog "mother">>(considering) Maybe. I'd like to think it was.
 (quietly)
@@ -838,7 +838,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardAf
 <<narrative>>She sets down her tools and sits beside you, getting philosophical.<</narrative>>
 <<dialog "mother">>Can I tell you the one thing I wish someone had told me at your age?<</dialog>>
 <<dialog "player">>Please.<</dialog>>
-<<dialog "mother">>Most of the things you're worrying about right now won't matter in five years. And the ones that do — you'll handle them.
+<<dialog "mother">>Most of the things you're worrying about right now won't matter in five years. And the ones that do, you'll handle them.
 (pause)
 That's all. Go on.<</dialog>>`,
                 friendship: 3, trust: 2
@@ -902,7 +902,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/backyardAf
 (smiling)
 Not touching. Just watching. Like you were studying it.<</dialog>>
 <<dialog "player">>I don't remember that.<</dialog>>
-<<dialog "mother">>No. But I do. I took a picture once — I should find it.<</dialog>>`,
+<<dialog "mother">>No. But I do. I took a picture once, I should find it.<</dialog>>`,
                 friendship: 3, trust: 2
             },
             {
@@ -985,7 +985,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroo
 <<narrative>>She's thinking out loud before you've properly woken up. Gently, though.<</narrative>>
 <<dialog "mother">>I think we should do something together. As a family. All four of us. Before everyone gets too busy.<</dialog>>
 <<dialog "player">>What did you have in mind?<</dialog>>
-<<dialog "mother">>Nothing huge. Dinner out. A day somewhere. Just — something.
+<<dialog "mother">>Nothing huge. Dinner out. A day somewhere. Just, something.
 (looking at you)
 Would you be up for it?<</dialog>>
 <<dialog "player">>Yeah. Definitely.<</dialog>>
@@ -1101,7 +1101,7 @@ text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroo
 <<narrative>>She says something that feels like it's been waiting a long time to come out.<</narrative>>
 <<dialog "mother">>When you were a teenager, you used to lock yourself away and I never knew what to do with that. I still think about it.
 (looking at you)
-I'm glad we're — different now. That it got easier between us.<</dialog>>
+I'm glad we're, different now. That it got easier between us.<</dialog>>
 <<dialog "player">>Me too.<</dialog>>
 <<dialog "mother">>(simply) Good. Goodnight.<</dialog>>`,
                 friendship: 3, trust: 3, love: 1
@@ -1110,7 +1110,7 @@ I'm glad we're — different now. That it got easier between us.<</dialog>>
 text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomEvening-" + 2 + ".webp">>
 <<image _img "100%">>
 <<narrative>>She cups your face for just a moment before letting go.<</narrative>>
-<<dialog "mother">>You're going to be alright. All of this — you're going to be alright.<</dialog>>
+<<dialog "mother">>You're going to be alright. All of this, you're going to be alright.<</dialog>>
 <<dialog "player">>(quietly) Yeah.<</dialog>>
 <<dialog "mother">>I know. Goodnight.<</dialog>>`,
                 friendship: 3, trust: 2, love: 2
@@ -1146,7 +1146,7 @@ I just want that. Simply that.<</dialog>>`,
 text: `<<set _img = "assets/content/scenes/interactions/mother/level2/parentsroomEvening-" + 3 + ".webp">>
 <<image _img "100%">>
 <<narrative>>She says goodnight but pauses at the door, one hand on the frame.<</narrative>>
-<<dialog "mother">>Whatever happens next — with things, with life — I want you to know this house is yours too. Properly yours.
+<<dialog "mother">>Whatever happens next, with things, with life, I want you to know this house is yours too. Properly yours.
 (simply)
 Goodnight.<</dialog>>
 <<dialog "player">>(quietly) Goodnight.<</dialog>>`,

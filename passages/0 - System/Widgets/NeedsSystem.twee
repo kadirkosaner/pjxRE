@@ -161,11 +161,14 @@
 <<widget "decreaseArousal">>
     <<if typeof $arousal !== "number">><<set $arousal = 0>><</if>>
     
-    <<set _amount = $args[0] || 10>>
-    <<set _negAmount = -1 * _amount>>
+    <<set _amount = Number($args[0])>>
+    <<if isNaN(_amount) || _amount <= 0>><<set _amount = 10>><</if>>
+    <<set _before = $arousal>>
     <<set $arousal = Math.max(0, $arousal - _amount)>>
-    /* We generally don't notify for arousal drops unless significant, but consistent with system: */
-    /* <<queueStatChange "arousal" _negAmount>> */
+    <<set _actualDelta = $arousal - _before>>
+    <<if _actualDelta !== 0>>
+        <<queueStatChange "arousal" _actualDelta>>
+    <</if>>
 <</widget>>
 
 

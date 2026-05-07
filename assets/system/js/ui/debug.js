@@ -131,6 +131,16 @@ function createDebugPanel() {
                         <button class="debug-apply-btn" id="debug-add-item" type="button">Add item</button>
                     </div>
                     <div class="debug-result" id="debug-item-result"></div>
+
+                    <div class="debug-section-title" style="margin-top:0.75rem;">Add money</div>
+                    <div class="debug-row">
+                        <label class="debug-label">Amount</label>
+                        <input type="number" class="debug-input" id="debug-money-amount" placeholder="100" min="0.01" step="0.01" value="100">
+                    </div>
+                    <div class="debug-row">
+                        <button class="debug-apply-btn" id="debug-add-money" type="button">Add money</button>
+                    </div>
+                    <div class="debug-result" id="debug-money-result"></div>
                 </div>
 
                 <div class="debug-tab-panel" data-debug-panel="diana">
@@ -178,6 +188,10 @@ function createDebugPanel() {
     // Add to inventory button
     $('#debug-add-item').on('click', function() {
         addItemToInventory();
+    });
+
+    $('#debug-add-money').on('click', function() {
+        addMoneyToBalance();
     });
 
     $('.debug-goto-btn').on('click', function() {
@@ -623,8 +637,50 @@ function addItemToInventory() {
     }
 }
 
+function addMoneyToBalance() {
+    if (!DebugAPI) return;
+
+    const amountStr = $('#debug-money-amount').val().trim();
+    const amount = parseFloat(amountStr);
+
+    if (!Number.isFinite(amount) || amount <= 0) {
+        showMoneyResult('Error: Enter a valid amount greater than 0', 'error');
+        return;
+    }
+
+    const vars = DebugAPI.State.variables;
+
+    if (!Number.isFinite(vars.moneyEarn)) vars.moneyEarn = 0;
+    if (!Number.isFinite(vars.moneySpend)) vars.moneySpend = 0;
+    if (!Number.isFinite(vars.cashBalance)) vars.cashBalance = 0;
+
+    try {
+        const oldBalance = Number(vars.cashBalance) || 0;
+        vars.moneyEarn = Math.round((vars.moneyEarn + amount) * 100) / 100;
+        vars.cashBalance = Math.round((vars.moneyEarn - vars.moneySpend) * 100) / 100;
+        const added = Math.round((vars.cashBalance - oldBalance) * 100) / 100;
+
+        showMoneyResult(`Added: $${added.toFixed(2)} | New balance: $${vars.cashBalance.toFixed(2)}`, 'success');
+        $(document).trigger(':passagerender');
+    } catch (error) {
+        showMoneyResult('Error: ' + error.message, 'error');
+    }
+}
+
 function showItemResult(message, type) {
     const result = $('#debug-item-result');
+    result.text(message);
+    result.removeClass('success error');
+    result.addClass(type);
+    setTimeout(function() {
+        result.fadeOut(300, function() {
+            $(this).text('').show().removeClass('success error');
+        });
+    }, 3000);
+}
+
+function showMoneyResult(message, type) {
+    const result = $('#debug-money-result');
     result.text(message);
     result.removeClass('success error');
     result.addClass(type);

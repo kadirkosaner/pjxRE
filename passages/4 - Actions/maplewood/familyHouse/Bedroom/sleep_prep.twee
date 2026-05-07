@@ -40,7 +40,7 @@
 <<narrative "Not Tired Yet">>
 You start getting changed for bed, but halfway through you catch yourself in the mirror and pause.
 
-It's only <<print $timeSys.hour + ":00">>, and your body is still buzzing. Your mind keeps drifting to things left undone — places to be, people to see. You're just not tired enough to call it a night yet.
+It's only <<print $timeSys.hour + ":00">>, and your body is still buzzing. Your mind keeps drifting to things left undone, places to be, people to see. You're just not tired enough to call it a night yet.
 
 You toss your clothes back on and admit it: the day isn't over.
 <</narrative>>
@@ -58,7 +58,7 @@ You move through your room, winding down for the night.
 
 <div class="location-actions">
 
-    /* --- Change into Pajamas (sleepwear slot — bra/panty stay on underneath) --- */
+    /* --- Change into Pajamas (sleepwear slot, bra/panty stay on underneath) --- */
     <<if _sleepwearEquipped>>
         <<btn "Change into Pajamas" "sleepGate_highArousal">>
             <<set _sw = $wardrobe.equipped.sleepwear>>

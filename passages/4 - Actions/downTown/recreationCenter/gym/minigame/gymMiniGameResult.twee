@@ -4,6 +4,19 @@
     <<set $location = "gym">>
     <<set _score = $gymMG.score>>
     <<set _zone  = $gymMG.zone>>
+    <<set _gymVidDefs = {
+        upper:  { folder: "upper",  prefix: "upperbody", max: 13, size60: [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12] },
+        core:   { folder: "core",   prefix: "core",      max: 6,  size60: [1, 3] },
+        lower:  { folder: "lower",  prefix: "lowerbody", max: 13, size60: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
+        cardio: { folder: "cardio", prefix: "cardio",    max: 8,  size60: [1, 2, 6, 7, 8] }
+    }>>
+    <<set _gymVidDef = _gymVidDefs[_zone] || _gymVidDefs.upper>>
+    <<set _gymVidVariant = random(1, _gymVidDef.max)>>
+    <<set _gymVid = "assets/content/scenes/global/gym/" + _gymVidDef.folder + "/" + _gymVidDef.prefix + _gymVidVariant + ".mp4">>
+    <<set _gymVidSize = "100%">>
+    <<if _gymVidDef.size60.includes(_gymVidVariant)>>
+        <<set _gymVidSize = "60%">>
+    <</if>>
     <<set _completedPhases = Math.min($gymMG.totalPhases, Math.max(0, $gymMG.phase - 1))>>
     <<set _correctHits = Math.min($gymMG.totalPhases, Math.max(0, Math.floor(Number(_score) || 0)))>>
 
@@ -61,6 +74,10 @@
         <div class="gym-mg-result-title">Training Complete</div>
         <div class="gym-mg-result-subtitle"><<print _zoneLabels[_zone]>></div>
     </div>
+</div>
+<<vid _gymVid _gymVidSize>>
+
+<div class="gym-mg-result-wrap">
 
     <!-- Phase bar -->
     <div class="gym-mg-result-block">

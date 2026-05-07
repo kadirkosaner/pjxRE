@@ -2,6 +2,8 @@
 
 <<nobr>>
 <<silently>>
+<<set $location = "sunsetPark">>
+<<set $activityOrigin = $activityOrigin || "sunsetPark">>
 <<set _bushParkReturn = "sunsetPark">>
 <<set _bushWatchNeedCorr = 1>>
 <<if $contentPreferences.publicExhibition === false>>
@@ -26,13 +28,13 @@
     She's taking him so deep and she's not even gagging.
     <</dialog>>
 
-    <<narrative>>He grips her hair. His breathing shifts. She doesn't stop — she goes deeper.<</narrative>>
+    <<narrative>>He grips her hair. His breathing shifts. She doesn't stop, she goes deeper.<</narrative>>
     <<set _bushVid = _basePath + "blowjob3.mp4">><<vid _bushVid "100%">>
     <<narrative>>You back away from the brush on unsteady legs, pulse still loud in your ears when you reach the open path.<</narrative>>
 
 <<elseif $flags.bushSet is 2>>
 
-    <<narrative "Park Walk">>She's still on her knees and she's into it — moaning around him, head moving in a slow rhythm that has nothing reluctant about it.<</narrative>>
+    <<narrative "Park Walk">>She's still on her knees and she's into it, moaning around him, head moving in a slow rhythm that has nothing reluctant about it.<</narrative>>
     <<set _bushVid = _basePath + "bushSex2.mp4">><<vid _bushVid "100%">>
     <<dialog "player">>
     (Inner voice)
@@ -73,7 +75,7 @@
 
 <<elseif $flags.bushSet is 4>>
 
-    <<narrative "Park Walk">>She's working her way down slowly — tongue, lips, hands — completely unhurried, like she's savoring every inch of it.<</narrative>>
+    <<narrative "Park Walk">>She's working her way down slowly, tongue, lips, hands, completely unhurried, like she's savoring every inch of it.<</narrative>>
     <<set _bushVid = _basePath + "bushSex2.mp4">><<vid _bushVid "100%">>
     <<dialog "player">>
     (Inner voice)
@@ -100,7 +102,7 @@
     <<set _bushVid = _basePath + "bushSex3.mp4">><<vid _bushVid "100%">>
     <<dialog "player">>
     (Inner voice)
-    The way she moaned when he slid into her — I felt that between my own legs.
+    The way she moaned when he slid into her, I felt that between my own legs.
     <</dialog>>
 
     <<narrative>>He grabs her hips and flips her onto her hands and knees. She pushes back into every thrust and asks for more.<</narrative>>

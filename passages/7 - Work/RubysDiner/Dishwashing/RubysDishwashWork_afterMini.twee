@@ -7,6 +7,7 @@
 <<silently>>
 <<set _dianaJob = ($job && $job.id) ? setup.jobs[$job.id] : null>>
 <<set _dianaReqDay = (_dianaJob && _dianaJob.requiredHoursPerDay != null) ? _dianaJob.requiredHoursPerDay : 8>>
+<<set _jakeFriendship = ($characters && $characters.dinerWaitress3 && $characters.dinerWaitress3.stats) ? ($characters.dinerWaitress3.stats.friendship || 0) : 0>>
 /* Diana gate: quest "Unfinished Thoughts" must be done + 2 days elapsed */
 <<set _vinceQuestDoneDate = ($questState && $questState.completedDates && $questState.completedDates.vince_day3_family) || 0>>
 <<set _today = ($timeSys.year || 0) * 10000 + ($timeSys.month || 0) * 100 + ($timeSys.day || 0)>>
@@ -22,12 +23,17 @@
 <div class="location-actions">
 <<btn "See what's going on up front" "dinerWork_event_dianaArrival">><</btn>>
 </div>
+<<elseif $job && $job.id === "ruby_dishwasher" && ($jobState.totalDaysWorked || 0) >= 11 && (parseFloat($jobState.hoursToday) || 0) >= _dianaReqDay && _jakeFriendship >= 20 && !$flags.jakeCoffeeInviteWeek3Shown>>
+<<set $flags.jakeCoffeeInviteWeek3Shown = true>>
+<div class="location-actions">
+<<btn "Jake catches you before you leave" "dinerWork_event_jakeCoffeeInvite">><</btn>>
+</div>
 <<else>>
 <div class="location-actions">
 <<btn "Finish shift" "dinerRubys">>
 <<silently>>
-/* Normal shift outro (not first-day tutorial passage): set walk-home gate for Maplewood — same flag as dinerFirstdayJob_dishwasher */
-<<if $job && $job.id === "ruby_dishwasher" && State.temporary.dianaEmployDay === 1 && !$flags.firstWorkDayWalkHome>>
+/* Normal shift outro (not first-day tutorial passage): set walk-home gate for Maplewood, same flag as dinerFirstdayJob_dishwasher */
+<<if $job && $job.id === "ruby_dishwasher" && ($jobState.totalDaysWorked || 0) === 1 && !$flags.firstWorkDayWalkHome>>
 <<set $flags.firstWorkDayWalkEvent = true>>
 <</if>>
 <</silently>>

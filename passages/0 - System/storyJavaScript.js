@@ -2258,6 +2258,7 @@ Macro.add('vid', {
 
         const video = $('<video>')
             .attr('src', src)
+            .attr('preload', 'metadata')
             .prop('loop', globalLoop)
             .prop('controls', controls)
             .css({
@@ -2271,7 +2272,6 @@ Macro.add('vid', {
             })
             .appendTo(container);
 
-        // Match container to video aspect ratio so browser draws no black letterbox
         video.on('loadedmetadata', function () {
             const w = video[0].videoWidth;
             const h = video[0].videoHeight;
@@ -2290,6 +2290,7 @@ Macro.add('vid', {
             return 1.0;
         };
         video[0].volume = getVolume();
+        let autoMutedFallback = false;
 
         // Add Play Overlay
         const overlay = $('<div>')
@@ -2301,6 +2302,13 @@ Macro.add('vid', {
 
         // Click to play/pause
         container.on('click', function () {
+            if (autoMutedFallback && !video[0].paused && video[0].muted) {
+                video[0].muted = false;
+                video[0].volume = getVolume();
+                autoMutedFallback = false;
+                return;
+            }
+
             if (video[0].paused) {
                 video[0].play();
             } else {
@@ -2320,13 +2328,79 @@ Macro.add('vid', {
         });
 
         // Handle Playback based on settings
-        if (globalAutoplay) {
-            const playPromise = video[0].play();
+        const videoEl = video[0];
+        const containerEl = container[0];
+        const tryPlay = () => {
+            const playPromise = videoEl.play();
             if (playPromise !== undefined) {
                 playPromise.catch(() => {
+                    if (!videoEl.muted) {
+                        videoEl.muted = true;
+                        autoMutedFallback = true;
+                        const mutedPlayPromise = videoEl.play();
+                        if (mutedPlayPromise !== undefined) {
+                            mutedPlayPromise.catch(() => {
+                                overlay.removeClass('hidden');
+                            });
+                        }
+                        return;
+                    }
                     overlay.removeClass('hidden');
                 });
             }
+        };
+
+        if (globalAutoplay) {
+            const setupVisibilityPlayback = () => {
+                if (!containerEl.isConnected) return;
+
+                if (!('IntersectionObserver' in window)) {
+                    tryPlay();
+                    return;
+                }
+
+                const scrollRoot = document.getElementById('passages') || null;
+                let userInitiatedPause = false;
+
+                video.on('pause', function () {
+                    if (videoEl._intersectionPause) {
+                        videoEl._intersectionPause = false;
+                        return;
+                    }
+                    userInitiatedPause = true;
+                });
+                video.on('play', function () {
+                    userInitiatedPause = false;
+                });
+
+                const visibilityObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.target !== containerEl) return;
+
+                        if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+                            if (!userInitiatedPause && videoEl.paused) {
+                                tryPlay();
+                            }
+                        } else if (!videoEl.paused) {
+                            videoEl._intersectionPause = true;
+                            videoEl.pause();
+                        }
+                    });
+                }, { root: scrollRoot, threshold: [0, 0.25, 0.5] });
+
+                visibilityObserver.observe(containerEl);
+
+                const cleanup = () => {
+                    if (visibilityObserver) {
+                        visibilityObserver.disconnect();
+                    }
+                    $(document).off('.vidMacro' + cleanupId);
+                };
+                const cleanupId = Date.now() + '_' + Math.floor(Math.random() * 1e6);
+                $(document).one(':passagestart.vidMacro' + cleanupId, cleanup);
+            };
+
+            setTimeout(setupVisibilityPlayback, 0);
         } else {
             overlay.removeClass('hidden');
         }
@@ -3053,6 +3127,11 @@ window.processNavCard = function (tag, $container, passedSetup) {
             // Heels skill: accumulate travel minutes when wearing heels (60 min = +1 skill, capped by shoe tier)
             if (travelTime > 0 && typeof Macro !== 'undefined' && Macro.get('addHeelsTravelMinutes')) {
                 $.wiki('<<addHeelsTravelMinutes ' + travelTime + '>>');
+            }
+
+            // Street attention ambient check (cooldown + settings gated in widget)
+            if (travelTime > 0 && typeof Macro !== 'undefined' && Macro.get('runStreetAttentionCheck')) {
+                $.wiki('<<runStreetAttentionCheck>>');
             }
 
             /* Flush pending notifications before navigating */

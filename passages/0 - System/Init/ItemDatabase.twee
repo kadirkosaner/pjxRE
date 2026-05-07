@@ -52,6 +52,79 @@
             hasTooltip: true,
         },
         {
+            id: "coffee_takeaway_americano",
+            name: "Americano",
+            category: "consumable",
+            usageType: "direct",
+            desc: "Strong americano in a takeaway cup.",
+            price: 3.50,
+            image: "assets/content/items/consumables/coffee.webp",
+            effects: [
+                { stat: "energy", value: 22, type: "instant" },
+                { stat: "focus", value: 8, type: "temporary", duration: 2 }
+            ],
+            hasTooltip: true
+        },
+        {
+            id: "coffee_takeaway_latte",
+            name: "Latte",
+            category: "consumable",
+            usageType: "direct",
+            desc: "Creamy latte for a calmer energy boost.",
+            price: 4.50,
+            image: "assets/content/items/consumables/coffee.webp",
+            effects: [
+                { stat: "energy", value: 16, type: "instant" },
+                { stat: "stress", value: -6, type: "instant" },
+                { stat: "mood", value: 3, type: "temporary", duration: 2 }
+            ],
+            hasTooltip: true
+        },
+        {
+            id: "coffee_takeaway_cappuccino",
+            name: "Cappuccino",
+            category: "consumable",
+            usageType: "direct",
+            desc: "Foamy cappuccino with balanced body and aroma.",
+            price: 4.50,
+            image: "assets/content/items/consumables/coffee.webp",
+            effects: [
+                { stat: "energy", value: 20, type: "instant" },
+                { stat: "mood", value: 4, type: "instant" }
+            ],
+            hasTooltip: true
+        },
+        {
+            id: "coffee_takeaway_mocha",
+            name: "Mocha",
+            category: "consumable",
+            usageType: "direct",
+            desc: "Chocolate-kissed mocha in a paper cup.",
+            price: 5.00,
+            image: "assets/content/items/consumables/coffee.webp",
+            effects: [
+                { stat: "energy", value: 18, type: "instant" },
+                { stat: "mood", value: 8, type: "instant" },
+                { stat: "stress", value: -4, type: "instant" }
+            ],
+            hasTooltip: true
+        },
+        {
+            id: "coffee_takeaway_coldbrew",
+            name: "Cold Brew",
+            category: "consumable",
+            usageType: "direct",
+            desc: "Ice-cold slow brew with high caffeine kick.",
+            price: 4.50,
+            image: "assets/content/items/consumables/coffee.webp",
+            effects: [
+                { stat: "energy", value: 28, type: "instant" },
+                { stat: "focus", value: 10, type: "temporary", duration: 2 },
+                { stat: "thirst", value: -12, type: "instant" }
+            ],
+            hasTooltip: true
+        },
+        {
             id: "sandwich",
             name: "Sandwich",
             category: "consumable",

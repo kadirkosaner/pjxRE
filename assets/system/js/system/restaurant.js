@@ -64,7 +64,7 @@ function restaurantGetMenu(menuId) {
     return menus && menus[menuId] ? menus[menuId] : null;
 }
 
-var restaurantStatLabels = { hunger: 'Hunger', thirst: 'Thirst', energy: 'Energy', mood: 'Mood' };
+var restaurantStatLabels = { hunger: 'Hunger', thirst: 'Thirst', energy: 'Energy', mood: 'Mood', stress: 'Stress', focus: 'Focus' };
 
 function restaurantFormatEffects(dish) {
     if (!dish || !dish.effects || !dish.effects.length) return '';
@@ -91,6 +91,13 @@ function restaurantOrderTotal() {
         if (d) total += d.price;
     }
     return total;
+}
+
+function restaurantGetPostPayPassage(menuId, selectedDrinkId) {
+    if (menuId === 'dailyGrind' && selectedDrinkId && selectedDrinkId.indexOf('dg_') === 0) {
+        return 'dailyGrind_drinkHere_scene';
+    }
+    return 'restaurantEating';
 }
 
 function restaurantApplyEffects(dish) {
@@ -125,18 +132,21 @@ function restaurantPayCash() {
     var total = restaurantOrderTotal();
     if (total <= 0) { restaurantToast('Select something first.'); return; }
     var S = restaurantGetState();
+    var selectedFoodId = restaurantSelectedFood;
+    var selectedDrinkId = restaurantSelectedDrink;
+    var targetPassage = restaurantGetPostPayPassage(restaurantMenuId, selectedDrinkId);
     if ((S.variables.cashBalance || 0) < total) { restaurantToast('Not enough cash.'); return; }
     S.variables.moneySpend = restaurantRoundMoney((S.variables.moneySpend || 0) + total);
     S.variables.cashBalance = restaurantRoundMoney((S.variables.moneyEarn || 0) - (S.variables.moneySpend || 0));
-    if (restaurantSelectedFood) {
-        var d = restaurantGetDish('food', restaurantSelectedFood);
+    if (selectedFoodId) {
+        var d = restaurantGetDish('food', selectedFoodId);
         if (d) {
             restaurantApplyEffects(d);
             restaurantAddCalories(d);
         }
     }
-    if (restaurantSelectedDrink) {
-        d = restaurantGetDish('drink', restaurantSelectedDrink);
+    if (selectedDrinkId) {
+        d = restaurantGetDish('drink', selectedDrinkId);
         if (d) {
             restaurantApplyEffects(d);
             restaurantAddCalories(d);
@@ -145,14 +155,20 @@ function restaurantPayCash() {
     restaurantSelectedFood = null;
     restaurantSelectedDrink = null;
     S.variables.restaurantReturnPassage = restaurantReturnPassage;
+    S.variables.restaurantLastMenuId = restaurantMenuId || '';
+    S.variables.restaurantLastFoodId = selectedFoodId || '';
+    S.variables.restaurantLastDrinkId = selectedDrinkId || '';
+    if (restaurantMenuId === 'dailyGrind') {
+        S.variables.dailyGrindLastDrinkId = selectedDrinkId || '';
+    }
     if (typeof $ !== 'undefined' && $.wiki) {
         $.wiki('<<recalculateStats>>');
         document.body.classList.remove('restaurant-active');
-        $.wiki('<<goto "restaurantEating">>');
+        $.wiki('<<goto "' + targetPassage + '">>');
     } else {
         document.body.classList.remove('restaurant-active');
         var Eng = restaurantGetEngine();
-        if (Eng && Eng.play) Eng.play('restaurantEating');
+        if (Eng && Eng.play) Eng.play(targetPassage);
     }
 }
 
@@ -160,18 +176,21 @@ function restaurantPayCard() {
     var total = restaurantOrderTotal();
     if (total <= 0) { restaurantToast('Select something first.'); return; }
     var S = restaurantGetState();
+    var selectedFoodId = restaurantSelectedFood;
+    var selectedDrinkId = restaurantSelectedDrink;
+    var targetPassage = restaurantGetPostPayPassage(restaurantMenuId, selectedDrinkId);
     if ((S.variables.bankBalance || 0) < total) { restaurantToast('Insufficient bank balance.'); return; }
     S.variables.bankSpend = restaurantRoundMoney((S.variables.bankSpend || 0) + total);
     S.variables.bankBalance = restaurantRoundMoney((S.variables.bankDeposit || 0) - (S.variables.bankSpend || 0) - (S.variables.bankWithdraw || 0));
-    if (restaurantSelectedFood) {
-        var d = restaurantGetDish('food', restaurantSelectedFood);
+    if (selectedFoodId) {
+        var d = restaurantGetDish('food', selectedFoodId);
         if (d) {
             restaurantApplyEffects(d);
             restaurantAddCalories(d);
         }
     }
-    if (restaurantSelectedDrink) {
-        d = restaurantGetDish('drink', restaurantSelectedDrink);
+    if (selectedDrinkId) {
+        d = restaurantGetDish('drink', selectedDrinkId);
         if (d) {
             restaurantApplyEffects(d);
             restaurantAddCalories(d);
@@ -181,14 +200,20 @@ function restaurantPayCard() {
     restaurantSelectedDrink = null;
     S = restaurantGetState();
     S.variables.restaurantReturnPassage = restaurantReturnPassage;
+    S.variables.restaurantLastMenuId = restaurantMenuId || '';
+    S.variables.restaurantLastFoodId = selectedFoodId || '';
+    S.variables.restaurantLastDrinkId = selectedDrinkId || '';
+    if (restaurantMenuId === 'dailyGrind') {
+        S.variables.dailyGrindLastDrinkId = selectedDrinkId || '';
+    }
     if (typeof $ !== 'undefined' && $.wiki) {
         $.wiki('<<recalculateStats>>');
         document.body.classList.remove('restaurant-active');
-        $.wiki('<<goto "restaurantEating">>');
+        $.wiki('<<goto "' + targetPassage + '">>');
     } else {
         document.body.classList.remove('restaurant-active');
         var Eng = restaurantGetEngine();
-        if (Eng && Eng.play) Eng.play('restaurantEating');
+        if (Eng && Eng.play) Eng.play(targetPassage);
     }
 }
 

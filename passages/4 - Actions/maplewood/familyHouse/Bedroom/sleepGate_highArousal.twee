@@ -1,5 +1,8 @@
 :: sleepGate_highArousal
 <<nobr>>
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<<else>>
 <<silently>>
     <<set $location = "fhBedroom">>
     <<set _arousalNow = parseInt($arousal || 0)>>
@@ -13,5 +16,6 @@
     <<else>>
         <<goto "sleep">>
     <</if>>
+<</if>>
 <</if>>
 <</nobr>>

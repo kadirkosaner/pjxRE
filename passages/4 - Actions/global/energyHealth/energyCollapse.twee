@@ -3,7 +3,7 @@
 <<if ($health || 0) <= 15 and !$hospitalAdmissionInProgress and !$_navigatingBackward>>
     <<goto "hospital_admission">>
 <</if>>
-/* passagestart clears $location — restore scene id for body[data-location] / backgrounds */
+/* passagestart clears $location, restore scene id for body[data-location] / backgrounds */
 <<if ndef $collapseAtLocation>><<set $collapseAtLocation = $collapseReturnTo || "fhBedroom">><</if>>
 <<if ndef $collapseReturnTo>><<set $collapseReturnTo = $collapseAtLocation || "fhBedroom">><</if>>
 <<set $location = $collapseAtLocation>>
@@ -47,7 +47,7 @@ I can't keep going like this...
 The world tilts slightly. You reach for the nearest wall, steadying yourself. Your heart is pounding, though you haven't done anything to earn it.
 <</narrative>>
 <<narrative>>
-You need to do something — now.
+You need to do something, now.
 <</narrative>>
 <<elseif _collapseVariant === 2>>
 <<narrative "Running on Fumes">>

@@ -121,7 +121,7 @@ setup.durationPresets = Object.assign({}, setup.durationPresets || {}, {
         { label: "8 hours", value: 480 }
     ],
 
-    /* District hub — btnPicker uses preset[0] as default when no pickerMemory; keep shortest first */
+    /* District hub, btnPicker uses preset[0] as default when no pickerMemory; keep shortest first */
     "hubAmbientWalk": [
         { label: "15 min", value: 15 },
         { label: "30 min", value: 30 },

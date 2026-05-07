@@ -1307,16 +1307,16 @@ function createWardrobeHTML(backPassage, backLinkText, hideBackLink) {
                 <div class="categories" id="categories"></div>
 
                 <div class="middle-column">
+                    <div class="outfits-section">
+                        <div class="outfits-title">Quick Outfits</div>
+                        <div class="outfits-grid"></div>
+                    </div>
+
                     <div class="clothing-panel">
                         <div class="panel-header">
                             <span class="panel-title">Tops</span>
                         </div>
                         <div class="clothing-grid" id="clothing-grid"></div>
-                    </div>
-
-                    <div class="outfits-section">
-                        <div class="outfits-title">Quick Outfits</div>
-                        <div class="outfits-grid"></div>
                     </div>
                 </div>
 

@@ -25,7 +25,7 @@
 
 /* Build context key
    Backyard only exists in vacation phase: afternoon, evening
-   School phase has no backyard content — fallback to vacation or livingroom */
+   School phase has no backyard content, fallback to vacation or livingroom */
 <<set _levelKey = "level" + _level>>
 <<set _topicPool = null>>
 
@@ -41,7 +41,7 @@
     <</if>>
 <</if>>
 
-/* School phase has no backyard — use vacation afternoon as fallback */
+/* School phase has no backyard, use vacation afternoon as fallback */
 <<if !_topicPool>>
     <<if setup.brotherTopics.vacation && setup.brotherTopics.vacation[_levelKey] && setup.brotherTopics.vacation[_levelKey].fhBackyard_vacation_afternoon>>
         <<set _topicPool = setup.brotherTopics.vacation[_levelKey].fhBackyard_vacation_afternoon>>

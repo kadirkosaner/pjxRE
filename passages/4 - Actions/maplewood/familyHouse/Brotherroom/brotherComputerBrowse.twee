@@ -1,27 +1,33 @@
 <<nobr>>
-<<requireMinEnergy 15 "brotherComputerMenu">>
 <<silently>>
-<<set $location = "fhBrotherRoom">>
+<<set _returnPassage = $porn.returnPassage || "brotherComputerMenu">>
+<<if $porn.source === "brotherRoom">>
+    <<set $location = "fhBrotherRoom">>
+<<else>>
+    <<set $location = "fhBedroom">>
+<</if>>
 <<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
-<<set _canFirst = !$flags.brotherPornFirstSeen>>
+<<set _canFirst = !$flags.brotherPornFirstSeen && (($corruption || 0) >= 1)>>
 <<set _phase2Step = $brotherPornPhase2Step || 0>>
 <<set _canSecond = $flags.brotherPornFirstSeen && !$flags.brotherPornSecondPeek && (_phase2Step < 4) && (($corruption || 0) >= 1) && (($brotherPornSecondLastSeenDayKey || 0) !== _dateKey)>>
-<<if _canFirst && random(1, 100) <= 8>>
-    <<goto "brotherPC_pornFirst_discovery">>
-<</if>>
-<<if _canSecond && random(1, 100) <= 12>>
-    <<goto "brotherPC_pornSecond_curiosity">>
+<<if $porn.source === "brotherRoom">>
+    <<if _canFirst && random(1, 100) <= 33>>
+        <<goto "brotherPC_pornFirst_discovery">>
+    <</if>>
+    <<if _canSecond && random(1, 100) <= 50>>
+        <<goto "brotherPC_pornSecond_curiosity">>
+    <</if>>
 <</if>>
 <<set _v = random(1, 8)>>
 <<switch _v>>
 <<case 1>>
-    <<set _sceneText = "You fall into a social feed—friends posting highlights, ads for things you don't need, and a debate in the comments that absolutely no one will win. It's dumb. It's kind of comforting.">>
+    <<set _sceneText = "You fall into a social feed - friends posting highlights, ads for things you don't need, and a debate in the comments that absolutely no one will win. It's dumb. It's kind of comforting.">>
 <<case 2>>
     <<set _sceneText = "Local news sites load slowly, then hit you with a headline about the town council and someone's escaped emu. You read three paragraphs before you realize you care more than you expected.">>
 <<case 3>>
     <<set _sceneText = "You skim memes, reaction clips, and a thread explaining a show you've never watched. Half an hour vanishes. Your brain feels lightly toasted, in a good way.">>
 <<case 4>>
-    <<set _sceneText = "Someone you barely know posted a vacation album. You scroll anyway—beach, food, a blurry concert. It's shallow. It still makes the room feel a little bigger than your brother's mess.">>
+    <<set _sceneText = "Someone you barely know posted a vacation album. You scroll anyway - beach, food, a blurry concert. It's shallow. It still makes the room feel a little bigger than your brother's mess.">>
 <<case 5>>
     <<set _sceneText = "A drama explodes in a group chat screenshot someone shared publicly. You tell yourself you'll stop reading. You do not stop reading.">>
 <<case 6>>
@@ -29,12 +35,12 @@
 <<case 7>>
     <<set _sceneText = "The city forum is arguing about parking, dogs, and whether the new mall is evil. Nobody agrees. Everyone types like they're writing a manifesto. You lurk and snack on the chaos.">>
 <<case 8>>
-    <<set _sceneText = "You put on a stream of random cute animals—puppies, parrots, a goat wearing a blanket. Simple. Soft. Exactly what you needed.">>
+    <<set _sceneText = "You put on a stream of random cute animals - puppies, parrots, a goat wearing a blanket. Simple. Soft. Exactly what you needed.">>
 <</switch>>
+<<advanceTime 30>>
 <<gainStat "mood" 10>>
 <<loseStat "stress" 8>>
 <<loseStat "energy" 5>>
-<<advanceTime 30>>
 <<flushNotifications>>
 <</silently>>
 
@@ -43,6 +49,6 @@
 <</narrative>>
 
 <div class="location-actions">
-<<btn "Go Back" "brotherComputerMenu">><</btn>>
+<<btn "Go Back" _returnPassage>><</btn>>
 </div>
 <</nobr>>

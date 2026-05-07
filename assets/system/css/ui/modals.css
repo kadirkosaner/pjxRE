@@ -19,6 +19,15 @@
   justify-content: center;
   line-height: 1;
   flex-shrink: 0;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.close-btn:focus,
+.close-btn:focus-visible,
+.close-btn:active {
+  outline: none;
+  box-shadow: none;
 }
 
 .close-btn:hover {
@@ -42,6 +51,15 @@
   justify-content: center;
   line-height: 1;
   flex-shrink: 0;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.back-btn:focus,
+.back-btn:focus-visible,
+.back-btn:active {
+  outline: none;
+  box-shadow: none;
 }
 
 .back-btn:hover {

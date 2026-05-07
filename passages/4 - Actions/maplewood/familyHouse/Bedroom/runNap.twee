@@ -1,4 +1,4 @@
-:: runNap
+<div class="divnobr">
 <<silently>>
     /* 1. Set Location from Origin */
     <<if def $activityOrigin>>
@@ -25,20 +25,10 @@
         <<set _stressLossFactor = 5>>
     <</if>>
 
-    /* 3. Energy Check */
-    <<set _currentEnergy = parseInt($energy || 0)>>
+    /* 3. Nap is always allowed */
 <</silently>>
 
-/* 4. Logic Branching */
-<<if _currentEnergy > 50>>
-    /* FAIL: Not tired enough */
-    <<run window.notifyWarning("You are not tired enough to nap (>50%). Energy: " + _currentEnergy)>>
-    <<if def _returnBtn>>
-        <<goto _returnBtn>>
-    <<else>>
-        <<goto "fhBedroom">> /* Safe fallback */
-    <</if>>
-<<else>>
+/* 4. Execute Nap */
 <<nobr>>
     /* SUCCESS: Execute Nap */
     <<silently>>
@@ -93,4 +83,4 @@
         <<btn "Wake Up" _returnBtn>><</btn>>
     </div>
     <</nobr>>
-<</if>>
+</div>

@@ -15,18 +15,19 @@
 
     <div class="location-actions">
         <<btnPicker "Sleep" "sleep_prep" "sleepDuration">>
-        <<if _masturbationUnlocked>>
-            <<if _masturbationReady>>
-                <<btn "Masturbate" "bedMasturbate">><</btn>>
-            <<else>>
-                <<btn "Masturbate" "" "locked" "Requires Arousal 70 and Corruption 1.">><</btn>>
-            <</if>>
-        <</if>>
 
         <<set $activityOrigin = "fhBedroom">>
         <<btnPicker "Nap" "runNap" "napDuration">>
 
         <<btn "Set Alarm" "setAlarm">><</btn>>
+
+        <<if _masturbationUnlocked>>
+            <<if _masturbationReady>>
+                <<btn "Masturbate" "bedMasturbate">><</btn>>
+            <<else>>
+                <<btn "Masturbate" "" "locked" "Requires Arousal 70">><</btn>>
+            <</if>>
+        <</if>>
     </div>
 <</nobr>>
 <</widget>>

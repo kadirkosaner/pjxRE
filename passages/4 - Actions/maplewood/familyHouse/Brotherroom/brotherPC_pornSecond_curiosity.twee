@@ -1,8 +1,13 @@
 :: brotherPC_pornSecond_curiosity
 <<nobr>>
-<<requireMinEnergy 15 "brotherComputerMenu">>
+<<set _returnPassage = $porn.returnPassage || "brotherComputerMenu">>
+<<requireMinEnergy 15 _returnPassage>>
 <<silently>>
-<<set $location = "fhBrotherRoom">>
+<<if $porn.source === "brotherRoom">>
+    <<set $location = "fhBrotherRoom">>
+<<else>>
+    <<set $location = "fhBedroom">>
+<</if>>
 <<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
 <<set $brotherPornSecondLastSeenDayKey = _dateKey>>
 <<set _step = ($brotherPornPhase2Step || 0) + 1>>
@@ -13,23 +18,21 @@
 <<elseif _step === 2>>
     <<set _deepArousal = 6>>
 <<elseif _step === 3>>
-    <<set _deepArousal = 7>>
+    <<set _deepArousal = 12>>
 <<else>>
-    <<set _deepArousal = 8>>
+    <<set _deepArousal = 16>>
 <</if>>
 <</silently>>
 
 <<if _step === 1>>
 <<narrative "Browsing">>
-Teen Clip.
-
 You sit at your brother's computer.
-
+<</narrative>>
+<<narrative>>
 The browser opens. You were going to search for something. At least, that is what you tell yourself.
-
-For a few seconds you just stare at the blank page.
-
-Then your hand moves to the history.
+<</narrative>>
+<<narrative>>
+For a few seconds you just stare at the blank page. Then your hand moves to the history.
 <</narrative>>
 
 <<dialog "player">>
@@ -39,21 +42,27 @@ I'm just going to see what he watched.
 
 <<narrative>>
 The history opens. At the top there are games, videos, normal searches. A little lower, the titles start to change. Small site icons, half-cut sentences, words that are too clear.
-
+<</narrative>>
+<<narrative>>
 A line says "teen." The rest of the title is cut off. The little thumbnail beside it shows a bare shoulder, messy hair, half a face.
-
-You pause for a moment.
-
-Then you click.
-
+<</narrative>>
+<<narrative>>
+You pause for a moment. Then you click.
+<</narrative>>
+<<narrative>>
 The video opens and a short moan comes through the speakers. You lower the volume right away. Your heart jumps like you were too late.
-
+<</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcteen.mp4" "100%">>
+<<narrative>>
 On the screen, a young adult woman is lying on her back. Her tits shake with every movement. Her legs are open. The man over her has her pressed into the bed.
-
+<</narrative>>
+<<narrative>>
 First you look at her. Her face is flushed, her breathing broken. One hand is gripping the sheet.
-
+<</narrative>>
+<<narrative>>
 Then you look at him. He looks bigger above her. His arms are planted on either side of her. His hips move in a steady rhythm.
-
+<</narrative>>
+<<narrative>>
 He drives his cock hard into her pussy.
 <</narrative>>
 
@@ -63,18 +72,21 @@ I'm really watching this.
 <</dialog>>
 
 <<narrative>>
-You should close it.
-
-You don't.
-
+You should close it. You don't.
+<</narrative>>
+<<narrative>>
 Her voice is still audible even with the volume low. The man's rhythm gets a little faster.
-
+<</narrative>>
+<<narrative>>
 Your eyes catch on his cock. As it slides in and out, her pussy tightens around it and the wetness catches the light. Her legs open a little wider. Her ass shifts against the bed.
-
+<</narrative>>
+<<narrative>>
 A warm feeling wakes low in your stomach.
-
+<</narrative>>
+<<narrative>>
 Your face burns when you notice it.
-
+<</narrative>>
+<<narrative>>
 For a second, you think about your own body. You realize you have no idea what something like that would feel like inside you.
 <</narrative>>
 
@@ -84,24 +96,24 @@ How would something like that really feel?
 <</dialog>>
 
 <<narrative>>
-You watch for one more second.
-
-Then you close the tab.
-
+You watch for one more second. Then you close the tab.
+<</narrative>>
+<<narrative>>
 You stare at the blank screen. Your heart is still fast. There is a faint, uncomfortable heat between your legs.
-
+<</narrative>>
+<<narrative>>
 It does not feel like the real problem is that he watched it.
-
+<</narrative>>
+<<narrative>>
 The real problem is that you felt something while watching it too.
 <</narrative>>
 
 <<elseif _step === 2>>
 <<if _allowIncest>>
 <<narrative "Browsing">>
-Mom Tab.
-
 You sit at your brother's computer again.
-
+<</narrative>>
+<<narrative>>
 This time your hand moves faster once the browser opens. You don't linger on the blank page. You open the history.
 <</narrative>>
 
@@ -112,12 +124,12 @@ What else does he watch?
 
 <<narrative>>
 The list comes up. There are normal things near the top, but you barely read them now. Your eyes move straight down.
-
+<</narrative>>
+<<narrative>>
 The porn titles are still there.
-
-A little lower, you see a line that starts with a "mom" tag.
-
-Your finger stops.
+<</narrative>>
+<<narrative>>
+A little lower, you see a line that starts with a "mom" tag. Your finger stops.
 <</narrative>>
 
 <<dialog "player">>
@@ -127,21 +139,30 @@ What kind of category is that?
 
 <<narrative>>
 You should not click it.
-
+<</narrative>>
+<<narrative>>
 You click it.
-
+<</narrative>>
+<<narrative>>
 The video opens and you lower the volume right away. You are a little more prepared this time, but your heart still speeds up.
-
+<</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcmom.mp4" "100%">>
+<<narrative>>
 On the screen, there is a middle-aged woman. Her full tits shake as she stays on her hands and knees. The young man behind her has both hands gripping her hips.
-
+<</narrative>>
+<<narrative>>
 She turns her head to the side. Her face is flushed, her mouth open. With every thrust, her voice comes out low and rough.
-
+<</narrative>>
+<<narrative>>
 He drives his cock hard into her pussy. Her ass jerks back with every push, like pain and pleasure are mixing together.
-
+<</narrative>>
+<<narrative>>
 Then she says something under her breath.
-
+<</narrative>>
+<<narrative>>
 "Son..."
-
+<</narrative>>
+<<narrative>>
 Your stomach tightens.
 <</narrative>>
 
@@ -151,14 +172,15 @@ What did she just say?
 <</dialog>>
 
 <<narrative>>
-You should close it.
-
-But you don't.
-
+You should close it. But you don't want to.
+<</narrative>>
+<<narrative>>
 The man's hands grip her hips tighter. The woman moans louder, her tits moving with every thrust.
-
+<</narrative>>
+<<narrative>>
 You think about why your brother opened this.
-
+<</narrative>>
+<<narrative>>
 Then the thought slips somewhere else.
 <</narrative>>
 
@@ -169,7 +191,8 @@ Could he think things like that about Mom too?
 
 <<narrative>>
 Your face heats up as soon as the question appears. You don't want an answer, but the question doesn't leave.
-
+<</narrative>>
+<<narrative>>
 The woman moans again. The word in the video does not stay inside the video anymore. For a moment, the rooms in the house, the dinner table, and the sounds through half-open doors all mix in your head.
 <</narrative>>
 
@@ -180,22 +203,25 @@ Could I look at someone in the family like that too?
 
 <<narrative>>
 The thought settles low in your stomach.
-
+<</narrative>>
+<<narrative>>
 You close the tab.
-
+<</narrative>>
+<<narrative>>
 For a while you only listen to the quiet. Every sound in the house feels too close all at once.
-
+<</narrative>>
+<<narrative>>
 You don't look at the screen.
-
+<</narrative>>
+<<narrative>>
 Because if you do, you will remember what you just thought.
 <</narrative>>
 
 <<else>>
 <<narrative "Browsing">>
-MILF Tab.
-
 You are looking through your brother's history again.
-
+<</narrative>>
+<<narrative>>
 This time you know where to look a little better. You skip past the normal searches quickly.
 <</narrative>>
 
@@ -206,19 +232,27 @@ What else does he watch?
 
 <<narrative>>
 Among the porn titles, a line marked "MILF" catches your eye.
-
+<</narrative>>
+<<narrative>>
 You pause for a moment.
-
+<</narrative>>
+<<narrative>>
 You know the word. At least enough to understand what it is pointing at. Older women. Mature women. More confident, more experienced.
-
+<</narrative>>
+<<narrative>>
 You click.
-
+<</narrative>>
+<<narrative>>
 The video opens. A mature woman is on the bed, under a man younger than she is. Her tits move with every thrust, her hips following his rhythm. He fucks her hard, but she does not look like she is trying to get away.
-
+<</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcmilf.mp4" "100%">>
+<<narrative>>
 If anything, she looks like she knows exactly what she wants.
-
+<</narrative>>
+<<narrative>>
 For a moment, you look more at her than at him.
-
+<</narrative>>
+<<narrative>>
 She looks comfortable. She does not hide her voice. She does not act ashamed of her body.
 <</narrative>>
 
@@ -229,15 +263,20 @@ So he likes women like this.
 
 <<narrative>>
 The man grips her hips and drives his cock into her pussy. She moans and throws her head back.
-
+<</narrative>>
+<<narrative>>
 You watch for a few more seconds.
-
+<</narrative>>
+<<narrative>>
 This does not hit you the same way. It feels easier to understand. Still, the fact that your brother chose this stays in your head.
-
+<</narrative>>
+<<narrative>>
 You close the tab.
-
+<</narrative>>
+<<narrative>>
 What stays with you is not only the video. It is the way the woman carried herself.
-
+<</narrative>>
+<<narrative>>
 Open. Comfortable. Like she knew what she wanted.
 <</narrative>>
 
@@ -245,10 +284,9 @@ Open. Comfortable. Like she knew what she wanted.
 
 <<elseif _step === 3>>
 <<narrative "Browsing">>
-BBC Search.
-
 The "BBC" lines catch your eye again in the history.
-
+<</narrative>>
+<<narrative>>
 The same word sits in a few different titles. Your brother did not search this just once.
 <</narrative>>
 
@@ -258,16 +296,18 @@ What does BBC even mean?
 <</dialog>>
 
 <<narrative>>
-You click.
-
-The video opens.
-
+You click. The video opens.
+<</narrative>>
+<<narrative>>
 On the screen, there is a young adult woman close to your age. She is sitting on a bed. Beside her stands a large Black man.
-
+<</narrative>>
+<<narrative>>
 She looks small next to him. His hands are big, his shoulders wide. He takes up too much of the screen.
-
+<</narrative>>
+<<narrative>>
 The woman reaches for his pants. The zipper opens. When his cock comes out, you only stare for a few seconds.
 <</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcbbc1.mp4" "100%">>
 
 <<dialog "player">>
 (Inner voice)
@@ -276,11 +316,14 @@ Can it really be that big?
 
 <<narrative>>
 The woman's smile falters. He brings his cock closer to her face, brushing it over her cheek, her lips, her chin.
-
+<</narrative>>
+<<narrative>>
 She opens her mouth, tries, then pulls back.
-
+<</narrative>>
+<<narrative>>
 You realize you are holding your breath too.
 <</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcbbc2.mp4" "100%">>
 
 <<dialog "player">>
 (Inner voice)
@@ -289,11 +332,14 @@ How is that supposed to fit?
 
 <<narrative>>
 You skip forward a little.
-
+<</narrative>>
+<<narrative>>
 The woman is on the bed. He is over her. Your eyes move between her face, his body, and the movement between them.
-
+<</narrative>>
+<<narrative>>
 She makes a sound. Short, low. You cannot tell if it is pain or pleasure.
-
+<</narrative>>
+<<narrative>>
 Her face tightens, then softens. She looks like she might pull away, then lets herself go.
 <</narrative>>
 
@@ -304,15 +350,20 @@ Does she like it?
 
 <<narrative>>
 You skip forward again.
-
+<</narrative>>
+<<narrative>>
 This time she looks different. She is still struggling, but she is not trying to escape. His cock moves in and out of her pussy more easily now. Her voice has changed too, more open, more out of control.
-
+<</narrative>>
+<<narrative>>
 You imagine yourself in her place.
-
+<</narrative>>
+<<narrative>>
 Only briefly.
-
+<</narrative>>
+<<narrative>>
 But it is enough.
 <</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcbbc3.mp4" "100%">>
 
 <<dialog "player">>
 (Inner voice)
@@ -321,63 +372,87 @@ What would I do?
 
 <<narrative>>
 You skip closer to the end.
-
+<</narrative>>
+<<narrative>>
 The woman is on her knees. He is standing in front of her. Her mouth is open, her eyes on his cock.
-
+<</narrative>>
+<<narrative>>
 He cums.
-
+<</narrative>>
+<<narrative>>
 Sperm lands on her lips, her chin, and a little inside her mouth. She does not move.
-
-She takes a breath.
-
-Then she licks the corner of her mouth.
-
+<</narrative>>
+<<narrative>>
+She takes a breath. Then she licks the corner of her mouth.
+<</narrative>>
+<<narrative>>
 A small smile comes to her face.
-
+<</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcbbc4.mp4" "100%">>
+<<narrative>>
 The smile does not disappear right away.
-
+<</narrative>>
+<<narrative>>
 The first thought you have is not what you expected.
+<</narrative>>
 
+<<dialog "player">>
+(Inner voice)
 What would it taste like?
+<</dialog>>
 
+<<narrative>>
 Your throat goes dry.
-
-The video ends.
-
-You close the tab.
-
-Not quickly.
-
+<</narrative>>
+<<narrative>>
+The video ends. You close the tab. Not quickly.
+<</narrative>>
+<<narrative>>
 Like it is finished.
-
-You look at the blank page.
-
-There are no answers.
-
+<</narrative>>
+<<narrative>>
+You look at the blank page. There are no answers.
+<</narrative>>
+<<narrative>>
 Only the things left in your head.
+<</narrative>>
 
+<<dialog "player">>
+(Inner voice)
 How would it fit?
+<</dialog>>
 
+<<dialog "player">>
+(Inner voice)
 Would it hurt?
+<</dialog>>
 
+<<dialog "player">>
+(Inner voice)
 Would it feel good after?
+<</dialog>>
 
+<<dialog "player">>
+(Inner voice)
 Would the taste be bad?
+<</dialog>>
 
+<<narrative>>
 For a while, you do not click anything.
 <</narrative>>
 
 <<else>>
 <<if _allowIncest>>
 <<narrative "Browsing">>
-Sister Tab.
-
 You sit at your brother's computer.
-
+<</narrative>>
+<<narrative>>
 No excuse this time. No lie you tell yourself.
-
+<</narrative>>
+<<narrative>>
 You open the browser, mute the sound immediately, and glance at the door. Then you go straight to the history.
-
+<</narrative>>
+<<narrative>>
 You already know what you're looking for.
 <</narrative>>
 
@@ -388,29 +463,30 @@ What does he actually like?
 
 <<narrative>>
 You scroll down. Familiar titles pass by. Some don't even make you pause anymore.
-
+<</narrative>>
+<<narrative>>
 Then one word seems to catch between the lines.
-
+<</narrative>>
+<<narrative>>
 ...sister...
-
-It appears once.
-
-Then again.
-
-Then again.
-
+<</narrative>>
+<<narrative>>
+It appears once. Then again. Then again.
+<</narrative>>
+<<narrative>>
 You click the search box. Your fingers hesitate.
-
+<</narrative>>
+<<narrative>>
 sister
-
+<</narrative>>
+<<narrative>>
 You hit Enter.
-
-The list explodes. The more you scroll, the more the word multiplies.
-
-One title stands out.
-
+<</narrative>>
+<<narrative>>
+The list explodes. The more you scroll, the more the word multiplies. One title stands out.
+<</narrative>>
+<<narrative>>
 "Caught by Dad While Fucking My Older Sister."
-
 You read it twice.
 <</narrative>>
 
@@ -421,11 +497,14 @@ Older sister...? Is he really searching this?
 
 <<narrative>>
 The video opens.
-
+<</narrative>>
+<<narrative>>
 A messy bedroom. Half-open door. A young woman on the edge of the bed, shirt pushed up, tits bare.
-
+<</narrative>>
+<<narrative>>
 The man approaches. She laughs at first, then weakly tries to push him away. When his hand grabs her tits, her breathing quickens. She doesn't pull back.
 <</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcstep1.mp4" "100%">>
 
 <<dialog "player">>
 (Inner voice)
@@ -434,56 +513,57 @@ Has he ever seen me like this?
 
 <<narrative>>
 He pushes her onto the bed, spreads her legs, and rubs his cock against her pussy. She looks down, then closes her eyes.
-
+<</narrative>>
+<<narrative>>
 He enters her slowly. Her voice catches, then turns into a low, broken moan. Soon her hips lift to meet him.
-
+<</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcstep2.mp4" "100%">>
+<<narrative>>
 Your hand slides onto your thigh without thinking. Your fingers move higher. Heat builds between your legs.
-
-You freeze.
-
-For several long seconds, your hand stays there.
-
+<</narrative>>
+<<narrative>>
+You freeze. For several long seconds, your hand stays there.
+<</narrative>>
+<<narrative>>
 Noticing it isn't the worst part.
-
+<</narrative>>
+<<narrative>>
 The worst part is that you didn't pull it away immediately.
-
-Your heart hammers.
-
-A door sound comes from the video.
-
-The woman flinches.
-
+<</narrative>>
+<<narrative>>
+Your heart hammers. A door sound comes from the video. The woman flinches.
+<</narrative>>
+<<narrative>>
 So do you.
-
-You close the tab.
-
-The screen goes blank.
-
+<</narrative>>
+<<narrative>>
+You close the tab. The screen goes blank.
+<</narrative>>
+<<narrative>>
 But the word doesn't leave.
-
+<</narrative>>
+<<narrative>>
 ...sister...
-
-Why is he searching this?
-
-Does he imagine me like that?
-
-Do men look at me that way?
-
-Without me ever noticing?
-
+<</narrative>>
+<<narrative>>
+Why is he searching this? Does he imagine me like that?
+<</narrative>>
+<<narrative>>
+Do men look at me that way? Without me ever noticing?
+<</narrative>>
+<<narrative>>
 Your hand stays on the mouse.
-
 You don't click anything.
 <</narrative>>
 
 <<else>>
 <<narrative "Browsing">>
-Roommate Tab.
-
 You sit at your brother's computer without looking for an excuse this time.
-
+<</narrative>>
+<<narrative>>
 You open the browser, mute the sound from the start, and glance at the door. Then you go straight to the history.
-
+<</narrative>>
+<<narrative>>
 You already know what you're looking for.
 <</narrative>>
 
@@ -494,28 +574,28 @@ What does he actually like?
 
 <<narrative>>
 You scroll down. Familiar titles pass by. Some don't even make you pause anymore.
-
 Then one word seems to catch between the lines.
-
+<</narrative>>
+<<narrative>>
 ...roommate...
-
-It appears once.
-
-Then again.
-
+<</narrative>>
+<<narrative>>
+It appears once. Then again.
+<</narrative>>
+<<narrative>>
 You click the search box. Your fingers hesitate for a second.
-
+<</narrative>>
+<<narrative>>
 roommate
-
+<</narrative>>
+<<narrative>>
 You hit Enter.
-
-The list fills. The more you scroll, the more the word multiplies.
-
-One title stands out from the rest.
-
-"Caught Watching My Roommate Change."
-
-You read it twice.
+<</narrative>>
+<<narrative>>
+The list fills. The more you scroll, the more the word multiplies. One title stands out from the rest.
+<</narrative>>
+<<narrative>>
+"Caught Watching My Roommate Change." You read it twice.
 <</narrative>>
 
 <<dialog "player">>
@@ -525,15 +605,16 @@ Roommate...? He's really searching this?
 
 <<narrative>>
 The video opens.
-
 A small room. Half-open door. A young woman changing inside the room. She is not looking at the camera.
-
-At first, it almost looks innocent.
-
-That makes it worse.
-
+<</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcroom1.mp4" "100%">>
+<<narrative>>
+At first, it almost looks innocent. That makes it worse.
+<</narrative>>
+<<narrative>>
 The woman pulls her shirt off. Her tits are bare. She gathers her hair while looking in the mirror, still not noticing.
 <</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcroom2.mp4" "100%">>
 
 <<dialog "player">>
 (Inner voice)
@@ -542,48 +623,51 @@ Is this how he watches her?
 
 <<narrative>>
 The man steps quietly through the door. The woman startles at first, then laughs. She tries to cover her chest, but not quite.
-
 He moves closer. She doesn't pull away.
-
+<</narrative>>
+<<narrative>>
 He pushes her onto the bed and spreads her legs. He rubs his cock against her pussy. She looks down, then closes her eyes.
-
+<</narrative>>
+<<narrative>>
 He enters her slowly. Her voice catches, then turns into a low moan. Her hips begin to lift toward him.
-
+<</narrative>>
+<<vid "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/porn/brotherpcroom3.mp4" "100%">>
+<<narrative>>
 Your hand slides onto your thigh without thinking. Your fingers move higher. Heat builds between your legs.
-
-You freeze.
-
-For a few seconds, your hand stays there.
-
+<</narrative>>
+<<narrative>>
+You freeze. For a few seconds, your hand stays there.
+<</narrative>>
+<<narrative>>
 The fact that you don't pull it away right away is worse.
-
+<</narrative>>
+<<narrative>>
 Your heart pounds.
-
 In the video, the woman moans louder. The man tells her to be quiet. She covers her mouth with her hand, but her smile doesn't disappear.
-
-You look at the door.
-
-The hallway is quiet.
-
-You close the tab.
-
-The screen goes blank.
-
-But the word doesn't leave.
-
+<</narrative>>
+<<narrative>>
+You look at the door. The hallway is quiet.
+<</narrative>>
+<<narrative>>
+You close the tab. The screen goes blank. But the word doesn't leave.
+<</narrative>>
+<<narrative>>
 ...roommate...
-
+<</narrative>>
+<<narrative>>
 Why is your brother searching this?
-
+<</narrative>>
+<<narrative>>
 Does he look at someone just because she lives close to him?
-
+<</narrative>>
+<<narrative>>
 Do men look at women in the same house like that?
-
+<</narrative>>
+<<narrative>>
 Am I being watched like that too, without noticing?
-
-Your hand stays on the mouse.
-
-For a long while, you don't touch anything.
+<</narrative>>
+<<narrative>>
+Your hand stays on the mouse. For a long while, you don't touch anything.
 <</narrative>>
 <</if>>
 <</if>>
@@ -611,6 +695,6 @@ For a long while, you don't touch anything.
 <</silently>>
 
 <div class="location-actions">
-<<btn "Go Back" "brotherComputerMenu">><</btn>>
+<<btn "Go Back" _returnPassage>><</btn>>
 </div>
 <</nobr>>

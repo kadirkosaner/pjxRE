@@ -14,7 +14,7 @@
     <<set _timeSlot = "evening">>
 <</if>>
 
-/* Context key — ParentsRoom has morning + evening only, no afternoon */
+/* Context key, ParentsRoom has morning + evening only, no afternoon */
 <<set _contextKey = "fhParentsRoom_" + _timeSlot>>
 <<set _levelPool  = setup.motherTopics["level" + _level]>>
 <<set _context    = (_levelPool && _levelPool[_contextKey]) ? _levelPool[_contextKey] : null>>

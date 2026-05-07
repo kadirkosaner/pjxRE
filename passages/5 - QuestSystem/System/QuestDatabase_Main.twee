@@ -221,6 +221,7 @@ Object.assign(setup.quests, {
                 id: "check_civic_center",
                 title: "Check Civic Center",
                 desc: "Marcus suggested looking for jobs at Town Hall, Civic Center",
+                tip: "Check Old Town between 09:00 and 17:00.",
                 buttonText: "Find Town Hall",
                 triggers: {
                     location: "oldTown",
@@ -234,7 +235,6 @@ Object.assign(setup.quests, {
                 id: "enter_town_hall",
                 title: "Enter Town Hall",
                 desc: "Step inside Town Hall to find the Career Services office",
-                tip: "Try entering Town Hall between 09:00 and 17:00.",
                 buttonText: "Find Career Services",
                 triggers: { 
                     location: "townHall",
@@ -421,7 +421,7 @@ Object.assign(setup.quests, {
         title: "What He Watches",
         category: "side",
         character: "brother",
-        tip: "Browse from your brother's computer when he is not around.",
+        tip: "Browse from your brother's computer when he is not around, then come back tomorrow and check again.",
 
         requirements: {},
 
@@ -430,7 +430,7 @@ Object.assign(setup.quests, {
                 id: "check_history",
                 title: "Check the History",
                 desc: "Use your brother's computer and see what else is in the browser history.",
-                tip: "Browse from your brother's computer when he is not around."
+                tip: "Browse from your brother's computer when he is not around, then come back tomorrow and check again."
             },
             {
                 id: "look_again",
@@ -552,7 +552,7 @@ Object.assign(setup.quests, {
         }
     },
 
-    /* ========== VINCE DAY 3 — FAMILY (mirror / self-image) ========== */
+    /* ========== VINCE DAY 3, FAMILY (mirror / self-image) ========== */
     vince_day3_family: {
         id: "vince_day3_family",
         title: "Unfinished Thoughts",

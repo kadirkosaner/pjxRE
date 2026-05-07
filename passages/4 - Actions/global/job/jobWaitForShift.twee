@@ -1,6 +1,6 @@
 <<nobr>>
 <<silently>>
-/* :passagestart clears $location — set again so body background matches workplace */
+/* :passagestart clears $location, set again so body background matches workplace */
 <<set _returnPassage = $jobWaitReturnTo || "">>
 <<if !_returnPassage && $job && $job.id && setup.jobs[$job.id]>>
 <<set _returnPassage = setup.jobs[$job.id].workplace>>
@@ -23,7 +23,7 @@
 <<set _offDays = (_jobDef.schedule && _jobDef.schedule.offWeekdays) || []>>
 <<if _offDays.includes($timeSys.weekday)>>
 <<if ($jobState.bossMeetingRequired || $jobState.bossWantsToSeePlayer || $jobState.terminationPending || $jobState.promotionPending) && (_jobDef.bossMeetingPassage || _jobDef.bossOfficePassage)>>
-<<run window.notifyWarning("No shift today — your manager still needs to see you.")>>
+<<run window.notifyWarning("No shift today, your manager still needs to see you.")>>
 <<else>>
 <<run window.notifyWarning("No shift today.")>>
 <</if>>
@@ -37,8 +37,15 @@
 <<if _waitMins <= 0>>
 <<goto _returnPassage>>
 <</if>>
+/* relax mode: no passive hourly need/energy decay (TimeWidgets / NeedsSystem) */
+<<set _waitRelaxBlocks = Math.min(Math.max(_waitMins / 30, 1), 8)>>
+<<set _waitStressRelief = Math.min(12, Math.round(3 * _waitRelaxBlocks))>>
+<<set _waitMoodLift = Math.min(10, Math.round(2 * _waitRelaxBlocks))>>
 <<advanceTime _waitMins "relax">>
+<<loseStat "stress" _waitStressRelief>>
+<<gainStat "mood" _waitMoodLift>>
 <<flushNotifications>>
+<<recalculateStats>>
 <</silently>>
 
 <<narrative "Work">>

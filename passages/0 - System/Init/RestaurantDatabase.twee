@@ -406,6 +406,69 @@ setup.restaurantDishes = {
             ]
         },
         {
+            id: "dg_americano",
+            name: "Americano",
+            price: 3.5,
+            calories: 10,
+            desc: "Bold espresso diluted with hot water. Clean and strong.",
+            image: "assets/content/items/restaurants/coffee.webp",
+            effects: [
+                { stat: "energy", value: 22, type: "instant" },
+                { stat: "focus", value: 8, type: "instant" }
+            ]
+        },
+        {
+            id: "dg_latte",
+            name: "Latte",
+            price: 4.5,
+            calories: 140,
+            desc: "Smooth milk-forward coffee with a mellow finish.",
+            image: "assets/content/items/restaurants/coffee.webp",
+            effects: [
+                { stat: "energy", value: 16, type: "instant" },
+                { stat: "stress", value: -6, type: "instant" },
+                { stat: "thirst", value: -8, type: "instant" }
+            ]
+        },
+        {
+            id: "dg_cappuccino",
+            name: "Cappuccino",
+            price: 4.5,
+            calories: 110,
+            desc: "Espresso, steamed milk, and dense foam on top.",
+            image: "assets/content/items/restaurants/coffee.webp",
+            effects: [
+                { stat: "energy", value: 20, type: "instant" },
+                { stat: "mood", value: 4, type: "instant" }
+            ]
+        },
+        {
+            id: "dg_mocha",
+            name: "Mocha",
+            price: 5,
+            calories: 190,
+            desc: "Espresso with chocolate and steamed milk.",
+            image: "assets/content/items/restaurants/coffee.webp",
+            effects: [
+                { stat: "energy", value: 18, type: "instant" },
+                { stat: "mood", value: 8, type: "instant" },
+                { stat: "stress", value: -4, type: "instant" }
+            ]
+        },
+        {
+            id: "dg_coldbrew",
+            name: "Cold Brew",
+            price: 4.5,
+            calories: 8,
+            desc: "Slow-steeped coffee served cold over ice.",
+            image: "assets/content/items/restaurants/coffee.webp",
+            effects: [
+                { stat: "energy", value: 28, type: "instant" },
+                { stat: "focus", value: 10, type: "instant" },
+                { stat: "thirst", value: -12, type: "instant" }
+            ]
+        },
+        {
             id: "iced_tea",
             name: "Iced Tea",
             price: 3.5,
@@ -445,7 +508,7 @@ setup.restaurantDishes = {
             name: "Milkshake",
             price: 6,
             calories: 450,
-            desc: "Thick shake — vanilla, chocolate, or strawberry.",
+            desc: "Thick shake, vanilla, chocolate, or strawberry.",
             image: "assets/content/items/restaurants/milkshake.webp",
             effects: [
                 { stat: "thirst", value: -40, type: "instant" },
@@ -546,6 +609,12 @@ setup.restaurantMenus = {
         foods: ["fc_smash_burger_menu", "fc_chicken_basket_menu", "fc_pizza_menu", "fc_burrito_bowl_menu", "fc_hot_dog_menu", "fc_veggie_wrap_menu"],
         drinks: ["water", "fc_soda_cup", "fc_coffee_cup", "fc_iced_tea_cup", "fc_milkshake_cup"],
         back: "floorThird"
+    },
+    dailyGrind: {
+        name: "The Daily Grind",
+        foods: [],
+        drinks: ["dg_americano", "dg_latte", "dg_cappuccino", "dg_mocha", "dg_coldbrew"],
+        back: "shopCoffeeOldtown"
     }
 };
 <</script>>

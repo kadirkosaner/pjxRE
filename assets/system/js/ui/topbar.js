@@ -186,7 +186,8 @@ function rebuildTopbar() {
             { icon: 'arousal', tooltip: 'Arousal High', show: vars.notificationArousal, color: '#f87171' },
             { icon: 'bladder', tooltip: 'Bladder Full', show: vars.notificationBladder, color: '#facc15' },
             { icon: 'thirst', tooltip: 'Thirsty', show: vars.notificationThirst, color: '#3b82f6' },
-            { icon: 'food', tooltip: 'Hungry', show: vars.notificationHunger, color: '#f97316' }
+            { icon: 'food', tooltip: 'Hungry', show: vars.notificationHunger, color: '#f97316' },
+            { icon: 'droplet', tooltip: 'Hygiene Low', show: vars.notificationHygiene, color: '#06b6d4' }
         ]
     };
 
@@ -335,6 +336,9 @@ function rebuildTopbar() {
             <div class="center-section" style="${hideTopbarContent ? 'display: none;' : ''}">
                 <div class="navbar-container" style="position: relative;">
                     <div class="navbar-left" style="${hideNav ? 'visibility: hidden;' : ''}">
+                        <div class="nav-item topbar-tips-btn" id="topbar-tips-btn" role="button" title="Tips — what to do next" aria-label="Tips">
+                            <span class="icon icon-info icon-18"></span>
+                        </div>
                         <div class="nav-item" data-action="character">Character</div>
                         <div class="nav-item" data-action="relations" style="position: relative;">
                             Relations
@@ -382,6 +386,17 @@ function rebuildTopbar() {
     `;
 
     TopbarAPI.$('body').prepend(html);
+    const $navbarContainer = TopbarAPI.$('.navbar-container').first();
+    if ($navbarContainer.length) {
+        const leftWidth = Math.ceil($navbarContainer.find('.navbar-left').outerWidth() || 0);
+        const rightWidth = Math.ceil($navbarContainer.find('.navbar-right').outerWidth() || 0);
+        if (leftWidth > 0) {
+            $navbarContainer.css('--topbar-left-width', leftWidth + 'px');
+        }
+        if (rightWidth > 0) {
+            $navbarContainer.css('--topbar-right-width', rightWidth + 'px');
+        }
+    }
 
     $('#mainmenu-btn').on('click', () => {
         if (window.openMainMenu) {
@@ -419,6 +434,7 @@ function rebuildTopbar() {
 
     $('.nav-item').on('click', function () {
         const action = TopbarAPI.$(this).data('action');
+        if (!action) return;
         showNavDialog(action);
     });
 }

@@ -15,7 +15,7 @@
         <<advanceTime _extra>>
         <<set $isSleeping = false>>
 
-        /* Scaled recovery — same spirit as sleep.twee (9h = 100%) */
+        /* Scaled recovery, same spirit as sleep.twee (9h = 100%) */
         <<set _energyMaxNow = parseInt($energyMax || 80, 10)>>
         <<set _energyToFill = Math.max(0, _energyMaxNow - parseInt($energy || 0, 10))>>
         <<if _energyToFill > 0>>
@@ -33,7 +33,7 @@
 <</silently>>
 
 <<narrative "Back to Sleep">>
-You sink back into the covers, letting yourself drift until the hour you originally set out for. When you stir again the room feels different — quieter, softer — and you know your body finally had the time it asked for.
+You sink back into the covers, letting yourself drift until the hour you originally set out for. When you stir again the room feels different, quieter, softer, and you know your body finally had the time it asked for.
 <</narrative>>
 
 <<bedWakeUp>>

@@ -193,6 +193,10 @@
                 ⚠️ Closed settings were not fully tested during the beta process.
             </div>
 
+            <div class="flex-center" style="justify-content: flex-end; margin-bottom: 0.75rem;">
+                <a href="#" class="link-internal btn-style btn-default settings-bulk-btn settings-bulk-btn-simulation" data-bulk-state="on">Enable All</a>
+            </div>
+
             <div class="sim-grid">
                 <div class="sim-group-title">Basic Needs</div>
                 
@@ -320,6 +324,10 @@
             </div>
             <div class="note-box warning">
                 ⚠️ Recommend having all settings enabled for the best experience.
+            </div>
+
+            <div class="flex-center" style="justify-content: flex-end; margin-bottom: 0.75rem;">
+                <a href="#" class="link-internal btn-style btn-default settings-bulk-btn settings-bulk-btn-content" data-bulk-state="on">Enable All</a>
             </div>
 
             <div class="sim-grid">
@@ -626,6 +634,56 @@ $(document).on(':passagedisplay', function(ev) {
     });
 
     // 2. Toggle Buttons Click -> HANDLED BY accordion.js
+
+    // 2b. Bulk Enable / Disable All (delegated, <<btn>> macro uses one-shot clicks; use plain <a>)
+    function setBulkToggleState($buttons, isEnabled) {
+        if (!$buttons || !$buttons.length) return;
+        $buttons.toggleClass('active', isEnabled);
+        $buttons.text(isEnabled ? 'ON' : 'OFF');
+    }
+
+    function getBulkTargetButtons(target) {
+        if (target === 'content') {
+            return $('.setting-toggle-btn[data-category="content"]');
+        }
+        return $('.setting-toggle-btn').not('[data-category="content"]');
+    }
+
+    function updateBulkButtonLabel(target) {
+        const $targetButtons = getBulkTargetButtons(target);
+        const allEnabled = $targetButtons.length > 0 && $targetButtons.filter('.active').length === $targetButtons.length;
+        const $bulkBtn = target === 'content'
+            ? $('.settings-bulk-btn-content')
+            : $('.settings-bulk-btn-simulation');
+
+        if (!$bulkBtn.length) return;
+
+        const nextState = allEnabled ? 'off' : 'on';
+        $bulkBtn.text(allEnabled ? 'Disable All' : 'Enable All');
+        $bulkBtn.attr('data-bulk-state', nextState);
+    }
+
+    updateBulkButtonLabel('simulation');
+    updateBulkButtonLabel('content');
+
+    $(document).off('click.settingsBulk', '.settings-bulk-btn');
+    $(document).on('click.settingsBulk', '.settings-bulk-btn', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const target = $(this).hasClass('settings-bulk-btn-content') ? 'content' : 'simulation';
+        const isEnabled = $(this).attr('data-bulk-state') === 'on';
+        const $targetButtons = getBulkTargetButtons(target);
+
+        setBulkToggleState($targetButtons, isEnabled);
+        updateBulkButtonLabel(target);
+    });
+
+    $(document).off('click.settingsBulkLabel', '.setting-toggle-btn');
+    $(document).on('click.settingsBulkLabel', '.setting-toggle-btn', function() {
+        const isContent = $(this).data('category') === 'content';
+        updateBulkButtonLabel(isContent ? 'content' : 'simulation');
+    });
 
     // 3. Start Game Click (Updated to target widget output)
     $('#start-game-container .btn-style').on('click', function(e) {

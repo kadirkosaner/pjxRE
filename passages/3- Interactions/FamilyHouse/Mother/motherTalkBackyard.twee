@@ -15,7 +15,7 @@
     <<set _timeSlot = "evening">>
 <</if>>
 
-/* Context key — Backyard has no evening slot, fallback to afternoon */
+/* Context key, Backyard has no evening slot, fallback to afternoon */
 <<set _contextKey = "fhBackyard_" + _timeSlot>>
 <<set _levelPool  = setup.motherTopics["level" + _level]>>
 <<set _context    = (_levelPool && _levelPool[_contextKey]) ? _levelPool[_contextKey] : null>>

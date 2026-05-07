@@ -3,7 +3,7 @@
     <<set $location = "fhLivingroom">>
     <<set _tvMins = parseInt($selectedDuration) || 15>>
     <<set _tvScale = _tvMins / 30>>
-    /* Energy: ~5/hr passive cap — base 2 first 15m, +1 per extra 15m, max 6; advanceTime uses "relax" to skip hourly passive energy drain */
+    /* Energy: ~5/hr passive cap, base 2 first 15m, +1 per extra 15m, max 6; advanceTime uses "relax" to skip hourly passive energy drain */
     <<set _energyCost = 2>>
     <<if _tvMins > 15>>
         <<set _energyCost = 2 + Math.floor((_tvMins - 15) / 15) * 1>>
@@ -101,7 +101,7 @@
             <</switch>>
         <</if>>
     
-    /* ----- DAD ----- (Watch Sports — uses setup.fatherTopics living room pools, sports/tv first) */
+    /* ----- DAD ----- (Watch Sports, uses setup.fatherTopics living room pools, sports/tv first) */
     <<elseif _watchingWith === "dad">>
         <<set _useSportsTopic = true>>
         <<set _level = $characters.father.stats.friendshipLevel || 1>>
@@ -135,14 +135,14 @@
             <</if>>
         <</if>>
         <<if !_topic>>
-            <<set _topic = { text: "You watch whatever's on together — mostly the game, some sideline commentary, easy quiet between plays.", friendship: 1 }>>
+            <<set _topic = { text: "You watch whatever's on together, mostly the game, some sideline commentary, easy quiet between plays.", friendship: 1 }>>
         <</if>>
         <<if _topic.friendship>><<gainCharacterStat "father" "friendship" _topic.friendship>><</if>>
         <<if _topic.trust>><<gainCharacterStat "father" "trust" _topic.trust>><</if>>
         <<if _topic.love>><<gainCharacterStat "father" "love" _topic.love>><</if>>
         <<recalculateStats>>
         <<if _imgFolder === "morning">>
-            <<set _sportsIntro = "The big game is on, and your father has claimed his spot on the couch. He looks happy—this is his element.">>
+            <<set _sportsIntro = "The big game is on, and your father has claimed his spot on the couch. He looks happy - this is his element.">>
         <<else>>
             <<set _sportsIntro = "After a long day at work, your father finally gets to unwind with the game. It's one of his few escapes.">>
         <</if>>
@@ -245,7 +245,7 @@
             <</if>>
         <</if>>
         <<if !_topic>>
-            <<set _topic = { text: "You watch whatever's on together — mostly the game, some sideline commentary, easy quiet between plays.", friendship: 1 }>>
+            <<set _topic = { text: "You watch whatever's on together, mostly the game, some sideline commentary, easy quiet between plays.", friendship: 1 }>>
         <</if>>
         <<if _topic.friendship>><<gainCharacterStat "father" "friendship" _topic.friendship>><</if>>
         <<if _topic.trust>><<gainCharacterStat "father" "trust" _topic.trust>><</if>>
@@ -253,7 +253,7 @@
         <<gainCharacterStat "brother" "friendship" 1>>
         <<recalculateStats>>
         <<if _imgFolder === "morning">>
-            <<set _sportsIntro = "The big game is on, and your father has claimed his spot on the couch. Your brother's there too. He looks happy—this is his element.">>
+            <<set _sportsIntro = "The big game is on, and your father has claimed his spot on the couch. Your brother's there too. He looks happy - this is his element.">>
         <<else>>
             <<set _sportsIntro = "After a long day at work, your father finally gets to unwind with the game. Your brother's beside him. It's one of his few escapes.">>
         <</if>>

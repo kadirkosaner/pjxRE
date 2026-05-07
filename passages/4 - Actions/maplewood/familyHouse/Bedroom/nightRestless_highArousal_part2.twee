@@ -1,8 +1,13 @@
 <<nobr>>
+<<silently>>
+    <<set $location = "fhBedroom">>
+<</silently>>
+
 <<narrative "Bed">>
 You slide your hand under your pajamas. Your fingers brush over soft hair, then find warm, slick skin. The amount of wetness surprises you.
-
-With your middle finger, you start drawing slow circles over your clit. The first touch sends a sharp shiver through your entire body — it's incredibly sensitive. You keep going, breathing heavier, slowly finding a rhythm.
+<</narrative>>
+<<narrative>>
+With your middle finger, you start drawing slow circles over your clit. The first touch sends a sharp shiver through your entire body, it's incredibly sensitive. You keep going, breathing heavier, slowly finding a rhythm.
 <</narrative>>
 
 <<vid "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/firstmasturbate1.mp4" "100%">>
@@ -13,7 +18,7 @@ I'm already this wet...
 <</dialog>>
 
 <<narrative>>
-You move lower and gently tease your entrance with your fingertip. Knowing you're still a virgin, you don't push inside — you only circle the tight, dripping opening, feeling it pulse against your finger.
+You move lower and gently tease your entrance with your fingertip. Knowing you're still a virgin, you don't push inside, you only circle the tight, dripping opening, feeling it pulse against your finger.
 <</narrative>>
 
 <<narrative>>
@@ -21,14 +26,16 @@ Returning to your clit, you use two fingers with bolder strokes. Wet sounds fill
 <</narrative>>
 
 <<narrative>>
-Your legs begin to tremble. Your hips lift on their own. The pressure in your lower belly grows tighter and hotter until—
-
+Your legs begin to tremble. Your hips lift on their own. The pressure in your lower belly grows tighter and hotter until - 
+<</narrative>>
+<<narrative>>
 Suddenly your whole body tenses.
-
+<</narrative>>
 <<vid "assets/content/scenes/maplewood/familyHouse/bedroom/masturbate/firstmasturbate2.mp4" "100%">>
-
+<<narrative>>
 A powerful wave crashes over you. Your clit throbs hard as intense contractions rip through your core. Short, shaky moans escape your lips while your muscles clench and release again and again.
-
+<</narrative>>
+<<narrative>>
 The orgasm feels endless. Warmth floods between your legs as you tremble uncontrollably.
 <</narrative>>
 
@@ -42,10 +49,21 @@ You lie there sweaty, breathless, and too sensitive to move. Your heart is still
 <</narrative>>
 
 <<silently>>
+    /* Same as <<bedMasturbate>> — orgasm clears arousal */
+    <<if !$firsts.firstMasturbation>>
+        <<set _mtH = String($timeSys.hour || 0).padStart(2, "0")>>
+        <<set _mtM = String($timeSys.minute || 0).padStart(2, "0")>>
+        <<set $firsts.firstMasturbation = "Day " + $timeSys.day + " (" + $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year + " " + _mtH + ":" + _mtM + ")">>
+    <</if>>
+    <<set $sexual.counts.masturbation = ($sexual.counts.masturbation || 0) + 1>>
+    <<loseStat "arousal" 999>>
+    <<recalculateStats>>
     <<set $flags.firstCantSleepStoryDone = true>>
     <<set $flags.masturbationUnlocked = true>>
     <<set $flags.nightRestlessUnlocked = true>>
     <<set $nightRestlessEventSeenCount = ($nightRestlessEventSeenCount || 0) + 1>>
+    <<flushNotifications>>
+    <<run window.showNotification({ type: 'unlock', message: 'Masturbation unlocked', duration: 4500 })>>
 <</silently>>
 
 <div class="location-actions">

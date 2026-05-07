@@ -64,18 +64,6 @@ window.SettingsInit = function (API) {
                 width: '800px',
                 tabs: [
                     {
-                        id: 'general',
-                        label: 'General',
-                        content: `
-                            <div class="tab-content-inner">
-                                <h3>Content Preferences</h3>
-                                <div class="settings-list">
-                                    ${contentControlsHTML}
-                                </div>
-                            </div>
-                        `
-                    },
-                    {
                         id: 'gameplay',
                         label: 'Gameplay',
                         content: `
@@ -136,6 +124,33 @@ window.SettingsInit = function (API) {
                                             ${(vars.gameSettings && vars.gameSettings.gymMiniGameEnabled !== false) ? 'ON' : 'OFF'}
                                         </button>
                                     </div>
+                                </div>
+
+                                <h3 style="margin-top: 2rem;">Arousal Ambient</h3>
+                                <div class="settings-list">
+                                    <div class="settings-control">
+                                        <div class="settings-control-info">
+                                            <div class="settings-control-label">Arousal Ambient Events</div>
+                                            <div class="settings-control-desc">Random street attention events while traveling.</div>
+                                        </div>
+                                        <button class="setting-toggle-btn ${(vars.gameSettings && vars.gameSettings.arousalAmbient !== false) ? 'active' : ''}"
+                                                data-setting="arousalAmbient"
+                                                data-category="game">
+                                            ${(vars.gameSettings && vars.gameSettings.arousalAmbient !== false) ? 'ON' : 'OFF'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        id: 'content',
+                        label: 'Content',
+                        content: `
+                            <div class="tab-content-inner">
+                                <h3>Content Preferences</h3>
+                                <div class="settings-list">
+                                    ${contentControlsHTML}
                                 </div>
                             </div>
                         `

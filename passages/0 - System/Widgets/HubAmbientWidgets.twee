@@ -1,5 +1,5 @@
 /*
-   District hub ambient — btnPicker 5th: "walk" | "phone" | "watch".
+   District hub ambient, btnPicker 5th: "walk" | "phone" | "watch".
    ENERGY drain/h (defaults): walk 10, phone 8, watch 10 → drain = max(1,round(rate*m/60)); START needs drain+10. Override: setup.hubAmbientEnergyDrainPerHour.
    Per hour (m = minutes, scale with m/60):
    Walk:   stress −6, mood +8, energy −10, heels m, time m
@@ -74,13 +74,13 @@
     setup.hubAmbient = {
         walk: {
             maplewood: [
-                "You wander the quiet streets—lawns, mailboxes, the occasional dog walker. Nothing dramatic happens, and that is the point.",
+                "You wander the quiet streets - lawns, mailboxes, the occasional dog walker. Nothing dramatic happens, and that is the point.",
                 "A loop past the same tidy yards; sprinklers click on somewhere. You count porch lights and let your breathing slow.",
                 "Someone waves from a driveway; you half-wave back. The suburb pretends everyone already knows each other.",
                 "You take the long way around the block. Kids' bikes lie abandoned on a lawn; the day feels ordinary in a good way."
             ],
             downTown: [
-                "You ride the rhythm of the sidewalks—suits, tourists, buses sighing at corners. The city presses in until your shoulders unclench anyway.",
+                "You ride the rhythm of the sidewalks - suits, tourists, buses sighing at corners. The city presses in until your shoulders unclench anyway.",
                 "Glass towers throw back the sky; you weave through crosswalks and food smells. Noise becomes a kind of white noise.",
                 "You walk with nowhere to be, letting crowds split around you. A busker misses a note; nobody boos.",
                 "Steam from a vent, honking, someone laughing too loud on a call. You keep moving until your legs remind you you are still in a body."
@@ -92,7 +92,7 @@
                 "The historic plaque you have ignored a hundred times still says the same year. You read it anyway, slowing down."
             ],
             hillcrest: [
-                "Wide drives, polished cars, clipped hedges. You walk like you belong—or like you are invisible—and either way the air feels expensive.",
+                "Wide drives, polished cars, clipped hedges. You walk like you belong - or like you are invisible - and either way the air feels expensive.",
                 "A gardener trims a hedge into geometry. Water features murmur behind gates you will never enter.",
                 "You follow the curve of a private road and turn back. Nothing happens; that is the flex.",
                 "Leather-soled footsteps on someone else's sidewalk. You practice a neutral face while windows reflect money."
@@ -104,14 +104,14 @@
                 "A ferry horn makes everyone look up at once. You let the shared pause happen without joining it."
             ],
             universityDistrict: [
-                "Campus spillover fills the sidewalks—backpacks, coffee cups, loud plans for tonight. You drift with the current.",
+                "Campus spillover fills the sidewalks - backpacks, coffee cups, loud plans for tonight. You drift with the current.",
                 "Flyers peel from a pole; someone practices a presentation aloud. You step around a longboard and almost smile.",
                 "The quad is half empty, half loud. You cut through anyway, anonymous among deadlines.",
                 "A food truck line doubles back; you do not join. The smell of fries follows you two blocks."
             ],
             southside: [
                 "Chain-link, loading bays, murals half finished. You keep moving; people notice, then look away. The edge keeps you alert.",
-                "A dog behind a fence does not stop barking until you are past. You do not speed up—that would read wrong.",
+                "A dog behind a fence does not stop barking until you are past. You do not speed up - that would read wrong.",
                 "You walk the long side of an empty lot. Glass crunches; nobody asks what you are doing here.",
                 "Two guys argue over a car hood; they pause when you pass. You keep your eyes forward and your pace even."
             ],
@@ -130,7 +130,7 @@
         },
         phone: {
             maplewood: [
-                "You scroll on a quiet stoop—feeds, messages, nothing urgent. The suburb hums behind the glass.",
+                "You scroll on a quiet stoop - feeds, messages, nothing urgent. The suburb hums behind the glass.",
                 "A group chat argues about nothing; you react with the safest emoji. A bird lands close; you do not film it.",
                 "You fall into short videos until your thumb aches. When you look up, the light has shifted.",
                 "Signal is perfect; guilt is optional. You answer one message and leave three on read."
@@ -166,7 +166,7 @@
                 "You compare your schedule to everyone else's highlight reel. The phone gets warm in your hand."
             ],
             southside: [
-                "You keep one eye up while you scroll—habit. The phone still wins most of your attention.",
+                "You keep one eye up while you scroll - habit. The phone still wins most of your attention.",
                 "Low bars; pages load in chunks. You fill the gaps by watching who walks behind you in reflection.",
                 "Someone sells something in your DMs; you block without drama. The street sells louder things.",
                 "You watch a fight video twice, then feel stupid. Pocket the phone; the block is still there."
@@ -188,17 +188,17 @@
             maplewood: [
                 "Neighbors, joggers, a dad teaching a kid to ride a bike. Small stories; you read them without staring.",
                 "A sprinkler arcs; a woman argues with a hose. Two dogs negotiate a meeting; owners pretend they are in charge.",
-                "The mail truck stops at every box; you learn the driver's rhythm. Someone jogs past twice—laps or lost?",
+                "The mail truck stops at every box; you learn the driver's rhythm. Someone jogs past twice - laps or lost?",
                 "Kids trade cards on a curb. You remember doing that somewhere else. The scene keeps going without you."
             ],
             downTown: [
                 "Crosswalk ballets, arguments at cab windows, someone filming something pointless. The city rehearses itself in front of you.",
                 "A suit eats salad on a ledge like a performance. Tourists aim phones at a building you stopped noticing years ago.",
                 "Traffic cop whistles; nobody listens the first time. You watch the second whistle work like magic.",
-                "Street preacher, street dancer, street vendor—three volumes competing. You do not pick a winner."
+                "Street preacher, street dancer, street vendor - three volumes competing. You do not pick a winner."
             ],
             oldTown: [
-                "Families, teens in uniform, shopkeepers on smoke breaks. You pick up rhythms—who belongs, who is passing through.",
+                "Families, teens in uniform, shopkeepers on smoke breaks. You pick up rhythms - who belongs, who is passing through.",
                 "An old couple shares fries on a bench; ketchup on a chin becomes a love language.",
                 "School lets out in a wave of blazers. You step aside; they flow around you like water.",
                 "A shop door bells every minute. You guess which customers will buy; you are wrong half the time."
@@ -207,7 +207,7 @@
                 "Who arrives in what car, who is waited on first. Tiny status games play out while valets pretend not to judge.",
                 "A woman tips the attendant without looking. The smile she gives the car is warmer than the one for people.",
                 "Someone's dog wears a sweater worth more than your shoes. The dog does not care; neither do you, officially.",
-                "Lunch meetings in tinted windows—mouths moving, hands gesturing. You invent their drama from posture alone."
+                "Lunch meetings in tinted windows - mouths moving, hands gesturing. You invent their drama from posture alone."
             ],
             marinaBay: [
                 "Tourists, locals, boats and bodies in motion. You note who lingers, who hurries, who is performing leisure.",
@@ -217,12 +217,12 @@
             ],
             universityDistrict: [
                 "Flirts, study fights, impromptu frisbee. Social life on display like a live feed with no filter.",
-                "Two friends debrief a lecture in overlapping sentences. You catch phrases—professor, unfair, quiz.",
+                "Two friends debrief a lecture in overlapping sentences. You catch phrases - professor, unfair, quiz.",
                 "A guy practices a handshake alone near a trash can. You look away before the second attempt.",
                 "Someone cries on a phone; someone else pretends not to hear. Campus empathy has bandwidth limits."
             ],
             southside: [
-                "Corners and doorways tell you where not to loiter. You still learn the block—faces, habits, who watches back.",
+                "Corners and doorways tell you where not to loiter. You still learn the block - faces, habits, who watches back.",
                 "A bodega door buzzes every few minutes. You memorize who gets waved in and who waits.",
                 "Kids on bikes circle the same stretch. You are scenery; they are the show.",
                 "Someone fixes a car with the hood up; tools clink. No one offers help; no one asks."
@@ -234,7 +234,7 @@
                 "Amazon drops a box; a dog announces the apocalypse. The owner shushes both."
             ],
             redLightCenter: [
-                "Queues, bouncers, couples negotiating boundaries in whispers. You observe without committing—and file it all away.",
+                "Queues, bouncers, couples negotiating boundaries in whispers. You observe without committing - and file it all away.",
                 "A group laughs too loud for the sidewalk; heels scrape; a phone flashlight checks a face. The night has rules.",
                 "Someone steps out for air; smoke rises; the door sucks closed behind them. They look relieved and bored.",
                 "Neon reflects in a puddle; you watch the colors ripple. Cheap poetry, but it works."
@@ -263,4 +263,121 @@
         <<btnPicker "Play with Phone" "districtHub_playPhone" "hubAmbientPhone" "default" "phone">>
         <<btnPicker "Watch People" "districtHub_watchPeople" "hubAmbientWatch" "default" "watch">>
     </div>
+<</nobr>><</widget>>
+
+<<script>>
+(function () {
+    if (setup.streetAttentionPool) return;
+    setup.streetAttentionPool = [
+        {
+            id: "stranger_passing_couple",
+            text: "A couple passes close by, one of them glancing back a second too long before pretending they were not looking."
+        },
+        {
+            id: "bus_stop_double_take",
+            text: "At the bus stop, someone gives you a double-take, then quickly focuses on their phone like nothing happened."
+        },
+        {
+            id: "construction_workers",
+            text: "A couple of workers pause their chatter for a beat as you walk past, then resume once you are out of earshot."
+        }
+    ];
+})();
+<</script>>
+
+<<widget "calculateAttentionScore">><<nobr>>
+    <<set _attentionScore = 0>>
+    <<set _baseChance = 0>>
+    <<if !$gameSettings || $gameSettings.arousalAmbient is false>>
+        <<return>>
+    <</if>>
+    <<set _makeupScore = (($makeup && $makeup.state is not "off" && ($makeup.style || 0) > 0) ? Math.round((($makeup.style || 0) * 20) * ((($makeup.quality || 0) / 100))) : 0)>>
+    <<set _outfitExposure = 0>>
+    <<set _outfitSexiness = 0>>
+    <<set _slots = ["top", "bottom", "dress", "shoes", "bodysuit", "bra", "panty"]>>
+    <<set _seenItemIds = []>>
+    <<for _slot range _slots>>
+        <<set _itemId = ($wardrobe && $wardrobe.equipped) ? $wardrobe.equipped[_slot] : "">>
+        <<if _itemId && !_seenItemIds.includes(_itemId)>>
+            <<run _seenItemIds.push(_itemId)>>
+            <<set _item = setup.getClothingById ? setup.getClothingById(_itemId) : null>>
+            <<if _item>>
+                <<set _outfitExposure += Number(_item.exposureLevel || 0)>>
+                <<set _outfitSexiness += Number(_item.sexinessScore || 0)>>
+            <</if>>
+        <</if>>
+    <</for>>
+    <<set _attentionScore = (($looks || 0) * 0.45) + (($beauty || 0) * 0.20) + (_makeupScore * 0.15) + (_outfitExposure * 0.10) + (_outfitSexiness * 0.10)>>
+    <<set _attentionScore = Math.max(0, Math.min(100, _attentionScore))>>
+    <<set _baseChance = Math.max(0, Math.min(0.30, (_attentionScore - 30) / 100))>>
+<</nobr>><</widget>>
+
+<<widget "arousalAttentionEvent">><<nobr>>
+    <<set _streetAttentionTriggered = false>>
+    <<if !$gameSettings || $gameSettings.arousalAmbient is false>>
+        <<return>>
+    <</if>>
+    <<set _nowMinuteStamp = Math.floor(Date.UTC($timeSys.year, $timeSys.month - 1, $timeSys.day, $timeSys.hour, $timeSys.minute || 0, 0) / 60000)>>
+    <<set _streetVariantCooldownMins = 1440>>
+    <<if ($streetAttentionLastMinuteStamp || 0) > 0 && (_nowMinuteStamp - ($streetAttentionLastMinuteStamp || 0)) < 60>>
+        <<return>>
+    <</if>>
+    <<set _pool = setup.streetAttentionPool || []>>
+    <<if !_pool.length>>
+        <<return>>
+    <</if>>
+    <<if ndef $streetAttentionVariantLastMinute>><<set $streetAttentionVariantLastMinute = {}>><</if>>
+    <<set _variantEligible = []>>
+    <<for _variant range _pool>>
+        <<set _vLast = ($streetAttentionVariantLastMinute[_variant.id] || 0)>>
+        <<if !_vLast || ((_nowMinuteStamp - _vLast) >= _streetVariantCooldownMins)>>
+            <<run _variantEligible.push(_variant)>>
+        <</if>>
+    <</for>>
+    <<set _candidates = _variantEligible.length ? _variantEligible : _pool>>
+    <<set _picked = _candidates[random(0, _candidates.length - 1)]>>
+    <<if !_picked>>
+        <<return>>
+    <</if>>
+    <<set _variantId = _picked.id>>
+    <<set _variantText = _picked.text>>
+    <<set _conf = $confidence || 0>>
+    <<set _aGain = 0>>
+    <<set _mGain = 0>>
+    <<set _sGain = 0>>
+    <<if _conf < 30>>
+        <<set _aGain = 2>>
+        <<set _sGain = 2>>
+    <<elseif _conf <= 60>>
+        <<set _aGain = 3>>
+        <<set _mGain = 1>>
+    <<else>>
+        <<set _aGain = 4>>
+        <<set _mGain = 2>>
+    <</if>>
+    <<gainStat "arousal" _aGain>>
+    <<if _mGain > 0>><<gainStat "mood" _mGain>><</if>>
+    <<if _sGain > 0>><<gainStat "stress" _sGain>><</if>>
+    <<set $streetAttentionLastMinuteStamp = _nowMinuteStamp>>
+    <<set $streetAttentionLastVariant = _variantId>>
+    <<set $streetAttentionVariantLastMinute[_variantId] = _nowMinuteStamp>>
+    <<set _streetAttentionTriggered = true>>
+    <<run
+        if (window.showNotification) {
+            window.showNotification({
+                type: 'info',
+                message: "Street attention: " + State.temporary._variantText
+            });
+        }
+    >>
+<</nobr>><</widget>>
+
+<<widget "runStreetAttentionCheck">><<nobr>>
+    <<if !$gameSettings || $gameSettings.arousalAmbient is false>>
+        <<return>>
+    <</if>>
+    <<calculateAttentionScore>>
+    <<if State.random() < (_baseChance || 0)>>
+        <<arousalAttentionEvent>>
+    <</if>>
 <</nobr>><</widget>>

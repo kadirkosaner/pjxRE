@@ -3,13 +3,15 @@
 <<nobr>>
 <<if $contentPreferences.publicExhibition === false>>
 <<narrative "Park Walk">>
-You catch a hint of movement and muffled voices in the bushes off the path. Whatever it is, you decide not to look — and keep walking.
+You catch a hint of movement and muffled voices in the bushes off the path. Whatever it is, you decide not to look, and keep walking.
 <</narrative>>
 <div class="location-actions">
     <<btn "Finish" "sunsetPark">><</btn>>
 </div>
 <<else>>
 <<silently>>
+<<set $location = "sunsetPark">>
+<<set $activityOrigin = $activityOrigin || "sunsetPark">>
 <<if ndef $flags>><<set $flags = {}>><</if>>
 <<set $flags.bushSet = random(1, 5)>>
 <<set _basePath = "assets/content/scenes/maplewood/park/walk/encounter/" + $flags.bushSet + "/">>
@@ -21,18 +23,18 @@ You catch a hint of movement and muffled voices in the bushes off the path. What
 <<if $flags.bushSet is 1>>
 
     <<narrative "Park Walk">>
-    You're walking the trail when you hear it — a low, wet sound just off the path, coming from behind the thick brush to your left. You slow down. The bushes shift slightly. You take a few steps closer and part the branches.
+    You're walking the trail when you hear it, a low, wet sound just off the path, coming from behind the thick brush to your left. You slow down. The bushes shift slightly. You take a few steps closer and part the branches.
     <</narrative>>
     <<set _bushVid = _basePath + "blowjob1.mp4">><<vid _bushVid "100%">>
     <<dialog "player">>
     (Inner voice)
-    She's in no hurry. My heart slams once—and I still don't move.
+    She's in no hurry. My heart slams once - and I still don't move.
     <</dialog>>
 
 <<elseif $flags.bushSet is 2>>
 
     <<narrative "Park Walk">>
-    Something catches your eye — a movement in the bushes a few meters off the path, too deliberate to be the wind. You step off the trail, move quietly through the grass, and lean forward just enough to see past the leaves.
+    Something catches your eye, a movement in the bushes a few meters off the path, too deliberate to be the wind. You step off the trail, move quietly through the grass, and lean forward just enough to see past the leaves.
     <</narrative>>
     <<set _bushVid = _basePath + "bushSex1.mp4">><<vid _bushVid "100%">>
     <<dialog "player">>
@@ -43,29 +45,29 @@ You catch a hint of movement and muffled voices in the bushes off the path. What
 <<elseif $flags.bushSet is 3>>
 
     <<narrative "Park Walk">>
-    A sound pulls you off the path — soft at first, easy to dismiss. Then you hear it again, closer. A breath caught short. A low voice. You push through the brush carefully and see a fallen log a few meters in, and the two people using it.
+    A sound pulls you off the path, soft at first, easy to dismiss. Then you hear it again, closer. A breath caught short. A low voice. You push through the brush carefully and see a fallen log a few meters in, and the two people using it.
     <</narrative>>
     <<set _bushVid = _basePath + "bushSex1.mp4">><<vid _bushVid "100%">>
     <<dialog "player">>
     (Inner voice)
-    Slow, deliberate—and the heat drops straight through me.
+    Slow, deliberate - and the heat drops straight through me.
     <</dialog>>
 
 <<elseif $flags.bushSet is 4>>
 
     <<narrative "Park Walk">>
-    The sound reaches you before the image does — rhythmic, slick, unmistakable. You follow it without fully deciding to, stepping off the gravel and between two thick trunks. Through the last layer of leaves you can see them clearly.
+    The sound reaches you before the image does, rhythmic, slick, unmistakable. You follow it without fully deciding to, stepping off the gravel and between two thick trunks. Through the last layer of leaves you can see them clearly.
     <</narrative>>
     <<set _bushVid = _basePath + "bushSex1.mp4">><<vid _bushVid "100%">>
     <<dialog "player">>
     (Inner voice)
-    Tongue, lips, hands—she's not rushing. My mouth's paper-dry.
+    Tongue, lips, hands - she's not rushing. My mouth's paper-dry.
     <</dialog>>
 
 <<else>>
 
     <<narrative "Park Walk">>
-    You almost walk past them. Two people against a tree, close together — you assume they're kissing and look away. Then you catch the small sounds. The way her hips are moving. You take one step back and look again, properly this time.
+    You almost walk past them. Two people against a tree, close together, you assume they're kissing and look away. Then you catch the small sounds. The way her hips are moving. You take one step back and look again, properly this time.
     <</narrative>>
     <<set _bushVid = _basePath + "bushSex1.mp4">><<vid _bushVid "100%">>
     <<dialog "player">>

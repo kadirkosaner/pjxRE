@@ -1,3 +1,4 @@
+<div class="divnobr">
 <<if $_navigatingBackward>>
 <<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
 <</if>>
@@ -11,14 +12,14 @@
 <<narrative "Rush">>
 Three bus tubs hit your station at once. The kitchen is loud, everyone's moving, and your sink is already full. Plates stacked on plates.
 
-You look at the pile. This is going to take everything you've got — or you could call Mike over.
+You look at the pile. This is going to take everything you've got, or you could call Mike over.
 <</narrative>>
 
 <<else>>
 <<narrative "Rush">>
 A party of twelve just left. All at once. The entire table's worth of dishes lands on your counter in two loads. The stack is taller than the tap.
 
-You've got two options — dig in and power through, or wave Mike over before it gets worse.
+You've got two options, dig in and power through, or wave Mike over before it gets worse.
 <</narrative>>
 <</if>>
 
@@ -32,3 +33,4 @@ You've got two options — dig in and power through, or wave Mike over before it
 <</if>>
 </div>
 <</if>>
+</div>

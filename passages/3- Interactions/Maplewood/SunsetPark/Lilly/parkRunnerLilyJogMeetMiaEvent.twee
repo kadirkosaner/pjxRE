@@ -1,16 +1,21 @@
-:: parkRunnerLilyJogMeetMiaEvent
+<<nobr>>
 <<silently>>
 <<set $flags = $flags || {}>>
+<<set _isFirstMiaMeet = false>>
 <<set $flags.lilyJogMiaMeetTriggered = true>>
 <<if $characters.neighborMia>>
     <<set $characters.neighborMia.known = true>>
     <<if !$characters.neighborMia.firstMet>>
         <<set $characters.neighborMia.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
+        <<set _isFirstMiaMeet = true>>
     <</if>>
     <<set $characters.neighborMia.currentLocation = "maplewood">>
     <<gainCharacterStat "neighborMia" "friendship" 1>>
 <</if>>
 <<gainCharacterStat "parkRunnerLily" "friendship" 1>>
+<<if _isFirstMiaMeet && window.notifySuccess>>
+    <<run window.notifySuccess("New relation added: Mia (Harrisons)")>>
+<</if>>
 <</silently>>
 
 <<narrative "Sunset Park">>You slowed down near Sunset Park's exit, your breath still coming in short bursts. Lily stood beside you, hands on her hips, cheeks flushed red as she laughed.<</narrative>>
@@ -63,3 +68,4 @@
 <<dialog "player">>Yeah, I noticed.<</dialog>>
 
 <<narrative>>Lily laughed, and you both kept walking with small smiles.<</narrative>>
+<</nobr>>

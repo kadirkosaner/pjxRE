@@ -1,5 +1,5 @@
 :: dinerWork_event_vinceInspection_day3
-/* Vince day 3 arc — all passages in Quests/vinceDay3/. One-shot flag set in RubysDishwashWork before goto. */
+/* Vince day 3 arc, all passages in Quests/vinceDay3/. One-shot flag set in RubysDishwashWork before goto. */
 <div class="divnobr">
 <<if $_navigatingBackward>>
 <<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
@@ -15,56 +15,32 @@ You're peeling off your gloves when Vince walks into the kitchen.
 <</narrative>>
 
 <<narrative>>
-Nobody notices him at first.
+Nobody notices him at first. He goes straight to James, leans in, and murmurs something in his ear.
+<</narrative>>
+<<narrative>>
+James nods. A quick, familiar smile passes between them.
 <</narrative>>
 
 <<narrative>>
-He goes straight to James. Leans in and murmurs something in his ear.
+Then he moves on to Mike. Mike's got headphones on, lost in his music.
 <</narrative>>
+<<narrative>>
+Vince touches his shoulder, light. Mike startles, lifts a hand without quite pulling the headphones off, and flashes an okay sign.
+<</narrative>>
+<<narrative>>
+Vince returns it the same way. Quick. Routine.
+<</narrative>>
+
+<<image "assets/content/scenes/oldtown/rubysDiner/day3/day3vincemike.webp" "100%">>
 
 <<narrative>>
-James nods.
+Then Vince turns to you. He pauses a beat.
 <</narrative>>
-
-<<narrative>>
-A quick, familiar smile passes between them.
-<</narrative>>
-
-<<narrative>>
-Then he moves on to Mike.
-<</narrative>>
-
-<<narrative>>
-Mike's got headphones on, lost in his music.
-<</narrative>>
-
-<<narrative>>
-Vince touches his shoulder, light.
-<</narrative>>
-
-<<narrative>>
-Mike startles, lifts a hand without quite pulling the headphones off, and flashes an okay sign.
-<</narrative>>
-
-<<narrative>>
-Vince returns it the same way.
-<</narrative>>
-
-<<narrative>>
-Quick. Routine.
-<</narrative>>
-
-<<narrative>>
-Then Vince turns to you.
-<</narrative>>
-
-<<narrative>>
-He pauses a beat.
-<</narrative>>
-
 <<narrative>>
 His eyes move over you. Fast. Not flat enough to miss.
 <</narrative>>
+
+<<image "assets/content/scenes/oldtown/rubysDiner/day3/day3vincetalk.webp" "100%">>
 
 <<dialog "dinerManager">>
 How's it going?
@@ -80,7 +56,7 @@ Settling in?
 
 <<dialog "player">>
 Good…
-I'm st—
+I'm st..
 <</dialog>>
 
 <<dialog "dinerWaitress1">>
@@ -89,17 +65,8 @@ James! Is four up? The guy's complaining again!
 <</dialog>>
 
 <<narrative>>
-Vince's attention snaps away.
+Vince's attention snaps away. He turns his head; his shoulders loosen.
 <</narrative>>
-
-<<narrative>>
-He turns his head.
-<</narrative>>
-
-<<narrative>>
-His shoulders loosen.
-<</narrative>>
-
 <<narrative>>
 He walks off from you without a word.
 <</narrative>>
@@ -107,10 +74,11 @@ He walks off from you without a word.
 <<narrative>>
 He takes a few steps toward Emma, then stops.
 <</narrative>>
-
 <<narrative>>
 His eyes skim her face for a second.
 <</narrative>>
+
+<<image "assets/content/scenes/oldtown/rubysDiner/day3/day3vinceemma.webp" "100%">>
 
 <<dialog "dinerManager">>
 You changed your lipstick.
@@ -125,59 +93,30 @@ Hard not to notice what suits you.
 <</dialog>>
 
 <<narrative>>
-A brief silence.
+A brief silence follows.
+<</narrative>>
+<<narrative>>
+The question he asked you hangs unfinished, like there won't be a follow-up.
+<</narrative>>
+<<narrative>>
+Maybe that's how it is, you think. They've worked together long enough.
 <</narrative>>
 
 <<narrative>>
-The question he asked you hung unfinished.
+They keep talking; you can't make out the words.
+<</narrative>>
+<<narrative>>
+But you see Emma smile, and you see Vince's eyes not leave her.
 <</narrative>>
 
 <<narrative>>
-Like there wouldn't be a follow-up.
+You look at Emma again. She stands easy, like she belongs exactly where she is.
 <</narrative>>
-
 <<narrative>>
-Maybe that's how it is, you thought.
+Her lipstick is flawless. Her face a little too put together.
 <</narrative>>
-
 <<narrative>>
-They've worked together long enough.
-<</narrative>>
-
-<<narrative>>
-They kept talking. You couldn't make out the words.
-<</narrative>>
-
-<<narrative>>
-But you saw Emma smile.
-<</narrative>>
-
-<<narrative>>
-You saw Vince's eyes not leave her.
-<</narrative>>
-
-<<narrative>>
-You looked at Emma again.
-<</narrative>>
-
-<<narrative>>
-She stood easy. Like she belonged exactly where she was.
-<</narrative>>
-
-<<narrative>>
-Her lipstick was flawless.
-<</narrative>>
-
-<<narrative>>
-Her face a little too put together.
-<</narrative>>
-
-<<narrative>>
-You looked a second longer.
-<</narrative>>
-
-<<narrative>>
-Something snagged in your mind.
+You look a second longer. Something snags in your mind.
 <</narrative>>
 
 <<narrative>>
@@ -185,27 +124,17 @@ Do you ever look at yourself in the mirror?
 <</narrative>>
 
 <<narrative>>
-You hadn't thought much of it at the time.
+You hadn't thought much of it at the time. Now it... won't go away.
 <</narrative>>
-
 <<narrative>>
-Now it… wouldn't go away.
+You dip your head slightly. Your silhouette shows in the shine of the counter.
 <</narrative>>
-
-<<narrative>>
-You dip your head slightly.
-<</narrative>>
-
-<<narrative>>
-Your silhouette shows in the shine of the counter.
-<</narrative>>
-
 <<narrative>>
 You look for a moment.
 <</narrative>>
 
 <<narrative>>
-Then Vince claps — and you flinch.
+Then Vince claps, and you flinch.
 <</narrative>>
 
 <<dialog "dinerManager">>

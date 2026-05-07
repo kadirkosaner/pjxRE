@@ -1,5 +1,5 @@
 /* ==========================================
-   FATHER TALK TOPICS — POST-WORK, LEVEL 1
+   FATHER TALK TOPICS, POST-WORK, LEVEL 1
    IMG MAPPING:
    kitchenMorning:      coffee=1, quickEat=2, briefCheck=3
    kitchenEvening:      dinner=1, debrief=2, checkIn=3
@@ -64,7 +64,7 @@ I'll see you tonight.<</dialog>>`,
 text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-2.webp">>
 <<image _img "100%">>
 <<narrative>>He's trying to eat toast while finding his keys.<</narrative>>
-<<dialog "father">>Have you seen my — never mind.
+<<dialog "father">>Have you seen my, never mind.
 (finding them in his jacket)
 Right. Keys.<</dialog>>
 <<dialog "player">>Do you want me to make you something proper?<</dialog>>
@@ -119,7 +119,7 @@ Your mother up?<</dialog>>
 text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/kitchenMorning-3.webp">>
 <<image _img "100%">>
 <<narrative>>He pauses just before leaving, like he thought of something.<</narrative>>
-<<dialog "father">>If anything comes up today — anything the house needs — let me know. I'll sort it tonight.<</dialog>>
+<<dialog "father">>If anything comes up today, anything the house needs, let me know. I'll sort it tonight.<</dialog>>
 <<dialog "player">>Will do.<</dialog>>
 <<dialog "father">>Good.
 (at the door now)
@@ -316,7 +316,7 @@ Sit down. This was good.<</dialog>>`,
 text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/livingroomEvening-2.webp">>
 <<image _img "100%">>
 <<narrative>>He mutes an advert and turns to you like he's been waiting for a quiet moment.<</narrative>>
-<<dialog "father">>Your mother mentioned you might need something. A thing for the room — shelving?<</dialog>>
+<<dialog "father">>Your mother mentioned you might need something. A thing for the room, shelving?<</dialog>>
 <<dialog "player">>It's not urgent.<</dialog>>
 <<dialog "father">>I'll sort it this weekend.
 (unmuting the TV)
@@ -389,7 +389,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/g
 (working)
 You don't have to stay.<</dialog>>
 <<dialog "player">>It's fine. I'll watch.<</dialog>>
-<<dialog "father">>(a small shift in posture — he doesn't mind) Suit yourself.<</dialog>>`,
+<<dialog "father">>(a small shift in posture, he doesn't mind) Suit yourself.<</dialog>>`,
                 friendship: 2
             },
             {
@@ -469,7 +469,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/g
 (listening)
 Guy knows what he's talking about, for once.<</dialog>>
 <<dialog "player">>High praise.<</dialog>>
-<<dialog "father">>(a short exhale — almost a laugh) Very rare. Don't get used to me saying it.<</dialog>>`,
+<<dialog "father">>(a short exhale, almost a laugh) Very rare. Don't get used to me saying it.<</dialog>>`,
                 friendship: 2
             },
             {
@@ -487,7 +487,7 @@ How does that get on the radio.<</dialog>>`,
 text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/garageEvening-3.webp">>
 <<image _img "100%">>
 <<narrative>>Something plays that he actually knows. He drums once on the workbench, then stops.<</narrative>>
-<<dialog "player">>Was that — did you just?<</dialog>>
+<<dialog "player">>Was that, did you just?<</dialog>>
 <<dialog "father">>(returning to work, straight face) I don't know what you're talking about.<</dialog>>
 <<dialog "player">>(grinning) You drummed on the bench.<</dialog>>
 <<dialog "father">>(pause) I was checking the surface for resonance.<</dialog>>`,
@@ -505,7 +505,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/p
 <<narrative>>He's doing his tie in the mirror. Almost ready. Commute mode.<</narrative>>
 <<dialog "father">>(without turning) You need something?<</dialog>>
 <<dialog "player">>No. Just passing.<</dialog>>
-<<dialog "father">>(straightening his tie) I'm leaving in five. If anything needs doing today — call me, I'll sort it tonight.<</dialog>>
+<<dialog "father">>(straightening his tie) I'm leaving in five. If anything needs doing today, call me, I'll sort it tonight.<</dialog>>
 <<dialog "player">>Okay.<</dialog>>
 <<dialog "father">>(grabbing his bag) Good.<</dialog>>`,
                 friendship: 1
@@ -514,7 +514,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/p
 text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's looking for something. Checking pockets, desk, jacket.<</narrative>>
-<<dialog "father">>Have you seen my phone? It was—
+<<dialog "father">>Have you seen my phone? It was - 
 (finds it on the nightstand)
 Never mind.
 (exhales briefly)
@@ -614,7 +614,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/p
 (simply)
 I notice, even when I don't say it.<</dialog>>
 <<dialog "player">>(quietly) Thanks, Dad.<</dialog>>
-<<dialog "father">>(that word — brief, absorbed)
+<<dialog "father">>(that word, brief, absorbed)
 Good.
 (heading out)<</dialog>>`,
                 friendship: 2, trust: 1, love: 1
@@ -630,7 +630,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/p
 <<image _img "100%">>
 <<narrative>>He's sitting on the bed with his shoes off, doing nothing. Completely still. The last bit of decompression.<</narrative>>
 <<dialog "player">>You okay?<</dialog>>
-<<dialog "father">>(not moving) Fine. Just — done.
+<<dialog "father">>(not moving) Fine. Just, done.
 (after a moment)
 Good kind of done. Not bad done.<</dialog>>
 <<dialog "player">>Okay.<</dialog>>
@@ -645,7 +645,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/p
 <<narrative>>He's changed out of work clothes. He's in that specific released state that only comes after.<</narrative>>
 <<dialog "father">>(quietly) Long day.
 (not complaining, more reporting)
-Good work, just — long.<</dialog>>
+Good work, just, long.<</dialog>>
 <<dialog "player">>Do you want anything? Tea?<</dialog>>
 <<dialog "father">>(thinking) No. I'm going to sleep.
 (a pause)
@@ -656,7 +656,7 @@ That's a kindness though. Thank you.<</dialog>>`,
 text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/parentsRoomEvening-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's already lying down but not asleep. Staring at the ceiling. Thinking.<</narrative>>
-<<dialog "player">>(in the doorway) Sorry — did I wake you?<</dialog>>
+<<dialog "player">>(in the doorway) Sorry, did I wake you?<</dialog>>
 <<dialog "father">>(eyes still closed) No.
 (opening them)
 What do you need?<</dialog>>
@@ -704,7 +704,7 @@ text: `<<set _img = "assets/content/scenes/interactions/father/postwork/level1/p
 <<dialog "father">>Come in a second.
 (putting the book down)
 You look like you're thinking about something.<</dialog>>
-<<dialog "player">>Just — nothing. Long day.<</dialog>>
+<<dialog "player">>Just, nothing. Long day.<</dialog>>
 <<dialog "father">>(studying you briefly) Okay.
 (a pause)
 I know I'm not always the easiest to talk to. But you can. If you need to.
@@ -727,7 +727,7 @@ Not a problem. Just a thing.<</dialog>>
 (looking at you directly)
 I think it is. I just like to check.<</dialog>>
 <<dialog "player">>I think it's working.<</dialog>>
-<<dialog "father">>(a single nod — that settled it) Good. Goodnight.<</dialog>>`,
+<<dialog "father">>(a single nod, that settled it) Good. Goodnight.<</dialog>>`,
                 friendship: 2, trust: 1
             },
             {

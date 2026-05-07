@@ -1,44 +1,61 @@
 :: parkRunnerLilyJogTogether
+<<nobr>>
 <<silently>>
 <<set $flags = $flags || {}>>
-<<set _ret = $characters.parkRunnerLily.currentLocation || "sunsetPark">>
+<<set $flags._actionTurnGuards = $flags._actionTurnGuards || {}>>
+<<set _guardKey = "parkRunnerLilyJogTogether">>
+<<set _alreadyProcessedThisTurn = ($flags._actionTurnGuards[_guardKey] || 0) === State.turns>>
+<<set _ret = "sunsetPark">>
 <<set $location = _ret>>
-<<requireMinEnergy 25 _ret "Not enough energy.">>
-<<logDailyActivity "parkRunnerLily" "jogTogether">>
-<<advanceTime 45 "relax">>
-<<loseStat "energy" 15>>
-<<loseStat "stress" 20>>
-<<gainStat "mood" 4>>
-<<gainStat "cardio" 1 25>>
-<<gainStat "lowerBody" 1 15>>
-<<gainSkill "physical" "running" 1 35>>
-<<gainCharacterStat "parkRunnerLily" "friendship" 2>>
-<<flushNotifications>>
-<<recalculateStats>>
-<<if $gameSettings.trackCalories>>
-    <<set $dailyCalorieIntake -= 300>>
+<<if !_alreadyProcessedThisTurn>>
+    <<set $flags._actionTurnGuards[_guardKey] = State.turns>>
+    <<requireMinEnergy 25 _ret "Not enough energy.">>
+    <<logDailyActivity "parkRunnerLily" "jogTogether">>
+    <<advanceTime 45 "relax">>
+    <<loseStat "energy" 15>>
+    <<loseStat "stress" 20>>
+    <<gainStat "mood" 4>>
+    <<gainStat "cardio" 1 25>>
+    <<gainStat "lowerBody" 1 15>>
+    <<gainSkill "physical" "running" 1 35>>
+    <<gainCharacterStat "parkRunnerLily" "friendship" 2>>
+    <<flushNotifications>>
+    <<recalculateStats>>
+    <<if $gameSettings.trackCalories>>
+        <<set $dailyCalorieIntake -= 300>>
+    <</if>>
+    <<set _friendshipNow = ($characters.parkRunnerLily && $characters.parkRunnerLily.stats && $characters.parkRunnerLily.stats.friendship) || 0>>
+    <<set _friendshipLevelNow = ($characters.parkRunnerLily && $characters.parkRunnerLily.stats && $characters.parkRunnerLily.stats.friendshipLevel) || 1>>
+    <<set $flags.lilyJogTogetherDone = true>>
+    <<set _showGymQuestEvent = (!$flags.lilyGymQuestOffered && _friendshipLevelNow >= 1 && _friendshipNow >= 30 && $cardio >= 15 && $lowerBody > 10)>>
+    <<set _miaUnknown = !($characters.neighborMia && $characters.neighborMia.known)>>
+    <<set _showMiaJogMeetEvent = (_miaUnknown && State.random() < (1 / 3))>>
+    <<set _jogTogetherVid = "assets/content/scenes/maplewood/park/jog/jogtogether" + random(1, 2) + ".mp4">>
 <</if>>
-<<set _friendshipNow = ($characters.parkRunnerLily && $characters.parkRunnerLily.stats && $characters.parkRunnerLily.stats.friendship) || 0>>
-<<set _friendshipLevelNow = ($characters.parkRunnerLily && $characters.parkRunnerLily.stats && $characters.parkRunnerLily.stats.friendshipLevel) || 1>>
-<<set _showGymQuestEvent = (!$flags.lilyGymQuestOffered && _friendshipLevelNow >= 1 && _friendshipNow > 40 && $cardio > 20 && $lowerBody > 10)>>
-<<set _miaUnknown = !($characters.neighborMia && $characters.neighborMia.known)>>
-<<set _showMiaJogMeetEvent = (_miaUnknown && State.random() < (1 / 3))>>
 <</silently>>
 
-<<if _showMiaJogMeetEvent>>
-<<include "parkRunnerLilyJogMeetMiaEvent">>
+<<if !_alreadyProcessedThisTurn>>
+    <<if _showGymQuestEvent>>
+    <<include "parkRunnerLilyJogGymQuestEvent">>
+    <<else>>
+        <<if _showMiaJogMeetEvent>>
+        <<include "parkRunnerLilyJogMeetMiaEvent">>
+        <<else>>
+        <<set _gossipPool = setup.lilyJogGossip>>
+        <<set _pick = _gossipPool[Math.floor(State.random() * _gossipPool.length)]>>
+        <<print _pick.text>>
+        <</if>>
+        <<vid _jogTogetherVid "100%">>
+
+        <<narrative>>By the time you cool down, your legs are tired but your head feels lighter.<</narrative>>
+
+        <div class="location-actions">
+        <<talkBackButton _ret>>
+        </div>
+    <</if>>
 <<else>>
-<<set _gossipPool = setup.lilyJogGossip>>
-<<set _pick = _gossipPool[Math.floor(State.random() * _gossipPool.length)]>>
-<<print _pick.text>>
-<</if>>
-
-<<narrative "Sunset Park">>By the time you cool down, your legs are tired but your head feels lighter.<</narrative>>
-
-<<if _showGymQuestEvent>>
-<<include "parkRunnerLilyJogGymQuestEvent">>
-<</if>>
-
 <div class="location-actions">
 <<talkBackButton _ret>>
 </div>
+<</if>>
+<</nobr>>

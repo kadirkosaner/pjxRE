@@ -14,14 +14,14 @@
   border-radius: var(--radius-md, 12px);
 }
 
-/* Video fills container exactly – no letterboxing; aspect-ratio set by JS to match video */
+/* Video fills container; aspect-ratio set by <<vid>> macro on loadedmetadata */
 .video-container video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: fill; /* Match container exactly – no black bars */
+  object-fit: fill;
   border-radius: var(--radius-md, 12px);
 }
 

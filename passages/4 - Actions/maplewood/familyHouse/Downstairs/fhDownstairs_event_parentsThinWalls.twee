@@ -3,7 +3,7 @@
 <<set _thinVar = random(1, 3)>>
 
 <<narrative "Downstairs">>
-You had stopped on the main floor with one foot still on the bottom stair, half-thinking about water or bed. The house held that thick midnight quiet—until a thin sound threaded through it from the direction of your parents' room.
+You had stopped on the main floor with one foot still on the bottom stair, half-thinking about water or bed. The house held that thick midnight quiet - until a thin sound threaded through it from the direction of your parents' room.
 <</narrative>>
 
 <<narrative "Downstairs">>
@@ -12,7 +12,7 @@ You tell yourself not to. *Just go upstairs.* Your body doesn't listen. A few ca
 
 <<if _thinVar === 1>>
 	<<narrative "Downstairs">>
-	On the other side of plaster and paint, the rhythm finds you—ragged inhales, a soft cry cut short, the headboard's faint tap. Another moan, higher, then a muffled laugh and a shush. They think the house is asleep.
+	On the other side of plaster and paint, the rhythm finds you - ragged inhales, a soft cry cut short, the headboard's faint tap. Another moan, higher, then a muffled laugh and a shush. They think the house is asleep.
 	<</narrative>>
 	<<dialog "player">>
 	(Inner voice)
@@ -20,15 +20,15 @@ You tell yourself not to. *Just go upstairs.* Your body doesn't listen. A few ca
 	<</dialog>>
 <<elseif _thinVar === 2>>
 	<<narrative "Downstairs">>
-	The voices are barely words—your ear is so close that meaning leaks through anyway.
+	The voices are barely words - your ear is so close that meaning leaks through anyway.
 	<</narrative>>
 	<<dialog "father">>
 	(muffled)
-	Where'd we put the condom—
+	Where'd we put the condom - 
 	<</dialog>>
 	<<dialog "mother">>
 	(whisper)
-	Nightstand—*shh*—
+	Nightstand - *shh* - 
 	<</dialog>>
 	<<narrative "Downstairs">>
 	Rustling, a stifled giggle, then silence that still isn't quiet.

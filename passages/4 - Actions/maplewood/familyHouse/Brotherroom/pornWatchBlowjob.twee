@@ -1,0 +1,130 @@
+:: pornWatchBlowjob
+<<nobr>>
+<<silently>>
+<<if $porn.source === "brotherRoom">>
+    <<updateCharacterLocations>>
+    <<set _brotherOnPC = !$_navigatingBackward && $characters.brother && $characters.brother.currentLocation === "fhBrotherRoom">>
+    <<if _brotherOnPC>>
+        <<run window.notifyWarning("Your brother walked in and made you get off the computer.")>>
+        <<set $location = "fhBrotherRoom">>
+        <<goto "fhBrotherRoom">>
+    <</if>>
+<</if>>
+<</silently>>
+<<requireMinEnergy 12 "pornSite_hotHub">>
+<<silently>>
+<<set _category = "blowjob">>
+<<set $porn.selectedCategory = "blowjob">>
+<<if $porn.source === "brotherRoom">>
+    <<set $location = "fhBrotherRoomPC">>
+<<else>>
+    <<set $location = "fhBedroom">>
+<</if>>
+<<if !$porn.categoriesUnlocked.includes("blowjob")>>
+    <<goto "pornSite_hotHub">>
+<</if>>
+<<set _dateKey = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<if ($porn.skillGainDayKey || 0) !== _dateKey>>
+    <<set $porn.skillGainDayKey = _dateKey>>
+    <<set $porn.skillsGainedToday = []>>
+<</if>>
+<<if ($porn.arousalDayKey || 0) !== _dateKey>>
+    <<set $porn.arousalDayKey = _dateKey>>
+    <<set $porn.watchCountToday = 0>>
+<</if>>
+<<if ($porn.categoryProgressDayKey || 0) !== _dateKey>>
+    <<set $porn.categoryProgressDayKey = _dateKey>>
+    <<set $porn.categoriesProgressedToday = []>>
+<</if>>
+<<if ($porn.brotherRoomCategoryDailyDayKey || 0) !== _dateKey>>
+    <<set $porn.brotherRoomCategoryDailyDayKey = _dateKey>>
+    <<set $porn.brotherRoomCategoriesCountedToday = []>>
+<</if>>
+<</silently>>
+<<if ($porn.watchCountToday || 0) >= ($porn.maxDailyWatches || 6)>>
+<<narrative "HotHub">>
+The site is still there, waiting exactly where you left it.
+
+But your eyes feel tired, your body feels too warm, and every thumbnail starts to blur into the next. You have already watched enough for one day.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Back to HotHub" "pornSite_hotHub">><</btn>>
+</div>
+<<else>>
+<<silently>>
+<<set $flags = $flags || {}>>
+<<set $flags._actionTurnGuards = $flags._actionTurnGuards || {}>>
+<<set _guardKey = "pornWatchBlowjob">>
+<<set _alreadyProcessedThisTurn = ($flags._actionTurnGuards[_guardKey] || 0) === State.turns>>
+<<set _categoryLabel = "Blowjob">>
+<<if !_alreadyProcessedThisTurn>>
+    <<set $flags._actionTurnGuards[_guardKey] = State.turns>>
+    <<set _showFirstBlowjob = !$porn.blowjobFirstScenePlayed>>
+    <<set $flags.pornWatchFirstDone = true>>
+    <<set $flags.brotherPornWatchFirstDone = true>>
+    <<set $porn.categoryFirstWatchSeen.blowjob = true>>
+    <<set $porn.categoryWatchCounts.blowjob = ($porn.categoryWatchCounts.blowjob || 0) + 1>>
+    <<if $porn.source === "brotherRoom">>
+        <<set $porn.brotherRoomCategoryWatchCounts.blowjob = ($porn.brotherRoomCategoryWatchCounts.blowjob || 0) + 1>>
+        <<if !$porn.brotherRoomCategoriesCountedToday.includes("blowjob")>>
+            <<set $porn.brotherRoomCategoryDailyWatchCounts.blowjob = ($porn.brotherRoomCategoryDailyWatchCounts.blowjob || 0) + 1>>
+            <<run $porn.brotherRoomCategoriesCountedToday.push("blowjob")>>
+        <</if>>
+    <</if>>
+    <<if !$porn.categoriesProgressedToday.includes("blowjob")>>
+        <<set $porn.categoryProgressCounts.blowjob = ($porn.categoryProgressCounts.blowjob || 0) + 1>>
+        <<run $porn.categoriesProgressedToday.push("blowjob")>>
+    <</if>>
+    <<set _count = $porn.categoryProgressCounts.blowjob || 0>>
+    <<set _baseArousal = 12>>
+    <<set _arousalGain = ($porn.watchCountToday || 0) > 0 ? Math.ceil(_baseArousal / 2) : _baseArousal>>
+    <<set $porn.watchCountToday = ($porn.watchCountToday || 0) + 1>>
+    <<set _introVariant = random(1, 5)>>
+    <<set _variant = random(1, 16)>>
+    <<set _closingVariant = random(1, 5)>>
+    <<set _position = "">>
+    <<set _skills = ["oral", "foreplay", "teasing"]>>
+    <<for _skill range _skills>>
+        <<if ($sexual.skills[_skill] || 0) < 15 && !$porn.skillsGainedToday.includes(_skill)>>
+            <<gainSexualSkill _skill 1>>
+            <<run $porn.skillsGainedToday.push(_skill)>>
+        <</if>>
+    <</for>>
+    <<set _basePath = "assets/content/scenes/global/watchporn/">>
+    <<set _videoPath = _basePath + "blowjob/blowjob" + _variant + ".mp4">>
+    <<set _videoSize = _variant === 5 ? "60%" : "100%">>
+    <<set $porn.repeatVidSrc = _videoPath>>
+    <<set $porn.repeatVidWidth = _videoSize>>
+    <<gainStat "arousal" _arousalGain>>
+    <<gainStat "stress" 1>>
+    <<loseStat "energy" 7>>
+    <<advanceTime 10>>
+    <<if !$porn.categoryTargets.blowjob>>
+        <<set $porn.categoryTargets.blowjob = random(3, 5)>>
+    <</if>>
+    <<if _count >= 4>>
+        <<set $flags.privateContentHabit = true>>
+    <</if>>
+    <<flushNotifications>>
+<</if>>
+<</silently>>
+
+<<if !_alreadyProcessedThisTurn>>
+    <<if _showFirstBlowjob>>
+    <<if $porn.source === "brotherRoom">>
+        <<include "pornWatchRender_firstBlowjobBrotherRoom">>
+    <<else>>
+        <<include "pornWatchRender_firstBlowjobBedroom">>
+    <</if>>
+    <<set $porn.blowjobFirstScenePlayed = true>>
+    <<else>>
+    <<include "pornWatchRender_repeatable">>
+    <</if>>
+<</if>>
+
+<div class="location-actions">
+<<btn "Back to HotHub" "pornSite_hotHub">><</btn>>
+</div>
+<</if>>
+<</nobr>>

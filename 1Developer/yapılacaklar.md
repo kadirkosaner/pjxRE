@@ -18,7 +18,7 @@
 - [ ] Eczane genişletilecek.
 - [X] Yeni karakterlerin schedule'ları ayarlanacak.
 - [X] Lily schedule'ına gym eklenecek.
-- [ ] Coffee Shop düzenlenecek.
+- [X] Coffee Shop düzenlenecek.
 
 ### Mekanlar
 
@@ -27,7 +27,7 @@
 - [X] Maplewood (Mia tanışma bölgesi)
 - [X] St. Luke's Hospital (doktor kontrolü / health recovery)
 - [ ] Eczane (genişletilecek)
-- [ ] Old Town Coffee / The Daily Grind
+- [X] Old Town Coffee / The Daily Grind
 - [ ] Mia's House
 
 ### Karakterler

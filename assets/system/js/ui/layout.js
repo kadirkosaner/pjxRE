@@ -73,6 +73,8 @@ window.LayoutInit = function(API) {
         
         var content = document.querySelector('.passage-content');
         if (!content) return;
+        var passages = document.querySelector('#passages');
+        if (!passages) return;
         
         // Reset transform
         content.style.transform = '';
@@ -89,6 +91,16 @@ window.LayoutInit = function(API) {
         var cRect = content.getBoundingClientRect();
         var cCenter = cRect.left + cRect.width / 2;
         var offset = targetCenter - cCenter;
+
+        // Keep centered content inside #passages viewport to avoid text clipping.
+        // #passages hides horizontal overflow, so unrestricted translateX can cut words.
+        var pRect = passages.getBoundingClientRect();
+        var safeInset = 8;
+        var minOffset = (pRect.left + safeInset) - cRect.left;
+        var maxOffset = (pRect.right - safeInset) - cRect.right;
+        if (offset < minOffset) offset = minOffset;
+        if (offset > maxOffset) offset = maxOffset;
+        if (Math.abs(offset) < 0.5) offset = 0;
         
         content.style.transform = 'translateX(' + offset + 'px)';
     }

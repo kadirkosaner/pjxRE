@@ -63,7 +63,7 @@
         excusePolicy: {
             cutoffHour: 12
         },
-        /* In-person lie (at boss meeting) — requires Corruption 2 + Confidence 10.
+        /* In-person lie (at boss meeting), requires Corruption 2 + Confidence 10.
            Pools:
              noshow  → for bossMeetingReason "no_show"
              partial → for "partial_4_8" / "partial_6_8" / "insufficient_day"
@@ -98,17 +98,17 @@
             /* Lie options. pool = which attendance context this lie fits.
                base = own chance %, say = player's line. */
             options: {
-                noshow_bus:      { pool: "noshow",  base: 45, say: "The bus got stuck — by the time I figured out another way, it was already too late." },
+                noshow_bus:      { pool: "noshow",  base: 45, say: "The bus got stuck, by the time I figured out another way, it was already too late." },
                 noshow_sick:     { pool: "noshow",  base: 55, say: "I woke up sick. I couldn't keep anything down all morning." },
                 noshow_dad:      { pool: "noshow",  base: 55, say: "My dad wasn't doing well. I had to stay home with him." },
                 noshow_mom:      { pool: "noshow",  base: 52, say: "My mom needed help with something she couldn't handle alone." },
                 noshow_brother:  { pool: "noshow",  base: 48, say: "My brother got into trouble at school. I had to deal with it first." },
                 noshow_mixup:    { pool: "noshow",  base: 38, say: "I misread the schedule. I thought today was my day off." },
-                noshow_power:    { pool: "noshow",  base: 42, say: "The power went out at our place. No alarm — I slept right through it." },
+                noshow_power:    { pool: "noshow",  base: 42, say: "The power went out at our place. No alarm, I slept right through it." },
                 noshow_water:    { pool: "noshow",  base: 45, say: "There was a water problem at the house. I couldn't leave my parents with it." },
                 noshow_migraine: { pool: "noshow",  base: 50, say: "A migraine hit hard this morning. I couldn't even stand up." },
                 noshow_phone:    { pool: "noshow",  base: 35, say: "My phone died overnight. No alarm. I only just noticed the time." },
-                early_mom:       { pool: "partial", base: 55, say: "My mom called — she needed help with something urgent at home." },
+                early_mom:       { pool: "partial", base: 55, say: "My mom called, she needed help with something urgent at home." },
                 early_brother:   { pool: "partial", base: 48, say: "My brother got into something at school. I had to go." },
                 early_dad:       { pool: "partial", base: 55, say: "My dad hurt himself at home. I couldn't stay." },
                 early_sick:      { pool: "partial", base: 58, say: "I started feeling really sick. I didn't want to be around the food like that." },

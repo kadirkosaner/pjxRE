@@ -1,0 +1,12 @@
+<<nobr>>
+<<set $location = "shopCoffeeOldtown">>
+<<set _shopItems = [
+    "coffee_takeaway_americano",
+    "coffee_takeaway_latte",
+    "coffee_takeaway_cappuccino",
+    "coffee_takeaway_mocha",
+    "coffee_takeaway_coldbrew"
+]>>
+<<set _shopBack = "shopCoffeeOldtown">>
+<</nobr>>
+<<shop "The Daily Grind" "Take Away Coffee" _shopItems _shopBack>>

@@ -11,6 +11,8 @@
 <<set _job = setup.jobs[$job.id]>>
 <<if def _job>>
 <<set $location = _job.workplace>>
+<<if _job.workplace>><<set _backPassage = _job.workplace>><</if>>
+<<if !_backPassage || _backPassage === "jobWorkSelect">><<set _backPassage = _job.workplace || "maplewood">><</if>>
 <<if ndef $jobState.bossMeetingRequired>><<set $jobState.bossMeetingRequired = false>><</if>>
 <<if ndef $jobState.weeklyPayPending>><<set $jobState.weeklyPayPending = null>><</if>>
 <<if $jobState.weeklyPayPending && !$_navigatingBackward>>
@@ -38,7 +40,7 @@ You don't have a job here.
 <<if _bossSummonOffDay>>
 <<set _bossFirst = setup.characterDefs[_job.bossCharId].firstName>>
 <<narrative "Work">>
-It's your scheduled day off — no shift today. Still, <<= _bossFirst>> asked you to come in for a talk.
+It's your scheduled day off, no shift today. Still, <<= _bossFirst>> asked you to come in for a talk.
 <</narrative>>
 <div class="location-actions">
 <<set _btnSeeBoss = "See " + _bossFirst>>
@@ -48,7 +50,7 @@ It's your scheduled day off — no shift today. Still, <<= _bossFirst>> asked yo
 </div>
 <<else>>
 <<narrative "Work">>
-It's your scheduled day off — no shift today.
+It's your scheduled day off, no shift today.
 <</narrative>>
 <div class="location-actions">
 <<btn "Back" _backPassage "secondary">><</btn>>
@@ -61,7 +63,7 @@ How long do you want to work?
 
 <<if ndef _available>><<set _available = []>><</if>>
 <<if _available.length === 0>>
-<<narrative>><<if $jobWorkNeedsBlock>>You need to eat, drink, or use the bathroom before you can start a shift. Head to the storage room to take care of it.<<else>>You can't start a shift right now—either you've already worked 8 hours today, you don't have enough energy, or the available shift times wouldn't fit before closing.<</if>><</narrative>>
+<<narrative>><<if $jobWorkNeedsBlock>>You need to eat, drink, or use the bathroom before you can start a shift. Head to the storage room to take care of it.<<else>>You can't start a shift right now - either you've already worked 8 hours today, you don't have enough energy, or the available shift times wouldn't fit before closing.<</if>><</narrative>>
 <<else>>
 <div class="location-actions">
 <<jobWorkPicker "Work" "jobWorkExecute">>

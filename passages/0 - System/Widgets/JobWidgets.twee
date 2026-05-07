@@ -373,7 +373,7 @@ window.jobRollInPersonLie = function () {
         /* Off-day: no shifts available */
         <<set _offDays = (_job.schedule && _job.schedule.offWeekdays) || []>>
         <<if _offDays.includes($timeSys.weekday)>>
-            /* scheduled off — leave $jobAvailableShifts empty */
+            /* scheduled off, leave $jobAvailableShifts empty */
         <<elseif !_needsOk>>
             <<set $jobWorkNeedsBlock = true>>
         <<else>>
@@ -613,7 +613,7 @@ window.jobRollInPersonLie = function () {
 <</widget>>
 
 /* Record insufficient days before reset. Call before jobResetDaily in advanceDay.
-   Args: days, oldWeekday, leaveYear, leaveMonth, leaveDay — leave* = calendar day being closed (before advanceDay's date +=).
+   Args: days, oldWeekday, leaveYear, leaveMonth, leaveDay, leave* = calendar day being closed (before advanceDay's date +=).
    Only counts days on or after $job.startedOn (set to "first work day" when accepting Ruby's job). */
 <<widget "jobRecordInsufficientDay">>
     <<jobEnsureState>>
@@ -720,7 +720,7 @@ window.jobRollInPersonLie = function () {
     <<jobEnsureState>>
     <<set _days = $args[0] || 1>>
     <<set _oldWeekday = $args[1] || 0>>
-    /* ALL guards in a single <<if>> — only run body when boss actually wants to see player */
+    /* ALL guards in a single <<if>>, only run body when boss actually wants to see player */
     <<if $job && $job.id && $jobState && $jobState.bossWantsToSeePlayer && !$jobState.visitedBossThisMonday>>
         <<set _job = (setup.jobs && setup.jobs[$job.id]) ? setup.jobs[$job.id] : null>>
         <<if _job>>

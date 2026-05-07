@@ -2,6 +2,13 @@
 <<nobr>>
 <<silently>>
 <<if $porn.source === "brotherRoom">>
+    <<updateCharacterLocations>>
+    <<set _brotherOnPC = !$_navigatingBackward && $characters.brother && $characters.brother.currentLocation === "fhBrotherRoom">>
+    <<if _brotherOnPC>>
+        <<run window.notifyWarning("Your brother walked in and made you get off the computer.")>>
+        <<set $location = "fhBrotherRoom">>
+        <<goto "fhBrotherRoom">>
+    <</if>>
     <<set $location = "fhBrotherRoomPC">>
 <<else>>
     <<set $location = "fhBedroom">>
@@ -9,20 +16,7 @@
 <<if $flags.brotherPornLookButtonUnlocked && $questState && $questState.active && $questState.active.brother_browser_rabbit_hole>>
     <<completeQuest "brother_browser_rabbit_hole">>
 <</if>>
-<<set _allowedCategories = ["handjob", "blowjob"]>>
-<<set _labels = {
-    handjob: "Handjob",
-    blowjob: "Blowjob",
-    vanilla: "Vanilla Sex",
-    anal: "Anal",
-    lesbian: "Lesbian",
-    bbc: "BBC",
-    creampie: "Creampie",
-    mff: "MFF",
-    mmf: "MMF",
-    gangbang: "Gangbang",
-    incest: "Incest"
-}>>
+<<set _closePassage = $porn.returnPassage || "brotherComputerMenu">>
 <</silently>>
 
 <<narrative "HotHub">>
@@ -40,12 +34,12 @@ Only a few categories are visible. The rest of the site seems to be hiding behin
 <</narrative>>
 
 <div class="location-actions">
-<<for _cat range $porn.categoriesUnlocked>>
-    <<if _allowedCategories.includes(_cat) && (_cat !== "incest" || ($contentPreferences && $contentPreferences.incest !== false))>>
-        <<set _label = _labels[_cat] || _cat>>
-        <<btn _label "pornWatch" "default" 12>><<set $porn.selectedCategory = _cat>><</btn>>
-    <</if>>
-<</for>>
-<<btn "Close HotHub" ($porn.returnPassage || "brotherComputerMenu")>><</btn>>
+<<if $porn.categoriesUnlocked.includes("handjob")>>
+    <<btn "Handjob" "pornWatchHandjob" "default" 12>><</btn>>
+<</if>>
+<<if $porn.categoriesUnlocked.includes("blowjob")>>
+    <<btn "Blowjob" "pornWatchBlowjob" "default" 12>><</btn>>
+<</if>>
+<<btn "Close HotHub" _closePassage>><</btn>>
 </div>
 <</nobr>>

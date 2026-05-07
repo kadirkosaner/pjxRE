@@ -38,6 +38,7 @@
 <<set $notificationBladder = 0>>
 <<set $notificationThirst = 0>>
 <<set $notificationHunger = 0>>
+<<set $notificationHygiene = 0>>
 <<set $notificationCum = 0>>
 <<set $notificationHeart = 0>>
 <<set $notificationBed = 1>>
@@ -103,9 +104,10 @@
 /* Arousal ambient cooldown trackers */
 <<set $afterShowerMirrorLastDayKey = 0>>
 <<set $brotherPornSecondLastSeenDayKey = 0>>
-<<set $brotherPornBrowseLastDayKey = 0>>
-<<set $brotherPornBrowseCount = 0>>
 <<set $brotherPornPhase2Step = 0>>
+<<set $streetAttentionLastMinuteStamp = 0>>
+<<set $streetAttentionLastVariant = "">>
+<<set $streetAttentionVariantLastMinute = {}>>
 /* Night restless / try-sleep baseline (v0.1.5 prep) */
 <<set $nightRestlessEventDayKey = 0>>
 <<set $nightRestlessEventSeenCount = 0>>
@@ -130,7 +132,11 @@
     maxDailyWatches: 6,
     skillGainDayKey: 0,
     skillsGainedToday: [],
-    categoryFirstWatchSeen: { handjob: false, blowjob: false, vanilla: false, anal: false, lesbian: false, bbc: false, creampie: false, mff: false, mmf: false, gangbang: false, incest: false }
+    categoryFirstWatchSeen: { handjob: false, blowjob: false, vanilla: false, anal: false, lesbian: false, bbc: false, creampie: false, mff: false, mmf: false, gangbang: false, incest: false },
+    handjobFirstScenePlayed: false,
+    blowjobFirstScenePlayed: false,
+    repeatVidSrc: "",
+    repeatVidWidth: "100%"
 }>>
 
 /* Hospital daily cooldown trackers */
@@ -184,6 +190,7 @@
     vinceDay3FamilyBrotherDone: false,
     vinceDay3FamilyFatherDone: false,
     vinceDay3FamilyBedroomDone: false,
+    jakeCoffeeInviteWeek3Shown: false,
     firstWorkDayWalkEvent: false,
     firstWorkDayWalkHome: false,
     gymMembershipActive: false,

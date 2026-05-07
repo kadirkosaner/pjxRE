@@ -5,8 +5,8 @@
    Each file: SaveMigration_v1.twee, SaveMigration_v2.twee, etc.
    
    Registry is in storyJavaScript.js:
-     setup.CURRENT_SAVE_VERSION — latest version number
-     setup.saveVersions[] — version metadata array
+     setup.CURRENT_SAVE_VERSION, latest version number
+     setup.saveVersions[], version metadata array
    
    Runner: window.runSaveVersion()
      Called automatically after save load.
@@ -22,7 +22,7 @@
    • Wrap content in <<silently>>
    • Use <<if $saveVersion lt N>> guard for idempotency
    • Use <<domInclude>> for character init passages
-   • Do NOT set $saveVersion — the runner handles it
+   • Do NOT set $saveVersion, the runner handles it
    • Do NOT use [init] tag
    
   VERSION HISTORY:

@@ -3,52 +3,29 @@
 <<set $location = "fhKitchen">>
 <<updateCharacterLocations>>
 
+<<image "assets/content/scenes/oldtown/rubysDiner/day3/day3mother.webp" "100%">>
+
 <<narrative "Kitchen">>
-The kitchen is warm.
-<</narrative>>
+The kitchen is warm. She's busy at the counter.
 
-<<narrative>>
-She's busy at the counter.
-<</narrative>>
-
-<<narrative>>
-You stand in the doorway for a beat.
-<</narrative>>
-
-<<narrative>>
-It's hard to line up what you want to say.
+You stand in the doorway for a beat, trying to line up what you want to say.
 <</narrative>>
 
 <<dialog "player">>
 Mom…
 <</dialog>>
 
-<<narrative>>
-She looks up.
-<</narrative>>
-
 <<dialog "mother">>
 Yes, honey?
 <</dialog>>
-
-<<narrative>>
-A short pause.
-<</narrative>>
 
 <<dialog "player">>
 Do you think I'm… pretty?
 <</dialog>>
 
 <<narrative>>
-The question hangs there.
-<</narrative>>
-
-<<narrative>>
-Surprise flickers across her face.
-<</narrative>>
-
-<<narrative>>
-Then it softens.
+She looks up. The question hangs there.
+Surprise flickers across her face, then it softens.
 <</narrative>>
 
 <<dialog "mother">>
@@ -57,41 +34,27 @@ Where is this coming from?
 
 <<dialog "player">>
 I don't know.
+(you look away)
 <</dialog>>
-
-<<narrative>>
-You look away.
-<</narrative>>
 
 <<dialog "player">>
 It just got stuck in my head.
 <</dialog>>
 
 <<narrative>>
-She turns toward you. This time she really looks — studies you.
-<</narrative>>
-
-<<narrative>>
-She's not rushing.
+She turns toward you. This time she really looks, studies you. She's not rushing.
 <</narrative>>
 
 <<dialog "mother">>
 Yes.
 <</dialog>>
 
-<<narrative>>
-A pause.
-<</narrative>>
-
 <<dialog "mother">>
 You're beautiful.
 <</dialog>>
 
-<<narrative>>
-She takes a step closer.
-<</narrative>>
-
 <<dialog "mother">>
+(she steps closer)
 But I don't think that's what this is about.
 <</dialog>>
 
@@ -103,17 +66,9 @@ What do you mean?
 Sometimes you can know you're beautiful… and still not feel it.
 <</dialog>>
 
-<<narrative>>
-A brief silence.
-<</narrative>>
-
 <<dialog "mother">>
 Is today one of those days?
 <</dialog>>
-
-<<narrative>>
-It's hard to answer.
-<</narrative>>
 
 <<dialog "player">>
 Maybe.
@@ -121,35 +76,28 @@ Maybe.
 
 <<dialog "mother">>
 Come here.
+(she touches your shoulder, light)
 <</dialog>>
 
-<<narrative>>
-She touches your shoulder, light.
-<</narrative>>
+<<image "assets/content/scenes/oldtown/rubysDiner/day3/day3mother.webp" "100%">>
 
 <<dialog "mother">>
 Don't look at yourself like that.
+(softer now)
 <</dialog>>
-
-<<narrative>>
-Softer now:
-<</narrative>>
 
 <<dialog "mother">>
 There's nothing wrong with you.
 <</dialog>>
 
 <<dialog "mother">>
-If this comes up again, you might ask a different question next time—and that's all right. I'll still be here for it.
+If this comes up again, you might ask a different question next time - and that's all right. I'll still be here for it.
 <</dialog>>
 
 <<dialog "player">>
 Okay…
+(you nod a little)
 <</dialog>>
-
-<<narrative>>
-You nod a little.
-<</narrative>>
 
 <<dialog "player">>
 Thank you.

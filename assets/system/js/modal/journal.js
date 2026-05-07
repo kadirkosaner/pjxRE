@@ -241,6 +241,15 @@ window.JournalInit = function (API) {
             `;
     },
 
+    createRecordGridCell: function (label, value) {
+      return `
+                <div class="record-stat-cell">
+                    <span class="record-label">${label}</span>
+                    <span class="record-value">${value}</span>
+                </div>
+            `;
+    },
+
     /** Label on one line, value below — for long text (e.g. job title + workplace). */
     createRecordRowStacked: function (label, value) {
       const safe =
@@ -300,7 +309,36 @@ window.JournalInit = function (API) {
       const vars = this.API.State.variables;
       vars.showJournalQuestNotify = false;
       this.API.$('.journal-notification-dot').fadeOut(300);
-      const firsts = vars.firsts || {};
+      const firstsDefaults = {
+        firstKiss: null,
+        firstVaginal: null,
+        firstAnal: null,
+        firstOralGiven: null,
+        firstOralReceived: null,
+        firstThreesome: null,
+        firstPublic: null,
+        firstPregnancy: null,
+        firstPhoto: null,
+        firstMasturbation: null
+      };
+      const firsts = Object.assign({}, firstsDefaults, vars.firsts || {});
+      const firstsOrder = [
+        "firstKiss",
+        "firstPhoto",
+        "firstMasturbation",
+        "firstOralGiven",
+        "firstOralReceived",
+        "firstVaginal",
+        "firstAnal",
+        "firstThreesome",
+        "firstPublic",
+        "firstPregnancy",
+      ];
+      const orderedFirstsKeys = firstsOrder
+        .filter((key) => Object.prototype.hasOwnProperty.call(firsts, key))
+        .concat(
+          Object.keys(firsts).filter((key) => !firstsOrder.includes(key))
+        );
       const reputation = vars.reputation || {};
       const counts = vars.sexual?.counts || {};
       const totalPartners = vars.sexual?.totalPartners || 0;
@@ -405,7 +443,7 @@ window.JournalInit = function (API) {
                   <div class="quest-stage-info">
                     <div class="quest-stage-title">${this.escapeHtml(this.formatQuestStageDesc(stg.title))}</div>
                     <div class="quest-stage-desc">${this.escapeHtml(this.formatQuestStageDesc(stg.desc || ''))}</div>
-                    ${stg.tip ? `<div class="quest-stage-tip"><i class="icon icon-info"></i>${this.escapeHtml(this.formatQuestStageDesc(stg.tip))}</div>` : ''}
+                    ${stg.tip ? `<div class="quest-stage-tip" style="color: var(--color-warning-muted, rgba(251, 191, 36, 0.58)); font-style: italic;">${this.escapeHtml(this.formatQuestStageDesc(stg.tip))}</div>` : ''}
                   </div>
                   <i class="icon icon-check quest-stage-check"></i>
                 </div>
@@ -432,7 +470,7 @@ window.JournalInit = function (API) {
                     <div class="quest-stage-info">
                       <div class="quest-stage-title">${this.escapeHtml(this.formatQuestStageDesc(stg.title))}</div>
                       <div class="quest-stage-desc">${this.escapeHtml(this.formatQuestStageDesc(stg.desc || ''))}</div>
-                      ${stg.tip ? `<div class="quest-stage-tip"><i class="icon icon-info"></i>${this.escapeHtml(this.formatQuestStageDesc(stg.tip))}</div>` : ''}
+                      ${stg.tip ? `<div class="quest-stage-tip" style="color: var(--color-warning-muted, rgba(251, 191, 36, 0.58)); font-style: italic;">${this.escapeHtml(this.formatQuestStageDesc(stg.tip))}</div>` : ''}
                     </div>
                     ${isCompleted ? '<i class="icon icon-check quest-stage-check"></i>' : ''}
                     ${isCurrent ? '<i class="icon icon-circle quest-stage-current"></i>' : ''}
@@ -448,10 +486,6 @@ window.JournalInit = function (API) {
             <div class="quest-detail-header">
               <h2>${this.escapeHtml(this.formatQuestStageDesc(quest.title))}</h2>
               ${status === 'active' && quest.tip ? `
-                <div class="quest-stage-tip quest-quest-tip">
-                  <i class="icon icon-info"></i>
-                  ${this.escapeHtml(this.formatQuestStageDesc(quest.tip))}
-                </div>
               ` : ''}
             </div>
             
@@ -619,27 +653,6 @@ window.JournalInit = function (API) {
                                           "Anal",
                                           vars.sexual?.virginity?.anal
                                         )}
-                                        <div style="border-top: 1px solid var(--color-border-secondary); margin: 12px 0;"></div>
-                                        ${this.createRecordRow(
-                                          "Total Partners",
-                                          totalPartners
-                                        )}
-                                        ${this.createRecordRow(
-                                          "Vaginal Sex",
-                                          counts.vaginal || 0
-                                        )}
-                                        ${this.createRecordRow(
-                                          "Anal Sex",
-                                          counts.anal || 0
-                                        )}
-                                        ${this.createRecordRow(
-                                          "Oral Sex",
-                                          counts.oral || 0
-                                        )}
-                                        ${this.createRecordRow(
-                                          "Handjobs Given",
-                                          counts.handjob || 0
-                                        )}
                                     `
                                     )}
 
@@ -682,6 +695,35 @@ window.JournalInit = function (API) {
                                         )}
                                     `
                                     )}
+                                </div>
+
+                                <div class="records-inline-row">
+                                    <div class="record-stat-grid record-stat-grid--six record-stat-grid--plain">
+                                      ${this.createRecordGridCell(
+                                        "Total Partners",
+                                        totalPartners
+                                      )}
+                                      ${this.createRecordGridCell(
+                                        "Vaginal Sex",
+                                        counts.vaginal || 0
+                                      )}
+                                      ${this.createRecordGridCell(
+                                        "Anal Sex",
+                                        counts.anal || 0
+                                      )}
+                                      ${this.createRecordGridCell(
+                                        "Oral Sex",
+                                        counts.oral || 0
+                                      )}
+                                      ${this.createRecordGridCell(
+                                        "Handjobs Given",
+                                        counts.handjob || 0
+                                      )}
+                                      ${this.createRecordGridCell(
+                                        "Masturbation",
+                                        counts.masturbation || 0
+                                      )}
+                                    </div>
                                 </div>
 
                                 <!-- Chronological Log & Certificates -->
@@ -747,7 +789,7 @@ window.JournalInit = function (API) {
             content: `
                             <div class="journal-view">
                                 <div class="milestones-grid">
-                                    ${Object.keys(firsts)
+                                    ${orderedFirstsKeys
                                       .map((key) =>
                                         this.createMilestone(key, firsts[key])
                                       )

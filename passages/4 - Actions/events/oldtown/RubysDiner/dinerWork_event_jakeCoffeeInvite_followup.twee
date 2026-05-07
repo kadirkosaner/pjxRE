@@ -1,0 +1,128 @@
+:: dinerWork_event_jakeCoffeeInvite_followup [quest-scene]
+<div class="divnobr">
+<<silently>>
+<<set $location = "shopCoffeeOldtown">>
+<<discover "OldTown" "Old Town">>
+<<discover "ShopCoffeeOldtown" "The Daily Grind">>
+<<if $characters && $characters.coffeeBaristaLeo>>
+    <<set $characters.coffeeBaristaLeo.known = true>>
+    <<if !$characters.coffeeBaristaLeo.firstMet>>
+        <<set $characters.coffeeBaristaLeo.firstMet = $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year>>
+    <</if>>
+<</if>>
+<</silently>>
+
+<<narrative>>
+You and Jake walk the short distance to the corner. Even from outside, you can tell the place is new. The sign is still bright and the windows are spotless.
+<</narrative>>
+
+<<narrative "The Daily Grind">>
+The bell above the door jingles softly as you step inside. Warm lighting, low jazz, the rich smell of fresh espresso instead of fryer oil. It's almost too peaceful after Ruby's chaos.
+<</narrative>>
+
+<<dialog "dinerWaitress3">>
+Oh man. This is exactly what I needed.
+<</dialog>>
+
+<<narrative>>
+A young guy behind the counter looks up from steaming a pitcher of milk and gives you both an easy smile.
+<</narrative>>
+
+<<dialog "coffeeBaristaLeo">>
+Good evening. I'm Leo. Welcome to The Daily Grind. What can I get for you guys?
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Hey Leo. I'll take an americano, please.
+
+What about you, $player.firstName?
+<</dialog>>
+
+<<narrative>>
+You glance up at the chalkboard menu for a second. Way too many options for someone this tired.
+<</narrative>>
+
+<<dialog "player">>
+I think I'll go with a latte. Lactose-free, if that's okay.
+<</dialog>>
+
+<<dialog "coffeeBaristaLeo">>
+Of course. One americano and one lactose-free latte. Anything to eat with that?
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Just the drinks tonight. We just got off shift, food is the last thing we want right now.
+<</dialog>>
+
+<<dialog "coffeeBaristaLeo">>
+Fair enough. Long day?
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Long enough.
+<</dialog>>
+
+<<narrative>>
+Leo nods and turns to the espresso machine. Jake taps his card on the reader before you can even reach for your wallet.
+<</narrative>>
+
+<<dialog "player">>
+Jake, you really don't have to.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Nope. My invite, my treat. You really carried the dish pit tonight.
+<</dialog>>
+
+<<narrative>>
+The grinder kicks on, then the soft hiss of the steam wand. You and Jake step a little to the side to wait by the pickup counter. It feels strange to stand on the customer side of a counter for once.
+<</narrative>>
+
+<<dialog "coffeeBaristaLeo">>
+So, are you guys local, or just passing through?
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Local. Very local. We work just down the street, actually.
+<</dialog>>
+
+<<dialog "player">>
+Yeah, we're at Ruby's Diner. Right around the corner from here.
+<</dialog>>
+
+<<dialog "coffeeBaristaLeo">>
+Oh, the one with the red sign? I've been meaning to try it. I see the staff walk by all the time, but I haven't had the chance yet.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+You should. The food is solid. Just don't come during the dinner rush unless you enjoy chaos.
+<</dialog>>
+
+<<dialog "coffeeBaristaLeo">>
+Noted. Off-hours it is.
+<</dialog>>
+
+<<narrative>>
+Leo pours the steamed milk in a slow, careful spiral, and a soft leaf shape forms on top of your latte.
+<</narrative>>
+
+<<dialog "coffeeBaristaLeo">>
+One americano. One lactose-free latte. Enjoy, guys.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Thanks, Leo.
+<</dialog>>
+
+<<dialog "player">>
+Thank you. It looks great.
+<</dialog>>
+
+<<narrative>>
+You both grab your cups and head over to a small table by the window. The seats are softer than anything at Ruby's, and just sinking into one feels like a small reward.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Continue" "dinerWork_event_jakeCoffeeInvite_gossip">><</btn>>
+</div>
+</div>

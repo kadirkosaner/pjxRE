@@ -95,6 +95,7 @@
         <<elseif _careSum < 50>>
             <<set _beauty = _beauty * 0.40>>
         <</if>>
+        <<set $beauty = Math.round(Math.max(0, Math.min(100, _beauty)))>>
         <<set _styleBase = (($makeup && $makeup.style >= 1 && $makeup.style <= 5) ? ($makeup.style * 20) : 0)>>
         <<set _muState = ($makeup && $makeup.state) ? $makeup.state : "off">>
         <<set _muQuality = ($makeup && ($makeup.quality !== undefined)) ? $makeup.quality : 0>>

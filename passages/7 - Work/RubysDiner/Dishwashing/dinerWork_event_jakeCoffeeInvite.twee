@@ -1,0 +1,50 @@
+:: dinerWork_event_jakeCoffeeInvite [quest-scene]
+<div class="divnobr">
+<<silently>>
+<<set $location = "dinerRubys">>
+<</silently>>
+
+<<narrative>>
+You clock out and push open the back door. The cold night air hits you after hours in the hot kitchen.
+<</narrative>>
+
+<<dialog "dinerWaitress3">>
+Yo, $player.firstName, wait up a second.
+<</dialog>>
+
+<<narrative>>
+Jake jogs a few steps and falls in beside you, apron still in his hand.
+<</narrative>>
+
+<<dialog "dinerWaitress3">>
+You made it through that shitshow alive?
+<</dialog>>
+
+<<dialog "player">>
+Barely.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Same. My feet are dead.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Hey, listen. There's a new little coffee place that just opened around the corner. Not even a five minute walk.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Why don't we drop by after work, grab a coffee, just chill and talk for a bit. Sound good?
+<</dialog>>
+
+<<dialog "player">>
+I'm beat... but yeah, a coffee actually sounds nice.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+There you go. Come on, it won't take long.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Go with Jake" "dinerWork_event_jakeCoffeeInvite_followup">><</btn>>
+</div>
+</div>

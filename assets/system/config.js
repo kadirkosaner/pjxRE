@@ -34,7 +34,7 @@ window.SystemModules = {
     "map", // Map overlay (injects into rightbar)
     "startscreen", // Start screen handler
     "mainmenu", // Main menu sliding panel
-    "debug", // Debug floating panel
+//    "debug", // Debug floating panel
     "toggle", // Custom Toggle Switch
     "dropdown", // Custom Dropdown
   ],
@@ -47,6 +47,7 @@ window.SystemModules = {
     "relations", // Relations modal
     "character", // Character modal (tabs)
     "journal", // Journal modal (tabs)
+    "tips", // Flag tabanlı ipuçları modalı
     "help", // Help modal (sidebar)
     "gymTutorial", // Gym mini-game tutorial modal
   ],
@@ -113,6 +114,7 @@ window.SystemCSS = {
     "relations", // Relations modal
     "stats", // Stats modal styling
     "journal", // Journal modal styling
+    "tips", // Tips / ilerleme modalı
     "quest", // Quest prompt system
     "profile", // Profile system
     "character", // Character interaction

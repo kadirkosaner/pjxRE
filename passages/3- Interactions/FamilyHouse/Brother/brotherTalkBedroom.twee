@@ -27,7 +27,7 @@
 <<set _ctxKey = "fhBrotherRoom_" + _phase + "_" + _timeSlot>>
 <<set _levelKey = "level" + _level>>
 
-/* Resolve topic pool — fallback chain */
+/* Resolve topic pool, fallback chain */
 <<set _topicPool = null>>
 
 <<if setup.brotherTopics[_phase] && setup.brotherTopics[_phase][_levelKey] && setup.brotherTopics[_phase][_levelKey][_ctxKey]>>

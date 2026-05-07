@@ -39,14 +39,15 @@
 
 /* Relationship bonus - for each present family member */
 <<for _member range _presentFamily>>
-    <<set $characters[_member].stats.friendship += 2>>
-    <<set $characters[_member].stats.love += 1>>
+    <<gainCharacterStat _member "friendship" 1 true>>
+    <<gainCharacterStat _member "love" 1 true>>
+    <<set _memberName = (setup.characterDefs[_member] && setup.characterDefs[_member].firstName) ? setup.characterDefs[_member].firstName : (($characters[_member] && ($characters[_member].firstName || $characters[_member].name)) ? ($characters[_member].firstName || $characters[_member].name) : _member)>>
+    <<run window.notifySuccess(_memberName + " Friendship & Love +1")>>
 <</for>>
 
 <<advanceTime 30 "relax">>
 <<flushNotifications>>
 <<recalculateStats>>
-<<run window.notifySuccess("Enjoyed a meal with family!")>>
 <</silently>>
 
 <<narrative _mealTitle>>

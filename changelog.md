@@ -14,7 +14,7 @@
 ## İş Sistemi
 
 - İş sistemi kapsamlı biçimde yeniden dengelendi: disiplin, terfi, maaş ve patron görüşmeleri artık daha tutarlı çalışıyor.
-- Strike sistemi kaldırıldı; işteki performansınız artık Work Trust üzerinden daha net sonuçlar doğuruyor.
+- Strike sistemi kaldırıldı; işteki performansınız artık iş yerindeki güven ilişkisine daha net yansıyor.
 - Uyarı ve işten çıkarılma süreçleri olaylara daha bağlı hale getirildi, ani ve açıklamasız kopuşlar azaltıldı.
 - Terfi ve haftalık ödeme akışı yenilendi; kesintiler ve patron kararları daha okunabilir hale getirildi.
 - İş kaynaklı skill kazanımları erken oyunda daha akıcı, ilerleyen aşamada ise daha kontrollü ilerliyor.
@@ -27,7 +27,13 @@
 - Journal görev detaylarında kısa yönlendirme satırları eklendi; görevlerin nereye işaret ettiği daha anlaşılır.
 - Ruby's Diner içi geçişler daha tutarlı hale getirildi.
 - Patron iletişimi için telefon ve yüz yüze diyalog akışlarına yeni seçenekler eklendi.
-- Lokasyon navigasyon kartları için yeni düzen seçeneği eklendi: Ayarlar > Gameplay > Navigation üzerinden Horizontal veya Vertical görünüm seçilebiliyor.
+- Lokasyon kartları için yeni bir görünüm seçeneği eklendi: Ayarlar > Gameplay > Navigation kısmından kartları yatay veya dikey düzenleyebilirsiniz.
+- Üst bara Tips paneli eklendi. Hikâyenin önemli oyun adımları, sıradaki yapılacaklar olarak burada görünür: Lily ile tanışma ve mall keşfi, koşu ve Iron Works Gym rotası, kardeşin bilgisayarı, yatak öncesi rahatlama ve duş anları gibi başlıklar tek bir yerde toplandı.
+- Her ipucu kartı, o adım için gereken koşulları (arkadaşlık seviyesi, enerji, corruption, karakter lust eşikleri vb.) anlık değerleriyle birlikte yeşil veya sarı işaretlerle gösterir; oyuncu hangi şartları sağladığını bir bakışta görebilir.
+- Tamamlanan ipuçları ayrı bir "Tamamlananlar" bölümüne taşınır ve panel oyun ilerledikçe arka planda kendiliğinden güncellenir.
+- Old Town'daki The Daily Grind içinde artık iki ayrı kahve seçeneği var: mekanda içebilir ya da kahveyi yanına alabilirsin.
+- Relations panelinde artık tanıdığınız karakterlerin programını görebilirsiniz: hafta içi ve hafta sonu için saat aralıklarında nerede oldukları tek ekranda özetlenir.
+- Hikâye metninde gördüğünüz kısa videolar, ayarlarda otomatik oynatma açıksa artık okuduğunuz sayfada ekrana geldiğinde kendiliğinden başlar; aşağı kaydırıp görünümden çıkınca durur. Bazı tarayıcılar ilk anda sesi kapalı başlatmayı tercih edebilir; o durumda videoya bir kez dokunarak sesi açabilirsiniz.
 
 ## Oynanış ve Yaşam
 
@@ -44,8 +50,10 @@
 - St. Luke's Hospital'a "See Doctor" eylemi eklendi. Günde bir kez kullanılabilen kısa muayene sahnesinden sonra sağlık toparlanır, stres azalır ve ruh hali iyileşir.
 - Brother's PC üzerinde yeni "What He Watches" görev hattı eklendi. Başta basit görünen bir merak, zamanla karakterin hem kardeşi hem de kendisi hakkında daha rahatsız edici sorular sormasına yol açabilir.
 - Bu hatta ilerledikten sonra aynı izleme akışına hem kendi odanızdaki bilgisayardan hem de kardeşinizin odasındaki PC'den ulaşabilirsiniz; "porno izle" seçeneği iki tarafta da açılır hale gelir.
+- Artık laptop satın alabilir ve kendi odanızda kullanabilirsiniz.
 - Duş sonrası ayna anları, uygun koşullarda duş sahnesinin içinde kendiliğinden beliren kısa ve daha kişisel anlara dönüştürüldü.
 - Ayna anları artık fitness, confidence ve vücut gelişimi eşiklerine göre farklılaşır; ilk fark ediş sahneleri ve sonraki rastgele varyasyonlar daha erotik ve karakter odaklı hale getirildi.
+- The Daily Grind eklendi. Şimdilik temel haliyle oyunda yerini aldı; ileride büyüyecek içerikler için altyapısı hazırlandı.
 - Genel oyun akışında küçük düzenlemeler yapıldı.
 
 ## Arousal Sistemi
@@ -86,4 +94,4 @@
 
 ## FutureTips
 
-- Kardeşinizin bilgisayarında porno izlemek — hiç değilse günde bir kez — ileride bazı görevlerde daha hızlı ilerlemenize yardımcı olabilecek ipuçları ve kapılar için zemin hazırlayabilir.
+- Kardeşinizin bilgisayarında porno izlemek, hiç değilse günde bir kez, ileride bazı görevlerde daha hızlı ilerlemenize yardımcı olabilecek ipuçları ve kapılar için zemin hazırlayabilir.

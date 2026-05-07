@@ -1,0 +1,24 @@
+:: laptopComputerMenu
+<<nobr>>
+<<silently>>
+<<set $location = "fhBedroom">>
+<<set $porn.source = "bedroom">>
+<<set $porn.returnPassage = "laptopComputerMenu">>
+<</silently>>
+
+<<narrative "Laptop">>
+You open your laptop on your bed and let the screen glow fill the room.
+
+What do you want to do?
+<</narrative>>
+
+<div class="location-actions">
+<<if $flags.brotherPornLookButtonUnlocked && ($corruption || 0) >= 1>>
+<<btn "Watch Porn" "pornSite_hotHub" "default">><</btn>>
+<</if>>
+<<btn "Browse / Surf" "brotherComputerBrowse" "default" 15>><</btn>>
+<<btn "Watch Video" "brotherComputerWatchVideo" "default" 12>><</btn>>
+<<btn "Play Game" "brotherComputerPlayGame" "default" 15>><</btn>>
+<<btn "Close Laptop" "fhBedroom">><</btn>>
+</div>
+<</nobr>>

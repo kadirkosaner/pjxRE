@@ -7,6 +7,7 @@
     animation: dialogSlide 0.3s ease;
     width: 100%;
     max-width: 100%;   /* Don't overflow passage area */
+    box-sizing: border-box; /* Include padding in width to avoid right clipping */
 }
 
 @keyframes dialogSlide {
@@ -24,12 +25,14 @@
 /* Player */
 .dialogue.player {
     justify-content: flex-end;
+    padding-right: 0.5rem; /* Pull player row slightly from right edge */
 }
 
 /* Avatar */
 .dialogue .avatar {
     width: 50px;
     height: 50px;
+    box-sizing: border-box; /* Keep 50px total including border */
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -60,8 +63,8 @@
     border-radius: 8px;
     padding: 0.875rem 1.125rem;
     transition: all 0.2s ease;
-    min-width: min(425px, 100%);  /* Prevent overflow on narrow area */
-    max-width: min(600px, 100%);
+    min-width: min(425px, calc(100% - 66px));  /* Avatar(50) + border safety + gap */
+    max-width: min(600px, calc(100% - 66px));
     order: 2;
 }
 
@@ -164,6 +167,7 @@
     width: 100%;
     max-width: 100%;   /* Don't overflow passage area */
     animation: dialogSlide 0.3s ease;
+    box-sizing: border-box;
 }
 
 .thought-card {
@@ -171,8 +175,8 @@
     border: 1px dashed #333;
     border-radius: 8px;
     padding: 0.875rem 1.125rem;
-    min-width: min(425px, 100%);  /* Prevent overflow on narrow screen */
-    max-width: min(600px, 100%);
+    min-width: min(425px, calc(100% - 66px));  /* Keep spacer area visible */
+    max-width: min(600px, calc(100% - 66px));
     transition: all 0.2s ease;
     order: 1;
 }

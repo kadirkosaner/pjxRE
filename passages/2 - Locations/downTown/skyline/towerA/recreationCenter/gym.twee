@@ -6,12 +6,13 @@
     <<advanceQuestStage "lily_gym_intro">>
 <</if>>
 <<updateCharacterLocations>>
+<<set _frontDeskQuestActive = ($questState && $questState.active && $questState.active.lily_gym_intro && $questState.active.lily_gym_intro.stage === 1)>>
 <<narrative "Iron Works Gym">>A well-equipped fitness center with weights, cardio machines, and training areas.<</narrative>>
 <<showLocationChars "gym">>
 <<questPrompts>>
 
 <<gymMembershipCheck>>
-<<if !_gymMembershipActive>>
+<<if !_gymMembershipActive && !_frontDeskQuestActive>>
 <<narrative>>
 You can look around the front area, but the training floor and locker rooms are for members only.
 <</narrative>>
@@ -24,13 +25,15 @@ You can look around the front area, but the training floor and locker rooms are 
     <<gymWorkoutBtn "lower">>
     <<gymWorkoutBtn "cardio">>
 <<else>>
-    <<if $cashBalance gte 229>>
-        <<btn "Join (229$)" "gym">>
-            <<spendCash 229>>
-            <<if _transactionSuccess>><<gymMembershipStart>><</if>>
-        <</btn>>
-    <<else>>
-        <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="Not enough money (need 229$)"><i class="icon icon-lock icon-12"></i> Join (229$)</span>
+    <<if !_frontDeskQuestActive>>
+        <<if $cashBalance gte 229>>
+            <<btn "Join (229$)" "gym">>
+                <<spendCash 229>>
+                <<if _transactionSuccess>><<gymMembershipStart>><</if>>
+            <</btn>>
+        <<else>>
+            <span class="link-internal btn-style btn-default locked mirror-action-muted" data-tooltip="Not enough money (need 229$)"><i class="icon icon-lock icon-12"></i> Join (229$)</span>
+        <</if>>
     <</if>>
 <</if>>
 </div>

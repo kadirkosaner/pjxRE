@@ -51,7 +51,7 @@
         <<set _pagesRead = Math.min(_rawPages, _remaining)>>
         <<set _newPage = _startPage + _pagesRead>>
     <<else>>
-        /* Magazine: single use — one session = read & discard; pages are flavor only */
+        /* Magazine: single use, one session = read & discard; pages are flavor only */
         <<set _pagesRead = Math.min(_rawPages, _meta.pages)>>
         <<set _newPage = _pagesRead>>
     <</if>>
@@ -144,7 +144,7 @@
         /* Base magazine effects: always apply on read */
         <<gainStat "mood" 5>>
         <<loseStat "stress" 5>>
-        /* Magazine: first issue of the day — optional gainStat + optional skillOnComplete (gainSkill); skim after */
+        /* Magazine: first issue of the day, optional gainStat + optional skillOnComplete (gainSkill); skim after */
         <<set _magRewarded = false>>
         <<if !_magSkim>>
             <<set _gc = _meta.gainOnComplete || 0>>
@@ -213,12 +213,12 @@
         <<set _narrText = _skimPool[_narrIdx]>>
     <<elseif _meta.type === "book">>
         <<if _bookLimitReached>>
-            /* Already hit 2-hour daily limit — pick a "had enough for today" line */
+            /* Already hit 2-hour daily limit, pick a "had enough for today" line */
             <<set _limitPool = [
-                "You reach for the book and flip it open, but something stops you. Two hours of reading is probably enough for one day — your eyes need a rest.",
+                "You reach for the book and flip it open, but something stops you. Two hours of reading is probably enough for one day, your eyes need a rest.",
                 "You pick up the book with the best of intentions, then set it back down. You've already put in a solid stretch today. Tomorrow.",
                 "The page is right where you left it. You almost sit down to keep going, but decide you've absorbed enough for today. The words would start blurring anyway.",
-                "You glance at the book, genuinely tempted. But you've been reading for hours already — your brain isn't really taking it in anymore. You close it before you even start.",
+                "You glance at the book, genuinely tempted. But you've been reading for hours already, your brain isn't really taking it in anymore. You close it before you even start.",
                 "You open to your bookmarked page and stare at it for a moment. Then you slowly close the cover. You've done enough reading for today."
             ]>>
             <<set _narrIdx = random(1, _limitPool.length) - 1>>
@@ -283,7 +283,7 @@
 <</narrative>>
 
 <<narrative>>
-You read for <<print $selectedDuration>> minutes — mostly skimming, not really paying attention. When you're done, you toss the issue aside.
+You read for <<print $selectedDuration>> minutes, mostly skimming, not really paying attention. When you're done, you toss the issue aside.
 <</narrative>>
 <<elseif _meta.type === "magazine">>
 <<narrative _meta.name>>
@@ -291,7 +291,7 @@ You read for <<print $selectedDuration>> minutes — mostly skimming, not really
 <</narrative>>
 
 <<narrative>>
-You read for <<print $selectedDuration>> minutes and get through the issue. Done — you toss it in the recycling.
+You read for <<print $selectedDuration>> minutes and get through the issue. Done, you toss it in the recycling.
 <</narrative>>
 <<else>>
 <<narrative _meta.name>>

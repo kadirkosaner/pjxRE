@@ -23,12 +23,12 @@
 <<set _phasePool = setup.fatherTopics[_phase] && setup.fatherTopics[_phase]["level" + _level]>>
 <<set _context = (_phasePool && _phasePool[_contextKey]) ? _phasePool[_contextKey] : null>>
 
-/* Fallback: postWork only has morning+evening — afternoon → evening */
+/* Fallback: postWork only has morning+evening, afternoon → evening */
 <<if !_context && _phasePool>>
     <<if _timeSlot === "afternoon">>
         <<set _context = _phasePool["fhKitchen_" + _phase + "_evening"]>>
     <</if>>
-    /* preWork has morning+evening — if still null try morning */
+    /* preWork has morning+evening, if still null try morning */
     <<if !_context>>
         <<set _context = _phasePool["fhKitchen_" + _phase + "_morning"]>>
     <</if>>
@@ -55,11 +55,11 @@
 <div class="talk-interaction">
 <<narrative "Kitchen - Talk with Father">>
 <<if _phase === "preWork">>
-The kitchen has that early-morning feel — unhurried, still settling in. Your father's here too, fitting the new house into his routines.
+The kitchen has that early-morning feel, unhurried, still settling in. Your father's here too, fitting the new house into his routines.
 <<elseif _timeSlot === "morning">>
-He's moving with purpose — commute mode. The kitchen is a brief stop before his day starts.
+He's moving with purpose, commute mode. The kitchen is a brief stop before his day starts.
 <<else>>
-He's just come in from work. The kitchen is where he lands first — jacket off, winding down.
+He's just come in from work. The kitchen is where he lands first, jacket off, winding down.
 <</if>>
 <</narrative>>
 

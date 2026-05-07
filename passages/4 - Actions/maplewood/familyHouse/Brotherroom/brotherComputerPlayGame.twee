@@ -1,13 +1,18 @@
 <<nobr>>
-<<requireMinEnergy 20 "brotherComputerMenu">>
+<<set _returnPassage = $porn.returnPassage || "brotherComputerMenu">>
+<<requireMinEnergy 20 _returnPassage>>
 <<silently>>
-<<set $location = "fhBrotherRoom">>
+<<if $porn.source === "brotherRoom">>
+    <<set $location = "fhBrotherRoom">>
+<<else>>
+    <<set $location = "fhBedroom">>
+<</if>>
 <<set _pcVidBase = "assets/content/scenes/maplewood/familyHouse/brotherRoom/computer/gaming/">>
 <<set _sceneVid = "">>
 <<set _v = random(1, 4)>>
 <<switch _v>>
 <<case 1>>
-    <<set _sceneText = "You load something competitive—matches, ranks, people typing faster than you can think. Win or lose, your pulse stays up until you force yourself to quit one more game.">>
+    <<set _sceneText = "You load something competitive - matches, ranks, people typing faster than you can think. Win or lose, your pulse stays up until you force yourself to quit one more game.">>
     <<set _sceneVid = _pcVidBase + "gameComp" + random(1, 6) + ".mp4">>
 <<case 2>>
     <<set _sceneText = "A cozy builder or farm sim eats the hour. Plant, craft, repeat. Numbers go up. Your brain likes the little rewards more than you'd admit.">>
@@ -16,9 +21,10 @@
     <<set _sceneText = "A roguelike punishes you, tempts you with one more run, then punishes you again. The loop is stupid. The loop is perfect.">>
     <<set _sceneVid = _pcVidBase + "gameRogue" + random(1, 9) + ".mp4">>
 <<case 4>>
-    <<set _sceneText = "You sink into a story game—dialogue choices, slow exploration, a plot that actually lands. When you look up, the room feels dimmer and your eyes are dry.">>
+    <<set _sceneText = "You sink into a story game - dialogue choices, slow exploration, a plot that actually lands. When you look up, the room feels dimmer and your eyes are dry.">>
     <<set _sceneVid = _pcVidBase + "gameStory" + random(1, 14) + ".mp4">>
 <</switch>>
+<<advanceTime 30 "relax">>
 <<gainStat "mood" 10>>
 <<loseStat "stress" 10>>
 <<loseStat "energy" 10>>
@@ -28,7 +34,6 @@
 <<else>>
 <<gainSkill "technical" "gaming" 1>>
 <</if>>
-<<advanceTime 30 "relax">>
 <<flushNotifications>>
 <</silently>>
 
@@ -39,6 +44,6 @@
 <<if _sceneVid !== "">><<vid _sceneVid "100%">><</if>>
 
 <div class="location-actions">
-<<btn "Go Back" "brotherComputerMenu">><</btn>>
+<<btn "Go Back" _returnPassage>><</btn>>
 </div>
 <</nobr>>

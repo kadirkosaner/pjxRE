@@ -316,13 +316,227 @@ window.RelationsInit = function (API) {
                     </div>
                     
                     <div class="relations-info-section">
-                        <div class="relations-info-header">Additional Information</div>
+                        <div class="relations-info-header">Schedule</div>
                         <div class="relations-info-content" id="relations-info-content">
-                            <p>No additional information available.</p>
+                            <p class="relations-schedule-empty">No schedule data available.</p>
                         </div>
                     </div>
                 </div>
             `;
+        },
+
+        escapeHtml: function (text) {
+            if (text == null) return '';
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        },
+
+        getScheduleLocationLabel: function (locationId, setup) {
+            if (locationId == null || locationId === '') return null;
+            if (typeof window.getLocationName === 'function') {
+                return window.getLocationName(locationId);
+            }
+            const nav = (setup && setup.navCards) ? setup.navCards[locationId] : null;
+            return (nav && nav.name) ? nav.name : String(locationId);
+        },
+
+        formatScheduleTime: function (hour, minute) {
+            const h = Number(hour);
+            const m = Number(minute) || 0;
+            if (h === 24 && m === 0) return '24:00';
+            const hh = String(Math.min(23, Math.max(0, h || 0))).padStart(2, '0');
+            const mm = String(Math.min(59, Math.max(0, m))).padStart(2, '0');
+            return hh + ':' + mm;
+        },
+
+        slotStartTotalMinutes: function (slot) {
+            if (!slot) return 0;
+            return (Number(slot.hour) || 0) * 60 + (Number(slot.minute) || 0);
+        },
+
+        getNextSlotForRange: function (slots, index) {
+            if (!slots || !slots.length) return null;
+            if (index < slots.length - 1) return slots[index + 1];
+            return slots[0];
+        },
+
+        formatRangeEndLabel: function (nextSlot, startSlot, index, length) {
+            if (!nextSlot) return '24:00';
+            const nh = Number(nextSlot.hour) || 0;
+            const nm = Number(nextSlot.minute) || 0;
+            const startMin = this.slotStartTotalMinutes(startSlot);
+            const nextMin = this.slotStartTotalMinutes(nextSlot);
+            const isLast = index === length - 1;
+            if (isLast && nextMin <= startMin) {
+                if (nh === 0 && nm === 0) return '24:00';
+            }
+            return this.formatScheduleTime(nh, nm);
+        },
+
+        humanizeScheduleStatus: function (status) {
+            if (!status) return '—';
+            const map = {
+                break: 'On break',
+                busy: 'Busy',
+                sleeping: 'Sleeping',
+                showering: 'Showering',
+                available: 'Around',
+                trainer: 'Training floor',
+                reception: 'Front desk'
+            };
+            const s = String(status).toLowerCase();
+            if (map[s]) return map[s];
+            return String(status).charAt(0).toUpperCase() + String(status).slice(1);
+        },
+
+        isUnavailableScheduleSlot: function (slot) {
+            if (!slot) return true;
+            if (slot.location) return false;
+            return String(slot.status || '').toLowerCase() === 'unavailable';
+        },
+
+        describeScheduleSlot: function (slot, setup) {
+            const loc = slot && slot.location;
+            if (loc) {
+                return this.getScheduleLocationLabel(loc, setup);
+            }
+            return this.humanizeScheduleStatus(slot && slot.status);
+        },
+
+        getActiveSchedulePhaseKey: function (characterId, vars, setup) {
+            const ts = vars && vars.timeSys;
+            if (characterId === 'father') {
+                if (ts) {
+                    const currentDate = ts.year * 10000 + ts.month * 100 + ts.day;
+                    const imp = vars.importantDates && vars.importantDates.fatherWorkStart;
+                    if (imp && imp.year != null && imp.month != null && imp.day != null) {
+                        const workDate = imp.year * 10000 + imp.month * 100 + imp.day;
+                        return currentDate >= workDate ? 'postWork' : 'preWork';
+                    }
+                }
+                return 'preWork';
+            }
+            if (characterId === 'brother') {
+                const cal = setup && setup.schoolCalendar && setup.schoolCalendar.vacations;
+                if (ts && cal && cal.length) {
+                    const monthDay = ts.month * 100 + ts.day;
+                    let isVacation = false;
+                    for (let v = 0; v < cal.length; v++) {
+                        const vac = cal[v];
+                        const startMD = vac.startMonth * 100 + vac.startDay;
+                        const endMD = vac.endMonth * 100 + vac.endDay;
+                        if (startMD <= endMD) {
+                            if (monthDay >= startMD && monthDay <= endMD) isVacation = true;
+                        } else {
+                            if (monthDay >= startMD || monthDay <= endMD) isVacation = true;
+                        }
+                    }
+                    return isVacation ? 'vacation' : 'school';
+                }
+                return 'school';
+            }
+            return null;
+        },
+
+        isFlatCharacterSchedule: function (sched) {
+            return sched && Array.isArray(sched.weekday);
+        },
+
+        buildScheduleColumnTable: function (slots, setup) {
+            if (!slots || !slots.length) {
+                return '<p class="relations-schedule-empty">—</p>';
+            }
+            const n = slots.length;
+            const segments = [];
+            for (let i = 0; i < n; i++) {
+                const slot = slots[i];
+                if (this.isUnavailableScheduleSlot(slot)) continue;
+                const next = this.getNextSlotForRange(slots, i);
+                const startStr = this.formatScheduleTime(slot.hour, slot.minute);
+                const endStr = this.formatRangeEndLabel(next, slot, i, n);
+                const place = this.describeScheduleSlot(slot, setup);
+                const last = segments.length ? segments[segments.length - 1] : null;
+                if (last && last.place === place && last.endStr === startStr) {
+                    last.endStr = endStr;
+                } else {
+                    segments.push({ startStr: startStr, endStr: endStr, place: place });
+                }
+            }
+            if (!segments.length) {
+                return '<p class="relations-schedule-empty">—</p>';
+            }
+            let rows = '';
+            for (let j = 0; j < segments.length; j++) {
+                const seg = segments[j];
+                const rangeStr = seg.startStr + ' - ' + seg.endStr;
+                rows += '<tr><td class="relations-schedule-time">' + this.escapeHtml(rangeStr) + '</td><td class="relations-schedule-place">' + this.escapeHtml(seg.place) + '</td></tr>';
+            }
+            return '<table class="relations-schedule-table"><tbody>' + rows + '</tbody></table>';
+        },
+
+        buildSchedulePhaseHtml: function (phaseData, setup) {
+            const weekday = phaseData.weekday || [];
+            const weekend = phaseData.weekend || [];
+            return '<div class="relations-schedule-columns">' +
+                '<div class="relations-schedule-col">' +
+                '<div class="relations-schedule-col-title">Weekdays</div>' +
+                this.buildScheduleColumnTable(weekday, setup) +
+                '</div>' +
+                '<div class="relations-schedule-col">' +
+                '<div class="relations-schedule-col-title">Weekend</div>' +
+                this.buildScheduleColumnTable(weekend, setup) +
+                '</div>' +
+                '</div>';
+        },
+
+        buildCharacterScheduleHtml: function (characterId, char, setup, vars) {
+            if (char && char.generatedFromPhone) {
+                return '<p class="relations-schedule-empty">No routine schedule for online contacts.</p>';
+            }
+            const schedules = (setup && setup.schedules) ? setup.schedules : {};
+            const sched = schedules[characterId];
+            if (!sched) {
+                return '<p class="relations-schedule-empty">No schedule data available.</p>';
+            }
+            if (this.isFlatCharacterSchedule(sched)) {
+                let html = '<div class="relations-schedule-body">';
+                html += this.buildSchedulePhaseHtml(sched, setup);
+                const sun = sched.sunday;
+                if (Array.isArray(sun) && sun.length > 0) {
+                    const weekend = sched.weekend || [];
+                    if (JSON.stringify(weekend) !== JSON.stringify(sun)) {
+                        html += '<div class="relations-schedule-phase relations-schedule-sunday-block">';
+                        html += '<div class="relations-schedule-phase-title">' + this.escapeHtml('Sunday') + '</div>';
+                        html += '<div class="relations-schedule-sunday-table-wrap">' + this.buildScheduleColumnTable(sun, setup) + '</div>';
+                        html += '</div>';
+                    }
+                }
+                html += '</div>';
+                return html;
+            }
+            const activePhase = this.getActiveSchedulePhaseKey(characterId, vars, setup);
+            if (activePhase && sched[activePhase] && typeof sched[activePhase] === 'object' && Array.isArray(sched[activePhase].weekday)) {
+                return '<div class="relations-schedule-body">' +
+                    '<div class="relations-schedule-phase">' +
+                    this.buildSchedulePhaseHtml(sched[activePhase], setup) +
+                    '</div></div>';
+            }
+            const phaseKeys = Object.keys(sched).filter(function (k) {
+                const v = sched[k];
+                return v && typeof v === 'object' && Array.isArray(v.weekday);
+            });
+            if (phaseKeys.length === 0) {
+                return '<p class="relations-schedule-empty">No schedule data available.</p>';
+            }
+            let html = '<div class="relations-schedule-body">';
+            for (let p = 0; p < phaseKeys.length; p++) {
+                html += '<div class="relations-schedule-phase">' + this.buildSchedulePhaseHtml(sched[phaseKeys[p]], setup) + '</div>';
+            }
+            html += '</div>';
+            return html;
         },
 
         // Attach events
@@ -389,9 +603,9 @@ window.RelationsInit = function (API) {
             this.API.$('#relations-detail-status').text(statusText);
             this.API.$('#relations-detail-firstmet').text(firstMetText);
 
-            // Update info section
-            const infoContent = char.info || '<p>No additional information available.</p>';
-            this.API.$('#relations-info-content').html(infoContent);
+            // Schedule (setup.schedules) — weekdays vs weekend columns
+            const scheduleHtml = this.buildCharacterScheduleHtml(characterId, char, setup, vars);
+            this.API.$('#relations-info-content').html(scheduleHtml);
 
             // Update stats — always 0/100. versionCaps enforce gameplay limits elsewhere.
             const stats = char.stats || { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 };

@@ -1,0 +1,245 @@
+/* Tips modal — flag-driven progress chains */
+.tips-modal-root {
+  padding: 0 var(--spacing-md) var(--spacing-md);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+  /* Scroll only .modal-content — avoids nested scroll hiding extra “Next Up” cards */
+  min-height: 0;
+}
+
+.tips-intro {
+  margin: 0 0 var(--spacing-md);
+  opacity: 0.9;
+  font-size: 0.82rem;
+}
+
+.tips-section-title {
+  margin: var(--spacing-md) 0 var(--spacing-sm);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.tips-section-done {
+  margin-top: var(--spacing-lg);
+}
+
+.tips-done-accordion {
+  margin-top: var(--spacing-lg);
+}
+
+.tips-done-accordion > summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tips-done-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+.tips-done-accordion > summary::before {
+  content: "▸";
+  color: var(--color-text-tertiary);
+  font-size: 0.72rem;
+  transform: translateY(-1px);
+  transition: transform 0.15s ease;
+}
+
+.tips-done-accordion[open] > summary::before {
+  transform: rotate(90deg) translateY(-1px);
+}
+
+.tips-done-count {
+  color: var(--color-text-tertiary);
+  font-size: 0.9em;
+}
+
+/* Upcoming chain card */
+.tips-chain-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.chain-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.chain-header strong {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.chain-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.chain-header .progress {
+  margin-left: auto;
+  font-size: 0.85em;
+  color: var(--color-text-tertiary);
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm, 2px);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff8a65, #f06292);
+  border-radius: var(--radius-sm, 2px);
+  transition: width 0.25s ease;
+}
+
+.tips-next {
+  margin: 10px 0 0;
+  padding: 0;
+  color: var(--color-text-secondary);
+}
+
+/* Requirements block under a step */
+.tips-reqs {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--color-border-secondary);
+}
+
+.tips-reqs-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.tips-req-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tips-req-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.tips-req-icon {
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 1px;
+}
+
+.tips-req-label {
+  flex: 1;
+  word-break: break-word;
+}
+
+.tips-req-current {
+  opacity: 0.7;
+  font-size: 0.9em;
+  margin-left: 2px;
+}
+
+.tips-req-item.met .tips-req-icon {
+  color: var(--color-success, #4ade80);
+}
+.tips-req-item.met .tips-req-label {
+  color: var(--color-text-secondary);
+}
+
+.tips-req-item.unmet .tips-req-icon {
+  color: var(--color-warning, #facc15);
+}
+.tips-req-item.unmet .tips-req-label {
+  color: var(--color-warning, #facc15);
+}
+
+.tips-upcoming-list {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Completed steps */
+.tips-done-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tips-done-item {
+  padding: 10px 12px;
+  background: rgba(74, 222, 128, 0.08);
+  border-left: 3px solid var(--color-success, #4ade80);
+  margin-bottom: 6px;
+  border-radius: var(--radius-sm, 4px);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--color-text-secondary);
+}
+
+.tips-done-item .done-check {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--color-success, #4ade80);
+  font-weight: bold;
+}
+
+.tips-done-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.tips-done-item .done-chain {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  font-weight: 600;
+}
+
+.tips-done-item .done-text {
+  color: var(--color-text-secondary);
+  word-break: break-word;
+}
+
+.tips-empty {
+  margin: 0;
+  opacity: 0.65;
+  font-size: 0.85rem;
+}
+
+.tips-empty-success {
+  color: var(--color-success, #4ade80);
+  opacity: 1;
+  font-weight: 600;
+  font-style: italic;
+}

@@ -2,6 +2,13 @@
 <<nobr>>
 <<silently>>
 <<if $porn.source === "brotherRoom">>
+    <<updateCharacterLocations>>
+    <<set _brotherOnPC = !$_navigatingBackward && $characters.brother && $characters.brother.currentLocation === "fhBrotherRoom">>
+    <<if _brotherOnPC>>
+        <<run window.notifyWarning("Your brother walked in and made you get off the computer.")>>
+        <<set $location = "fhBrotherRoom">>
+        <<goto "fhBrotherRoom">>
+    <</if>>
     <<set $location = "fhBrotherRoomPC">>
 <<else>>
     <<set $location = "fhBedroom">>

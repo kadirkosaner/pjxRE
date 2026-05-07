@@ -1,5 +1,5 @@
 /* ==========================================
-   BROTHER TALK TOPICS — SCHOOL PHASE, LEVEL 1
+   BROTHER TALK TOPICS, SCHOOL PHASE, LEVEL 1
    phase === "school" && friendshipLevel === 1
 
    Structure: setup.brotherTopics.school.level1[locTimeKey][topicName] = [ {text, friendship, trust, love} ]
@@ -13,7 +13,7 @@
 
    SCHOOL L1 TONE:
    → Guarded, minimal, slightly annoyed to be interrupted
-   → Sarcastic but not mean — it's just how he talks
+   → Sarcastic but not mean, it's just how he talks
    → Rare genuine moments feel like cracks in a wall
    → Stat gains: friendship +1-2, trust +1
 
@@ -57,7 +57,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/ki
 text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/kitchenMorning-1.webp">>
 <<image _img "100%">>
 <<narrative>>He's almost out the door when you catch him. Bag half-zip, toast in hand.<</narrative>>
-<<dialog "player">>Hey — did you finish that thing for school?<</dialog>>
+<<dialog "player">>Hey, did you finish that thing for school?<</dialog>>
 <<dialog "brother">>(not stopping) ...Mostly.<</dialog>>
 <<dialog "player">>Jake.<</dialog>>
 <<dialog "brother">>(already in the hall) It's fine!<</dialog>>`,
@@ -388,8 +388,8 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/be
 <<image _img "100%">>
 <<narrative>>His room glows blue in the dark. He's fully in the zone. Headset on, mic active, talking quietly to someone online.<</narrative>>
 <<dialog "player">>(knocking) Jake?<</dialog>>
-<<dialog "brother">>(one hand up — hold on)
-(into mic) Yeah, okay, I'll push — one sec—
+<<dialog "brother">>(one hand up, hold on)
+(into mic) Yeah, okay, I'll push, one sec - 
 (to you, pulling headset down)
 What?<</dialog>>
 <<dialog "player">>Just checking you're alive.<</dialog>>
@@ -547,7 +547,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/li
 <<narrative>>He says something slightly stupid, entirely confident.<</narrative>>
 <<dialog "brother">>I could beat you at any game. Any. You pick.<</dialog>>
 <<dialog "player">>Any game?<</dialog>>
-<<dialog "brother">>(immediately) Well — almost any.
+<<dialog "brother">>(immediately) Well, almost any.
 (backtracking)
 What were you thinking?<</dialog>>`,
                 friendship: 2
@@ -558,7 +558,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/li
 <<narrative>>He looks at what you're doing with mild disdain.<</narrative>>
 <<dialog "brother">>You know there's a faster way to do that, right?<</dialog>>
 <<dialog "player">>Is there?<</dialog>>
-<<dialog "brother">>(crossing the room to show you) Yeah, look—
+<<dialog "brother">>(crossing the room to show you) Yeah, look - 
 (explaining something very basic with complete confidence)<</dialog>>`,
                 friendship: 2
             },
@@ -631,7 +631,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/li
 <<dialog "player">>You staying?<</dialog>>
 <<dialog "brother">>(not admitting it) I'm just sitting for a bit.
 (five minutes later, fully engaged in whatever is on)
-Wait — what happened to that character?<</dialog>>`,
+Wait, what happened to that character?<</dialog>>`,
                 friendship: 2
             },
             {
@@ -687,7 +687,7 @@ text: `<<set _img = "assets/content/scenes/interactions/brother/school/level1/li
 <<image _img "100%">>
 <<narrative>>He paces slightly, picking things up and putting them down. Too wired from gaming to settle.<</narrative>>
 <<dialog "player">>You good?<</dialog>>
-<<dialog "brother">>(picking up a TV remote and pretending that's what he came for) Yeah. Fine. Just—
+<<dialog "brother">>(picking up a TV remote and pretending that's what he came for) Yeah. Fine. Just - 
 (puts the remote down)
 I lost a really important match today. In the game.
 (like it matters because it does to him)<</dialog>>`,

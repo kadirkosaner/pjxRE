@@ -8,12 +8,27 @@ if (window.QuestSceneNav && typeof window.QuestSceneNav.scheduleHubAutoScene ===
 <<updateCharacterLocations>>
 
 <<narrative "My Bedroom">>
-Your room. Posters on the walls, your things where you left them — small, but yours.
+Your room. Posters on the walls, your things where you left them, small, but yours.
 <</narrative>>
 
 <<showLocationChars "fhBedroom">>
 
+<<silently>>
+<<set _hasLaptop = false>>
+<<if $inventory && $inventory.length > 0>>
+    <<for _invItem range $inventory>>
+        <<if _invItem.id === "laptop" && (_invItem.quantity || 0) > 0>>
+            <<set _hasLaptop = true>>
+            <<break>>
+        <</if>>
+    <</for>>
+<</if>>
+<</silently>>
+
 <div class="location-actions">
+    <<if _hasLaptop>>
+        <<btn "Use Laptop" "laptopComputerMenu">><</btn>>
+    <</if>>
 	<<readBtn>>
 	<<btn "Go to Bed" "fhBed">><</btn>>
 </div>

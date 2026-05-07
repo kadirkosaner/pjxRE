@@ -11,7 +11,7 @@
     <</if>>
     <<if _requestedDuration > _sleepMaxMinutes>><<set _requestedDuration = _sleepMaxMinutes>><</if>>
 
-    /* 2. ENERGY ↔ TIME — 20→max = 8h (480m); 0→max takes longer (linear in deficit vs span above 20) */
+    /* 2. ENERGY ↔ TIME, 20→max = 8h (480m); 0→max takes longer (linear in deficit vs span above 20) */
     <<set _sleepEnergyFullMinutes = 480>>
     <<set _energySleepFloor = 20>>
     <<set _energyCurrent = parseInt($energy || 0)>>
@@ -78,7 +78,7 @@
     <<if _sleepDuration < 30>><<set _sleepDuration = 30>><</if>>
     <<if _sleepDuration > _sleepMaxMinutes>><<set _sleepDuration = _sleepMaxMinutes>><</if>>
 
-    /* 5. RECOVERY — energy scales with actual sleep vs time-to-full; stress/health: 9h = 100% ratio */
+    /* 5. RECOVERY, energy scales with actual sleep vs time-to-full; stress/health: 9h = 100% ratio */
     <<set _recoveryRatio = _sleepDuration / _sleepMaxMinutes>>
     <<set _energyGain = 0>>
     <<if _energyToFill > 0 && _minutesToFillEnergy > 0>>
@@ -154,7 +154,7 @@ The shrill sound of your alarm cuts through your sleep. You jolt awake, groggy a
 <</narrative>>
 <<elseif _wakeType == "energy">>
 <<narrative>>
-Your eyes open on their own — no alarm, no noise. You just feel //done//. Rested. Clear-headed. Your body decided it had what it needed and simply woke up.
+Your eyes open on their own, no alarm, no noise. You just feel //done//. Rested. Clear-headed. Your body decided it had what it needed and simply woke up.
 <</narrative>>
 <<else>>
 <<narrative>>

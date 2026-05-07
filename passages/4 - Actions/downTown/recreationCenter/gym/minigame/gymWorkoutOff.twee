@@ -3,6 +3,19 @@
 <<silently>>
     <<set $location = "gym">>
     <<set _zone = ($gymMG && $gymMG.zone) ? $gymMG.zone : "upper">>
+    <<set _gymVidDefs = {
+        upper:  { folder: "upper",  prefix: "upperbody", max: 13, size60: [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12] },
+        core:   { folder: "core",   prefix: "core",      max: 6,  size60: [1, 3] },
+        lower:  { folder: "lower",  prefix: "lowerbody", max: 13, size60: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
+        cardio: { folder: "cardio", prefix: "cardio",    max: 8,  size60: [1, 2, 6, 7, 8] }
+    }>>
+    <<set _gymVidDef = _gymVidDefs[_zone] || _gymVidDefs.upper>>
+    <<set _gymVidVariant = random(1, _gymVidDef.max)>>
+    <<set _gymVid = "assets/content/scenes/global/gym/" + _gymVidDef.folder + "/" + _gymVidDef.prefix + _gymVidVariant + ".mp4">>
+    <<set _gymVidSize = "100%">>
+    <<if _gymVidDef.size60.includes(_gymVidVariant)>>
+        <<set _gymVidSize = "60%">>
+    <</if>>
 
     /* Flat reward when mini-game is turned off */
     <<if _zone === "upper">>
@@ -39,6 +52,7 @@
             Treadmill sprints, bike intervals, jump rope. Your heart pounds and sweat drips by the time you finish. You feel completely spent in the best way.
     <</switch>>
 <</narrative>>
+<<vid _gymVid _gymVidSize>>
 
 <div class="location-actions">
     <<btn "Back" "gym">><</btn>>

@@ -8,7 +8,7 @@
     active: {},      // { questId: { stage: 0, objectives: {}, triggeredStage: -1, startDate: "1/1/2025" } }
     completed: [],   // ["questId1", "questId2", ...]
     failed: [],      // ["questId3", ...]
-    /* Reserved for repeatable/daily quest bookkeeping — not wired in macros yet. */
+    /* Reserved for repeatable/daily quest bookkeeping, not wired in macros yet. */
     daily: {},
     /* Set on <<completeQuest>>: { questId: YYYYMMDD } in storyJavaScript.js */
     completedDates: {}

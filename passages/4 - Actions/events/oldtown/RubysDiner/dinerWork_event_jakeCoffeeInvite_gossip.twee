@@ -1,0 +1,207 @@
+:: dinerWork_event_jakeCoffeeInvite_gossip [quest-scene]
+<div class="divnobr">
+<<silently>>
+<<set $location = "shopCoffeeOldtown">>
+<<advanceTime 60>>
+<</silently>>
+
+<<narrative "Window Table">>
+You both drop into the seats by the window. The latte is warm in your hands and the chair is the first soft thing you've sat on in hours. For a while the conversation stays easy. The dinner rush. The new POS system that nobody can figure out. How Tom somehow always ends up with the leftover fries.
+<</narrative>>
+
+<<dialog "dinerWaitress3">>
+God, this is nice. Just sitting. Nobody yelling for ketchup.
+<</dialog>>
+
+<<dialog "player">>
+Yeah. I didn't realize how much I needed this until I sat down.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Right? Some shifts you just need a coffee and a chair that doesn't wobble.
+<</dialog>>
+
+<<narrative>>
+You both laugh a little. Jake takes a long sip, and his shoulders finally drop.
+<</narrative>>
+
+<<dialog "dinerWaitress3">>
+You're settling in pretty good, by the way. The dish pit eats most newbies alive in the first week.
+<</dialog>>
+
+<<dialog "player">>
+I wouldn't call it settling in. More like surviving.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Same thing at Ruby's.
+<</dialog>>
+
+<<narrative>>
+He glances out the window for a second. The conversation slows down on its own.
+<</narrative>>
+
+<<dialog "dinerWaitress3">>
+Look... Ruby's looks like normal chaos from the outside. Loud, messy, whatever. But once you've been around a while, you start seeing the patterns under all the noise.
+<</dialog>>
+
+<<dialog "player">>
+What kind of patterns?
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Vince, mostly.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+He's not just a stressed boss. He's the kind of guy who makes everything personal.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+One day he's cracking jokes with everyone, next day he's riding someone hard for no reason. And he picks favorites. Always.
+<</dialog>>
+
+<<dialog "player">>
+I've already seen a little of that, honestly.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Yeah, well. It gets even weirder when Diana shows up.
+<</dialog>>
+
+<<narrative>>
+His voice gets quieter, more careful.
+<</narrative>>
+
+<<dialog "dinerWaitress3">>
+The second she walks through that door, Vince turns into a different person. Charming, twitchy, trying way too hard.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Everyone in the kitchen sees it. Nobody says a word.
+<</dialog>>
+
+<<dialog "player">>
+And the rest of the floor? Sofia, Emma?
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+That's where it gets ugly.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Sofia... something happened between them. Most of us know it, even if nobody says it out loud.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+He got what he wanted, cooled off after, but he still keeps her on a short leash. Better shifts. Long "talks" in the back. Little favors here and there.
+<</dialog>>
+
+<<dialog "player">>
+And she's okay with that?
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+She acts like she is. But the second Vince smiles at someone else, you can read it on her face. She gets jealous fast. Real fast.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Emma's a whole different story. He tried hard with her too, I know that much. But she's not someone you can read easy.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+She doesn't talk much, doesn't react when he pushes. She just keeps her distance now. Whatever went down between them, it's still under her skin. You can feel it.
+<</dialog>>
+
+<<dialog "player">>
+That's a lot heavier than I thought. I knew Vince was a piece of work, but I didn't think it ran that deep with the girls.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Yeah. That's Ruby's behind the menu.
+<</dialog>>
+
+<<dialog "player">>
+And nobody's said anything? Like, to Ruby, or higher up?
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Who's gonna say it? Sofia won't, Emma's not the type to make noise, and the rest of us need the paycheck. Vince knows that. He counts on it.
+<</dialog>>
+
+<<narrative>>
+Jake leans forward, elbows on the table.
+<</narrative>>
+
+<<dialog "dinerWaitress3">>
+I'm telling you all this because I actually like working with you. You show up, you do the work, you don't whine.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+You don't deserve to get dragged into any of that mess.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+So listen to me. If Vince starts paying you too much attention, getting touchy, finding little reasons to keep you late... don't sit on it.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Tell me. Tell Emma. Don't try to handle him on your own.
+<</dialog>>
+
+<<dialog "player">>
+I appreciate you saying it, Jake. Really. Most people would've just let me figure it out on my own.
+<</dialog>>
+
+<<dialog "player">>
+I'll keep my distance from him, and if anything starts feeling off, you'll be the first to know.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+That's all I'm asking.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Just keep your line clear from day one. The second you give him an inch, he takes the rest.
+<</dialog>>
+
+<<silently>>
+<<gainCharacterStat "dinerWaitress3" "friendship" 4>>
+<<gainStat "mood" 7>>
+<<loseStat "stress" 6>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</silently>>
+
+<<narrative>>
+You both sit with that for a moment. Jake finishes his americano and turns the empty cup in his hand. Outside, a bus hisses to a stop and pulls away again. The conversation lands heavier than when you walked in, but somehow you don't mind. Feels like something honest just happened between you two.
+<</narrative>>
+
+<<dialog "dinerWaitress3">>
+Alright. I should head home before I fall asleep at this table.
+<</dialog>>
+
+<<dialog "player">>
+Yeah, same. Thanks again for the coffee, Jake. I needed this more than I thought.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Anytime. Seriously.
+<</dialog>>
+
+<<dialog "dinerWaitress3">>
+Get home safe, alright? See you tomorrow.
+<</dialog>>
+
+<<dialog "player">>
+You too.
+<</dialog>>
+
+<<narrative>>
+Jake gives you a small wave and heads off down the street. You stand there for a second, watching him go, then turn the other way.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Finish your drink and leave" "shopCoffeeOldtown">><</btn>>
+</div>
+</div>

@@ -1,0 +1,12 @@
+:: parkWCCabin
+<<nobr>>
+<<set $location = "sunsetWC">>
+<<set $returnAfterToilet = "sunsetWC">>
+<<updateCharacterLocations>>
+
+<<narrative "Restroom Cabin">>
+You slip into a private cabin with just enough space to quickly change your outfit.
+<</narrative>>
+<</nobr>>
+
+<<wardrobe "sunsetWC" "sunsetWC">>

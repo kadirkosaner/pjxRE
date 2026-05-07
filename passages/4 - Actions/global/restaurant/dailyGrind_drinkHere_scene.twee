@@ -1,0 +1,74 @@
+<div class="divnobr">
+<<nobr>>
+<<set $location = $restaurantReturnPassage || "shopCoffeeOldtown">>
+<<set _back = $location>>
+<<set _drinkId = $dailyGrindLastDrinkId || $restaurantLastDrinkId || "dg_americano">>
+<<set _drinkName = "your coffee">>
+<<set _sceneText = "You sink into a chair near the window and take a slow sip while the cafe hums around you.">>
+<<set _variant = random(1, 3)>>
+<<advanceTime random(20, 35) "relax">>
+
+<<switch _drinkId>>
+    <<case "dg_americano">>
+        <<set _drinkName = "Americano">>
+        <<switch _variant>>
+            <<case 1>>
+                <<set _sceneText = "The Americano hits quick: bitter, hot, and exactly what you needed. A few sips in, your head feels clear and your to-do list feels manageable again.">>
+            <<case 2>>
+                <<set _sceneText = "You nurse the Americano slowly, letting the strong taste settle in. By the last sip, that sleepy fog is gone and your focus is back.">>
+            <<default>>
+                <<set _sceneText = "You take your Americano black and unfiltered, no distractions. It is sharp, a little harsh, and somehow perfect for getting your mind in gear.">>
+        <</switch>>
+    <<case "dg_latte">>
+        <<set _drinkName = "Latte">>
+        <<switch _variant>>
+            <<case 1>>
+                <<set _sceneText = "The latte is smooth and warm, easy to drink without thinking. You end up sitting longer than planned, shoulders finally relaxing a little.">>
+            <<case 2>>
+                <<set _sceneText = "You wrap both hands around the latte cup and breathe out. The soft foam and mellow coffee calm your nerves more than you expected.">>
+            <<default>>
+                <<set _sceneText = "It is one of those good lattes: not too strong, not too sweet. You take your time with it, and the stress from earlier starts to fade.">>
+        <</switch>>
+    <<case "dg_cappuccino">>
+        <<set _drinkName = "Cappuccino">>
+        <<switch _variant>>
+            <<case 1>>
+                <<set _sceneText = "The cappuccino foam is thick and the espresso underneath is just right. You get a clean energy lift without feeling jittery.">>
+            <<case 2>>
+                <<set _sceneText = "You take a sip, get a bit of foam on your lip, and quietly laugh at yourself. The cappuccino gives you that balanced boost that keeps your mood steady.">>
+            <<default>>
+                <<set _sceneText = "Strong coffee, soft foam, warm cup; the cappuccino lands perfectly. By the time you finish, you feel lighter and more awake.">>
+        <</switch>>
+    <<case "dg_mocha">>
+        <<set _drinkName = "Mocha">>
+        <<switch _variant>>
+            <<case 1>>
+                <<set _sceneText = "The mocha tastes like a small reward: chocolate first, coffee right after. You catch yourself smiling between sips.">>
+            <<case 2>>
+                <<set _sceneText = "You were craving something comforting, and the mocha delivers. It is sweet enough to lift your mood without knocking you out.">>
+            <<default>>
+                <<set _sceneText = "Warm chocolate and espresso settle you in instantly. The day does not feel as heavy after finishing your mocha.">>
+        <</switch>>
+    <<case "dg_coldbrew">>
+        <<set _drinkName = "Cold Brew">>
+        <<switch _variant>>
+            <<case 1>>
+                <<set _sceneText = "The cold brew is crisp and strong, exactly the jolt you wanted. Halfway through the cup, your energy is back online.">>
+            <<case 2>>
+                <<set _sceneText = "You take a long pull from the cold brew and feel the caffeine wake-up almost immediately. It is bold, smooth, and very effective.">>
+            <<default>>
+                <<set _sceneText = "Cold, dark, and strong, this brew does not waste time. You finish it feeling sharper and ready to move again.">>
+        <</switch>>
+<</switch>>
+
+<<narrative "The Daily Grind">>
+You enjoy your <<= _drinkName>> at The Daily Grind.
+
+<<= _sceneText>>
+<</narrative>>
+
+<div class="location-actions">
+    <<btn "Back to The Daily Grind" _back>><</btn>>
+</div>
+<</nobr>>
+</div>

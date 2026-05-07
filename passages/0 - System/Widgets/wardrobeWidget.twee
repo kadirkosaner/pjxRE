@@ -304,7 +304,7 @@ setup.getClothingById = function(id) {
 /* 
     WIDGET: outfitGateLockCheck
     Evaluates whether the player's current outfit is allowed for the given exit context.
-    Args[0] : context string — "indoor" or "outdoor" (matches keys in setup.outfitExitRules)
+    Args[0] : context string, "indoor" or "outdoor" (matches keys in setup.outfitExitRules)
     Output  : Sets _outfitLockMsg to "" (allowed) or a reason string (blocked).
               Callers pass _outfitLockMsg as args[3] to <<navCard>> to lock the card.
 */
@@ -323,7 +323,7 @@ setup.getClothingById = function(id) {
     <<set _outfitLockMsg    = "">>
     <<set _outfitConfirmMsg = "">>
 
-    /* Shoes check — blocks all other evaluation if failed */
+    /* Shoes check, blocks all other evaluation if failed */
     <<set _ogHasShoes = ($wardrobe.equipped.shoes && $wardrobe.equipped.shoes !== "")>>
     <<if _ogRules.shoesRequired && !_ogHasShoes>>
         <<set _outfitLockMsg = "You need to put on shoes before going outside.">>
@@ -355,14 +355,14 @@ setup.getClothingById = function(id) {
     /* Evaluate */
 
     <<if _ogFullyDressed>>
-        /* Fully dressed — always free, no confirmation needed */
+        /* Fully dressed, always free, no confirmation needed */
 
     <<elseif _ogInSleepwear>>
         <<set _ogSexyThreshold = (_ogRules.sleepwearSexinessThreshold || 3)>>
         <<if _ogSwSexiness >= _ogSexyThreshold>>
             <<set _ogReq = (_ogRules.sleepwearSexyMinCorr || 3)>>
             <<if $corruption < _ogReq>>
-                <<set _outfitLockMsg = "Sexy sleepwear — Corruption " + _ogReq + " required.">>
+                <<set _outfitLockMsg = "Sexy sleepwear, Corruption " + _ogReq + " required.">>
             <<else>>
                 <<set _outfitConfirmMsg = "You're wearing revealing sleepwear. Are you sure you want to leave like this?">>
             <</if>>
@@ -375,16 +375,16 @@ setup.getClothingById = function(id) {
                     <<set _outfitConfirmMsg = "You're still in your sleepwear. Are you sure you want to go outside like this?">>
                 <</if>>
             <</if>>
-            /* Non-sexy sleepwear indoors — completely free, no confirmation needed */
+            /* Non-sexy sleepwear indoors, completely free, no confirmation needed */
         <</if>>
 
     <<elseif _ogUnderwearOnly>>
         <<set _ogReqCorr = (_ogRules.underwearMinCorr || 4)>>
         <<set _ogReqExh  = (_ogRules.underwearMinExh  || 0)>>
         <<if $corruption < _ogReqCorr>>
-            <<set _outfitLockMsg = "Underwear only — Corruption " + _ogReqCorr + " required.">>
+            <<set _outfitLockMsg = "Underwear only, Corruption " + _ogReqCorr + " required.">>
         <<elseif _ogReqExh > 0 && $exhibitionism < _ogReqExh>>
-            <<set _outfitLockMsg = "Underwear only — Exhibitionism " + _ogReqExh + " required.">>
+            <<set _outfitLockMsg = "Underwear only, Exhibitionism " + _ogReqExh + " required.">>
         <<else>>
             <<set _outfitConfirmMsg = "You're only wearing underwear. Are you sure you want to leave like this?">>
         <</if>>
@@ -393,7 +393,7 @@ setup.getClothingById = function(id) {
         <<set _ogReqCorr = (_ogRules.nakedMinCorr || 5)>>
         <<set _ogReqExh  = (_ogRules.nakedMinExh  || 10)>>
         <<if $corruption < _ogReqCorr || $exhibitionism < _ogReqExh>>
-            <<set _outfitLockMsg = "Naked — Corruption " + _ogReqCorr + " and Exhibitionism " + _ogReqExh + " required.">>
+            <<set _outfitLockMsg = "Naked, Corruption " + _ogReqCorr + " and Exhibitionism " + _ogReqExh + " required.">>
         <<else>>
             <<set _outfitConfirmMsg = "You're completely naked. Are you sure you want to leave like this?">>
         <</if>>

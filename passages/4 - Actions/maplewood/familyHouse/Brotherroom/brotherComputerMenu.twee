@@ -1,19 +1,28 @@
 <<nobr>>
 <<silently>>
+<<updateCharacterLocations>>
+<<set _brotherOnPC = !$_navigatingBackward && $characters.brother && $characters.brother.currentLocation === "fhBrotherRoom">>
+<<if _brotherOnPC>>
+<<run window.notifyWarning("Your brother walked in and made you get off the computer.")>>
+<<set $location = "fhBrotherRoom">>
+<<goto "fhBrotherRoom">>
+<</if>>
 <<set $location = "fhBrotherRoomPC">>
+<<set $porn.source = "brotherRoom">>
+<<set $porn.returnPassage = "brotherComputerMenu">>
 <</silently>>
 
 <<narrative "Brother's Computer">>
-You sit at your brother's messy desk. The machine whirs to life and his anime wallpaper fills the screen—icons everywhere, half of them games.
+You sit at your brother's messy desk. The machine whirs to life and his anime wallpaper fills the screen - icons everywhere, half of them games.
 
 What do you want to do?
 <</narrative>>
 
 <div class="location-actions">
-<<btn "Browse / Surf" "brotherComputerBrowse" "default" 10>><</btn>>
-<<if $flags.brotherPornLookButtonUnlocked && ($corruption || 0) >= 1 && $characters.brother && $characters.brother.currentLocation !== "fhBrotherRoom">>
-<<btn "Watch Porn" "pornSite_hotHub" "default">><<set $porn.returnPassage = "brotherComputerMenu">><<set $porn.source = "brotherRoom">><</btn>>
+<<if $flags.brotherPornLookButtonUnlocked && ($corruption || 0) >= 1 && !_brotherOnPC>>
+<<btn "Watch Porn" "pornSite_hotHub" "default">><</btn>>
 <</if>>
+<<btn "Browse / Surf" "brotherComputerBrowse" "default" 15>><</btn>>
 <<btn "Watch Video" "brotherComputerWatchVideo" "default" 12>><</btn>>
 <<btn "Play Game" "brotherComputerPlayGame" "default" 15>><</btn>>
 <<btn "Close Computer" "fhBrotherRoom">><</btn>>

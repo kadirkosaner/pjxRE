@@ -1,7 +1,12 @@
 <<nobr>>
 <<set $location = "maplewood">>
 <<updateCharacterLocations>>
-<<if $flags.firstWorkDayWalkEvent>>
+<<silently>>
+<<if $flags.firstWorkDayWalkEvent && $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+<</silently>>
+<<if $flags.firstWorkDayWalkEvent && !$_navigatingBackward>>
 <<goto "event_maplewood_firstWorkDayWalkHome">>
 <</if>>
 

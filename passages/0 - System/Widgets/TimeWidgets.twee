@@ -31,7 +31,7 @@
 /* advanceTime: call LAST in a passage, after all <<loseStat>>/<<gainStat>>/<<set>> etc.
    Optional mode arg:
    - normal: full hourly need processing
-   - relax: need meters still change, but passive drain/threshold penalties are skipped
+   - relax: skip passive hourly needs + passive energy drain (time passes without auto-decay)
    So recalculateStats and topbar/rightbar refresh see the final state. */
 <<widget "advanceTime">>
     /* History back re-runs passage; skip or we'd advance time again on top of restored state */
@@ -62,24 +62,36 @@
         /* Initialize notification queue */
         <<initNotificationQueue>>
         
-        /* Increase hunger, thirst, bladder and decrease energy, hygiene for each hour passed */
-        /* Skip passive energy drain while asleep — sleep passages apply their own recovery after time advances */
+        /* normal mode only: apply passive hourly need/energy decay */
+        /* Skip passive energy drain while asleep, sleep passages apply their own recovery after time advances */
         <<for _i = 0; _i < _hours; _i++>>
-            <<increaseHunger 5>>
-            <<increaseThirst 5>>
-            <<increaseBladder 8>>
-            <<decreaseHygiene 5>>
-            <<if !$isSleeping && _mode !== "relax">>
-                <<loseStat "energy" 5>>
+            <<if _mode !== "relax">>
+                <<increaseHunger 5>>
+                <<increaseThirst 5>>
+                <<increaseBladder 8>>
+                <<decreaseHygiene 5>>
+                <<if !$isSleeping>>
+                    <<loseStat "energy" 5>>
+                <</if>>
             <</if>>
         <</for>>
 
-        /* Global arousal decay: every 2 full hours, always -4 */
+        /* Global arousal decay: every 2 full game hours, amount scales with current arousal tier. */
         <<if ndef $arousalDecayHourBuffer>><<set $arousalDecayHourBuffer = 0>><</if>>
         <<set $arousalDecayHourBuffer += _hours>>
         <<set _arousalDecaySteps = Math.floor($arousalDecayHourBuffer / 2)>>
         <<if _arousalDecaySteps > 0>>
-            <<decreaseArousal (_arousalDecaySteps * 4)>>
+            /* Apply at most one decay per advanceTime call to avoid stacked drops (e.g. 12). */
+            <<if $arousal <= 30>>
+                /* 0-30: big drop */
+                <<decreaseArousal 6>>
+            <<elseif $arousal <= 65>>
+                /* 30-65: medium drop */
+                <<decreaseArousal 4>>
+            <<else>>
+                /* 65-100: small drop */
+                <<decreaseArousal 2>>
+            <</if>>
             <<set $arousalDecayHourBuffer = $arousalDecayHourBuffer % 2>>
         <</if>>
 
@@ -108,7 +120,7 @@
         <<updateMakeupHourlyDecay>>
     <</if>>
     
-    /* Do NOT <<goto>> here when closed — advanceTime often runs at the start of activity passages;
+    /* Do NOT <<goto>> here when closed, advanceTime often runs at the start of activity passages;
        an immediate goto would skip narrative/video. Closed-location kick + notification live in
        storyJavaScript.js (:passagedisplay + deferred setTimeout). */
     

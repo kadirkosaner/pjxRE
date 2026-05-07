@@ -18,7 +18,7 @@
     <<set _timeSlot = "evening">>
 <</if>>
 
-/* Context key — ParentsRoom */
+/* Context key, ParentsRoom */
 <<set _contextKey = "fhParentsRoom_" + _phase + "_" + _timeSlot>>
 <<set _phasePool = setup.fatherTopics[_phase] && setup.fatherTopics[_phase]["level" + _level]>>
 <<set _context = (_phasePool && _phasePool[_contextKey]) ? _phasePool[_contextKey] : null>>
