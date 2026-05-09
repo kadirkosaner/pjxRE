@@ -223,7 +223,7 @@ window.syncNavCardLayoutClass = function () {
 };
 
 /* ================== Save Version Registry =================== */
-setup.CURRENT_SAVE_VERSION = 1;
+setup.CURRENT_SAVE_VERSION = 2;
 
 setup.saveVersions = [];
 
@@ -310,6 +310,39 @@ window.runSaveVersion = function () {
 
 window.runSaveVersionInits = window.runSaveVersion;
 
+/* Ruby's Dishwasher — tier-3 Vince follow-up: calendar key YYYYMMDD for “yesterday” (legacy save backfill). */
+setup.pjxDateKeyYesterdayFromTimeSys = function () {
+    var ts = State.variables && State.variables.timeSys;
+    if (!ts) return 0;
+    var y = Number(ts.year);
+    var m = Number(ts.month);
+    var d = Number(ts.day);
+    if (!Number.isFinite(y) || !Number.isFinite(m) || !Number.isFinite(d)) return 0;
+    var dt = new Date(y, m - 1, d);
+    dt.setDate(dt.getDate() - 1);
+    return dt.getFullYear() * 10000 + (dt.getMonth() + 1) * 100 + dt.getDate();
+};
+
+/* Backfill tier-3 promotion date and career hours for saves that predate tracking. */
+setup.pjxBackfillRubyTier3LineState = function () {
+    var v = State.variables;
+    var js = v.jobState;
+    if (!js || !v.job || v.job.id !== "ruby_dishwasher") return;
+    var td = parseInt(js.totalDaysWorked, 10) || 0;
+    if (js.totalJobHours == null || typeof js.totalJobHours === "undefined") {
+        js.totalJobHours = td > 0 ? Math.max(4, td * 4) : 0;
+    } else if (js.totalJobHours === 0 && td > 0) {
+        js.totalJobHours = Math.max(4, td * 4);
+    }
+    var tier = parseInt(v.job.tier, 10) || 1;
+    if (tier >= 3 && (js.rubyTier3PromotedOnDate == null || js.rubyTier3PromotedOnDate === "")) {
+        js.rubyTier3PromotedOnDate = setup.pjxDateKeyYesterdayFromTimeSys();
+    }
+    if (typeof js.vinceRubyTier3LineShown === "undefined") {
+        js.vinceRubyTier3LineShown = false;
+    }
+};
+
 /* ================== Character prop helper (NPC static from setup.characterDefs, core from $characters) =================== */
 /** Returns merged character object (static from setup.characterDefs + state from $characters) for UI/JS. */
 setup.getCharacter = function (id) {
@@ -350,6 +383,119 @@ setup.relationshipLabel = function (charId) {
     if (s === "dating") return "Dating";
     return "Single";
 };
+
+/* ================== Character remembering helpers (save-bound, lazy-init) =================== */
+setup.getCurrentDayNumber = function () {
+    var ts = State && State.variables ? State.variables.timeSys : null;
+    if (!ts || ts.year == null || ts.month == null || ts.day == null) return null;
+    var year = Number(ts.year);
+    var month = Number(ts.month);
+    var day = Number(ts.day);
+    if (!Number.isFinite(year) || !Number.isFinite(month) || !Number.isFinite(day)) return null;
+    return Math.floor(Date.UTC(year, month - 1, day) / 86400000);
+};
+
+setup.ensureCharacterMemory = function (charId) {
+    if (!charId || !State || !State.variables || !State.variables.characters) return null;
+    var chars = State.variables.characters;
+    if (!chars[charId]) return null;
+    if (!chars[charId].memory || typeof chars[charId].memory !== "object") {
+        chars[charId].memory = {};
+    }
+    if (!chars[charId].memory.items || typeof chars[charId].memory.items !== "object") {
+        chars[charId].memory.items = {};
+    }
+    if (!chars[charId].memory.meta || typeof chars[charId].memory.meta !== "object") {
+        chars[charId].memory.meta = {};
+    }
+    return chars[charId].memory;
+};
+
+setup.rememberCharacterMemory = function (charId, memoryId, label, type, context) {
+    if (!charId || !memoryId) return false;
+    var memory = setup.ensureCharacterMemory(charId);
+    if (!memory) return false;
+    var dayNumber = setup.getCurrentDayNumber();
+    var ts = State && State.variables ? State.variables.timeSys : null;
+    var recordedAt = (ts && ts.year != null && ts.month != null && ts.day != null)
+        ? { year: Number(ts.year), month: Number(ts.month), day: Number(ts.day) }
+        : null;
+    memory.items[memoryId] = {
+        id: memoryId,
+        label: label || memoryId,
+        type: type || "event",
+        context: context || "",
+        dayNumber: dayNumber,
+        recordedAt: recordedAt
+    };
+    memory.meta.lastUpdatedDay = dayNumber;
+    return true;
+};
+
+setup.charRemembers = function (charId, memoryId) {
+    if (!charId || !memoryId) return false;
+    var chars = State && State.variables ? State.variables.characters : null;
+    if (!chars || !chars[charId] || !chars[charId].memory || !chars[charId].memory.items) return false;
+    return !!chars[charId].memory.items[memoryId];
+};
+
+setup.getCharacterMemoryItems = function (charId) {
+    var chars = State && State.variables ? State.variables.characters : null;
+    if (!charId || !chars || !chars[charId] || !chars[charId].memory || !chars[charId].memory.items) {
+        return [];
+    }
+    var items = chars[charId].memory.items;
+    var out = Object.keys(items).map(function (memoryId) {
+        var entry = items[memoryId] || {};
+        return {
+            id: memoryId,
+            label: entry.label || memoryId,
+            type: entry.type || "event",
+            context: entry.context || "",
+            dayNumber: Number.isFinite(Number(entry.dayNumber)) ? Number(entry.dayNumber) : null,
+            recordedAt: entry.recordedAt || null
+        };
+    });
+    out.sort(function (a, b) {
+        var ad = a.dayNumber == null ? -1 : a.dayNumber;
+        var bd = b.dayNumber == null ? -1 : b.dayNumber;
+        return bd - ad;
+    });
+    return out;
+};
+
+Macro.add('rememberChar', {
+    handler() {
+        var charId = this.args[0];
+        var memoryId = this.args[1];
+        var label = this.args[2];
+        var type = this.args[3];
+        var context = this.args[4];
+        if (!charId || !memoryId) {
+            return this.error('rememberChar requires at least: charId, memoryId');
+        }
+        var ok = setup.rememberCharacterMemory && setup.rememberCharacterMemory(charId, memoryId, label, type, context);
+        if (!ok) {
+            return this.error('rememberChar failed for character: ' + charId);
+        }
+    }
+});
+
+Macro.add('ifCharRemembers', {
+    tags: ['else'],
+    handler() {
+        var charId = this.args[0];
+        var memoryId = this.args[1];
+        if (!charId || !memoryId) {
+            return this.error('ifCharRemembers requires: charId, memoryId');
+        }
+        var remembers = setup.charRemembers && setup.charRemembers(charId, memoryId);
+        var block = remembers ? this.payload[0] : this.payload[1];
+        if (block && block.contents) {
+            new Wikifier(this.output, block.contents);
+        }
+    }
+});
 
 /* ================== Phone badge (derived – phone_system_data_and_technical.md §9) =================== */
 /** Unread message count; computed from $phoneConversations. */
@@ -956,12 +1102,52 @@ function checkQuestRequirements(reqs, vars) {
 /* Set in :passagerender, read in :passagedisplay (after :passageend clears _navigatingBackward) */
 let _deferredLocationClosedCheckSkip = false;
 
+/**
+ * Move player to district/region if $location is under opening hours that are now closed.
+ * Runs deferred so it loses races with nav-card navigation in the same tick.
+ * @param {{ skipBecauseHistoryBack?: boolean }} [opts]
+ */
+window.runClosedLocationKickIfNeeded = function (opts) {
+    const skipBecauseHistoryBack = !!(opts && opts.skipBecauseHistoryBack);
+    setTimeout(function () {
+        const vars = State.variables;
+        if (skipBecauseHistoryBack) return;
+        if (vars && vars._navigatingBackward) return;
+        const loc = vars.location;
+        if (!loc) return;
+        const lh = window.resolveLocationHours && window.resolveLocationHours(loc);
+        const hours = lh && lh.hours;
+        if (!hours || hours.open24h) return;
+        /* Activity scenes use passage names (e.g. parkBench) while $location stays the hub id (sunsetPark).
+           Only run on location passages where passage name === $location (not mini-scenes). */
+        const passage = State.passage;
+        if (passage && passage !== loc) return;
+        if (window.isLocationOpen && window.isLocationOpen(loc)) return;
+        const region = hours.region || "downTown";
+        const effId = lh.effectiveId;
+        const locName =
+            (setup.navCards && effId && setup.navCards[effId]?.name) ||
+            (setup.navCards && setup.navCards[loc]?.name) ||
+            loc;
+        if (window.showNotification) {
+            window.showNotification({ type: "warning", message: locName + " is now closed. You've been moved outside." });
+        }
+        vars.location = region;
+        /* Second arg true = do not push a new history moment. Otherwise Stand Up → hub → kick adds two steps
+           and backward lands on hub before the activity; player should go from region back to the event first. */
+        Engine.play(region, true);
+    }, 0);
+};
+
 /* -------------------- QUEST LEGACY SUPPORT -------------------- */
 $(document).on(':passagerender', function () {
     _deferredLocationClosedCheckSkip = !!(State.variables && State.variables._navigatingBackward);
 
     if (Macro.has("questCheck")) $.wiki("<<questCheck>>");
     $.wiki("<<updateTimedEvents>>");
+
+    /* advanceTime only triggers :passagerender (see TimeWidgets), not :passagedisplay — re-check closed venues after time passes. */
+    window.runClosedLocationKickIfNeeded({ skipBecauseHistoryBack: _deferredLocationClosedCheckSkip });
 });
 
 /* Closed-location kick must run after the passage is actually displayed; :passagerender + setTimeout(0)
@@ -972,28 +1158,7 @@ $(document).on(':passagedisplay', function () {
 
     /* Check if current location is closed – move player outside (e.g. mall at 22:00).
        Next tick after display so nav-card Engine.play still wins over advanceTime's goto from same tick. */
-    setTimeout(function () {
-        const vars = State.variables;
-        if (skipLocationCloseBecauseHistoryBack) return;
-        const loc = vars.location;
-        if (!loc) return;
-        const hours = setup.locationHours && setup.locationHours[loc];
-        if (!hours || hours.open24h) return;
-        /* Activity scenes use passage names (e.g. parkBench) while $location stays the hub id (sunsetPark).
-           Only run the closed-kick on hub passages where passage name === location id (e.g. after "Stand Up"). */
-        const passage = State.passage;
-        if (passage && passage !== loc) return;
-        if (window.isLocationOpen && window.isLocationOpen(loc)) return;
-        const region = hours.region || "downTown";
-        const locName = (setup.navCards && setup.navCards[loc]?.name) || loc;
-        if (window.showNotification) {
-            window.showNotification({ type: "warning", message: locName + " is now closed. You've been moved outside." });
-        }
-        vars.location = region;
-        /* Second arg true = do not push a new history moment. Otherwise Stand Up → hub → kick adds two steps
-           and backward lands on hub before the activity; player should go from region back to the event first. */
-        Engine.play(region, true);
-    }, 0);
+    window.runClosedLocationKickIfNeeded({ skipBecauseHistoryBack: skipLocationCloseBecauseHistoryBack });
 });
 
 /* -------------------- QUEST PROMPTS -------------------- */
@@ -2222,6 +2387,34 @@ Macro.add('thought', {
     }
 });
 
+/* Choice branch hint — info icon + tooltip (e.g. optional quest closes). Body = plain tooltip text. */
+Macro.add('choiceInfo', {
+    tags: null,
+    handler() {
+        if (!this.payload || !this.payload[0]) {
+            return this.error('choiceInfo requires body text between opening and closing tag');
+        }
+        const tooltipText = this.payload[0].contents.replace(/\s+/g, ' ').trim();
+        if (!tooltipText) {
+            return this.error('choiceInfo body cannot be empty');
+        }
+        const ariaLabel =
+            typeof this.args[0] === 'string' && this.args[0].trim()
+                ? this.args[0].trim()
+                : 'About this choice';
+
+        const wrap = $('<span>')
+            .attr('tabindex', '0')
+            .attr('role', 'note')
+            .attr('aria-label', ariaLabel)
+            .attr('data-tooltip', tooltipText)
+            .addClass('choice-info-hint')
+            .appendTo(this.output);
+
+        $('<span>').addClass('icon icon-info icon-18').appendTo(wrap);
+    }
+});
+
 Macro.add('vid', {
     handler() {
         if (this.args.length === 0) {
@@ -2953,9 +3146,32 @@ $(document).on(':passagestart', function () {
 $(document).on(':passagerender', resetPassagesScroll);
 
 /* ================== Navigation Card Handlers =================== */
+
+/**
+ * Sub-rooms (e.g. dinerRubysKitchen) often omit setup.locationHours; inherit from an ancestor
+ * that has hours by walking setup.locations.parent (navCards does not store parent links).
+ * @param {string} locationId
+ * @returns {{ hours: object|null, effectiveId: string|null }}
+ */
+window.resolveLocationHours = function (locationId) {
+    const hoursMap = setup.locationHours || {};
+    const locations = setup.locations || {};
+    let id = locationId;
+    const visited = new Set();
+    while (id && !visited.has(id)) {
+        visited.add(id);
+        const h = hoursMap[id];
+        if (h) return { hours: h, effectiveId: id };
+        const locEntry = locations[id];
+        const parent = locEntry && Object.prototype.hasOwnProperty.call(locEntry, 'parent') ? locEntry.parent : null;
+        id = parent != null ? parent : null;
+    }
+    return { hours: null, effectiveId: null };
+};
+
 /** @param {string} locationId @returns {boolean} */
 window.isLocationOpen = function (locationId) {
-    const hours = setup.locationHours?.[locationId];
+    const hours = window.resolveLocationHours(locationId).hours;
     if (!hours) return true;
     if (hours.open24h) return true;
 
@@ -3060,7 +3276,7 @@ window.processNavCard = function (tag, $container, passedSetup) {
         return;
     }
 
-    const hours = setup.locationHours?.[cardId];
+    const hours = window.resolveLocationHours(cardId).hours;
     const hasHours = !!hours;
     const isOpen = window.isLocationOpen(cardId);
     let statusBadge = '';

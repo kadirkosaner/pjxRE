@@ -8,9 +8,10 @@
     <<set _energyCurrent  = parseInt($energy || 0)>>
     <<set _energyThreshold = Math.round(_energyMax * 0.85)>>
     <<set _currentHour    = $timeSys.hour>>
-    <<set _isEvening      = (_currentHour >= 20)>>
-    /* Energy block only applies before 20:00 */
-    <<set _tooEnergized   = (!_isEvening && _energyCurrent >= _energyThreshold)>>
+    /* Allow sleep when it's "night" in-game: from 20:00 onward, or after midnight until 06:00.
+       (Hour 0–5 was wrongly treated as daytime — same bug as 2 AM showing "too much energy".) */
+    <<set _skipEnergyGate = (_currentHour >= 20 || _currentHour < 6)>>
+    <<set _tooEnergized   = (!_skipEnergyGate && _energyCurrent >= _energyThreshold)>>
 
     /* 2. SAVE CURRENT OUTFIT FOR POST-SLEEP RESTORATION */
     <<if $wardrobe && $wardrobe.equipped>>
@@ -33,7 +34,7 @@
     )>>
 <</silently>>
 
-/* === TOO ENERGIZED TO SLEEP (only before 20:00) === */
+/* === TOO ENERGIZED TO SLEEP (only roughly 06:00–19:59; evening + late night can always try) === */
 <<if _tooEnergized>>
 <<silently>><<run window.notifyWarning("Still too much energy to sleep.")>><</silently>>
 

@@ -1,0 +1,49 @@
+:: dinerWork_event_vinceManagerPcSnoop
+/* Vince office PC root hub. Daily time budget lives in Twee (no story JS changes). */
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<<narrative "Manager's Office PC">>
+The monitor wakes into a neat file browser.
+<</narrative>>
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<if $jobState.vincePcSnoopTimeLeftMin <= 0>>
+<<narrative>>
+Steps scrape somewhere outside the office. You close everything and step away from the desk before anyone checks the door.
+<</narrative>>
+<div class="location-actions">
+<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+<<else>>
+<div class="location-actions">
+<<if $jobState.vincePcSnoopGirlsIntroSeen>>
+<<btn "Girls" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+<<else>>
+<<btn "Girls" "dinerWork_event_vinceManagerPcSnoop_girls_intro" "secondary">><</btn>>
+<</if>>
+<<btn "Cameras" "dinerWork_event_vinceManagerPcSnoop_stubCameras" "secondary">><</btn>>
+<<btn "Personal" "dinerWork_event_vinceManagerPcSnoop_stubVincePersonal" "secondary">><</btn>>
+<<btn "Back away from the PC" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+<</if>>
+</div>

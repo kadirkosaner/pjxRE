@@ -36,6 +36,12 @@ const SHOWER_DEBUG_PASSAGES = [
     { id: 'brotherContinue', order: 12, title: 'Brother Continue', passage: 'showerEncounter_peek_Brother_continue', note: 'Keep watching follow-up', target: 'brother', returnLoc: 'fhUpperstairs', variant: 'continue' }
 ];
 
+const VINCE_RUBY_DEBUG_PASSAGES = [
+    { id: 'vinceTier3KitchenLine', order: 1, title: 'Vince Tier-3 Kitchen Line', passage: 'dinerWork_event_vinceRubyTier3Line', note: 'Office chore setup beat' },
+    { id: 'vinceManagerCleanRoom', order: 2, title: 'Manager Office Clean', passage: 'dinerWork_event_vinceManagerCleanRoom', note: 'PC choice branch' },
+    { id: 'vincePcSnoop', order: 3, title: 'Manager PC Snoop', passage: 'dinerWork_event_vinceManagerPcSnoop', note: '30-min folder probe hub' }
+];
+
 // Initialize
 window.DebugInit = function(API) {
     DebugAPI = API;
@@ -87,6 +93,7 @@ function createDebugPanel() {
                     <button class="debug-tab" type="button" data-debug-tab="inventory">Inventory</button>
                     <button class="debug-tab" type="button" data-debug-tab="diana">Diana Go To</button>
                     <button class="debug-tab" type="button" data-debug-tab="shower">Shower Go To</button>
+                    <button class="debug-tab" type="button" data-debug-tab="vinceRuby">Vince Ruby Tier-3</button>
                     <button class="debug-tab" type="button" data-debug-tab="versions">Versions</button>
                 </div>
 
@@ -161,6 +168,15 @@ function createDebugPanel() {
                     <div class="debug-result" id="debug-shower-result"></div>
                 </div>
 
+                <div class="debug-tab-panel" data-debug-panel="vinceRuby">
+                    <div class="debug-section-title">Ruby dishwasher — Vince tier-3</div>
+                    <div class="debug-helper-text">Sets ruby_dishwasher job (tier 3) and tier-3 Vince flags, then jumps.</div>
+                    <div class="debug-goto-grid">
+                        ${getVinceRubyDebugButtonsHtml()}
+                    </div>
+                    <div class="debug-result" id="debug-vince-ruby-result"></div>
+                </div>
+
                 <div class="debug-tab-panel" data-debug-panel="versions">
                     ${getVersionsTabHtml()}
                 </div>
@@ -194,12 +210,16 @@ function createDebugPanel() {
         addMoneyToBalance();
     });
 
-    $('.debug-goto-btn').on('click', function() {
+    $('.debug-goto-btn').not('.debug-shower-btn, .debug-vince-ruby-btn').on('click', function() {
         goToDianaPassage($(this).data('passageId'));
     });
 
     $('.debug-shower-btn').on('click', function() {
         goToShowerPassage($(this).data('showerId'));
+    });
+
+    $('.debug-vince-ruby-btn').on('click', function() {
+        goToVinceRubyPassage($(this).data('vinceRubyId'));
     });
 
     $('#debug-run-migrations').on('click', function() {
@@ -263,6 +283,71 @@ function getShowerDebugButtonsHtml() {
             </button>
         `;
     }).join('');
+}
+
+function getVinceRubyDebugButtonsHtml() {
+    return VINCE_RUBY_DEBUG_PASSAGES.map(function(entry) {
+        return `
+            <button class="debug-goto-btn debug-vince-ruby-btn" type="button" data-vince-ruby-id="${entry.id}">
+                <span class="debug-goto-order">${entry.order}</span>
+                <span class="debug-goto-copy">
+                    <span class="debug-goto-title">${entry.title}</span>
+                    <span class="debug-goto-note">${entry.note}</span>
+                </span>
+            </button>
+        `;
+    }).join('');
+}
+
+function prepareVinceRubyDebugState(vars) {
+    ensureQuestState(vars);
+
+    if (!vars.job || typeof vars.job !== 'object') {
+        vars.job = { id: null, tier: 1, startedOn: null };
+    }
+    vars.job.id = 'ruby_dishwasher';
+    vars.job.tier = Math.max(parseInt(vars.job.tier, 10) || 1, 3);
+
+    if (!vars.jobState || typeof vars.jobState !== 'object') {
+        vars.jobState = {};
+    }
+    if (typeof vars.jobState.vinceRubyTier3LineShown === 'undefined') {
+        vars.jobState.vinceRubyTier3LineShown = false;
+    }
+    if (typeof vars.jobState.vinceManagerCleanRoomPending === 'undefined') {
+        vars.jobState.vinceManagerCleanRoomPending = false;
+    }
+
+    /* Same flags as RubysDishwashWork right before the tier-3 line goto */
+    vars.jobState.vinceRubyTier3LineShown = true;
+    vars.jobState.vinceManagerCleanRoomPending = true;
+}
+
+function goToVinceRubyPassage(passageId) {
+    if (!DebugAPI) return;
+
+    const entry = VINCE_RUBY_DEBUG_PASSAGES.find(function(item) {
+        return item.id === passageId;
+    });
+
+    if (!entry) {
+        showVinceRubyResult('Error: Vince Ruby debug passage not found', 'error');
+        return;
+    }
+
+    const engine = DebugAPI.Engine || window.Engine;
+    if (!engine || typeof engine.play !== 'function') {
+        showVinceRubyResult('Error: Engine.play is not available', 'error');
+        return;
+    }
+
+    try {
+        prepareVinceRubyDebugState(DebugAPI.State.variables);
+        closeDebugPanel();
+        engine.play(entry.passage);
+    } catch (error) {
+        showVinceRubyResult('Error: ' + error.message, 'error');
+    }
 }
 
 function setActiveDebugTab(tabId) {
@@ -705,6 +790,18 @@ function showGotoResult(message, type) {
 
 function showShowerResult(message, type) {
     const result = $('#debug-shower-result');
+    result.text(message);
+    result.removeClass('success error');
+    result.addClass(type);
+    setTimeout(function() {
+        result.fadeOut(300, function() {
+            $(this).text('').show().removeClass('success error');
+        });
+    }, 3000);
+}
+
+function showVinceRubyResult(message, type) {
+    const result = $('#debug-vince-ruby-result');
     result.text(message);
     result.removeClass('success error');
     result.addClass(type);

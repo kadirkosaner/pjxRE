@@ -587,6 +587,44 @@ Object.assign(setup.quests, {
             flags: ["vince_day3_family_quest_done"],
             notification: "Quest complete: Family"
         }
+    },
+
+    /* ========== VINCE’S DARKNESS (manager office PC, tier-3 chain) ========== */
+    vince_darkness: {
+        id: "vince_darkness",
+        title: "Vince's Darkness",
+        category: "side",
+        character: "player",
+        tip: "You read what wasn't meant for you. Decide what survives that knowledge.",
+        requirements: {},
+        stages: [
+            {
+                id: "read_messages_stage",
+                title: "The Screen Doesn't Lie",
+                desc: "Vince keeps more than spreadsheets on his desk machine.",
+                objectives: [
+                    { id: "read_messages", text: "You scrolled through threads you weren't invited to." }
+                ],
+                completeWhen: "allObjectives"
+            },
+            {
+                id: "snoop_office_pc",
+                title: "Alone With the Desk",
+                desc: "The next calendar day, when Vince isn't around, slip back into his office and poke around his computer.",
+                objectives: [
+                    {
+                        id: "snoop_manager_pc",
+                        text: "Return to the manager's office the next day while Vince is away and dig through his computer."
+                    }
+                ],
+                completeWhen: "allObjectives"
+            }
+        ],
+
+        onComplete: {
+            flags: ["vince_darkness_quest_done"],
+            notification: "Quest complete: Vince's Darkness"
+        }
     }
 });
 <</script>>

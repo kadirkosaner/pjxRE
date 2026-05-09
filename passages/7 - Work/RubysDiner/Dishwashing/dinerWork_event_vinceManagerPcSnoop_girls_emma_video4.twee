@@ -1,0 +1,92 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_emma_video4
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenEmmaVideos.v4 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenEmmaVideos.v4 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 6>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 6>>
+    <<gainStat "arousal" 7>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 04 — Sep 03">>
+The moment you opened the video, you couldn’t recognize the location. White clean sheets, a bright and spacious room… it looked like a hotel. But this time something was different — Emma was holding the camera herself. You recognized Vince instantly, even without seeing his face.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmaself1.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+She’s filming this herself…?
+<</dialog>>
+
+<<narrative>>
+Emma holds the camera close to her face, biting her lip while Vince’s hands move over her breasts. She lets out soft moans, then looks straight into the lens and gives a quick, breathy laugh.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+You’re really enjoying this, aren’t you Emma…
+<</dialog>>
+
+<<narrative>>
+The video continues. Emma is lying on her back, legs spread wide. Vince is on top of her, moving deep and slow. She keeps holding the camera, framing both her face and her body while she moans. Her cheeks are flushed, her eyes half-lidded.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmaself2.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+Fuck… she’s completely lost in it.
+<</dialog>>
+
+<<narrative>>
+The pace quickens. Vince starts thrusting harder and faster. Emma’s moans grow louder. Suddenly Vince groans deeply:
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmaself3.mp4" "100%">>
+
+<<dialog "dinerManager">>
+I'm coming. Stay still.
+<</dialog>>
+
+<<narrative>>
+Emma moans, then laughs under her breath. Vince buries himself deep and comes inside her. Her eyes widen for a second, then her mouth curves into a slow, pleased smile.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He came inside her… and she looks like she loved it.
+<</dialog>>
+
+<<narrative>>
+For a moment you froze. You wondered what it actually feels like when someone cums inside you. Emma’s happy, blissful smile wouldn’t leave your mind. Was she really that happy?
+<</narrative>>
+
+<<narrative>>
+The video ends with Emma breathing heavily, looking into the camera with a playful and satisfied expression.
+<</narrative>>
+
+<<narrative>>
+When the video stops, you keep staring at the black screen. The smile on her face sticks in your head, and a bitter thought lands before you can push it away: what does she get from him that you never even got the chance to ask for?
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Back to Emma folder" "dinerWork_event_vinceManagerPcSnoop_girls_emma" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

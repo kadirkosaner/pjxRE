@@ -281,6 +281,33 @@ window.TipsInit = function (API) {
         );
     }
 
+    /** Ruby dishwasher tier (Vince promotes via boss meeting; tier lives on `$job.tier`). */
+    function reqDishwasherTier3Ruby() {
+        return req(
+            'Dishwasher Tier 3',
+            function (v) {
+                if (!v || !v.job || v.job.id !== 'ruby_dishwasher') return false;
+                var t = parseInt(v.job.tier, 10);
+                return !isNaN(t) && t >= 3;
+            },
+            function (v) {
+                var t = parseInt(v && v.job && v.job.tier, 10);
+                if (!v || !v.job || v.job.id !== 'ruby_dishwasher') return 0;
+                return isNaN(t) ? 0 : t;
+            }
+        );
+    }
+
+    function vinceRubyTier3KitchenLineDone(v) {
+        return !!(v && v.jobState && v.jobState.vinceRubyTier3LineShown);
+    }
+
+    /** Kitchen beat played and office chore finished (pending cleared in clean-room passage). */
+    function vinceRubyTier3OfficeChoreDone(v) {
+        if (!v || !v.jobState) return false;
+        return !!v.jobState.vinceRubyTier3LineShown && !v.jobState.vinceManagerCleanRoomPending;
+    }
+
     var CHAINS = [
         {
             id: 'mall_lily',
@@ -416,6 +443,24 @@ window.TipsInit = function (API) {
                 {
                     text: 'See Vince\'s inspection through, then tie up the family fallout back home.',
                     done(v) { return questCompleted(v, 'vince_day3_family'); },
+                },
+            ],
+        },
+        {
+            id: 'vince_ruby_tier3_line',
+            title: 'Vince — Tier 3 extra task',
+            order: 6.5,
+            steps: [
+                {
+                    text: 'Reach dishwasher tier 3 at Ruby\'s and wait for Vince.',
+                    requirements: [
+                        reqDishwasherTier3Ruby(),
+                    ],
+                    done: vinceRubyTier3KitchenLineDone,
+                },
+                {
+                    text: 'Use the Manager\'s office at Ruby\'s and run the Clean room beat to clear his order.',
+                    done: vinceRubyTier3OfficeChoreDone,
                 },
             ],
         },

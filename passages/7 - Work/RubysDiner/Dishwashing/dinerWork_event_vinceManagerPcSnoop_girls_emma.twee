@@ -1,0 +1,90 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_emma
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<if !$jobState.vincePcSnoopFolderPaid.emma && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopFolderPaid.emma = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 1>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 1>>
+<</if>>
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+<<set _emmaVideoCostV1 = 6>>
+<<set _emmaVideoCostV2 = 5>>
+<<set _emmaVideoCostV3 = 7>>
+<<set _emmaVideoCostV4 = 6>>
+<<set _emmaVideoCostV5 = 12>>
+<<set _emmaDone = ($jobState.vincePcSnoopSeenEmmaVideos.v1 && $jobState.vincePcSnoopSeenEmmaVideos.v2 && $jobState.vincePcSnoopSeenEmmaVideos.v3 && $jobState.vincePcSnoopSeenEmmaVideos.v4 && $jobState.vincePcSnoopSeenEmmaVideos.v5)>>
+
+<<narrative "Girls / Emma">>
+Emma folder opens. The earliest tag is from before you even started here.
+<</narrative>>
+
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<if _emmaDone>>
+<<narrative>>
+No unseen videos remain in Emma's folder.
+<</narrative>>
+<</if>>
+
+<div class="location-actions">
+<<if !$jobState.vincePcSnoopSeenEmmaVideos.v1>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _emmaVideoCostV1>>
+        <<btn "Clip 01 — Sep 27" "dinerWork_event_vinceManagerPcSnoop_girls_emma_video1" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 01 — Sep 27</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenEmmaVideos.v2>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _emmaVideoCostV2>>
+        <<btn "Clip 02 — Sep 19" "dinerWork_event_vinceManagerPcSnoop_girls_emma_video2" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 02 — Sep 19</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenEmmaVideos.v3>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _emmaVideoCostV3>>
+        <<btn "Clip 03 — Sep 12" "dinerWork_event_vinceManagerPcSnoop_girls_emma_video3" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 03 — Sep 12</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenEmmaVideos.v4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _emmaVideoCostV4>>
+        <<btn "Clip 04 — Sep 03" "dinerWork_event_vinceManagerPcSnoop_girls_emma_video4" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 04 — Sep 03</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenEmmaVideos.v5>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _emmaVideoCostV5>>
+        <<btn "Clip 05 — Aug 12" "dinerWork_event_vinceManagerPcSnoop_girls_emma_video5" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 05 — Aug 12</span>
+    <</if>>
+<</if>>
+</div>
+<div class="location-actions">
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>

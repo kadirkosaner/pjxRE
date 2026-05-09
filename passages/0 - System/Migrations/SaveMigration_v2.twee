@@ -1,0 +1,18 @@
+<<silently>>
+<<if $saveVersion lt 2>>
+    /* Job: Vince tier-3 line + career hours (schema for existing v1 saves). */
+    <<jobEnsureState>>
+    <<if ndef $jobState.totalJobHours>><<set $jobState.totalJobHours = 0>><</if>>
+    <<if ndef $jobState.rubyTier3PromotedOnDate>><<set $jobState.rubyTier3PromotedOnDate = null>><</if>>
+    <<if ndef $jobState.vinceRubyTier3LineShown>><<set $jobState.vinceRubyTier3LineShown = false>><</if>>
+    <<if ndef $jobState.vinceManagerCleanRoomPending>><<set $jobState.vinceManagerCleanRoomPending = false>><</if>>
+    <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+    <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+    <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+    <<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+    <<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
+    <<if ndef $jobState.vincePcSnoopGirlsIntroSeen>><<set $jobState.vincePcSnoopGirlsIntroSeen = false>><</if>>
+    <<if ndef $flags.vinceDarknessDeclined>><<set $flags.vinceDarknessDeclined = false>><</if>>
+    <<run setup.pjxBackfillRubyTier3LineState && setup.pjxBackfillRubyTier3LineState()>>
+<</if>>
+<</silently>>

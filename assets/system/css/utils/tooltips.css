@@ -8,6 +8,13 @@
   cursor: help;
 }
 
+.choice-info-hint[data-tooltip] {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  opacity: 0.92;
+}
+
 [data-tooltip][disabled] {
   pointer-events: auto;
 }

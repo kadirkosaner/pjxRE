@@ -1,3 +1,5 @@
+:: SaveMigration_v1
+
 <<silently>>
 <<if $saveVersion lt 1>>
     /* Job system migration: trust-based work state (backward compatibility). */

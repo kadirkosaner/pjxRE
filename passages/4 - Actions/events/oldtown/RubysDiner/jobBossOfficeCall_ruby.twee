@@ -154,6 +154,7 @@ Take care of yourself. This job is over.
 </div>
 <</if>>
 <<elseif _promoEligible || ($jobState.promotionPending && ($jobState.pendingTier || 0) > ($job.tier || 1))>>
+<<set _prevTierForPromo = parseInt($job.tier, 10) || 1>>
 <<set _nextTier = _promoEligible ? (parseInt($job.tier, 10) + 1) : ($jobState.pendingTier)>>
 <<narrative "Manager's Office">>
 <<= _bossName>> checks your file and gives a short nod.
@@ -166,6 +167,9 @@ Thank you. I won't waste it.
 <</dialog>>
 <<silently>>
 <<set $job.tier = _nextTier>>
+<<if $job.id === "ruby_dishwasher" && _nextTier >= 3 && _prevTierForPromo < 3>>
+    <<set $jobState.rubyTier3PromotedOnDate = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<</if>>
 <<set $jobState.promotionPending = false>>
 <<set $jobState.pendingTier = 0>>
 <<set $jobState.bossMeetingRequired = false>>

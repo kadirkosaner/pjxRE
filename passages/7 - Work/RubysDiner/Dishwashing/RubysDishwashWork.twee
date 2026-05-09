@@ -4,6 +4,7 @@
 <</if>>
 <<if !$_navigatingBackward>>
 <<silently>>
+<<jobEnsureState>>
 /* Work day number: stable across all shifts in the same day.
    Before 1st shift: totalDaysWorked=2, workedToday=false → 2+1=3
    Before 2nd shift: totalDaysWorked=3, workedToday=true  → 3+0=3 */
@@ -16,7 +17,26 @@
     <<goto "dinerWork_event_vinceInspection_day3">>
     <</if>>
 <</if>>
+<<set _tierNowRuby = parseInt($job.tier, 10) || 1>>
+<<set _todayKeyRuby = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
+<<set _promoKeyRuby = $jobState.rubyTier3PromotedOnDate>>
+/* “Ertesi gün” = terfin yazıldığı takvim gününden sonra (aynı gün değil); o günden sonra kaçırsan da sonraki uygun vardiyada tetiklenir. */
+<<set _tier3LinePending = ($job && $job.id === "ruby_dishwasher" && _tierNowRuby >= 3 && !$jobState.vinceRubyTier3LineShown && _promoKeyRuby && (_todayKeyRuby > _promoKeyRuby) && (($jobState.totalJobHours || 0) >= 4) && (($selectedDuration || 0) >= 240))>>
+<<if _tier3LinePending>>
+<<set $jobState.vinceRubyTier3LineShown = true>>
+<<set $jobState.vinceManagerCleanRoomPending = true>>
+<<goto "dinerWork_event_vinceRubyTier3Line">>
+<</if>>
 <</silently>>
+<<if $jobState.vinceManagerCleanRoomPending>>
+<<narrative "Kitchen">>
+Vince told you to handle the manager's office before you treat this shift like it's \"just dishes.\"
+<</narrative>>
+<div class="location-actions">
+<<btn "Manager's office" "dinerRubysManagerOffice" "action-btn btn-quest">><</btn>>
+<<btn "Back" "jobWorkSelect" "secondary">><</btn>>
+</div>
+<<else>>
 <<jobExecuteShift $selectedDuration>>
 <<if !$jobShiftSuccess>>
 <<goto "jobWorkSelect">>
@@ -182,6 +202,8 @@ Another shift at the sink. Hands raw, stacks cleared. Time to head out front.
     <</if>>
 <</if>>
 <<include "RubysDishwashWork_afterMini">>
+<</if>>
+<</if>>
 <</if>>
 <</if>>
 <</if>>

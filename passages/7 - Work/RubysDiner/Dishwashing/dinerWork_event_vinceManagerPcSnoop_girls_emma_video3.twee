@@ -1,0 +1,101 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_emma_video3
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenEmmaVideos.v3 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenEmmaVideos.v3 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 7>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 7>>
+    <<gainStat "arousal" 6>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 03 — Sep 12">>
+The moment you opened the video, you recognized the place immediately. Wooden walls, the desk… this is Vince’s office.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Here…? They’re really doing it here?
+<</dialog>>
+
+<<narrative>>
+A strange twist hit your stomach. This desk, this chair… had it all happened right where you sit and touch every day? 
+<</narrative>>
+
+<<narrative>>
+An uncomfortable, weird feeling washed over you. But as the video continued, that discomfort slowly gave way to a strange curiosity.
+<</narrative>>
+
+<<narrative>>
+Emma is on her knees, completely naked. She’s holding Vince with both hands, taking him into her mouth with practiced rhythm. 
+<</narrative>>
+
+<<narrative>>
+Her head moves back and forth in a steady rhythm, her lips wrapped tightly around him. Saliva drips down her chin but she doesn’t care. Her eyes look up, full of real pleasure.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmaroom1.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+Emma... what are you doing? Porn was one thing. This is Emma. This is the face I see tomorrow.
+<</dialog>>
+
+<<narrative>>
+After a while, Emma puts her hands on the floor and gets on all fours. 
+<</narrative>>
+
+<<narrative>>
+Vince enters her from behind and starts thrusting hard and deep. Her ass jiggles with every thrust, her back glistens with sweat, her hair swings wildly. She pushes back against him, matching his rhythm.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmaroom2.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+Why Vince? Why him…?
+<</dialog>>
+
+<<narrative>>
+Vince grips Emma’s hips tightly. His thrusts grow harder. Emma moans in pleasure, completely lost in it.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+We work side by side every day… and I had no idea. I never thought she could be this different.
+<</dialog>>
+
+<<narrative>>
+Suddenly Vince speeds up. Emma’s back is soaked with sweat. Finally he pulls out and cums on her back. Thick white streaks land across her spine and lower back.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmaroom3.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+Who knows how many girls have been in this office… and I never knew.
+<</dialog>>
+
+<<narrative>>
+When the video ends, your eyes drift to the desk in front of you, then the chair under you. The room feels different now, like something private got smeared over places you use every day.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Back to Emma folder" "dinerWork_event_vinceManagerPcSnoop_girls_emma" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

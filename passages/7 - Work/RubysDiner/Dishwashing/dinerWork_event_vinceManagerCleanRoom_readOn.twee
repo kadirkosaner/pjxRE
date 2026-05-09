@@ -1,0 +1,126 @@
+:: dinerWork_event_vinceManagerCleanRoom_readOn
+/* Starts quest vince_darkness after reading; clears office task pending; Mike interruption beat. */
+<div class="divnobr">
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+<<if !$_navigatingBackward>>
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<silently>>
+<<set $jobState.vinceManagerCleanRoomPending = false>>
+<<advanceTime 25>>
+<<loseStat "mood" 2>>
+<<gainStat "stress" 5>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</silently>>
+
+<<narrative "Manager's Office">>
+Curiosity wins. You stop wiping the desk and drift toward the monitor. You're still standing, rag in one hand, the mouse under the other.
+<</narrative>>
+
+<<narrative>>
+You open some thread more or less at random and start reading. Some of these women plead sweet. Some are blunt in a way that makes your face hot. Vince answers short, clipped, used to steering the whole thing.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+People really talk like this?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+This casual, like it's normal… I'm shaken.
+<</dialog>>
+
+<<narrative>>
+You scroll farther. In the lower corner three folders sit in a tidy row
+<</narrative>>
+
+<<narrative>>
+<b>Cameras</b>
+<</narrative>>
+
+<<narrative>>
+<b>Personal</b>
+<</narrative>>
+
+<<narrative>>
+<b>Girls</b>
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+What even are those supposed to be?
+<</dialog>>
+
+<<silently>>
+<<startQuest "vince_darkness">>
+<<completeObjective "vince_darkness" "read_messages">>
+<<set $jobState.vinceDarknessPcSnoopUnlockDayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<gainStat "stress" 4>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</silently>>
+
+<<narrative>>
+Footsteps drift in from the hallway. Your heart tries to claw out of your chest.
+<</narrative>>
+
+<<narrative>>
+You jerk your hand off the mouse, step back, and circle the desk fast like you were never hovering there. Rag on the surface. Wipe wipe wipe. Your fingers twitch.
+<</narrative>>
+
+<<narrative>>
+A knock isn't even part of it. The door swings open anyway.
+<</narrative>>
+
+<<narrative>>
+Mike slips in holding a mug. His eyebrows lift when he sees you still in here.
+<</narrative>>
+
+<<dialog "dinerDishwasher">>
+Yo, you're still here? Thought you were Vince. He show up yet or what?
+<</dialog>>
+
+<<dialog "player">>
+Not yet.
+<</dialog>>
+
+<<dialog "dinerDishwasher">>
+Yeah. Okay. Listen, don't beat yourself stupid over cleaning this place — it'll look the same damn mess again tomorrow.
+<</dialog>>
+
+<<dialog "player">>
+Pretty much wrapped on my side. I'm heading out.
+<</dialog>>
+
+<<dialog "dinerDishwasher">>
+Fair. I'll take my break while I can. You good?
+<</dialog>>
+
+<<dialog "player">>
+Yeah I'm fine. Go.
+<</dialog>>
+
+<<narrative>>
+The door shuts behind him. His steps fade toward the corridor.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+That was close… it's still pounding.
+<</dialog>>
+
+<<narrative>>
+You grab the bag you started earlier, cram the loose trash into it, and give the desk one last fast pass. You don't glance back at the screen. You're out before your brain catches up with your feet.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Leave the office" "dinerRubysManagerOffice">><</btn>>
+</div>
+<</if>>
+</div>

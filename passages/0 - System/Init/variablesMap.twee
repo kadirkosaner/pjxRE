@@ -198,6 +198,15 @@
     y: 80,
     taxiCost: 15
   },
+  gym: {
+    structureType: "location",
+    category: "Entertainment",
+    x: 58,
+    y: 68,
+    taxiCost: 15,
+    mapSkipChildStores: true,
+    residents: ["gymReceptionNora", "gymTrainerNick", "gymRegularKayla", "gymRegularTyler"]
+  },
   towerB: {
     structureType: "area",
     category: "Business",

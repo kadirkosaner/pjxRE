@@ -1,0 +1,44 @@
+<div class="divnobr">
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+<<if !$_navigatingBackward>>
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<silently>>
+<<set $jobState.vinceManagerCleanRoomPending = false>>
+<<set $flags.vinceDarknessDeclined = true>>
+<<advanceTime 15>>
+<<gainStat "mood" 2>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</silently>>
+
+<<narrative "Manager's Office">>
+You reach over and turn off the monitor without thinking twice. Whatever is on that screen is none of your business.
+<</narrative>>
+
+<<narrative>>
+You finish wiping the desk, toss the trash bag over your shoulder, and quickly straighten a few things so the office looks untouched.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Whoever he's messing around with... I don't care.
+<</dialog>>
+
+<<narrative>>
+You take one last look around, then quietly slip out of the office. The door clicks shut behind you.
+<</narrative>>
+
+<<narrative>>
+You push the whole thing out of your head as you walk back toward the kitchen. It's easier this way.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Leave" "dinerRubysManagerOffice">><</btn>>
+</div>
+<</if>>
+</div>

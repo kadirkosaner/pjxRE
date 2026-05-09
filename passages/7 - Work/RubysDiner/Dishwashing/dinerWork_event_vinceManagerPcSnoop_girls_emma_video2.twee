@@ -1,0 +1,77 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_emma_video2
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<if !$jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
+<<if !$jobState.vincePcSnoopSeenEmmaVideos.v2 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenEmmaVideos.v2 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 5>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 5>>
+    <<gainStat "arousal" 5>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 02 — Sep 19">>
+You open the second video. The dim lighting and tiled walls are unmistakable, it’s the bathroom at Ruby’s. 
+<</narrative>>
+
+<<narrative>>
+But this wasn’t shot during the day. It feels like late at night.  
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmabathroom1.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)  
+Nighttime… he brought her here after closing?  
+<</dialog>>
+
+<<narrative>>
+Emma is bent over, hands pressed against the wall, completely naked. Vince is behind her, fucking her hard and deep. Her ass jiggles with every thrust, her wet hair swinging wildly.  
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)  
+She’s actually letting him do this… here… at night…  
+<</dialog>>
+
+<<narrative>>
+The angle suddenly changes. Now Emma is on her knees. Vince finishes on her face. She doesn’t pull away. She opens her mouth and cleans herself with her tongue, slowly, without looking away.  
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmabathroom2.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)  
+Look at her... she wants this.  
+<</dialog>>
+
+<<narrative>>
+The video ends with Emma still on her knees, breathing hard, cum on her lips and chin, staring straight into the camera with a dazed, satisfied look.  
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)  
+Emma… you really let him use you like this? You actually wanted it…  
+<</dialog>>
+
+<<narrative>>
+You close the video with your jaw tight. Part of you wants to hate what you just watched; part of you can’t stop replaying it.  
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Back to Emma folder" "dinerWork_event_vinceManagerPcSnoop_girls_emma" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

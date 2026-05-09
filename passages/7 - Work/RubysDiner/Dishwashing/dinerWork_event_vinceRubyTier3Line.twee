@@ -1,0 +1,63 @@
+:: dinerWork_event_vinceRubyTier3Line
+<div class="divnobr">
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+<<if !$_navigatingBackward>>
+<<set $location = "dinerRubysKitchen">>
+<<updateCharacterLocations>>
+
+<<narrative "Kitchen">>
+The kitchen is loud around you. You're slotting plates into the rack while the dishwasher hums in your ear, hands slick with detergent foam.
+<</narrative>>
+
+<<narrative>>
+Vince comes in fast, steps sure, like the room should move out of his way.
+<</narrative>>
+
+<<dialog "dinerManager">>
+Hey, $player.firstName!
+<</dialog>>
+
+<<narrative>>
+You don't quite catch it over the machine. Just his voice cutting through, sharp enough to make you turn.
+<</narrative>>
+
+<<narrative>>
+You spin around. Your hands are still wet, still sudsy.
+<</narrative>>
+
+<<dialog "dinerManager">>
+I've got guests in half an hour. I need the manager's office straightened up.
+<</dialog>>
+
+<<narrative>>
+No small talk. No pause. Like he's dropping a task on the counter and expecting it done.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Great. So I'm housekeeping now.
+<</dialog>>
+
+<<narrative>>
+Vince is already turning away. Over his shoulder, without slowing down:
+<</narrative>>
+
+<<dialog "dinerManager">>
+And make it spotless. Everything.
+<</dialog>>
+
+<<dialog "player">>
+Yes, boss.
+<</dialog>>
+
+<<narrative>>
+Soap still clings to your skin, harsh under your nails. Next he wants glass and carpet, like you're supposed to shed the dish pit before you even touch his door.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Back" "dinerRubysKitchen" "secondary">><</btn>>
+</div>
+<</if>>
+</div>

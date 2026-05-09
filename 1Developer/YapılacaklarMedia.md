@@ -1,0 +1,2 @@
+- Vince dinerWork_event_vinceRubyTier3Line için görsel ve yeni görevler için.
+- vince yeni eventte pc için bir mesaj ekranı.

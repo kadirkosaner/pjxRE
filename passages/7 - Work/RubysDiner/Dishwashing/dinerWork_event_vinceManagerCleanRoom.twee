@@ -1,0 +1,69 @@
+<div class="divnobr">
+<<if $_navigatingBackward>>
+<<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
+<</if>>
+
+<<if !$_navigatingBackward>>
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<narrative "Manager's Office">>
+You slip inside and shut the door behind you. The office is quiet except for the muffled sounds of the diner.
+<</narrative>>
+
+<<narrative>>
+You start cleaning. Empty cans, coffee cups, and crumpled papers go into a trash bag. You wipe down the counters and desk like Vince wanted.
+<</narrative>>
+
+<<narrative>>
+While wiping the desk, your eyes catch the monitor.
+<</narrative>>
+
+<<narrative>>
+The PC is still on. A messaging app is open, filling most of the screen.
+<</narrative>>
+
+<<narrative>>
+On the left side, dozens of chat threads are lined up. Almost all the names are women. The preview messages are clearly visible.
+<</narrative>>
+
+<<narrative>>
+<b>Melissa</b>: "Okay sweetheart, talk tomorrow."
+<</narrative>>
+
+<<narrative>>
+<b>Lara</b>: "Tonight I'm not letting you leave that bed. I mean it."
+<</narrative>>
+
+<<narrative>>
+<b>Sophie</b>: "I miss you daddy."
+<</narrative>>
+
+<<narrative>>
+<b>Diana</b>: "Are you free tonight?"
+<</narrative>>
+
+<<narrative>>
+<b>Ksenia</b>: "I want it like last time with you..."
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+God... That many women? And they talk to him like this?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+I really shouldn't look... but I want to know what's in those chats.
+<</dialog>>
+
+<div class="location-actions">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.6rem;justify-content:center;">
+<<choiceInfo>>Choosing "Clean up and leave" closes the optional quest line.<</choiceInfo>>
+<<btn "Clean up and leave" "dinerWork_event_vinceManagerCleanRoom_decline" "secondary">><</btn>>
+<<btn "Keep reading the screen" "dinerWork_event_vinceManagerCleanRoom_readOn" "secondary">><</btn>>
+</div>
+</div>
+<</if>>
+</div>

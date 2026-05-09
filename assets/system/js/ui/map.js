@@ -111,7 +111,8 @@ window.MapInit = function (API) {
                 x: mapData.x || 50,
                 y: mapData.y || 50,
                 taxiCost: mapData.taxiCost || 10,
-                residents: mapData.residents || []
+                residents: mapData.residents || [],
+                mapSkipChildStores: !!mapData.mapSkipChildStores
             };
         },
 
@@ -351,10 +352,11 @@ window.MapInit = function (API) {
 
             // Area/floor structureType - show child locations as store cards
             // Skip for residence structureType - only show residents
+            // mapSkipChildStores: e.g. gym — show people here, not locker subrooms on the map
             const children = this.getChildren(locationId);
             const locationImages = this.API.setup?.locationImages || {};
             
-            if (children.length > 0 && location.structureType !== 'residence') {
+            if (children.length > 0 && location.structureType !== 'residence' && !location.mapSkipChildStores) {
                 const storeCards = children
                     .filter(childId => this.isDiscovered(childId))
                     .map(childId => {

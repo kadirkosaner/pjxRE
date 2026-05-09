@@ -1,10 +1,25 @@
 <<nobr>>
 <<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
 <<updateCharacterLocations>>
 
 <<narrative "Manager's Office">>
 Vince's office. Desk, paperwork, a view of the diner through the window.
 <</narrative>>
+
+<<if $jobState.vinceManagerCleanRoomPending>>
+<div class="location-actions">
+<<btn "Clean room" "dinerWork_event_vinceManagerCleanRoom" "action-btn btn-quest">><</btn>>
+</div>
+<</if>>
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<set _vdarkUnlock = $jobState.vinceDarknessPcSnoopUnlockDayKey>>
+<<set _vdarkSnoopPc = ($questState && $questState.active && $questState.active.vince_darkness && $questState.active.vince_darkness.stage === 1 && _vdarkUnlock > 0 && _todayKey > _vdarkUnlock)>>
+<<if _vdarkSnoopPc>>
+<div class="location-actions">
+<<btn "Search Vince's computer" "dinerWork_event_vinceManagerPcSnoop" "action-btn btn-quest">><</btn>>
+</div>
+<</if>>
 
 <<showLocationChars "dinerRubysManagerOffice">>
 

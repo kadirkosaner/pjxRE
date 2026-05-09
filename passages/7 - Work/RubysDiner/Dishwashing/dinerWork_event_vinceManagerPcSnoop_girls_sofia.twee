@@ -1,0 +1,38 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_sofia
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<if !$jobState.vincePcSnoopSeenGirls.sofia && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenGirls.sofia = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+<</if>>
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<<narrative "Girls / Sofia">>
+This profile is tagged as active rotation. Notes mention schedule overlap, mood trends, and a hidden media folder with short labels.
+<</narrative>>
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<div class="location-actions">
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>

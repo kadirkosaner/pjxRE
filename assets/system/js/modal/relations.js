@@ -312,13 +312,35 @@ window.RelationsInit = function (API) {
                                     <div class="relations-stat-fill" id="relations-awareness-fill" style="width: 0%; background: #4ade80;"></div>
                                 </div>
                             </div>
+                            <div class="relations-awareness-desc" id="relations-perception-desc"></div>
                         </div>
                     </div>
-                    
-                    <div class="relations-info-section">
-                        <div class="relations-info-header">Schedule</div>
-                        <div class="relations-info-content" id="relations-info-content">
-                            <p class="relations-schedule-empty">No schedule data available.</p>
+
+                    <div class="relations-stats-section">
+                        <div class="relations-collapsible" data-block="remembering">
+                            <button type="button" class="relations-collapsible-toggle" data-target="remembering">
+                                <span class="relations-collapsible-title">Remembering</span>
+                                <span class="relations-collapsible-icon" aria-hidden="true">▼</span>
+                            </button>
+                            <div class="relations-collapsible-content">
+                                <div class="relations-remembering-content" id="relations-memory-content">
+                                    <p class="relations-memory-empty">This person does not remember anything special yet.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relations-stats-section">
+                        <div class="relations-collapsible" data-block="schedule">
+                            <button type="button" class="relations-collapsible-toggle" data-target="schedule">
+                                <span class="relations-collapsible-title">Schedule</span>
+                                <span class="relations-collapsible-icon" aria-hidden="true">▼</span>
+                            </button>
+                            <div class="relations-collapsible-content">
+                                <div class="relations-info-content" id="relations-schedule-content">
+                                    <p class="relations-schedule-empty">No schedule data available.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -332,6 +354,36 @@ window.RelationsInit = function (API) {
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;');
+        },
+
+        formatMemoryDate: function (memoryItem) {
+            if (!memoryItem || !memoryItem.recordedAt) return 'Date unknown';
+            const dt = memoryItem.recordedAt;
+            if (dt.day == null || dt.month == null || dt.year == null) return 'Date unknown';
+            return String(dt.day).padStart(2, '0') + '/' + String(dt.month).padStart(2, '0') + '/' + String(dt.year);
+        },
+
+        buildMemoryHtml: function (characterId, fullName, memoryItems) {
+            const safeName = this.escapeHtml(fullName || characterId || 'This character');
+            if (!Array.isArray(memoryItems) || memoryItems.length === 0) {
+                return '<p class="relations-memory-empty">' + safeName + ' does not remember anything special yet.</p>';
+            }
+            let html = '<div class="relations-memory-list">';
+            memoryItems.forEach((item) => {
+                const label = this.escapeHtml(item.label || item.id || 'Unknown memory');
+                const type = this.escapeHtml(item.type || 'event');
+                const context = this.escapeHtml(item.context || '');
+                const dateLabel = this.escapeHtml(this.formatMemoryDate(item));
+                html += '<div class="relations-memory-item">';
+                html += '<div class="relations-memory-title">' + label + '</div>';
+                html += '<div class="relations-memory-meta"><span class="relations-memory-type">' + type + '</span><span class="relations-memory-dot">•</span><span class="relations-memory-date">' + dateLabel + '</span></div>';
+                if (context) {
+                    html += '<div class="relations-memory-context">' + context + '</div>';
+                }
+                html += '</div>';
+            });
+            html += '</div>';
+            return html;
         },
 
         getScheduleLocationLabel: function (locationId, setup) {
@@ -550,6 +602,12 @@ window.RelationsInit = function (API) {
                 $('.relations-notification-dot').fadeOut(300);
                 vars.showRelationTutorial = false;
             });
+
+            this.API.$(document).off('click.relationsCollapse').on('click.relationsCollapse', '.relations-collapsible-toggle', (ev) => {
+                const target = this.API.$(ev.currentTarget).attr('data-target');
+                if (!target) return;
+                this.API.$('#relations-detail-view .relations-collapsible[data-block="' + target + '"]').toggleClass('expanded');
+            });
             
             // Other events are handled via onclick attributes in HTML
         },
@@ -605,7 +663,12 @@ window.RelationsInit = function (API) {
 
             // Schedule (setup.schedules) — weekdays vs weekend columns
             const scheduleHtml = this.buildCharacterScheduleHtml(characterId, char, setup, vars);
-            this.API.$('#relations-info-content').html(scheduleHtml);
+            this.API.$('#relations-schedule-content').html(scheduleHtml);
+            const memoryItems = (setup && typeof setup.getCharacterMemoryItems === 'function')
+                ? setup.getCharacterMemoryItems(characterId)
+                : [];
+            this.API.$('#relations-memory-content').html(this.buildMemoryHtml(characterId, fullName, memoryItems));
+            this.API.$('#relations-detail-view .relations-collapsible').removeClass('expanded');
 
             // Update stats — always 0/100. versionCaps enforce gameplay limits elsewhere.
             const stats = char.stats || { love: 0, loveLevel: 1, friendship: 0, friendshipLevel: 1, lust: 0, lustLevel: 1, trust: 0, trustLevel: 1 };
