@@ -10,7 +10,7 @@
 <<set $appearance.hairCombed = 0>>
 <<set _criticalAfterCrash = (($health || 0) <= 15)>>
 <<set _napVariant = random(1, 3)>>
-<<set _returnTo = $collapseReturnTo || "fhBedroom">>
+<<set _returnTo = setup.normalizeLocationToPassage($collapseReturnTo) || "fhBedroom">>
 <<set $collapseReturnTo = null>>
 <<set $collapseAtLocation = null>>
 /* Prevent immediate re-collapse loops after emergency rest. */

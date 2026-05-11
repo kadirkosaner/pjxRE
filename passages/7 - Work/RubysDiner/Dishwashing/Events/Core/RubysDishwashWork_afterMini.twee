@@ -31,12 +31,14 @@
 <<else>>
 <div class="location-actions">
 <<btn "Finish shift" "dinerRubys">>
-<<silently>>
 /* Normal shift outro (not first-day tutorial passage): set walk-home gate for Maplewood, same flag as dinerFirstdayJob_dishwasher */
-<<if $job && $job.id === "ruby_dishwasher" && ($jobState.totalDaysWorked || 0) === 1 && !$flags.firstWorkDayWalkHome>>
-<<set $flags.firstWorkDayWalkEvent = true>>
-<</if>>
-<</silently>>
+<<run (function(){
+    var $vars = State.variables;
+    if ($vars.job && $vars.job.id === "ruby_dishwasher" && ($vars.jobState && $vars.jobState.totalDaysWorked || 0) === 1 && !($vars.flags && $vars.flags.firstWorkDayWalkHome)) {
+        $vars.flags = $vars.flags || {};
+        $vars.flags.firstWorkDayWalkEvent = true;
+    }
+})()>>
 <</btn>>
 </div>
 <</if>>

@@ -105,7 +105,9 @@
     <<elseif _watchingWith === "dad">>
         <<set _useSportsTopic = true>>
         <<set _level = $characters.father.stats.friendshipLevel || 1>>
-        <<set _phase = (def $flags && $flags.fatherStartedWork) ? "postWork" : "preWork">>
+        <<set _currentDate = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+        <<set _workDate = ($importantDates && $importantDates.fatherWorkStart) ? ($importantDates.fatherWorkStart.year * 10000 + $importantDates.fatherWorkStart.month * 100 + $importantDates.fatherWorkStart.day) : 99999999>>
+        <<set _phase = (_currentDate >= _workDate) ? "postWork" : "preWork">>
         <<set _hour = $timeSys.hour>>
         <<if _hour >= 6 && _hour < 12>>
             <<set _timeSlot = "morning">>
@@ -215,7 +217,9 @@
     <<elseif _watchingWith === "dadbrother">>
         <<set _useSportsTopic = true>>
         <<set _level = $characters.father.stats.friendshipLevel || 1>>
-        <<set _phase = (def $flags && $flags.fatherStartedWork) ? "postWork" : "preWork">>
+        <<set _currentDate = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+        <<set _workDate = ($importantDates && $importantDates.fatherWorkStart) ? ($importantDates.fatherWorkStart.year * 10000 + $importantDates.fatherWorkStart.month * 100 + $importantDates.fatherWorkStart.day) : 99999999>>
+        <<set _phase = (_currentDate >= _workDate) ? "postWork" : "preWork">>
         <<set _hour = $timeSys.hour>>
         <<if _hour >= 6 && _hour < 12>>
             <<set _timeSlot = "morning">>

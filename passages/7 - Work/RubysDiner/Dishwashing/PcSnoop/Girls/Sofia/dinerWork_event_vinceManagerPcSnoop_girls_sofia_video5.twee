@@ -1,0 +1,142 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_sofia_video5
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v5 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenSofiaVideos.v5 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+    <<gainStat "arousal" 5>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 05 — Aug 27">>
+The moment you open the fifth video, your stomach drops.
+<</narrative>>
+
+<<narrative>>
+Sofia is completely naked on the bed, lying face down with her ass up. Two men are with her at the same time.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiathree1.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+Two of them… at the same time… This can’t be real…
+<</dialog>>
+
+<<narrative>>
+She takes one cock deep and sloppy while her right hand works the other. Fast head, tight grip, steady hips.
+<</narrative>>
+
+<<dialog "dinerWaitress2">>
+Mmmh… I want both of you…
+<</dialog>>
+
+<<dialog "dinerManager">>
+Good girl. Daddy’s sharing you tonight.
+<</dialog>>
+
+<<dialog "stranger">>
+Holy shit… she’s actually starving for it.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Vince passes her around like she belongs to him.
+<</dialog>>
+
+<<narrative>>
+Sofia occasionally lifts her head and looks at the camera, a naughty smile on her lips.
+<</narrative>>
+
+<<dialog "dinerWaitress2">>
+Ahh… yes… just like that…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+She's smiling at the camera through all of it…
+<</dialog>>
+
+<<narrative>>
+The position changes. Sofia is now on all fours, wearing only a short white top. Vince starts fucking her hard from behind while the other man shoves his cock into her mouth.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiathree2.mp4" "60%">>
+
+<<dialog "dinerManager">>
+Wait… let me fuck her pussy now. You take her mouth.
+<</dialog>>
+
+<<dialog "stranger">>
+With pleasure. Look at this greedy little thing…
+<</dialog>>
+
+<<dialog "dinerWaitress2">>
+Hehe… yes daddy… fuck me… I want both of you…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+She's giggling… like this is normal.
+<</dialog>>
+
+<<narrative>>
+Sofia pushes her ass back against Vince while greedily sucking the cock in front of her.
+<</narrative>>
+
+<<dialog "stranger">>
+Fuck… her mouth is incredible. You really trained her well.
+<</dialog>>
+
+<<dialog "dinerManager">>
+Told you. She’s perfect for this.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+They're talking about her like she isn't even there. And she just keeps smiling.
+<</dialog>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiathree3.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+How does she still smile through this?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Two at once. I can't even picture it for myself — my brain stops.
+But she walks into it like it's a Tuesday.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+I feel sick… my stomach is turning… but I can’t stop watching.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+If Vince can do this to Sofia so easily… what would he do to me?
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Sofia folder" "dinerWork_event_vinceManagerPcSnoop_girls_sofia" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

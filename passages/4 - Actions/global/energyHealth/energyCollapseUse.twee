@@ -36,7 +36,7 @@
     <</if>>
 <</if>>
 
-<<set _returnTo = $collapseReturnTo || "fhBedroom">>
+<<set _returnTo = setup.normalizeLocationToPassage($collapseReturnTo) || "fhBedroom">>
 <<set $collapseReturnTo = null>>
 <<set $collapseAtLocation = null>>
 <<set $collapseUseItemId = null>>

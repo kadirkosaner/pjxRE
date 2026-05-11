@@ -5,8 +5,10 @@
 <<set _stats = $characters.father.stats>>
 <<set _level = _stats.friendshipLevel || 1>>
 
-/* Phase */
-<<set _phase = (def $flags && $flags.fatherStartedWork) ? "postWork" : "preWork">>
+/* Phase (sync with schedule date logic) */
+<<set _currentDate = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<set _workDate = ($importantDates && $importantDates.fatherWorkStart) ? ($importantDates.fatherWorkStart.year * 10000 + $importantDates.fatherWorkStart.month * 100 + $importantDates.fatherWorkStart.day) : 99999999>>
+<<set _phase = (_currentDate >= _workDate) ? "postWork" : "preWork">>
 
 /* Time slot */
 <<set _hour = $timeSys.hour>>
@@ -26,7 +28,11 @@
              preWork evening → afternoon → morning
 */
 <<set _contextKey = "fhGarage_" + _phase + "_" + _timeSlot>>
-<<set _phasePool = setup.fatherTopics[_phase] && setup.fatherTopics[_phase]["level" + _level]>>
+<<set _allFatherTopics = setup.fatherTopics || {}>>
+<<set _phasePool = _allFatherTopics[_phase] && _allFatherTopics[_phase]["level" + _level]>>
+<<if !_phasePool && _level > 1>>
+    <<set _phasePool = _allFatherTopics[_phase] && _allFatherTopics[_phase].level1>>
+<</if>>
 <<set _context = (_phasePool && _phasePool[_contextKey]) ? _phasePool[_contextKey] : null>>
 
 <<if !_context && _phasePool>>
@@ -43,9 +49,19 @@
 <</if>>
 
 /* Pick random topic → random variation */
-<<set _topicKeys = Object.keys(_context)>>
-<<set _topicKey  = _topicKeys.random()>>
-<<set _topic     = _context[_topicKey].random()>>
+<<set _topic = null>>
+<<if _context>>
+    <<set _topicKeys = Object.keys(_context)>>
+    <<if _topicKeys.length > 0>>
+        <<set _topicKey  = _topicKeys.random()>>
+        <<set _topic     = _context[_topicKey].random()>>
+    <</if>>
+<</if>>
+<<if !_topic>>
+    <<set _topic = {
+        text: `<<narrative>>He is focused on his workbench right now and doesn't open a conversation.<</narrative>>`
+    }>>
+<</if>>
 
 /* Time and stats */
 <<advanceTime 15>>

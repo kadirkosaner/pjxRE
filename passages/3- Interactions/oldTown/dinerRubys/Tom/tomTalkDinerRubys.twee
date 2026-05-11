@@ -84,7 +84,12 @@
 
 <<nobr>>
 <div class="talk-interaction">
-<<print _topic.text>>
+<<script>>
+var _t = State.temporary.topic;
+if (_t && typeof _t.text === "string") {
+    $(output).wiki(_t.text);
+}
+<</script>>
 
 <div class="location-actions">
 <<set _currentCharLocation = $characters.dinerClerk.currentLocation>>

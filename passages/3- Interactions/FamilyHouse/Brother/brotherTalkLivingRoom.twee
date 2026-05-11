@@ -6,12 +6,25 @@
 <<set _stats = $characters.brother.stats>>
 <<set _level = _stats.friendshipLevel || 1>>
 
-/* Determine phase */
-<<if def $flags && $flags.summerBreak>>
-    <<set _phase = "vacation">>
-<<else>>
-    <<set _phase = "school">>
+/* Determine phase (sync with schedule calendar logic) */
+<<set _isVacation = false>>
+<<if setup.schoolCalendar && setup.schoolCalendar.vacations>>
+    <<set _monthDay = $timeSys.month * 100 + $timeSys.day>>
+    <<for _vac range setup.schoolCalendar.vacations>>
+        <<set _startMD = _vac.startMonth * 100 + _vac.startDay>>
+        <<set _endMD = _vac.endMonth * 100 + _vac.endDay>>
+        <<if _startMD <= _endMD>>
+            <<if _monthDay >= _startMD && _monthDay <= _endMD>>
+                <<set _isVacation = true>>
+            <</if>>
+        <<else>>
+            <<if _monthDay >= _startMD || _monthDay <= _endMD>>
+                <<set _isVacation = true>>
+            <</if>>
+        <</if>>
+    <</for>>
 <</if>>
+<<set _phase = _isVacation ? "vacation" : "school">>
 
 /* Determine time slot */
 <<set _hour = $timeSys.hour>>

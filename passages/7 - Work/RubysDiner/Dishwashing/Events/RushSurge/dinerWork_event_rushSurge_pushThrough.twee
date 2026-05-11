@@ -2,23 +2,20 @@
 <<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
 <</if>>
 <<if !$_navigatingBackward>>
-<<silently>>
-<<set $location = $activityOrigin || "dinerRubys">>
-<</silently>>
+<<silently>><<set $location = $activityOrigin || "dinerRubys">><</silently>>
+<<nobr>>
+<<loseStat "energy" 8>>
+<<gainStat "stress" 5>>
+<<gainSkill "practical" "dishwashing" 1>>
+<<recalculateStats>>
+<<flushNotifications>>
+<</nobr>>
 
 <<narrative>>
 You don't look up. Hands in the water, one plate at a time. The pile doesn't shrink for a while. Then it does.
 
 Your arms are heavy by the end. But you did it.
 <</narrative>>
-
-<<silently>>
-<<loseStat "energy" 8>>
-<<gainStat "stress" 5>>
-<<gainSkill "practical" "dishwashing" 1>>
-<<recalculateStats>>
-<<flushNotifications>>
-<</silently>>
 
 <<include "RubysDishwashWork_afterMini">>
 <</if>>

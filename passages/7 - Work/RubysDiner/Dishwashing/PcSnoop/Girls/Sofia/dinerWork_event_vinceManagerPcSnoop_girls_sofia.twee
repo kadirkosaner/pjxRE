@@ -1,0 +1,97 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_sofia
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<if !$jobState.vincePcSnoopFolderPaid.sofia && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopFolderPaid.sofia = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 1>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 1>>
+<</if>>
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+<<set _sofiaVideoCostV1 = 3>>
+<<set _sofiaVideoCostV2 = 3>>
+<<set _sofiaVideoCostV3 = 4>>
+<<set _sofiaVideoCostV4 = 4>>
+<<set _sofiaVideoCostV5 = 4>>
+<<set _sofiaVideoCostV6 = 4>>
+<<set _sofiaDone = ($jobState.vincePcSnoopSeenSofiaVideos.v1 && $jobState.vincePcSnoopSeenSofiaVideos.v2 && $jobState.vincePcSnoopSeenSofiaVideos.v3 && $jobState.vincePcSnoopSeenSofiaVideos.v4 && $jobState.vincePcSnoopSeenSofiaVideos.v5 && $jobState.vincePcSnoopSeenSofiaVideos.v6)>>
+<<if _sofiaDone>><<set $jobState.vincePcSnoopSeenGirls.sofia = true>><</if>>
+
+<<narrative "Girls / Sofia">>
+This profile is tagged as active rotation. A hidden media folder contains six short clips, each tied to shift notes and private tags.
+<</narrative>>
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<if _sofiaDone>>
+<<narrative>>
+No unseen clips remain in Sofia's folder.
+<</narrative>>
+<</if>>
+
+<div class="location-actions">
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v1>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV1>>
+        <<btn "Clip 01 — Sep 12" "dinerWork_event_vinceManagerPcSnoop_girls_sofia_video1" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 01 — Sep 12</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v2>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV2>>
+        <<btn "Clip 02 — Sep 08" "dinerWork_event_vinceManagerPcSnoop_girls_sofia_video2" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 02 — Sep 08</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v3>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV3>>
+        <<btn "Clip 03 — Sep 04" "dinerWork_event_vinceManagerPcSnoop_girls_sofia_video3" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 03 — Sep 04</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV4>>
+        <<btn "Clip 04 — Aug 31" "dinerWork_event_vinceManagerPcSnoop_girls_sofia_video4" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 04 — Aug 31</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v5>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV5>>
+        <<btn "Clip 05 — Aug 27" "dinerWork_event_vinceManagerPcSnoop_girls_sofia_video5" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 05 — Aug 27</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v6>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV6>>
+        <<btn "Clip 06 — Aug 23" "dinerWork_event_vinceManagerPcSnoop_girls_sofia_video6" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 06 — Aug 23</span>
+    <</if>>
+<</if>>
+</div>
+<div class="location-actions">
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>

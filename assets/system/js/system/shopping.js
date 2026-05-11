@@ -371,10 +371,19 @@ function addToCart(itemId) {
 
     if (item.category === 'reading') {
         const setupObj = getSetup();
-        if (typeof setupObj.getReadingItem === 'function') {
-            const rMeta = setupObj.getReadingItem(itemId);
-            if (rMeta && !meetsShopReadingBookRequirements(rMeta)) {
-                showToast('Your stats are not high enough to purchase this book yet.');
+        const rMeta = (typeof setupObj.getReadingItem === 'function') ? setupObj.getReadingItem(itemId) : null;
+        if (rMeta && !meetsShopReadingBookRequirements(rMeta)) {
+            showToast('Your stats are not high enough to purchase this book yet.');
+            return;
+        }
+        if (rMeta && rMeta.type === 'book') {
+            const readFinished = getState().variables.readFinished || [];
+            if (readFinished.indexOf(itemId) >= 0) {
+                showToast('You already finished this book.');
+                return;
+            }
+            if (ownsInventoryItem(itemId)) {
+                showToast('You already own this book.');
                 return;
             }
         }
@@ -753,10 +762,20 @@ function renderProducts() {
     // 1. shopShowPurchasableOnly: show only items player can buy (meets confidence etc.); otherwise show all
     // 2. Hide already owned clothing (always)
     // 3. Filter by selected category if not "all"
+    const setupObj = getSetup();
+    const readFinishedList = getState().variables.readFinished || [];
     let itemsToShow = currentShopItems.filter(item => {
         if (item._isClothing && ownsClothingItem(item.id)) return false; // Hide owned clothing
         // Hide non-clothing unique-inventory items when owned
         if (!item._isClothing && isUniqueInventoryShopItem(item) && ownsInventoryItem(item.id)) return false;
+        // Hide already-read books and books already owned (in-progress)
+        if (item.category === 'reading' && typeof setupObj.getReadingItem === 'function') {
+            const rMeta = setupObj.getReadingItem(item.id);
+            if (rMeta && rMeta.type === 'book') {
+                if (readFinishedList.indexOf(item.id) >= 0) return false;
+                if (ownsInventoryItem(item.id)) return false;
+            }
+        }
         if (shopShowPurchasableOnly) {
             if (item._isClothing) {
                 const wearCheck = canWearClothingItem(item);

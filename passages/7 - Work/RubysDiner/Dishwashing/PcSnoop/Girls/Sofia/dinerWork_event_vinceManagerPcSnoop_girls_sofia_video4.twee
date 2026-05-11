@@ -1,0 +1,107 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_sofia_video4
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v4 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenSofiaVideos.v4 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+    <<gainStat "arousal" 5>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 04 — Aug 31">>
+You open the fourth video. Sofia is standing, dressed to be watched — black leather jacket, tiny grey skirt, patterned fishnet stockings.
+<</narrative>>
+
+<<narrative>>
+She leans forward, slowly lifting her skirt and pushing her ass toward the camera. She teases, rolling her hips, spreading herself, showing everything.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiahomefuck1.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+She’s really putting on a show for him…
+<</dialog>>
+
+<<narrative>>
+She drops to her knees on the chair, gets into doggy, and arches deep. One hand pulls the skirt higher, opening herself wider.
+<</narrative>>
+
+<<narrative>>
+Then she climbs on top in cowgirl, back to the camera. She starts riding — slow and sensual at first, then faster, slamming her ass down, rolling her hips in big circles.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiahomefuck2.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+She’s not just fucking him… she’s performing.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+She tells him what to do. She moves like she's the one in charge.
+I wouldn't even know how to ask for anything. I don't know what I'd ask for.
+<</dialog>>
+
+<<narrative>>
+She turns her head and looks straight into the camera, eyes heavy with lust, makeup slightly smeared.
+<</narrative>>
+
+<<dialog "dinerWaitress2">>
+Look at the camera…
+<</dialog>>
+
+<<narrative>>
+She rides harder, shameless, her ass rippling with every thrust. Vince's hand slaps and squeezes her cheeks hard.
+<</narrative>>
+
+<<narrative>>
+He grips her hips tight and cums deep inside her. Sofia pushes down and holds him there, taking every drop.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiahomefuck3.mp4" "60%">>
+
+<<dialog "dinerWaitress2">>
+Oh… oh…
+<</dialog>>
+
+<<narrative>>
+Even after he finishes, she keeps slowly grinding on him.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+She let him finish inside her… and she kept moving like she didn’t want to waste any.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+If this is what he does behind closed doors, I need to stay far away from Vince.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+This isn't just sex anymore. It's control… and I don't want to be the next one he owns.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Sofia folder" "dinerWork_event_vinceManagerPcSnoop_girls_sofia" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

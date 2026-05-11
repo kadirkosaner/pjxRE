@@ -13,6 +13,33 @@
 /* Static NPC data (name, avatar, etc.) – not saved. Core (father, mother, brother, player) stay only in $characters. */
 <<set setup.characterDefs = {}>>
 
+/* Global generic speaker for one-off / unknown NPC dialogues */
+<<set setup.characterDefs.stranger = {
+    name: "Stranger",
+    firstName: "Stranger",
+    lastName: "",
+    gender: "unknown",
+    occupation: "Unknown",
+    location: "Unknown",
+    avatar: "assets/content/people/stranger.webp",
+    type: "npc",
+    color: "#9ca3af",
+    info: "<p>An unknown person.</p>",
+    status: "Stranger"
+}>>
+<<set $characters.stranger = {
+    stats: {
+            love: 0, loveLevel: 1,
+            friendship: 0, friendshipLevel: 1,
+            lust: 0, lustLevel: 1,
+            trust: 0, trustLevel: 1
+    },
+    firstMet: null,
+    known: true,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
 /* Family: always in phone contact list (have their numbers from the start). Others added via <<phoneUnlockContact charId>> when player swaps numbers. */
 <<set setup.phoneContactsFamily = setup.phoneContactsFamily || ["mother", "father", "brother"]>>
 

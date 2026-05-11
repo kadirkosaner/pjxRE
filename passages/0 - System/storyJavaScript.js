@@ -1493,6 +1493,23 @@ Macro.add('getQuestHint', {
     }
 });
 
+/* ================== LOCATION → PASSAGE NORMALIZE =================== */
+/* Some $location values are scene/background identifiers, not real passages
+   (e.g. "fhBrotherRoomPC", "fhBed"). When code needs to navigate back to where
+   the player was, those must be mapped to a real passage. Used by energy collapse
+   flow and any future "return to location" plumbing. */
+setup.locationToPassageMap = Object.assign({
+    fhBrotherRoomPC: 'fhBrotherRoom',
+    fhBed: 'fhBedroom',
+    fhCouch: 'fhLivingroom'
+}, setup.locationToPassageMap || {});
+
+setup.normalizeLocationToPassage = function (loc) {
+    if (!loc) return loc;
+    var key = String(loc);
+    return setup.locationToPassageMap[key] || key;
+};
+
 /* ================== btn Macro =================== */
 /* Usage: <<btn "Text" "passage" "style">> or <<btn "Text" "passage" "style" minEnergy>> or <<btn "Text" "" "locked" "tooltip">> */
 Macro.add('btn', {

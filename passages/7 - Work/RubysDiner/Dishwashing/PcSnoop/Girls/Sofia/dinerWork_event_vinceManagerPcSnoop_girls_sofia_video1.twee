@@ -1,0 +1,109 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_sofia_video1
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v1 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenSofiaVideos.v1 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 3>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 3>>
+    <<gainStat "arousal" 2>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 01 — Sep 12">>
+You click Sofia's file and your stomach tightens. You always knew her as distant, quiet, and cold, so the first frame hits harder than expected.
+<</narrative>>
+
+<<narrative>>
+The video opens to a dimly lit bedroom, shot from above. Sofia is on her knees, completely naked.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiahome2bj1.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+Is this… our Sofia?
+<</dialog>>
+
+<<narrative>>
+Her face is clear. Her eyes lock on the camera, lips curved in a bold smile. No shyness at all.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+No way… Is this really her?
+<</dialog>>
+
+<<narrative>>
+She leans in and takes him deep. Fast head, tight grip. One hand holds the base while the other strokes his balls. Saliva runs from her chin to her breasts. She doesn't break eye contact.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+She's this relentless? I never would've guessed…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Her body knows things I don't even have a word for.
+I work next to her every day and I had no idea this version of her existed.
+<</dialog>>
+
+<<narrative>>
+Then Vince's voice rumbles from behind the camera.
+<</narrative>>
+
+<<dialog "dinerManager">>
+Spit.
+<</dialog>>
+
+<<narrative>>
+Sofia pulls him out, lets a long string of saliva fall, then takes him back in wetter and rougher. She works him with both hands.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiahome2bj2.mp4" "60%">>
+
+<<narrative>>
+Vince's voice strains.
+<</narrative>>
+
+<<dialog "dinerManager">>
+Ah, fuck… I'm done…
+<</dialog>>
+
+<<narrative>>
+She keeps sucking. She slows down but doesn't stop. Her mouth stays open, waiting.
+<</narrative>>
+
+<<narrative>>
+At the end, Vince cums on her face. Thick white ropes land across her face, lips, and nose. Sofia closes her eyes with a soft moan, then sticks her tongue out and slowly licks everything up.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He came on her face… and she licked it all. Without any shame.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+How am I supposed to look her in the face at work tomorrow…
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Sofia folder" "dinerWork_event_vinceManagerPcSnoop_girls_sofia" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

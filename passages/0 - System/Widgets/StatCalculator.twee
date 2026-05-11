@@ -7,7 +7,8 @@
 /* Usage: <<requireMinEnergy 1 "fhCouch">> or <<requireMinEnergy 5>>, optional 3rd arg: custom warning text */
 <<widget "requireMinEnergy">><<nobr>>
     <<set _min = typeof $args[0] !== "undefined" ? parseInt($args[0]) : 1>>
-    <<set _returnPassage = $args[1] || $location || "fhLivingroom">>
+    <<set _rawReturn = $args[1] || $location || "fhLivingroom">>
+    <<set _returnPassage = setup.normalizeLocationToPassage(_rawReturn)>>
     <<set _energyWarn = ($args.length > 2 && $args[2] !== undefined && $args[2] !== "") ? $args[2] : "Not enough energy.">>
     <<if (parseInt($energy || 0)) < _min>>
         <<if (parseInt($energy || 0)) <= 0>>
@@ -140,7 +141,8 @@
         _collapsePass !== "energy_collapse_items" && _collapsePass !== "energyCollapseItems" &&
         _collapsePass !== "energy_collapse_use" && _collapsePass !== "energyCollapseUse" &&
         _collapsePass !== "health_faint" && _collapsePass !== "healthFaint">>
-        <<if !$collapseReturnTo>><<set $collapseReturnTo = $location || "fhBedroom">><</if>>
+        <<if !$collapseReturnTo>><<set $collapseReturnTo = setup.normalizeLocationToPassage($location) || "fhBedroom">><</if>>
+        <<set $collapseReturnTo = setup.normalizeLocationToPassage($collapseReturnTo)>>
         <<set $collapseAtLocation = $location || $collapseReturnTo>>
         <<goto "energy_collapse">>
     <</if>>

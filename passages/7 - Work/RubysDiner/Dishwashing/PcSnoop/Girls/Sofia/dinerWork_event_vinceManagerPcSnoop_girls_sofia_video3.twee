@@ -1,0 +1,97 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_sofia_video3
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v3 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenSofiaVideos.v3 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+    <<gainStat "arousal" 4>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 03 — Sep 04">>
+You open the third video. Same living room, same dim lighting. Sofia is lying face down on the grey couch, her white hoodie pulled up to her waist.
+<</narrative>>
+
+<<narrative>>
+She's on all fours, ass up. Vince starts slow and deep from the first thrust.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiahome2fuck1.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+She’s letting him fuck her so casually…
+<</dialog>>
+
+<<narrative>>
+Vince's left hand stays on her ass, squeezing and guiding each thrust. Her body rocks forward in time with him.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+This feels way more intimate than the others…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+She likes it slow. Close. Quiet.
+I never knew that about her. Probably no one at the diner does. Vince does.
+<</dialog>>
+
+<<narrative>>
+Sofia starts moaning softly.
+<</narrative>>
+
+<<dialog "dinerWaitress2">>
+Oh… oh…
+<</dialog>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiahome2fuck2.mp4" "60%">>
+
+<<narrative>>
+The pace gradually builds. Vince grabs her ass with both hands and starts driving harder.
+<</narrative>>
+
+<<narrative>>
+He suddenly pulls out and cums across her ass and lower back. Thick white ropes land on her skin and slowly drip down.
+<</narrative>>
+
+<<narrative>>
+Even after he finishes, he pushes back inside her, spreading his cum over her ass while still moving.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He came all over her… and then just kept going.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+How am I supposed to look at her the same way again?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+To Vince, we're not people in moments. We're folders in sequence.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Sofia folder" "dinerWork_event_vinceManagerPcSnoop_girls_sofia" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

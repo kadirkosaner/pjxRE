@@ -1,0 +1,97 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_diana
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenDianaVideos>><<set $jobState.vincePcSnoopSeenDianaVideos = {}>><</if>>
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<if !$jobState.vincePcSnoopFolderPaid.diana && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopFolderPaid.diana = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 1>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 1>>
+<</if>>
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+<<set _dianaVideoCostV1 = 3>>
+<<set _dianaVideoCostV2 = 3>>
+<<set _dianaVideoCostV3 = 4>>
+<<set _dianaVideoCostV4 = 4>>
+<<set _dianaVideoCostV5 = 4>>
+<<set _dianaVideoCostV6 = 4>>
+<<set _dianaDone = ($jobState.vincePcSnoopSeenDianaVideos.v1 && $jobState.vincePcSnoopSeenDianaVideos.v2 && $jobState.vincePcSnoopSeenDianaVideos.v3 && $jobState.vincePcSnoopSeenDianaVideos.v4 && $jobState.vincePcSnoopSeenDianaVideos.v5 && $jobState.vincePcSnoopSeenDianaVideos.v6)>>
+<<if _dianaDone>><<set $jobState.vincePcSnoopSeenGirls.diana = true>><</if>>
+
+<<narrative "Girls / Diana">>
+A dated media index opens under Diana's name. The file tags look clean, but each note feels personal in a way that should never be on a work computer.
+<</narrative>>
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<if _dianaDone>>
+<<narrative>>
+No unseen clips remain in Diana's folder.
+<</narrative>>
+<</if>>
+
+<div class="location-actions">
+<<if !$jobState.vincePcSnoopSeenDianaVideos.v1>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _dianaVideoCostV1>>
+        <<btn "Clip 01 — Sep 11" "dinerWork_event_vinceManagerPcSnoop_girls_diana_video1" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 01 — Sep 11</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenDianaVideos.v2>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _dianaVideoCostV2>>
+        <<btn "Clip 02 — Sep 07" "dinerWork_event_vinceManagerPcSnoop_girls_diana_video2" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 02 — Sep 07</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenDianaVideos.v3>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _dianaVideoCostV3>>
+        <<btn "Clip 03 — Sep 02" "dinerWork_event_vinceManagerPcSnoop_girls_diana_video3" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 03 — Sep 02</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenDianaVideos.v4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _dianaVideoCostV4>>
+        <<btn "Clip 04 — Aug 29" "dinerWork_event_vinceManagerPcSnoop_girls_diana_video4" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 04 — Aug 29</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenDianaVideos.v5>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _dianaVideoCostV5>>
+        <<btn "Clip 05 — Aug 25" "dinerWork_event_vinceManagerPcSnoop_girls_diana_video5" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 05 — Aug 25</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenDianaVideos.v6>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _dianaVideoCostV6>>
+        <<btn "Clip 06 — Aug 20" "dinerWork_event_vinceManagerPcSnoop_girls_diana_video6" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 06 — Aug 20</span>
+    <</if>>
+<</if>>
+</div>
+<div class="location-actions">
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>

@@ -1,0 +1,157 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_sofia_video6
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenSofiaVideos.v6 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenSofiaVideos.v6 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+    <<gainStat "arousal" 6>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 06 — Aug 23">>
+The sixth file opens and a cold shiver runs through you.
+<</narrative>>
+
+<<narrative>>
+Sofia is on her knees in a black crop top and tiny grey skirt. A muscular guy stands over her while she takes him deep, wet and rough, saliva running down her chin.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiashare1.mp4" "60%">>
+
+<<dialog "dinerWaitress2">>
+Mmmh… fuck…
+<</dialog>>
+
+<<dialog "dinerManager">>
+That’s it, baby. Show my friend how well you suck cock.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+She looks drunk, but her eyes are focused. She knows what she's doing.
+<</dialog>>
+
+<<narrative>>
+Her head keeps a rhythm while he grips her hair and pushes deeper.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Vince is only filming. He's not touching her. He's offering her.
+<</dialog>>
+
+<<narrative>>
+She's still on her knees, now between two men. She switches between them without pause, one in her mouth, one in her hand, hungry and practiced.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiashare2.mp4" "60%">>
+
+<<dialog "dinerManager">>
+Good girl. Keep going. My friends are enjoying you.
+<</dialog>>
+
+<<dialog "stranger">>
+Fuck… she’s such a sloppy little whore tonight.
+<</dialog>>
+
+<<dialog "dinerWaitress2">>
+Hehe… more… give me more…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+She's slurring, but she's pulling them closer, not away.
+<</dialog>>
+
+<<narrative>>
+Sofia is naked on a grey couch, on all fours. One man pounds her from behind while she takes the other in her mouth. Vince keeps filming like a director.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiashare3.mp4" "60%">>
+
+<<dialog "dinerManager">>
+Look at her… my perfect little shared slut. Taking cock from both ends for me.
+<</dialog>>
+
+<<dialog "stranger">>
+She’s so fucking tight… you really let us use her like this?
+<</dialog>>
+
+<<dialog "dinerManager">>
+Of course. She’s mine to share.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+He's still not fucking her. Just filming while they use her.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+And Sofia sounds like she's been waiting for this all night.
+<</dialog>>
+
+<<narrative>>
+The scene shifts into a steamy bathroom. Sofia is naked under the shower, surrounded. She drops to her knees again and works between them while water and spit run together.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/sofia/sofiashare4.mp4" "60%">>
+
+<<dialog "dinerManager">>
+Open wide, baby. Let them use your throat. That’s my girl.
+<</dialog>>
+
+<<dialog "stranger">>
+She’s such a good cumslut… look at her eyes.
+<</dialog>>
+
+<<dialog "dinerWaitress2">>
+Mmmph… ahh… more…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+She's sloppy, soaked, and saying yes with every move.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+She chose this. Drunk, sure — but the door was hers to walk through.
+What kind of person walks through that door? I'm only learning now, three weeks too late.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+This is the earliest tag in her folder. No one dragged her here. Vince just turned it into a record.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Vince is just standing there filming… smiling. Like this is completely normal.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+If he can do this to Sofia so easily… what would he do to me?
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Sofia folder" "dinerWork_event_vinceManagerPcSnoop_girls_sofia" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>
