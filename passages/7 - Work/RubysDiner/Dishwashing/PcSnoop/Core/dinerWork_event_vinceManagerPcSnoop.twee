@@ -40,7 +40,6 @@
 <<if _pcSnoopAllDone>>
     <<goto "dinerRubysManagerOffice">>
 <</if>>
-<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>

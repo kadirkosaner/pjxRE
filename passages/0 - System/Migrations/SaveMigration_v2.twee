@@ -1,6 +1,5 @@
 <<silently>>
 <<if $saveVersion lt 2>>
-    /* Job: Vince tier-3 line + career hours (schema for existing v1 saves). */
     <<jobEnsureState>>
     <<if ndef $jobState.totalJobHours>><<set $jobState.totalJobHours = 0>><</if>>
     <<if ndef $jobState.rubyTier3PromotedOnDate>><<set $jobState.rubyTier3PromotedOnDate = null>><</if>>
@@ -8,7 +7,6 @@
     <<if ndef $jobState.vinceManagerCleanRoomPending>><<set $jobState.vinceManagerCleanRoomPending = false>><</if>>
     <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
     <<if ndef $jobState.vincePcSnoopSessionDayKey>><<set $jobState.vincePcSnoopSessionDayKey = 0>><</if>>
-    <<if ndef $jobState.vincePcSnoopIntruderRollDayKey>><<set $jobState.vincePcSnoopIntruderRollDayKey = 0>><</if>>
     <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
     <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
     <<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
