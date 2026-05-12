@@ -1,0 +1,149 @@
+:: dinerWork_event_vinceManagerPcSnoop_forcedBathroomRelief
+<div class="divnobr">
+<<set $location = "dinerRubysBathroom">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopMasturbatedAtDiner>><<set $jobState.vincePcSnoopMasturbatedAtDiner = false>><</if>>
+<<if ndef $jobState.vincePcSnoopMasturbatedAtDinerDayKey>><<set $jobState.vincePcSnoopMasturbatedAtDinerDayKey = 0>><</if>>
+
+<<set _reliefTimeCost = 12>>
+<<set $sexual.counts.masturbation = ($sexual.counts.masturbation || 0) + 1>>
+<<set $jobState.vincePcSnoopMasturbatedAtDiner = true>>
+<<set $jobState.vincePcSnoopMasturbatedAtDinerDayKey = _todayKey>>
+<<set $jobState.vincePcSnoopTimeLeftMin = 0>>
+<<loseStat "arousal" 999>>
+<<loseStat "stress" 6>>
+<<loseStat "energy" 6>>
+<<advanceTime _reliefTimeCost>>
+
+<<narrative "Bathroom">>
+You can't sit still anymore.
+<</narrative>>
+
+<<narrative>>
+It starts as pressure — low, steady, hard to name. Then it builds into something you can't ignore. Your thighs are pressed together under the desk and it's doing nothing. The screen is dark but the images are still there, playing on their own behind your eyes. Sofia's moan. The way Diana's back arched. Emma's hands gripping the edge of the sink.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Okay. Okay, stop. You're at work. You're literally at work right now.
+<</dialog>>
+
+<<narrative>>
+You press your palms flat on the desk. It doesn't help. Your whole body is running hot and you know this feeling — you've been here before, alone in your room with nothing to do but give in to it. At home it's easy. Normal. You reach down, it's over in ten minutes, you move on.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+But this is a diner. This is Vince's office. There are people twenty feet away.
+<</dialog>>
+
+<<narrative>>
+You stand up too fast. Your chair scrapes. You stop breathing for a second, listening — nothing from the hall, no footsteps, no voices close. Your hands won't stop shaking.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+The bathroom. Customer bathroom. One stall. Lock on the door.
+No one goes in there for stretches of twenty minutes, you've noticed.
+<</dialog>>
+
+<<narrative>>
+You're already moving before you finish the thought. You ease the office door open, check both directions, and walk fast — not running, just fast — down the short hall. The bathroom door is heavy. You push through it. Empty. You go straight to the stall, slide the bolt home, and lean your back against the cold metal door.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+I can't believe I'm doing this.
+<</dialog>>
+
+<<narrative>>
+You can't believe you're doing this. But your hands are already moving — hooked into your waistband, pushing down, fast and practiced like your body decided before your brain did. You don't close your eyes. You don't know why. Maybe because closing them means surrendering completely and this way you can still pretend you're in control.
+<</narrative>>
+
+<<narrative>>
+The stall walls are right there. The floor tiles are the same cracked beige as the dining room. Above the partition you can see the bare fluorescent tube flickering slightly. You are completely aware of where you are and you don't stop.
+<</narrative>>
+
+<<narrative>>
+You touch yourself and a breath punches out of you — too loud. You clamp your free hand over your mouth.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Quiet. Quiet. Someone could come in.
+<</dialog>>
+
+<<narrative>>
+The possibility of that doesn't slow you down. If anything it does the opposite. Your ears are tuned to every sound on the other side of that door — the distant clatter of the kitchen, someone calling an order, the baseline hum of the whole building running. You track all of it while your fingers work, cataloguing every sound for the shape of a footstep.
+<</narrative>>
+
+<<narrative>>
+Your breathing is too shallow. You force it slower, nose only, chest barely moving. You stare at the bolt on the stall door. It's locked. It's locked and even if someone came in they'd see closed and go to the other side of the room.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+No one knows. No one can hear.
+<</dialog>>
+
+<<narrative>>
+You press your lips together and let the heat come. It moves through you in waves — each one tighter, closer, your hips starting to rock against your own hand in a rhythm you couldn't stop if you tried. Everything from the last hour funnels into it. The videos. The sounds. The way Vince moved like he had all the time in the world and every woman just—
+<</narrative>>
+
+<<narrative>>
+The bathroom door opens.
+<</narrative>>
+
+<<narrative>>
+You go completely still. Not a breath. Not a sound. Your hand frozen. Your pulse in your throat.
+<</narrative>>
+
+<<narrative>>
+Footsteps. Someone crossing to the sink. Water running. Thirty seconds. The hand dryer roars to life. Then footsteps again, and the heavy door swings shut.
+<</narrative>>
+
+<<narrative>>
+You wait five full seconds.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Gone.
+<</dialog>>
+
+<<narrative>>
+You don't stop. You go faster. The close call turned something up instead of cutting it off and that says something about you that you don't want to examine right now. Your free hand stays pressed against your mouth. You keep your eyes open. You watch the bolt. You keep your breathing almost silent.
+<</narrative>>
+
+<<narrative>>
+When it happens it moves through you in one long wave and you curl forward around it, teeth pressing into the side of your hand, not making a sound. Your whole body shakes once, twice. Then it's over.
+<</narrative>>
+
+<<narrative>>
+You stand there for a moment, breathing slowly back to normal. The fluorescent light flickers. The kitchen clatter is the same as before. Nothing has changed out there.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+I just did that. In the bathroom at work. I actually just did that.
+<</dialog>>
+
+<<narrative>>
+You pull your clothes back up. Your hands are steadier now. You wait another full minute before you slide the bolt, step out, and wash your hands at the sink without looking at yourself in the mirror.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+It's out of my system. That's all that matters.
+<</dialog>>
+
+<<narrative>>
+You don't entirely believe that. But your head is clear now, and the burning is gone, and that's enough to get you back to the office and through the rest of the shift.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Step out" "dinerRubysBathroom" "secondary">><</btn>>
+</div>
+</div>
