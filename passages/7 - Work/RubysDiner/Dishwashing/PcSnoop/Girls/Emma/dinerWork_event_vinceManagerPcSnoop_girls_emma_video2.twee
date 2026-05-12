@@ -6,6 +6,7 @@
 <<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
 <<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
 <<if !$jobState.vincePcSnoopSeenEmmaVideos.v2 && $jobState.vincePcSnoopTimeLeftMin > 0>>
     <<set $jobState.vincePcSnoopSeenEmmaVideos.v2 = true>>
     <<set $jobState.vincePcSnoopTimeLeftMin -= 5>>

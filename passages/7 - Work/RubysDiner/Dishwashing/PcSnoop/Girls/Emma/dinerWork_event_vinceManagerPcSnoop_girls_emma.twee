@@ -29,7 +29,7 @@
 <<set _emmaVideoCostV2 = 5>>
 <<set _emmaVideoCostV3 = 7>>
 <<set _emmaVideoCostV4 = 6>>
-<<set _emmaVideoCostV5 = 12>>
+<<set _emmaVideoCostV5 = 8>>
 <<set _emmaDone = ($jobState.vincePcSnoopSeenEmmaVideos.v1 && $jobState.vincePcSnoopSeenEmmaVideos.v2 && $jobState.vincePcSnoopSeenEmmaVideos.v3 && $jobState.vincePcSnoopSeenEmmaVideos.v4 && $jobState.vincePcSnoopSeenEmmaVideos.v5)>>
 <<if _emmaDone>><<set $jobState.vincePcSnoopSeenGirls.emma = true>><</if>>
 

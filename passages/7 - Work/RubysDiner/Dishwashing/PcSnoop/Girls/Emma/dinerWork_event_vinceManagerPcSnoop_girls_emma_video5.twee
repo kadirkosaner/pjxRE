@@ -9,9 +9,9 @@
 
 <<if !$jobState.vincePcSnoopSeenEmmaVideos.v5 && $jobState.vincePcSnoopTimeLeftMin > 0>>
     <<set $jobState.vincePcSnoopSeenEmmaVideos.v5 = true>>
-    <<set $jobState.vincePcSnoopTimeLeftMin -= 12>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 8>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
-    <<advanceTime 12>>
+    <<advanceTime 8>>
     <<gainStat "arousal" 9>>
     <<recalculateStats>>
     <<flushNotifications>>
