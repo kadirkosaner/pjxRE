@@ -1,0 +1,102 @@
+:: dinerWork_event_vinceManagerPcSnoop_cctv2
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenCctv>><<set $jobState.vincePcSnoopSeenCctv = {}>><</if>>
+
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<set _cctvCost = 4>>
+<<if !$jobState.vincePcSnoopSeenCctv.c2 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenCctv.c2 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= _cctvCost>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime _cctvCost>>
+    <<gainStat "arousal" 3>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "CCTV 2">>
+Same bathroom. Different night.
+<</narrative>>
+
+<<narrative>>
+Emma is completely naked. Bent over the sink, gripping the edge. Vince steps behind her and thrusts in hard. Her head snaps back as he fucks her with steady, powerful strokes.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv2bath1.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+She came prepared… nothing on at all.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+She wanted this. The risk. All of it — right here.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+I'm holding my breath.
+<</dialog>>
+
+<<narrative>>
+Vince pulls out, spins her around and sits on the toilet. Emma immediately straddles him, guides his cock inside and starts riding hard. Her hips move fast while he sucks on her breast. She throws her head back in pleasure.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv2bath2.mp4" "100%">>
+
+<<narrative>>
+The footage cuts suddenly.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Two different nights… both recorded.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Is this camera always on?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Families and kids use that bathroom…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+They have no idea what happens in there after close.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Something low in my stomach.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Cameras" "dinerWork_event_vinceManagerPcSnoop_stubCameras" "secondary">><</btn>>
+<<btn "Office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>

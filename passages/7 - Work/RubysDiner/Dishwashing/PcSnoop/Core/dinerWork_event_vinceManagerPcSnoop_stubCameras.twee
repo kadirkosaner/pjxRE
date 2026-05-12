@@ -8,6 +8,7 @@
 <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
 <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenCctv>><<set $jobState.vincePcSnoopSeenCctv = {}>><</if>>
 
 <<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
     <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
@@ -26,14 +27,82 @@
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
 
-<<narrative "PC / Cameras">>
-A long timeline appears: timestamped clips sorted by diner zones. You only skim the index before deciding where to dig first.
-<</narrative>>
+<<set _cctvCost1 = 4>>
+<<set _cctvCost2 = 4>>
+<<set _cctvCost3 = 5>>
+<<set _cctvCost4 = 5>>
+<<set _cctvCost5 = 6>>
+<<set _cctvCost6 = 5>>
+<<set _cctvAllDone = ($jobState.vincePcSnoopSeenCctv.c1 && $jobState.vincePcSnoopSeenCctv.c2 && $jobState.vincePcSnoopSeenCctv.c3 && $jobState.vincePcSnoopSeenCctv.c4 && $jobState.vincePcSnoopSeenCctv.c5 && $jobState.vincePcSnoopSeenCctv.c6)>>
+
 <div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
 <div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
 
+<<narrative "Cameras">>
+A DVR-style index opens: numbered CCTV exports, each row stamped with date, timecode, and camera zone. Nothing here looks like public signage — it is internal housekeeping, filed the way a manager would keep receipts.
+<</narrative>>
+
+<<if $jobState.vincePcSnoopTimeLeftMin <= 0>>
+<<narrative>>
+You hear movement in the corridor and kill the preview before the latch can turn.
+<</narrative>>
 <div class="location-actions">
-<<btn "Back to folders" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>
-<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
+<<btn "PC" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>
+<<btn "Office" "dinerRubysManagerOffice" "secondary">><</btn>>
 </div>
+<<else>>
+<<if _cctvAllDone>>
+<<narrative>>
+No unviewed security exports remain in this index.
+<</narrative>>
+<</if>>
+<div class="location-actions">
+<<if !$jobState.vincePcSnoopSeenCctv.c1>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost1>>
+        <<btn "CCTV 1" "dinerWork_event_vinceManagerPcSnoop_cctv1" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip=""><span class="icon icon-lock icon-12"></span> CCTV 1</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenCctv.c2>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost2>>
+        <<btn "CCTV 2" "dinerWork_event_vinceManagerPcSnoop_cctv2" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip=""><span class="icon icon-lock icon-12"></span> CCTV 2</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenCctv.c3>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost3>>
+        <<btn "CCTV 3" "dinerWork_event_vinceManagerPcSnoop_cctv3" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip=""><span class="icon icon-lock icon-12"></span> CCTV 3</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenCctv.c4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost4>>
+        <<btn "CCTV 4" "dinerWork_event_vinceManagerPcSnoop_cctv4" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip=""><span class="icon icon-lock icon-12"></span> CCTV 4</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenCctv.c5>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost5>>
+        <<btn "CCTV 5" "dinerWork_event_vinceManagerPcSnoop_cctv5" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip=""><span class="icon icon-lock icon-12"></span> CCTV 5</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenCctv.c6>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost6>>
+        <<btn "CCTV 6" "dinerWork_event_vinceManagerPcSnoop_cctv6" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip=""><span class="icon icon-lock icon-12"></span> CCTV 6</span>
+    <</if>>
+<</if>>
+</div>
+<div class="location-actions">
+<<btn "PC" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>
+<<btn "Office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+<</if>>
 </div>

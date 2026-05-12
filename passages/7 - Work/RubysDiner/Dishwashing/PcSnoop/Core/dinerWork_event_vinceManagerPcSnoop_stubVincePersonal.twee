@@ -3,36 +3,104 @@
 <<set $location = "dinerRubysManagerOffice">>
 <<jobEnsureState>>
 <<updateCharacterLocations>>
+
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
 <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
-
 <<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
     <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
     <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
     <<set $jobState.vincePcSnoopFolderPaid = {}>>
 <</if>>
 
+<<set _personalIntroCost = 2>>
+<<set _personalDinerCost = 4>>
 <<if !$jobState.vincePcSnoopFolderPaid.personal && $jobState.vincePcSnoopTimeLeftMin > 0>>
     <<set $jobState.vincePcSnoopFolderPaid.personal = true>>
-    <<set $jobState.vincePcSnoopTimeLeftMin -= 1>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= _personalIntroCost>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
-    <<advanceTime 1>>
+    <<advanceTime _personalIntroCost>>
 <</if>>
-
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
 
-<<narrative "PC - Personal">>
-Pay stubs, bank PDFs, a text file titled “rent.” The banal spine of a man who still behaves like a predator in his spare time. You'll need a longer, quieter session to read him properly.
+<<narrative "Personal / CC Statement">>
+A PDF at the top of the folder. "CC_Aug_Sep.pdf." You open it.
 <</narrative>>
 <div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
 <div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
 
+<<narrative>>
+Personal card. Not the diner's. Two months, combined.
+
+You start with August.
+<br><br>
+<span class="font-mono">
+08/12 — GRAND MERIDIAN HOTEL . . . . $374.00<br>
+08/20 — GOLDIE JEWELERS . . . . . . .$340.00<br>
+08/23 — CRESTWOOD STEAKHOUSE . . . . $178.00<br>
+08/25 — GRAND MERIDIAN HOTEL . . . . $187.00<br>
+08/29 — HARBOR INN & SUITES . . . . .$156.00<br>
+08/31 — FAMILY COURT — ORDER #4471 . $1,200.00
+</span>
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Grand Meridian. August 12th. $374.
+<</dialog>>
+
+<<narrative>>
+Two nights.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+That's Emma's hotel.
+<</dialog>>
+
+<<narrative>>
+You look at the line above the Family Court payment. Goldie Jewelers, $340. Three days before.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Someone got jewelry that week.
+<</dialog>>
+
+<<narrative>>
+September is shorter.
+<br><br>
+<span class="font-mono">
+09/02 — HARBOR INN & SUITES . . . . .$156.00<br>
+09/07 — CRESTWOOD STEAKHOUSE . . . . $203.00<br>
+09/12 — GRAND MERIDIAN HOTEL . . . . $187.00
+</span>
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+September 12th. Emma's bathroom clip. Same hotel, single night.
+<</dialog>>
+
+<<narrative>>
+You scroll back to the top and just look at the full list for a second.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Child support, hotels, jewelry. All in the same month.
+He's not hiding any of it. It's just… a normal month for him.
+<</dialog>>
+
 <div class="location-actions">
+<<if $jobState.vincePcSnoopFolderPaid.personalDiner || $jobState.vincePcSnoopTimeLeftMin >= _personalDinerCost>>
+<<btn "Continue" "dinerWork_event_vinceManagerPcSnoop_personal_diner" "secondary">><</btn>>
+<<else>>
+<span class="link-internal btn-style locked btn-secondary" data-tooltip="Need 4 min"><span class="icon icon-lock icon-12"></span> Continue</span>
+<</if>>
 <<btn "Back to folders" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>
-<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
 </div>
 </div>

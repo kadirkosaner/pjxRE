@@ -1,0 +1,100 @@
+:: dinerWork_event_vinceManagerPcSnoop_cctv1
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenCctv>><<set $jobState.vincePcSnoopSeenCctv = {}>><</if>>
+
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<set _cctvCost = 4>>
+<<if !$jobState.vincePcSnoopSeenCctv.c1 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenCctv.c1 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= _cctvCost>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime _cctvCost>>
+    <<gainStat "arousal" 3>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "CCTV 1">>
+You open the file. Grainy night-vision footage fills the screen. Fixed overhead angle. Timestamp: 23:47.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Camera footage...
+<</dialog>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv1bath1.mp4" "100%">>
+
+<<narrative>>
+Emma enters in a pink t-shirt and short denim skirt. Vince locks the door behind her.
+
+She sits on the toilet. He steps forward. Without a word, she takes him into her mouth — deep, fast, and confident. Her head moves with practiced rhythm.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+She's done this many times...
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+And she's good at it.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+My pulse went up. Just now.
+<</dialog>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv1bath2.mp4" "100%">>
+
+<<narrative>>
+Emma stands. They crash into each other. Hungry kiss, his hands gripping her ass, her arms around his neck. Their bodies grind together under the silent camera.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Did she know the camera was watching?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+I use this bathroom every day...
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Why is Vince recording this?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+...why am I still watching?
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Cameras" "dinerWork_event_vinceManagerPcSnoop_stubCameras" "secondary">><</btn>>
+<<btn "Office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>

@@ -1,0 +1,93 @@
+:: dinerWork_event_vinceManagerPcSnoop_personal_diner
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<if !$jobState.vincePcSnoopFolderPaid.personalDiner && $jobState.vincePcSnoopTimeLeftMin < 4>>
+    <<goto "dinerWork_event_vinceManagerPcSnoop_stubVincePersonal">>
+<</if>>
+
+<<if !$jobState.vincePcSnoopFolderPaid.personalDiner && $jobState.vincePcSnoopTimeLeftMin >= 4>>
+    <<set $jobState.vincePcSnoopFolderPaid.personalDiner = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+<</if>>
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<<narrative "Personal / Diner Records">>
+"RD_Q3_Expenses." Monthly reports, supplier invoices, petty cash logs. You open August.
+<</narrative>>
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative>>
+Kitchen supplies, cleaning products, laundry — normal stuff. Then further down:
+<br><br>
+<span class="font-mono">
+08/12 — Manager Training / Off-site . $374.00<br>
+08/23 — Client Relations / Dinner . . $178.00<br>
+08/25 — Manager Training / Off-site . $187.00<br>
+09/07 — Client Relations / Dinner . . $203.00<br>
+09/12 — Manager Training / Off-site . $187.00
+</span>
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Manager training. August 12th. $374.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+That's the hotel. He ran it through the diner.
+<</dialog>>
+
+<<narrative>>
+You check the vendor column. All five entries share the same code — RD-EXP-07. You search it.
+<br><br>
+<span class="font-mono">
+RD-EXP-07 — Metro Facilities Group<br>
+Type: Sole proprietorship<br>
+Contact: V. Ruby
+</span>
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+V. Ruby.
+<</dialog>>
+
+<<narrative>>
+You sit with that for a second.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He made a company. Billed himself through the diner.
+Ruby's is paying for the hotels.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+And no one noticed. Or no one said anything.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Personal" "dinerWork_event_vinceManagerPcSnoop_stubVincePersonal" "secondary">><</btn>>
+<<btn "Back to folders" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>
+</div>
+</div>

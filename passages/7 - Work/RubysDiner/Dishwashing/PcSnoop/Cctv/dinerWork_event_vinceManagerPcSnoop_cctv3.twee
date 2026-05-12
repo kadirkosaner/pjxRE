@@ -1,0 +1,96 @@
+:: dinerWork_event_vinceManagerPcSnoop_cctv3
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenCctv>><<set $jobState.vincePcSnoopSeenCctv = {}>><</if>>
+
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<set _cctvCost = 5>>
+<<if !$jobState.vincePcSnoopSeenCctv.c3 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenCctv.c3 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= _cctvCost>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime _cctvCost>>
+    <<gainStat "arousal" 3>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "CCTV 3">>
+Storage camera. Grey-green again.
+
+Dark, cluttered back room. Vince and Diana are standing, wrapped around each other. Vince in a dark sweatshirt and jeans, Diana in a white blouse and a short red skirt. He pulls her in by the waist, and they start kissing — deep, hungry. Hands moving across each other's backs, hips, asses. Diana wraps her arms around his neck. The kiss escalates.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv1storage1.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+Does Diana know about the camera in the ceiling?
+<</dialog>>
+
+<<narrative>>
+Clothes come off fast. Vince fully naked. Diana down to just the red thong. He moves behind her, grabs her by the waist. Diana bends forward, palms pressed against the cardboard boxes and the shelf in front of her. Vince starts thrusting — rhythmic, strong. Her head tips back, body tensing with every push.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv1storage2.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+She's completely lost in it. Camera or no camera.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+My thighs pressed together without me deciding to.
+<</dialog>>
+
+<<narrative>>
+Diana straightens up and turns to him. A short kiss, a tight hug. Vince picks her up, carries her for a moment, then they shift back into the same position from behind. Diana grips the shelf above her with one hand and lifts her other leg up to the side, opening herself up. Vince holds her by the waist and the hip, going harder, deeper. Her body stretches, her leg climbs higher. He keeps the rhythm, pressing her into him.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv1storage3.mp4" "100%">>
+
+<<narrative>>
+The clip ends.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+So why is he recording this?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Is it just for the memory?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Confident. Unhurried. Like he already knows the outcome every time.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Cameras" "dinerWork_event_vinceManagerPcSnoop_stubCameras" "secondary">><</btn>>
+<<btn "Office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>

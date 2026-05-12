@@ -1,0 +1,113 @@
+:: dinerWork_event_vinceManagerPcSnoop_cctv6
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenCctv>><<set $jobState.vincePcSnoopSeenCctv = {}>><</if>>
+
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<set _cctvCost = 5>>
+<<if !$jobState.vincePcSnoopSeenCctv.c6 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenCctv.c6 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= _cctvCost>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime _cctvCost>>
+    <<gainStat "arousal" 3>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "CCTV 6">>
+Restaurant floor camera. Wide angle. After-hours. Empty tables, dim lights.
+<</narrative>>
+
+<<narrative>>
+Vince and Diana walk through the dining area. She wears a short black dress, heels. He has his hand low on her back, guiding her toward the corner booth.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctvrest1.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+The main floor. Where customers sit.
+<</dialog>>
+
+<<narrative>>
+They slide into the booth. Diana straddles his lap, dress riding up. They kiss hard, bodies grinding. Vince's hands slide up her thighs, under her dress. She rolls her hips against him.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctvrest2.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+Anyone could have walked in.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+They didn't care.
+<</dialog>>
+
+<<narrative>>
+Diana shifts, reaches between them. She frees him, guides him inside. Her head falls back as she starts to ride — slow, deep rolls of her hips. Vince grips her ass, pulling her down harder. The booth cushions compress with every thrust.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctvrest3.mp4" "100%">>
+
+<<narrative>>
+The footage freezes on her arched back.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+I'm wet.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+I hate that.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+You sit with it. The heat. The shame. The want.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+How many cameras does he have?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+How many nights like this are on this drive?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Am I on here somewhere too?
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Cameras" "dinerWork_event_vinceManagerPcSnoop_stubCameras" "secondary">><</btn>>
+<<btn "Office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>

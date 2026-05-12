@@ -1,0 +1,110 @@
+:: dinerWork_event_vinceManagerPcSnoop_cctv4
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenCctv>><<set $jobState.vincePcSnoopSeenCctv = {}>><</if>>
+
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<set _cctvCost = 5>>
+<<if !$jobState.vincePcSnoopSeenCctv.c4 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenCctv.c4 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= _cctvCost>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime _cctvCost>>
+    <<gainStat "arousal" 3>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "CCTV 4">>
+Storage room camera. Same cluttered back room. Grainy night vision.
+<</narrative>>
+
+<<narrative>>
+Emma and Vince stand close, wrapped around each other. They kiss deeply. Vince still has his t-shirt on, Emma wears a white top and shorts. He pulls her close, hands roaming. She helps him lift her top off, then his shirt comes off. They keep kissing hungrily, bodies pressing together as they undress.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv4storage1.mp4" "100%">>
+
+<<narrative>>
+Emma drops to her knees in front of him. Vince stands over her. She takes him into her mouth, head moving back and forth while he holds her hair and guides her.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv4storage2.mp4" "100%">>
+
+<<narrative>>
+Emma bends over the table, hands on the surface. Vince steps behind her, grabs her hips and thrusts in hard. He fucks her with steady, powerful strokes. Her body jolts with every thrust, long dark hair swinging.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv4storage3.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+I shifted in my seat.
+<</dialog>>
+
+<<narrative>>
+Vince keeps pounding her from behind. Emma lifts one leg higher onto the table. He grips her waist tighter, driving deeper and faster. Her body shakes hard with each thrust until the end.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/cctv/cctv4storage4.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+Storage room again…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+He already had a camera here with Diana… and now Emma too?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Different woman. Same energy. Like this place does something to people.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Is every room in this place wired?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+How does he keep them all coming back. Wanting it.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Has he been watching me?
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+This guy is fucking sick…
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Cameras" "dinerWork_event_vinceManagerPcSnoop_stubCameras" "secondary">><</btn>>
+<<btn "Office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>
