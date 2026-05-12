@@ -1,0 +1,98 @@
+:: dinerWork_event_vinceManagerPcSnoop_forcedBathroomRelief2
+<div class="divnobr">
+<<set $location = "dinerRubysBathroom">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopMasturbatedAtDiner>><<set $jobState.vincePcSnoopMasturbatedAtDiner = false>><</if>>
+<<if ndef $jobState.vincePcSnoopMasturbatedAtDinerDayKey>><<set $jobState.vincePcSnoopMasturbatedAtDinerDayKey = 0>><</if>>
+
+<<set $sexual.counts.masturbation = ($sexual.counts.masturbation || 0) + 1>>
+<<set $jobState.vincePcSnoopMasturbatedAtDiner = true>>
+<<set $jobState.vincePcSnoopMasturbatedAtDinerDayKey = _todayKey>>
+<<set $jobState.vincePcSnoopTimeLeftMin = 0>>
+<<loseStat "arousal" 999>>
+<<loseStat "stress" 6>>
+<<loseStat "energy" 6>>
+<<advanceTime 12>>
+
+<<narrative "Stall">>
+Nobody's in here. You hit the stall and slide the bolt. The click sounds way too loud in the small bathroom.
+<</narrative>>
+
+<<narrative>>
+This isn't your room with the lights off. It's the diner bathroom. One sink, frosted glass, a thin door, a cheap lock. Every sound in here carries out, and every sound out there carries in.
+<</narrative>>
+
+<<narrative>>
+Pants down. Your hand goes straight between your legs. You're already wet. Your finger finds your clit and you bite your lip before you can make a sound.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Quiet… please be quiet…
+<</dialog>>
+
+<<narrative>>
+Small, fast circles. Then Emma's voice carries from outside:
+<</narrative>>
+
+<<dialog "dinerWaitress1">>
+Two cokes and a club sandwich for table seven!
+<</dialog>>
+
+<<narrative>>
+A second later Tom calls back from the counter:
+<</narrative>>
+
+<<dialog "dinerClerk">>
+On it!
+<</dialog>>
+
+<<narrative>>
+The voices are right there. Every word lands clean in the little bathroom. Anyone who walked in could hear a tap dripping, let alone you.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/masturbatebathroom.mp4" "100%">>
+
+<<narrative>>
+Footsteps. Coming down the hall toward the bathroom. Your heart kicks. Your hand doesn't stop but your ears are outside the door. The footsteps reach the sink area, pause for a beat… then the faucet turns on.
+<</narrative>>
+
+<<narrative>>
+Water runs. You don't know who it is. Emma? Sofia? Tom? Just the sound of someone washing their hands a few feet away from you. Your fingers stay pressed against your clit, not moving, not breathing.
+<</narrative>>
+
+<<narrative>>
+The faucet shuts off. Footsteps walk away. You exhale, and the thing you've been holding back snaps closer all at once.
+<</narrative>>
+
+<<narrative>>
+Your thighs tremble first, then your knees go loose. Heat rolls up through your belly in tight waves. You shove your free hand over your mouth and rub faster because you can't help it: everything down there clenches, releases, clenches again. A sound tries to slip out and dies against your fingers. Your pulse fills your ears until it's almost all you hear. The stall shrinks to the bolt, the hinge, the grain of the door under your forehead.
+<</narrative>>
+
+<<narrative>>
+You come hard against your own hand, slick and sudden, hips jerking once, twice, spine knocking the stall wall. Aftershocks keep rolling through while you remember how to breathe. Your fingers stay put, shaking, until the ringing in your ears thins out and you feel your heartbeat in your throat instead.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Right here… at work… everyone's right outside…
+<</dialog>>
+
+<<narrative>>
+You stay like that a few seconds longer: forehead on the door, bolt still locked, legs unsteady like you sprinted upstairs, heart hammering so loud it sits behind your eardrums. Then the stall stops spinning and the ordinary bathroom sounds creep back in.
+<</narrative>>
+
+<<narrative>>
+You fix your clothes with shaking hands. You don't open the door right away. You wait. Then you wash your hands twice without looking in the mirror. Take a breath. Step out.
+<</narrative>>
+
+<<narrative>>
+The hallway hits you with the normal diner noise. Everything looks too normal.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Step out" "dinerRubysBathroom" "secondary">><</btn>>
+</div>
+</div>

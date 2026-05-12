@@ -17,13 +17,13 @@
     <<set $jobState.vincePcSnoopFolderPaid = {}>>
 <</if>>
 
-<<set _cctvCost = 5>>
+<<set _cctvCost = 4>>
 <<if !$jobState.vincePcSnoopSeenCctv.c3 && $jobState.vincePcSnoopTimeLeftMin > 0>>
     <<set $jobState.vincePcSnoopSeenCctv.c3 = true>>
     <<set $jobState.vincePcSnoopTimeLeftMin -= _cctvCost>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
     <<advanceTime _cctvCost>>
-    <<gainStat "arousal" 3>>
+    <<gainStat "arousal" 5>>
     <<recalculateStats>>
     <<flushNotifications>>
 <</if>>

@@ -18,6 +18,7 @@
 <<if ndef $jobState.vincePcSnoopSeenKseniaVideos>><<set $jobState.vincePcSnoopSeenKseniaVideos = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopSeenMelissaVideos>><<set $jobState.vincePcSnoopSeenMelissaVideos = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopSeenCctv>><<set $jobState.vincePcSnoopSeenCctv = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopMasturbatedAtDiner>><<set $jobState.vincePcSnoopMasturbatedAtDiner = false>><</if>>
 
 <<if !$characters || !$characters.dinerManager || $characters.dinerManager.currentLocation !== null>>
     <<goto "dinerRubysManagerOffice">>

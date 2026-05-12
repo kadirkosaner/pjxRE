@@ -17,7 +17,7 @@
     <<set $jobState.vincePcSnoopFolderPaid = {}>>
 <</if>>
 
-<<set _cctvCost = 4>>
+<<set _cctvCost = 3>>
 <<if !$jobState.vincePcSnoopSeenCctv.c2 && $jobState.vincePcSnoopTimeLeftMin > 0>>
     <<set $jobState.vincePcSnoopSeenCctv.c2 = true>>
     <<set $jobState.vincePcSnoopTimeLeftMin -= _cctvCost>>

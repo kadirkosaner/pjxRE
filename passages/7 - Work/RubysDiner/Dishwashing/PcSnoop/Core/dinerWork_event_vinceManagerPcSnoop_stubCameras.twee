@@ -27,12 +27,12 @@
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
 
-<<set _cctvCost1 = 4>>
-<<set _cctvCost2 = 4>>
-<<set _cctvCost3 = 5>>
+<<set _cctvCost1 = 3>>
+<<set _cctvCost2 = 3>>
+<<set _cctvCost3 = 4>>
 <<set _cctvCost4 = 5>>
-<<set _cctvCost5 = 6>>
-<<set _cctvCost6 = 5>>
+<<set _cctvCost5 = 5>>
+<<set _cctvCost6 = 4>>
 <<set _cctvAllDone = ($jobState.vincePcSnoopSeenCctv.c1 && $jobState.vincePcSnoopSeenCctv.c2 && $jobState.vincePcSnoopSeenCctv.c3 && $jobState.vincePcSnoopSeenCctv.c4 && $jobState.vincePcSnoopSeenCctv.c5 && $jobState.vincePcSnoopSeenCctv.c6)>>
 
 <div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>

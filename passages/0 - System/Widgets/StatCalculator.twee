@@ -150,6 +150,19 @@
     <<set _safeArousal = Number($arousal)>>
     <<if isNaN(_safeArousal)>><<set _safeArousal = 0>><</if>>
     <<set $arousal = Math.max(0, Math.min(100, _safeArousal))>> /* 100 cap per user request */
+    <<set _arousalPass = passage()>>
+    <<set _isPcSnoopArousalTriggerPass = (
+        _arousalPass.indexOf("dinerWork_event_vinceManagerPcSnoop_girls") === 0 ||
+        _arousalPass.indexOf("dinerWork_event_vinceManagerPcSnoop_cctv") === 0
+    )>>
+    <<if $arousal > 70 &&
+        _isPcSnoopArousalTriggerPass &&
+        _arousalPass !== "dinerWork_event_vinceManagerPcSnoop_forcedBathroomRelief" &&
+        _arousalPass !== "dinerWork_event_vinceManagerPcSnoop_forcedBathroomRelief2" &&
+        $jobState.vincePcSnoopMasturbatedAtDiner !== true &&
+        !$_navigatingBackward>>
+        <<goto "dinerWork_event_vinceManagerPcSnoop_forcedBathroomRelief">>
+    <</if>>
     
     /* Needs */
     <<set $hunger = Math.max(0, Math.min(100, $hunger))>>
