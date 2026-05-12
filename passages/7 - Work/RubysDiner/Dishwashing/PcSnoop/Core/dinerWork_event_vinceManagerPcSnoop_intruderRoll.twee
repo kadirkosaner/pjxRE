@@ -1,12 +1,14 @@
 :: dinerWork_event_vinceManagerPcSnoop_intruderRoll
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<if ndef $jobState.vincePcSnoopSessionDayKey>><<set $jobState.vincePcSnoopSessionDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopIntruderRollDayKey>><<set $jobState.vincePcSnoopIntruderRollDayKey = 0>><</if>>
 <<if !$characters || !$characters.dinerManager || $characters.dinerManager.currentLocation !== null>>
     <<goto "dinerRubysManagerOffice">>
 <</if>>
 <<set $jobState.vincePcSnoopSessionDayKey = _todayKey>>
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
-<<if $jobState.vincePcSnoopTimeLeftMin > 0>>
+<<if $jobState.vincePcSnoopTimeLeftMin > 0 && $jobState.vincePcSnoopIntruderRollDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopIntruderRollDayKey = _todayKey>>
     <<set _pcSnoopIntruderRoll = random(1, 100)>>
     <<if _pcSnoopIntruderRoll <= 10>>
         <<goto "dinerWork_event_vinceManagerPcSnoop_intruder">>

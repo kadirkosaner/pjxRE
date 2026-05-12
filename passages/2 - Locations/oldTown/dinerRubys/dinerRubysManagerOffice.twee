@@ -16,11 +16,28 @@ Vince's office. Desk, paperwork, a view of the diner through the window.
 <<set _vdarkUnlock = $jobState.vinceDarknessPcSnoopUnlockDayKey>>
 <<set _vdarkSnoopPc = ($questState && $questState.active && $questState.active.vince_darkness && $questState.active.vince_darkness.stage === 1 && _vdarkUnlock > 0 && _todayKey > _vdarkUnlock)>>
 <<if ndef $jobState.vincePcSnoopSessionDayKey>><<set $jobState.vincePcSnoopSessionDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenDianaVideos>><<set $jobState.vincePcSnoopSeenDianaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenLaraVideos>><<set $jobState.vincePcSnoopSeenLaraVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenKseniaVideos>><<set $jobState.vincePcSnoopSeenKseniaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenMelissaVideos>><<set $jobState.vincePcSnoopSeenMelissaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+<<set _pcSnoopAllDone = (
+    $jobState.vincePcSnoopSeenEmmaVideos.v1 && $jobState.vincePcSnoopSeenEmmaVideos.v2 && $jobState.vincePcSnoopSeenEmmaVideos.v3 && $jobState.vincePcSnoopSeenEmmaVideos.v4 && $jobState.vincePcSnoopSeenEmmaVideos.v5 &&
+    $jobState.vincePcSnoopSeenSofiaVideos.v1 && $jobState.vincePcSnoopSeenSofiaVideos.v2 && $jobState.vincePcSnoopSeenSofiaVideos.v3 && $jobState.vincePcSnoopSeenSofiaVideos.v4 && $jobState.vincePcSnoopSeenSofiaVideos.v5 && $jobState.vincePcSnoopSeenSofiaVideos.v6 &&
+    $jobState.vincePcSnoopSeenDianaVideos.v1 && $jobState.vincePcSnoopSeenDianaVideos.v2 && $jobState.vincePcSnoopSeenDianaVideos.v3 && $jobState.vincePcSnoopSeenDianaVideos.v4 && $jobState.vincePcSnoopSeenDianaVideos.v5 &&
+    $jobState.vincePcSnoopSeenMelissaVideos.v1 && $jobState.vincePcSnoopSeenMelissaVideos.v2 &&
+    $jobState.vincePcSnoopSeenKseniaVideos.v1 && $jobState.vincePcSnoopSeenKseniaVideos.v2 &&
+    $jobState.vincePcSnoopSeenLaraVideos.v1 &&
+    $jobState.vincePcSnoopSeenGirls.player
+)>>
 <<set _vinceAway = ($characters && $characters.dinerManager && $characters.dinerManager.currentLocation === null)>>
 <<set _pcSnoopUsedToday = ($jobState.vincePcSnoopSessionDayKey === _todayKey)>>
 <<if _vdarkSnoopPc>>
 <div class="location-actions">
-<<if _pcSnoopUsedToday>>
+<<if _pcSnoopAllDone>>
+<<elseif _pcSnoopUsedToday>>
 <span class="link-internal btn-style btn-default locked" data-tooltip="You've already used Vince's PC today."><i class="icon icon-lock icon-12"></i> Search Vince's computer</span>
 <<elseif _vinceAway>>
 <<btn "Search Vince's computer" "dinerWork_event_vinceManagerPcSnoop" "action-btn btn-quest">><</btn>>

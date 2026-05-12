@@ -26,7 +26,7 @@
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
-<<set _melissaVideoCostV1 = 3>>
+<<set _melissaVideoCostV1 = 4>>
 <<set _melissaVideoCostV2 = 3>>
 <<set _melissaDone = ($jobState.vincePcSnoopSeenMelissaVideos.v1 && $jobState.vincePcSnoopSeenMelissaVideos.v2)>>
 <<if _melissaDone>><<set $jobState.vincePcSnoopSeenGirls.melissa = true>><</if>>

@@ -11,6 +11,12 @@
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
 <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenDianaVideos>><<set $jobState.vincePcSnoopSeenDianaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenLaraVideos>><<set $jobState.vincePcSnoopSeenLaraVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenKseniaVideos>><<set $jobState.vincePcSnoopSeenKseniaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenMelissaVideos>><<set $jobState.vincePcSnoopSeenMelissaVideos = {}>><</if>>
 
 <<if !$characters || !$characters.dinerManager || $characters.dinerManager.currentLocation !== null>>
     <<goto "dinerRubysManagerOffice">>
@@ -22,6 +28,18 @@
     <<set $jobState.vincePcSnoopFolderPaid = {}>>
 <</if>>
 <<set $jobState.vincePcSnoopSessionDayKey = _todayKey>>
+<<set _pcSnoopAllDone = (
+    $jobState.vincePcSnoopSeenEmmaVideos.v1 && $jobState.vincePcSnoopSeenEmmaVideos.v2 && $jobState.vincePcSnoopSeenEmmaVideos.v3 && $jobState.vincePcSnoopSeenEmmaVideos.v4 && $jobState.vincePcSnoopSeenEmmaVideos.v5 &&
+    $jobState.vincePcSnoopSeenSofiaVideos.v1 && $jobState.vincePcSnoopSeenSofiaVideos.v2 && $jobState.vincePcSnoopSeenSofiaVideos.v3 && $jobState.vincePcSnoopSeenSofiaVideos.v4 && $jobState.vincePcSnoopSeenSofiaVideos.v5 && $jobState.vincePcSnoopSeenSofiaVideos.v6 &&
+    $jobState.vincePcSnoopSeenDianaVideos.v1 && $jobState.vincePcSnoopSeenDianaVideos.v2 && $jobState.vincePcSnoopSeenDianaVideos.v3 && $jobState.vincePcSnoopSeenDianaVideos.v4 && $jobState.vincePcSnoopSeenDianaVideos.v5 &&
+    $jobState.vincePcSnoopSeenMelissaVideos.v1 && $jobState.vincePcSnoopSeenMelissaVideos.v2 &&
+    $jobState.vincePcSnoopSeenKseniaVideos.v1 && $jobState.vincePcSnoopSeenKseniaVideos.v2 &&
+    $jobState.vincePcSnoopSeenLaraVideos.v1 &&
+    $jobState.vincePcSnoopSeenGirls.player
+)>>
+<<if _pcSnoopAllDone>>
+    <<goto "dinerRubysManagerOffice">>
+<</if>>
 <<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>

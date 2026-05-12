@@ -5,7 +5,7 @@
 <<updateCharacterLocations>>
 <<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
-<<if !$jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
 <<if !$jobState.vincePcSnoopSeenEmmaVideos.v2 && $jobState.vincePcSnoopTimeLeftMin > 0>>
     <<set $jobState.vincePcSnoopSeenEmmaVideos.v2 = true>>
     <<set $jobState.vincePcSnoopTimeLeftMin -= 5>>
