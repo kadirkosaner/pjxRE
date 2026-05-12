@@ -27,10 +27,65 @@
 
 <<set _playerFileTitle = "Girls / " + $player.firstName>>
 <<narrative _playerFileTitle>>
-You freeze for a second. Your own name sits in Vince's index with a fresh timestamp and a private note marker.
+You left yours for last.
+
+You click it. The folder opens. Empty.
 <</narrative>>
 <div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
 <div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<dialog "player">>
+(Inner voice)
+Nothing in it. Okay.
+<</dialog>>
+
+<<narrative>>
+You close the folder, then open it again. Still empty.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He already made it… He already put my name here.
+<</dialog>>
+
+<<narrative>>
+You scroll back up slowly. Diana. Emma. Sofia. Ksenia. Melissa.
+And then, right at the bottom — your name.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Just like the others.
+<</dialog>>
+
+<<narrative>>
+You think back to Jake at the coffee window. The way he said it so casually:
+*If Vince starts paying you too much attention… don't sit on it.*
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He wasn't being overprotective.
+He was warning me.
+<</dialog>>
+
+<<narrative>>
+You stare at the empty folder for a long moment. No videos yet. Just a name. Waiting.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+This is how it starts for all of them.
+<</dialog>>
+
+<<narrative>>
+You close the folder.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+And this is where it stays.
+<</dialog>>
 
 <div class="location-actions">
 <<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
