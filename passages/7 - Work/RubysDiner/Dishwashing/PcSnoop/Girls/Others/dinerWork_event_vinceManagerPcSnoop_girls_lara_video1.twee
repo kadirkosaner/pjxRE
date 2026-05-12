@@ -1,0 +1,102 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_lara_video1
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+<<if ndef $jobState.vincePcSnoopSeenLaraVideos>><<set $jobState.vincePcSnoopSeenLaraVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenLaraVideos.v1 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenLaraVideos.v1 = true>>
+    <<set $jobState.vincePcSnoopSeenGirls.lara = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+    <<gainStat "arousal" 8>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+<<if $jobState.vincePcSnoopSeenLaraVideos.v1>><<set $jobState.vincePcSnoopSeenGirls.lara = true>><</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 01 — Oct 05">>
+Lara's folder only has one clip. You open it before you can talk yourself out of it.
+<</narrative>>
+
+<<narrative>>
+The camera is shaky and low, like Vince is trying to stay quiet while recording.
+<</narrative>>
+
+<<narrative>>
+The girl is face down on the bed, almost naked except for a tiny leopard-print thong pulled aside. Her body is smooth and perfect under the lamp light.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+God, she's so young… and so beautiful it almost hurts to watch.
+<</dialog>>
+
+<<narrative>>
+Vince grabs her ass with both hands and pushes inside her. She flinches for a second, then rolls her hips back to meet him.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/larafuck.mp4" "100%">>
+
+<<dialog "player">>
+(Inner voice)
+If that were me, I'd freeze. She doesn't even hesitate.
+<</dialog>>
+
+<<narrative>>
+She moans softly into the pillow. One hand slides back and she spreads herself open for him like it's the most natural thing.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+I've never even been kissed… and she's taking all of him like it's nothing.
+<</dialog>>
+
+<<narrative>>
+Vince slaps her ass hard. She lets out a surprised, breathy laugh and pushes back even harder.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+She laughed when he hit her. And it didn't sound fake.
+<</dialog>>
+
+<<narrative>>
+He grips her hips tighter and speeds up. Her body moves with him, skin shining with sweat.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+How does he keep finding girls who look like this? So young, so perfect, and so willing.
+<</dialog>>
+
+<<narrative>>
+The camera shakes harder as he keeps going. The clip cuts while he's still deep inside her, hands locked tight on her waist.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He's completely obsessed with her. You can feel it in every shaky second.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+For one terrifying moment… I almost wished I was the one underneath him.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>

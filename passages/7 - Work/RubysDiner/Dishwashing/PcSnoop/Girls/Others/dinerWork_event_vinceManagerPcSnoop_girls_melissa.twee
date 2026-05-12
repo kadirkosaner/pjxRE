@@ -3,34 +3,62 @@
 <<set $location = "dinerRubysManagerOffice">>
 <<jobEnsureState>>
 <<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
 <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenMelissaVideos>><<set $jobState.vincePcSnoopSeenMelissaVideos = {}>><</if>>
 <<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
     <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
     <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
     <<set $jobState.vincePcSnoopFolderPaid = {}>>
 <</if>>
 
-<<if !$jobState.vincePcSnoopSeenGirls.melissa && $jobState.vincePcSnoopTimeLeftMin > 0>>
-    <<set $jobState.vincePcSnoopSeenGirls.melissa = true>>
-    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+<<if !$jobState.vincePcSnoopFolderPaid.melissa && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopFolderPaid.melissa = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 1>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
-    <<advanceTime 4>>
+    <<advanceTime 1>>
 <</if>>
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+<<set _melissaVideoCostV1 = 3>>
+<<set _melissaVideoCostV2 = 3>>
+<<set _melissaDone = ($jobState.vincePcSnoopSeenMelissaVideos.v1 && $jobState.vincePcSnoopSeenMelissaVideos.v2)>>
+<<if _melissaDone>><<set $jobState.vincePcSnoopSeenGirls.melissa = true>><</if>>
 
 <<narrative "Girls / Melissa">>
-This record is shorter but heavily tagged. A line labeled "follow-up preferred" sits above a locked media note.
+Two files sit under her name. The metadata still says "follow-up preferred," but the thumbnails are unlocked now.
 <</narrative>>
 <div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
 <div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
 
+<<if _melissaDone>>
+<<narrative>>
+No unseen clips remain in Melissa's folder.
+<</narrative>>
+<</if>>
+
+<div class="location-actions">
+<<if !$jobState.vincePcSnoopSeenMelissaVideos.v1>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _melissaVideoCostV1>>
+        <<btn "Clip 01 — Aug 14" "dinerWork_event_vinceManagerPcSnoop_girls_melissa_video1" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 01, Aug 14</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenMelissaVideos.v2>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _melissaVideoCostV2>>
+        <<btn "Clip 02 — Jul 29" "dinerWork_event_vinceManagerPcSnoop_girls_melissa_video2" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 02, Jul 29</span>
+    <</if>>
+<</if>>
+</div>
 <div class="location-actions">
 <<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
 <<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>

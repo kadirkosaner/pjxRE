@@ -40,6 +40,57 @@
     currentStatus: null
 }>>
 
+/* PC-snoop clip speakers — same lightweight pattern as stranger (no schedule, dialog-only). */
+<<set setup.characterDefs.strangerKsenia = {
+    name: "Ksenia",
+    firstName: "Ksenia",
+    lastName: "",
+    gender: "female",
+    occupation: "Unknown",
+    location: "Unknown",
+    avatar: "assets/content/people/stranger.webp",
+    type: "npc",
+    color: "#a855f7",
+    info: "<p>Woman from Vince’s private recordings.</p>"
+}>>
+<<set $characters.strangerKsenia = {
+    stats: {
+            love: 0, loveLevel: 1,
+            friendship: 0, friendshipLevel: 1,
+            lust: 0, lustLevel: 1,
+            trust: 0, trustLevel: 1
+    },
+    firstMet: null,
+    known: true,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
+<<set setup.characterDefs.strangerMelissa = {
+    name: "Melissa",
+    firstName: "Melissa",
+    lastName: "",
+    gender: "female",
+    occupation: "Unknown",
+    location: "Unknown",
+    avatar: "assets/content/people/stranger.webp",
+    type: "npc",
+    color: "#f472b6",
+    info: "<p>Woman from Vince’s private recordings.</p>"
+}>>
+<<set $characters.strangerMelissa = {
+    stats: {
+            love: 0, loveLevel: 1,
+            friendship: 0, friendshipLevel: 1,
+            lust: 0, lustLevel: 1,
+            trust: 0, trustLevel: 1
+    },
+    firstMet: null,
+    known: true,
+    currentLocation: null,
+    currentStatus: null
+}>>
+
 /* Family: always in phone contact list (have their numbers from the start). Others added via <<phoneUnlockContact charId>> when player swaps numbers. */
 <<set setup.phoneContactsFamily = setup.phoneContactsFamily || ["mother", "father", "brother"]>>
 

@@ -4,6 +4,7 @@
 <<set $location = "dinerRubysManagerOffice">>
 <<jobEnsureState>>
 <<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
@@ -13,6 +14,9 @@
 <<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopSeenDianaVideos>><<set $jobState.vincePcSnoopSeenDianaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenLaraVideos>><<set $jobState.vincePcSnoopSeenLaraVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenKseniaVideos>><<set $jobState.vincePcSnoopSeenKseniaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenMelissaVideos>><<set $jobState.vincePcSnoopSeenMelissaVideos = {}>><</if>>
 
 <<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
     <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
@@ -29,8 +33,10 @@
 
 <<set _emmaDone = ($jobState.vincePcSnoopSeenEmmaVideos.v1 && $jobState.vincePcSnoopSeenEmmaVideos.v2 && $jobState.vincePcSnoopSeenEmmaVideos.v3 && $jobState.vincePcSnoopSeenEmmaVideos.v4 && $jobState.vincePcSnoopSeenEmmaVideos.v5)>>
 <<set _sofiaDone = ($jobState.vincePcSnoopSeenSofiaVideos.v1 && $jobState.vincePcSnoopSeenSofiaVideos.v2 && $jobState.vincePcSnoopSeenSofiaVideos.v3 && $jobState.vincePcSnoopSeenSofiaVideos.v4 && $jobState.vincePcSnoopSeenSofiaVideos.v5 && $jobState.vincePcSnoopSeenSofiaVideos.v6)>>
-<<set _dianaDone = ($jobState.vincePcSnoopSeenDianaVideos.v1 && $jobState.vincePcSnoopSeenDianaVideos.v2 && $jobState.vincePcSnoopSeenDianaVideos.v3 && $jobState.vincePcSnoopSeenDianaVideos.v4 && $jobState.vincePcSnoopSeenDianaVideos.v5 && $jobState.vincePcSnoopSeenDianaVideos.v6)>>
-<<set _girlsRemaining = !(_emmaDone && _sofiaDone && _dianaDone && $jobState.vincePcSnoopSeenGirls.melissa && $jobState.vincePcSnoopSeenGirls.lara && $jobState.vincePcSnoopSeenGirls.ksenia && $jobState.vincePcSnoopSeenGirls.player)>>
+<<set _dianaDone = ($jobState.vincePcSnoopSeenDianaVideos.v1 && $jobState.vincePcSnoopSeenDianaVideos.v2 && $jobState.vincePcSnoopSeenDianaVideos.v3 && $jobState.vincePcSnoopSeenDianaVideos.v4 && $jobState.vincePcSnoopSeenDianaVideos.v5)>>
+<<set _kseniaDone = ($jobState.vincePcSnoopSeenKseniaVideos.v1 && $jobState.vincePcSnoopSeenKseniaVideos.v2)>>
+<<set _melissaDone = ($jobState.vincePcSnoopSeenMelissaVideos.v1 && $jobState.vincePcSnoopSeenMelissaVideos.v2)>>
+<<set _girlsRemaining = !(_emmaDone && _sofiaDone && _dianaDone && _melissaDone && $jobState.vincePcSnoopSeenLaraVideos.v1 && _kseniaDone && $jobState.vincePcSnoopSeenGirls.player)>>
 <<set _playerFileLabel = $player.firstName>>
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
@@ -61,9 +67,9 @@ No new entries are left in this folder.
 <<if !_emmaDone>><<btn "Emma" "dinerWork_event_vinceManagerPcSnoop_girls_emma" "secondary">><</btn>><</if>>
 <<if !_sofiaDone>><<btn "Sofia" "dinerWork_event_vinceManagerPcSnoop_girls_sofia" "secondary">><</btn>><</if>>
 <<if !_dianaDone>><<btn "Diana" "dinerWork_event_vinceManagerPcSnoop_girls_diana" "secondary">><</btn>><</if>>
-<<if !$jobState.vincePcSnoopSeenGirls.melissa>><<btn "Melissa" "dinerWork_event_vinceManagerPcSnoop_girls_melissa" "secondary">><</btn>><</if>>
-<<if !$jobState.vincePcSnoopSeenGirls.lara>><<btn "Lara" "dinerWork_event_vinceManagerPcSnoop_girls_lara" "secondary">><</btn>><</if>>
-<<if !$jobState.vincePcSnoopSeenGirls.ksenia>><<btn "Ksenia" "dinerWork_event_vinceManagerPcSnoop_girls_ksenia" "secondary">><</btn>><</if>>
+<<if !_melissaDone>><<btn "Melissa" "dinerWork_event_vinceManagerPcSnoop_girls_melissa" "secondary">><</btn>><</if>>
+<<if !$jobState.vincePcSnoopSeenLaraVideos.v1>><<btn "Lara" "dinerWork_event_vinceManagerPcSnoop_girls_lara_video1" "secondary">><</btn>><</if>>
+<<if !_kseniaDone>><<btn "Ksenia" "dinerWork_event_vinceManagerPcSnoop_girls_ksenia" "secondary">><</btn>><</if>>
 <<if !$jobState.vincePcSnoopSeenGirls.player>><<btn _playerFileLabel "dinerWork_event_vinceManagerPcSnoop_girls_player" "secondary">><</btn>><</if>>
 <<btn "Back to folders" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>
 </div>

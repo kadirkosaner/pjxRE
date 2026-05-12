@@ -1,0 +1,90 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_melissa_video2
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+
+<<if ndef $jobState.vincePcSnoopSeenMelissaVideos>><<set $jobState.vincePcSnoopSeenMelissaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenMelissaVideos.v2 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenMelissaVideos.v2 = true>>
+    <<set $jobState.vincePcSnoopSeenGirls.melissa = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 3>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 3>>
+    <<gainStat "arousal" 8>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<if $jobState.vincePcSnoopSeenMelissaVideos.v2>><<set $jobState.vincePcSnoopSeenGirls.melissa = true>><</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 02 — Jul 29">>
+The second clip opens. Extreme close-up. Much closer than the first one.
+<</narrative>>
+
+<<narrative>>
+The phone is almost on the bed this time, hidden right behind her. Different sheets, different lighting. Definitely not the same night.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+It’s her again… Melissa.
+<</dialog>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/melissa/melissafuck2.mp4" "60%">>
+
+<<narrative>>
+Vince’s hand grips her ass hard, spreading her open while he thrusts. The thin gold wedding ring on his finger catches the light with every movement.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Second time. Two different beds. Two different nights.  
+And in both of them the phone was already set up.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+This wasn’t a one-time thing. He prepares. He hides the phone, waits for her, then records everything.
+<</dialog>>
+
+<<narrative>>
+Her body moves with each slow, deep thrust. The black t-shirt is still bunched up around her back. She barely makes a sound.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He’s still wearing his wedding ring… so he was still married on this night too.  
+He probably went home afterwards and kissed his wife good morning.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+How many more are there? How many girls? How many videos he deleted or never put in this folder?
+<</dialog>>
+
+<<narrative>>
+The clip cuts off abruptly while he’s still inside her.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Melissa might actually be one of the lucky ones.  
+At least she only has two videos.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Melissa folder" "dinerWork_event_vinceManagerPcSnoop_girls_melissa" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

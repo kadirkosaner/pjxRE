@@ -3,34 +3,62 @@
 <<set $location = "dinerRubysManagerOffice">>
 <<jobEnsureState>>
 <<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
 <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopSeenKseniaVideos>><<set $jobState.vincePcSnoopSeenKseniaVideos = {}>><</if>>
 <<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
     <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
     <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
     <<set $jobState.vincePcSnoopFolderPaid = {}>>
 <</if>>
 
-<<if !$jobState.vincePcSnoopSeenGirls.ksenia && $jobState.vincePcSnoopTimeLeftMin > 0>>
-    <<set $jobState.vincePcSnoopSeenGirls.ksenia = true>>
-    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+<<if !$jobState.vincePcSnoopFolderPaid.ksenia && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopFolderPaid.ksenia = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 1>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
-    <<advanceTime 4>>
+    <<advanceTime 1>>
 <</if>>
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+<<set _kseniaVideoCostV1 = 3>>
+<<set _kseniaVideoCostV2 = 3>>
+<<set _kseniaDone = ($jobState.vincePcSnoopSeenKseniaVideos.v1 && $jobState.vincePcSnoopSeenKseniaVideos.v2)>>
+<<if _kseniaDone>><<set $jobState.vincePcSnoopSeenGirls.ksenia = true>><</if>>
 
 <<narrative "Girls / Ksenia">>
-A sparse page, but the metadata is rich: date stacks, travel tags, and two references to archived clips.
+Two clips sit under her name, tagged with travel dates and a blunt note Vince never deleted: "keep raw."
 <</narrative>>
 <div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
 <div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
 
+<<if _kseniaDone>>
+<<narrative>>
+No unseen clips remain in Ksenia's folder.
+<</narrative>>
+<</if>>
+
+<div class="location-actions">
+<<if !$jobState.vincePcSnoopSeenKseniaVideos.v1>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _kseniaVideoCostV1>>
+        <<btn "Clip 01 — Nov 02" "dinerWork_event_vinceManagerPcSnoop_girls_ksenia_video1" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 01, Nov 02</span>
+    <</if>>
+<</if>>
+<<if !$jobState.vincePcSnoopSeenKseniaVideos.v2>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _kseniaVideoCostV2>>
+        <<btn "Clip 02 — Oct 18" "dinerWork_event_vinceManagerPcSnoop_girls_ksenia_video2" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 02, Oct 18</span>
+    <</if>>
+<</if>>
+</div>
 <div class="location-actions">
 <<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
 <<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>

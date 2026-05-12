@@ -1,0 +1,103 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_ksenia_video2
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+
+<<if ndef $jobState.vincePcSnoopSeenKseniaVideos>><<set $jobState.vincePcSnoopSeenKseniaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenKseniaVideos.v2 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenKseniaVideos.v2 = true>>
+    <<set $jobState.vincePcSnoopSeenGirls.ksenia = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 3>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 3>>
+    <<gainStat "arousal" 7>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<if $jobState.vincePcSnoopSeenKseniaVideos.v2>><<set $jobState.vincePcSnoopSeenGirls.ksenia = true>><</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 02 — Oct 18">>
+The second clip starts. The first frame stops you cold for a second.
+<</narrative>>
+
+<<narrative>>
+Then it hits you what you're watching.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Anal again…
+<</dialog>>
+
+<<narrative>>
+Vince goes in slowly, all the way to the base. He pulls out completely each time before sliding back in. Her hole stretches around him, wet and glossy. Neither of them is in a hurry.
+<</narrative>>
+
+<<narrative>>
+Her hand enters the frame. The thin gold ring on her finger catches the light. She pulls her own ass cheek aside so he can go deeper.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/ksenia/kseniaanal.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+Does it hurt? Or does the pain turn her on? I have no idea.
+<</dialog>>
+
+<<narrative>>
+The camera never pulls back. She barely makes a sound — just slow, deep breaths. This isn’t new to her. That much is obvious.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+What does it actually feel like? Do people really do this that much… or am I just that innocent?
+<</dialog>>
+
+<<narrative>>
+That thin gold ring flashes again for a moment.
+<</narrative>>
+
+<<narrative>>
+Then the camera slowly tilts upward.
+<</narrative>>
+
+<<narrative>>
+Brown hair. Black-framed glasses. Bare breasts. Belly piercing. Mouth slightly open, eyes glazed over.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+There are thousands of people in this city I don’t know. She’s just one of them.
+<</dialog>>
+
+<<narrative>>
+Your eyes go back to the ring.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+She’s wearing a wedding ring. But she’s not Vince’s wife.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+I wonder if I’ll ever find out what it feels like… and if I even want to.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Ksenia folder" "dinerWork_event_vinceManagerPcSnoop_girls_ksenia" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

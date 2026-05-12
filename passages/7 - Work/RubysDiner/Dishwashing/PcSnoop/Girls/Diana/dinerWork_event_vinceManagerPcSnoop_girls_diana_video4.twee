@@ -1,0 +1,95 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_diana_video4
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+<<if ndef $jobState.vincePcSnoopSeenDianaVideos>><<set $jobState.vincePcSnoopSeenDianaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenDianaVideos.v4 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenDianaVideos.v4 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 5>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 5>>
+    <<gainStat "arousal" 9>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 04 — Sep 20">>
+The fourth clip opens on the bed. Handheld camera, side angle.
+<</narrative>>
+
+<<narrative>>
+Diana lies face down, hips raised. The frame catches the sheen on Vince's fingers first, then he lines up higher than you'd expect, not between her thighs. He keeps one hand pinned to her lower back and pushes into her ass slowly, a fraction at a time.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/diana/dianaanal1.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+Wait, there?
+<</dialog>>
+
+<<narrative>>
+Diana turns her head to look back at the camera, eyes half-lidded.
+<</narrative>>
+
+<<dialog "dinerManager">>
+You okay?
+<</dialog>>
+
+<<dialog "dianaRuby">>
+Mhm…
+<</dialog>>
+
+<<narrative>>
+Vince keeps the pace gentle. Diana starts meeting him anyway, rolling her hips back onto him.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+That has to hurt… so why is she pushing back into it?
+<</dialog>>
+
+<<narrative>>
+Later, Diana buries her face in the pillow, no longer looking at the camera. She’s lost in her own pleasure.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/diana/dianaanal2.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)
+But the sound of her… that isn't pain.
+<</dialog>>
+
+<<narrative>>
+Vince gradually increases his pace, still controlled. Each thrust lands a little harder against her ass; the sound turns wetter, messier.
+<</narrative>>
+
+<<dialog "dinerManager">>
+Diana…
+<</dialog>>
+
+<<dialog "dianaRuby">>
+Mmm…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+Is she actually getting off… from that?
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Diana folder" "dinerWork_event_vinceManagerPcSnoop_girls_diana" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

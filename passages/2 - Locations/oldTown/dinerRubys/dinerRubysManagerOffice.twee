@@ -15,9 +15,18 @@ Vince's office. Desk, paperwork, a view of the diner through the window.
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<set _vdarkUnlock = $jobState.vinceDarknessPcSnoopUnlockDayKey>>
 <<set _vdarkSnoopPc = ($questState && $questState.active && $questState.active.vince_darkness && $questState.active.vince_darkness.stage === 1 && _vdarkUnlock > 0 && _todayKey > _vdarkUnlock)>>
+<<if ndef $jobState.vincePcSnoopSessionDayKey>><<set $jobState.vincePcSnoopSessionDayKey = 0>><</if>>
+<<set _vinceAway = ($characters && $characters.dinerManager && $characters.dinerManager.currentLocation === null)>>
+<<set _pcSnoopUsedToday = ($jobState.vincePcSnoopSessionDayKey === _todayKey)>>
 <<if _vdarkSnoopPc>>
 <div class="location-actions">
+<<if _pcSnoopUsedToday>>
+<span class="link-internal btn-style btn-default locked" data-tooltip="You've already used Vince's PC today."><i class="icon icon-lock icon-12"></i> Search Vince's computer</span>
+<<elseif _vinceAway>>
 <<btn "Search Vince's computer" "dinerWork_event_vinceManagerPcSnoop" "action-btn btn-quest">><</btn>>
+<<else>>
+<span class="link-internal btn-style btn-default locked" data-tooltip="Vince is still around the diner. Too risky right now."><i class="icon icon-lock icon-12"></i> Search Vince's computer</span>
+<</if>>
 </div>
 <</if>>
 

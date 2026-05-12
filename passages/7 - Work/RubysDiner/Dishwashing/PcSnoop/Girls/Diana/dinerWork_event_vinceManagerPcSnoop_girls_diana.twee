@@ -3,6 +3,7 @@
 <<set $location = "dinerRubysManagerOffice">>
 <<jobEnsureState>>
 <<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
@@ -25,13 +26,12 @@
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
-<<set _dianaVideoCostV1 = 3>>
+<<set _dianaVideoCostV1 = 4>>
 <<set _dianaVideoCostV2 = 3>>
 <<set _dianaVideoCostV3 = 4>>
-<<set _dianaVideoCostV4 = 4>>
-<<set _dianaVideoCostV5 = 4>>
-<<set _dianaVideoCostV6 = 4>>
-<<set _dianaDone = ($jobState.vincePcSnoopSeenDianaVideos.v1 && $jobState.vincePcSnoopSeenDianaVideos.v2 && $jobState.vincePcSnoopSeenDianaVideos.v3 && $jobState.vincePcSnoopSeenDianaVideos.v4 && $jobState.vincePcSnoopSeenDianaVideos.v5 && $jobState.vincePcSnoopSeenDianaVideos.v6)>>
+<<set _dianaVideoCostV4 = 5>>
+<<set _dianaVideoCostV5 = 6>>
+<<set _dianaDone = ($jobState.vincePcSnoopSeenDianaVideos.v1 && $jobState.vincePcSnoopSeenDianaVideos.v2 && $jobState.vincePcSnoopSeenDianaVideos.v3 && $jobState.vincePcSnoopSeenDianaVideos.v4 && $jobState.vincePcSnoopSeenDianaVideos.v5)>>
 <<if _dianaDone>><<set $jobState.vincePcSnoopSeenGirls.diana = true>><</if>>
 
 <<narrative "Girls / Diana">>
@@ -80,13 +80,6 @@ No unseen clips remain in Diana's folder.
         <<btn "Clip 05 — Aug 25" "dinerWork_event_vinceManagerPcSnoop_girls_diana_video5" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 05 — Aug 25</span>
-    <</if>>
-<</if>>
-<<if !$jobState.vincePcSnoopSeenDianaVideos.v6>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _dianaVideoCostV6>>
-        <<btn "Clip 06 — Aug 20" "dinerWork_event_vinceManagerPcSnoop_girls_diana_video6" "secondary">><</btn>>
-    <<else>>
-        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 06 — Aug 20</span>
     <</if>>
 <</if>>
 </div>

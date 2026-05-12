@@ -1,0 +1,106 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_ksenia_video1
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+
+<<if ndef $jobState.vincePcSnoopSeenKseniaVideos>><<set $jobState.vincePcSnoopSeenKseniaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenKseniaVideos.v1 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenKseniaVideos.v1 = true>>
+    <<set $jobState.vincePcSnoopSeenGirls.ksenia = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+    <<gainStat "arousal" 5>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<if $jobState.vincePcSnoopSeenKseniaVideos.v1>><<set $jobState.vincePcSnoopSeenGirls.ksenia = true>><</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 01 — NOV 02">>
+You quickly click on the first video you see.
+<</narrative>>
+
+<<narrative>>
+The video is dark and shaky. Vince is filming with one hand, so the frame keeps drifting. Still, everything is clear enough.
+<</narrative>>
+
+<<narrative>>
+Pink top pulled up, grey thong shoved aside. The woman is on all fours, pushing herself back onto Vince. He’s thrusting hard behind her.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)  
+Toys on the back seat…
+<</dialog>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/ksenia/kseniacarfuck.mp4" "60%">>
+
+<<narrative>>
+She doesn’t even try to keep quiet. The windows are open, and outside you can see the diner’s parking lot.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)  
+How are they this relaxed? Anyone walking by could easily hear them.
+<</dialog>>
+
+<<dialog "strangerKsenia">>
+Ah fuck… mm…
+<</dialog>>
+
+<<dialog "strangerKsenia">>
+Oh fuck… feels so good…
+<</dialog>>
+
+<<dialog "strangerKsenia">>
+Feels so good, Daddy…
+<</dialog>>
+
+<<narrative>>
+Vince’s hand comes down hard on her ass. She flinches for a second, then pushes back even harder.
+<</narrative>>
+
+<<dialog "strangerKsenia">>
+Oh… oh… oh…
+<</dialog>>
+
+<<dialog "strangerKsenia">>
+Fuck Vince… ah, this is your little pussy…
+<</dialog>>
+
+<<narrative>>
+The video cuts off suddenly.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)  
+Late thirties? Early forties? Is cheating really this easy? Pull into a parking lot, fuck, then go back home like nothing happened.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)  
+Is everyone like this at that age? My mom… my dad…
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)  
+No. I don’t want to think about that.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Ksenia folder" "dinerWork_event_vinceManagerPcSnoop_girls_ksenia" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

@@ -9,6 +9,7 @@
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
 <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
+
 <<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
     <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
     <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
@@ -21,16 +22,69 @@
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
     <<advanceTime 5>>
 <</if>>
+
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
 
 <<set _playerFileTitle = "Girls / " + $player.firstName>>
 <<narrative _playerFileTitle>>
-You freeze for a second. Your own name sits in Vince's index with a fresh timestamp and a private note marker.
+You left yours for last.
+
+You click it. The folder opens. Empty.
 <</narrative>>
+
 <div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
 <div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative>>
+You close it, then open it again. Still nothing.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He already made the folder… He already put my name in here.
+<</dialog>>
+
+<<narrative>>
+You scroll back up slowly. Diana. Emma. Sofia. Ksenia. Melissa.  
+And at the very bottom — your name.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Just like all the others.
+<</dialog>>
+
+<<narrative>>
+You remember Jake at the coffee window. The flat way he said it:
+*If Vince starts paying you too much attention… don’t sit on it.*
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+He wasn’t being overprotective.  
+He was warning me.
+<</dialog>>
+
+<<narrative>>
+You stare at the empty folder for a long time. No videos. Not yet.  
+Just a name. Waiting for its turn.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+This is how it starts.
+<</dialog>>
+
+<<narrative>>
+You close the folder.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+And this is exactly where it’s going to stay.
+<</dialog>>
 
 <div class="location-actions">
 <<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>

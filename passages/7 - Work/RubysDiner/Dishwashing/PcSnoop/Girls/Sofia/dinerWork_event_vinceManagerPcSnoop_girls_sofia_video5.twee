@@ -3,15 +3,16 @@
 <<set $location = "dinerRubysManagerOffice">>
 <<jobEnsureState>>
 <<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 <<if ndef $jobState.vincePcSnoopSeenSofiaVideos>><<set $jobState.vincePcSnoopSeenSofiaVideos = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
 
 <<if !$jobState.vincePcSnoopSeenSofiaVideos.v5 && $jobState.vincePcSnoopTimeLeftMin > 0>>
     <<set $jobState.vincePcSnoopSeenSofiaVideos.v5 = true>>
-    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 8>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
-    <<advanceTime 4>>
-    <<gainStat "arousal" 5>>
+    <<advanceTime 8>>
+    <<gainStat "arousal" 10>>
     <<recalculateStats>>
     <<flushNotifications>>
 <</if>>

@@ -1,0 +1,98 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_melissa_video1
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+
+<<if ndef $jobState.vincePcSnoopSeenMelissaVideos>><<set $jobState.vincePcSnoopSeenMelissaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenMelissaVideos.v1 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenMelissaVideos.v1 = true>>
+    <<set $jobState.vincePcSnoopSeenGirls.melissa = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+    <<gainStat "arousal" 6>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<if $jobState.vincePcSnoopSeenMelissaVideos.v1>><<set $jobState.vincePcSnoopSeenGirls.melissa = true>><</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 01 — Aug 14">>
+The clip starts. A girl is lying face down on striped sheets, black t-shirt still on.
+<</narrative>>
+
+<<narrative>>
+The angle is low and weird — the phone is propped up somewhere near the foot of the bed, half-hidden behind something. The frame shakes slightly every time Vince moves. He’s filming this without her knowing.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Wait… she doesn’t know, does she?
+<</dialog>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/melissa/melissafuck1.mp4" "60%">>
+
+<<narrative>>
+Vince is behind her, thrusting slowly. He grabs one of her ass cheeks hard and spreads her open. Her body rocks forward with each push, but her movements are heavy, lazy… almost like she’s half-asleep.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+She’s not even fully awake… but she’s still pushing back against him.
+<</dialog>>
+
+<<dialog "strangerMelissa">>
+Oh… oh…
+<</dialog>>
+
+<<narrative>>
+Her voice is soft and drowsy. Every time he sinks in, she lets out a sleepy little moan and lifts her hips just enough to meet him.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+This is different. The others knew they were being filmed. Sofia opened herself up on purpose. Ksenia was moaning for the camera.  
+But this girl… she has no fucking idea.
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)
+What if someone did this to me? What if I was lying there thinking it was just sex… and never knew. Years from now, still on someone’s screen.
+<</dialog>>
+
+<<narrative>>
+Vince’s hand squeezes her ass tighter. The camera keeps shaking slightly with every thrust.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+I shouldn’t be watching this.  
+I really shouldn’t.
+<</dialog>>
+
+<<narrative>>
+The clip cuts off abruptly while he’s still deep inside her.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+Her name is Melissa.  
+She’s young. Half-asleep. And Vince is keeping this like some kind of secret trophy.
+<</dialog>>
+
+<div class="location-actions">
+<<btn "Back to Melissa folder" "dinerWork_event_vinceManagerPcSnoop_girls_melissa" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

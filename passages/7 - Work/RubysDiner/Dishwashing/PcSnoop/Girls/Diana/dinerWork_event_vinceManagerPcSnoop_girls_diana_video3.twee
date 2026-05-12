@@ -1,0 +1,94 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_diana_video3
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+<<if ndef $jobState.vincePcSnoopSeenDianaVideos>><<set $jobState.vincePcSnoopSeenDianaVideos = {}>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+
+<<if !$jobState.vincePcSnoopSeenDianaVideos.v3 && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopSeenDianaVideos.v3 = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 4>>
+    <<gainStat "arousal" 6>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Clip 03 — Aug 30">>
+Different bedroom. Warm lighting, camera positioned slightly above.
+<</narrative>>
+
+<<narrative>>
+Diana is on her knees in a red lace bra and black panties. She holds Vince with both hands and takes him into her mouth with calm confidence.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/diana/dianabj3home1.mp4" "60%">>
+
+<<dialog "dianaRuby">>
+Mm… There you are.
+<</dialog>>
+
+<<dialog "dinerManager">>
+Keep going… slow.
+<</dialog>>
+
+<<dialog "dianaRuby">>
+Don’t rush. I want to taste it.
+<</dialog>>
+
+<<narrative>>
+Vince chuckles softly, but obeys. Diana never speeds up. She stays in complete control of the rhythm.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+One instruction and he listens. Around her, Vince becomes someone else.
+<</dialog>>
+
+<<narrative>>
+She pulls him out, rubs his cock against her cheek, then takes him deep again. Vince turns the camera toward the large mirror on the wall.
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/diana/dianabj3home2.mp4" "60%">>
+
+<<dialog "dianaRuby">>
+Look at me. Not the camera.
+<</dialog>>
+
+<<narrative>>
+The camera slowly turns until only Diana fills the frame. She gives a small, satisfied smile and continues.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+One sentence. That’s all it took. How does she do that so easily?
+<</dialog>>
+
+<<narrative>>
+Diana takes him to the back of her throat, eyes locked on the lens. Even while sucking him, she lets out a low, amused laugh.
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)
+To Vince she might be special. To her… he might just be convenient.
+<</dialog>>
+
+<<narrative>>
+The clip ends with Diana resting his cock on her tongue, staring straight into the camera with quiet power.
+<</narrative>>
+
+<div class="location-actions">
+<<btn "Back to Diana folder" "dinerWork_event_vinceManagerPcSnoop_girls_diana" "secondary">><</btn>>
+<<btn "Back to Girls folder" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+</div>
+</div>

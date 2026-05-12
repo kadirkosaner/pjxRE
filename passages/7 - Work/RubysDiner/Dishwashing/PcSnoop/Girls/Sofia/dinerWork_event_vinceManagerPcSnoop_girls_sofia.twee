@@ -3,6 +3,7 @@
 <<set $location = "dinerRubysManagerOffice">>
 <<jobEnsureState>>
 <<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
@@ -28,9 +29,9 @@
 <<set _sofiaVideoCostV1 = 3>>
 <<set _sofiaVideoCostV2 = 3>>
 <<set _sofiaVideoCostV3 = 4>>
-<<set _sofiaVideoCostV4 = 4>>
-<<set _sofiaVideoCostV5 = 4>>
-<<set _sofiaVideoCostV6 = 4>>
+<<set _sofiaVideoCostV4 = 6>>
+<<set _sofiaVideoCostV5 = 8>>
+<<set _sofiaVideoCostV6 = 8>>
 <<set _sofiaDone = ($jobState.vincePcSnoopSeenSofiaVideos.v1 && $jobState.vincePcSnoopSeenSofiaVideos.v2 && $jobState.vincePcSnoopSeenSofiaVideos.v3 && $jobState.vincePcSnoopSeenSofiaVideos.v4 && $jobState.vincePcSnoopSeenSofiaVideos.v5 && $jobState.vincePcSnoopSeenSofiaVideos.v6)>>
 <<if _sofiaDone>><<set $jobState.vincePcSnoopSeenGirls.sofia = true>><</if>>
 

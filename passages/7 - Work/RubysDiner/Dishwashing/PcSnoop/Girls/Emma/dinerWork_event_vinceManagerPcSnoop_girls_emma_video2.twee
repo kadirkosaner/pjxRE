@@ -3,6 +3,7 @@
 <<set $location = "dinerRubysManagerOffice">>
 <<jobEnsureState>>
 <<updateCharacterLocations>>
+<<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
 
 <<if !$jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
 <<if !$jobState.vincePcSnoopSeenEmmaVideos.v2 && $jobState.vincePcSnoopTimeLeftMin > 0>>

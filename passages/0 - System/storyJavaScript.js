@@ -1119,9 +1119,17 @@ window.runClosedLocationKickIfNeeded = function (opts) {
         const hours = lh && lh.hours;
         if (!hours || hours.open24h) return;
         /* Activity scenes use passage names (e.g. parkBench) while $location stays the hub id (sunsetPark).
-           Only run on location passages where passage name === $location (not mini-scenes). */
+           Only run on location passages where passage name === $location (not mini-scenes).
+           Exception: Vince PC snoop tree — passage titles are work events but $location stays dinerRubysManagerOffice;
+           time still advances there, so closing hours must apply the same kick as the physical room. */
         const passage = State.passage;
-        if (passage && passage !== loc) return;
+        if (passage && passage !== loc) {
+            const passStr = String(passage);
+            const locStr = String(loc);
+            const isVincePcSnoopPassage = passStr.indexOf('dinerWork_event_vinceManagerPcSnoop') === 0;
+            const isDinerManagerOffice = locStr === 'dinerRubysManagerOffice';
+            if (!(isVincePcSnoopPassage && isDinerManagerOffice)) return;
+        }
         if (window.isLocationOpen && window.isLocationOpen(loc)) return;
         const region = hours.region || "downTown";
         const effId = lh.effectiveId;

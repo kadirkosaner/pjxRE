@@ -1,0 +1,51 @@
+:: dinerWork_event_vinceManagerPcSnoop_intruder
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<set _v = random(1, 5)>>
+
+<<narrative "Noise at the door">>
+The corridor goes quiet for one beat, then the handle twitches.
+<</narrative>>
+
+<<switch _v>>
+<<case 1>>
+<<narrative>>
+Footsteps stop right outside. You kill the monitor glow and slide under the desk.  
+The door opens halfway. Someone leans in, breathes out, then shuts it again without a word.
+<</narrative>>
+<<case 2>>
+<<narrative>>
+A shadow crosses under the door. You drop to your knees and flatten behind the desk frame.  
+The door clicks open. A hand taps the tabletop once, then the steps fade back into the corridor.
+<</narrative>>
+<<case 3>>
+<<narrative>>
+You hear two steps, then silence. You duck under the desk just as the door pushes inward.  
+Whoever it is stands there for a second, mutters something under their breath, and leaves.
+<</narrative>>
+<<case 4>>
+<<narrative>>
+The knob rattles hard. You throw yourself under the desk and hold your breath.  
+The door opens, lingers, then closes again as quick as it came.
+<</narrative>>
+<<default>>
+<<narrative>>
+Voices pass the office, then one pair of steps turns back. You hide beneath the desk.  
+The door opens a crack, pauses, then shuts. You cannot tell who it was.
+<</narrative>>
+<</switch>>
+
+<<narrative>>
+You stay still until the hallway goes silent again. No more chances today.
+<</narrative>>
+
+<<set $jobState.vincePcSnoopTimeLeftMin = 0>>
+<<advanceTime 2>>
+
+<div class="location-actions">
+<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+</div>
