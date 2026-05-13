@@ -73,7 +73,13 @@ No new entries are left in this folder.
 <<if !_sofiaDone>><<btn "Sofia" "dinerWork_event_vinceManagerPcSnoop_girls_sofia" "secondary">><</btn>><</if>>
 <<if !_dianaDone>><<btn "Diana" "dinerWork_event_vinceManagerPcSnoop_girls_diana" "secondary">><</btn>><</if>>
 <<if !_melissaDone>><<btn "Melissa" "dinerWork_event_vinceManagerPcSnoop_girls_melissa" "secondary">><</btn>><</if>>
-<<if !$jobState.vincePcSnoopSeenLaraVideos.v1>><<btn "Lara" "dinerWork_event_vinceManagerPcSnoop_girls_lara_video1" "secondary">><</btn>><</if>>
+<<if !$jobState.vincePcSnoopSeenLaraVideos.v1>>
+    <<if $contentPreferences.nonConsensual === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> Lara</span>
+    <<else>>
+        <<btn "Lara" "dinerWork_event_vinceManagerPcSnoop_girls_lara_video1" "secondary">><</btn>>
+    <</if>>
+<</if>>
 <<if !_kseniaDone>><<btn "Ksenia" "dinerWork_event_vinceManagerPcSnoop_girls_ksenia" "secondary">><</btn>><</if>>
 <<if !$jobState.vincePcSnoopSeenGirls.player>><<btn _playerFileLabel "dinerWork_event_vinceManagerPcSnoop_girls_player" "secondary">><</btn>><</if>>
 <<btn "Back to folders" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>

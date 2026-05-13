@@ -15,5 +15,7 @@
     <<if ndef $jobState.vincePcSnoopSeenMelissaVideos>><<set $jobState.vincePcSnoopSeenMelissaVideos = {}>><</if>>
     <<if ndef $flags.vinceDarknessDeclined>><<set $flags.vinceDarknessDeclined = false>><</if>>
     <<run setup.pjxBackfillRubyTier3LineState && setup.pjxBackfillRubyTier3LineState()>>
+    <<if ndef $contentPreferences>><<set $contentPreferences = {}>><</if>>
+    <<if ndef $contentPreferences.groupSex>><<set $contentPreferences.groupSex = false>><</if>>
 <</if>>
 <</silently>>

@@ -6,7 +6,6 @@
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<if ndef $jobState.vincePcSnoopMasturbatedAtDiner>><<set $jobState.vincePcSnoopMasturbatedAtDiner = false>><</if>>
 <<if ndef $jobState.vincePcSnoopMasturbatedAtDinerDayKey>><<set $jobState.vincePcSnoopMasturbatedAtDinerDayKey = 0>><</if>>
-
 <<set $sexual.counts.masturbation = ($sexual.counts.masturbation || 0) + 1>>
 <<set $jobState.vincePcSnoopMasturbatedAtDiner = true>>
 <<set $jobState.vincePcSnoopMasturbatedAtDinerDayKey = _todayKey>>
@@ -15,83 +14,89 @@
 <<loseStat "stress" 6>>
 <<loseStat "energy" 6>>
 <<advanceTime 12>>
-
 <<narrative "Stall">>
 Nobody's in here. You hit the stall and slide the bolt. The click sounds way too loud in the small bathroom.
 <</narrative>>
-
 <<narrative>>
 This isn't your room with the lights off. It's the diner bathroom. One sink, frosted glass, a thin door, a cheap lock. Every sound in here carries out, and every sound out there carries in.
 <</narrative>>
-
 <<narrative>>
 Pants down. Your hand goes straight between your legs. You're already wet. Your finger finds your clit and you bite your lip before you can make a sound.
 <</narrative>>
-
 <<dialog "player">>
 (Inner voice)
 Quiet… please be quiet…
 <</dialog>>
-
 <<narrative>>
-Small, fast circles. Then Emma's voice carries from outside
+Small, fast circles. Then Emma's voice from outside:
 <</narrative>>
-
 <<dialog "dinerWaitress1">>
 Two cokes and a club sandwich for table seven!
 <</dialog>>
-
 <<narrative>>
-A second later Tom calls back from the counter
+A second later Tom from the counter:
 <</narrative>>
-
 <<dialog "dinerClerk">>
 On it!
 <</dialog>>
-
 <<narrative>>
 The voices are right there. Every word lands clean in the little bathroom. Anyone who walked in could hear a tap dripping, let alone you.
 <</narrative>>
-
 <<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/masturbatebathroom.mp4" "100%">>
-
 <<narrative>>
-Footsteps. Coming down the hall toward the bathroom. Your heart kicks. Your hand doesn't stop but your ears are outside the door. The footsteps reach the sink area, pause for a beat… then the faucet turns on.
+Footsteps. Coming down the corridor. Getting closer, slowing, then carrying on, fading. Your heart kicks. Your hand doesn't stop.
 <</narrative>>
-
 <<narrative>>
-Water runs. You don't know who it is. Emma? Sofia? Tom? Just the sound of someone washing their hands a few feet away from you. Your fingers stay pressed against your clit, not moving, not breathing.
+Someone stops in the corridor. A voice, talking to someone else, laughing. Every word comes through clean under the door. You freeze, fingers pressed hard against your clit, not even breathing.
 <</narrative>>
-
 <<narrative>>
-The faucet shuts off. Footsteps walk away. You exhale, and the thing you've been holding back snaps closer all at once.
+The voices move away. You exhale, and the thing you've been holding back snaps closer all at once.
 <</narrative>>
-
 <<narrative>>
-Your thighs tremble first, then your knees go loose. Heat rolls up through your belly in tight waves. You shove your free hand over your mouth and rub faster because you can't help it: everything down there clenches, releases, clenches again. A sound tries to slip out and dies against your fingers. Your pulse fills your ears until it's almost all you hear. The stall shrinks to the bolt, the hinge, the grain of the door under your forehead.
+The clips from Vince's PC are still playing in your head. Sofia's voice. Diana's back. The way he held them, slow and sure. Other things you watched on that computer bleeding in too. Faceless men, women's expressions, their sounds, the pleasure they took.
 <</narrative>>
-
-<<narrative>>
-You come hard against your own hand, slick and sudden, hips jerking once, twice, spine knocking the stall wall. Aftershocks keep rolling through while you remember how to breathe. Your fingers stay put, shaking, until the ringing in your ears thins out and you feel your heartbeat in your throat instead.
-<</narrative>>
-
 <<dialog "player">>
 (Inner voice)
-Right here… at work… everyone's right outside…
+Is that how it felt for them?
 <</dialog>>
-
 <<narrative>>
-You stay like that a few seconds longer: forehead on the door, bolt still locked, legs unsteady like you sprinted upstairs, heart hammering so loud it sits behind your eardrums. Then the stall stops spinning and the ordinary bathroom sounds creep back in.
+Your fingers aren't enough anymore. Something inside you wants more. When you close your eyes it's still there. Vince's cock inside Sofia. On top of Diana. Everything you watched.
+<</narrative>>
+<<dialog "player">>
+(Inner voice)
+I want it. Inside me. Right now.
+<</dialog>>
+<<dialog "player">>
+(Inner voice)
+No. What am I saying.
+<</dialog>>
+<<narrative>>
+The thought breaks apart but your body already heard it.
+<</narrative>>
+<<narrative>>
+Your thighs tremble first, then your knees go loose. Heat rolls up through your belly in tight waves. You shove your free hand over your mouth and rub faster because you can't help it. Everything down there clenches, releases, clenches again. A sound tries to slip out and dies against your fingers. Your pulse fills your ears until it's almost all you hear. The stall shrinks down to the bolt, the hinge, the wall behind your head.
+<</narrative>>
+<<narrative>>
+You come hard against your own hand. Wet and sudden. Your hips jerk once, twice. Your spine hits the stall wall. Your head drops back. Aftershocks keep rolling through while you remember how to breathe.
 <</narrative>>
 
 <<narrative>>
-You fix your clothes with shaking hands. You don't open the door right away. You wait. Then you wash your hands twice without looking in the mirror. Take a breath. Step out.
+You stay like that a few seconds longer, head against the stall wall, legs unsteady. This doesn't happen at home. In bed it's quiet and over in five minutes. This was different.At work, thinking about someone else for the first time.
 <</narrative>>
-
+<<dialog "player">>
+(Inner voice)
+Is that the kind of person I am?
+<</dialog>>
+<<dialog "player">>
+(Inner voice)
+Was it Vince I was thinking about. Or just anyone.
+<</dialog>>
 <<narrative>>
-The hallway hits you with the normal diner noise. Everything looks too normal.
+You fix your clothes with shaking hands. You don't open the door right away. You wait. Then you wash your hands twice without looking in the mirror. You're scared of what you'd see.
 <</narrative>>
-
+<<narrative>>
+The hallway hits you with the normal diner noise. Everything looks too normal. You're the one who changed.
+<</narrative>>
 <div class="location-actions">
 <<btn "Step out" "dinerRubysBathroom" "secondary">><</btn>>
 </div>

@@ -82,14 +82,18 @@ No unseen clips remain in Sofia's folder.
     <</if>>
 <</if>>
 <<if !$jobState.vincePcSnoopSeenSofiaVideos.v5>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV5>>
+    <<if $contentPreferences.groupSex === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> Clip 05 — Aug 27</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV5>>
         <<btn "Clip 05 — Aug 27" "dinerWork_event_vinceManagerPcSnoop_girls_sofia_video5" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 05 — Aug 27</span>
     <</if>>
 <</if>>
 <<if !$jobState.vincePcSnoopSeenSofiaVideos.v6>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV6>>
+    <<if $contentPreferences.groupSex === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> Clip 06 — Aug 23</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _sofiaVideoCostV6>>
         <<btn "Clip 06 — Aug 23" "dinerWork_event_vinceManagerPcSnoop_girls_sofia_video6" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 06 — Aug 23</span>

@@ -35,6 +35,7 @@ window.SettingsInit = function (API) {
                 { key: 'bdsm', label: 'BDSM Content', desc: 'Bondage and dominance' },
                 { key: 'nonConsensual', label: 'Non-Consensual Content', desc: 'Forced interactions' },
                 { key: 'publicExhibition', label: 'Public Exhibition', desc: 'Being seen in public' },
+                { key: 'groupSex', label: 'Group Sex', desc: 'Threesomes and group scenes' },
                 { key: 'lactation', label: 'Lactation Content', desc: 'Breast milk production' },
                 { key: 'feet', label: 'Foot Fetish', desc: 'Focus on feet' },
                 { key: 'watersports', label: 'Watersports', desc: 'Urine related content' },

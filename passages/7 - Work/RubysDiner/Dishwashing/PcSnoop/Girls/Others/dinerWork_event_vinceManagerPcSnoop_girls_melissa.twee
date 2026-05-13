@@ -50,14 +50,18 @@ No unseen clips remain in Melissa's folder.
 
 <div class="location-actions">
 <<if !$jobState.vincePcSnoopSeenMelissaVideos.v1>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _melissaVideoCostV1>>
+    <<if $contentPreferences.nonConsensual === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> Clip 01, Aug 14</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _melissaVideoCostV1>>
         <<btn "Clip 01 — Aug 14" "dinerWork_event_vinceManagerPcSnoop_girls_melissa_video1" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 01, Aug 14</span>
     <</if>>
 <</if>>
 <<if !$jobState.vincePcSnoopSeenMelissaVideos.v2>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _melissaVideoCostV2>>
+    <<if $contentPreferences.nonConsensual === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> Clip 02, Jul 29</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _melissaVideoCostV2>>
         <<btn "Clip 02 — Jul 29" "dinerWork_event_vinceManagerPcSnoop_girls_melissa_video2" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 02, Jul 29</span>

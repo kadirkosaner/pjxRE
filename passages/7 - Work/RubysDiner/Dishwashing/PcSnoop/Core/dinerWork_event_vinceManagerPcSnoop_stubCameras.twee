@@ -64,42 +64,54 @@ No unviewed security exports remain in this index.
 <</if>>
 <div class="location-actions">
 <<if !$jobState.vincePcSnoopSeenCctv.c1>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost1>>
+    <<if $contentPreferences.publicExhibition === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> CCTV 1</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _cctvCost1>>
         <<btn "CCTV 1" "dinerWork_event_vinceManagerPcSnoop_cctv1" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> CCTV 1</span>
     <</if>>
 <</if>>
 <<if !$jobState.vincePcSnoopSeenCctv.c2>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost2>>
+    <<if $contentPreferences.publicExhibition === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> CCTV 2</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _cctvCost2>>
         <<btn "CCTV 2" "dinerWork_event_vinceManagerPcSnoop_cctv2" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> CCTV 2</span>
     <</if>>
 <</if>>
 <<if !$jobState.vincePcSnoopSeenCctv.c3>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost3>>
+    <<if $contentPreferences.publicExhibition === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> CCTV 3</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _cctvCost3>>
         <<btn "CCTV 3" "dinerWork_event_vinceManagerPcSnoop_cctv3" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> CCTV 3</span>
     <</if>>
 <</if>>
 <<if !$jobState.vincePcSnoopSeenCctv.c4>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost4>>
+    <<if $contentPreferences.publicExhibition === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> CCTV 4</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _cctvCost4>>
         <<btn "CCTV 4" "dinerWork_event_vinceManagerPcSnoop_cctv4" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> CCTV 4</span>
     <</if>>
 <</if>>
 <<if !$jobState.vincePcSnoopSeenCctv.c5>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost5>>
+    <<if $contentPreferences.publicExhibition === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> CCTV 5</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _cctvCost5>>
         <<btn "CCTV 5" "dinerWork_event_vinceManagerPcSnoop_cctv5" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> CCTV 5</span>
     <</if>>
 <</if>>
 <<if !$jobState.vincePcSnoopSeenCctv.c6>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _cctvCost6>>
+    <<if $contentPreferences.publicExhibition === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> CCTV 6</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _cctvCost6>>
         <<btn "CCTV 6" "dinerWork_event_vinceManagerPcSnoop_cctv6" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> CCTV 6</span>

@@ -4,6 +4,7 @@
 <<jobEnsureState>>
 <<updateCharacterLocations>>
 <<include "dinerWork_event_vinceManagerPcSnoop_intruderRoll">>
+<<if $contentPreferences.nonConsensual === false>><<goto "dinerWork_event_vinceManagerPcSnoop_girls">><</if>>
 <<if ndef $jobState.vincePcSnoopSeenLaraVideos>><<set $jobState.vincePcSnoopSeenLaraVideos = {}>><</if>>
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
 

@@ -83,7 +83,9 @@ No unseen videos remain in Emma's folder.
     <</if>>
 <</if>>
 <<if !$jobState.vincePcSnoopSeenEmmaVideos.v5>>
-    <<if $jobState.vincePcSnoopTimeLeftMin >= _emmaVideoCostV5>>
+    <<if $contentPreferences.feet === false>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="Content filtered by your preferences"><span class="icon icon-lock icon-12"></span> Clip 05 — Aug 12</span>
+    <<elseif $jobState.vincePcSnoopTimeLeftMin >= _emmaVideoCostV5>>
         <<btn "Clip 05 — Aug 12" "dinerWork_event_vinceManagerPcSnoop_girls_emma_video5" "secondary">><</btn>>
     <<else>>
         <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Clip 05 — Aug 12</span>
