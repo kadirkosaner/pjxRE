@@ -324,9 +324,6 @@
     <<set $daily.yogaDone = false>>
     <<set $daily.danceDone = false>>
     <<set $daily.jogDone = false>>
-    <<set $daily.hairCreamUsed = false>>
-    <<set $daily.faceCreamUsed = false>>
-    <<set $daily.dentalCareUsed = false>>
     <<set $daily.magazineStatUsedToday = false>>
     <<set $daily.bookMinutesRead = 0>>
     <<set $daily.dishwashRushSurgeToday = false>>
@@ -361,16 +358,16 @@
     <<if ndef $weeklyFaceCreamUses>><<set $weeklyFaceCreamUses = 0>><</if>>
     <<if ndef $weeklyDentalCareUses>><<set $weeklyDentalCareUses = 0>><</if>>
     <<if $timeSys.weekday === 0>>
-        <<if $weeklyHairCreamUses >= 2>>
-            <<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 5)>>
+        <<if $weeklyHairCreamUses >= 3>>
+            <<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 2)>>
         <</if>>
         <<set $weeklyHairCreamUses = 0>>
-        <<if $weeklyFaceCreamUses >= 2>>
-            <<set $appearance.faceCare = Math.min(100, ($appearance.faceCare || 0) + 5)>>
+        <<if $weeklyFaceCreamUses >= 3>>
+            <<set $appearance.faceCare = Math.min(100, ($appearance.faceCare || 0) + 2)>>
         <</if>>
         <<set $weeklyFaceCreamUses = 0>>
-        <<if $weeklyDentalCareUses >= 2>>
-            <<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 5)>>
+        <<if $weeklyDentalCareUses >= 3>>
+            <<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 2)>>
         <</if>>
         <<set $weeklyDentalCareUses = 0>>
     <</if>>
@@ -379,6 +376,12 @@
     <<if def "dailyAppearanceUpdate">>
         <<for _d = 0; _d < _days; _d++>>
             <<dailyAppearanceUpdate>>
+            /* First day keeps today's care usage; subsequent skipped days should not inherit it. */
+            <<if _d === 0>>
+                <<set $daily.hairCreamUsed = false>>
+                <<set $daily.faceCreamUsed = false>>
+                <<set $daily.dentalCareUsed = false>>
+            <</if>>
         <</for>>
     <</if>>
 

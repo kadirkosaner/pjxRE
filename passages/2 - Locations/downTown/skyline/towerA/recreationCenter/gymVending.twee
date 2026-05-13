@@ -1,0 +1,12 @@
+<<nobr>>
+<<set $location = "gymVending">>
+<<set _shopItems = ["water_bottle", "coffee", "energy_drink"]>>
+<<set _shopBack = "gym">>
+<<updateCharacterLocations>>
+<<narrative "Vending Station">>
+A compact vending corner near the gym entrance. Bottled water, canned coffee, and energy drinks are stocked behind a bright glass panel.
+<</narrative>>
+<<showLocationChars "gymVending">>
+<<questPrompts>>
+<<shop "Gym Vending Station" "Quick Drinks" _shopItems _shopBack>>
+<</nobr>>

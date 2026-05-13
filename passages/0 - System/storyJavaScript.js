@@ -1131,12 +1131,29 @@ window.runClosedLocationKickIfNeeded = function (opts) {
             if (!(isVincePcSnoopPassage && isDinerManagerOffice)) return;
         }
         if (window.isLocationOpen && window.isLocationOpen(loc)) return;
-        const region = hours.region || "downTown";
+        /* Gym must always kick to Downtown district (not inherited from unrelated contexts). */
+        const region = (loc === "gym") ? "downTown" : (hours.region || "downTown");
         const effId = lh.effectiveId;
         const locName =
             (setup.navCards && effId && setup.navCards[effId]?.name) ||
             (setup.navCards && setup.navCards[loc]?.name) ||
             loc;
+        /* If a gym mini-game timeout is still pending, it can navigate back into gym passages
+           after this kick. Clear those deferred transitions so "moved outside" is final. */
+        if (window._gymMGChoiceTimeout) {
+            clearTimeout(window._gymMGChoiceTimeout);
+            window._gymMGChoiceTimeout = null;
+        }
+        if (window._gymMGFeedbackTimeout) {
+            clearTimeout(window._gymMGFeedbackTimeout);
+            window._gymMGFeedbackTimeout = null;
+        }
+        if (window.GymTimer && typeof window.GymTimer.stop === "function") {
+            window.GymTimer.stop();
+        }
+        if (loc === "gym" && vars.gymMG) {
+            vars.gymMG = null;
+        }
         if (window.showNotification) {
             window.showNotification({ type: "warning", message: locName + " is now closed. You've been moved outside." });
         }
@@ -2460,7 +2477,8 @@ Macro.add('vid', {
         const globalLoop = getSetting('loopSet', true);
 
         // Optional scale/width (2nd argument)
-        let width = this.args[1] || '100%';
+        const hasCustomWidth = this.args.length > 1 && this.args[1] !== undefined && this.args[1] !== null && this.args[1] !== '';
+        let width = hasCustomWidth ? this.args[1] : '100%';
         if (typeof width === 'number') {
             if (width <= 1) width = (width * 100) + '%';
             else width = width + 'px';
@@ -2471,8 +2489,20 @@ Macro.add('vid', {
 
         const container = $('<div>')
             .addClass('video-container')
-            .css('max-width', width)
             .appendTo(this.output);
+
+        if (hasCustomWidth) {
+            // Force both width and max-width with !important so CSS rules
+            // like `.video-container { width: 100% }` (utils/media.css) cannot
+            // override custom variant sizes (e.g. gym core 60% clips).
+            const el = container[0];
+            el.style.setProperty('width', width, 'important');
+            el.style.setProperty('max-width', width, 'important');
+            el.style.setProperty('margin-left', 'auto', 'important');
+            el.style.setProperty('margin-right', 'auto', 'important');
+        } else {
+            container.css('max-width', width);
+        }
 
         const video = $('<video>')
             .attr('src', src)
@@ -2495,6 +2525,21 @@ Macro.add('vid', {
             const h = video[0].videoHeight;
             if (w && h) {
                 container.css('aspect-ratio', w + ' / ' + h);
+                // For portrait clips, also clamp height so tall videos don't
+                // overflow the screen. Maps "60%" width arg to "60vh" height cap.
+                if (hasCustomWidth && h > w) {
+                    let heightCap = '70vh';
+                    if (typeof width === 'string' && width.endsWith('%')) {
+                        const pct = parseFloat(width);
+                        if (!isNaN(pct) && pct > 0) {
+                            heightCap = pct + 'vh';
+                        }
+                    }
+                    const cEl = container[0];
+                    cEl.style.setProperty('max-height', heightCap, 'important');
+                    cEl.style.setProperty('width', 'auto', 'important');
+                    cEl.style.setProperty('max-width', '100%', 'important');
+                }
             }
         });
 

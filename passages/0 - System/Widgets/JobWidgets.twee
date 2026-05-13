@@ -34,6 +34,7 @@
     <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
     <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
     <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
+    <<if ndef $jobState.vincePcSnoopGirlsIntroSeen>><<set $jobState.vincePcSnoopGirlsIntroSeen = false>><</if>>
     <<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
     <<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
     <<if ndef $jobState.vinceDarknessPcSnoopUnlockDayKey>>
@@ -817,6 +818,7 @@ window.jobRollInPersonLie = function () {
         vincePcSnoopTimeDayKey: 0,
         vincePcSnoopTimeLeftMin: 30,
         vincePcSnoopFolderPaid: {},
+        vincePcSnoopGirlsIntroSeen: false,
         vincePcSnoopSeenGirls: {},
         vincePcSnoopSeenEmmaVideos: {}
     }>>

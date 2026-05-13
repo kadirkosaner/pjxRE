@@ -23,7 +23,7 @@
     <<set $jobState.vincePcSnoopTimeLeftMin -= _cctvCost>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
     <<advanceTime _cctvCost>>
-    <<gainStat "arousal" 3>>
+    <<gainStat "arousal" 5>>
     <<recalculateStats>>
     <<flushNotifications>>
 <</if>>

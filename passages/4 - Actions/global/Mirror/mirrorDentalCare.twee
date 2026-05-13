@@ -16,7 +16,7 @@ You don't have any toothpaste. You need a tube to brush your teeth.
     <<set $weeklyDentalCareUses = ($weeklyDentalCareUses || 0) + 1>>
 <</if>>
 <<set $daily.dentalCareUsed = true>>
-<<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 2)>>
+<<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 1)>>
 <<advanceTime 5>>
 <</silently>>
 <<narrative "Dental Care">>

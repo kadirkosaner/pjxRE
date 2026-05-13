@@ -4,6 +4,12 @@
 <<jobEnsureState>>
 <<updateCharacterLocations>>
 
+<<if ($arousal || 0) > 70 &&
+    $jobState.vincePcSnoopMasturbatedAtDiner !== true &&
+    !$_navigatingBackward>>
+    <<goto "dinerWork_event_vinceManagerPcSnoop_forcedBathroomRelief">>
+<</if>>
+
 <<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
 <<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>

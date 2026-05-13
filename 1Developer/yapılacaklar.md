@@ -10,10 +10,7 @@
 ## Jake
 - Jake ile ayrı bir içerik hattı (tanışma → gelişen ilişki veya çatışma hattı; net bitiş/ara hedefler).
 
-## Vince — karanlık taraf
-- Vince’in karanlık / tehditkar yüzünün oyun içi teşhisi ve sonuçları (iş, güven, diğer karakterlerle kesişim).
-
-## Porno / itibar
+## Porno
 - Porno tarafı için yeni kategori eklenmesi
 
 ## Remembering sistemi
@@ -26,4 +23,4 @@
 ## Arşiv — v0.2 öncesi notlar
 - Numara silindiği zaman karakter tepkileri.
 - Profile Picture’ı saç şekli ve rengine göre yapmak.
-- Bir gün diner’da: Vince gün sonu “odayı toparla” dediğinde PC açık kalır; güvenlik kameraları; Vince’in sapık tarafının keşfi (v0.2’deki “Vince — karanlık taraf” ile birleştirilebilir).
+

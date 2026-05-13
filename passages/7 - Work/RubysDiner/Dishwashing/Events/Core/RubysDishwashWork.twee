@@ -21,7 +21,7 @@
 <<set _todayKeyRuby = ($timeSys.year * 10000) + ($timeSys.month * 100) + $timeSys.day>>
 <<set _promoKeyRuby = $jobState.rubyTier3PromotedOnDate>>
 /* “Ertesi gün” = terfin yazıldığı takvim gününden sonra (aynı gün değil); o günden sonra kaçırsan da sonraki uygun vardiyada tetiklenir. */
-<<set _tier3LinePending = ($job && $job.id === "ruby_dishwasher" && _tierNowRuby >= 3 && !$jobState.vinceRubyTier3LineShown && _promoKeyRuby && (_todayKeyRuby > _promoKeyRuby) && (($jobState.totalJobHours || 0) >= 4) && (($selectedDuration || 0) >= 240))>>
+<<set _tier3LinePending = ($job && $job.id === "ruby_dishwasher" && _tierNowRuby >= 3 && !$jobState.vinceRubyTier3LineShown && _promoKeyRuby && (_todayKeyRuby > _promoKeyRuby) && (($jobState.totalJobHours || 0) >= 2) && (($selectedDuration || 0) >= 120))>>
 <<if _tier3LinePending>>
 <<set $jobState.vinceRubyTier3LineShown = true>>
 <<set $jobState.vinceManagerCleanRoomPending = true>>
@@ -202,7 +202,6 @@ Another shift at the sink. Hands raw, stacks cleared. Time to head out front.
     <</if>>
 <</if>>
 <<include "RubysDishwashWork_afterMini">>
-<</if>>
 <</if>>
 <</if>>
 <</if>>

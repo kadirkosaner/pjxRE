@@ -13,13 +13,9 @@ The locker room entrance is reserved for active members.
 <</narrative>>
 <<if _maleLockerAllowed>>
 <<showLocationChars "gymMaleLocker">>
+<div class="location-actions">
+    <<btn "Take a Shower" "gymMaleLockerShower">><</btn>>
+</div>
 <</if>>
-<<if _maleLockerAllowed>>
-<<navMenu>>
-    <<navCard "gymMaleLockerShower">>
-    <<navCard "gym">>
-<</navMenu>>
-<<else>>
 <<navMenu>><<navCard "gym">><</navMenu>>
-<</if>>
 <</nobr>>

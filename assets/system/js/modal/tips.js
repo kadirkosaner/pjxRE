@@ -313,6 +313,10 @@ window.TipsInit = function (API) {
         return questCompleted(v, 'vince_darkness');
     }
 
+    function vincePcSnoopMasturbationDone(v) {
+        return !!(v && v.jobState && v.jobState.vincePcSnoopMasturbatedAtDiner);
+    }
+
     var CHAINS = [
         {
             id: 'mall_lily',
@@ -481,6 +485,24 @@ window.TipsInit = function (API) {
                     text:
                         'After the office is tidy, each Ruby workday you can return while Vince is off the floor and use Search on his computer. You only get so much time per visit, so plan around his schedule and come back on later shifts until Vince\'s Darkness is finished.',
                     done: vinceDarknessQuestDone,
+                },
+            ],
+        },
+        {
+            id: 'vince_manager_pc_relief',
+            title: 'Pressure Relief at Ruby\'s',
+            order: 6.6,
+            visible(v) {
+                return vinceRubyTier3OfficeChoreDone(v) || vincePcSnoopMasturbationDone(v);
+            },
+            steps: [
+                {
+                    text:
+                        'During Vince PC snooping, this only triggers from watching videos. Push arousal over 70 there to get forced into the risky bathroom release scene.',
+                    requirements: [
+                        reqStat('arousal', 'Arousal', 70),
+                    ],
+                    done: vincePcSnoopMasturbationDone,
                 },
             ],
         },

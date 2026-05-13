@@ -30,7 +30,7 @@
                 <<removeFromInventory "hair_cream" 1>>
                 <<set $weeklyHairCreamUses = ($weeklyHairCreamUses || 0) + 1>>
                 <<set $daily.hairCreamUsed = true>>
-                <<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 2)>>
+                <<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 1)>>
                 <<advanceTime 5>>
                 <<run State.temporary.applied.push("Hair Cream")>>
             <<else>>
@@ -49,7 +49,7 @@
                 <<removeFromInventory "face_cream" 1>>
                 <<set $weeklyFaceCreamUses = ($weeklyFaceCreamUses || 0) + 1>>
                 <<set $daily.faceCreamUsed = true>>
-                <<set $appearance.faceCare = Math.min(100, ($appearance.faceCare || 0) + 2)>>
+                <<set $appearance.faceCare = Math.min(100, ($appearance.faceCare || 0) + 1)>>
                 <<advanceTime 5>>
                 <<run State.temporary.applied.push("Face Cream")>>
             <<else>>
@@ -68,7 +68,7 @@
                 <<removeFromInventory "toothpaste" 1>>
                 <<set $weeklyDentalCareUses = ($weeklyDentalCareUses || 0) + 1>>
                 <<set $daily.dentalCareUsed = true>>
-                <<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 2)>>
+                <<set $appearance.dentalCare = Math.min(100, ($appearance.dentalCare || 0) + 1)>>
                 <<advanceTime 5>>
                 <<run State.temporary.applied.push("Dental Care")>>
             <<else>>

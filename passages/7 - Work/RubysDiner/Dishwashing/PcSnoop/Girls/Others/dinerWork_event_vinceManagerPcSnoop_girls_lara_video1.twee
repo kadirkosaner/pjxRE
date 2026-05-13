@@ -13,7 +13,7 @@
     <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
     <<advanceTime 4>>
-    <<gainStat "arousal" 8>>
+    <<gainStat "arousal" 10>>
     <<recalculateStats>>
     <<flushNotifications>>
 <</if>>

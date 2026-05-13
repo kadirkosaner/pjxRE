@@ -6,6 +6,12 @@
 <</if>>
 <<set $jobState.vincePcSnoopSessionDayKey = _todayKey>>
 <<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+/* If arousal is already high, force relief BEFORE clip cost/seen flags in caller passages. */
+<<if ($arousal || 0) > 70 &&
+    $jobState.vincePcSnoopMasturbatedAtDiner !== true &&
+    !$_navigatingBackward>>
+    <<goto "dinerWork_event_vinceManagerPcSnoop_forcedBathroomRelief">>
+<</if>>
 <<if $jobState.vincePcSnoopTimeLeftMin > 0>>
     <<set _pcSnoopIntruderRoll = random(1, 100)>>
     <<if _pcSnoopIntruderRoll <= 10>>

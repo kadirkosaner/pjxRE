@@ -46,6 +46,7 @@
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+<<set _personalFolderCost = 6>>
 
 <<narrative "Manager's Office PC">>
 The monitor wakes into a neat file browser.
@@ -62,11 +63,21 @@ Steps scrape somewhere outside the office. You close everything and step away fr
 </div>
 <<else>>
 <div class="location-actions">
-<<btn "Girls" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+<<if !$jobState.vincePcSnoopGirlsIntroSeen>>
+    <<btn "Girls" "dinerWork_event_vinceManagerPcSnoop_girls_intro" "secondary">><</btn>>
+<<else>>
+    <<btn "Girls" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+<</if>>
 <<btn "Cameras" "dinerWork_event_vinceManagerPcSnoop_stubCameras" "secondary">><</btn>>
 <<if !$jobState.vincePcSnoopFolderPaid.personalDiner && !$jobState.vincePcSnoopFolderPaid.personal>>
-<<btn "Personal" "dinerWork_event_vinceManagerPcSnoop_stubVincePersonal" "secondary">><</btn>>
+    <<if $jobState.vincePcSnoopTimeLeftMin >= _personalFolderCost>>
+        <<btn "Personal" "dinerWork_event_vinceManagerPcSnoop_stubVincePersonal" "secondary">><</btn>>
+    <<else>>
+        <span class="link-internal btn-style locked btn-secondary" data-tooltip="No time left"><span class="icon icon-lock icon-12"></span> Personal</span>
+    <</if>>
 <</if>>
+</div>
+<div class="location-actions">
 <<btn "Back away from the PC" "dinerRubysManagerOffice" "secondary">><</btn>>
 </div>
 <</if>>

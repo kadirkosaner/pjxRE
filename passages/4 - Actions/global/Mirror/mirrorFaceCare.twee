@@ -16,7 +16,7 @@ You don't have any face cream. You need a bottle to apply it.
 <<set $weeklyFaceCreamUses = ($weeklyFaceCreamUses || 0) + 1>>
 <</if>>
 <<set $daily.faceCreamUsed = true>>
-<<set $appearance.faceCare = Math.min(100, ($appearance.faceCare || 0) + 2)>>
+<<set $appearance.faceCare = Math.min(100, ($appearance.faceCare || 0) + 1)>>
 <<advanceTime 5>>
 <</silently>>
 <<narrative "Apply Face Cream">>

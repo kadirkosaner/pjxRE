@@ -12,7 +12,7 @@
     <<set $jobState.vincePcSnoopTimeLeftMin -= 6>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
     <<advanceTime 6>>
-    <<gainStat "arousal" 7>>
+    <<gainStat "arousal" 9>>
     <<recalculateStats>>
     <<flushNotifications>>
 <</if>>
@@ -25,7 +25,11 @@
 <div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
 
 <<narrative "Clip 04 — Sep 03">>
-The moment you opened the video, you couldn’t recognize the location. White clean sheets, a bright and spacious room… it looked like a hotel. But this time something was different — Emma was holding the camera herself. You recognized Vince instantly, even without seeing his face.
+The moment you opened the video, you couldn’t recognize the location. White clean sheets, a bright and spacious room… it looked like a hotel. 
+<</narrative>>
+
+<<narrative>>
+But this time something was different. Emma was holding the camera herself. You recognized Vince instantly, even without seeing his face.
 <</narrative>>
 
 <<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmaself1.mp4" "100%">>
@@ -45,7 +49,10 @@ You’re really enjoying this, aren’t you Emma…
 <</dialog>>
 
 <<narrative>>
-The video continues. Emma is lying on her back, legs spread wide. Vince is on top of her, moving deep and slow. She keeps holding the camera, framing both her face and her body while she moans. Her cheeks are flushed, her eyes half-lidded.
+The video continues. Emma is lying on her back, legs spread wide. Vince is on top of her, moving deep and slow. 
+<</narrative>>
+<<narrative>>
+She keeps holding the camera, framing both her face and her body while she moans. Her cheeks are flushed, her eyes half-lidded.
 <</narrative>>
 
 <<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/emma/vincepcemmaself2.mp4" "100%">>
@@ -83,7 +90,11 @@ The video ends with Emma breathing heavily, looking into the camera with a playf
 <</narrative>>
 
 <<narrative>>
-When the video stops, you keep staring at the black screen. The smile on her face sticks in your head, and a bitter thought lands before you can push it away: what does she get from him that you never even got the chance to ask for?
+When the video stops, you keep staring at the black screen. 
+<</narrative>>
+
+<<narrative>>
+The smile on her face sticks in your head, and a bitter thought lands before you can push it away: what does she get from him that you never even got the chance to ask for?
 <</narrative>>
 
 <div class="location-actions">

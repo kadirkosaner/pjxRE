@@ -50,21 +50,35 @@
     <<requireMinEnergy _energyCost "gym" _energyMsg>>
     <<if $daily[_dailyKey]>><<goto "gym">><</if>>
 
-    <<set $daily[_dailyKey] = true>>
-    <<advanceTime 45 "relax">>
-    <<loseStat "energy" _energyCost>>
-    <<loseStat "stress" _stressCost>>
-
-    <<set $gymMG = { zone: _zone, phase: 1, score: 0, totalPhases: 4, lastResult: "", timedOut: false, picked: null }>>
-
-    <<if $gameSettings.gymMiniGameEnabled isnot false>>
-        <<if !$flags.gymMiniGameTutorialSeen>>
-            <<goto "gymWorkoutTutorial">>
-        <<else>>
-            <<goto "gymMiniGameRound">>
-        <</if>>
+    /* Pre-check: if the gym would already be closed by the time the 45-min workout ends,
+       block the click entirely (no time spent, no scene flash). */
+    <<set _gymHours = setup.locationHours.gym>>
+    <<set _gymCurHour = $timeSys.hour>>
+    <<set _gymCurMin  = $timeSys.minute || 0>>
+    <<set _gymEndMin  = _gymCurHour * 60 + _gymCurMin + 45>>
+    <<set _gymCloseMin = _gymHours.close * 60>>
+    <<set _gymOpenMin  = _gymHours.open  * 60>>
+    <<set _gymClosesDuring = !_gymHours.open24h && (_gymCurHour * 60 + _gymCurMin < _gymOpenMin || _gymEndMin > _gymCloseMin)>>
+    <<if _gymClosesDuring>>
+        <<run window.showNotification && window.showNotification({ type: "warning", message: "Iron Works Gym is closing — not enough time for a workout." })>>
+        <<goto "gym">>
     <<else>>
-        <<goto "gymWorkoutOff">>
+        <<set $daily[_dailyKey] = true>>
+        <<advanceTime 45 "relax">>
+        <<loseStat "energy" _energyCost>>
+        <<loseStat "stress" _stressCost>>
+
+        <<set $gymMG = { zone: _zone, phase: 1, score: 0, totalPhases: 4, lastResult: "", timedOut: false, picked: null }>>
+
+        <<if $gameSettings.gymMiniGameEnabled isnot false>>
+            <<if !$flags.gymMiniGameTutorialSeen>>
+                <<goto "gymWorkoutTutorial">>
+            <<else>>
+                <<goto "gymMiniGameRound">>
+            <</if>>
+        <<else>>
+            <<goto "gymWorkoutOff">>
+        <</if>>
     <</if>>
 <</nobr>><</widget>>
 

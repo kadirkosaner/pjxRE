@@ -33,10 +33,10 @@
 <<btn "Finish shift" "dinerRubys">>
 /* Normal shift outro (not first-day tutorial passage): set walk-home gate for Maplewood, same flag as dinerFirstdayJob_dishwasher */
 <<run (function(){
-    var $vars = State.variables;
-    if ($vars.job && $vars.job.id === "ruby_dishwasher" && ($vars.jobState && $vars.jobState.totalDaysWorked || 0) === 1 && !($vars.flags && $vars.flags.firstWorkDayWalkHome)) {
-        $vars.flags = $vars.flags || {};
-        $vars.flags.firstWorkDayWalkEvent = true;
+    var vars = State.variables;
+    if (vars.job && vars.job.id === "ruby_dishwasher" && ((vars.jobState && vars.jobState.totalDaysWorked) || 0) === 1 && !(vars.flags && vars.flags.firstWorkDayWalkHome)) {
+        vars.flags = vars.flags || {};
+        vars.flags.firstWorkDayWalkEvent = true;
     }
 })()>>
 <</btn>>

@@ -16,7 +16,7 @@ You don't have any hair cream. You need a bottle to apply it.
 <<set $weeklyHairCreamUses = ($weeklyHairCreamUses || 0) + 1>>
 <</if>>
 <<set $daily.hairCreamUsed = true>>
-<<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 2)>>
+<<set $appearance.hairCare = Math.min(100, ($appearance.hairCare || 0) + 1)>>
 <<advanceTime 5>>
 <</silently>>
 <<narrative "Apply Hair Cream">>

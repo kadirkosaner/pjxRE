@@ -22,9 +22,17 @@ window.PlayerAppearance = {
     },
     
     getHipImage: function() {
-        const hipSize = State.variables.player.hipSize || "Medium";
-        const key = "hip" + hipSize; // "Slim" → "hipSlim"
-        return setup.playerAppearanceImages[key] || setup.playerAppearanceImages.hipMedium;
+        const lowerBody = Number(State.variables.lowerBody || 0);
+        let assTier = "Slim";
+        if (lowerBody >= 75) {
+            assTier = "Wide";
+        } else if (lowerBody >= 50) {
+            assTier = "Curvy";
+        } else if (lowerBody >= 25) {
+            assTier = "Medium";
+        }
+        const key = "hip" + assTier;
+        return setup.playerAppearanceImages[key] || setup.playerAppearanceImages.hipSlim;
     },
     
     getBodyTypeImage: function() {

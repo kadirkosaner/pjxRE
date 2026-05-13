@@ -1,3 +1,4 @@
+<div class="divnobr">
 <<if $_navigatingBackward>>
 <<run setTimeout(function(){ window.__navigatingBackwardFromUI = true; Engine.backward(); }, 0);>>
 <</if>>
@@ -19,3 +20,4 @@ Your arms are heavy by the end. But you did it.
 
 <<include "RubysDishwashWork_afterMini">>
 <</if>>
+</div>

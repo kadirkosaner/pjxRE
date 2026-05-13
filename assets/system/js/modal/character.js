@@ -624,9 +624,17 @@ window.CharacterInit = function (API) {
                 return `${styleNames[style]} (${quality}%)`;
             }
             
-            // Hips
-            const hipKey = "hip" + (p.hipSize || "Medium");
-            const hipImg = images[hipKey] || "assets/content/people/player/body/ass/medium.webp";
+            // Ass/Hips (dynamic from lowerBody stat)
+            const lowerBodyStat = Number(vars.lowerBody || 0);
+            const getAssTierFromLowerBody = (val) => {
+                if (val >= 75) return "Wide";
+                if (val >= 50) return "Curvy";
+                if (val >= 25) return "Medium";
+                return "Slim";
+            };
+            const assTier = getAssTierFromLowerBody(lowerBodyStat);
+            const hipKey = "hip" + assTier;
+            const hipImg = images[hipKey] || "assets/content/people/player/body/ass/slim.webp";
 
             // Bust
             const bustSizeClean = (p.bustSize || "C").replace(/\+/g, '');
@@ -824,7 +832,8 @@ window.CharacterInit = function (API) {
                             </div>
                             <div class="app-info-content">
                                 <h4>Hips & Thighs</h4>
-                                <div class="app-stat-row"><span>Hip Size:</span> <span class="val">${p.hipSize}</span></div>
+                                <div class="app-stat-row"><span>Ass Type:</span> <span class="val">${assTier}</span></div>
+                                <div class="app-stat-row"><span>Lower Body:</span> <span class="val">${lowerBodyStat}</span></div>
                             </div>
                         </div>
                         

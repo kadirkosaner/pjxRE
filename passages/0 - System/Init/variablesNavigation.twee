@@ -127,6 +127,7 @@ setup.navCards = {
     "gymMaleLockerShower": { name: "Men's Showers", cameraLoc: "public" },
     "gymFemaleLocker": { name: "Women's Locker Room", cameraLoc: "public" },
     "gymFemaleLockerWardrobe": { name: "Locker", cameraLoc: "public" },
+    "gymVending": { name: "Vending Station", cameraLoc: "public" },
 
     /* -- Tower B (Sterling Tower) -- */
     "towerB": { name: "Sterling Tower", cameraLoc: "public" },
@@ -353,6 +354,7 @@ setup.locations = {
     "gymMaleLockerShower": { parent: "gymMaleLocker", type: "subroom" },
     "gymFemaleLocker": { parent: "gym", type: "room" },
     "gymFemaleLockerWardrobe": { parent: "gymFemaleLocker", type: "subroom" },
+    "gymVending": { parent: "gym", type: "subroom" },
     
     // Tower B
     "bank": { parent: "towerB", type: "room" },

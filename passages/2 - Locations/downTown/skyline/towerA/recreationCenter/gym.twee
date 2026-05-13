@@ -10,6 +10,7 @@
 <<narrative "Iron Works Gym">>A well-equipped fitness center with weights, cardio machines, and training areas.<</narrative>>
 <<showLocationChars "gym">>
 <<questPrompts>>
+<<discover "GymVending" "Vending Station">>
 
 <<gymMembershipCheck>>
 <<if !_gymMembershipActive && !_frontDeskQuestActive>>
@@ -38,23 +39,27 @@ You can look around the front area, but the training floor and locker rooms are 
 <</if>>
 </div>
 
-<<if _gymMembershipActive>>
+<<if !_gymMembershipActive>>
 <<navMenu>>
-    <<if $corruption gte 3>>
-        <<navCard "gymMaleLocker">>
-    <<else>>
-        <<navCard "gymMaleLocker" "" "" "Requires corruption 3">>
-    <</if>>
+    <<navCard "gymMaleLocker" "" "" "Requires an active gym membership">>
+    <<navCard "gymFemaleLocker" "" "" "Requires an active gym membership">>
+    <<navCard "gymVending">>
+    <<navCard "skyline">>
+    <<navCard "downTown">>
+<</navMenu>>
+<<elseif ($corruption || 0) gte 3>>
+<<navMenu>>
+    <<navCard "gymMaleLocker">>
     <<navCard "gymFemaleLocker">>
-    <<navCard "towerA">>
+    <<navCard "gymVending">>
     <<navCard "skyline">>
     <<navCard "downTown">>
 <</navMenu>>
 <<else>>
 <<navMenu>>
-    <<navCard "gymMaleLocker" "" "" "Requires an active gym membership">>
-    <<navCard "gymFemaleLocker" "" "" "Requires an active gym membership">>
-    <<navCard "towerA">>
+    <<navCard "gymMaleLocker" "" "" "Requires corruption 3">>
+    <<navCard "gymFemaleLocker">>
+    <<navCard "gymVending">>
     <<navCard "skyline">>
     <<navCard "downTown">>
 <</navMenu>>

@@ -151,9 +151,13 @@
     <<if isNaN(_safeArousal)>><<set _safeArousal = 0>><</if>>
     <<set $arousal = Math.max(0, Math.min(100, _safeArousal))>> /* 100 cap per user request */
     <<set _arousalPass = passage()>>
+    /* Only trigger from PcSnoop hub pages.
+       Detailed clip passages are handled in intruderRoll before seen flags are set. */
     <<set _isPcSnoopArousalTriggerPass = (
-        _arousalPass.indexOf("dinerWork_event_vinceManagerPcSnoop_girls") === 0 ||
-        _arousalPass.indexOf("dinerWork_event_vinceManagerPcSnoop_cctv") === 0
+        _arousalPass === "dinerWork_event_vinceManagerPcSnoop" ||
+        _arousalPass === "dinerWork_event_vinceManagerPcSnoop_girls" ||
+        _arousalPass === "dinerWork_event_vinceManagerPcSnoop_stubCameras" ||
+        _arousalPass === "dinerWork_event_vinceManagerPcSnoop_stubVincePersonal"
     )>>
     <<if $arousal > 70 &&
         _isPcSnoopArousalTriggerPass &&
@@ -292,7 +296,12 @@
             <</if>>
             <<set _current = Number(State.variables[_statName])>>
             <<if isNaN(_current)>><<set _current = 0>><</if>>
-            <<set _newVal = Math.min(_maxVal, Math.max(0, _current + _actualGain))>>
+            /* Cap should limit growth only; never downgrade an already higher stat. */
+            <<if _maxCap && _current > _maxVal>>
+                <<set _newVal = _current>>
+            <<else>>
+                <<set _newVal = Math.min(_maxVal, Math.max(0, _current + _actualGain))>>
+            <</if>>
             <<set _realGain = _newVal - _current>>
             <<set State.variables[_statName] = _newVal>>
             <<if _realGain > 0>><<queueStatChange _statName _realGain>><</if>>

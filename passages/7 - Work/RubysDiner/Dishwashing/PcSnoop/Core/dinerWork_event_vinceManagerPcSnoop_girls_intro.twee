@@ -1,0 +1,122 @@
+:: dinerWork_event_vinceManagerPcSnoop_girls_intro
+<div class="divnobr">
+<<set $location = "dinerRubysManagerOffice">>
+<<jobEnsureState>>
+<<updateCharacterLocations>>
+
+<<set _todayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
+<<if ndef $jobState.vincePcSnoopTimeDayKey>><<set $jobState.vincePcSnoopTimeDayKey = 0>><</if>>
+<<if ndef $jobState.vincePcSnoopTimeLeftMin>><<set $jobState.vincePcSnoopTimeLeftMin = 30>><</if>>
+<<if $jobState.vincePcSnoopTimeDayKey != _todayKey>>
+    <<set $jobState.vincePcSnoopTimeDayKey = _todayKey>>
+    <<set $jobState.vincePcSnoopTimeLeftMin = 30>>
+    <<set $jobState.vincePcSnoopFolderPaid = {}>>
+<</if>>
+
+<<if !$jobState.vincePcSnoopGirlsIntroSeen && $jobState.vincePcSnoopTimeLeftMin > 0>>
+    <<set $jobState.vincePcSnoopGirlsIntroSeen = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= 2>>
+    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
+    <<advanceTime 2>>
+    <<gainStat "arousal" 4>>
+    <<recalculateStats>>
+    <<flushNotifications>>
+<</if>>
+
+<<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
+<<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
+<<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
+
+<div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
+<div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
+
+<<narrative "Girls Folder">>
+The folder opens and nested subfolders line up in front of you by name. Emma. Sofia. Diana. Mia... and many more.  
+<</narrative>>
+
+<<narrative>>
+Each one is neatly tagged and organized, like a carefully maintained archive.  
+<</narrative>>
+
+<<narrative>>
+You don't know what any of this means yet, but it's clear this isn't normal work filing.  
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)  
+Why is it all women? And why separate folders for each?  
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)  
+Former staff? Customers? Something else…  
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)  
+I'm not leaving before I see what's inside.  
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)  
+Wait… that's my name.  
+<</dialog>>
+
+<<narrative>>
+As you scroll down to the very bottom of the list, one unnamed video file stands out:  
+<</narrative>>
+<<narrative>>
+<b>v014789.mp4</b>
+<</narrative>>
+
+<<narrative>>
+You click on it.  
+<</narrative>>
+
+<<vid "assets/content/scenes/oldtown/rubysDiner/vincepc/girls/vincepcfirstvideo.mp4" "60%">>
+
+<<dialog "player">>
+(Inner voice)  
+Holy shit… what the fuck is this?!  
+<</dialog>>
+
+<<narrative>>
+The video starts immediately. A blonde woman is face down on a black couch, ass up. She's getting fucked hard from behind. The camera is shaky, clearly handheld.  
+<</narrative>>
+
+<<narrative>>
+She moans loudly as the man thrusts into her roughly.  
+<</narrative>>
+
+<<narrative>>
+You quickly slam the video shut, heart pounding in your throat.  
+<</narrative>>
+
+<<dialog "player">>
+(Inner voice)  
+This… this is what all these folders are for.  
+<</dialog>>
+
+<<dialog "player">>
+(Inner voice)  
+Vince is recording them… and keeping everything.  
+<</dialog>>
+
+<<narrative>>
+It all hits you at once. This isn't random. This is Vince's secret, private collection.  
+<</narrative>>
+
+<<if $jobState.vincePcSnoopTimeLeftMin <= 0>>
+<<narrative>>
+You hear movement outside the office. You quickly close the folder.  
+<</narrative>>
+<div class="location-actions">
+<<btn "Leave the office" "dinerRubysManagerOffice" "secondary">><</btn>>
+</div>
+<<else>>
+<div class="location-actions">
+<<btn "Browse the folders" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
+<<btn "Back to computer" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>
+</div>
+<</if>>
+</div>
