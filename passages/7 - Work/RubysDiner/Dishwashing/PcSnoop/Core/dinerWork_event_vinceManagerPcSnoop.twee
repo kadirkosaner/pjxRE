@@ -64,7 +64,9 @@ Steps scrape somewhere outside the office. You close everything and step away fr
 <div class="location-actions">
 <<btn "Girls" "dinerWork_event_vinceManagerPcSnoop_girls" "secondary">><</btn>>
 <<btn "Cameras" "dinerWork_event_vinceManagerPcSnoop_stubCameras" "secondary">><</btn>>
+<<if !$jobState.vincePcSnoopFolderPaid.personalDiner && !$jobState.vincePcSnoopFolderPaid.personal>>
 <<btn "Personal" "dinerWork_event_vinceManagerPcSnoop_stubVincePersonal" "secondary">><</btn>>
+<</if>>
 <<btn "Back away from the PC" "dinerRubysManagerOffice" "secondary">><</btn>>
 </div>
 <</if>>

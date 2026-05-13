@@ -14,37 +14,48 @@
     <<set $jobState.vincePcSnoopFolderPaid = {}>>
 <</if>>
 
-<<set _personalIntroCost = 2>>
-<<set _personalDinerCost = 4>>
+<<set _personalTotalCost = 6>>
 <<if !$jobState.vincePcSnoopFolderPaid.personal && $jobState.vincePcSnoopTimeLeftMin > 0>>
     <<set $jobState.vincePcSnoopFolderPaid.personal = true>>
-    <<set $jobState.vincePcSnoopTimeLeftMin -= _personalIntroCost>>
+    <<set $jobState.vincePcSnoopFolderPaid.personalDiner = true>>
+    <<set $jobState.vincePcSnoopTimeLeftMin -= _personalTotalCost>>
     <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
-    <<advanceTime _personalIntroCost>>
+    <<advanceTime _personalTotalCost>>
 <</if>>
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
 
-<<narrative "Personal / CC Statement">>
-A PDF at the top of the folder. "CC_Aug_Sep.pdf." You open it.
-<</narrative>>
 <div class="quest-progress-label"><strong>Session time:</strong> <<= $jobState.vincePcSnoopTimeLeftMin>> / 30 min</div>
 <div class="quest-progress-track"><div class="quest-progress-fill" style="width: <<= _pcTimePct>>%;"></div></div>
 
+<<narrative "Personal / CC Statement">>
+A PDF at the top of the folder. "CC_Aug_Sep.pdf." You open it.
+<</narrative>>
+
 <<narrative>>
 Personal card. Not the diner's. Two months, combined.
-
+<</narrative>>
+<<narrative>>
 You start with August.
-<br><br>
-<span class="font-mono">
-08/12 — GRAND MERIDIAN HOTEL . . . . $374.00<br>
-08/20 — GOLDIE JEWELERS . . . . . . .$340.00<br>
-08/23 — CRESTWOOD STEAKHOUSE . . . . $178.00<br>
-08/25 — GRAND MERIDIAN HOTEL . . . . $187.00<br>
-08/29 — HARBOR INN & SUITES . . . . .$156.00<br>
+<</narrative>>
+<<narrative>>
+08/12 — GRAND MERIDIAN HOTEL . . . . $374.00
+<</narrative>>
+<<narrative>>
+08/20 — GOLDIE JEWELERS . . . . . . .$340.00
+<</narrative>>
+<<narrative>>
+08/23 — CRESTWOOD STEAKHOUSE . . . . $178.00
+<</narrative>>
+<<narrative>>
+08/25 — GRAND MERIDIAN HOTEL . . . . $187.00
+<</narrative>>
+<<narrative>>
+08/29 — HARBOR INN & SUITES . . . . .$156.00
+<</narrative>>
+<<narrative>>
 08/31 — FAMILY COURT — ORDER #4471 . $1,200.00
-</span>
 <</narrative>>
 
 <<dialog "player">>
@@ -72,12 +83,15 @@ Someone got jewelry that week.
 
 <<narrative>>
 September is shorter.
-<br><br>
-<span class="font-mono">
-09/02 — HARBOR INN & SUITES . . . . .$156.00<br>
-09/07 — CRESTWOOD STEAKHOUSE . . . . $203.00<br>
+<</narrative>>
+<<narrative>>
+09/02 — HARBOR INN & SUITES . . . . .$156.00
+<</narrative>>
+<<narrative>>
+09/07 — CRESTWOOD STEAKHOUSE . . . . $203.00
+<</narrative>>
+<<narrative>>
 09/12 — GRAND MERIDIAN HOTEL . . . . $187.00
-</span>
 <</narrative>>
 
 <<dialog "player">>
@@ -96,11 +110,6 @@ He's not hiding any of it. It's just… a normal month for him.
 <</dialog>>
 
 <div class="location-actions">
-<<if $jobState.vincePcSnoopFolderPaid.personalDiner || $jobState.vincePcSnoopTimeLeftMin >= _personalDinerCost>>
 <<btn "Continue" "dinerWork_event_vinceManagerPcSnoop_personal_diner" "secondary">><</btn>>
-<<else>>
-<span class="link-internal btn-style locked btn-secondary" data-tooltip="Need 4 min"><span class="icon icon-lock icon-12"></span> Continue</span>
-<</if>>
-<<btn "Back to folders" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>
 </div>
 </div>

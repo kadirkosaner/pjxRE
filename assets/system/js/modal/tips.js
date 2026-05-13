@@ -308,6 +308,11 @@ window.TipsInit = function (API) {
         return !!v.jobState.vinceRubyTier3LineShown && !v.jobState.vinceManagerCleanRoomPending;
     }
 
+    /** Tier-3 office clean done; Vince's Darkness (PC snoop) quest wrapped up. */
+    function vinceDarknessQuestDone(v) {
+        return questCompleted(v, 'vince_darkness');
+    }
+
     var CHAINS = [
         {
             id: 'mall_lily',
@@ -448,7 +453,7 @@ window.TipsInit = function (API) {
         },
         {
             id: 'vince_ruby_tier3_line',
-            title: 'Vince — Tier 3 extra task',
+            title: 'Clean Manager\'s Room',
             order: 6.5,
             steps: [
                 {
@@ -461,6 +466,21 @@ window.TipsInit = function (API) {
                 {
                     text: 'Use the Manager\'s office at Ruby\'s and run the Clean room beat to clear his order.',
                     done: vinceRubyTier3OfficeChoreDone,
+                },
+            ],
+        },
+        {
+            id: 'vince_manager_pc_snoop',
+            title: 'Manager\'s PC',
+            order: 6.55,
+            visible(v) {
+                return vinceRubyTier3OfficeChoreDone(v);
+            },
+            steps: [
+                {
+                    text:
+                        'After the office is tidy, each Ruby workday you can return while Vince is off the floor and use Search on his computer. You only get so much time per visit, so plan around his schedule and come back on later shifts until Vince\'s Darkness is finished.',
+                    done: vinceDarknessQuestDone,
                 },
             ],
         },

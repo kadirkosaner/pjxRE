@@ -14,16 +14,6 @@
     <<set $jobState.vincePcSnoopFolderPaid = {}>>
 <</if>>
 
-<<if !$jobState.vincePcSnoopFolderPaid.personalDiner && $jobState.vincePcSnoopTimeLeftMin < 4>>
-    <<goto "dinerWork_event_vinceManagerPcSnoop_stubVincePersonal">>
-<</if>>
-
-<<if !$jobState.vincePcSnoopFolderPaid.personalDiner && $jobState.vincePcSnoopTimeLeftMin >= 4>>
-    <<set $jobState.vincePcSnoopFolderPaid.personalDiner = true>>
-    <<set $jobState.vincePcSnoopTimeLeftMin -= 4>>
-    <<if $jobState.vincePcSnoopTimeLeftMin < 0>><<set $jobState.vincePcSnoopTimeLeftMin = 0>><</if>>
-    <<advanceTime 4>>
-<</if>>
 <<set _pcTimePct = Math.floor(($jobState.vincePcSnoopTimeLeftMin / 30) * 100)>>
 <<if _pcTimePct < 0>><<set _pcTimePct = 0>><</if>>
 <<if _pcTimePct > 100>><<set _pcTimePct = 100>><</if>>
@@ -36,14 +26,21 @@
 
 <<narrative>>
 Kitchen supplies, cleaning products, laundry — normal stuff. Then further down:
-<br><br>
-<span class="font-mono">
-08/12 — Manager Training / Off-site . $374.00<br>
-08/23 — Client Relations / Dinner . . $178.00<br>
-08/25 — Manager Training / Off-site . $187.00<br>
-09/07 — Client Relations / Dinner . . $203.00<br>
+<</narrative>>
+<<narrative>>
+08/12 — Manager Training / Off-site . $374.00
+<</narrative>>
+<<narrative>>
+08/23 — Client Relations / Dinner . . $178.00
+<</narrative>>
+<<narrative>>
+08/25 — Manager Training / Off-site . $187.00
+<</narrative>>
+<<narrative>>
+09/07 — Client Relations / Dinner . . $203.00
+<</narrative>>
+<<narrative>>
 09/12 — Manager Training / Off-site . $187.00
-</span>
 <</narrative>>
 
 <<dialog "player">>
@@ -58,12 +55,16 @@ That's the hotel. He ran it through the diner.
 
 <<narrative>>
 You check the vendor column. All five entries share the same code — RD-EXP-07. You search it.
-<br><br>
-<span class="font-mono">
-RD-EXP-07 — Metro Facilities Group<br>
-Type: Sole proprietorship<br>
+<</narrative>>
+
+<<narrative>>
+RD-EXP-07 — Metro Facilities Group
+<</narrative>>
+<<narrative>>
+Type: Sole proprietorship
+<</narrative>>
+<<narrative>>
 Contact: V. Ruby
-</span>
 <</narrative>>
 
 <<dialog "player">>
@@ -77,8 +78,7 @@ You sit with that for a second.
 
 <<dialog "player">>
 (Inner voice)
-He made a company. Billed himself through the diner.
-Ruby's is paying for the hotels.
+He made a company. Billed himself through the diner. Ruby's is paying for the hotels.
 <</dialog>>
 
 <<dialog "player">>
@@ -87,7 +87,6 @@ And no one noticed. Or no one said anything.
 <</dialog>>
 
 <div class="location-actions">
-<<btn "Back to Personal" "dinerWork_event_vinceManagerPcSnoop_stubVincePersonal" "secondary">><</btn>>
 <<btn "Back to folders" "dinerWork_event_vinceManagerPcSnoop" "secondary">><</btn>>
 </div>
 </div>
