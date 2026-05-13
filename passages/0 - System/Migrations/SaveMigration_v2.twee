@@ -13,7 +13,6 @@
     <<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
     <<if ndef $jobState.vincePcSnoopSeenKseniaVideos>><<set $jobState.vincePcSnoopSeenKseniaVideos = {}>><</if>>
     <<if ndef $jobState.vincePcSnoopSeenMelissaVideos>><<set $jobState.vincePcSnoopSeenMelissaVideos = {}>><</if>>
-    <<if ndef $jobState.vincePcSnoopGirlsIntroSeen>><<set $jobState.vincePcSnoopGirlsIntroSeen = false>><</if>>
     <<if ndef $flags.vinceDarknessDeclined>><<set $flags.vinceDarknessDeclined = false>><</if>>
     <<run setup.pjxBackfillRubyTier3LineState && setup.pjxBackfillRubyTier3LineState()>>
 <</if>>

@@ -36,7 +36,6 @@
     <<if ndef $jobState.vincePcSnoopFolderPaid>><<set $jobState.vincePcSnoopFolderPaid = {}>><</if>>
     <<if ndef $jobState.vincePcSnoopSeenGirls>><<set $jobState.vincePcSnoopSeenGirls = {}>><</if>>
     <<if ndef $jobState.vincePcSnoopSeenEmmaVideos>><<set $jobState.vincePcSnoopSeenEmmaVideos = {}>><</if>>
-    <<if ndef $jobState.vincePcSnoopGirlsIntroSeen>><<set $jobState.vincePcSnoopGirlsIntroSeen = false>><</if>>
     <<if ndef $jobState.vinceDarknessPcSnoopUnlockDayKey>>
         <<if $questState && $questState.active && $questState.active.vince_darkness && $questState.active.vince_darkness.stage === 1>>
             <<set $jobState.vinceDarknessPcSnoopUnlockDayKey = $timeSys.year * 10000 + $timeSys.month * 100 + $timeSys.day>>
@@ -819,8 +818,7 @@ window.jobRollInPersonLie = function () {
         vincePcSnoopTimeLeftMin: 30,
         vincePcSnoopFolderPaid: {},
         vincePcSnoopSeenGirls: {},
-        vincePcSnoopSeenEmmaVideos: {},
-        vincePcSnoopGirlsIntroSeen: false
+        vincePcSnoopSeenEmmaVideos: {}
     }>>
 <</widget>>
 
