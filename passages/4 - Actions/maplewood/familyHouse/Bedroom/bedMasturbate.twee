@@ -18,7 +18,7 @@
     <<set _masturbateVideo = _masturbateVideos[_masturbatePick].path>>
     <<set _masturbateVideoSize = _masturbateVideos[_masturbatePick].size>>
     <<set $sexual.counts.masturbation = ($sexual.counts.masturbation || 0) + 1>>
-    <<loseStat "arousal" 999>>
+    <<loseStat "arousal" 100>>
     <<loseStat "stress" 8>>
     <<loseStat "energy" 10>>
     <<advanceTime 20>>

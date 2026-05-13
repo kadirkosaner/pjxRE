@@ -56,7 +56,7 @@ You lie there sweaty, breathless, and too sensitive to move. Your heart is still
         <<set $firsts.firstMasturbation = "Day " + $timeSys.day + " (" + $timeSys.day + "/" + $timeSys.month + "/" + $timeSys.year + " " + _mtH + ":" + _mtM + ")">>
     <</if>>
     <<set $sexual.counts.masturbation = ($sexual.counts.masturbation || 0) + 1>>
-    <<loseStat "arousal" 999>>
+    <<loseStat "arousal" 100>>
     <<recalculateStats>>
     <<set $flags.firstCantSleepStoryDone = true>>
     <<set $flags.masturbationUnlocked = true>>
