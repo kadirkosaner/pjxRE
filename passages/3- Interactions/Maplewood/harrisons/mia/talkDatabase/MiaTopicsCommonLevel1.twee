@@ -1,3 +1,4 @@
+:: MiaTopicsCommonLevel1 [init]
 <<nobr>>
 <<set setup.miaTopics = setup.miaTopics || {}>>
 <<set setup.miaTopics.common = setup.miaTopics.common || {}>>
@@ -8,6 +9,8 @@
         "university_struggle": [
             {
                 text: `<<narrative "Maplewood">>You spotted Mia further down the street, sucking on a large iced coffee. She gave you a little salute with the cup when she noticed you.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornunistruggle1.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>I didn't sleep last night. There's an assignment due tomorrow and I haven't even opened the file.<</dialog>>
 <<dialog "player">>Which class is it for?<</dialog>>
@@ -23,6 +26,8 @@
         "nightlife": [
             {
                 text: `<<narrative "Maplewood">>Mia was walking toward you wearing sunglasses even though the sky was cloudy. She had a tired smirk on her face.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornnightlife1.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>I was out last night. The fact that I'm standing right now is an achievement.<</dialog>>
 <<dialog "player">>Wait, you went out last night? Your eyes are so puffy.<</dialog>>
@@ -65,6 +70,8 @@
             {
                 text: `<<narrative "Maplewood">>You noticed Mia up ahead, holding her phone up, angling it toward her coffee cup and the morning light.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornsocialmedia1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Hold on, don't mess up the frame. I'm shooting a story. Morning energy, coffee, sunlight… people eat this stuff up.<</dialog>>
 <<dialog "player">>Are you crazy? You post a story every single morning?<</dialog>>
 <<dialog "neighborMia">>Almost every day. When I don't, I get DMs. 'Are you okay? Did something happen?' People are hooked.<</dialog>>
@@ -79,6 +86,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia was sitting on a low wall nearby, staring at her phone with a frown.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornsocialmedia2.webp.webp">><<image _img "100%">>
 
 <<dialog "player">>What's wrong? You look annoyed.<</dialog>>
 <<dialog "neighborMia">>There's this girl from uni. She comments on every single post of mine. 'Gorgeous queen,' 'slaaay.' But in person? She won't even say hi.<</dialog>>
@@ -96,6 +105,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia was leaning against a fence up ahead, gathering her hair up. When she saw you she let it drop back down.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornfriendcircle1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>My guy friends cause less drama than my girl friends.<</dialog>>
 <<dialog "player">>Are you just friends with them or…<</dialog>>
 <<dialog "neighborMia">>Right now, just friends. But there's always a little tension underneath. Pure friendship between a guy and a girl? Doesn't exist.<</dialog>>
@@ -108,6 +119,8 @@
         "campus_guys": [
             {
                 text: `<<narrative "Maplewood">>Mia was stopped on the sidewalk, checking her lipstick on her phone's front camera. She didn't put it down when she saw you.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemorncampusguys1.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>I'm meeting a guy on campus today. We've been texting for a week, today's the live test.<</dialog>>
 <<dialog "player">>Are you serious? What's he like?<</dialog>>
@@ -124,6 +137,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia waved from across the street and hurried over with quick steps.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemorngossip1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Wait wait, I just saw something. You know that couple two blocks down? They were screaming at each other again this morning.<</dialog>>
 <<dialog "player">>Again? What happened?<</dialog>>
 <<dialog "neighborMia">>The wife dragged a suitcase out to the front door. The guy was begging but she didn't care, just threw it in the car.<</dialog>>
@@ -135,6 +150,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia was sitting on a bench across the street. When she saw you, she lowered her voice.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemorngossip2.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>Shh, come here. See that house across the street? A delivery came again. Third time this week.<</dialog>>
 <<dialog "player">>What kind of delivery?<</dialog>>
@@ -151,6 +168,8 @@
             {
                 text: `<<narrative "Maplewood">>You ran into Mia on the corner, coffee in hand, but her usual energy was missing.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornfutureplans1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Couldn't sleep last night. Just stared at the ceiling thinking 'where am I going to be in five years.'<</dialog>>
 <<dialog "player">>What did you come up with?<</dialog>>
 <<dialog "neighborMia">>Nothing. Completely blank. Everyone seems to have a vision, I've got zero. Isn't that scary?<</dialog>>
@@ -166,6 +185,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia was putting her phone away when she spotted you. She rolled her eyes.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornfamily1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>My mom just called. This early. 'Did you eat breakfast?' she asks, like I'm five years old.<</dialog>>
 <<dialog "player">>I think that's sweet. She's just worried.<</dialog>>
 <<dialog "neighborMia">>Worrying is one thing, controlling is another. She calls at least three times a day. What did you eat, where are you, who are you with.<</dialog>>
@@ -177,6 +198,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia nearly bumped into you coming around the corner. You both laughed.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornfamily2.webp.webp">><<image _img "100%">>
 
 <<dialog "player">>Where are you rushing this early?<</dialog>>
 <<dialog "neighborMia">>My mom wants something again. 'Pick this up from the store' she texts. Like I'm her personal courier.<</dialog>>
@@ -192,6 +215,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia glanced at her phone and quickly deleted something. She shoved it in her pocket when she saw you.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornexes1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>My ex texted. This early in the morning. 'How are you?' he says. Three months later, how are you.<</dialog>>
 <<dialog "player">>Are you going to reply?<</dialog>>
 <<dialog "neighborMia">>Already did. Blue tick. That's the reply.<</dialog>>
@@ -203,6 +228,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia was power-walking up the sidewalk, bag half-open, hair still damp. She slowed down when she saw you but didn't quite stop.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplemornexes2.webp.webp">><<image _img "100%">>
 
 <<dialog "player">>You're in a hurry. Bad morning?<</dialog>>
 <<dialog "neighborMia">>I dreamed about my ex. Woke up annoyed.<</dialog>>
@@ -223,6 +250,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia dropped her bag on the ground and sat on the curb. She looked tired.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftunistruggle1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>I sat on campus for two hours. Left halfway through the lecture, nobody even noticed.<</dialog>>
 <<dialog "player">>Why did you leave?<</dialog>>
 <<dialog "neighborMia">>The professor talks to himself. Opens the slide, reads it, closes it. I can do that at home.<</dialog>>
@@ -234,6 +263,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia was on her phone. When she saw you, she rolled her eyes and hung up.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftunistruggle2.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>Group project. Four people, two are missing.<</dialog>>
 <<dialog "player">>What project?<</dialog>>
@@ -250,6 +281,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia was standing by a lamppost, staring into space. Not even looking at her phone.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftfutureplans1.webp.webp">><<image _img "100%">>
+
 <<dialog "player">>You're zoning out? I'm not used to seeing you this quiet.<</dialog>>
 <<dialog "neighborMia">>My mom called again. 'What's your plan?' I didn't have a real answer.<</dialog>>
 <<dialog "player">>Do you have to have a plan right now?<</dialog>>
@@ -264,6 +297,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia was walking with a few shopping bags, at least three different stores.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftdaddymoney1.webp.webp">><<image _img "100%">>
+
 <<dialog "player">>Again? Shopping for the second time this week.<</dialog>>
 <<dialog "neighborMia">>Sales don't wait. My dad leaves the card open, I make the most of it.<</dialog>>
 <<dialog "player">>You always spend your dad's money?<</dialog>>
@@ -276,6 +311,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>The smell of coffee hit you before you turned the corner. Mia was sitting on someone's front steps, cup in hand. A notification popped up on her phone; she looked at it and laughed.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftdaddymoney2.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>My dad just sent money. Left a note. 'Buy books.'<</dialog>>
 <<dialog "player">>Are you going to spend it on books?<</dialog>>
@@ -292,6 +329,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia was leaving a voice message on her phone. She noticed you when she finished.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftfriendcircle1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Got into it with my closest friend. Over a guy.<</dialog>>
 <<dialog "player">>Do you both like the same guy?<</dialog>>
 <<dialog "neighborMia">>No. She likes him, I told her 'that guy isn't for you.' She got offended, obviously.<</dialog>>
@@ -303,6 +342,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia was pacing slowly down the sidewalk, calling someone. She hung up when she saw you.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftfriendcircle2.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>I was just on the phone with my best friend. Even she doesn't get to hear everything.<</dialog>>
 <<dialog "player">>Why not?<</dialog>>
@@ -317,6 +358,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia was on the sidewalk typing fast into a group chat, grinning.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftnightlife1.webp.webp">><<image _img "100%">>
+
 <<dialog "player">>Who are you texting? You're grinning, it's obvious.<</dialog>>
 <<dialog "neighborMia">>There's a house party this weekend. My friend's older brother is throwing it. Guest list only.<</dialog>>
 <<dialog "player">>A guest list? For a house party? Isn't that a bit much?<</dialog>>
@@ -327,6 +370,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia was sitting under a tree, sending a voice message to someone. She paused it when she saw you.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftnightlife2.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>I'm trying to make Friday plans but nobody can decide. Five people, ten different ideas.<</dialog>>
 <<dialog "player">>Some people are perfectly happy watching a movie at home, you know.<</dialog>>
@@ -340,6 +385,8 @@
         "social_media": [
             {
                 text: `<<narrative "Maplewood">>A sharp yelp made you look up. Mia had nearly walked straight into a pole, phone an inch from her nose.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftsocialmedia1.webp.webp">><<image _img "100%">>
 
 <<dialog "player">>Watch out! You almost walked into that. What are you staring at?<</dialog>>
 <<dialog "neighborMia">>Worth it. Some guy watched my last three posts back to back. Three. In a row. At two in the morning.<</dialog>>
@@ -356,6 +403,8 @@
         "campus_guys": [
             {
                 text: `<<narrative "Maplewood">>Mia was sitting on a low stone wall, laughing at her phone. She flipped the screen toward you.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftcampusguys1.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>Look at this message. A guy from uni wrote 'you looked pretty today.'<</dialog>>
 <<dialog "player">>Wait, he said 'today'? Just today?<</dialog>>
@@ -397,6 +446,8 @@
             {
                 text: `<<narrative "Maplewood">>You caught Mia's reflection in a shop window before you saw her in person. She was coming up behind you, grinning. She hooked her arm through yours the second she reached you.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftcampusguys2.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Something funny happened on campus today. A guy sent me his lecture notes but wrote 'wanna grab coffee?' hidden inside.<</dialog>>
 <<dialog "player">>What? He hid it in the notes? That's weird but kind of creative.<</dialog>>
 <<dialog "neighborMia">>Right? Creativity points are high. But I looked at his photo… clean face, decent build, but there's nothing behind it. He just sort of… stands there. Like furniture.<</dialog>>
@@ -412,6 +463,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia was laughing at her phone, tapped the screen once, then slipped it into her pocket.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftflirtstrategy1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Left him on read. No reply. Watch. Second message incoming within five minutes.<</dialog>>
 <<dialog "player">>Why aren't you replying?<</dialog>>
 <<dialog "neighborMia">>If you reply right away your value drops. You have to make them wait, make them wonder. Texting is chess.<</dialog>>
@@ -425,6 +478,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia was standing at the corner, gathering her hair up. When she saw you she let it drop back over her shoulders.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftflirtstrategy2.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>Do you think a girl should text a guy first?<</dialog>>
 <<dialog "player">>Why not?<</dialog>>
@@ -441,6 +496,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia appeared around the corner in a new dress. She spotted you and did a little spin.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftfashion1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Well? I got this yesterday, caught it on sale.<</dialog>>
 <<dialog "player">>Wow, that looks great on you. What did your mom say?<</dialog>>
 <<dialog "neighborMia">>'Too short.' She says the same thing every time. Short means not boring. They don't get it.<</dialog>>
@@ -452,6 +509,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia was leaning against a mailbox, staring at a screenshot on her phone. Someone's outfit photo.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftfashion2.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>Look at this. My friend wore this last night. That color does not work on her skin. I told her, but she didn't listen.<</dialog>>
 <<dialog "player">>I think it looks fine actually.<</dialog>>
@@ -468,6 +527,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia held up her phone, the neighborhood group chat filling the screen.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftgossip1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Look at this. Another dog fight broke out in the group.<</dialog>>
 <<dialog "player">>What dog fight?<</dialog>>
 <<dialog "neighborMia">>That lady on the corner complained again. 'Your dog is pooping in my yard.' And the guy replied 'prove it.'<</dialog>>
@@ -479,6 +540,8 @@
             },
             {
                 text: `<<narrative "Maplewood">>Mia appeared on the sidewalk, earbuds around her neck but no music playing.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftgossip2.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>I wear these so people don't talk to me. But I have something to tell you.<</dialog>>
 <<dialog "player">>What happened now?<</dialog>>
@@ -495,6 +558,8 @@
             {
                 text: `<<narrative "Maplewood">>Mia waved at you from up the street. She had a small bag in her hand.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftfamily1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>I got something for my mom. Her birthday's coming up, figured I'd get ahead of it.<</dialog>>
 <<dialog "player">>Oh nice, what'd you get?<</dialog>>
 <<dialog "neighborMia">>A necklace. She loves jewelry but never buys any for herself. Always says 'waste of money.' Dad buys it, she complains first, then wears it.<</dialog>>
@@ -509,6 +574,8 @@
         "exes": [
             {
                 text: `<<narrative "Maplewood">>You spotted Mia from half a block away. Something about her walk was off, slower than usual. When she got closer you saw the strange smile on her face.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miamaplaftexes1.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>I just saw my ex's new girlfriend online. Had to look, obviously.<</dialog>>
 <<dialog "player">>What's she like?<</dialog>>
@@ -528,6 +595,8 @@
             {
                 text: `<<narrative "Sunset Park">>Mia was sitting on the grass, a book in her lap but closed. She scooted over to make room when she saw you.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkaftunistruggle1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>I was going to study but the sun is too nice. Between a book and sunshine, sunshine always wins.<</dialog>>
 <<dialog "player">>Is that a textbook?<</dialog>>
 <<dialog "neighborMia">>Yeah. 'Introduction to Media Theory.' They call it an introduction but this intro never ends. Four years of my life for a piece of paper at the end.<</dialog>>
@@ -543,6 +612,8 @@
             {
                 text: `<<narrative "Sunset Park">>You heard Mia's laugh before you saw her. She was cross-legged on the grass, scrolling through a crowded group photo on her phone.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkaftfriendcircle1.webp.webp">><<image _img "100%">>
+
 <<dialog "player">>Who are all those people? That's a big crew.<</dialog>>
 <<dialog "neighborMia">>Looks big but my real friends are three people. The rest are scene friends.<</dialog>>
 <<dialog "player">>What's the difference?<</dialog>>
@@ -557,6 +628,8 @@
             {
                 text: `<<narrative "Sunset Park">>A familiar perfume, something sweet and sharp, hit you before you spotted Mia leaning against the park railing, phone angled away from the sun.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkaftflirtstrategy1.webp.webp">><<image _img "100%">>
+
 <<dialog "player">>Who are you stalking now?<</dialog>>
 <<dialog "neighborMia">>Not stalking, research. I check everything before meeting someone.<</dialog>>
 <<dialog "player">>Isn't that a bit much?<</dialog>>
@@ -570,6 +643,8 @@
         "fashion": [
             {
                 text: `<<narrative "Sunset Park">>From across the path you caught Mia's silhouette: legs stretched on the grass, back against a tree trunk, scrolling through an online store on her phone. She waved you over.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkaftfashion1.webp.webp">><<image _img "100%">>
 
 <<dialog "player">>Shopping again?<</dialog>>
 <<dialog "neighborMia">>Looking isn't shopping. As long as I don't buy, it's free.<</dialog>>
@@ -587,6 +662,8 @@
             {
                 text: `<<narrative "Sunset Park">>You spotted Mia near the fountain, perched on the stone edge, holding her phone at arm's length and swiping between filters.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkaftsocialmedia1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Okay, help me out. Which filter is better? This one or this one?<</dialog>>
 <<dialog "player">>Honestly, they look the same to me.<</dialog>>
 <<dialog "neighborMia">>They're not. This one's warmer, softens my face. That one's sharper, brings out the jawline. Depends on the goal.<</dialog>>
@@ -601,6 +678,8 @@
         "campus_guys": [
             {
                 text: `<<narrative "Sunset Park">>Mia's voice carried from behind a row of hedges. You found her on a low stone wall, legs crossed, sunglasses hiding whatever she was watching.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkaftcampusguys1.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>The other day I was in the library, this guy came and sat right across from me. Said 'is this seat taken?' The whole library was empty.<</dialog>>
 <<dialog "player">>Maybe he just liked that spot?<</dialog>>
@@ -617,6 +696,8 @@
             {
                 text: `<<narrative "Sunset Park">>Mia was walking through the park. She stopped when she saw you and leaned on your shoulder.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkaftgossip1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>I've got a bomb. But you're not telling anyone.<</dialog>>
 <<dialog "player">>I won't. Tell me.<</dialog>>
 <<dialog "neighborMia">>You know that woman on the back street? The one who does yoga? She was spotted at a cafe with her husband's best friend.<</dialog>>
@@ -632,6 +713,8 @@
             {
                 text: `<<narrative "Sunset Park">>Mia was lying on the grass, eyes closed, soaking up the sun. She opened them when you sat down.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkaftfamily1.webp.webp">><<image _img "100%">>
+
 <<dialog "player">>Any family stuff today? You mentioned your mom yesterday.<</dialog>>
 <<dialog "neighborMia">>Sunday dinner. Mandatory ritual. Everyone sits at the table for the 'how was your day' talk.<</dialog>>
 <<dialog "player">>Is it that bad? Sounds like a nice tradition to me.<</dialog>>
@@ -645,6 +728,8 @@
         "exes": [
             {
                 text: `<<narrative "Sunset Park">>You noticed Mia from a distance, sitting under the big oak tree, knees drawn up, phone close to her face. She closed the screen the moment she realized you were there.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkaftexes1.webp.webp">><<image _img "100%">>
 
 <<dialog "player">>Were you looking at old photos? I saw that.<</dialog>>
 <<dialog "neighborMia">>Caught me. A vacation photo from my ex popped up.<</dialog>>
@@ -665,6 +750,8 @@
             {
                 text: `<<narrative "Sunset Park">>You found Mia near the park entrance, leaning against the iron fence, scrolling through her phone. When you got close enough, you could see the university portal open on her screen.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkeveunistruggle1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>Got an email from my professor. 'Your attendance is low, please be mindful.' My attendance is low because the class is low.<</dialog>>
 <<dialog "player">>Think it'll be a problem?<</dialog>>
 <<dialog "neighborMia">>Nah. I'll pull it together by the end of the semester. Same thing happened last year, I passed.<</dialog>>
@@ -679,6 +766,8 @@
         "future_plans": [
             {
                 text: `<<narrative "Sunset Park">>Mia was sitting on a bench, watching the sunset. She looked unusually thoughtful.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkevefutureplans1.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>I'm in a weird mood today. Thinking about the future literally makes me nauseous.<</dialog>>
 <<dialog "player">>Why? Did something happen?<</dialog>>
@@ -695,6 +784,8 @@
             {
                 text: `<<narrative "Sunset Park">>A deep sigh reached you from behind the hedge. You peeked around it — Mia was sitting on the grass, staring at her banking app with the look of someone reading a death sentence.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkevedaddymoney1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>I went way over this month. My dad would have a heart attack if he saw this.<</dialog>>
 <<dialog "player">>How much did you spend?<</dialog>>
 <<dialog "neighborMia">>Better if I don't say. New shoes, a couple nights out… it adds up.<</dialog>>
@@ -710,6 +801,8 @@
             {
                 text: `<<narrative "Sunset Park">>Music drifted toward you — faint, tinny, from earbuds turned up too loud. You followed the sound and found Mia stretched out on the grass in the fading light, eyes closed, one foot tapping the air.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkevenightlife1.webp.webp">><<image _img "100%">>
+
 <<dialog "player">>What are you listening to? I can hear it from here.<</dialog>>
 <<dialog "neighborMia">>A song from the last place I went to. I Shazam'd it. Every time I hear it that whole night comes back.<</dialog>>
 <<dialog "player">>You're crazy. You're still thinking about that night?<</dialog>>
@@ -723,6 +816,8 @@
         "flirt_strategy": [
             {
                 text: `<<narrative "Sunset Park">>The glow of a phone screen caught your eye in the dimming park. Mia was curled up on a blanket on the grass, smiling, typing something, then deleting it, then typing again.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkeveflirtstrategy1.webp.webp">><<image _img "100%">>
 
 <<dialog "player">>What are you doing? You keep writing and erasing…<</dialog>>
 <<dialog "neighborMia">>Adjusting the tone. I'm figuring out how to reply to this guy. Too warm and he stops chasing. Too cold and he bolts.<</dialog>>
@@ -738,6 +833,8 @@
             {
                 text: `<<narrative "Sunset Park">>Mia was leaving the park when she spotted you. A new bracelet on her wrist caught the evening light.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkevefashion1.webp.webp">><<image _img "100%">>
+
 <<dialog "player">>Is that bracelet new? I haven't seen it before.<</dialog>>
 <<dialog "neighborMia">>Sharp eye. Got it last week. Thin, elegant. Doesn't scream but gets noticed.<</dialog>>
 <<dialog "player">>Was it expensive?<</dialog>>
@@ -751,6 +848,8 @@
         "social_media": [
             {
                 text: `<<narrative "Sunset Park">>Mia was taking a selfie in the golden evening light, tossing her hair to one side and adjusting the angle.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkevesocialmedia1.webp.webp">><<image _img "100%">>
 
 <<dialog "player">>You're going to look amazing in this light, good call.<</dialog>>
 <<dialog "neighborMia">>Golden hour. Best selfie lighting of the year. I never miss this.<</dialog>>
@@ -768,6 +867,8 @@
             {
                 text: `<<narrative "Sunset Park">>The evening light was settling over the park. Mia was lying on the grass, eyes half-closed. She sat up when she saw you.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkevecampusguys1.webp.webp">><<image _img "100%">>
+
 <<dialog "neighborMia">>I saw a guy on campus today. Never seen him before. Must be new.<</dialog>>
 <<dialog "player">>What was he like?<</dialog>>
 <<dialog "neighborMia">>Tall, messy hair, his shirt was a little tight, intentionally tight, the kind you put on knowing it's tight. God. I watched him walk and I couldn't look away. I needed to turn but my neck wouldn't let me.<</dialog>>
@@ -782,6 +883,8 @@
         "neighborhood_gossip": [
             {
                 text: `<<narrative "Sunset Park">>The evening light painted the park in warm orange tones. Mia was sitting on a bench, scrolling through her phone. You sat down next to her.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkevegossip1.webp.webp">><<image _img "100%">>
 
 <<dialog "neighborMia">>Perfect timing. I need to show you something.<</dialog>>
 <<dialog "player">>What is it?<</dialog>>
@@ -801,6 +904,8 @@
             {
                 text: `<<narrative "Sunset Park">>Mia was sitting alone in the park, her phone face-down on the table.<</narrative>>
 
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkevefamily1.webp.webp">><<image _img "100%">>
+
 <<dialog "player">>You put your phone face-down. That's a red flag coming from you.<</dialog>>
 <<dialog "neighborMia">>Just talked to my dad. He rarely calls, and when he does there's always a reason.<</dialog>>
 <<dialog "player">>Did something bad happen?<</dialog>>
@@ -814,6 +919,8 @@
         "exes": [
             {
                 text: `<<narrative "Sunset Park">>Mia was walking through the park alone. She looked a bit lost in thought.<</narrative>>
+
+<<set _img = "assets/content/scenes/interactions/mia/sunsetnmaplel1l2/miaparkeveexes1.webp.webp">><<image _img "100%">>
 
 <<dialog "player">>You seem distracted today. Everything okay?<</dialog>>
 <<dialog "neighborMia">>I'm fine. Just remembered it's my first serious ex's birthday today.<</dialog>>

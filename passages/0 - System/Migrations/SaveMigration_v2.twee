@@ -22,5 +22,8 @@
     <<if ndef $memory.player.items>><<set $memory.player.items = {}>><</if>>
     <<if ndef $memory.player.meta>><<set $memory.player.meta = {}>><</if>>
     <<if ndef $pendingMemoryNotifications>><<set $pendingMemoryNotifications = []>><</if>>
+    /* Neighbor Mia talk pools (setup.miaTopics) for saves upgrading into v2. */
+    <<domInclude "MiaTopicsCommonLevel1">>
+    <<domInclude "MiaTopicsCommonLevel1Extra">>
 <</if>>
 <</silently>>

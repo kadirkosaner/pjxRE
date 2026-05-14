@@ -1,0 +1,117 @@
+:: neighborMiaTalk
+<<silently>>
+<<if !$location && $interactionEntryPassage>>
+    <<set $location = $interactionEntryPassage>>
+<</if>>
+<<set $characters.neighborMia.known = true>>
+<<logDailyActivity "neighborMia" "talk">>
+<<updateCharacterLocations>>
+
+<<script>>
+(function () {
+    function wikifyPassage(name) {
+        var el = document.querySelector('tw-passagedata[name="' + name + '"]');
+        if (!el) return;
+        var txt = el.textContent;
+        if (!txt || !String(txt).trim()) return;
+        new Wikifier(document.createElement('div'), txt);
+    }
+    function missingLevel(key) {
+        var o = setup.miaTopics && setup.miaTopics.common && setup.miaTopics.common[key];
+        return !o || typeof o !== 'object' || !Object.keys(o).length;
+    }
+    if (missingLevel('level1')) wikifyPassage('MiaTopicsCommonLevel1');
+    if (missingLevel('level1extra')) wikifyPassage('MiaTopicsCommonLevel1Extra');
+})();
+<</script>>
+
+<<script>>
+(function () {
+    var temp = State.temporary;
+    var V = State.variables;
+    var mia = (V.characters && V.characters.neighborMia) || {};
+    var hour = (V.timeSys && V.timeSys.hour != null) ? Number(V.timeSys.hour) : 12;
+    var slot = hour >= 6 && hour < 12 ? 'morning' : (hour < 17 ? 'afternoon' : 'evening');
+    var loc = mia.currentLocation || 'maplewood';
+    V.location = loc;
+
+    var mt = setup.miaTopics && setup.miaTopics.common;
+    var slots = ['morning', 'afternoon', 'evening'];
+    var ctxTry = [];
+    ctxTry.push(loc + '_common_' + slot);
+    slots.forEach(function (s) {
+        var c = loc + '_common_' + s;
+        if (ctxTry.indexOf(c) < 0) ctxTry.push(c);
+    });
+    var alt = loc === 'sunsetPark' ? 'maplewood' : 'sunsetPark';
+    slots.forEach(function (s) {
+        var c = alt + '_common_' + s;
+        if (ctxTry.indexOf(c) < 0) ctxTry.push(c);
+    });
+
+    function collectForCtx(ctx) {
+        var merged = {};
+        function addPool(levelObj) {
+            if (!levelObj || !levelObj[ctx]) return;
+            var p = levelObj[ctx];
+            Object.keys(p).forEach(function (cat) {
+                var arr = p[cat];
+                if (!Array.isArray(arr)) return;
+                if (!merged[cat]) merged[cat] = [];
+                for (var i = 0; i < arr.length; i++) merged[cat].push(arr[i]);
+            });
+        }
+        addPool(mt && mt.level1);
+        addPool(mt && mt.level1extra);
+        var topics = [];
+        Object.keys(merged).forEach(function (cat) {
+            var arr = merged[cat] || [];
+            for (var j = 0; j < arr.length; j++) {
+                var t = arr[j];
+                if (!t || typeof t.text !== 'string') continue;
+                var skipId = t.skipIfRemembered;
+                if (skipId && setup.charRemembers && setup.charRemembers('neighborMia', String(skipId))) continue;
+                topics.push(t);
+            }
+        });
+        return topics;
+    }
+
+    var topics = [];
+    for (var i = 0; i < ctxTry.length; i++) {
+        topics = collectForCtx(ctxTry[i]);
+        if (topics.length) break;
+    }
+    temp._miaTopicCandidates = topics;
+})();
+<</script>>
+
+<<if State.temporary._miaTopicCandidates && State.temporary._miaTopicCandidates.length>>
+    <<set _list = State.temporary._miaTopicCandidates>>
+    <<set _topic = _list[Math.floor(State.random() * _list.length)]>>
+<<else>>
+    <<set _topic = { text: "Mia checks her phone and gives you an apologetic smile - she has to run, but she will catch you later.", friendship: 0, trust: 0, love: 0, lust: 0 }>>
+<</if>>
+
+<<advanceTime 15>>
+<<loseStat "energy" 5>>
+<<gainStat "mood" 2>>
+
+<<if _topic.friendship>><<gainCharacterStat "neighborMia" "friendship" _topic.friendship>><</if>>
+<<if _topic.trust>><<gainCharacterStat "neighborMia" "trust" _topic.trust>><</if>>
+<<if _topic.love>><<gainCharacterStat "neighborMia" "love" _topic.love>><</if>>
+<<if _topic.lust>><<gainCharacterStat "neighborMia" "lust" _topic.lust>><</if>>
+
+<<recalculateStats>>
+<</silently>>
+
+<<nobr>>
+<div class="talk-interaction">
+<<print _topic.text>>
+
+<div class="location-actions">
+<<set _currentCharLocation = $characters.neighborMia.currentLocation>>
+<<talkBackButton _currentCharLocation>>
+</div>
+</div>
+<</nobr>>

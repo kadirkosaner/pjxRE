@@ -33,7 +33,10 @@ RAW_PROMPT_BASE_PREFIX = (
     "TECHNICAL DIRECTIVE: Use image2 and image3 as identity references only (face/hair identity lock). "
     "Create a fresh, natural photo from scratch. Do NOT copy pixel layout from references. "
     "image1 is the location anchor. Keep the same place type and neighborhood context from image1. "
-    "Camera angle/composition may vary, but environment family must stay consistent."
+    "Camera angle/composition may vary, but environment family must stay consistent. "
+    "ENVIRONMENT INVENTORY LOCK: treat image1 as the scene inventory reference. "
+    "Do not invent random foreground props, random signs, random poles, random benches, random bags, "
+    "random furniture, random street objects, random playground objects, or random debris that are not coherent with image1."
 )
 
 RAW_PROMPT_SUFFIX = (
@@ -42,7 +45,8 @@ RAW_PROMPT_SUFFIX = (
     "REALISM GUARD: no collage, no cutout edges, no sticker look, no face-paste artifacts, "
     "no mismatched lighting, no mismatched color temperature, no mismatched perspective, "
     "no warped neck seams, no unnatural skin boundaries. "
-    "Both subjects must share one coherent lens, one coherent light setup, and one coherent scene depth."
+    "Both subjects must share one coherent lens, one coherent light setup, and one coherent scene depth. "
+    "NO-EXTRA-OBJECTS: avoid random meaningless props and avoid object duplication artifacts."
 )
 
 
@@ -58,7 +62,14 @@ def build_raw_prompt_prefix(scene: dict) -> str:
         f"LOCATION LOCK: remain in {loc_name}. "
         "Do not move to an unrelated city, interior, studio, or different environment type."
     )
-    return f"{RAW_PROMPT_BASE_PREFIX} {location_lock}"
+    park_object_lock = ""
+    if loc_id in ("sunsetParkAfternoon", "sunsetParkEvening"):
+        park_object_lock = (
+            "PARK OBJECT LOCK: keep park layout clean and plausible. "
+            "No random objects placed in the middle of paths/grass. "
+            "No duplicated benches, no duplicated poles, no floating props, no unexplained foreground clutter."
+        )
+    return f"{RAW_PROMPT_BASE_PREFIX} {location_lock} {park_object_lock}"
 
 
 TEMPLATES = {
