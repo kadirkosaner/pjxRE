@@ -12,7 +12,10 @@
       "dinerBathroom": { "file": "dinerBathroom.jpg", "promptName": "an American diner bathroom" },
       "dinerCorridor": { "file": "dinerCorridor.jpg", "promptName": "an American diner corridor" },
       "dinerDressingRoom": { "file": "dinerDressingRoom.jpg", "promptName": "an American diner dressing room" },
-      "dinerManager": { "file": "dinerManager.jpg", "promptName": "an American diner manager office" }
+      "dinerManager": { "file": "dinerManager.jpg", "promptName": "an American diner manager office" },
+      "maplewood": { "file": "maplewood.webp", "promptName": "a quiet suburban street in Maplewood" },
+      "sunsetParkAfternoon": { "file": "parkMidtime.png", "promptName": "Sunset Park in the afternoon" },
+      "sunsetParkEvening": { "file": "parkLateDay.png", "promptName": "Sunset Park in the evening" }
     },
     "characters": {
       "player": {
@@ -85,6 +88,15 @@
         "promptDesc": "(image2)",
         "promptDescAsNpc": "the dishwasher",
         "costume": "faded black t-shirt, black pants, and black bib apron with red Ruby's Diner script"
+      },
+      "mia": {
+        "name": "Mia",
+        "file": "miaHarrison.png",
+        "role": "neighbor",
+        "gender": "female",
+        "promptDesc": "(image2)",
+        "promptDescAsNpc": "the neighbor",
+        "costume": "casual feminine outfit"
       }
     },
     "scene_character": "emma"
@@ -94,7 +106,7 @@
     "model": "fal-ai/nano-banana-2/edit",
     "parameters": {
       "aspect_ratio": "16:9",
-      "resolution": "2K",
+      "resolution": "1K",
       "num_images": 1
     }
   },
@@ -102,7 +114,7 @@
     "model": "gemini-3.1-flash-image-preview",
     "parameters": {
       "aspect_ratio": "16:9",
-      "resolution": "2K"
+      "resolution": "1K"
     }
   }
 }

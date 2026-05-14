@@ -1,0 +1,860 @@
+<<nobr>>
+<<set setup.miaTopics = setup.miaTopics || {}>>
+<<set setup.miaTopics.common = setup.miaTopics.common || {}>>
+<<set setup.miaTopics.common.level1 = {
+
+    "maplewood_common_morning": {
+
+        "university_struggle": [
+            {
+                text: `<<narrative "Maplewood">>You spotted Mia further down the street, sucking on a large iced coffee. She gave you a little salute with the cup when she noticed you.<</narrative>>
+
+<<dialog "neighborMia">>I didn't sleep last night. There's an assignment due tomorrow and I haven't even opened the file.<</dialog>>
+<<dialog "player">>Which class is it for?<</dialog>>
+<<dialog "neighborMia">>I don't even remember. Something about the impact of something on something. My whole degree is like that.<</dialog>>
+<<dialog "player">>What are you studying again? I keep forgetting.<</dialog>>
+<<dialog "neighborMia">>Communications. So I still have no idea what job I'll get, but I guess I'm learning how to talk well. Not that I needed help with that.<</dialog>>
+<<dialog "player">>Do you regret picking it?<</dialog>>
+<<dialog "neighborMia">>Regret? I didn't take it seriously enough to regret it. I needed to go somewhere, it was easy, no math. Done.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "nightlife": [
+            {
+                text: `<<narrative "Maplewood">>Mia was walking toward you wearing sunglasses even though the sky was cloudy. She had a tired smirk on her face.<</narrative>>
+
+<<dialog "neighborMia">>I was out last night. The fact that I'm standing right now is an achievement.<</dialog>>
+<<dialog "player">>Wait, you went out last night? Your eyes are so puffy.<</dialog>>
+<<dialog "neighborMia">>New place opened up, everyone was there. Music was good, the bartender kept smiling at every girl, same smile, very professional, but his hands were quick and his jawline could cut glass, so I let it slide.<</dialog>>
+<<dialog "player">>I've never been to a place like that. What was it like?<</dialog>>
+<<dialog "neighborMia">>Loud, hot, everyone pressed together. It feels weird at first but once you get used to it you can't stop. I'm taking you one day.<</dialog>>
+
+<<dialog "neighborMia">>I'm always the one telling crazy stories. What about you? What's the wildest thing you've ever done?<</dialog>>
+
+<div class="location-actions">
+<<btn "I have a story actually…">>
+    <<replace "#miaQ_wild">>
+<<dialog "player">>One time… I snuck out of the house in the middle of the night.<</dialog>>
+<<dialog "neighborMia">>No way! You? I would not have seen that coming. I want the details but this is enough for now. You'll tell me the rest one day.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_wildest_thing" "has_story" "personal" "Mia asked about player's wildest experience">>
+<</btn>>
+<<btn "I've never done anything crazy.">>
+    <<replace "#miaQ_wild">>
+<<dialog "player">>Honestly, I've never done anything crazy.<</dialog>>
+<<dialog "neighborMia">>You haven't yet. Keep hanging out with me and that'll change. I promise.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_wildest_thing" "nothing" "personal" "Mia asked about player's wildest experience">>
+<</btn>>
+<<btn "Let me think…">>
+    <<replace "#miaQ_wild">>
+<<dialog "player">>Hmm… nothing comes to mind right now.<</dialog>>
+<<dialog "neighborMia">>If nothing comes to mind, either you've never done it or it was so wild you repressed it. Both are interesting.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_wildest_thing" "unsure" "personal" "Mia asked about player's wildest experience">>
+<</btn>>
+</div>
+<span id="miaQ_wild"></span>`,
+                friendship: 1, trust: 0, love: 0, lust: 0,
+                skipIfRemembered: "player_wildest_thing"
+            }
+        ],
+
+        "social_media": [
+            {
+                text: `<<narrative "Maplewood">>You noticed Mia up ahead, holding her phone up, angling it toward her coffee cup and the morning light.<</narrative>>
+
+<<dialog "neighborMia">>Hold on, don't mess up the frame. I'm shooting a story. Morning energy, coffee, sunlight… people eat this stuff up.<</dialog>>
+<<dialog "player">>Are you crazy? You post a story every single morning?<</dialog>>
+<<dialog "neighborMia">>Almost every day. When I don't, I get DMs. 'Are you okay? Did something happen?' People are hooked.<</dialog>>
+<<dialog "player">>Hooked on you or hooked on their phones?<</dialog>>
+
+<<narrative>>Mia paused mid-pose and actually looked at you.<</narrative>>
+
+<<dialog "neighborMia">>…That's a good question, actually. Both, probably. But here's the thing, they watch my stories. I don't watch theirs.<</dialog>>
+<<dialog "player">>I barely use it. I never know what to post.<</dialog>>
+<<dialog "neighborMia">>Okay, that we can fix. Show me your last post later. I'll tell you exactly what's wrong.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was sitting on a low wall nearby, staring at her phone with a frown.<</narrative>>
+
+<<dialog "player">>What's wrong? You look annoyed.<</dialog>>
+<<dialog "neighborMia">>There's this girl from uni. She comments on every single post of mine. 'Gorgeous queen,' 'slaaay.' But in person? She won't even say hi.<</dialog>>
+<<dialog "player">>So she's one of those fake commenters?<</dialog>>
+<<dialog "neighborMia">>Queen of fake. Online, everyone loves everyone. In real life, nobody looks at anyone. That's Fotogram for you.<</dialog>>
+<<dialog "player">>Do you ever do that though?<</dialog>>
+<<dialog "neighborMia">>Me? No. If I don't like it, I don't tap. If I don't mean it, I don't type. That's why my like actually means something. Everyone knows that.<</dialog>>
+<<dialog "player">>You've never liked any of my posts, by the way.<</dialog>>
+<<dialog "neighborMia">>Post something and I will. Can't like what I haven't seen.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "friend_circle": [
+            {
+                text: `<<narrative "Maplewood">>Mia was leaning against a fence up ahead, gathering her hair up. When she saw you she let it drop back down.<</narrative>>
+
+<<dialog "neighborMia">>My guy friends cause less drama than my girl friends.<</dialog>>
+<<dialog "player">>Are you just friends with them or…<</dialog>>
+<<dialog "neighborMia">>Right now, just friends. But there's always a little tension underneath. Pure friendship between a guy and a girl? Doesn't exist.<</dialog>>
+<<dialog "player">>Doesn't that bother you?<</dialog>>
+<<dialog "neighborMia">>Opposite. Tension is fun. As long as I'm in control there's no problem. If it ever turns into something, then we'll think about it.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "campus_guys": [
+            {
+                text: `<<narrative "Maplewood">>Mia was stopped on the sidewalk, checking her lipstick on her phone's front camera. She didn't put it down when she saw you.<</narrative>>
+
+<<dialog "neighborMia">>I'm meeting a guy on campus today. We've been texting for a week, today's the live test.<</dialog>>
+<<dialog "player">>Are you serious? What's he like?<</dialog>>
+<<dialog "neighborMia">>Sports major. Shoulders barely fit through doorways, sharp jaw, and his wrists… guys with thick wrists have something, I can't explain it.<</dialog>>
+<<dialog "player">>His wrists? I've never even looked at that.<</dialog>>
+<<dialog "neighborMia">>I look at everything. Rating guys is my area of expertise. Half a second. Scanned, scored, filed.<</dialog>>
+<<dialog "player">>So what score did this one get?<</dialog>>
+<<dialog "neighborMia">>Eight from photos. But some of them drop the second they open their mouth. We'll see today.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "neighborhood_gossip": [
+            {
+                text: `<<narrative "Maplewood">>Mia waved from across the street and hurried over with quick steps.<</narrative>>
+
+<<dialog "neighborMia">>Wait wait, I just saw something. You know that couple two blocks down? They were screaming at each other again this morning.<</dialog>>
+<<dialog "player">>Again? What happened?<</dialog>>
+<<dialog "neighborMia">>The wife dragged a suitcase out to the front door. The guy was begging but she didn't care, just threw it in the car.<</dialog>>
+<<dialog "player">>Wow. So she left?<</dialog>>
+<<dialog "neighborMia">>She left. But she'll be back by tonight, watch. Third time this month.<</dialog>>
+<<dialog "player">>You catch everything, don't you? How did you even see this so early?<</dialog>>
+<<dialog "neighborMia">>I was up early, out on the balcony. This neighborhood is my entertainment. Better than Netflix.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was sitting on a bench across the street. When she saw you, she lowered her voice.<</narrative>>
+
+<<dialog "neighborMia">>Shh, come here. See that house across the street? A delivery came again. Third time this week.<</dialog>>
+<<dialog "player">>What kind of delivery?<</dialog>>
+<<dialog "neighborMia">>Flowers. Different color every time. But the woman's husband is a trucker, always on the road.<</dialog>>
+<<dialog "player">>So someone's...<</dialog>>
+<<dialog "neighborMia">>Someone's sending her flowers and the husband has no clue. I mean, if it were me, I wouldn't have them delivered to my house. The neighbors can see.<</dialog>>
+<<dialog "player">>What would you do then?<</dialog>>
+<<dialog "neighborMia">>I'd have them sent to my workplace. You gotta be smart about these things.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "future_plans": [
+            {
+                text: `<<narrative "Maplewood">>You ran into Mia on the corner, coffee in hand, but her usual energy was missing.<</narrative>>
+
+<<dialog "neighborMia">>Couldn't sleep last night. Just stared at the ceiling thinking 'where am I going to be in five years.'<</dialog>>
+<<dialog "player">>What did you come up with?<</dialog>>
+<<dialog "neighborMia">>Nothing. Completely blank. Everyone seems to have a vision, I've got zero. Isn't that scary?<</dialog>>
+<<dialog "player">>Maybe you just haven't found it yet. That's normal.<</dialog>>
+<<dialog "neighborMia">>Maybe. But everyone my age is running toward something. I'm just walking… and sometimes even walking feels heavy.<</dialog>>
+<<dialog "player">>At least you walk with style.<</dialog>>
+<<dialog "neighborMia">>You made me laugh. Okay, enough philosophy. One more coffee and I'll pull myself together.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "family": [
+            {
+                text: `<<narrative "Maplewood">>Mia was putting her phone away when she spotted you. She rolled her eyes.<</narrative>>
+
+<<dialog "neighborMia">>My mom just called. This early. 'Did you eat breakfast?' she asks, like I'm five years old.<</dialog>>
+<<dialog "player">>I think that's sweet. She's just worried.<</dialog>>
+<<dialog "neighborMia">>Worrying is one thing, controlling is another. She calls at least three times a day. What did you eat, where are you, who are you with.<</dialog>>
+<<dialog "player">>How's your dad about it?<</dialog>>
+<<dialog "neighborMia">>Total opposite. 'You good?' I say 'yeah,' done. Men are more chill about that stuff.<</dialog>>
+<<dialog "player">>Maybe your mom just wants to be close.<</dialog>>
+<<dialog "neighborMia">>If she wants closeness she can text. Calling at eight in the morning isn't closeness, it's an ambush.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia nearly bumped into you coming around the corner. You both laughed.<</narrative>>
+
+<<dialog "player">>Where are you rushing this early?<</dialog>>
+<<dialog "neighborMia">>My mom wants something again. 'Pick this up from the store' she texts. Like I'm her personal courier.<</dialog>>
+<<dialog "player">>At least you guys live close.<</dialog>>
+<<dialog "neighborMia">>That's the problem. When you're close, there's a new errand every day. 'Bring this, drop that off, come over tonight.' Sometimes I think I'd be freer if I lived far away.<</dialog>>
+<<dialog "player">>But then you'd miss them.<</dialog>>
+<<dialog "neighborMia">>Of course I would. But missing someone is sometimes healthier. When you're on top of each other all the time, you suffocate. I love them… but loving from a distance is still love.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "exes": [
+            {
+                text: `<<narrative "Maplewood">>Mia glanced at her phone and quickly deleted something. She shoved it in her pocket when she saw you.<</narrative>>
+
+<<dialog "neighborMia">>My ex texted. This early in the morning. 'How are you?' he says. Three months later, how are you.<</dialog>>
+<<dialog "player">>Are you going to reply?<</dialog>>
+<<dialog "neighborMia">>Already did. Blue tick. That's the reply.<</dialog>>
+<<dialog "player">>Cold. What happened between you two?<</dialog>>
+<<dialog "neighborMia">>Nothing happened, that's why it ended. He was boring. Nice guy but I'd literally fall asleep next to him.<</dialog>>
+<<dialog "player">>Did you tell him that?<</dialog>>
+<<dialog "neighborMia">>I did. Told him I needed someone more exciting. He was hurt, obviously. But would lying have been better?<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was power-walking up the sidewalk, bag half-open, hair still damp. She slowed down when she saw you but didn't quite stop.<</narrative>>
+
+<<dialog "player">>You're in a hurry. Bad morning?<</dialog>>
+<<dialog "neighborMia">>I dreamed about my ex. Woke up annoyed.<</dialog>>
+<<dialog "player">>Which one?<</dialog>>
+<<dialog "neighborMia">>The second one. The shortest. Didn't even last two months.<</dialog>>
+<<dialog "player">>Why so short?<</dialog>>
+<<dialog "neighborMia">>He wanted to plan everything. Two months in and the guy's making summer vacation plans.<</dialog>>
+<<dialog "player">>Maybe he was just taking you seriously?<</dialog>>
+<<dialog "neighborMia">>He was serious. Too serious. Two months in and I felt like I was married. I live in the moment. Pin me down with plans and I run. And I ran.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ]
+    },
+
+    "maplewood_common_afternoon": {
+
+        "university_struggle": [
+            {
+                text: `<<narrative "Maplewood">>Mia dropped her bag on the ground and sat on the curb. She looked tired.<</narrative>>
+
+<<dialog "neighborMia">>I sat on campus for two hours. Left halfway through the lecture, nobody even noticed.<</dialog>>
+<<dialog "player">>Why did you leave?<</dialog>>
+<<dialog "neighborMia">>The professor talks to himself. Opens the slide, reads it, closes it. I can do that at home.<</dialog>>
+<<dialog "player">>So why do you keep going?<</dialog>>
+<<dialog "neighborMia">>My dad pays for it. If I drop out, he cuts me off. And I don't know what I'd do instead. So I go and sit there.<</dialog>>
+<<dialog "player">>Is there anything you actually like about it?<</dialog>>
+<<dialog "neighborMia">>The cafeteria's not bad. And some of the guys are cute. Watching them is better than any lecture. That's my real motivation.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was on her phone. When she saw you, she rolled her eyes and hung up.<</narrative>>
+
+<<dialog "neighborMia">>Group project. Four people, two are missing.<</dialog>>
+<<dialog "player">>What project?<</dialog>>
+<<dialog "neighborMia">>A presentation. The topic is the same as always. 'The impact of something on society.' Doesn't matter anymore.<</dialog>>
+<<dialog "player">>Who ends up doing the work?<</dialog>>
+<<dialog "neighborMia">>Me and this one guy. He wouldn't be worth it either, but he smells like cedar and rolls his sleeves up to the elbow, so at least I have an excuse to sit next to him.<</dialog>>
+<<dialog "player">>So your motivation isn't the project, it's the guy.<</dialog>>
+<<dialog "neighborMia">>Now you're starting to understand how university works.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "future_plans": [
+            {
+                text: `<<narrative "Maplewood">>Mia was standing by a lamppost, staring into space. Not even looking at her phone.<</narrative>>
+
+<<dialog "player">>You're zoning out? I'm not used to seeing you this quiet.<</dialog>>
+<<dialog "neighborMia">>My mom called again. 'What's your plan?' I didn't have a real answer.<</dialog>>
+<<dialog "player">>Do you have to have a plan right now?<</dialog>>
+<<dialog "neighborMia">>Everyone says so. Goals, a five-year roadmap… My only goal is to not be bored. Apparently that's not enough for people.<</dialog>>
+<<dialog "player">>I think it's enough.<</dialog>>
+<<dialog "neighborMia">>Society disagrees. No plan equals failure. I just want to enjoy my life. Is that really so criminal?<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "daddy_money": [
+            {
+                text: `<<narrative "Maplewood">>Mia was walking with a few shopping bags, at least three different stores.<</narrative>>
+
+<<dialog "player">>Again? Shopping for the second time this week.<</dialog>>
+<<dialog "neighborMia">>Sales don't wait. My dad leaves the card open, I make the most of it.<</dialog>>
+<<dialog "player">>You always spend your dad's money?<</dialog>>
+<<dialog "neighborMia">>Of course. I'm a student, no job. He agreed to pay, I agreed to spend. Simple math.<</dialog>>
+<<dialog "player">>No limit or anything?<</dialog>>
+<<dialog "neighborMia">>No official limit. But if I go overboard he calls. So I use tactics. I split big purchases over three or four days. Flies under the radar.<</dialog>>
+<<dialog "player">>That's literally a strategy.<</dialog>>
+<<dialog "neighborMia">>I know what I'm doing. Usually.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>The smell of coffee hit you before you turned the corner. Mia was sitting on someone's front steps, cup in hand. A notification popped up on her phone; she looked at it and laughed.<</narrative>>
+
+<<dialog "neighborMia">>My dad just sent money. Left a note. 'Buy books.'<</dialog>>
+<<dialog "player">>Are you going to spend it on books?<</dialog>>
+<<dialog "neighborMia">>Books? I think the last book I bought was in freshman year.<</dialog>>
+<<dialog "player">>Isn't that kind of wrong? The man trusts you.<</dialog>>
+<<dialog "neighborMia">>I'm not saying he shouldn't trust me. But nobody spends dad's money better than his daughter. Give it to sons and they buy computer parts. At least we look good.<</dialog>>
+<<dialog "player">>That logic is so you.<</dialog>>
+<<dialog "neighborMia">>Thank you. I take that title seriously.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "friend_circle": [
+            {
+                text: `<<narrative "Maplewood">>Mia was leaving a voice message on her phone. She noticed you when she finished.<</narrative>>
+
+<<dialog "neighborMia">>Got into it with my closest friend. Over a guy.<</dialog>>
+<<dialog "player">>Do you both like the same guy?<</dialog>>
+<<dialog "neighborMia">>No. She likes him, I told her 'that guy isn't for you.' She got offended, obviously.<</dialog>>
+<<dialog "player">>Couldn't you have said it a little nicer?<</dialog>>
+<<dialog "neighborMia">>That was the nice version. If I'd said what I was actually thinking she'd never look at me again. Honesty is expensive sometimes.<</dialog>>
+<<dialog "player">>Think you'll make up?<</dialog>>
+<<dialog "neighborMia">>She'll text within two days. Always does. But this time I'm right, and deep down she knows it.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was pacing slowly down the sidewalk, calling someone. She hung up when she saw you.<</narrative>>
+
+<<dialog "neighborMia">>I was just on the phone with my best friend. Even she doesn't get to hear everything.<</dialog>>
+<<dialog "player">>Why not?<</dialog>>
+<<dialog "neighborMia">>Some things you keep to yourself. Tell someone everything and one day it gets used against you. Full transparency doesn't exist in my life.<</dialog>>
+<<dialog "player">>Doesn't that feel a bit lonely?<</dialog>>
+<<dialog "neighborMia">>Lonely? No. Careful. There's a difference. And honestly? I sleep better this way.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "nightlife": [
+            {
+                text: `<<narrative "Maplewood">>Mia was on the sidewalk typing fast into a group chat, grinning.<</narrative>>
+
+<<dialog "player">>Who are you texting? You're grinning, it's obvious.<</dialog>>
+<<dialog "neighborMia">>There's a house party this weekend. My friend's older brother is throwing it. Guest list only.<</dialog>>
+<<dialog "player">>A guest list? For a house party? Isn't that a bit much?<</dialog>>
+<<dialog "neighborMia">>If you let everyone in, the vibe turns to trash. Three wrong people walk in and the night's over.<</dialog>>
+<<dialog "player">>I've never been to anything like that.<</dialog>>
+<<dialog "neighborMia">>Your first time will be with me. I'll sort out what you wear, how you stand, who you talk to. Show up unprepared and you'll get eaten alive.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was sitting under a tree, sending a voice message to someone. She paused it when she saw you.<</narrative>>
+
+<<dialog "neighborMia">>I'm trying to make Friday plans but nobody can decide. Five people, ten different ideas.<</dialog>>
+<<dialog "player">>Some people are perfectly happy watching a movie at home, you know.<</dialog>>
+<<dialog "neighborMia">>Movies are for every other night. But Friday? You go out, you see people, you live. Otherwise you've got nothing to talk about on Monday.<</dialog>>
+<<dialog "player">>You always have something to talk about though, don't you?<</dialog>>
+<<dialog "neighborMia">>Always. I refuse to spend my life sitting around doing nothing.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "social_media": [
+            {
+                text: `<<narrative "Maplewood">>A sharp yelp made you look up. Mia had nearly walked straight into a pole, phone an inch from her nose.<</narrative>>
+
+<<dialog "player">>Watch out! You almost walked into that. What are you staring at?<</dialog>>
+<<dialog "neighborMia">>Worth it. Some guy watched my last three posts back to back. Three. In a row. At two in the morning.<</dialog>>
+<<dialog "player">>Whoa. Did this guy set an alarm for you or what? That's borderline stalking.<</dialog>>
+<<dialog "neighborMia">>A guy scrolling through my page at 2 AM and not writing? He can't sleep because he's thinking about me. But he doesn't have the guts.<</dialog>>
+<<dialog "player">>How do you know all this so confidently?<</dialog>>
+<<dialog "neighborMia">>Experience. The time someone views your stuff tells you everything. Daytime is casual. Nighttime is obsessive. Dawn… that one's dangerous.<</dialog>>
+<<dialog "player">>I look at stuff at night too but it doesn't mean anything for me.<</dialog>>
+<<dialog "neighborMia">>You're different. But guys are different. With them, every move has a subtext.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "campus_guys": [
+            {
+                text: `<<narrative "Maplewood">>Mia was sitting on a low stone wall, laughing at her phone. She flipped the screen toward you.<</narrative>>
+
+<<dialog "neighborMia">>Look at this message. A guy from uni wrote 'you looked pretty today.'<</dialog>>
+<<dialog "player">>Wait, he said 'today'? Just today?<</dialog>>
+<<dialog "neighborMia">>'Today.' So what, I'm ugly the other days? Guys can't even compliment properly.<</dialog>>
+<<dialog "player">>Maybe he didn't mean it like that, but yeah that's weird.<</dialog>>
+<<dialog "neighborMia">>He didn't mean it, but he wrote it. Anyway, he's got this deep voice and these stupid long eyelashes, so I'll forgive him. Details like that buy a lot of mercy.<</dialog>>
+<<dialog "player">>You're ruthless.<</dialog>>
+<<dialog "neighborMia">>I'm not ruthless, I have standards. Those are different things.<</dialog>>
+
+<<dialog "neighborMia">>Anyway, I keep talking about myself. What about you? Got anyone you like?<</dialog>>
+
+<div class="location-actions">
+<<btn "Yeah, actually there is someone.">>
+    <<replace "#miaQ_crush">>
+<<dialog "player">>Actually… yeah, there is someone.<</dialog>>
+<<dialog "neighborMia">>I knew it! I could tell from your eyes. Who is it? Tell me right now.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_has_crush" "yes" "personal" "Mia asked if player has a crush">>
+<</btn>>
+<<btn "No, nobody right now.">>
+    <<replace "#miaQ_crush">>
+<<dialog "player">>No, nobody right now.<</dialog>>
+<<dialog "neighborMia">>How? There are so many people around. Whatever, maybe you just haven't noticed yet.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_has_crush" "no" "personal" "Mia asked if player has a crush">>
+<</btn>>
+<<btn "I'm not sure.">>
+    <<replace "#miaQ_crush">>
+<<dialog "player">>I don't know… I'm not sure.<</dialog>>
+<<dialog "neighborMia">>If you're not sure, then there is someone. People who aren't sure are usually feeling something but holding it down. Watch yourself.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_has_crush" "unsure" "personal" "Mia asked if player has a crush">>
+<</btn>>
+</div>
+<span id="miaQ_crush"></span>`,
+                friendship: 1, trust: 0, love: 0, lust: 0,
+                skipIfRemembered: "player_has_crush"
+            },
+            {
+                text: `<<narrative "Maplewood">>You caught Mia's reflection in a shop window before you saw her in person. She was coming up behind you, grinning. She hooked her arm through yours the second she reached you.<</narrative>>
+
+<<dialog "neighborMia">>Something funny happened on campus today. A guy sent me his lecture notes but wrote 'wanna grab coffee?' hidden inside.<</dialog>>
+<<dialog "player">>What? He hid it in the notes? That's weird but kind of creative.<</dialog>>
+<<dialog "neighborMia">>Right? Creativity points are high. But I looked at his photo… clean face, decent build, but there's nothing behind it. He just sort of… stands there. Like furniture.<</dialog>>
+<<dialog "player">>Is presence really that important?<</dialog>>
+<<dialog "neighborMia">>Presence is everything. There are guys who change the air when they walk into a room, and guys who leave without anyone noticing. I want the first kind.<</dialog>>
+<<dialog "player">>Your expectations are pretty high.<</dialog>>
+<<dialog "neighborMia">>I'm picky because I have options. If I didn't, I'd lower the bar too. Don't worry.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "flirt_strategy": [
+            {
+                text: `<<narrative "Maplewood">>Mia was laughing at her phone, tapped the screen once, then slipped it into her pocket.<</narrative>>
+
+<<dialog "neighborMia">>Left him on read. No reply. Watch. Second message incoming within five minutes.<</dialog>>
+<<dialog "player">>Why aren't you replying?<</dialog>>
+<<dialog "neighborMia">>If you reply right away your value drops. You have to make them wait, make them wonder. Texting is chess.<</dialog>>
+<<dialog "player">>I usually reply immediately.<</dialog>>
+<<dialog "neighborMia">>It shows. Too fast says 'I've got nothing going on.' Too slow says 'I don't care.' You gotta hit the sweet spot.<</dialog>>
+
+<<narrative>>Her phone buzzed. Mia glanced at it and grinned.<</narrative>>
+
+<<dialog "neighborMia">>There it is. 'Are you busy?' See? Works every time.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was standing at the corner, gathering her hair up. When she saw you she let it drop back over her shoulders.<</narrative>>
+
+<<dialog "neighborMia">>Do you think a girl should text a guy first?<</dialog>>
+<<dialog "player">>Why not?<</dialog>>
+<<dialog "neighborMia">>In theory, sure. But in practice you're at a disadvantage. The other side immediately labels you 'easy.'<</dialog>>
+<<dialog "player">>Not everyone thinks like that.<</dialog>>
+<<dialog "neighborMia">>Maybe not, but it's not worth the risk. I leave the door cracked open. A look, a smile, a little hint in a story… the rest is on him. If he's got the nerve, he'll walk through.<</dialog>>
+<<dialog "player">>Have you never made the first move?<</dialog>>
+<<dialog "neighborMia">>Once. The guy crowned himself king on the spot. Never again.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "fashion": [
+            {
+                text: `<<narrative "Maplewood">>Mia appeared around the corner in a new dress. She spotted you and did a little spin.<</narrative>>
+
+<<dialog "neighborMia">>Well? I got this yesterday, caught it on sale.<</dialog>>
+<<dialog "player">>Wow, that looks great on you. What did your mom say?<</dialog>>
+<<dialog "neighborMia">>'Too short.' She says the same thing every time. Short means not boring. They don't get it.<</dialog>>
+<<dialog "player">>Where are you going to wear it?<</dialog>>
+<<dialog "neighborMia">>Maybe somewhere, maybe just for myself. Do you need an excuse to feel good?<</dialog>>
+<<dialog "player">>No, you don't.<</dialog>>
+<<dialog "neighborMia">>Also, look at this necklace. Small, but it pulls the eye to the right place. Anyway, it's the small things. That's what people actually notice.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was leaning against a mailbox, staring at a screenshot on her phone. Someone's outfit photo.<</narrative>>
+
+<<dialog "neighborMia">>Look at this. My friend wore this last night. That color does not work on her skin. I told her, but she didn't listen.<</dialog>>
+<<dialog "player">>I think it looks fine actually.<</dialog>>
+<<dialog "neighborMia">>Fine isn't enough. It has to be right. Skin tone, hair, body type… you think about all of it. If the outfit doesn't fit you, it's wearing you, not the other way around.<</dialog>>
+<<dialog "player">>Do you really think that hard about getting dressed?<</dialog>>
+<<dialog "neighborMia">>Every morning. I stand in front of the mirror and think, what do I want to project today? Relaxed? Sharp? Untouchable? Then I pick accordingly.<</dialog>>
+<<dialog "player">>I just grab the first thing in my closet.<</dialog>>
+<<dialog "neighborMia">>It shows. But we'll fix that, don't worry.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "neighborhood_gossip": [
+            {
+                text: `<<narrative "Maplewood">>Mia held up her phone, the neighborhood group chat filling the screen.<</narrative>>
+
+<<dialog "neighborMia">>Look at this. Another dog fight broke out in the group.<</dialog>>
+<<dialog "player">>What dog fight?<</dialog>>
+<<dialog "neighborMia">>That lady on the corner complained again. 'Your dog is pooping in my yard.' And the guy replied 'prove it.'<</dialog>>
+<<dialog "player">>Are they seriously this worked up about it?<</dialog>>
+<<dialog "neighborMia">>She posted a photo. Caught the dog right in the act.<</dialog>>
+<<dialog "player">>No way! I would've left that group by now.<</dialog>>
+<<dialog "neighborMia">>Don't leave, it's the best entertainment around. I grab popcorn and just scroll sometimes.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia appeared on the sidewalk, earbuds around her neck but no music playing.<</narrative>>
+
+<<dialog "neighborMia">>I wear these so people don't talk to me. But I have something to tell you.<</dialog>>
+<<dialog "player">>What happened now?<</dialog>>
+<<dialog "neighborMia">>You know the neighbor's son? The quiet one? He came home with two girls last night.<</dialog>>
+<<dialog "player">>Two girls?<</dialog>>
+<<dialog "neighborMia">>Yeah. They showed up at two in the morning, left at eight. I was on the balcony both times.<</dialog>>
+<<dialog "player">>Do you even sleep?<</dialog>>
+<<dialog "neighborMia">>I stay up late. But good thing I do, otherwise I'd miss all of this.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "family": [
+            {
+                text: `<<narrative "Maplewood">>Mia waved at you from up the street. She had a small bag in her hand.<</narrative>>
+
+<<dialog "neighborMia">>I got something for my mom. Her birthday's coming up, figured I'd get ahead of it.<</dialog>>
+<<dialog "player">>Oh nice, what'd you get?<</dialog>>
+<<dialog "neighborMia">>A necklace. She loves jewelry but never buys any for herself. Always says 'waste of money.' Dad buys it, she complains first, then wears it.<</dialog>>
+<<dialog "player">>Classic.<</dialog>>
+<<dialog "neighborMia">>Totally. But anything besides a necklace is impossible to please her with. Last year I got her perfume. 'Too strong.' Year before that, a bag. 'Too big.'<</dialog>>
+<<dialog "player">>Tough woman.<</dialog>>
+<<dialog "neighborMia">>Not tough. Specific. She takes after me. Or I take after her. Not sure which is worse.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "exes": [
+            {
+                text: `<<narrative "Maplewood">>You spotted Mia from half a block away. Something about her walk was off, slower than usual. When she got closer you saw the strange smile on her face.<</narrative>>
+
+<<dialog "neighborMia">>I just saw my ex's new girlfriend online. Had to look, obviously.<</dialog>>
+<<dialog "player">>What's she like?<</dialog>>
+<<dialog "neighborMia">>My exact opposite. Quiet, calm, reads books. The anti-me.<</dialog>>
+<<dialog "player">>Did that bother you?<</dialog>>
+<<dialog "neighborMia">>It didn't bother me. I was entertained, actually. He clearly decided 'okay, time for someone calm.' Understandable. Being with me isn't for everyone.<</dialog>>
+<<dialog "player">>You say that with pride?<</dialog>>
+<<dialog "neighborMia">>Of course. He'll be telling the next girl about me. They always do.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ]
+    },
+
+    "sunsetPark_common_afternoon": {
+
+        "university_struggle": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was sitting on the grass, a book in her lap but closed. She scooted over to make room when she saw you.<</narrative>>
+
+<<dialog "neighborMia">>I was going to study but the sun is too nice. Between a book and sunshine, sunshine always wins.<</dialog>>
+<<dialog "player">>Is that a textbook?<</dialog>>
+<<dialog "neighborMia">>Yeah. 'Introduction to Media Theory.' They call it an introduction but this intro never ends. Four years of my life for a piece of paper at the end.<</dialog>>
+<<dialog "player">>Do you at least like your major?<</dialog>>
+<<dialog "neighborMia">>The classes are a zero. But there's this guy on campus, sits in the front row every lecture. Glasses, quiet type. I go sometimes just because of him.<</dialog>>
+<<dialog "player">>Have you talked to him?<</dialog>>
+<<dialog "neighborMia">>No. Watching from a distance is better. Once you talk, the spell breaks.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "friend_circle": [
+            {
+                text: `<<narrative "Sunset Park">>You heard Mia's laugh before you saw her. She was cross-legged on the grass, scrolling through a crowded group photo on her phone.<</narrative>>
+
+<<dialog "player">>Who are all those people? That's a big crew.<</dialog>>
+<<dialog "neighborMia">>Looks big but my real friends are three people. The rest are scene friends.<</dialog>>
+<<dialog "player">>What's the difference?<</dialog>>
+<<dialog "neighborMia">>A real friend picks up at 3 AM. A scene friend only shows up when it's fun. The second things go wrong they all vanish.<</dialog>>
+<<dialog "player">>I don't even know that many people here yet.<</dialog>>
+<<dialog "neighborMia">>Know few but know right. The more friends you collect, the more knives end up in your back. I learned that lesson early.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "flirt_strategy": [
+            {
+                text: `<<narrative "Sunset Park">>A familiar perfume, something sweet and sharp, hit you before you spotted Mia leaning against the park railing, phone angled away from the sun.<</narrative>>
+
+<<dialog "player">>Who are you stalking now?<</dialog>>
+<<dialog "neighborMia">>Not stalking, research. I check everything before meeting someone.<</dialog>>
+<<dialog "player">>Isn't that a bit much?<</dialog>>
+<<dialog "neighborMia">>Call it what you want. I call it due diligence. Just look at the photos he likes. Is he into athletes? Model types? Or is he always liking the same girl?<</dialog>>
+<<dialog "player">>What if it's always the same girl?<</dialog>>
+<<dialog "neighborMia">>Then he's either obsessed or can't get over his ex. Both are red flags. Instant cut.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "fashion": [
+            {
+                text: `<<narrative "Sunset Park">>From across the path you caught Mia's silhouette: legs stretched on the grass, back against a tree trunk, scrolling through an online store on her phone. She waved you over.<</narrative>>
+
+<<dialog "player">>Shopping again?<</dialog>>
+<<dialog "neighborMia">>Looking isn't shopping. As long as I don't buy, it's free.<</dialog>>
+<<dialog "player">>Find anything good at least?<</dialog>>
+<<dialog "neighborMia">>There's a bag but the price is insane. So I thought, let me check secondhand. Vintage stores sometimes have pieces better than the original.<</dialog>>
+<<dialog "player">>You'd wear secondhand? I'm surprised.<</dialog>>
+<<dialog "neighborMia">>Does everyone have to buy new? Wearing a piece nobody else can find beats wearing the same thing as everyone else from the mall.<</dialog>>
+<<dialog "player">>I never thought about it like that.<</dialog>>
+<<dialog "neighborMia">>You don't need money for style. You need eyes. If you know how to look, you find it anywhere.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "social_media": [
+            {
+                text: `<<narrative "Sunset Park">>You spotted Mia near the fountain, perched on the stone edge, holding her phone at arm's length and swiping between filters.<</narrative>>
+
+<<dialog "neighborMia">>Okay, help me out. Which filter is better? This one or this one?<</dialog>>
+<<dialog "player">>Honestly, they look the same to me.<</dialog>>
+<<dialog "neighborMia">>They're not. This one's warmer, softens my face. That one's sharper, brings out the jawline. Depends on the goal.<</dialog>>
+<<dialog "player">>What's the goal? Who are you trying to impress?<</dialog>>
+<<dialog "neighborMia">>If you want 'beautiful and untouchable,' cold filter. If you want 'warm and approachable,' this one. Fotogram is strategy.<</dialog>>
+<<dialog "player">>I've been posting without thinking about any of this. Maybe that's why nobody reacts.<</dialog>>
+<<dialog "neighborMia">>See? You figured it out yourself. You're not dumb, you just weren't paying attention. Now you will.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "campus_guys": [
+            {
+                text: `<<narrative "Sunset Park">>Mia's voice carried from behind a row of hedges. You found her on a low stone wall, legs crossed, sunglasses hiding whatever she was watching.<</narrative>>
+
+<<dialog "neighborMia">>The other day I was in the library, this guy came and sat right across from me. Said 'is this seat taken?' The whole library was empty.<</dialog>>
+<<dialog "player">>Maybe he just liked that spot?<</dialog>>
+<<dialog "neighborMia">>You're sweet. No. If the whole place is empty and he sits right in front of you, he likes you. Learn that.<</dialog>>
+<<dialog "player">>I would've never caught that. What happened next?<</dialog>>
+<<dialog "neighborMia">>We sat in silence for half an hour. But his eyes weren't silent. He kept looking at me, pretending to turn pages but not reading a thing. When he got up he said 'can I get your number?'<</dialog>>
+<<dialog "player">>Without even talking first?<</dialog>>
+<<dialog "neighborMia">>Without a single word. Shameless, but I liked it. Courage should be rewarded.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "neighborhood_gossip": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was walking through the park. She stopped when she saw you and leaned on your shoulder.<</narrative>>
+
+<<dialog "neighborMia">>I've got a bomb. But you're not telling anyone.<</dialog>>
+<<dialog "player">>I won't. Tell me.<</dialog>>
+<<dialog "neighborMia">>You know that woman on the back street? The one who does yoga? She was spotted at a cafe with her husband's best friend.<</dialog>>
+<<dialog "player">>Maybe they were just having coffee?<</dialog>>
+<<dialog "neighborMia">>They weren't sitting across from each other. They were side by side, knees touching. That's not 'just coffee.'<</dialog>>
+<<dialog "player">>Wow. How did you find out?<</dialog>>
+<<dialog "neighborMia">>My friend saw them, sent me a photo. And now I'm telling you. That's how the cycle works.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "family": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was lying on the grass, eyes closed, soaking up the sun. She opened them when you sat down.<</narrative>>
+
+<<dialog "player">>Any family stuff today? You mentioned your mom yesterday.<</dialog>>
+<<dialog "neighborMia">>Sunday dinner. Mandatory ritual. Everyone sits at the table for the 'how was your day' talk.<</dialog>>
+<<dialog "player">>Is it that bad? Sounds like a nice tradition to me.<</dialog>>
+<<dialog "neighborMia">>First half hour is fine. Then my mom starts the interrogation. School, grades, are you seeing anyone… Dinner turns into a deposition.<</dialog>>
+<<dialog "player">>Does your dad join the questioning?<</dialog>>
+<<dialog "neighborMia">>Dad eats quietly, smiles now and then. When mom gets heated he cracks a joke, things calm down. That's how the system works.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "exes": [
+            {
+                text: `<<narrative "Sunset Park">>You noticed Mia from a distance, sitting under the big oak tree, knees drawn up, phone close to her face. She closed the screen the moment she realized you were there.<</narrative>>
+
+<<dialog "player">>Were you looking at old photos? I saw that.<</dialog>>
+<<dialog "neighborMia">>Caught me. A vacation photo from my ex popped up.<</dialog>>
+<<dialog "player">>Was it at least a good trip?<</dialog>>
+<<dialog "neighborMia">>The trip was great, the guy wasn't. I'm standing next to him in a bikini on the beach and he's checking match scores on his phone.<</dialog>>
+<<dialog "player">>No way. Seriously?<</dialog>>
+<<dialog "neighborMia">>Hundred percent. That's when I knew it was over for me. Why waste time on someone who doesn't even look at you?<</dialog>>
+<<dialog "player">>Fair point.<</dialog>>
+<<dialog "neighborMia">>I'm always right. I just figure it out late sometimes.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ]
+    },
+
+    "sunsetPark_common_evening": {
+
+        "university_struggle": [
+            {
+                text: `<<narrative "Sunset Park">>You found Mia near the park entrance, leaning against the iron fence, scrolling through her phone. When you got close enough, you could see the university portal open on her screen.<</narrative>>
+
+<<dialog "neighborMia">>Got an email from my professor. 'Your attendance is low, please be mindful.' My attendance is low because the class is low.<</dialog>>
+<<dialog "player">>Think it'll be a problem?<</dialog>>
+<<dialog "neighborMia">>Nah. I'll pull it together by the end of the semester. Same thing happened last year, I passed.<</dialog>>
+<<dialog "player">>How did you pass without going?<</dialog>>
+<<dialog "neighborMia">>You grab someone's notes before the exam, cram one night, pass. The system allows it. I'm not the criminal here.<</dialog>>
+<<dialog "player">>I'm kind of jealous of how relaxed you are sometimes.<</dialog>>
+<<dialog "neighborMia">>I'm not relaxed. I just refuse to stress. Those are different things.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "future_plans": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was sitting on a bench, watching the sunset. She looked unusually thoughtful.<</narrative>>
+
+<<dialog "neighborMia">>I'm in a weird mood today. Thinking about the future literally makes me nauseous.<</dialog>>
+<<dialog "player">>Why? Did something happen?<</dialog>>
+<<dialog "neighborMia">>Nothing happened, that's the problem. Everyone's chasing some plan, and I still don't even know what I want.<</dialog>>
+<<dialog "player">>What are you going to do after university for example?<</dialog>>
+<<dialog "neighborMia">>Live in a big city. Somewhere nobody knows me, where I can start from scratch. Here, everyone knows everything about me. I'm suffocating.<</dialog>>
+<<dialog "player">>So like… running away?<</dialog>>
+<<dialog "neighborMia">>Not running away… starting over. Maybe becoming someone different.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "daddy_money": [
+            {
+                text: `<<narrative "Sunset Park">>A deep sigh reached you from behind the hedge. You peeked around it — Mia was sitting on the grass, staring at her banking app with the look of someone reading a death sentence.<</narrative>>
+
+<<dialog "neighborMia">>I went way over this month. My dad would have a heart attack if he saw this.<</dialog>>
+<<dialog "player">>How much did you spend?<</dialog>>
+<<dialog "neighborMia">>Better if I don't say. New shoes, a couple nights out… it adds up.<</dialog>>
+<<dialog "player">>Just tell him. He'll be mad but at least you're honest.<</dialog>>
+<<dialog "neighborMia">>Honesty doesn't pay the bills. If I tell him he'll cut me off. Keeping quiet is smarter.<</dialog>>
+<<dialog "player">>Wouldn't it be easier if you had your own money?<</dialog>>
+<<dialog "neighborMia">>Obviously. But for now the system works. And I'm not about to break it.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "nightlife": [
+            {
+                text: `<<narrative "Sunset Park">>Music drifted toward you — faint, tinny, from earbuds turned up too loud. You followed the sound and found Mia stretched out on the grass in the fading light, eyes closed, one foot tapping the air.<</narrative>>
+
+<<dialog "player">>What are you listening to? I can hear it from here.<</dialog>>
+<<dialog "neighborMia">>A song from the last place I went to. I Shazam'd it. Every time I hear it that whole night comes back.<</dialog>>
+<<dialog "player">>You're crazy. You're still thinking about that night?<</dialog>>
+<<dialog "neighborMia">>I danced, met a bunch of people, and this one guy came up and just started dancing with me. No words, no introduction, just movement. Sometimes words are unnecessary.<</dialog>>
+<<dialog "player">>Then what happened?<</dialog>>
+<<dialog "neighborMia">>Song ended, we looked at each other, laughed, and walked away. That was it. But that moment was enough.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "flirt_strategy": [
+            {
+                text: `<<narrative "Sunset Park">>The glow of a phone screen caught your eye in the dimming park. Mia was curled up on a blanket on the grass, smiling, typing something, then deleting it, then typing again.<</narrative>>
+
+<<dialog "player">>What are you doing? You keep writing and erasing…<</dialog>>
+<<dialog "neighborMia">>Adjusting the tone. I'm figuring out how to reply to this guy. Too warm and he stops chasing. Too cold and he bolts.<</dialog>>
+<<dialog "player">>Do you really calculate every single text like this?<</dialog>>
+<<dialog "neighborMia">>The first few weeks, yes. That's when you set the rules. After that it's almost impossible to change them.<</dialog>>
+<<dialog "player">>Is flirting really this exhausting?<</dialog>>
+<<dialog "neighborMia">>Exhausting? Only if you're bad at it. Start as equals and it stays equal. Slip below and good luck climbing back up.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "fashion": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was leaving the park when she spotted you. A new bracelet on her wrist caught the evening light.<</narrative>>
+
+<<dialog "player">>Is that bracelet new? I haven't seen it before.<</dialog>>
+<<dialog "neighborMia">>Sharp eye. Got it last week. Thin, elegant. Doesn't scream but gets noticed.<</dialog>>
+<<dialog "player">>Was it expensive?<</dialog>>
+<<dialog "neighborMia">>Wasn't cheap. But I noticed something. The right accessory and guys' eyes go straight to that spot. Bracelet, ring, necklace… it's all strategy.<</dialog>>
+<<dialog "player">>So you even think about that when picking accessories?<</dialog>>
+<<dialog "neighborMia">>I don't know, I just like thinking about these things. Makes getting dressed more fun.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "social_media": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was taking a selfie in the golden evening light, tossing her hair to one side and adjusting the angle.<</narrative>>
+
+<<dialog "player">>You're going to look amazing in this light, good call.<</dialog>>
+<<dialog "neighborMia">>Golden hour. Best selfie lighting of the year. I never miss this.<</dialog>>
+<<dialog "player">>How many followers do you have? I'm curious now.<</dialog>>
+<<dialog "neighborMia">>I don't care about the number. I care about who's watching. There's this one guy who likes every post within five minutes. Every. Single. Time.<</dialog>>
+<<dialog "player">>Every time? Did this guy turn on notifications for you or something?<</dialog>>
+<<dialog "neighborMia">>Probably. If he had something going on, a good walk, nice hands, anything, I'd be flattered. But he's got nothing, so it's… a bit much. Life isn't fair, but I didn't make the rules.<</dialog>>
+<<dialog "player">>That's harsh.<</dialog>>
+<<dialog "neighborMia">>You think I'm harsh but everyone thinks this way. I just say it out loud.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "campus_guys": [
+            {
+                text: `<<narrative "Sunset Park">>The evening light was settling over the park. Mia was lying on the grass, eyes half-closed. She sat up when she saw you.<</narrative>>
+
+<<dialog "neighborMia">>I saw a guy on campus today. Never seen him before. Must be new.<</dialog>>
+<<dialog "player">>What was he like?<</dialog>>
+<<dialog "neighborMia">>Tall, messy hair, his shirt was a little tight, intentionally tight, the kind you put on knowing it's tight. God. I watched him walk and I couldn't look away. I needed to turn but my neck wouldn't let me.<</dialog>>
+<<dialog "player">>Are you insane? One look and you're gone?<</dialog>>
+<<dialog "neighborMia">>One look is all I need. You can tell from the energy, the walk, the voice. Sometimes you don't even need to talk.<</dialog>>
+<<dialog "player">>Did you at least try talking to him?<</dialog>>
+<<dialog "neighborMia">>Not yet. But campus is small. We'll cross paths. And when we do, I'll be ready.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "neighborhood_gossip": [
+            {
+                text: `<<narrative "Sunset Park">>The evening light painted the park in warm orange tones. Mia was sitting on a bench, scrolling through her phone. You sat down next to her.<</narrative>>
+
+<<dialog "neighborMia">>Perfect timing. I need to show you something.<</dialog>>
+<<dialog "player">>What is it?<</dialog>>
+
+<<narrative>>She opened a screenshot on her phone — a message thread from the neighborhood group.<</narrative>>
+
+<<dialog "neighborMia">>You know that guy downstairs? The one who goes jogging every morning? His wife posted in the group, 'does anyone know where my husband goes in the evenings?'<</dialog>>
+<<dialog "player">>She wrote that in the group? In front of everyone?<</dialog>>
+<<dialog "neighborMia">>Yep. She's either very brave or very angry. Both are dangerous.<</dialog>>
+<<dialog "player">>That's rough. Did anyone reply?<</dialog>>
+<<dialog "neighborMia">>Nobody replied but everybody read it. You know this neighborhood. They watch in silence, then talk behind closed doors.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "family": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was sitting alone in the park, her phone face-down on the table.<</narrative>>
+
+<<dialog "player">>You put your phone face-down. That's a red flag coming from you.<</dialog>>
+<<dialog "neighborMia">>Just talked to my dad. He rarely calls, and when he does there's always a reason.<</dialog>>
+<<dialog "player">>Did something bad happen?<</dialog>>
+<<dialog "neighborMia">>No… he just said 'How are you, sweetheart?' That's it. But when my dad talks like that, something feels off.<</dialog>>
+<<dialog "player">>Maybe he genuinely just wanted to check in.<</dialog>>
+<<dialog "neighborMia">>Maybe. We're good, me and my dad. But good from a distance. When we're together we sometimes don't know what to say. The love is there, the words aren't.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "exes": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was walking through the park alone. She looked a bit lost in thought.<</narrative>>
+
+<<dialog "player">>You seem distracted today. Everything okay?<</dialog>>
+<<dialog "neighborMia">>I'm fine. Just remembered it's my first serious ex's birthday today.<</dialog>>
+<<dialog "player">>Are you going to wish him happy birthday?<</dialog>>
+<<dialog "neighborMia">>No. But it's weird, right? You still remember someone's birthday even though they're not in your life anymore.<</dialog>>
+<<dialog "player">>Why did it end?<</dialog>>
+<<dialog "neighborMia">>We were both stubborn. When we fought, neither of us would apologize. The silence stretched so long there was nothing left to say.<</dialog>>
+<<dialog "player">>That's sad, actually.<</dialog>>
+<<dialog "neighborMia">>Yeah. I know. Anyway, I'm not texting him. Let's talk about something else.<</dialog>>
+
+<<dialog "neighborMia">>I keep telling my stories. What about you? Have you ever been in a relationship? A boyfriend or anything?<</dialog>>
+
+<div class="location-actions">
+<<btn "Yeah, once.">>
+    <<replace "#miaQ_relationship">>
+<<dialog "player">>Yeah, once.<</dialog>>
+<<dialog "neighborMia">>Hmm! How did it end? Did you end it or did he? Now I'm curious.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_had_relationship" "yes" "personal" "Mia asked if player had a relationship">>
+<</btn>>
+<<btn "No, never.">>
+    <<replace "#miaQ_relationship">>
+<<dialog "player">>No, I've never had a boyfriend.<</dialog>>
+<<dialog "neighborMia">>Wow. But that's not a bad thing. When your first relationship comes it's going to be intense. Be ready.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_had_relationship" "no" "personal" "Mia asked if player had a relationship">>
+<</btn>>
+<<btn "I'm not sure if it counted.">>
+    <<replace "#miaQ_relationship">>
+<<dialog "player">>Something happened but I don't know if it was a relationship.<</dialog>>
+<<dialog "neighborMia">>That grey zone. If neither of you defined it, it wasn't a relationship. But you felt something, that's for sure.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_had_relationship" "unsure" "personal" "Mia asked if player had a relationship">>
+<</btn>>
+</div>
+<span id="miaQ_relationship"></span>`,
+                friendship: 1, trust: 1, love: 0, lust: 0,
+                skipIfRemembered: "player_had_relationship"
+            }
+        ]
+    }
+
+}>>
+<</nobr>>

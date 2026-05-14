@@ -1,0 +1,515 @@
+<<nobr>>
+<<set setup.miaTopics = setup.miaTopics || {}>>
+<<set setup.miaTopics.common = setup.miaTopics.common || {}>>
+<<set setup.miaTopics.common.level1extra = {
+
+    "maplewood_common_morning": {
+
+        "guys_slept_with": [
+            {
+                text: `<<narrative "Maplewood">>Mia was walking down the sidewalk when she spotted you. Her hair was messy and she was holding a huge coffee.<</narrative>>
+
+<<dialog "neighborMia">>Got home at dawn last night. Don't ask.<</dialog>>
+<<dialog "player">>Oh I'm asking. What happened?<</dialog>>
+<<dialog "neighborMia">>Met a guy at the club. Dancing, talking, one thing led to another.<</dialog>>
+<<dialog "player">>That fast?<</dialog>>
+<<dialog "neighborMia">>It's not speed, it's chemistry. Some people you just know from the look. He knew, I knew.<</dialog>>
+<<dialog "player">>So what was he like?<</dialog>>
+<<dialog "neighborMia">>Broad shoulders, really nice hands. And most importantly, he listened. A man who listens in bed is worth his weight in gold.<</dialog>>
+<<dialog "player">>Listens? In bed?<</dialog>>
+<<dialog "neighborMia">>Yeah. Asks what you want, watches your reactions. Most guys only focus on themselves. This one was different.<</dialog>>
+
+<<narrative>>Mia studied your face for a second, then her tone softened.<</narrative>>
+
+<<dialog "neighborMia">>I'm going on and on about my stuff. Let me ask you something simpler. Have you ever kissed anyone?<</dialog>>
+
+<div class="location-actions">
+<<btn "Yeah, it happened once.">>
+    <<replace "#miaQ_kiss">>
+<<dialog "player">>Yeah, it happened once.<</dialog>>
+<<dialog "neighborMia">>Ooh! How was it? Good or bad? First kisses are usually disasters. Mine definitely was.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_first_kiss" "yes" "personal" "Mia asked if player ever kissed someone">>
+<</btn>>
+<<btn "No, not yet.">>
+    <<replace "#miaQ_kiss">>
+<<dialog "player">>No, not yet.<</dialog>>
+<<dialog "neighborMia">>Seriously? Don't stress about it. It'll happen when it happens. And when it does, don't overthink it. Just let go.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_first_kiss" "no" "personal" "Mia asked if player ever kissed someone">>
+<</btn>>
+<<btn "I'd rather not say.">>
+    <<replace "#miaQ_kiss">>
+<<dialog "player">>Can we skip this one?<</dialog>>
+<<dialog "neighborMia">>Okay okay, I won't push. But you'll tell me one day, I know it.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_first_kiss" "skip" "personal" "Mia asked if player ever kissed someone">>
+<</btn>>
+</div>
+<span id="miaQ_kiss"></span>`,
+                friendship: 1, trust: 1, love: 0, lust: 1,
+                skipIfRemembered: "player_first_kiss"
+            }
+        ],
+
+        "dilf": [
+            {
+                text: `<<narrative "Maplewood">>Mia was heading toward you. Her phone was in her pocket but her mind was somewhere else.<</narrative>>
+
+<<dialog "neighborMia">>Saw a guy at the grocery store yesterday. Forties, grey coming in, shirt sleeves rolled up. Almost talked to him.<</dialog>>
+<<dialog "player">>You? Hesitated?<</dialog>>
+<<dialog "neighborMia">>Didn't hesitate, the timing was off. His wife was right there. But that body under the shirt… he definitely works out.<</dialog>>
+<<dialog "player">>Why are you so into older guys?<</dialog>>
+<<dialog "neighborMia">>They've got nothing to prove. Young guys are always showing off, trying to get attention. A mature man sits quietly and the attention comes to him.<</dialog>>
+<<dialog "player">>So it's a confidence thing.<</dialog>>
+<<dialog "neighborMia">>Confidence and experience. Put those two together and I can't resist.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was having her coffee on the way when you ran into each other. She looked cheerful.<</narrative>>
+
+<<dialog "player">>You're in a good mood today. What happened?<</dialog>>
+<<dialog "neighborMia">>There was a guy at the coffee shop. Mid-forties, glasses, reading a book. I watched him for five minutes.<</dialog>>
+<<dialog "player">>He didn't notice?<</dialog>>
+<<dialog "neighborMia">>He noticed. He smiled. That smile… something young guys don't have. A look that says 'I see you, no rush.'<</dialog>>
+<<dialog "player">>Did you at least talk to him?<</dialog>>
+<<dialog "neighborMia">>No. But I'm going back tomorrow at the same time. Routine people are predictable. He'll be there.<</dialog>>
+<<dialog "player">>Are you a stalker?<</dialog>>
+<<dialog "neighborMia">>Not a stalker, a strategist. I prefer the other side to make the first move. But I'll be on the field.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 1
+            }
+        ],
+
+        "sugar_daddy_hints": [
+            {
+                text: `<<narrative "Maplewood">>Mia was coming toward you with an expensive-looking coffee. The logo on the cup was from a cafe you didn't recognize.<</narrative>>
+
+<<dialog "neighborMia">>This coffee was twelve dollars. Twelve dollars for a coffee.<</dialog>>
+<<dialog "player">>Did you pay for that?<</dialog>>
+<<dialog "neighborMia">>Me? No. Someone took me there, paid for the coffee, paid for the ride too.<</dialog>>
+<<dialog "player">>Who? Your boyfriend?<</dialog>>
+<<dialog "neighborMia">>Not a boyfriend. An older guy, calm, generous. We hang out sometimes, he pays.<</dialog>>
+<<dialog "player">>Isn't that weird?<</dialog>>
+<<dialog "neighborMia">>Two adults spending time together. He picks up every tab, sent me a perfume last week out of nowhere. It's a nice arrangement.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was laughing at her phone. She closed the screen when she saw you but the smile stayed.<</narrative>>
+
+<<dialog "player">>Who's making you laugh this early?<</dialog>>
+<<dialog "neighborMia">>A friend. He's asking 'want to go somewhere this weekend?' Sent a luxury hotel.<</dialog>>
+<<dialog "player">>Your friend wants to take you to a luxury hotel?<</dialog>>
+<<dialog "neighborMia">>Yeah. We'll have a good time.<</dialog>>
+<<dialog "player">>But if he's always the one paying, what kind of friendship is that?<</dialog>>
+<<dialog "neighborMia">>Every relationship has a different balance. Some give money, some give time. What matters is both sides are happy.<</dialog>>
+<<dialog "player">>I don't get it, but you do you.<</dialog>>
+<<dialog "neighborMia">>The day I'm not happy, it ends. I've always been very clear about that.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 0
+            }
+        ],
+
+        "fwb": [
+            {
+                text: `<<narrative "Maplewood">>Mia was walking down the street with wet hair. She clearly hadn't come from home.<</narrative>>
+
+<<dialog "neighborMia">>My sleeping arrangements changed last night. Stayed at a friend's.<</dialog>>
+<<dialog "player">>A girl friend?<</dialog>>
+<<dialog "neighborMia">>A guy. But it's not what you think… well, it's exactly what you think actually.<</dialog>>
+<<dialog "player">>So you stayed at his place and…<</dialog>>
+<<dialog "neighborMia">>Yeah. We've known each other since first year. It happens sometimes, we both know the deal, nobody expects anything.<</dialog>>
+<<dialog "player">>Doesn't it get weird after?<</dialog>>
+<<dialog "neighborMia">>First time it's weird. After the second time it normalizes. By the third it's routine.<</dialog>>
+<<dialog "player">>Routine?<</dialog>>
+<<dialog "neighborMia">>Yeah. People want to romanticize everything. Sometimes sex is just sex. The friendship continues.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            }
+        ],
+
+        "club_bar_guys": [
+            {
+                text: `<<narrative "Maplewood">>Mia was walking down the street in sunglasses. She clearly had a rough night.<</narrative>>
+
+<<dialog "neighborMia">>There was a guy at the bar last night. Bought me a drink before even hitting the dance floor.<</dialog>>
+<<dialog "player">>Did you like him at least?<</dialog>>
+<<dialog "neighborMia">>He was cute but he couldn't dance. At all. Just swaying in place.<</dialog>>
+<<dialog "player">>Does everyone have to be a good dancer?<</dialog>>
+<<dialog "neighborMia">>They don't have to be, but a guy who can't dance usually has the same rhythm in bed. Proven by experience.<</dialog>>
+<<dialog "player">>You really figure that out from the dance floor?<</dialog>>
+<<dialog "neighborMia">>You learn a lot in the first five minutes. Dancing, eye contact, touch… the rest is guesswork.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was standing on the corner sipping her coffee. She waved when she saw you.<</narrative>>
+
+<<dialog "player">>Did you go out last night? I saw something on your social media.<</dialog>>
+<<dialog "neighborMia">>Yeah. Broke off from the group at one point.<</dialog>>
+<<dialog "player">>Why?<</dialog>>
+<<dialog "neighborMia">>A guy at the bar caught my eye. Calm, well-dressed, even his cologne was good.<</dialog>>
+<<dialog "player">>You noticed his cologne?<</dialog>>
+<<dialog "neighborMia">>Cologne is my first filter. A guy who smells bad gets cut even if he's gorgeous. This one passed.<</dialog>>
+<<dialog "player">>Did you talk?<</dialog>>
+<<dialog "neighborMia">>Had a drink, talked. Got his number. I'm in the research phase now.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 1
+            }
+        ]
+    },
+
+    "maplewood_common_afternoon": {
+
+        "guys_slept_with": [
+            {
+                text: `<<narrative "Maplewood">>Mia walked up to you with quick steps. She had a mischievous grin on her face.<</narrative>>
+
+<<dialog "neighborMia">>Something happened last night. I have to tell you.<</dialog>>
+<<dialog "player">>That grin says it all. Go ahead.<</dialog>>
+<<dialog "neighborMia">>Remember the guy I mentioned from the bar? It finally happened.<</dialog>>
+<<dialog "player">>Seriously? How was it?<</dialog>>
+<<dialog "neighborMia">>Started slow. Really slow. I was lying there thinking 'did I make a mistake.' Almost said something.<</dialog>>
+<<dialog "player">>But you didn't?<</dialog>>
+<<dialog "neighborMia">>No. Because then he shifted. Read the room, changed the energy. Not aggressive, not passive. Just… right. That balance is rare.<</dialog>>
+<<dialog "player">>Do you analyze it like this every time?<</dialog>>
+<<dialog "neighborMia">>Of course. You need standards to avoid bad experiences. I can tell from the first time now whether it's worth a repeat.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was walking down the street laughing at her phone. She flipped the screen toward you when you got close, a message thread.<</narrative>>
+
+<<dialog "player">>Who's that? There's a lot of emojis in that conversation.<</dialog>>
+<<dialog "neighborMia">>The guy I slept with last month. Still texting. 'Want to meet up again?' he says.<</dialog>>
+<<dialog "player">>Are you going to?<</dialog>>
+<<dialog "neighborMia">>Thinking about it. First time was good but if the excitement drops on the second round, it's a letdown. Sometimes the first impression is the best one.<</dialog>>
+<<dialog "player">>So it stays a one-time thing?<</dialog>>
+<<dialog "neighborMia">>Maybe. Some people get better with a repeat, some get worse. I don't want to risk a good memory.<</dialog>>
+<<dialog "player">>You're very calculated about this.<</dialog>>
+<<dialog "neighborMia">>Not calculated. Experienced. There's a difference.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 1
+            }
+        ],
+
+        "dilf": [
+            {
+                text: `<<narrative "Maplewood">>Mia was standing on the sidewalk, staring after someone. She hooked her arm through yours when she saw you.<</narrative>>
+
+<<dialog "neighborMia">>Did you see that guy? The one who just came out of the house on the corner.<</dialog>>
+<<dialog "player">>The one holding his kid?<</dialog>>
+<<dialog "neighborMia">>Yeah. Holding his kid with one hand, drinking coffee with the other. Those arms… fatherhood takes some men to a whole other level.<</dialog>>
+<<dialog "player">>Are you serious right now? The man has a child.<</dialog>>
+<<dialog "neighborMia">>Having a kid makes him more attractive. A man who carries responsibility has a weight to him. That weight is sexy.<</dialog>>
+<<dialog "player">>That's a dangerous way to look at things.<</dialog>>
+<<dialog "neighborMia">>Looking isn't dangerous. Touching is. I'm just looking. For now.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            }
+        ],
+
+        "sugar_daddy_hints": [
+            {
+                text: `<<narrative "Maplewood">>Mia was walking with a new bag. It didn't look cheap.<</narrative>>
+
+<<dialog "neighborMia">>Like it? Got it yesterday.<</dialog>>
+<<dialog "player">>Nice. But that's not a cheap brand. Did your dad get it?<</dialog>>
+<<dialog "neighborMia">>My dad's not that generous. Let's say a friend got it for me.<</dialog>>
+<<dialog "player">>What kind of friend buys you a bag?<</dialog>>
+<<dialog "neighborMia">>The kind that's well-meaning, well-off, and doesn't ask too many questions. Some people enjoy giving gifts. I don't say no.<</dialog>>
+<<dialog "player">>Isn't that a little weird?<</dialog>>
+<<dialog "neighborMia">>Why would it be weird? He's happy, I'm happy. Nobody's getting hurt.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "fwb": [
+            {
+                text: `<<narrative "Maplewood">>Mia put her phone away and turned to you. She had an easy smile.<</narrative>>
+
+<<dialog "neighborMia">>Just texted Jake. He's coming over tonight.<</dialog>>
+<<dialog "player">>Who's Jake? Someone new?<</dialog>>
+<<dialog "neighborMia">>Not new. We've been friends since high school. We hang out sometimes.<</dialog>>
+<<dialog "player">>Are you two dating?<</dialog>>
+<<dialog "neighborMia">>We're not dating. We're friends. But sometimes the friendship goes a little further.<</dialog>>
+<<dialog "player">>Wait… you're sleeping with your friend?<</dialog>>
+<<dialog "neighborMia">>Yeah. We both know, we both want it, no drama. Wake up, have coffee, carry on as normal.<</dialog>>
+<<dialog "player">>Isn't that weird?<</dialog>>
+<<dialog "neighborMia">>Why would it be? The rule is simple: no feelings, no possessiveness, when it's done you leave.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            },
+            {
+                text: `<<narrative "Maplewood">>Mia was walking down the sidewalk, glanced at her phone and typed something fast. She put it down when she saw you.<</narrative>>
+
+<<dialog "player">>Who are you texting so fast?<</dialog>>
+<<dialog "neighborMia">>A friend. Asking if I'm free tonight.<</dialog>>
+<<dialog "player">>A friend? Why's he asking if you're available?<</dialog>>
+<<dialog "neighborMia">>Because that's what we do. If we're both free, we hang out. If not, no hard feelings.<</dialog>>
+<<dialog "player">>Hang out? Or…<</dialog>>
+<<dialog "neighborMia">>Or. Yeah. He's my age, we get along, and sometimes it goes further. No label, no drama.<</dialog>>
+<<dialog "player">>Don't feelings get in the way?<</dialog>>
+<<dialog "neighborMia">>If they do, it ends. That's the rule. The moment someone says 'I love you,' everything breaks.<</dialog>>
+<<dialog "player">>Is it really that easy?<</dialog>>
+<<dialog "neighborMia">>It's not easy. But being honest makes it easier.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 1
+            }
+        ],
+
+        "club_bar_guys": [
+            {
+                text: `<<narrative "Maplewood">>Mia was walking toward you, waving her phone. A number was on the screen.<</narrative>>
+
+<<dialog "neighborMia">>Some guy wrote his number on a napkin last night. Who still does that?<</dialog>>
+<<dialog "player">>That's kind of romantic actually.<</dialog>>
+<<dialog "neighborMia">>You call that romantic? The napkin was crumpled, the handwriting was barely legible. Took me three tries to get the right number.<</dialog>>
+<<dialog "player">>Did you find it?<</dialog>>
+<<dialog "neighborMia">>Found it. Texted him. No reply. Either he gave a fake number or lost his nerve.<</dialog>>
+<<dialog "player">>Maybe he's embarrassed.<</dialog>>
+<<dialog "neighborMia">>Giving your number and then going silent isn't shyness, it's wasting my time. Be brave at the bar, disappear on the phone. I don't get these types.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ]
+    },
+
+    "sunsetPark_common_afternoon": {
+
+        "guys_slept_with": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was lying on the grass, sunglasses pushed up on her forehead. She waved when she saw you.<</narrative>>
+
+<<dialog "neighborMia">>Can I ask you something? What do you think is the most important thing in bed?<</dialog>>
+<<dialog "player">>Where did that come from?<</dialog>>
+<<dialog "neighborMia">>Was debating it with friends yesterday. Some said body, some said technique. I disagree with both.<</dialog>>
+<<dialog "player">>What do you think?<</dialog>>
+<<dialog "neighborMia">>Attention. Someone who truly pays attention to you does everything right. Even if their body isn't perfect, you don't notice. But without attention, you'll be bored even with the hottest guy alive.<</dialog>>
+<<dialog "player">>That actually makes sense.<</dialog>>
+<<dialog "neighborMia">>Proven by experience. The best on my list wasn't the best-looking one. He was the most attentive.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            }
+        ],
+
+        "dilf": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was lying on the grass, looking at something on her phone. She flipped the screen toward you.<</narrative>>
+
+<<dialog "neighborMia">>Look at this guy. My friend sent it. He went to his daughter's graduation in a suit.<</dialog>>
+<<dialog "player">>That's… someone's dad?<</dialog>>
+<<dialog "neighborMia">>Yes. And looking that good at that age in that suit should be illegal.<</dialog>>
+<<dialog "player">>You're looking at someone's father saying 'lucky girl'?<</dialog>>
+<<dialog "neighborMia">>Yes. Age is just a number. Charisma comes with age. Charismatic men in their twenties are rare.<</dialog>>
+<<dialog "player">>If you say this to someone you'll get a reaction.<</dialog>>
+<<dialog "neighborMia">>I already do. Don't care. I'm not ashamed of saying what I like.<</dialog>>`,
+                friendship: 1, trust: 0, love: 0, lust: 1
+            }
+        ],
+
+        "sugar_daddy_hints": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was lying on the grass, sunbathing. There was a new watch on her wrist.<</narrative>>
+
+<<dialog "player">>Is that watch new? I haven't seen it before.<</dialog>>
+<<dialog "neighborMia">>A gift. No special occasion, someone just wanted to give it.<</dialog>>
+<<dialog "player">>Who's buying you gifts like that?<</dialog>>
+<<dialog "neighborMia">>Not family. Some people buy gifts for people they care about. That's just how this guy shows it.<</dialog>>
+<<dialog "player">>Wait… you accepted a watch from a guy? Something that expensive?<</dialog>>
+<<dialog "neighborMia">>Why wouldn't I? I draw the line. When I'm uncomfortable, it's over.<</dialog>>
+<<dialog "player">>So what do you give him?<</dialog>>
+<<dialog "neighborMia">>My time. And my time isn't cheap either.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "fwb": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was lying on the grass, playing with her phone. She looked at you with a smile.<</narrative>>
+
+<<dialog "neighborMia">>Do you think it's possible to stay friends with a guy and sleep with him at the same time?<</dialog>>
+<<dialog "player">>I don't know. Someone always catches feelings eventually.<</dialog>>
+<<dialog "neighborMia">>Everyone says that. But I've been doing it with someone for two years and neither of us has felt a thing.<</dialog>>
+<<dialog "player">>Two years? Are you sure?<</dialog>>
+<<dialog "neighborMia">>Sure. Because we have rules. No texts on Valentine's, no birthday gifts, no obligation to say if you're seeing someone else.<</dialog>>
+<<dialog "player">>That sounds like a lot of rules.<</dialog>>
+<<dialog "neighborMia">>Without rules, feelings creep in. When feelings creep in, the friendship dies. I don't want to lose my friend.<</dialog>>
+
+<<dialog "neighborMia">>What about you? Got anything like that? A fantasy, something you've imagined but never done?<</dialog>>
+
+<div class="location-actions">
+<<btn "Yeah, but I won't say.">>
+    <<replace "#miaQ_fantasy">>
+<<dialog "player">>I do actually… but I'm not saying.<</dialog>>
+<<dialog "neighborMia">>Even without telling, it's written all over your face. One day you'll tell me. I won't judge, promise.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_has_fantasy" "yes_secret" "personal" "Mia asked if player has a fantasy">>
+<</btn>>
+<<btn "No, not really.">>
+    <<replace "#miaQ_fantasy">>
+<<dialog "player">>No, I've never really thought about stuff like that.<</dialog>>
+<<dialog "neighborMia">>You haven't thought about it yet, but one day something will pop into your head. Everyone has something. You just haven't noticed yours yet.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_has_fantasy" "no" "personal" "Mia asked if player has a fantasy">>
+<</btn>>
+<<btn "Never crossed my mind.">>
+    <<replace "#miaQ_fantasy">>
+<<dialog "player">>That topic never even crossed my mind.<</dialog>>
+<<dialog "neighborMia">>Normal. But get a little curious. Curiosity is the first step.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_has_fantasy" "never_thought" "personal" "Mia asked if player has a fantasy">>
+<</btn>>
+</div>
+<span id="miaQ_fantasy"></span>`,
+                friendship: 1, trust: 1, love: 0, lust: 1,
+                skipIfRemembered: "player_has_fantasy"
+            }
+        ],
+
+        "club_bar_guys": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was lying on the grass, eyes closed. She smiled when you sat down.<</narrative>>
+
+<<dialog "player">>You said you went to a club last week. How was it?<</dialog>>
+<<dialog "neighborMia">>Music was good but the crowd was awful. Still, one guy caught my attention. Sitting alone at the bar while everyone else danced. Just watching.<</dialog>>
+<<dialog "player">>Did he interest you?<</dialog>>
+<<dialog "neighborMia">>Yeah. Because he was confident. Wasn't trying to impress anyone.<</dialog>>
+<<dialog "player">>Did you talk?<</dialog>>
+<<dialog "neighborMia">>I went up to him. 'Why aren't you dancing?' He said 'Waiting for the right song.' That one sentence was enough.<</dialog>>
+<<dialog "player">>Then what?<</dialog>>
+<<dialog "neighborMia">>The right song came on. Use your imagination for the rest.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            }
+        ]
+    },
+
+    "sunsetPark_common_evening": {
+
+        "guys_slept_with": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was sitting on a bench, legs stretched out, looking completely at ease.<</narrative>>
+
+<<dialog "player">>Seeing anyone lately? You've been quiet about it.<</dialog>>
+<<dialog "neighborMia">>Seeing someone? There was a guy last week but it was a one-time thing. He didn't call, I didn't call.<</dialog>>
+<<dialog "player">>Didn't that hurt?<</dialog>>
+<<dialog "neighborMia">>Why would it? We both got what we wanted. Not everything has to turn into a relationship. Sometimes the night is just good, and then it's over.<</dialog>>
+<<dialog "player">>Being this comfortable about it… I'm a little jealous honestly.<</dialog>>
+<<dialog "neighborMia">>I'm not comfortable, I'm honest. When you're honest with yourself, you're at ease with others too. Nothing to be ashamed of, we're adults.<</dialog>>
+
+<<dialog "neighborMia">>I've talked a lot. What about you? Have you ever… been with someone?<</dialog>>
+
+<div class="location-actions">
+<<btn "Yes.">>
+    <<replace "#miaQ_sex">>
+<<dialog "player">>Yeah, I have.<</dialog>>
+<<dialog "neighborMia">>Oh wow. Tell me! What was he like? Was it good? Now I'm really curious.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_had_sex" "yes" "personal" "Mia asked if player had sex">>
+<</btn>>
+<<btn "No.">>
+    <<replace "#miaQ_sex">>
+<<dialog "player">>No, not yet.<</dialog>>
+<<dialog "neighborMia">>That's fine. Let it happen with the right person, at the right time. No rush. But when it does, you're telling me. I'll be curious.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_had_sex" "no" "personal" "Mia asked if player had sex">>
+<</btn>>
+<<btn "That's too personal.">>
+    <<replace "#miaQ_sex">>
+<<dialog "player">>That's a really personal question…<</dialog>>
+<<dialog "neighborMia">>You're right, I'm sorry. But you know me, I'm nosy. You'll tell me yourself one day.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_had_sex" "skip" "personal" "Mia asked if player had sex">>
+<</btn>>
+</div>
+<span id="miaQ_sex"></span>`,
+                friendship: 1, trust: 1, love: 0, lust: 0,
+                skipIfRemembered: "player_had_sex"
+            }
+        ],
+
+        "dilf": [
+            {
+                text: `<<narrative "Sunset Park">>You noticed Mia watching a man on a nearby bench as she walked through the park. You caught up to her.<</narrative>>
+
+<<dialog "player">>I saw you staring at that guy just now. Do you know him?<</dialog>>
+<<dialog "neighborMia">>Don't know him. But I want to. That beard, that posture… textbook DILF.<</dialog>>
+<<dialog "player">>You use that word way too casually.<</dialog>>
+<<dialog "neighborMia">>Because it's real. Young guys are exciting but messy. A mature man knows what he wants.<</dialog>>
+<<dialog "player">>Have you ever actually been with someone older?<</dialog>>
+<<dialog "neighborMia">>Not yet. But I've thought about it. It'll happen someday. No rush on this one.<</dialog>>
+<<dialog "player">>That's the only thing you're patient about, I think.<</dialog>>
+<<dialog "neighborMia">>Some things are worth the wait.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            }
+        ],
+
+        "sugar_daddy_hints": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was on her phone in the park. A long message was open on the screen.<</narrative>>
+
+<<dialog "player">>Who writes you messages that long?<</dialog>>
+<<dialog "neighborMia">>Someone I know. Inviting me to dinner this weekend. Expensive place.<</dialog>>
+<<dialog "player">>Someone you know? Is he your age at least?<</dialog>>
+<<dialog "neighborMia">>No. Older. He paid for my nails and a shopping trip last time. Now he's picking a restaurant I can't even pronounce.<</dialog>>
+<<dialog "player">>So what does he want from you?<</dialog>>
+<<dialog "neighborMia">>He likes spending on someone. That's how he shows interest. I show up, look good, keep him company. That's my end.<</dialog>>
+<<dialog "player">>Still feels weird to me.<</dialog>>
+<<dialog "neighborMia">>I get that. But I know where I stand. The second it feels wrong, I'm out. I've always been like that.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 0
+            }
+        ],
+
+        "fwb": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was walking through the park looking cheerful. She hooked her arm through yours when she reached you.<</narrative>>
+
+<<dialog "player">>You're in a good mood. Something happen?<</dialog>>
+<<dialog "neighborMia">>Last night was good. Hung out with a friend.<</dialog>>
+<<dialog "player">>Which friend?<</dialog>>
+<<dialog "neighborMia">>You know I have guy friends. With one of them, let's say we did more than watch a movie.<</dialog>>
+<<dialog "player">>Again? How many of these 'friends' do you have?<</dialog>>
+<<dialog "neighborMia">>Two right now. Both know the rules.<</dialog>>
+<<dialog "player">>What rules?<</dialog>>
+<<dialog "neighborMia">>We don't text each other goodnight, nobody checks in. You want to come, you come. You don't, no problem. Freedom.<</dialog>>
+<<dialog "player">>That sounds really cold to me.<</dialog>>
+<<dialog "neighborMia">>That's not cold. We have a good time every time we hang out. It's warmer than most relationships I've seen. We just skip the fighting part.<</dialog>>`,
+                friendship: 1, trust: 1, love: 0, lust: 1
+            }
+        ],
+
+        "club_bar_guys": [
+            {
+                text: `<<narrative "Sunset Park">>Mia was sitting on a bench, scrolling through photos on her phone.<</narrative>>
+
+<<dialog "player">>What are you looking at?<</dialog>>
+<<dialog "neighborMia">>Found last night's guy on Fotogram. Met him at the bar.<</dialog>>
+<<dialog "player">>That was fast. How'd you find him?<</dialog>>
+<<dialog "neighborMia">>Mutual friend. Two taps. Profile's public, photos aren't bad… but there are pictures with a girlfriend.<</dialog>>
+<<dialog "player">>He has a girlfriend? He didn't tell you?<</dialog>>
+<<dialog "neighborMia">>Of course he didn't. Had that whole 'I'm single' energy at the bar. Classic move.<</dialog>>
+<<dialog "player">>Did you used to trust guys like that?<</dialog>>
+<<dialog "neighborMia">>I used to. Not anymore. Now I check the profile first, then decide. Lesson learned.<</dialog>>
+
+<<dialog "neighborMia">>Some guys don't know boundaries. Has anyone ever… done something you didn't want? Touched you or anything?<</dialog>>
+
+<div class="location-actions">
+<<btn "Yes, it happened.">>
+    <<replace "#miaQ_touch">>
+<<dialog "player">>Yeah… it happened once.<</dialog>>
+<<dialog "neighborMia">>I'm so sorry. It's not your fault, know that. If you ever want to talk about it, we can. If not, we'll close the subject.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_unwanted_touch" "yes" "personal" "Mia asked about unwanted touch">>
+<</btn>>
+<<btn "No, thankfully not.">>
+    <<replace "#miaQ_touch">>
+<<dialog "player">>No, thankfully that's never happened.<</dialog>>
+<<dialog "neighborMia">>Good. I hope it never does. But if it ever happens, tell me, okay? I'm here for you.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_unwanted_touch" "no" "personal" "Mia asked about unwanted touch">>
+<</btn>>
+<<btn "I don't want to talk about it.">>
+    <<replace "#miaQ_touch">>
+<<dialog "player">>I don't want to talk about this.<</dialog>>
+<<dialog "neighborMia">>I understand. I won't push. But I'm here. Just know that's enough.<</dialog>>
+    <</replace>>
+    <<rememberChar "neighborMia" "player_unwanted_touch" "skip" "personal" "Mia asked about unwanted touch">>
+<</btn>>
+</div>
+<span id="miaQ_touch"></span>`,
+                friendship: 1, trust: 1, love: 0, lust: 0,
+                skipIfRemembered: "player_unwanted_touch"
+            }
+        ]
+    }
+
+}>>
+<</nobr>>

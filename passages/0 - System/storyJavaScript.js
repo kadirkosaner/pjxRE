@@ -395,6 +395,86 @@ setup.getCurrentDayNumber = function () {
     return Math.floor(Date.UTC(year, month - 1, day) / 86400000);
 };
 
+setup.getCharacterDisplayName = function (charId) {
+    if (!charId) return "Someone";
+    var ch = setup.getCharacter ? setup.getCharacter(charId) : null;
+    if (!ch) return String(charId);
+    return ch.firstName || ch.name || String(charId);
+};
+
+setup.ensurePlayerMemory = function () {
+    if (!State || !State.variables) return null;
+    var vars = State.variables;
+    if (!vars.memory || typeof vars.memory !== "object") {
+        vars.memory = {};
+    }
+    if (!vars.memory.player || typeof vars.memory.player !== "object") {
+        vars.memory.player = {};
+    }
+    if (!vars.memory.player.items || typeof vars.memory.player.items !== "object") {
+        vars.memory.player.items = {};
+    }
+    if (!vars.memory.player.meta || typeof vars.memory.player.meta !== "object") {
+        vars.memory.player.meta = {};
+    }
+    return vars.memory.player;
+};
+
+setup.ensureMemoryNotificationQueue = function () {
+    if (!State || !State.variables) return [];
+    var vars = State.variables;
+    if (!Array.isArray(vars.pendingMemoryNotifications)) {
+        vars.pendingMemoryNotifications = [];
+    }
+    return vars.pendingMemoryNotifications;
+};
+
+setup.queueMemoryNotification = function (opts) {
+    if (!State || !State.variables) return false;
+    var vars = State.variables;
+    var queue = setup.ensureMemoryNotificationQueue();
+    var message = opts && opts.message ? String(opts.message) : "";
+    if (!message) return false;
+    var target = opts && opts.target ? String(opts.target) : "character";
+    var charId = opts && opts.charId ? String(opts.charId) : "";
+    var memoryId = opts && opts.memoryId ? String(opts.memoryId) : "";
+    var turn = Number.isFinite(Number(State.turns)) ? Number(State.turns) : -1;
+    var passage = State.passage || "";
+    var dedupeKey = [target, charId, memoryId, turn, passage].join("::");
+    var exists = queue.some(function (item) { return item && item.key === dedupeKey; });
+    if (exists) return false;
+    queue.push({
+        key: dedupeKey,
+        target: target,
+        charId: charId,
+        memoryId: memoryId,
+        message: message
+    });
+    vars.pendingMemoryNotifications = queue;
+    return true;
+};
+
+setup.flushMemoryNotifications = function () {
+    var vars = State && State.variables ? State.variables : null;
+    if (!vars || !Array.isArray(vars.pendingMemoryNotifications) || vars.pendingMemoryNotifications.length === 0) {
+        return 0;
+    }
+    var queue = vars.pendingMemoryNotifications.slice(0);
+    vars.pendingMemoryNotifications = [];
+    var shown = 0;
+    queue.forEach(function (entry) {
+        if (!entry || !entry.message) return;
+        if (typeof window.notifyInfo === "function") {
+            window.notifyInfo(entry.message);
+            shown += 1;
+        } else if (typeof window.showNotification === "function") {
+            window.showNotification({ type: "info", message: entry.message });
+            shown += 1;
+        }
+    });
+    return shown;
+};
+
 setup.ensureCharacterMemory = function (charId) {
     if (!charId || !State || !State.variables || !State.variables.characters) return null;
     var chars = State.variables.characters;
@@ -411,10 +491,11 @@ setup.ensureCharacterMemory = function (charId) {
     return chars[charId].memory;
 };
 
-setup.rememberCharacterMemory = function (charId, memoryId, label, type, context) {
+setup.rememberCharacterMemory = function (charId, memoryId, label, type, context, notifyMessage) {
     if (!charId || !memoryId) return false;
     var memory = setup.ensureCharacterMemory(charId);
     if (!memory) return false;
+    var hasBefore = !!memory.items[memoryId];
     var dayNumber = setup.getCurrentDayNumber();
     var ts = State && State.variables ? State.variables.timeSys : null;
     var recordedAt = (ts && ts.year != null && ts.month != null && ts.day != null)
@@ -426,9 +507,53 @@ setup.rememberCharacterMemory = function (charId, memoryId, label, type, context
         type: type || "event",
         context: context || "",
         dayNumber: dayNumber,
-        recordedAt: recordedAt
+        recordedAt: recordedAt,
+        sourcePassage: State && State.passage ? State.passage : "",
+        weight: 1
     };
     memory.meta.lastUpdatedDay = dayNumber;
+    if (!hasBefore) {
+        var charName = setup.getCharacterDisplayName ? setup.getCharacterDisplayName(charId) : String(charId);
+        var text = notifyMessage || (charName + " will remember this.");
+        setup.queueMemoryNotification({
+            target: "character",
+            charId: charId,
+            memoryId: memoryId,
+            message: text
+        });
+    }
+    return true;
+};
+
+setup.rememberPlayerMemory = function (memoryId, label, type, context, notifyMessage) {
+    if (!memoryId) return false;
+    var memory = setup.ensurePlayerMemory();
+    if (!memory) return false;
+    var hasBefore = !!memory.items[memoryId];
+    var dayNumber = setup.getCurrentDayNumber();
+    var ts = State && State.variables ? State.variables.timeSys : null;
+    var recordedAt = (ts && ts.year != null && ts.month != null && ts.day != null)
+        ? { year: Number(ts.year), month: Number(ts.month), day: Number(ts.day) }
+        : null;
+    memory.items[memoryId] = {
+        id: memoryId,
+        label: label || memoryId,
+        type: type || "event",
+        context: context || "",
+        dayNumber: dayNumber,
+        recordedAt: recordedAt,
+        sourcePassage: State && State.passage ? State.passage : "",
+        weight: 1
+    };
+    memory.meta.lastUpdatedDay = dayNumber;
+    if (!hasBefore) {
+        setup.queueMemoryNotification({
+            target: "player",
+            charId: "player",
+            memoryId: memoryId,
+            message: notifyMessage || "You will remember this."
+        });
+    }
     return true;
 };
 
@@ -437,6 +562,15 @@ setup.charRemembers = function (charId, memoryId) {
     var chars = State && State.variables ? State.variables.characters : null;
     if (!chars || !chars[charId] || !chars[charId].memory || !chars[charId].memory.items) return false;
     return !!chars[charId].memory.items[memoryId];
+};
+
+setup.playerRemembers = function (memoryId) {
+    if (!memoryId || !State || !State.variables || !State.variables.memory || !State.variables.memory.player) {
+        return false;
+    }
+    var items = State.variables.memory.player.items;
+    if (!items || typeof items !== "object") return false;
+    return !!items[memoryId];
 };
 
 setup.getCharacterMemoryItems = function (charId) {
@@ -464,6 +598,31 @@ setup.getCharacterMemoryItems = function (charId) {
     return out;
 };
 
+setup.getPlayerMemoryItems = function () {
+    var memory = State && State.variables && State.variables.memory ? State.variables.memory.player : null;
+    if (!memory || !memory.items || typeof memory.items !== "object") {
+        return [];
+    }
+    var items = memory.items;
+    var out = Object.keys(items).map(function (memoryId) {
+        var entry = items[memoryId] || {};
+        return {
+            id: memoryId,
+            label: entry.label || memoryId,
+            type: entry.type || "event",
+            context: entry.context || "",
+            dayNumber: Number.isFinite(Number(entry.dayNumber)) ? Number(entry.dayNumber) : null,
+            recordedAt: entry.recordedAt || null
+        };
+    });
+    out.sort(function (a, b) {
+        var ad = a.dayNumber == null ? -1 : a.dayNumber;
+        var bd = b.dayNumber == null ? -1 : b.dayNumber;
+        return bd - ad;
+    });
+    return out;
+};
+
 Macro.add('rememberChar', {
     handler() {
         var charId = this.args[0];
@@ -471,12 +630,20 @@ Macro.add('rememberChar', {
         var label = this.args[2];
         var type = this.args[3];
         var context = this.args[4];
+        var notifyMessage = this.args[5];
+        var flagKey = this.args[6];
         if (!charId || !memoryId) {
             return this.error('rememberChar requires at least: charId, memoryId');
         }
-        var ok = setup.rememberCharacterMemory && setup.rememberCharacterMemory(charId, memoryId, label, type, context);
+        var ok = setup.rememberCharacterMemory && setup.rememberCharacterMemory(charId, memoryId, label, type, context, notifyMessage);
         if (!ok) {
             return this.error('rememberChar failed for character: ' + charId);
+        }
+        if (flagKey) {
+            if (!State.variables.flags || typeof State.variables.flags !== "object") {
+                State.variables.flags = {};
+            }
+            State.variables.flags[String(flagKey)] = true;
         }
     }
 });
@@ -493,6 +660,53 @@ Macro.add('ifCharRemembers', {
         var block = remembers ? this.payload[0] : this.payload[1];
         if (block && block.contents) {
             new Wikifier(this.output, block.contents);
+        }
+    }
+});
+
+Macro.add('rememberPlayer', {
+    handler() {
+        var memoryId = this.args[0];
+        var label = this.args[1];
+        var type = this.args[2];
+        var context = this.args[3];
+        var notifyMessage = this.args[4];
+        var flagKey = this.args[5];
+        if (!memoryId) {
+            return this.error('rememberPlayer requires at least: memoryId');
+        }
+        var ok = setup.rememberPlayerMemory && setup.rememberPlayerMemory(memoryId, label, type, context, notifyMessage);
+        if (!ok) {
+            return this.error('rememberPlayer failed for memoryId: ' + memoryId);
+        }
+        if (flagKey) {
+            if (!State.variables.flags || typeof State.variables.flags !== "object") {
+                State.variables.flags = {};
+            }
+            State.variables.flags[String(flagKey)] = true;
+        }
+    }
+});
+
+Macro.add('ifPlayerRemembers', {
+    tags: ['else'],
+    handler() {
+        var memoryId = this.args[0];
+        if (!memoryId) {
+            return this.error('ifPlayerRemembers requires: memoryId');
+        }
+        var remembers = setup.playerRemembers && setup.playerRemembers(memoryId);
+        var block = remembers ? this.payload[0] : this.payload[1];
+        if (block && block.contents) {
+            new Wikifier(this.output, block.contents);
+        }
+    }
+});
+
+Macro.add('flushMemoryNotifications', {
+    handler() {
+        if (setup.flushMemoryNotifications) {
+            setup.flushMemoryNotifications();
         }
     }
 });
@@ -1609,6 +1823,9 @@ Macro.add('btn', {
             one: true
         }, function () {
             if (payload.trim()) $.wiki(payload);
+            if (setup.flushMemoryNotifications) {
+                setup.flushMemoryNotifications();
+            }
             if (passage) {
                 Engine.play(passage);
             }
@@ -3423,6 +3640,9 @@ window.processNavCard = function (tag, $container, passedSetup) {
             /* Flush pending notifications before navigating */
             if (Macro.has('flushNotifications')) {
                 $.wiki('<<flushNotifications>>');
+            }
+            if (setup.flushMemoryNotifications) {
+                setup.flushMemoryNotifications();
             }
 
             /* Ensure stats are fresh before rendering new passage */

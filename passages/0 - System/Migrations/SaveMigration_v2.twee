@@ -17,5 +17,10 @@
     <<run setup.pjxBackfillRubyTier3LineState && setup.pjxBackfillRubyTier3LineState()>>
     <<if ndef $contentPreferences>><<set $contentPreferences = {}>><</if>>
     <<if ndef $contentPreferences.groupSex>><<set $contentPreferences.groupSex = false>><</if>>
+    <<if ndef $memory>><<set $memory = {}>><</if>>
+    <<if ndef $memory.player>><<set $memory.player = {}>><</if>>
+    <<if ndef $memory.player.items>><<set $memory.player.items = {}>><</if>>
+    <<if ndef $memory.player.meta>><<set $memory.player.meta = {}>><</if>>
+    <<if ndef $pendingMemoryNotifications>><<set $pendingMemoryNotifications = []>><</if>>
 <</if>>
 <</silently>>

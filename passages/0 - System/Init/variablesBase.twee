@@ -209,6 +209,15 @@
     nightRestlessUnlocked: false
 }>>
 
+/* Remembering System (NPC + Player memories) */
+<<set $memory = {
+    player: {
+        items: {},
+        meta: {}
+    }
+}>>
+<<set $pendingMemoryNotifications = []>>
+
 /* Gym membership: 30-day access, decremented by advanceDay. */
 <<set $gymMembershipDaysRemaining = 0>>
 <<set $gymMembershipStartedAt = null>>

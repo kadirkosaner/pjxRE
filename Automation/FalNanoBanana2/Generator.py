@@ -29,6 +29,38 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 CHARACTERS = config["reference_mapping"]["characters"]
 LOCATIONS = config["reference_mapping"]["locations"]
 
+RAW_PROMPT_BASE_PREFIX = (
+    "TECHNICAL DIRECTIVE: Use image2 and image3 as identity references only (face/hair identity lock). "
+    "Create a fresh, natural photo from scratch. Do NOT copy pixel layout from references. "
+    "image1 is the location anchor. Keep the same place type and neighborhood context from image1. "
+    "Camera angle/composition may vary, but environment family must stay consistent."
+)
+
+RAW_PROMPT_SUFFIX = (
+    "STRICT CONSISTENCY: image2 must stay MIA identity, image3 must stay PLAYER identity in every frame. "
+    "Do not swap faces, do not blend identities, do not duplicate the same face. "
+    "REALISM GUARD: no collage, no cutout edges, no sticker look, no face-paste artifacts, "
+    "no mismatched lighting, no mismatched color temperature, no mismatched perspective, "
+    "no warped neck seams, no unnatural skin boundaries. "
+    "Both subjects must share one coherent lens, one coherent light setup, and one coherent scene depth."
+)
+
+
+def build_raw_prompt_prefix(scene: dict) -> str:
+    loc_id = scene.get("location", "")
+    loc_entry = LOCATIONS.get(loc_id, {})
+    loc_name = (
+        loc_entry.get("promptName", "the referenced location")
+        if isinstance(loc_entry, dict)
+        else str(loc_entry)
+    )
+    location_lock = (
+        f"LOCATION LOCK: remain in {loc_name}. "
+        "Do not move to an unrelated city, interior, studio, or different environment type."
+    )
+    return f"{RAW_PROMPT_BASE_PREFIX} {location_lock}"
+
+
 TEMPLATES = {
     "dinerInterior": (
         "Photorealistic cinematic photograph of {loc_name}. "
@@ -165,7 +197,16 @@ def build_image_list(scene, scene_char_key):
 
 
 def assemble_full_prompt(scene, scene_char_key, image_list):
-    """Assembles the final prompt with image roles and slot-position rules."""
+    """Assembles the final prompt with image roles and slot-position rules.
+
+    If the scene has ``"raw_prompt": true``, the prompt text is returned
+    with a technical prefix/suffix but without the template wrapping.
+    """
+    if scene.get("raw_prompt") and "prompt" in scene:
+        raw = scene["prompt"].strip()
+        raw_prefix = build_raw_prompt_prefix(scene)
+        return f"{raw_prefix} {raw} {RAW_PROMPT_SUFFIX}"
+
     if "prompt" in scene:
         scene_prompt = scene["prompt"]
     else:

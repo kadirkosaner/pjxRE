@@ -24,24 +24,27 @@
                 return (v > 0 ? "+" : "") + v;
             };
         }
+        if (typeof window.notifySuccess !== "function") {
+            window.notifySuccess = function (message) {
+                if (typeof console !== "undefined") console.warn("[notifySuccess:fallback]", message);
+            };
+        }
+        if (typeof window.notifyWarning !== "function") {
+            window.notifyWarning = function (message) {
+                if (typeof console !== "undefined") console.warn("[notifyWarning:fallback]", message);
+            };
+        }
+        if (typeof window.notifyError !== "function") {
+            window.notifyError = function (message) {
+                if (typeof console !== "undefined") console.warn("[notifyError:fallback]", message);
+            };
+        }
         if (typeof window.notifyStatToast !== "function") {
             window.notifyStatToast = function (type, statKey, message) {
                 var text = String(message || "");
-                if (type === "error" && typeof window.notifyError === "function") {
-                    return window.notifyError(text);
-                }
-                if (type === "warning" && typeof window.notifyWarning === "function") {
-                    return window.notifyWarning(text);
-                }
-                if (typeof window.notifySuccess === "function") {
-                    return window.notifySuccess(text);
-                }
-                if (typeof window.notifyWarning === "function") {
-                    return window.notifyWarning(text);
-                }
-                if (typeof console !== "undefined" && typeof console.warn === "function") {
-                    console.warn("[notifyStatToast:fallback]", type, statKey, text);
-                }
+                if (type === "error") return window.notifyError(text);
+                if (type === "warning") return window.notifyWarning(text);
+                return window.notifySuccess(text);
             };
         }
     >>
@@ -159,13 +162,15 @@
 /* NOTIFY SKILL CHANGE */
 /* Usage: <<notifySkillChange "research" 5>> */
 <<widget "notifySkillChange">>
+    <<initNotificationQueue>>
     <<set _skillName = $args[0]>>
     <<set _amount = $args[1]>>
     <<set _displayName = _skillName.charAt(0).toUpperCase() + _skillName.slice(1)>>
+    <<set _msg = _displayName + " " + window.formatNotifyDelta(_amount)>>
     
     <<if _amount > 0>>
-        <<run window.notifySuccess(_displayName + " " + window.formatNotifyDelta(_amount))>>
+        <<run typeof window.notifySuccess === "function" ? window.notifySuccess(_msg) : window.notifyStatToast("success", null, _msg)>>
     <<else>>
-        <<run window.notifyWarning(_displayName + " " + window.formatNotifyDelta(_amount))>>
+        <<run typeof window.notifyWarning === "function" ? window.notifyWarning(_msg) : window.notifyStatToast("warning", null, _msg)>>
     <</if>>
 <</widget>>
